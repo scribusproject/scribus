@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "stencilreader.h"
 #include <qtextstream.h>
-#include <qdom.h>
 #include <qregexp.h>
 #include "sccolor.h"
 #include "scribus.h"
@@ -25,7 +24,6 @@ StencilReader::StencilReader()
 
 QString StencilReader::createShape(QString datain)
 {
-	PrefsManager* prefsManager = PrefsManager::instance();
 	QString tmp = "";
 	QString FillCol = "White";
 	QString StrokeCol = "Black";
@@ -63,12 +61,10 @@ QString StencilReader::createShape(QString datain)
 	QRect bounds = QRect();
 	group.setAttribute("XP", 0.0);
 	group.setAttribute("YP", 0.0);
-	group.setAttribute("COUNT", list2.count());
 	group.setAttribute("Version", QString(VERSION));
 	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	QDomElement co = data.createElement("COLOR");
 	co.setAttribute("NAME","Black");
-//	co.setAttribute("RGB", "#000000");
 	co.setAttribute("CMYK", "#000000FF");
 	co.setAttribute("Spot","0");
 	co.setAttribute("Register","0");
@@ -76,7 +72,6 @@ QString StencilReader::createShape(QString datain)
 	PageColors.insert("White", ScColor(0, 0, 0, 0));
 	QDomElement co2 = data.createElement("COLOR");
 	co2.setAttribute("NAME","White");
-//	co2.setAttribute("RGB", "#ffffff");
 	co2.setAttribute("CMYK", "#00000000");
 	co2.setAttribute("Spot","0");
 	co2.setAttribute("Register","0");
@@ -213,6 +208,28 @@ QString StencilReader::createShape(QString datain)
 	Dx = (bounds.x() / 10.0) * Conversion;
 	Dy = (bounds.y() / 10.0) * Conversion;
 	bounds = QRect();
+	QDomElement obGroup;
+	int groupElemCounter = 0;
+	if (listItems.count() != 1)
+	{
+		group.setAttribute("COUNT", list2.count()+1);
+		obGroup = data.createElement("ITEM");
+		writeDefaults(obGroup);
+		obGroup.setAttribute("PWIDTH", 0);
+		obGroup.setAttribute("PCOLOR", "None");
+		obGroup.setAttribute("PCOLOR2", "None");
+		obGroup.setAttribute("PLINEART", Dash);
+		obGroup.setAttribute("PLINEEND", LineEnd);
+		obGroup.setAttribute("PLINEJOIN", LineJoin);
+		obGroup.setAttribute("ANNAME", "Group");
+		obGroup.setAttribute("GROUPS", 1);
+		obGroup.setAttribute("NUMGROUP", 1);
+		obGroup.setAttribute("isGroupControl", 1);
+		obGroup.setAttribute("PTYPE", PageItem::Polygon);
+		group.appendChild(obGroup);
+	}
+	else
+		group.setAttribute("COUNT", list2.count());
 	DOC = svg.firstChild();
 	while(!DOC.isNull())
 	{
@@ -336,84 +353,13 @@ QString StencilReader::createShape(QString datain)
 			poly = parseSVG( pg.attribute( "d" ), &PoLine );
 		}
 		QDomElement ob = data.createElement("ITEM");
-		ob.setAttribute("OwnPage", 0);
-		ob.setAttribute("RADRECT", 0);
-		ob.setAttribute("FRTYPE",  3);
-		ob.setAttribute("CLIPEDIT", 1);
 		ob.setAttribute("PWIDTH", strokewidth);
 		ob.setAttribute("PCOLOR", FillCol);
 		ob.setAttribute("PCOLOR2", StrokeCol);
-		ob.setAttribute("TXTFILL", prefsManager->appPrefs.toolSettings.dPenText);
-		ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.toolSettings.dStrokeText);
-		ob.setAttribute("TXTSTRSH", 100);
-		ob.setAttribute("TXTFILLSH", 100);
-		ob.setAttribute("TXTSCALE", 100);
-		ob.setAttribute("TXTSCALEV", 100);
-		ob.setAttribute("TXTBASE", 0);
-		ob.setAttribute("TXTSHX", 0);
-		ob.setAttribute("TXTSHY", 0);
-		ob.setAttribute("TXTOUT", 0);
-		ob.setAttribute("TXTULP", 0);
-		ob.setAttribute("TXTULW", 0);
-		ob.setAttribute("TXTSTP", 0);
-		ob.setAttribute("TXTSTW", 0);
-		ob.setAttribute("TXTSTYLE", 0);
-		ob.setAttribute("COLUMNS", 1);
-		ob.setAttribute("COLGAP", 0);
-		ob.setAttribute("NAMEDLST", "");
-		ob.setAttribute("SHADE", 100);
-		ob.setAttribute("SHADE2", 100);
-		ob.setAttribute("GRTYP", 0);
-		ob.setAttribute("ROT", 0);
+		writeDefaults(ob);
 		ob.setAttribute("PLINEART", Dash);
 		ob.setAttribute("PLINEEND", LineEnd);
 		ob.setAttribute("PLINEJOIN", LineJoin);
-		ob.setAttribute("LINESP", 12);
-		ob.setAttribute("LINESPMode", 0);
-		ob.setAttribute("TXTKERN", 0);
-		ob.setAttribute("LOCALSCX", 100);
-		ob.setAttribute("LOCALSCY", 100);
-		ob.setAttribute("LOCALX", 0);
-		ob.setAttribute("LOCALY", 0);
-		ob.setAttribute("PICART",  1);
-		ob.setAttribute("PLTSHOW", 0);
-		ob.setAttribute("BASEOF", 0);
-		ob.setAttribute("FLIPPEDH", 0);
-		ob.setAttribute("FLIPPEDV", 0);
-		ob.setAttribute("IFONT", prefsManager->appPrefs.toolSettings.defFont);
-		ob.setAttribute("ISIZE", prefsManager->appPrefs.toolSettings.defSize / 10.0);
-		ob.setAttribute("SCALETYPE", 1);
-		ob.setAttribute("RATIO", 0);
-		ob.setAttribute("PRINTABLE", 1);
-		ob.setAttribute("ALIGN", "0");
-		ob.setAttribute("BOOKMARK", "0");
-		ob.setAttribute("fillRule", "1");
-		ob.setAttribute("ANNAME", "");
-		ob.setAttribute("TEXTFLOW",  0);
-		ob.setAttribute("TEXTFLOW2",  0);
-		ob.setAttribute("TEXTFLOW3",  0);
-		ob.setAttribute("AUTOTEXT",  0);
-		ob.setAttribute("EXTRA", 1);
-		ob.setAttribute("TEXTRA", 1);
-		ob.setAttribute("BEXTRA", 1);
-		ob.setAttribute("REXTRA", 1);
-		ob.setAttribute("PFILE","");
-		ob.setAttribute("PFILE2","");
-		ob.setAttribute("PFILE3","");
-		ob.setAttribute("PRFILE", "");
-		ob.setAttribute("EPROF", "");
-		ob.setAttribute("IRENDER", 1);
-		ob.setAttribute("EMBEDDED", 1);
-		ob.setAttribute("LOCK",  0);
-		ob.setAttribute("LOCKR",  0);
-		ob.setAttribute("REVERS",  0);
-		ob.setAttribute("TransValue", 0);
-		ob.setAttribute("TransValueS", 0);
-		ob.setAttribute("isTableItem", 0);
-		ob.setAttribute("TopLine", 0);
-		ob.setAttribute("LeftLine", 0);
-		ob.setAttribute("RightLine", 0);
-		ob.setAttribute("BottomLine", 0);
 		if (listItems.count() != 1)
 		{
 			ob.setAttribute("GROUPS", 1);
@@ -424,18 +370,6 @@ QString StencilReader::createShape(QString datain)
 			ob.setAttribute("GROUPS", "");
 			ob.setAttribute("NUMGROUP", 0);
 		}
-		ob.setAttribute("LANGUAGE", prefsManager->appPrefs.Language);
-		ob.setAttribute("startArrowIndex", 0);
-		ob.setAttribute("endArrowIndex", 0);
-		ob.setAttribute("NUMDASH", 0);
-		ob.setAttribute("DASHS", "");
-		ob.setAttribute("DASHOFF", 0);
-		ob.setAttribute("NUMTEXT", 0);
-		ob.setAttribute("TEXTCOOR", "");
-		ob.setAttribute("BACKITEM", -1);
-		ob.setAttribute("BACKPAGE", -1);
-		ob.setAttribute("NEXTITEM", -1);
-		ob.setAttribute("NEXTPAGE", -1);
 		if ((STag == "svg:rect") || (STag == "svg:polygon") || (STag == "svg:circle") || (STag == "svg:ellipse"))
 		{
 			ob.setAttribute("PTYPE", PageItem::Polygon);
@@ -468,12 +402,43 @@ QString StencilReader::createShape(QString datain)
 			polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
 		}
 		ob.setAttribute("POCOOR", polp);
-		ob.setAttribute("NUMCO", 0);
-		ob.setAttribute("COCOOR", "");
 		group.appendChild(ob);
+		groupElemCounter++;
 		QRect bb = QRect(qRound(tp2.x()*10), qRound(tp2.y()*10), qRound(wh.x()*10), qRound(wh.y()*10));
 		bounds = bounds.unite(bb);
 		DOC = DOC.nextSibling();
+	}
+	if (groupElemCounter > 1)
+	{
+		obGroup.setAttribute("groupsLastItem", groupElemCounter);
+		static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+											1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+											0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		FPointArray PoLine;
+		PoLine.resize(0);
+		for (int a = 0; a < 29; a += 4)
+		{
+			double xa = (bounds.width() / 10.0) * rect[a];
+			double ya = (bounds.height() / 10.0) * rect[a+1];
+			double xb = (bounds.width() / 10.0) * rect[a+2];
+			double yb = (bounds.height() / 10.0) * rect[a+3];
+			PoLine.addPoint(0+xa, 0+ya);
+			PoLine.addPoint(0+xb, 0+yb);
+		}
+		obGroup.setAttribute("XPOS", 0);
+		obGroup.setAttribute("YPOS",0);
+		obGroup.setAttribute("WIDTH",bounds.width() / 10.0);
+		obGroup.setAttribute("HEIGHT",bounds.height() / 10.0);
+		obGroup.setAttribute("NUMPO", PoLine.size());
+		QString polp = "";
+		double xf, yf;
+		QString tmpSt, tmpSt2;
+		for (uint nxx=0; nxx<PoLine.size(); ++nxx)
+		{
+			PoLine.point(nxx, &xf, &yf);
+			polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
+		}
+		obGroup.setAttribute("POCOOR", polp);
 	}
 	group.setAttribute("W", bounds.width() / 10.0);
 	group.setAttribute("H", bounds.height() / 10.0);
@@ -1125,9 +1090,98 @@ QPixmap StencilReader::createPreview(QString data)
 	return tmp;
 }
 
-QString StencilReader::createObjects(QString datain)
+void StencilReader::writeDefaults(QDomElement &ob)
 {
 	PrefsManager* prefsManager = PrefsManager::instance();
+	ob.setAttribute("OwnPage", 0);
+	ob.setAttribute("RADRECT", 0);
+	ob.setAttribute("FRTYPE",  3);
+	ob.setAttribute("CLIPEDIT", 1);
+	ob.setAttribute("TXTFILL", prefsManager->appPrefs.toolSettings.dPenText);
+	ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.toolSettings.dStrokeText);
+	ob.setAttribute("TXTSTRSH", 100);
+	ob.setAttribute("TXTFILLSH", 100);
+	ob.setAttribute("TXTSCALE", 100);
+	ob.setAttribute("TXTSCALEV", 100);
+	ob.setAttribute("TXTBASE", 0);
+	ob.setAttribute("TXTSHX", 0);
+	ob.setAttribute("TXTSHY", 0);
+	ob.setAttribute("TXTOUT", 0);
+	ob.setAttribute("TXTULP", 0);
+	ob.setAttribute("TXTULW", 0);
+	ob.setAttribute("TXTSTP", 0);
+	ob.setAttribute("TXTSTW", 0);
+	ob.setAttribute("TXTSTYLE", 0);
+	ob.setAttribute("COLUMNS", 1);
+	ob.setAttribute("COLGAP", 0);
+	ob.setAttribute("NAMEDLST", "");
+	ob.setAttribute("SHADE", 100);
+	ob.setAttribute("SHADE2", 100);
+	ob.setAttribute("GRTYP", 0);
+	ob.setAttribute("ROT", 0);
+	ob.setAttribute("LINESP", 12);
+	ob.setAttribute("LINESPMode", 0);
+	ob.setAttribute("TXTKERN", 0);
+	ob.setAttribute("LOCALSCX", 100);
+	ob.setAttribute("LOCALSCY", 100);
+	ob.setAttribute("LOCALX", 0);
+	ob.setAttribute("LOCALY", 0);
+	ob.setAttribute("PICART",  1);
+	ob.setAttribute("PLTSHOW", 0);
+	ob.setAttribute("BASEOF", 0);
+	ob.setAttribute("FLIPPEDH", 0);
+	ob.setAttribute("FLIPPEDV", 0);
+	ob.setAttribute("IFONT", prefsManager->appPrefs.toolSettings.defFont);
+	ob.setAttribute("ISIZE", prefsManager->appPrefs.toolSettings.defSize / 10.0);
+	ob.setAttribute("SCALETYPE", 1);
+	ob.setAttribute("RATIO", 0);
+	ob.setAttribute("PRINTABLE", 1);
+	ob.setAttribute("ALIGN", "0");
+	ob.setAttribute("BOOKMARK", "0");
+	ob.setAttribute("fillRule", "1");
+	ob.setAttribute("TEXTFLOW",  0);
+	ob.setAttribute("TEXTFLOW2",  0);
+	ob.setAttribute("TEXTFLOW3",  0);
+	ob.setAttribute("AUTOTEXT",  0);
+	ob.setAttribute("EXTRA", 1);
+	ob.setAttribute("TEXTRA", 1);
+	ob.setAttribute("BEXTRA", 1);
+	ob.setAttribute("REXTRA", 1);
+	ob.setAttribute("PFILE","");
+	ob.setAttribute("PFILE2","");
+	ob.setAttribute("PFILE3","");
+	ob.setAttribute("PRFILE", "");
+	ob.setAttribute("EPROF", "");
+	ob.setAttribute("IRENDER", 1);
+	ob.setAttribute("EMBEDDED", 1);
+	ob.setAttribute("LOCK",  0);
+	ob.setAttribute("LOCKR",  0);
+	ob.setAttribute("REVERS",  0);
+	ob.setAttribute("TransValue", 0);
+	ob.setAttribute("TransValueS", 0);
+	ob.setAttribute("isTableItem", 0);
+	ob.setAttribute("TopLine", 0);
+	ob.setAttribute("LeftLine", 0);
+	ob.setAttribute("RightLine", 0);
+	ob.setAttribute("BottomLine", 0);
+	ob.setAttribute("LANGUAGE", prefsManager->appPrefs.Language);
+	ob.setAttribute("startArrowIndex", 0);
+	ob.setAttribute("endArrowIndex", 0);
+	ob.setAttribute("NUMDASH", 0);
+	ob.setAttribute("DASHS", "");
+	ob.setAttribute("DASHOFF", 0);
+	ob.setAttribute("NUMTEXT", 0);
+	ob.setAttribute("TEXTCOOR", "");
+	ob.setAttribute("BACKITEM", -1);
+	ob.setAttribute("BACKPAGE", -1);
+	ob.setAttribute("NEXTITEM", -1);
+	ob.setAttribute("NEXTPAGE", -1);
+	ob.setAttribute("NUMCO", 0);
+	ob.setAttribute("COCOOR", "");
+}
+
+QString StencilReader::createObjects(QString datain)
+{
 	double GrW = 50.0;
 	double GrH = 50.0;
 	QString tmp = "";
@@ -1138,8 +1192,6 @@ QString StencilReader::createObjects(QString datain)
 	Qt::PenJoinStyle LineJoin = Qt::MiterJoin;
 	int fillStyle = 1;
 	double strokewidth = 1.0;
-//	QString FillCol = "FromKivio#ffffff";
-//	QString StrokeCol = "FromKivio#000000";
 	QString FillCol = "White";
 	QString StrokeCol = "Black";
 	QDomDocument docu("scridoc");
@@ -1162,13 +1214,11 @@ QString StencilReader::createObjects(QString datain)
 	group.setAttribute("H", GrH);
 	group.setAttribute("XP", 0.0);
 	group.setAttribute("YP", 0.0);
-	group.setAttribute("COUNT", listItems.count());
 	group.setAttribute("Version", QString(VERSION));
 
 	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	QDomElement co = data.createElement("COLOR");
 	co.setAttribute("NAME","Black");
-//	co.setAttribute("RGB", "#000000");
 	co.setAttribute("CMYK", "#000000FF");
 	co.setAttribute("Spot","0");
 	co.setAttribute("Register","0");
@@ -1176,26 +1226,10 @@ QString StencilReader::createObjects(QString datain)
 	PageColors.insert("White", ScColor(0, 0, 0, 0));
 	QDomElement co2 = data.createElement("COLOR");
 	co2.setAttribute("NAME","White");
-//	co2.setAttribute("RGB", "#ffffff");
 	co2.setAttribute("CMYK", "#00000000");
 	co2.setAttribute("Spot","0");
 	co2.setAttribute("Register","0");
 	group.appendChild(co2);
-
-/*	PageColors.insert("FromKivio#000000", ScColor(0, 0, 0));
-	QDomElement co = data.createElement("COLOR");
-	co.setAttribute("NAME","FromKivio#000000");
-	co.setAttribute("RGB", "#000000");
-	co.setAttribute("Spot","0");
-	co.setAttribute("Register","0");
-	group.appendChild(co);
-	PageColors.insert("FromKivio#ffffff", ScColor(255, 255, 255));
-	QDomElement co2 = data.createElement("COLOR");
-	co2.setAttribute("NAME","FromKivio#ffffff");
-	co2.setAttribute("RGB", "#ffffff");
-	co2.setAttribute("Spot","0");
-	co2.setAttribute("Register","0");
-	group.appendChild(co2); */
 	QDomNodeList listStrokes = elem.elementsByTagName("KivioLineStyle");
 	for (uint st = 0; st < listStrokes.count(); st++)
 	{
@@ -1280,6 +1314,56 @@ QString StencilReader::createObjects(QString datain)
 			group.appendChild(co);
 		}
 	}
+	QDomElement obGroup;
+	int groupElemCounter = 0;
+	if (listItems.count() != 1)
+	{
+		group.setAttribute("COUNT", listItems.count()+1);
+		obGroup = data.createElement("ITEM");
+		writeDefaults(obGroup);
+		obGroup.setAttribute("PWIDTH", 0);
+		obGroup.setAttribute("PCOLOR", "None");
+		obGroup.setAttribute("PCOLOR2", "None");
+		obGroup.setAttribute("PLINEART", Dash);
+		obGroup.setAttribute("PLINEEND", LineEnd);
+		obGroup.setAttribute("PLINEJOIN", LineJoin);
+		obGroup.setAttribute("ANNAME", "Group");
+		obGroup.setAttribute("GROUPS", 1);
+		obGroup.setAttribute("NUMGROUP", 1);
+		obGroup.setAttribute("isGroupControl", 1);
+		obGroup.setAttribute("PTYPE", PageItem::Polygon);
+		static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+											1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+											0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		FPointArray PoLine;
+		PoLine.resize(0);
+		for (int a = 0; a < 29; a += 4)
+		{
+			double xa = GrW * rect[a];
+			double ya = GrH * rect[a+1];
+			double xb = GrW * rect[a+2];
+			double yb = GrH * rect[a+3];
+			PoLine.addPoint(0+xa, 0+ya);
+			PoLine.addPoint(0+xb, 0+yb);
+		}
+		obGroup.setAttribute("XPOS", 0);
+		obGroup.setAttribute("YPOS",0);
+		obGroup.setAttribute("WIDTH",GrW);
+		obGroup.setAttribute("HEIGHT",GrH);
+		obGroup.setAttribute("NUMPO", PoLine.size());
+		QString polp = "";
+		double xf, yf;
+		QString tmpSt, tmpSt2;
+		for (uint nxx=0; nxx<PoLine.size(); ++nxx)
+		{
+			PoLine.point(nxx, &xf, &yf);
+			polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
+		}
+		obGroup.setAttribute("POCOOR", polp);
+		group.appendChild(obGroup);
+	}
+	else
+		group.setAttribute("COUNT", listItems.count());
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
 	{
@@ -1417,10 +1501,7 @@ QString StencilReader::createObjects(QString datain)
 				point = point.nextSibling();
 			}
 			QDomElement ob = data.createElement("ITEM");
-			ob.setAttribute("OwnPage", 0);
-			ob.setAttribute("RADRECT", 0);
-			ob.setAttribute("FRTYPE",  3);
-			ob.setAttribute("CLIPEDIT", 1);
+			writeDefaults(ob);
 			ob.setAttribute("PWIDTH", strokewidth);
 			if (typ == "TextBox")
 			{
@@ -1432,77 +1513,10 @@ QString StencilReader::createObjects(QString datain)
 				ob.setAttribute("PCOLOR", FillCol);
 				ob.setAttribute("PCOLOR2", StrokeCol);
 			}
-			ob.setAttribute("TXTFILL", prefsManager->appPrefs.toolSettings.dPenText);
-			ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.toolSettings.dStrokeText);
-			ob.setAttribute("TXTSTRSH", 100);
-			ob.setAttribute("TXTFILLSH", 100);
-			ob.setAttribute("TXTSCALE", 100);
-			ob.setAttribute("TXTSCALEV", 100);
-			ob.setAttribute("TXTBASE", 0);
-			ob.setAttribute("TXTSHX", 0);
-			ob.setAttribute("TXTSHY", 0);
-			ob.setAttribute("TXTOUT", 0);
-			ob.setAttribute("TXTULP", 0);
-			ob.setAttribute("TXTULW", 0);
-			ob.setAttribute("TXTSTP", 0);
-			ob.setAttribute("TXTSTW", 0);
-			ob.setAttribute("TXTSTYLE", 0);
-			ob.setAttribute("COLUMNS", 1);
-			ob.setAttribute("COLGAP", 0);
-			ob.setAttribute("NAMEDLST", "");
-			ob.setAttribute("SHADE", 100);
-			ob.setAttribute("SHADE2", 100);
-			ob.setAttribute("GRTYP", 0);
-			ob.setAttribute("ROT", 0);
 			ob.setAttribute("PLINEART", Dash);
 			ob.setAttribute("PLINEEND", LineEnd);
 			ob.setAttribute("PLINEJOIN", LineJoin);
-			ob.setAttribute("LINESP", 12);
-			ob.setAttribute("LINESPMode", 0);
-			ob.setAttribute("TXTKERN", 0);
-			ob.setAttribute("LOCALSCX", 100);
-			ob.setAttribute("LOCALSCY", 100);
-			ob.setAttribute("LOCALX", 0);
-			ob.setAttribute("LOCALY", 0);
-			ob.setAttribute("PICART",  1);
-			ob.setAttribute("PLTSHOW", 0);
-			ob.setAttribute("BASEOF", 0);
-			ob.setAttribute("FLIPPEDH", 0);
-			ob.setAttribute("FLIPPEDV", 0);
-			ob.setAttribute("IFONT", prefsManager->appPrefs.toolSettings.defFont);
-			ob.setAttribute("ISIZE", prefsManager->appPrefs.toolSettings.defSize / 10.0);
-			ob.setAttribute("SCALETYPE", 1);
-			ob.setAttribute("RATIO", 0);
-			ob.setAttribute("PRINTABLE", 1);
-			ob.setAttribute("ALIGN", "0");
-			ob.setAttribute("BOOKMARK", "0");
-			ob.setAttribute("fillRule", "1");
 			ob.setAttribute("ANNAME", pg.attribute("name"));
-			ob.setAttribute("TEXTFLOW",  0);
-			ob.setAttribute("TEXTFLOW2",  0);
-			ob.setAttribute("TEXTFLOW3",  0);
-			ob.setAttribute("AUTOTEXT",  0);
-			ob.setAttribute("EXTRA", 1);
-			ob.setAttribute("TEXTRA", 1);
-			ob.setAttribute("BEXTRA", 1);
-			ob.setAttribute("REXTRA", 1);
-			ob.setAttribute("PFILE","");
-			ob.setAttribute("PFILE2","");
-			ob.setAttribute("PFILE3","");
-			ob.setAttribute("PRFILE", "");
-			ob.setAttribute("EPROF", "");
-			ob.setAttribute("IRENDER", 1);
-			ob.setAttribute("EMBEDDED", 1);
-			ob.setAttribute("LOCK",  0);
-			ob.setAttribute("LOCKR",  0);
-			ob.setAttribute("REVERS",  0);
-			ob.setAttribute("TransValue", 0);
-			ob.setAttribute("TransValueS", 0);
-			ob.setAttribute("isTableItem", 0);
-			ob.setAttribute("TopLine", 0);
-			ob.setAttribute("LeftLine", 0);
-			ob.setAttribute("RightLine", 0);
-			ob.setAttribute("BottomLine", 0);
 			if (listItems.count() != 1)
 			{
 				ob.setAttribute("GROUPS", 1);
@@ -1513,18 +1527,6 @@ QString StencilReader::createObjects(QString datain)
 				ob.setAttribute("GROUPS", "");
 				ob.setAttribute("NUMGROUP", 0);
 			}
-			ob.setAttribute("LANGUAGE", prefsManager->appPrefs.Language);
-			ob.setAttribute("startArrowIndex", 0);
-			ob.setAttribute("endArrowIndex", 0);
-			ob.setAttribute("NUMDASH", 0);
-			ob.setAttribute("DASHS", "");
-			ob.setAttribute("DASHOFF", 0);
-			ob.setAttribute("NUMTEXT", 0);
-			ob.setAttribute("TEXTCOOR", "");
-			ob.setAttribute("BACKITEM", -1);
-			ob.setAttribute("BACKPAGE", -1);
-			ob.setAttribute("NEXTITEM", -1);
-			ob.setAttribute("NEXTPAGE", -1);
 			bool valid = false;
 			if ((typ == "Polygon") || (typ == "ClosedPath"))
 			{
@@ -1601,12 +1603,15 @@ QString StencilReader::createObjects(QString datain)
 				polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
 			}
 			ob.setAttribute("POCOOR", polp);
-			ob.setAttribute("NUMCO", 0);
-			ob.setAttribute("COCOOR", "");
 			if (valid)
+			{
 				group.appendChild(ob);
+				groupElemCounter++;
+			}
 		}
 		DOC = DOC.nextSibling();
 	}
+	if (listItems.count() != 1)
+		obGroup.setAttribute("groupsLastItem", groupElemCounter);
 	return data.toString();
 }

@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef STENCILREADER_H
 #define STENCILREADER_H
 
+#include <qdom.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -24,6 +25,7 @@ public:
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 	QPixmap createPreview(QString data);
+	void writeDefaults(QDomElement &ob);
 	QString createObjects(QString data);
 	ColorList PageColors;
 	bool FirstM, WasM, PathClosed;
