@@ -103,7 +103,6 @@ public:
 	const VGradient getFillGradient();
 	void updateColorList();
 	void setGradientEditMode(bool);
-	void updateCList();
 	void updateCmsList();
 	void setTextFlowMode(PageItem::TextFlowMode mode);
 	void ShowCMS();

@@ -1040,6 +1040,9 @@ void Mpalette::SelTab(int t)
 
 void Mpalette::setDoc(ScribusDoc *d)
 {
+	if(doc == d)
+		return;
+
 	disconnect(this->Cpal, SIGNAL(NewTrans(double)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewTransS(double)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPen(QString)), 0, 0);
@@ -1090,7 +1093,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	LineW->setMinValue( -300 );
 	LineW->setLineStep(10);
 
-	updateCList();
+	updateColorList();
 
 	updateSpinBoxConstants();
 
@@ -3596,16 +3599,9 @@ void Mpalette::updateColorList()
 		return;
 	Cpal->SetColors(doc->PageColors);
 	Cpal->SetPatterns(&doc->docPatterns);
-}
 
-void Mpalette::updateCList()
-{
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if (!HaveDoc)
-		return;
-	TxFill->clear();
-	TxStroke->clear();
 	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);

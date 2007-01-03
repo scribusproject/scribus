@@ -599,7 +599,8 @@ void Cpalette::ChooseGrad(int number)
 	}
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
-	updateCList();
+	// JG probably not needed at all and should probably not be here
+	// updateCList();
 	switch (number)
 	{
 	case 0:

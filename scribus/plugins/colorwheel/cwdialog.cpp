@@ -306,7 +306,6 @@ void CWDialog::addButton_clicked()
 		return;
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
-	m_Doc->scMW()->propertiesPalette->updateCList();
 	accept();
 }
 
@@ -317,7 +316,6 @@ void CWDialog::replaceButton_clicked()
 		m_Doc->PageColors[it.key()] = it.data();
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
-	m_Doc->scMW()->propertiesPalette->updateCList();
 	accept();
 }
 

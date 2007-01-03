@@ -2331,12 +2331,10 @@ void ScribusMainWindow::SwitchWin()
 {
 	updateColorMenu();
 	buildFontMenu();
-	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
-	propertiesPalette->updateCList();
 	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
@@ -2483,9 +2481,8 @@ void ScribusMainWindow::HaveNewDoc()
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
-	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
-//	propertiesPalette->updateCList();
+//	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
@@ -3409,7 +3406,6 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		if ((docItemsCount - oldItemsCount) > 1)
 			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
-		propertiesPalette->updateCList();
 		propertiesPalette->Spal->setFormats(doc);
 		propertiesPalette->SetLineFormats(doc);
 		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
@@ -3876,7 +3872,6 @@ void ScribusMainWindow::slotGetContent()
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
 				propertiesPalette->updateColorList();
-				propertiesPalette->updateCList();
 				propertiesPalette->ShowCMS();
 			}
 		}
@@ -6886,7 +6881,6 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 
 	propertiesPalette->Spal->updateFormatList();
 	propertiesPalette->updateColorList();
-	propertiesPalette->updateCList();
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
 	updateColorMenu();
@@ -7114,7 +7108,6 @@ void ScribusMainWindow::slotEditColors()
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
 			propertiesPalette->updateColorList();
-			propertiesPalette->updateCList();
 			updateColorMenu();
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
@@ -7869,7 +7862,6 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 			buildFontMenu();
 			propertiesPalette->updateColorList();
-			propertiesPalette->updateCList();
 			propertiesPalette->Spal->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
 			outlinePalette->BuildTree();
@@ -8493,7 +8485,6 @@ void ScribusMainWindow::recalcColors(QProgressBar *dia)
 		doc->recalculateColors();
 		updateColorMenu(dia);
 		propertiesPalette->updateColorList();
-		propertiesPalette->updateCList();
 	}
 }
 
@@ -9040,7 +9031,6 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 					ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
 					doc->PageColors[colorName]=newColor;
 					propertiesPalette->updateColorList();
-					propertiesPalette->updateCList();
 				}
 				else
 					colorName=QString::null;
@@ -9312,7 +9302,6 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
 				propertiesPalette->updateColorList();
-				propertiesPalette->updateCList();
 				propertiesPalette->ShowCMS();
 			}
 		}
