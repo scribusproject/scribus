@@ -940,7 +940,8 @@ int StoryText::endOfLine(int pos)
 	for (uint i=0; i < m_lines.count(); ++i) {
 		const LineSpec & ls(m_lines.at(i));
 		if (ls.firstItem <= pos && pos <= ls.lastItem)
-			return text(ls.lastItem) == SpecialChars::PARSEP ? ls.lastItem : ls.lastItem + 1;
+			return text(ls.lastItem) == SpecialChars::PARSEP ? ls.lastItem : 
+				text(ls.lastItem) == ' ' ? ls.lastItem : ls.lastItem + 1;
 	}
 	return length();
 }
