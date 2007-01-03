@@ -173,6 +173,10 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 
+											"<tr><td><b>" + tr("OS/2&#174;/eComStation&#8482; Port:").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Paul Smedley</td><td>paul@smedley.info</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+
 											"<tr><td><b>" + tr("Windows&#174; Port:").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Jean Ghali</td><td>jghali@libertysurf.fr</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -256,7 +260,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("de_ch").local8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("de_CH").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("de_ol").local8Bit()  + "</b></td><td> </td></tr>" +
