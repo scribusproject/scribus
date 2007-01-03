@@ -512,10 +512,8 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 	item->PLineJoin = gc->PLineJoin;
 	//ite->setTextFlowsAroundFrame(false);
 	item->setTextFlowMode(PageItem::TextFlowDisabled);
-// Commented out the 2 following lines because at least 1 SVG isn't rendered correctly then
-// This SVG is attached to BUG #5009, paperbag2_juliane_krug.svg
-//	item->DashOffset = gc->dashOffset;
-//	item->DashValues = gc->dashArray;
+	item->DashOffset = gc->dashOffset;
+	item->DashValues = gc->dashArray;
 	if (gc->Gradient != 0)
 	{
 		if (gc->GradCo.Stops() > 1)
@@ -969,7 +967,7 @@ QPtrList<PageItem> SVGPlug::parsePath(const QDomElement &e)
 	PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
 	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	ite->fillRule = (gc->fillRule != "nonzero"); 
+	ite->fillRule = (gc->fillRule != "nonzero");
 	ite->PoLine = pArray;
 	if (ite->PoLine.size() < 4)
 	{
@@ -2191,7 +2189,8 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		QValueList<double> array;
 		if(params != "none")
 		{
-			QStringList dashes = QStringList::split( ' ', params );
+			QString params2 = params.simplifyWhiteSpace().replace(',', " ");
+			QStringList dashes = QStringList::split( ' ', params2 );
 			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
 				array.append( (*it).toDouble() );
 		}
