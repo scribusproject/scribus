@@ -8230,7 +8230,10 @@ void ScribusMainWindow::UnGroupObj()
 				tooltip += "\t" + currItem->getUName() + "\n";
 				currItem->isTableItem = false;
 			}
-			view->Deselect(true);
+//			view->Deselect(true);
+			view->DrawNew();
+			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
+			doc->m_Selection->itemAt(0)->emitAllToGUI();
 			outlinePalette->BuildTree();
 			slotDocCh();
 			undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
