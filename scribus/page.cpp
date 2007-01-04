@@ -332,8 +332,14 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScMW->nodePalette->EndEdit();
 	if (isUndo)
 	{
-		ScMW->doc->Items->append(ite);
-		ite->ItemNr = ScMW->doc->Items->count()-1;
+		//CB #3373 reinsert at old position and renumber items
+		ScMW->doc->Items->insert(ite->ItemNr, ite);
+        for (uint a = 0; a < ScMW->doc->Items->count(); ++a)
+        {
+            ScMW->doc->Items->at(a)->ItemNr = a;
+        }
+		//ScMW->doc->Items->append(ite);
+		//ite->ItemNr = ScMW->doc->Items->count()-1;
 //		ScMW->view->updateContents();
 	}
 	else
