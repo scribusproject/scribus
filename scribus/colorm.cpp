@@ -869,16 +869,19 @@ void ColorManager::delFarbe()
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, (m_Doc!=0));
 	if (dia->exec())
 	{
+		QString replacementColor(dia->getReplacementColor());
+		if (replacementColor == CommonStrings::NoneColor)
+			replacementColor = CommonStrings::None;
 		if (replaceMap.values().contains(sFarbe))
 		{
 			QMap<QString,QString>::Iterator it;
 			for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
 			{
 				if (it.data() == sFarbe)
-					it.data() = dia->getReplacementColor();
+					it.data() = replacementColor;
 			}
 		}
-		replaceMap.insert(sFarbe, dia->getReplacementColor());
+		replaceMap.insert(sFarbe, replacementColor);
 		EditColors.remove(sFarbe);
 		updateCList();
 	}

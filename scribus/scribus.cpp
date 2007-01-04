@@ -6949,6 +6949,24 @@ void ScribusMainWindow::slotEditColors()
 			ers = dia->replaceMap;
 			if (!ers.isEmpty())
 			{
+				// Update tools colors
+				if (ers.contains(doc->toolSettings.dPenText))
+					doc->toolSettings.dPenText = ers[doc->toolSettings.dPenText];
+				if (ers.contains(doc->toolSettings.dStrokeText))
+					doc->toolSettings.dStrokeText = ers[doc->toolSettings.dStrokeText];
+				if (ers.contains(doc->toolSettings.dTextBackGround))
+					doc->toolSettings.dTextBackGround = ers[doc->toolSettings.dTextBackGround];
+				if (ers.contains(doc->toolSettings.dTextLineColor))
+					doc->toolSettings.dTextLineColor = ers[doc->toolSettings.dTextLineColor];
+				if (ers.contains(doc->toolSettings.dPen))
+					doc->toolSettings.dPen = ers[doc->toolSettings.dPen];
+				if (ers.contains(doc->toolSettings.dBrush))
+					doc->toolSettings.dBrush = ers[doc->toolSettings.dBrush];
+				if (ers.contains(doc->toolSettings.dPenLine))
+					doc->toolSettings.dPenLine = ers[doc->toolSettings.dPenLine];
+				if (ers.contains(doc->toolSettings.dBrushPict))
+					doc->toolSettings.dBrushPict = ers[doc->toolSettings.dBrushPict];
+				// Update objects and styles colors
 				QMap<QString,QString>::Iterator it;
 				for (it = ers.begin(); it != ers.end(); ++it)
 				{
