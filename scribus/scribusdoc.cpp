@@ -2094,19 +2094,22 @@ bool ScribusDoc::changeLayerName(const int layerNumber, const QString& newName)
 	{
 		if (Layers[i].LNr == layerNumber)
 		{
-			if (UndoManager::undoEnabled())
+			if (Layers[i].Name != newName)
 			{
-				SimpleState *ss = new SimpleState(Um::SetLayerName,
-												  QString(Um::FromTo).arg(Layers[i].Name).arg(newName),
-												  Um::IDown);
-				ss->set("CHANGE_NAME", "change_name");
-				ss->set("ACTIVE", ActiveLayer);
-				ss->set("NEW_NAME", newName);
-				ss->set("OLD_NAME", Layers[i].Name);
-				undoManager->action(this, ss, DocName, Um::ILayer);
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState *ss = new SimpleState(Um::SetLayerName,
+													QString(Um::FromTo).arg(Layers[i].Name).arg(newName),
+													Um::IDown);
+					ss->set("CHANGE_NAME", "change_name");
+					ss->set("ACTIVE", ActiveLayer);
+					ss->set("NEW_NAME", newName);
+					ss->set("OLD_NAME", Layers[i].Name);
+					undoManager->action(this, ss, DocName, Um::ILayer);
+				}
+				Layers[i].Name = newName;
+				found=true;
 			}
-			Layers[i].Name = newName;
-			found=true;
 			break;
 		}
 	}
