@@ -2345,6 +2345,7 @@ void ScribusMainWindow::SwitchWin()
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
 	charPalette->setDoc(doc);
+	outlinePalette->setDoc(doc);
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
