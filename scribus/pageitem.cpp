@@ -852,31 +852,44 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 			}
 			else
 			{
-				p->setFillMode(ScPainter::Gradient);
-				p->fill_gradient = fill_gradient;
-				QWMatrix grm;
-				grm.rotate(Rot);
-				FPointArray gra;
-				switch (GrType)
+				if (fill_gradient.Stops() < 2) // fall back to solid filling if there are not enough colorstops in the gradient.
 				{
-					case 1:
-					case 2:
-					case 3:
-					case 4:
-					case 6:
+					if (fillColor() != CommonStrings::None)
+					{
+						p->setBrush(fillQColor);
+						p->setFillMode(ScPainter::Solid);
+					}
+					else
+						p->setFillMode(ScPainter::None);
+				}
+				else
+				{
+					p->setFillMode(ScPainter::Gradient);
+					p->fill_gradient = fill_gradient;
+					QWMatrix grm;
+					grm.rotate(Rot);
+					FPointArray gra;
+					switch (GrType)
+					{
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 6:
 #ifdef HAVE_CAIRO
-						p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
+							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
 #else
-						gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-						gra.map(grm);
-						p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+							gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+							gra.map(grm);
+							p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
 #endif
-						break;
-					case 5:
-					case 7:
-						gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-						p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-						break;
+							break;
+						case 5:
+						case 7:
+							gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+							p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+							break;
+					}
 				}
 			}
 		}
