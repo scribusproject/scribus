@@ -2834,7 +2834,13 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 	}
 	if (!isLoading())
 	{
-		Mp->guides.copy(&Ap->guides);
+		// PV - apply auto guides from MP only if there are no auto guides
+		// on original page
+		if (Ap->guides.horizontalAutoCount() != 0 || Ap->guides.horizontalAutoCount() != 0)
+			Mp->guides.copy(&Ap->guides, GuideManagerCore::Standard);
+		else
+			Mp->guides.copy(&Ap->guides);
+
 		Ap->initialMargins.Top = Mp->Margins.Top;
 		Ap->initialMargins.Bottom = Mp->Margins.Bottom;
 		if (pageSets[currentPageLayout].Columns != 1)
