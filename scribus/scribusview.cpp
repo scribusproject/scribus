@@ -6089,8 +6089,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
 						bb = Doc->Items->take(bb->ItemNr);
-						for (uint a = 0; a < Doc->Items->count(); ++a)
-							Doc->Items->at(a)->ItemNr = a;
+						Doc->renumberItemsInListOrder();
 					}
 					updateContents();
 					emit DocChanged();
@@ -6119,10 +6118,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
 						bb = Doc->Items->take(bb->ItemNr);
-						for (uint a = 0; a < Doc->Items->count(); ++a)
-						{
-							Doc->Items->at(a)->ItemNr = a;
-						}
+						Doc->renumberItemsInListOrder();
 					}
 					updateContents();
 					emit DocChanged();
@@ -9390,10 +9386,7 @@ void ScribusView::LowerItem()
 			Doc->Items->insert(d+1, Doc->m_Selection->itemAt(Oindex[c]));
 		}
 		Doc->m_Selection->clear();
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-		}
+		Doc->renumberItemsInListOrder();
 		m_ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);
@@ -9452,10 +9445,7 @@ void ScribusView::RaiseItem()
 			Doc->Items->insert(d, Doc->m_Selection->itemAt(Oindex[c]));
 		}
 		Doc->m_Selection->clear();
-		for (uint a = 0; a < Doc->Items->count(); ++a)
-		{
-			Doc->Items->at(a)->ItemNr = a;
-		}
+		Doc->renumberItemsInListOrder();
 		m_ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);
@@ -11223,19 +11213,13 @@ void ScribusView::TextToPath()
 				Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(ag));
 				Doc->m_Selection->addItem(newGroupedItems.at(ag));
 			}
-			for (uint a = 0; a < Doc->Items->count(); ++a)
-			{
-				Doc->Items->at(a)->ItemNr = a;
-			}
+			Doc->renumberItemsInListOrder();
 			m_ScMW->GroupObj();
 		}
 		else
 		{
 			Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(0));
-			for (uint a = 0; a < Doc->Items->count(); ++a)
-			{
-				Doc->Items->at(a)->ItemNr = a;
-			}
+			Doc->renumberItemsInListOrder();
 		}
 		uint toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)

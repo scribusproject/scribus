@@ -3506,6 +3506,13 @@ void ScribusDoc::updateFrameItems()
 		FrameItems.at(a)->ItemNr = a;
 }
 
+void ScribusDoc::renumberItemsInListOrder( )
+{
+	uint itemsCount=Items->count();
+	for (uint i = 0; i < itemsCount; ++i)
+		Items->at(i)->ItemNr = i;
+}
+
 bool ScribusDoc::usesAutomaticTextFrames() const
 {
 	return automaticTextFrames;
@@ -4621,10 +4628,7 @@ bool ScribusDoc::sendItemSelectionToBack()
 		{
 			Items->prepend(m_Selection->itemAt(Oindex[c]));
 		}
-		for (uint a = 0; a < Items->count(); ++a)
-		{
-			Items->at(a)->ItemNr = a;
-		}
+		renumberItemsInListOrder();
 		return true;
 	}
 	return false;
@@ -4651,10 +4655,7 @@ bool ScribusDoc::bringItemSelectionToFront()
 		{
 			Items->append(m_Selection->itemAt(Oindex[c]));
 		}
-		for (uint a = 0; a < Items->count(); ++a)
-		{
-			Items->at(a)->ItemNr = a;
-		}
+		renumberItemsInListOrder();
 		return true;
 	}
 	return false;
@@ -6234,10 +6235,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		}
 	}
 	updateFrameItems();
-	for (uint a = 0; a < Items->count(); ++a)
-	{
-		Items->at(a)->ItemNr = a;
-	}
+	renumberItemsInListOrder();
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	updateContents();
@@ -7791,3 +7789,4 @@ void ScribusDoc::createNewDocPages(int pageCount)
 		}
 	}
 }
+

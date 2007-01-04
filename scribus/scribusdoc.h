@@ -551,7 +551,14 @@ public:
 	 * @brief Run this common frame item update code
 	 */
 	void updateFrameItems();
-	
+	/**
+	 * @brief Renumbers the items into the order they are stored in in the lists.
+	 * Utility function used in various places, basically handles keeping items numbered in the way
+	 * they are layered. When layer is a property and not a fuction of storage, this should be removed.
+	 * Depends on the Items pointer pointing to the correct item list (doc, master, etc).
+	 * @sa updateFrameItems();
+	 */
+	void renumberItemsInListOrder();
 	/**
 	 * @brief Doc uses automatic text frames?
 	 */
@@ -650,10 +657,6 @@ public:
 	 *
 	 */
 	void updateSectionPageNumbersToPages();
-	/**
-	 *
-	 *
-	 */
 	/**
 	 * 
 	 * @param otherPageIndex 

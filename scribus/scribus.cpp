@@ -8165,10 +8165,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			doc->Items->insert(lowestItem+1, doc->m_Selection->itemAt(Oindex[c]));
 		}
 
-		for (uint a = 0; a < doc->Items->count(); ++a)
-		{
-			doc->Items->at(a)->ItemNr = a;
-		}
+		doc->renumberItemsInListOrder();
 		doc->m_Selection->prependItem(neu);
 		selectedItemCount=doc->m_Selection->count();
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
@@ -8212,10 +8209,7 @@ void ScribusMainWindow::UnGroupObj()
 			{
 				doc->m_Selection->removeItem(doc->Items->at(lowestItem));
 				doc->Items->remove(lowestItem);
-				for (uint a = 0; a < doc->Items->count(); ++a)
-				{
-					doc->Items->at(a)->ItemNr = a;
-				}
+				doc->renumberItemsInListOrder();
 			}
 			docSelectionCount = doc->m_Selection->count();
 			SimpleState *ss = new SimpleState(Um::Ungroup);
