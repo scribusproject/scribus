@@ -207,7 +207,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	newLayerButton->setText( "" );
 	newLayerButton->setPixmap(loadIcon("Newlayer.png"));
 	Layout1->addWidget( newLayerButton );
-	
+
 	duplicateLayerButton = new QPushButton( this, "duplicateLayerButton" );
 	duplicateLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setMaximumSize( QSize( 50, 24 ) );
@@ -226,20 +226,22 @@ LayerPalette::LayerPalette(QWidget* parent)
 	raiseLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	raiseLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	raiseLayerButton->setText( "" );
-	raiseLayerButton->setPixmap(loadIcon("Raiselayer.png"));
+// 	raiseLayerButton->setPixmap(loadIcon("Raiselayer.png"));
+	raiseLayerButton->setPixmap(loadIcon("16/go-up.png"));
 	Layout1->addWidget( raiseLayerButton );
 
 	lowerLayerButton = new QPushButton( this, "lowerLayerButton" );
 	lowerLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	lowerLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	lowerLayerButton->setText( "" );
-	lowerLayerButton->setPixmap(loadIcon("Lowerlayer.png"));
+// 	lowerLayerButton->setPixmap(loadIcon("Lowerlayer.png"));
+	lowerLayerButton->setPixmap(loadIcon("16/go-down.png"));
 	Layout1->addWidget( lowerLayerButton );
 
 	LayerPaletteLayout->addLayout( Layout1 );
 	ClearInhalt();
 	languageChange();
-	
+
 	connect(newLayerButton, SIGNAL(clicked()), this, SLOT(addLayer()));
 	connect(duplicateLayerButton, SIGNAL(clicked()), this, SLOT(dupLayer()));
 	connect(deleteLayerButton, SIGNAL(clicked()), this, SLOT(removeLayer()));
@@ -420,7 +422,7 @@ void LayerPalette::removeLayer()
 
 	if (!m_Doc->deleteLayer(layerNumber, delToo))
 		return;
-	
+
 	rebuildList();
 	markActiveLayer();
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
