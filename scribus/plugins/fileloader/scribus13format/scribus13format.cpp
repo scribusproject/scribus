@@ -2567,7 +2567,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 
 bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
 {
-	qDebug(QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber));
+	qDebug(QString("loading page %2 from file '%1' from 1.3.3.x plugin").arg(fileName).arg(pageNumber));
 	if (m_Doc==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
@@ -2809,12 +2809,22 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
-				if ((pg.tagName()!="MASTEROBJECT") && (Mpage))
+				if (Mpage)
 				{
-					PAGE=PAGE.nextSibling();
-					continue;
+					if (pg.tagName() != "MASTEROBJECT")
+					{
+						PAGE=PAGE.nextSibling();
+						continue;
+					}
 				}
-
+				else
+				{
+					if (pg.tagName() == "MASTEROBJECT")
+					{
+						PAGE=PAGE.nextSibling();
+						continue;
+					}
+				}
 				
 				if (pg.attribute("OwnPage").toInt() != pageNumber)
 				{			

@@ -2724,10 +2724,21 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
-				if ((pg.tagName()!="MASTEROBJECT") && (Mpage))
+				if (Mpage)
 				{
-					PAGE=PAGE.nextSibling();
-					continue;
+					if (pg.tagName() != "MASTEROBJECT")
+					{
+						PAGE=PAGE.nextSibling();
+						continue;
+					}
+				}
+				else
+				{
+					if (pg.tagName() == "MASTEROBJECT")
+					{
+						PAGE=PAGE.nextSibling();
+						continue;
+					}
 				}
 				if (pg.attribute("OwnPage").toInt() == pageNumber)
 				{

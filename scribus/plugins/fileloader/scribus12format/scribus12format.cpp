@@ -1302,11 +1302,27 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			if ((pg.tagName()=="PAGE") && (pg.attribute("NUM").toInt() == pageNumber))
 			{
 				a = m_Doc->currentPage()->pageNr();
-				if ((pg.attribute("NAM", "").isEmpty()) && (Mpage))
+				if (Mpage)
+				{
+					if (pg.attribute("NAM", "").isEmpty())
+					{
+						PAGE=PAGE.nextSibling();
+						continue;
+					}
+				}
+				else
+				{
+					if (!pg.attribute("NAM", "").isEmpty())
+					{
+						PAGE=PAGE.nextSibling();
+						continue;
+					}
+				}
+/*				if ((pg.attribute("NAM", "").isEmpty()) && (Mpage))
 				{
 					PAGE=PAGE.nextSibling();
 					continue;
-				}
+				} */
 				if (Mpage)
 				{
 					m_Doc->Pages->at(a)->LeftPg=pg.attribute("LEFT", "0").toInt();
