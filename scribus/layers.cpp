@@ -205,22 +205,22 @@ LayerPalette::LayerPalette(QWidget* parent)
 	newLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	newLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	newLayerButton->setText( "" );
-	newLayerButton->setPixmap(loadIcon("Newlayer.png"));
+	newLayerButton->setPixmap(loadIcon("16/list-add.png"));
 	Layout1->addWidget( newLayerButton );
 
+	deleteLayerButton = new QPushButton( this, "deleteLayerButton" );
+	deleteLayerButton->setMinimumSize( QSize( 50, 24 ) );
+	deleteLayerButton->setMaximumSize( QSize( 50, 24 ) );
+	deleteLayerButton->setText( "" );
+	deleteLayerButton->setPixmap(loadIcon("16/list-remove.png"));
+	Layout1->addWidget( deleteLayerButton );
+	
 	duplicateLayerButton = new QPushButton( this, "duplicateLayerButton" );
 	duplicateLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setText( "" );
 	duplicateLayerButton->setPixmap(loadIcon("editcopy.png"));
 	Layout1->addWidget( duplicateLayerButton );
-
-	deleteLayerButton = new QPushButton( this, "deleteLayerButton" );
-	deleteLayerButton->setMinimumSize( QSize( 50, 24 ) );
-	deleteLayerButton->setMaximumSize( QSize( 50, 24 ) );
-	deleteLayerButton->setText( "" );
-	deleteLayerButton->setPixmap(loadIcon("Deletelayer.png"));
-	Layout1->addWidget( deleteLayerButton );
 
 	raiseLayerButton = new QPushButton( this, "raiseLayerButton" );
 	raiseLayerButton->setMinimumSize( QSize( 50, 24 ) );

@@ -96,7 +96,9 @@ ellipsis.png \
 22/insert-text-frame.png \
 16/insert-table.png \
 22/insert-table.png \
+16/list-add.png \
 22/list-box.png \
+16/list-remove.png \
 16/lock.png \
 22/lock.png \
 16/lock-unlocked.png \
@@ -418,7 +420,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Layervisible.xpm $(prefix)/share/scribus/icons/Layervisible.xpm
 	$(INSTALL_DATA) $(srcdir)/linespacing.png $(prefix)/share/scribus/icons/linespacing.png
 	$(INSTALL_DATA) $(srcdir)/linespacing2.png $(prefix)/share/scribus/icons/linespacing2.png
+	$(INSTALL_DATA) $(srcdir)/16/list-add.png $(prefix)/share/scribus/icons/16/list-add.png
 	$(INSTALL_DATA) $(srcdir)/22/list-box.png $(prefix)/share/scribus/icons/22/list-box.png
+	$(INSTALL_DATA) $(srcdir)/16/list-remove.png $(prefix)/share/scribus/icons/16/list-remove.png
 	$(INSTALL_DATA) $(srcdir)/16/lock.png $(prefix)/share/scribus/icons/16/lock.png
 	$(INSTALL_DATA) $(srcdir)/22/lock.png $(prefix)/share/scribus/icons/22/lock.png
 	$(INSTALL_DATA) $(srcdir)/16/lock-unlocked.png $(prefix)/share/scribus/icons/16/lock-unlocked.png
@@ -829,7 +833,9 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Layervisible.xpm
 	-rm -f $(prefix)/share/scribus/icons/linespacing.png
 	-rm -f $(prefix)/share/scribus/icons/linespacing2.png
-	-rm -f $(prefix)/share/scribus/icons/22/listbox.png
+	-rm -f $(prefix)/share/scribus/icons/16/list-add.png
+	-rm -f $(prefix)/share/scribus/icons/22/list-box.png
+	-rm -f $(prefix)/share/scribus/icons/16/list-remove.png
 	-rm -f $(prefix)/share/scribus/icons/16/lock.png
 	-rm -f $(prefix)/share/scribus/icons/22/lock.png
 	-rm -f $(prefix)/share/scribus/icons/16/lock-unlocked.png

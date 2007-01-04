@@ -372,6 +372,8 @@ INSTALL(FILES
 16/insert-image.png
 16/insert-text-frame.png
 16/insert-table.png
+16/list-add.png
+16/list-remove.png
 16/lock.png
 16/lock-unlocked.png
 16/measure.png
