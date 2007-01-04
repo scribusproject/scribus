@@ -614,11 +614,11 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 
 				// guides reading
 				tmp = "";
-				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerIO::readVerticalGuides(pg.attribute("VerticalGuides"),
 							m_Doc->Pages->at(a),
 							GuideManagerCore::Standard,
 							pg.hasAttribute("NumVGuides"));
-				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+				GuideManagerIO::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 							m_Doc->Pages->at(a),
 							GuideManagerCore::Standard,
 							pg.hasAttribute("NumHGuides"));
@@ -1318,11 +1318,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				* Attribute von PAGE auslesen
 				*/
 				tmp = "";
-				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerIO::readVerticalGuides(pg.attribute("VerticalGuides"),
 						m_Doc->Pages->at(a),
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumVGuides"));
-				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+				GuideManagerIO::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 						m_Doc->Pages->at(a),
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumHGuides"));

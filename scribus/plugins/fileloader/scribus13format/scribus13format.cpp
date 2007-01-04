@@ -929,11 +929,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Apage->guides.setVerticalAutoCount(0);
 				Apage->guides.setHorizontalAutoRefer(0);
 				Apage->guides.setVerticalAutoRefer(0);
-				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerIO::readVerticalGuides(pg.attribute("VerticalGuides"),
 						Apage,
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumVGuides"));
-				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+				GuideManagerIO::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 						Apage,
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumHGuides"));
@@ -2798,11 +2798,11 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				pageY = pg.attribute("PAGEYPOS").toDouble();
 				// guides reading
 				tmp = "";
-				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerIO::readVerticalGuides(pg.attribute("VerticalGuides"),
 												Apage,
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumVGuides"));
-				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+				GuideManagerIO::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 												Apage,
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumHGuides"));
@@ -3310,9 +3310,9 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 		pg.setAttribute("Size", page->m_pageSize);
 		pg.setAttribute("Orientation", page->PageOri);
 		pg.setAttribute("LEFT", page->LeftPg);
-		pg.setAttribute("VerticalGuides", GuideManagerCore::writeVerticalGuides(
+		pg.setAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
 													page, GuideManagerCore::Standard));
-		pg.setAttribute("HorizontalGuides", GuideManagerCore::writeHorizontalGuides(
+		pg.setAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(
 													page, GuideManagerCore::Standard));
 		dc->appendChild(pg);
 	}

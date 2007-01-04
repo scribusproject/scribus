@@ -851,9 +851,9 @@ void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomEleme
 		pg.setAttribute("Size", page->m_pageSize);
 		pg.setAttribute("Orientation", page->PageOri);
 		pg.setAttribute("LEFT", page->LeftPg);
-		pg.setAttribute("VerticalGuides", GuideManagerCore::writeVerticalGuides(
+		pg.setAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
 													page, GuideManagerCore::Standard));
-		pg.setAttribute("HorizontalGuides", GuideManagerCore::writeHorizontalGuides(
+		pg.setAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(
 													page, GuideManagerCore::Standard));
 		pg.setAttribute("AGhorizontalAutoGap", page->guides.horizontalAutoGap());
 		pg.setAttribute("AGverticalAutoGap", page->guides.verticalAutoGap());

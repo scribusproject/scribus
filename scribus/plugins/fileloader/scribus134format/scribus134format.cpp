@@ -998,11 +998,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				Apage->guides.setVerticalAutoCount(pg.attribute("AGverticalAutoCount", "0").toInt());
 				Apage->guides.setHorizontalAutoRefer(pg.attribute("AGhorizontalAutoRefer", "0").toInt());
 				Apage->guides.setVerticalAutoRefer(pg.attribute("AGverticalAutoRefer", "0").toInt());
-				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerIO::readVerticalGuides(pg.attribute("VerticalGuides"),
 						Apage,
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumVGuides"));
-				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+				GuideManagerIO::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 						Apage,
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumHGuides"));
@@ -2710,11 +2710,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				Apage->guides.setVerticalAutoCount(pg.attribute("AGverticalAutoCount", "0").toInt());
 				Apage->guides.setHorizontalAutoRefer(pg.attribute("AGhorizontalAutoRefer", "0").toInt());
 				Apage->guides.setVerticalAutoRefer(pg.attribute("AGverticalAutoRefer", "0").toInt());
-				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
+				GuideManagerIO::readVerticalGuides(pg.attribute("VerticalGuides"),
 												Apage,
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumVGuides"));
-				GuideManagerCore::readHorizontalGuides(pg.attribute("HorizontalGuides"),
+				GuideManagerIO::readHorizontalGuides(pg.attribute("HorizontalGuides"),
 												Apage,
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumHGuides"));

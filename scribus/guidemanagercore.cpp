@@ -532,53 +532,6 @@ double GuideManagerCore::closestVertRight(double x)// const
 	return closest;
 }
 
-void GuideManagerCore::readVerticalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides)
-{
-	QStringList gVal(QStringList::split(' ', guideString));
-
-	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
-		useOldGuides ?
-			page->guides.addHorizontal((*it).toDouble(), type) :
-			page->guides.addVertical((*it).toDouble(), type);
-}
-
-void GuideManagerCore::readHorizontalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides)
-{
-	QStringList gVal(QStringList::split(' ', guideString));
-	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
-		useOldGuides ?
-			page->guides.addVertical((*it).toDouble(), type):
-			page->guides.addHorizontal((*it).toDouble(), type);
-}
-
-QString GuideManagerCore::writeHorizontalGuides(Page *page, GuideType type)
-{
-	Guides::iterator it;
-	QString retval;
-	QString tmp;
-	Guides tmpGuides = page->guides.horizontals(type);
-	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
-	{
-		tmp = tmp.setNum((*it));
-		retval += tmp + " ";
-	}
-	return retval;
-}
-
-QString GuideManagerCore::writeVerticalGuides(Page *page, GuideType type)
-{
-	Guides::iterator it;
-	QString retval;
-	QString tmp;
-	Guides tmpGuides = page->guides.verticals(type);
-	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
-	{
-		tmp = tmp.setNum((*it));
-		retval += tmp + " ";
-	}
-	return retval;
-}
-
 Guides GuideManagerCore::getAutoVerticals()
 {
 	resetMarginsForPage();
@@ -701,4 +654,52 @@ void GuideManagerCore::resetMarginsForPage()
 		gw = selectionBottomRight.x();
 		gh = selectionBottomRight.y();
 	}
+}
+
+
+void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
+{
+	QStringList gVal(QStringList::split(' ', guideString));
+
+	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
+		useOldGuides ?
+			page->guides.addHorizontal((*it).toDouble(), type) :
+			page->guides.addVertical((*it).toDouble(), type);
+}
+
+void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
+{
+	QStringList gVal(QStringList::split(' ', guideString));
+	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
+		useOldGuides ?
+			page->guides.addVertical((*it).toDouble(), type):
+			page->guides.addHorizontal((*it).toDouble(), type);
+}
+
+QString GuideManagerIO::writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type)
+{
+	Guides::iterator it;
+	QString retval;
+	QString tmp;
+	Guides tmpGuides = page->guides.horizontals(type);
+	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+	{
+		tmp = tmp.setNum((*it));
+		retval += tmp + " ";
+	}
+	return retval;
+}
+
+QString GuideManagerIO::writeVerticalGuides(Page *page, GuideManagerCore::GuideType type)
+{
+	Guides::iterator it;
+	QString retval;
+	QString tmp;
+	Guides tmpGuides = page->guides.verticals(type);
+	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+	{
+		tmp = tmp.setNum((*it));
+		retval += tmp + " ";
+	}
+	return retval;
 }

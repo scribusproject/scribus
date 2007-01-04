@@ -73,31 +73,6 @@ public:
 	QPair<double, double> bottomLeft(double x, double y);// const;
 	QPair<double, double> bottomRight(double x, double y);// const;
 
-	/*! \brief Read the guides from XML attribute (file opening).
-	It's statis method sou you can call it without instance initialized:
-	GuideManagerCore::readHorizontalGuides(foo blah);
-	\param guideString a string with all values separated by space (' '). E.g. "1.0 23.17 6"
-	\param page a reference to the Page object to append the separated guideString values
-	\param type Guide type to load
-	\param useOldGuides A little bit hacking here. The guides were stored in a little mess
-	in the ancient times. So when is the obsolete XML attribute found in reading document
-	the old reading method is used. All guides are saved in new format then. */
-	static void readHorizontalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides=false);
-
-	/*! \brief Read the guides from XML attribute (file opening).
-	It's statis method sou you can call it without instance initialized:
-	GuideManagerCore::readVerticalGuides(foo blah);
-	\param guideString a string with all values separated by space (' '). E.g. "1.0 23.17 6"
-	\param page a reference to the Page object to append the separated guideString values
-	\param type Guide type to load
-	\param useOldGuides A little bit hacking here. The guides were stored in a little mess
-	in the ancient times. So when is the obsolete XML attribute found in reading document
-	the old reading method is used. All guides are saved in new format then. */
-	static void readVerticalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides=false);
-
-	static QString writeHorizontalGuides(Page *page, GuideType type);
-	static QString writeVerticalGuides(Page *page, GuideType type);
-
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	int horizontalAutoCount() { return m_horizontalAutoCount; };
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
@@ -160,6 +135,49 @@ private:
 	It's used for automatic guides position. It's called for every
 	page when is "apply to all pages" switched on */
 	void resetMarginsForPage();
+};
+
+
+/*! \brief A separate clas for Guides IO operations in reading or closing
+the documents.
+\author Petr Vanek <petr@scribus.info>
+*/
+class SCRIBUS_API GuideManagerIO
+{
+	public:
+		GuideManagerIO(){};
+		~GuideManagerIO(){};
+
+		/*! \brief Read the guides from XML attribute (file opening).
+		It's statis method sou you can call it without instance initialized:
+		GuideManagerIO::readHorizontalGuides(foo blah);
+		\param guideString a string with all values separated by space (' '). E.g. "1.0 23.17 6"
+		\param page a reference to the Page object to append the separated guideString values
+		\param type Guide type to load
+		\param useOldGuides A little bit hacking here. The guides were stored in a little mess
+		in the ancient times. So when is the obsolete XML attribute found in reading document
+		the old reading method is used. All guides are saved in new format then. */
+		static void readHorizontalGuides(const QString guideString,
+										 Page *page,
+										 GuideManagerCore::GuideType type,
+										 bool useOldGuides=false);
+
+		/*! \brief Read the guides from XML attribute (file opening).
+		It's statis method sou you can call it without instance initialized:
+		GuideManagerIO::readVerticalGuides(foo blah);
+		\param guideString a string with all values separated by space (' '). E.g. "1.0 23.17 6"
+		\param page a reference to the Page object to append the separated guideString values
+		\param type Guide type to load
+		\param useOldGuides A little bit hacking here. The guides were stored in a little mess
+		in the ancient times. So when is the obsolete XML attribute found in reading document
+		the old reading method is used. All guides are saved in new format then. */
+		static void readVerticalGuides(const QString guideString,
+									   Page *page,
+									   GuideManagerCore::GuideType type,
+									   bool useOldGuides=false);
+
+		static QString writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type);
+		static QString writeVerticalGuides(Page *page, GuideManagerCore::GuideType type);
 };
 
 #endif
