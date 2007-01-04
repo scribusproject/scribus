@@ -219,7 +219,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	duplicateLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setText( "" );
-	duplicateLayerButton->setPixmap(loadIcon("editcopy.png"));
+	duplicateLayerButton->setPixmap(loadIcon("16/edit-copy.png"));
 	Layout1->addWidget( duplicateLayerButton );
 
 	raiseLayerButton = new QPushButton( this, "raiseLayerButton" );
