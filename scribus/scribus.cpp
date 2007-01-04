@@ -3397,15 +3397,15 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
 		{
 			PageItem *ite = doc->Items->at(i);
-			if ((docItemsCount - oldItemsCount) > 1)
-				ite->Groups.push(doc->GroupCounter);
+//			if ((docItemsCount - oldItemsCount) > 1)
+//				ite->Groups.push(doc->GroupCounter);
 			if (ite->locked())
 				ite->setLocked(false);
 			if ((ite->asTextFrame()) && (ite->isBookmark))
 				bookmarkPalette->BView->AddPageItem(ite);
 		}
-		if ((docItemsCount - oldItemsCount) > 1)
-			doc->GroupCounter++;
+//		if ((docItemsCount - oldItemsCount) > 1)
+//			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
 		propertiesPalette->Spal->setFormats(doc);
 		propertiesPalette->SetLineFormats(doc);

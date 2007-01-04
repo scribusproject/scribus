@@ -213,7 +213,8 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 // 		m_Doc->m_Selection->clear();
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 1) && (interactive))
+//		if ((Elements.count() > 1) && (interactive))
+		if (Elements.count() > 1)
 		{
 			bool isGroup = true;
 			int firstElem = -1;

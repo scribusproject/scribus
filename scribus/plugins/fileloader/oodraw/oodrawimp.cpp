@@ -386,9 +386,9 @@ bool OODPlug::convert(int flags)
 		if ((interactive) && (PageCounter == 1))
 			break;
 	}
-// 	m_Doc->m_Selection->clear();
 	tmpSel->clear();
-	if ((Elements.count() > 1) && (interactive))
+//	if ((Elements.count() > 1) && (interactive))
+	if (Elements.count() > 1)
 	{
 		bool isGroup = true;
 		int firstElem = -1;
@@ -462,11 +462,6 @@ bool OODPlug::convert(int flags)
 			}
 			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
-/*			for (uint a = 0; a < Elements.count(); ++a)
-			{
-				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
-			}
-			m_Doc->GroupCounter++; */
 		}
 	}
 	m_Doc->DoDrawing = true;
