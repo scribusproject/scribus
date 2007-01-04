@@ -511,10 +511,11 @@ void SearchReplace::slotDoSearch()
 		{
 			int p, i;
 			Doc->scMW()->CurrStED->Editor->getCursorPosition(&p, &i);
+/* Related to the FIXME below
 			uint inde = 0;
 			int as = i;
 			uint fpa = p;
-			int fch = i;
+			int fch = i;*/
 			found = false;
 			if (Doc->scMW()->CurrStED->Editor->StyledText.length() != 0)
 			{
