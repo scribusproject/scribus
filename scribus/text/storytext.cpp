@@ -420,14 +420,12 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	if (txt.length() == 0)
 		return;
 	
-	const CharStyle style = pos == 0 ? charStyle(0) : charStyle(pos - 1);
 	const StyleBase* cStyleBase = paragraphStyle(pos).charStyleBase();
 	//	assert( !style.font().isNone() );
 	
 	for (uint i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
 		item->ch= txt.mid(i, 1);
-		*static_cast<CharStyle *>(item) = style;
 		item->setBase(cStyleBase);
 		d->insert(pos + i, item);
 		d->len++;
