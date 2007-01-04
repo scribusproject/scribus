@@ -1730,45 +1730,50 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		tmp2.replace(QRegExp("\t"), QChar(9));
 	}
 	
-	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	PrefsManager* prefsManager=PrefsManager::instance();
-	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
+	// more legacy stuff:
+	
+	if (it->hasAttribute("CFONT"))
 	{
-/*		bool isThere = false;
-		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
+		tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
+		PrefsManager* prefsManager=PrefsManager::instance();
+		if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 		{
-			if ((*dummyScFaces.at(dl)).scName() == tmpf)
+			/*		bool isThere = false;
+			for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
+		{
+				if ((*dummyScFaces.at(dl)).scName() == tmpf)
+				{
+					isThere = true;
+					dummy = *dummyScFaces.at(dl);
+					break;
+				}
+		}
+			if (!isThere)
+		{
+				//			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
+				dummyScFaces.append(dummy);
+		}
+			*/
+			if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 			{
-				isThere = true;
-				dummy = *dummyScFaces.at(dl);
-				break;
+				newReplacement = true;
+				ScFace dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
+				prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
+				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 			}
-		}
-		if (!isThere)
-		{
-//			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
-			dummyScFaces.append(dummy);
-		}
-*/
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-		{
-			newReplacement = true;
-			ScFace dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
-			prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
+			else
+				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
 		}
 		else
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-	}
-	else
-	{
-		if (!doc->UsedFonts.contains(tmpf))
 		{
-			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
+			if (!doc->UsedFonts.contains(tmpf))
+			{
+				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
+			}
 		}
+		if (! tmpf.isEmpty() )
+			newStyle.setFont((*doc->AllFonts)[tmpf]);
 	}
-	if (! tmpf.isEmpty() )
-		newStyle.setFont((*doc->AllFonts)[tmpf]);
 	
 	if (it->hasAttribute("CSIZE"))
 		newStyle.setFontSize(qRound(it->attribute("CSIZE").toDouble() * 10));
@@ -1869,9 +1874,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		}
 		if (newStyle != last->Style || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
 		{  // FIXME StyleFlag operator== ignores hyphen flag
-#ifdef NLS_PROTO
-			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
-#endif
+//			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
 			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
