@@ -194,26 +194,6 @@ void MasterPagesPalette::duplicateMasterPage()
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		/* PV guides refactoring
-		if (currentDoc->Pages->at(inde)->YGuides.count() != 0)
-		{
-			currentDoc->currentPage->YGuides.clear();
-			for (uint y = 0; y < currentDoc->Pages->at(inde)->YGuides.count(); ++y)
-			{
-				currentDoc->currentPage->YGuides.append(currentDoc->Pages->at(inde)->YGuides[y]);
-			}
-			qHeapSort(currentDoc->currentPage->YGuides);
-		}
-		if (currentDoc->Pages->at(inde)->XGuides.count() != 0)
-		{
-			currentDoc->currentPage->XGuides.clear();
-			for (uint x = 0; x < currentDoc->Pages->at(inde)->XGuides.count(); ++x)
-			{
-				currentDoc->currentPage->XGuides.append(currentDoc->Pages->at(inde)->XGuides[x]);
-			}
-			qHeapSort(currentDoc->currentPage->XGuides);
-		}
-		*/
 		currentDoc->Pages->at(inde)->guides.copy(&currentDoc->currentPage()->guides);
 		uint end = currentDoc->Items->count();
 		int GrMax = currentDoc->GroupCounter;
