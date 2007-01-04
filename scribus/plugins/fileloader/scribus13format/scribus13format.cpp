@@ -55,7 +55,7 @@ void Scribus13Format::languageChange()
 
 const QString Scribus13Format::fullTrName() const
 {
-	return QObject::tr("Scribus 1.3.0->1.3.3.2 Support");
+	return QObject::tr("Scribus 1.3.0->1.3.3.7 Support");
 }
 
 const ScActionPlugin::AboutData* Scribus13Format::getAboutData() const
@@ -74,7 +74,7 @@ void Scribus13Format::deleteAboutData(const AboutData* about) const
 void Scribus13Format::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Scribus 1.3.0->1.3.3.2 Document");
+	fmt.trName = tr("Scribus 1.3.0->1.3.3.7 Document");
 	fmt.formatId = FORMATID_SLA13XIMPORT;
 	fmt.load = true;
 	fmt.save = false; //Only support 134format saving in 134cvs
