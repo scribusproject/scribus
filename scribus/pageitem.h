@@ -127,6 +127,7 @@ public:
 	 * Soon, item type will probably go away in favour of using
 	 * subclasses and checking types using more conventional methods
 	 * and using Qt's MetaObject introspection.
+	 * Multiple is used for checking in @sa Selection for all same type of items
 	 */
 	enum ItemType {
 		ItemType1	= 1,
@@ -136,7 +137,8 @@ public:
 		Line		= 5,
 		Polygon		= 6,
 		PolyLine	= 7,
-		PathText	= 8
+		PathText	= 8,
+		Multiple	= 99
 	};
 
 	/** @brief Text flow mode

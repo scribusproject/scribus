@@ -336,7 +336,6 @@ double Selection::height( )
 	return maxY-minY;
 }
 
-//CB-->Doc/selection
 void Selection::setGroupRect()
 {
 	PageItem *currItem;
@@ -377,11 +376,28 @@ void Selection::setGroupRect()
 	groupH = maxy - miny;
 }
 
-//CB-->selection?
 void Selection::getGroupRect(double *x, double *y, double *w, double *h)
 {
 	*x = groupX;
 	*y = groupY;
 	*w = groupW;
 	*h = groupH;
+}
+
+bool Selection::itemsAreSameType()
+{
+	//CB Putting count=1 before isempty test as its probably the most likely, given our view code.
+	if (m_SelList.count()==1)
+		return true;
+	if (m_SelList.isEmpty())
+		return false;
+	SelectionList::Iterator it=m_SelList.begin();
+	SelectionList::Iterator itend=m_SelList.end();
+	PageItem::ItemType itemType=(*it)->itemType();
+	for ( ; it!=itend ; ++it)
+	{
+		if ((*it)->itemType()!=itemType)
+			return false;
+	}
+	return true;
 }

@@ -137,6 +137,8 @@ class SCRIBUS_API Selection : public QObject
 		//set the group rectangle properties
 		void setGroupRect();
 		void getGroupRect(double *x, double *y, double *w, double *h);
+		//!\brief Test to see if all items in the selection are the same typedef
+		bool itemsAreSameType();
 		
 	protected:
 		SelectionList m_SelList;

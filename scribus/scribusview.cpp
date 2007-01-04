@@ -2733,7 +2733,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					m_ScMW->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
 				}
 			}
-			if (Doc->appMode != modeEdit) //Create convertTo Menu
+			if (Doc->appMode != modeEdit && Doc->m_Selection->itemsAreSameType()) //Create convertTo Menu
 			{
 				bool insertConvertToMenu=false;
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
