@@ -637,6 +637,46 @@ void ColorManager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
+		QStringList patterns = m_Doc->getUsedPatterns();
+		for (uint c = 0; c < patterns.count(); ++c)
+		{
+			ScPattern pa = m_Doc->docPatterns[patterns[c]];
+			for (uint c = 0; c < pa.items.count(); ++c)
+			{
+				ite = pa.items.at(c);
+				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				{
+					if (it.key() == cstops.at(cst)->name)
+						found = true;
+					if (found)
+						break;
+				}
+				if ((ite->asTextFrame()) || (ite->asPathText()))
+				{
+					for (int d=0; d<ite->itemText.length(); ++d)
+					{
+						if (it.key() == ite->itemText.charStyle(d).fillColor())
+							found = true;
+						if (it.key() == ite->itemText.charStyle(d).strokeColor())
+							found = true;
+						if (found)
+							break;
+					}
+				}
+				if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+					found = true;
+				if (found)
+					break;
+			}
+			if (found)
+				break;
+		}
+		if (found)
+		{
+			UsedC.insert(it.key(), it.data());
+			continue;
+		}
 		for (uint c = 0; c < m_Doc->MasterItems.count(); ++c)
 		{
 			ite = m_Doc->MasterItems.at(c);
