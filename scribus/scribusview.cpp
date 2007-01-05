@@ -8405,10 +8405,12 @@ void ScribusView::slotDoCurs(bool draw)
 		//              textframe->lastTextItem = QMIN(textframe->lastTextItem, 
 		//                                             signed(textframe->itemText.nrOfItems()) - 1);
 		
-		if (textframe->firstInFrame() >= 0 
-			&& textframe->lastInFrame() >= textframe->firstInFrame() 
-			&& textframe->CPos >= textframe->itemText.startOfItem(textframe->firstInFrame())
-			&& textframe->CPos <= textframe->itemText.endOfItem(textframe->lastInFrame()))
+		if (textframe->firstInFrame() >= 0 &&
+			((textframe->lastInFrame() >= textframe->firstInFrame() 
+			  && textframe->CPos >= textframe->itemText.startOfItem(textframe->firstInFrame())
+			  && textframe->CPos <= textframe->itemText.endOfItem(textframe->lastInFrame())
+			  ) || (textframe->CPos == textframe->itemText.length())
+			 ))
 		{
 			QPainter p;
 			p.begin(viewport());
