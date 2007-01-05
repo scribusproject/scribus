@@ -6950,22 +6950,7 @@ void ScribusMainWindow::slotEditColors()
 			if (!ers.isEmpty())
 			{
 				// Update tools colors
-				if (ers.contains(doc->toolSettings.dPenText))
-					doc->toolSettings.dPenText = ers[doc->toolSettings.dPenText];
-				if (ers.contains(doc->toolSettings.dStrokeText))
-					doc->toolSettings.dStrokeText = ers[doc->toolSettings.dStrokeText];
-				if (ers.contains(doc->toolSettings.dTextBackGround))
-					doc->toolSettings.dTextBackGround = ers[doc->toolSettings.dTextBackGround];
-				if (ers.contains(doc->toolSettings.dTextLineColor))
-					doc->toolSettings.dTextLineColor = ers[doc->toolSettings.dTextLineColor];
-				if (ers.contains(doc->toolSettings.dPen))
-					doc->toolSettings.dPen = ers[doc->toolSettings.dPen];
-				if (ers.contains(doc->toolSettings.dBrush))
-					doc->toolSettings.dBrush = ers[doc->toolSettings.dBrush];
-				if (ers.contains(doc->toolSettings.dPenLine))
-					doc->toolSettings.dPenLine = ers[doc->toolSettings.dPenLine];
-				if (ers.contains(doc->toolSettings.dBrushPict))
-					doc->toolSettings.dBrushPict = ers[doc->toolSettings.dBrushPict];
+				PrefsManager::replaceToolColors(doc->toolSettings, ers);
 				// Update objects and styles colors
 				QMap<QString,QString>::Iterator it;
 				for (it = ers.begin(); it != ers.end(); ++it)
@@ -7134,6 +7119,8 @@ void ScribusMainWindow::slotEditColors()
 		}
 		else
 		{
+			// Update tools colors if needed
+			prefsManager->replaceToolColors(dia->replaceMap);
 			prefsManager->setColorSet(dia->EditColors);
 			prefsManager->setColorSetName(dia->getColorSetName());
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());

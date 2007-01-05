@@ -912,7 +912,16 @@ void ColorManager::selEditFarbe(QListBoxItem *c)
 
 void ColorManager::updateCList()
 {
-	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
+	ColorList::Iterator it;
+	ScribusDoc* doc = EditColors.document();
+	colorListBox->clear();
+	for (it = EditColors.begin(); it != EditColors.end(); ++it)
+	{
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor || 
+			it.key() == "Black" || it.key() == "White")
+			continue;
+		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
+	}
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (colorListBox->currentItem() == -1)
 	{

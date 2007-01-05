@@ -857,9 +857,112 @@ const QString& PrefsManager::colorSetName()
 	return appPrefs.DColorSet;
 }
 
+bool PrefsManager::isToolColor(const QString& name)
+{
+	return isToolColor(appPrefs.toolSettings, name);
+}
+
+bool PrefsManager::isToolColor(const struct toolPrefs& settings, const QString& name)
+{
+	if (settings.dPenText == name)
+		return true;
+	if (settings.dStrokeText == name)
+		return true;
+	if (settings.dTextBackGround == name)
+		return true;
+	if (settings.dTextLineColor == name)
+		return true;
+	if (settings.dPen == name)
+		return true;
+	if (settings.dBrush == name)
+		return true;
+	if (settings.dPenLine == name)
+		return true;
+	if (settings.dBrushPict == name)
+		return true;
+	return false;
+}
+
+QStringList PrefsManager::toolColorNames()
+{
+	return toolColorNames(appPrefs.toolSettings);
+}
+
+QStringList PrefsManager::toolColorNames(const struct toolPrefs& settings)
+{
+	QStringList names;
+	names.append(settings.dPenText);
+	if (!names.contains(settings.dStrokeText))
+		names.append(settings.dStrokeText);
+	if (!names.contains(settings.dTextBackGround))
+		names.append(settings.dTextBackGround);
+	if (!names.contains(settings.dTextLineColor))
+		names.append(settings.dTextLineColor);
+	if (!names.contains(settings.dPen))
+		names.append(settings.dPen);
+	if (!names.contains(settings.dBrush))
+		names.append(settings.dBrush);
+	if (!names.contains(settings.dPenLine))
+		names.append(settings.dPenLine);
+	if (!names.contains(settings.dBrushPict))
+		names.append(settings.dBrushPict);
+	return names;
+}
+
+void PrefsManager::replaceToolColors(const QMap<QString, QString> replaceMap)
+{
+	replaceToolColors(appPrefs.toolSettings, replaceMap);
+}
+
+void PrefsManager::replaceToolColors(struct toolPrefs& settings, const QMap<QString, QString> replaceMap)
+{
+	if (replaceMap.contains(settings.dPenText))
+		settings.dPenText = replaceMap[settings.dPenText];
+	if (replaceMap.contains(settings.dStrokeText))
+		settings.dStrokeText = replaceMap[settings.dStrokeText];
+	if (replaceMap.contains(settings.dTextBackGround))
+		settings.dTextBackGround = replaceMap[settings.dTextBackGround];
+	if (replaceMap.contains(settings.dTextLineColor))
+		settings.dTextLineColor = replaceMap[settings.dTextLineColor];
+	if (replaceMap.contains(settings.dPen))
+		settings.dPen = replaceMap[settings.dPen];
+	if (replaceMap.contains(settings.dBrush))
+		settings.dBrush = replaceMap[settings.dBrush];
+	if (replaceMap.contains(settings.dPenLine))
+		settings.dPenLine = replaceMap[settings.dPenLine];
+	if (replaceMap.contains(settings.dBrushPict))
+		settings.dBrushPict = replaceMap[settings.dBrushPict];
+}
+
 void PrefsManager::setColorSet(const ColorList& colorSet)
 {
-	appPrefs.DColors=colorSet;
+	// Color set may have changed and tools color not be present in the new color set
+	ColorList tmpSet = colorSet;
+	QString penText = appPrefs.toolSettings.dPenText;
+	if (!tmpSet.contains(penText) && penText != CommonStrings::None)
+		tmpSet[penText] = appPrefs.DColors[penText];
+	QString strokeText = appPrefs.toolSettings.dStrokeText;
+	if (!tmpSet.contains(strokeText) && strokeText != CommonStrings::None)
+		tmpSet[strokeText] = appPrefs.DColors[strokeText];
+	QString textBackGround = appPrefs.toolSettings.dTextBackGround;
+	if (!tmpSet.contains(textBackGround) && textBackGround != CommonStrings::None)
+		tmpSet[textBackGround] = appPrefs.DColors[textBackGround];
+	QString textLineColor = appPrefs.toolSettings.dTextLineColor;
+	if (!tmpSet.contains(textLineColor) && textLineColor != CommonStrings::None)
+		tmpSet[textLineColor] = appPrefs.DColors[textLineColor];
+	QString pen = appPrefs.toolSettings.dPen;
+	if (!tmpSet.contains(pen) && pen != CommonStrings::None)
+		tmpSet[pen] = appPrefs.DColors[pen];
+	QString brush = appPrefs.toolSettings.dBrush;
+	if (!tmpSet.contains(brush) && brush != CommonStrings::None)
+		tmpSet[brush] = appPrefs.DColors[brush];
+	QString penLine = appPrefs.toolSettings.dPenLine;
+	if (!tmpSet.contains(penLine) && penLine != CommonStrings::None)
+		tmpSet[penLine] = appPrefs.DColors[penLine];
+	QString brushPict = appPrefs.toolSettings.dBrushPict;
+	if (!tmpSet.contains(brushPict) && brushPict != CommonStrings::None)
+		tmpSet[brushPict] = appPrefs.DColors[brushPict];
+	appPrefs.DColors = tmpSet;
 }
 
 void PrefsManager::setColorSetName(const QString& colorSetName)
