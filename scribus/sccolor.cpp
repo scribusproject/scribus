@@ -105,13 +105,24 @@ void ScColor::fromQColor(QColor color)
 
 void ScColor::getRawRGBColor(int *r, int *g, int *b) const
 {
-	*r = 255-QMIN(255, CR + K);
-	*g = 255-QMIN(255, MG + K);
-	*b = 255-QMIN(255, YB + K);
+	if (Model == colorModelRGB)
+	{
+		*r = CR;
+		*g = MG;
+		*b = YB;
+	}
+	else
+	{
+		*r = 255-QMIN(255, CR + K);
+		*g = 255-QMIN(255, MG + K);
+		*b = 255-QMIN(255, YB + K);
+	}
 }
 
 QColor ScColor::getRawRGBColor() const
 {
+	if (Model == colorModelRGB)
+		return QColor(CR, MG, YB);
 	return QColor(255-QMIN(255, CR + K), 255-QMIN(255, MG + K), 255 - QMIN(255, YB + K));
 }
 
