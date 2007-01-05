@@ -227,6 +227,10 @@ QString FileLoader::readSLA(const QString & fileName)
 
 bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 {
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	
 	bool ret = false;
 	newReplacement = false;
 	ReplacedFonts.clear();
@@ -413,7 +417,8 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
@@ -626,12 +631,21 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					PAGE=PAGE.nextSibling();
 					continue;
 				}
-				if (pg.attribute("OwnPage").toInt() == PageToLoad)
+				if (pg.attribute("OwnPage").toInt() != PageToLoad)
+				{			
+					if (pg.tagName()=="PAGEOBJECT")
+						itemRemap[itemCount++] = -1;
+				}
+				else
 				{
-					if (pg.attribute("NEXTITEM").toInt() != -1)
+					// first of linked chain?
+					if (pg.tagName()=="PAGEOBJECT")
 					{
-						if (pg.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(doc->Items->count());
+						itemRemap[itemCount++] = doc->Items->count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+						{
+							itemNext[doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
+						}
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
@@ -729,7 +743,6 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
-					Neu->NextIt = baseobj + pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -794,31 +807,35 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				ta->BottomLink = 0;
 		}
 	}
-	if (LFrames.count() != 0)
+	// reestablish textframe links
+	if (itemNext.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = doc->Items->at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				if (Its->NextIt < static_cast<int>(doc->Items->count()))
+				PageItem * Its = doc->Items->at(lc.key());
+				PageItem * Itn = doc->Items->at(itemRemap[lc.data()]);
+				if (Itn->BackBox) 
 				{
-					Itn = doc->Items->at(Its->NextIt);
-					Its->NextBox = Itn;
-					Itn->BackBox = Its;
-					Its = Itn;
+					qDebug("scribus13format: corruption in linked textframes detected");
+					continue;
 				}
-				else
-					Its->NextIt = -1;
+				Its->NextBox = Itn;
+				Itn->BackBox = Its;
 			}
-			Its->NextBox = 0;
 		}
+	}	
+	
+	// reestablish first/lastAuto
+	doc->FirstAuto = doc->LastAuto;
+	if (doc->LastAuto)
+	{
+		while (doc->LastAuto->NextBox)
+			doc->LastAuto = doc->LastAuto->NextBox;
+		while (doc->FirstAuto->BackBox)
+			doc->FirstAuto = doc->FirstAuto->BackBox;
 	}
 	return true;
 }
@@ -843,7 +860,9 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	double xf, xf2;
 	PageItem *Neu;
 	Page* Apage;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
@@ -1593,11 +1612,16 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
-					if ((pg.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pg.attribute("AUTOTEXT").toInt())))
+
+				if (pg.tagName()=="PAGEOBJECT")
+				{
+					itemRemap[itemCount++] = doc->Items->count();
+					// member of linked chain?
+					if ((pg.attribute("NEXTITEM").toInt() != -1) )
 					{
-						if (pg.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(doc->Items->count());
+						itemNext[doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
+				}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc);
@@ -1693,7 +1717,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
-					Neu->NextIt = pg.attribute("NEXTITEM").toInt();
+
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						doc->FrameItems.append(doc->Items->take(Neu->ItemNr));
@@ -1831,29 +1855,38 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		la.isEditable = true;
 		doc->Layers.append(la);
 	}
-	if (LFrames.count() != 0)
+
+	// reestablish textframe links
+	if (itemNext.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = doc->Items->at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			if (Its->isAutoText)
-				doc->FirstAuto = Its;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				Itn = doc->Items->at(Its->NextIt);
+				PageItem * Its = doc->Items->at(lc.key());
+				PageItem * Itn = doc->Items->at(itemRemap[lc.data()]);
+				if (Itn->BackBox) 
+				{
+					qDebug("scribus13format: corruption in linked textframes detected");
+					continue;
+				}
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
-				Its = Itn;
 			}
-			Its->NextBox = 0;
 		}
 	}
+	
+	// reestablish first/lastAuto
+	doc->FirstAuto = doc->LastAuto;
+	if (doc->LastAuto)
+	{
+		while (doc->LastAuto->NextBox)
+			doc->LastAuto = doc->LastAuto->NextBox;
+		while (doc->FirstAuto->BackBox)
+			doc->FirstAuto = doc->FirstAuto->BackBox;
+	}
+	
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
