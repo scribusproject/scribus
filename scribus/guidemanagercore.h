@@ -103,6 +103,8 @@ private:
 	Page* m_page;
 	Guides horizontalStdG;
 	Guides verticalStdG;
+	Guides horizontalAutoG;
+	Guides verticalAutoG;
 
 	double m_horizontalAutoGap;
 	double m_verticalAutoGap;
@@ -115,26 +117,6 @@ private:
 	double closestHorBelow(double y);// const;
 	double closestVertLeft(double x);// const;
 	double closestVertRight(double x);// const;
-
-	//! \brief width of the current page
-	double locPageWidth;
-	//! \brief height of the current page
-	double locPageHeight;
-	//! \brief position of the group of selected objects
-	double gx, gy, gw, gh;
-
-	/*! \brief Create automatic horizontal guides.
-	Calculates positions of the guides. */
-	Guides getAutoHorizontals();
-
-	/*! \brief Create automatic vertical guides.
-	Calculates positions of the guides. */
-	Guides getAutoVerticals();
-
-	/*! \brief Recalculate the margins and measurements for the current page.
-	It's used for automatic guides position. It's called for every
-	page when is "apply to all pages" switched on */
-	void resetMarginsForPage();
 };
 
 

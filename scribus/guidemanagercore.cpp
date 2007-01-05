@@ -31,6 +31,8 @@ GuideManagerCore::GuideManagerCore():
 {
 	clearHorizontals(Standard);
 	clearVerticals(Standard);
+	clearHorizontals(Auto);
+	clearVerticals(Auto);
 }
 
 GuideManagerCore::GuideManagerCore(Page *parentPage):
@@ -45,6 +47,8 @@ GuideManagerCore::GuideManagerCore(Page *parentPage):
 {
 	clearHorizontals(Standard);
 	clearVerticals(Standard);
+	clearHorizontals(Auto);
+	clearVerticals(Auto);
 }
 
 GuideManagerCore::~GuideManagerCore()
@@ -90,6 +94,9 @@ void GuideManagerCore::addHorizontals(Guides values, GuideType type)
 			}
 			break;
 		case Auto:
+			horizontalAutoG.clear();
+			for (it = values.begin(); it != values.end(); ++it)
+				horizontalAutoG.append((*it));
 			break;
 	}
 }
@@ -128,6 +135,9 @@ void GuideManagerCore::addVerticals(Guides values, GuideType type)
 			}
 			break;
 		case Auto:
+			verticalAutoG.clear();
+			for (it = values.begin(); it != values.end(); ++it)
+				verticalAutoG.append((*it));
 			break;
 	}
 }
@@ -176,7 +186,7 @@ Guides GuideManagerCore::horizontals(GuideType type)
 			return horizontalStdG;
 			break;
 		case Auto:
-			return getAutoHorizontals();
+			return horizontalAutoG;
 			break;
 	}
 	// just to prevent the compiler warnings
@@ -191,7 +201,7 @@ Guides GuideManagerCore::verticals(GuideType type)
 			return verticalStdG;
 			break;
 		case Auto:
-			return getAutoVerticals();
+			return verticalAutoG;
 			break;
 	}
 	return verticalStdG;
@@ -236,6 +246,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 			m_horizontalAutoCount= 0;
 			m_verticalAutoCount = 0;
 			m_horizontalAutoRefer = 0;
+			horizontalAutoG.clear();
 			break;
 	}
 }
@@ -253,6 +264,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			m_horizontalAutoCount= 0;
 			m_verticalAutoCount = 0;
 			m_verticalAutoRefer = 0;
+			verticalAutoG.clear();
 			break;
 	}
 }
@@ -300,6 +312,8 @@ void GuideManagerCore::copy(GuideManagerCore *target)
 {
 	target->addHorizontals(horizontalStdG, Standard);
 	target->addVerticals(verticalStdG, Standard);
+	target->addHorizontals(horizontalStdG, Auto);
+	target->addVerticals(verticalStdG, Auto);
 	target->setHorizontalAutoCount(m_horizontalAutoCount);
 	target->setVerticalAutoCount(m_verticalAutoCount);
 	target->setHorizontalAutoGap(m_horizontalAutoGap);
@@ -323,6 +337,8 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 			target->setVerticalAutoGap(m_verticalAutoGap);
 			target->setHorizontalAutoRefer(m_horizontalAutoRefer);
 			target->setVerticalAutoRefer(m_verticalAutoRefer);
+			target->addHorizontals(horizontalStdG, Auto);
+			target->addVerticals(verticalStdG, Auto);
 			break;
 	}
 }
@@ -360,11 +376,10 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	else
 		color = doc->guidesSettings.guideColor;
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
-	Guides verticalAutoG = getAutoVerticals();
+
 	for (it = verticalAutoG.begin(); it != verticalAutoG.end(); ++it)
 		if ((*it) >= 0 && (*it) <= m_page->width())
 			p->drawLine(FPoint((*it), 0), FPoint((*it), m_page->height()));
-	Guides horizontalAutoG = getAutoHorizontals();
 	for (it = horizontalAutoG.begin(); it != horizontalAutoG.end(); ++it)
 		if ((*it) >= 0 && (*it) <= m_page->height())
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
@@ -381,7 +396,7 @@ bool GuideManagerCore::isMouseOnHorizontal(double low, double high, GuideType ty
 			tmp = horizontalStdG;
 			break;
 		case Auto:
-			tmp = getAutoHorizontals();
+			tmp = horizontalAutoG;
 			break;
 	}
 	for (it = tmp.begin(); it != tmp.end(); ++it)
@@ -404,7 +419,7 @@ bool GuideManagerCore::isMouseOnVertical(double low, double high, GuideType type
 			tmp = verticalStdG;
 			break;
 		case Auto:
-			tmp = getAutoVerticals();
+			tmp = horizontalAutoG;
 			break;
 	}
 	for (it = tmp.begin(); it != tmp.end(); ++it)
@@ -445,7 +460,6 @@ double GuideManagerCore::closestHorAbove(double y)// const
 			closest = horizontalStdG[i];
 	}
 
-	Guides horizontalAutoG = getAutoHorizontals();
 	for (uint i = 0; i < horizontalAutoG.size(); ++i)
 	{
 		if (horizontalAutoG[i] < y && horizontalAutoG[i] > closest)
@@ -469,7 +483,6 @@ double GuideManagerCore::closestHorBelow(double y)// const
 			closest = horizontalStdG[i];
 	}
 
-	Guides horizontalAutoG = getAutoHorizontals();
 	for (uint i = 0; i < horizontalAutoG.size(); ++i)
 	{
 		if (horizontalAutoG[i] > y && horizontalAutoG[i] < closest)
@@ -493,7 +506,6 @@ double GuideManagerCore::closestVertLeft(double x)// const
 			closest = verticalStdG[i];
 	}
 
-	Guides verticalAutoG = getAutoVerticals();
 	for (uint i = 0; i < verticalAutoG.size(); ++i)
 	{
 		if (verticalAutoG[i] < x && verticalAutoG[i] > closest)
@@ -517,7 +529,6 @@ double GuideManagerCore::closestVertRight(double x)// const
 			closest = verticalStdG[i];
 	}
 
-	Guides verticalAutoG = getAutoVerticals();
 	for (uint i = 0; i < verticalAutoG.size(); ++i)
 	{
 		if (verticalAutoG[i] > x && verticalAutoG[i] < closest)
@@ -530,130 +541,6 @@ double GuideManagerCore::closestVertRight(double x)// const
 		closest = m_page->width() - m_page->Margins.Right;
 
 	return closest;
-}
-
-Guides GuideManagerCore::getAutoVerticals()
-{
-	resetMarginsForPage();
-
-	Guides retval;
-	double columnSize;
-	int value = m_verticalAutoCount;
-	double offset = 0;
-	double newPageWidth = locPageWidth;
-
-	if (value == 0)
-		return retval;
-	++value;
-
-	if (m_verticalAutoRefer == 1)
-	{
-		newPageWidth = locPageWidth - m_page->Margins.Left - m_page->Margins.Right;
-		offset = m_page->Margins.Left;
-	}
-	else if (m_verticalAutoRefer == 2)
-	{
-		offset = gx;
-		newPageWidth = gw;
-	}
-
-	if (m_verticalAutoGap > 0.0)
-		columnSize = (newPageWidth - (value - 1) * m_verticalAutoGap) / value;
-	else
-		columnSize = newPageWidth / value;
-
-	for (int i = 1, gapCount = 0; i < value; ++i)
-	{
-		if (m_verticalAutoGap > 0.0)
-		{
-			retval.append(offset + i * columnSize + gapCount * m_verticalAutoGap);
-			++gapCount;
-			retval.append(offset + i * columnSize + gapCount * m_verticalAutoGap);
-		}
-		else
-			retval.append(offset + columnSize * i);
-	}
-	return retval;
-}
-
-Guides GuideManagerCore::getAutoHorizontals()
-{
-	resetMarginsForPage();
-
-	Guides retval;
-	double rowSize;
-	int value = m_horizontalAutoCount;
-	double offset = 0;
-	double newPageHeight = locPageHeight;
-
-	if (value == 0)
-		return retval;
-	++value;
-
-	if (m_horizontalAutoRefer == 1)
-	{
-		newPageHeight = locPageHeight - m_page->Margins.Top - m_page->Margins.Bottom;
-		offset = m_page->Margins.Top;
-	}
-	else if (m_horizontalAutoRefer == 2)
-	{
-		offset = gy;
-		newPageHeight = gh;
-	}
-
-	if (m_horizontalAutoGap > 0.0)
-		rowSize = (newPageHeight - (value - 1) * m_horizontalAutoGap) / value;
-	else
-		rowSize = newPageHeight / value;
-
-	for (int i = 1, gapCount = 0; i < value; ++i)
-	{
-		if (m_horizontalAutoGap > 0.0)
-		{
-			retval.append(offset + i * rowSize + gapCount * m_horizontalAutoGap);
-			++gapCount;
-			retval.append(offset + i * rowSize + gapCount * m_horizontalAutoGap);
-		}
-		else
-			retval.append(offset + rowSize * i);
-	}
-	return retval;
-}
-
-void GuideManagerCore::resetMarginsForPage()
-{
-	locPageWidth = m_page->width();
-	locPageHeight = m_page->height();
-	// whatif selection settings
-	FPoint selectionTopLeft = FPoint(0, 0);
-	FPoint selectionBottomRight = FPoint(0, 0);
-
-	int docSelectionCount = m_page->doc()->m_Selection->count();
-
-	// multiselection
-	if (docSelectionCount > 1)
-	{
-		double gx,gy,gw,gh;
-		m_page->doc()->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-		selectionTopLeft.setXY(gx - m_page->xOffset(), gy - m_page->yOffset());
-		selectionBottomRight.setXY(gw, gh);
-	}
-	// only one item selected
-	else if (docSelectionCount == 1)
-	{
-		PageItem *currItem = m_page->doc()->m_Selection->itemAt(0);
-		selectionTopLeft.setXY(currItem->xPos() - m_page->xOffset(),
-							   currItem->yPos() - m_page->yOffset());
-		selectionBottomRight.setXY(currItem->width(), currItem->height());
-	}
-
-	if (selectionBottomRight != FPoint(0, 0))
-	{
-		gy = selectionTopLeft.y();
-		gx = selectionTopLeft.x();
-		gw = selectionBottomRight.x();
-		gh = selectionBottomRight.y();
-	}
 }
 
 
