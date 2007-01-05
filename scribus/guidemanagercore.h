@@ -23,15 +23,17 @@ class UndoManager;
 
 /*! \brief Core manipulation with the guides.
 Basic idea:
-- keep all guides operation here.
-- guides will be handled "on the fly", no by modal dialog.
-- 2 types of guides: Standard = created one by one. Auto = created by automatic division algorithms.
+- guides are handled "on the fly", no by modal dialog.
+- 2 types of guides: Standard = created one by one.
+Auto = created by automatic division algorithms.
+Automatic guides are kept by 2 ways: 1st its parameters (m_horizontalAutoCount etc.)
+to setup the GUI and compute guides itself. 2nd the horizontalAutoG etc. set
+with precomputed values from GUI actions for drawing.
 - user can move only Stnadard ones
 - Auto guides can be deleted only in manipulation dialog
 - Auto guides are painted in different color / (propably) with diff. line.
-
-Implementing of class Guide() as standalone entity looks great in object
-design bit it's too slow */
+\author Petr vanek <petr@scribus.info>
+*/
 class SCRIBUS_API GuideManagerCore
 {
 public:
@@ -98,6 +100,12 @@ public:
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; };
 
+	/*! \brief Selection/group coordinates
+	It's used to simulate the original selection "freezed in time"
+	for parent page */
+	double gx, gy, gw, gh;
+
+
 private:
 	UndoManager * const undoManager;
 	Page* m_page;
@@ -160,6 +168,9 @@ class SCRIBUS_API GuideManagerIO
 
 		static QString writeHorizontalGuides(Page *page, GuideManagerCore::GuideType type);
 		static QString writeVerticalGuides(Page *page, GuideManagerCore::GuideType type);
+
+		static void readSelection(const QString guideString, Page *page);
+		static QString writeSelection(Page *page);
 };
 
 #endif

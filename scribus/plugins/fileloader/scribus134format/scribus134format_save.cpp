@@ -861,6 +861,7 @@ void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomEleme
 		pg.setAttribute("AGverticalAutoCount", page->guides.verticalAutoCount());
 		pg.setAttribute("AGhorizontalAutoRefer", page->guides.horizontalAutoRefer());
 		pg.setAttribute("AGverticalAutoRefer", page->guides.verticalAutoRefer());
+		pg.setAttribute("AGSelection", GuideManagerIO::writeSelection(page));
 		dc->appendChild(pg);
 	}
 }

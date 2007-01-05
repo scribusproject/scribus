@@ -310,16 +310,8 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 
 void GuideManagerCore::copy(GuideManagerCore *target)
 {
-	target->addHorizontals(horizontalStdG, Standard);
-	target->addVerticals(verticalStdG, Standard);
-	target->addHorizontals(horizontalStdG, Auto);
-	target->addVerticals(verticalStdG, Auto);
-	target->setHorizontalAutoCount(m_horizontalAutoCount);
-	target->setVerticalAutoCount(m_verticalAutoCount);
-	target->setHorizontalAutoGap(m_horizontalAutoGap);
-	target->setVerticalAutoGap(m_verticalAutoGap);
-	target->setHorizontalAutoRefer(m_horizontalAutoRefer);
-	target->setVerticalAutoRefer(m_verticalAutoRefer);
+	copy(target, Standard);
+	copy(target, Auto);
 }
 
 void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
@@ -339,6 +331,10 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 			target->setVerticalAutoRefer(m_verticalAutoRefer);
 			target->addHorizontals(horizontalStdG, Auto);
 			target->addVerticals(verticalStdG, Auto);
+			target->gx = gx;
+			target->gy = gy;
+			target->gw = gw;
+			target->gh = gh;
 			break;
 	}
 }
@@ -589,4 +585,18 @@ QString GuideManagerIO::writeVerticalGuides(Page *page, GuideManagerCore::GuideT
 		retval += tmp + " ";
 	}
 	return retval;
+}
+
+QString GuideManagerIO::writeSelection(Page *page)
+{
+	return QString("%1 %2 %3 %4").arg(page->guides.gx).arg(page->guides.gy).arg(page->guides.gw).arg(page->guides.gh);
+}
+
+void GuideManagerIO::readSelection(const QString guideString, Page *page)
+{
+	QStringList gVal(QStringList::split(' ', guideString));
+	page->guides.gx = gVal[0].toDouble();
+	page->guides.gy = gVal[1].toDouble();
+	page->guides.gw = gVal[2].toDouble();
+	page->guides.gh = gVal[3].toDouble();
 }

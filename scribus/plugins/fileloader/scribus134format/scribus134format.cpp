@@ -1006,6 +1006,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						Apage,
 						GuideManagerCore::Standard,
 						pg.hasAttribute("NumHGuides"));
+				GuideManagerIO::readSelection(pg.attribute("AGSelection"), Apage);
+				
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
@@ -2721,6 +2723,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 												Apage,
 												GuideManagerCore::Standard,
 												pg.hasAttribute("NumHGuides"));
+				GuideManagerIO::readSelection(pg.attribute("AGSelection"), Apage);
+				
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{

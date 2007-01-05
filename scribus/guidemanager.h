@@ -64,7 +64,7 @@ It's scribus non-modal palette now.
 \warning Be careful with UI file guidemanagerbase.ui it uses ScrPaletteBase
 as base class instead of QDialog. It should provide correct header file too.
 
-\author Petr Vanek <petr@yarpen.cz>
+\author Petr vanek <petr@scribus.info>
 \author Alessandro Rimoldi
 \author Franz Schmid
 */
@@ -167,13 +167,6 @@ private:
 	is no selection on current page. */
 	void windowActivationChange(bool oldActive);
 
-	//! \brief width of the current page
-	double locPageWidth;
-	//! \brief height of the current page
-	double locPageHeight;
-	//! \brief position of the group of selected objects
-	double gx, gy, gw, gh;
-
 	/*! \brief Create automatic horizontal guides.
 	Calculates positions of the guides. */
 	Guides getAutoHorizontals();
@@ -182,10 +175,11 @@ private:
 	Calculates positions of the guides. */
 	Guides getAutoVerticals();
 
-	/*! \brief Recalculate the margins and measurements for the current page.
+	/*! \brief Recalculate the selection position and measurements for the current page.
 	It's used for automatic guides position. It's called for every
-	page when is "apply to all pages" switched on */
-	void resetMarginsForPage();
+	selection GUI widgets change to handle selection change only
+	when needed. */
+	void resetSelectionForPage();
 
 protected slots:
 	void addHorButton_clicked();
