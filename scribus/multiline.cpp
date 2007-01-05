@@ -180,7 +180,7 @@ void MultiLine::updateSList()
 	QString tmp, tmp2;
 	QPixmap * pm;
 	pm = getWidePixmap(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
-	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width)+ tr(" pt ");
+	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width) + " " + tr("pt") + " ";
 	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
 	{
 	case SolidLine:
