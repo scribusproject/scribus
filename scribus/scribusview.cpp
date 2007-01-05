@@ -8407,7 +8407,7 @@ void ScribusView::slotDoCurs(bool draw)
 		
 		if (textframe->firstInFrame() >= 0 
 			&& textframe->lastInFrame() >= textframe->firstInFrame() 
-			&& textframe->CPos > 0 
+			&& textframe->CPos >= textframe->itemText.startOfItem(textframe->firstInFrame())
 			&& textframe->CPos <= textframe->itemText.endOfItem(textframe->lastInFrame()))
 		{
 			QPainter p;
@@ -8458,8 +8458,8 @@ void ScribusView::slotDoCurs(bool draw)
 				y1 = static_cast<int>(bbox.y() + bbox.height());
 			}
 #endif
-			if (x < 2)
-				x = 2;
+			if (x < 1)
+				x = 1;
 			p.setPen(QPen(white, 2, SolidLine, FlatCap, MiterJoin));
 			p.setRasterOp(XorROP);
 			if (draw)
