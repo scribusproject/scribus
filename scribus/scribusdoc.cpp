@@ -353,6 +353,8 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
+	PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	PageColors.insert("White", ScColor(0, 0, 0, 0));
 
 	CMSSettings = prefsManager->appPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorProfile;

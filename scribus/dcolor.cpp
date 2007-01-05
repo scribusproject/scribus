@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "page.h"
 #include "colorcombo.h"
+#include "prefsmanager.h"
 
 #include "dcolor.h"
 #include "dcolor.moc"
@@ -38,7 +39,9 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
     colorToDelLabel = new QLabel( colorName, this, "colorToDelLabel" );
     delColorLayout->addWidget( colorToDelLabel, 0, 1 );
 
-	if (haveDoc)
+	PrefsManager* prefsManager = PrefsManager::instance();
+	bool isToolColor = prefsManager->isToolColor(colorName);
+	if (haveDoc || isToolColor)
 	{
     	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
     	delColorLayout->addWidget( replaceLabel, 1, 0 );
@@ -70,7 +73,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 
     connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	if (haveDoc)
+	if (haveDoc || isToolColor)
     	connect( replacementColData, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 

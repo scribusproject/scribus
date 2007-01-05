@@ -823,7 +823,15 @@ void ColorManager::selEditFarbe(QListBoxItem *c)
 
 void ColorManager::updateCList()
 {
-	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
+	ColorList::Iterator it;
+	colorListBox->clear();
+	for (it = EditColors.begin(); it != EditColors.end(); ++it)
+	{
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor || 
+			it.key() == "White" || it.key() == "Black")
+			continue;
+		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), it.key()) );
+	}
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (colorListBox->currentItem() == -1)
 	{
