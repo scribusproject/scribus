@@ -292,7 +292,6 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 		deleteLayerButton->setEnabled(false);
 		raiseLayerButton->setEnabled(false);
 		lowerLayerButton->setEnabled(false);
-
 		markActiveLayer(0);
 	}
 	layers=&m_Doc->Layers;
@@ -301,9 +300,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	markActiveLayer(m_Doc->activeLayer());
 	newLayerButton->setEnabled(true);
 	duplicateLayerButton->setEnabled(true);
-	deleteLayerButton->setEnabled(true);
-	raiseLayerButton->setEnabled(true);
-	lowerLayerButton->setEnabled(true);
+
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -578,7 +575,18 @@ void LayerPalette::markActiveLayer(int layerNumber)
 	Table->setCurrentCell(m_Doc->layerCount()-1-m_Doc->layerLevelFromNumber(layerToMark), 6);
 	opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(layerToMark) * 100));
 	blendMode->setCurrentItem(m_Doc->layerBlendMode(layerToMark));
-	deleteLayerButton->setEnabled(!m_Doc->layerLocked( m_Doc->activeLayer() ));
+	deleteLayerButton->setEnabled(m_Doc->layerCount()>1 && !m_Doc->layerLocked( m_Doc->activeLayer() ));
+		
+	if (layers->count()>1)
+	{
+		raiseLayerButton->setEnabled(Table->currentRow()!=0);
+		lowerLayerButton->setEnabled(Table->currentRow()!=Table->numRows()-1);
+	}
+	else
+	{
+		raiseLayerButton->setEnabled(false);
+		lowerLayerButton->setEnabled(false);
+	}
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -595,7 +603,17 @@ void LayerPalette::setActiveLayer(int row)
 		m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 		opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(m_Doc->activeLayer()) * 100));
 		blendMode->setCurrentItem(m_Doc->layerBlendMode(m_Doc->activeLayer()));
-		deleteLayerButton->setEnabled(!m_Doc->layerLocked( m_Doc->activeLayer() ));
+		deleteLayerButton->setEnabled(m_Doc->layerCount()>1 && !m_Doc->layerLocked( m_Doc->activeLayer() ));
+		if (layers->count()>1)
+		{
+			raiseLayerButton->setEnabled(Table->currentRow()!=0);
+			lowerLayerButton->setEnabled(Table->currentRow()!=Table->numRows()-1);
+		}
+		else
+		{
+			raiseLayerButton->setEnabled(false);
+			lowerLayerButton->setEnabled(false);
+		}
 	}
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
