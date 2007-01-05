@@ -533,3 +533,11 @@ void GuideManager::deleteAllGuides_clicked()
 	m_drawGuides = true;
 	drawGuides();
 }
+
+void GuideManager::windowActivationChange(bool oldActive)
+{
+	bool enable = (m_Doc->m_Selection->count() > 0) ? true : false;
+	horizontalSelectionAutoButton->setEnabled(enable);
+	verticalSelectionAutoButton->setEnabled(enable);
+	QDialog::windowActivationChange( oldActive );
+}
