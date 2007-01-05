@@ -507,7 +507,7 @@ void ColorManager::loadFarben()
 		return;
 	if (!fileName.isEmpty())
 	{
-		int oldCount = EditColors.count();
+		uint oldCount = EditColors.count();
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.extension(false).lower();

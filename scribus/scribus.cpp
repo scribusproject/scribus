@@ -7883,9 +7883,9 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 			propertiesPalette->updateColorList();
 			propertiesPalette->Spal->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
-			outlinePalette->BuildTree();
-			outlinePalette->reopenTree(doc->OpenNodes);
+//			outlinePalette->BuildTree();
 			slotDocCh();
+			outlinePalette->reopenTree(doc->OpenNodes);
 		}
 	}
 	delete ss;
@@ -8198,7 +8198,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		}
 		doc->GroupCounter++;
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-		outlinePalette->BuildTree();
+//		outlinePalette->BuildTree();
 		slotDocCh();
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
@@ -8234,6 +8234,9 @@ void ScribusMainWindow::UnGroupObj()
 			ss->set("UNGROUP", "ungroup");
 			ss->set("itemcount", docSelectionCount);
 			QString tooltip = Um::ItemsInvolved + "\n";
+			slotDocCh();
+			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
+			doc->m_Selection->itemAt(0)->emitAllToGUI();
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
@@ -8241,13 +8244,9 @@ void ScribusMainWindow::UnGroupObj()
 				ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
 				tooltip += "\t" + currItem->getUName() + "\n";
 				currItem->isTableItem = false;
+				currItem->setSelected(true);
+				currItem->paintObj();
 			}
-//			view->Deselect(true);
-			view->DrawNew();
-			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
-			doc->m_Selection->itemAt(0)->emitAllToGUI();
-			outlinePalette->BuildTree();
-			slotDocCh();
 			undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 		}
 	}

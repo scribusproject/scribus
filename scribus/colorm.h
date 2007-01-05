@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 class DynamicTip;
 class ScribusDoc;
+class ColorListBox;
 
 class SCRIBUS_API ColorSmallPixmapItem : public ScListBoxPixmap<15,15>
 {
