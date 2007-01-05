@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-21 23:33+0100\n"
+"POT-Creation-Date: 2007-01-05 20:28+0100\n"
 "PO-Revision-Date: 2006-06-05 21:23+0300\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -48,6 +48,9 @@ msgstr "Συντελεστές:"
 
 msgid "Mac OS&#174; X Aqua Port:"
 msgstr "Μεταφορά σε Mac OS&#174; X Aqua:"
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
+msgstr ""
 
 msgid "Windows&#174; Port:"
 msgstr "Μεταφορά σε Windows&#174;:"
@@ -884,139 +887,6 @@ msgstr "ft"
 msgid "st"
 msgstr "st"
 
-msgid "Align and Distribute"
-msgstr "Στοίχιση και κατανομή"
-
-msgid "&Relative to:"
-msgstr "&Σχετικά με:"
-
-msgid "First Selected"
-msgstr "Πρώτο επιλεγμένο"
-
-msgid "Last Selected"
-msgstr "Τελευταίο επιλεγμένο"
-
-msgid "Page"
-msgstr "Σελίδα"
-
-msgid "Margins"
-msgstr "Περιθώρια"
-
-msgid "Guide"
-msgstr "Οδηγός"
-
-msgid "Selection"
-msgstr "Επιλογή"
-
-#, fuzzy
-msgid "Align right sides of items to left side of anchor"
-msgstr ""
-"Στοίχιση δεξιάς πλευράς των αντικειμένων με την αριστερή πλευρά της άγκυρας"
-
-#, fuzzy
-msgid "Align left sides of items to right side of anchor"
-msgstr ""
-"Στοίχιση αριστερής πλευράς των αντικειμένων με τη δεξιά πλευρά της άγκυρας"
-
-msgid "Align bottoms"
-msgstr "Στοίχιση του κάτω μέρους"
-
-msgid "Align right sides"
-msgstr "Στοίχιση δεξιάς πλευράς"
-
-#, fuzzy
-msgid "Align tops of items to bottom of anchor"
-msgstr "Στοίχιση του πάνω μέρους στο κάτω μέρος της άγκυρας"
-
-msgid "Center on vertical axis"
-msgstr "Κεντράρισμα στον κατακόρυφο άξονα"
-
-msgid "Align left sides"
-msgstr "Στοίχιση αριστερής πλευράς"
-
-msgid "Center on horizontal axis"
-msgstr "Κεντράρισμα στον οριζόντιο άξονα"
-
-#, fuzzy
-msgid "Align bottoms of items to top of anchor"
-msgstr "Στοίχιση του κάτω μέρους στην κορυφή της άγκυρας"
-
-msgid "Align tops"
-msgstr "Στοίχιση άνω μέρους"
-
-msgid "&Selected Guide:"
-msgstr "&Επιλεγμένος οδηγός:"
-
-#, fuzzy
-msgid "Make horizontal gaps between items equal"
-msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
-
-#, fuzzy
-msgid "Make horizontal gaps between items equal to the value specified"
-msgstr ""
-"Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα με την καθορισμένη "
-"τιμή"
-
-msgid "Distribute right sides equidistantly"
-msgstr "Κατανομή δεξιάς πλευράς σε ίση απόσταση"
-
-msgid "Distribute bottoms equidistantly"
-msgstr "Κατανομή κάτω μέρους σε ίση απόσταση"
-
-msgid "Distribute centers equidistantly horizontally"
-msgstr "Κατανομή κέντρων οριζόντια σε ίση απόσταση"
-
-#, fuzzy
-msgid "Make vertical gaps between items equal"
-msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
-
-#, fuzzy
-msgid "Make vertical gaps between items equal to the value specified"
-msgstr ""
-"Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα με την καθορισμένη "
-"τιμή"
-
-msgid "Distribute left sides equidistantly"
-msgstr "Κατανομή αριστερής πλευράς σε ίση απόσταση"
-
-msgid "Distribute centers equidistantly vertically"
-msgstr "Κατανομή κέντρων κατακόρυφα σε ίση απόσταση"
-
-msgid "Distribute tops equidistantly"
-msgstr "Κατανομή άνω μέρους σε ίση απόσταση"
-
-#, fuzzy
-msgid "Make horizontal gaps between items and sides of page equal"
-msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
-
-#, fuzzy
-msgid ""
-"Make vertical gaps between items and the top and bottom of page margins equal"
-msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
-
-#, fuzzy
-msgid "Make horizontal gaps between items and sides of page margins equal"
-msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
-
-#, fuzzy
-msgid "Make vertical gaps between items and the top and bottom of page equal"
-msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
-
-msgid "&Distance:"
-msgstr "&Απόσταση:"
-
-msgid "Distribute the items with the distance specified"
-msgstr "Κατανομή των αντικειμένων με την καθορισμένη απόσταση"
-
-msgid "None Selected"
-msgstr "Καμία επιλογή"
-
-msgid "Y: %1%2"
-msgstr "Y: %1%2"
-
-msgid "X: %1%2"
-msgstr "X: %1%2"
-
 msgid "Align Text Left"
 msgstr "Στοίχιση κειμένου αριστερά"
 
@@ -1424,7 +1294,7 @@ msgstr "Άνοιγμα"
 
 #, fuzzy
 msgid ""
-"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
 msgstr ""
 "Εικόνες (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Όλα τα αρχεία (*)"
 
@@ -1588,8 +1458,9 @@ msgstr "Εικονίδιο"
 msgid "Reset"
 msgstr "Επαναφορά"
 
-msgid "Select Character:"
-msgstr "Επιλογή χαρακτήρα:"
+#, fuzzy
+msgid "Character Palette"
+msgstr "Χαρακτήρας"
 
 #, fuzzy
 msgid "Scribus Char Palette (*.ucp);;All Files (*)"
@@ -2141,7 +2012,7 @@ msgstr "Επιλέξτε ένα όνομα"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *."
 "ai);;All Files (*)"
 msgstr "Έγγραφα (*.sla *.sla.gz *.scd *.scd.gz);;Όλα τα αρχεία (*)"
 
@@ -2149,6 +2020,14 @@ msgstr "Έγγραφα (*.sla *.sla.gz *.scd *.scd.gz);;Όλα τα αρχεία
 msgid ""
 "Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr "Έγγραφα (*.sla *.sla.gz *.scd *.scd.gz);;Όλα τα αρχεία (*)"
+
+msgid "Information"
+msgstr "Πληροφορίες"
+
+msgid ""
+"The file %1 does not contain any new colors.\n"
+"If the file was an EPS try to import it with File -> Import"
+msgstr ""
 
 msgid "Copy of %1"
 msgstr "Αντίγραφο του %1"
@@ -2927,6 +2806,9 @@ msgstr "PostScript επίπεδο 2"
 
 msgid "PostScript Level 3"
 msgstr "PostScript επίπεδο 3"
+
+msgid "Page"
+msgstr "Σελίδα"
 
 msgid "Mirror Page(s) Horizontal"
 msgstr "Καθρεφτισμός σελίδας(ων) οριζόντια"
@@ -3926,6 +3808,10 @@ msgstr "Εσθονική"
 msgid "German"
 msgstr "Γερμανική"
 
+#, fuzzy
+msgid "German (Swiss)"
+msgstr "Γερμανική (Παραδοσιακή)"
+
 msgid "German (Trad.)"
 msgstr "Γερμανική (Παραδοσιακή)"
 
@@ -4090,6 +3976,10 @@ msgstr "Δείγμα κειμένου"
 msgid "Paragraphs:"
 msgstr "Παράγραφοι:"
 
+#, fuzzy
+msgid "Standard Lorem Ipsum"
+msgstr "Πάντα χρήση τυπικού δείγματος κειμένου"
+
 msgid "Scribus Crash"
 msgstr "Κατάρρευση του Scribus"
 
@@ -4153,19 +4043,21 @@ msgstr "Απόσταση μεταξύ του οδηγού πάνω περιθω�
 msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr "Απόσταση μεταξύ του οδηγού κάτω περιθωρίου και το άκρο της σελίδας"
 
+#, fuzzy
 msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the left margin guide and the edge of the page. If a double-"
+"sided, 3 or 4-fold layout is selected, this margin space can be used to "
+"achieve the correct margins for binding"
 msgstr ""
 "Απόσταση μεταξύ του οδηγού αριστερού περιθωρίου και το άκρο της σελίδας. Αν "
 "είναι επιλεγμένη η εκτύπωση δύο αντικριστών σελίδων, αυτό το περιθώριο "
 "μπορεί να χρησιμοποιηθεί για την επίτευξη σωστών περιθωρίων για το δέσιμο"
 
+#, fuzzy
 msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the right margin guide and the edge of the page. If a "
+"double-sided, 3 or 4-fold layout is selected, this margin space can be used "
+"to achieve the correct margins for binding"
 msgstr ""
 "Απόσταση μεταξύ του οδηγού δεξιού περιθωρίου και το άκρο της σελίδας. Αν "
 "είναι επιλεγμένη η εκτύπωση δύο αντικριστών σελίδων, αυτό το περιθώριο "
@@ -4866,8 +4758,9 @@ msgstr "Αριθμός στηλών κατά την αυτόματη δημιο�
 msgid "Distance between automatically created columns"
 msgstr "Απόσταση στηλών κατά την αυτόματη δημιουργία τους"
 
-msgid "Page Layout"
-msgstr "Διάταξη σελίδας"
+#, fuzzy
+msgid "Document Layout"
+msgstr "Τεκμηρίωση"
 
 msgid "First Page is:"
 msgstr "Η πρώτη σελίδα είναι:"
@@ -5965,9 +5858,6 @@ msgstr "&Ξεκλείδωμα όλων"
 #, fuzzy
 msgid "Group%1"
 msgstr "Ομαδοποίηση"
-
-msgid "Information"
-msgstr "Πληροφορίες"
 
 msgid "The program %1 is already running!"
 msgstr "Το πρόγραμμα %1 εκτελείται ήδη!"
@@ -8614,6 +8504,9 @@ msgstr ""
 "X: %1, Y: %2\n"
 "X: %4, Y: %5"
 
+msgid "Selection"
+msgstr "Επιλογή"
+
 msgid "Group"
 msgstr "Ομαδοποίηση"
 
@@ -8723,6 +8616,10 @@ msgstr "Ορισμός βέλους αρχής"
 
 msgid "Set end arrow"
 msgstr "Ορισμός βέλους τέλους"
+
+#, fuzzy
+msgid "Set start and end arrows"
+msgstr "Ορισμός βέλους αρχής"
 
 msgid "Create table"
 msgstr "Δημιουργία πίνακα"
@@ -9026,6 +8923,12 @@ msgstr "Εργαλεία PDF"
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus: Σχετικά με τα πρόσθετα"
 
+msgid "Align and Distribute"
+msgstr "Στοίχιση και κατανομή"
+
+msgid "&Selected Guide:"
+msgstr "&Επιλεγμένος οδηγός:"
+
 #, fuzzy
 msgid "&Relative To:"
 msgstr "&Σχετικά με:"
@@ -9036,6 +8939,9 @@ msgstr "Προσ&θήκη..."
 
 msgid "Align"
 msgstr "Στοίχιση"
+
+msgid "&Distance:"
+msgstr "&Απόσταση:"
 
 msgid "Distribute"
 msgstr "Κατανομή"
@@ -9151,6 +9057,9 @@ msgstr "Έναρξη"
 msgid "Document Sections"
 msgstr "Τμήματα εγγράφου"
 
+msgid "Guide"
+msgstr "Οδηγός"
+
 msgid "Manage Guides"
 msgstr "Διαχείριση οδηγών"
 
@@ -9222,15 +9131,14 @@ msgid "&Column/Row"
 msgstr "Στήλ&ες:"
 
 #, fuzzy
-msgid "Delete &Page Guides"
-msgstr "Διαγραφή σελίδων"
+msgid "Delete Guides from Current &Page"
+msgstr "Εισαγωγή πρωτότυπων σελίδων από άλλο έγγραφο"
 
 msgid "Delete all guides from the current page"
 msgstr ""
 
-#, fuzzy
-msgid "Delete &Document guides"
-msgstr "Έγγραφα κειμένου"
+msgid "Delete Guides from &All Pages"
+msgstr ""
 
 #, fuzzy
 msgid "Delete all guides from the current document"
@@ -9419,12 +9327,6 @@ msgstr "Συνολική πρόοδος:"
 msgid "Page Item Attributes"
 msgstr "Ιδιότητες αντικειμένου σελίδας"
 
-msgid "LineStyleWBase"
-msgstr "Βάση στυλ γραμμής"
-
-msgid "%"
-msgstr "%"
-
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
@@ -9437,6 +9339,12 @@ msgstr "&Προεπισκόπηση"
 #, fuzzy
 msgid "&Select"
 msgstr "Επιλογή"
+
+msgid "LineStyleWBase"
+msgstr "Βάση στυλ γραμμής"
+
+msgid "%"
+msgstr "%"
 
 #, fuzzy
 msgid "Form1"
@@ -9459,19 +9367,9 @@ msgstr "Α&κύρωση"
 msgid "Alt+N"
 msgstr "Alt+Κ"
 
-msgid "Style Manager"
-msgstr "Διαχειριστής στυλ"
-
 #, fuzzy
-msgid "Alt+R"
-msgstr "Alt+"
-
-msgid "Please select a unique name for the style"
-msgstr ""
-
-#, fuzzy
-msgid "Form2"
-msgstr "Μορφή"
+msgid "TabDisplayBase"
+msgstr "Εμφάνιση"
 
 msgid "Page Display"
 msgstr "Εμφάνιση σελίδας"
@@ -9520,8 +9418,9 @@ msgid "To adjust the display drag the ruler below with the slider."
 msgstr ""
 "Για την προσαρμογή της εμφάνισης σύρετε τον κανόνα από κάτω με την κύλιση."
 
-msgid "textLabel16"
-msgstr ""
+#, fuzzy
+msgid "Scale%"
+msgstr "Κλίμακα:"
 
 #, fuzzy
 msgid "Pages:"
@@ -9566,6 +9465,16 @@ msgstr "Κείμενο"
 #, fuzzy
 msgid "Control Characters:"
 msgstr "Εμφάνιση χαρακτήρων ελέγχου"
+
+msgid "Style Manager"
+msgstr "Διαχειριστής στυλ"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Alt+"
+
+msgid "Please select a unique name for the style"
+msgstr ""
 
 msgid "PostScript Interpreter"
 msgstr "Μεταγλωττιστής PostScript"
@@ -9639,6 +9548,10 @@ msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
 "location"
 msgstr ""
+
+#, fuzzy
+msgid "TabGeneralBase"
+msgstr "Γενικά"
 
 msgid "User Interface"
 msgstr ""
@@ -9750,6 +9663,10 @@ msgid "Count of the Paragraphs:"
 msgstr "Αριθμός παραγράφων:"
 
 #, fuzzy
+msgid "TabPrinterBase"
+msgstr "Περιθώρια εκτυπωτή..."
+
+#, fuzzy
 msgid "Alternative Printer Command"
 msgstr "Ε&ναλλακτική εντολή εκτυπωτή"
 
@@ -9775,6 +9692,10 @@ msgstr "Επίπεδο"
 
 msgid "Marks && Bleeds"
 msgstr ""
+
+#, fuzzy
+msgid "TabScrapbookBase"
+msgstr "Βιβλίο αποκομμάτων"
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -9818,6 +9739,121 @@ msgstr "Χρήση περιθωρίων εκτυπωτή"
 
 msgid "Select &Printer:"
 msgstr "Επιλογή &εκτυπωτή:"
+
+msgid "Margins"
+msgstr "Περιθώρια"
+
+msgid "&Relative to:"
+msgstr "&Σχετικά με:"
+
+msgid "First Selected"
+msgstr "Πρώτο επιλεγμένο"
+
+msgid "Last Selected"
+msgstr "Τελευταίο επιλεγμένο"
+
+#, fuzzy
+msgid "Align right sides of items to left side of anchor"
+msgstr ""
+"Στοίχιση δεξιάς πλευράς των αντικειμένων με την αριστερή πλευρά της άγκυρας"
+
+#, fuzzy
+msgid "Align left sides of items to right side of anchor"
+msgstr ""
+"Στοίχιση αριστερής πλευράς των αντικειμένων με τη δεξιά πλευρά της άγκυρας"
+
+msgid "Align bottoms"
+msgstr "Στοίχιση του κάτω μέρους"
+
+msgid "Align right sides"
+msgstr "Στοίχιση δεξιάς πλευράς"
+
+#, fuzzy
+msgid "Align tops of items to bottom of anchor"
+msgstr "Στοίχιση του πάνω μέρους στο κάτω μέρος της άγκυρας"
+
+msgid "Center on vertical axis"
+msgstr "Κεντράρισμα στον κατακόρυφο άξονα"
+
+msgid "Align left sides"
+msgstr "Στοίχιση αριστερής πλευράς"
+
+msgid "Center on horizontal axis"
+msgstr "Κεντράρισμα στον οριζόντιο άξονα"
+
+#, fuzzy
+msgid "Align bottoms of items to top of anchor"
+msgstr "Στοίχιση του κάτω μέρους στην κορυφή της άγκυρας"
+
+msgid "Align tops"
+msgstr "Στοίχιση άνω μέρους"
+
+#, fuzzy
+msgid "Make horizontal gaps between items equal"
+msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid "Make horizontal gaps between items equal to the value specified"
+msgstr ""
+"Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα με την καθορισμένη "
+"τιμή"
+
+msgid "Distribute right sides equidistantly"
+msgstr "Κατανομή δεξιάς πλευράς σε ίση απόσταση"
+
+msgid "Distribute bottoms equidistantly"
+msgstr "Κατανομή κάτω μέρους σε ίση απόσταση"
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr "Κατανομή κέντρων οριζόντια σε ίση απόσταση"
+
+#, fuzzy
+msgid "Make vertical gaps between items equal"
+msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid "Make vertical gaps between items equal to the value specified"
+msgstr ""
+"Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα με την καθορισμένη "
+"τιμή"
+
+msgid "Distribute left sides equidistantly"
+msgstr "Κατανομή αριστερής πλευράς σε ίση απόσταση"
+
+msgid "Distribute centers equidistantly vertically"
+msgstr "Κατανομή κέντρων κατακόρυφα σε ίση απόσταση"
+
+msgid "Distribute tops equidistantly"
+msgstr "Κατανομή άνω μέρους σε ίση απόσταση"
+
+#, fuzzy
+msgid "Make horizontal gaps between items and sides of page equal"
+msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid "Make vertical gaps between items and the top and bottom of page equal"
+msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid "Make horizontal gaps between items and sides of page margins equal"
+msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid ""
+"Make vertical gaps between items and the top and bottom of page margins equal"
+msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
+
+msgid "Distribute the items with the distance specified"
+msgstr "Κατανομή των αντικειμένων με την καθορισμένη απόσταση"
+
+msgid "None Selected"
+msgstr "Καμία επιλογή"
+
+msgid "Y: %1%2"
+msgstr "Y: %1%2"
+
+msgid "X: %1%2"
+msgstr "X: %1%2"
 
 msgid "Freetype2 library not available"
 msgstr "Η βιβλιοθήκη Freetype2 δεν είναι διαθέσιμη"
@@ -10244,11 +10280,12 @@ msgstr "Έγγραφο Scribus 1.2.x"
 msgid "Scribus 1.3.4 Document"
 msgstr "Έγγραφο Scribus 1.2.x"
 
-msgid "Scribus 1.3.0->1.3.3.2 Support"
-msgstr ""
+#, fuzzy
+msgid "Scribus 1.3.0->1.3.3.7 Support"
+msgstr "Έγγραφο Scribus 1.2.x"
 
 #, fuzzy
-msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgid "Scribus 1.3.0->1.3.3.7 Document"
 msgstr "Έγγραφο Scribus 1.2.x"
 
 msgid "Append selected font into Style, Font menu"
@@ -11688,6 +11725,24 @@ msgstr ""
 
 msgid "parent= %1"
 msgstr ""
+
+#~ msgid "Select Character:"
+#~ msgstr "Επιλογή χαρακτήρα:"
+
+#~ msgid "Page Layout"
+#~ msgstr "Διάταξη σελίδας"
+
+#, fuzzy
+#~ msgid "Delete &Page Guides"
+#~ msgstr "Διαγραφή σελίδων"
+
+#, fuzzy
+#~ msgid "Delete &Document guides"
+#~ msgstr "Έγγραφα κειμένου"
+
+#, fuzzy
+#~ msgid "Form2"
+#~ msgstr "Μορφή"
 
 #, fuzzy
 #~ msgid "Get Text 2..."

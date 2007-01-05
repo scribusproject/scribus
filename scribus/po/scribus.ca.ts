@@ -3635,6 +3635,10 @@ Les llibreries que manquen es mostren amb un *</translation>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -4959,7 +4963,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Alinea</translation>
+        <translation type="unfinished">Alinea</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -5035,7 +5039,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="obsolete">Distribueix</translation>
+        <translation type="unfinished">Distribueix</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -5742,7 +5746,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6985,7 +6989,7 @@ i la Esborrar elimina la darrera inserció</translation>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>Tria Caràcter:</translation>
+        <translation type="obsolete">Tria Caràcter:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -7189,6 +7193,10 @@ i la Esborrar elimina la darrera inserció</translation>
     </message>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7470,11 +7478,20 @@ i la Esborrar elimina la darrera inserció</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informació</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -&gt; Import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11323,15 +11340,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete &amp;Page Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete all guides from the current page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete &amp;Document guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -11344,6 +11353,14 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>&amp;Column/Row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12571,6 +12588,10 @@ convertint el seu vector de dades en objectes Scribus.</translation>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MSpinBox</name>
@@ -13008,11 +13029,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distància entre el marge esquerra de la guia i la vora de la pàgina. Si s&apos;han triat pàgines encarades, aquest espai es pot fer servir per aconseguir els marges correctes d&apos;encaix</translation>
+        <translation type="obsolete">Distància entre el marge esquerra de la guia i la vora de la pàgina. Si s&apos;han triat pàgines encarades, aquest espai es pot fer servir per aconseguir els marges correctes d&apos;encaix</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distància entre el marge dret de la guia i la vora de la pàgina. Si s&apos;han triat pàgines encarades, aquest espai es pot fer servir per aconseguir els marges correctes d&apos;encaix</translation>
+        <translation type="obsolete">Distància entre el marge dret de la guia i la vora de la pàgina. Si s&apos;han triat pàgines encarades, aquest espai es pot fer servir per aconseguir els marges correctes d&apos;encaix</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -13085,6 +13106,14 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Right:</source>
         <translation type="unfinished">Dret:</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14910,7 +14939,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Format de pàgina</translation>
+        <translation type="obsolete">Format de pàgina</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -14918,6 +14947,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Show Document Settings After Creation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15121,6 +15154,10 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Aquest document no sembla ser un fitxer d&apos;OpenOffice.org Draw.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16875,11 +16912,15 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Format de pàgina</translation>
+        <translation type="obsolete">Format de pàgina</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>La primera pàgina és:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21618,10 +21659,6 @@ detallades exhaustivament per les funcions cridades.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
@@ -21668,6 +21705,18 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished">Hebreu</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23061,12 +23110,12 @@ convertint les dades vectorials en un objecte Scribus.</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Còpia #%1 de</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27180,10 +27229,6 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Page Display</source>
         <translation type="unfinished">Visualització de Pàgina</translation>
     </message>
@@ -27264,10 +27309,6 @@ després d&apos;importar-lo.</translation>
         <translation type="unfinished">Per ajustar la pantalla mou la regla avall.</translation>
     </message>
     <message>
-        <source>textLabel16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>General</source>
         <translation type="unfinished">General</translation>
     </message>
@@ -27325,6 +27366,14 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Show Bleed Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27611,10 +27660,6 @@ després d&apos;importar-lo.</translation>
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GUI</source>
         <translation type="obsolete">GUI</translation>
     </message>
@@ -27716,6 +27761,10 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Show Splashscreen on Startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28839,7 +28888,7 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Format de pàgina</translation>
+        <translation type="obsolete">Format de pàgina</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -29059,6 +29108,10 @@ quan el PDF s&apos;obri:</translation>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -29123,10 +29176,6 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
 </context>
 <context>
     <name>TabPrinterBase</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Print Destination</source>
         <translation type="unfinished">Destí d&apos;Impressió</translation>
@@ -29267,13 +29316,13 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
         <source>Right:</source>
         <translation type="unfinished">Dret:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
-    <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation type="unfinished"></translation>
@@ -29296,6 +29345,10 @@ Posar-ho a nivell 1 o 2 pot crear fitxers gegants</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -30527,6 +30580,10 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Adjust frame to the image size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -2712,6 +2712,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Sprawdź, czy istnieją nowsze wersje Scribusa. Z twojego komputera nie zostaną wysłane żadne dane.</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -4045,7 +4049,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Wyrównaj</translation>
+        <translation type="unfinished">Wyrównaj</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4113,7 +4117,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="obsolete">Rozmieść</translation>
+        <translation type="unfinished">Rozmieść</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -4849,7 +4853,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
-        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps *.epsi);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps *.epsi);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6097,7 +6105,7 @@ proszę wybrać inną nazwę.</translation>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>Wybierz znak:</translation>
+        <translation type="obsolete">Wybierz znak:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -6302,6 +6310,10 @@ proszę wybrać inną nazwę.</translation>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
         <translation>Masz zamiar usunąć wszystkie znaki z tej palety. Czy jesteś pewien?</translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6616,7 +6628,16 @@ proszę wybrać inną nazwę.</translation>
         <translation>Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informacja</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -&gt; Import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10204,7 +10225,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Delete &amp;Page Guides</source>
-        <translation>Usuń linie pomocnicze &amp;strony</translation>
+        <translation type="obsolete">Usuń linie pomocnicze &amp;strony</translation>
     </message>
     <message>
         <source>Delete all guides from the current page</source>
@@ -10212,7 +10233,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Delete &amp;Document guides</source>
-        <translation>Usuń linie pomocnicze &amp;dokumentu</translation>
+        <translation type="obsolete">Usuń linie pomocnicze &amp;dokumentu</translation>
     </message>
     <message>
         <source>Delete all guides from the current document</source>
@@ -10225,6 +10246,14 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     <message>
         <source>&amp;Column/Row</source>
         <translation>Szpalty/Wi&amp;ersze</translation>
+    </message>
+    <message>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11411,6 +11440,10 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MarginDialog</name>
@@ -11535,11 +11568,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Odstęp pomiędzy lewą linią pomocniczą marginesu a krawędzią strony. Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
+        <translation type="obsolete">Odstęp pomiędzy lewą linią pomocniczą marginesu a krawędzią strony. Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Odstęp pomiędzy prawą linią pomocniczą marginesu a krawędzią strony. Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
+        <translation type="obsolete">Odstęp pomiędzy prawą linią pomocniczą marginesu a krawędzią strony. Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -11612,6 +11645,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Right:</source>
         <translation>Po prawej:</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13211,7 +13252,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Układ strony</translation>
+        <translation type="obsolete">Układ strony</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -13220,6 +13261,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Show Document Settings After Creation</source>
         <translation>Wyświetl ustawienia dokumentu po jego utworzeniu</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13416,6 +13461,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Ten dokument nie wydaje się być plikiem OpenOffice Draw.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished">Grupa%1</translation>
     </message>
 </context>
 <context>
@@ -14222,11 +14271,15 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Układ strony</translation>
+        <translation type="obsolete">Układ strony</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Położenie pierwszej strony:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17915,7 +17968,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation>Wsparcie dla Scribusa  1.3.0-&gt;1.3.3.2</translation>
+        <translation type="obsolete">Wsparcie dla Scribusa  1.3.0-&gt;1.3.3.2</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
@@ -18083,6 +18136,18 @@ Therefore the image may be not correct</source>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
         <translation>Wszystkie wspierane formaty (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished">Hebrajskie</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
+        <translation type="unfinished">Wsparcie dla Scribusa  1.3.0-&gt;1.3.3.7</translation>
     </message>
 </context>
 <context>
@@ -19506,11 +19571,15 @@ converting their vector data into Scribus objects.</source>
     <name>Scribus13Format</name>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation>Document Scribusa  1.3.0-&gt;1.3.3.2</translation>
+        <translation type="obsolete">Document Scribusa  1.3.0-&gt;1.3.3.2</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
         <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation type="unfinished">Document Scribusa  1.3.0-&gt;1.3.3.7</translation>
     </message>
 </context>
 <context>
@@ -22592,10 +22661,6 @@ połączeń między ramkami.</translation>
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Page Display</source>
         <translation>Widok strony</translation>
     </message>
@@ -22676,10 +22741,6 @@ połączeń między ramkami.</translation>
         <translation>Aby dopasować wielkość widoku, użyj suwaka znajdującego się poniżej.</translation>
     </message>
     <message>
-        <source>textLabel16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>General</source>
         <translation>Ogólne</translation>
     </message>
@@ -22738,6 +22799,14 @@ połączeń między ramkami.</translation>
     <message>
         <source>Show Bleed Area</source>
         <translation>Wyświetlaj obszar spadów</translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23023,10 +23092,6 @@ połączeń między ramkami.</translation>
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GUI</source>
         <translation type="obsolete">Graficzny interfejs użytkownika</translation>
     </message>
@@ -23133,6 +23198,10 @@ połączeń między ramkami.</translation>
     <message>
         <source>Show Splashscreen on Startup</source>
         <translation>Wyświetlaj logo przy starcie programu</translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24255,7 +24324,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Układ strony</translation>
+        <translation type="obsolete">Układ strony</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -24483,6 +24552,10 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>Convert all glyphs in the document to outlines.</source>
         <translation>Zamień wszystkie glify w dokumencie na krzywe.</translation>
     </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -24554,10 +24627,6 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
 </context>
 <context>
     <name>TabPrinterBase</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Print Destination</source>
         <translation>Drukarka</translation>
@@ -24698,13 +24767,13 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
         <source>Right:</source>
         <translation>Prawy:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
-    <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Use Scrapbook as extra Copy/Paste Buffer</source>
         <translation type="obsolete">Użyj biblioteki jako dodatkowego bufora kopiowania i wklejania</translation>
@@ -24740,6 +24809,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
         <translation>Minimalna wartość to 1, maksymalna wartość to 100.</translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25905,6 +25978,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Adjust frame to the image size</source>
         <translation>Dopasuj ramkę do rozmiarów obrazka</translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

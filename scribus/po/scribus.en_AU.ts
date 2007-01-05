@@ -3066,6 +3066,10 @@ May throw IndexError for an insertion out of bounds.
       <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
       <translation>Check for updates to Scribus. No data from your machine will be transferred off it.</translation>
     </message>
+    <message>
+      <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+      <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
+    </message>
   </context>
   <context>
     <name>AboutPlugins</name>
@@ -4276,6 +4280,14 @@ May throw IndexError for an insertion out of bounds.
       <source>Make vertical gaps between items and the top and bottom of page equal</source>
       <translation>Make vertical gaps between items and the top and bottom of page equal</translation>
     </message>
+    <message>
+      <source>Align</source>
+      <translation>Align</translation>
+    </message>
+    <message>
+      <source>Distribute</source>
+      <translation>Distribute</translation>
+    </message>
   </context>
   <context>
     <name>AlignSelect</name>
@@ -4841,8 +4853,8 @@ May throw IndexError for an insertion out of bounds.
       <translation>Do Not Export Value</translation>
     </message>
     <message>
-      <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
-      <translation>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</translation>
+      <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+      <translation>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</translation>
     </message>
   </context>
   <context>
@@ -5689,7 +5701,7 @@ please choose another one.</translation>
     <name>CWDialogBase</name>
     <message>
       <source>Color Wheel</source>
-      <translation>Colou Wheel</translation>
+      <translation>Colour Wheel</translation>
     </message>
     <message>
       <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
@@ -5846,10 +5858,6 @@ please choose another one.</translation>
   </context>
   <context>
     <name>CharSelect</name>
-    <message>
-      <source>Select Character:</source>
-      <translation>Select Character:</translation>
-    </message>
     <message>
       <source>Font:</source>
       <translation>Font:</translation>
@@ -6033,6 +6041,10 @@ please choose another one.</translation>
     <message>
       <source>You will clean all characters from this palette. Are you sure?</source>
       <translation>You will clean all characters from this palette. Are you sure?</translation>
+    </message>
+    <message>
+      <source>Character Palette</source>
+      <translation>Character Palette</translation>
     </message>
   </context>
   <context>
@@ -6282,12 +6294,22 @@ please choose another one.</translation>
       <translation>If colour management is enabled, a triangle warning indicator is a warning the the colour maybe outside of the colour gamut of the current printer profile selected.What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. Registration colours will have a registration mark next to the colour. More hints about gamut warnings are in the online help under Colour Management.</translation>
     </message>
     <message>
-      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
-      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</translation>
-    </message>
-    <message>
       <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
       <translation>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</translation>
+    </message>
+    <message>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</translation>
+    </message>
+    <message>
+      <source>Information</source>
+      <translation>Information</translation>
+    </message>
+    <message>
+      <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -> Import</source>
+      <translation>The file %1 does not contain any new colours.
+If the file was an EPS try to import it with File -> Import</translation>
     </message>
   </context>
   <context>
@@ -8856,16 +8878,8 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>&amp;Misc</translation>
     </message>
     <message>
-      <source>Delete &amp;Page Guides</source>
-      <translation>Delete &amp;Page Guides</translation>
-    </message>
-    <message>
       <source>Delete all guides from the current page</source>
       <translation>Delete all guides from the current page</translation>
-    </message>
-    <message>
-      <source>Delete &amp;Document guides</source>
-      <translation>Delete &amp;Document guides</translation>
     </message>
     <message>
       <source>Delete all guides from the current document</source>
@@ -8878,6 +8892,14 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
       <source>&amp;Column/Row</source>
       <translation>&amp;Column/Row</translation>
+    </message>
+    <message>
+      <source>Delete Guides from Current &amp;Page</source>
+      <translation>Delete Guides from Current &amp;Page</translation>
+    </message>
+    <message>
+      <source>Delete Guides from &amp;All Pages</source>
+      <translation>Delete Guides from &amp;All Pages</translation>
     </message>
   </context>
   <context>
@@ -9809,6 +9831,10 @@ converting their vector data into Scribus objects.</translation>
       <source>Alt+C</source>
       <translation>Alt+C</translation>
     </message>
+    <message>
+      <source>Standard Lorem Ipsum</source>
+      <translation>Standard Lorem Ipsum</translation>
+    </message>
   </context>
   <context>
     <name>MarginDialog</name>
@@ -9908,14 +9934,6 @@ converting their vector data into Scribus objects.</translation>
       <translation>Apply the margin changes to all existing pages in the document</translation>
     </message>
     <message>
-      <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
-      <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
-    </message>
-    <message>
       <source>Printer Margins...</source>
       <translation>Printer Margins...</translation>
     </message>
@@ -9986,6 +10004,14 @@ converting their vector data into Scribus objects.</translation>
     <message>
       <source>Right:</source>
       <translation>Right:</translation>
+    </message>
+    <message>
+      <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+      <translation>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
+    </message>
+    <message>
+      <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+      <translation>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
   </context>
   <context>
@@ -11291,16 +11317,16 @@ Corners:</translation>
       <translation>Open Recent &amp;Document</translation>
     </message>
     <message>
-      <source>Page Layout</source>
-      <translation>Page Layout</translation>
-    </message>
-    <message>
       <source>First Page is:</source>
       <translation>First Page is:</translation>
     </message>
     <message>
       <source>Show Document Settings After Creation</source>
       <translation>Show Document Settings After Creation</translation>
+    </message>
+    <message>
+      <source>Document Layout</source>
+      <translation>Document Layout</translation>
     </message>
   </context>
   <context>
@@ -11470,6 +11496,10 @@ Corners:</translation>
     <message>
       <source>This document does not seem to be an OpenOffice Draw file.</source>
       <translation>This document does not seem to be an OpenOffice Draw file.</translation>
+    </message>
+    <message>
+      <source>Group%1</source>
+      <translation>Group%1</translation>
     </message>
   </context>
   <context>
@@ -12030,12 +12060,12 @@ Corners:</translation>
   <context>
     <name>PageLayouts</name>
     <message>
-      <source>Page Layout</source>
-      <translation>Page Layout</translation>
-    </message>
-    <message>
       <source>First Page is:</source>
       <translation>First Page is:</translation>
+    </message>
+    <message>
+      <source>Document Layout</source>
+      <translation>Document Layout</translation>
     </message>
   </context>
   <context>
@@ -14670,10 +14700,6 @@ is not exhaustive due to exceptions from called functions.
       <translation>Scribus 1.3.4 Support</translation>
     </message>
     <message>
-      <source>Scribus 1.3.0->1.3.3.2 Support</source>
-      <translation>Scribus 1.3.0->1.3.3.2 Support</translation>
-    </message>
-    <message>
       <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
       <comment>PDB Importer</comment>
       <translation>This file is not recognised as a PDB document. Please, report this as a bug if you are sure it is one.</translation>
@@ -14724,6 +14750,18 @@ Therefore the image may be not correct</translation>
     <message>
       <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
       <translation>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
+    </message>
+    <message>
+      <source>German (Swiss)</source>
+      <translation>German (Swiss)</translation>
+    </message>
+    <message>
+      <source>Hebrew</source>
+      <translation>Hebrew</translation>
+    </message>
+    <message>
+      <source>Scribus 1.3.0->1.3.3.7 Support</source>
+      <translation>Scribus 1.3.0->1.3.3.7 Support</translation>
     </message>
   </context>
   <context>
@@ -15747,12 +15785,12 @@ converting their vector data into Scribus objects.</translation>
   <context>
     <name>Scribus13Format</name>
     <message>
-      <source>Scribus 1.3.0->1.3.3.2 Document</source>
-      <translation>Scribus 1.3.0->1.3.3.2 Document</translation>
-    </message>
-    <message>
       <source>Copy #%1 of </source>
       <translation>Copy #%1 of </translation>
+    </message>
+    <message>
+      <source>Scribus 1.3.0->1.3.3.7 Document</source>
+      <translation>Scribus 1.3.0->1.3.3.7 Document</translation>
     </message>
   </context>
   <context>
@@ -17739,10 +17777,6 @@ You can choose between normal and several colour blindness forms</translation>
   <context>
     <name>TabDisplayBase</name>
     <message>
-      <source>Form2</source>
-      <translation>Form2</translation>
-    </message>
-    <message>
       <source>Page Display</source>
       <translation>Page Display</translation>
     </message>
@@ -17819,10 +17853,6 @@ You can choose between normal and several colour blindness forms</translation>
       <translation>To adjust the display drag the ruler below with the slider.</translation>
     </message>
     <message>
-      <source>textLabel16</source>
-      <translation>textLabel16</translation>
-    </message>
-    <message>
       <source>General</source>
       <translation>General</translation>
     </message>
@@ -17881,6 +17911,14 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Show Bleed Area</source>
       <translation>Show Bleed Area</translation>
+    </message>
+    <message>
+      <source>TabDisplayBase</source>
+      <translation>TabDisplayBase</translation>
+    </message>
+    <message>
+      <source>Scale%</source>
+      <translation>Scale%</translation>
     </message>
   </context>
   <context>
@@ -18158,10 +18196,6 @@ You can choose between normal and several colour blindness forms</translation>
   <context>
     <name>TabGeneralBase</name>
     <message>
-      <source>Form1</source>
-      <translation>Form1</translation>
-    </message>
-    <message>
       <source>&amp;Language:</source>
       <translation>&amp;Language:</translation>
     </message>
@@ -18260,6 +18294,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Show Splashscreen on Startup</source>
       <translation>Show Splashscreen on Startup</translation>
+    </message>
+    <message>
+      <source>TabGeneralBase</source>
+      <translation>TabGeneralBase</translation>
     </message>
   </context>
   <context>
@@ -19172,10 +19210,6 @@ You can choose between normal and several colour blindness forms</translation>
       <translation>Display Settings</translation>
     </message>
     <message>
-      <source>Page Layout</source>
-      <translation>Page Layout</translation>
-    </message>
-    <message>
       <source>Single Page</source>
       <translation>Single Page</translation>
     </message>
@@ -19385,6 +19419,10 @@ when PDF document is opened:</translation>
       <source>Convert all glyphs in the document to outlines.</source>
       <translation>Convert all glyphs in the document to outlines.</translation>
     </message>
+    <message>
+      <source>Document Layout</source>
+      <translation>Document Layout</translation>
+    </message>
   </context>
   <context>
     <name>TabPrinter</name>
@@ -19449,10 +19487,6 @@ when PDF document is opened:</translation>
   </context>
   <context>
     <name>TabPrinterBase</name>
-    <message>
-      <source>Form1</source>
-      <translation>Form1</translation>
-    </message>
     <message>
       <source>Print Destination</source>
       <translation>Print Destination</translation>
@@ -19593,13 +19627,13 @@ when PDF document is opened:</translation>
       <source>Right:</source>
       <translation>Right:</translation>
     </message>
+    <message>
+      <source>TabPrinterBase</source>
+      <translation>TabPrinterBase</translation>
+    </message>
   </context>
   <context>
     <name>TabScrapbookBase</name>
-    <message>
-      <source>Form2</source>
-      <translation>Form2</translation>
-    </message>
     <message>
       <source>Send Copied Items Automatically to Scrapbook</source>
       <translation>Send Copied Items Automatically to Scrapbook</translation>
@@ -19623,6 +19657,10 @@ when PDF document is opened:</translation>
     <message>
       <source>The minimum number is 1; the maximum us 100.</source>
       <translation>The minimum number is 1; the maximum us 100.</translation>
+    </message>
+    <message>
+      <source>TabScrapbookBase</source>
+      <translation>TabScrapbookBase</translation>
     </message>
   </context>
   <context>
@@ -20744,6 +20782,10 @@ X: %4, Y: %5</translation>
     <message>
       <source>Adjust frame to the image size</source>
       <translation>Adjust frame to the image size</translation>
+    </message>
+    <message>
+      <source>Set start and end arrows</source>
+      <translation>Set start and end arrows</translation>
     </message>
   </context>
   <context>

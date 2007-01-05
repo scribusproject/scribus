@@ -3251,6 +3251,10 @@ Ghostscript-en bertsioa ere adierazten du.
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -4332,7 +4336,7 @@ Ghostscript-en bertsioa ere adierazten du.
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Lerrokatu</translation>
+        <translation type="unfinished">Lerrokatu</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4408,7 +4412,7 @@ Ghostscript-en bertsioa ere adierazten du.
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="obsolete">Banatu</translation>
+        <translation type="unfinished">Banatu</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -5103,7 +5107,7 @@ Ghostscript-en bertsioa ere adierazten du.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6209,7 +6213,7 @@ hautapenean, eta &apos;Ezabatu&apos; teklak sartutako azkena ezabatzen du.</tran
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>Hautatu karakterea:</translation>
+        <translation type="obsolete">Hautatu karakterea:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -6410,6 +6414,10 @@ hautapenean, eta &apos;Ezabatu&apos; teklak sartutako azkena ezabatzen du.</tran
     </message>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6677,11 +6685,20 @@ kolore-multzotik</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informazioa</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -&gt; Import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9708,19 +9725,19 @@ menura.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete &amp;Page Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete all guides from the current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete &amp;Document guides</source>
+        <source>Delete all guides from the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete all guides from the current document</source>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10817,6 +10834,10 @@ ez duzula aldatzen.</translation>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MarginDialog</name>
@@ -10927,14 +10948,14 @@ distantzia</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Ezkerreko marjinaren gida eta orriaren ertzaren arteko 
+        <translation type="obsolete">Ezkerreko marjinaren gida eta orriaren ertzaren arteko 
 distantzia. Aurrez aurreko orrialdeak hautatuta egonez gero, 
 marjinaren tartea erabil daiteke loturetan marjin 
 egokiak lortzeko.</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Eskuineko marjinaren gida eta orriaren ertzaren arteko 
+        <translation type="obsolete">Eskuineko marjinaren gida eta orriaren ertzaren arteko 
 distantzia. Aurrez aurreko orrialdeak hautatuta egonez gero, 
 marjinaren tartea erabil daiteke loturetan marjin 
 egokiak lortzeko.</translation>
@@ -11011,6 +11032,14 @@ egokiak lortzeko.</translation>
     <message>
         <source>Right:</source>
         <translation type="unfinished">Eskuinean:</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12378,15 +12407,15 @@ hautatu baduzu.</translation>
         <translation>Ireki azken &amp;dokumentua</translation>
     </message>
     <message>
-        <source>Page Layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>First Page is:</source>
         <translation type="unfinished">Aurreneko orrialdea:</translation>
     </message>
     <message>
         <source>Show Document Settings After Creation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12558,6 +12587,10 @@ txantiloitik (adib. estilo konstanteko dokumentuentzako).</translation>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Ez dirudi dokumentu hau OpenOffice.org Draw fitxategia denik.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13168,11 +13201,15 @@ kolore-kudeaketa gaituta dagoenean</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Orriaren diseinua</translation>
+        <translation type="obsolete">Orriaren diseinua</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Aurreneko orrialdea:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16542,10 +16579,6 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
@@ -16556,6 +16589,18 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished">Hebreera</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17793,11 +17838,11 @@ gainean erabiliko da.</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
+        <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy #%1 of </source>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19936,10 +19981,6 @@ tamaina egokiarekin bistaratuko ditu</translation>
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>General</source>
         <translation type="unfinished">Orokorra</translation>
     </message>
@@ -20020,10 +20061,6 @@ tamaina egokiarekin bistaratuko ditu</translation>
         <translation type="unfinished">Pantaila doitzeko arrastatu azpiko erregela graduatzailearekin</translation>
     </message>
     <message>
-        <source>textLabel16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Colors</source>
         <translation type="unfinished">Koloreak</translation>
     </message>
@@ -20077,6 +20114,14 @@ tamaina egokiarekin bistaratuko ditu</translation>
     </message>
     <message>
         <source>Show Bleed Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20372,10 +20417,6 @@ eta /usr/local/share/color/icc direktorioetan begiratuko du.</translation>
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>User Interface</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20473,6 +20514,10 @@ eta /usr/local/share/color/icc direktorioetan begiratuko du.</translation>
     </message>
     <message>
         <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21416,7 +21461,7 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Orri-diseinua</translation>
+        <translation type="obsolete">Orri-diseinua</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -21648,6 +21693,10 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -21720,10 +21769,6 @@ inprimagailuak eskatzen badu.</translation>
 </context>
 <context>
     <name>TabPrinterBase</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Print Destination</source>
         <translation type="unfinished">Inprimatze-helburua</translation>
@@ -21864,13 +21909,13 @@ inprimagailuak eskatzen badu.</translation>
         <source>Right:</source>
         <translation type="unfinished">Eskuinean:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
-    <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation type="unfinished"></translation>
@@ -21893,6 +21938,10 @@ inprimagailuak eskatzen badu.</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23034,6 +23083,10 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Adjust frame to the image size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

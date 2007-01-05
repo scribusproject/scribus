@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-21 23:33+0100\n"
+"POT-Creation-Date: 2007-01-05 20:28+0100\n"
 "PO-Revision-Date: 2006-03-14 00:29+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team:  <it@li.org>\n"
@@ -63,6 +63,9 @@ msgstr "Collaborazione di:"
 
 msgid "Mac OS&#174; X Aqua Port:"
 msgstr "Mac OS&#174; X Aqua Port:"
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
+msgstr ""
 
 msgid "Windows&#174; Port:"
 msgstr "Windows&#174; Port:"
@@ -901,133 +904,6 @@ msgstr "ft"
 msgid "st"
 msgstr "st"
 
-msgid "Align and Distribute"
-msgstr "Allinea e distribuisci"
-
-msgid "&Relative to:"
-msgstr "Rela&tivo a:"
-
-msgid "First Selected"
-msgstr "Primo oggetto selezionato"
-
-msgid "Last Selected"
-msgstr "Ultimo oggetto selezionato"
-
-msgid "Page"
-msgstr "Pagina"
-
-msgid "Margins"
-msgstr "Margini"
-
-msgid "Guide"
-msgstr "Guida"
-
-msgid "Selection"
-msgstr "Selezione"
-
-#, fuzzy
-msgid "Align right sides of items to left side of anchor"
-msgstr "Allinea i lati destri degli oggetti al lato sinistro dell'ancora"
-
-#, fuzzy
-msgid "Align left sides of items to right side of anchor"
-msgstr "Allinea i lati sinistri degli oggetti al lato destro dell'ancora"
-
-msgid "Align bottoms"
-msgstr "Allinea i lati inferiori"
-
-msgid "Align right sides"
-msgstr "Allinea i lati destri"
-
-#, fuzzy
-msgid "Align tops of items to bottom of anchor"
-msgstr "Allinea i lati superiori degli oggetti al lato basso dell'ancora"
-
-msgid "Center on vertical axis"
-msgstr "Centra sull'asse verticale"
-
-msgid "Align left sides"
-msgstr "Allinea i lati sinistri"
-
-msgid "Center on horizontal axis"
-msgstr "Centra sull'asse orizzontale"
-
-#, fuzzy
-msgid "Align bottoms of items to top of anchor"
-msgstr "Allinea i lati inferiori degli oggetti al lato superiore dell'ancora"
-
-msgid "Align tops"
-msgstr "Allinea i lati superiori"
-
-msgid "&Selected Guide:"
-msgstr "Guida &selezionata:"
-
-#, fuzzy
-msgid "Make horizontal gaps between items equal"
-msgstr "Rendi uguale la distanza orizzontale tra gli oggetti"
-
-#, fuzzy
-msgid "Make horizontal gaps between items equal to the value specified"
-msgstr "Fissa la distanza orizzontale tra gli oggetti al valore specificato"
-
-msgid "Distribute right sides equidistantly"
-msgstr "Rendi i lati destri equidistanti"
-
-msgid "Distribute bottoms equidistantly"
-msgstr "Rendi i lati inferiori equidistanti"
-
-msgid "Distribute centers equidistantly horizontally"
-msgstr "Rendi i centri equidistanti orizzontalmente"
-
-#, fuzzy
-msgid "Make vertical gaps between items equal"
-msgstr "Rendi uguale la distanza verticale tra gli oggetti"
-
-#, fuzzy
-msgid "Make vertical gaps between items equal to the value specified"
-msgstr "Fissa la distanza verticale tra gli oggetti al valore specificato"
-
-msgid "Distribute left sides equidistantly"
-msgstr "Rendi i lati sinistri equidistanti"
-
-msgid "Distribute centers equidistantly vertically"
-msgstr "Rendi i centri equidistanti verticalmente"
-
-msgid "Distribute tops equidistantly"
-msgstr "Rendi i lati superiori equidistanti"
-
-#, fuzzy
-msgid "Make horizontal gaps between items and sides of page equal"
-msgstr "Rendi uguale la distanza orizzontale tra gli oggetti"
-
-#, fuzzy
-msgid ""
-"Make vertical gaps between items and the top and bottom of page margins equal"
-msgstr "Rendi uguale la distanza verticale tra gli oggetti"
-
-#, fuzzy
-msgid "Make horizontal gaps between items and sides of page margins equal"
-msgstr "Rendi uguale la distanza orizzontale tra gli oggetti"
-
-#, fuzzy
-msgid "Make vertical gaps between items and the top and bottom of page equal"
-msgstr "Rendi uguale la distanza verticale tra gli oggetti"
-
-msgid "&Distance:"
-msgstr "&Distanza:"
-
-msgid "Distribute the items with the distance specified"
-msgstr "Distribuisci gli elementi con la distanza specificata"
-
-msgid "None Selected"
-msgstr "Nessuna selezione"
-
-msgid "Y: %1%2"
-msgstr "Y: %1%2"
-
-msgid "X: %1%2"
-msgstr "X: %1%2"
-
 msgid "Align Text Left"
 msgstr "Testo allineato a sinistra"
 
@@ -1434,7 +1310,7 @@ msgstr "Apri"
 
 #, fuzzy
 msgid ""
-"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
 msgstr ""
 "Immagini (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Tutti i file (*)"
 
@@ -1598,8 +1474,9 @@ msgstr "Icona"
 msgid "Reset"
 msgstr "Azzera"
 
-msgid "Select Character:"
-msgstr "Scegli carattere:"
+#, fuzzy
+msgid "Character Palette"
+msgstr "Carattere"
 
 #, fuzzy
 msgid "Scribus Char Palette (*.ucp);;All Files (*)"
@@ -2152,7 +2029,7 @@ msgstr "Scegli un nome"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *."
 "ai);;All Files (*)"
 msgstr "Documenti (*.sla *.sla.gz *.scd *.scd.gz);;Tutti i file (*)"
 
@@ -2160,6 +2037,14 @@ msgstr "Documenti (*.sla *.sla.gz *.scd *.scd.gz);;Tutti i file (*)"
 msgid ""
 "Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr "Documenti (*.sla *.sla.gz *.scd *.scd.gz);;Tutti i file (*)"
+
+msgid "Information"
+msgstr "Informazioni"
+
+msgid ""
+"The file %1 does not contain any new colors.\n"
+"If the file was an EPS try to import it with File -> Import"
+msgstr ""
 
 msgid "Copy of %1"
 msgstr "Copia di %1"
@@ -2938,6 +2823,9 @@ msgstr "Livello postscript 2"
 
 msgid "PostScript Level 3"
 msgstr "Livello postscript 3"
+
+msgid "Page"
+msgstr "Pagina"
 
 msgid "Mirror Page(s) Horizontal"
 msgstr "Rifletti pagina/e"
@@ -3937,6 +3825,10 @@ msgstr ""
 msgid "German"
 msgstr "Tedesco"
 
+#, fuzzy
+msgid "German (Swiss)"
+msgstr "Tedesco (Trad.)"
+
 msgid "German (Trad.)"
 msgstr "Tedesco (Trad.)"
 
@@ -4101,6 +3993,10 @@ msgstr "Testo dimostrativo"
 msgid "Paragraphs:"
 msgstr "Paragrafi:"
 
+#, fuzzy
+msgid "Standard Lorem Ipsum"
+msgstr "Usa sempre il testo dimostrativo standard"
+
 msgid "Scribus Crash"
 msgstr "Crash di Scribus"
 
@@ -4162,19 +4058,21 @@ msgstr "Distanza tra la guida del margine superiore e il bordo della pagina"
 msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr "Distanza tra la guida del margine inferiore e il bordo della pagina"
 
+#, fuzzy
 msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the left margin guide and the edge of the page. If a double-"
+"sided, 3 or 4-fold layout is selected, this margin space can be used to "
+"achieve the correct margins for binding"
 msgstr ""
 "Distanza tra il margine sinistro della guida e il bordo della pagina. Se è "
 "selezionata la modalità Pagine Affiancate, questo margine può essere usato "
 "per calcolare i margini corretti per la rilegatura"
 
+#, fuzzy
 msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the right margin guide and the edge of the page. If a "
+"double-sided, 3 or 4-fold layout is selected, this margin space can be used "
+"to achieve the correct margins for binding"
 msgstr ""
 "Distanza tra il margine destro della guida e il bordo della pagina. Se è "
 "selezionata la modalità Pagine Affiancate, questo margine può essere usato "
@@ -4870,8 +4768,9 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr "Distanza tra le colonne create automaticamente"
 
-msgid "Page Layout"
-msgstr "Formato pagina"
+#, fuzzy
+msgid "Document Layout"
+msgstr "Documentazione"
 
 msgid "First Page is:"
 msgstr "La prima pagina è:"
@@ -5958,9 +5857,6 @@ msgstr "&Sblocca tutti"
 #, fuzzy
 msgid "Group%1"
 msgstr "Raggruppa"
-
-msgid "Information"
-msgstr "Informazioni"
 
 msgid "The program %1 is already running!"
 msgstr "Il programma %1 è già in funzione!"
@@ -8588,6 +8484,9 @@ msgstr ""
 "X: %1, Y: %2\n"
 "L: %3, A: %4"
 
+msgid "Selection"
+msgstr "Selezione"
+
 msgid "Group"
 msgstr "Raggruppa"
 
@@ -8697,6 +8596,10 @@ msgstr "Imposta freccia iniziale"
 
 msgid "Set end arrow"
 msgstr "Imposta freccia finale"
+
+#, fuzzy
+msgid "Set start and end arrows"
+msgstr "Imposta freccia iniziale"
 
 msgid "Create table"
 msgstr "Crea tabella"
@@ -9000,6 +8903,12 @@ msgstr "Strumenti PDF"
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus: Informazione sulle estensioni"
 
+msgid "Align and Distribute"
+msgstr "Allinea e distribuisci"
+
+msgid "&Selected Guide:"
+msgstr "Guida &selezionata:"
+
 #, fuzzy
 msgid "&Relative To:"
 msgstr "Rela&tivo a:"
@@ -9010,6 +8919,9 @@ msgstr "Ag&giungi..."
 
 msgid "Align"
 msgstr "Allinea"
+
+msgid "&Distance:"
+msgstr "&Distanza:"
 
 msgid "Distribute"
 msgstr "Distribuisci"
@@ -9125,6 +9037,9 @@ msgstr "Inizio"
 msgid "Document Sections"
 msgstr "Sezioni documento"
 
+msgid "Guide"
+msgstr "Guida"
+
 msgid "Manage Guides"
 msgstr "Gestione guide"
 
@@ -9196,15 +9111,14 @@ msgid "&Column/Row"
 msgstr "Colo&nne:"
 
 #, fuzzy
-msgid "Delete &Page Guides"
-msgstr "Elimina pagine "
+msgid "Delete Guides from Current &Page"
+msgstr "Importa pagine mastro da altro documento"
 
 msgid "Delete all guides from the current page"
 msgstr ""
 
-#, fuzzy
-msgid "Delete &Document guides"
-msgstr "Documenti di testo"
+msgid "Delete Guides from &All Pages"
+msgstr ""
 
 #, fuzzy
 msgid "Delete all guides from the current document"
@@ -9393,14 +9307,6 @@ msgstr "Progressione totale:"
 msgid "Page Item Attributes"
 msgstr "Attributi dell'elemento"
 
-#, fuzzy
-msgid "LineStyleWBase"
-msgstr "Stile linee:"
-
-#, fuzzy
-msgid "%"
-msgstr " %"
-
 msgid "Result"
 msgstr "Risultato"
 
@@ -9413,6 +9319,14 @@ msgstr "Ante&prima"
 #, fuzzy
 msgid "&Select"
 msgstr "Seleziona"
+
+#, fuzzy
+msgid "LineStyleWBase"
+msgstr "Stile linee:"
+
+#, fuzzy
+msgid "%"
+msgstr " %"
 
 #, fuzzy
 msgid "Form1"
@@ -9438,19 +9352,8 @@ msgid "Alt+N"
 msgstr "Alt+"
 
 #, fuzzy
-msgid "Style Manager"
-msgstr "Gestione estensioni"
-
-#, fuzzy
-msgid "Alt+R"
-msgstr "Alt+"
-
-msgid "Please select a unique name for the style"
-msgstr ""
-
-#, fuzzy
-msgid "Form2"
-msgstr "Formato"
+msgid "TabDisplayBase"
+msgstr "Visualizzazione"
 
 msgid "Page Display"
 msgstr "Visualizzazione"
@@ -9499,8 +9402,9 @@ msgid "To adjust the display drag the ruler below with the slider."
 msgstr ""
 "Per modificare la pagina visualizzata trascina la maniglia sotto il righello."
 
-msgid "textLabel16"
-msgstr ""
+#, fuzzy
+msgid "Scale%"
+msgstr "Scala:"
 
 #, fuzzy
 msgid "Pages:"
@@ -9545,6 +9449,17 @@ msgstr "Testo"
 #, fuzzy
 msgid "Control Characters:"
 msgstr "Mostra caratteri di controllo"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Gestione estensioni"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Alt+"
+
+msgid "Please select a unique name for the style"
+msgstr ""
 
 msgid "PostScript Interpreter"
 msgstr "Interprete postscript"
@@ -9612,6 +9527,10 @@ msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
 "location"
 msgstr ""
+
+#, fuzzy
+msgid "TabGeneralBase"
+msgstr "Generale"
 
 msgid "User Interface"
 msgstr ""
@@ -9726,6 +9645,10 @@ msgid "Count of the Paragraphs:"
 msgstr "Numero dei paragrafi:"
 
 #, fuzzy
+msgid "TabPrinterBase"
+msgstr "Margini stampante..."
+
+#, fuzzy
 msgid "Alternative Printer Command"
 msgstr "Comando di stampante a&lternativo"
 
@@ -9751,6 +9674,10 @@ msgstr "Livello"
 
 msgid "Marks && Bleeds"
 msgstr ""
+
+#, fuzzy
+msgid "TabScrapbookBase"
+msgstr "Biblioteca"
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -9794,6 +9721,115 @@ msgstr "Usa margini stampante"
 
 msgid "Select &Printer:"
 msgstr "Seleziona stam&pante:"
+
+msgid "Margins"
+msgstr "Margini"
+
+msgid "&Relative to:"
+msgstr "Rela&tivo a:"
+
+msgid "First Selected"
+msgstr "Primo oggetto selezionato"
+
+msgid "Last Selected"
+msgstr "Ultimo oggetto selezionato"
+
+#, fuzzy
+msgid "Align right sides of items to left side of anchor"
+msgstr "Allinea i lati destri degli oggetti al lato sinistro dell'ancora"
+
+#, fuzzy
+msgid "Align left sides of items to right side of anchor"
+msgstr "Allinea i lati sinistri degli oggetti al lato destro dell'ancora"
+
+msgid "Align bottoms"
+msgstr "Allinea i lati inferiori"
+
+msgid "Align right sides"
+msgstr "Allinea i lati destri"
+
+#, fuzzy
+msgid "Align tops of items to bottom of anchor"
+msgstr "Allinea i lati superiori degli oggetti al lato basso dell'ancora"
+
+msgid "Center on vertical axis"
+msgstr "Centra sull'asse verticale"
+
+msgid "Align left sides"
+msgstr "Allinea i lati sinistri"
+
+msgid "Center on horizontal axis"
+msgstr "Centra sull'asse orizzontale"
+
+#, fuzzy
+msgid "Align bottoms of items to top of anchor"
+msgstr "Allinea i lati inferiori degli oggetti al lato superiore dell'ancora"
+
+msgid "Align tops"
+msgstr "Allinea i lati superiori"
+
+#, fuzzy
+msgid "Make horizontal gaps between items equal"
+msgstr "Rendi uguale la distanza orizzontale tra gli oggetti"
+
+#, fuzzy
+msgid "Make horizontal gaps between items equal to the value specified"
+msgstr "Fissa la distanza orizzontale tra gli oggetti al valore specificato"
+
+msgid "Distribute right sides equidistantly"
+msgstr "Rendi i lati destri equidistanti"
+
+msgid "Distribute bottoms equidistantly"
+msgstr "Rendi i lati inferiori equidistanti"
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr "Rendi i centri equidistanti orizzontalmente"
+
+#, fuzzy
+msgid "Make vertical gaps between items equal"
+msgstr "Rendi uguale la distanza verticale tra gli oggetti"
+
+#, fuzzy
+msgid "Make vertical gaps between items equal to the value specified"
+msgstr "Fissa la distanza verticale tra gli oggetti al valore specificato"
+
+msgid "Distribute left sides equidistantly"
+msgstr "Rendi i lati sinistri equidistanti"
+
+msgid "Distribute centers equidistantly vertically"
+msgstr "Rendi i centri equidistanti verticalmente"
+
+msgid "Distribute tops equidistantly"
+msgstr "Rendi i lati superiori equidistanti"
+
+#, fuzzy
+msgid "Make horizontal gaps between items and sides of page equal"
+msgstr "Rendi uguale la distanza orizzontale tra gli oggetti"
+
+#, fuzzy
+msgid "Make vertical gaps between items and the top and bottom of page equal"
+msgstr "Rendi uguale la distanza verticale tra gli oggetti"
+
+#, fuzzy
+msgid "Make horizontal gaps between items and sides of page margins equal"
+msgstr "Rendi uguale la distanza orizzontale tra gli oggetti"
+
+#, fuzzy
+msgid ""
+"Make vertical gaps between items and the top and bottom of page margins equal"
+msgstr "Rendi uguale la distanza verticale tra gli oggetti"
+
+msgid "Distribute the items with the distance specified"
+msgstr "Distribuisci gli elementi con la distanza specificata"
+
+msgid "None Selected"
+msgstr "Nessuna selezione"
+
+msgid "Y: %1%2"
+msgstr "Y: %1%2"
+
+msgid "X: %1%2"
+msgstr "X: %1%2"
 
 msgid "Freetype2 library not available"
 msgstr "Libreria Freetype2 non disponibile"
@@ -10212,11 +10248,12 @@ msgstr "Documento Scribus 1.2.x"
 msgid "Scribus 1.3.4 Document"
 msgstr "Documento Scribus 1.2.x"
 
-msgid "Scribus 1.3.0->1.3.3.2 Support"
-msgstr ""
+#, fuzzy
+msgid "Scribus 1.3.0->1.3.3.7 Support"
+msgstr "Documento Scribus 1.2.x"
 
 #, fuzzy
-msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgid "Scribus 1.3.0->1.3.3.7 Document"
 msgstr "Documento Scribus 1.2.x"
 
 msgid "Append selected font into Style, Font menu"
@@ -11643,6 +11680,24 @@ msgstr ""
 
 msgid "parent= %1"
 msgstr ""
+
+#~ msgid "Select Character:"
+#~ msgstr "Scegli carattere:"
+
+#~ msgid "Page Layout"
+#~ msgstr "Formato pagina"
+
+#, fuzzy
+#~ msgid "Delete &Page Guides"
+#~ msgstr "Elimina pagine "
+
+#, fuzzy
+#~ msgid "Delete &Document guides"
+#~ msgstr "Documenti di testo"
+
+#, fuzzy
+#~ msgid "Form2"
+#~ msgstr "Formato"
 
 #, fuzzy
 #~ msgid "Get Text 2..."

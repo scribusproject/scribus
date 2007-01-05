@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-21 23:33+0100\n"
+"POT-Creation-Date: 2007-01-05 20:28+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -58,6 +58,9 @@ msgid "Contributions from:"
 msgstr "ཕན་འདེབས་ཚུ་གི་ལས:"
 
 msgid "Mac OS&#174; X Aqua Port:"
+msgstr ""
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
 msgstr ""
 
 #, fuzzy
@@ -985,136 +988,6 @@ msgstr "གཡོན།"
 msgid "st"
 msgstr ""
 
-msgid "Align and Distribute"
-msgstr ""
-
-#, fuzzy
-msgid "&Relative to:"
-msgstr "མཐུན་འབྲེལ:(&R)"
-
-#, fuzzy
-msgid "First Selected"
-msgstr "སེལ་འཐུ་འབད།"
-
-#, fuzzy
-msgid "Last Selected"
-msgstr "སེལ་འཐུ་འབད།"
-
-msgid "Page"
-msgstr "ཤོག་ལེབ།"
-
-#, fuzzy
-msgid "Margins"
-msgstr "ས་སྟོང་ཚུ།:(&M)"
-
-#, fuzzy
-msgid "Guide"
-msgstr "ལམ་སྟོན་པ།"
-
-#, fuzzy
-msgid "Selection"
-msgstr "སེལ་འཐུ་འབད།"
-
-msgid "Align right sides of items to left side of anchor"
-msgstr ""
-
-msgid "Align left sides of items to right side of anchor"
-msgstr ""
-
-#, fuzzy
-msgid "Align bottoms"
-msgstr "གཡོན་ཕྲང་།"
-
-#, fuzzy
-msgid "Align right sides"
-msgstr "གཡས་ཕྲང་།"
-
-msgid "Align tops of items to bottom of anchor"
-msgstr ""
-
-msgid "Center on vertical axis"
-msgstr ""
-
-#, fuzzy
-msgid "Align left sides"
-msgstr "གཡོན་ཕྲང་།"
-
-msgid "Center on horizontal axis"
-msgstr ""
-
-msgid "Align bottoms of items to top of anchor"
-msgstr ""
-
-#, fuzzy
-msgid "Align tops"
-msgstr "གཡོན་ཕྲང་།"
-
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད་འབདཝ།"
-
-msgid "Make horizontal gaps between items equal"
-msgstr ""
-
-msgid "Make horizontal gaps between items equal to the value specified"
-msgstr ""
-
-msgid "Distribute right sides equidistantly"
-msgstr ""
-
-#, fuzzy
-msgid "Distribute bottoms equidistantly"
-msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།"
-
-msgid "Distribute centers equidistantly horizontally"
-msgstr ""
-
-msgid "Make vertical gaps between items equal"
-msgstr ""
-
-msgid "Make vertical gaps between items equal to the value specified"
-msgstr ""
-
-msgid "Distribute left sides equidistantly"
-msgstr ""
-
-msgid "Distribute centers equidistantly vertically"
-msgstr ""
-
-#, fuzzy
-msgid "Distribute tops equidistantly"
-msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།(&E)"
-
-msgid "Make horizontal gaps between items and sides of page equal"
-msgstr ""
-
-msgid ""
-"Make vertical gaps between items and the top and bottom of page margins equal"
-msgstr ""
-
-msgid "Make horizontal gaps between items and sides of page margins equal"
-msgstr ""
-
-msgid "Make vertical gaps between items and the top and bottom of page equal"
-msgstr ""
-
-#, fuzzy
-msgid "&Distance:"
-msgstr "གྱང་ཚད་ཚུ།"
-
-msgid "Distribute the items with the distance specified"
-msgstr ""
-
-#, fuzzy
-msgid "None Selected"
-msgstr "སེལ་འཐུ་འབད།"
-
-msgid "Y: %1%2"
-msgstr ""
-
-msgid "X: %1%2"
-msgstr ""
-
 msgid "Align Text Left"
 msgstr "ཚིག་ཡིག་གཡོན་ལུ་ཕྲང་།"
 
@@ -1523,7 +1396,7 @@ msgstr "ཁ་ཕྱེ།"
 
 #, fuzzy
 msgid ""
-"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
 msgstr ""
 "གཟུགས་བརྙན་(*.ཊི་ཨའི་ཨེཕ *.པི་ཨེན་ཇི*.ཇེ་པི་ཇི *.ཨེགསི་པི་ཨེམ);;པོསིཊི་སིཀིརིཔཊི (*.ཨི་པི་ཨེསི);;ཡིག་སྣོད་"
 "ཆ་མཉམ  (*)"
@@ -1694,8 +1567,9 @@ msgstr "ངོས་དཔར།"
 msgid "Reset"
 msgstr "སླར་སྒྲིག"
 
-msgid "Select Character:"
-msgstr "ཡིག་འབྲུ་སེལ་འཐུ་འབད་:"
+#, fuzzy
+msgid "Character Palette"
+msgstr "ཡིག་འབྲུ།"
 
 #, fuzzy
 msgid "Scribus Char Palette (*.ucp);;All Files (*)"
@@ -2269,7 +2143,7 @@ msgstr "མིང་ཅིག་གདམ་ཁ་རྐྱབས།"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *."
 "ai);;All Files (*)"
 msgstr ""
 "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *.ཨེ་སི་ཌི་.ཇི་ཛེཌ་);;ཡིག་སྣོད་ཚུ་ཆ་"
@@ -2281,6 +2155,14 @@ msgid ""
 msgstr ""
 "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *.ཨེ་སི་ཌི་.ཇི་ཛེཌ་);;ཡིག་སྣོད་ཚུ་ཆ་"
 "མཉམ། (*)"
+
+msgid "Information"
+msgstr "བརྡ་དོན།"
+
+msgid ""
+"The file %1 does not contain any new colors.\n"
+"If the file was an EPS try to import it with File -> Import"
+msgstr ""
 
 msgid "Copy of %1"
 msgstr "%1གི་འདྲ་བཤུས།"
@@ -3091,6 +2973,9 @@ msgstr "པོསིཊི་སིཀིརིཔཊི་གནས་རིམ
 #, fuzzy
 msgid "PostScript Level 3"
 msgstr "པོསིཊི་སིཀིརིཔཊི་གནས་རིམ་ ༣ །(&3)"
+
+msgid "Page"
+msgstr "ཤོག་ལེབ།"
 
 #, fuzzy
 msgid "Mirror Page(s) Horizontal"
@@ -4141,6 +4026,10 @@ msgid "German"
 msgstr "ཇར་མཱན།"
 
 #, fuzzy
+msgid "German (Swiss)"
+msgstr "ཇར་མཱན།"
+
+#, fuzzy
 msgid "German (Trad.)"
 msgstr "ཇར་མཱན།"
 
@@ -4315,6 +4204,10 @@ msgstr ""
 msgid "Paragraphs:"
 msgstr "དོན་མཚམས་ཚུ : "
 
+#, fuzzy
+msgid "Standard Lorem Ipsum"
+msgstr "རྣམ་གྲངས་སེལ་འཐུ་འབད།"
+
 msgid "Scribus Crash"
 msgstr "སི་ཀིརི་བསི་བརྡབ་འཁྲུག"
 
@@ -4380,9 +4273,9 @@ msgstr "མཇུག་གི་ས་སྟོང་ལམ་སྟོན་པ
 
 #, fuzzy
 msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the left margin guide and the edge of the page. If a double-"
+"sided, 3 or 4-fold layout is selected, this margin space can be used to "
+"achieve the correct margins for binding"
 msgstr ""
 "གཡོན་གྱི་ས་སྟོང་གི་ལམ་སྟོན་པ་དང་ཤོག་ལེབ་མཐའམ་གྱི་བར་ནའི་གྱང་ཚད།\n"
 "ག་དེམ་ཅི་འབད་ཤོག་ལེབ་གདོང་བསྐོར་འདི་སེལ་འཐུ་འབད་ཡོད་པ་ཅིན་  འ་ནི་བར་སྟོང་གི་ས་སྟོང་འདི་  སྡམ་ཐག་"
@@ -4390,9 +4283,9 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the right margin guide and the edge of the page. If a "
+"double-sided, 3 or 4-fold layout is selected, this margin space can be used "
+"to achieve the correct margins for binding"
 msgstr ""
 "གཡས་ཀྱི་ས་སྟོང་ལམ་སྟོན་པ་དང་ཤོག་ལེབ་མཐའམ་གྱི་བར་ནའི་གྱང་ཚད།\n"
 "ག་དེམ་ཅིག་འབད་ཤོག་ལེབ་གདོང་བསྐོར་ཚུ་སེར་འཐུ་འབད་ཡོད་པ་ཅིན་  འ་ནི་བར་སྟོང་གི་ས་སྟོང་འདི་ སྡམ་ཐག་གི་"
@@ -5115,8 +5008,8 @@ msgid "Distance between automatically created columns"
 msgstr "རང་བཞན་གྱིས་གསར་བསྐྲུན་འབད་ཡོད་པའི་ཀེར་ཐིག་ཚུ་གི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
 
 #, fuzzy
-msgid "Page Layout"
-msgstr "སྒྲིག་བཀོད:"
+msgid "Document Layout"
+msgstr "ཡིག་ཐོག་བཀོད་པ་གཞན:"
 
 #, fuzzy
 msgid "First Page is:"
@@ -6230,9 +6123,6 @@ msgstr "ཆ་མཉམ་ལྡེ་མིག་མ་རྐྱབས།"
 #, fuzzy
 msgid "Group%1"
 msgstr "སྡེ་ཚན།"
-
-msgid "Information"
-msgstr "བརྡ་དོན།"
 
 msgid "The program %1 is already running!"
 msgstr ""
@@ -8904,6 +8794,10 @@ msgid ""
 "X: %4, Y: %5"
 msgstr ""
 
+#, fuzzy
+msgid "Selection"
+msgstr "སེལ་འཐུ་འབད།"
+
 msgid "Group"
 msgstr "སྡེ་ཚན།"
 
@@ -9024,6 +8918,9 @@ msgid "Set start arrow"
 msgstr ""
 
 msgid "Set end arrow"
+msgstr ""
+
+msgid "Set start and end arrows"
 msgstr ""
 
 #, fuzzy
@@ -9381,6 +9278,13 @@ msgstr "པི་ཨེཕ་ཌི་ལག་ཆས་ཚུ།"
 msgid "Scribus: About Plug-ins"
 msgstr "སི་ཀིརི་བསི་-ཡིག་ཚུགས་པ་ལག་ཨིན།"
 
+msgid "Align and Distribute"
+msgstr ""
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད་འབདཝ།"
+
 #, fuzzy
 msgid "&Relative To:"
 msgstr "མཐུན་འབྲེལ:(&R)"
@@ -9391,6 +9295,10 @@ msgstr "ཁ་སྐོང་རྐྱབ...(&d)"
 
 msgid "Align"
 msgstr "ཕྲང་།"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "གྱང་ཚད་ཚུ།"
 
 #, fuzzy
 msgid "Distribute"
@@ -9514,6 +9422,10 @@ msgstr "སྐར་མ།"
 msgid "Document Sections"
 msgstr "ཡིག་ཆ་གཞི་སྒྲིག།"
 
+#, fuzzy
+msgid "Guide"
+msgstr "ལམ་སྟོན་པ།"
+
 msgid "Manage Guides"
 msgstr "ལམ་སྟོན་པ་ཚུ་འཛིན་སྐྱོང་འབད།"
 
@@ -9585,15 +9497,14 @@ msgid "&Column/Row"
 msgstr "ཀེར་ཐིག་ཚུ།(&m)"
 
 #, fuzzy
-msgid "Delete &Page Guides"
-msgstr "ཤོག་ལེབ་ཚུ་བཏོན་གཏང་།"
+msgid "Delete Guides from Current &Page"
+msgstr "ད་ལྟོ་ཡོད་མི་ཡིག་ཆ་འདི་སྲུང་བཞག"
 
 msgid "Delete all guides from the current page"
 msgstr ""
 
-#, fuzzy
-msgid "Delete &Document guides"
-msgstr "ཚིག་ཡིག་གི་ཡིག་ཆ་ཚུ།"
+msgid "Delete Guides from &All Pages"
+msgstr ""
 
 #, fuzzy
 msgid "Delete all guides from the current document"
@@ -9785,14 +9696,6 @@ msgstr ""
 msgid "Page Item Attributes"
 msgstr "ཁྱད་ཆོས་ཚུ།"
 
-#, fuzzy
-msgid "LineStyleWBase"
-msgstr "གྲལ་ཐིག་གི་བཟོ་རྣམ་ཚུ...(&L)"
-
-#, fuzzy
-msgid "%"
-msgstr " %"
-
 msgid "Result"
 msgstr "གྲུབ་འབྲས།"
 
@@ -9805,6 +9708,14 @@ msgstr "སྔོན་ལྟ།(&P)"
 #, fuzzy
 msgid "&Select"
 msgstr "སེལ་འཐུ་འབད།"
+
+#, fuzzy
+msgid "LineStyleWBase"
+msgstr "གྲལ་ཐིག་གི་བཟོ་རྣམ་ཚུ...(&L)"
+
+#, fuzzy
+msgid "%"
+msgstr " %"
 
 #, fuzzy
 msgid "Form1"
@@ -9828,19 +9739,9 @@ msgstr "ཆ་མེད་གཏང་།"
 msgid "Alt+N"
 msgstr "གདམ་ལྡེ་+ཨེན།"
 
-msgid "Style Manager"
-msgstr ""
-
 #, fuzzy
-msgid "Alt+R"
-msgstr "གདམ་ལྡེ།+"
-
-msgid "Please select a unique name for the style"
-msgstr ""
-
-#, fuzzy
-msgid "Form2"
-msgstr "རྩ་སྒྲིག"
+msgid "TabDisplayBase"
+msgstr "བཀྲམ་སྟོན།"
 
 #, fuzzy
 msgid "Page Display"
@@ -9895,8 +9796,9 @@ msgstr "བཀྲམ་སྟོན་ཚད་བདེ་སྒྲིག་འ
 msgid "To adjust the display drag the ruler below with the slider."
 msgstr "བཀྲམ་སྟོན་འདི་བདེ་སྒྲིག་ལུ་ཐིག་ཤིང་འདི་བཤུད་བྱེད་འདི་དང་བཅས་འོག་ལས་སྦེ་འདྲུད།"
 
-msgid "textLabel16"
-msgstr ""
+#, fuzzy
+msgid "Scale%"
+msgstr "ཆ་ཚད:"
 
 #, fuzzy
 msgid "Pages:"
@@ -9941,6 +9843,16 @@ msgstr "ཚིག་ཡིག"
 #, fuzzy
 msgid "Control Characters:"
 msgstr "མ་སྒྲོམ་སྟོན།(&C)"
+
+msgid "Style Manager"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "གདམ་ལྡེ།+"
+
+msgid "Please select a unique name for the style"
+msgstr ""
 
 msgid "PostScript Interpreter"
 msgstr "པོསིཊི་སིཀིརིཔཊི་་ཁ་སྒྱུར་འབད་མི།"
@@ -10010,6 +9922,10 @@ msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
 "location"
 msgstr ""
+
+#, fuzzy
+msgid "TabGeneralBase"
+msgstr "ཡོངས་ཁྱབ།"
 
 msgid "User Interface"
 msgstr ""
@@ -10123,6 +10039,10 @@ msgid "Count of the Paragraphs:"
 msgstr "ད་ལྟོའི་དོན་མཚམས:"
 
 #, fuzzy
+msgid "TabPrinterBase"
+msgstr "དཔར་བསྐྲུན་འབད་དོ..."
+
+#, fuzzy
 msgid "Alternative Printer Command"
 msgstr "དཔར་བསྐྲུན་ཐབས་གཞན་གྱི་བརྡ་བཀོད།"
 
@@ -10148,6 +10068,10 @@ msgstr "གནས་རིམ།"
 
 msgid "Marks && Bleeds"
 msgstr ""
+
+#, fuzzy
+msgid "TabScrapbookBase"
+msgstr "ཤོག་འཛར་གྱི་དེབ།"
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -10193,6 +10117,114 @@ msgstr "དཔར་བསྐྲུན་གྱི་གདམ་ཁ་ཚུ།
 #, fuzzy
 msgid "Select &Printer:"
 msgstr "དཔར་བསྐྲུན་པ་འདི་གཞི་སྒྲིག་འབད།"
+
+#, fuzzy
+msgid "Margins"
+msgstr "ས་སྟོང་ཚུ།:(&M)"
+
+#, fuzzy
+msgid "&Relative to:"
+msgstr "མཐུན་འབྲེལ:(&R)"
+
+#, fuzzy
+msgid "First Selected"
+msgstr "སེལ་འཐུ་འབད།"
+
+#, fuzzy
+msgid "Last Selected"
+msgstr "སེལ་འཐུ་འབད།"
+
+msgid "Align right sides of items to left side of anchor"
+msgstr ""
+
+msgid "Align left sides of items to right side of anchor"
+msgstr ""
+
+#, fuzzy
+msgid "Align bottoms"
+msgstr "གཡོན་ཕྲང་།"
+
+#, fuzzy
+msgid "Align right sides"
+msgstr "གཡས་ཕྲང་།"
+
+msgid "Align tops of items to bottom of anchor"
+msgstr ""
+
+msgid "Center on vertical axis"
+msgstr ""
+
+#, fuzzy
+msgid "Align left sides"
+msgstr "གཡོན་ཕྲང་།"
+
+msgid "Center on horizontal axis"
+msgstr ""
+
+msgid "Align bottoms of items to top of anchor"
+msgstr ""
+
+#, fuzzy
+msgid "Align tops"
+msgstr "གཡོན་ཕྲང་།"
+
+msgid "Make horizontal gaps between items equal"
+msgstr ""
+
+msgid "Make horizontal gaps between items equal to the value specified"
+msgstr ""
+
+msgid "Distribute right sides equidistantly"
+msgstr ""
+
+#, fuzzy
+msgid "Distribute bottoms equidistantly"
+msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།"
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr ""
+
+msgid "Make vertical gaps between items equal"
+msgstr ""
+
+msgid "Make vertical gaps between items equal to the value specified"
+msgstr ""
+
+msgid "Distribute left sides equidistantly"
+msgstr ""
+
+msgid "Distribute centers equidistantly vertically"
+msgstr ""
+
+#, fuzzy
+msgid "Distribute tops equidistantly"
+msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།(&E)"
+
+msgid "Make horizontal gaps between items and sides of page equal"
+msgstr ""
+
+msgid "Make vertical gaps between items and the top and bottom of page equal"
+msgstr ""
+
+msgid "Make horizontal gaps between items and sides of page margins equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between items and the top and bottom of page margins equal"
+msgstr ""
+
+msgid "Distribute the items with the distance specified"
+msgstr ""
+
+#, fuzzy
+msgid "None Selected"
+msgstr "སེལ་འཐུ་འབད།"
+
+msgid "Y: %1%2"
+msgstr ""
+
+msgid "X: %1%2"
+msgstr ""
 
 msgid "Freetype2 library not available"
 msgstr ""
@@ -10616,11 +10648,12 @@ msgstr ""
 msgid "Scribus 1.3.4 Document"
 msgstr "ཨིསི་ཀིརི་བསི་གི་ཡིག་ཆ།"
 
-msgid "Scribus 1.3.0->1.3.3.2 Support"
-msgstr ""
+#, fuzzy
+msgid "Scribus 1.3.0->1.3.3.7 Support"
+msgstr "ཨིསི་ཀིརི་བསི་གི་ཡིག་ཆ།"
 
 #, fuzzy
-msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgid "Scribus 1.3.0->1.3.3.7 Document"
 msgstr "ཨིསི་ཀིརི་བསི་གི་ཡིག་ཆ།"
 
 msgid "Append selected font into Style, Font menu"
@@ -12063,6 +12096,25 @@ msgstr ""
 
 msgid "parent= %1"
 msgstr ""
+
+#~ msgid "Select Character:"
+#~ msgstr "ཡིག་འབྲུ་སེལ་འཐུ་འབད་:"
+
+#, fuzzy
+#~ msgid "Page Layout"
+#~ msgstr "སྒྲིག་བཀོད:"
+
+#, fuzzy
+#~ msgid "Delete &Page Guides"
+#~ msgstr "ཤོག་ལེབ་ཚུ་བཏོན་གཏང་།"
+
+#, fuzzy
+#~ msgid "Delete &Document guides"
+#~ msgstr "ཚིག་ཡིག་གི་ཡིག་ཆ་ཚུ།"
+
+#, fuzzy
+#~ msgid "Form2"
+#~ msgstr "རྩ་སྒྲིག"
 
 #, fuzzy
 #~ msgid "Get Text 2..."

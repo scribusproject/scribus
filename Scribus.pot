@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-21 23:33+0100\n"
+"POT-Creation-Date: 2007-01-05 20:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,6 +47,9 @@ msgid "Contributions from:"
 msgstr ""
 
 msgid "Mac OS&#174; X Aqua Port:"
+msgstr ""
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
 msgstr ""
 
 msgid "Windows&#174; Port:"
@@ -858,121 +861,6 @@ msgstr ""
 msgid "st"
 msgstr ""
 
-msgid "Align and Distribute"
-msgstr ""
-
-msgid "&Relative to:"
-msgstr ""
-
-msgid "First Selected"
-msgstr ""
-
-msgid "Last Selected"
-msgstr ""
-
-msgid "Page"
-msgstr ""
-
-msgid "Margins"
-msgstr ""
-
-msgid "Guide"
-msgstr ""
-
-msgid "Selection"
-msgstr ""
-
-msgid "Align right sides of items to left side of anchor"
-msgstr ""
-
-msgid "Align left sides of items to right side of anchor"
-msgstr ""
-
-msgid "Align bottoms"
-msgstr ""
-
-msgid "Align right sides"
-msgstr ""
-
-msgid "Align tops of items to bottom of anchor"
-msgstr ""
-
-msgid "Center on vertical axis"
-msgstr ""
-
-msgid "Align left sides"
-msgstr ""
-
-msgid "Center on horizontal axis"
-msgstr ""
-
-msgid "Align bottoms of items to top of anchor"
-msgstr ""
-
-msgid "Align tops"
-msgstr ""
-
-msgid "&Selected Guide:"
-msgstr ""
-
-msgid "Make horizontal gaps between items equal"
-msgstr ""
-
-msgid "Make horizontal gaps between items equal to the value specified"
-msgstr ""
-
-msgid "Distribute right sides equidistantly"
-msgstr ""
-
-msgid "Distribute bottoms equidistantly"
-msgstr ""
-
-msgid "Distribute centers equidistantly horizontally"
-msgstr ""
-
-msgid "Make vertical gaps between items equal"
-msgstr ""
-
-msgid "Make vertical gaps between items equal to the value specified"
-msgstr ""
-
-msgid "Distribute left sides equidistantly"
-msgstr ""
-
-msgid "Distribute centers equidistantly vertically"
-msgstr ""
-
-msgid "Distribute tops equidistantly"
-msgstr ""
-
-msgid "Make horizontal gaps between items and sides of page equal"
-msgstr ""
-
-msgid ""
-"Make vertical gaps between items and the top and bottom of page margins equal"
-msgstr ""
-
-msgid "Make horizontal gaps between items and sides of page margins equal"
-msgstr ""
-
-msgid "Make vertical gaps between items and the top and bottom of page equal"
-msgstr ""
-
-msgid "&Distance:"
-msgstr ""
-
-msgid "Distribute the items with the distance specified"
-msgstr ""
-
-msgid "None Selected"
-msgstr ""
-
-msgid "Y: %1%2"
-msgstr ""
-
-msgid "X: %1%2"
-msgstr ""
-
 msgid "Align Text Left"
 msgstr ""
 
@@ -1376,7 +1264,7 @@ msgid "Open"
 msgstr ""
 
 msgid ""
-"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
 msgstr ""
 
 msgid "Example:"
@@ -1537,7 +1425,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-msgid "Select Character:"
+msgid "Character Palette"
 msgstr ""
 
 msgid "Scribus Char Palette (*.ucp);;All Files (*)"
@@ -2037,12 +1925,20 @@ msgid "Choose a Name"
 msgstr ""
 
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *."
 "ai);;All Files (*)"
 msgstr ""
 
 msgid ""
 "Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
+msgstr ""
+
+msgid "Information"
+msgstr ""
+
+msgid ""
+"The file %1 does not contain any new colors.\n"
+"If the file was an EPS try to import it with File -> Import"
 msgstr ""
 
 msgid "Copy of %1"
@@ -2737,6 +2633,9 @@ msgid "PostScript Level 2"
 msgstr ""
 
 msgid "PostScript Level 3"
+msgstr ""
+
+msgid "Page"
 msgstr ""
 
 msgid "Mirror Page(s) Horizontal"
@@ -3648,6 +3547,9 @@ msgstr ""
 msgid "German"
 msgstr ""
 
+msgid "German (Swiss)"
+msgstr ""
+
 msgid "German (Trad.)"
 msgstr ""
 
@@ -3809,6 +3711,9 @@ msgstr ""
 msgid "Paragraphs:"
 msgstr ""
 
+msgid "Standard Lorem Ipsum"
+msgstr ""
+
 msgid "Scribus Crash"
 msgstr ""
 
@@ -3865,15 +3770,15 @@ msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr ""
 
 msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the left margin guide and the edge of the page. If a double-"
+"sided, 3 or 4-fold layout is selected, this margin space can be used to "
+"achieve the correct margins for binding"
 msgstr ""
 
 msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the right margin guide and the edge of the page. If a "
+"double-sided, 3 or 4-fold layout is selected, this margin space can be used "
+"to achieve the correct margins for binding"
 msgstr ""
 
 msgid "&Inside:"
@@ -4531,7 +4436,7 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr ""
 
-msgid "Page Layout"
+msgid "Document Layout"
 msgstr ""
 
 msgid "First Page is:"
@@ -5507,9 +5412,6 @@ msgid "&Unlock All"
 msgstr ""
 
 msgid "Group%1"
-msgstr ""
-
-msgid "Information"
 msgstr ""
 
 msgid "The program %1 is already running!"
@@ -7851,6 +7753,9 @@ msgid ""
 "X: %4, Y: %5"
 msgstr ""
 
+msgid "Selection"
+msgstr ""
+
 msgid "Group"
 msgstr ""
 
@@ -7955,6 +7860,9 @@ msgid "Set start arrow"
 msgstr ""
 
 msgid "Set end arrow"
+msgstr ""
+
+msgid "Set start and end arrows"
 msgstr ""
 
 msgid "Create table"
@@ -8245,6 +8153,12 @@ msgstr ""
 msgid "Scribus: About Plug-ins"
 msgstr ""
 
+msgid "Align and Distribute"
+msgstr ""
+
+msgid "&Selected Guide:"
+msgstr ""
+
 msgid "&Relative To:"
 msgstr ""
 
@@ -8252,6 +8166,9 @@ msgid "..."
 msgstr ""
 
 msgid "Align"
+msgstr ""
+
+msgid "&Distance:"
 msgstr ""
 
 msgid "Distribute"
@@ -8350,6 +8267,9 @@ msgstr ""
 msgid "Document Sections"
 msgstr ""
 
+msgid "Guide"
+msgstr ""
+
 msgid "Manage Guides"
 msgstr ""
 
@@ -8407,13 +8327,13 @@ msgstr ""
 msgid "&Column/Row"
 msgstr ""
 
-msgid "Delete &Page Guides"
+msgid "Delete Guides from Current &Page"
 msgstr ""
 
 msgid "Delete all guides from the current page"
 msgstr ""
 
-msgid "Delete &Document guides"
+msgid "Delete Guides from &All Pages"
 msgstr ""
 
 msgid "Delete all guides from the current document"
@@ -8567,12 +8487,6 @@ msgstr ""
 msgid "Page Item Attributes"
 msgstr ""
 
-msgid "LineStyleWBase"
-msgstr ""
-
-msgid "%"
-msgstr ""
-
 msgid "Result"
 msgstr ""
 
@@ -8583,6 +8497,12 @@ msgid "&Preview"
 msgstr ""
 
 msgid "&Select"
+msgstr ""
+
+msgid "LineStyleWBase"
+msgstr ""
+
+msgid "%"
 msgstr ""
 
 msgid "Form1"
@@ -8603,16 +8523,7 @@ msgstr ""
 msgid "Alt+N"
 msgstr ""
 
-msgid "Style Manager"
-msgstr ""
-
-msgid "Alt+R"
-msgstr ""
-
-msgid "Please select a unique name for the style"
-msgstr ""
-
-msgid "Form2"
+msgid "TabDisplayBase"
 msgstr ""
 
 msgid "Page Display"
@@ -8657,7 +8568,7 @@ msgstr ""
 msgid "To adjust the display drag the ruler below with the slider."
 msgstr ""
 
-msgid "textLabel16"
+msgid "Scale%"
 msgstr ""
 
 msgid "Pages:"
@@ -8691,6 +8602,15 @@ msgid "Text:"
 msgstr ""
 
 msgid "Control Characters:"
+msgstr ""
+
+msgid "Style Manager"
+msgstr ""
+
+msgid "Alt+R"
+msgstr ""
+
+msgid "Please select a unique name for the style"
 msgstr ""
 
 msgid "PostScript Interpreter"
@@ -8752,6 +8672,9 @@ msgstr ""
 msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
 "location"
+msgstr ""
+
+msgid "TabGeneralBase"
 msgstr ""
 
 msgid "User Interface"
@@ -8853,6 +8776,9 @@ msgstr ""
 msgid "Count of the Paragraphs:"
 msgstr ""
 
+msgid "TabPrinterBase"
+msgstr ""
+
 msgid "Alternative Printer Command"
 msgstr ""
 
@@ -8872,6 +8798,9 @@ msgid "Level 3"
 msgstr ""
 
 msgid "Marks && Bleeds"
+msgstr ""
+
+msgid "TabScrapbookBase"
 msgstr ""
 
 msgid "Send Copied Items Automatically to Scrapbook"
@@ -8911,6 +8840,103 @@ msgid "Use Printer Margins"
 msgstr ""
 
 msgid "Select &Printer:"
+msgstr ""
+
+msgid "Margins"
+msgstr ""
+
+msgid "&Relative to:"
+msgstr ""
+
+msgid "First Selected"
+msgstr ""
+
+msgid "Last Selected"
+msgstr ""
+
+msgid "Align right sides of items to left side of anchor"
+msgstr ""
+
+msgid "Align left sides of items to right side of anchor"
+msgstr ""
+
+msgid "Align bottoms"
+msgstr ""
+
+msgid "Align right sides"
+msgstr ""
+
+msgid "Align tops of items to bottom of anchor"
+msgstr ""
+
+msgid "Center on vertical axis"
+msgstr ""
+
+msgid "Align left sides"
+msgstr ""
+
+msgid "Center on horizontal axis"
+msgstr ""
+
+msgid "Align bottoms of items to top of anchor"
+msgstr ""
+
+msgid "Align tops"
+msgstr ""
+
+msgid "Make horizontal gaps between items equal"
+msgstr ""
+
+msgid "Make horizontal gaps between items equal to the value specified"
+msgstr ""
+
+msgid "Distribute right sides equidistantly"
+msgstr ""
+
+msgid "Distribute bottoms equidistantly"
+msgstr ""
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr ""
+
+msgid "Make vertical gaps between items equal"
+msgstr ""
+
+msgid "Make vertical gaps between items equal to the value specified"
+msgstr ""
+
+msgid "Distribute left sides equidistantly"
+msgstr ""
+
+msgid "Distribute centers equidistantly vertically"
+msgstr ""
+
+msgid "Distribute tops equidistantly"
+msgstr ""
+
+msgid "Make horizontal gaps between items and sides of page equal"
+msgstr ""
+
+msgid "Make vertical gaps between items and the top and bottom of page equal"
+msgstr ""
+
+msgid "Make horizontal gaps between items and sides of page margins equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between items and the top and bottom of page margins equal"
+msgstr ""
+
+msgid "Distribute the items with the distance specified"
+msgstr ""
+
+msgid "None Selected"
+msgstr ""
+
+msgid "Y: %1%2"
+msgstr ""
+
+msgid "X: %1%2"
 msgstr ""
 
 msgid "Freetype2 library not available"
@@ -9293,10 +9319,10 @@ msgstr ""
 msgid "Scribus 1.3.4 Document"
 msgstr ""
 
-msgid "Scribus 1.3.0->1.3.3.2 Support"
+msgid "Scribus 1.3.0->1.3.3.7 Support"
 msgstr ""
 
-msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgid "Scribus 1.3.0->1.3.3.7 Document"
 msgstr ""
 
 msgid "Append selected font into Style, Font menu"

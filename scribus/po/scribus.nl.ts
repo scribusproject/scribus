@@ -5886,6 +5886,10 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7166,7 +7170,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Uitlijnen</translation>
+        <translation type="unfinished">Uitlijnen</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -7242,7 +7246,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="obsolete">Verdelen</translation>
+        <translation type="unfinished">Verdelen</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -7949,7 +7953,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9196,7 +9200,7 @@ please choose another one.</source>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>Karakter selecteren:</translation>
+        <translation type="obsolete">Karakter selecteren:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -9400,6 +9404,10 @@ please choose another one.</source>
     </message>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9680,11 +9688,20 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -&gt; Import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13299,19 +13316,19 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete &amp;Page Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete all guides from the current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete &amp;Document guides</source>
+        <source>Delete all guides from the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete all guides from the current document</source>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14539,6 +14556,10 @@ zet de vectordata over naar Scribus objecten.</translation>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MSpinBox</name>
@@ -14725,11 +14746,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de rand van de pagina en de linkermarge. Als Tegenoverliggende Pagina&apos;s is geselecteerd, kan deze marge worden gebruikt om de juiste bindmarge te verkrijgen</translation>
+        <translation type="obsolete">Afstand tussen de rand van de pagina en de linkermarge. Als Tegenoverliggende Pagina&apos;s is geselecteerd, kan deze marge worden gebruikt om de juiste bindmarge te verkrijgen</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de rand van de pagina en de rechtermarge. Als Tegenoverliggende Pagina&apos;s is geselecteerd, kan deze marge worden gebruikt om de juiste bindmarge te verkrijgen</translation>
+        <translation type="obsolete">Afstand tussen de rand van de pagina en de rechtermarge. Als Tegenoverliggende Pagina&apos;s is geselecteerd, kan deze marge worden gebruikt om de juiste bindmarge te verkrijgen</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -14802,6 +14823,14 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>Right:</source>
         <translation type="unfinished">Rechts:</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16645,7 +16674,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Pagina layout</translation>
+        <translation type="obsolete">Pagina layout</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -16653,6 +16682,10 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Show Document Settings After Creation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16856,6 +16889,10 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Dit bestand lijkt geen OpenOffice.org Draw bestand te zijn.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18561,11 +18598,15 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Pagina layout</translation>
+        <translation type="obsolete">Pagina layout</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Eerste pagina is:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22826,7 +22867,15 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished">Hebreeuws</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24201,12 +24250,12 @@ zet de vectordata over naar Scribus objecten.</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopie #%1 van</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28009,10 +28058,6 @@ zonder u telkens om bevestiging te vragen</translation>
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>General</source>
         <translation type="unfinished">Algemeen</translation>
     </message>
@@ -28097,10 +28142,6 @@ zonder u telkens om bevestiging te vragen</translation>
         <translation type="unfinished">Om in te stellen sleep het lineaal hieronder met de schuifbalk.</translation>
     </message>
     <message>
-        <source>textLabel16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Colors</source>
         <translation type="unfinished">Kleuren</translation>
     </message>
@@ -28150,6 +28191,14 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Control Characters:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28428,10 +28477,6 @@ zonder u telkens om bevestiging te vragen</translation>
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>User Interface</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28529,6 +28574,10 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29649,7 +29698,7 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Pagina layout</translation>
+        <translation type="obsolete">Pagina layout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -29869,6 +29918,10 @@ als PDF document wordt geopend:</translation>
         <source>Outside:</source>
         <translation type="unfinished">Buiten:</translation>
     </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -29933,10 +29986,6 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
 </context>
 <context>
     <name>TabPrinterBase</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Print Destination</source>
         <translation type="unfinished">Afdrukken naar</translation>
@@ -30077,13 +30126,13 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
         <source>Right:</source>
         <translation type="unfinished">Rechts:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
-    <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation type="unfinished"></translation>
@@ -30106,6 +30155,10 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -31342,6 +31395,10 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Adjust frame to the image size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

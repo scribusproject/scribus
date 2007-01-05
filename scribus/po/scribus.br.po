@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-21 23:33+0100\n"
+"POT-Creation-Date: 2007-01-05 20:28+0100\n"
 "PO-Revision-Date: 2006-10-16 00:25+0100\n"
 "Last-Translator: Alan MONFORT <alan.monfort@free.fr>\n"
 "Language-Team: Alan Monfort <alan.monfort@free.fr>\n"
@@ -82,6 +82,9 @@ msgstr "Perzhioù digant :"
 
 msgid "Mac OS&#174; X Aqua Port:"
 msgstr "Dougen davet Mac OS&#174; X Aqua :"
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
+msgstr ""
 
 msgid "Windows&#174; Port:"
 msgstr "Dougen davet Windows&#174; :"
@@ -918,135 +921,6 @@ msgstr "ft"
 msgid "st"
 msgstr "st"
 
-msgid "Align and Distribute"
-msgstr "Desteudañ hag Esaouiñ"
-
-msgid "&Relative to:"
-msgstr "E-keñver :"
-
-msgid "First Selected"
-msgstr "Ergorenn gentañ diuzet"
-
-msgid "Last Selected"
-msgstr "Ergorenn diwezhañ diuzet"
-
-msgid "Page"
-msgstr "Pajenn"
-
-msgid "Margins"
-msgstr "Marzioù"
-
-msgid "Guide"
-msgstr "Dealf"
-
-msgid "Selection"
-msgstr "Diuzañ"
-
-#, fuzzy
-msgid "Align right sides of items to left side of anchor"
-msgstr "Desteudañ tu dehou an ergorennoù ouzh tu kleiz an eor"
-
-#, fuzzy
-msgid "Align left sides of items to right side of anchor"
-msgstr "Desteudañ tu kleiz an ergorennoù ouzh tu dehou an eor"
-
-msgid "Align bottoms"
-msgstr "Desteudañ traoñioù an ergorennoù"
-
-msgid "Align right sides"
-msgstr "Desteudañ an tuioù dehou"
-
-#, fuzzy
-msgid "Align tops of items to bottom of anchor"
-msgstr "Desteudañ krec'h an ergorennoù ouzh traoñ an eor"
-
-msgid "Center on vertical axis"
-msgstr "Kreizañ ouzh an ahel a-serzh"
-
-msgid "Align left sides"
-msgstr "Desteudañ an tuioù kleiz"
-
-msgid "Center on horizontal axis"
-msgstr "Kreizañ ouzh an ahel a-zremm"
-
-#, fuzzy
-msgid "Align bottoms of items to top of anchor"
-msgstr "Desteudañ traoñ an ergorennoù ouzh krec'h an eor"
-
-msgid "Align tops"
-msgstr "Desteudañ krec'hioù"
-
-msgid "&Selected Guide:"
-msgstr "&Dealf bet diuzet"
-
-#, fuzzy
-msgid "Make horizontal gaps between items equal"
-msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
-
-#, fuzzy
-msgid "Make horizontal gaps between items equal to the value specified"
-msgstr ""
-"Kas da gevatal d'ar werzh erspizet an esaouenn a-zremm etre an ergorennoù"
-
-msgid "Distribute right sides equidistantly"
-msgstr "Esaouiñ an tuioù dehou ent keitpell"
-
-msgid "Distribute bottoms equidistantly"
-msgstr "Esaouiñ an traoñioù ent keitpell"
-
-msgid "Distribute centers equidistantly horizontally"
-msgstr "Esaouiñ ar c'heizioù ent keitpell a-zremm"
-
-#, fuzzy
-msgid "Make vertical gaps between items equal"
-msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
-
-#, fuzzy
-msgid "Make vertical gaps between items equal to the value specified"
-msgstr ""
-"Kas da gevatal d'ar werzh erspizet an esaouenn a-serzh etre an ergorennoù"
-
-msgid "Distribute left sides equidistantly"
-msgstr "Esaouiñ an tuioù kleiz ent keitpell"
-
-msgid "Distribute centers equidistantly vertically"
-msgstr "Esaouiñ ar c'heizioù ent keitpell a-serzh"
-
-msgid "Distribute tops equidistantly"
-msgstr "Esaouiñ ar c'hrec'hioù ent keitpell"
-
-#, fuzzy
-msgid "Make horizontal gaps between items and sides of page equal"
-msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
-
-#, fuzzy
-msgid ""
-"Make vertical gaps between items and the top and bottom of page margins equal"
-msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
-
-#, fuzzy
-msgid "Make horizontal gaps between items and sides of page margins equal"
-msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
-
-#, fuzzy
-msgid "Make vertical gaps between items and the top and bottom of page equal"
-msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
-
-msgid "&Distance:"
-msgstr "&Pellder :"
-
-msgid "Distribute the items with the distance specified"
-msgstr "Esaouiñ an ergorennoù gant ar pellder erspizet"
-
-msgid "None Selected"
-msgstr "Diuzad ebet"
-
-msgid "Y: %1%2"
-msgstr "Y: %1%2"
-
-msgid "X: %1%2"
-msgstr "X: %1%2"
-
 msgid "Align Text Left"
 msgstr "Testenn steudet a-gleiz"
 
@@ -1455,7 +1329,7 @@ msgstr "Digeriñ"
 
 #, fuzzy
 msgid ""
-"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
 msgstr ""
 "Skeudennoù (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;An holl restroù (*)"
 
@@ -1619,8 +1493,9 @@ msgstr "Arlun"
 msgid "Reset"
 msgstr "Adderaouekaat"
 
-msgid "Select Character:"
-msgstr "Diuzañ an arouezenn(où) :"
+#, fuzzy
+msgid "Character Palette"
+msgstr "Arouezenn arbennik"
 
 #, fuzzy
 msgid "Scribus Char Palette (*.ucp);;All Files (*)"
@@ -2169,7 +2044,7 @@ msgstr "Dibabit un anv"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *."
 "ai);;All Files (*)"
 msgstr "Teuliadoù (*.sla *.sla.gz *.scd *.scd.gz);;An holl deuliadoù (*)"
 
@@ -2177,6 +2052,14 @@ msgstr "Teuliadoù (*.sla *.sla.gz *.scd *.scd.gz);;An holl deuliadoù (*)"
 msgid ""
 "Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr "Teuliadoù (*.sla *.sla.gz *.scd *.scd.gz);;An holl deuliadoù (*)"
+
+msgid "Information"
+msgstr "Stlennoù"
+
+msgid ""
+"The file %1 does not contain any new colors.\n"
+"If the file was an EPS try to import it with File -> Import"
+msgstr ""
 
 msgid "Copy of %1"
 msgstr "Eilad eus %1"
@@ -2942,6 +2825,9 @@ msgstr "PostScript live 2"
 
 msgid "PostScript Level 3"
 msgstr "PostScript live 3"
+
+msgid "Page"
+msgstr "Pajenn"
 
 msgid "Mirror Page(s) Horizontal"
 msgstr "Melezour a-zremm ar pajennoù"
@@ -3930,6 +3816,10 @@ msgstr "Estoneg"
 msgid "German"
 msgstr "Alamaneg"
 
+#, fuzzy
+msgid "German (Swiss)"
+msgstr "Alamaneg (Heng.)"
+
 msgid "German (Trad.)"
 msgstr "Alamaneg (Heng.)"
 
@@ -4094,6 +3984,10 @@ msgstr "Lorem Ipsum"
 msgid "Paragraphs:"
 msgstr "Rannbennadoù :"
 
+#, fuzzy
+msgid "Standard Lorem Ipsum"
+msgstr "Arverañ bepred an destenn diwir Lorem Ipsum"
+
 msgid "Scribus Crash"
 msgstr "Sac'hadenn Scribus"
 
@@ -4154,19 +4048,21 @@ msgstr "Esaouiñ etre ar marz uhel ha riblenn ar bajenn"
 msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr "Esaouiñ etre ar marz izel ha riblenn ar bajenn"
 
+#, fuzzy
 msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the left margin guide and the edge of the page. If a double-"
+"sided, 3 or 4-fold layout is selected, this margin space can be used to "
+"achieve the correct margins for binding"
 msgstr ""
 "Esaouiñ etre ar marz kleiz ha riblenn ar bajenn. Mard eo bet diuzet Pajennoù "
 "tal-ouzh-tal e c'hall bezañ arveret an esaouiñ-mañ a-benn kaout marzioù bras "
 "a-walc'h evit ar c'heinadur."
 
+#, fuzzy
 msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the right margin guide and the edge of the page. If a "
+"double-sided, 3 or 4-fold layout is selected, this margin space can be used "
+"to achieve the correct margins for binding"
 msgstr ""
 "Esaouiñ etre ar marz dehou ha riblenn ar bajenn. Mard eo bet diuzet Pajennoù "
 "tal-ouzh-tal e c'hall bezañ arveret an esaouiñ-mañ a-benn kaout marzioù bras "
@@ -4869,8 +4765,9 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr "Esaou etre ar bannoù bet krouet ent emgefreek"
 
-msgid "Page Layout"
-msgstr "Pajennaozañ"
+#, fuzzy
+msgid "Document Layout"
+msgstr "Teuliadur"
 
 msgid "First Page is:"
 msgstr "Ar bajenn gentañ zo :"
@@ -5954,9 +5851,6 @@ msgstr "&Dibrennañ pep tra"
 #, fuzzy
 msgid "Group%1"
 msgstr "Kevrediñ"
-
-msgid "Information"
-msgstr "Stlennoù"
 
 msgid "The program %1 is already running!"
 msgstr "Emañ ar goulev %1 o vont en-dro endeo !"
@@ -8567,6 +8461,9 @@ msgstr ""
 "X :·%1,·Y :·%2\n"
 "X :·%4,· y:·%5"
 
+msgid "Selection"
+msgstr "Diuzañ"
+
 msgid "Group"
 msgstr "Kevrediñ"
 
@@ -8676,6 +8573,10 @@ msgstr "Derou ar saezh"
 
 msgid "Set end arrow"
 msgstr "Dibenn ar saezh"
+
+#, fuzzy
+msgid "Set start and end arrows"
+msgstr "Derou ar saezh"
 
 msgid "Create table"
 msgstr "Krouiñ un daolenn"
@@ -8979,6 +8880,12 @@ msgstr "Binvioù PDF"
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus : A-fet enlugelladoù"
 
+msgid "Align and Distribute"
+msgstr "Desteudañ hag Esaouiñ"
+
+msgid "&Selected Guide:"
+msgstr "&Dealf bet diuzet"
+
 #, fuzzy
 msgid "&Relative To:"
 msgstr "E-keñver :"
@@ -8989,6 +8896,9 @@ msgstr "Ouzh&pennañ..."
 
 msgid "Align"
 msgstr "Desteudañ"
+
+msgid "&Distance:"
+msgstr "&Pellder :"
 
 msgid "Distribute"
 msgstr "Esaouiñ"
@@ -9103,6 +9013,9 @@ msgstr "Disparti"
 msgid "Document Sections"
 msgstr "Kevrennoù an teul"
 
+msgid "Guide"
+msgstr "Dealf"
+
 msgid "Manage Guides"
 msgstr "Ardeiñ an dealfoù"
 
@@ -9174,15 +9087,14 @@ msgid "&Column/Row"
 msgstr "Bann 1"
 
 #, fuzzy
-msgid "Delete &Page Guides"
-msgstr "Dilemel pajennad(où)"
+msgid "Delete Guides from Current &Page"
+msgstr "Fermer le document courant"
 
 msgid "Delete all guides from the current page"
 msgstr ""
 
-#, fuzzy
-msgid "Delete &Document guides"
-msgstr "Teulioù testenn"
+msgid "Delete Guides from &All Pages"
+msgstr ""
 
 #, fuzzy
 msgid "Delete all guides from the current document"
@@ -9370,12 +9282,6 @@ msgstr "Araokadur a-bezh : "
 msgid "Page Item Attributes"
 msgstr "Doareennoù ergorenn ar bajenn"
 
-msgid "LineStyleWBase"
-msgstr "LineStyleWBase"
-
-msgid "%"
-msgstr " %"
-
 msgid "Result"
 msgstr "Disoc'h"
 
@@ -9388,6 +9294,12 @@ msgstr "&Alberz"
 #, fuzzy
 msgid "&Select"
 msgstr "Diuzañ"
+
+msgid "LineStyleWBase"
+msgstr "LineStyleWBase"
+
+msgid "%"
+msgstr " %"
 
 #, fuzzy
 msgid "Form1"
@@ -9410,19 +9322,9 @@ msgstr "&Dilezel"
 msgid "Alt+N"
 msgstr "Alt+N"
 
-msgid "Style Manager"
-msgstr "Ardoer ar stiloù"
-
 #, fuzzy
-msgid "Alt+R"
-msgstr "Alt+"
-
-msgid "Please select a unique name for the style"
-msgstr ""
-
-#, fuzzy
-msgid "Form2"
-msgstr "Mentrezh"
+msgid "TabDisplayBase"
+msgstr "Skrammañ"
 
 msgid "Page Display"
 msgstr "Skrammadur ar bajennad"
@@ -9471,8 +9373,9 @@ msgid "To adjust the display drag the ruler below with the slider."
 msgstr ""
 "Da glotañ ment ar skrammañ ganti, riklit ar reolenn amañ dindan gant ar reti."
 
-msgid "textLabel16"
-msgstr ""
+#, fuzzy
+msgid "Scale%"
+msgstr "Skeulaat :"
 
 #, fuzzy
 msgid "Pages:"
@@ -9517,6 +9420,16 @@ msgstr "Testenn"
 #, fuzzy
 msgid "Control Characters:"
 msgstr "Diskouez an arouezennoù diwelus"
+
+msgid "Style Manager"
+msgstr "Ardoer ar stiloù"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Alt+"
+
+msgid "Please select a unique name for the style"
+msgstr ""
 
 msgid "PostScript Interpreter"
 msgstr "Jubenner PostScript"
@@ -9590,6 +9503,10 @@ msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
 "location"
 msgstr ""
+
+#, fuzzy
+msgid "TabGeneralBase"
+msgstr "Hollek"
 
 msgid "User Interface"
 msgstr ""
@@ -9698,6 +9615,10 @@ msgid "Count of the Paragraphs:"
 msgstr "Kontañ ar rannbennadoù :"
 
 #, fuzzy
+msgid "TabPrinterBase"
+msgstr "Marzioù ar voullerez..."
+
+#, fuzzy
 msgid "Alternative Printer Command"
 msgstr "Lanker all ar voullerez"
 
@@ -9723,6 +9644,10 @@ msgstr "Live"
 
 msgid "Marks && Bleeds"
 msgstr ""
+
+#, fuzzy
+msgid "TabScrapbookBase"
+msgstr "Albom"
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -9766,6 +9691,117 @@ msgstr "Marzioù ho moullerez"
 
 msgid "Select &Printer:"
 msgstr "Diuzañ ur voullerez"
+
+msgid "Margins"
+msgstr "Marzioù"
+
+msgid "&Relative to:"
+msgstr "E-keñver :"
+
+msgid "First Selected"
+msgstr "Ergorenn gentañ diuzet"
+
+msgid "Last Selected"
+msgstr "Ergorenn diwezhañ diuzet"
+
+#, fuzzy
+msgid "Align right sides of items to left side of anchor"
+msgstr "Desteudañ tu dehou an ergorennoù ouzh tu kleiz an eor"
+
+#, fuzzy
+msgid "Align left sides of items to right side of anchor"
+msgstr "Desteudañ tu kleiz an ergorennoù ouzh tu dehou an eor"
+
+msgid "Align bottoms"
+msgstr "Desteudañ traoñioù an ergorennoù"
+
+msgid "Align right sides"
+msgstr "Desteudañ an tuioù dehou"
+
+#, fuzzy
+msgid "Align tops of items to bottom of anchor"
+msgstr "Desteudañ krec'h an ergorennoù ouzh traoñ an eor"
+
+msgid "Center on vertical axis"
+msgstr "Kreizañ ouzh an ahel a-serzh"
+
+msgid "Align left sides"
+msgstr "Desteudañ an tuioù kleiz"
+
+msgid "Center on horizontal axis"
+msgstr "Kreizañ ouzh an ahel a-zremm"
+
+#, fuzzy
+msgid "Align bottoms of items to top of anchor"
+msgstr "Desteudañ traoñ an ergorennoù ouzh krec'h an eor"
+
+msgid "Align tops"
+msgstr "Desteudañ krec'hioù"
+
+#, fuzzy
+msgid "Make horizontal gaps between items equal"
+msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
+
+#, fuzzy
+msgid "Make horizontal gaps between items equal to the value specified"
+msgstr ""
+"Kas da gevatal d'ar werzh erspizet an esaouenn a-zremm etre an ergorennoù"
+
+msgid "Distribute right sides equidistantly"
+msgstr "Esaouiñ an tuioù dehou ent keitpell"
+
+msgid "Distribute bottoms equidistantly"
+msgstr "Esaouiñ an traoñioù ent keitpell"
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr "Esaouiñ ar c'heizioù ent keitpell a-zremm"
+
+#, fuzzy
+msgid "Make vertical gaps between items equal"
+msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
+
+#, fuzzy
+msgid "Make vertical gaps between items equal to the value specified"
+msgstr ""
+"Kas da gevatal d'ar werzh erspizet an esaouenn a-serzh etre an ergorennoù"
+
+msgid "Distribute left sides equidistantly"
+msgstr "Esaouiñ an tuioù kleiz ent keitpell"
+
+msgid "Distribute centers equidistantly vertically"
+msgstr "Esaouiñ ar c'heizioù ent keitpell a-serzh"
+
+msgid "Distribute tops equidistantly"
+msgstr "Esaouiñ ar c'hrec'hioù ent keitpell"
+
+#, fuzzy
+msgid "Make horizontal gaps between items and sides of page equal"
+msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
+
+#, fuzzy
+msgid "Make vertical gaps between items and the top and bottom of page equal"
+msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
+
+#, fuzzy
+msgid "Make horizontal gaps between items and sides of page margins equal"
+msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
+
+#, fuzzy
+msgid ""
+"Make vertical gaps between items and the top and bottom of page margins equal"
+msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
+
+msgid "Distribute the items with the distance specified"
+msgstr "Esaouiñ an ergorennoù gant ar pellder erspizet"
+
+msgid "None Selected"
+msgstr "Diuzad ebet"
+
+msgid "Y: %1%2"
+msgstr "Y: %1%2"
+
+msgid "X: %1%2"
+msgstr "X: %1%2"
 
 msgid "Freetype2 library not available"
 msgstr "Al levraoueg Freetype2 n'eo ket hegerz"
@@ -10185,11 +10221,12 @@ msgstr "Teul Scribus 1.2.x"
 msgid "Scribus 1.3.4 Document"
 msgstr "Teul Scribus 1.2.x"
 
-msgid "Scribus 1.3.0->1.3.3.2 Support"
-msgstr ""
+#, fuzzy
+msgid "Scribus 1.3.0->1.3.3.7 Support"
+msgstr "Teul Scribus 1.2.x"
 
 #, fuzzy
-msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgid "Scribus 1.3.0->1.3.3.7 Document"
 msgstr "Teul Scribus 1.2.x"
 
 msgid "Append selected font into Style, Font menu"
@@ -11604,6 +11641,24 @@ msgstr ""
 
 msgid "parent= %1"
 msgstr ""
+
+#~ msgid "Select Character:"
+#~ msgstr "Diuzañ an arouezenn(où) :"
+
+#~ msgid "Page Layout"
+#~ msgstr "Pajennaozañ"
+
+#, fuzzy
+#~ msgid "Delete &Page Guides"
+#~ msgstr "Dilemel pajennad(où)"
+
+#, fuzzy
+#~ msgid "Delete &Document guides"
+#~ msgstr "Teulioù testenn"
+
+#, fuzzy
+#~ msgid "Form2"
+#~ msgstr "Mentrezh"
 
 #, fuzzy
 #~ msgid "Get Text 2..."

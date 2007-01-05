@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-21 23:33+0100\n"
+"POT-Creation-Date: 2007-01-05 20:28+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -47,6 +47,9 @@ msgid "Contributions from:"
 msgstr "Pagalbininkai:"
 
 msgid "Mac OS&#174; X Aqua Port:"
+msgstr ""
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
 msgstr ""
 
 #, fuzzy
@@ -1059,138 +1062,6 @@ msgstr "Kairėn"
 msgid "st"
 msgstr ""
 
-#, fuzzy
-msgid "Align and Distribute"
-msgstr "Išskirstyti/išligiuoti"
-
-#, fuzzy
-msgid "&Relative to:"
-msgstr "Skiriamoji geba:"
-
-#, fuzzy
-msgid "First Selected"
-msgstr "Pažymėti"
-
-#, fuzzy
-msgid "Last Selected"
-msgstr "Pažymėti"
-
-msgid "Page"
-msgstr "Puslapis"
-
-#, fuzzy
-msgid "Margins"
-msgstr "Paraštė:"
-
-#, fuzzy
-msgid "Guide"
-msgstr "Pagalbinės linijos"
-
-#, fuzzy
-msgid "Selection"
-msgstr "Pažymėti"
-
-msgid "Align right sides of items to left side of anchor"
-msgstr ""
-
-msgid "Align left sides of items to right side of anchor"
-msgstr ""
-
-#, fuzzy
-msgid "Align bottoms"
-msgstr "Lygiuoti kairėje"
-
-#, fuzzy
-msgid "Align right sides"
-msgstr "Lygiuoti dešinėje"
-
-msgid "Align tops of items to bottom of anchor"
-msgstr ""
-
-msgid "Center on vertical axis"
-msgstr ""
-
-#, fuzzy
-msgid "Align left sides"
-msgstr "Tekstas per vidurį"
-
-#, fuzzy
-msgid "Center on horizontal axis"
-msgstr "Apverstas horizontaliai"
-
-msgid "Align bottoms of items to top of anchor"
-msgstr ""
-
-#, fuzzy
-msgid "Align tops"
-msgstr "Lygiuoti kairėje"
-
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "Parinkti laukeliai"
-
-msgid "Make horizontal gaps between items equal"
-msgstr ""
-
-msgid "Make horizontal gaps between items equal to the value specified"
-msgstr ""
-
-msgid "Distribute right sides equidistantly"
-msgstr ""
-
-#, fuzzy
-msgid "Distribute bottoms equidistantly"
-msgstr "Paskirstyti tolygiai"
-
-msgid "Distribute centers equidistantly horizontally"
-msgstr ""
-
-msgid "Make vertical gaps between items equal"
-msgstr ""
-
-msgid "Make vertical gaps between items equal to the value specified"
-msgstr ""
-
-msgid "Distribute left sides equidistantly"
-msgstr ""
-
-msgid "Distribute centers equidistantly vertically"
-msgstr ""
-
-#, fuzzy
-msgid "Distribute tops equidistantly"
-msgstr "Paskirstyti tolygiai"
-
-msgid "Make horizontal gaps between items and sides of page equal"
-msgstr ""
-
-msgid ""
-"Make vertical gaps between items and the top and bottom of page margins equal"
-msgstr ""
-
-msgid "Make horizontal gaps between items and sides of page margins equal"
-msgstr ""
-
-msgid "Make vertical gaps between items and the top and bottom of page equal"
-msgstr ""
-
-#, fuzzy
-msgid "&Distance:"
-msgstr "Atstumas"
-
-msgid "Distribute the items with the distance specified"
-msgstr ""
-
-#, fuzzy
-msgid "None Selected"
-msgstr "Pažymėti"
-
-msgid "Y: %1%2"
-msgstr ""
-
-msgid "X: %1%2"
-msgstr ""
-
 msgid "Align Text Left"
 msgstr "Lygiuoti tekstą kairėn"
 
@@ -1608,7 +1479,7 @@ msgstr "Atidaryti"
 
 #, fuzzy
 msgid ""
-"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"
 msgstr ""
 "Taškinė grafika (*.tif *.png *.jpg *.xpm);;Vektorinė grafika (*.eps);;Visi "
 "failai (*)"
@@ -1796,7 +1667,7 @@ msgid "Reset"
 msgstr "Atitaisyti"
 
 #, fuzzy
-msgid "Select Character:"
+msgid "Character Palette"
 msgstr "Raidė"
 
 #, fuzzy
@@ -2363,7 +2234,7 @@ msgstr ""
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *."
 "ai);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
@@ -2371,6 +2242,15 @@ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 msgid ""
 "Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
+msgid "Information"
+msgstr "Formatavimas"
+
+msgid ""
+"The file %1 does not contain any new colors.\n"
+"If the file was an EPS try to import it with File -> Import"
+msgstr ""
 
 #, fuzzy
 msgid "Copy of %1"
@@ -3185,6 +3065,9 @@ msgstr "Portretui"
 #, fuzzy
 msgid "PostScript Level 3"
 msgstr "Portretui"
+
+msgid "Page"
+msgstr "Puslapis"
 
 #, fuzzy
 msgid "Mirror Page(s) Horizontal"
@@ -4253,6 +4136,10 @@ msgid "German"
 msgstr "Vokiškai:"
 
 #, fuzzy
+msgid "German (Swiss)"
+msgstr "Vokiškai:"
+
+#, fuzzy
 msgid "German (Trad.)"
 msgstr "Vokiškai:"
 
@@ -4439,6 +4326,10 @@ msgid "Paragraphs:"
 msgstr "Stiliai..."
 
 #, fuzzy
+msgid "Standard Lorem Ipsum"
+msgstr "Pažymėti objekts"
+
+#, fuzzy
 msgid "Scribus Crash"
 msgstr "Scribus vadovas"
 
@@ -4505,15 +4396,15 @@ msgid "Distance between the bottom margin guide and the edge of the page"
 msgstr ""
 
 msgid ""
-"Distance between the left margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the left margin guide and the edge of the page. If a double-"
+"sided, 3 or 4-fold layout is selected, this margin space can be used to "
+"achieve the correct margins for binding"
 msgstr ""
 
 msgid ""
-"Distance between the right margin guide and the edge of the page. If Facing "
-"Pages is selected, this margin space can be used to achieve the correct "
-"margins for binding"
+"Distance between the right margin guide and the edge of the page. If a "
+"double-sided, 3 or 4-fold layout is selected, this margin space can be used "
+"to achieve the correct margins for binding"
 msgstr ""
 
 #, fuzzy
@@ -5279,8 +5170,8 @@ msgid "Distance between automatically created columns"
 msgstr ""
 
 #, fuzzy
-msgid "Page Layout"
-msgstr "Išvaizda:"
+msgid "Document Layout"
+msgstr "Dokumento nuostatos"
 
 #, fuzzy
 msgid "First Page is:"
@@ -6408,10 +6299,6 @@ msgstr "Riboti"
 #, fuzzy
 msgid "Group%1"
 msgstr "Sudaryti junginį"
-
-#, fuzzy
-msgid "Information"
-msgstr "Formatavimas"
 
 msgid "The program %1 is already running!"
 msgstr ""
@@ -9127,6 +9014,10 @@ msgid ""
 "X: %4, Y: %5"
 msgstr ""
 
+#, fuzzy
+msgid "Selection"
+msgstr "Pažymėti"
+
 msgid "Group"
 msgstr "Sudaryti junginį"
 
@@ -9249,6 +9140,9 @@ msgid "Set start arrow"
 msgstr ""
 
 msgid "Set end arrow"
+msgstr ""
+
+msgid "Set start and end arrows"
 msgstr ""
 
 #, fuzzy
@@ -9602,6 +9496,14 @@ msgid "Scribus: About Plug-ins"
 msgstr "Nuosavas skriptas"
 
 #, fuzzy
+msgid "Align and Distribute"
+msgstr "Išskirstyti/išligiuoti"
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "Parinkti laukeliai"
+
+#, fuzzy
 msgid "&Relative To:"
 msgstr "Skiriamoji geba:"
 
@@ -9611,6 +9513,10 @@ msgstr "Pridėti..."
 
 msgid "Align"
 msgstr "Lygiuoti"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "Atstumas"
 
 #, fuzzy
 msgid "Distribute"
@@ -9738,6 +9644,10 @@ msgid "Document Sections"
 msgstr "Dokumento nuostatos"
 
 #, fuzzy
+msgid "Guide"
+msgstr "Pagalbinės linijos"
+
+#, fuzzy
 msgid "Manage Guides"
 msgstr "Paraščių linijos"
 
@@ -9813,15 +9723,14 @@ msgid "&Column/Row"
 msgstr "Stulpeliai:"
 
 #, fuzzy
-msgid "Delete &Page Guides"
-msgstr "Išplėšti puslapius"
+msgid "Delete Guides from Current &Page"
+msgstr "Nutraukti darbą su šiuo dokumentu"
 
 msgid "Delete all guides from the current page"
 msgstr ""
 
-#, fuzzy
-msgid "Delete &Document guides"
-msgstr "Paskutiniai dokumentai"
+msgid "Delete Guides from &All Pages"
+msgstr ""
 
 #, fuzzy
 msgid "Delete all guides from the current document"
@@ -10014,13 +9923,6 @@ msgstr ""
 msgid "Page Item Attributes"
 msgstr "Apie Scribus"
 
-#, fuzzy
-msgid "LineStyleWBase"
-msgstr "Linijos forma"
-
-msgid "%"
-msgstr ""
-
 msgid "Result"
 msgstr "Rezultatas"
 
@@ -10034,6 +9936,13 @@ msgstr "Pasižiūrėti kaip atrodys"
 #, fuzzy
 msgid "&Select"
 msgstr "Pažymėti"
+
+#, fuzzy
+msgid "LineStyleWBase"
+msgstr "Linijos forma"
+
+msgid "%"
+msgstr ""
 
 #, fuzzy
 msgid "Form1"
@@ -10059,19 +9968,8 @@ msgid "Alt+N"
 msgstr "Viską"
 
 #, fuzzy
-msgid "Style Manager"
-msgstr "Spausdinimo eiliškumas"
-
-#, fuzzy
-msgid "Alt+R"
-msgstr "Viską"
-
-msgid "Please select a unique name for the style"
-msgstr ""
-
-#, fuzzy
-msgid "Form2"
-msgstr "Formatas"
+msgid "TabDisplayBase"
+msgstr "Rodyti"
 
 #, fuzzy
 msgid "Page Display"
@@ -10126,8 +10024,9 @@ msgstr ""
 msgid "To adjust the display drag the ruler below with the slider."
 msgstr ""
 
-msgid "textLabel16"
-msgstr ""
+#, fuzzy
+msgid "Scale%"
+msgstr "Keisti mastelį kaip:"
 
 #, fuzzy
 msgid "Pages:"
@@ -10172,6 +10071,17 @@ msgstr "Tekstas"
 #, fuzzy
 msgid "Control Characters:"
 msgstr "Rodyti įrankinę"
+
+#, fuzzy
+msgid "Style Manager"
+msgstr "Spausdinimo eiliškumas"
+
+#, fuzzy
+msgid "Alt+R"
+msgstr "Viską"
+
+msgid "Please select a unique name for the style"
+msgstr ""
 
 #, fuzzy
 msgid "PostScript Interpreter"
@@ -10240,6 +10150,10 @@ msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
 "location"
 msgstr ""
+
+#, fuzzy
+msgid "TabGeneralBase"
+msgstr "Pagrindinis"
 
 msgid "User Interface"
 msgstr ""
@@ -10358,6 +10272,10 @@ msgid "Count of the Paragraphs:"
 msgstr ""
 
 #, fuzzy
+msgid "TabPrinterBase"
+msgstr "Spausdinu..."
+
+#, fuzzy
 msgid "Alternative Printer Command"
 msgstr "Spausdinti naudojant kitą komandą"
 
@@ -10383,6 +10301,10 @@ msgstr "Nuožulnus"
 
 msgid "Marks && Bleeds"
 msgstr ""
+
+#, fuzzy
+msgid "TabScrapbookBase"
+msgstr "Kišenė"
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -10427,6 +10349,115 @@ msgstr "Kitos parinktys"
 #, fuzzy
 msgid "Select &Printer:"
 msgstr "Spausdintuvo nuostatos"
+
+#, fuzzy
+msgid "Margins"
+msgstr "Paraštė:"
+
+#, fuzzy
+msgid "&Relative to:"
+msgstr "Skiriamoji geba:"
+
+#, fuzzy
+msgid "First Selected"
+msgstr "Pažymėti"
+
+#, fuzzy
+msgid "Last Selected"
+msgstr "Pažymėti"
+
+msgid "Align right sides of items to left side of anchor"
+msgstr ""
+
+msgid "Align left sides of items to right side of anchor"
+msgstr ""
+
+#, fuzzy
+msgid "Align bottoms"
+msgstr "Lygiuoti kairėje"
+
+#, fuzzy
+msgid "Align right sides"
+msgstr "Lygiuoti dešinėje"
+
+msgid "Align tops of items to bottom of anchor"
+msgstr ""
+
+msgid "Center on vertical axis"
+msgstr ""
+
+#, fuzzy
+msgid "Align left sides"
+msgstr "Tekstas per vidurį"
+
+#, fuzzy
+msgid "Center on horizontal axis"
+msgstr "Apverstas horizontaliai"
+
+msgid "Align bottoms of items to top of anchor"
+msgstr ""
+
+#, fuzzy
+msgid "Align tops"
+msgstr "Lygiuoti kairėje"
+
+msgid "Make horizontal gaps between items equal"
+msgstr ""
+
+msgid "Make horizontal gaps between items equal to the value specified"
+msgstr ""
+
+msgid "Distribute right sides equidistantly"
+msgstr ""
+
+#, fuzzy
+msgid "Distribute bottoms equidistantly"
+msgstr "Paskirstyti tolygiai"
+
+msgid "Distribute centers equidistantly horizontally"
+msgstr ""
+
+msgid "Make vertical gaps between items equal"
+msgstr ""
+
+msgid "Make vertical gaps between items equal to the value specified"
+msgstr ""
+
+msgid "Distribute left sides equidistantly"
+msgstr ""
+
+msgid "Distribute centers equidistantly vertically"
+msgstr ""
+
+#, fuzzy
+msgid "Distribute tops equidistantly"
+msgstr "Paskirstyti tolygiai"
+
+msgid "Make horizontal gaps between items and sides of page equal"
+msgstr ""
+
+msgid "Make vertical gaps between items and the top and bottom of page equal"
+msgstr ""
+
+msgid "Make horizontal gaps between items and sides of page margins equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between items and the top and bottom of page margins equal"
+msgstr ""
+
+msgid "Distribute the items with the distance specified"
+msgstr ""
+
+#, fuzzy
+msgid "None Selected"
+msgstr "Pažymėti"
+
+msgid "Y: %1%2"
+msgstr ""
+
+msgid "X: %1%2"
+msgstr ""
 
 msgid "Freetype2 library not available"
 msgstr ""
@@ -10852,11 +10883,12 @@ msgstr "Scribus-dokumentas"
 msgid "Scribus 1.3.4 Document"
 msgstr "Scribus-dokumentas"
 
-msgid "Scribus 1.3.0->1.3.3.2 Support"
-msgstr ""
+#, fuzzy
+msgid "Scribus 1.3.0->1.3.3.7 Support"
+msgstr "Scribus-dokumentas"
 
 #, fuzzy
-msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgid "Scribus 1.3.0->1.3.3.7 Document"
 msgstr "Scribus-dokumentas"
 
 msgid "Append selected font into Style, Font menu"
@@ -12323,6 +12355,26 @@ msgstr ""
 
 msgid "parent= %1"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Select Character:"
+#~ msgstr "Raidė"
+
+#, fuzzy
+#~ msgid "Page Layout"
+#~ msgstr "Išvaizda:"
+
+#, fuzzy
+#~ msgid "Delete &Page Guides"
+#~ msgstr "Išplėšti puslapius"
+
+#, fuzzy
+#~ msgid "Delete &Document guides"
+#~ msgstr "Paskutiniai dokumentai"
+
+#, fuzzy
+#~ msgid "Form2"
+#~ msgstr "Formatas"
 
 #, fuzzy
 #~ msgid "Get Text 2..."

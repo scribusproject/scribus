@@ -2298,6 +2298,10 @@ Avsaknad av stöd är markerat med *</translation>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -3574,7 +3578,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="obsolete">Justera</translation>
+        <translation type="unfinished">Justera</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3650,7 +3654,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="obsolete">Fördela</translation>
+        <translation type="unfinished">Fördela</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -4350,7 +4354,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5580,7 +5584,7 @@ please choose another one.</source>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>Välj tecken:</translation>
+        <translation type="obsolete">Välj tecken:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -5784,6 +5788,10 @@ please choose another one.</source>
     </message>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6061,11 +6069,20 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -&gt; Import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9637,15 +9654,7 @@ Du kan också lägga till ytterligare färger i toningen.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete &amp;Page Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete all guides from the current page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete &amp;Document guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9658,6 +9667,14 @@ Du kan också lägga till ytterligare färger i toningen.</translation>
     </message>
     <message>
         <source>&amp;Column/Row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10881,6 +10898,10 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MSpinBox</name>
@@ -11055,11 +11076,11 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Avståndet mellan vänster marginal och papprets kant. Om &quot;Uppslag&quot; valts kan marginalen användas för att skapa ett korrekt utrymme för bindning</translation>
+        <translation type="obsolete">Avståndet mellan vänster marginal och papprets kant. Om &quot;Uppslag&quot; valts kan marginalen användas för att skapa ett korrekt utrymme för bindning</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Avståndet mellan högermarginal och papprets kant. Om &quot;Uppslag&quot; valts kan marginalen användas för att skapa ett korrekt utrymme för bindning</translation>
+        <translation type="obsolete">Avståndet mellan högermarginal och papprets kant. Om &quot;Uppslag&quot; valts kan marginalen användas för att skapa ett korrekt utrymme för bindning</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -11132,6 +11153,14 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     <message>
         <source>Right:</source>
         <translation type="unfinished">Höger:</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12971,7 +13000,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Sidlayout</translation>
+        <translation type="obsolete">Sidlayout</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -12979,6 +13008,10 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Show Document Settings After Creation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13182,6 +13215,10 @@ annars används koordinater relativt objektet.</translation>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Detta dokument verkar inte vara en OpenOffice.org Draw-fil.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14864,11 +14901,15 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Sidlayout</translation>
+        <translation type="obsolete">Sidlayout</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Första sidan är:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19052,10 +19093,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
@@ -19102,6 +19139,18 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished">Hebreiska</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20479,12 +20528,12 @@ Korta ord insticksprogram</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopia #%1 av</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24263,10 +24312,6 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Page Display</source>
         <translation type="unfinished">Sidvisning</translation>
     </message>
@@ -24347,10 +24392,6 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
         <translation type="unfinished">För att justera visningen dra linjalen nedanför skjutreglaget.</translation>
     </message>
     <message>
-        <source>textLabel16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>General</source>
         <translation type="unfinished">Allmänt</translation>
     </message>
@@ -24408,6 +24449,14 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Show Bleed Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24690,10 +24739,6 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>GUI</source>
         <translation type="obsolete">GUI</translation>
     </message>
@@ -24795,6 +24840,10 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Show Splashscreen on Startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -25931,7 +25980,7 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Sidlayout</translation>
+        <translation type="obsolete">Sidlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -26142,6 +26191,10 @@ when PDF document is opened:</source>
         <source>Outside:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -26206,10 +26259,6 @@ Att sätta till Nivå 1 eller 2 kan skapa mycket stora filer</translation>
 </context>
 <context>
     <name>TabPrinterBase</name>
-    <message>
-        <source>Form1</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Print Destination</source>
         <translation type="unfinished">Vald skrivare</translation>
@@ -26350,13 +26399,13 @@ Att sätta till Nivå 1 eller 2 kan skapa mycket stora filer</translation>
         <source>Right:</source>
         <translation type="unfinished">Höger:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
-    <message>
-        <source>Form2</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation type="unfinished"></translation>
@@ -26379,6 +26428,10 @@ Att sätta till Nivå 1 eller 2 kan skapa mycket stora filer</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27604,6 +27657,10 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Adjust frame to the image size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

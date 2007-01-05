@@ -3213,6 +3213,10 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Auf Updates für Scribus überprüfen. Es werden keine Daten von Ihrem Computer übertragen.</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -5334,7 +5338,11 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
-        <translation>Bilder (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;Alle Dateien (*)</translation>
+        <translation type="obsolete">Bilder (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6569,7 +6577,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     <name>CharSelect</name>
     <message>
         <source>Select Character:</source>
-        <translation>Zeichen auswählen:</translation>
+        <translation type="obsolete">Zeichen auswählen:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -6774,6 +6782,10 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
         <translation>Sind Sie sicher, dass Sie alle Zeichen entfernen möchten?</translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7063,11 +7075,24 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Andere Dateien (*eps *.epsi *.ps *.ai);;Alle Dateien (*)</translation>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Andere Dateien (*eps *.epsi *.ps *.ai);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation>Dokumente (*.sla *.scd);;Andere Dateien (*eps *.epsi *.ps *.ai);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain any new colors.
+If the file was an EPS try to import it with File -&gt; Import</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10626,7 +10651,7 @@ im Dokument gespeichert.</translation>
     </message>
     <message>
         <source>Delete &amp;Page Guides</source>
-        <translation>Hilfslinien auf der &amp;Seite entfernen</translation>
+        <translation type="obsolete">Hilfslinien auf der &amp;Seite entfernen</translation>
     </message>
     <message>
         <source>Delete all guides from the current page</source>
@@ -10634,7 +10659,7 @@ im Dokument gespeichert.</translation>
     </message>
     <message>
         <source>Delete &amp;Document guides</source>
-        <translation>Alle &amp;Hilfslinien entfernen</translation>
+        <translation type="obsolete">Alle &amp;Hilfslinien entfernen</translation>
     </message>
     <message>
         <source>Delete all guides from the current document</source>
@@ -10647,6 +10672,14 @@ im Dokument gespeichert.</translation>
     <message>
         <source>&amp;Column/Row</source>
         <translation>&amp;Spalte/Zeile</translation>
+    </message>
+    <message>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11848,6 +11881,10 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
+    <message>
+        <source>Standard Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MarginDialog</name>
@@ -11982,11 +12019,11 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante. Wenn Doppelseiten aktiviert sind, können Sie diese Einstellung verwenden, um korrekte Bindungen zu erreichen</translation>
+        <translation type="obsolete">Abstand zwischen dem linken Seitenrand und der Papierkante. Wenn Doppelseiten aktiviert sind, können Sie diese Einstellung verwenden, um korrekte Bindungen zu erreichen</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante. Wenn Doppelseiten aktiviert sind, können Sie diese Einstellung verwenden, um korrekte Bindungen zu erreichen</translation>
+        <translation type="obsolete">Abstand zwischen dem rechten Seitenrand und der Papierkante. Wenn Doppelseiten aktiviert sind, können Sie diese Einstellung verwenden, um korrekte Bindungen zu erreichen</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -12059,6 +12096,14 @@ Abstand eingestellt werden</translation>
     <message>
         <source>Right:</source>
         <translation>Rechts:</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13603,7 +13648,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Seitenlayout</translation>
+        <translation type="obsolete">Seitenlayout</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -13612,6 +13657,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Show Document Settings After Creation</source>
         <translation>Dokumenteinstellungen nach dem Erstellen öffnen</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13808,6 +13857,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Diese Datei scheint keine OpenOffice.org-Zeichnung zu sein.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished">Gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -14577,7 +14630,7 @@ werden ignoriert</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Seitenlayout</translation>
+        <translation type="obsolete">Seitenlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -14606,6 +14659,10 @@ werden ignoriert</translation>
     <message>
         <source>First Page is:</source>
         <translation>Erste Seite:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18430,7 +18487,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation>Scribus 1.3.0-&gt;1.3.3.2 Support</translation>
+        <translation type="obsolete">Scribus 1.3.0-&gt;1.3.3.2 Support</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
@@ -18483,6 +18540,18 @@ Das Bild könnte daher nicht richtig dargestellt werden</translation>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
         <translation>Alle unterstützten Formate (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation type="unfinished">Hebräisch</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
+        <translation type="unfinished">Scribus 1.3.0-&gt;1.3.3.7 Support</translation>
     </message>
 </context>
 <context>
@@ -19817,11 +19886,15 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <name>Scribus13Format</name>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation>Scribus 1.3.0-&gt;1.3.3.2-Dokument</translation>
+        <translation type="obsolete">Scribus 1.3.0-&gt;1.3.3.2-Dokument</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 von</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation type="unfinished">Scribus 1.3.0-&gt;1.3.3.7-Dokument</translation>
     </message>
 </context>
 <context>
@@ -22872,7 +22945,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <name>TabDisplayBase</name>
     <message>
         <source>Form2</source>
-        <translation>Form2</translation>
+        <translation type="obsolete">Form2</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -22956,7 +23029,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     </message>
     <message>
         <source>textLabel16</source>
-        <translation>textLabel16</translation>
+        <translation type="obsolete">textLabel16</translation>
     </message>
     <message>
         <source>General</source>
@@ -23017,6 +23090,14 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <source>Show Bleed Area</source>
         <translation>Anschnittzugabe anzeigen</translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23307,7 +23388,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <name>TabGeneralBase</name>
     <message>
         <source>Form1</source>
-        <translation>Form1</translation>
+        <translation type="obsolete">Form1</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -23412,6 +23493,10 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <source>Show Splashscreen on Startup</source>
         <translation>Splashscreen beim Programmstart zeigen</translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24580,7 +24665,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Seitenlayout</translation>
+        <translation type="obsolete">Seitenlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -24809,6 +24894,10 @@ werden ignoriert</translation>
         <source>Outside:</source>
         <translation>Außen:</translation>
     </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabPrinter</name>
@@ -24875,7 +24964,7 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <name>TabPrinterBase</name>
     <message>
         <source>Form1</source>
-        <translation type="unfinished">Form1</translation>
+        <translation type="obsolete">Form1</translation>
     </message>
     <message>
         <source>Print Destination</source>
@@ -25017,12 +25106,16 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
         <source>Right:</source>
         <translation>Rechts:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
     <message>
         <source>Form2</source>
-        <translation>Form2</translation>
+        <translation type="obsolete">Form2</translation>
     </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
@@ -25047,6 +25140,10 @@ Postscript Level 1 und 2 haben häufig sehr große Dateien zur Folge</translatio
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
         <translation>Das Minimum ist 1, das Maximum 100.</translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26217,6 +26314,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Adjust frame to the image size</source>
         <translation>Rahmen an Bildgröße anpassen</translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
