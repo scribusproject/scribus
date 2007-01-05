@@ -213,11 +213,11 @@ void CommonStrings::languageChange()
 	CommonStrings::masterPageNormalRight    = "Normal Right";
 	CommonStrings::trMasterPageNormalRight  = tr( "Normal Right", "Default right master page" );
 	
-	CommonStrings::trPenStyle_SolidLine      = "Solid Line";
-	CommonStrings::trPenStyle_DashedLine     = "Dashed Line";
-	CommonStrings::trPenStyle_DottedLine     = "Dotted Line";
-	CommonStrings::trPenStyle_DashDotLine    = "Dash Dot Line";
-	CommonStrings::trPenStyle_DashDotDotLine = "Dash Dot Dot Line";
+	CommonStrings::trPenStyle_SolidLine      = tr("Solid Line");
+	CommonStrings::trPenStyle_DashedLine     = tr("Dashed Line");
+	CommonStrings::trPenStyle_DottedLine     = tr("Dotted Line");
+	CommonStrings::trPenStyle_DashDotLine    = tr("Dash Dot Line");
+	CommonStrings::trPenStyle_DashDotDotLine = tr("Dash Dot Dot Line");
 	
 	CommonStrings::monday    = tr("Monday");
 	CommonStrings::tuesday   = tr("Tuesday");
