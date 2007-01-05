@@ -1933,7 +1933,8 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		QValueList<double> array;
 		if(params != "none")
 		{
-			QStringList dashes = QStringList::split( ' ', params );
+			QString param2 = params.simplifyWhiteSpace().replace(',', " ");
+			QStringList dashes = QStringList::split( ' ', param2 );
 			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
 				array.append( (*it).toDouble() );
 		}
