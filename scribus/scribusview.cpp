@@ -10466,46 +10466,46 @@ void ScribusView::editExtendedImageProperties()
 	}
 }
 
-//CB-->Doc
-//Fix size/move item calls
-void ScribusView::adjustFrametoImageSize()
-{
-	uint docSelectionCount=Doc->m_Selection->count();
-	if (docSelectionCount > 0)
-	{
-		bool toUpdate=false;
-		for (uint i = 0; i < docSelectionCount; ++i)
-		{
-			PageItem *currItem = Doc->m_Selection->itemAt(i);
-			if (currItem!=NULL)
-			{
-				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
-				{
-					undoManager->beginTransaction(Doc->m_Selection->count() == 1 ?
-					                              currItem->getUName() : Um::SelectionGroup,
-					                              Doc->m_Selection->count() == 1 ?
-					                              currItem->getUPixmap() : Um::IGroup,
-					                              Um::AdjustFrameToImage,"",Um::IResize);
-					double w, h, x, y;
-					w = currItem->OrigW * currItem->imageXScale();
-					h = currItem->OrigH * currItem->imageYScale();
-					x = currItem->imageXOffset() * currItem->imageXScale();
-					y = currItem->imageYOffset() * currItem->imageYScale();
-					Doc->SizeItem(w, h, currItem->ItemNr);
-					Doc->MoveItem(x, y, currItem);
-					currItem->setImageXYOffset(0.0, 0.0);
-					toUpdate=true;
-				}
-			}
-		}
-		if (toUpdate)
-		{
-			updateContents();
-			emit DocChanged();
-			undoManager->commit();
-		}
-	}
-}
+// //CB-->Doc
+// //Fix size/move item calls
+// void ScribusView::adjustFrametoImageSize()
+// {
+// 	uint docSelectionCount=Doc->m_Selection->count();
+// 	if (docSelectionCount > 0)
+// 	{
+// 		bool toUpdate=false;
+// 		for (uint i = 0; i < docSelectionCount; ++i)
+// 		{
+// 			PageItem *currItem = Doc->m_Selection->itemAt(i);
+// 			if (currItem!=NULL)
+// 			{
+// 				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
+// 				{
+// 					undoManager->beginTransaction(Doc->m_Selection->count() == 1 ?
+// 					                              currItem->getUName() : Um::SelectionGroup,
+// 					                              Doc->m_Selection->count() == 1 ?
+// 					                              currItem->getUPixmap() : Um::IGroup,
+// 					                              Um::AdjustFrameToImage,"",Um::IResize);
+// 					double w, h, x, y;
+// 					w = currItem->OrigW * currItem->imageXScale();
+// 					h = currItem->OrigH * currItem->imageYScale();
+// 					x = currItem->imageXOffset() * currItem->imageXScale();
+// 					y = currItem->imageYOffset() * currItem->imageYScale();
+// 					Doc->SizeItem(w, h, currItem->ItemNr);
+// 					Doc->MoveItem(x, y, currItem);
+// 					currItem->setImageXYOffset(0.0, 0.0);
+// 					toUpdate=true;
+// 				}
+// 			}
+// 		}
+// 		if (toUpdate)
+// 		{
+// 			updateContents();
+// 			emit DocChanged();
+// 			undoManager->commit();
+// 		}
+// 	}
+// }
 
 //CB Stop using this for putting items on pages apart from pasting
 //IE write a more generic function in the doc
@@ -11254,79 +11254,79 @@ void ScribusView::TextToPath()
 #endif
 }
 
-void ScribusView::UniteObj()
-{
-	PageItem *currItem;
-	PageItem *bb;
-	QValueList<int> toDel;
-	toDel.clear();
-	uint docSelectionCount = Doc->m_Selection->count();
-	if (docSelectionCount > 1)
-	{
-		currItem = Doc->m_Selection->itemAt(0);
-		if (currItem->Groups.count() != 0)
-			return;
-		currItem->Frame = false;
-		currItem->ClipEdited = true;
-		currItem->FrameType = 3;
-		for (uint a = 1; a < docSelectionCount; ++a)
-		{
-			bb = Doc->m_Selection->itemAt(a);
-			toDel.append(bb->ItemNr);
-			QWMatrix ma;
-			ma.translate(bb->xPos(), bb->yPos());
-			ma.rotate(bb->rotation());
-			bb->PoLine.map(ma);
-			QWMatrix ma2;
-			ma2.translate(currItem->xPos(), currItem->yPos());
-			ma2.rotate(currItem->rotation());
-			ma2 = ma2.invert();
-			bb->PoLine.map(ma2);
-			currItem->PoLine.setMarker();
-			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
-		}
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-		Doc->AdjustItemSize(currItem);
-		currItem->ContourLine = currItem->PoLine.copy();
-		Deselect(true);
-		for (uint c = 0; c < toDel.count(); ++c)
-			SelectItemNr(*toDel.at(c));
-		Doc->itemSelection_DeleteItem();
-		updateContents();
-	}
-}
-
-void ScribusView::SplitObj()
-{
-	PageItem *bb;
-	uint StartInd = 0;
-	uint z;
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	uint EndInd = currItem->PoLine.size();
-	for (uint a = EndInd-1; a > 0; --a)
-	{
-		if (currItem->PoLine.point(a).x() > 900000)
-		{
-			StartInd = a + 1;
-			z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), !m_MouseButtonPressed);
-			bb = Doc->Items->at(z);
-			bb->PoLine.resize(0);
-			bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);
-			bb->setRotation(currItem->rotation());
-			Doc->AdjustItemSize(bb);
-			bb->ContourLine = bb->PoLine.copy();
-			bb->ClipEdited = true;
-			a -= 3;
-			EndInd = StartInd - 4;
-		}
-	}
-	currItem->PoLine.resize(StartInd-4);
-	Doc->AdjustItemSize(currItem);
-	currItem->ContourLine = currItem->PoLine.copy();
-	currItem->ClipEdited = true;
-	Deselect(true);
-	updateContents();
-}
+// void ScribusView::UniteObj()
+// {
+// 	PageItem *currItem;
+// 	PageItem *bb;
+// 	QValueList<int> toDel;
+// 	toDel.clear();
+// 	uint docSelectionCount = Doc->m_Selection->count();
+// 	if (docSelectionCount > 1)
+// 	{
+// 		currItem = Doc->m_Selection->itemAt(0);
+// 		if (currItem->Groups.count() != 0)
+// 			return;
+// 		currItem->Frame = false;
+// 		currItem->ClipEdited = true;
+// 		currItem->FrameType = 3;
+// 		for (uint a = 1; a < docSelectionCount; ++a)
+// 		{
+// 			bb = Doc->m_Selection->itemAt(a);
+// 			toDel.append(bb->ItemNr);
+// 			QWMatrix ma;
+// 			ma.translate(bb->xPos(), bb->yPos());
+// 			ma.rotate(bb->rotation());
+// 			bb->PoLine.map(ma);
+// 			QWMatrix ma2;
+// 			ma2.translate(currItem->xPos(), currItem->yPos());
+// 			ma2.rotate(currItem->rotation());
+// 			ma2 = ma2.invert();
+// 			bb->PoLine.map(ma2);
+// 			currItem->PoLine.setMarker();
+// 			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
+// 		}
+// 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+// 		Doc->AdjustItemSize(currItem);
+// 		currItem->ContourLine = currItem->PoLine.copy();
+// 		Deselect(true);
+// 		for (uint c = 0; c < toDel.count(); ++c)
+// 			SelectItemNr(*toDel.at(c));
+// 		Doc->itemSelection_DeleteItem();
+// 		updateContents();
+// 	}
+// }
+// 
+// void ScribusView::SplitObj()
+// {
+// 	PageItem *bb;
+// 	uint StartInd = 0;
+// 	uint z;
+// 	PageItem *currItem = Doc->m_Selection->itemAt(0);
+// 	uint EndInd = currItem->PoLine.size();
+// 	for (uint a = EndInd-1; a > 0; --a)
+// 	{
+// 		if (currItem->PoLine.point(a).x() > 900000)
+// 		{
+// 			StartInd = a + 1;
+// 			z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), !m_MouseButtonPressed);
+// 			bb = Doc->Items->at(z);
+// 			bb->PoLine.resize(0);
+// 			bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);
+// 			bb->setRotation(currItem->rotation());
+// 			Doc->AdjustItemSize(bb);
+// 			bb->ContourLine = bb->PoLine.copy();
+// 			bb->ClipEdited = true;
+// 			a -= 3;
+// 			EndInd = StartInd - 4;
+// 		}
+// 	}
+// 	currItem->PoLine.resize(StartInd-4);
+// 	Doc->AdjustItemSize(currItem);
+// 	currItem->ContourLine = currItem->PoLine.copy();
+// 	currItem->ClipEdited = true;
+// 	Deselect(true);
+// 	updateContents();
+// }
 
 void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {

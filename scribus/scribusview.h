@@ -280,7 +280,7 @@ public slots: // Public slots
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */
-	void adjustFrametoImageSize();
+// 	void adjustFrametoImageSize();
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void sentToScrap();
@@ -294,8 +294,8 @@ public slots: // Public slots
 	void ToBezierFrame();
 	void ToPathText();
 	void FromPathText();
-	void UniteObj();
-	void SplitObj();
+// 	void UniteObj();
+// 	void SplitObj();
 	void Bezier2Poly();
 	void PasteToPage();
 	void PasteRecentToPage(int id);

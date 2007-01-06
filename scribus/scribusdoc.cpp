@@ -8309,3 +8309,124 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->Sizing = siz;
 }
+
+void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
+{
+	PageItem *currItem;
+	PageItem *bb;
+	QValueList<int> toDel;
+	toDel.clear();
+	uint docSelectionCount = m_Selection->count();
+	if (docSelectionCount > 1)
+	{
+		currItem = m_Selection->itemAt(0);
+		if (currItem->Groups.count() != 0)
+			return;
+		currItem->Frame = false;
+		currItem->ClipEdited = true;
+		currItem->FrameType = 3;
+		for (uint a = 1; a < docSelectionCount; ++a)
+		{
+			bb = m_Selection->itemAt(a);
+			toDel.append(bb->ItemNr);
+			QWMatrix ma;
+			ma.translate(bb->xPos(), bb->yPos());
+			ma.rotate(bb->rotation());
+			bb->PoLine.map(ma);
+			QWMatrix ma2;
+			ma2.translate(currItem->xPos(), currItem->yPos());
+			ma2.rotate(currItem->rotation());
+			ma2 = ma2.invert();
+			bb->PoLine.map(ma2);
+			currItem->PoLine.setMarker();
+			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
+		}
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		AdjustItemSize(currItem);
+		currItem->ContourLine = currItem->PoLine.copy();
+		m_View->Deselect(true);
+		for (uint c = 0; c < toDel.count(); ++c)
+			m_View->SelectItemNr(*toDel.at(c));
+		itemSelection_DeleteItem();
+		emit updateContents();
+	}
+}
+
+void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
+{
+	PageItem *bb;
+	uint StartInd = 0;
+	uint z;
+	PageItem *currItem = m_Selection->itemAt(0);
+	uint EndInd = currItem->PoLine.size();
+	for (uint a = EndInd-1; a > 0; --a)
+	{
+		if (currItem->PoLine.point(a).x() > 900000)
+		{
+			StartInd = a + 1;
+			z = itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
+			bb = Items->at(z);
+			bb->PoLine.resize(0);
+			bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);
+			bb->setRotation(currItem->rotation());
+			AdjustItemSize(bb);
+			bb->ContourLine = bb->PoLine.copy();
+			bb->ClipEdited = true;
+			a -= 3;
+			EndInd = StartInd - 4;
+		}
+	}
+	currItem->PoLine.resize(StartInd-4);
+	AdjustItemSize(currItem);
+	currItem->ContourLine = currItem->PoLine.copy();
+	currItem->ClipEdited = true;
+	m_View->Deselect(true);
+	emit updateContents();
+}
+
+//CB-->Doc
+//Fix size/move item calls
+//CB TODO Use the selection loop properly
+void ScribusDoc::itemSelection_adjustFrametoImageSize( Selection *customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	
+	if (selectedItemCount > 0)
+	{
+		bool toUpdate=false;
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = itemSelection->itemAt(i);
+			if (currItem!=NULL)
+			{
+				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
+				{
+					undoManager->beginTransaction(selectedItemCount == 1 ?
+					                              currItem->getUName() : Um::SelectionGroup,
+					                              selectedItemCount == 1 ?
+					                              currItem->getUPixmap() : Um::IGroup,
+					                              Um::AdjustFrameToImage,"",Um::IResize);
+					double w, h, x, y;
+					w = currItem->OrigW * currItem->imageXScale();
+					h = currItem->OrigH * currItem->imageYScale();
+					x = currItem->imageXOffset() * currItem->imageXScale();
+					y = currItem->imageYOffset() * currItem->imageYScale();
+					SizeItem(w, h, currItem->ItemNr);
+					MoveItem(x, y, currItem);
+					currItem->setImageXYOffset(0.0, 0.0);
+					toUpdate=true;
+				}
+			}
+		}
+		if (toUpdate)
+		{
+			emit updateContents();
+			changed();
+			undoManager->commit();
+		}
+	}
+}

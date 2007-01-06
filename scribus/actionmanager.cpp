@@ -977,11 +977,14 @@ void ActionManager::connectModeActions()
 
 void ActionManager::disconnectNewDocActions()
 {
+	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLockSize"], 0, 0, 0);
 	disconnect( (*scrActions)["itemPrintingEnabled"], 0, 0, 0);
 	disconnect( (*scrActions)["itemFlipH"], 0, 0, 0);
 	disconnect( (*scrActions)["itemFlipV"], 0, 0, 0);
+	disconnect( (*scrActions)["itemCombinePolygons"], 0, 0, 0);
+	disconnect( (*scrActions)["itemSplitPolygons"], 0, 0, 0);
 	disconnect( (*scrActions)["itemUpdateImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemDelete"], 0, 0, 0);
 	disconnect( (*scrActions)["extrasHyphenateText"], 0, 0, 0 );
@@ -998,10 +1001,13 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(activated()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
 	connect( (*scrActions)["itemFlipH"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipH()));
 	connect( (*scrActions)["itemFlipV"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipV()));
+	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), currDoc, SLOT(itemSelection_UniteItems()) );
+	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), currDoc, SLOT(itemSelection_SplitItems()) );
 	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currDoc, SLOT(updatePic()) );
 	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DoHyphenate()) );
 	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
 	connect( (*scrActions)["itemDelete"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DeleteItem()) );
+	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currDoc, SLOT(itemSelection_adjustFrametoImageSize()) );
 }
 
 void ActionManager::disconnectNewViewActions()
@@ -1018,8 +1024,6 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)), 0, 0 );
 	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
-	disconnect( (*scrActions)["itemCombinePolygons"], 0, 0, 0);
-	disconnect( (*scrActions)["itemSplitPolygons"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToBezierCurve"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToImageFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToOutlines"], 0, 0, 0);
@@ -1027,7 +1031,6 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
 	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
-	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0 );
 }
 
@@ -1044,8 +1047,6 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(activated()), currView, SLOT(ToFront()) );
 	connect( (*scrActions)["itemRaise"], SIGNAL(activated()), currView, SLOT(RaiseItem()) );
 	connect( (*scrActions)["itemLower"], SIGNAL(activated()), currView, SLOT(LowerItem()) );
-	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), currView, SLOT(UniteObj()) );
-	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), currView, SLOT(SplitObj()) );
 	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(activated()), currView, SLOT(ToBezierFrame()) );
 	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(activated()), currView, SLOT(ToPicFrame()) );
 	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(activated()), currView, SLOT(TextToPath()) );
@@ -1053,7 +1054,6 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), currView, SLOT(ToTextFrame()) );
 	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), currView, SLOT(ToPathText()) );
 	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
-	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currView, SLOT(adjustFrametoImageSize()) );
 	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(activated()), currView, SLOT(editExtendedImageProperties()) );
 }
 
