@@ -225,6 +225,14 @@
                                 <property name="name">
                                     <cstring>styleViewFrame</cstring>
                                 </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>3</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
                                 <property name="frameShape">
                                     <enum>NoFrame</enum>
                                 </property>
@@ -245,57 +253,19 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>20</width>
-                                        <height>5</height>
+                                        <height>6</height>
                                     </size>
                                 </property>
                             </spacer>
-                            <widget class="QFrame">
+                            <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>editButtonsFrame</cstring>
+                                    <cstring>layout32</cstring>
                                 </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>5</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>0</width>
-                                        <height>0</height>
-                                    </size>
-                                </property>
-                                <property name="maximumSize">
-                                    <size>
-                                        <width>1000</width>
-                                        <height>44</height>
-                                    </size>
-                                </property>
-                                <property name="frameShape">
-                                    <enum>NoFrame</enum>
-                                </property>
-                                <property name="frameShadow">
-                                    <enum>Raised</enum>
-                                </property>
-                                <property name="lineWidth">
-                                    <number>0</number>
-                                </property>
-                                <property name="margin">
-                                    <number>0</number>
-                                </property>
-                                <grid>
+                                <hbox>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
                                     </property>
-                                    <property name="margin">
-                                        <number>2</number>
-                                    </property>
-                                    <property name="spacing">
-                                        <number>2</number>
-                                    </property>
-                                    <widget class="QToolButton" row="0" column="0">
+                                    <widget class="QToolButton">
                                         <property name="name">
                                             <cstring>newButton</cstring>
                                         </property>
@@ -326,7 +296,7 @@
                                             <string>Alt+N</string>
                                         </property>
                                     </widget>
-                                    <widget class="QToolButton" row="0" column="1">
+                                    <widget class="QToolButton">
                                         <property name="name">
                                             <cstring>cloneButton</cstring>
                                         </property>
@@ -357,7 +327,17 @@
                                             <string>Alt+C</string>
                                         </property>
                                     </widget>
-                                    <widget class="QToolButton" row="1" column="0">
+                                </hbox>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout31</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QToolButton">
                                         <property name="name">
                                             <cstring>importButton</cstring>
                                         </property>
@@ -376,7 +356,7 @@
                                             <string>Alt+I</string>
                                         </property>
                                     </widget>
-                                    <widget class="QToolButton" row="1" column="1">
+                                    <widget class="QToolButton">
                                         <property name="name">
                                             <cstring>deleteButton</cstring>
                                         </property>
@@ -395,7 +375,7 @@
                                             <string>Alt+D</string>
                                         </property>
                                     </widget>
-                                </grid>
+                                </hbox>
                             </widget>
                         </vbox>
                     </widget>

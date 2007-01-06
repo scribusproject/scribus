@@ -469,7 +469,7 @@ void StyleManager::slotOk()
 		editFrame->hide();
 		applyButton->hide();
 		resetButton->hide();
-		editButtonsFrame->hide();
+// 		editButtonsFrame->hide();
 		rightFrame->hide();
 		isEditMode_ = false;
 		for (uint i = 0; i < items_.count(); ++i)
@@ -513,7 +513,7 @@ void StyleManager::slotOk()
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
-		editButtonsFrame->show();
+// 		editButtonsFrame->show();
 		rightFrame->show();
 		isEditMode_ = true;
 		for (uint i = 0; i < items_.count(); ++i)
