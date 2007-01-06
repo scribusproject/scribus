@@ -882,6 +882,9 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 #endif
 			PfadEnd:	break;
+			case PageItem::Multiple:
+				Q_ASSERT(false);
+				break;
 			}
 			if (doStroke)
 			{
