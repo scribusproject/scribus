@@ -8405,12 +8405,15 @@ void ScribusView::slotDoCurs(bool draw)
 		//              textframe->lastTextItem = QMIN(textframe->lastTextItem, 
 		//                                             signed(textframe->itemText.nrOfItems()) - 1);
 		
-		if (textframe->firstInFrame() >= 0 &&
-			((textframe->lastInFrame() >= textframe->firstInFrame() 
-			  && textframe->CPos >= textframe->itemText.startOfItem(textframe->firstInFrame())
-			  && textframe->CPos <= textframe->itemText.endOfItem(textframe->lastInFrame())
-			  ) || (textframe->CPos == textframe->itemText.length())
-			 ))
+		if (textframe->firstInFrame() >= 0 
+			&& ((textframe->lastInFrame() >= textframe->firstInFrame()
+				 && textframe->CPos >= textframe->itemText.startOfItem(textframe->firstInFrame())
+				 && textframe->CPos <= textframe->itemText.endOfItem(textframe->lastInFrame())
+				 ) 
+				|| 
+				textframe->CPos >= textframe->itemText.length()
+				)
+			)
 		{
 			QPainter p;
 			p.begin(viewport());
@@ -8444,20 +8447,33 @@ void ScribusView::slotDoCurs(bool draw)
 			{
 				textframe->CPos = textframe->itemText.length();
 			}
-			if (textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
-				|| textframe->CPos >= textframe->itemText.length())
+			if (textframe->lastInFrame() >= textframe->itemText.nrOfItems() 
+				|| textframe->itemText.length() == 0)
 			{
-				FRect bbox = textframe->itemText.boundingBox(QMIN(textframe->lastInFrame(), textframe->itemText.length()-1));
+				x = 0;
+				y = 0;
+				y1 = static_cast<int>(textframe->itemText.defaultStyle().charStyle().fontSize() / 10);
+			}
+			else if (textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
+					 || textframe->CPos >= textframe->itemText.length())
+			{
+				FRect bbox = textframe->itemText.boundingBox(QMAX(0,QMIN(textframe->lastInFrame(), textframe->itemText.length()-1)));
 				x = static_cast<int>(bbox.x() + textframe->itemText.item(textframe->lastInFrame())->glyph.wide());
 				y = static_cast<int>(bbox.y());
-				y1 = static_cast<int>(bbox.y() + bbox.height());
+				if (bbox.height() <= 2)
+					y1 = static_cast<int>(bbox.y() + textframe->itemText.defaultStyle().charStyle().fontSize() / 30);
+				else
+					y1 = static_cast<int>(bbox.y() + bbox.height());
 			}
 			else
 			{
 				FRect bbox = textframe->itemText.boundingBox(textframe->CPos);
 				x = static_cast<int>(bbox.x());
 				y = static_cast<int>(bbox.y());
-				y1 = static_cast<int>(bbox.y() + bbox.height());
+				if (bbox.height() <= 2) 
+					y1 = static_cast<int>(bbox.y() + textframe->itemText.charStyle(textframe->CPos).fontSize() / 30);
+				else
+					y1 = static_cast<int>(bbox.y() + bbox.height());
 			}
 #endif
 			if (x < 1)
