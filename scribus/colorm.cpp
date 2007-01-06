@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
+#include <qbitmap.h>
 #include <cstdlib>
 
 #include "commonstrings.h"
@@ -158,7 +159,7 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	painter.drawRect(0, 0, 15, 15);
 	painter.end();
 
-	cellPix.fill(Qt::white);
+	cellPix.fill(Qt::color0);
 	paintAlert(smallPix, cellPix, 0, 0);
 	color.checkGamut();
 	if (color.isOutOfGamut())
@@ -168,9 +169,21 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	else
 		paintAlert(rgbIcon, cellPix, 30, 0);
 	if (color.isSpotColor())
-		paintAlert(spotIcon, cellPix, 46, 2);
+		paintAlert(spotIcon, cellPix, 46, 0);
 	if (color.isRegistrationColor())
 		paintAlert(regIcon, cellPix, 45, 0);
+	if (cellPix.mask() && ((!color.isSpotColor() && !color.isRegistrationColor()) || !color.isOutOfGamut()))
+	{
+		QPainter alpha; // transparency handling
+		alpha.begin(cellPix.mask());
+		alpha.setBrush(Qt::color0);
+		alpha.setPen(Qt::color0);
+		if (!color.isSpotColor() && !color.isRegistrationColor())
+			alpha.drawRect(45, 0, 15, 15);
+		if (!color.isOutOfGamut())
+			alpha.drawRect(15, 0, 15, 15);
+		alpha.end();
+	}
 
 	QRect rect;
 	rect.setCoords(3, 0, 60, 15);
