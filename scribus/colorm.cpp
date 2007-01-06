@@ -802,11 +802,8 @@ void ColorManager::delUnused()
 		}
 	}
 	EditColors = UsedC;
-	if (EditColors.count() == 0)
-	{
-		EditColors.insert("White", ScColor(0, 0, 0, 0));
-		EditColors.insert("Black", ScColor(0, 0, 0, 255));
-	}
+	EditColors.insert("White", ScColor(0, 0, 0, 0));
+	EditColors.insert("Black", ScColor(0, 0, 0, 255));
 	updateCList();
 }
 
