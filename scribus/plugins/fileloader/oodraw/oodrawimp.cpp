@@ -781,7 +781,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->view()->AdjustItemSize(ite);
+				m_Doc->AdjustItemSize(ite);
 			}
 			HaveGradient = false;
 		}
@@ -798,7 +798,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->view()->AdjustItemSize(ite);
+				m_Doc->AdjustItemSize(ite);
 			}
 		}
 		else if( STag == "draw:polyline" )
@@ -814,7 +814,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->view()->AdjustItemSize(ite);
+				m_Doc->AdjustItemSize(ite);
 			}
 		}
 		else if( STag == "draw:path" )
@@ -855,7 +855,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				if (!b.hasAttribute("draw:transform"))
 				{
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-					m_Doc->view()->AdjustItemSize(ite);
+					m_Doc->AdjustItemSize(ite);
 				}
 			}
 		}
@@ -974,7 +974,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				FPoint wh = getMaxClipF(&ite->PoLine);
 				ite->setWidthHeight(wh.x(), wh.y());
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->view()->AdjustItemSize(ite);
+				m_Doc->AdjustItemSize(ite);
 			}
 			ite->OwnPage = m_Doc->OnPage(ite);
 			if (HaveGradient)
