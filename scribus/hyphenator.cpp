@@ -40,13 +40,13 @@ for which a new license (GPL+exception) is in place.
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	: QObject( parent, "bu"),
 	doc(dok),
+	hdict(0),
+	useAble(false),
+	codec(0),
 	MinWordLen(doc->MinWordLen),
 	HyCount(doc->HyCount),
 	Automatic(doc->Automatic),
-	AutoCheck(doc->AutoCheck),
-	hdict(0),
-	useAble(false),
-	codec(0)
+	AutoCheck(doc->AutoCheck)
 {
 		//FIXME:av pick up language from charstyle
  	QString pfad = ScPaths::instance().libDir();
