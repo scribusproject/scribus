@@ -84,6 +84,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 	connect(styleView, SIGNAL(rightButtonClicked(QListViewItem*, const QPoint&, int)),
 			this, SLOT(slotRightClick(QListViewItem*, const QPoint&, int)));
+	connect(styleView, SIGNAL(doubleClicked(QListViewItem*, const QPoint&, int)),
+			this, SLOT(slotDoubleClick(QListViewItem*, const QPoint&, int)));
 
 	languageChange();
 	slotOk();
@@ -345,8 +347,10 @@ void StyleManager::slotNewPopup(int i)
 		slotOk(); // switch to edit mode for a new style
 
 	QString typeName = rcType_;
-	if (typeName == QString::null)
+	if (typeName == QString::null && i > -1)
 		typeName = newPopup_->text(i);
+	else if (typeName == QString::null && i < 0)
+		return; // nothing to create
 
 	rcType_ = QString::null;
 	rcStyle_ = QString::null;
@@ -404,6 +408,36 @@ void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int 
 	}
 
 	rightClickPopup_->exec(point);
+}
+
+void StyleManager::slotDoubleClick(QListViewItem *item, const QPoint &point, int col)
+{
+	rcStyle_ = QString::null;
+	rcType_ = QString::null;
+
+	if (isEditMode_ && item) // make item the only selection if in edit mode
+	{
+		styleView->clearSelection();
+		styleView->setCurrentItem(item);
+		item->setSelected(true);
+		item->repaint();
+		return; // work done, already in edit mode
+	}
+
+	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
+	if (sitem && !sitem->isRoot())
+	{
+		rcType_ = sitem->rootName();
+		rcStyle_ = sitem->text(0);
+		slotOk(); // switch to edit mode
+	}
+	else if (sitem && sitem->isRoot())
+	{
+		rcType_ = sitem->text(0);
+		slotNewPopup(-1);
+	}
+	rcStyle_ = QString::null;
+	rcType_ = QString::null;
 }
 
 void StyleManager::createNewStyle(const QString &typeName, const QString &fromParent)
@@ -1099,6 +1133,14 @@ void StyleView::contentsMousePressEvent(QMouseEvent *e)
 		emit rightButtonClicked(itemAt(e->pos()), e->globalPos(), 0);
 	else
 		QListView::contentsMousePressEvent(e);
+}
+
+void StyleView::contentsMouseDoubleClickEvent(QMouseEvent *e)
+{
+	if (e->button() == Qt::LeftButton)
+		emit doubleClicked(itemAt(e->pos()), e->globalPos(), 0);
+	else
+		QListView::contentsMouseDoubleClickEvent(e);
 }
 
 /*** StyleViewItem *******************************************************************/

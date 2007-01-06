@@ -123,6 +123,7 @@ private slots:
 	void slotNewPopup(int);
 	void slotScrap();
 	void slotRightClick(QListViewItem *item, const QPoint &point, int col);
+	void slotDoubleClick(QListViewItem *item, const QPoint &point, int col);
 
 	void slotNameChanged(const QString& name);
 	void slotShortcutChanged(const QString& shortcut);
@@ -145,6 +146,7 @@ public:
 	~StyleView();
 protected:
 	void contentsMousePressEvent(QMouseEvent *e);
+	void contentsMouseDoubleClickEvent(QMouseEvent *e);
 };
 
 class StyleViewItem : public QListViewItem
