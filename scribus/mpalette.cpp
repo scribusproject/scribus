@@ -2461,9 +2461,9 @@ void Mpalette::NewX()
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				m_ScMW->view->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
-				m_ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-				m_ScMW->view->RotateItem(r, CurItem->ItemNr);
+				doc->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
+				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -2479,7 +2479,7 @@ void Mpalette::NewX()
 					base = ma.m11() * CurItem->width() + ma.m21() * CurItem->height() + ma.dx();
 				if (BottomLeft->isChecked())
 					base = ma.m11() * 0.0 + ma.m21() * CurItem->height() + ma.dx();
-				m_ScMW->view->MoveItem(x - base, 0, CurItem, true);
+				doc->MoveItem(x - base, 0, CurItem, true);
 			}
 		}
 		m_ScMW->view->updateContents();
@@ -2529,9 +2529,9 @@ void Mpalette::NewY()
 			{
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				m_ScMW->view->MoveItem(0, y - CurItem->yPos(), CurItem, true);
-				m_ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-				m_ScMW->view->RotateItem(r, CurItem->ItemNr);
+				doc->MoveItem(0, y - CurItem->yPos(), CurItem, true);
+				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -2547,7 +2547,7 @@ void Mpalette::NewY()
 					base = ma.m22() * CurItem->height() + ma.m12() * CurItem->width() + ma.dy();
 				if (BottomLeft->isChecked())
 					base = ma.m22() * CurItem->height() + ma.m12() * 0.0 + ma.dy();
-				m_ScMW->view->MoveItem(0, y - base, CurItem, true);
+				doc->MoveItem(0, y - base, CurItem, true);
 			}
 		}
 		m_ScMW->view->updateContents();
@@ -2597,10 +2597,10 @@ void Mpalette::NewW()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					m_ScMW->view->RotateItem(r, CurItem->ItemNr);
+					doc->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				m_ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2621,19 +2621,19 @@ void Mpalette::NewW()
 						bb2 = bb;
 						while (bb2->RightLink != 0)
 						{
-							m_ScMW->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+							doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 							bb2 = bb2->RightLink;
 						}
-						m_ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+						doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 						bb = bb->BottomLink;
 					}
 					bb2 = bb;
 					while (bb2->RightLink != 0)
 					{
-						m_ScMW->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+						doc->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 						bb2 = bb2->RightLink;
 					}
-					m_ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+					doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (keepFrameWHRatioButton->isOn())
 					{
@@ -2648,10 +2648,10 @@ void Mpalette::NewW()
 					if (keepFrameWHRatioButton->isOn())
 					{
 						setBH(w, (w / CurItem->width()) * CurItem->height());
-						m_ScMW->view->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
+						doc->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
 					}
 					else
-						m_ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+						doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 				}
 			}
 		}
@@ -2702,10 +2702,10 @@ void Mpalette::NewH()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					m_ScMW->view->RotateItem(r, CurItem->ItemNr);
+					doc->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				m_ScMW->view->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
+				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2726,19 +2726,19 @@ void Mpalette::NewH()
 						bb2 = bb;
 						while (bb2->BottomLink != 0)
 						{
-							m_ScMW->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+							doc->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 							bb2 = bb2->BottomLink;
 						}
-						m_ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+						doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 						bb = bb->RightLink;
 					}
 					bb2 = bb;
 					while (bb2->BottomLink != 0)
 					{
-						m_ScMW->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+						doc->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 						bb2 = bb2->BottomLink;
 					}
-					m_ScMW->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+					doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (keepFrameWHRatioButton->isOn())
 					{
@@ -2753,10 +2753,10 @@ void Mpalette::NewH()
 					if (keepFrameWHRatioButton->isOn())
 					{
 						setBH((h / CurItem->height()) * CurItem->width(), h);
-						m_ScMW->view->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
+						doc->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
 					}
 					else
-						m_ScMW->view->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
+						doc->SizeItem(CurItem->width(), h, CurItem->ItemNr, true);
 				}
 			}
 		}
@@ -2784,7 +2784,7 @@ void Mpalette::NewR()
 			setXY(gx, gy);
 		}
 		else
-			m_ScMW->view->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
+			doc->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		m_ScMW->view->updateContents();
 		RoVal = Rot->value();
@@ -3866,7 +3866,7 @@ void Mpalette::handlePathDist()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setTextToFrameDistLeft(Dist->value());
-		m_ScMW->view->AdjustItemSize(CurItem);
+		doc->AdjustItemSize(CurItem);
 		CurItem->updatePolyClip();
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
@@ -3880,7 +3880,7 @@ void Mpalette::handlePathOffs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->BaseOffs = -LineW->value();
-		m_ScMW->view->AdjustItemSize(CurItem);
+		doc->AdjustItemSize(CurItem);
 		CurItem->updatePolyClip();
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();

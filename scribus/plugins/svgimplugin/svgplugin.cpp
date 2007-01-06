@@ -498,7 +498,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 //				item->setPolyClip(qRound(QMAX(item->lineWidth() / 2.0, 1)));
 //			else
 //				item->Clip = FlattenPath(item->PoLine, item->Segments);
-			m_Doc->view()->AdjustItemSize(item);
+			m_Doc->AdjustItemSize(item);
 			break;
 		}
 	}

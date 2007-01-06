@@ -767,7 +767,19 @@ public:
 	FPoint ApplyGridF(const FPoint& in);
 	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
 	bool hasTOCSetup() { return !docToCSetups.empty(); }
-
+	//! \brief Get the closest guide to the given point
+	void getClosestGuides(double xin, double yin, double *xout, double *yout);
+	//! \brief Snap an item to the guides
+	void SnapToGuides(PageItem *currItem);
+	bool ApplyGuides(double *x, double *y);
+	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
+	void RotateItem(double win, int ite);
+	void RotateItem(double win, PageItem *currItem);
+	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
+	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
+	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
+	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
+	void AdjustItemSize(PageItem *currItem);
 	
 protected:
 	void addSymbols();
@@ -970,6 +982,7 @@ signals:
 	 */
 	void docChanged();
 	void updateContents();
+	void updateContents(const QRect &r);
 	void refreshItem(PageItem *);
 	void canvasAdjusted(double width, double height, double dX, double dY);
 	void firstSelectedItemType(int);
@@ -984,6 +997,8 @@ signals:
 	 * This also applies to Master Pages
 	 */
 	void signalRebuildOutLinePalette();
+	//! Temporary signal for SizeItem
+	void widthAndHeight(double, double);
 	
 public slots:
 	void itemSelection_ToggleLock();

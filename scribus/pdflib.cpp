@@ -1709,6 +1709,9 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							PutPage(PDF_TransparenzFill(ite));
 						PutPage(setTextSt(ite, pag->pageNr(), pag));
 						break;
+					case PageItem::Multiple:
+						Q_ASSERT(false);
+						break;
 					}
 				PutPage("Q\n");
 				StartObj(ObjCounter);
@@ -3359,6 +3362,9 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
 				tmp += PDF_TransparenzFill(ite);
 			tmp += setTextSt(ite, PNr, pag);
+			break;
+		case PageItem::Multiple:
+			Q_ASSERT(false);
 			break;
 	}
 	tmp += "Q\n";

@@ -1247,9 +1247,9 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					}
 					else
 					{
-						view->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
+						doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
 						currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
-						view->AdjustItemSize(currItem);
+						doc->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
 						currItem->FrameType = 3;
@@ -1481,14 +1481,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								if (resizingsmaller)
 								{
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+									doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
 								else
 								{
-									view->MoveItem(-resizeBy, 0, currItem, false);
+									doc->MoveItem(-resizeBy, 0, currItem, false);
 									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+									doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
  							}
 						}
@@ -1533,15 +1533,15 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							{
 								if (resizingsmaller)
 								{
-									view->MoveItem(-resizeBy, 0, currItem, false);
+									doc->MoveItem(-resizeBy, 0, currItem, false);
 									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+									doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
 								else
 								{
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+									doc->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
 							}
 						}
@@ -1587,14 +1587,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								if (resizingsmaller)
 								{
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+									doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
 								else
 								{
-									view->MoveItem(0, -resizeBy, currItem, false);
+									doc->MoveItem(0, -resizeBy, currItem, false);
 									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+									doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
 							}
 						}
@@ -1639,15 +1639,15 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							{
 								if (resizingsmaller)
 								{
-									view->MoveItem(0, -resizeBy, currItem, false);
+									doc->MoveItem(0, -resizeBy, currItem, false);
 									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+									doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
 								else
 								{
 									currItem->Sizing = false;
-									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+									doc->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
 							}
 						}
@@ -7194,7 +7194,7 @@ void ScribusMainWindow::ObjektDup()
 	for (uint b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
-		view->MoveItem(doc->toolSettings.dispX, doc->toolSettings.dispY, doc->m_Selection->itemAt(b));
+		doc->MoveItem(doc->toolSettings.dispX, doc->toolSettings.dispY, doc->m_Selection->itemAt(b));
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;

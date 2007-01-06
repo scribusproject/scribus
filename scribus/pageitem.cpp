@@ -2819,7 +2819,7 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 		mx = -mx;
 		my = -my;
 	}
-	m_Doc->view()->MoveItem(mx, my, this, false);
+	m_Doc->MoveItem(mx, my, this, false);
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
@@ -2842,17 +2842,17 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	double  my = oy - y;
 	if (isUndo)
 	{
-		view->SizeItem(ow, oh, this, false, true, true);
-		view->MoveItem(mx, my, this, false);
-		view->RotateItem(ort, this);
+		m_Doc->SizeItem(ow, oh, this, false, true, true);
+		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->RotateItem(ort, this);
 	}
 	else
 	{
 		mx = -mx;
 		my = -my;
-		view->SizeItem(w, h, this, false, true, true);
-		view->MoveItem(mx, my, this, false);
-		view->RotateItem(rt, this);
+		m_Doc->SizeItem(w, h, this, false, true, true);
+		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->RotateItem(rt, this);
 	}
 	oldWidth = Width;
 	oldHeight = Height;
@@ -2886,9 +2886,9 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		Ypos+=my;
 		Width=ow;
 		Height=oh;*/
-		view->RotateItem(ort, this);
-		view->MoveItem(mx, my, this, false);
-		view->SizeItem(ow, oh, this, false, true, true);
+		m_Doc->RotateItem(ort, this);
+		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->SizeItem(ow, oh, this, false, true, true);
 	}
 	else
 	{
@@ -2901,9 +2901,9 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		Width=w;
 		Height=h;
 		*/
-		view->RotateItem(rt, this);
-		view->MoveItem(mx, my, this, false);
-		view->SizeItem(w, h, this, false, true, true);
+		m_Doc->RotateItem(rt, this);
+		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->SizeItem(w, h, this, false, true, true);
 	}
 	/*
 	m_Doc->setRedrawBounding(this);
@@ -3222,8 +3222,8 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 			else
 				PoLine = newClip;
 		}
-		m_Doc->view()->AdjustItemSize(this);
-		m_Doc->view()->MoveItem(mx, my, this, false);
+		m_Doc->AdjustItemSize(this);
+		m_Doc->MoveItem(mx, my, this, false);
 		m_Doc->view()->slotUpdateContents();
 	}
 

@@ -79,7 +79,7 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
 		ScCore->primaryMainWindow()->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
-		ScCore->primaryMainWindow()->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
 	//ScCore->primaryMainWindow()->doc->selection->restoreFromTempList(0, tempList);
@@ -119,7 +119,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 	}
 	else
-		ScCore->primaryMainWindow()->view->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
+		ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
 	//ScCore->primaryMainWindow()->doc->selection->restoreFromTempList(0, tempList);
@@ -142,7 +142,7 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->view->RotateItem(item->rotation() - x, item->ItemNr);
+	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - x, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -158,7 +158,7 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->view->RotateItem(x * -1.0, item->ItemNr);
+	ScCore->primaryMainWindow()->doc->RotateItem(x * -1.0, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -174,7 +174,7 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	ScCore->primaryMainWindow()->view->SizeItem(ValueToPoint(x), ValueToPoint(y), item->ItemNr);
+	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(x), ValueToPoint(y), item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

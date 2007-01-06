@@ -233,15 +233,15 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		ScCore->primaryMainWindow()->view->MoveItem(np2.x(), 0, it);
+		ScCore->primaryMainWindow()->doc->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		ScCore->primaryMainWindow()->view->MoveItem(0, np2.y(), it);
+		ScCore->primaryMainWindow()->doc->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
-	ScCore->primaryMainWindow()->view->AdjustItemSize(it);
+	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
+	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
 	if (Name != "")
 	{
 		it->setItemName(QString::fromUtf8(Name));
@@ -313,15 +313,15 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		ScCore->primaryMainWindow()->view->MoveItem(np2.x(), 0, it);
+		ScCore->primaryMainWindow()->doc->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		ScCore->primaryMainWindow()->view->MoveItem(0, np2.y(), it);
+		ScCore->primaryMainWindow()->doc->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
-	ScCore->primaryMainWindow()->view->AdjustItemSize(it);
+	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
+	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -400,15 +400,15 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
-		ScCore->primaryMainWindow()->view->MoveItem(np2.x(), 0, it);
+		ScCore->primaryMainWindow()->doc->MoveItem(np2.x(), 0, it);
 	}
 	if (np2.y() < 0)
 	{
 		it->PoLine.translate(0, -np2.y());
-		ScCore->primaryMainWindow()->view->MoveItem(0, np2.y(), it);
+		ScCore->primaryMainWindow()->doc->MoveItem(0, np2.y(), it);
 	}
-	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
-	ScCore->primaryMainWindow()->view->AdjustItemSize(it);
+	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
+	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -446,7 +446,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->m_Selection->addItem(ScCore->primaryMainWindow()->doc->Items->at(ii));
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(i);
 	ScCore->primaryMainWindow()->view->ToPathText();
-	ScCore->primaryMainWindow()->view->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
+	ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());

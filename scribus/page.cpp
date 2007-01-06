@@ -254,7 +254,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 		m_Doc->Items->append(oldItem);
 		oldItem->ItemNr = m_Doc->Items->count()-1;
 		oldItem->updatePolyClip();
-		m_Doc->view()->AdjustItemSize(oldItem);
+		m_Doc->AdjustItemSize(oldItem);
 	}
 	else
 	{

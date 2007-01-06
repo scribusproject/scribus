@@ -2153,6 +2153,9 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, true);
 		currItem = doc->Items->at(z);
 		break;
+	case PageItem::Multiple:
+		Q_ASSERT(false);
+		break;
 	}
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	currItem->setStartArrowIndex(obj->attribute("startArrowIndex", "0").toInt());

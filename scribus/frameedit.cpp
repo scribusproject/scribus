@@ -465,7 +465,7 @@ void NodePalette::MovePoint()
 		if (AbsMode->isChecked())
 			np -= zp;
 		view->MoveClipPoint(doc->m_Selection->itemAt(0), np);
-		view->AdjustItemSize(doc->m_Selection->itemAt(0));
+		doc->AdjustItemSize(doc->m_Selection->itemAt(0));
 		emit DocChanged();
 	}
 }

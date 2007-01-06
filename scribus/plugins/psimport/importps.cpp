@@ -580,7 +580,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
-						m_Doc->view()->AdjustItemSize(ite);
+						m_Doc->AdjustItemSize(ite);
 						if (groupStack.count() != 0)
 						{
 							QValueStack<int> groupOld = groupStack.top()->Groups;
@@ -630,7 +630,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
-						m_Doc->view()->AdjustItemSize(ite);
+						m_Doc->AdjustItemSize(ite);
 						if (groupStack.count() != 0)
 						{
 							QValueStack<int> groupOld = groupStack.top()->Groups;
@@ -665,7 +665,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					ite->setWidthHeight(wh.x(),wh.y());
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 //					ite->setFillTransparency(1.0 - Opacity);
-					m_Doc->view()->AdjustItemSize(ite);
+					m_Doc->AdjustItemSize(ite);
 					ite->Groups.push(m_Doc->GroupCounter);
 					if (groupStack.count() != 0)
 					{
