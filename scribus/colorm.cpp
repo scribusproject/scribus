@@ -910,18 +910,23 @@ void ColorManager::delFarbe()
 void ColorManager::selFarbe(QListBoxItem *c)
 {
 	sFarbe = c->text();
-	EditF->setEnabled(true);
+	bool enableEdit = (sFarbe != "Black" && sFarbe != "White");
+	bool enableDel  = (sFarbe != "Black" && sFarbe != "White") && (EditColors.count() > 1);
+	EditF->setEnabled(enableEdit);
 	DupF->setEnabled(true);
-	DelF->setEnabled(EditColors.count() == 1 ? false : true);
+	DelF->setEnabled(enableDel);
 }
 
 void ColorManager::selEditFarbe(QListBoxItem *c)
 {
 	sFarbe = c->text();
-	EditF->setEnabled(true);
+	bool enableEdit = (sFarbe != "Black" && sFarbe != "White");
+	bool enableDel  = (sFarbe != "Black" && sFarbe != "White") && (EditColors.count() > 1);
+	EditF->setEnabled(enableEdit);
 	DupF->setEnabled(true);
-	DelF->setEnabled(EditColors.count() == 1 ? false : true);
-	editFarbe();
+	DelF->setEnabled(enableDel);
+	if(enableEdit)
+		editFarbe();
 }
 
 void ColorManager::updateCList()
@@ -931,8 +936,7 @@ void ColorManager::updateCList()
 	colorListBox->clear();
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor || 
-			it.key() == "Black" || it.key() == "White")
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
 		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}
