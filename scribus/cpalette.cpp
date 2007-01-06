@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qiconview.h>
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "mspinbox.h"

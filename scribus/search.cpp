@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwhatsthis.h>
 #include <qmessagebox.h>
 
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "colorcombo.h"
 #include "fontcombo.h"

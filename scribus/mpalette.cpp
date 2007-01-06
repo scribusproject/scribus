@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "arrowchooser.h"
 #include "autoform.h"
 #include "commonstrings.h"
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "cpalette.h"
 #include "lineformats.h"
 #include "sccombobox.h"

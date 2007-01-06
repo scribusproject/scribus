@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "sampleitem.h"
 #include "commonstrings.h"
-#include "colorm.h"
+#include "colorlistbox.h"
 
 
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )

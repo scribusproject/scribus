@@ -77,9 +77,10 @@ cmykfw.h
 collect4output.h
 colorblind.h
 colorchart.h
+colorcombo.h
+colorlistbox.h
 colorm.h
 # colorsetmanager.h
-colorcombo.h
 commonstrings.h
 cpalette.h
 createrange.h
@@ -261,6 +262,7 @@ collect4output.cpp
 colorblind.cpp
 colorchart.cpp
 colorcombo.cpp
+colorlistbox.cpp
 colorm.cpp
 colorsetmanager.cpp
 colorutil.cpp

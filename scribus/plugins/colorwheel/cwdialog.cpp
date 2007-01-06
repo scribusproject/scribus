@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "mpalette.h"
 #include "colorblind.h"
 #include "colorutil.h"
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "sccolorengine.h"
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, WFlags fl)

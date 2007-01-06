@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #define COLORCOMBO_H
 
 #include <qcombobox.h>
-#include "colorm.h"
+#include "colorlistbox.h"
 
 #ifdef QT_MAC
 #include <qmacstyle_mac.h>

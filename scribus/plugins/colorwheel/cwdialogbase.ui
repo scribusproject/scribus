@@ -1028,7 +1028,7 @@
     </customwidget>
     <customwidget>
         <class>ColorListBox</class>
-        <header location="local">colorm.h</header>
+        <header location="local">colorlistbox.h</header>
         <sizehint>
             <width>-1</width>
             <height>-1</height>
@@ -1174,7 +1174,7 @@
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
     <includehint>colorwheelwidget.h</includehint>
-    <includehint>colorm.h</includehint>
-    <includehint>colorm.h</includehint>
+    <includehint>colorlistbox.h</includehint>
+    <includehint>colorlistbox.h</includehint>
 </includehints>
 </UI>

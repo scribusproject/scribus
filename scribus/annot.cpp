@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qdatetime.h>
 #include <qpixmap.h>
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scimage.h"

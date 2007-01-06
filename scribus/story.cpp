@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "actionmanager.h"
 #include "alignselect.h"
 #include "charselect.h"
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "editformats.h"

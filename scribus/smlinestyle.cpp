@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "linecombo.h"
 #include "mspinbox.h"
-#include "colorm.h"
+#include "colorlistbox.h"
 #include "colorutil.h"
 #include "commonstrings.h"
 #include "selection.h"
