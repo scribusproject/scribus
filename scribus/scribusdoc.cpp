@@ -1021,12 +1021,6 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 void ScribusDoc::setName(const QString& name)
 {
 	DocName = name;
-	QString uname = name;
-	if (name.find("/") > -1)
-		uname = name.right(name.length() - name.findRev("/") - 1);
-	if (uname.find(".sl") > -1)
-		uname = uname.left(uname.findRev(".sl"));
-	setUName(uname); // set the name for the undo object
 }
 
 void ScribusDoc::setModified(const bool isModified)
