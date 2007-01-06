@@ -2009,12 +2009,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		bool foundGuide = false;
 		double nx = translateToDoc(m->x(), m->y()).x();
 		double ny = translateToDoc(m->x(), m->y()).y();
-		if (Doc->currentPage()->guides.isMouseOnHorizontal(ny + Doc->guidesSettings.grabRad / Scale,
-														ny - Doc->guidesSettings.grabRad / Scale,
-														GuideManagerCore::Standard)
-				  || Doc->currentPage()->guides.isMouseOnVertical(nx + Doc->guidesSettings.grabRad / Scale,
-															nx - Doc->guidesSettings.grabRad / Scale,
-															GuideManagerCore::Standard))
+		double grabRadScale=Doc->guidesSettings.grabRad / Scale;
+		if (Doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
+			|| Doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
 			foundGuide = true;
 		if ((foundGuide) && (m->button() == RightButton) && (!GetItem(&currItem)))
 		{
