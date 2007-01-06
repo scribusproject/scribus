@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfontmetrics.h>
 #include <qmessagebox.h>
 #include <qpixmap.h>
+#include <qbitmap.h>
 #include <cstdlib>
 
 #include "commonstrings.h"
@@ -102,18 +103,31 @@ void ColorFancyPixmapItem::redraw(void)
 	painter.end();
 
 	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
-	pPixmap->fill(Qt::white);
+	pPixmap->fill(Qt::color0);
 	paintAlert(smallPix, *pPixmap, 0, 0);
-	if (ScColorEngine::isOutOfGamut(m_color, m_doc))
+	bool isOutOfGamut = ScColorEngine::isOutOfGamut(m_color, m_doc);
+	if (isOutOfGamut)
 		paintAlert(alertIcon, *pPixmap, 15, 0);
 	if ((m_color.getColorModel() == colorModelCMYK) || (m_color.isSpotColor()))
 		paintAlert(cmykIcon, *pPixmap, 30, 0);
 	else
 		paintAlert(rgbIcon, *pPixmap, 30, 0);
 	if (m_color.isSpotColor())
-		paintAlert(spotIcon, *pPixmap, 46, 2);
+		paintAlert(spotIcon, *pPixmap, 45, 0);
 	if (m_color.isRegistrationColor())
-		paintAlert(regIcon, *pPixmap, 45, 0);
+		paintAlert(regIcon, *pPixmap, 46, 0);
+	if (pPixmap->mask() && ((!m_color.isSpotColor() && !m_color.isRegistrationColor()) || !isOutOfGamut))
+	{
+		QPainter alpha; // transparency handling
+		alpha.begin(pPixmap->mask());
+		alpha.setBrush(Qt::color0);
+		alpha.setPen(Qt::color0);
+		if (!m_color.isSpotColor() && !m_color.isRegistrationColor())
+			alpha.drawRect(45, 0, 15, 15);
+		if (!isOutOfGamut)
+			alpha.drawRect(15, 0, 15, 15);
+		alpha.end();
+	}
 }
 
 ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)

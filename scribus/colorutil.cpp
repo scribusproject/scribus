@@ -303,6 +303,8 @@ void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 		alpha.setBrush(Qt::color1);
 		alpha.setPen(Qt::color1);
 		alpha.drawRect(x, y, 15, 15);
+		if (toPaint.mask() != 0)
+			alpha.drawPixmap(x, y, *toPaint.mask());
 		alpha.end();
 	}
 	p.end();
