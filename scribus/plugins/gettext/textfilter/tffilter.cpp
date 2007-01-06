@@ -475,7 +475,7 @@ void tfFilter::resetBRow()
 void tfFilter::getParagraphStyles()
 {
 	thirdCombo->insertItem("");
-	for (uint i = 5; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
+	for (uint i = 0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
 	{
 		thirdCombo->insertItem(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name());
 	}
