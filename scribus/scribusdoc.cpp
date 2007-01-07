@@ -4308,6 +4308,50 @@ void ScribusDoc::ItemGradFill(int typ)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->GrType = typ;
+			switch (currItem->GrType)
+			{
+				case 0:
+				case 1:
+					currItem->GrStartX = 0;
+					currItem->GrStartY = currItem->height() / 2.0;
+					currItem->GrEndX = currItem->width();
+					currItem->GrEndY = currItem->height() / 2.0;
+					break;
+				case 2:
+					currItem->GrStartX = currItem->width() / 2.0;
+					currItem->GrStartY = 0;
+					currItem->GrEndX = currItem->width() / 2.0;
+					currItem->GrEndY = currItem->height();
+					break;
+				case 3:
+					currItem->GrStartX = 0;
+					currItem->GrStartY = 0;
+					currItem->GrEndX = currItem->width();
+					currItem->GrEndY = currItem->height();
+					break;
+				case 4:
+					currItem->GrStartX = 0;
+					currItem->GrStartY = currItem->height();
+					currItem->GrEndX = currItem->width();
+					currItem->GrEndY = 0;
+					break;
+				case 5:
+					currItem->GrStartX = currItem->width() / 2.0;
+					currItem->GrStartY = currItem->height() / 2.0;
+					if (currItem->width() >= currItem->height())
+					{
+						currItem->GrEndX = currItem->width();
+						currItem->GrEndY = currItem->height() / 2.0;
+					}
+					else
+					{
+						currItem->GrEndX = currItem->width() / 2.0;
+						currItem->GrEndY = currItem->height();
+					}
+					break;
+				default:
+					break;
+			}
 			currItem->updateGradientVectors();
 			emit refreshItem(currItem);
 		}

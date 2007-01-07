@@ -2113,7 +2113,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	double EndX = 0;
 	double EndY =0;
 	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
-	switch (c->GrType)
+/*	switch (c->GrType)
 	{
 		case 1:
 			StartX = 0;
@@ -2160,7 +2160,11 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			EndX = c->GrEndX;
 			EndY = c->GrEndY;
 			break;
-	}
+	} */
+	StartX = c->GrStartX;
+	StartY = c->GrStartY;
+	EndX = c->GrEndX;
+	EndY = c->GrEndY;
 	QValueList<double> StopVec;
 	QStringList Gcolors;
 	QString hs,ss,vs,ks;
