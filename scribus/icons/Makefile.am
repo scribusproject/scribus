@@ -8,7 +8,7 @@ acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings
 misc.png externaltools.png tools.png page.png guides.png font.png typography.png screen.png nftabout.xpm nftinfo.xpm \
 dist.png dist22.png tab.png view.png Kreuz.xpm Bild.xpm Bild16.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm \
 Rotieren.xpm Stift16.xpm Stift.xpm Text.xpm Text16.xpm Unlock.xpm DateiClose.png DateiNeu.xpm DateiOpen.xpm \
-DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.jpg \
+DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png \
 DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editcut22.png \
 editdelete.png editdelete22.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm \
 Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm \
@@ -223,7 +223,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribusdoc16.png $(prefix)/share/scribus/icons/scribusdoc16.png
 	$(INSTALL_DATA) $(srcdir)/scribusicon.png $(prefix)/share/pixmaps/scribusicon.png
 	$(INSTALL_DATA) $(srcdir)/scribusicon.png $(prefix)/share/scribus/icons/scribusicon.png
-	$(INSTALL_DATA) $(srcdir)/scribus_logo.jpg $(prefix)/share/scribus/icons/scribus_logo.jpg
+	$(INSTALL_DATA) $(srcdir)/scribus_logo.png $(prefix)/share/scribus/icons/scribus_logo.png
 	$(INSTALL_DATA) $(srcdir)/shadow.png $(prefix)/share/scribus/icons/shadow.png
 	$(INSTALL_DATA) $(srcdir)/shear_down.png $(prefix)/share/scribus/icons/shear_down.png
 	$(INSTALL_DATA) $(srcdir)/shear_left.png $(prefix)/share/scribus/icons/shear_left.png
@@ -497,7 +497,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/scribusdoc.png
 	-rm -f $(prefix)/share/scribus/icons/scribusdoc16.png
 	-rm -f $(prefix)/share/scribus/icons/scribusicon.png
-	-rm -f $(prefix)/share/scribus/icons/scribus_logo.jpg
+	-rm -f $(prefix)/share/scribus/icons/scribus_logo.png
 	-rm -f $(prefix)/share/scribus/icons/shadow.png
 	-rm -f $(prefix)/share/scribus/icons/shear_down.png
 	-rm -f $(prefix)/share/scribus/icons/shear_left.png
