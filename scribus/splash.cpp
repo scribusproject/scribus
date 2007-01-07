@@ -44,18 +44,19 @@ void SplashScreen::repaint()
 
 void SplashScreen::setStatus( const QString &message )
 {
-	QString tmp = message;
+	static QRegExp rx("&\\S*");	
+	QString tmp(message);
 	int f = 0;
 	while (f != -1)
 	{
-		f = tmp.find(QRegExp( "&\\S*" ));
+		f = tmp.find(rx);
 		if (f != -1)
 		{
 			tmp.remove(f, 1);
 			f = 0;
 		}
 	}
-	QPixmap textPix = pix;
+	QPixmap textPix(pix);
 	QPainter painter( &textPix, this );
 #if defined _WIN32
 	QFont font("Lucida Sans", 12);
