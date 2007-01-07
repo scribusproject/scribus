@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 00:42+0100\n"
+"POT-Creation-Date: 2007-01-07 00:54+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -58,6 +58,9 @@ msgid "Contributions from:"
 msgstr "ཕན་འདེབས་ཚུ་གི་ལས:"
 
 msgid "Mac OS&#174; X Aqua Port:"
+msgstr ""
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
 msgstr ""
 
 #, fuzzy
@@ -2641,50 +2644,6 @@ msgstr "ཨང་གྲངས།"
 msgid "String"
 msgstr "གཞི་སྒྲིག་ཚུ།"
 
-msgid ""
-"Add a page numbering section to the document. The new section will be added "
-"after the currently selected section."
-msgstr ""
-
-#, fuzzy
-msgid "Delete the currently selected section."
-msgstr "ད་ལྟོ་སེལ་འཐུ་འབད་ཡོད་པའི་ཚོས་གཞི་འདི་བཏོད་གཏང་།"
-
-msgid ""
-"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
-"show the page numbers in this section if there is one or more text frames "
-"setup to do so.<br/><b>From:</b> The page index for this section to start at."
-"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
-"b> Select the page number style to be used.<br/><b>Start:</b> The index "
-"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
-"the numbers will begin at b. For the first section in the document this "
-"replaces the older First Page Number in the new file window."
-msgstr ""
-
-msgid "1, 2, 3, ..."
-msgstr ""
-
-msgid "i, ii, iii, ..."
-msgstr ""
-
-msgid "I, II, III, ..."
-msgstr ""
-
-msgid "a, b, c, ..."
-msgstr ""
-
-msgid "A, B, C, ..."
-msgstr ""
-
-#, fuzzy
-msgid "Page Number Out Of Bounds"
-msgstr "ཁྱབ་ཚད་ལས་བརྒལ་བའི་ཤོག་ལེབ་ཨང་གྲངས།"
-
-msgid ""
-"The value you have entered is outside the range of page numbers in the "
-"current document (%1-%2)."
-msgstr ""
-
 msgid "Setup Printer"
 msgstr "དཔར་བསྐྲུན་པ་འདི་གཞི་སྒྲིག་འབད།"
 
@@ -3208,9 +3167,9 @@ msgid "&Remove"
 msgstr "རྩ་བསྐྲད་གཏང་།(&R)"
 
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set when there are no documents open. Close "
+"any open documents, then use File ->Preferences > Fonts to change the font "
+"search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -4633,9 +4592,6 @@ msgstr "གཟུགས་བརྙན་གྱི་དོན་ལུ་ལྷ
 msgid "Line Width:"
 msgstr "གྲལ་ཐིག་གི་རྒྱ་ཚད:"
 
-msgid " pt "
-msgstr "ཡིག་ཚད།"
-
 msgid "Solid Line"
 msgstr "གྲལ་ཐིག་རགས་པ།"
 
@@ -4791,8 +4747,8 @@ msgid "Copy of"
 msgstr "གི་འདྲ་བཤུས།"
 
 #, fuzzy
-msgid "Page Layout"
-msgstr "སྒྲིག་བཀོད:"
+msgid "Document Layout"
+msgstr "ཡིག་ཐོག་བཀོད་པ་གཞན:"
 
 #, fuzzy
 msgid "First Page is:"
@@ -6696,12 +6652,6 @@ msgstr "མར་དཔེ་ཚད་ཀྱི་གཟུགས་བརྙན
 msgid "&General"
 msgstr "ཡོངས་ཁྱབ།(&G)"
 
-msgid "&Embed all Fonts"
-msgstr "ཡིག་གཟུགས་ཆ་མཉམ་ལུ་གནས་འདྲེན་འབད།(&E)"
-
-msgid "&Subset all Fonts"
-msgstr "ཡིག་གཟུགས་ཚུ་ཆ་མཉམ་གྱི་ཆ་ཚན་ཡན་ལག(&S)"
-
 msgid "Embedding"
 msgstr "གནས་འདྲན་འབད་དོ།"
 
@@ -6711,8 +6661,17 @@ msgstr "ཡིག་གཟུགས་ཚུ་འཐོབ་ཚུགསཔ:"
 msgid "Fonts to embed:"
 msgstr "གནས་འདྲན་འབད་ནི་ལུ་ཡིག་གཟུགས:"
 
-msgid "Fonts to subset:"
+#, fuzzy
+msgid "&Embed All"
+msgstr "ཡིག་གཟུགས་ཆ་མཉམ་ལུ་གནས་འདྲེན་འབད།(&E)"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "ཆ་ཚན་ཡན་ལག་ལུ་ཡིག་གཟུགས:"
+
+#, fuzzy
+msgid "Outline &All"
+msgstr "མཐའ་ཐིག"
 
 msgid "&Fonts"
 msgstr "ཡིག་གཟུགས།(&F)"
@@ -6953,10 +6912,18 @@ msgstr "པི་ཌི་ཨེཕ་/ཨེགསི་-༣(&3)"
 #, fuzzy
 msgid ""
 "Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
-"appearance of your document."
+"appearance of your document.Some fonts like Open Type can only be subset, as "
+"they are not able to be embedded into PDF versions before PDF 1.6. "
 msgstr ""
 "པི་ཌི་ཨེཕ་གི་ནང་ལུ་གནས་འདྲེན་གྱི་ཡིག་གཟུགས་ཚུ། ཡིག་གཟུགས་ \n"
 " གནས་འདྲེན་འབད་བའི་བསྒང་འདི་གིས་ ཁྱོད་རའི་ཡིག་ཆ་གི་འབྱུང་སྣང་དང་སྒྲིག་བཀོད་ཚུ་ཉམས་སྲུང་འབད་འོང་།"
+
+msgid ""
+"Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used "
+"in the PDF are embedded, not the whole font. Some fonts like Open Type can "
+"only be subset, as they are not able to be embedded into PDF versions before "
+"PDF 1.6."
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -8634,6 +8601,50 @@ msgstr "དཔར་བསྐྲུན་པ་འདི་གཞི་སྒྲ
 msgid "Right:"
 msgstr "གཡས:(&R)"
 
+msgid ""
+"Add a page numbering section to the document. The new section will be added "
+"after the currently selected section."
+msgstr ""
+
+#, fuzzy
+msgid "Delete the currently selected section."
+msgstr "ད་ལྟོ་སེལ་འཐུ་འབད་ཡོད་པའི་ཚོས་གཞི་འདི་བཏོད་གཏང་།"
+
+msgid ""
+"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
+"show the page numbers in this section if there is one or more text frames "
+"setup to do so.<br/><b>From:</b> The page index for this section to start at."
+"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
+"b> Select the page number style to be used.<br/><b>Start:</b> The index "
+"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
+"the numbers will begin at b. For the first section in the document this "
+"replaces the older First Page Number in the new file window."
+msgstr ""
+
+msgid "1, 2, 3, ..."
+msgstr ""
+
+msgid "i, ii, iii, ..."
+msgstr ""
+
+msgid "I, II, III, ..."
+msgstr ""
+
+msgid "a, b, c, ..."
+msgstr ""
+
+msgid "A, B, C, ..."
+msgstr ""
+
+#, fuzzy
+msgid "Page Number Out Of Bounds"
+msgstr "ཁྱབ་ཚད་ལས་བརྒལ་བའི་ཤོག་ལེབ་ཨང་གྲངས།"
+
+msgid ""
+"The value you have entered is outside the range of page numbers in the "
+"current document (%1-%2)."
+msgstr ""
+
 msgid "&Barcode Generator..."
 msgstr ""
 
@@ -9061,6 +9072,9 @@ msgstr "ནང་འདྲེན་འབད &OpenOffice.org འབྲི་...(
 #, fuzzy
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "OpenOffice.org འབྲི་ (*.sxd);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ་ (*)"
+
+msgid "This file contains some unsupported features"
+msgstr ""
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""
@@ -10432,6 +10446,16 @@ msgstr ""
 
 msgid "SVG file contains some unsupported features"
 msgstr ""
+
+#~ msgid " pt "
+#~ msgstr "ཡིག་ཚད།"
+
+#, fuzzy
+#~ msgid "Page Layout"
+#~ msgstr "སྒྲིག་བཀོད:"
+
+#~ msgid "&Subset all Fonts"
+#~ msgstr "ཡིག་གཟུགས་ཚུ་ཆ་མཉམ་གྱི་ཆ་ཚན་ཡན་ལག(&S)"
 
 #~ msgid "Brazilian"
 #~ msgstr "བཱ་ར་ཛི་ལི་ཡཱན།"

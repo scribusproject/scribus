@@ -1744,6 +1744,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Tango Project Icons:</source>
         <translation>Icônes du projet Tango :</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -6628,7 +6632,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Les chemins d&apos;accès aux polices ne peuvent être définis que dans les préférences, et lorsque aucun document n&apos;est ouvert. Fermez tous les documents ouverts, et utilisez le menu Édition &gt; Préférences pour modifier le chemin d&apos;accès aux polices.</translation>
+        <translation type="obsolete">Les chemins d&apos;accès aux polices ne peuvent être définis que dans les préférences, et lorsque aucun document n&apos;est ouvert. Fermez tous les documents ouverts, et utilisez le menu Édition &gt; Préférences pour modifier le chemin d&apos;accès aux polices.</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
@@ -6637,6 +6641,10 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     <message>
         <source>Choose a Directory</source>
         <translation>Sélectionnez un dossier</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8721,7 +8729,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -8750,6 +8758,10 @@ arr&amp;ondis :</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -9100,6 +9112,10 @@ arr&amp;ondis :</translation>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>Illustration OpenOffice.org 1.x</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9481,11 +9497,15 @@ arr&amp;ondis :</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Disposition</translation>
+        <translation type="obsolete">Disposition</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>La première page est :</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15107,11 +15127,11 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Incorporer &amp;toutes les polices</translation>
+        <translation type="obsolete">Incorporer &amp;toutes les polices</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Incorporer des &amp;jeux partiels de toutes les polices</translation>
+        <translation type="obsolete">Incorporer des &amp;jeux partiels de toutes les polices</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -15135,7 +15155,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Jeux partiels de polices à incorporer :</translation>
+        <translation type="obsolete">Jeux partiels de polices à incorporer :</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -15263,7 +15283,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Disposition</translation>
+        <translation type="obsolete">Disposition</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -15501,7 +15521,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Inclure les polices dans le fichier PDF. Ceci permet de conserver l&apos;apparence intégrale de votre document.</translation>
+        <translation type="obsolete">Inclure les polices dans le fichier PDF. Ceci permet de conserver l&apos;apparence intégrale de votre document.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
@@ -15709,6 +15729,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16960,6 +17004,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Encoding:</source>
         <translation>Codage :</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Ouvrir</translation>
     </message>
 </context>
 <context>

@@ -2478,6 +2478,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>Tango Project Icons:</source>
         <translation>Ikony z projektu Tango:</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -8323,7 +8327,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Ścieżki zawierające fonty można dodawać w ustawieniach tylko wtedy, kiedy nie jest otwarty żaden dokument. Zamknij wszystkie dokumenty, następnie otwórz w menu Edycja&gt;Ustawienia, aby zmienić ścieżki przeszukiwania fontów.</translation>
+        <translation type="obsolete">Ścieżki zawierające fonty można dodawać w ustawieniach tylko wtedy, kiedy nie jest otwarty żaden dokument. Zamknij wszystkie dokumenty, następnie otwórz w menu Edycja&gt;Ustawienia, aby zmienić ścieżki przeszukiwania fontów.</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10707,7 +10715,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -10750,6 +10758,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Nazwa &quot;%1&quot; nie jest jednoznaczna. Proszę wybrać inną.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -11247,6 +11259,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11825,11 +11841,15 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Układ strony</translation>
+        <translation type="obsolete">Układ strony</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Położenie pierwszej strony:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19073,11 +19093,11 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Za&amp;gnieźdź wszystkie fonty</translation>
+        <translation type="obsolete">Za&amp;gnieźdź wszystkie fonty</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Zamień wszystkie fo&amp;nty na krzywe</translation>
+        <translation type="obsolete">Zamień wszystkie fo&amp;nty na krzywe</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -19101,7 +19121,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Fonty do zamiany na krzywe:</translation>
+        <translation type="obsolete">Fonty do zamiany na krzywe:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -19662,7 +19682,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Zagnieżdża fonty w pliku PDF. Zagnieżdżanie fontów pozwala na zachowanie układu graficznego i wyglądu dokumentu.</translation>
+        <translation type="obsolete">Zagnieżdża fonty w pliku PDF. Zagnieżdżanie fontów pozwala na zachowanie układu graficznego i wyglądu dokumentu.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -19726,7 +19746,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Układ strony</translation>
+        <translation type="obsolete">Układ strony</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -19869,6 +19889,30 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation>Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

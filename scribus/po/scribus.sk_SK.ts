@@ -1777,6 +1777,10 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7074,7 +7078,7 @@ Názov exportovaného súboru bude &apos;názovdokumentu-číslostrany.typsúbor
         <translation>Vybrať priečinok</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9315,7 +9319,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9354,6 +9358,10 @@ Vyberte si, prosím, iný.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Názov &quot;%1&quot; nie je jedinečný.&lt;br/&gt;Vyberte prosím iný.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -9747,6 +9755,10 @@ Vyberte si, prosím, iný.</translation>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10262,11 +10274,15 @@ v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže z
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Rozloženie strany</translation>
+        <translation type="obsolete">Rozloženie strany</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Prvá strana je:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16952,11 +16968,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Vložiť vš&amp;etky písma</translation>
+        <translation type="obsolete">Vložiť vš&amp;etky písma</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Podmnožina všetkých pí&amp;sem</translation>
+        <translation type="obsolete">Podmnožina všetkých pí&amp;sem</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -16980,7 +16996,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Písma do podmnožiny:</translation>
+        <translation type="obsolete">Písma do podmnožiny:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -17547,10 +17563,6 @@ spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu.</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17600,7 +17612,7 @@ spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu.</tran
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Rozloženie strany</translation>
+        <translation type="obsolete">Rozloženie strany</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -17721,6 +17733,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19091,6 +19127,10 @@ tiež s pomocou tlačidla. </translation>
     <message>
         <source>Encoding:</source>
         <translation>Kódovanie:</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Otvoriť</translation>
     </message>
 </context>
 <context>

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 00:42+0100\n"
+"POT-Creation-Date: 2007-01-07 00:54+0100\n"
 "PO-Revision-Date: 2006-03-14 00:29+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team:  <it@li.org>\n"
@@ -63,6 +63,9 @@ msgstr "Collaborazione di:"
 
 msgid "Mac OS&#174; X Aqua Port:"
 msgstr "Mac OS&#174; X Aqua Port:"
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
+msgstr ""
 
 msgid "Windows&#174; Port:"
 msgstr "Windows&#174; Port:"
@@ -2475,61 +2478,6 @@ msgstr "Numero reale"
 msgid "String"
 msgstr "Stringa di caratteri"
 
-msgid ""
-"Add a page numbering section to the document. The new section will be added "
-"after the currently selected section."
-msgstr ""
-"Aggiungi una sezione di pagine numerate al documento. La nuova sezione sarà "
-"aggiunta dopo la quella attualmente selezionata."
-
-msgid "Delete the currently selected section."
-msgstr "Elimina questa selezione."
-
-msgid ""
-"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
-"show the page numbers in this section if there is one or more text frames "
-"setup to do so.<br/><b>From:</b> The page index for this section to start at."
-"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
-"b> Select the page number style to be used.<br/><b>Start:</b> The index "
-"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
-"the numbers will begin at b. For the first section in the document this "
-"replaces the older First Page Number in the new file window."
-msgstr ""
-"<b>Nome:</b> Nome opzionale per la sezione per es. Indice<br/><b>visibile:</"
-"b> Selezionare per mostrare i numeri delle pagine in questa sezione se uno o "
-"o più cornici di testo sono stati configurati per fare questo.<br/><b>Da:</"
-"b> Prima pagina di questa sezione.<br/><b>A:</b> Ultima pagina di questa "
-"sezione.<br/><b>Stile:</b> Selezionare lo stile per il numero di pagina.<br/"
-"><b>Inizio:</b> Indice dell'inizio della numerazione. Per es. se Inizio=2 e "
-"Stile=a,b,c, ..., i numeri inizierano da b. Per la prima sezione nel "
-"documento questo sostituisce l'obsoleto Primo Numero di Pagina nella "
-"finestra di dialogo Nuovo File."
-
-msgid "1, 2, 3, ..."
-msgstr "1, 2, 3, ..."
-
-msgid "i, ii, iii, ..."
-msgstr "i, ii, iii, ..."
-
-msgid "I, II, III, ..."
-msgstr "I, II, III, ..."
-
-msgid "a, b, c, ..."
-msgstr "a, b, c, ..."
-
-msgid "A, B, C, ..."
-msgstr "A, B, C, ..."
-
-msgid "Page Number Out Of Bounds"
-msgstr "Pagina fuori limite"
-
-msgid ""
-"The value you have entered is outside the range of page numbers in the "
-"current document (%1-%2)."
-msgstr ""
-"Il valore inserito è più grande del numero di pagine del documento attuale (%"
-"1-%2)."
-
 msgid "Setup Printer"
 msgstr "Imposta stampante"
 
@@ -3003,10 +2951,11 @@ msgstr "Ag&giungi..."
 msgid "&Remove"
 msgstr "Eli&mina"
 
+#, fuzzy
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set when there are no documents open. Close "
+"any open documents, then use File ->Preferences > Fonts to change the font "
+"search path."
 msgstr ""
 "Il percorso di ricerca font può essere impostato in Preferenze, ma solo "
 "quando non ci sono documenti aperti. Chiudere tutti i documenti ed usare "
@@ -4366,9 +4315,6 @@ msgstr "Intento rendering per l'immagine"
 msgid "Line Width:"
 msgstr "Spessore linea:"
 
-msgid " pt "
-msgstr " pt "
-
 msgid "Solid Line"
 msgstr "Continua"
 
@@ -4507,8 +4453,9 @@ msgstr "Testo del tracciato"
 msgid "Copy of"
 msgstr "Copia di"
 
-msgid "Page Layout"
-msgstr "Formato pagina"
+#, fuzzy
+msgid "Document Layout"
+msgstr "Documentazione"
 
 msgid "First Page is:"
 msgstr "La prima pagina è:"
@@ -6342,12 +6289,6 @@ msgstr "Riduci i&mmagini a:"
 msgid "&General"
 msgstr "&Generale"
 
-msgid "&Embed all Fonts"
-msgstr "&Incorpora tutti i font"
-
-msgid "&Subset all Fonts"
-msgstr "&Raggruppa tutti i font"
-
 msgid "Embedding"
 msgstr "Incorporazione"
 
@@ -6357,8 +6298,17 @@ msgstr "Caratteri disponibili:"
 msgid "Fonts to embed:"
 msgstr "Caratteri da incorporare:"
 
-msgid "Fonts to subset:"
+#, fuzzy
+msgid "&Embed All"
+msgstr "&Incorpora tutti i font"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "Caratteri da raggruppare:"
+
+#, fuzzy
+msgid "Outline &All"
+msgstr "Contornato"
 
 msgid "&Fonts"
 msgstr "&Font"
@@ -6591,12 +6541,21 @@ msgstr "Quadro di ritaglio"
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
 
+#, fuzzy
 msgid ""
 "Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
-"appearance of your document."
+"appearance of your document.Some fonts like Open Type can only be subset, as "
+"they are not able to be embedded into PDF versions before PDF 1.6. "
 msgstr ""
 "Incorpora i font nel file PDF. Incorporandoli si conserverà l'impaginazione "
 "e l'aspetto del documento."
+
+msgid ""
+"Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used "
+"in the PDF are embedded, not the whole font. Some fonts like Open Type can "
+"only be subset, as they are not able to be embedded into PDF versions before "
+"PDF 1.6."
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -8168,6 +8127,61 @@ msgstr "Seleziona stam&pante:"
 msgid "Right:"
 msgstr "Destra:"
 
+msgid ""
+"Add a page numbering section to the document. The new section will be added "
+"after the currently selected section."
+msgstr ""
+"Aggiungi una sezione di pagine numerate al documento. La nuova sezione sarà "
+"aggiunta dopo la quella attualmente selezionata."
+
+msgid "Delete the currently selected section."
+msgstr "Elimina questa selezione."
+
+msgid ""
+"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
+"show the page numbers in this section if there is one or more text frames "
+"setup to do so.<br/><b>From:</b> The page index for this section to start at."
+"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
+"b> Select the page number style to be used.<br/><b>Start:</b> The index "
+"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
+"the numbers will begin at b. For the first section in the document this "
+"replaces the older First Page Number in the new file window."
+msgstr ""
+"<b>Nome:</b> Nome opzionale per la sezione per es. Indice<br/><b>visibile:</"
+"b> Selezionare per mostrare i numeri delle pagine in questa sezione se uno o "
+"o più cornici di testo sono stati configurati per fare questo.<br/><b>Da:</"
+"b> Prima pagina di questa sezione.<br/><b>A:</b> Ultima pagina di questa "
+"sezione.<br/><b>Stile:</b> Selezionare lo stile per il numero di pagina.<br/"
+"><b>Inizio:</b> Indice dell'inizio della numerazione. Per es. se Inizio=2 e "
+"Stile=a,b,c, ..., i numeri inizierano da b. Per la prima sezione nel "
+"documento questo sostituisce l'obsoleto Primo Numero di Pagina nella "
+"finestra di dialogo Nuovo File."
+
+msgid "1, 2, 3, ..."
+msgstr "1, 2, 3, ..."
+
+msgid "i, ii, iii, ..."
+msgstr "i, ii, iii, ..."
+
+msgid "I, II, III, ..."
+msgstr "I, II, III, ..."
+
+msgid "a, b, c, ..."
+msgstr "a, b, c, ..."
+
+msgid "A, B, C, ..."
+msgstr "A, B, C, ..."
+
+msgid "Page Number Out Of Bounds"
+msgstr "Pagina fuori limite"
+
+msgid ""
+"The value you have entered is outside the range of page numbers in the "
+"current document (%1-%2)."
+msgstr ""
+"Il valore inserito è più grande del numero di pagine del documento attuale (%"
+"1-%2)."
+
 msgid "&Barcode Generator..."
 msgstr "&Generatore di codice a barre..."
 
@@ -8560,6 +8574,10 @@ msgstr "OpenOffice.org 1.x Draw"
 
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "OpenOffice.org Draw (*.sxd);;Tutti i file (*)"
+
+#, fuzzy
+msgid "This file contains some unsupported features"
+msgstr "Il file SVG contiene alcune caratteristiche non supportate"
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr "Questo documento non sembra essere del tipo OpenOffice Draw."
@@ -9910,6 +9928,15 @@ msgstr "Grafiche Vettoriali Scalabili"
 
 msgid "SVG file contains some unsupported features"
 msgstr "Il file SVG contiene alcune caratteristiche non supportate"
+
+#~ msgid " pt "
+#~ msgstr " pt "
+
+#~ msgid "Page Layout"
+#~ msgstr "Formato pagina"
+
+#~ msgid "&Subset all Fonts"
+#~ msgstr "&Raggruppa tutti i font"
 
 #~ msgid "Brazilian"
 #~ msgstr "Brasiliano"

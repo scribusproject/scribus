@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 00:42+0100\n"
+"POT-Creation-Date: 2007-01-07 00:54+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -49,6 +49,9 @@ msgid "Contributions from:"
 msgstr ""
 
 msgid "Mac OS&#174; X Aqua Port:"
+msgstr ""
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
 msgstr ""
 
 msgid "Windows&#174; Port:"
@@ -2470,49 +2473,6 @@ msgstr "숫자"
 msgid "String"
 msgstr "별"
 
-msgid ""
-"Add a page numbering section to the document. The new section will be added "
-"after the currently selected section."
-msgstr ""
-
-msgid "Delete the currently selected section."
-msgstr ""
-
-msgid ""
-"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
-"show the page numbers in this section if there is one or more text frames "
-"setup to do so.<br/><b>From:</b> The page index for this section to start at."
-"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
-"b> Select the page number style to be used.<br/><b>Start:</b> The index "
-"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
-"the numbers will begin at b. For the first section in the document this "
-"replaces the older First Page Number in the new file window."
-msgstr ""
-
-msgid "1, 2, 3, ..."
-msgstr ""
-
-msgid "i, ii, iii, ..."
-msgstr ""
-
-msgid "I, II, III, ..."
-msgstr ""
-
-msgid "a, b, c, ..."
-msgstr ""
-
-msgid "A, B, C, ..."
-msgstr ""
-
-#, fuzzy
-msgid "Page Number Out Of Bounds"
-msgstr "숫자 형식"
-
-msgid ""
-"The value you have entered is outside the range of page numbers in the "
-"current document (%1-%2)."
-msgstr ""
-
 msgid "Setup Printer"
 msgstr ""
 
@@ -2981,9 +2941,9 @@ msgid "&Remove"
 msgstr ""
 
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set when there are no documents open. Close "
+"any open documents, then use File ->Preferences > Fonts to change the font "
+"search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -4326,9 +4286,6 @@ msgstr ""
 msgid "Line Width:"
 msgstr ""
 
-msgid " pt "
-msgstr ""
-
 msgid "Solid Line"
 msgstr ""
 
@@ -4467,8 +4424,9 @@ msgstr ""
 msgid "Copy of"
 msgstr ""
 
-msgid "Page Layout"
-msgstr ""
+#, fuzzy
+msgid "Document Layout"
+msgstr "문서 설정..."
 
 #, fuzzy
 msgid "First Page is:"
@@ -6220,12 +6178,6 @@ msgstr ""
 msgid "&General"
 msgstr ""
 
-msgid "&Embed all Fonts"
-msgstr ""
-
-msgid "&Subset all Fonts"
-msgstr ""
-
 msgid "Embedding"
 msgstr ""
 
@@ -6235,8 +6187,15 @@ msgstr ""
 msgid "Fonts to embed:"
 msgstr ""
 
-msgid "Fonts to subset:"
+msgid "&Embed All"
 msgstr ""
+
+msgid "Fonts to outline:"
+msgstr ""
+
+#, fuzzy
+msgid "Outline &All"
+msgstr "외각선화"
 
 msgid "&Fonts"
 msgstr ""
@@ -6471,7 +6430,15 @@ msgstr ""
 
 msgid ""
 "Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
-"appearance of your document."
+"appearance of your document.Some fonts like Open Type can only be subset, as "
+"they are not able to be embedded into PDF versions before PDF 1.6. "
+msgstr ""
+
+msgid ""
+"Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used "
+"in the PDF are embedded, not the whole font. Some fonts like Open Type can "
+"only be subset, as they are not able to be embedded into PDF versions before "
+"PDF 1.6."
 msgstr ""
 
 msgid ""
@@ -7960,6 +7927,49 @@ msgstr "전체 선택"
 msgid "Right:"
 msgstr "강조"
 
+msgid ""
+"Add a page numbering section to the document. The new section will be added "
+"after the currently selected section."
+msgstr ""
+
+msgid "Delete the currently selected section."
+msgstr ""
+
+msgid ""
+"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
+"show the page numbers in this section if there is one or more text frames "
+"setup to do so.<br/><b>From:</b> The page index for this section to start at."
+"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
+"b> Select the page number style to be used.<br/><b>Start:</b> The index "
+"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
+"the numbers will begin at b. For the first section in the document this "
+"replaces the older First Page Number in the new file window."
+msgstr ""
+
+msgid "1, 2, 3, ..."
+msgstr ""
+
+msgid "i, ii, iii, ..."
+msgstr ""
+
+msgid "I, II, III, ..."
+msgstr ""
+
+msgid "a, b, c, ..."
+msgstr ""
+
+msgid "A, B, C, ..."
+msgstr ""
+
+#, fuzzy
+msgid "Page Number Out Of Bounds"
+msgstr "숫자 형식"
+
+msgid ""
+"The value you have entered is outside the range of page numbers in the "
+"current document (%1-%2)."
+msgstr ""
+
 msgid "&Barcode Generator..."
 msgstr ""
 
@@ -8355,6 +8365,9 @@ msgstr "기존문서 열기"
 #, fuzzy
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "기존문서 열기"
+
+msgid "This file contains some unsupported features"
+msgstr ""
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""

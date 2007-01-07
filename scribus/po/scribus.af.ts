@@ -1877,6 +1877,10 @@ Indien &apos;n biblioteek nie daar is nie, verskyn &apos;n *</translation>
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7600,7 +7604,7 @@ Uitvoerlêernaam gaan &apos;dokumentnaam-bladsynommer.lêertipe&apos; wees</tran
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10166,7 +10170,7 @@ Kies &apos;n ander naam.</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -10205,6 +10209,10 @@ Kies &apos;n ander naam.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -10837,6 +10845,10 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12281,11 +12293,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>Page Layout</source>
+        <source>First Page is:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>First Page is:</source>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20764,11 +20776,11 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished">Inbed alle l&amp;ettertipes</translation>
+        <translation type="obsolete">Inbed alle l&amp;ettertipes</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished">&amp;Substel alle lettertipes</translation>
+        <translation type="obsolete">&amp;Substel alle lettertipes</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -20792,7 +20804,7 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished">Lettertipes om te substel:</translation>
+        <translation type="obsolete">Lettertipes om te substel:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -21344,10 +21356,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21393,10 +21401,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21518,6 +21522,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22957,6 +22985,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Maak oop</translation>
     </message>
 </context>
 <context>

@@ -2084,6 +2084,10 @@ Avsaknad av stöd är markerat med *</translation>
         <source>Tango Project Icons:</source>
         <translation>Ikoner från projekt Tango:</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7982,7 +7986,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Sökvägar för teckensnitt kan endast anges i Inställningar, och endast när inga dokument är öppna. Stäng alla öppna dokument, välj Redigera-&gt;Inställningar för att ändra sökväg till teckensnitt.</translation>
+        <translation type="obsolete">Sökvägar för teckensnitt kan endast anges i Inställningar, och endast när inga dokument är öppna. Stäng alla öppna dokument, välj Redigera-&gt;Inställningar för att ändra sökväg till teckensnitt.</translation>
     </message>
     <message>
         <source>Embed in PostScript</source>
@@ -7992,6 +7996,10 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     <message>
         <source>PostScript</source>
         <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10810,7 +10818,7 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -10849,6 +10857,10 @@ Vänligen välj ett annat.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Namnet &quot;%1&quot; är inte unikt. &lt;br /&gt;Välj ett annat.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -11486,6 +11498,10 @@ annars används koordinater relativt objektet.</translation>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13016,11 +13032,15 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Sidlayout</translation>
+        <translation type="obsolete">Sidlayout</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Första sidan är:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21923,11 +21943,11 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Bädda in alla t&amp;eckensnitt</translation>
+        <translation type="obsolete">Bädda in alla t&amp;eckensnitt</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Gruppera alla tecken&amp;snitt</translation>
+        <translation type="obsolete">Gruppera alla tecken&amp;snitt</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -21951,7 +21971,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Teckensnitt att gruppera:</translation>
+        <translation type="obsolete">Teckensnitt att gruppera:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -22521,7 +22541,7 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Bädda in teckensnitt i PDF-filen. Inbäddning bibehåller layout och utseende på ditt dokument.</translation>
+        <translation type="obsolete">Bädda in teckensnitt i PDF-filen. Inbäddning bibehåller layout och utseende på ditt dokument.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -22573,7 +22593,7 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
     </message>
     <message>
         <source>Page Layout</source>
-        <translation type="unfinished">Sidlayout</translation>
+        <translation type="obsolete">Sidlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -22694,6 +22714,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24183,6 +24227,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation>Importera endast text</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -2657,6 +2657,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7659,7 +7663,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>字体搜索路径只能在首选项中设定，而且要在没有打开任何文档的情况下。关闭所有文档，然后用编辑－设置来更改字体搜索路径。</translation>
+        <translation type="obsolete">字体搜索路径只能在首选项中设定，而且要在没有打开任何文档的情况下。关闭所有文档，然后用编辑－设置来更改字体搜索路径。</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9839,7 +9847,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation type="unfinished"> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9864,6 +9872,10 @@ Corners:</source>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation type="unfinished">名称 &quot;%1&quot; 不唯一。&lt;br/&gt;请选择另外一个</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10230,6 +10242,10 @@ Corners:</source>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation type="unfinished">OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10631,11 +10647,15 @@ Corners:</source>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>页面排版</translation>
+        <translation type="obsolete">页面排版</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>第一页是：</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16439,11 +16459,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished">&amp;E 嵌入全部字体</translation>
+        <translation type="obsolete">&amp;E 嵌入全部字体</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished">&amp;S 子集所有字体</translation>
+        <translation type="obsolete">&amp;S 子集所有字体</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -16467,7 +16487,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished">子集的字体：</translation>
+        <translation type="obsolete">子集的字体：</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -16911,7 +16931,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished">嵌入字体到PDF。嵌入字体将保持你的文档的版面外观。</translation>
+        <translation type="obsolete">嵌入字体到PDF。嵌入字体将保持你的文档的版面外观。</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -16975,7 +16995,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>页面排版</translation>
+        <translation type="obsolete">页面排版</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -17097,6 +17117,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18343,6 +18387,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation>只导入文本</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

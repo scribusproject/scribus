@@ -1750,6 +1750,10 @@ is not passed, text flow is toggled.
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7055,10 +7059,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation>削除(&amp;R)</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Additional &amp;Paths</source>
         <translation>追加パス(&amp;P)</translation>
     </message>
@@ -7074,6 +7074,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>PostScript</source>
         <translation type="unfinished">PostScript</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9664,7 +9668,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9693,6 +9697,10 @@ Corners:</source>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -10114,6 +10122,10 @@ Corners:</source>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10561,11 +10573,15 @@ Corners:</source>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>ページレイアウト</translation>
+        <translation type="obsolete">ページレイアウト</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>最初のページ:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17388,11 +17404,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>全てのフォントを埋め込む(&amp;E)</translation>
+        <translation type="obsolete">全てのフォントを埋め込む(&amp;E)</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>全てのフォントのサブセット(&amp;S)</translation>
+        <translation type="obsolete">全てのフォントのサブセット(&amp;S)</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -17416,7 +17432,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>フォントのサブセット:</translation>
+        <translation type="obsolete">フォントのサブセット:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -17544,7 +17560,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>ページレイアウト</translation>
+        <translation type="obsolete">ページレイアウト</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -17772,7 +17788,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>PDFにフォントを埋め込みます。フォントを埋め込むとドキュメントのレイアウトと見た目が保たれます。</translation>
+        <translation type="obsolete">PDFにフォントを埋め込みます。フォントを埋め込むとドキュメントのレイアウトと見た目が保たれます。</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
@@ -18012,6 +18028,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19358,6 +19398,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Encoding:</source>
         <translation>エンコーディング:</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">開く</translation>
     </message>
 </context>
 <context>

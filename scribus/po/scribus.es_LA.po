@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 00:42+0100\n"
+"POT-Creation-Date: 2007-01-07 00:54+0100\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -46,6 +46,9 @@ msgid "Contributions from:"
 msgstr "Contribuciones de:"
 
 msgid "Mac OS&#174; X Aqua Port:"
+msgstr ""
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
 msgstr ""
 
 #, fuzzy
@@ -2726,50 +2729,6 @@ msgstr "Número"
 msgid "String"
 msgstr "Configuración del Ratón"
 
-msgid ""
-"Add a page numbering section to the document. The new section will be added "
-"after the currently selected section."
-msgstr ""
-
-#, fuzzy
-msgid "Delete the currently selected section."
-msgstr "Deshacer Borrar objeto"
-
-msgid ""
-"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
-"show the page numbers in this section if there is one or more text frames "
-"setup to do so.<br/><b>From:</b> The page index for this section to start at."
-"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
-"b> Select the page number style to be used.<br/><b>Start:</b> The index "
-"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
-"the numbers will begin at b. For the first section in the document this "
-"replaces the older First Page Number in the new file window."
-msgstr ""
-
-msgid "1, 2, 3, ..."
-msgstr ""
-
-msgid "i, ii, iii, ..."
-msgstr ""
-
-msgid "I, II, III, ..."
-msgstr ""
-
-msgid "a, b, c, ..."
-msgstr ""
-
-msgid "A, B, C, ..."
-msgstr ""
-
-#, fuzzy
-msgid "Page Number Out Of Bounds"
-msgstr "Número de Copias:"
-
-msgid ""
-"The value you have entered is outside the range of page numbers in the "
-"current document (%1-%2)."
-msgstr ""
-
 msgid "Setup Printer"
 msgstr "Configuración de la Impresora"
 
@@ -3300,9 +3259,9 @@ msgid "&Remove"
 msgstr "Borrar"
 
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set when there are no documents open. Close "
+"any open documents, then use File ->Preferences > Fonts to change the font "
+"search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -4815,9 +4774,6 @@ msgstr "Intentos de Renderizar:"
 msgid "Line Width:"
 msgstr "Ancho de Línea:"
 
-msgid " pt "
-msgstr ""
-
 #, fuzzy
 msgid "Solid Line"
 msgstr "Sólido"
@@ -4974,8 +4930,8 @@ msgid "Copy of"
 msgstr "Copiar de "
 
 #, fuzzy
-msgid "Page Layout"
-msgstr "Disposición:"
+msgid "Document Layout"
+msgstr "Configuración del documento"
 
 #, fuzzy
 msgid "First Page is:"
@@ -6905,14 +6861,6 @@ msgstr "Rebaja las imágenes a:"
 msgid "&General"
 msgstr "General"
 
-#, fuzzy
-msgid "&Embed all Fonts"
-msgstr "Insertar todas las Fuentes"
-
-#, fuzzy
-msgid "&Subset all Fonts"
-msgstr "Insertar todas las Fuentes"
-
 msgid "Embedding"
 msgstr "Insertando"
 
@@ -6923,8 +6871,16 @@ msgid "Fonts to embed:"
 msgstr "Fuentes a Insertar:"
 
 #, fuzzy
-msgid "Fonts to subset:"
+msgid "&Embed All"
+msgstr "Insertar todas las Fuentes"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "Fuentes a Insertar:"
+
+#, fuzzy
+msgid "Outline &All"
+msgstr "Objetos"
 
 #, fuzzy
 msgid "&Fonts"
@@ -7198,7 +7154,15 @@ msgstr ""
 
 msgid ""
 "Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
-"appearance of your document."
+"appearance of your document.Some fonts like Open Type can only be subset, as "
+"they are not able to be embedded into PDF versions before PDF 1.6. "
+msgstr ""
+
+msgid ""
+"Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used "
+"in the PDF are embedded, not the whole font. Some fonts like Open Type can "
+"only be subset, as they are not able to be embedded into PDF versions before "
+"PDF 1.6."
 msgstr ""
 
 msgid ""
@@ -8870,6 +8834,50 @@ msgstr "Configuración de la Impresora"
 msgid "Right:"
 msgstr "Derecha:"
 
+msgid ""
+"Add a page numbering section to the document. The new section will be added "
+"after the currently selected section."
+msgstr ""
+
+#, fuzzy
+msgid "Delete the currently selected section."
+msgstr "Deshacer Borrar objeto"
+
+msgid ""
+"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
+"show the page numbers in this section if there is one or more text frames "
+"setup to do so.<br/><b>From:</b> The page index for this section to start at."
+"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
+"b> Select the page number style to be used.<br/><b>Start:</b> The index "
+"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
+"the numbers will begin at b. For the first section in the document this "
+"replaces the older First Page Number in the new file window."
+msgstr ""
+
+msgid "1, 2, 3, ..."
+msgstr ""
+
+msgid "i, ii, iii, ..."
+msgstr ""
+
+msgid "I, II, III, ..."
+msgstr ""
+
+msgid "a, b, c, ..."
+msgstr ""
+
+msgid "A, B, C, ..."
+msgstr ""
+
+#, fuzzy
+msgid "Page Number Out Of Bounds"
+msgstr "Número de Copias:"
+
+msgid ""
+"The value you have entered is outside the range of page numbers in the "
+"current document (%1-%2)."
+msgstr ""
+
 msgid "&Barcode Generator..."
 msgstr ""
 
@@ -9301,6 +9309,9 @@ msgstr "Otras Opciones"
 #, fuzzy
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "Archivos de texto (*.txt);;Todos los archivos (*)"
+
+msgid "This file contains some unsupported features"
+msgstr ""
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""
@@ -10700,6 +10711,14 @@ msgstr ""
 
 msgid "SVG file contains some unsupported features"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Page Layout"
+#~ msgstr "Disposición:"
+
+#, fuzzy
+#~ msgid "&Subset all Fonts"
+#~ msgstr "Insertar todas las Fuentes"
 
 #, fuzzy
 #~ msgid "Brazilian"

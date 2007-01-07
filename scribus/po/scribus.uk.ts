@@ -2848,6 +2848,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Tango Project Icons:</source>
         <translation>Іконки з проекту Танго:</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -7753,8 +7757,12 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Шляхи пошуку шрифтів лише можуть бути установлені в Установках і тільки при відсутності відчиненого документа.
+        <translation type="obsolete">Шляхи пошуку шрифтів лише можуть бути установлені в Установках і тільки при відсутності відчиненого документа.
 Зачиніть усі відчинені документи і зайдіть в Редагувати&gt;Установки, щоб змінити шлях пошуку шрифтів.</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9867,7 +9875,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation> тчк </translation>
+        <translation type="obsolete"> тчк </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9892,6 +9900,10 @@ Corners:</source>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Назва &quot;%1&quot; не являється неповторною.&lt;br/&gt;Будь-ласка виберіть іншу.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">тчк</translation>
     </message>
 </context>
 <context>
@@ -10243,6 +10255,10 @@ Corners:</source>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10653,11 +10669,15 @@ UCR найбільше впливає на ті частини зображен�
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Макет сторінки</translation>
+        <translation type="obsolete">Макет сторінки</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Перша сторінка:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16303,11 +16323,11 @@ Scribus.</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Вбудувати всі шрифти</translation>
+        <translation type="obsolete">&amp;Вбудувати всі шрифти</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Провести вибірку всіх &amp;шрифтів</translation>
+        <translation type="obsolete">Провести вибірку всіх &amp;шрифтів</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -16331,7 +16351,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Шрифти для вибірки:</translation>
+        <translation type="obsolete">Шрифти для вибірки:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -16761,7 +16781,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Вбудувати шрифти в PDF. Вбудовування шрифтів забезпечить точне збереження формату та вигляду документа.</translation>
+        <translation type="obsolete">Вбудувати шрифти в PDF. Вбудовування шрифтів забезпечить точне збереження формату та вигляду документа.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -16815,7 +16835,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Макет сторінки</translation>
+        <translation type="obsolete">Макет сторінки</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -16941,6 +16961,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18189,6 +18233,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation>Імпортувати лише текст</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Відчинити</translation>
     </message>
 </context>
 <context>

@@ -1746,6 +1746,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>May</source>
         <translation type="obsolete">Mai</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -6755,7 +6759,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Fontide asukohad saab määrata ainult seadistustes ja ainult siis, kui ükski dokument pole avatud. Sulge kõik avatud dokumendid ning muuda siis fontide asukohta menüükäsuga Redigeerimine-&gt;Seadistused.</translation>
+        <translation type="obsolete">Fontide asukohad saab määrata ainult seadistustes ja ainult siis, kui ükski dokument pole avatud. Sulge kõik avatud dokumendid ning muuda siis fontide asukohta menüükäsuga Redigeerimine-&gt;Seadistused.</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
@@ -6769,6 +6773,10 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
         <source>Embed in PostScript</source>
         <comment>font preview</comment>
         <translation type="obsolete">Põimimine PostScripti</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9082,7 +9090,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -9111,6 +9119,10 @@ n&amp;urgad:</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -9461,6 +9473,10 @@ n&amp;urgad:</translation>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9885,11 +9901,15 @@ n&amp;urgad:</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Lehekülgede paigutus</translation>
+        <translation type="obsolete">Lehekülgede paigutus</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Esimene lehekülg on:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15968,11 +15988,11 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Kõigi fontid&amp;e põimimine</translation>
+        <translation type="obsolete">Kõigi fontid&amp;e põimimine</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Kõigi fontide vajaliku o&amp;sa põimimine</translation>
+        <translation type="obsolete">Kõigi fontide vajaliku o&amp;sa põimimine</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -15996,7 +16016,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Vajalikku osa sisaldavad fondid:</translation>
+        <translation type="obsolete">Vajalikku osa sisaldavad fondid:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -16124,7 +16144,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Lehekülgede paigutus</translation>
+        <translation type="obsolete">Lehekülgede paigutus</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -16366,7 +16386,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Fontide põimimine PDF-faili. Põimitud fondid aitavad säilitada dokumendi kujunduse ja välimuse.</translation>
+        <translation type="obsolete">Fontide põimimine PDF-faili. Põimitud fondid aitavad säilitada dokumendi kujunduse ja välimuse.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
@@ -16578,6 +16598,30 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17873,6 +17917,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Encoding:</source>
         <translation>Kodeering:</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Avamine</translation>
     </message>
 </context>
 <context>

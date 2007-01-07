@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-16 00:42+0100\n"
+"POT-Creation-Date: 2007-01-07 00:54+0100\n"
 "PO-Revision-Date: 2006-11-02 22:04+0200\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -48,6 +48,9 @@ msgstr "Συντελεστές:"
 
 msgid "Mac OS&#174; X Aqua Port:"
 msgstr "Μεταφορά σε Mac OS&#174; X Aqua:"
+
+msgid "OS/2&#174;/eComStation&#8482; Port:"
+msgstr ""
 
 msgid "Windows&#174; Port:"
 msgstr "Μεταφορά σε Windows&#174;:"
@@ -2479,62 +2482,6 @@ msgstr "Πραγματικός αριθμός"
 msgid "String"
 msgstr "Συμβολοσειρά"
 
-msgid ""
-"Add a page numbering section to the document. The new section will be added "
-"after the currently selected section."
-msgstr ""
-"Προσθήκη ενός τμήματος αρίθμησης σελίδων στο έγγραφο. Το νέο τμήμα θα "
-"προστεθεί μετά το τρέχον επιλεγμένο τμήμα."
-
-msgid "Delete the currently selected section."
-msgstr "Διαγραφή του τρέχοντος επιλεγμένου τμήματος."
-
-msgid ""
-"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
-"show the page numbers in this section if there is one or more text frames "
-"setup to do so.<br/><b>From:</b> The page index for this section to start at."
-"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
-"b> Select the page number style to be used.<br/><b>Start:</b> The index "
-"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
-"the numbers will begin at b. For the first section in the document this "
-"replaces the older First Page Number in the new file window."
-msgstr ""
-"<b>Όνομα:</b> Προαιρετικό όνομα για το τμήμα, π.χ. ευρετήριο<br/"
-"><b>Εμφανίζονται:</b> Επιλέξτε την εμφάνιση των αριθμών σελίδων σε αυτό το "
-"τμήμα αν υπάρχουν περισσότερα από ένα πλαίσια κειμένου γι' αυτό.<br/><b>Από:"
-"</b> Ο δείκτης σελίδας της αρχής αυτού του τμήματος.<br/><b>Έως:</b> Ο "
-"δείκτης σελίδας του τέλους αυτού του τμήματος.<br/><b>Στυλ:</b> Επιλέξτε το "
-"στυλ αρίθμησης σελίδας που θα χρησιμοποιηθεί.<br/><b>Αρχή:</b> Ο δείκτης "
-"μέσα στο εύρος του στυλ για την αρχή εφαρμογής του. Για παράδειγμα αν η "
-"αρχή=2 και το στυλ=a,b,c, ..., οι αριθμοί θα ξεκινούν από το b. Για το πρώτο "
-"τμήμα του εγγράφου αυτό αντικαθιστά τον παλιότερο αριθμό πρώτης σελίδας στο "
-"νέο παράθυρο αρχείου."
-
-msgid "1, 2, 3, ..."
-msgstr "1, 2, 3, ..."
-
-msgid "i, ii, iii, ..."
-msgstr "i, ii, iii, ..."
-
-msgid "I, II, III, ..."
-msgstr "I, II, III, ..."
-
-msgid "a, b, c, ..."
-msgstr "a, b, c, ..."
-
-msgid "A, B, C, ..."
-msgstr "A, B, C, ..."
-
-msgid "Page Number Out Of Bounds"
-msgstr "Αριθμός σελίδας εκτός ορίων"
-
-msgid ""
-"The value you have entered is outside the range of page numbers in the "
-"current document (%1-%2)."
-msgstr ""
-"Η τιμή που έχετε εισάγει είναι εκτός ορίου του αριθμού σελίδων στο τρέχον "
-"έγγραφο (%1-%2)."
-
 msgid "Setup Printer"
 msgstr "Ρύθμιση εκτυπωτή"
 
@@ -3006,10 +2953,11 @@ msgstr "Προσ&θήκη..."
 msgid "&Remove"
 msgstr "Α&φαίρεση"
 
+#, fuzzy
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set when there are no documents open. Close "
+"any open documents, then use File ->Preferences > Fonts to change the font "
+"search path."
 msgstr ""
 "Οι διαδρομές αναζήτησης γραμματοσειρών μπορούν να οριστούν μόνο από τις "
 "προτιμήσεις και μόνο αν δεν υπάρχει κάποιο έγγραφο ανοιχτό. Κλείστε τα "
@@ -4376,9 +4324,6 @@ msgstr "Ένταση αποτύπωσης της εικόνας"
 msgid "Line Width:"
 msgstr "Πλάτος γραμμής:"
 
-msgid " pt "
-msgstr " σημ "
-
 msgid "Solid Line"
 msgstr "Συμπαγής γραμμή"
 
@@ -4515,8 +4460,9 @@ msgstr "Κείμενο διαδρομής"
 msgid "Copy of"
 msgstr "Αντιγραφή του"
 
-msgid "Page Layout"
-msgstr "Διάταξη σελίδας"
+#, fuzzy
+msgid "Document Layout"
+msgstr "Τεκμηρίωση"
 
 msgid "First Page is:"
 msgstr "Η πρώτη σελίδα είναι:"
@@ -6382,12 +6328,6 @@ msgstr "&Αναδειγματοληψία εικόνων σε:"
 msgid "&General"
 msgstr "&Γενικά"
 
-msgid "&Embed all Fonts"
-msgstr "&Ενσωμάτωση όλων των γραμματοσειρών"
-
-msgid "&Subset all Fonts"
-msgstr "&Υποσύνολα όλων των γραμματοσειρών"
-
 msgid "Embedding"
 msgstr "Ενσωμάτωση"
 
@@ -6397,8 +6337,17 @@ msgstr "Διαθέσιμες γραμματοσειρές:"
 msgid "Fonts to embed:"
 msgstr "Γραμματοσειρές για ενσωμάτωση:"
 
-msgid "Fonts to subset:"
+#, fuzzy
+msgid "&Embed All"
+msgstr "&Ενσωμάτωση όλων των γραμματοσειρών"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "Γραμματοσειρές για υποσύνολα:"
+
+#, fuzzy
+msgid "Outline &All"
+msgstr "Περίγραμμα"
 
 msgid "&Fonts"
 msgstr "&Γραμματοσειρές"
@@ -6629,12 +6578,21 @@ msgstr "Πλαίσιο κοπής"
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
 
+#, fuzzy
 msgid ""
 "Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
-"appearance of your document."
+"appearance of your document.Some fonts like Open Type can only be subset, as "
+"they are not able to be embedded into PDF versions before PDF 1.6. "
 msgstr ""
 "Ενσωμάτωση γραμματοσειρών στο PDF. Η ενσωμάτωση γραμματοσειρών θα διατηρήσει "
 "τη διάταξη και εμφάνιση του εγγράφου σας."
+
+msgid ""
+"Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used "
+"in the PDF are embedded, not the whole font. Some fonts like Open Type can "
+"only be subset, as they are not able to be embedded into PDF versions before "
+"PDF 1.6."
+msgstr ""
 
 msgid ""
 "Enables presentation effects when using Adobe&#174; Reader&#174; and other "
@@ -8186,6 +8144,62 @@ msgstr "Επιλογή &εκτυπωτή:"
 msgid "Right:"
 msgstr "Δεξιά:"
 
+msgid ""
+"Add a page numbering section to the document. The new section will be added "
+"after the currently selected section."
+msgstr ""
+"Προσθήκη ενός τμήματος αρίθμησης σελίδων στο έγγραφο. Το νέο τμήμα θα "
+"προστεθεί μετά το τρέχον επιλεγμένο τμήμα."
+
+msgid "Delete the currently selected section."
+msgstr "Διαγραφή του τρέχοντος επιλεγμένου τμήματος."
+
+msgid ""
+"<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
+"show the page numbers in this section if there is one or more text frames "
+"setup to do so.<br/><b>From:</b> The page index for this section to start at."
+"<br/><b>To:</b> The page index for this section to stop at.<br/><b>Style:</"
+"b> Select the page number style to be used.<br/><b>Start:</b> The index "
+"within the Style's range to star at. Eg. If Start=2 and Style=a,b,c, ..., "
+"the numbers will begin at b. For the first section in the document this "
+"replaces the older First Page Number in the new file window."
+msgstr ""
+"<b>Όνομα:</b> Προαιρετικό όνομα για το τμήμα, π.χ. ευρετήριο<br/"
+"><b>Εμφανίζονται:</b> Επιλέξτε την εμφάνιση των αριθμών σελίδων σε αυτό το "
+"τμήμα αν υπάρχουν περισσότερα από ένα πλαίσια κειμένου γι' αυτό.<br/><b>Από:"
+"</b> Ο δείκτης σελίδας της αρχής αυτού του τμήματος.<br/><b>Έως:</b> Ο "
+"δείκτης σελίδας του τέλους αυτού του τμήματος.<br/><b>Στυλ:</b> Επιλέξτε το "
+"στυλ αρίθμησης σελίδας που θα χρησιμοποιηθεί.<br/><b>Αρχή:</b> Ο δείκτης "
+"μέσα στο εύρος του στυλ για την αρχή εφαρμογής του. Για παράδειγμα αν η "
+"αρχή=2 και το στυλ=a,b,c, ..., οι αριθμοί θα ξεκινούν από το b. Για το πρώτο "
+"τμήμα του εγγράφου αυτό αντικαθιστά τον παλιότερο αριθμό πρώτης σελίδας στο "
+"νέο παράθυρο αρχείου."
+
+msgid "1, 2, 3, ..."
+msgstr "1, 2, 3, ..."
+
+msgid "i, ii, iii, ..."
+msgstr "i, ii, iii, ..."
+
+msgid "I, II, III, ..."
+msgstr "I, II, III, ..."
+
+msgid "a, b, c, ..."
+msgstr "a, b, c, ..."
+
+msgid "A, B, C, ..."
+msgstr "A, B, C, ..."
+
+msgid "Page Number Out Of Bounds"
+msgstr "Αριθμός σελίδας εκτός ορίων"
+
+msgid ""
+"The value you have entered is outside the range of page numbers in the "
+"current document (%1-%2)."
+msgstr ""
+"Η τιμή που έχετε εισάγει είναι εκτός ορίου του αριθμού σελίδων στο τρέχον "
+"έγγραφο (%1-%2)."
+
 msgid "&Barcode Generator..."
 msgstr "&Δημιουργός γραμμωτού κώδικα..."
 
@@ -8587,6 +8601,10 @@ msgstr "OpenOffice.org 1.x Draw"
 
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "OpenOffice.org Draw (*.sxd *.odg);;Όλα τα αρχεία (*)"
+
+#, fuzzy
+msgid "This file contains some unsupported features"
+msgstr "Το αρχείο SVG περιέχει κάποια μη υποστηριζόμενα χαρακτηριστικά"
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr "Αυτό το έγγραφο δε μοιάζει να είναι ένα έγκυρο αρχείο OpenOffice Draw."
@@ -9948,3 +9966,12 @@ msgstr "Scalable Vector Graphics"
 
 msgid "SVG file contains some unsupported features"
 msgstr "Το αρχείο SVG περιέχει κάποια μη υποστηριζόμενα χαρακτηριστικά"
+
+#~ msgid " pt "
+#~ msgstr " σημ "
+
+#~ msgid "Page Layout"
+#~ msgstr "Διάταξη σελίδας"
+
+#~ msgid "&Subset all Fonts"
+#~ msgstr "&Υποσύνολα όλων των γραμματοσειρών"

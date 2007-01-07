@@ -1758,6 +1758,10 @@ creates a Duplicate of the selected Object (or Selection Group).
         <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -6824,7 +6828,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8984,10 +8988,6 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> pt </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Solid Line</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9017,6 +9017,10 @@ Corners:</source>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pt</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9432,6 +9436,10 @@ Corners:</source>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9895,11 +9903,11 @@ Corners:</source>
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>Page Layout</source>
+        <source>First Page is:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>First Page is:</source>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15932,14 +15940,6 @@ Vertical shift: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Embedding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15957,10 +15957,6 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fonts to subset:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16388,10 +16384,6 @@ Vertical shift: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16437,10 +16429,6 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16562,6 +16550,30 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17848,6 +17860,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Отвори</translation>
     </message>
 </context>
 <context>

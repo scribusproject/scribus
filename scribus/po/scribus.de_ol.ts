@@ -2767,6 +2767,10 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <source>Tango Project Icons:</source>
         <translation>Tango-Projekt-Icons:</translation>
     </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -10909,7 +10913,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -10952,6 +10956,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Der Name &quot;%1&quot; ist nicht eindeutig.&lt;br/&gt; Bitte wählen Sie einen anderen.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -11973,7 +11981,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Seitenlayout</translation>
+        <translation type="obsolete">Seitenlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -12002,6 +12010,10 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <source>First Page is:</source>
         <translation>Erste Seite:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19171,11 +19183,11 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Alle Schriften vollständig ein&amp;betten</translation>
+        <translation type="obsolete">Alle Schriften vollständig ein&amp;betten</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Von allen Schriften nur &amp;benutzte Schriftzeichen einbetten</translation>
+        <translation type="obsolete">Von allen Schriften nur &amp;benutzte Schriftzeichen einbetten</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -19199,7 +19211,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Nur benutzte Schriftzeichen einbetten:</translation>
+        <translation type="obsolete">Nur benutzte Schriftzeichen einbetten:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -19865,7 +19877,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Seitenlayout</translation>
+        <translation type="obsolete">Seitenlayout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -20008,6 +20020,22 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation>Wenn Sie diese Option wählen, werden nur die Glyphe eingebettet, die auch tatsächlich im Dokument vorkommen, nicht die gesamte Schriftdatei. Einige Schrifttypen wie OpenType werden nur als Kurven exportiert, da sie in PDF-Versionen vor 1.6 nicht eingebettet werden können.</translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
