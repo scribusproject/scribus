@@ -1098,8 +1098,10 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Fonts = new FontCombo(this);
 	Fonts->setMaximumSize(190, 30);
 	Size = new MSpinBox( 0.5, 2048, this, 1 );
+	PrefsManager* prefsManager = PrefsManager::instance();
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
+	Size->setValue(prefsManager->appPrefs.toolSettings.defSize / 10.0);
 	ScaleTxt = new QLabel("", this, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	ChScale = new MSpinBox( 10, 400,  this, 1 );
