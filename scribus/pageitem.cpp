@@ -3960,7 +3960,7 @@ void PageItem::setRedrawBounding()
 
 void PageItem::updateGradientVectors()
 {
-	switch (GrType)
+/*	switch (GrType)
 	{
 		case 0:
 		case 1:
@@ -4003,7 +4003,7 @@ void PageItem::updateGradientVectors()
 			break;
 		default:
 			break;
-	}
+	} */
 	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
 	//if (m_Doc->m_Selection->count()!=0 && m_Doc->m_Selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();

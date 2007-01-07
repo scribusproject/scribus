@@ -2480,7 +2480,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
 			}
 		}
-		currItem->updateGradientVectors();
+//		currItem->updateGradientVectors();
 	}
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);

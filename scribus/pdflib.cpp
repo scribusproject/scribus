@@ -4601,7 +4601,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	QPtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
 	switch (currItem->GrType)
 	{
-		case 1:
+/*		case 1:
 			StartX = 0;
 			StartY = h2;
 			EndX = w;
@@ -4638,7 +4638,12 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 				EndX = w2;
 				EndY = h;
 			}
-			break;
+			break; */
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
 		case 6:
 		case 7:
 			StartX = currItem->GrStartX;
