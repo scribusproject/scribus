@@ -283,7 +283,7 @@ public slots: // Public slots
 // 	void adjustFrametoImageSize();
 	void ToggleBookmark();
 	void ToggleAnnotation();
-	void sentToScrap();
+// 	void sentToScrap();
 	void ToBack();
 	void ToFront();
 	void LowerItem();

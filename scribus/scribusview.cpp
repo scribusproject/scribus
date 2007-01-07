@@ -9323,13 +9323,14 @@ void ScribusView::ToggleAnnotation()
 	}
 }
 
-void ScribusView::sentToScrap()
-{
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	emit ToScrap(ss->WriteElem(Doc, this, Doc->m_Selection));
-	delete ss;
-	ss=NULL;
-}
+//CB Unused
+// void ScribusView::sentToScrap()
+// {
+// 	ScriXmlDoc *ss = new ScriXmlDoc();
+// 	emit ToScrap(ss->WriteElem(Doc, this, Doc->m_Selection));
+// 	delete ss;
+// 	ss=NULL;
+// }
 
 //CB-->Doc/Fix
 void ScribusView::ToBack()
