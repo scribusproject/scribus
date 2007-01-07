@@ -12,6 +12,7 @@
 		<submenuitem text="Scribus Source &amp; CVS" file="install1.html"/>
 		<submenuitem text="Requirements" file="install2.html"/>
 		<submenuitem text="Compiling &amp; Installing" file="install3.html"/>
+		<submenuitem text="Compiling &amp; Installing using CMake" file="install4.html"/>
 		<submenuitem text="Parallel Install" file="parallel-install.html"/>
 		<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
 	</submenuitem>
@@ -34,8 +35,11 @@
         </submenuitem>
             <submenuitem text="Scribus Basics" file="about2.html" >
             <submenuitem file="docinfo.html" text="Doc. Info" />
-            <submenuitem text="Page Templates" file="pagetemplate1.html" />
+            <submenuitem text="Master Pages" file="pagetemplate1.html" />
+	    <submenuitem text="Page Numbering" file="pagenumber.html" />
             <submenuitem text="Short Words Plug-in" file="short-words.html" />
+	    <submenuitem text="Editing Colors" file="colors1.html" />
+	    <submenuitem text="Layers" file="layers.html" />
         </submenuitem>
             <submenuitem text="Importing" file="importhints.html">
             <submenuitem text="Importing EPS" file="importhints1.html"/>
@@ -110,8 +114,8 @@
 	<submenuitem text="Printing" file="scripterapi-Printer.html"/>
 	<submenuitem text="Image Export" file="scripterapi-ImageExport.html"/>
 	<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
-	<submenuitem text="All Commands from PyDoc" file="scripterapi-pydoc.html"/>
 	<submenuitem text="Scripter Extensions" file="scripter-extensions.html"/>
+	<submenuitem text="Scripter Extensions API" file="scripterapi-extensions.html"/>
 	</submenuitem>
 	<submenuitem text="Plugin Howto" file="plugin_howto.html"/>
 	<submenuitem text="GetText Howto" file="gettexthowto.html"/>

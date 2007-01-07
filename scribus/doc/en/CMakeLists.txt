@@ -13,6 +13,7 @@ cms3.html
 cms4.html
 cms.html
 codingstandards.html
+color1.html
 contributions.html
 cross-platform.html
 cups.html
@@ -52,7 +53,7 @@ intro.html
 irc.html
 javascriptpdf.html
 keys.html
-#layers.html
+layers.html
 lipsum.html
 machints1.html
 machints2.html
@@ -61,7 +62,7 @@ moncal.html
 mouse.html
 otherinfo.html
 pagetemplate1.html
-#pagenumber.html
+pagenumber.html
 parallel-install.html
 pdfexport1.html
 pdfexport2.html
@@ -75,6 +76,7 @@ prepress.html
 print1.html
 print2.html
 print3.html
+psd.html
 readme.html
 readme-win32.html
 resources.html
@@ -97,10 +99,10 @@ scripterapi-object.html
 scripterapi-page.html
 scripterapi-PDFfile.html
 scripterapi-Printer.html
-scripterapi-pydoc.html
 scripterapi-select.html
 scripterapi-setobjprop.html
 scripterapi-textframes.html
+scripterapi-extensions.html
 scripter-extensions.html
 scripter-faq.html
 settings1.html
