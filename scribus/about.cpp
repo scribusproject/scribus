@@ -167,6 +167,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
 											"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
 											"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +
+											"<tr><td>Kevin Young</td><td>k.young@youngscomputing.com</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
 
 											"<tr><td><b>" + tr("Mac OS&#174; X Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
