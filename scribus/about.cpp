@@ -55,7 +55,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
-	pixmapLabel1->setPixmap(loadIcon("scribus_logo.jpg"));
+	pixmapLabel1->setPixmap(loadIcon("scribus_logo.png"));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );

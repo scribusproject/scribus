@@ -224,7 +224,7 @@ screen.png
 scribusdoc16.png
 scribusdoc.png
 scribusicon.png
-scribus_logo.jpg
+scribus_logo.png
 shade.png
 shadow.png
 shear_down.png
