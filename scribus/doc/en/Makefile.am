@@ -4,7 +4,7 @@ EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codi
 developers.html  doccopyright.html docinfo.html download.html faq1.html faq2.html faq3.html fonts1.html fonts2.html fonts3.html fonts4.html fonts5.html \
 fonts-win32.html gettexthowto.html gsfont.html  hyphenator.html importhints1.html importhints2.html importhints.html importhints3.html  importhints4.html \
 index.html install1.html install2.html install3.html install4.html install.html install-dpkg.html intro.html irc.html javascriptpdf.html keys.html \
-layers.html machints1.html machints2.html menu.xml moncal.html mouse.html pagetemplate1.html pagenumber.html parallel-install.html pdflavor.html \
+layers.html machints1.html machints2.html menu.xml moncal.html mouse.html pagetemplate1.html parallel-install.html pdflavor.html \
 pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html \
 print3.html psd.html readme.html readme-win32.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html \
 scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html \
@@ -67,7 +67,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/moncal.html $(prefix)/share/doc/scribus-$(VERSION)/en/moncal.html
 	$(INSTALL_DATA) $(srcdir)/mouse.html $(prefix)/share/doc/scribus-$(VERSION)/en/mouse.html
 	$(INSTALL_DATA) $(srcdir)/pagetemplate1.html $(prefix)/share/doc/scribus-$(VERSION)/en/pagetemplate1.html
-	$(INSTALL_DATA) $(srcdir)/pagenumber.html $(prefix)/share/doc/scribus-$(VERSION)/en/pagenumber.html
 	$(INSTALL_DATA) $(srcdir)/parallel-install.html $(prefix)/share/doc/scribus-$(VERSION)/en/parallel-install.html
 	$(INSTALL_DATA) $(srcdir)/pdflavor.html $(prefix)/share/doc/scribus-$(VERSION)/en/pdflavor.html
 	$(INSTALL_DATA) $(srcdir)/pdfexport1.html $(prefix)/share/doc/scribus-$(VERSION)/en/pdfexport1.html
@@ -183,7 +182,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/moncal.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/mouse.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/pagetemplate1.html
-	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/pagenumber.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/parallel-install.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/pdflavor.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/pdfexport1.html
