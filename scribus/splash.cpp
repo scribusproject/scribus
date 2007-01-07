@@ -63,7 +63,7 @@ void SplashScreen::setStatus( const QString &message )
 	painter.setPen(QColor(236,233,216));
 
 	//painter.setRasterOp(NotROP);
-	painter.drawText( 10, textPix.height()-8, tmp );
+	painter.drawText( 81, textPix.height()-8, tmp );
 	painter.end();
 	setErasePixmap( textPix );
 	repaint();
