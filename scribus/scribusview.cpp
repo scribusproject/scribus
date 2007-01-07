@@ -466,8 +466,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					}
 				}
 #ifdef HAVE_CAIRO
-				painter->setAntialiasing(true);
 				painter->endLayer();
+				painter->setAntialiasing(true);
 #endif
 			}
 			painter->setFillMode(ScPainter::Solid);
@@ -506,6 +506,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					painter->setFillMode(ScPainter::Solid);
 					painter->setPen(black, 0, SolidLine, FlatCap, MiterJoin);
 #ifdef HAVE_CAIRO
+					painter->setAntialiasing(false);
 					painter->beginLayer(1.0, 0);
 #endif
 					painter->setLineWidth(0.0);
@@ -527,8 +528,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					else
 						painter->drawRect(x, y, w, h);
 #ifdef HAVE_CAIRO
-					painter->setAntialiasing(true);
 					painter->endLayer();
+					painter->setAntialiasing(true);
 #endif
 				}
 			}
