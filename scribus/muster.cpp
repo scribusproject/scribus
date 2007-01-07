@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "commonstrings.h"
 #include "scribus.h"
+#include "scribusXml.h"
+#include "prefsmanager.h"
 
 #include "scmessagebox.h"
 
@@ -160,7 +162,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	int copyC = 1;
 	QString potentialMasterPageName(sMuster);
 	while (currentDoc->MasterNames.contains(potentialMasterPageName))
-		potentialMasterPageName = tr("Copy #%1 of ").arg(copyC++)+sMuster;
+		potentialMasterPageName = tr("Copy #%1 of").arg(copyC++)+" "+sMuster;
 
 	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, potentialMasterPageName);
 	if (dia->exec())
@@ -175,9 +177,11 @@ void MasterPagesPalette::duplicateMasterPage()
 			}
 			MasterPageName = dia->Answer->text();
 		}
+		PrefsManager* prefsManager = PrefsManager::instance();
+		int inde = currentDoc->MasterNames[sMuster];
 		int nr = currentDoc->Pages->count();
-		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
-		currentDoc->setLoading(true);
+		Page* from = currentDoc->Pages->at(inde);
+		Page* destination = currentDoc->addMasterPage(nr, MasterPageName);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
 			int lp = dia->Links->currentItem();
@@ -187,77 +191,67 @@ void MasterPagesPalette::duplicateMasterPage()
 				lp = 0;
 			else
 				lp++;
-			currentDoc->Pages->at(nr)->LeftPg = lp;
+			destination->LeftPg = lp;
 		}
-		int inde = currentDoc->MasterNames[sMuster];
-		QMap<int,int> TableID;
-		QPtrList<PageItem> TableItems;
-		TableID.clear();
-		TableItems.clear();
-		currentDoc->Pages->at(inde)->guides.copy(&currentDoc->currentPage()->guides);
-		uint end = currentDoc->Items->count();
+		destination->initialMargins.Top = from->initialMargins.Top;
+		destination->initialMargins.Bottom = from->initialMargins.Bottom;
+		if (currentDoc->pageSets[currentDoc->currentPageLayout].Columns == 1)
+		{
+			destination->initialMargins.Left = from->initialMargins.Left;
+			destination->initialMargins.Right = from->initialMargins.Right;
+		}
+		else
+		{
+			if (destination->LeftPg != from->LeftPg)
+			{
+				if (destination->LeftPg > 1)
+				{
+					destination->initialMargins.Right = from->initialMargins.Left;
+					destination->initialMargins.Left = from->initialMargins.Left;
+				}
+				else
+				{
+					destination->initialMargins.Left = from->initialMargins.Left;
+					destination->initialMargins.Right = from->initialMargins.Right;
+				}
+			}
+			else
+			{
+				destination->initialMargins.Left = from->initialMargins.Left;
+				destination->initialMargins.Right = from->initialMargins.Right;
+			}
+		}
+		currentDoc->setCurrentPage(destination);
+		uint oldItems = currentDoc->Items->count();
+		uint end2 = currentDoc->MasterItems.count();
 		int GrMax = currentDoc->GroupCounter;
-		struct CopyPasteBuffer Buffer;
-		for (uint a = 0; a < end; ++a)
+		currentDoc->m_Selection->clear();
+		if (oldItems>0)
 		{
-			PageItem *itemToCopy = currentDoc->Items->at(a);
-			if (currentDoc->Items->at(a)->OwnPage == inde)
+			for (uint ite = 0; ite < oldItems; ++ite)
 			{
-				itemToCopy->copyToCopyPasteBuffer(&Buffer);
-				if (itemToCopy->Groups.count() != 0)
-				{
-					Buffer.Groups.clear();
-					QValueStack<int>::Iterator nx;
-					QValueStack<int> tmpGroup;
-					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
-					{
-						tmpGroup.push((*nx)+currentDoc->GroupCounter);
-						GrMax = QMAX(GrMax, (*nx)+currentDoc->GroupCounter);
-					}
-					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
-					{
-						Buffer.Groups.push((*nx));
-					}
-				}
-				currentView->PasteItem(&Buffer, true, true);
-				PageItem* Neu = currentDoc->Items->at(currentDoc->Items->count()-1);
-				Neu->OnMasterPage = MasterPageName;
-				if (Neu->isTableItem)
-				{
-					TableItems.append(Neu);
-					TableID.insert(a, Neu->ItemNr);
-				}
+				PageItem *itemToCopy = currentDoc->Items->at(ite);
+				if (itemToCopy->OwnPage == inde)
+					currentDoc->m_Selection->addItem(itemToCopy, true);
 			}
+			ScriXmlDoc *ss = new ScriXmlDoc();
+			ss->ReadElem(ss->WriteElem(currentDoc, currentView, currentDoc->m_Selection), prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView);
+			currentDoc->m_Selection->clear();
 		}
-		if (TableItems.count() != 0)
+		uint end3 = currentDoc->MasterItems.count();
+		for (uint a = end2; a < end3; ++a)
 		{
-			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
-			{
-				PageItem* ta = TableItems.at(ttc);
-				if (ta->TopLinkID != -1)
-					ta->TopLink = currentDoc->Items->at(TableID[ta->TopLinkID]);
-				else
-					ta->TopLink = 0;
-				if (ta->LeftLinkID != -1)
-					ta->LeftLink = currentDoc->Items->at(TableID[ta->LeftLinkID]);
-				else
-					ta->LeftLink = 0;
-				if (ta->RightLinkID != -1)
-					ta->RightLink = currentDoc->Items->at(TableID[ta->RightLinkID]);
-				else
-					ta->RightLink = 0;
-				if (ta->BottomLinkID != -1)
-					ta->BottomLink = currentDoc->Items->at(TableID[ta->BottomLinkID]);
-				else
-					ta->BottomLink = 0;
-			}
+			PageItem *newItem = currentDoc->MasterItems.at(a);
+			newItem->OnMasterPage = MasterPageName;
+			newItem->OwnPage = currentDoc->MasterNames[MasterPageName];
 		}
+		from->guides.copy(&destination->guides);
+		currentDoc->GroupCounter = GrMax + 1;
 		currentView->Deselect(true);
-		currentView->DrawNew();
 		updateMasterPageList(MasterPageName);
 		currentDoc->setLoading(false);
+		currentView->reformPages();
 		currentView->DrawNew();
-		currentDoc->GroupCounter = GrMax + 1;
 	}
 	delete dia;
 }
