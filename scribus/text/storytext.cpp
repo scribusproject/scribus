@@ -54,7 +54,7 @@ public:
 		pstyleBase(other.pstyleBase),
 		refs(1), len(0), trailingStyle(other.trailingStyle)
 	{
-		pstyleBase.setDefaultStyle( & defaultStyle );
+		pstyleBase.setDefaultStyle( &defaultStyle );
 		trailingStyle.setBase( &pstyleBase );
 		setAutoDelete(true); 
 		QPtrListIterator<ScText> it( other );
@@ -76,26 +76,36 @@ public:
 
 	ScText_Shared& operator= (const ScText_Shared& other) 
 	{
-		clear();
-		QPtrListIterator<ScText> it( other );
-		ScText* elem;
-		while ( (elem = it.current()) != NULL ) {
-			++it;
-			ScText* elem2 = new ScText(*elem);
-			append(elem2);
-			if (elem2->parstyle) {
-				elem2->parstyle->setBase( & pstyleBase );
-//				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
-				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
+		if (this != &other) 
+		{
+			defaultStyle = other.defaultStyle;
+			trailingStyle = other.trailingStyle;
+			pstyleBase = other.pstyleBase;
+			pstyleBase.setDefaultStyle( &defaultStyle );
+			defaultStyle.setBase( other.defaultStyle.base() );
+			trailingStyle.setBase( &pstyleBase );
+			clear();
+			QPtrListIterator<ScText> it( other );
+			ScText* elem;
+			while ( (elem = it.current()) != NULL ) {
+				++it;
+				ScText* elem2 = new ScText(*elem);
+				append(elem2);
+				if (elem2->parstyle) {
+					elem2->parstyle->setBase( & pstyleBase );
+//					qDebug(QString("StoryText::copy: * %1 align=%2").arg(elem2->parstyle->parent())
+//						   .arg(elem2->parstyle->alignment())
+//						   .arg((uint)elem2->parstyle->base()));
+					//				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
+					replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
+				}
 			}
+			len = count();
+			pstyleBase.invalidate();
+//			qDebug(QString("StoryText::copy: %1 align=%2 %3").arg(trailingStyle.parentStyle()->name())
+//				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.base()));
+			replaceCharStyleBaseInParagraph(len,  trailingStyle.charStyleBase());
 		}
-		len = count();
-		defaultStyle = other.defaultStyle;
-		trailingStyle = other.trailingStyle;
-		trailingStyle.setBase( &pstyleBase );
-		pstyleBase.invalidate();
-		replaceCharStyleBaseInParagraph(len,  trailingStyle.charStyleBase());
-		refs = 1;
 //		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 		return *this;
 	}
@@ -227,6 +237,7 @@ StoryText StoryText::copy() const
 {
 	StoryText result(doc);
 	*(result.d) = *d;
+	return result;
 //	qDebug(QString("StoryText::copy:"));
 	QPtrListIterator<ScText> it( *(result.d) );
 	ScText* elem;
@@ -241,6 +252,8 @@ StoryText StoryText::copy() const
 
 StoryText& StoryText::operator= (const StoryText & other)
 {
+	other.d->refs++;
+	
 	d->refs--;
 	if (d->refs == 0) {
 		clear();
@@ -249,7 +262,6 @@ StoryText& StoryText::operator= (const StoryText & other)
 	
 	doc = other.doc; 
 	d = other.d;
-	d->refs++;
 	
 	selFirst = 0;
 	selLast = -1;
