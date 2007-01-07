@@ -670,6 +670,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					sl.LineJoin = MuL.attribute("LineJoin").toInt();
 					sl.Shade = MuL.attribute("Shade").toInt();
 					sl.Width = MuL.attribute("Width").toDouble();
+					ml.shortcut = MuL.attribute("Shortcut");
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
@@ -1710,6 +1711,9 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 	if (it->hasAttribute("TXTSTW"))
 		newStyle.setStrikethruWidth(qRound(it->attribute("TXTSTW").toDouble() * 10));
 
+	if (it->hasAttribute("SHORTCUT"))
+		newStyle.setShortcut(it->attribute("SHORTCUT"));
+
 }	
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
@@ -1933,7 +1937,9 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 		vg.setDropCapLines(pg.attribute("DROPLIN").toInt());
 	if (pg.hasAttribute("DROPDIST"))
 		vg.setDropCapOffset(pg.attribute("DROPDIST").toDouble());
-	
+	if (pg.hasAttribute("PSHORTCUT"))
+		vg.setShortcut(pg.attribute("PSHORTCUT"));
+
 	//		vg.tabValues().clear();
 	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
@@ -2644,6 +2650,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					sl.LineJoin = MuL.attribute("LineJoin").toInt();
 					sl.Shade = MuL.attribute("Shade").toInt();
 					sl.Width = MuL.attribute("Width").toDouble();
+					ml.shortcut = MuL.attribute("Shortcut");
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}
@@ -3245,6 +3252,7 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QMap<QString,mult
 					sl.LineJoin = MuL.attribute("LineJoin").toInt();
 					sl.Shade = MuL.attribute("Shade").toInt();
 					sl.Width = MuL.attribute("Width").toDouble();
+					ml.shortcut = MuL.attribute("Shortcut");
 					ml.push_back(sl);
 					MuLn = MuLn.nextSibling();
 				}

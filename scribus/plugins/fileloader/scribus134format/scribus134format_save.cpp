@@ -286,6 +286,7 @@ void Scribus134Format::writeLinestyles(QDomDocument & docu)
 			SuL.setAttribute("LineEnd", (*itMU2).LineEnd);
 			SuL.setAttribute("LineJoin", (*itMU2).LineJoin);
 			SuL.setAttribute("Width", (*itMU2).Width);
+			SuL.setAttribute("Shortcut", ml.shortcut);
 			MuL.appendChild(SuL);
 		}
 		dc.appendChild(MuL);
@@ -418,6 +419,8 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 		fo.setAttribute("DROPLIN", style.dropCapLines());
 	if ( ! style.isInhDropCapOffset())
 		fo.setAttribute("DROPDIST", style.dropCapOffset());
+	fo.setAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
+
 	if ( ! style.isInhTabValues())
 	{
 		for (uint a = 0; a < style.tabValues().count(); ++a)
@@ -492,6 +495,7 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 		fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
 	if ( ! style.isInhTracking())
 		fo.setAttribute("KERN", style.tracking() / 10.0);
+	fo.setAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }
 
 void Scribus134Format::writeLayers(QDomDocument & docu) 

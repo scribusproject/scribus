@@ -597,6 +597,17 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
 				parent->setOpen(true);
 			}
+
+			QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
+			if (styleActions_.contains(key))
+				continue;
+
+			styleActions_[key] =
+				new ScrAction(ScrAction::DataQString, QIconSet(), "",
+							sitem->text(SHORTCUT_COL), doc_->view(), key, 0, 0.0, key);
+			connect(styleActions_[key], SIGNAL(activatedData(QString)),
+					this, SLOT(slotApplyStyle(QString)));
+
 		}
 	}
 }
