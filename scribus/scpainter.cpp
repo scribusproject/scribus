@@ -363,11 +363,11 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	{
 		la.groupClip = *clipArray;
 	}
-	if ((transparency != 1.0) || (blendmode != 0) || (clipArray != NULL))
-	{
+//	if ((transparency != 1.0) || (blendmode != 0) || (clipArray != NULL))
+//	{
 		cairo_push_group(m_cr);
 		la.pushed = true;
-	}
+//	}
 	Layers.push(la);
 /*
 #else
