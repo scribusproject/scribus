@@ -57,7 +57,11 @@ void SplashScreen::setStatus( const QString &message )
 	}
 	QPixmap textPix = pix;
 	QPainter painter( &textPix, this );
+#if defined _WIN32
+	QFont font("Lucida Sans", 12);
+#else
 	QFont font("Bitstream Vera Sans", 12);
+#endif
 	painter.setFont(font);
 	painter.setPen(QColor(236,233,216));
 	//painter.setRasterOp(NotROP);
