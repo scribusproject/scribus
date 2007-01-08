@@ -52,7 +52,6 @@ cmykfw.h
 collect4output.h
 colorchart.h
 colorm.h
-colorsetmanager.h
 colorcombo.h
 commonstrings.h
 cpalette.h
@@ -138,11 +137,9 @@ query.h
 reformdoc.h
 rulermover.h
 sampleitem.h
-sccolorshade.h
 scmenu.h
 scmessagebox.h
 scplugin.h
-scpreview.h
 scraction.h
 scrap.h
 scribus.h
