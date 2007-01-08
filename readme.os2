@@ -1,0 +1,38 @@
+Scribus v1.3.3.7 beta for OS/2 & eComStation
+
+Scribus is an open-source program that brings award-winning
+professional page layout to Linux/Unix, MacOS X and Windows
+desktops with a combination of "press-ready" output and 
+new approaches to page layout.
+
+Underneath the modern and user friendly interface, Scribus 
+supports professional publishing features, such as CMYK color,
+separations, ICC color management and versatile PDF creation.
+
+Requires libc061.dll - which is available from ftp://ftp.netlabs.org/pub/gcc/libc-0.6.1-csd1.zip
+
+Known issues:
+- If a file called fonts.conf doesn't exist in %HOME%\fonts.conf,
+one will be created automatically when scribus.exe is run for the
+first time, however, Scribus will crash with signal 11.
+On the 2nd attempt to load scribus.exe, it will load fine.
+- Printing support is not complete, but PDF export is, you can easily print
+via Acrobat Reader or another PDF viewer as a temporary workaround.
+
+Updated in beta 2:
+- Moved to cairo as a rendering engine - cair1310.dll included in package
+- Most plugins are now working
+- Text entered in a text box now displays instantly rather than requiring a forced redraw
+- all languages supported by Scribus are now available
+
+General feedback can be provided to paul@smedley.info, bug reports should go to http://bugs.scribus.info
+
+If you like this software and want to support continued OS/2 ports,
+please consider donating via PayPal via the link at http://smedley.info/os2ports,
+or via the Mensys online store at http://www.mensys.net/os2ports
+
+Cheers,
+
+Paul Smedley
+Adelaide, Australia
+January, 2007
