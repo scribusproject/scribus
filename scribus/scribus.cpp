@@ -9371,7 +9371,7 @@ void ScribusMainWindow::managePatterns()
 			doc->setPatterns(dia->dialogPatterns);
 			propertiesPalette->updateColorList();
 			view->DrawNew();
-			undoManager->setUndoEnabled(undoState);
+			undoManager->setUndoEnabled(true);
 		}
 		delete dia;
 		undoManager->setUndoEnabled(true);
