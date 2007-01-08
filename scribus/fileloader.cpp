@@ -817,11 +817,20 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 			{
 				PageItem * Its = doc->Items->at(lc.key());
 				PageItem * Itn = doc->Items->at(itemRemap[lc.data()]);
-				if (Itn->BackBox) 
+				if (Itn->BackBox || Its->NextBox) 
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
 					continue;
 				}
+				PageItem * tail = Itn; 
+				while (tail->NextBox)
+					 tail = tail->NextBox;
+				if (tail == Its)
+				{
+					qDebug("scribus13format: cycle in linked textframes detected");
+					continue;
+				}
+
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 			}
@@ -1866,11 +1875,20 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			{
 				PageItem * Its = doc->Items->at(lc.key());
 				PageItem * Itn = doc->Items->at(itemRemap[lc.data()]);
-				if (Itn->BackBox) 
+				if (Itn->BackBox || Its->NextBox) 
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
 					continue;
 				}
+				PageItem * tail = Itn;
+                                while (tail->NextBox)
+                                         tail = tail->NextBox;
+                                if (tail == Its)
+                                {
+                                        qDebug("scribus13format: cycle in linked textframes detected");
+                                        continue;
+                                }
+
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 			}
