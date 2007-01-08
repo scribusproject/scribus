@@ -1,4 +1,4 @@
-This is Scribus Version 1.3.3.6, the ninth release of the 1.3.x development
+This is Scribus Version 1.3.3.7, the tenth release of the 1.3.x development
 series.
 
 CHANGES 1.2.x to 1.3.x
@@ -36,7 +36,7 @@ To convert older( =< 1.1.1) documents follow the procedure below:
 When you now open old documents Scribus will convert all font names
 automatically.
 
-Scribus 1.3.3.6 includes support for building via CMake, a replacement
+Scribus 1.3.3.7 includes support for building via CMake, a replacement
 for traditional autotools. 
 Please see:http://docs.scribus.net/index.php?lang=en&page=install4 for details.
 
@@ -155,6 +155,9 @@ as root to select gs-afpl as the default version of Ghostscript to use.
 
 DISTRIBUTION AND OS SPECIFIC NOTES
 =====================
+
+For MacOSX, OS/2 and Windows Please also see the specific platform notes as 
+well. 
 
 Debian
 ======

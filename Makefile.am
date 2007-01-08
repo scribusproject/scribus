@@ -47,6 +47,7 @@ EXTRA_DIST = AUTHORS \
 			 PACKAGING \
 			 README \
 			 README.MacOSX \
+			 README.OS2 \
 			 TODO \
 			 scribus.xml \
 			 scribus.lsm scribus.desktop Scribus.pot \

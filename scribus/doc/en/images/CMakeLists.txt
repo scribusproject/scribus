@@ -17,6 +17,7 @@ before_short_words.png
 CMakeLists.txt
 cmsmodify1.png
 cmspanel.png
+colormanager1.png
 colormanager2.png
 colormgmtscreen.png
 cups1.png
@@ -57,7 +58,8 @@ hyphen3.png
 inkscape.png
 kfontinstaller.png
 ksnapshot.png
-#layers1.png
+layers1.png
+layers2.png
 monprof1.png
 monprof2.png
 monprof3.png
@@ -66,7 +68,7 @@ oochart.png
 ooeps1.png
 oogettext1.png
 pagetemplate1.png
-#pagenumbering.png
+pagenumbering.png
 pdfeffect1.png
 pdfeffect2.png
 pdfx3-1.png
