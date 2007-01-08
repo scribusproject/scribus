@@ -61,6 +61,7 @@ menu.xml
 moncal.html
 mouse.html
 otherinfo.html
+pagenumber.html
 pagetemplate1.html
 parallel-install.html
 pdfexport1.html
@@ -77,6 +78,7 @@ print2.html
 print3.html
 psd.html
 readme.html
+readme-os2.html
 readme-win32.html
 resources.html
 scprinters.html
@@ -101,7 +103,6 @@ scripterapi-Printer.html
 scripterapi-select.html
 scripterapi-setobjprop.html
 scripterapi-textframes.html
-scripterapi-extensions.html
 scripter-extensions.html
 scripter-faq.html
 settings1.html
