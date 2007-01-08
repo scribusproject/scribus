@@ -3339,6 +3339,7 @@ void Mpalette::NewRotMode(int m)
 	if ((HaveDoc) && (HaveItem))
 	{
 		HaveItem = false;
+		doc->RotMode = m;
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->setGroupRect();
@@ -3373,6 +3374,13 @@ void Mpalette::NewRotMode(int m)
 				inX = gx+gw;
 				inY = gy+gh;
 			}
+			inX -= doc->rulerXoffset;
+			inY -= doc->rulerYoffset;
+			if (doc->guidesSettings.rulerMode)
+			{
+				inX -= doc->currentPage()->xOffset();
+				inY -= doc->currentPage()->yOffset();
+			}
 			Xpos->setValue(inX*Umrech);
 			Ypos->setValue(inY*Umrech);
 		}
@@ -3384,7 +3392,8 @@ void Mpalette::NewRotMode(int m)
 			b = CurItem->width();
 			h = CurItem->height();
 			r = CurItem->rotation();
-			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getYOffsetForPage(CurItem->OwnPage));
+//			ma.translate(CurItem->xPos()-doc->getXOffsetForPage(CurItem->OwnPage), CurItem->yPos()-doc->getYOffsetForPage(CurItem->OwnPage));
+			ma.translate(CurItem->xPos(), CurItem->yPos());
 			ma.rotate(r);
 			if (TopLeft->isChecked())
 				n = FPoint(0.0, 0.0);
@@ -3398,11 +3407,17 @@ void Mpalette::NewRotMode(int m)
 				n = FPoint(b, h);
 			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+			inX -= doc->rulerXoffset;
+			inY -= doc->rulerYoffset;
+			if (doc->guidesSettings.rulerMode)
+			{
+				inX -= doc->currentPage()->xOffset();
+				inY -= doc->currentPage()->yOffset();
+			}
 			Xpos->setValue(inX*Umrech);
 			Ypos->setValue(inY*Umrech);
 		}
 		HaveItem = true;
-		doc->RotMode = m;
 	}
 }
 
