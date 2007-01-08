@@ -3058,8 +3058,8 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	p->setupPolygon(&PoLine);
 	p->setClipPath();
 #endif
-	double startpos=Xpos;
-	double cols=0;
+//	double startpos=Xpos;
+//	double cols=0;
 	double colWidth = columnWidth();
 	double colLeft=0;
 	int currCol=0;

@@ -3830,10 +3830,10 @@ QString PDFlib::PDF_Transparenz(PageItem *currItem)
 
 QString PDFlib::PDF_Gradient(PageItem *currItem)
 {
-	double w = currItem->width();
-	double h = -currItem->height();
-	double w2 = w / 2.0;
-	double h2 = h / 2.0;
+//	double w = currItem->width();
+//	double h = -currItem->height();
+//	double w2 = w / 2.0;
+//	double h2 = h / 2.0;
 	double StartX = 0;
 	double StartY = 0;
 	double EndX = 0;

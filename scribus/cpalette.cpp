@@ -453,7 +453,7 @@ void Cpalette::setActGradient(int typ)
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 }
 
-void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h)
+void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double /*w*/, double /*h*/)
 {
 	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
