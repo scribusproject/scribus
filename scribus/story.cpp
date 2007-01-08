@@ -1238,7 +1238,6 @@ void SEditor::updateAll()
 					insert("^");
 					setFarbe(false);
 					Text = "";
-					chars->append(hg);
 					continue;
 				}
 				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingHyphen"]->actionInt()))
@@ -1250,7 +1249,6 @@ void SEditor::updateAll()
 					insert("=");
 					setFarbe(false);
 					Text = "";
-					chars->append(hg);
 					continue;
 				}
 				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNewLine"]->actionInt()))
