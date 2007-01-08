@@ -415,6 +415,7 @@ INSTALL(FILES
 22/draw-arrow-forward.png
 22/draw-arrow-up.png
 22/draw-cross.png
+22/draw-donut.png
 22/draw-ellipse.png
 22/draw-freehand.png
 22/draw-halfcircle1.png
@@ -425,6 +426,7 @@ INSTALL(FILES
 22/draw-polygon.png
 22/draw-polyline.png
 22/draw-rectangle.png
+22/draw-square-inverted-corners.png
 22/draw-star.png
 22/draw-triangle1.png
 22/draw-triangle2.png

@@ -272,7 +272,7 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	if (pixmapSize!=16 && pixmapSize!=22)
 		qDebug("%s", QString("Autoformbuttongroup: Only 16px or 22px sizes supported!").ascii());
 	else
-	if (nr<16)
+	if (nr<18)
 	{
 		QString strSize=QString("%1").arg(pixmapSize);
 		switch(nr)
@@ -309,6 +309,10 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 				return loadIcon(strSize+"/draw-triangle3.png");
 			case 15:
 				return loadIcon(strSize+"/draw-triangle4.png");
+			case 16:
+				return loadIcon(strSize+"/draw-square-inverted-corners.png");
+			case 17:
+				return loadIcon(strSize+"/draw-donut.png");
 		}
 	}
 	int count = 0;

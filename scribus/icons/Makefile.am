@@ -34,6 +34,7 @@ ellipsis.png \
 16/draw-cross.png \
 22/draw-cross.png \
 16/draw-donut.png \
+22/draw-donut.png \
 16/draw-ellipse.png \
 22/draw-ellipse.png \
 22/draw-freehand.png \
@@ -55,6 +56,7 @@ ellipsis.png \
 16/draw-rectangle.png \
 22/draw-rectangle.png \
 16/draw-square-inverted-corners.png \
+22/draw-square-inverted-corners.png \
 16/draw-star.png \
 22/draw-star.png \
 16/draw-triangle1.png \
@@ -294,6 +296,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-up.png $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-donut.png $(prefix)/share/scribus/icons/16/draw-donut.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-donut.png $(prefix)/share/scribus/icons/22/draw-donut.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
@@ -316,6 +319,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/draw-rectangle.png $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-square-inverted-corners.png $(prefix)/share/scribus/icons/16/draw-square-inverted-corners.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-square-inverted-corners.png $(prefix)/share/scribus/icons/22/draw-square-inverted-corners.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-star.png $(prefix)/share/scribus/icons/16/draw-star.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-star.png $(prefix)/share/scribus/icons/22/draw-star.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-triangle1.png $(prefix)/share/scribus/icons/16/draw-triangle1.png
@@ -712,6 +716,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-donut.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-donut.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-freehand.png
@@ -729,6 +735,9 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polyline.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-rectangle.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-square-inverted-corners.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-square-inverted-corners.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-star.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-star.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-star.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-triangle1.png
