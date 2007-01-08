@@ -180,12 +180,12 @@ bool SVGImportPlugin::import(QString filename, int flags)
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
-
-	if (dia->importFailed)
-		QMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
-	else if (dia->unsupported)
+	if (dia->importCanceled)
 	{
-		QMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
+		if (dia->importFailed)
+			QMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+		else if (dia->unsupported)
+			QMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
 	}
 
 	delete dia;
@@ -199,6 +199,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	m_Doc=mw->doc;
 	unsupported = false;
 	importFailed = false;
+	importCanceled = true;
 //	Conversion = 0.8;
 	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -416,8 +417,9 @@ void SVGPlug::convert(int flags)
 		m_Doc->maxCanvasCoordinate = maxSize;
 		m_Doc->view()->updatesOn(true);
 		dr->setPixmap(loadIcon("DragPix.xpm"));
-		if (!dr->drag())
-			qDebug("svgimport: could not start drag operation!");
+		importCanceled = dr->drag();
+//		if (!dr->drag())
+//			qDebug("svgimport: could not start drag operation!");
 		delete ss;
 		m_Doc->DragP = false;
 		m_Doc->DraggedElem = 0;

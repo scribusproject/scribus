@@ -191,10 +191,13 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
-	if ((!importDone) || (dia.importFailed))
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
-	else if (dia.unsupported)
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("This file contains some unsupported features"), 1, 0, 0);
+	if (dia.importCanceled)
+	{
+		if ((!importDone) || (dia.importFailed))
+			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+		else if (dia.unsupported)
+			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("This file contains some unsupported features"), 1, 0, 0);
+	}
 	return importDone;
 }
 
@@ -204,6 +207,7 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	unsupported = false;
 	interactive = false;
 	importFailed = false;
+	importCanceled = true;
 	tmpSel=new Selection(this, false);
 }
 
@@ -501,8 +505,9 @@ bool OODPlug::convert(int flags)
 		m_Doc->maxCanvasCoordinate = maxSize;
 		m_Doc->view()->updatesOn(true);
 		dr->setPixmap(loadIcon("DragPix.xpm"));
-		if (!dr->drag())
-			qDebug("oodraw import: couldn't start drag operation!");
+		importCanceled = dr->drag();
+//		if (!dr->drag())
+//			qDebug("oodraw import: couldn't start drag operation!");
 		delete ss;
 		m_Doc->DragP = false;
 		m_Doc->DraggedElem = 0;
@@ -662,14 +667,16 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		if( STag == "draw:g" )
 		{
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
-			PageItem *neu = m_Doc->Items->at(z);
+			int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+			PageItem *neu = m_Doc->Items->at(zn);
 			GElements.append(neu);
+			Elements.append(neu);
 			QPtrList<PageItem> gElements = parseGroup( b );
 			if (gElements.count() < 2)
 			{
 				GElements.removeLast();
-				m_Doc->Items->take(z);
+				Elements.remove(neu);
+				m_Doc->Items->take(zn);
 				delete neu;
 				for (uint a = 0; a < m_Doc->Items->count(); ++a)
 				{
@@ -741,6 +748,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				}
 				m_Doc->GroupCounter++;
 			}
+			z = -1;
 		}
 		else if( STag == "draw:rect" )
 		{
