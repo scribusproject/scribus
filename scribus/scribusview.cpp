@@ -1421,7 +1421,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
-	if (Doc->guidesSettings.guidesShown)
+	if (Doc->guidesSettings.guidesShown && Doc->appMode != modeMagnifier)
 	{
 		bool foundGuide = false;
 		double nx = m->x()/Scale + Doc->minCanvasCoordinate.x();
