@@ -238,6 +238,7 @@ public:
 	bool interactive;
 	//! \brief Indicator if there is any unsupported feature in imported svg.
 	bool unsupported;
+	bool importFailed;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 };

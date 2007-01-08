@@ -191,7 +191,9 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
-	if (dia.unsupported)
+	if ((!importDone) || (dia.importFailed))
+		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+	else if (dia.unsupported)
 		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("This file contains some unsupported features"), 1, 0, 0);
 	return importDone;
 }
@@ -201,6 +203,7 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	m_Doc=doc;
 	unsupported = false;
 	interactive = false;
+	importFailed = false;
 	tmpSel=new Selection(this, false);
 }
 
@@ -388,6 +391,8 @@ bool OODPlug::convert(int flags)
 	}
 	tmpSel->clear();
 //	if ((Elements.count() > 1) && (interactive))
+	if (Elements.count() == 0)
+		importFailed = true;
 	if (Elements.count() > 1)
 	{
 		bool isGroup = true;

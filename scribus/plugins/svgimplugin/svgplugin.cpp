@@ -181,7 +181,9 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	else
 		UndoManager::instance()->setUndoEnabled(true);
 
-	if (dia->unsupported)
+	if (dia->importFailed)
+		QMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+	else if (dia->unsupported)
 	{
 		QMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
 	}
@@ -196,6 +198,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	tmpSel=new Selection(this, false);
 	m_Doc=mw->doc;
 	unsupported = false;
+	importFailed = false;
 //	Conversion = 0.8;
 	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -300,6 +303,8 @@ void SVGPlug::convert(int flags)
 	QPtrList<PageItem> Elements = parseGroup( docElem );
 // 	m_Doc->m_Selection->clear();
 	tmpSel->clear();
+	if (Elements.count() == 0)
+		importFailed = true;
 	if (Elements.count() > 1)
 	{
 		bool isGroup = true;
@@ -606,8 +611,8 @@ QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
 		w *= (sw.endsWith("%") ? size.width() : 1.0);
 		h *= (sh.endsWith("%") ? size.height() : 1.0);
 	}
-	size.setWidth(w);
-	size.setHeight(h);
+	size.setWidth(qRound(w));
+	size.setHeight(qRound(h));
 	return size;
 }
 

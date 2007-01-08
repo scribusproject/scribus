@@ -68,7 +68,7 @@ public:
 
 	//! \brief Indicator if there is any unsupported feature in imported svg.
 	bool unsupported;
-
+	bool importFailed;
 	bool import( QString fName, int flags );
 	static double parseUnit(const QString &unit);
 
