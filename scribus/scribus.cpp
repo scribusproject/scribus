@@ -9363,7 +9363,6 @@ void ScribusMainWindow::managePatterns()
 {
 	if (HaveDoc)
 	{
-		bool undoState = UndoManager::undoEnabled();
 		undoManager->setUndoEnabled(false);
 		QMap<QString, ScPattern> docPatterns(doc->docPatterns);
 		PatternDialog *dia = new PatternDialog(this, &docPatterns, doc, this);
@@ -9375,7 +9374,7 @@ void ScribusMainWindow::managePatterns()
 			undoManager->setUndoEnabled(undoState);
 		}
 		delete dia;
-		undoManager->setUndoEnabled(undoState);
+		undoManager->setUndoEnabled(true);
 	}
 }
 
