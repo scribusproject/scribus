@@ -2005,7 +2005,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
-	if (Doc->guidesSettings.guidesShown)
+	if (Doc->appMode != modeMagnifier && Doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
 		double nx = translateToDoc(m->x(), m->y()).x();
