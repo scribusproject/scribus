@@ -9329,6 +9329,7 @@ void ScribusMainWindow::slotInsertFrame()
 
 void ScribusMainWindow::PutToPatterns()
 {
+	undoManager->setUndoEnabled(false);
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
 	ScriXmlDoc *ss = new ScriXmlDoc();
@@ -9355,6 +9356,7 @@ void ScribusMainWindow::PutToPatterns()
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
 	delete ss;
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::managePatterns()
