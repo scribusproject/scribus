@@ -11,7 +11,7 @@ prefs12.png prefs15.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1
 printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png \
 formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png \
 wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png swmenu.png swdialog.png after_short_words.png  \
-before_short_words.png scribus2.png CMakeLists.txt layer1.png
+before_short_words.png scribus2.png CMakeLists.txt layers1.png layers2.png
 
 install-data-local:
 
