@@ -256,6 +256,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	PageItem *Neu;
 	Page* Apage;
 	LFrames.clear();
+	LFrames2.clear();
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -1029,7 +1030,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					if ((pg.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pg.attribute("AUTOTEXT").toInt())))
 					{
 						if (pg.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(m_Doc->Items->count());
+						{
+							if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+								LFrames.append(m_Doc->Items->count());
+							else
+								LFrames2.append(m_Doc->Items->count());
+						}
 					}
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
@@ -1507,6 +1513,31 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			while (Its->NextIt != -1)
 			{
 				Itn = m_Doc->Items->at(Its->NextIt);
+				Its->NextBox = Itn;
+				Itn->BackBox = Its;
+				Its->itemText.append(Itn->itemText);
+				Itn->itemText = Its->itemText;
+				Its = Itn;
+			}
+			Its->NextBox = 0;
+		}
+	}
+	if (LFrames2.count() != 0)
+	{
+		PageItem *Its;
+		PageItem *Itn;
+		PageItem *Itr;
+		QValueList<int>::Iterator lc;
+		for (lc = LFrames2.begin(); lc != LFrames2.end(); ++lc)
+		{
+			Its = m_Doc->MasterItems.at((*lc));
+			Itr = Its;
+			Its->BackBox = 0;
+			if (Its->isAutoText)
+				m_Doc->FirstAuto = Its;
+			while (Its->NextIt != -1)
+			{
+				Itn = m_Doc->MasterItems.at(Its->NextIt);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 				Its->itemText.append(Itn->itemText);

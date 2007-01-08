@@ -2743,8 +2743,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		}
 		if (currItem->NextBox == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
-		if (doc->masterPageMode())
-			scrActions["toolsLinkTextFrame"]->setEnabled(false);
+//		if (doc->masterPageMode())
+//			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
 		{
 			setTBvals(currItem);

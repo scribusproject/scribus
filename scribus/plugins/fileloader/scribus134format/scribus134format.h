@@ -78,6 +78,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items = 0);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		QValueList<int> LFrames;
+		QValueList<int> LFrames2;
 		QValueList<ScFace> dummyScFaces;
 		bool newReplacement;
 		QMap<QString,QString> ReplacedFonts;
