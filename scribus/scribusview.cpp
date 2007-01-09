@@ -9989,7 +9989,9 @@ void ScribusView::ChgUnit(int art)
 
 void ScribusView::GotoPa(int Seite)
 {
+	Deselect();
 	GotoPage(Seite-1);
+	m_ScMW->setFocus();
 }
 
 void ScribusView::GotoPage(int Seite)
