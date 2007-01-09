@@ -1756,6 +1756,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		{
 			newActWin(windows.at(i));
 			tw = ActWin;
+			slotSelect();
 			ActWin->close();
 			if (tw == ActWin)
 			{

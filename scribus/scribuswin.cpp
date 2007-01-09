@@ -107,7 +107,9 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		int exit=ScMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+										QDir::convertSeparators(m_Doc->DocName)+"\n"+
+		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		int exit=ScMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+											QDir::convertSeparators(m_Doc->DocName)+"\n"+
 											tr("has been changed since the last save."),
 											CommonStrings::tr_Save, tr("&Discard"),
 											CommonStrings::tr_Cancel, 2, 2);
