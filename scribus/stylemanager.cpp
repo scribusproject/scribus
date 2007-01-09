@@ -159,7 +159,7 @@ void StyleManager::languageChange()
 	rcpDeleteId_ = rightClickPopup_->insertItem( tr("Delete"), this, SLOT(slotDelete()));
 }
 
-void StyleManager::currentDoc(ScribusDoc *doc)
+void StyleManager::setDoc(ScribusDoc *doc)
 {
 	if (doc)
 	{

@@ -2094,7 +2094,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		//scrActions["fileSave"]->setEnabled(false);
 		tempView->cmsToolbarButton->setOn(tempDoc->HasCMS);
 		undoManager->switchStack(tempDoc->DocName);
-		styleManager->currentDoc(tempDoc);
+		styleManager->setDoc(tempDoc);
 		tocGenerator->setDoc(tempDoc);
 	}
 	undoManager->setUndoEnabled(true);
@@ -2187,7 +2187,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
-	styleManager->currentDoc(doc);
+	styleManager->setDoc(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScCore->usingGUI())
 	{
@@ -2253,7 +2253,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 			HaveNewSel(-1);
 	}
 	tocGenerator->setDoc(doc);
-	styleManager->currentDoc(doc);
+	styleManager->setDoc(doc);
 }
 
 void ScribusMainWindow::windowsMenuActivated( int id )
@@ -3822,7 +3822,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		pagePalette->setView(0);
 	}
 	undoManager->switchStack(doc->DocName);
-	styleManager->currentDoc(doc);
+	styleManager->setDoc(doc);
 	pagePalette->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
@@ -4277,7 +4277,7 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homeDirPath() );
 	}
-	styleManager->currentDoc(0);
+	styleManager->setDoc(0);
 	return true;
 }
 
@@ -7134,7 +7134,7 @@ void ScribusMainWindow::slotEditColors()
 
 void ScribusMainWindow::slotStyleManager()
 {
-	styleManager->currentDoc(HaveDoc ? doc : 0);
+	styleManager->setDoc(HaveDoc ? doc : 0);
 	styleManager->setShown(!styleManager->isVisible());
 }
 
