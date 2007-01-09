@@ -255,6 +255,8 @@ void TOCIndexPrefs::addToC()
 	localToCSetupVector.append(newToCEntry);
 	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	updateToCListBox();
+	if (localToCSetupVector.count()==1) //reinit parastyles if we are adding the first TOC
+		updateParagraphStyleComboBox();
 	tocListBox->setCurrentItem(localToCSetupVector.count()-1);
 	selectToC(localToCSetupVector.count()-1);
 	enableGUIWidgets();
