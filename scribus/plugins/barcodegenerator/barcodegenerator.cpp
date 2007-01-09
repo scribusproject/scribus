@@ -56,12 +56,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["EAN-2"] = BarcodeType("ean2", "42", tr("2 digits"),
 							   "[0-9]{2,2}");
 	map["ISBN"] = BarcodeType("isbn", "1-58880-149",
-							  tr("For ISBN-10 the data should contain 9 or 10 \
-								digits separated appropriately by dash characters.\n"
-								"For ISBN-13 the data should contain 12 or 13 \
-								digits separated appropriately by dash characters.\n"
-								"If the last digit is not given then the ISBN \
-								checkdigit is calculated automatically."),
+							  tr("12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)"),
 							  "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
 	map["Code-39"] = BarcodeType("code39", "CODE-39",
