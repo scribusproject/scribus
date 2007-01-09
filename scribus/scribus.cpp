@@ -3806,8 +3806,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
-		actionManager->disconnectNewDocActions();
-		actionManager->connectNewDocActions(doc);
 		doc->connectDocSignals();
 		if (doc->AutoSave)
 			doc->autoSaveTimer->start(doc->AutoSaveTime);
