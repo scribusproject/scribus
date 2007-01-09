@@ -891,6 +891,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
 #endif
 							groupStack.push(currItem->groupsLastItem);
+							groupStack2.push(currItem);
 							currItem->OwnPage = currItem->savedOwnPage;
 							if (!currItem->ChangedMasterItem)
 							{
