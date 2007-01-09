@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "mspinbox.h"
 #include "fontcombo.h"
+#include "colorcombo.h"
 #include "alignselect.h"
 #include "shadebutton.h"
 
@@ -30,6 +31,7 @@ class ScribusDoc;
 class StyleSelect;
 class Tabruler;
 class SampleItem;
+class PrefsContext;
 
 
 /*! \brief GUI dialog for Paragraph Style setting.
@@ -73,10 +75,10 @@ public:
 	MSpinBox* SizeC;
 	QLabel* TextF2;
 	QLabel* StrokeIcon;
-	QComboBox* TxStroke;
+	ColorCombo* TxStroke;
 	ShadeButton *PM1;
 	QLabel* FillIcon;
-	QComboBox* TxFill;
+	ColorCombo* TxFill;
 	ShadeButton *PM2;
 	QGroupBox* DropCaps;
 	QLabel* CapLabel;
@@ -91,6 +93,7 @@ public:
 	bool IsNew;
 	double AutoVal;
 	int DocsEin;
+	PrefsContext* prefs;
 	//! \brief Label for holding "style preview" bitmap 12/30/2004 petr vanek
 	QLabel *previewText;
 	QCheckBox *previewCaption;

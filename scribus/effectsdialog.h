@@ -23,7 +23,7 @@ class QLabel;
 class QListBox;
 class QListBoxItem;
 class QPushButton;
-class QComboBox;
+class ColorCombo;
 class ScribusDoc;
 class ShadeButton;
 class QWidgetStack;
@@ -58,7 +58,7 @@ public:
 	QWidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
-	QComboBox* colData;
+	ColorCombo* colData;
 	ShadeButton *shade;
 	QWidget* WStackPage_3;
 	QSlider* brightnessSlider;

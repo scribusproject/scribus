@@ -1,6 +1,6 @@
 //FIXME: this include must go to sctextstruct.h !
 #include <qvaluelist.h>
-
+#include <cassert>  //added to make Fedora 5 happy
 #include "fpoint.h"
 #include "sctextstruct.h"
 #include "storytext.h"
@@ -47,7 +47,7 @@ StoryText::~StoryText()
 {
 }
 
-StoryText& StoryText::operator= (const StoryText & other)
+StoryText& StoryText::operator= (const StoryText & )
 {
 	selFirst = 0;
 	selLast = -1;
@@ -136,7 +136,7 @@ void StoryText::replaceChar(int pos, QChar ch)
 	invalidate(pos, pos + 1);
 }
 
-void StoryText::insertObject(int pos, PageItem* ob)
+void StoryText::insertObject(int pos, PageItem* )
 {
 	if (pos < 0)
 		pos += length();
@@ -172,7 +172,7 @@ QString StoryText::text(int pos, uint len) const
 	assert(pos + signed(len) <= length());
 
 	QString result;
-	for (uint i = pos; i < pos+signed(len); ++i)
+	for (int i = pos; i < pos+signed(len); ++i)
 		result += const_cast<StoryText *>(this)->at(i)->ch;
 
 	return result;
@@ -236,7 +236,7 @@ void StoryText::applyStyle(int pos, uint len, const CharStyle& style )
 	invalidate(pos, pos + len);
 }
 
-void StoryText::applyStyle(int pos, const ParagraphStyle& style)
+void StoryText::applyStyle(int pos, const ParagraphStyle& )
 {
 	if (pos < 0)
 		pos += length();
@@ -284,12 +284,12 @@ uint StoryText::nrOfRuns() const
 	return 1;
 }
 
-int StoryText::startOfRun(uint index) const
+int StoryText::startOfRun(uint ) const
 {
 	return 0;
 }
 
-int StoryText::endOfRun(uint index) const
+int StoryText::endOfRun(uint ) const
 {
 	return length();
 }
@@ -390,7 +390,7 @@ void StoryText::removeSelection()
 
 
 
-void StoryText::invalidateObject(const PageItem * embedded)
+void StoryText::invalidateObject(const PageItem * )
 {
 }
 
@@ -402,7 +402,7 @@ void StoryText::invalidateAll()
 {
 }
 
-void StoryText::invalidate(int firstitem, int lastitem)
+void StoryText::invalidate(int , int )
 {
 }
 
@@ -422,7 +422,7 @@ void StoryText::validate()
 }
 */
 
-int StoryText::screenToPosition(FPoint coord) const
+int StoryText::screenToPosition(FPoint ) const
 {
 //FIXME:NLS	
 	//FIXME: should be end of lastFrameItem
@@ -430,13 +430,13 @@ int StoryText::screenToPosition(FPoint coord) const
 }
 
 
-FPoint StoryText::boundingBox(int pos, uint len) const
+FPoint StoryText::boundingBox(int , uint ) const
 {
 	return FPoint(); //FIXME
 }
 
 
-int StoryText::layout(int startItem)
+int StoryText::layout(int )
 {
 	//FIXME:NLS
 	return -1;

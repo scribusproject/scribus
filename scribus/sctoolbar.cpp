@@ -259,11 +259,11 @@ void ScToolBar::languageChange()
 
 	dockMenu = new QPopupMenu(0, "dockMenu");
 	dockMenu->setCheckable(true);
-	dockMenu->insertItem(tr("Top"), this, SLOT(slotTop()));
-	dockMenu->insertItem(tr("Right"), this, SLOT(slotRight()));
-	dockMenu->insertItem(tr("Bottom"), this, SLOT(slotBottom()));
-	dockMenu->insertItem(tr("Left"), this, SLOT(slotLeft()));
-	popup->insertItem(tr("Allow Docking To..."), dockMenu);
+	dockMenu->insertItem( tr("Top"), this, SLOT(slotTop()));
+	dockMenu->insertItem( tr("Right"), this, SLOT(slotRight()));
+	dockMenu->insertItem( tr("Bottom"), this, SLOT(slotBottom()));
+	dockMenu->insertItem( tr("Left"), this, SLOT(slotLeft()));
+	popup->insertItem( tr("Allow Docking To..."), dockMenu);
 	dockMenu->setItemChecked(dockMenu->idAt(0), dockTop);
 	dockMenu->setItemChecked(dockMenu->idAt(1), dockRight);
 	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
@@ -271,9 +271,9 @@ void ScToolBar::languageChange()
 
 	orientationMenu = new QPopupMenu(0, "orientationMenu");
 	orientationMenu->setCheckable(true);
-	orientationMenu->insertItem(tr("Horizontal"), this, SLOT(slotHor()));
-	orientationMenu->insertItem(tr("Vertical"), this, SLOT(slotVert()));
-	popup->insertItem(tr("Floating Orientation..."), orientationMenu);
+	orientationMenu->insertItem( tr("Horizontal"), this, SLOT(slotHor()));
+	orientationMenu->insertItem( tr("Vertical"), this, SLOT(slotVert()));
+	popup->insertItem( tr("Floating Orientation..."), orientationMenu);
 	if (floatOrientation == QDockWindow::Horizontal)
 	{
 		orientationMenu->setItemChecked(orientationMenu->idAt(0), true);

@@ -76,6 +76,7 @@ protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 	virtual void DrawObj_Post(ScPainter *p);
 	void drawOverflowMarker(ScPainter *p);
+	void drawColumnBorders(ScPainter *p);
 	
 	bool unicodeTextEditMode;
 	int unicodeInputCount;

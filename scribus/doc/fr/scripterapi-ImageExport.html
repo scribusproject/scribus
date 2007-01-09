@@ -1,0 +1,63 @@
+<qt>
+<title>Python : classe ImageExport</title>
+<h2>Python : classe ImageExport</h2>
+<p>
+<a name="ImageExport">class <strong>ImageExport</strong></a>(objet)
+</p>
+<hr />
+
+<h2>Exportation d'image</h2>
+<p>La classe ImageExport() fournit l'exportation de graphiques bitmap &agrave; l'&eacute;criture de scripts Python, telle que vous la connaissez &agrave; partir de la fonction Exporter/Enregistrer du menu Image. Voir
+la classe apparent&eacute;e PDFfile() et la proc&eacute;dure savePageAsEPS().</p>
+<p>Exemple :<br/>
+<code>
+i = ImageExport()<br/>
+i.type = 'PNG' # s&eacute;lectionner un parmi la liste i.allTypes<br/>
+i.scale = 200 # Je veux obtenir 200%<br/>
+i.name = '/home/subik/test.png'<br/>
+i.save()<br/>
+</p>
+<p>Les deux derni&egrave;res lignes devrait &ecirc;tre remplac&eacute;es par ceci :
+<code>i.saveAs('/home/subik/test.png')</code></p>
+
+<h3>M&eacute;thodes d&eacute;finies ici</h3>
+
+<dl>
+	<dt><strong>__init__(...)</strong></strong></dt>
+	<dd><p>x.__init__(...) initialise x; voir x.__class__.__doc__ pour la signature</p></dd>
+
+	<dt><strong>save(...)</strong></dt>
+	<dd>save() -> bool&eacute;en
+	<p>Enregistre l'image sous son nom courant 'nom'.</p></dd>
+
+	<dt><strong>saveAs(...)</strong></dt>
+	<dd>saveAs('nomFichier') -> bool&eacute;en
+	<p>Enregistre l'image sous le nouveau nom "nomFichier".</p></dd>
+</dl>
+
+<h3>Donn&eacute;es et autres attributs d&eacute;finis ici</h3>
+
+<dl>
+	<dt><strong>__new__ = &lt;m&eacute;thode int&eacute;gr&eacute;e __new__ de type objet&gt;</strong></dt>
+	<dd><p>T.__new__(S, ...) -> un nouvel objet de type S, un sous-type de T</p></dd>
+
+	<dt><strong>allTypes = &lt;attribut 'allTypes' des objets 'ImageExport'&gt;</strong></dt>
+	<dd><p>Types disponibles. Liste de cha&icirc;nes en lecture seule.</p></dd>
+
+	<dt><strong>dpi = &lt;membre 'dpi' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Cette valeur sera utilis&eacute;e pour export&eacute;e en DPI. Nombre entier en lecture/&eacute;criture.</p></dd>
+
+	<dt><strong>name = &lt;attribut 'name' des objets 'ImageExport'&gt;</strong></dt>
+	<dd><p>Nom du fichier associ&eacute; &agrave; l'image. Avec ou sans chemin. Cha&icirc;ne en lecture/&eacute;criture.</p></dd>
+
+	<dt><strong>quality = &lt;membre 'quality' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Qualit&eacute;/compression: minimum 1 (m&eacute;diocre), maximum 100 (qualit&eacute;). Nombre entier en lecture/&eacute;criture.</p></dd>
+
+	<dt><strong>scale = &lt;membre 'scale' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Redimensionnement de l'image. 100 = 100% etc. Nombre entier en lecture/&eacute;criture.</p></dd>
+
+	<dt><strong>type = &lt;attribut 'type' des objets 'ImageExport'&gt;</strong></dt>
+	<dd><p>Type bitmap. Voir la liste allTypes pour plus d'informations. Cha&icirc;ne en lecture/&eacute;criture.</p></dd>
+
+</qt>
+ 

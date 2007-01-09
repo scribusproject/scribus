@@ -63,6 +63,8 @@ public:
 class SCRIBUS_API FDialogPreview : public QLabel, public QFilePreview
 {
     Q_OBJECT
+protected:
+	QString filePath;
 public:
 	FDialogPreview(QWidget *pa);
 	~FDialogPreview() {};
@@ -122,6 +124,7 @@ public:
 private slots:
 	//! \brief Go to the document home dir.
 	void slotHome();
+public slots:
 	//! \brief Switch the filename extensions by compress checkbox state.
 	void handleCompress();
 protected:

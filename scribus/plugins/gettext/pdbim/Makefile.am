@@ -10,7 +10,7 @@ libpdbim_la_LDFLAGS = -version-info 0:0:0
 libpdbim_la_METASOURCES = AUTO
 libpdbim_la_SOURCES = pdbim.cpp
 
-EXTRA_DIST = pdbim.cpp pdbim.h  
+EXTRA_DIST = pdbim.cpp pdbim.h  CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

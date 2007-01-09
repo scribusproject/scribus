@@ -50,9 +50,51 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util.h"
 
-#include FT_INTERNAL_STREAM_H
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
+
+
+
+/// copied from Freetype's FT_Stream_ReadAt()
+FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count) 
+{
+	FT_Error  error = FT_Err_Ok;
+	FT_ULong  read_bytes;
+ 
+	if ( pos >= stream->size )
+	{
+                qDebug( "ftIOFunc: invalid i/o; pos = 0x%lx, size = 0x%lx\n",
+                                   pos, stream->size );
+               
+		return FT_Err_Invalid_Stream_Operation;
+	}
+ 
+	if ( stream->read )
+		read_bytes = stream->read( stream, pos, buffer, count );
+	else
+	{
+		read_bytes = stream->size - pos;
+		if ( read_bytes > count )
+			read_bytes = count;
+
+		memcpy( buffer, stream->base + pos, read_bytes );
+	}
+ 
+	stream->pos = pos + read_bytes;
+ 
+	if ( read_bytes < count )
+	{
+		qDebug( "ftIOFunc: invalid read; expected %lu bytes, got %lu\n",
+		        count, read_bytes );
+                
+		error = FT_Err_Invalid_Stream_Operation;
+	}
+ 
+	return error;
+}
+
+
+
 
 Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps)
 {
@@ -117,9 +159,7 @@ void Foi::RawData(QByteArray & bb)
 	{
 		FT_Stream fts = face->stream;
 		bb.resize(fts->size);
-		error = FT_Stream_Seek(fts, 0L);
-		if (!error)
-			error = FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
+		error = ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
 		if (error) 
 		{
 			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
@@ -576,7 +616,7 @@ void getFontFormat(FT_Face face, Foi::FontFormat & fmt, Foi::FontType & type)
 	
 	fmt = Foi::UNKNOWN_FORMAT;
 	type = Foi::UNKNOWN_TYPE;
-	if (FT_Stream_Seek(fts, 0L) == FONT_NO_ERROR && FT_Stream_Read(fts, reinterpret_cast<FT_Byte *>(buf), 128) == FONT_NO_ERROR) 
+	if (ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(buf), 128) == FONT_NO_ERROR) 
 	{
 		if(strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
 		{
@@ -865,6 +905,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->CharWidth[13] = 0;
 			t->CharWidth[28] = 0;
 			t->CharWidth[9] = 1;
+			if (face->num_glyphs > 512)
+				t->Subset = true;
 			t->PrivateFont = DocName;
 			//setBestEncoding(face); //AV
 			switch (face->charmap? face->charmap->encoding : -1)

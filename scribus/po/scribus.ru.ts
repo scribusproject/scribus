@@ -156,12 +156,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -308,14 +310,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1642,6 +1636,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1750,8 +1759,12 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Портирование на Windows&amp;#174;:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation>Марта</translation>
+        <source>Tango Project Icons:</source>
+        <translation>Пиктограммы из проекта Tango:</translation>
+    </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2180,7 +2193,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation>&amp;Настроить направляющие...</translation>
+        <translation>&amp;Управление направляющими...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
@@ -2220,7 +2233,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Показывать &amp;страничную сетку</translation>
+        <translation>Показывать &amp;сетку</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
@@ -2228,7 +2241,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показывать &amp;опорную сетку</translation>
+        <translation>Показывать &amp;базовые линии</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
@@ -2240,7 +2253,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>Прилипание к &amp;страничной сетке</translation>
+        <translation>Прилипание к &amp;сетке</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -2332,11 +2345,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Связаны текстовые блоки</translation>
+        <translation>Связать текстовые блоки</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Разъединены тестовые блоки</translation>
+        <translation>Разорвать связь тестовых блоков</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
@@ -2344,11 +2357,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation>Скопированы свойства объекта</translation>
+        <translation>Скопировать свойства объекта</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Текст изменён в Story Editor</translation>
+        <translation>Изменить текст в Story Editor</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
@@ -2384,7 +2397,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation>Настроить &amp;изображения</translation>
+        <translation>Управление &amp;изображениями</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
@@ -2560,7 +2573,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation>Настроить страницу...</translation>
+        <translation>Свойства страницы...</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
@@ -2712,6 +2725,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>C&amp;lear</source>
         <translation>О&amp;чистить</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Показать границы столбцов</translation>
     </message>
 </context>
 <context>
@@ -3264,7 +3281,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой</translation>
     </message>
     <message>
         <source>Number Format</source>
@@ -3328,7 +3345,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom validate script:</source>
-        <translation>Свой сценарий проверки:</translation>
+        <translation>Другой сценарий проверки:</translation>
     </message>
     <message>
         <source>Validate</source>
@@ -3372,7 +3389,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Свой сценарий для вычисления:</translation>
+        <translation>Другой сценарий для вычисления:</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -3849,6 +3866,22 @@ Please choose another.</source>
         <source>Choose a Directory</source>
         <translation>Выберите каталог</translation>
     </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Запасник (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Выберите импортируемый файл запасника</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Импортировать файл запасника...</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation>Основной</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -4070,7 +4103,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation>&amp;Эмулировать принтер на экране</translation>
+        <translation>&amp;Имитировать принтер на экране</translation>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
@@ -4193,6 +4226,14 @@ It is a reserved name for transparent color</source>
         <source>Name of the color is not unique</source>
         <translation>Это имя цвета уже используется</translation>
     </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation>Если выбрать, будет печататься на всех плашках. Цвета для приводки используются для создания пометок для принтера, таких как метки под обрез. Их использование в общих случаях при создании макетов нетипично.</translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation>Если выбрать, цвет станет плашечным, то есть при создании плашек или цветоделений будет создаваться ещё одна точка. Это чаще всего нужно, когда необходимо точно воспроизвести цвет логотипа или другого цветного объекта, либо когда невозможно использовать чернила CMYK (в случае с металлическими или флюоресцентными чернилами, к примеру).</translation>
+    </message>
 </context>
 <context>
     <name>ChTable</name>
@@ -4241,27 +4282,27 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Basic Latin</source>
-        <translation>Базовая латиница</translation>
+        <translation>Основные латинские</translation>
     </message>
     <message>
         <source>Latin-1 Supplement</source>
-        <translation>Дополнение к Latin-1</translation>
+        <translation>Дополнительные латинские</translation>
     </message>
     <message>
         <source>Latin Extended-A</source>
-        <translation>Латиница расширенная A</translation>
+        <translation>Латинские расширенные-A</translation>
     </message>
     <message>
         <source>Latin Extended-B</source>
-        <translation>Латиница расширенная B</translation>
+        <translation>Латинские расширенные-B</translation>
     </message>
     <message>
         <source>General Punctuation</source>
-        <translation>Основные знаки пунктуации</translation>
+        <translation>Общая пунктуация</translation>
     </message>
     <message>
         <source>Super- and Subscripts</source>
-        <translation>Верхний и нижний индексы</translation>
+        <translation>Степени и индексы</translation>
     </message>
     <message>
         <source>Currency Symbols</source>
@@ -4289,7 +4330,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Block Elements</source>
-        <translation>Блочные элементы</translation>
+        <translation>Элементы блоков</translation>
     </message>
     <message>
         <source>Geometric Shapes</source>
@@ -4301,7 +4342,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Dingbats</source>
-        <translation>Звёздочки</translation>
+        <translation>Пиктограммы</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
@@ -4321,31 +4362,31 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Greek Extended</source>
-        <translation>Греческий расширенный</translation>
+        <translation>Греческие расширенные</translation>
     </message>
     <message>
         <source>Cyrillic</source>
-        <translation>Кириллица</translation>
+        <translation>Кириллические</translation>
     </message>
     <message>
         <source>Cyrillic Supplement</source>
-        <translation>Дополнение к кириллице</translation>
+        <translation>Кириллические дополнительные</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation>Арабский</translation>
+        <translation>Арабские</translation>
     </message>
     <message>
         <source>Arabic Extended A</source>
-        <translation>Арабский расширенный А</translation>
+        <translation>Арабские расширенные А</translation>
     </message>
     <message>
         <source>Arabic Extended B</source>
-        <translation>Арабский расширенный B</translation>
+        <translation>Арабские расширенные B</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation>Иврит</translation>
+        <translation>Еврейские</translation>
     </message>
     <message>
         <source>&amp;Insert Code:</source>
@@ -4580,6 +4621,10 @@ It is a reserved name for transparent color</source>
         <source>New Color</source>
         <translation>Новый цвет</translation>
     </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>Если управление цветом включено, на цвете может появиться треугольник - это означает, что цвет не попадает в цветовой охват при текущем профиле для принтера. Таким образом, этот цвет может быть напечатан не так, как он выглядит на экране монитора. Плашечные цвета для приводки отображаются красным кружком. Цвета для приводки содержат метку рядом с цветом. Подробности о предупреждениях касательно цветового охвата изложены в разделе «Управление цветом» документации.</translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -4796,7 +4841,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Можно эмулировать различные дефекты зрения. Выберите подходящий из списка.</translation>
+        <translation>Можно имитировать различные дефекты зрения. Выберите подходящий из списка.</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
@@ -4870,7 +4915,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Одиночные страницы</translation>
+        <translation>Одиночная страница</translation>
     </message>
     <message>
         <source>Double Sided</source>
@@ -4878,11 +4923,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3-частная «гармошка»</translation>
+        <translation>Две вальцовки</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4-частная «гармошка»</translation>
+        <translation>Три вальцовки</translation>
     </message>
     <message>
         <source>Left Page</source>
@@ -4907,12 +4952,104 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>None</source>
         <comment>color name</comment>
         <translation>Никакого</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Обычная</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation>Обычная левая</translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation>Обычная средняя</translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation>Обычная правая</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Понедельник</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Вторник</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Среда</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Четверг</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Пятница</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Суббота</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Воскресенье</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>Январь</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation>Февраль</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation>Март</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>Апрель</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>Май</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation>Июнь</translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation>Июль</translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation>Август</translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation>Сентябрь</translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation>Октябрь</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation>Ноябрь</translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation>Декабрь</translation>
     </message>
 </context>
 <context>
@@ -5126,8 +5263,8 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Перемещается в каталог с документами.
-Это можно изменить через диалог общих настроек.</translation>
+        <translation type="unfinished">Перемещается в каталог с документами.
+Это можно изменить через диалог общих параметров.</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
@@ -5354,7 +5491,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Человек или организация, внесшие вклад в содержимое этого документа</translation>
+        <translation>Человек или организация, внёсшие вклад в содержимое этого документа</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
@@ -5628,7 +5765,7 @@ This can be set in the Preferences.</source>
     <name>Druck</name>
     <message>
         <source>Setup Printer</source>
-        <translation>Настройка принтера</translation>
+        <translation>Параметры принтера</translation>
     </message>
     <message>
         <source>File</source>
@@ -5816,11 +5953,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>Напрямую указать размер носителя в PostScript-файле. Не рекомендуется использовать эту функция, пока этого не потребует принтер.</translation>
+        <translation>Напрямую указать размер носителя в PostScript-файле. Не рекомендуется использовать эту функцию, пока этого не потребует принтер.</translation>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
-        <translation>Не удалось получить настройки принтера</translation>
+        <translation>Не удалось получить параметры принтера</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
@@ -5989,8 +6126,12 @@ failed!</source>
         <translation>Смещение символов с базовой линии</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation>Щёлкните для выбора межстрочного режима</translation>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Авто</translation>
     </message>
 </context>
 <context>
@@ -6458,7 +6599,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Additional Paths</source>
-        <translation>Дополнительные пути</translation>
+        <translation>Дополнительное расположение</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -6482,7 +6623,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
-        <translation>Дополнительные &amp;пути</translation>
+        <translation>Дополнительное рас&amp;положение</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -6531,7 +6672,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Пути к шрифтам могут быть установлены только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающимся через меню Правка -&gt; Настроить..., укажите путь к шрифтам.</translation>
+        <translation type="obsolete">Расположение шрифтов может быть установлено только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающемся через меню «Файл -&gt; Настроить Scribus...», укажите расположение шрифтов.</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6700,7 +6845,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Постоянно производить такую замену шрифтов в будущем. При желании это можно отключить в настройке шрифтов диалога настройки Scribus.</translation>
+        <translation>Постоянно производить такую замену шрифтов в будущем. При желании это можно отключить в параметрах шрифтов диалога параметров Scribus.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -6726,7 +6871,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Настройка направляющих</translation>
+        <translation>Управление направляющими</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
@@ -6812,7 +6957,7 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
         <translation>Установить направляющие в документе. 
-Диалог их настройки по-прежнему открыт, 
+Диалог управления ими по-прежнему открыт, 
 но изменения применяются сразу</translation>
     </message>
     <message>
@@ -6847,7 +6992,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation>Содержание</translation>
+        <translation>Содержимое</translation>
     </message>
     <message>
         <source>Link</source>
@@ -7043,7 +7188,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
-        <translation>Встроенные пути:</translation>
+        <translation>Встроенные контуры:</translation>
     </message>
     <message>
         <source>Has Layers:</source>
@@ -7159,7 +7304,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -7348,7 +7493,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Файлы с настройками клавиатуры (*.ksxml)</translation>
+        <translation>Файлы с параметрыми клавиатуры (*.ksxml)</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
@@ -7464,10 +7609,6 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%</source>
         <translation>%</translation>
     </message>
@@ -7573,7 +7714,7 @@ converting their vector data into Scribus objects.</source>
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation>Настройка свойств страницы</translation>
+        <translation>Свойства страницы</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -7585,7 +7726,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -7613,7 +7754,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Направляющие полей</translation>
+        <translation>Поля</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -7624,19 +7765,19 @@ converting their vector data into Scribus objects.</source>
     <name>MarginWidget</name>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>С&amp;низу:</translation>
+        <translation>Н&amp;ижнее:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>С&amp;верху:</translation>
+        <translation>В&amp;ерхнее:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>С&amp;права:</translation>
+        <translation>&amp;Правое:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>С&amp;лева:</translation>
+        <translation>&amp;Левое:</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
@@ -7648,11 +7789,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;Изнутри:</translation>
+        <translation>&amp;Внутреннее:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
-        <translation>Снару&amp;жи:</translation>
+        <translation>&amp;Наружное:</translation>
     </message>
     <message>
         <source>Preset Layouts:</source>
@@ -7664,7 +7805,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
-        <translation>Использовать новые настройки полей во всех страницах документа</translation>
+        <translation>Использовать новые параметры полей во всех страницах документа</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
@@ -7680,7 +7821,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Импортировать настройки полей из настроенных принтеров.</translation>
+        <translation>Импортировать параметры полей из настроенных принтеров.</translation>
     </message>
 </context>
 <context>
@@ -7748,6 +7889,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>New Master Page %1</source>
         <translation>Новая мастер-страница %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation>Невозможно переименовать мастер-страницу</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation>Не разрешается переименовывать страницу «Обычная».</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation>Переименовка мастер-страницы</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation>Новое имя:</translation>
     </message>
 </context>
 <context>
@@ -8185,7 +8342,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>Изменить настройки левой или конечной точек</translation>
+        <translation>Изменить параметры левой или конечной точек</translation>
     </message>
     <message>
         <source>Pattern of line</source>
@@ -8209,11 +8366,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
-        <translation>Выбрать очертание рамки...</translation>
+        <translation>Выбрать очертание блока...</translation>
     </message>
     <message>
         <source>Edit shape of the frame...</source>
-        <translation>Изменить очертание рамки...</translation>
+        <translation>Изменить очертание блока...</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
@@ -8221,7 +8378,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Количество столбцов в текстовой рамке</translation>
+        <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
         <source>Distance between columns</source>
@@ -8229,35 +8386,35 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
-        <translation>Расстояние между текстом и верхом рамки</translation>
+        <translation>Расстояние между текстом и верхом блока</translation>
     </message>
     <message>
         <source>Distance of text from bottom of frame</source>
-        <translation>Расстояние между текстом и низом рамки</translation>
+        <translation>Расстояние между текстом и низом блока</translation>
     </message>
     <message>
         <source>Distance of text from left of frame</source>
-        <translation>Расстояние между текстом и левой стороной рамки</translation>
+        <translation>Расстояние между текстом и левой стороной блока</translation>
     </message>
     <message>
         <source>Distance of text from right of frame</source>
-        <translation>Расстояние между текстом и правой стороной рамки</translation>
+        <translation>Расстояние между текстом и правой стороной блока</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Изменить табуляторы текстовой рамки...</translation>
+        <translation>Изменить табуляторы текстового блока...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation>Разрешить изображению иметь отличный от рамки размер</translation>
+        <translation>Разрешить изображению иметь отличный от блока размер</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation>Горизонтальное смещение изображения относительно рамки</translation>
+        <translation>Горизонтальное смещение изображения относительно блока</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation>Вертикальное смещение изображения относительно рамки</translation>
+        <translation>Вертикальное смещение изображения относительно блока</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
@@ -8273,11 +8430,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation>Уместить изображение в рамке</translation>
+        <translation>Уместить изображение в блоке</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation>Использовать пропорции изображения вместо пропорций рамки</translation>
+        <translation>Использовать пропорции изображения вместо пропорций блока</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -8299,11 +8456,6 @@ converting their vector data into Scribus objects.</source>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Отображает уровень объекта  относительно других.
 Ноль обозначает, что объект находится в самом низу.</translation>
-    </message>
-    <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation>Включить обтекание текста вокруг 
-объектов более высоких уровней</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -8397,7 +8549,7 @@ Corners:</source>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation>Текст о&amp;бтекает рамку</translation>
+        <translation>Текст о&amp;бтекает блок</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
@@ -8429,7 +8581,7 @@ Corners:</source>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>&amp;Масштабировать до размера рамки</translation>
+        <translation>&amp;Масштабировать до размера блока</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
@@ -8456,19 +8608,9 @@ Corners:</source>
         <translation>&amp;Окончания:</translation>
     </message>
     <message>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Использовать для расчёта обтекания 
-текста площадку вместо контура рамки</translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Использовать для расчёта обтекания текста вторую 
-линию, исходно основанную на контуре рамки</translation>
-    </message>
-    <message>
         <source>Hyphenation language of frame</source>
         <translation>Язык для расстановки 
-переносов в рамке</translation>
+переносов в блоке</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
@@ -8535,14 +8677,6 @@ Corners:</source>
         <translation>Имя &quot;%1&quot; уже использовано.&lt;br/&gt;Выберите другое.</translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Цвет штриха текста. Возможно только при включённом эффекте «Контур».</translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Цвет текста. Возможно только при включённом эффекте «Контур».</translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation>Правило заполнения</translation>
     </message>
@@ -8555,8 +8689,32 @@ Corners:</source>
         <translation>Не ноль</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation>Нажмите для выбора межстрочного режима</translation>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Цвет штриха текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Цвет текста. Если включённ эффект «Контур», то это будет цвет заливки. Если включён эффект отбрасываемой тени, то это будет цвет текста.</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation>Включить обтекание текста вокруг объектов более высоких уровней. Есть два варианта, выбираемых ниже.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Использовать площадку, которая всегда прямоугольна. </translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Использовать очертания объекта. </translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Авто</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Щёлкните и держите нажатой для выбора межстрочного режима.</translation>
     </message>
 </context>
 <context>
@@ -8607,7 +8765,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -8632,6 +8790,10 @@ Corners:</source>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Имя &quot;%1&quot; уже использовано.&lt;br/&gt;Выберите другое.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8687,7 +8849,7 @@ Corners:</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Направляющие полей</translation>
+        <translation>Поля</translation>
     </message>
     <message>
         <source>Options</source>
@@ -8705,7 +8867,7 @@ Corners:</source>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Ширина страниц документа, настраиваемая в том случае, если 
-выбраны пользовательские настройки размера страницы</translation>
+выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
@@ -8717,13 +8879,13 @@ Corners:</source>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation>Автоматически создавать текстовые рамки 
+        <translation>Автоматически создавать текстовые блоки 
 при добавлении новых страниц</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Количество столбцов в автоматически 
-создаваемых текстовых рамках</translation>
+создаваемых текстовых блоках</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
@@ -8997,6 +9159,10 @@ Corners:</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -9030,7 +9196,7 @@ Corners:</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Сделать эти настройки исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
+        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9142,7 +9308,7 @@ Corners:</source>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Включить режим эмуляции красок CMYK вместо палитры RGB</translation>
+        <translation>Включить режим имитации красок CMYK вместо палитры RGB</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
@@ -9159,14 +9325,6 @@ Corners:</source>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Включить/отключить красочную плиту K (Black)</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>Сгладить &amp;текст</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Сгладить &amp;графику</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -9225,14 +9383,6 @@ Corners:</source>
         <translation>Напечатать...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Включить более качественное отображение текста при просмотре ценой замедления прорисовки. Работает только со шрифтами Type1</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Включить более качественное отображение шрифтов TrueType, Open Type Fonts, EPS, PDF и векторной графики при просмотре ценой замедления прорисовки</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на черный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной яркости изображения.</translation>
     </message>
@@ -9247,6 +9397,14 @@ Corners:</source>
     <message>
         <source>File</source>
         <translation>Файл</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Включить с&amp;глаживание</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Включить более качественное отображение шрифтов Type 1, TrueType, Open Type, EPS, PDF и векторной графики при просмотре ценой замедления прорисовки</translation>
     </message>
 </context>
 <context>
@@ -9386,11 +9544,15 @@ Corners:</source>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Макет страницы</translation>
+        <translation type="obsolete">Макет</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>Первая страница:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9601,11 +9763,11 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Настройка изображений</translation>
+        <translation>Управление изображениями</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
-        <translation>Scribus - Поиск изображений</translation>
+        <translation>Scribus — Поиск изображений</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
@@ -9776,7 +9938,7 @@ Corners:</source>
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation>Настройки</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <source>General</source>
@@ -9808,7 +9970,7 @@ Corners:</source>
     </message>
     <message>
         <source>Paths</source>
-        <translation>Пути</translation>
+        <translation>Расположение</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -9816,7 +9978,7 @@ Corners:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -9889,12 +10051,12 @@ Corners:</source>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Ширина страниц документа, настраиваемая в том случае, если 
-выбраны пользовательские настройки размера страницы</translation>
+выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Высота страниц документа, настраиваемая в том случае, если 
-выбраны пользовательские настройки размера страницы</translation>
+выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
@@ -9922,7 +10084,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation>&amp;Тема:</translation>
+        <translation>&amp;Стиль оформления:</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
@@ -9930,7 +10092,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation>Сколько &amp;недавних документов помнить:</translation>
+        <translation>Помнить &amp;недавних документов:</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
@@ -10034,8 +10196,7 @@ Corners:</source>
     </message>
     <message>
         <source>Action history length</source>
-        <translation>Сколько действий
-запоминать</translation>
+        <translation>Помнить действий:</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -10219,7 +10380,7 @@ Corners:</source>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы настройки брались из системного языкового окружения. Системные настройки можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
+        <translation>Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
@@ -10231,7 +10392,7 @@ Corners:</source>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Выберите стиль отображения графических элементов интерфейса программы. Scribus использует темы KDE и Qt, если таковые доступны.</translation>
+        <translation>Выберите стиль оформления графических элементов интерфейса программы. Scribus использует стили KDE и Qt, если таковые доступны.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
@@ -10239,7 +10400,7 @@ Corners:</source>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Стандартный каталог для поиска ICC-профилей. Пока открыт хотя бы документ, изменить эту настройку невозможно. По умолчанию Scribus ищет профили в соответствующих системных каталогах Mac OS X и Windows. В Linux и Unix такими каталогами являются $home/.color/icc,/usr/share/color/icc и /usr/local/share/color/icc </translation>
+        <translation>Стандартный каталог для поиска ICC-профилей. Пока открыт хотя бы документ, изменить этот параметр невозможно. По умолчанию Scribus ищет профили в соответствующих системных каталогах Mac OS X и Windows. В Linux и Unix такими каталогами являются $home/.color/icc,/usr/share/color/icc и /usr/local/share/color/icc </translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
@@ -10254,8 +10415,8 @@ Corners:</source>
         <translation>Местоположение исполняемого файла графического редактора. Если вы используете GIMP, рекомендуется использовать &apos;gimp-remote&apos; для открытия файлов в той же сессии GIMP.</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Путь к интерпретатору GhostScript в системе.</translation>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Добавьте путь к интерпретатору GhostScript в системе. Пользователям версии для Windows стоит помнить, что использоваться должен файл gswin32c.exe,а никак не gswin32.exe. В противном случае Scribus «повиснет» при запуске.</translation>
     </message>
 </context>
 <context>
@@ -10270,7 +10431,7 @@ Corners:</source>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation>Сохранить настройки</translation>
+        <translation>Сохранить параметры</translation>
     </message>
 </context>
 <context>
@@ -10281,13 +10442,13 @@ Corners:</source>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation>Перенести прежние настройки Scribus?</translation>
+        <translation>Перенести прежние параметры Scribus?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation>Вы хотите использовать настройки 
-от предыдущей версии Scribus?</translation>
+        <translation>Вы хотите использовать параметры 
+предыдущей версии Scribus?</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -10295,19 +10456,19 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
-        <translation>Не удалось открыть файл настроек &quot;%1&quot; для записи: %2</translation>
+        <translation>Не удалось открыть файл параметров &quot;%1&quot; для записи: %2</translation>
     </message>
     <message>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
-        <translation>Запись в файл настроек &quot;%1&quot; не удалась: QIODevice status code %2</translation>
+        <translation>Запись в файл параметров &quot;%1&quot; не удалась: QIODevice status code %2</translation>
     </message>
     <message>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
-        <translation>Не удалось открыть файл с настройками &quot;%1&quot;: %2</translation>
+        <translation>Не удалось открыть файл с параметрами &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>Не удалось прочитать XML-файл с настройками от &quot;%1&quot;: %2 в строке %3, столбце %4</translation>
+        <translation>Не удалось прочитать XML-файл с параметрами &quot;%1&quot;: %2 в строке %3, столбце %4</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
@@ -10323,20 +10484,20 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation>Произошла ошибка при записи настроек</translation>
+        <translation>Произошла ошибка при записи параметров</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation>Не удалось записать настройки Scribus:&lt;br&gt;%1&lt;br&gt;Проверьте права на запись каталога и файла настроек и, а также доступное свободное место на диске.</translation>
+        <translation>Не удалось записать параметры Scribus:&lt;br&gt;%1&lt;br&gt;Проверьте права на запись каталога и файла параметров и, а также доступное свободное место на диске.</translation>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation>Произошла ошибка при загрузке настроек</translation>
+        <translation>Произошла ошибка при загрузке параметров</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation>Не удалось загрузить настройки Scribus:&lt;br&gt;%1&lt;br&gt;Будут использованы настройки по умолчанию.</translation>
+        <translation>Не удалось загрузить параметры Scribus:&lt;br&gt;%1&lt;br&gt;Будут использованы исходные параметры.</translation>
     </message>
 </context>
 <context>
@@ -10363,7 +10524,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Здесь можно выбрать готовые настройки макета. «Ничего» - оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Слева/Изнутри.</translation>
+        <translation>Здесь можно выбрать готовые параметры макета. «Ничего» — оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Левое/Внутреннее.</translation>
     </message>
     <message>
         <source>None</source>
@@ -11042,7 +11203,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Выполнить сненарий...</translation>
+        <translation>&amp;Выполнить сценарий...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
@@ -11119,10 +11280,6 @@ External Links
     <message>
         <source>Bulgarian</source>
         <translation>Болгарский</translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation>Португальский (Бразилия)</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -11281,7 +11438,7 @@ External Links
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation>Цель не является рамкой изображения.</translation>
+        <translation>Цель не является блоком изображения.</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
@@ -11291,17 +11448,17 @@ External Links
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить кегль шрифта из нетекстовой рамки.</translation>
+        <translation>Невозможно получить кегль шрифта из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно шрифт из нетекстовой рамки.</translation>
+        <translation>Невозможно шрифт из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить текстовый кегль из нетекстовой рамки.</translation>
+        <translation>Невозможно получить текстовый кегль из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
@@ -11321,7 +11478,7 @@ External Links
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно получить текст из нетекстовой рамки.</translation>
+        <translation type="unfinished">Невозможно получить текст из нетекстового блока.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
@@ -11331,7 +11488,7 @@ External Links
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation>Невозможно вставить текст в нетекстовую рамку.</translation>
+        <translation>Невозможно вставить текст в нетекстовый блок.</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -11350,17 +11507,17 @@ External Links
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден - ошибка python</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Свои настройки:</translation>
+        <translation>Другие параметры:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Обычные настройки:</translation>
+        <translation>Обычные параметры: </translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
@@ -11412,7 +11569,7 @@ External Links
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось экспортировать изображение</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
@@ -11575,11 +11732,7 @@ External Links
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Шрифт %1 (найден при помощи fontconfig) поломан и не будет использован</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -11847,7 +12000,7 @@ External Links
     </message>
     <message>
         <source>Verification of settings failed: %1</source>
-        <translation>Проверка настроек не удалась: %1</translation>
+        <translation>Проверка параметров не удалась: %1</translation>
     </message>
     <message>
         <source>Could not open input file %1</source>
@@ -11855,7 +12008,7 @@ External Links
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation>Не удалось прочитать XML-файл с настройками:</translation>
+        <translation>Не удалось прочитать XML-файл с параметрами:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
@@ -11864,7 +12017,7 @@ External Links
     </message>
     <message>
         <source>Unable to read settings XML: %1</source>
-        <translation>Не удалось прочитать XML-файл с настройками: %1</translation>
+        <translation>Не удалось прочитать XML-файл с параметрами: %1</translation>
     </message>
     <message>
         <source>null root node</source>
@@ -12280,11 +12433,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Не удалось открыть файл %1</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation>Этот файл не распознаётся как данные в формате PDB. Если ошибки с форматом нет, сообщите о возникшей сложности разработчикам Scribus.</translation>
-    </message>
-    <message>
         <source>Word Documents</source>
         <translation>Документы MS Word</translation>
     </message>
@@ -12295,6 +12443,48 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Japanese</source>
         <translation>Японский</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>Арабский</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Эстонский</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>Исландский</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 может быть испорчен : отсутствуют тэги разрешения</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>Этот файл не похож на документ PDB. Если вы уверены, что это ошибка Scribus, сообщите о ней разработчикам.</translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation>Бретонский</translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation>Английский (США)</translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation>Английский (Австралия)</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation>%1 может быть испорчен : тэги разрешения отсутствуют или неверны</translation>
     </message>
 </context>
 <context>
@@ -12446,7 +12636,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой...</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -12622,7 +12812,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation>Использовать эти настройки во всех страницах</translation>
+        <translation>Использовать эти параметры во всех страницах</translation>
     </message>
     <message>
         <source>Sections</source>
@@ -12630,7 +12820,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Использовать новые настройки во всех страницах текущего документа</translation>
+        <translation>Использовать новые параметры для всех страницах текущего документа</translation>
     </message>
 </context>
 <context>
@@ -12723,7 +12913,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBAlign</name>
     <message>
         <source>Style Settings</source>
-        <translation>Настройки стиля</translation>
+        <translation>Параметры стиля</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
@@ -12734,7 +12924,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorF</name>
     <message>
         <source>Fill Color Settings</source>
-        <translation>Настройки заливки цветом</translation>
+        <translation>Параметры заливки цветом</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -12749,7 +12939,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorS</name>
     <message>
         <source>Stroke Color Settings</source>
-        <translation>Настройки цвета контура</translation>
+        <translation>Параметры цвета контура</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -12764,7 +12954,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBFont</name>
     <message>
         <source>Font Settings</source>
-        <translation>Настройки шрифта</translation>
+        <translation>Параметры шрифта</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12795,7 +12985,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBStyle</name>
     <message>
         <source>Character Settings</source>
-        <translation>Настройки символа</translation>
+        <translation>Параметры символа</translation>
     </message>
     <message>
         <source> %</source>
@@ -12861,7 +13051,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation>В &amp;выбранные рамки</translation>
+        <translation>В &amp;выбранные блоки</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
@@ -12876,7 +13066,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation>Обработаны только выбранные рамки</translation>
+        <translation>Обработаны только выбранные блоки.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
@@ -12893,11 +13083,11 @@ converting their vector data into Scribus objects.</source>
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation>Пользовательские настройки</translation>
+        <translation>Пользовательские параметры</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation>Общесистемные настройки</translation>
+        <translation>Общесистемные параметры</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -12909,15 +13099,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Save user configuration</source>
-        <translation>Сохранить пользовательские настройки</translation>
+        <translation>Сохранить пользовательские параметры</translation>
     </message>
     <message>
         <source>Reload system wide configuration and remove user defined one</source>
-        <translation>Снова загрузить общесистемные настройки и удалить пользовательские</translation>
+        <translation>Снова загрузить общесистемные параметры и удалить пользовательские</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Изменить пользовательские настройки. Если их сохранить, они будут использоваться вместо общесистемных</translation>
+        <translation>Изменить пользовательские параметры. Если их сохранить, они будут использоваться вместо общесистемных</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -12925,7 +13115,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation>Пользовательские настройки уже существуют. Вы точно хотите их перезаписать?</translation>
+        <translation>Пользовательские параметры уже существуют. Вы точно хотите их перезаписать?</translation>
     </message>
     <message>
         <source>Cannot write file %1.</source>
@@ -12933,11 +13123,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>User settings saved</source>
-        <translation>Пользовательские настройки сохранены</translation>
+        <translation>Пользовательские параметры сохранены</translation>
     </message>
     <message>
         <source>System wide configuration reloaded</source>
-        <translation>Общесистемные настройки перезагружены</translation>
+        <translation>Общесистемные параметры перезагружены</translation>
     </message>
     <message>
         <source>Cannot open file %1</source>
@@ -13070,6 +13260,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation>Произошла ошибка при открытии ICC-профилей, управление цветом не включено.</translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -13083,7 +13277,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Читаются настройки</translation>
+        <translation>Читаются параметры программы</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -13183,7 +13377,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Настройки предпросмотра</translation>
+        <translation>Параметры предпросмотра</translation>
     </message>
     <message>
         <source>Level</source>
@@ -13481,7 +13675,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation>Настройки предпрос&amp;мотра</translation>
+        <translation>Параметры предпрос&amp;мотра</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -13529,7 +13723,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation>Содержание</translation>
+        <translation>Содержимое</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>&amp;Лигатура</translation>
     </message>
 </context>
 <context>
@@ -13584,15 +13782,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
-        <translation>Использовать имя файла как путь к указанным пользователем настройкам</translation>
+        <translation>Использовать имя файла как путь к указанным пользователем параметрам</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Установлены следующие переводы интерфейсы Scribus:</translation>
+        <translation>Установлены переводы интерфейса Scribus на следующие языки:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Для «преодоления» системных настроек языкового окружения выберите:</translation>
+        <translation>Для аннуляции системных параметров языкового окружения выберите:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
@@ -13621,6 +13819,10 @@ Vertical shift: %3</source>
     <message>
         <source>Issues</source>
         <translation>Проблемы</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Показать окно консоли</translation>
     </message>
 </context>
 <context>
@@ -13671,7 +13873,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Текстовая рамка</translation>
+        <translation>Текстовый блок</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -13727,7 +13929,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Настройки предпросмотра</translation>
+        <translation>Параметры предпросмотра</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -13771,7 +13973,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation>Содержание</translation>
+        <translation>Содержимое</translation>
     </message>
 </context>
 <context>
@@ -13849,7 +14051,7 @@ Vertical shift: %3</source>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation>Настройки сценариста</translation>
+        <translation>Параметры сценариста</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
@@ -14097,6 +14299,10 @@ Vertical shift: %3</source>
         <source>Short Words</source>
         <translation>Короткие слова</translation>
     </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation>Специальное расширение для добавления неразрывных пробелов до или после коротких слов. Работает для следующих языков: </translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -14215,7 +14421,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation>&amp;Восстановить текст из рамки</translation>
+        <translation>&amp;Восстановить текст из блока</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
@@ -14231,11 +14437,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation>&amp;Обновить текст в рамке и выйти</translation>
+        <translation>&amp;Обновить текст в блоке и выйти</translation>
     </message>
     <message>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation>Выйти &amp;без обновления текста в рамке</translation>
+        <translation>Выйти &amp;без обновления текста в блоке</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -14271,7 +14477,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
-        <translation>&amp;Обновить текстовую рамку</translation>
+        <translation>&amp;Обновить текстовый блок</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
@@ -14291,7 +14497,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation>&amp;Настройки</translation>
+        <translation type="unfinished">&amp;Параметры</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -14371,10 +14577,6 @@ Vertical shift: %3</source>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation>Подчёркивание</translation>
-    </message>
-    <message>
         <source>Small Caps</source>
         <translation>Капитель</translation>
     </message>
@@ -14387,25 +14589,28 @@ Vertical shift: %3</source>
         <translation>Верхний индекс</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Вычеркнутый текст</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation>Подчеркнуть только слова</translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation>Все капителью</translation>
     </message>
     <message>
-        <source>Shadow</source>
-        <translation>Тень</translation>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Подчёркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation>Контур</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Подчёркнуты только слова. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Вычеркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Контур. Подержите кнопку нажатой для указания толщины штриха контура.</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Оттенённый текст. Подержите кнопку нажатой для указания смещения.</translation>
     </message>
 </context>
 <context>
@@ -14448,7 +14653,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Сделать эти настройки исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
+        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -14537,10 +14742,6 @@ Vertical shift: %3</source>
         <source>Destination Frame:</source>
         <translation>Блок назначения:</translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation>&amp;Индекс</translation>
-    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
@@ -14608,10 +14809,6 @@ Vertical shift: %3</source>
         <source>Destination Frame:</source>
         <translation>Блок назначения:</translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation>&amp;Индекс</translation>
-    </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
@@ -14676,7 +14873,7 @@ Vertical shift: %3</source>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation>Основные настройки</translation>
+        <translation>Основные параметры</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
@@ -14700,7 +14897,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation>Радиус захвата:</translation>
+        <translation>Чувствительность захвата:</translation>
     </message>
     <message>
         <source> px</source>
@@ -14716,7 +14913,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation>Показывать страничную сетку</translation>
+        <translation>Показывать сетку</translation>
     </message>
     <message>
         <source>Major Grid</source>
@@ -14736,15 +14933,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Показывать опорную сетку</translation>
+        <translation>Показывать базовые линии</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>&amp;Сетка линии шрифта:</translation>
+        <translation>&amp;Базовые линии:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>С&amp;мещение сетки линии шрифта:</translation>
+        <translation>С&amp;мещение базовых линий:</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
@@ -14796,11 +14993,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation>Настройки опорной сетки</translation>
+        <translation>Параметры базовых линий</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation>Цвет сетки основной линии</translation>
+        <translation>Цвет базовых линий</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
@@ -14823,7 +15020,7 @@ Vertical shift: %3</source>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
-        <translation>Настройка табуляторов</translation>
+        <translation>Параметры табуляторов</translation>
     </message>
 </context>
 <context>
@@ -14870,7 +15067,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Сохранить св&amp;язанные текст. рамки как PDF-Articles</translation>
+        <translation>Сохранить св&amp;язанные текст. блоки как PDF-Articles</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
@@ -14918,11 +15115,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Встроить &amp;все шрифтовые файлы</translation>
+        <translation type="obsolete">Встроить &amp;все шрифтовые файлы</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>&amp;Вычесть неиспользуемые знаки из всех шрифтовых файлов</translation>
+        <translation type="obsolete">&amp;Вычесть неиспользуемые знаки из всех шрифтовых файлов</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -14946,7 +15143,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Из каких шрифтовых файлов вычесть знаки:</translation>
+        <translation type="obsolete">Из каких шрифтовых файлов вычесть знаки:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -15088,7 +15285,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
@@ -15120,7 +15317,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>Просмотра с монитора / Веб (RGB)</translation>
+        <translation>Просмотр с монитора / Веб (RGB)</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -15132,11 +15329,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;Свои настройки цветопередачи</translation>
+        <translation>&amp;Свои параметры цветопередачи</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation>Настройки цветопередачи</translation>
+        <translation>Параметры цветопередачи</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
@@ -15360,10 +15557,6 @@ Vertical shift: %3</source>
         <translation>Качество после сжат&amp;ия:</translation>
     </message>
     <message>
-        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Качество после сжатия: Наихудшее (25%), Низкое (50%), Среднее (75%), Высокое (85%), Максимальное (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла - размер и качество всегда в первую очередь зависят от характеристик исходных изображений.</translation>
-    </message>
-    <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Разрешить копирование текста и/или графики. Если отключено, текст и графику копировать нельзя.</translation>
     </message>
@@ -15389,7 +15582,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Встроить шрифты в файл PDF, чтобы документ везде выглядел так, как он выглядит на вашем компьютере.</translation>
+        <translation type="obsolete">Встроить шрифты в файл PDF, чтобы документ везде выглядел так, как он выглядит на вашем компьютере.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -15429,7 +15622,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Это отключенные по умолчанию расширенные настройки. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
+        <translation>Это отключенные по умолчанию расширенные параметры. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
@@ -15437,11 +15630,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation>Настройки отображения документа</translation>
+        <translation>Параметры отображения документа</translation>
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Способ показа страниц</translation>
+        <translation type="obsolete">Способ показа страниц</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -15461,11 +15654,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Visual Appearance</source>
-        <translation>Прочие настройки</translation>
+        <translation>Прочие параметры</translation>
     </message>
     <message>
         <source>Use Viewers Defaults</source>
-        <translation>Использовать настройки просмотрщика</translation>
+        <translation>Использовать параметры просмотрщика</translation>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
@@ -15541,10 +15734,6 @@ when PDF document is opened:</source>
         <translation>Слои в вашем документе экспортируются в PDF только если выбран формат PDF 1.5.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Способ сжатия изображений. По умолчанию Scribus сам выбирает подходящий. ZIP сжимает без потерь в качестве изображения. JPEG больше подходит для создания небольших файлов PDF с большим количеством изображений внутри, но удаляет полезную информацию. В типовых ситуациях предоставьте Scribus самостоятельно выбрать подходящий способ. Всё это относится только к JPEG</translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Пересэмплировать все растровые изображения до указанного значения DPI. Отключите, если хотите, чтобы изображения сохранили исходное разрешение. При пересэмплировании может увеличиться потребление памяти и замедлиться экспорт.</translation>
     </message>
@@ -15559,6 +15748,42 @@ when PDF document is opened:</source>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Как долго отображается страница. Значение 0 приравнивается к отключению автоматического перелистывания.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation>Способ сжатия растровых изображений. По умолчанию Scribus сам выбирает подходящий. ZIP сжимает без потерь в качестве изображения. JPEG больше подходит для создания небольших файлов PDF с большим количеством фотографий внутри, но удаляет из них полезную информацию. В типовых ситуациях предоставьте Scribus самостоятельно выбрать подходящий способ.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+        <translation type="obsolete">Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15683,11 +15908,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>Свойства текстовой рамки</translation>
+        <translation>Свойства текстового блока</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Свойства рамки изображения</translation>
+        <translation>Свойства блока изображения</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -15719,11 +15944,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Количество столбцов в текстовой рамке</translation>
+        <translation>Количество столбцов в текстовом блоке</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>Расстояние между столбцами в текстовой рамке</translation>
+        <translation>Расстояние между столбцами в текстовом блоке</translation>
     </message>
     <message>
         <source>Sample of your font</source>
@@ -15731,7 +15956,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Рамки позволяют произвольно масштабировать изображения</translation>
+        <translation>Блоки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -15747,7 +15972,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Изображения в рамке масштабируются под её размер</translation>
+        <translation>Изображения в блоке масштабируются под его размер</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
@@ -15840,11 +16065,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>Свой:</translation>
+        <translation>Другой:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>Свой: </translation>
+        <translation>Другой: </translation>
     </message>
     <message>
         <source>Text Color:</source>
@@ -15872,7 +16097,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой</translation>
     </message>
 </context>
 <context>
@@ -15915,7 +16140,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Смещение выше линии опорной сетки</translation>
+        <translation>Смещение выше базовой линии</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -15923,7 +16148,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Смещение ниже линии опорной сетки обычного шрифта</translation>
+        <translation>Смещение ниже базовой линии</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -15967,7 +16192,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Смещение ниже линии опорной сетки обычного шрифта, выраженное в процентном соотношении нисхождения шрифтов</translation>
+        <translation>Смещение ниже базовой линии, выраженное в процентном соотношении нисхождения шрифтов</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
@@ -15975,7 +16200,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Смещение выше линии опорной сетки обычного шрифта, выраженное в процентном соотношении восхождения шрифтов</translation>
+        <translation>Смещение выше базовой линии, выраженное в процентном соотношении восхождения шрифтов</translation>
     </message>
 </context>
 <context>
@@ -16030,11 +16255,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>Свой:</translation>
+        <translation>Другой:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>Свой:</translation>
+        <translation>Другой: </translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16050,7 +16275,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Свой</translation>
+        <translation>Другой</translation>
     </message>
 </context>
 <context>
@@ -16287,11 +16512,11 @@ to %2</source>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation>Применён свой стиль линии</translation>
+        <translation>Применён другой стиль линии</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
-        <translation>Не использовать свой стиль линии</translation>
+        <translation>Не использовать другой стиль линии</translation>
     </message>
     <message>
         <source>Set start arrow</source>
@@ -16561,6 +16786,18 @@ X: %4, Y: %5</translation>
         <source>Multiple duplicate</source>
         <translation>Многократное дублирование</translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation>Контрольная точка — в исходное состояние</translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation>Контрольные точки — в исходное состояние</translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation>Изменены эффекты изображения</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -16591,6 +16828,55 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation>Предлпринимается попытка получить файл обновления версии Scribus</translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation>(Никакие данные с вашего компьютера не будут передаваться наружу)</translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation>Кончилось время, отведённое на попытку получить файл обновления.</translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation>Ошибка при попытке получить файл обновления: %1</translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation>Файл не найден на сервере</translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation>Не удалось получить файл версии: %1
+Ошибкаr:%2 строка: %3, столбец: %4</translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation>Произошла ошибка при получении файла обновления Scribus. Проверьте соединение с Интернетом.</translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation>Для Scribus %1 обновлений нет</translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation>Доступно одно или более обновлений для вашей версии Scribus (%1):</translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation>В этом списке могут быть нестабильные версии программы.</translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation>Посетите www.scribus.net, чтобы узнать подробности.</translation>
     </message>
 </context>
 <context>
@@ -16749,6 +17035,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Import Text Only</source>
         <translation>Импортировать только текст</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Открыть</translation>
     </message>
 </context>
 <context>
@@ -16935,7 +17225,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation>свой</translation>
+        <translation>другой</translation>
     </message>
 </context>
 <context>
@@ -17041,7 +17331,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation>абзацы больше</translation>
+        <translation>Общесистемные параметры перезагружены</translation>
     </message>
 </context>
 </TS>

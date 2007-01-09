@@ -85,7 +85,7 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),this, "usePrinterMarginsButton" );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
-	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
+	QToolTip::add( usePrinterMarginsButton, "<qt>" + tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 #endif
 
@@ -93,7 +93,7 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
-	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	QToolTip::add( rightR, "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
@@ -312,15 +312,15 @@ bool MarginWidget::getMarginsForAllPages()
  */
 PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
 {
-	insertItem(tr("None", "layout type"), PresetLayout::none);
-	insertItem(tr("Gutenberg"), PresetLayout::gutenberg);
-	insertItem(tr("Magazine"), PresetLayout::magazine);
-	insertItem(tr("Fibonacci"), PresetLayout::fibonacci);
-	insertItem(tr("Golden Mean"), PresetLayout::goldencut);
-	insertItem(tr("Nine Parts"), PresetLayout::nineparts);
+	insertItem( tr("None", "layout type"), PresetLayout::none);
+	insertItem( tr("Gutenberg"), PresetLayout::gutenberg);
+	insertItem( tr("Magazine"), PresetLayout::magazine);
+	insertItem( tr("Fibonacci"), PresetLayout::fibonacci);
+	insertItem( tr("Golden Mean"), PresetLayout::goldencut);
+	insertItem( tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentItem(PresetLayout::none);
 
-	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
+	QToolTip::add(this, "<qt>" + tr("You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
 }
 
 MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)

@@ -16,19 +16,21 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 {
 	double topMargin, bottomMargin, leftMargin, rightMargin;
 	double pageWidth, pageHeight;
-	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder;
+	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder, numPages;
 
 	PyObject *p, *m;
 
-	if ((!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &orientation,
+	if ((!PyArg_ParseTuple(args, "OOiiiiii", &p, &m, &orientation,
 											&firstPageNr, &unit,
 											&pagesType,
-											&firstPageOrder)) ||
+											&firstPageOrder,
+											&numPages)) ||
 						(!PyArg_ParseTuple(p, "dd", &pageWidth, &pageHeight)) ||
 						(!PyArg_ParseTuple(m, "dddd", &leftMargin, &rightMargin,
 												&topMargin, &bottomMargin)))
 		return NULL;
-
+	if (numPages <= 0)
+		numPages = 1;
 	if (pagesType == 0)
 	{
 		facingPages = 0;
@@ -62,7 +64,7 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 								// columnDistance, numberCols, autoframes,
 								0, 1, false,
 								pagesType, unit, firstPageOrder,
-								orientation, firstPageNr, "Custom");
+								orientation, firstPageNr, "Custom", numPages);
 	ScMW->doc->pageSets[pagesType].FirstPage = firstPageOrder;
 
 	return PyInt_FromLong(static_cast<long>(ret));

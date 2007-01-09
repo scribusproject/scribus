@@ -315,10 +315,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
-	Extra = 1;
-	TExtra = 1;
-	BExtra = 1;
-	RExtra = 1;
+	Extra = 0;
+	TExtra = 0;
+	BExtra = 0;
+	RExtra = 0;
 	ExtraV = 0;
 	itemText.clear();
 	itemText.setAutoDelete(true);
@@ -410,6 +410,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Sizing = false;
 	toPixmap = false;
 	UseEmbedded = true;
+	IRender = 1;
 	EmProfile = "";
 	Groups.clear();
 	LayerNr = m_Doc->activeLayer();
@@ -795,12 +796,15 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
+					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					{
+						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+						p->setPen(tmp, ml[it].Width,
 							  static_cast<PenStyle>(ml[it].Dash),
 							  static_cast<PenCapStyle>(ml[it].LineEnd),
 							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
+						p->strokePath();
+					}
 				}
 			}
 		}
@@ -2449,6 +2453,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLayer(ss, isUndo);
 		else if (ss->contains("GET_IMAGE"))
 			restoreGetImage(ss, isUndo);
+		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
+			restoreShapeContour(ss, isUndo);
+		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
+			restoreImageEffects(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->currentPage = oldCurrentPage;
@@ -2950,6 +2958,61 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 		loadImage(fn, false);
 }
 
+void PageItem::restoreShapeContour(SimpleState *state, bool isUndo)
+{
+	ItemState<QPair<FPointArray,FPointArray> > *istate =
+			dynamic_cast<ItemState<QPair<FPointArray,FPointArray> >*>(state);
+	if (istate)
+	{
+		FPointArray oldClip = istate->getItem().first;
+		FPointArray newClip = istate->getItem().second;
+		bool isContour = istate->getBool("IS_CONTOUR");
+		double oldX = istate->getDouble("OLD_X");
+		double oldY = istate->getDouble("OLD_Y");
+		double newX = istate->getDouble("NEW_X");
+		double newY = istate->getDouble("NEW_Y");
+		double mx = oldX - newX;
+		double my = oldY - newY;
+
+		if (isUndo)
+		{
+			if (isContour)
+				ContourLine = oldClip;
+			else
+				PoLine = oldClip;
+		}
+		else
+		{
+			mx = -mx;
+			my = -my;
+			if (isContour)
+				ContourLine = newClip;
+			else
+				PoLine = newClip;
+		}
+		m_Doc->view()->AdjustItemSize(this);
+		m_Doc->view()->MoveItem(mx, my, this, false);
+		m_Doc->view()->slotUpdateContents();
+	}
+}
+
+void PageItem::restoreImageEffects(SimpleState *state, bool isUndo)
+{
+	ItemState<QPair<QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *istate =
+	dynamic_cast<ItemState<QPair<QValueList<ScImage::imageEffect>,
+	                             QValueList<ScImage::imageEffect> > >*>(state);
+	if (istate)
+	{
+		if (isUndo)
+			effectsInUse = istate->getItem().first;
+		else
+			effectsInUse = istate->getItem().second;
+
+		select();
+		m_Doc->updatePic();
+	}
+}
+
 void PageItem::select()
 {
 	m_Doc->view()->Deselect(false);
@@ -3052,6 +3115,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->Pcolor2 = lineColor();
 	Buffer->Shade = fillShade();
 	Buffer->Shade2 = lineShade();
+	Buffer->FillRule = fillRule;
 	Buffer->GrColor = "";
 	Buffer->GrColor2 = "";
 	Buffer->GrShade = 100;
@@ -3346,7 +3410,7 @@ bool PageItem::mouseWithinItem(QWidget* vport, const int x, const int y, double 
 	return transRect.contains(x, y);
 }
 
-bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
+bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution, bool showMsg)
 {
 	if (! asImageFrame())
 		return false;
@@ -3362,7 +3426,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
-	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, 2, gsRes, &dummy))
+	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, 2, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absFilePath();
 		PicAvail = false;
@@ -3544,7 +3608,7 @@ void PageItem::setRedrawBounding()
 
 void PageItem::updateGradientVectors()
 {
-	switch (GrType)
+/*	switch (GrType)
 	{
 		case 0:
 		case 1:
@@ -3587,11 +3651,7 @@ void PageItem::updateGradientVectors()
 			break;
 		default:
 			break;
-	}
-	GrEndX = QMIN(QMAX(GrEndX, 0), Width);
-	GrEndY = QMIN(QMAX(GrEndY, 0), Height);
-	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
-	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
+	} */
 	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
 	//if (m_Doc->m_Selection->count()!=0 && m_Doc->m_Selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();

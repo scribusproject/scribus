@@ -133,30 +133,24 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	h = pageUnitYToDocY(h);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+		PyErr_SetString(NameExistsError,
+						QObject::tr("An object with the requested name already exists.",
+									"python error"));
 		return NULL;
 	}
-	int i = ScMW->doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, 1, 1, ScMW->doc->toolSettings.dWidth, ScMW->doc->toolSettings.dBrush, ScMW->doc->toolSettings.dPen, true);
-
+	int i = ScMW->doc->itemAdd(PageItem::Line, PageItem::Unspecified,
+							   x, y, w, h,
+							   ScMW->doc->toolSettings.dWidth,
+							   ScMW->doc->toolSettings.dBrush,
+							   ScMW->doc->toolSettings.dPen,
+							   true);
 	PageItem *it = ScMW->doc->Items->at(i);
-	it->PoLine.resize(4);
-	it->PoLine.setPoint(0, 0, 0);
-	it->PoLine.setPoint(1, 0, 0);
-	it->PoLine.setPoint(2, w-x, h-y);
-	it->PoLine.setPoint(3, w-x, h-y);
-	FPoint np2 = getMinClipF(&it->PoLine);
-	if (np2.x() < 0)
-	{
-		it->PoLine.translate(-np2.x(), 0);
-		ScMW->view->MoveItem(np2.x(), 0, it);
-	}
-	if (np2.y() < 0)
-	{
-		it->PoLine.translate(0, -np2.y());
-		ScMW->view->MoveItem(0, np2.y(), it);
-	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
-	ScMW->view->AdjustItemSize(it);
+	it->setRotation(xy2Deg(w-x, h-y));
+	it->setWidthHeight(sqrt(pow(x-w, 2.0) + pow(y-h, 2.0)), 1.0);
+	it->Sizing = false;
+	it->updateClip();
+	ScMW->doc->setRedrawBounding(it);
+	it->OwnPage = ScMW->doc->OnPage(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
@@ -228,7 +222,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
 	if (Name != "")
 	{
@@ -308,7 +302,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
@@ -395,7 +389,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		it->PoLine.translate(0, -np2.y());
 		ScMW->view->MoveItem(0, np2.y(), it);
 	}
-	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
 	if (Name != "")
 		it->setItemName(QString::fromUtf8(Name));
@@ -592,4 +586,28 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 		}
 	}
 	return styleList;
+}
+
+PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
+{
+	char* name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
+		return NULL;
+	}
+	if(!checkHaveDocument()) {
+		return NULL;
+	}
+	// Is there a special name given? Yes -> add this to selection
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i != NULL) {
+		ScMW->doc->m_Selection->clear();
+		ScMW->doc->m_Selection->addItem(i);
+	}
+	else
+		return NULL;
+	// do the duplicate
+	ScMW->slotEditCopy();
+	ScMW->slotEditPaste();
+	Py_INCREF(Py_None);
+	return Py_None;
 }

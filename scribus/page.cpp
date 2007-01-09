@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "frameedit.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -286,9 +287,12 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
+	ScMW->view->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=ScMW->doc->masterPageMode();
 	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	if (ScMW->doc->EditClip)
+		ScMW->nodePalette->EndEdit();
 	if (isUndo)
 	{
 		if (ScMW->doc->m_Selection->findItem(ite)!=-1)
@@ -299,7 +303,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		}
 		Selection tempSelection(ScMW->doc, false);
 		tempSelection.addItem(ite);
-		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
+		ScMW->doc->itemSelection_DeleteItem(&tempSelection, true);
 		/*
 		ScMW->doc->m_Selection->clear();
 		ScMW->doc->m_Selection->addItem(ite, true);
@@ -311,8 +315,8 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	{
 		ScMW->doc->Items->append(ite);
 		ite->ItemNr = ScMW->doc->Items->count()-1;
-		ScMW->view->updateContents();
 	}
+	ScMW->view->updateContents();
 	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
@@ -320,14 +324,23 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
+	ScMW->view->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=ScMW->doc->masterPageMode();
 	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	if (ScMW->doc->EditClip)
+		ScMW->nodePalette->EndEdit();
 	if (isUndo)
 	{
-		ScMW->doc->Items->append(ite);
-		ite->ItemNr = ScMW->doc->Items->count()-1;
-		ScMW->view->updateContents();
+		//CB #3373 reinsert at old position and renumber items
+		ScMW->doc->Items->insert(ite->ItemNr, ite);
+        for (uint a = 0; a < ScMW->doc->Items->count(); ++a)
+        {
+            ScMW->doc->Items->at(a)->ItemNr = a;
+        }
+		//ScMW->doc->Items->append(ite);
+		//ite->ItemNr = ScMW->doc->Items->count()-1;
+//		ScMW->view->updateContents();
 	}
 	else
 	{
@@ -347,6 +360,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScMW->doc->m_Selection->clear();
 		*/
 	}
+	ScMW->view->updateContents();
 	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 

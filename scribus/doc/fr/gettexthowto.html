@@ -1,0 +1,153 @@
+<qt>
+<title>Comment &eacute;crire une extension "Importer un texte" pour Scribus</title>
+<h2>Comment &eacute;crire une extension "Importer un texte" pour Scribus</h2>
+<h4>Interface d'extension et article &eacute;crits par Riku Leino</h4>
+<h3>Pr&eacute;face</h3>
+
+<p>La pr&eacute;sente section vous montre comment &eacute;crire une extension "Importer un texte" pour Scribus. Les extensions
+sont des librairies charg&eacute;es dynamiquement au format "so". Les extensions "Importer un texte" servent &agrave; importer du texte dans un cadre de texte Scribus, quel qu'en soit le format.</p>
+
+<h4>Important</h4>
+
+<p>Attendez! Vous &ecirc;tes peut-&ecirc;tre sur le point de r&eacute;inventer la roue - Joignez la liste de diffusion ou visitez le canal #scribus &agrave; irc.freenode.net. Votre sujet sera mis &agrave; l'&eacute;tude, et vous obtiendrez &eacute;galement du soutien. Il ne s'agit pas de
+vous emp&ecirc;cher d'&eacute;crire quoi que ce soit, mais bien de vous aider.:)))</p>
+
+<h3>Un exemple d'extension</h3>
+
+<h4>myimporter.h</h4>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#ifndef MYIMPORTER_H
+#define MYIMPORTER_H
+
+#include &lt;scribus.h&gt;
+#include &lt;gtwriter.h&gt;
+
+extern "C" void GetText(QString nomFichier, QString encodage, bool texteSeul, gtWriter *ecriveur);
+
+extern "C" QString FileFormatName();
+
+extern "C" QStringList FileExtensions();
+
+#endif // MYIMPORTER_H
+</pre>
+</td></tr></table></blockquote>
+<p>D&eacute;crivons maintenant le code source. La d&eacute;claration MYIMPORTER_H est le moyen standard de s'assurer qu'une seule insertion du fichier d'en-t&ecirc;te a eu lieu. Scribus.h est requis pour acc&eacute;der aux objets Scribus. La fonction GetText() est appel&eacute;e lorsqu'un utilisateur d&eacute;cide d'importer un fichier qui poss&egrave;de une extension associ&eacute;e &agrave; l'un des &eacute;l&eacute;ments deQStringList retourn&eacute; par FileExtensions(). FileFormatName() doit retourner le nom du format de fichier trait&eacute; par ce module d'importation, par exemple "Fichier texte" dans le cas d'un format "texte seulement".</p>
+
+<h4>Param&egrave;tre de GetText</h4>
+<ul>
+<li><strong>nomFichier</strong> : Chemin vers le fichier que l'utilisateur veut importer</li>
+<li><strong>encodage</strong> : Encodage des caract&egrave;res s&eacute;lectionn&eacute;s par l'utilisateur dans le dialogue de fichiers</li>
+<li><strong>texteSeul</strong> : La valeur True signifie qu'un utilisateur veut importer du texte &agrave; partir d'un fichier sans aucun formatage</li>
+<li><strong>ecriveur</strong> : L'objet gtWriter sollicit&eacute; pour importer le texte</li>
+</ul>
+
+<h4>Extensions de fichier</h4>
+<p>Si votre extension est la seule qui existe pour le format de fichier vis&eacute;, le module retourne un QStringList avec les extensions du format de fichier. S'il
+existe d&eacute;j&agrave; un importateur pour le format vis&eacute;, le module ne retourne pas d'extensions de fichier, mais un QStringList vide. L'extension la plus courante et la plus utilis&eacute;e pour un format de fichier donn&eacute; doit retourner les extensions. Les cas plus rares ne doivent pas retourner d'extension. Vous pouvez utiliser les extensions en les choisissant dans le dialogue de fichier de "Importer un texte".</p>
+
+<h4>myimporter.cpp</h4>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#include "myimporter.h"
+#include &lt;qstring.h&gt;
+#include &lt;qstringlist.h&gt;
+
+QString FileFormatName()
+{
+    return QObject::tr("Rien &agrave; importer");
+}
+
+QStringList FileExtensions()
+{
+    // QStringList list("htm"); list << "html" << "php"; return list;
+    return QStringList();
+}
+
+void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+{
+
+}
+</pre>
+</td></tr></table></blockquote>
+
+<p><code>importnothingplugin-1.0.tar.bz2</code> de http://docs.scribus.net peut &ecirc;tre utilis&eacute; comme base pour votre extension personnalis&eacute;e "Importer un texte".</p>
+
+<h3>Comment cela fonctionne?</h3>
+
+<p>Le texte peut &ecirc;tre ajout&eacute; &agrave; la fin d'un cadre de texte avec les m&eacute;thodes gtWriter::append(). append(QString text) ajoute le texte format&eacute; avec le style du cadre de texte. append(QString text, gtStyle *style) utilisera le style donn&eacute; en param&egrave;tre.</p>
+
+<p>gtStyle, gtParagraphStyle et gtFrameStyle peuvent &ecirc;tre utilis&eacute;s pour d&eacute;finir le style du texte import&eacute;. La mani&egrave;re la plus simple de d&eacute;buter est d'utiliser la m&eacute;thode getDefaultStyle() de gtWriter pour obtenir le style courant du cadre de texte, puis d'utiliser le gtFrameStyle retourn&eacute; pour cr&eacute;er de nouveaux styles.</p>
+
+<p>gtStyle agit sur les styles de caract&egrave;res et peut &ecirc;tre utilis&eacute; &agrave; l'int&eacute;rieur d'un style de paragraphe. gtParagraphStyle cr&eacute;e un style de paragraphe dans Scribus et peut &ecirc;tre utilis&eacute; pour appliquer un style de paragraphe au texte lors de l'importation. gtFrameStyle offre la possibilit&eacute; de changer le style par d&eacute;faut du cadre de texte. La relation entre ces trois classes est la suivante : gtStyle agit comme classe de base. gtParagraphStyle &eacute;tend gtStyle et gtFrameStyle &eacute;tend gtParagraphStyle. Elles poss&egrave;dent toutes un objet gtFont qui peut &ecirc;tre obtenu avec la m&eacute;thode getFont(). Vous pouvez utiliser l'objet gtFont
+pour d&eacute;finir certains formatages de polices de caract&egrave;res. Examinez les fichiers d'en-t&ecirc;te gtfont.h, gtstyle.h, gtparagraphstyle.h et gtframestyle.h pour vous faire une meilleure id&eacute;e des interfaces.</p>
+
+<p>Il existe aussi une classe d'appoint gtMeasure avec des m&eacute;thodes statiques qui permet de convertir les unit&eacute;s de longueur en points, c'est-&agrave;-dire l'unit&eacute; par d&eacute;faut de Scribus. Par exemple, pour convertir 25 millim&egrave;tres en points, il est possible d'utiliser la m&eacute;thode de gtMeasure soit i2d() (int to double): gtMeasure::i2d(25, MM). Le second param&egrave;tre indique l'unit&eacute; &agrave; partir de laquelle la conversion en points est effectu&eacute;e. Toutes les unit&eacute;s possibles sont d&eacute;finies sous la forme "enumeration Unit" (voir le fichier gtmeasure.h).</p>
+
+<h3>Exemple simple</h3>
+
+<h4>Texte &agrave; importer</h4>
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <strong>Ut a sapien.</strong> Aliquam aliquet purus molestie dolor. Integer quis eros ut erat posuere dictum. Curabitur dignissim. Integer orci. Fusce vulputate lacus at ipsum. Quisque in libero nec mi laoreet volutpat.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aliquam eros pede, scelerisque quis, tristique cursus, placerat convallis, velit. Nam condimentum. Nulla ut mauris. Curabitur adipiscing, mauris non dictum aliquam, arcu risus dapibus diam, nec sollicitudin quam erat quis ligula. Aenean massa nulla, volutpat eu, accumsan et, fringilla eget, odio. Nulla placerat porta justo. Nulla vitae turpis. Praesent lacus.
+
+<h4>Code pour l'importation</h4>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#include &lt;gtparagraphstyle.h&gt;
+#include &lt;gtframestyle.h&gt;
+#include &lt;gtmeasure.h&gt;
+
+...
+
+void GetText(QString nomFichier, QString encodage, bool texteSeul, gtWriter *ecriveur)
+{
+
+/***** Cr&eacute;e les styles de paragraphe *************************************************/
+    gtFrameStyle* fstyle = writer->getDefaultStyle();
+    
+    gtParagraphStyle* firstPara = new gtParagraphStyle(*fstyle);
+    firstPara->setName("Premier paragraphe");
+    firstPara->getFont()->setSize(12.0);
+    firstPara->setLineSpacing(14.4);
+    
+    gtParagraphStyle* trailingPara = new gtParagraphStyle(*firstPara);
+    trailingPara->setName("Dernier paragraphe");
+    trailingPara->setFirstLineIndent(gtMeasure::i2d(15, MM));
+    
+/***** Importer le texte *************************************************************/
+    writer->append("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ", firstPara);
+    
+    QString currentWeight = firstPara->getFont()->getWeight();
+    firstPara->getFont()->setWeight(BOLD); // de l'enum FontWeight (gtfont.h)
+    writer->append("Ut a sapien.", firstPara); // importer avec une police en gras
+    
+    firstPara->getFont()->setWeight(currentWeight);
+    writer->append(" Aliquam aliquet purus molestie dolor. Integer quis eros ut "
+                   "erat posuere dictum. Curabitur dignissim. Integer orci. Fusce "
+                   "vulputate lacus at ipsum. Quisque in libero nec mi laoreet "
+                   "volutpat.\n", firstPara);
+    
+    // 2&egrave;me paragraphe
+    writer->append("Aliquam eros pede, scelerisque quis, tristique cursus, placerat "
+                   "convallis, velit. Nam condimentum. Nulla ut mauris. Curabitur "
+                   "adipiscing, mauris non dictum aliquam, arcu risus dapibus diam, nec "
+                   "sollicitudin quam erat quis ligula. Aenean massa nulla, "
+                   "volutpat eu, accumsan et, fringilla eget, odio. Nulla placerat porta "
+                   "justo. Nulla vitae turpis. Praesent lacus.", trailingPara);
+
+    delete firstPara;
+    delete trailingPara;
+}
+
+...
+</pre>
+</td></tr></table></blockquote>
+
+<p>Maintenant, en cliquant avec le bouton droit sur un cadre de texte, choisissez "Importer un texte..." et s&eacute;lectionnez le module que vous venez de cr&eacute;er pour ouvrir un fichier; le cadre contient maintenant le texte &eacute;chantillon, format&eacute; correctement.</p>
+<table width="100%"><tr><td align="center"><img src="images/result.png" alt="Exemple de cadre"/></td></tr></table>
+
+<p>Si vous avez des questions, envoyez un courriel &agrave; Riku Leino (IRC nick:Tsoots) tsoots &agrave; gmail.com, inscrivez-vous &agrave; la liste de diffusion de Scribus ou joignez-vous au canal irc #scribus &agrave; irc.freenode.net.</p>
+</qt>
+ 

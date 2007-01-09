@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmsprefs.h"
 #include "cmsprefs.moc"
+#include "scribusdoc.h"
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )
@@ -204,6 +205,34 @@ void CMSPrefs::setValues()
 	prefs->GamutCheck = gamutC->isChecked();
 	prefs->CMSinUse = checkBox1->isChecked();
 	prefs->BlackPoint = blackP->isChecked();
+}
+
+void CMSPrefs::updateDocSettings(ScribusDoc* doc)
+{
+	if ((doc->CMSSettings.DefaultImageRGBProfile != inputP->currentText()) ||
+		(doc->CMSSettings.DefaultImageCMYKProfile != inputPCMYK->currentText()) ||
+		(doc->CMSSettings.DefaultSolidColorProfile != inputP2->currentText()) ||
+		(doc->CMSSettings.DefaultMonitorProfile != monitorP->currentText()) ||
+		(doc->CMSSettings.DefaultPrinterProfile != printerP->currentText()) ||
+		(doc->CMSSettings.DefaultIntentPrinter != printerI->currentItem()) ||
+		(doc->CMSSettings.DefaultIntentMonitor != monitorI->currentItem()) ||
+		(doc->CMSSettings.SoftProofOn != simulate->isChecked()) ||
+		(doc->CMSSettings.GamutCheck != gamutC->isChecked()) ||
+		(doc->CMSSettings.BlackPoint != blackP->isChecked()) ||
+		(doc->CMSSettings.CMSinUse != checkBox1->isChecked()))
+			changed = true;
+	doc->CMSSettings.DefaultImageRGBProfile = inputP->currentText();
+	doc->CMSSettings.DefaultImageCMYKProfile = inputPCMYK->currentText();
+	doc->CMSSettings.DefaultSolidColorProfile = inputP2->currentText();
+	doc->CMSSettings.DefaultMonitorProfile = monitorP->currentText();
+	doc->CMSSettings.DefaultPrinterProfile = printerP->currentText();
+	doc->CMSSettings.DefaultIntentPrinter = printerI->currentItem();
+	doc->CMSSettings.DefaultIntentMonitor = monitorI->currentItem();
+	doc->CMSSettings.DefaultIntentImages = monitorI->currentItem();
+	doc->CMSSettings.SoftProofOn = simulate->isChecked();
+	doc->CMSSettings.GamutCheck = gamutC->isChecked();
+	doc->CMSSettings.CMSinUse = checkBox1->isChecked();
+	doc->CMSSettings.BlackPoint = blackP->isChecked();
 }
 
 void CMSPrefs::slotSimula()

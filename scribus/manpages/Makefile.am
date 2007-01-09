@@ -1,4 +1,4 @@
-EXTRA_DIST = scribus.1 scribus.1.pl
+EXTRA_DIST = scribus.1 scribus.1.pl CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(mandir)/man1

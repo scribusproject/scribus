@@ -126,6 +126,19 @@ ScPaths::ScPaths() :
 	m_pluginDir = QString("%1/plugins/").arg(appPath);
 	QApplication::setLibraryPaths(QString("%1/qtplugins/").arg(appPath));
 #endif
+/*
+	if(!m_shareDir.endsWith("/"))        m_shareDir += "/";
+	if(!m_docDir.endsWith("/"))          m_docDir += "/";
+	if(!m_fontDir.endsWith("/"))         m_fontDir += "/";
+*/
+	if(!m_iconDir.endsWith("/"))         m_iconDir += "/";
+/*
+	if(!m_sampleScriptDir.endsWith("/")) m_sampleScriptDir += "/";
+	if(!m_scriptDir.endsWith("/"))       m_scriptDir += "/";
+	if(!m_templateDir.endsWith("/"))     m_templateDir += "/";
+	if(!m_libDir.endsWith("/"))          m_libDir += "/";
+	if(!m_pluginDir.endsWith("/"))       m_pluginDir += "/";
+*/
 }
 
 ScPaths::~ScPaths() {};
@@ -228,6 +241,7 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 {
 	QStringList createDirs;
 #ifdef Q_OS_MAC
+	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
 #elif defined(Q_WS_X11)
 	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
 	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
@@ -246,6 +260,48 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 		createDirs.append(programFilesCommon + "create/swatches/");
 #endif
 	return createDirs;
+}
+
+QString ScPaths::getApplicationDataDir(void)
+{
+#if defined(_WIN32)
+	QString appData = getSpecialDir(CSIDL_APPDATA);
+	if (QDir(appData).exists())
+		return (appData + "/Scribus/");
+#endif
+	return (QDir::homeDirPath() + "/.scribus/");
+}
+
+QString ScPaths::getUserDocumentDir(void)
+{
+#if defined(_WIN32)
+	QString userDocs = getSpecialDir(CSIDL_PERSONAL);
+	if	(QDir(userDocs).exists())
+		return userDocs;
+#endif
+	return (QDir::homeDirPath() + "/");
+}
+
+QString ScPaths::getTempFileDir(void)
+{
+#if defined(_WIN32)
+	QString tempPath;
+	WCHAR wTempPath[1024];
+	DWORD result = GetTempPathW(1024, wTempPath);
+	if ( result )
+	{
+		tempPath = QString::fromUcs2(wTempPath);
+		tempPath.replace( '\\', '/' );
+		tempPath += "/";
+		// GetTempPath may return Windows directory, better not use this one
+		// for temporary files
+		if (QDir(tempPath).exists() && tempPath != getSpecialDir(CSIDL_WINDOWS))
+			return tempPath;
+	}
+	return getApplicationDataDir();
+#else
+	return (QDir::homeDirPath() + "/.scribus/");
+#endif
 }
 
 QString ScPaths::getSpecialDir(int folder)

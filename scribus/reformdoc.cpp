@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "units.h"
+#include "mpalette.h"
 #include "mspinbox.h"
 #include "scribus.h"
 #include "tabpdfoptions.h"
@@ -48,15 +49,16 @@ extern bool CMSavail;
 #ifdef HAVE_CMS
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransRGBDoc2CMYKG;
+extern cmsHTRANSFORM stdTransCMYK2RGBDocG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
+extern cmsHTRANSFORM stdProofRGBGCG;
+extern cmsHTRANSFORM stdProofCMYKG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
-extern cmsHTRANSFORM stdProofGCG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -117,6 +119,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	prefsPageSizeName=ps->getPageName();
 
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	delete ps;
 	//set Custom if we dont have one already as old docs wont have this attribute
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
@@ -959,7 +962,7 @@ void ReformDoc::updateDocumentSettings()
 	if (CMSavail)
 	{
 		bool oldCM = currDoc->CMSSettings.CMSinUse;
-		tabColorManagement->setValues();
+		tabColorManagement->updateDocSettings(currDoc);
 		if (tabColorManagement->changed)
 		{
 			ScMW->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
@@ -983,37 +986,55 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
-			currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles);
-			stdProofG = currDoc->stdProof;
-			stdTransG = currDoc->stdTrans;
-			stdProofImgG = currDoc->stdProofImg;
-			stdTransImgG = currDoc->stdTransImg;
-			stdProofCMYKG = currDoc->stdProofCMYK;
-			stdTransCMYKG = currDoc->stdTransCMYK;
-			stdProofGCG = currDoc->stdProofGC;
-			stdProofCMYKGCG = currDoc->stdProofCMYKGC;
-			stdTransRGBG = currDoc->stdTransRGB;
-			CMSoutputProf = currDoc->DocOutputProf;
-			CMSprinterProf = currDoc->DocPrinterProf;
-			if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigRgbData)
-				currDoc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmykData)
-				currDoc->CMSSettings.ComponentsInput2 = 4;
-			if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmyData)
-				currDoc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigRgbData)
-				currDoc->CMSSettings.ComponentsPrinter = 3;
-			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmykData)
-				currDoc->CMSSettings.ComponentsPrinter = 4;
-			if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmyData)
-				currDoc->CMSSettings.ComponentsPrinter = 3;
-			currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
-			currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorProfile;
-			currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
-			currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
-			currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
-			ScMW->recalcColors(ScMW->mainWindowProgressBar);
-			currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+			if (!currDoc->CMSSettings.CMSinUse)
+			{
+				currDoc->HasCMS = false;
+				CMSuse = false;
+				if	(oldCM)
+				{
+					ScMW->recalcColors(ScMW->mainWindowProgressBar);
+					currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+				}
+			}
+			else if ( currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles) )
+			{
+				stdTransCMYK2RGBDocG = currDoc->stdTransCMYK2RGBDoc;
+				stdTransRGBDoc2CMYKG = currDoc->stdTransRGBDoc2CMYK;
+				stdTransRGBDoc2MonG = currDoc->stdTransRGBDoc2Mon;
+				stdTransCMYK2MonG = currDoc->stdTransCMYK2Mon;
+				stdProofRGBG = currDoc->stdProofRGB;
+				stdProofRGBGCG = currDoc->stdProofRGBGC;
+				stdProofCMYKG = currDoc->stdProofCMYK;
+				stdProofCMYKGCG = currDoc->stdProofCMYKGC;
+				stdProofImgG = currDoc->stdProofImg;
+				stdTransImgG = currDoc->stdTransImg;
+				CMSoutputProf = currDoc->DocOutputProf;
+				CMSprinterProf = currDoc->DocPrinterProf;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigRgbData)
+					currDoc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmykData)
+					currDoc->CMSSettings.ComponentsInput2 = 4;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmyData)
+					currDoc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigRgbData)
+					currDoc->CMSSettings.ComponentsPrinter = 3;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmykData)
+					currDoc->CMSSettings.ComponentsPrinter = 4;
+				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmyData)
+					currDoc->CMSSettings.ComponentsPrinter = 3;
+				currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
+				currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorProfile;
+				currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
+				currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
+				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
+				ScMW->recalcColors(ScMW->mainWindowProgressBar);
+				currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+			}
+			else
+			{
+				currDoc->HasCMS = false;
+				CMSuse = false;
+			}
 #endif
 			ScMW->mainWindowProgressBar->setProgress(cc);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);

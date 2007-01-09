@@ -58,6 +58,8 @@ for which a new license (GPL+exception) is in place.
 #include "spalette.h"
 #include "styleselect.h"
 #include "util.h"
+#include "scplugin.h"
+
 
 extern QPixmap loadIcon(QString nam);
 
@@ -272,6 +274,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		case Keypad:
 		case ShiftButton:
 		case ControlButton|AltButton:
+		case ControlButton|AltButton|ShiftButton: // Shift + AltGr on Windows for polish characters
 			if (unicodeTextEditMode)
 			{
 				int conv = 0;
@@ -555,7 +558,7 @@ void SEditor::insChars(QString t)
 	}
 }
 
-void SEditor::insStyledText()
+void SEditor::insStyledText(int *newParaCount, int *lengthLastPara)
 {
 	if (cBuffer.count() == 0)
 		return;
@@ -587,6 +590,8 @@ void SEditor::insStyledText()
 			continue;
 		if (cBuffer.at(a)->ch == QChar(13))
 		{
+			(*newParaCount)++;
+                        *lengthLastPara = 0;
 			ChList *chars2;
 			chars2 = new ChList;
 			chars2->setAutoDelete(true);
@@ -635,6 +640,7 @@ void SEditor::insStyledText()
 			hg->cstrikewidth = cBuffer.at(a)->cstrikewidth;
 			hg->cembedded = 0;
 			chars->insert(i, hg);
+                        (*lengthLastPara)++;
 			i++;
 		}
 	}
@@ -1232,7 +1238,6 @@ void SEditor::updateAll()
 					insert("^");
 					setFarbe(false);
 					Text = "";
-					chars->append(hg);
 					continue;
 				}
 				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingHyphen"]->actionInt()))
@@ -1244,7 +1249,6 @@ void SEditor::updateAll()
 					insert("=");
 					setFarbe(false);
 					Text = "";
-					chars->append(hg);
 					continue;
 				}
 				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNewLine"]->actionInt()))
@@ -1550,21 +1554,26 @@ void SEditor::paste()
 	emit SideBarUp(false);
 	int currentPara, currentCharPos;
 	QString data = "";
-	int newParaCount, lengthLastPara;
+	int newParaCount = 0, lengthLastPara = 0;
 	bool inserted=false;
-	getCursorPosition(&currentPara, &currentCharPos);
 	if (ClipData == 1)
-		insStyledText();
+	{
+		insStyledText(&newParaCount, &lengthLastPara);
+		getCursorPosition(&currentPara, &currentCharPos); //must be after call to insStyledText
+		inserted = true;
+	}
 	else
 	{
+		getCursorPosition(&currentPara, &currentCharPos);
 		QString data = QApplication::clipboard()->text(QClipboard::Selection);
 		if (data.isNull())
 			data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (!data.isNull())
 		{
 			data.replace(QRegExp("\r"), "");
-			newParaCount=data.contains("\n");
+			newParaCount=data.contains("\n"); 
 			lengthLastPara=data.length()-data.findRev("\n");
+			lengthLastPara--;
 			data.replace(QRegExp("\n"), QChar(13));
 			inserted=true;
 			insChars(data);
@@ -1579,7 +1588,7 @@ void SEditor::paste()
 	}
 	updateAll();
 	if (inserted)
-		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
+		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara);
 	sync();
 	repaintContents();
 	emit SideBarUp(true);
@@ -2016,6 +2025,9 @@ void StoryEditor::savePrefs()
 	prefs->set("top", geo.top());
 	prefs->set("width", width());
 	prefs->set("height", height());
+	QValueList<int> splitted = EdSplit->sizes();
+	prefs->set("side", splitted[0]);
+	prefs->set("main", splitted[1]);
 }
 
 void StoryEditor::loadPrefs()
@@ -2041,6 +2053,15 @@ void StoryEditor::loadPrefs()
 	if ( vheight >= scr.height() )
 		vheight = QMAX( gStrut.height(), scr.height() - vtop );
 	setGeometry(vleft, vtop, vwidth, vheight);
+	int side = prefs->getInt("side", -1);
+	int txtarea = prefs->getInt("main", -1);
+	if ((side != -1) && (txtarea != -1))
+	{
+		QValueList<int> splitted;
+		splitted.append(side);
+		splitted.append(txtarea);
+		EdSplit->setSizes(splitted);
+	}
 }
 
 void StoryEditor::initActions()
@@ -2050,7 +2071,7 @@ void StoryEditor::initActions()
 	seActions.insert("fileRevert", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
 	seActions.insert("fileSaveToFile", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), "", QKeySequence(), this, "fileSaveToFile"));
 	seActions.insert("fileLoadFromFile", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), "", QKeySequence(), this, "fileLoadFromFile"));
-	seActions.insert("fileSaveDocument", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", CTRL+Key_S, this, "fileSaveDocument"));
+	seActions.insert("fileSaveDocument", new ScrAction("", CTRL+Key_S, this, "fileSaveDocument"));
 	seActions.insert("fileUpdateAndExit", new ScrAction(QIconSet(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W, this, "fileUpdateAndExit"));
 	seActions.insert("fileExit", new ScrAction(QIconSet(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(), this, "fileExit"));
 
@@ -3009,17 +3030,23 @@ void StoryEditor::Do_fontPrev()
 {
 	blockUpdate = true;
 	QString retval;
-	if (ScMW->pluginManager->DLLexists("fontpreview"))
+	ScActionPlugin* plugin;
+	bool result = false;
+
+	if (PluginManager::instance().DLLexists("fontpreview"))
 	{
-		bool result = ScMW->pluginManager->callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
-		if (result && !retval.isEmpty())
+		plugin = dynamic_cast<ScActionPlugin*>(PluginManager::instance().getPlugin("fontpreview", false));
+		if (plugin)
+			result = plugin->run(this, Editor->CurrFont);
+		if (result)
 		{
-			sDebug("Got retval");
-			newTxFont(retval);
-			FontTools->SetFont(retval);
+			retval = plugin->runResult();
+			if (!retval.isEmpty())
+			{
+				newTxFont(retval);
+				FontTools->SetFont(retval);
+			}
 		}
-		else
-			sDebug("No retval");
 	}
 	blockUpdate = false;
 }
@@ -3060,8 +3087,10 @@ void StoryEditor::Do_leave()
   */
 void StoryEditor::Do_saveDocument()
 {
-	updateTextFrame();
-	ScMW->slotFileSave();
+	blockUpdate = true;
+	if (ScMW->slotFileSave())
+		updateTextFrame();
+	blockUpdate = false;
 }
 
 bool StoryEditor::Do_new()
@@ -3615,8 +3644,8 @@ void StoryEditor::LoadTextFile()
 				seActions["editCopy"]->setEnabled(false);
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
-				delete ss;
 			}
+			delete ss;
 		}
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();

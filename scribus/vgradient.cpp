@@ -23,6 +23,15 @@ for which a new license (GPL+exception) is in place.
    Boston, MA 02111-1307, USA.
 */
 #include "vgradient.h"
+#include <algorithm>
+
+// colorStop comparison function for stable_sort function
+bool compareStops( const VColorStop* item1, const VColorStop* item2 )
+{
+	double r1 = item1->rampPoint;
+	double r2 = item2->rampPoint;
+	return ( r1 < r2 ? true : false );
+}
 
 int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
 {
@@ -31,6 +40,18 @@ int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCol
 
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradient::VColorStopList::compareItems
+
+void VGradient::VColorStopList::inSort( QPtrCollection::Item d )
+{
+	int index = 0;
+	first();
+	register VColorStop *n = first();
+	while ( n && compareItems((QPtrCollection::Item) n,d) <= 0 ){ // find position in list
+		n = next();
+		index++;
+	}
+	insertAt( index, d );
+}
 
 VGradient::VGradient( VGradientType type )
 		: m_type( type )
@@ -63,9 +84,9 @@ VGradient::VGradient( const VGradient& gradient )
 
 	m_colorStops.clear();
 	QPtrVector<VColorStop> cs = gradient.colorStops();
+	std::stable_sort(cs.data(), cs.data() + cs.count(), compareStops);
 	for( uint i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
-	m_colorStops.sort();
 } // VGradient::VGradient
 
 VGradient& VGradient::operator=( const VGradient& gradient )
@@ -83,10 +104,9 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 
 	m_colorStops.clear();
 	QPtrVector<VColorStop> cs = gradient.colorStops();
+	std::stable_sort(cs.data(), cs.data() + cs.count(), compareStops);
 	for( uint i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStop( *cs[i] ) );
-	m_colorStops.sort();
-
 	return *this;
 } // VGradient::operator=
 
@@ -131,6 +151,41 @@ void VGradient::removeStop( const VColorStop& colorstop )
 void VGradient::removeStop( uint n )
 {
 	m_colorStops.remove( n );
+}
+
+void VGradient::filterStops(void)
+{
+	VColorStop* colorStop = NULL;
+	bool zeroFound = false;
+	colorStop = m_colorStops.last();
+	while(colorStop != NULL)
+	{
+		if (colorStop->rampPoint == 0.0 && zeroFound)
+			m_colorStops.remove();
+		else if (colorStop->rampPoint == 0.0)
+			zeroFound = true;
+		colorStop = m_colorStops.prev();
+	}
+	bool oneFound = false;
+	colorStop = m_colorStops.first();
+	while(colorStop != NULL)
+	{
+		if (colorStop->rampPoint == 1.0 && oneFound)
+		{
+			bool isLast = (colorStop == m_colorStops.getLast());
+			m_colorStops.remove();
+			if (isLast)
+				colorStop = m_colorStops.next();
+			colorStop = m_colorStops.current();
+		}
+		else if (colorStop->rampPoint == 1.0)
+		{
+			oneFound = true;
+			colorStop = m_colorStops.next();
+		}
+		else
+			colorStop = m_colorStops.next();
+	}
 }
 
 void VGradient::transform( const QWMatrix &m )

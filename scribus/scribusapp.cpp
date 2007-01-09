@@ -42,6 +42,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "commonstrings.h"
 
+#if defined(_WIN32)
+#include <windows.h>
+#endif
+
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
 #define ARG_LANG "--lang"
@@ -67,6 +71,10 @@ for which a new license (GPL+exception) is in place.
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
 
+// Windows specific options, allows to display a console windows
+extern const char ARG_CONSOLE[] =  "--console";
+extern const char ARG_CONSOLE_SHORT[] = "-cl";
+
 extern ScribusQApp* ScQApp;
 
 bool ScribusQApp::useGUI=false;
@@ -76,6 +84,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
 	ScQApp=this;
 	ScMW=NULL;
 	lang="";
+	GUILang="";
 }
 
 ScribusQApp::~ScribusQApp()
@@ -142,8 +151,10 @@ void ScribusQApp::parseCommandLine()
 		arg = argv()[i];
 
 		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
-		}
-		else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
+			continue;
+		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
+			continue;
+		} else if (arg == ARG_NOSPLASH || arg == ARG_NOSPLASH_SHORT) {
 			showSplash = false;
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGUI=false;
@@ -268,6 +279,27 @@ QStringList ScribusQApp::getLang(QString lang)
 	if (!(lang = ::getenv("LANG")).isEmpty())
 		langs.push_back(lang);
 
+#if defined(_WIN32)
+	wchar_t out[256];
+	QString language, sublanguage;
+	LCID lcIdo = GetUserDefaultLCID();
+	WORD sortId = SORTIDFROMLCID(lcIdo);
+	LANGID langId = GetUserDefaultUILanguage();
+	LCID lcIdn = MAKELCID(langId, sortId);
+	if ( GetLocaleInfoW(lcIdn, LOCALE_SISO639LANGNAME , out, 255) )
+	{
+		language = QString::fromUcs2( (ushort*)out );
+		if ( GetLocaleInfoW(lcIdn, LOCALE_SISO3166CTRYNAME, out, 255) )
+		{
+			sublanguage = QString::fromUcs2( (ushort*)out ).lower();
+			lang = language;
+			if ( sublanguage != language && !sublanguage.isEmpty() )
+				lang += "_" + sublanguage.upper();
+			langs.push_back(lang);
+		}
+	}
+#endif
+
 	langs.push_back(QString(QTextCodec::locale()));
 
 	// remove duplicate entries...
@@ -302,7 +334,10 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	}
 
 	if (loaded)
+	{
 		installTranslator(trans);
+		GUILang=lang;
+	}
 	/* CB TODO, currently disabled, because its broken broken broken
 	path = ScPaths::instance().pluginDir();
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
@@ -366,8 +401,12 @@ void ScribusQApp::showUsage()
 		tr("Output version information and exit") );
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
 		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
-	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+tr("filename"),
+	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" " + tr("filename"),
 		tr("Use filename as path for user given preferences") );
+#if defined(_WIN32) && !defined(_CONSOLE)
+	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE,
+		tr("Display a console window") );
+#endif
 /* Delete me?
 	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" ; endl(ts);
@@ -412,10 +451,10 @@ void ScribusQApp::showHeader()
 	const int descwidth = -(heading.length() - urlwidth - 1);
 	ts << heading; endl(ts);
 	ts << separator; endl(ts);
-	ts << QString("%1 %2").arg(tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
-	ts << QString("%1 %2").arg(tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
-	ts << QString("%1 %2").arg(tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
-	ts << QString("%1 %2").arg(tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
+	ts << QString("%1 %2").arg( tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
 }
 

@@ -1,0 +1,23 @@
+<qt>
+<title>Commandes relatives aux polices</title>
+<h2>Commandes relatives aux polices</h2>
+
+<dl>
+
+<dt><a name="-getFontNames"><strong>getFontNames</strong></a>(...)</dt>
+<dd><code><a href="#-getFontNames">getFontNames</a>() -&gt; liste</code>
+<p>Retourne une liste contenant les noms de toutes les polices disponibles.</p></dd>
+	
+<dt><a name="-getXFontNames"><strong>getXFontNames</strong></a>(...)</dt>
+<dd><code><a href="#-getXFontNames">getXFontNames</a>() -&gt; liste de vecteurs</code>
+<p>Retourne une information d&eacute;taill&eacute;e sur la police. C'est une liste de vecteurs contenant : [ (nom Scribus, Famille, nom r&eacute;el, sous-ensemble (1|0), PS inclus (1|0), fichier de police), (...), ... ]</p></dd></dl>
+	
+<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+<dd><code>renderFont("nom", "nomFichier", "exemple", taille, format="PPM") -&gt; bool&eacute;en</code> 	<p>Cr&eacute;e un aper&ccedil;u image de la police "nom" avec le texte "exemple" et la taille "taille". 
+L'image est enregistr&eacute;e dans "nomFichier". Retourne la valeur True si l'op&eacute;ration r&eacute;ussit. L'argument optionnel "format" sp&eacute;cifie le format de l'image &agrave; g&eacute;n&eacute;rer et supporte tout format admis par QPixmap.save(). Les formats courants sont PPM, JPEG, PNG et XPM.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la police sp&eacute;cifi&eacute;e n'est pas trouv&eacute;e. Peut
+g&eacute;n&eacute;rer ValueError si un "exemple" ou un "nomFichier" vide est pass&eacute;.</p></dd></dl>
+
+</dl>
+</qt>
+ 

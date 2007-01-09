@@ -47,6 +47,7 @@ EXTRA_DIST = AUTHORS \
 			 PACKAGING \
 			 README \
 			 README.MacOSX \
+			 README.OS2 \
 			 TODO \
 			 scribus.xml \
 			 scribus.lsm scribus.desktop Scribus.pot \
@@ -55,7 +56,8 @@ EXTRA_DIST = AUTHORS \
 			 stamp-h1 subdirs configure.files \
 			 admin/acinclude.m4.in \
 			 admin/libtool.m4.in admin/Makefile.common \
-			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh
+			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh \
+                         CMakeLists.txt ConfigureChecks.cmake config.h.cmake cmake_uninstall.cmake.in
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
@@ -77,6 +79,8 @@ AM_CPPFLAGS = \
 #
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share
+	$(mkinstalldirs) $(prefix)/share/mime
+	$(mkinstalldirs) $(prefix)/share/mime/packages
 	$(mkinstalldirs) $(prefix)/share/scribus
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
 	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/doc/scribus-$(VERSION)/AUTHORS
@@ -90,3 +94,4 @@ install-data-local:
 	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/doc/scribus-$(VERSION)/README.MacOSX
 	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/doc/scribus-$(VERSION)/README
 	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/doc/scribus-$(VERSION)/TODO
+	$(INSTALL_DATA) $(top_srcdir)/scribus.xml $(prefix)/share/mime/packages/scribus.xml

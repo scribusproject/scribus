@@ -36,13 +36,13 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia", true, 0)
 {
-	setCaption(tr("OpenDocument Importer Options"));
+	setCaption( tr("OpenDocument Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 
 	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
-	updateCheck = new QCheckBox(tr("Overwrite Paragraph Styles"), this,
+	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this,
 "updateCheck");
 	updateCheck->setChecked(update);
 	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
@@ -50,21 +50,21 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	layout->addLayout(hlayout);
 
 	QBoxLayout* palayout = new QHBoxLayout(0,5,5, "palayout");
-	packCheck = new QCheckBox(tr("Merge Paragraph Styles"), this, "packCheck");
+	packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this, "packCheck");
 	packCheck->setChecked(pack);
 	QToolTip::add(packCheck, "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
 	palayout->addWidget(packCheck);
 	layout->addLayout(palayout);
 
 	QBoxLayout* playout = new QHBoxLayout(0, 5, 5, "playout");
-	prefixCheck = new QCheckBox(tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
+	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
 	prefixCheck->setChecked(prefix);
 	QToolTip::add(prefixCheck, "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
-	doNotAskCheck = new QCheckBox(tr("Do not ask again"), this,
+	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this,
 "doNotAskCheck");
 	doNotAskCheck->setChecked(false);
 	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OASIS OpenDocument.") +"</qt>");
@@ -74,9 +74,9 @@ OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 
 	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout");
 	blayout->addStretch(10);
-	okButton = new QPushButton(tr("OK"), this, "okButton");
+	okButton = new QPushButton( tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);
-	cancelButton = new QPushButton(tr("Cancel"), this, "cancelButton");
+	cancelButton = new QPushButton( tr("Cancel"), this, "cancelButton");
 	blayout->addWidget(cancelButton);
 	layout->addLayout(blayout);
 

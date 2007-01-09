@@ -173,6 +173,7 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_WIN32)
 #include "scwinprint.h"
+#include "scdocoutput_ps2.h"
 #endif
 
 using namespace std;
@@ -181,15 +182,16 @@ using namespace std;
 #include "cmserrorhandling.h"
 cmsHPROFILE CMSoutputProf;
 cmsHPROFILE CMSprinterProf;
-cmsHTRANSFORM stdTransG;
-cmsHTRANSFORM stdProofG;
+cmsHTRANSFORM stdTransRGBDoc2CMYKG;
+cmsHTRANSFORM stdTransCMYK2RGBDocG;
+cmsHTRANSFORM stdTransCMYK2MonG;
+cmsHTRANSFORM stdTransRGBDoc2MonG;
+cmsHTRANSFORM stdProofRGBG;
+cmsHTRANSFORM stdProofRGBGCG;
+cmsHTRANSFORM stdProofCMYKG;
+cmsHTRANSFORM stdProofCMYKGCG;
 cmsHTRANSFORM stdTransImgG;
 cmsHTRANSFORM stdProofImgG;
-cmsHTRANSFORM stdTransCMYKG;
-cmsHTRANSFORM stdProofCMYKG;
-cmsHTRANSFORM stdTransRGBG;
-cmsHTRANSFORM stdProofGCG;
-cmsHTRANSFORM stdProofCMYKGCG;
 bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
@@ -395,7 +397,7 @@ void ScribusMainWindow::closeSplash()
 
 void ScribusMainWindow::initToolBars()
 {
-	fileToolBar = new ScToolBar(tr("File"), "File", this);
+	fileToolBar = new ScToolBar( tr("File"), "File", this);
 	scrActions["fileNew"]->addTo(fileToolBar);
 	scrActions["fileOpen"]->addTo(fileToolBar);
 	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
@@ -658,8 +660,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCut"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
-	scrMenuMgr->createMenu("EditContents", tr("Contents"));
-	scrMenuMgr->addMenuToMenu("EditContents", "Edit");
+	scrMenuMgr->createMenu("EditContents", QPixmap(noIcon), tr("Contents"), "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "EditContents");
@@ -916,6 +917,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowImages"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowGrid"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowGuides"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowColumnBorders"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowBaseline"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextChain"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextControls"], "View");
@@ -1179,7 +1181,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 	}
 }
 
-bool ScribusMainWindow::eventFilter( QObject */*o*/, QEvent *e )
+bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	bool retVal;
 	if ( e->type() == QEvent::KeyPress ) {
@@ -1414,23 +1416,29 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		 * -- Use PageDown to lower an item
 		 * -- Use the arrow keys to move an item or group around:
 		 		With no meta, by 1.0 unit
-		 		Ctrl Shift, by 0.1 units
-		 		Shift by 10.0 units
-		 		Ctrl Alt Shift 0.01 units
+		 		Ctrl, by 10.0 units
+		 		Shift by 0.1 units
+		 		Ctrl Shift 0.01 units
 		 * -- Use the arrow keys to resize an item:
 		 		Alt right arrow, move right side outwards (expand)
 		 		Alt left arrow, move left side outwards (expand)
 		 		Alt Shift right arrow, move left side inwards (shrink)
 		 		Alt Shift left arrow, move right side inwards (shrink)
+		 * -- In edit mode of an image frame, use the arrow keys to resize the image:
+		 		(flows to pageitem_imageframe for control)
+		 		Alt right arrow, move right side of image outwards (expand)
+		 		Alt left arrow, move right side inwards (shrink)
+		 		Alt down arrow, move bottom side downwards (expand)
+		 		Alt up arrow, move top side inwards (shrink)
 		 */
 		if (doc->m_Selection->count() != 0)
 		{
 			double moveBy=1.0;
-			if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
+			if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+				moveBy=0.1;
+			else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
 				moveBy=10.0;
 			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
-				moveBy=0.1;
-			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && (buttonState & AltButton))
 				moveBy=0.01;
 			moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			bool resizing=((buttonState & AltButton) && !(buttonState & ControlButton));
@@ -1499,16 +1507,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if (resizingsmaller)
-							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
+								else
+								{
+									view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
 							}
 						}
 						view->updateContents();
@@ -1545,16 +1560,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if (resizingsmaller)
-							{
-								ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
+								else
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
+								}
 							}
 						}
 						view->updateContents();
@@ -1591,16 +1613,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if (resizingsmaller)
-							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								ScMW->view->MoveItem(0, -resizeBy, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
+								else
+								{
+									view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
 							}
 						}
 						view->updateContents();
@@ -1637,16 +1666,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							if (resizingsmaller)
-							{
-								ScMW->view->MoveItem(0, -resizeBy, currItem, false);
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
-							}
+							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
+							if(view->EditContour)
+								view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
-								currItem->Sizing = false;
-								view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								if (resizingsmaller)
+								{
+									view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
+								else
+								{
+									currItem->Sizing = false;
+									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
+								}
 							}
 						}
 						view->updateContents();
@@ -1660,6 +1696,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			case modeEdit:
 				if (currItem->asImageFrame() && !currItem->locked())
 				{
+					currItem->handleModeEditKey(k, keyrep);
+					/*CB Moved to image frame handle mode edit
 					double dX=0.0,dY=0.0;
 					switch (kk)
 					{
@@ -1680,7 +1718,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						currItem->moveImageInFrame(dX, dY);
 						view->updateContents(currItem->getRedrawBounding(view->scale()));
-					}
+					}*/
 				}
 				view->oldCp = currItem->CPos;
 				if (currItem->itemType() == PageItem::TextFrame)
@@ -1847,7 +1885,9 @@ void ScribusMainWindow::startUpDialog()
 
 bool ScribusMainWindow::slotFileNew()
 {
-	bool retVal;
+	if (HaveDoc && doc->EditClip)
+		ToggleFrameEdit();
+	bool retVal = false;
 	NewDoc* dia = new NewDoc(this);
 	if (dia->exec())
 	{
@@ -1864,24 +1904,25 @@ bool ScribusMainWindow::slotFileNew()
 		bool autoframes = dia->AutoFrame->isChecked();
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
-		PageSize *ps2 = new PageSize(dia->pageSizeComboBox->currentText());
-		QString pagesize = ps2->getPageName();
-		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
-		doc->pageSets[facingPages].FirstPage = firstPage;
-		mainWindowStatusLabel->setText( tr("Ready"));
-		delete ps2;
-		HaveNewDoc();
+		PageSize ps2(dia->pageSizeComboBox->currentText());
+		QString pagesize = ps2.getPageName();
+		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount))
+		{
+			doc->pageSets[facingPages].FirstPage = firstPage;
+			mainWindowStatusLabel->setText( tr("Ready"));
+			HaveNewDoc();
+			retVal = true;
+		}
 	}
-	else
-		retVal = false;
 	delete dia;
 	return retVal;
 }
 
-bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, 
-									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr, 
+bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab,
+									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr,
 									const QString& defaultPageSize, int pageCount, bool showView)
 {
+	undoManager->setUndoEnabled(false); //disable undo while creating a doc
 	QString cc;
 	if (HaveDoc)
 	{
@@ -1946,6 +1987,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
 	scrActions["fileSave"]->setEnabled(false);
+	undoManager->setUndoEnabled(true);
 	undoManager->switchStack(doc->DocName);
 	styleManager->currentDoc(doc);
 	tocGenerator->setDoc(doc);
@@ -2000,26 +2042,21 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		ActWin = NULL;
 		return;
 	}
+	if (doc!=0 && doc->EditClip)
+		ToggleFrameEdit();
 	ActWin = (ScribusWin*)w;
 	if (ActWin->document()==NULL)
 		return;
-	QString oldDocName = "";
-	if (ActWin && ActWin->document())
-	{
-		oldDocName = ActWin->document()->DocName;
-	}
+
+	doc = ActWin->document();
+	undoManager->switchStack(doc->DocName);
+
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 	} */
 	docCheckerPalette->clearErrorList();
-	QString newDocName = "";
-	if (ActWin && ActWin->document())
-		newDocName = ActWin->document()->DocName;
-
-	if (oldDocName != newDocName)
-		undoManager->switchStack(newDocName);
 
 	if (view!=NULL)
 	{
@@ -2031,7 +2068,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 			//disconnect(doc->m_Selection, SIGNAL(empty()), 0, 0);
 		}
 	}
-	doc = ActWin->document();
+
 	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
@@ -2071,6 +2108,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+	scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
 	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
@@ -2126,6 +2164,7 @@ bool ScribusMainWindow::slotDocSetup()
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
 		scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+		scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
 		scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 		scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
@@ -2153,15 +2192,16 @@ void ScribusMainWindow::SwitchWin()
 	Gamut = doc->Gamut;
 	IntentPrinter = doc->IntentPrinter;
 	IntentMonitor = doc->IntentMonitor;
-	stdProofG = doc->stdProof;
-	stdTransG = doc->stdTrans;
+	stdTransRGBDoc2CMYKG = doc->stdTransRGBDoc2CMYK;
+	stdTransCMYK2RGBDocG = doc->stdTransCMYK2RGBDoc;
+	stdTransRGBDoc2MonG = doc->stdTransRGBDoc2Mon;
+	stdTransCMYK2MonG = doc->stdTransCMYK2Mon;
+	stdProofRGBG = doc->stdProofRGB;
+	stdProofRGBGCG = doc->stdProofRGBGC;
+	stdProofCMYKG = doc->stdProofCMYK;
+	stdProofCMYKGCG = doc->stdProofCMYKGC;
 	stdProofImgG = doc->stdProofImg;
 	stdTransImgG = doc->stdTransImg;
-	stdProofCMYKG = doc->stdProofCMYK;
-	stdTransCMYKG = doc->stdTransCMYK;
-	stdTransRGBG = doc->stdTransRGB;
-	stdProofGCG = doc->stdProofGC;
-	stdProofCMYKGCG = doc->stdProofCMYKGC;
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
 	CMSuse = doc->CMSSettings.CMSinUse;
@@ -2185,7 +2225,9 @@ void ScribusMainWindow::SwitchWin()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
-	nodePalette->setDoc(doc, view);
+	//Do not set this!, it doesnt get valid pointers unless its in EditClip mode and its not
+	//if we are switching windows #4357
+	//nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
 	if (doc->EditClip)
 	{
@@ -2778,7 +2820,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
-			scrActions["itemSendToScrapbook"]->setEnabled(false);
+			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
@@ -3136,9 +3178,15 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		for (uint i = oldItemsCount; i < docItemsCount; ++i)
 		{
 			PageItem *ite = doc->Items->at(i);
+			if ((docItemsCount - oldItemsCount) > 1)
+				ite->Groups.push(doc->GroupCounter);
+			if (ite->locked())
+				ite->setLocked(false);
 			if ((ite->asTextFrame()) && (ite->isBookmark))
 				bookmarkPalette->BView->AddPageItem(ite);
 		}
+		if ((docItemsCount - oldItemsCount) > 1)
+			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
 		propertiesPalette->updateCList();
 		propertiesPalette->Spal->setFormats(doc);
@@ -3211,7 +3259,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			delete fileLoader;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
+			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
 			return false;
 		}
 		bool is12doc=false;
@@ -3332,6 +3380,13 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile);
 				doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			}
+			if (!InputProfilesCMYK.contains(doc->CMSSettings.DefaultImageCMYKProfile))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultImageCMYKProfile);
+				replacement.append(prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile);
+				doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
+			}
 			if (!InputProfiles.contains(doc->CMSSettings.DefaultSolidColorProfile))
 			{
 				cmsWarning = true;
@@ -3394,32 +3449,37 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			Gamut = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-			CMSuse = doc->CMSSettings.CMSinUse;
-			stdProofG = doc->stdProof;
-			stdTransG = doc->stdTrans;
-			stdProofImgG = doc->stdProofImg;
-			stdTransImgG = doc->stdTransImg;
-			stdProofCMYKG = doc->stdProofCMYK;
-			stdTransCMYKG = doc->stdTransCMYK;
-			stdTransRGBG = doc->stdTransRGB;
-			stdProofGCG = doc->stdProofGC;
-			stdProofCMYKGCG = doc->stdProofCMYKGC;
-			CMSoutputProf = doc->DocOutputProf;
-			CMSprinterProf = doc->DocPrinterProf;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
-				doc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
-				doc->CMSSettings.ComponentsInput2 = 4;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
-				doc->CMSSettings.ComponentsInput2 = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-				doc->CMSSettings.ComponentsPrinter = 3;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-				doc->CMSSettings.ComponentsPrinter = 4;
-			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-				doc->CMSSettings.ComponentsPrinter = 3;
-			doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+			if (doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles))
+			{
+				CMSuse = doc->CMSSettings.CMSinUse;
+				stdTransRGBDoc2CMYKG = doc->stdTransRGBDoc2CMYK;
+				stdTransCMYK2RGBDocG = doc->stdTransCMYK2RGBDoc;
+				stdTransRGBDoc2MonG = doc->stdTransRGBDoc2Mon;
+				stdTransCMYK2MonG = doc->stdTransCMYK2Mon;
+				stdProofRGBG = doc->stdProofRGB;
+				stdProofRGBGCG = doc->stdProofRGBGC;
+				stdProofCMYKG = doc->stdProofCMYK;
+				stdProofCMYKGCG = doc->stdProofCMYKGC;
+				stdProofImgG = doc->stdProofImg;
+				stdTransImgG = doc->stdTransImg;
+				CMSoutputProf = doc->DocOutputProf;
+				CMSprinterProf = doc->DocPrinterProf;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsInput2 = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsPrinter = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+			}
+			else
+				CMSuse = false;
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
@@ -3438,7 +3498,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		propertiesPalette->Cpal->ChooseGrad(0);
 		if (fileLoader->FileType > 1)
 		{
-			doc->setName(FName+tr("(converted)"));
+			doc->setName(FName + tr("(converted)"));
 			QFileInfo fi(doc->DocName);
 			doc->setName(fi.fileName());
 		}
@@ -3686,7 +3746,7 @@ void ScribusMainWindow::slotGetContent()
 				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-				doc->LoadPict(fileName, currItem->ItemNr);
+				doc->LoadPict(fileName, currItem->ItemNr, false, true);
 				//view->AdjustPictScale(currItem, false);
 				//false was ignored anyway
 				currItem->AdjustPictScale();
@@ -3879,6 +3939,7 @@ bool ScribusMainWindow::slotFileClose()
 
 bool ScribusMainWindow::DoFileClose()
 {
+	view->Deselect(false);
 	if (doc==storyEditor->currentDocument())
 		storyEditor->close();
 	actionManager->disconnectNewDocActions();
@@ -3921,8 +3982,11 @@ bool ScribusMainWindow::DoFileClose()
 	pagePalette->Rebuild();
 	propertiesPalette->Spal->setFormats(0);
 	propertiesPalette->SetLineFormats(0);
+//	if (doc->EditClip)
+//		nodePalette->doc = 0;
 	if (doc->EditClip)
-		nodePalette->doc = 0;
+		NoFrameEdit();
+
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -4029,7 +4093,7 @@ void ScribusMainWindow::slotFilePrint()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
 				if (t == 1)
 					return;
@@ -4240,7 +4304,9 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 					cmd += " "+filename;
 					system(cmd);
 				}
-				unlink(filename);
+// Disabled that for now, as kprinter won't work otherwise
+// leaving that file around doesn't harm, as it will be overwritten the next time.
+//				unlink(filename);
 			}
 			retw = true;
 		}
@@ -4357,6 +4423,7 @@ void ScribusMainWindow::slotEditCut()
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
 			Buffer2 = BufferI;
 			doc->itemSelection_DeleteItem();
+			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -4456,6 +4523,8 @@ void ScribusMainWindow::slotEditPaste()
 	{
 		if (Buffer2.isNull())
 			return;
+		if (UndoManager::undoEnabled())
+			undoManager->beginTransaction(doc->currentPage->getUName(), 0, Um::Paste, "", Um::IPaste);
 		if (doc->appMode == modeEdit)
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
@@ -4479,6 +4548,12 @@ void ScribusMainWindow::slotEditPaste()
 						hg->ch = QChar(13);
 					if (hg->ch == QChar(4))
 						hg->ch = QChar(9);
+/* 	Don't copy inline frames for now, as this is a very complicated thing.
+		We need to figure out a good way to copy inline frames, this must
+		be able to preserve them across documents. No idea how to solve
+		that yet. */
+					if (hg->ch == QChar(25))
+						hg->ch = QChar(32);
 					it++;
 					hg->cfont = (*doc->AllFonts)[*it];
 					it++;
@@ -4644,6 +4719,8 @@ void ScribusMainWindow::slotEditPaste()
 				}
 			}
 		}
+		if (UndoManager::undoEnabled())
+			undoManager->commit();
 		slotDocCh(false);
 	}
 }
@@ -4868,11 +4945,16 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		ss->set("MOVED", mov);
 		undoManager->action(this, ss);
 	}
+
+	// disable recording of undo actions related to new page creating
+	// and object moving related to that
+	undoManager->setUndoEnabled(false);
+
 	QStringList base;
 	if (basedOn == NULL)
 	{
 		for (int b = 0; b < doc->currentPageLayout; ++b)
-			base.append(tr("Normal"));
+			base.append( tr("Normal"));
 	}
 	else
 		base = *basedOn;
@@ -4899,6 +4981,9 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	view->reformPages(mov);
 	view->DrawNew();
 	outlinePalette->BuildTree();
+
+	undoManager->setUndoEnabled(true);
+
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -4961,6 +5046,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 		int currentPageNumber=doc->currentPage->pageNr();
 		bool ok=doc->copyPageToMasterPage(currentPageNumber, diaLinksCurrItem, diaLinksCount, masterPageName);
 		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
+		pagePalette->Rebuild();
 	}
 	delete dia;
 }
@@ -5118,6 +5204,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		ToggleFrames();
 		ToggleRaster();
 		ToggleGuides();
+		ToggleColumnBorders();
 		ToggleBase();
 		ToggleTextLinks();
 		ToggleTextControls();
@@ -5151,6 +5238,7 @@ void ScribusMainWindow::ToggleAllGuides()
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
 	scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+	scrActions["viewShowColumnBorders"]->setOn(doc->guidesSettings.colBordersShown);
 	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
@@ -5184,6 +5272,13 @@ void ScribusMainWindow::ToggleGuides()
 {
 	guidesStatus[0] = false;
 	doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
+	view->DrawNew();
+}
+
+void ScribusMainWindow::ToggleColumnBorders()
+{
+	guidesStatus[0] = false;
+	doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
 	view->DrawNew();
 }
 
@@ -5248,7 +5343,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 	else
 	{
 		//CB Enable/Disable undo in frame edit mode
-		undoManager->setUndoEnabled(false);
+// 		undoManager->setUndoEnabled(false);
 		scrActions["editUndoAction"]->setEnabled(false);
 		scrActions["editRedoAction"]->setEnabled(false);
 		slotSelect();
@@ -5276,9 +5371,21 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
+		scrActions["toolsCopyProperties"]->setEnabled(false);
+		scrActions["toolsEyeDropper"]->setEnabled(false);
 		pdfToolBar->PDFTool->setEnabled(false);
 		pdfToolBar->PDFaTool->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
+		layerPalette->setEnabled(false);
+		outlinePalette->setEnabled(false);
+		scrapbookPalette->setEnabled(false);
+		pagePalette->setEnabled(false);
+		bookmarkPalette->setEnabled(false);
+		docCheckerPalette->setEnabled(false);
+		styleManager->setEnabled(false);
+		alignDistributePalette->setEnabled(false);
+		view->pageSelector->setEnabled(false);
+		view->layerMenu->setEnabled(false);
 		if (doc->m_Selection->count() != 0)
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -5295,6 +5402,7 @@ void ScribusMainWindow::NoFrameEdit()
 {
 	disconnect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	actionManager->disconnectModeActions();
+	nodePalette->setDoc(0,0);
 	nodePalette->hide();
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setOn(true);
@@ -5313,10 +5421,22 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsEditContents"]->setOn(false);
 	scrActions["toolsEditWithStoryEditor"]->setOn(false);
 	scrActions["toolsMeasurements"]->setEnabled(true);
+	scrActions["toolsCopyProperties"]->setEnabled(true);
+	scrActions["toolsEyeDropper"]->setEnabled(true);
 	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setOn(false);
-	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
+	layerPalette->setEnabled(true);
+	outlinePalette->setEnabled(true);
+	scrapbookPalette->setEnabled(true);
+	pagePalette->setEnabled(true);
+	bookmarkPalette->setEnabled(true);
+	docCheckerPalette->setEnabled(true);
+	styleManager->setEnabled(true);
+	alignDistributePalette->setEnabled(true);
+	view->pageSelector->setEnabled(true);
+	view->layerMenu->setEnabled(true);
+//	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
 		doc->EditClip = false;
@@ -5330,8 +5450,8 @@ void ScribusMainWindow::NoFrameEdit()
 			HaveNewSel(-1);
 	}
 	actionManager->connectModeActions();
-	if (tmpClip)
-		undoManager->setUndoEnabled(true);
+// 	if (tmpClip)
+// 		undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::slotSelect()
@@ -5851,6 +5971,9 @@ void ScribusMainWindow::CopyPage()
 		slotDocCh(); //FIXME emit from doc
 		pagePalette->RebuildPage();
 		outlinePalette->BuildTree();
+		bool setter = doc->Pages->count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
 	}
 	delete dia;
 }
@@ -6532,6 +6655,9 @@ void ScribusMainWindow::slotEditColors()
 			ers = dia->replaceMap;
 			if (!ers.isEmpty())
 			{
+				// Update tools colors
+				PrefsManager::replaceToolColors(doc->toolSettings, ers);
+				// Update objects and styles colors
 				QMap<QString,QString>::Iterator it;
 				for (it = ers.begin(); it != ers.end(); ++it)
 				{
@@ -6632,10 +6758,14 @@ void ScribusMainWindow::slotEditColors()
 				}
 			}
 			doc->updateAllItemQColors();
+			if (doc->m_Selection->count() != 0)
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
 		}
 		else
 		{
+			// Update tools colors if needed
+			prefsManager->replaceToolColors(dia->replaceMap);
 			prefsManager->setColorSet(dia->EditColors);
 			prefsManager->setColorSetName(dia->getColorSetName());
 			propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
@@ -6670,13 +6800,11 @@ void ScribusMainWindow::updtGradFill()
 void ScribusMainWindow::GetBrushPen()
 {
 	//What? we come back here from mpalette and then go to the view.. someones kidding
-
-	//why this.. ugh. setActiveWindow();
-	//
 	if (HaveDoc)
 	{
 		view->QueryFarben();
-		slotDocCh();
+		//CB We dont need to set the doc changed just to find the colour values...
+		//slotDocCh();
 	}
 }
 
@@ -6896,7 +7024,7 @@ void ScribusMainWindow::slotPrefsOrg()
 //		scrapbookPalette->rebuildView();
 //		scrapbookPalette->AdjustMenu();
 		QString newGUILanguage=prefsManager->guiLanguage();
-		if (oldGUILanguage!=newGUILanguage)
+		if (oldGUILanguage!=newGUILanguage || ScQApp->currGUILanguage()!=newGUILanguage)
 			ScQApp->changeGUILanguage(newGUILanguage);
 		QString newGUIStyle=prefsManager->guiStyle();
 		if (oldGUIStyle != newGUIStyle)
@@ -6985,8 +7113,7 @@ void ScribusMainWindow::doPrintPreview()
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
 		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
-		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
+		prefsManager->appPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
 		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
 		if ( HaveTiffSep != 0 || !dia->postscriptPreview )
 		{
@@ -7029,7 +7156,7 @@ void ScribusMainWindow::printPreview()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
 				if (t == 1)
 					return;
@@ -7119,7 +7246,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		scrActions["toolsPreflightVerifier"]->setOn(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
 	}
-	if (!doc->DocName.startsWith(tr("Document")))
+	if (!doc->DocName.startsWith( tr("Document")))
 	{
 		QFileInfo fi(doc->DocName);
 		fna = fi.dirPath() + "/" + getFileNameByPage(doc->currentPage->pageNr(), "eps");
@@ -7602,37 +7729,39 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
-		int t = -1; // show locked dialog only once
 		QString tooltip = Um::ItemsInvolved + "\n";
 		uint selectedItemCount=doc->m_Selection->count();
 		if (showLockDia)
 		{
+			uint lockedCount=0;
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
-				if (t == -1 && doc->m_Selection->itemAt(a)->locked())
-					t = QMessageBox::warning(this, CommonStrings::trWarning,
-											 tr("Some objects are locked."),
-											 CommonStrings::tr_Cancel,
-											 tr("&Lock All"),
-											 tr("&Unlock All"), 0, 0);
-				if (t != -1)
-					break; // already have an answer free to leave the loop
+				if (doc->m_Selection->itemAt(a)->locked())
+					++lockedCount;
 			}
-			if (t == 0)
-				return; // user chose cancel -> do not group but return
-
-			for (uint a=0; a<selectedItemCount; ++a)
+			int t = -1;
+			if (lockedCount!=0 && lockedCount!=selectedItemCount)
 			{
-				currItem = doc->m_Selection->itemAt(a);
-				if (currItem->locked())
+				t = QMessageBox::warning(this, CommonStrings::trWarning,
+							 tr("Some objects are locked."),
+							 CommonStrings::tr_Cancel,
+							 tr("&Lock All"),
+							 tr("&Unlock All"), 0, 0);
+				if (t == 0)
+					return; // user chose cancel -> do not group but return
+				for (uint a=0; a<selectedItemCount; ++a)
 				{
-					for (uint c=0; c<selectedItemCount; ++c)
+					currItem = doc->m_Selection->itemAt(a);
+					if (currItem->locked())
 					{
-						bb = doc->m_Selection->itemAt(c);
-						bool t1=(t==1);
-						bb->setLocked(t1);
-						scrActions["itemLock"]->setOn(t1);
+						for (uint c=0; c<selectedItemCount; ++c)
+						{
+							bb = doc->m_Selection->itemAt(c);
+							bool t1=(t==1);
+							bb->setLocked(t1);
+							scrActions["itemLock"]->setOn(t1);
 						tooltip += "\t" + currItem->getUName() + "\n";
+						}
 					}
 				}
 			}
@@ -7674,6 +7803,7 @@ void ScribusMainWindow::UnGroupObj()
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
+			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
 			currItem->Groups.pop();
 			currItem->isTableItem = false;
 			currItem->LeftLink = 0;
@@ -7824,6 +7954,8 @@ void ScribusMainWindow::restoreUngroupping(SimpleState *state, bool isUndo)
 	for (int i = 0; i < itemCount; ++i)
 	{
 		int itemNr = state->getInt(QString("item%1").arg(i));
+		if (isUndo)
+			doc->Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
 		view->SelectItemNr(itemNr);
 	}
 	if (isUndo)
@@ -7849,7 +7981,9 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
                                 bool *docom, bool *doFont)
 {
 	QString retval = "";
-	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
+	// changed from "this" to qApp->activeWindow() to be sure it will be opened
+	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
+	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
 	if (!defNa.isEmpty())
 	{
 		QFileInfo f(defNa);
@@ -7866,7 +8000,14 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	{
 		LoadEnc = "";
 		if (!onlyDirs)
+		{
 			LoadEnc = cod ? dia->TxCodeM->currentText() : QString("");
+			if (comp)
+			{
+				if (dia->SaveZip->isChecked())
+					dia->handleCompress();
+			}
+		}
 		else
 		{
 			*docom = dia->SaveZip->isChecked();
@@ -7982,11 +8123,11 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 						InputProfilesCMYK[nam] = pfad + d[dc];
 					break;
 				case icSigOutputClass:
-					PrinterProfiles[nam] = pfad + d[dc];
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 					{
 						PDFXProfiles[nam] = pfad + d[dc];
 						InputProfilesCMYK[nam] = pfad + d[dc];
+						PrinterProfiles[nam] = pfad + d[dc];
 					}
 					break;
 				}
@@ -8236,10 +8377,24 @@ void ScribusMainWindow::ImageEffects()
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
 			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
+			// store old effects for the undo action
+			QValueList<ScImage::imageEffect> oldEffects(currItem->effectsInUse);
 			if (dia->exec())
 			{
 				currItem->effectsInUse = dia->effectsList;
 				doc->updatePic();
+
+				// this messy part is for the undo action
+				ItemState<QPair<
+					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *state =
+				new ItemState<QPair<
+					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > >(
+						Um::ImageEffects, "", currItem->getUPixmap());
+				state->set("APPLY_IMAGE_EFFECTS", "apply_image_effects");
+				state->setItem(
+					QPair<QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> >(
+						oldEffects, currItem->effectsInUse));
+				undoManager->action(currItem, state);
 			}
 			delete dia;
 			slotDocCh();
@@ -8453,7 +8608,7 @@ void ScribusMainWindow::callImageEditor()
 				QString imEditorDir = imEditor.left( index + 1 );
 				ExternalApp->setWorkingDirectory( imEditorDir );
 			}
-			cmd.append(currItem->Pfile);
+			cmd.append(QDir::convertSeparators(currItem->Pfile));
 			ExternalApp->setArguments(cmd);
 			if ( !ExternalApp->start() )
 			{
@@ -8581,14 +8736,14 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 			{
 				bool ok;
 				bool nameFound=false;
-				QString questionString="<qt>"+tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
+				QString questionString="<qt>"+ tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
 				do
 				{
 					colorName = QInputDialog::getText( tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok, this);
 					if (ok)
 					{
 						if (doc->PageColors.contains(colorName))
-							questionString="<qt>"+tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
+							questionString="<qt>"+ tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
 						else
 							nameFound=true;
 					}
@@ -8680,6 +8835,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("InsertChar", tr("Character"));
 			scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
 			scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
+			scrMenuMgr->setMenuText("InsertLigature", tr("Liga&ture"));
 			scrMenuMgr->setMenuText("Page", tr("&Page"));
 			scrMenuMgr->setMenuText("View", tr("&View"));
 			scrMenuMgr->setMenuText("Tools", tr("&Tools"));

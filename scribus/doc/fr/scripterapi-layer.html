@@ -1,0 +1,57 @@
+<qt>
+<title>Commandes relatives aux calques</title>
+<h2>Commandes relatives aux calques</h2>
+
+<dl>
+
+<dt><a name="-createLayer"><strong>createLayer</strong></a>(...)</dt>
+<dd><code><a href="#-createLayer">createLayer</a>(calque)</code>
+<p>Cr&eacute;e un nouveau calque portant le nom pr&eacute;cis&eacute;.</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-deleteLayer"><strong>deleteLayer</strong></a>(...)</dt>
+<dd><code><a href="#-deleteLayer">deleteLayer</a>("calque")</code>
+<p>Supprime le calque portant le nom "calque". Sans effet si le calque n'existe pas ou s'il n'y a qu'un seul calque dans le document.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-getActiveLayer"><strong>getActiveLayer</strong></a>(...)</dt>
+<dd><code><a href="#-getActiveLayer">getActiveLayer</a>() -&gt; cha&icirc;ne</code>
+<p>Retourne le nom du calque actif courant.</p></dd>
+
+<dt><a name="-getLayers"><strong>getLayers</strong></a>(...)</dt>
+<dd><code><a href="#-getLayers">getLayers</a>() -&gt; liste</code>
+<p>Retourne une liste contenant les noms de tous les calques d&eacute;finis.</p></dd>
+
+<dt><a name="-isLayerPrintable"><strong>isLayerPrintable</strong></a>(...)</dt>
+<dd><code><a href="#-isLayerPrintable">isLayerPrintable</a>("calque") -&gt; bool&eacute;en</code>
+<p>Indique si le "calque" est imprimable ou non; une valeur True signifie que le "calque" peut &ecirc;tre imprim&eacute; et une valeur False, que l'impression est d&eacute;sactiv&eacute;e.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-isLayerVisible"><strong>isLayerVisible</strong></a>(...)</dt>
+<dd><code><a href="#-isLayerVisible">isLayerVisible</a>("calque") -&gt; bool&eacute;en</code>
+<p>Indique si le "calque" est visible ou non; une valeur True signifie que le "calque" est visible et une valeur False, que le "calque" est invisible.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+<dd><code><a href="#-sentToLayer">sentToLayer</a>("calque" [, "nom"])</code>
+<p>Envoie l'objet "nom" au calque "calque". Le calque doit exister. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
+<dd><code><a href="#-setActiveLayer">setActiveLayer</a>("nom")</code>
+<p>Rend actif le calque nomm&eacute; "nom".</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-setLayerPrintable"><strong>setLayerPrintable</strong></a>(...)</dt>
+<dd><code><a href="#-setLayerPrintable">setLayerPrintable</a>("calque", imprimable)</code>
+<p>Autorise ou non l'impression du "calque". Si la valeur "imprimable" est &agrave; False, le calque ne sera pas imprim&eacute;.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+<dt><a name="-setLayerVisible"><strong>setLayerVisible</strong></a>(...)</dt>
+<dd><code><a href="#-setLayerVisible">setLayerVisible</a>("calque", visible)</code>
+<p>Affiche ou masque le "calque". Si "visible" prend la valeur False, le calque est invisible.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si le calque est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</p></dd>
+
+</dl>
+</qt>
+ 

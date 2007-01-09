@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-#include FT_INTERNAL_STREAM_H
 
 QString Foi_ttf::RealName()
 {
@@ -231,7 +230,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 	FT_Init_FreeType(&library);
 	FT_New_Face(library, fontFilePath(), faceIndex(), &face);
 	const FT_Stream fts = face->stream;
-	if (FT_Stream_Seek(fts, 0L)) {
+	if (ftIOFunc(fts, 0L, NULL, 0)) {
 		FT_Done_FreeType( library );
 		return(false);
 	}
@@ -256,7 +255,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 		if (length > 65534) {
 			length = 65534;
 		}
-		if (!FT_Stream_Read(fts,tmp,length))
+		if (!ftIOFunc(fts, 0L, tmp, length))
 		{
 			str+="\n<\n";
 			for (int j = 0; j < length; j++)

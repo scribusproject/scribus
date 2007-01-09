@@ -168,7 +168,7 @@ void PluginManager::initPlugs()
 			pda.pluginDLL = 0;
 			pda.enabled = false;
 			pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
-			ScMW->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
+			ScMW->setSplashStatus( tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 			if (loadPlugin(pda))
 			{
 				if (pda.enableOnStartup)
@@ -196,8 +196,7 @@ void PluginManager::enablePlugin(PluginData & pda)
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
 		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
-		Q_ASSERT(plugin);
-		pda.enabled = plugin->initPlugin();
+		pda.enabled = plugin && plugin->initPlugin();
 		if (!pda.enabled)
 			failReason = tr("init failed", "plugin load error");
 	}
@@ -417,23 +416,24 @@ ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisa
 }
 
 // Compatability kludge
-bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval)
-{
-	bool result = false;
-	if (DLLexists(pluginName))
-	{
-		ScActionPlugin* plugin =
-			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
-		if (plugin)
-			result = plugin->run(arg);
-	}
-	if (result)
-	{
-		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
-		result = true;
-	}
-	return result;
-}
+// PV - no need it now
+// bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval)
+// {
+// 	bool result = false;
+// 	if (DLLexists(pluginName))
+// 	{
+// 		ScActionPlugin* plugin =
+// 			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
+// 		if (plugin)
+// 			result = plugin->run(arg);
+// 	}
+// 	if (result)
+// 	{
+// 		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
+// 		result = true;
+// 	}
+// 	return result;
+// }
 
 PluginManager & PluginManager::instance()
 {

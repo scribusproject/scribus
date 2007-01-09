@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "fileloader.moc"
 #include "fontreplacedialog.h"
+#include "hyphenator.h"
 #include "missing.h"
 #include "page.h"
 #include "pluginmanager.h"
@@ -63,6 +64,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatODG(LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT)),
 	prefsManager(PrefsManager::instance())
 {
+	dummyFois.setAutoDelete(true);
 }
 
 // FIXME: This static method is here as a temporary transitional
@@ -225,6 +227,10 @@ QString FileLoader::readSLA(const QString & fileName)
 
 bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 {
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	
 	bool ret = false;
 	newReplacement = false;
 	ReplacedFonts.clear();
@@ -242,6 +248,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
@@ -274,7 +281,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -288,7 +295,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -302,7 +309,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -350,6 +357,7 @@ bool FileLoader::LoadFile()
 	ScMW->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
 	ScMW->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
 	ScMW->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	ScMW->doc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
 	ScMW->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
 	ScMW->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
 	ScMW->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
@@ -377,22 +385,23 @@ bool FileLoader::LoadFile()
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
 			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->mainWindowProgressBar);
 			break;
 		case 2:
-			ret = formatPS->loadFile(FileName);
+			ret = formatPS->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 3:
-			ret = formatSVG->loadFile(FileName);
+			ret = formatSVG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 5:
-			ret = formatSXD->loadFile(FileName);
+			ret = formatSXD->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 6:
-			ret = formatODG->loadFile(FileName);
+			ret = formatODG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		default:
 			ret = false;
@@ -408,7 +417,8 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
@@ -621,12 +631,21 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					PAGE=PAGE.nextSibling();
 					continue;
 				}
-				if (pg.attribute("OwnPage").toInt() == PageToLoad)
+				if (pg.attribute("OwnPage").toInt() != PageToLoad)
+				{			
+					if (pg.tagName()=="PAGEOBJECT")
+						itemRemap[itemCount++] = -1;
+				}
+				else
 				{
-					if (pg.attribute("NEXTITEM").toInt() != -1)
+					// first of linked chain?
+					if (pg.tagName()=="PAGEOBJECT")
 					{
-						if (pg.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(doc->Items->count());
+						itemRemap[itemCount++] = doc->Items->count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+						{
+							itemNext[doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
+						}
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
@@ -724,7 +743,6 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
-					Neu->NextIt = baseobj + pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -746,17 +764,21 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					doc->BookMarks.append(bok);
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -785,31 +807,44 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 				ta->BottomLink = 0;
 		}
 	}
-	if (LFrames.count() != 0)
+	// reestablish textframe links
+	if (itemNext.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = doc->Items->at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				if (Its->NextIt < static_cast<int>(doc->Items->count()))
+				PageItem * Its = doc->Items->at(lc.key());
+				PageItem * Itn = doc->Items->at(itemRemap[lc.data()]);
+				if (Itn->BackBox || Its->NextBox) 
 				{
-					Itn = doc->Items->at(Its->NextIt);
-					Its->NextBox = Itn;
-					Itn->BackBox = Its;
-					Its = Itn;
+					qDebug("scribus13format: corruption in linked textframes detected");
+					continue;
 				}
-				else
-					Its->NextIt = -1;
+				PageItem * tail = Itn; 
+				while (tail->NextBox)
+					 tail = tail->NextBox;
+				if (tail == Its)
+				{
+					qDebug("scribus13format: cycle in linked textframes detected");
+					continue;
+				}
+
+				Its->NextBox = Itn;
+				Itn->BackBox = Its;
 			}
-			Its->NextBox = 0;
 		}
+	}	
+	
+	// reestablish first/lastAuto
+	doc->FirstAuto = doc->LastAuto;
+	if (doc->LastAuto)
+	{
+		while (doc->LastAuto->NextBox)
+			doc->LastAuto = doc->LastAuto->NextBox;
+		while (doc->FirstAuto->BackBox)
+			doc->FirstAuto = doc->FirstAuto->BackBox;
 	}
 	return true;
 }
@@ -826,11 +861,17 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	QFont fo;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
+	QMap<int,int> TableIDM;
+	QPtrList<PageItem> TableItemsM;
+	QMap<int,int> TableIDF;
+	QPtrList<PageItem> TableItemsF;
 	int a;
 	double xf, xf2;
 	PageItem *Neu;
 	Page* Apage;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
@@ -852,6 +893,10 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	int ObCount = 0;
 	TableItems.clear();
 	TableID.clear();
+	TableItemsM.clear();
+	TableIDM.clear();
+	TableItemsF.clear();
+	TableIDF.clear();
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
@@ -962,6 +1007,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->guidesSettings.majorGrid = dc.attribute("MAJGRID", tmp.setNum(prefsManager->appPrefs.guidesSettings.majorGrid)).toDouble();
 		doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+		doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 		doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
 		doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 		doc->guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
@@ -1575,11 +1621,16 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
-					if ((pg.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pg.attribute("AUTOTEXT").toInt())))
+
+				if (pg.tagName()=="PAGEOBJECT")
+				{
+					itemRemap[itemCount++] = doc->Items->count();
+					// member of linked chain?
+					if ((pg.attribute("NEXTITEM").toInt() != -1) )
 					{
-						if (pg.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(doc->Items->count());
+						itemNext[doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
+				}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc);
@@ -1675,31 +1726,31 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					}
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
-					Neu->NextIt = pg.attribute("NEXTITEM").toInt();
-					if (Neu->isTableItem)
-					{
-						TableItems.append(Neu);
-						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-					}
+
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						doc->FrameItems.append(doc->Items->take(Neu->ItemNr));
 						Neu->ItemNr = doc->FrameItems.count()-1;
 					}
-					/*
-					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+					if (Neu->isTableItem)
 					{
-						//doc->DocItems = doc->Items;
-						//doc->DocPages = doc->Pages;
+						if (pg.tagName()=="PAGEOBJECT")
+						{
+							TableItems.append(Neu);
+							TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						}
+						else if (pg.tagName()=="FRAMEOBJECT")
+						{
+							TableItemsF.append(Neu);
+							TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						}
+						else
+						{
+							TableItemsM.append(Neu);
+							TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						}
 					}
-					else
-					{
-						//doc->MasterItems = doc->Items;
-						//doc->MasterPages = doc->Pages;
-					}
-					*/
 					doc->setMasterPageMode(false);
-					//doc->Pages=&doc->DocPages;
 					counter++;
 				}
 			PAGE=PAGE.nextSibling();
@@ -1710,21 +1761,71 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					doc->BookMarks.append(bok);
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
+	}
+	if (TableItemsF.count() != 0)
+	{
+		for (uint ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsF.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = doc->FrameItems.at(TableIDF[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = doc->FrameItems.at(TableIDF[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (TableItemsM.count() != 0)
+	{
+		for (uint ttc = 0; ttc < TableItemsM.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsM.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = doc->MasterItems.at(TableIDM[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = doc->MasterItems.at(TableIDM[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
 	}
 	if (TableItems.count() != 0)
 	{
@@ -1763,29 +1864,47 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		la.isEditable = true;
 		doc->Layers.append(la);
 	}
-	if (LFrames.count() != 0)
+
+	// reestablish textframe links
+	if (itemNext.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = doc->Items->at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			if (Its->isAutoText)
-				doc->FirstAuto = Its;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				Itn = doc->Items->at(Its->NextIt);
+				PageItem * Its = doc->Items->at(lc.key());
+				PageItem * Itn = doc->Items->at(itemRemap[lc.data()]);
+				if (Itn->BackBox || Its->NextBox) 
+				{
+					qDebug("scribus13format: corruption in linked textframes detected");
+					continue;
+				}
+				PageItem * tail = Itn;
+                                while (tail->NextBox)
+                                         tail = tail->NextBox;
+                                if (tail == Its)
+                                {
+                                        qDebug("scribus13format: cycle in linked textframes detected");
+                                        continue;
+                                }
+
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
-				Its = Itn;
 			}
-			Its->NextBox = 0;
 		}
 	}
+	
+	// reestablish first/lastAuto
+	doc->FirstAuto = doc->LastAuto;
+	if (doc->LastAuto)
+	{
+		while (doc->LastAuto->NextBox)
+			doc->LastAuto = doc->LastAuto->NextBox;
+		while (doc->FirstAuto->BackBox)
+			doc->FirstAuto = doc->FirstAuto->BackBox;
+	}
+	
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
@@ -1836,6 +1955,9 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	}
 	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
 	QString fcolor = it->attribute("CCOLOR");
+	fcolor.squeeze(); // less ugly version for my problme, for some reason if the capacity of
+	                  // a string was more than the actual lenth of the string that caused huge
+	                  // slowdowns here. squeeze() will remove any unused capacity from the QString
 	int extra;
 	if (it->hasAttribute("CEXTRA"))
 		extra = qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0);
@@ -1844,7 +1966,9 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int shade = it->attribute("CSHADE").toInt();
 	int style = it->attribute("CSTYLE").toInt();
 	int ab = it->attribute("CAB", "0").toInt();
+	// FIXME dirty hack to get over my problem. I wish i didn't break all other systems
 	QString stroke = it->attribute("CSTROKE", CommonStrings::None);
+	stroke.squeeze(); // see fcolor.squeeze() comment
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
 	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
@@ -2633,6 +2757,14 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 
 bool FileLoader::postLoad()
 {
+	if (ScMW->doc->docHyphenator!=0)
+	{
+			ScMW->doc->docHyphenator->Automatic=ScMW->doc->Automatic;
+			ScMW->doc->docHyphenator->AutoCheck=ScMW->doc->AutoCheck;
+			ScMW->doc->docHyphenator->Language=ScMW->doc->Language;
+			ScMW->doc->docHyphenator->MinWordLen=ScMW->doc->MinWordLen;
+			ScMW->doc->docHyphenator->HyCount=ScMW->doc->HyCount;
+	}
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{
 		PageItem *it = ScMW->doc->MasterItems.at(d);
@@ -2686,7 +2818,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2700,7 +2832,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2714,7 +2846,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{

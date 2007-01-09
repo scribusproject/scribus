@@ -18,10 +18,11 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <qtooltip.h>
 
+#include "commonstrings.h"
 #include "scconfig.h"
 #include "gsutil.h"
 #include "util.h"
-
+#include "upgradechecker.h"
 #include "langmgr.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -48,14 +49,14 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
-	pixmapLabel1->setPixmap(loadIcon("scribus_logo.jpg"));
+	pixmapLabel1->setPixmap(loadIcon("scribus_logo.png"));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "01";
-	QString BUILD_MONTH = tr("April");
-	QString BUILD_YEAR = "2006";
+	QString BUILD_DAY = "09";
+	QString BUILD_MONTH = CommonStrings::january;
+	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
@@ -64,7 +65,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
 
 // This is my way, only activated when envvar BUILD_NAME is set :-)  AV
-#include "about_builddate.inc"
+//#include "about_builddate.inc"
 	QString version = VERSION;
 	if (BUILD_NAME != "")
 		version += " \"" + BUILD_NAME + "\"";
@@ -139,7 +140,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
-	textView1 = new QTextView( tab_2, "TextView1" );
+	textView1 = new TextBrowser( tab_2, "TextView1" );
 	textView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
@@ -168,10 +169,15 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
 											"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
 											"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +
+											"<tr><td>Kevin Young</td><td>k.young@youngscomputing.com</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
 
 											"<tr><td><b>" + tr("Mac OS&#174; X Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+
+											"<tr><td><b>" + tr("OS/2&#174;/eComStation&#8482; Port:").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Paul Smedley</td><td>paul@smedley.info</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 
 											"<tr><td><b>" + tr("Windows&#174; Port:").utf8()  + "</b></td><td> </td></tr>" +
@@ -189,20 +195,30 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
 											"<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
-											"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
-	textView1->setTextFormat( QTextView::RichText );
+											"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + tr("Tango Project Icons:").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr>" +
+											"<tr><td>Jakub Steiner</td><td>jimmac@ximian.com</td></tr>"  + 
+											"<tr><td> </td><td> </td></tr>" + "</table>"));
 	tabLayout->addWidget( textView1 );
 	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
 	tab_3 = new QWidget( tabWidget2, "tab_3" );
 	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
-	textView2 = new QTextView( tab_3, "TextView1_2" );
+	textView2 = new TextBrowser( tab_3, "TextView1_2" );
 	LanguageManager langmgr;
 	langmgr.init(false);
 	textView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("af").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Kobus Wolvaardt</td><td>kobuswolf@diewereld.co.za</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Iñaki Larrañaga Murgoitio</td><td>dooteo@euskalgnu.org</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("br").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Alan Monfort</td><td>alan.monfort@free.fr</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ca").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
@@ -214,13 +230,22 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Morten Langlo</td><td>mlanglo@mail.dk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Foppe Benedictus</td><td>foppe.benedictus@gmail.coml</td></tr>" +
+											"<tr><td>Erik Collou</td><td>collou@gmx.net</td></tr>" +
 											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_AU").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("eo").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("et").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Marek Laane</td><td>bald@starman.ee</td></tr>" +
+											"<tr><td>Hasso Tepper</td><td>hasso@estpak.ee</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("fi").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Riku Leino</td><td>riku@scribus.info</td></tr>" +
@@ -239,6 +264,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
 											"<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("el").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Toussis Manolis</td><td>manolis@koppermind.homelinux.org</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Csaba Zakarias</td><td>csaba.zakarias@gmail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -252,6 +280,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Kitae Kim</td><td>neeum@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Axel Bojer</td><td>axelb@skolelinux.no</td></tr>" +
 											"<tr><td>Klaus Ade Johnstad</td><td>klaus@inout.no</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("pl").utf8()  + "</b></td><td> </td></tr>" +
@@ -283,6 +312,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("th_TH").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Sira Nokyoungthong</td><td>Sira Nokyoungthong</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Barış Atasoy</td><td>batasoy@pozitifpc.com</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -294,7 +326,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8() + "</b></td><td></td></tr>" +
 											"<tr><td>Pablo Saratxaga</td><td>pablo@mandrakesoft.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("br").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt_BR").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Celio Santos</td><td>celio@electronic.srv.br</td></tr>" +
 											"<tr><td>Cezar de Souza Marson Nido</td><td>cesar@electronic.srv.br</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -318,7 +350,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Aivaras Kirejevas</td><td>kiras@mail.lt</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Axel Bojer</td><td>axelb@skolelinux.no</td></tr>" +
 											"<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").utf8()  + "</b></td><td> </td></tr>" +
@@ -328,13 +359,12 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"</table>"));
-	textView2->setTextFormat( QTextView::RichText );
 	tabLayout_2->addWidget( textView2 );
 	tabWidget2->insertTab( tab_3, tr( "&Translations" ) );
 
 	// online tab (03/04/2004 petr vanek)
 	tab_4 = new QWidget( tabWidget2, "tab_4" );
-	textView4 = new QTextView( tab_4, "TextView4" );
+	textView4 = new TextBrowser( tab_4, "TextView4" );
 	textView4->setText(QString::fromUtf8(
 		"<table><tr><td><b>" + tr("Homepage").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://www.scribus.net\">http://www.scribus.net</a></p></td></tr>" +
@@ -346,14 +376,27 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td colspan=\"2\"><p><a href=\"http://bugs.scribus.net\">http://bugs.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Mailing List").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
-		"</table>"
-		));
-	textView4->setTextFormat( QTextView::RichText );
+		"</table>"));
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
 	tabLayout_4->addWidget( textView4 );
 	tabWidget2->insertTab( tab_4, tr( "&Online" ) );
+
+	// Update tab
+/*
+	tab_5 = new QWidget( tabWidget2, "tab_5" );
+	tabWidget2->insertTab( tab_5, tr( "&Updates" ) );
+	updateLayout = new QVBoxLayout( tab_5 );
+	updateLayout->setSpacing( 6 );
+	updateLayout->setMargin( 10 );
+	checkForUpdateButton = new QPushButton( tr( "Check for &Updates" ), tab_5, "checkForUpdateButton" );
+	textView5 = new TextBrowser( tab_5, "TextView5" );
+	updateLayout->addWidget( checkForUpdateButton );
+	updateLayout->addWidget( textView5 );
+*/
+
+
 	aboutLayout->addWidget( tabWidget2 );
 	layout2 = new QHBoxLayout;
 	layout2->setSpacing( 6 );
@@ -368,7 +411,18 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 
 
 //tooltips
+
 	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected." ) + "</qt>" );
+//	QToolTip::add( checkForUpdateButton, "<qt>" + tr( "Check for updates to Scribus. No data from your machine will be transferred off it." ) + "</qt>" );
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+//	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
 }
+
+void About::runUpdateCheck()
+{
+	UpgradeCheckerGUI uc(textView5);
+	bool error=uc.fetch();
+	uc.show(error);
+}
+

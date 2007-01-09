@@ -99,7 +99,7 @@ void StyleManager::slotStyleChanged()
 	if (count > 1) {
 		cloneButton->setEnabled(true);
 		deleteButton->setEnabled(true);
-		nameEdit->setText(tr("More than one item selected"));
+		nameEdit->setText( tr("More than one item selected"));
 		nameEdit->setEnabled(false);
 		widget_->setEnabled(true);
 	} else if (count == 1) {

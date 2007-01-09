@@ -46,7 +46,10 @@ public:
 	const FileFormat * const formatSXD;
 	const FileFormat * const formatODG;
 	bool newReplacement;
-	QValueList<int> LFrames;
+	
+	QMap<int, int> itemRemap;
+	QMap<int, int> itemNext;
+	int itemCount;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;

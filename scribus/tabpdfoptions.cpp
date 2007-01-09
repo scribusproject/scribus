@@ -408,10 +408,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		tabLayout_3 = new QVBoxLayout( tabFonts );
 		tabLayout_3->setSpacing( 5 );
 		tabLayout_3->setMargin( 11 );
-		EmbedFonts = new QCheckBox( tr( "&Embed all Fonts" ), tabFonts, "EmbedFonts" );
-		tabLayout_3->addWidget( EmbedFonts );
-		SubsetFonts = new QCheckBox( tr( "&Subset all Fonts" ), tabFonts, "SubsetFonts" );
-		tabLayout_3->addWidget( SubsetFonts );
 		GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
 		GroupFont->setColumnLayout(0, Qt::Vertical );
 		GroupFont->layout()->setSpacing( 0 );
@@ -465,6 +461,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		Layout5_2a = new QHBoxLayout;
 		Layout5_2a->setSpacing( 5 );
 		Layout5_2a->setMargin( 0 );
+		EmbedFonts = new QPushButton( tr( "&Embed All" ), GroupFont, "EmbedFonts" );
+		Layout5_2a->addWidget( EmbedFonts );
 		QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS1 );
 		ToSubset = new QPushButton( "", GroupFont, "ToSubset" );
@@ -478,14 +476,15 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS2 );
 		Layout6->addLayout( Layout5_2a );
-		TextFont1_2a = new QLabel( tr( "Fonts to subset:" ), GroupFont, "TextFont1_2a" );
+		TextFont1_2a = new QLabel( tr( "Fonts to outline:" ), GroupFont, "TextFont1_2a" );
 		Layout6->addWidget( TextFont1_2a );
 		SubsetList = new QListBox( GroupFont, "SubsetList" );
 		SubsetList->setMinimumSize(QSize(150, 40));
 		Layout6->addWidget( SubsetList );
+		SubsetFonts = new QPushButton( tr( "Outline &All" ), GroupFont, "SubsetFonts" );
+		Layout6->addWidget( SubsetFonts );
 		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0))
 		{
-			EmbedFonts->setChecked(true);
 			EmbedAll();
 		}
 		else
@@ -622,7 +621,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		insertTab( tabPresentation, tr( "E&xtras" ) );
 
 		// XXX Optionen or Opts Changed here
-		if (view->Doc->currentPageLayout == doublePage)
+/*		if (view->Doc->currentPageLayout == doublePage)
 		{
 			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
 				Opts.PageLayout = PDFOptions::TwoColumnLeft;
@@ -637,7 +636,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		{
 			if ((Opts.Version == 15) && (Opts.useLayers))
 				Opts.displayLayers = true;
-		}
+		} */
 		tabSpecial = new QWidget( this, "tabSpecial" );
 		tabSpecialLayout = new QVBoxLayout( tabSpecial, 11, 6, "tabSpecialLayout");
 		groupDisplay = new QGroupBox( tabSpecial, "groupDisplay" );
@@ -649,7 +648,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		groupDisplayLayout->setAlignment( Qt::AlignTop );
 		LayoutSpecial = new QHBoxLayout( 0, 0, 5, "LayoutSpecial");
 		pageLayout = new QButtonGroup( groupDisplay, "pageLayout" );
-		pageLayout->setTitle( tr( "Page Layout" ) );
+		pageLayout->setTitle( tr( "Document Layout" ) );
 		pageLayout->setColumnLayout(0, Qt::Vertical );
 		pageLayout->layout()->setSpacing( 5 );
 		pageLayout->layout()->setMargin( 10 );
@@ -1138,7 +1137,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
 		connect(InfoString, SIGNAL(returnPressed()), this, SLOT(checkInfo()));
 		connect(InfoString, SIGNAL(lostFocus()), this, SLOT(checkInfo()));
-		QToolTip::add( EmbedFonts, "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
+		QToolTip::add( EmbedFonts, "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. " ) + "</qt>");
+		QToolTip::add( SubsetFonts, "<qt>" + tr( "Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6." ) + "</qt>");
 		QToolTip::add( CheckBox10, "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
 		QToolTip::add( PagePrev, "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
 		QToolTip::add( PageTime, "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition." ) + "</qt>" );
@@ -1181,8 +1181,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add( CheckBM, "<qt>" + tr( "Embed the bookmarks you created in your document. These are useful for navigating long PDF documents." ) + "</qt>" );
 	QToolTip::add( Resolution, "<qt>" + tr( "Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos." ) + "</qt>" );
 	QToolTip::add( Compression, "<qt>" + tr( "Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size." ) + "</qt>" );
-	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images" ) + "</qt>");
-	QToolTip::add( CQuality, "<qt>" + tr( "Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level." ) + "</qt>");
+	QToolTip::add( CMethod, "<qt>" + tr( "Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options." ) + "</qt>");
+	QToolTip::add( CQuality, "<qt>" + tr( "Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg." ) + "</qt>");
 	QToolTip::add( DSColor, "<qt>" + tr( "Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export." ) + "</qt>" );
 	QToolTip::add( ValC, "<qt>" + tr( "DPI (Dots Per Inch) for image export.") + "</qt>" );
 	QToolTip::add( Encry, "<qt>" + tr( "Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) + "</qt>" );
@@ -1302,7 +1302,6 @@ void TabPDFOptions::EnablePDFX(int a)
 	EmbedProfs2->setEnabled(false);
 	if (view != 0)
 	{
-		EmbedFonts->setChecked(true);
 		EmbedAll();
 		CheckBox10->setChecked(false);
 		CheckBox10->setEnabled(false);
@@ -1503,7 +1502,7 @@ void TabPDFOptions::DoEffects()
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
-	useFullScreen->setChecked(setter);
+//	useFullScreen->setChecked(setter);
 }
 
 void TabPDFOptions::ValidDI(int nr)
@@ -1665,7 +1664,7 @@ void TabPDFOptions::PutToEmbed()
 	}
 	else
 	{
-		if (!AllFonts[AvailFlist->currentText()]->Subset)
+		if ((AllFonts[AvailFlist->currentText()]->typeCode != Foi::OTF) && (!AllFonts[AvailFlist->currentText()]->Subset))
 		{
 			FontsToEmbed.append(AvailFlist->currentText());
 			EmbedList->insertItem(AvailFlist->currentText());
@@ -1691,16 +1690,16 @@ void TabPDFOptions::PutToEmbed()
 
 void TabPDFOptions::RemoveSubset()
 {
-	if (!AllFonts[SubsetList->currentText()]->Subset)
+	FontsToSubset.remove(SubsetList->currentText());
+	if ((AllFonts[SubsetList->currentText()]->typeCode != Foi::OTF) && (!AllFonts[SubsetList->currentText()]->Subset))
 	{
-		FontsToSubset.remove(SubsetList->currentText());
 		FontsToEmbed.append(SubsetList->currentText());
 		EmbedList->insertItem(SubsetList->currentText());
-		SubsetList->removeItem(SubsetList->currentItem());
-		SubsetList->clearSelection();
-		if (SubsetList->count() == 0)
-			FromSubset->setEnabled(false);
 	}
+	SubsetList->removeItem(SubsetList->currentItem());
+	SubsetList->clearSelection();
+	if (SubsetList->count() == 0)
+		FromSubset->setEnabled(false);
 }
 
 void TabPDFOptions::PutToSubset()
@@ -1730,7 +1729,7 @@ void TabPDFOptions::PutToSubset()
 
 void TabPDFOptions::SelAFont(QListBoxItem *c)
 {
-	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	if (c != NULL)
 	{
 		FromEmbed->setEnabled(false);
 		if (c->isSelectable())
@@ -1744,9 +1743,11 @@ void TabPDFOptions::SelAFont(QListBoxItem *c)
 
 void TabPDFOptions::SelEFont(QListBoxItem *c)
 {
-	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	if (c != NULL)
 	{
-		if (!isTabEnabled(tabPDFX))
+		if (isTabEnabled(tabPDFX))
+			FromEmbed->setEnabled(false);
+		else
 			FromEmbed->setEnabled(true);
 		ToEmbed->setEnabled(false);
 		ToSubset->setEnabled(true);
@@ -1758,9 +1759,17 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 
 void TabPDFOptions::SelSFont(QListBoxItem *c)
 {
-	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	if (c != NULL)
 	{
-		FromSubset->setEnabled(true);
+		if (isTabEnabled(tabPDFX))
+		{
+			if ((AllFonts[c->text()]->typeCode == Foi::OTF) || (AllFonts[c->text()]->Subset))
+				FromSubset->setEnabled(false);
+			else
+				FromSubset->setEnabled(true);
+		}
+		else
+			FromSubset->setEnabled(true);
 		ToSubset->setEnabled(false);
 		ToEmbed->setEnabled(false);
 		FromEmbed->setEnabled(false);
@@ -1771,31 +1780,27 @@ void TabPDFOptions::SelSFont(QListBoxItem *c)
 
 void TabPDFOptions::EmbedAll()
 {
-	if (EmbedFonts->isChecked())
+	EmbedList->clear();
+	FontsToEmbed.clear();
+	SubsetList->clear();
+	FontsToSubset.clear();
+	FromEmbed->setEnabled(false);
+	ToEmbed->setEnabled(false);
+	ToSubset->setEnabled(false);
+	FromSubset->setEnabled(false);
+	for (uint a=0; a < AvailFlist->count(); ++a)
 	{
-		SubsetFonts->setChecked(false);
-		EmbedList->clear();
-		FontsToEmbed.clear();
-		SubsetList->clear();
-		FontsToSubset.clear();
-		FromEmbed->setEnabled(false);
-		ToEmbed->setEnabled(false);
-		ToSubset->setEnabled(false);
-		FromSubset->setEnabled(false);
-		for (uint a=0; a < AvailFlist->count(); ++a)
+		if (AvailFlist->item(a)->isSelectable())
 		{
-			if (AvailFlist->item(a)->isSelectable())
+			if (!AllFonts[AvailFlist->item(a)->text()]->Subset)
 			{
-				if (!AllFonts[AvailFlist->item(a)->text()]->Subset)
-				{
-					FontsToEmbed.append(AvailFlist->item(a)->text());
-					EmbedList->insertItem(AvailFlist->item(a)->text());
-				}
-				else
-				{
-					FontsToSubset.append(AvailFlist->item(a)->text());
-					SubsetList->insertItem(AvailFlist->item(a)->text());
-				}
+				FontsToEmbed.append(AvailFlist->item(a)->text());
+				EmbedList->insertItem(AvailFlist->item(a)->text());
+			}
+			else
+			{
+				FontsToSubset.append(AvailFlist->item(a)->text());
+				SubsetList->insertItem(AvailFlist->item(a)->text());
 			}
 		}
 	}
@@ -1803,24 +1808,20 @@ void TabPDFOptions::EmbedAll()
 
 void TabPDFOptions::SubsetAll()
 {
-	if (SubsetFonts->isChecked())
+	EmbedList->clear();
+	FontsToEmbed.clear();
+	SubsetList->clear();
+	FontsToSubset.clear();
+	FromEmbed->setEnabled(false);
+	ToEmbed->setEnabled(false);
+	ToSubset->setEnabled(false);
+	FromSubset->setEnabled(false);
+	for (uint a=0; a < AvailFlist->count(); ++a)
 	{
-		EmbedFonts->setChecked(false);
-		EmbedList->clear();
-		FontsToEmbed.clear();
-		SubsetList->clear();
-		FontsToSubset.clear();
-		FromEmbed->setEnabled(false);
-		ToEmbed->setEnabled(false);
-		ToSubset->setEnabled(false);
-		FromSubset->setEnabled(false);
-		for (uint a=0; a < AvailFlist->count(); ++a)
+		if (AvailFlist->item(a)->isSelectable())
 		{
-			if (AvailFlist->item(a)->isSelectable())
-			{
-				FontsToSubset.append(AvailFlist->item(a)->text());
-				SubsetList->insertItem(AvailFlist->item(a)->text());
-			}
+			FontsToSubset.append(AvailFlist->item(a)->text());
+			SubsetList->insertItem(AvailFlist->item(a)->text());
 		}
 	}
 }

@@ -1,0 +1,46 @@
+<qt>
+<title>Commandes li&eacute;es aux couleurs</title>
+<h2>Commandes li&eacute;es aux couleurs</h2>
+
+<dl>
+
+<dt><a name="-changeColor"><strong>changeColor</strong></a>(...)</dt>
+<dd><code><a href="#-changeColor">changeColor</a>("nom", c, m, j, n)</code>
+<p>Change la couleur "nom" pour la valeur CMJN sp&eacute;cifi&eacute;e. La valeur de la couleur est d&eacute;finie par quatre composants c = Cyan, m = Magenta, j = Jaune et n = Noir. 
+Les composants de la couleur doivent se situer entre 0 et 255.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e est introuvable.
+Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-defineColor"><strong>defineColor</strong></a>(...)</dt>
+<dd><code><a href="#-defineColor">defineColor</a>("nom", c, m, j, n)</code>
+<p>D&eacute;finit une nouvelle couleur "nom". La valeur de la couleur est
+d&eacute;finie par quatre composants : c = Cyan, m = Magenta, j = Jaune et n = Noir. Les composants de la couleur doivent se situer entre 0 et 255.</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>
+<dd><code><a href="#-deleteColor">deleteColor</a>("nom", "remplacement")</code>
+<p>Supprime la couleur "nom". Chaque occurrence de cette couleur est remplac&eacute;e par la couleur dite de "remplacement". Si elle n'est pas sp&eacute;cifi&eacute;e, "remplacement" prendra par d&eacute;faut la valeur "none" - transparente.</p>
+<p>deleteColor s'applique au document par d&eacute;faut s'il n'y a pas de document ouvert. Dans ce cas, le "remplacement", si sp&eacute;cifi&eacute;, n'a pas d'effet.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si une couleur nomm&eacute;e n'est pas trouv&eacute;e.
+Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-getColor"><strong>getColor</strong></a>(...)</dt>
+<dd><code><a href="#-getColor">getColor</a>("nom") -&gt; vecteur</code>
+<p>Retourne un vecteur (C, M, J, N) contenant les quatre composants de la couleur "nom" du document courant. Si aucun document n'est ouvert, retourne la valeur de la couleur nomm&eacute;e &agrave; partir des couleur du document par d&eacute;faut.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e est introuvable.
+Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+<dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
+<dd><code><a href="#-getColorNames">getColorNames</a>() -&gt; liste</code>
+<p>Retourne une liste contenant les noms de toutes les couleurs d&eacute;finies dans le document. Si aucun document n'est ouvert, retourne une liste des couleurs du document par d&eacute;faut.</p></dd>
+
+<dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
+<dd><code><a href="#-replaceColor">replaceColor</a>("nom", "remplacement")</code>
+<p>Chaque occurrence de la couleur "nom" est remplac&eacute;e par la couleur "remplacement".</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si une couleur nomm&eacute;e n'est pas trouv&eacute;e.
+Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+</dl>
+
+</qt>
+ 

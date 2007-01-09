@@ -6,7 +6,7 @@ libsvgimplugin_la_LDFLAGS = -version-info 0:0:0
 libsvgimplugin_la_METASOURCES = AUTO
 libsvgimplugin_la_SOURCES = svgplugin.cpp 
 KDE_OPTIONS = qtonly
-EXTRA_DIST = color.h svgplugin.cpp svgplugin.h 
+EXTRA_DIST = color.h svgplugin.cpp svgplugin.h CMakeLists.txt
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \

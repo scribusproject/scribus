@@ -60,4 +60,17 @@ protected:
 	QVBoxLayout* Layout15;
 };
 
+class SCRIBUS_API LineFormateItem : public QListBoxItem
+{
+public:
+	LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text);
+	virtual int	width( const QListBox * )  const;
+	virtual int	height( const QListBox * ) const;
+	virtual void paint( QPainter * );
+	virtual int rtti() const { return 148523874; }
+protected:
+	multiLine mLine;
+	ScribusDoc* doc;
+};
+
 #endif
