@@ -5868,7 +5868,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		if (mode == modeEdit)
 		{
-			view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
+//			view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
 			view->pageSelector->focusPolicy(QWidget::NoFocus);
 			if (currItem != 0)
 			{

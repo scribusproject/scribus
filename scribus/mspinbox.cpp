@@ -116,6 +116,11 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
+		else if ((k->key() == Key_Return) || (k->key() == Key_Enter) || (k->key() == Key_Tab))
+		{
+			QSpinBox::interpretText();
+			return true;
+		}
 	}
 	if (ev->type() == QEvent::KeyRelease )
 	{
