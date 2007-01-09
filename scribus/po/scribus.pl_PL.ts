@@ -2480,7 +2480,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja dla OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
     </message>
 </context>
 <context>
@@ -3879,11 +3879,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
-        <translation>getLineStyle([&quot;nazwa&quot;]) -&gt; integer (zobacz stałe)
-
-Zwraca styl linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie 
-użyty aktualnie zaznaczony obiekt. Stałe stylu linii to:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
+        <translation>Justuj tekst z ostatnią linią</translation>
     </message>
 </context>
 <context>
@@ -4690,7 +4686,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation>9 lub 10 cyfr rozdzielonych łącznikami</translation>
+        <translation type="obsolete">9 lub 10 cyfr rozdzielonych łącznikami</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
@@ -4723,6 +4719,10 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     <message>
         <source>Barcode incomplete</source>
         <translation>Kod kreskowy niekompletny</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6126,7 +6126,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyncza strona</translation>
+        <translation>Pojedyńcza strona</translation>
     </message>
     <message>
         <source>Double Sided</source>
@@ -10761,7 +10761,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -11262,7 +11262,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>This file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Ten plik zawiera nieobsługiwane właściwości</translation>
     </message>
 </context>
 <context>
@@ -11849,7 +11849,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Układ dokumentu</translation>
     </message>
 </context>
 <context>
@@ -19750,7 +19750,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyncza strona</translation>
+        <translation>Pojedyńcza strona</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -19892,27 +19892,27 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zagnieźdź wszystkie</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonty do zamiany na krzywe:</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamień &amp;wszystkie na krzywe</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Układ dokumentu</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation>Zagnieźdź wszystkie fonty w pliku PDF. Zagnieżdżenie fontów pozwoli na zachowanie układu graficznego i wyglądu dokumentu. Niektóre fonty jak na przykład fonty Open Type mogą być tylko zamienione na krzywe, ponieważ nie można ich zagnieździć w wersjach PDF wcześniejszych niż 1.6.</translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamień wszystkie fonty na krzywe. Zamiana na krzywe spowoduje umieszczenie w pliku PDF tylko użytych glifów jako krzywych wektorowych, a nie całego fontu. Niektóre fonty jak na przykład fonty Open Type mogą być tylko zamienione na krzywe, ponieważ nie można ich zagnieździć w wersjach PDF wcześniejszych niż 1.6.</translation>
     </message>
 </context>
 <context>
