@@ -465,6 +465,7 @@ bool OODPlug::convert(int flags)
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
+			neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 			for (uint a = 0; a < m_Doc->Items->count(); ++a)
 			{
 				m_Doc->Items->at(a)->ItemNr = a;
@@ -746,6 +747,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
 					GElements.append(gElements.at(gr));
 				}
+				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 				m_Doc->GroupCounter++;
 			}
 			z = -1;
@@ -895,6 +897,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 				ite->setFillTransparency(FillTrans);
 				ite->setLineTransparency(StrokeTrans);
+				ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 				if (!drawID.isEmpty())
 					ite->setItemName(drawID);
 				GElements.append(ite);
@@ -990,6 +993,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				m_Doc->AdjustItemSize(ite);
 			}
 			ite->OwnPage = m_Doc->OnPage(ite);
+			ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 			if (HaveGradient)
 			{
 				ite->GrType = 0;

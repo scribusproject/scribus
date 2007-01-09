@@ -379,6 +379,7 @@ void SVGPlug::convert(int flags)
 				m_Doc->Items->at(a)->ItemNr = a;
 			}
 			neu->setRedrawBounding();
+			neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
 		}
@@ -517,8 +518,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
 	item->PLineEnd = gc->PLineEnd;
 	item->PLineJoin = gc->PLineJoin;
-	//ite->setTextFlowsAroundFrame(false);
-	item->setTextFlowMode(PageItem::TextFlowDisabled);
+	item->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 	item->DashOffset = gc->dashOffset;
 	item->DashValues = gc->dashArray;
 	if (gc->Gradient != 0)
@@ -812,6 +812,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			GElements.append(gElements.at(gr));
 		}
 		neu->setRedrawBounding();
+		neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 		m_Doc->GroupCounter++;
 	}
 	delete( m_gc.pop() );
