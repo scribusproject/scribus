@@ -195,6 +195,8 @@ void MarginDialog::setPageHeight(int)
 
 void MarginDialog::setPageSize()
 {
+	if (sizeQComboBox->currentText() != CommonStrings::trCustomPageSize)
+		oldOri++;
 	setOrien(orientationQComboBox->currentItem());
 }
 
