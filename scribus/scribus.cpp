@@ -2187,7 +2187,6 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
-	styleManager->setDoc(doc);
 	connect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
 	if (ScCore->usingGUI())
 	{
@@ -3822,7 +3821,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		pagePalette->setView(0);
 	}
 	undoManager->switchStack(doc->DocName);
-	styleManager->setDoc(doc);
 	pagePalette->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
