@@ -2118,10 +2118,10 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		//Draw the overflow icon
 		if (frameOverflows())
 		{//CB && added here for jghali prior to commit access
-			if (!view->previewMode)
+			if ((!view->previewMode) && (!view->viewAsPreview))
 				drawOverflowMarker(p);
 		}
-		if (m_Doc->guidesSettings.colBordersShown && !view->previewMode)
+		if ((m_Doc->guidesSettings.colBordersShown) && ((!view->previewMode) && (!view->viewAsPreview)))
 			drawColumnBorders(p);
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
 		{
