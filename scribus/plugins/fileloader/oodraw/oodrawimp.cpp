@@ -1008,14 +1008,18 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 							if ((GradientAngle == 0) || (GradientAngle == 180))
 							{
 								ite->GrType = 2;
-								//m_Doc->view()->updateGradientVectors(ite);
-								ite->updateGradientVectors();
+								ite->GrStartX = ite->width() / 2.0;
+								ite->GrStartY = 0;
+								ite->GrEndX = ite->width() / 2.0;
+								ite->GrEndY = ite->height();
 							}
 							else if ((GradientAngle == 90) || (GradientAngle == 270))
 							{
 								ite->GrType = 1;
-								//m_Doc->view()->updateGradientVectors(ite);
-								ite->updateGradientVectors();
+								ite->GrStartX = 0;
+								ite->GrStartY = ite->height() / 2.0;
+								ite->GrEndX = ite->width();
+								ite->GrEndY = ite->height() / 2.0;
 							}
 						}
 						else
