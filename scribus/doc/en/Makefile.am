@@ -82,6 +82,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/print3.html $(prefix)/share/doc/scribus-$(VERSION)/en/print3.html
 	$(INSTALL_DATA) $(srcdir)/psd.html $(prefix)/share/doc/scribus-$(VERSION)/en/psd.html
 	$(INSTALL_DATA) $(srcdir)/readme.html $(prefix)/share/doc/scribus-$(VERSION)/en/readme.html
+	$(INSTALL_DATA) $(srcdir)/readme-os2.html $(prefix)/share/doc/scribus-$(VERSION)/en/readme-os2.html
 	$(INSTALL_DATA) $(srcdir)/readme-win32.html $(prefix)/share/doc/scribus-$(VERSION)/en/readme-win32.html
 	$(INSTALL_DATA) $(srcdir)/resources.html $(prefix)/share/doc/scribus-$(VERSION)/en/resources.html
 	$(INSTALL_DATA) $(srcdir)/scprinters.html $(prefix)/share/doc/scribus-$(VERSION)/en/scprinters.html
