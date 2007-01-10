@@ -36,7 +36,7 @@ public:
 
 	MSpinBox* majorSpace;
 	MSpinBox* minorSpace;
-	MSpinBox* snapDistance;
+	QSpinBox* snapDistance;
 	QLabel* checkBaseline;
 	QColor colorGuides;
 	QColor colorMargin;

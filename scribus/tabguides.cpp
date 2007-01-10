@@ -63,7 +63,10 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel8 = new QLabel( snapBox, "textLabel8" );
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
-	snapDistance = new MSpinBox( unitRatio, 1000, snapBox, 0 );
+	snapDistance = new QSpinBox( snapBox, "snapDistance" );
+	snapDistance->setMaxValue( 1000 );
+	snapDistance->setMinValue( 1 );
+	snapDistance->setLineStep( 1 );
 	snapBoxLayout->addWidget( snapDistance, 0, 1 );
 	textLabel82 = new QLabel( snapBox, "textLabel8" );
 	textLabel82->setText( tr( "Grab Radius:" ) );
@@ -268,9 +271,9 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	majorSpace->setValue(prefsData->majorGrid * unitRatio);
 	majorSpace->setSuffix( unit );
 	snapDistance->setValue(prefsData->guideRad);
-	snapDistance->setSuffix( tr( " px" ) );
+	snapDistance->setSuffix( " " + tr( "px" ) );
 	grabDistance->setValue(prefsData->grabRad);
-	grabDistance->setSuffix( tr( " px" ) );
+	grabDistance->setSuffix( " " + tr( " px" ) );
 	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
 	baseGrid->setSuffix( unit );
 	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
