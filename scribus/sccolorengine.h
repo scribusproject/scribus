@@ -34,66 +34,66 @@ class SCRIBUS_API ScColorEngine
 public:
 
 	/** \brief get RGB values of a specified color */
-	static QColor getRGBColor(const ScColor& color, ScribusDoc* doc);
+	static QColor getRGBColor(const ScColor& color, const ScribusDoc* doc);
 
-	static ScColor convertToModel(const ScColor& color, ScribusDoc* doc, colorModel model);
+	static ScColor convertToModel(const ScColor& color, const ScribusDoc* doc, colorModel model);
 
 	/** \brief get RGB values of a specified color */
-	static void getRGBValues(const ScColor& color, ScribusDoc* doc, RGBColor& rgb);
+	static void getRGBValues(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb);
 
 	/** \brief get CMYK values of a specified color */
-	static void getCMYKValues(const ScColor& color, ScribusDoc* doc, CMYKColor& cmyk);
+	static void getCMYKValues(const ScColor& color, const ScribusDoc* doc, CMYKColor& cmyk);
 
 	/** \brief get RGB values of a specified shade */
-	static void getShadeColorRGB(const ScColor& color, ScribusDoc* doc, RGBColor&, int level);
+	static void getShadeColorRGB(const ScColor& color, const ScribusDoc* doc, RGBColor&, int level);
 	
 	/** \brief get CMYK values of a specified shade */
-	static void getShadeColorCMYK(const ScColor& color, ScribusDoc* doc, CMYKColor& cmyk, int level);
+	static void getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, CMYKColor& cmyk, int level);
 
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done. */
-	static QColor getDisplayColor(const ScColor& color, ScribusDoc* doc);
+	static QColor getDisplayColor(const ScColor& color, const ScribusDoc* doc);
 
 	/** \brief Return a color with the specified shade converted to monitor color space. 
 	* No soft-proofing is done. */
-	static QColor getDisplayColor(const ScColor& color, ScribusDoc* doc, int level);
+	static QColor getDisplayColor(const ScColor& color, const ScribusDoc* doc, int level);
 
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done
 	* If gamut check is valid, the return value may be an gamut warning . */
-	static QColor getDisplayColorGC(const ScColor& color, ScribusDoc* doc);
+	static QColor getDisplayColorGC(const ScColor& color, const ScribusDoc* doc);
 
 	/** \brief Return a proofed QColor with 100% shade and optional gamut check.
 	* If color management is enabled, returned value use the monitor color space. */
-	static QColor getColorProof(const ScColor& color, ScribusDoc* doc, bool gamutCheck = false);
+	static QColor getColorProof(const ScColor& color, const ScribusDoc* doc, bool gamutCheck = false);
 
 	/** \brief Return a QColor with the specified shade.
 	* If color management is enabled, returned value use the rgb solid colors space. */
-	static QColor getShadeColor(const ScColor& color, ScribusDoc* doc, int level);
+	static QColor getShadeColor(const ScColor& color, const ScribusDoc* doc, int level);
 
 	/** \brief Return a proofed QColor with the specified shade.
 	* If color management is enabled, returned value use the monitor color space. */
-	static QColor getShadeColorProof(const ScColor& color, ScribusDoc* doc, int level);
+	static QColor getShadeColorProof(const ScColor& color, const ScribusDoc* doc, int level);
 
 	/** \brief Return a proofed QColor from a rgb color.
 	* If color management is enabled, returned value use the monitor color space. */
-	static QColor getColorProof(RGBColor& rgb, ScribusDoc* doc, bool spot, bool gamutCkeck);
+	static QColor getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool spot, bool gamutCkeck);
 
 	/** \brief Return a proofed QColor from a cmyk color.
 	* If color management is enabled, returned value use the monitor color space. */
-	static QColor getColorProof(CMYKColor& cmyk, ScribusDoc* doc, bool spot, bool gamutCkeck);
+	static QColor getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool spot, bool gamutCkeck);
 
 	/** \brief Return a QColor from a rgb color using doc rgb color space as input.
 	* If color management is enabled, returned value use the monitor rgb color space. */
-	static QColor getDisplayColor(RGBColor& rgb, ScribusDoc* doc, bool spot);
+	static QColor getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool spot);
 
 	/** \brief Return a QColor from a cmyk color using doc cmyk color space as input.
 	* If color management is enabled, returned value use the monitor rgb color space. */
-	static QColor getDisplayColor(CMYKColor& cmyk, ScribusDoc* doc, bool spot);
+	static QColor getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bool spot);
 
 	/** \brief Check if a color is inside document output color space gamut. */
-	static bool isOutOfGamut(const ScColor& color, ScribusDoc* doc);
+	static bool isOutOfGamut(const ScColor& color, const ScribusDoc* doc);
 
 	/** \brief Applys Gray-Component-Removal to an ScColor */
-	static void applyGCR(ScColor& color, ScribusDoc* doc);
+	static void applyGCR(ScColor& color, const ScribusDoc* doc);
 };
 
 #endif

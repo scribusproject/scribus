@@ -25,14 +25,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include CMS_INC
 
-QColor ScColorEngine::getRGBColor(const ScColor& color, ScribusDoc* doc)
+QColor ScColorEngine::getRGBColor(const ScColor& color, const ScribusDoc* doc)
 {
 	RGBColor rgb;
 	getRGBValues(color, doc, rgb);
 	return QColor(rgb.r, rgb.g, rgb.b);
 }
 
-ScColor ScColorEngine::convertToModel(const ScColor& color, ScribusDoc* doc, colorModel model)
+ScColor ScColorEngine::convertToModel(const ScColor& color, const ScribusDoc* doc, colorModel model)
 {
 	colorModel oldModel = color.getColorModel();
 	if( oldModel == model )
@@ -53,7 +53,7 @@ ScColor ScColorEngine::convertToModel(const ScColor& color, ScribusDoc* doc, col
 	return newCol;
 }
 
-void ScColorEngine::getRGBValues(const ScColor& color, ScribusDoc* doc, RGBColor& rgb)
+void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb)
 {
 	bool cmsUse = doc ? doc->HasCMS : false;
 	colorModel model = color.getColorModel();
@@ -93,7 +93,7 @@ void ScColorEngine::getRGBValues(const ScColor& color, ScribusDoc* doc, RGBColor
 	}
 }
 
-void ScColorEngine::getCMYKValues(const ScColor& color, ScribusDoc* doc, CMYKColor& cmyk)
+void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, CMYKColor& cmyk)
 {
 	WORD inC[4];
 	WORD outC[4];
@@ -145,7 +145,7 @@ void ScColorEngine::getCMYKValues(const ScColor& color, ScribusDoc* doc, CMYKCol
 	}
 }
 
-void ScColorEngine::getShadeColorCMYK(const ScColor& color, ScribusDoc* doc, 
+void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, 
 										  CMYKColor& cmyk, int level)
 {
 	if (color.getColorModel() == colorModelRGB)
@@ -164,7 +164,7 @@ void ScColorEngine::getShadeColorCMYK(const ScColor& color, ScribusDoc* doc,
 	}
 }
 
-void ScColorEngine::getShadeColorRGB(const ScColor& color, ScribusDoc* doc, RGBColor& rgb, int level)
+void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb, int level)
 {
 	if (color.getColorModel() == colorModelCMYK)
 	{
@@ -189,7 +189,7 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, ScribusDoc* doc, RGBC
 	}
 }
 
-QColor ScColorEngine::getDisplayColor(const ScColor& color, ScribusDoc* doc)
+QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* doc)
 {
 	QColor tmp;
 	if (color.getColorModel() == colorModelRGB)
@@ -212,7 +212,7 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, ScribusDoc* doc)
 	return tmp;
 }
 
-QColor ScColorEngine::getDisplayColor(const ScColor& color, ScribusDoc* doc, int level)
+QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* doc, int level)
 {
 	QColor tmp;
 	if (color.getColorModel() == colorModelRGB)
@@ -237,7 +237,7 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, ScribusDoc* doc, int
 	return tmp;
 }
 
-QColor ScColorEngine::getDisplayColorGC(const ScColor& color, ScribusDoc* doc)
+QColor ScColorEngine::getDisplayColorGC(const ScColor& color, const ScribusDoc* doc)
 {
 	QColor tmp;
 	bool doSoftProofing = doc ? doc->SoftProofing : false;
@@ -252,7 +252,7 @@ QColor ScColorEngine::getDisplayColorGC(const ScColor& color, ScribusDoc* doc)
 	return tmp;
 }
 
-QColor ScColorEngine::getColorProof(const ScColor& color, ScribusDoc* doc, bool gamutCheck)
+QColor ScColorEngine::getColorProof(const ScColor& color, const ScribusDoc* doc, bool gamutCheck)
 {
 	QColor tmp;
 	bool gamutChkEnabled = doc ? doc->Gamut : false;
@@ -280,7 +280,7 @@ QColor ScColorEngine::getColorProof(const ScColor& color, ScribusDoc* doc, bool 
 	return tmp;
 }
 
-QColor ScColorEngine::getShadeColor(const ScColor& color, ScribusDoc* doc, int level)
+QColor ScColorEngine::getShadeColor(const ScColor& color, const ScribusDoc* doc, int level)
 {
 	RGBColor rgb;
 	rgb.r = color.CR;
@@ -290,7 +290,7 @@ QColor ScColorEngine::getShadeColor(const ScColor& color, ScribusDoc* doc, int l
 	return QColor(rgb.r, rgb.g, rgb.b);
 }
 
-QColor ScColorEngine::getShadeColorProof(const ScColor& color, ScribusDoc* doc, int level)
+QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc* doc, int level)
 {
 	QColor tmp;
 	bool doGC = false;
@@ -324,7 +324,7 @@ QColor ScColorEngine::getShadeColorProof(const ScColor& color, ScribusDoc* doc, 
 	return tmp;
 }
 
-QColor ScColorEngine::getColorProof(RGBColor& rgb, ScribusDoc* doc, bool spot, bool gamutCkeck)
+QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool spot, bool gamutCkeck)
 {
 	WORD inC[4];
 	WORD outC[4];
@@ -355,7 +355,7 @@ QColor ScColorEngine::getColorProof(RGBColor& rgb, ScribusDoc* doc, bool spot, b
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getColorProof(CMYKColor& cmyk, ScribusDoc* doc, bool spot, bool gamutCkeck)
+QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool spot, bool gamutCkeck)
 {
 	int  r = 0, g = 0, b = 0;
 	WORD inC[4];
@@ -393,7 +393,7 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, ScribusDoc* doc, bool spot,
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getDisplayColor(RGBColor& rgb, ScribusDoc* doc, bool spot)
+QColor ScColorEngine::getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool spot)
 {
 	WORD inC[4];
 	WORD outC[4];
@@ -415,7 +415,7 @@ QColor ScColorEngine::getDisplayColor(RGBColor& rgb, ScribusDoc* doc, bool spot)
 	return QColor(r, g, b);
 }
 
-QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, ScribusDoc* doc, bool spot)
+QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bool spot)
 {
 	int  r = 0, g = 0, b = 0;
 	WORD inC[4];
@@ -442,7 +442,7 @@ QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, ScribusDoc* doc, bool spo
 	return QColor(r, g, b);
 }
 
-bool ScColorEngine::isOutOfGamut(const ScColor& color, ScribusDoc* doc)
+bool ScColorEngine::isOutOfGamut(const ScColor& color, const ScribusDoc* doc)
 {
 	bool outOfGamutFlag = false;
 	if (color.isSpotColor())
@@ -489,7 +489,7 @@ bool ScColorEngine::isOutOfGamut(const ScColor& color, ScribusDoc* doc)
 	return outOfGamutFlag;
 }
 
-void ScColorEngine::applyGCR(ScColor& color, ScribusDoc* doc)
+void ScColorEngine::applyGCR(ScColor& color, const ScribusDoc* doc)
 {
 	bool cmsUse = doc ? doc->HasCMS : false;
 	if (!(ScCore->haveCMS() && cmsUse))
