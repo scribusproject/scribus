@@ -44,11 +44,25 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 		if ( insertNone )
 			clb->insertItem(CommonStrings::NoneColor);
 		if ( pixType == ColorCombo::fancyPixmaps )
-			clb->updateBox(list, ColorListBox::fancyPixmap, false);
+			clb->insertItems(list, ColorListBox::fancyPixmap);
 		else if ( pixType == ColorCombo::widePixmaps )
-			clb->updateBox(list, ColorListBox::widePixmap, false);
+			clb->insertItems(list, ColorListBox::widePixmap);
 		else if ( pixType == ColorCombo::smallPixmaps )
-			clb->updateBox(list, ColorListBox::smallPixmap, false);
+			clb->insertItems(list, ColorListBox::smallPixmap);
+	}
+}
+
+void ColorCombo::insertItems(ColorList& list, ColorCombo::PixmapType pixType)
+{
+	ColorListBox* clb = (ColorListBox*) listBox();
+	if ( clb )
+	{
+		if ( pixType == ColorCombo::fancyPixmaps )
+			clb->insertItems(list, ColorListBox::fancyPixmap);
+		else if ( pixType == ColorCombo::widePixmaps )
+			clb->insertItems(list, ColorListBox::widePixmap);
+		else if ( pixType == ColorCombo::smallPixmaps )
+			clb->insertItems(list, ColorListBox::smallPixmap);
 	}
 }
 

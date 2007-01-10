@@ -865,10 +865,7 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 	TxFill->clear();
 	TxFill->insertItem(CommonStrings::NoneColor);
 	if (doc!=NULL)
-	{
-		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-			TxFill->insertSmallItem( doc->PageColors[it.key()], doc, it.key() );
-	}
+		TxFill->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
 	resize(minimumSizeHint());
 }
 
@@ -920,10 +917,7 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 	TxStroke->clear();
 	TxStroke->insertItem(CommonStrings::NoneColor);
 	if (doc!=NULL)
-	{
-		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-			TxStroke->insertSmallItem( doc->PageColors[it.key()], doc, it.key() );
-	}
+		TxStroke->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
 	resize(minimumSizeHint());
 }
 

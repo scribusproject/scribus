@@ -574,30 +574,19 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		}
 	}
 
-	ColorList::Iterator itc;
+	
+	ColorList::Iterator itc, endOfColorList;
+	ColorList* colorList = (docu != 0) ? (&docu->PageColors) : prefsManager->colorSetPtr();
 	colorComboText->clear();
 	colorComboText->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dPenText == CommonStrings::None)
 		colorComboText->setCurrentItem(colorComboText->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			colorComboText->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dPenText)
-				colorComboText->setCurrentItem(colorComboText->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			colorComboText->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dPenText)
-				colorComboText->setCurrentItem(colorComboText->count()-1);
-		}
+		colorComboText->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dPenText)
+			colorComboText->setCurrentItem(colorComboText->count()-1);
 	}
 
 	shadingText->setValue(prefsData->dTextPenShade);
@@ -606,25 +595,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	colorComboStrokeText->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dStrokeText == CommonStrings::None)
 		colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			colorComboStrokeText->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dStrokeText)
-				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			colorComboStrokeText->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dStrokeText)
-				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
-		}
+		colorComboStrokeText->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dStrokeText)
+			colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 	}
 	shadingTextStroke->setValue(prefsData->dTextStrokeShade);
 
@@ -632,25 +608,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	colorComboTextBackground->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dTextBackGround == CommonStrings::None)
 		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			colorComboTextBackground->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dTextBackGround)
-				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			colorComboTextBackground->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dTextBackGround)
-				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
-		}
+		colorComboTextBackground->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dTextBackGround)
+			colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 	}
 	shadingTextBack->setValue(prefsData->dTextBackGroundShade);
 
@@ -658,25 +621,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	colorComboTextLine->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dTextLineColor == CommonStrings::None)
 		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			colorComboTextLine->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dTextLineColor)
-				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			colorComboTextLine->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dTextLineColor)
-				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
-		}
+		colorComboTextLine->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dTextLineColor)
+			colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 	}
 	shadingTextLine->setValue(prefsData->dTextLineShade);
 
@@ -718,25 +668,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	colorComboLineShape->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dPen == CommonStrings::None)
 		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			colorComboLineShape->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dPen)
-				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			colorComboLineShape->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dPen)
-				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
-		}
+		colorComboLineShape->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dPen)
+			colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 	}
 	shadingLineShape->setValue(prefsData->dShade2);
 
@@ -744,25 +681,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	comboFillShape->insertItem( tr("None"));
 	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			comboFillShape->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dBrush)
-				comboFillShape->setCurrentItem(comboFillShape->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			comboFillShape->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dBrush)
-				comboFillShape->setCurrentItem(comboFillShape->count()-1);
-		}
+		comboFillShape->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dBrush)
+			comboFillShape->setCurrentItem(comboFillShape->count()-1);
 	}
 
 	shadingFillShape->setValue(prefsData->dShade);
@@ -794,25 +718,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	colorComboLine->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dPenLine == CommonStrings::None)
 		colorComboLine->setCurrentItem(colorComboLine->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			colorComboLine->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dPenLine)
-				colorComboLine->setCurrentItem(colorComboLine->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			colorComboLine->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dPenLine)
-				colorComboLine->setCurrentItem(colorComboLine->count()-1);
-		}
+		colorComboLine->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dPenLine)
+			colorComboLine->setCurrentItem(colorComboLine->count()-1);
 	}
 
 	shadingLine->setValue(prefsData->dShadeLine);
@@ -863,25 +774,12 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	comboFillImage->insertItem(CommonStrings::NoneColor);
 	if (prefsData->dBrushPict == CommonStrings::None)
 		comboFillImage->setCurrentItem(comboFillImage->count()-1);
-	if (docu != 0)
+	endOfColorList=colorList->end();
+	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
-		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
-		{
-			comboFillImage->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dBrushPict)
-				comboFillImage->setCurrentItem(comboFillImage->count()-1);
-		}
-	}
-	else
-	{
-		ColorList* colorList=prefsManager->colorSetPtr();
-		ColorList::Iterator endOfColorList=colorList->end();
-		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
-		{
-			comboFillImage->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
-			if (itc.key() == prefsData->dBrushPict)
-				comboFillImage->setCurrentItem(comboFillImage->count()-1);
-		}
+		comboFillImage->insertSmallItem( itc.data(), docu, itc.key() );
+		if (itc.key() == prefsData->dBrushPict)
+			comboFillImage->setCurrentItem(comboFillImage->count()-1);
 	}
 
 	shadingFillImage->setValue( prefsData->shadePict );

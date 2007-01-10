@@ -46,13 +46,10 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
     	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
     	delColorLayout->addWidget( replaceLabel, 1, 0 );
     	replacementColData = new ColorCombo(false, this);
-		ColorList::Iterator it;
 		colorList.remove(colorName);
-		ScribusDoc* doc = haveDoc ? colorList.document() : NULL;
 		// 10/26/2004 pv - user can replace deleted color with "None"
 		replacementColData->insertItem(CommonStrings::NoneColor);
-		for (it = colorList.begin(); it != colorList.end(); ++it)
-			replacementColData->insertSmallItem(it.data(), doc, it.key());
+		replacementColData->insertItems(colorList, ColorCombo::smallPixmaps);
     	delColorLayout->addWidget( replacementColData, 1, 1 );
     	replacementColor = replacementColData->text(0);
 	}

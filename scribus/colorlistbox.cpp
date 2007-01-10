@@ -124,10 +124,14 @@ ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
 		setName("ColorListBox");
 }
 
-void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type, bool clearFirst)
+void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type)
 {
-	if (clearFirst)
-		clear();
+	clear();
+	insertItems(list, type);
+}
+
+void ColorListBox::insertItems(ColorList& list, ColorListBox::PixmapType type)
+{
 	if (type == ColorListBox::fancyPixmap)
 		insertFancyPixmapItems( list );
 	else if (type == ColorListBox::widePixmap)

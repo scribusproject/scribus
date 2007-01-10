@@ -88,9 +88,14 @@ class SCRIBUS_API ColorListBox : public QListBox
 		The list is cleared itself. Then is rendered an icon with
 		color attributes (RGB/CMYK/Spot etc.).
 		\param list a ColorList to present. 
-		\param the pixmap type to use
-		\param if the list should be cleared first */
-		void updateBox(ColorList& list, ColorListBox::PixmapType type, bool clearFirst = true);
+		\param the pixmap type to use */
+		void updateBox(ColorList& list, ColorListBox::PixmapType type);
+
+		/*! \brief Fill the list box with values taken from list.
+		The list is not cleared before items insertion.
+		\param list a ColorList to present. 
+		\param the pixmap type to use */
+		void insertItems(ColorList& list, ColorListBox::PixmapType type);
 
 		/*! \brief Insert ColorSmallPixmapItems into the list
 		\param list a ColorList to present. */

@@ -164,7 +164,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		BorderC->insertSmallItem(Farben[cit.key()], doc, cit.key());
+		BorderC->insertSmallItem(cit.data(), doc, cit.key());
 		if (cit.key() == item->annotation().borderColor())
 			BorderC->setCurrentItem(BorderC->count()-1);
 	}
