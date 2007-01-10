@@ -5,16 +5,18 @@
 <ul><li>You can use layers for both managing different versions of a document with the same layout, perhaps one with multiple languages. With layers you can put each language on a separate layer and disable viewing and printing sequentially for each language.</li>
 <li>Layers can also help you with importing complex items or grouped items and you wish to not disturb existing content.</li>
 <li>Layers can be used for masking items or purposely stacking objects so that both can be seen.</li>
-<li>Layers are also supported in PDF 1.5+. At the moment, only Adobe Reader 7.0+ supports viewing content in layers within a PDF. </li>
+<li>Layers are also supported in PDF 1.5+. At the moment, only Adobe Reader 7.0+ supports viewing content in layers within a PDF. Scribus can export PDF 1.5 files with layers and Adobe Reader reads the layer content correctly.</li>
 </ul>
 <table width="100%"><tr><td align="center"><img src="images/layers1.png" title="Basic Layers Dialog" alt="Basic Layers Dialog" /></td></tr></table><br />
 <p></p>
 <h3>Transparent Layer Blending Modes in Scribus</h3>
 <p><strong>Note: This feature is only available when Scribus is compiled with Cairo 1.2+</strong></p>
 
-<p>Scribus has a very powerful and versatile way of handling layers in a document via the way that not only layers can be made transparent and their opacity changed, but the so called <strong>blend modes</strong> can be selected to control the way transparency is rendered. Objects can be similarly controled individually. Blend modes are a way for you to control how the pixels of the layers are combined. When a given layer is selected the blend mode chosen affects how that layer's pixels are combined with only those layers <em>below</em> the selected layer. The layers remain separately editable and only are combined in the display and at print/export time. Note also, except when printing to certain printers on Windows, this type of transparency will not be supported well, if it at all. Exporting PDF version 1.4 (Acrobat 5.0) or higher will support these modes properly. 
+<p>Scribus has a very powerful and versatile way of handling layers in a document via the way that not only layers can be made transparent and their opacity changed, but the so called <strong>blend modes</strong> can be selected to control the way transparency is rendered. Objects can be similarly controled individually. Blend modes are a way for you to control how the pixels of the layers are combined. When a given layer is selected the blend mode chosen affects how that layer's pixels are combined with only those layers <em>below</em> the selected layer. The layers remain separately editable and only are combined in the display and at print/export time. Note also, except when printing to certain printers on Windows, this type of transparency will not be supported well, if it at all. Exporting PDF version 1.4 (Acrobat 5.0) or higher will support these modes properly.</p>
+<p>Similarly, these blend modes can be used with individual objects or groups, separately from the layers options via the properties palette. In addtion, when importing certain PSD (Photoshop native files), there is an addtional blend mode Scribus supports called <strong>Dissolve</strong> which adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</p> 
 
-
+<table width="100%"><tr><td align="center"><img src="images/layers2.png" title="Transparency Blend Spaces - note the addtional opacity and blend mode options." alt="Transparency Blend Spaces - note the addtional opacity and blend mode options." /></td></tr></table><br />
+<p></p>
 <h4>Available Blend Modes in Scribus:</h4>
 <ul>
 <li><strong>Normal</strong> - Pixels of the selected layer are combined with pixels on the layers below. The single difference is opacity. </li>

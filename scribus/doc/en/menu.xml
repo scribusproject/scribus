@@ -20,6 +20,7 @@
 		<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
 		<submenuitem text="Mac OSX/Fink &amp; CVS" file="machints2.html"/>
 		<submenuitem text="Windows Readme" file="readme-win32.html"/>
+		<submenuitem text="OS/2 Readme" file="readme-os2.html"/>
 	</submenuitem>
 	<submenuitem text="Setup" file="settings1.html">
             <submenuitem text="Keyboard Shortcuts" file="keys.html"/>
@@ -38,7 +39,7 @@
             <submenuitem text="Master Pages" file="pagetemplate1.html" />
 	    <submenuitem text="Page Numbering" file="pagenumber.html" />
             <submenuitem text="Short Words Plug-in" file="short-words.html" />
-	    <submenuitem text="Editing Colors" file="colors1.html" />
+	    <submenuitem text="Editing Colors" file="color1.html" />
 	    <submenuitem text="Layers" file="layers.html" />
         </submenuitem>
             <submenuitem text="Importing" file="importhints.html">
