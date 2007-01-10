@@ -2795,6 +2795,8 @@ double ScribusDoc::unitRatio() const
 
 bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 {
+	if (!MasterNames.contains(pageName))
+		return false;
 	if (UndoManager::undoEnabled())
 	{
 		if (DocPages.at(pageNumber)->MPageNam != pageName)
@@ -2807,14 +2809,14 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 		}
 	}
 
-	QString mna = pageName;
-	if (mna == CommonStrings::trMasterPageNormal)
-		mna = CommonStrings::masterPageNormal;
-	if (!MasterNames.contains(mna))
-		mna = CommonStrings::masterPageNormal;
+// 	QString mna = pageName;
+// 	if (mna == CommonStrings::trMasterPageNormal)
+// 		mna = CommonStrings::masterPageNormal;
+// 	if (!MasterNames.contains(mna))
+// 		mna = CommonStrings::masterPageNormal;
 	Page* Ap = DocPages.at(pageNumber);
-	Ap->MPageNam = mna;
-	int MpNr = MasterNames[mna];
+	Ap->MPageNam = pageName;
+	const int MpNr = MasterNames[pageName];
 	Page* Mp = MasterPages.at(MpNr);
 	PageItem *currItem;
 	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
