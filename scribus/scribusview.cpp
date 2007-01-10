@@ -2935,6 +2935,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				if (doCreate)
 				{
+					bool oldSnap = Doc->SnapGuides;
+					Doc->SnapGuides = false;
 					if (Doc->appMode == modeDrawLine)
 					{
 						currItem->setWidthHeight(xSize, 1);
@@ -2998,6 +3000,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					currItem->OwnPage = Doc->OnPage(currItem);
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
+					currItem->Sizing = false;
+					Doc->SnapGuides = oldSnap;
 					if (!Prefs->stickyTools)
 					{
 						Doc->SubMode = -1;
