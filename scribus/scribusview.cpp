@@ -2081,10 +2081,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			normalizeSelectionRect();
 			HaveSelRect = false;
 			double Tx, Ty, Tw, Th;
-			Tx = Mxp;
-			Ty = Myp;
-			Tw = SeRx-Mxp;
-			Th = SeRy-Myp;
+			FPoint np2 = Doc->ApplyGrid(QPoint(Mxp, Myp));
+			Tx = np2.x();
+			Ty = np2.y();
+			Doc->ApplyGuides(&Tx, &Ty);
+			Mxp = qRound(Tx);
+			Myp = qRound(Ty);
+			np2 = Doc->ApplyGrid(QPoint(SeRx, SeRy));
+			Tw = np2.x();
+			Th = np2.y();
+			Doc->ApplyGuides(&Tw, &Th);
+			SeRx = qRound(Tw);
+			SeRy = qRound(Th);
+			Tw = Tw - Tx;
+			Th = Th - Ty;
 			int z;
 			int Cols, Rows;
 			double deltaX, deltaY, offX, offY;
@@ -2769,7 +2779,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					m_ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 				}
 				bool insertedMenusEnabled = false;
-				for (int pc = 0; pc < pmen2->count(); pc++)
+				for (uint pc = 0; pc < pmen2->count(); pc++)
 				{
 					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
 						insertedMenusEnabled = true;
@@ -5303,6 +5313,17 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newY = qRound(Myp + ((SeRx - Mxp) * visibleHeight()) / visibleWidth());
 			else
 				newY = qRound(translateToDoc(m->x(), m->y()).y());
+			if (Doc->appMode == modeDrawTable)
+			{
+				FPoint np2 = Doc->ApplyGrid(QPoint(newX, newY));
+				double nx = np2.x();
+				double ny = np2.y();
+				Doc->ApplyGuides(&nx, &ny);
+				newX = qRound(nx);
+				newY = qRound(ny);
+				GyM = -1;
+				GxM = -1;
+			}
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
@@ -5834,6 +5855,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
+					Doc->ApplyGuides(&Rxp, &Ryp);
 					z = Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 					Doc->Items->at(z)->FrameType = 0;
 					SetupDraw(z);
@@ -5848,6 +5870,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
+					Doc->ApplyGuides(&Rxp, &Ryp);
 					z = Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 					Doc->Items->at(z)->FrameType = 1;
 					SetupDraw(z);
@@ -5864,6 +5887,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
+					Doc->ApplyGuides(&Rxp, &Ryp);
 					z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 					Doc->Items->at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
 					Doc->setRedrawBounding(Doc->Items->at(z));
@@ -5882,6 +5906,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			else
 			{
+				Doc->ApplyGuides(&Rxp, &Ryp);
 				z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
 				SetupDraw(z);
 			}
@@ -5895,6 +5920,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}	
 			else
 			{
+				Doc->ApplyGuides(&Rxp, &Ryp);
 				z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
 				SetupDraw(z);
 			}
@@ -6037,6 +6063,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawLine:
 			selectPage(m);
+			Doc->ApplyGuides(&Rxp, &Ryp);
 			z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, CommonStrings::None, Doc->toolSettings.dPenLine, !m_MouseButtonPressed);
 			currItem = Doc->Items->at(z);
 			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
@@ -6223,7 +6250,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				if (m->state() == ShiftButton)
 					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 				else
+				{
+					Doc->ApplyGuides(&Rxp, &Ryp);
 					z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
+				}
 				currItem = Doc->Items->at(z);
 				FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 				FPoint np(cli.point(0));
@@ -6298,6 +6328,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
 			selectPage(m);
+			Doc->ApplyGuides(&Rxp, &Ryp);
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
 			currItem = Doc->Items->at(z);
 			currItem->setIsAnnotation(true);
@@ -6342,8 +6373,18 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawTable:
 			Deselect(false);
-			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
-			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
+//			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+//			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
+			Rxp = m->x()/Scale + Doc->minCanvasCoordinate.x();
+			Ryp = m->y()/Scale + Doc->minCanvasCoordinate.y();
+			npf = Doc->ApplyGridF(FPoint(Rxp, Ryp));
+			Rxp = npf.x();
+			Ryp = npf.y();
+			Doc->ApplyGuides(&Rxp, &Ryp);
+			GyM = -1;
+			GxM = -1;
+			Mxp = qRound(Rxp);
+			Myp = qRound(Ryp);
 			SeRx = Mxp;
 			SeRy = Myp;
 			break;
