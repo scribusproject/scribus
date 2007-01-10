@@ -1299,12 +1299,12 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement co=docu.createElement("COLOR");
 		co.setAttribute("NAME",itc.key());
-		if (appPrefs.DColors[itc.key()].getColorModel() == colorModelRGB)
-			co.setAttribute("RGB",appPrefs.DColors[itc.key()].nameRGB());
+		if (itc.data().getColorModel() == colorModelRGB)
+			co.setAttribute("RGB", itc.data().nameRGB());
 		else
-			co.setAttribute("CMYK",appPrefs.DColors[itc.key()].nameCMYK());
-		co.setAttribute("Spot",static_cast<int>(appPrefs.DColors[itc.key()].isSpotColor()));
-		co.setAttribute("Register",static_cast<int>(appPrefs.DColors[itc.key()].isRegistrationColor()));
+			co.setAttribute("CMYK", itc.data().nameCMYK());
+		co.setAttribute("Spot", static_cast<int>(itc.data().isSpotColor()));
+		co.setAttribute("Register", static_cast<int>(itc.data().isRegistrationColor()));
 		elem.appendChild(co);
 	}
 	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
