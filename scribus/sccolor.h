@@ -97,11 +97,11 @@ public:
 	* For the None color return the "None" string. */
 	QString name();
 	/** \brief Returns the ScColor as an Hex-String in the Form #RRGGBB
-	* For the None color return the "None" string. */
-	QString nameRGB();
+	* If doc member is not specified, return meaningful result only for RGB colors. */
+	QString nameRGB(const ScribusDoc* doc = NULL);
 	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK
-	* For the None color return the "None" string. */
-	QString nameCMYK();
+	* If doc member is not specified, return meaningful result only for CMYK colors. */
+	QString nameCMYK(const ScribusDoc* doc = NULL);
 
 	/** \brief Sets the Values of a color from an Hex-String in the Form #CCMMYYKK or #RRGGBB */
 	void setNamedColor(QString nam);

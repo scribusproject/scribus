@@ -459,10 +459,10 @@ void CWDialog::setupColorComponents()
 
 void CWDialog::updateNamedLabels()
 {
-	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
-	cmykLabel2->setText(colorWheel->actualColor.nameCMYK());
-	rgbLabel->setText(colorWheel->actualColor.nameRGB());
-	rgbLabel2->setText(colorWheel->actualColor.nameRGB());
+	cmykLabel->setText(colorWheel->actualColor.nameCMYK(m_Doc));
+	cmykLabel2->setText(colorWheel->actualColor.nameCMYK(m_Doc));
+	rgbLabel->setText(colorWheel->actualColor.nameRGB(m_Doc));
+	rgbLabel2->setText(colorWheel->actualColor.nameRGB(m_Doc));
 	hsvLabel->setText(getHexHsv(colorWheel->actualColor));
 	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
 }
@@ -493,8 +493,8 @@ void CWDialog::colorList_currentChanged(QListBoxItem * item)
 	else
 	{
 		ScColor col(colorWheel->colorList[item->text()]);
-		currentColorTable->setText(0, 4, col.nameCMYK());
-		currentColorTable->setText(1, 4, col.nameRGB());
+		currentColorTable->setText(0, 4, col.nameCMYK(m_Doc));
+		currentColorTable->setText(1, 4, col.nameRGB(m_Doc));
 		currentColorTable->setText(2, 4, getHexHsv(col));
 		// components
 		QString num;

@@ -26,12 +26,12 @@ for which a new license (GPL+exception) is in place.
 #include <assert.h>
 
 #include "sccolor.h"
+#include "sccolorengine.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
 #include "scconfig.h"
 
-#include CMS_INC
 
 ScColor::ScColor(void)
 {
@@ -187,42 +187,54 @@ QString ScColor::name()
 	return name;
 }
 
-QString ScColor::nameCMYK()
+QString ScColor::nameCMYK(const ScribusDoc* doc)
 {
+	if ((Model != colorModelCMYK) && (!doc))
+		qDebug("calling nameCMYK with a rgb color");
+	CMYKColor cmyk;
+	int c, m, y, k;
 	QString tmp, name = CommonStrings::None;
+	ScColorEngine::getCMYKValues(*this, doc, cmyk);
+	cmyk.getValues(c, m, y, k);
 	name="#";
-	tmp.setNum(CR, 16);
+	tmp.setNum(c, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
-	tmp.setNum(MG, 16);
+	tmp.setNum(m, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
-	tmp.setNum(YB, 16);
+	tmp.setNum(y, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
-	tmp.setNum(K, 16);
+	tmp.setNum(k, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
 	return name;
 }
 
-QString ScColor::nameRGB()
+QString ScColor::nameRGB(const ScribusDoc* doc)
 {
+	if ((Model != colorModelRGB) && (!doc))
+		qDebug("calling nameRGB with a cmyk color");
+	int r, g, b;
+	RGBColor rgb;
 	QString tmp, name = CommonStrings::None;
+	ScColorEngine::getRGBValues(*this, doc, rgb);
+	rgb.getValues(r, g, b);
 	name="#";
-	tmp.setNum(CR, 16);
+	tmp.setNum(r, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
-	tmp.setNum(MG, 16);
+	tmp.setNum(g, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
-	tmp.setNum(YB, 16);
+	tmp.setNum(b, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
 	name += tmp;
