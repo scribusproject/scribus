@@ -162,7 +162,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	int copyC = 1;
 	QString potentialMasterPageName(sMuster);
 	while (currentDoc->MasterNames.contains(potentialMasterPageName))
-		potentialMasterPageName = tr("Copy #%1 of").arg(copyC++)+" "+sMuster;
+		potentialMasterPageName = tr("Copy #%1 of %2").arg(copyC++).arg(sMuster);
 
 	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Master Page"), currentDoc, potentialMasterPageName);
 	if (dia->exec())
@@ -344,9 +344,9 @@ void MasterPagesPalette::selectMasterPage(QListBoxItem *item)
 {
 	sMuster = item->text();
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
-	if (sMuster == CommonStrings::trMasterPageNormal)
+	if (sMuster == CommonStrings::trMasterPageNormal || sMuster == CommonStrings::masterPageNormal)
 	{
-		sMuster = CommonStrings::masterPageNormal;
+// 		sMuster = CommonStrings::masterPageNormal;
 		deleteButton->setEnabled(false);
 	}
 	else
