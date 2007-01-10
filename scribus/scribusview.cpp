@@ -2768,7 +2768,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 					m_ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 				}
-				if (insertConvertToMenu)
+				bool insertedMenusEnabled = false;
+				for (int pc = 0; pc < pmen2->count(); pc++)
+				{
+					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
+						insertedMenusEnabled = true;
+				}
+				if ((insertConvertToMenu) && (insertedMenusEnabled))
 					pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
