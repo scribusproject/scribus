@@ -7911,7 +7911,8 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		QWMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
-		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
+//		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
+		double my = ma.m12() * currItem->width() + ma.dy();
 		getClosestGuides(0, my, &xout, &yout);
 		if (m_View->GyM != -1)
 			currItem->moveBy(0.0, yout - my + page->yOffset());
@@ -7930,7 +7931,8 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		QWMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
-		double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
+		double mx = ma.m11() * currItem->width() + ma.dx();
+//		double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
 		getClosestGuides(mx,  0, &xout, &yout);
 		if (m_View->GxM != -1)
 			currItem->moveBy(xout - mx + page->xOffset(), 0.0);

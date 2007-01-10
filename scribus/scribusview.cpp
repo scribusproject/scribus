@@ -4972,10 +4972,42 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								double ny = currItem->yPos();
 								Doc->ApplyGuides(&nx, &ny);
 								moveGroup(nx-currItem->xPos(), ny-currItem->yPos(), false);
-								nx = currItem->xPos()+currItem->width();
-								ny = currItem->yPos()+currItem->height();
+								QWMatrix ma;
+								ma.translate(currItem->xPos(), currItem->yPos());
+								ma.rotate(currItem->rotation());
+								if (currItem->asLine())
+								{
+									nx = ma.m11() * currItem->width() + ma.dx();
+									ny = ma.m12() * currItem->width() + ma.dy();
+								}
+								else
+								{
+									nx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
+									ny = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
+								}
+								double nxo = nx;
+								double nyo = ny;
 								Doc->ApplyGuides(&nx, &ny);
-								moveGroup(nx-(currItem->xPos()+currItem->width()), ny-(currItem->yPos()+currItem->height()), false);
+								moveGroup(nx-nxo, ny-nyo, false);
+								if ((currItem->rotation() != 0.0) && (!currItem->asLine()))
+								{
+									nx = ma.m11() * currItem->width() + ma.dx();
+									ny = ma.m12() * currItem->width() + ma.dy();
+									nxo = nx;
+									nyo = ny;
+									Doc->ApplyGuides(&nx, &ny);
+									moveGroup(nx-nxo, ny-nyo, false);
+									nx = ma.m21() * currItem->height() + ma.dx();
+									ny = ma.m22() * currItem->height() + ma.dy();
+									nxo = nx;
+									nyo = ny;
+									Doc->ApplyGuides(&nx, &ny);
+									moveGroup(nx-nxo, ny-nyo, false);
+								}
+//								nx = currItem->xPos()+currItem->width();
+//								ny = currItem->yPos()+currItem->height();
+//								Doc->ApplyGuides(&nx, &ny);
+//								moveGroup(nx-(currItem->xPos()+currItem->width()), ny-(currItem->yPos()+currItem->height()), false);
 							}
 						}
 					}
@@ -7723,7 +7755,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 						PenCapStyle le = FlatCap;
 						if (currItem->NamedLStyle.isEmpty())
 						{
-							lw2 = qRound(currItem->lineWidth()  / 2.0);
+							lw2 = qRound(QMAX(currItem->lineWidth()  / 2.0, 1.0));
 							lw = qRound(QMAX(currItem->lineWidth(), 1.0));
 							le = currItem->PLineEnd;
 						}
