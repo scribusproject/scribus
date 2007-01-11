@@ -244,7 +244,7 @@ void TOCIndexPrefs::addToC()
 			found=true;
 	}
 	if (found || newName.isEmpty())
-		newName=QString("Table of Contents %1").arg(localToCSetupVector.count()+1);
+		newName=tr("Table of Contents %1").arg(localToCSetupVector.count()+1);
 	ToCSetup newToCEntry;
 	newToCEntry.name=newName;
 	newToCEntry.itemAttrName=strNone;
