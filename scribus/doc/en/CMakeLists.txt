@@ -79,6 +79,7 @@ print3.html
 psd.html
 readme.html
 readme-win32.html
+readme-os2.html
 resources.html
 scprinters.html
 scribuscopyright.html
