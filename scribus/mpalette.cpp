@@ -3610,13 +3610,10 @@ void Mpalette::SetSTline(QListBoxItem *c)
 
 void Mpalette::updateColorList()
 {
-	if (!HaveDoc)
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	Cpal->SetColors(doc->PageColors);
 	Cpal->SetPatterns(&doc->docPatterns);
-
-	if (!m_ScMW || m_ScMW->ScriptRunning)
-		return;
 	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
