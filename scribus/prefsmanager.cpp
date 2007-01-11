@@ -309,7 +309,7 @@ void PrefsManager::initDefaults()
 	appPrefs.Language = "";
 	appPrefs.Automatic = true;
 	appPrefs.AutoCheck = false;
-	appPrefs.AutoSave = false;
+	appPrefs.AutoSave = true;
 	appPrefs.AutoSaveTime = 600000;
 	appPrefs.DisScale = 1.0;
 	appPrefs.DocDir = ScPaths::getUserDocumentDir();
