@@ -5843,6 +5843,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawShapes:
+			if (m->button() != LeftButton)
+				break;
 			selectPage(m);
 			switch (Doc->SubMode)
 			{
@@ -5898,6 +5900,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawPicture:
+			if (m->button() != LeftButton)
+				break;
 			selectPage(m);
 			if (m->state() == ShiftButton)
 			{
@@ -5912,6 +5916,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawText:
+			if (m->button() != LeftButton)
+				break;
 			selectPage(m);
 			if (m->state() == ShiftButton)
 			{
@@ -6062,6 +6068,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawLine:
+			if (m->button() != LeftButton)
+				break;
 			selectPage(m);
 			Doc->ApplyGuides(&Rxp, &Ryp);
 			z = Doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, CommonStrings::None, Doc->toolSettings.dPenLine, !m_MouseButtonPressed);
@@ -6074,6 +6082,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			inItemCreation = true;
 			break;
 		case modeRotation:
+			if (m->button() != LeftButton)
+				break;
 			if (GetItem(&currItem))
 			{
 				RotMode = Doc->RotMode;
@@ -6139,6 +6149,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeLinkFrames:
+			if (m->button() != LeftButton)
+				break;
 			currItem = Doc->ElemToLink;
 			if (currItem==NULL)
 				break;
@@ -6202,6 +6214,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->ElemToLink = NULL;
 			break;
 		case modeUnlinkFrames:
+			if (m->button() != LeftButton)
+				break;
 			SeleItem(m);
 			if (GetItem(&currItem) && (currItem->asTextFrame()))
 			{
@@ -6246,6 +6260,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawRegularPolygon:
 			{
+				if (m->button() != LeftButton)
+					break;
 				selectPage(m);
 				if (m->state() == ShiftButton)
 					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
@@ -6327,6 +6343,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeInsertPDFListbox:
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
+			if (m->button() != LeftButton)
+				break;
 			selectPage(m);
 			Doc->ApplyGuides(&Rxp, &Ryp);
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
@@ -6364,6 +6382,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SetupDraw(z);
 			break;
 		case modeDrawFreehandLine:
+			if (m->button() != LeftButton)
+				break;
 			RecordP.resize(0);
 			Deselect(false);
 			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
@@ -6372,6 +6392,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			break;
 		case modeDrawTable:
+			if (m->button() != LeftButton)
+				break;
 			Deselect(false);
 //			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 //			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
@@ -6392,6 +6414,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
+			if (m->button() != LeftButton)
+				break;
 			m_MouseButtonPressed = true;
 			qApp->setOverrideCursor(QCursor(CrossCursor), true);
 			Dxp = m->x();
@@ -6400,6 +6424,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Myp = m->y();
 			break;
 		case modeCopyProperties:
+			if (m->button() != LeftButton)
+				break;
 			SeleItem(m);
 			if (GetItem(&currItem))
 			{
