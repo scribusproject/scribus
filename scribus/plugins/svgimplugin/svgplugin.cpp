@@ -2070,7 +2070,6 @@ QString SVGPlug::parseColor( const QString &s )
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert("FromSVG"+c.name(), tmp);
-		m_Doc->scMW()->propertiesPalette->updateColorList();
 		ret = "FromSVG"+c.name();
 	}
 	return ret;
