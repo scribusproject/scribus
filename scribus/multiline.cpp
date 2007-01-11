@@ -263,7 +263,7 @@ void MultiLine::RebuildList()
 	for (multiLine::iterator it = TempVorl.begin(); it != TempVorl.end(); ++it)
 	{
 		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+" "+tr("pt")+" ";
+		tmp2 = " "+tmp.setNum((*it).Width) + " " + tr("pt") + " ";
 		tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>((*it).Dash));
 		tmp2 += " ";
 		Styles->insertItem(*pm2, tmp2);
