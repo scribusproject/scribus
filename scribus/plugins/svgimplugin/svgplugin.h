@@ -226,6 +226,9 @@ public:
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
+	QString docDesc;
+	QString docTitle;
+	int groupLevel;
 	QPtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;

@@ -200,6 +200,9 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	unsupported = false;
 	importFailed = false;
 	importCanceled = true;
+	docDesc = "";
+	docTitle = "";
+	groupLevel = 0;
 //	Conversion = 0.8;
 	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -302,6 +305,11 @@ void SVGPlug::convert(int flags)
 		m_gc.current()->matrix = matrix;
 	}
 	QPtrList<PageItem> Elements = parseGroup( docElem );
+	if (flags & LoadSavePlugin::lfCreateDoc)
+	{
+		m_Doc->documentInfo.setTitle(docTitle);
+		m_Doc->documentInfo.setComments(docDesc);
+	}
 // 	m_Doc->m_Selection->clear();
 	tmpSel->clear();
 	if (Elements.count() == 0)
@@ -712,7 +720,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements, gElements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
-
+	groupLevel++;
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
@@ -730,7 +738,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		for (uint ec = 0; ec < el.count(); ++ec)
 			gElements.append(el.at(ec));
 	}
-
+	groupLevel--;
 	if (gElements.count() < 2)
 	{
 		m_Doc->Items->take(z);
@@ -857,6 +865,16 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		GElements = parseText(e);
 	else if( STag == "clipPath" )
 		parseClipPath(e);
+	else if( STag == "desc" )
+	{
+		if (groupLevel == 1)
+			docDesc = e.text();
+	}
+	else if( STag == "title" )
+	{
+		if (groupLevel == 1)
+			docTitle = e.text();
+	}
 /*	else if( STag == "image" )
 		GElements = parseImage(e);
 	} */
