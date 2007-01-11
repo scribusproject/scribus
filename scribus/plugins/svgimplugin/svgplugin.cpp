@@ -518,7 +518,10 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
 	item->PLineEnd = gc->PLineEnd;
 	item->PLineJoin = gc->PLineJoin;
-	item->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+	if (item->fillColor() == CommonStrings::None)
+		item->setTextFlowMode(PageItem::TextFlowDisabled);
+	else
+		item->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 	item->DashOffset = gc->dashOffset;
 	item->DashValues = gc->dashArray;
 	if (gc->Gradient != 0)
@@ -2067,7 +2070,8 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		obj->Opacity = fromPercentage(params);
 	else if( command == "fill" )
 	{
-		if ((obj->InherCol) && (params == "currentColor"))
+//		if ((obj->InherCol) && (params == "currentColor"))
+		if (params == "currentColor")
 			obj->FillCol = obj->CurCol;
 		else if (params == "none")
 		{
@@ -2130,17 +2134,16 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		if (params == "none")
 			obj->CurCol = CommonStrings::None;
 		else if( params.startsWith( "url(" ) )
-		{
 			obj->CurCol = CommonStrings::None;
-		}
+		else if (params == "currentColor")
+			obj->CurCol = obj->CurCol;
 		else
-		{
 			obj->CurCol = parseColor(params);
-		}
 	}
 	else if( command == "stroke" )
 	{
-		if ((obj->InherCol) && (params == "currentColor"))
+//		if ((obj->InherCol) && (params == "currentColor"))
+		if (params == "currentColor")
 			obj->StrokeCol = obj->CurCol;
 		else if (params == "none")
 		{
@@ -2298,6 +2301,8 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 	QString Col = "Black";
 	double offset = 0;
 	double opa;
+	SvgStyle svgStyle;
+	parseStyle( &svgStyle, e );
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		opa = 1.0;
@@ -2315,7 +2320,12 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			if( !stop.attribute( "stop-opacity" ).isEmpty() )
 				opa = fromPercentage(stop.attribute("stop-opacity"));
 			if( !stop.attribute( "stop-color" ).isEmpty() )
-				Col = parseColor(stop.attribute("stop-color"));
+			{
+				if (stop.attribute("stop-color") == "currentColor")
+					Col = svgStyle.CurCol;
+				else
+					Col = parseColor(stop.attribute("stop-color"));
+			}
 			else
 			{
 				QString style = stop.attribute( "style" ).simplifyWhiteSpace();
