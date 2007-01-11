@@ -1267,7 +1267,6 @@ QString OODPlug::parseColor( const QString &s )
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert("FromOODraw"+c.name(), tmp);
-		m_Doc->scMW()->propertiesPalette->updateColorList();
 		ret = "FromOODraw"+c.name();
 	}
 	return ret;
