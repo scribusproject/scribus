@@ -89,6 +89,14 @@ void FtFace::load() const
 	m_descent = m_face->descender / m_uniEM;
 	m_ascent = m_face->ascender / m_uniEM;
 	m_height = m_face->height / m_uniEM;
+
+/* Temporary fix for the broken "Dutch Initials" font */
+	if ((m_ascent == 0) && (m_descent == 0))
+	{
+		m_ascent = (m_face->bbox.yMax - m_face->bbox.yMin) / m_uniEM;
+		m_height = m_ascent;
+	}
+
 	m_xHeight = m_height;
 	m_capHeight = m_height;
 	m_maxAdvanceWidth = m_face->max_advance_width / m_uniEM;

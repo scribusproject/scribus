@@ -6388,6 +6388,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	AdjustFontMenu(nf2);
 	doc->itemSelection_SetFont(nf2);
 	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
+	view->DrawNew();
 	slotDocCh();
 }
 

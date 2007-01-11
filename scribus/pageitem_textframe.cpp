@@ -1895,11 +1895,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					SetFarbe(&tmp, charStyle.fillColor(), charStyle.fillShade());
 					p->setBrush(tmp);
 				}
-				if (charStyle.strokeColor() != CommonStrings::None)
-				{
-					SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
-					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-				}
 				if (charStyle.effects() & ScStyle_DropCap)
 				{
 					if (style.useBaselineGrid())
@@ -1918,6 +1913,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				// tabs & fill chars
 				if ((chstr == SpecialChars::TAB) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 				{
+					if (charStyle.strokeColor() != CommonStrings::None)
+					{
+						SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
+						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+					}
 					QChar tabFillChar(tTabValues[tabCc].tabFillChar);
 					double wt = charStyle.font().charWidth(tabFillChar, chs / 10.0);
 					int coun = static_cast<int>((CurX - tabDist) / wt);
