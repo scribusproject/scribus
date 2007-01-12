@@ -73,7 +73,7 @@ QDragObject *BibView::dragObject()
 		dt = pre->createObjects(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "shape")
+/*	else if (fi.extension(true).lower() == "shape")
 	{
 		QCString cf;
 		loadRawText(dt, cf);
@@ -81,7 +81,7 @@ QDragObject *BibView::dragObject()
 		StencilReader *pre = new StencilReader();
 		dt = pre->createShape(f);
 		delete pre;
-	}
+	} */
 	else if (fi.extension(true).lower() == "sce")
 	{
 		QCString cf;
@@ -171,7 +171,7 @@ void BibView::SaveContents(QString name, QString oldName)
 			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
 		}
 	}
-	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+/*	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d3.exists()) && (d3.count() != 0))
 	{
 		for (uint dc = 0; dc < d3.count(); ++dc)
@@ -203,7 +203,7 @@ void BibView::SaveContents(QString name, QString oldName)
 			QFileInfo fi3(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d3[dc])));
 			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
 		}
-	}
+	} */
 }
 
 void BibView::ReadOldContents(QString name, QString newName)
@@ -316,7 +316,7 @@ void BibView::ReadContents(QString name)
 			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), pm);
 		}
 	}
-	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+/*	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d3.exists()) && (d3.count() != 0))
 	{
 		for (uint dc = 0; dc < d3.count(); ++dc)
@@ -342,15 +342,12 @@ void BibView::ReadContents(QString name)
 				QString f2 = pre->createShape(f);
 				ScPreview *pre2 = new ScPreview();
 				pm = pre2->createPreview(f2);
-//				if (canWrite)
-// Above code is commented out because QFileInfo::permissons does not work properly
-//					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 				delete pre2;
 			}
 			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])), pm);
 		}
-	}
+	} */
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{

@@ -121,7 +121,8 @@ void PatternDialog::loadPatternDir()
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();
-				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
+//				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
+				if ((ext == "sml") || (ext == "sce"))
 					loadVectors(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				else if (formats.contains(ext))
 				{
@@ -148,7 +149,8 @@ void PatternDialog::loadPatternDir()
 void PatternDialog::loadPattern()
 {
 	QString fileName;
-	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
+//	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
+	QString formats = "Scribus Objects (*.sce *.SCE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
 	QString form1 = "";
 	QString form2 = "";
 	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
@@ -186,7 +188,8 @@ void PatternDialog::loadPattern()
 	{
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.findRev("/")));
 		QFileInfo fi(fileName);
-		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
+//		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
+		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "sce"))
 		{
 			loadVectors(fileName);
 			updatePatternList();
@@ -218,14 +221,14 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "shape")
+/*	else if (fi.extension(true).lower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
 		StencilReader *pre = new StencilReader();
 		data = pre->createShape(f);
 		delete pre;
-	}
+	} */
 	else if (fi.extension(true).lower() == "sce")
 	{
 		QString f = "";
