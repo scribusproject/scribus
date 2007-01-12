@@ -5371,7 +5371,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					return;
 				}
 			}
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+//			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			tmpGuides = Doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
 			{

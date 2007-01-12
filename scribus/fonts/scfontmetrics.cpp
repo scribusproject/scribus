@@ -220,8 +220,14 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	error = FT_New_Face( library, QFile::encodeName(fnt.fontFilePath()), fnt.faceIndex(), &face );
 	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
-	int h = qRound(face->height / uniEM) * s + 1;
-	double a = static_cast<double>(face->descender) / uniEM * s + 1;
+
+	double m_descent = face->descender / uniEM;
+	double m_height = face->height / uniEM;
+	if (m_height == 0)
+		m_height = (face->bbox.yMax - face->bbox.yMin) / uniEM;
+
+	int h = qRound(m_height * s) + 1;
+	double a = m_descent * s + 1;
 	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
 	if (w < 1)
 		w = s * (ts.length()+1);
