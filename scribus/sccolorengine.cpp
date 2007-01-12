@@ -57,7 +57,7 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 {
 	bool cmsUse = doc ? doc->HasCMS : false;
 	colorModel model = color.getColorModel();
-	if ((ScCore->haveCMS() && cmsUse) && (!color.isSpotColor()))
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		if (model == colorModelRGB)
 		{
@@ -99,7 +99,7 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 	WORD outC[4];
 	bool cmsUse = doc ? doc->HasCMS : false;
 	colorModel model = color.getColorModel();
-	if ((ScCore->haveCMS() && cmsUse) && (!color.isSpotColor()))
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		if (model == colorModelRGB)
 		{
@@ -331,12 +331,12 @@ QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool s
 	int  r = rgb.r, g = rgb.g, b = rgb.b;
 	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
-	if ((ScCore->haveCMS() && cmsUse) && (!spot))
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		inC[0] = rgb.r * 257;
 		inC[1] = rgb.g * 257;
 		inC[2] = rgb.b * 257;
-		if (doc->SoftProofing)
+		if (!spot && doc->SoftProofing)
 		{
 			cmsHTRANSFORM xform = gamutCkeck ? doc->stdProofGC : doc->stdProof;
 			cmsDoTransform(xform, inC, outC, 1);
@@ -362,13 +362,13 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 	WORD outC[4];
 	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
-	if ((ScCore->haveCMS() && cmsUse) && (!spot))
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		inC[0] = cmyk.c * 257;
 		inC[1] = cmyk.m * 257;
 		inC[2] = cmyk.y * 257;
 		inC[3] = cmyk.k * 257;
-		if (doc->SoftProofing)
+		if (!spot && doc->SoftProofing)
 		{
 			cmsHTRANSFORM xform = gamutCkeck ? doc->stdProofCMYKGC : doc->stdProofCMYK;
 			cmsDoTransform(xform, inC, outC, 1);
@@ -402,7 +402,7 @@ QColor ScColorEngine::getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool
 	int b = rgb.b; 
 	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
-	if ((ScCore->haveCMS() && cmsUse) && (!spot))
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		inC[0] = r * 257;
 		inC[1] = g * 257;
@@ -422,7 +422,7 @@ QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bo
 	WORD outC[4];
 	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
-	if ((ScCore->haveCMS() && cmsUse) && (!spot))
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		inC[0] = cmyk.c * 257;
 		inC[1] = cmyk.m * 257;
