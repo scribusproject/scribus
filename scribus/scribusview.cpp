@@ -3876,40 +3876,55 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					double ny = gy;
 					if (!Doc->ApplyGuides(&nx, &ny))
 					{
-						FPoint npx;
-						npx = Doc->ApplyGridF(FPoint(nx, ny));
-						nx = npx.x();
-						ny = npx.y();
+							FPoint npx = Doc->ApplyGridF(FPoint(gx, gy));
+							FPoint npw = Doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+							if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+								nx = npw.x() - gw;
+							else
+								nx = npx.x();
+							if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+								ny = npw.y() - gh;
+							else
+								ny = npx.y();
 					}
 					moveGroup(nx-gx, ny-gy, false);
 					Doc->m_Selection->setGroupRect();
 					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					nx = gx+gw;
 					ny = gy+gh;
-					Doc->ApplyGuides(&nx, &ny);
-					moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+					if (Doc->ApplyGuides(&nx, &ny))
+						moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					Doc->m_Selection->setGroupRect();
 				}
 				else
 				{
 					currItem = Doc->m_Selection->itemAt(0);
-					if (!currItem->asLine())
+/*					if (!currItem->asLine())
 					{
 						if (fabs(currItem->width()) < 5)
 							currItem->setWidth(5.0);
 						if (fabs(currItem->height()) < 5)
 							currItem->setHeight(5.0);
-					}
+					} */
 					if (Doc->useRaster)
 					{
 						double nx = currItem->xPos();
 						double ny = currItem->yPos();
 						if (!Doc->ApplyGuides(&nx, &ny))
 						{
-							FPoint npx;
-							npx = Doc->ApplyGridF(FPoint(nx, ny));
-							nx = npx.x();
-							ny = npx.y();
+							Doc->m_Selection->setGroupRect();
+							double gx, gy, gh, gw;
+							Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+							FPoint npx = Doc->ApplyGridF(FPoint(gx, gy));
+							FPoint npw = Doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+							if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+								nx = npw.x() - gw;
+							else
+								nx = npx.x();
+							if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+								ny = npw.y() - gh;
+							else
+								ny = npx.y();
 						}
 						Doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 					}
