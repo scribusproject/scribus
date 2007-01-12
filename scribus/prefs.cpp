@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagelayout.h"
 #include "pluginmanager.h"
 #include "pluginmanagerprefsgui.h"
+#include "prefsfile.h"
 #include "scplugin.h"
 #include "sccombobox.h"
 #include "colorcombo.h"
@@ -307,7 +308,13 @@ void Preferences::unitChange()
 
 void Preferences::setActionHistoryLength()
 {
-	UndoManager::instance()->setHistoryLength(tabDocument->urSpinBox->value());
+	PrefsContext *undoPrefs = PrefsManager::instance()->prefsFile->getContext("undo");
+	bool isEnabled = tabDocument->urGroup->isChecked();
+	if (!isEnabled)
+		UndoManager::instance()->clearStack();
+	UndoManager::instance()->setUndoEnabled(isEnabled);
+	undoPrefs->set("enabled", isEnabled);
+	UndoManager::instance()->setAllHistoryLengths(tabDocument->urSpinBox->value());
 }
 
 void Preferences::switchCMS(bool enable)

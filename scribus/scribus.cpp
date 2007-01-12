@@ -238,6 +238,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	objectSpecificUndo = false;
 
 	undoManager = UndoManager::instance();
+	PrefsContext *undoPrefs = prefsManager->prefsFile->getContext("undo");
+	undoManager->setUndoEnabled(undoPrefs->getBool("enabled", true));
 	tocGenerator = new TOCGenerator();
 
 

@@ -682,6 +682,7 @@ public slots:
 	 * @param steps number of UndoStates to store in the undo stack
 	 */
 	void setHistoryLength(int steps);
+	void setAllHistoryLengths(int steps);
 
 signals:
 	/**

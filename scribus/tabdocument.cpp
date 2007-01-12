@@ -382,4 +382,5 @@ void TabDocument::slotUndo(bool isEnabled)
 		UndoManager::instance()->clearStack();
 	UndoManager::instance()->setUndoEnabled(isEnabled);
 	undoPrefs->set("enabled", isEnabled);
+	UndoManager::instance()->setAllHistoryLengths(urSpinBox->value());
 }

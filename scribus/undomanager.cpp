@@ -497,8 +497,20 @@ void UndoManager::setHistoryLength(int steps)
 {
 	if (steps >= 0)
 	{
-		prefs_->set("historyLength", stacks_[currentDoc_].maxSize());
 		stacks_[currentDoc_].setMaxSize(static_cast<uint>(steps));
+		prefs_->set("historylength", stacks_[currentDoc_].maxSize());
+	}
+}
+
+void UndoManager::setAllHistoryLengths(int steps)
+{
+	if (steps >= 0)
+	{
+		for (StackMap::Iterator it = stacks_.begin(); it != stacks_.end(); ++it )
+		{
+			it.data().setMaxSize(static_cast<uint>(steps));
+		}
+		prefs_->set("historylength", steps);
 	}
 }
 
