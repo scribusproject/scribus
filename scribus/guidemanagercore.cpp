@@ -238,6 +238,15 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 	switch (type)
 	{
 		case Standard:
+			if (undoManager->undoEnabled())
+			{
+				for (uint i = 0; i < horizontalStdG.count(); ++i)
+				{
+					SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
+					ss->set("REMOVE_H", horizontalStdG[i]);
+					undoManager->action(m_page, ss);
+				}
+			}
 			horizontalStdG.clear();
 			break;
 		case Auto:
@@ -256,6 +265,15 @@ void GuideManagerCore::clearVerticals(GuideType type)
 	switch (type)
 	{
 		case Standard:
+			if (undoManager->undoEnabled())
+			{
+				for (uint i = 0; i < verticalStdG.count(); ++i)
+				{
+					SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
+					ss->set("REMOVE_V", verticalStdG[i]);
+					undoManager->action(m_page, ss);
+				}
+			}
 			verticalStdG.clear();
 			break;
 		case Auto:

@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scinputdialog.h"
 #include "selection.h"
+#include "undomanager.h"
 
 
 int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
@@ -510,6 +511,10 @@ void GuideManager::clearRestoreVerticalList()
 
 void GuideManager::deletePageButton_clicked()
 {
+	UndoManager::instance()->beginTransaction(currentPage->getUName(),
+	                              currentPage->getUPixmap(),
+	                              Um::RemoveAllGuides, "",
+	                              Um::IGuides);
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
 	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
@@ -525,17 +530,23 @@ void GuideManager::deletePageButton_clicked()
 	currentPage->guides.setVerticalAutoRefer(0);
 	horizontalAutoCountSpin->setValue(0);
 	verticalAutoCountSpin->setValue(0);
+	UndoManager::instance()->commit();
 
 	drawGuides();
 }
 
 void GuideManager::deleteAllGuides_clicked()
 {
+	UndoManager::instance()->beginTransaction(m_Doc->getUName(),
+	                              m_Doc->getUPixmap(),
+	                              Um::RemoveAllGuides, "",
+	                              Um::IGuides);
 	m_drawGuides = false;
 	deletePageButton_clicked();
 	copyGuidesToAllPages(GuideManagerCore::Standard);
 	copyGuidesToAllPages(GuideManagerCore::Auto);
 	m_drawGuides = true;
+	UndoManager::instance()->commit();
 	drawGuides();
 }
 

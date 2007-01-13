@@ -432,6 +432,7 @@ public:
 	static QString DelHGuide;
 	static QString MoveVGuide;
 	static QString MoveHGuide;
+	static QString RemoveAllGuides;
 	static QString LockGuides;
 	static QString UnlockGuides;
 	static QString Move;

@@ -799,6 +799,7 @@ void UndoManager::languageChange()
 	UndoManager::ImageEffects       = tr("Apply image effects");
 	UndoManager::InsertFrame        = tr("Insert frame");
 	UndoManager::AdjustFrameToImage = tr("Adjust frame to the image size");
+	UndoManager::RemoveAllGuides    = tr("Remove all guides");
 }
 
 void UndoManager::initIcons()
@@ -977,6 +978,7 @@ QString UndoManager::ResetControlPoints = "";
 QString UndoManager::ImageEffects       = "";
 QString UndoManager::InsertFrame        = "";
 QString UndoManager::AdjustFrameToImage = "";
+QString UndoManager::RemoveAllGuides    = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
