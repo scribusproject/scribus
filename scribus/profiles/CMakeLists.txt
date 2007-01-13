@@ -7,5 +7,7 @@ INSTALL(FILES
 Readme
 sRGB.icm
 srgb.license
+GenericCMYK.icm
+GenericCMYK.txt
   DESTINATION ${LIBDIR}profiles
 )
