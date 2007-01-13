@@ -3572,7 +3572,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			{
 				SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep))
+				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
 					PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
 				else
 					PutSeite(FillColor + " cmyk");
@@ -3599,7 +3599,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		{
 			SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep))
+			if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
 			{
 				PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
 				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, true);
