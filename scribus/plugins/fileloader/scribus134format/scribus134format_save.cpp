@@ -969,6 +969,11 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		it.setAttribute("CH", item->itemText.text(lastPos, item->itemText.length() - lastPos));
 		ob.appendChild(it);
 	}
+	// paragraphstyle for trailing chars
+	QDomElement par = docu->createElement("para");
+	putPStyle(*docu, par, item->itemText.paragraphStyle(item->itemText.length()));
+	ob.appendChild(par);
+	
 }
 
 void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items)
@@ -1096,7 +1101,11 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 				ob.appendChild(psd);
 			}
 		}
-		ob.setAttribute("ALIGN",findParagraphStyle(doc, item->itemText.defaultStyle()));
+		if (item->itemText.defaultStyle().hasParent())
+			ob.setAttribute("PSTYLE", item->itemText.defaultStyle().parent());
+		if (! item->itemText.defaultStyle().isInhAlignment())
+			ob.setAttribute("ALIGN", item->itemText.defaultStyle().alignment());
+		
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
 		writeITEXTs(doc, docu, ob, item); 
