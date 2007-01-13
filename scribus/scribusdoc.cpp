@@ -1006,6 +1006,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		}
 		else if (ss->contains("OLD_MASTERPAGE"))
 			restoreMasterPageApplying(ss, isUndo);
+		else if (ss->contains("COPY_PAGE"))
+			restorePageCopy(ss, isUndo);
 
 		if (layersUndo)
 		{
@@ -2904,6 +2906,28 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 		applyMasterPage(newName, pageNumber);
 }
 
+void ScribusDoc::restorePageCopy(SimpleState *state, bool isUndo)
+{
+	int pnum = state->getInt("PAGE_NUM");
+	int extPage = state->getInt("EXISTING_PAGE");
+	int whereTo = state->getInt("WHERE_TO");
+	int copyCount = state->getInt("COPY_COUNT");
+
+	if (isUndo)
+	{
+		int destLocation=extPage;
+		if (whereTo==0)
+			--destLocation;
+		else if (whereTo==2)
+			destLocation=DocPages.count();
+		for (int i = 0; i < copyCount; ++i)
+			m_ScMW->DeletePage(destLocation, destLocation);
+	}
+	else
+		copyPage(pnum, extPage, whereTo, copyCount);
+
+}
+
 //TODO: Handle saving to versions of SLA, and other formats
 bool ScribusDoc::save(const QString& fileName)
 {
@@ -3035,7 +3059,6 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	Q_ASSERT(!masterPageMode());
 	if (masterPageMode())
 		return false;
-	//TODO Add Undo here
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
@@ -4349,6 +4372,15 @@ void ScribusDoc::setFirstSectionFromFirstPageNumber()
 
 void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToInsert, int copyCount)
 {
+	undoManager->beginTransaction(getUName(), Um::IDocument, Um::CopyPage, "", Um::ICreate);
+	SimpleState *ss = new SimpleState(Um::Copy, "", Um::ICreate);
+	ss->set("COPY_PAGE", "copy_page");
+	ss->set("PAGE_NUM", pageNumberToCopy);
+	ss->set("EXISTING_PAGE", existingPage);
+	ss->set("WHERE_TO", whereToInsert);
+	ss->set("COPY_COUNT", copyCount);
+	undoManager->action(this, ss);
+
 	//CB Should we really be disabled auto text frames here?
 	bool autoText = usesAutomaticTextFrames();
 	setUsesAutomaticTextFrames(false);
@@ -4427,6 +4459,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	else
 		setCurrentPage(from);
 	changed();
+	undoManager->commit();
 }
 
 void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)

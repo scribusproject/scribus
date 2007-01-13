@@ -461,6 +461,7 @@ public:
 	 * @brief Undo function for applying a master page
 	 */
 	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
+	void restorePageCopy(SimpleState *state, bool isUndo);
 	/**
 	 * @brief Save function
 	 */

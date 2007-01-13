@@ -554,6 +554,8 @@ public:
 	static QString ImageEffects;
 	static QString InsertFrame;
 	static QString AdjustFrameToImage;
+	static QString Copy;
+	static QString CopyPage;
 	/*@}*/
 
 	/**

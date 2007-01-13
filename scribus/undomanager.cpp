@@ -800,6 +800,8 @@ void UndoManager::languageChange()
 	UndoManager::InsertFrame        = tr("Insert frame");
 	UndoManager::AdjustFrameToImage = tr("Adjust frame to the image size");
 	UndoManager::RemoveAllGuides    = tr("Remove all guides");
+	UndoManager::Copy               = tr("Copy");
+	UndoManager::CopyPage           = tr("Copy page");
 }
 
 void UndoManager::initIcons()
@@ -979,6 +981,8 @@ QString UndoManager::ImageEffects       = "";
 QString UndoManager::InsertFrame        = "";
 QString UndoManager::AdjustFrameToImage = "";
 QString UndoManager::RemoveAllGuides    = "";
+QString UndoManager::Copy               = "";
+QString UndoManager::CopyPage           = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
