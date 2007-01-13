@@ -2233,9 +2233,10 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			{
 				for (int d=0; d<ite->itemText.length(); ++d)
 				{
-					if (it.key() == ite->itemText.charStyle(d).fillColor())
+					const CharStyle& cstyle(ite->itemText.charStyle(d));
+					if (it.key() == cstyle.fillColor())
 						found = true;
-					if (it.key() == ite->itemText.charStyle(d).strokeColor())
+					if (it.key() == cstyle.strokeColor())
 						found = true;
 					if (found)
 						break;
@@ -2274,7 +2275,8 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.charStyle(d).fillColor()) || (it.key() == ite->itemText.charStyle(d).strokeColor()))
+					const CharStyle& cstyle(ite->itemText.charStyle(d));
+					if ((it.key() == cstyle.fillColor()) || (it.key() == cstyle.strokeColor()))
 						found = true;
 					if (found)
 						break;
@@ -2313,7 +2315,8 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 				for (int d=0; d<ite->itemText.length(); ++d)
 				{
 					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.charStyle(d).fillColor()) || (it.key() == ite->itemText.charStyle(d).strokeColor()))
+					const CharStyle& cstyle(ite->itemText.charStyle(d));
+					if ((it.key() == cstyle.fillColor()) || (it.key() == cstyle.strokeColor()))
 						found = true;
 					if (found)
 						break;

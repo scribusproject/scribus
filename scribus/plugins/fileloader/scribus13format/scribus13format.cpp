@@ -1954,9 +1954,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 			obj->itemText.insertChars(pos, QString(ch));
 		}
 		if (newStyle != last->Style) {
-#ifdef NLS_PROTO
-			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
-#endif
+//			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
 			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
@@ -1966,7 +1964,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 			pstyle.setParent( last->ParaStyle );
 			if (calign >= 0)
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
-			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
+//			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
@@ -1975,6 +1973,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	pstyle.setParent( last->ParaStyle );
 	if (calign >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
+//	qDebug(QString("par style at end: %1/%2 (%3) calign %4").arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
 	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	return;
 }
