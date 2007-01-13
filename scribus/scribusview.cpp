@@ -166,6 +166,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	for (int i=0;i<=unitGetMaxIndex();++i)
 		unitSwitcher->insertItem(unitGetStrFromIndex(i));
 	zoomSpinBox = new MSpinBox( 10, 3200, this, 2 );
+	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
 	zoomSpinBox->setValue( 100 );
 	zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);

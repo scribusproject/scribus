@@ -95,8 +95,10 @@ public:
 	\param unitIndex the unitIndex for the new unit
 	*/
 	void setNewUnit(double oldUnitRatio, double newUnitRatio, int unitIndex);
+	void setTabAdvance(bool enable);
 	int Decimals;
 	int Width;
+	bool tabAdvance;
 	QLineEdit *ed;
 	void setDecimals( int deci );
 	bool isReadOnly() const;
