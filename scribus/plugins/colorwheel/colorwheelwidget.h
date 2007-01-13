@@ -77,6 +77,13 @@ class ColorWheel : public QLabel
 		\retval QString Translated method name. */
 		QString getTypeDescription(MethodType aType);
 
+		/** \brief Get sample color from specifid angle.
+		\param angle Angle of the color in the wheel. An angle for transformation counting.
+		E.g. base angle is 30, param is 90 - transformation is 120.
+		There is easy "convert 665485 into 0-359 interval" algorithm too.
+		\retval ScColor Scribus color of the angle. */
+		ScColor colorByAngle(int angle);
+
 		//! \brief Call one of makeFoo() methods depending on the currentType value.
 		void makeColors();
 

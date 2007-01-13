@@ -36,6 +36,7 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, nam
 		if (mapIndex > 359)
 			mapIndex = 0;
 	}
+	actualColor = colorMap[0];
 	trBaseColor = tr("Base Color");
 }
 
@@ -132,6 +133,15 @@ QString ColorWheel::getTypeDescription(MethodType aType)
 		case Tetradic: return tr("Tetradic (Double Complementary)");
 	}
 	return "n/a";
+}
+
+ScColor ColorWheel::colorByAngle(int angle)
+{
+	while (angle > 359)
+		angle -= 359;
+	while (angle < 0)
+		angle += 359;
+	return colorSpaceColor(colorMap[angle]);
 }
 
 ScColor ColorWheel::sampleByAngle(int angle)

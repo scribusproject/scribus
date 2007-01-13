@@ -39,6 +39,9 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	: CWDialogBase (parent, name, modal, fl),
 	  m_Doc(doc)
 {
+	int h, s, v;
+	ScColor color;
+	QString colorName;
 	connectSlots(false);
 	// setup combobox
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Monochromatic), colorWheel->Monochromatic);
@@ -53,6 +56,8 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	defectCombo->insertItem(CommonStrings::trVisionDeuteranopia);
 	defectCombo->insertItem(CommonStrings::trVisionTritanopia);
 	defectCombo->insertItem(CommonStrings::trVisionFullColorBlind);
+	// document colors
+	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));
@@ -61,15 +66,38 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
 	colorspaceTab->setCurrentPage(prefs->getInt("cw_space", 0));
-	colorWheel->actualColor.setColor(prefs->getInt("cw_c", 0),
-									 prefs->getInt("cw_m", 0),
-									 prefs->getInt("cw_y", 0),
-									 prefs->getInt("cw_k", 0));
+	color.setNamedColor(prefs->get("cw_color", "#00000000"));
+	// Handle color previously selected in the document tab
+	if (colorspaceTab->currentPage() == tabDocument)
+	{
+		colorName = prefs->get("cw_colorname", "");
+		if (!colorName.isEmpty() && m_Doc->PageColors.contains(colorName))
+			color = m_Doc->PageColors[colorName];
+		else
+			color.setColorRGB(0, 0, 0); //Trigger use of defaults
+	}
+	// Handle achromatic colors
+	QColor rgb = ScColorEngine::getRGBColor(color, m_Doc);
+	rgb.getHsv(&h, &s, &v);
+	if (h == -1)
+	{   // Reset to defaults
+		colorWheel->baseAngle = 0;
+		colorWheel->currentColorSpace = colorModelCMYK;
+		colorWheel->actualColor = colorWheel->colorByAngle(0);
+		colorspaceTab->setCurrentPage(0);
+	}
+	else if (colorspaceTab->currentPage() == tabDocument)
+	{
+		colorWheel->actualColor = color;
+		documentColorList->setCurrentItem(documentColorList->findItem(colorName));
+	}
+	else
+		colorWheel->actualColor = color;
+
 	resize(QSize(prefs->getInt("cw_width", 640),
 		   prefs->getInt("cw_height", 480)).expandedTo(minimumSizeHint()));
 	previewLabel->resize(prefs->getInt("cw_samplex", 300), prefs->getInt("cw_sampley", 100));
-	// document colors
-	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
+		
 	// setup
 	colorspaceTab_currentChanged(colorspaceTab->currentPage());
 	currentColorTable->horizontalHeader()->hide();
@@ -89,16 +117,12 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 CWDialog::~CWDialog()
 {
 	// preferences
+	QString colorName = (colorspaceTab->currentPage() == tabDocument) ? documentColorList->currentText() : "";
 	prefs->set("cw_type", typeCombo->currentItem());
 	prefs->set("cw_angle", angleSpin->value());
 	prefs->set("cw_baseangle", colorWheel->baseAngle);
-	prefs->set("cw_r", rSpin->value());
-	prefs->set("cw_g", gSpin->value());
-	prefs->set("cw_b", bSpin->value());
-	prefs->set("cw_c", cSpin->value() * 2.55);
-	prefs->set("cw_m", mSpin->value() * 2.55);
-	prefs->set("cw_y", ySpin->value() * 2.55);
-	prefs->set("cw_k", kSpin->value() * 2.55);
+	prefs->set("cw_color", colorWheel->actualColor.name());
+	prefs->set("cw_colorname", colorName);
 	prefs->set("cw_space", colorspaceTab->currentPageIndex());
 	// GUI settings
 	prefs->set("cw_width", width());
