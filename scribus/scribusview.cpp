@@ -5045,6 +5045,26 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 //								Doc->ApplyGuides(&nx, &ny);
 //								moveGroup(nx-(currItem->xPos()+currItem->width()), ny-(currItem->yPos()+currItem->height()), false);
 							}
+							if (Doc->useRaster)
+							{
+								Doc->m_Selection->setGroupRect();
+								double gx, gy, gh, gw, gxo, gyo;
+								Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+								gxo = gx;
+								gyo = gy;
+								FPoint npx = Doc->ApplyGridF(FPoint(gx, gy));
+								FPoint npw = Doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+								if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+									gx = npw.x() - gw;
+								else
+									gx = npx.x();
+								if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+									gy = npw.y() - gh;
+								else
+									gy = npx.y();
+								if ((fabs(gx - gxo) < (Doc->guidesSettings.guideRad / 2.0) / Scale) && (fabs(gy - gyo) < (Doc->guidesSettings.guideRad / 2.0) / Scale))
+									moveGroup(gx-gxo, gy-gyo, false);
+							}
 						}
 					}
 					//erf = true;
@@ -5084,7 +5104,28 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					}
 					Doc->m_Selection->setGroupRect();
-					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+//					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					if (Doc->useRaster)
+					{
+						Doc->m_Selection->setGroupRect();
+						double gx, gy, gh, gw, gxo, gyo;
+						Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						gxo = gx;
+						gyo = gy;
+						FPoint npx = Doc->ApplyGridF(FPoint(gx, gy));
+						FPoint npw = Doc->ApplyGridF(FPoint(gx+gw, gy+gh));
+						if ((fabs(gx-npx.x())) > (fabs((gx+gw)-npw.x())))
+							gx = npw.x() - gw;
+						else
+							gx = npx.x();
+						if ((fabs(gy-npx.y())) > (fabs((gy+gh)-npw.y())))
+							gy = npw.y() - gh;
+						else
+							gy = npx.y();
+						if ((fabs(gx - gxo) < (Doc->guidesSettings.guideRad / 2.0) / Scale) && (fabs(gy - gyo) < (Doc->guidesSettings.guideRad / 2.0) / Scale))
+							moveGroup(gx-gxo, gy-gyo, false);
+						Doc->m_Selection->setGroupRect();
+					}
 					//erf = true;
 				}
 				if (erf)
