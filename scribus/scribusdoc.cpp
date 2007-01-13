@@ -1314,6 +1314,7 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
 	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
+	setCurrentPage(Pages->at(0));
 	Page* page = Pages->at(pageNumber);
 	QString oldPageName(page->pageName());
 	Pages->remove(pageNumber);
@@ -1332,17 +1333,16 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	}
 	*/
 	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item.
-	setCurrentPage(Pages->at(0));
 	changed();
 }
 
 void ScribusDoc::deletePage(const int pageNumber)
 {
 	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
+	setCurrentPage(Pages->at(0));
 	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
 	delete page;
-	setCurrentPage(Pages->at(0));
 	changed();
 }
 
