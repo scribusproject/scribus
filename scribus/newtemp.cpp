@@ -45,6 +45,12 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 			//Links->insertItem((*pNames));
 			Links->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
+		if (doc->currentPage()->LeftPg == 1)
+			Links->setCurrentItem(0);
+		else if (doc->currentPage()->LeftPg == 0)
+			Links->setCurrentItem(Links->count()-1);
+		else
+			Links->setCurrentItem(doc->currentPage()->LeftPg-1);
 		Links->setEditable(false);
 		Layout3->addWidget( Links );
 		QueryLayout->addLayout( Layout3 );
