@@ -380,8 +380,9 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 		getSelection(&SelParaStart, &SelCharStart, &SelParaEnd, &SelCharEnd);
 		StoredSel = true;
 	}
-	else
+	else {
 		StoredSel = false;
+	}
 	QTextEdit::focusOutEvent(e);
 }
 
