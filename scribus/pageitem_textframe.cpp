@@ -166,10 +166,7 @@ void PageItem_TextFrame::setShadow()
 	if (OnMasterPage.isEmpty())
 		return;
 	
-//	QString newShadow = m_Doc->masterPageMode() ? QString::number(OwnPage) : OnMasterPage;
-//	QString newShadow = QString::number(OwnPage);
 	QString newShadow = m_Doc->masterPageMode() ? OnMasterPage : QString::number(OwnPage);
-	qDebug(QString("Pageitem_Textframe: shadow %1 ... %2").arg(currentShadow).arg(newShadow));
 	if (newShadow != currentShadow) {
 		if (currentShadow == OnMasterPage) {
 			// masterpage was edited, clear all shadows
@@ -178,16 +175,23 @@ void PageItem_TextFrame::setShadow()
 		if (!shadows.contains(newShadow)) {
 			if (!shadows.contains(OnMasterPage)) {
 				shadows[OnMasterPage] = itemText;
+				const ParagraphStyle& pstyle(shadows[OnMasterPage].paragraphStyle(0));
+//				qDebug(QString("Pageitem_Textframe: style of master: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment()));
 //				qDebug(QString("Pageitem_Textframe: shadow itemText->%1").arg(OnMasterPage));
 			}
-			shadows[newShadow] = shadows[OnMasterPage].copy();
+			if (newShadow != OnMasterPage) {
+				shadows[newShadow] = shadows[OnMasterPage].copy();
+//				const ParagraphStyle& pstyle(shadows[newShadow].paragraphStyle(0));
+//				qDebug(QString("Pageitem_Textframe: style of shadow copy: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment()));
+			}
 //			qDebug(QString("Pageitem_Textframe: shadow %1<-%2").arg(newShadow).arg(OnMasterPage));
 		}
 		itemText = shadows[newShadow];
+//		const ParagraphStyle& pstyle(itemText.paragraphStyle(0));
+//		qDebug(QString("Pageitem_Textframe: style of shadow: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment()));
 		invalid = true;
 		currentShadow = newShadow;
 	}
-//	qDebug(QString("Pageitem_Textframe: shadow=%1").arg(itemText.text(0, itemText.length())));
 }
 		
 #ifdef NLS_PROTO
@@ -216,6 +220,28 @@ static const bool opticalMargins = false;
 static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
 {	
 }
+
+static bool isBreakingSpace(QChar c)
+{
+	static const QChar blnk(' ');
+	return c == blnk || c == SpecialChars::ZWSPACE;
+}
+
+static bool isExpandingSpace(QChar c)
+{
+	static const QChar blnk(' ');
+	return c == blnk || c == SpecialChars::NBSPACE;
+}
+
+static bool isBreak(QChar c, bool includeColBreak = true)
+{
+	return (c == SpecialChars::PARSEP 
+			|| c == SpecialChars::LINEBREAK 
+			|| c == SpecialChars::FRAMEBREAK 
+			|| (includeColBreak && c == SpecialChars::COLBREAK));
+}
+
+
 
 enum TabCode {
 	TabLEFT    = 0,
@@ -344,14 +370,10 @@ void PageItem_TextFrame::layout()
 		ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 		CurX = ColBound.x();
 		// find start of first line
-		if (itemText.length() > 0)
+		if (firstInFrame() < itemText.length())
 		{
-			hl = itemText.item(0);
-			style = itemText.paragraphStyle(0);
-			if (style.rightMargin() < 0) {
-				qDebug(QString("style pos 0:"));
-				dumpIt(style);
-			}
+			hl = itemText.item(firstInFrame());
+			style = itemText.paragraphStyle(firstInFrame());
 //			qDebug(QString("style @0: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():""));
 			if (style.hasDropCap())
@@ -388,21 +410,13 @@ void PageItem_TextFrame::layout()
 		{
 			hl = itemText.item(a);
 			style = itemText.paragraphStyle(a);
+//			qDebug(QString("style pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 			const CharStyle& charStyle = itemText.charStyle(a);
 //			qDebug(QString("charstyle pos %1: %2 (%3)").arg(a).arg(charStyle.asString()).arg(charStyle.fontSize()));
-			if (style.rightMargin() < 0) 
-	//		if (itemsInLine == 0) 
-			{
-				qDebug(QString("style pos %1:").arg(a));
-				dumpIt(style);
-				//dumpIt(itemText.paragraphStyle(a));
-			}
 //			qDebug(QString("style @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //				   .arg(a));
 
-//			chstr = hl->ch;
-//			if (hl->ch == QChar(30)) // pagenumber
 			chstr = ExpandToken(a);
 //			qDebug(QString("expanded token: '%1'").arg(chstr));
 			if (chstr.isEmpty())
@@ -457,9 +471,11 @@ void PageItem_TextFrame::layout()
 				fl &= ~ScStyle_SmartHyphenVisible;
 				hl->setEffects(fl);
 			}
-			// No space at begin of line
+			// No space at begin of line, unless at begin of par (eeks)
 			if ( //((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && 
-				 (itemsInLine == 0) && (hl->ch[0] == ' '))
+				 (a > 0 && ! isBreak(itemText.text(a-1))) &&
+				 ! (a > 0 && isBreakingSpace(itemText.text(a-1)) && (itemText.charStyle(a-1).effects() & ScStyle_SuppressSpace) != ScStyle_SuppressSpace) &&
+				 (itemsInLine == 0) && (isBreakingSpace(hl->ch[0])))
 			{
 				hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 				hl->glyph.xadvance = 0;
@@ -973,9 +989,9 @@ void PageItem_TextFrame::layout()
 				goNextColumn = true;
 
 			// remember possible break
-			if ((hl->ch[0] == ' ' || hl->ch[0] == SpecialChars::ZWSPACE || (hl->ch == SpecialChars::TAB)) && (!outs))
+			if ((isBreakingSpace(hl->ch[0]) || (hl->ch == SpecialChars::TAB)) && (!outs))
 			{
-				if ( a == firstInFrame() || ! (itemText.text(a-1) ==  ' ' || itemText.text(a-1) == SpecialChars::ZWSPACE) )
+				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
 				{
 					LastXp = CurX;
 					LastSP = a - curLine.firstItem;
@@ -1028,7 +1044,7 @@ void PageItem_TextFrame::layout()
 				maxDY = CurY;
 				CurX += style.dropCapOffset();
 				hl->glyph.xadvance += style.dropCapOffset();
-				qDebug(QString("dropcapoffset: %1 -> %2").arg(CurX-style.dropCapOffset()).arg(CurX));
+//				qDebug(QString("dropcapoffset: %1 -> %2").arg(CurX-style.dropCapOffset()).arg(CurX));
 				CurX = QMAX(CurX, ColBound.x());
 				maxDX = CurX;
 				QPointArray tcli(4);
@@ -1068,18 +1084,11 @@ void PageItem_TextFrame::layout()
 //				CurY = maxDY;
 			}
 			// end of line
-			if ((hl->ch == SpecialChars::PARSEP) 
-				|| (hl->ch == SpecialChars::LINEBREAK) 
-				|| (hl->ch == SpecialChars::FRAMEBREAK)  
-				|| ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1)) 
-				|| (outs))
+			if ( isBreak(hl->ch[0], Cols > 1) || (outs))
 			{
 				RTab = false;
 				TabCode = 0;
-				if ((hl->ch == SpecialChars::PARSEP) 
-					|| (hl->ch == SpecialChars::LINEBREAK) 
-					|| (hl->ch == SpecialChars::FRAMEBREAK)  
-					|| ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1)))
+				if (isBreak(hl->ch[0], Cols > 1))
 				{
 					if (style.alignment() != 0)
 					{
@@ -1116,8 +1125,7 @@ void PageItem_TextFrame::layout()
 							aSpa = 0;
 							for (int sof = 0; sof < itemsInLine; ++sof)
 							{
-								if ((itemText.text(curLine.firstItem + sof) == QChar(32)
-									|| itemText.text(curLine.firstItem + sof) == SpecialChars::NBSPACE)
+								if (isExpandingSpace(itemText.text(curLine.firstItem + sof))
 									&& ! (itemText.item(curLine.firstItem + sof)->effects() & ScStyle_SuppressSpace)
 									)
 									aSpa++;
@@ -1134,8 +1142,7 @@ void PageItem_TextFrame::layout()
 								for (GlyphLayout* gp = &itemText.item(curLine.firstItem + yof)->glyph; gp; gp = gp->more)
 									gp->xoffset += OFs;
 								 */
-								if ((itemText.text(curLine.firstItem + yof) == QChar(32) 
-									|| itemText.text(curLine.firstItem + yof) == SpecialChars::NBSPACE)
+								if (isExpandingSpace(itemText.text(curLine.firstItem + yof))
 									&& ! (itemText.item(curLine.firstItem + yof)->effects() & ScStyle_SuppressSpace)
 									)
 								{
@@ -1172,6 +1179,7 @@ void PageItem_TextFrame::layout()
 						assert( a < itemText.length() );
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
+//						qDebug(QString("style outs pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 //						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
 //							   .arg(a));
@@ -1267,8 +1275,7 @@ void PageItem_TextFrame::layout()
 								aSpa = 0; 
 								for (int sof = 0; sof<LastSP; ++sof)
 								{
-									if ((itemText.item(curLine.firstItem + sof)->ch == QChar(32)
-										 || itemText.item(curLine.firstItem + sof)->ch == SpecialChars::NBSPACE)
+									if (isExpandingSpace(itemText.item(curLine.firstItem + sof)->ch[0])
 										&& ! (itemText.item(curLine.firstItem + sof)->effects() & ScStyle_SuppressSpace)
 										)
 										aSpa++;
@@ -1282,8 +1289,7 @@ void PageItem_TextFrame::layout()
 //								qDebug(QString("just %1").arg(OFs2));
 								for (int yof = 0; yof < itemsInLine; ++yof)
 								{
-									if ( (itemText.item(curLine.firstItem + yof)->ch == QChar(32)
-										 || itemText.item(curLine.firstItem + yof)->ch == SpecialChars::NBSPACE)
+									if ( isExpandingSpace(itemText.item(curLine.firstItem + yof)->ch[0])
 										 && ! (itemText.item(curLine.firstItem + yof)->effects() & ScStyle_SuppressSpace)
 										 )
 									{
@@ -1309,10 +1315,7 @@ void PageItem_TextFrame::layout()
 						a--;
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
-						if (style.rightMargin() < 0) {
-							qDebug(QString("style nb pos %1:").arg(a));
-							dumpIt(style);
-						}
+//						qDebug(QString("style no break pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 //						qDebug(QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //							   .arg(a));
@@ -1326,11 +1329,7 @@ void PageItem_TextFrame::layout()
 //							   .arg(a));
 					}
 				}
-				if ((outs) 
-					|| (hl->ch == SpecialChars::PARSEP) 
-					|| (hl->ch == SpecialChars::LINEBREAK) 
-					|| (hl->ch == SpecialChars::FRAMEBREAK) 
-					|| ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1)))
+				if ( outs || isBreak(hl->ch[0], (Cols > 1)) )
 				{
 					if ((outs) && (CurX+RExtra+lineCorr+wide < ColBound.y() - style.rightMargin()))
 					{
@@ -1373,10 +1372,7 @@ void PageItem_TextFrame::layout()
 								}
 								else
 									CurX = ColBound.x();
-								if ((hl->ch == SpecialChars::PARSEP) 
-									|| (hl->ch == SpecialChars::LINEBREAK) 
-									|| (hl->ch == SpecialChars::FRAMEBREAK) 
-									|| (hl->ch == SpecialChars::COLBREAK))
+								if (isBreak(hl->ch[0]))
 								{
 									if (hl->ch == SpecialChars::PARSEP)
 										CurY += style.gapAfter();
@@ -1431,10 +1427,7 @@ void PageItem_TextFrame::layout()
 						}
 						else
 							CurX = ColBound.x();
-						if ( hl->ch == SpecialChars::PARSEP
-							 || hl->ch == SpecialChars::LINEBREAK
-							 || hl->ch == SpecialChars::FRAMEBREAK 
-							 || hl->ch == SpecialChars::COLBREAK )
+						if ( isBreak(hl->ch[0]) )
 						{
 							if (hl->ch == SpecialChars::PARSEP)
 								CurY += style.gapAfter();
@@ -1651,8 +1644,7 @@ void PageItem_TextFrame::layout()
 				aSpa = 0;
 				for (int sof = 0; sof < itemsInLine; ++sof)
 				{
-					if ((itemText.item(curLine.firstItem + sof)->ch[0] == QChar(32)
-						 || itemText.item(curLine.firstItem + sof)->ch[0] == SpecialChars::NBSPACE)
+					if ( isExpandingSpace(itemText.item(curLine.firstItem + sof)->ch[0])
 						&& ! (itemText.item(curLine.firstItem + sof)->effects() & ScStyle_SuppressSpace)
 						 )
 						aSpa++;
