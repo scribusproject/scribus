@@ -64,7 +64,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 {
 	int a;
 	int chs;
-	double wide;
+//	double wide;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
@@ -81,6 +81,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	uint seg = 0;
 	double segLen = 0;
 	double distCurX;
+	QColor tmp;
 	CurX = Extra;
 	if (!m_Doc->layerOutline(LayerNr))
 	{
@@ -98,7 +99,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				else
 				{
 					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
 						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
@@ -124,9 +124,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
 			continue;
 		chs = hl->fontSize();
+		if (a < itemText.length()-1)
+			chstr += itemText.text(a+1, 1);
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
+		hl->glyph.more = false;
 //		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutGlyphs
-		if (chstr == QChar(29))
+/*		if (chstr == QChar(29))
 			chstr2 = " ";
 		else if (chstr == QChar(24))
 			chstr2 = "-";
@@ -145,7 +148,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		else
 			wide = hl->font().charWidth(chstr2[0], chs);
 		wide = wide * (hl->scaleH() / 1000.0);
-		dx = wide / 2.0;
+		dx = wide / 2.0; */
+		dx = hl->glyph.wide() / 2.0;
 		CurX += dx;
 		ext = false;
 		while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
@@ -199,20 +203,39 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			else
 				break;
 		}
-		hl->glyph.xoffset = point.x();
-		hl->glyph.yoffset = point.y();
+		hl->glyph.xoffset = 0;
+		hl->glyph.yoffset = BaseOffs;
 		hl->PtransX = tangent.x();
 		hl->PtransY = tangent.y();
 		hl->PRot = dx;
+#ifdef HAVE_CAIRO
+		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx, 0 );
+		trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() );
+#else
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
 		trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc );
+#endif
 		QWMatrix sca = p->worldMatrix();
 		trafo *= sca;
 		p->save();
 		QWMatrix savWM = p->worldMatrix();
 		p->setWorldMatrix(trafo);
 		if (!m_Doc->RePos)
+		{
+			if (itemText.charStyle(a).fillColor() != CommonStrings::None)
+			{
+				SetFarbe(&tmp, itemText.charStyle(a).fillColor(), itemText.charStyle(a).fillShade());
+				p->setBrush(tmp);
+			}
+			if (itemText.charStyle(a).strokeColor() != CommonStrings::None)
+			{
+				SetFarbe(&tmp, itemText.charStyle(a).strokeColor(), itemText.charStyle(a).strokeShade());
+				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+			}
 			drawGlyphs(p, itemText.charStyle(a), hl->glyph);
+		}
+		hl->glyph.xoffset = point.x();
+		hl->glyph.yoffset = point.y();
 /*		Zli = new ZZ;
 		Zli->Zeich = chstr;
 		if (hl->fillColor() != CommonStrings::None)
@@ -262,7 +285,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
-		CurX += wide+hl->fontSize() * hl->tracking() / 10000.0;
+		CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
+//		CurX += wide+hl->fontSize() * hl->tracking() / 10000.0;
 		first = false;
 	}
 #endif

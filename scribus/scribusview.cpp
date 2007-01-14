@@ -11272,8 +11272,8 @@ void ScribusView::TextToPath()
 							sca.rotate(currItem->rotation());
 							trafo *= sca;
 						}
-						chma.scale(csi, csi);
-						chma2.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
+//						chma.scale(csi, csi);
+						chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
 						if (currItem->reversed())
 						{
 							if (a < currItem->itemText.length()-1)
@@ -11282,14 +11282,16 @@ void ScribusView::TextToPath()
 								wide = hl->font().charWidth(chstr[0], hl->fontSize());
 							chma3.scale(-1, 1);
 							chma3.translate(-wide, 0);
-							chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
+//							chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
 						}
-						else
-							chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
+//						else
+						chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
+//							chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
 						if (hl->baselineOffset() != 0)
-							chma6.translate(0, -(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0));
-						uint gl = currItem->itemText.charStyle(a).font().char2CMap(chr);
-						pts = currItem->itemText.charStyle(a).font().glyphOutline(gl);
+							chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
+//							chma6.translate(0, -(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0));
+						uint gl = hl->font().char2CMap(chr);
+						pts = hl->font().glyphOutline(gl);
 						if (pts.size() < 4)
 							continue;
 						pts.map(chma * chma2 * chma3 * chma4 * chma6);
