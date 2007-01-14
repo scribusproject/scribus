@@ -175,7 +175,7 @@ void PageItem_TextFrame::setShadow()
 		if (!shadows.contains(newShadow)) {
 			if (!shadows.contains(OnMasterPage)) {
 				shadows[OnMasterPage] = itemText;
-				const ParagraphStyle& pstyle(shadows[OnMasterPage].paragraphStyle(0));
+//				const ParagraphStyle& pstyle(shadows[OnMasterPage].paragraphStyle(0));
 //				qDebug(QString("Pageitem_Textframe: style of master: %1 align=%2").arg(pstyle.parent()).arg(pstyle.alignment()));
 //				qDebug(QString("Pageitem_Textframe: shadow itemText->%1").arg(OnMasterPage));
 			}
@@ -221,6 +221,43 @@ static void layoutDropCap(GlyphLayout layout, double curX, double curY, double o
 {	
 }
 
+
+static void fillInTabLeaders(StoryText & itemText, LineSpec & curLine)
+{
+	// fill in tab leaders
+	double xPos = curLine.x;
+	for (int ti= curLine.firstItem; ti < curLine.lastItem; ++ti)
+	{
+		ScText * hl = itemText.item(ti);
+		if (hl->ch[0] == SpecialChars::TAB) 
+		{
+			GlyphLayout * tglyph = hl->glyph.more;
+			
+			if (!tglyph)
+				continue;
+			
+			const CharStyle & charStyle(itemText.charStyle(ti));
+			double wt   = charStyle.font().glyphWidth(tglyph->glyph, charStyle.fontSize() * tglyph->scaleV / 10.0);
+			double len  = hl->glyph.xadvance;
+			int count   = static_cast<int>(len / wt);
+			double sPos = -len;
+			tglyph->xoffset = sPos;
+//			qDebug(QString("tab leaders: %1 %2 width=%3 count=%4").arg(sPos).arg(curLine.y).arg(wt).arg(count));
+			for (int cx = 1; cx < count; ++cx)
+			{
+				// clone fillchar
+				tglyph->grow();
+				*(tglyph->more) = *tglyph;
+				tglyph->more->more = NULL;
+				tglyph = tglyph->more;
+				tglyph->xoffset =  sPos + wt * cx;
+			}
+		}
+		xPos += hl->glyph.wide();
+	}
+}
+
+
 static bool isBreakingSpace(QChar c)
 {
 	static const QChar blnk(' ');
@@ -243,20 +280,21 @@ static bool isBreak(QChar c, bool includeColBreak = true)
 
 
 
-enum TabCode {
-	TabLEFT    = 0,
-	TabCENTER  = 1,
-	TabRIGHT   = 2,
-	TabJUSTIFY = 3,
-	TabBLOCK   = 4
+enum TabStatus {
+	TabNONE    = 0,
+	TabLEFT    = TabNONE,
+	TabRIGHT   = 1,
+	TabPOINT   = 2,
+	TabCOMMA   = 3,
+	TabCENTER  = 4
 };
 
 struct TabControl {
-	ParagraphStyle::TabRecord tab;
 	bool   active;
+	int    status;
 	int    charIndex;
 	double xPos;
-	int    code;
+	QChar  fillChar;
 };
 
 struct LineControl {
@@ -301,27 +339,32 @@ void PageItem_TextFrame::layout()
 	int aSpa, CurrCol;
 	double chs, chsd;
 	int LastSP;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal, RTabX;
+	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal;
 	QString chstr;
 	ScText *hl;
 	ParagraphStyle style;
 	
+	int HyphenCount = 0;
 	bool outs = false;
 	bool fBorder = false;
-	bool RTab = false;
 	bool goNoRoom = false;
 	bool goNextColumn = false;
-	int StartRT;
-	int TabCode = 0;
-	int HyphenCount = 0;
+	
+	TabControl tabs;
+	tabs.active    = false;     // RTab
+	tabs.status    = TabNONE;   // TabCode
+	tabs.charIndex = -1;        // StartRT
+	tabs.xPos      = 0;         // RTabX
+
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
+	tTabValues.clear();
+	
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
 	double desc, asce, maxDY, desc2, maxDX;
 	int DropLines;
 	double DropCapDrop = 0;
 	bool StartOfCol = true;
-	tTabValues.clear();
 	
 	itemText.clearLines();
 	LineSpec curLine;
@@ -863,23 +906,23 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("cont.' line: '%1'").arg(a));
 			}
 			// right tab stuff
-			if (RTab)
+			if (tabs.active)
 			{
-				if (((hl->ch == ".") && (TabCode == 2)) || ((hl->ch == ",") && (TabCode == 3)) || (hl->ch == SpecialChars::TAB))
+				if (((hl->ch == ".") && (tabs.status == TabPOINT)) || ((hl->ch == ",") && (tabs.status == TabCOMMA)) || (hl->ch == SpecialChars::TAB))
 				{
-					RTab = false;
-					TabCode = 0;
+					tabs.active = false;
+					tabs.status = TabNONE;
 				}
 			}
 			// tab positioning
 			if (hl->ch == SpecialChars::TAB)
 			{
 				wide = 1;
-				if (RTab)
-					RTab = false;
-				else
+				if (tabs.active)
+					tabs.active = false;
+				else // ???
 				{
-					RTabX = CurX;
+					tabs.xPos = CurX;
 					tTabValues = style.tabValues();
 					if (tTabValues.isEmpty())
 					{
@@ -892,8 +935,8 @@ void PageItem_TextFrame::layout()
 						}
 						else
 							CurX = ColBound.x() + m_Doc->toolSettings.dTabWidth;
-						TabCode = 0;
-						RTab = false;
+						tabs.status = TabNONE;
+						tabs.active = false;
 					}
 					else
 					{
@@ -903,22 +946,31 @@ void PageItem_TextFrame::layout()
 						{
 							if (oCurX < tTabValues[yg].tabPosition)
 							{
+								tabs.status = static_cast<int>(tTabValues[yg].tabType);
 								tCurX = tTabValues[yg].tabPosition;
-								TabCode = static_cast<int>(tTabValues[yg].tabType);
+								tabs.fillChar    = tTabValues[yg].tabFillChar;
 							}
 						}
-						if (TabCode == 0)
-							RTab = false;
-						else
-							RTab = true;
+						tabs.active = (tabs.status != TabLEFT);
 						if (tCurX == oCurX-wide)
 							CurX = ColBound.x() + ceil((CurX-ColBound.x()) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
 						else
 							CurX = ColBound.x() + tCurX;
+						
+						// remember fill char
+						qDebug(QString("tab: %1 '%2'").arg(tCurX).arg(tabs.fillChar));
+						if (!tabs.fillChar.isNull()) {
+							hl->glyph.grow();
+							GlyphLayout * tglyph = hl->glyph.more;
+							tglyph->glyph = charStyle.font().char2CMap(tabs.fillChar);
+							tglyph->yoffset = hl->glyph.yoffset;
+							tglyph->scaleV = tglyph->scaleH = chs / charStyle.fontSize();
+							tglyph->xadvance = 0;
+						}
 					}
-					hl->glyph.xadvance = CurX - RTabX;
+					hl->glyph.xadvance = CurX - tabs.xPos;
 //					wide = CurX - RTabX;
-					StartRT = a;
+					tabs.charIndex = a;
 				}
 			}
 			
@@ -939,19 +991,19 @@ void PageItem_TextFrame::layout()
 				itemText.item(a)->setEffects(itemText.item(a)->effects() & ~ScStyle_StartOfLine);
 			}
 			// remember x pos
-			if (!RTab) // normal case
+			if (!tabs.active) // normal case
 			{
 //				hl->glyph.xoffset = QMAX(CurX+kernVal, ColBound.x());
 				//hl->glyph.xoffset = CurX+kernVal; // needed for left optical margin
 				CurX += wide+kernVal;
 //				CurX = QMAX(CurX, ColBound.x());
 			}
-			else if ((TabCode == 4) && (RTab)) 	// center tab
+			else if (tabs.active && tabs.status == TabCENTER) 	// center tab
 			{
 				CurX += (wide+kernVal) / 2;
 				CurX = QMAX(CurX, ColBound.x());
 			}
-			else // other RTab			
+			else // other tabs.active			
 			{
 				CurX = QMAX(CurX, ColBound.x());
 				//hl->glyph.xoffset = CurX;
@@ -983,9 +1035,9 @@ void PageItem_TextFrame::layout()
 				outs = true;
 			if (CurY > (Height - BExtra - lineCorr))
 				outs = true;
-			if ((hl->ch == QChar(27)) && (a < itemText.length()-1))
+			if ((hl->ch == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
 				goNoRoom = true;
-			if ((hl->ch == QChar(26)) && (Cols > 1))
+			if ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
 
 			// remember possible break
@@ -1010,31 +1062,21 @@ void PageItem_TextFrame::layout()
 			}
 			++itemsInLine;
 
-			if (RTab)
+			if (tabs.active)
 			{
 				double cen = 1;
-				if (TabCode == 4)
+				if (tabs.status == TabCENTER)
 					cen = 2;
 				
-				double newTabAdvance = itemText.item(StartRT)->glyph.xadvance - (wide+kernVal) / cen;
+				double newTabAdvance = itemText.item(tabs.charIndex)->glyph.xadvance - (wide+kernVal) / cen;
 				
 				if (newTabAdvance >= 0) {
-					itemText.item(StartRT)->glyph.xadvance = newTabAdvance;
+					itemText.item(tabs.charIndex)->glyph.xadvance = newTabAdvance;
 				}
 				else {
-					RTab = false;
-					TabCode = 0;
+					tabs.active = false;
+					tabs.status = TabNONE;
 				}
-				/* old
-				for (uint rtx = StartRT; rtx < curLine.firstItem + itemsInLine; ++rtx)
-				{
-					itemText.item(rtx)->glyph.xoffset = QMAX(itemText.item(rtx)->glyph.xoffset-(wide+kernVal) / cen, 0.0);
-					if (itemText.item(rtx)->glyph.xoffset < RTabX)
-					{
-						RTab = false;
-						TabCode = 0;
-					}
-				}*/
 			}
 //			BuPos++;
 			if (DropCmode)
@@ -1086,8 +1128,8 @@ void PageItem_TextFrame::layout()
 			// end of line
 			if ( isBreak(hl->ch[0], Cols > 1) || (outs))
 			{
-				RTab = false;
-				TabCode = 0;
+				tabs.active = false;
+				tabs.status = TabNONE;
 				if (isBreak(hl->ch[0], Cols > 1))
 				{
 					if (style.alignment() != 0)
@@ -1444,7 +1486,7 @@ void PageItem_TextFrame::layout()
 					{
 						double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						double currasce = 0;
-						if ((itemText.text(curLine.firstItem) == QChar(13)) || (itemText.text(curLine.firstItem) == QChar(28)))
+						if ((itemText.text(curLine.firstItem) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem) == SpecialChars::LINEBREAK))
 							currasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						else if (itemText.object(curLine.firstItem) != 0)
 							currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
@@ -1482,9 +1524,9 @@ void PageItem_TextFrame::layout()
 						{
 							QChar ch = itemText.text(curLine.firstItem + zc);
 							if ((ch == SpecialChars::TAB) || (ch == QChar(10))
-								|| (ch == SpecialChars::PARSEP) || (ch == QChar(24))
-								|| (ch == QChar(26)) || (ch == QChar(27))
-								|| (ch == QChar(28)) || (ch == QChar(29)))
+								|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
+								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
+								|| (ch == SpecialChars::LINEBREAK) || (ch == SpecialChars::NBSPACE))
 								continue;
 							if (itemText.object(curLine.firstItem + zc) != 0)
 								currasce = QMAX(currasce, (itemText.object(curLine.firstItem + zc)->gHeight + itemText.object(curLine.firstItem + zc)->lineWidth()) * (itemText.charStyle(curLine.firstItem + zc).scaleV() / 1000.0));
@@ -1505,6 +1547,9 @@ void PageItem_TextFrame::layout()
 					}
 				}
 				
+				curLine.lastItem = a;
+				fillInTabLeaders(itemText, curLine);
+
 				StartOfCol = false;
 /* has no effect except setting wide, asce and desc
  				uint loopC = BuPos3;
@@ -1543,7 +1588,6 @@ void PageItem_TextFrame::layout()
 				}
 				*/
 //				LiList.clear();
-				curLine.lastItem = a;
 				if (itemsInLine > 0)
 					itemText.appendLine(curLine);
 				itemsInLine = 0;
@@ -1656,8 +1700,7 @@ void PageItem_TextFrame::layout()
 				OFs = 0;
 				for (int yof = 0; yof < itemsInLine; ++yof)
 				{
-					if ((itemText.item(curLine.firstItem + yof)->ch[0] == QChar(32) ||
-						 itemText.item(curLine.firstItem + yof)->ch[0] == QChar(29))
+					if (isExpandingSpace(itemText.item(curLine.firstItem + yof)->ch[0])
 						&& ! (itemText.item(curLine.firstItem + yof)->effects() & ScStyle_SuppressSpace)
 						)
 					{
@@ -1681,7 +1724,7 @@ void PageItem_TextFrame::layout()
 			{
 				double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				double currasce = 0;
-				if ((itemText.text(curLine.firstItem) == QChar(13)) || (itemText.text(curLine.firstItem) == QChar(28)))
+				if ((itemText.text(curLine.firstItem) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem) == SpecialChars::LINEBREAK))
 					currasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				else if (itemText.object(curLine.firstItem) != 0)
 					currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
@@ -1715,9 +1758,9 @@ void PageItem_TextFrame::layout()
 				for (int zc = 0; zc < itemsInLine; ++zc)
 				{
 					if ((itemText.text(curLine.firstItem+zc) == SpecialChars::TAB) || (itemText.text(curLine.firstItem+zc) == QChar(10))
-						|| (itemText.text(curLine.firstItem+zc) == QChar(13)) || (itemText.text(curLine.firstItem+zc) == QChar(24))
-						|| (itemText.text(curLine.firstItem+zc) == QChar(26)) || (itemText.text(curLine.firstItem+zc) == QChar(27))
-						|| (itemText.text(curLine.firstItem+zc) == QChar(28)) || (itemText.text(curLine.firstItem+zc) == QChar(29)))
+						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem+zc) == SpecialChars::NBHYPHEN)
+						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::COLBREAK) || (itemText.text(curLine.firstItem+zc) == SpecialChars::FRAMEBREAK)
+						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(curLine.firstItem+zc) == SpecialChars::NBSPACE))
 						continue;
 					if (itemText.object(curLine.firstItem+zc) != 0)
 						currasce = QMAX(currasce, (itemText.object(curLine.firstItem+zc)->gHeight + itemText.object(curLine.firstItem+zc)->lineWidth()) * (itemText.charStyle(curLine.firstItem+zc).scaleV() / 1000.0));
@@ -1736,6 +1779,7 @@ void PageItem_TextFrame::layout()
 				itemText.item(curLine.firstItem)->glyph.yoffset += DropCapDrop;
 			}
 		}
+		fillInTabLeaders(itemText, curLine);
 		StartOfCol = false;
 		goNextColumn = false;
 		if (itemsInLine > 0)
@@ -1902,6 +1946,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 					}
 				}
+#if 0
 				// tabs & fill chars
 				if ((chstr == SpecialChars::TAB) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 				{
@@ -1917,7 +1962,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					desc = -charStyle.font().descent(chs / 10.0);
 					asce = charStyle.font().ascent(chs / 10.0);
 					GlyphLayout tglyph;
-					tglyph.glyph = tabFillChar.unicode();
+					tglyph.glyph = charStyle.font().char2CMap(tabFillChar);
 					tglyph.yoffset = hl->glyph.yoffset;
 					tglyph.scaleV = tglyph.scaleH = chs / charStyle.fontSize();
 					tglyph.xadvance = wt;
@@ -1930,6 +1975,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					}
 					p->restore();
 				}
+#endif
 				if (chstr[0] == SpecialChars::TAB)
 					tabCc++;
 				// paint selection
@@ -1945,11 +1991,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						//							p->setBrush(darkBlue);
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::Highlight));
 						p->setLineWidth(0);
-						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
-						{
+//						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
+//						{
 //							xcoZli = CurX + itemText.item(a-1)->glyph.xoffset + itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
 //							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
-						}
+//						}
 						if (!m_Doc->RePos)
 							p->drawRect(xcoZli, qRound(ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), wide+1, qRound((asce+desc) * (hl->glyph.scaleV)));
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
@@ -2768,7 +2814,6 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 		leftSel = true;
 		rightSel = true;
 	}
-	int i;
 	int start;
 	int end;
 	int sel;
@@ -2873,8 +2918,6 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	p->setupPolygon(&PoLine);
 	p->setClipPath();
 #endif
-	double startpos=Xpos;
-	double cols=0;
 	double colWidth = columnWidth();
 	double colLeft=0;
 	int currCol=0;
