@@ -39,7 +39,7 @@ public:
 
 	ScGuardedPtr& operator=(const ScGuardedPtr& gPtr);
 	bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
-    bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
+	bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
 
 	T* operator->() const { return (T*)(data ? data->pointer : 0); }
 	T& operator*() const { return *((T*)(data ? data->pointer : 0)); }
@@ -58,7 +58,7 @@ public:
 
 	ScGuardedObject& operator=(const ScGuardedObject& gPtr);
 	bool operator==( const ScGuardedObject<T> &p ) const { return (T*)(*this) == (T*) p;}
-    bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
+	bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
 
 	void nullify(void);
 };
@@ -119,8 +119,9 @@ ScGuardedObject<T>::ScGuardedObject(T* ptr) : ScGuardedPtr<T>(ptr)
 };
 
 template<typename T>
-ScGuardedObject<T>::ScGuardedObject(const ScGuardedObject& other) : data(NULL)
+ScGuardedObject<T>::ScGuardedObject(const ScGuardedObject& other)
 {
+	this->data=NULL;
 	// Must never be used
 	assert(false);
 };
@@ -136,8 +137,8 @@ ScGuardedObject<T>& ScGuardedObject<T>::operator=(const ScGuardedObject& other)
 template<typename T>
 void ScGuardedObject<T>::nullify(void)
 {
-	if (data)
-		data->pointer = NULL;
+	if (this->data)
+		this->data->pointer = NULL;
 };
 
 template<typename T>
