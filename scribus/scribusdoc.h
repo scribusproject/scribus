@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "usertaskstructs.h"
 #include "styles/styleset.h"
 #include "scpattern.h"
+#include "scguardedptr.h"
 
 #include CMS_INC
 
@@ -97,6 +98,11 @@ public:
 	ScribusView* view() const;
 	ScribusMainWindow* scMW() const {return m_ScMW;}
 	void setGUI(bool hasgui, ScribusMainWindow* mw, ScribusView* view);
+
+	/**
+	 * @brief Return the guarded object associated with the document
+	 */
+	const ScGuardedPtr<ScribusDoc>& guardedPtr() const;
 	
 	// Add, delete and move pages
 	
@@ -797,6 +803,7 @@ protected:
 	QMap<QString, double> m_constants;
 	ScribusMainWindow* m_ScMW;
 	ScribusView* m_View;
+	ScGuardedObject<ScribusDoc> m_guardedObject;
 	
 public: // Public attributes
 	bool is12doc; //public for now, it will be removed later

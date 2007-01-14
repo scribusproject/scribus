@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "sclistboxpixmap.h"
 #include "query.h"
+#include "scguardedptr.h"
 
 class DynamicTip;
 class ScribusDoc;
@@ -25,7 +26,7 @@ class SCRIBUS_API ColorSmallPixmapItem : public ScListBoxPixmap<15,15>
 {
 	protected:
 		ScColor m_color;
-		QGuardedPtr<ScribusDoc> m_doc;
+		ScGuardedPtr<ScribusDoc> m_doc;
 	public:
 		ColorSmallPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
 		~ColorSmallPixmapItem() {};
@@ -38,7 +39,7 @@ class SCRIBUS_API ColorWidePixmapItem : public ScListBoxPixmap<30,15>
 {
 	protected:
 		ScColor m_color;
-		QGuardedPtr<ScribusDoc> m_doc;
+		ScGuardedPtr<ScribusDoc> m_doc;
 	public:
 		ColorWidePixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
 		~ColorWidePixmapItem() {};
@@ -51,7 +52,7 @@ class SCRIBUS_API ColorFancyPixmapItem : public ScListBoxPixmap<60,15>
 {
 	protected:
 		ScColor m_color;
-		QGuardedPtr<ScribusDoc> m_doc;
+		ScGuardedPtr<ScribusDoc> m_doc;
 	public:
 		ColorFancyPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
 		~ColorFancyPixmapItem() {};

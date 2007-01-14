@@ -22,7 +22,7 @@ ColorSmallPixmapItem::ColorSmallPixmapItem( const ScColor& col, ScribusDoc* doc,
 					: ScListBoxPixmap<15,15>()
 {
 	m_color = col;
-	m_doc = doc;
+	m_doc = (doc) ? doc->guardedPtr() : NULL;
 	setText(colName);
 }
 
@@ -43,7 +43,7 @@ ColorWidePixmapItem::ColorWidePixmapItem( const ScColor& col, ScribusDoc* doc, c
 					: ScListBoxPixmap<30,15>()
 {
 	m_color = col;
-	m_doc = doc;
+	m_doc = (doc) ? doc->guardedPtr() : NULL;
 	setText(colName);
 }
 
@@ -57,7 +57,7 @@ ColorFancyPixmapItem::ColorFancyPixmapItem( const ScColor& col, ScribusDoc* doc,
 					: ScListBoxPixmap<60,15>()
 {
 	m_color = col;
-	m_doc = doc;
+	m_doc = (doc) ? doc->guardedPtr() : NULL;
 	setText(colName);
 }
 

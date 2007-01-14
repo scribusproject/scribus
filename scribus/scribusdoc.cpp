@@ -87,6 +87,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_masterPageMode(false),
 	m_ScMW(0),
 	m_View(0),
+	m_guardedObject(this),
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -188,6 +189,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_masterPageMode(false),
 	m_ScMW(0),
 	m_View(0),
+	m_guardedObject(this),
 	is12doc(false),
 	NrItems(0),
 	First(1), Last(0),
@@ -422,6 +424,7 @@ void ScribusDoc::init()
 
 ScribusDoc::~ScribusDoc()
 {
+	m_guardedObject.nullify();
 	DocItems.setAutoDelete(true);
 	FrameItems.setAutoDelete(true);
 	DocItems.clear();
@@ -521,6 +524,11 @@ ScribusView* ScribusDoc::view() const
 {
 // 	return (WinHan ? (((ScribusWin*) WinHan)->view()) : 0);
 	return m_View;
+}
+
+const ScGuardedPtr<ScribusDoc>& ScribusDoc::guardedPtr() const
+{
+	return m_guardedObject;
 }
 
 void ScribusDoc::CloseCMSProfiles()

@@ -430,7 +430,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/navigator.h                   $(prefix)/include/scribus/navigator.h
 	$(INSTALL_DATA) $(srcdir)/newfile.h                     $(prefix)/include/scribus/newfile.h
 	$(INSTALL_DATA) $(srcdir)/newtemp.h                     $(prefix)/include/scribus/newtemp.h
-	$(INSTALL_DATA) $(srcdir)/oneclick.h                     $(prefix)/include/scribus/oneclick.h
+	$(INSTALL_DATA) $(srcdir)/oneclick.h                    $(prefix)/include/scribus/oneclick.h
 	$(INSTALL_DATA) $(srcdir)/page.h                        $(prefix)/include/scribus/page.h
 	$(INSTALL_DATA) $(srcdir)/pageitem.h                    $(prefix)/include/scribus/pageitem.h
 	$(INSTALL_DATA) $(srcdir)/pageitemattributes.h          $(prefix)/include/scribus/pageitemattributes.h
@@ -438,7 +438,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/pageselector.h                $(prefix)/include/scribus/pageselector.h
 	$(INSTALL_DATA) $(srcdir)/pagesize.h                    $(prefix)/include/scribus/pagesize.h
 	$(INSTALL_DATA) $(srcdir)/pagestructs.h                 $(prefix)/include/scribus/pagestructs.h
-	$(INSTALL_DATA) $(srcdir)/patterndialog.h                 $(prefix)/include/scribus/patterndialog.h
+	$(INSTALL_DATA) $(srcdir)/patterndialog.h               $(prefix)/include/scribus/patterndialog.h
 	$(INSTALL_DATA) $(srcdir)/pdfopts.h                     $(prefix)/include/scribus/pdfopts.h
 	$(INSTALL_DATA) $(srcdir)/picsearch.h                   $(prefix)/include/scribus/picsearch.h
 	$(INSTALL_DATA) $(srcdir)/picstatus.h                   $(prefix)/include/scribus/picstatus.h
@@ -466,9 +466,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
 	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
 	$(INSTALL_DATA) $(srcdir)/scgtplugin.h                  $(prefix)/include/scribus/scgtplugin.h
+	$(INSTALL_DATA) $(srcdir)/scguardedptr.h                $(prefix)/include/scribus/scguardedptr.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
-	$(INSTALL_DATA) $(srcdir)/scpattern.h                     $(prefix)/include/scribus/scpattern.h
+	$(INSTALL_DATA) $(srcdir)/scpattern.h                   $(prefix)/include/scribus/scpattern.h
 	$(INSTALL_DATA) $(srcdir)/scplugin.h                    $(prefix)/include/scribus/scplugin.h
 	$(INSTALL_DATA) $(srcdir)/scpreview.h                   $(prefix)/include/scribus/scpreview.h
 	$(INSTALL_DATA) $(srcdir)/scraction.h                   $(prefix)/include/scribus/scraction.h
@@ -501,7 +502,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tabmanager.h                  $(prefix)/include/scribus/tabmanager.h
 	$(INSTALL_DATA) $(srcdir)/tabmiscellaneous.h            $(prefix)/include/scribus/tabmiscellaneous.h
 	$(INSTALL_DATA) $(srcdir)/tabpdfoptions.h               $(prefix)/include/scribus/tabpdfoptions.h
-	$(INSTALL_DATA) $(srcdir)/tabprinter.h               $(prefix)/include/scribus/tabprinter.h
+	$(INSTALL_DATA) $(srcdir)/tabprinter.h                  $(prefix)/include/scribus/tabprinter.h
 	$(INSTALL_DATA) $(srcdir)/tabruler.h                    $(prefix)/include/scribus/tabruler.h
 	$(INSTALL_DATA) $(srcdir)/tabscrapbook.h                $(prefix)/include/scribus/tabscrapbook.h
 	$(INSTALL_DATA) $(srcdir)/tabtools.h                    $(prefix)/include/scribus/tabtools.h
