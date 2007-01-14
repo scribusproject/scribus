@@ -16,7 +16,6 @@ batik1.png
 before_short_words.png
 CMakeLists.txt
 cmsmodify1.png
-cmspanel.png
 colormanager2.png
 colormgmtscreen.png
 cups1.png
@@ -59,6 +58,7 @@ imageeffects.png
 kfontinstaller.png
 ksnapshot.png
 layers1.png
+layers2.png
 monprof1.png
 monprof2.png
 monprof3.png
