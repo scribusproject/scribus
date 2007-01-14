@@ -114,10 +114,8 @@ void ScGuardedPtr<T>::deref(void)
 };
 
 template<typename T>
-ScGuardedObject<T>::ScGuardedObject(T* ptr)
+ScGuardedObject<T>::ScGuardedObject(T* ptr) : ScGuardedPtr<T>(ptr)
 {
-	data = new ScGuardedPtrData<T>(ptr);
-	++(data->refs);
 };
 
 template<typename T>
