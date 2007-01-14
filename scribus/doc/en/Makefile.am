@@ -6,7 +6,7 @@ fonts-win32.html gettexthowto.html gsfont.html  hyphenator.html importhints1.htm
 index.html install1.html install2.html install3.html install4.html install.html install-dpkg.html intro.html irc.html javascriptpdf.html keys.html \
 layers.html machints1.html machints2.html menu.xml moncal.html mouse.html pagetemplate1.html pagenumber.html parallel-install.html pdflavor.html \
 pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html \
-print3.html psd.html readme.html readme-win32.html readme-win32.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html \
+print3.html psd.html readme.html readme-win32.html readme-os2.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html \
 scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html \
 scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html \
 scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html \
