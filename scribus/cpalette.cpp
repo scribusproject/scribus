@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "gradienteditor.h"
 #include "units.h"
 #include "page.h"
+#include "pageitem.h"
 #include "util.h"
 #include "dynamictip.h"
 #include "commonstrings.h"
@@ -61,6 +62,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Shade = 100;
 	Shade3 = 100;
 	currentGradient = 0;
+	currentItem = 0;
 	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 4 );
@@ -287,6 +289,39 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gradEditButton, SIGNAL(clicked()), this, SIGNAL(editGradient()));
 }
 
+void Cpalette::setCurrentItem(PageItem* item)
+{
+	currentItem = item;
+}
+
+void Cpalette::updateFromItem()
+{
+	if (currentItem == NULL)
+		return;
+	if (!currentDoc)
+		return;
+	Color = currentItem->lineColor();
+	Shade = currentItem->lineShade();
+	Color3 = currentItem->fillColor();
+	Shade3 = currentItem->fillShade();
+	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
+	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
+	if (Mode == 1)
+	{
+		updateCList();
+		setActFarben(Color, Color3, Shade, Shade3);
+	}
+	else
+	{
+		ChooseGrad(currentItem->GrType);
+		gradEdit->Preview->fill_gradient = currentItem->fill_gradient;
+		gradientQCombo->setCurrentItem(currentItem->GrType);
+		gradEdit->Preview->updateDisplay();
+		double dur = currentDoc->unitRatio();
+		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur, currentItem->width() * dur, currentItem->height() * dur);
+	}
+}
+
 void Cpalette::InhaltButton()
 {
 	if (Inhalt->isOn())
@@ -305,10 +340,11 @@ void Cpalette::InhaltButton()
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		GradientMode = false;
 		layout()->activate();
-		updateCList();
-		repaint();
+//		updateCList();
+//		repaint();
 	}
-	emit QueryItem();
+	updateFromItem();
+	emit modeChanged();
 }
 
 void Cpalette::InnenButton()
@@ -339,10 +375,11 @@ void Cpalette::InnenButton()
 			}
 		}
 		layout()->activate();
-		updateCList();
-		repaint();
+//		updateCList();
+//		repaint();
 	}
-	emit QueryItem();
+	updateFromItem();
+	emit modeChanged();
 }
 
 void Cpalette::updatePatternList()
@@ -535,7 +572,13 @@ void Cpalette::slotGrad(int number)
 		gradientQCombo->setCurrentItem(currentGradient);
 		return;
 	}
+	int oldgrad = currentGradient;
 	ChooseGrad(number);
+	if ((currentGradient != 0) && (oldgrad != currentGradient))
+	{
+		gradEdit->Preview->fill_gradient = currentItem->fill_gradient;
+		gradEdit->Preview->updateDisplay();
+	}
 	emit NewGradient(number);
 }
 
@@ -600,7 +643,7 @@ void Cpalette::ChooseGrad(int number)
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	// JG probably not needed at all and should probably not be here
-	// updateCList();
+	updateCList();
 	switch (number)
 	{
 	case 0:

@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <qguardedptr.h>
 
 class ScribusDoc;
+class PageItem;
 class QListBox;
 class QListBoxItem;
 class QIconView;
@@ -69,6 +70,8 @@ public:
 	~Cpalette() {};
 
 	void setDocument(ScribusDoc* doc) { currentDoc = doc; }
+	void setCurrentItem(PageItem* item);
+	void updateFromItem();
 
 public slots:
 	void InhaltButton();
@@ -115,7 +118,7 @@ signals:
 	void NewTransS(double);
 	void NewBlend(int);
 	void NewBlendS(int);
-	void QueryItem();
+	void modeChanged();
 	void gradientChanged();
 	void editGradient();
 
@@ -175,6 +178,7 @@ protected:
 	QGroupBox* TransGroup;
 	QSpinBox* TransSpin;
 	QGuardedPtr<ScribusDoc> currentDoc;
+	PageItem* currentItem;
 	ScComboBox* blendMode;
 	int Mode;
 	QString sFarbe;

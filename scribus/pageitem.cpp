@@ -4088,14 +4088,14 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(printEnabled(bool)), pp, SLOT(setPrintingEnabled(bool)));
 	connect(this, SIGNAL(position(double, double)), pp, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), pp, SLOT(setBH(double, double)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), m_Doc->scMW(), SLOT(setCSMenu(QString, QString, int, int)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
+	connect(this, SIGNAL(colors(QString, QString, int, int)), m_Doc->scMW(), SLOT(setCSMenu()));
+//	connect(this, SIGNAL(colors(QString, QString, int, int)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+//	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
 	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double)));
-	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
+//	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
 	connect(this, SIGNAL(rotation(double)), pp, SLOT(setR(double)));
-	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));
-	connect(this, SIGNAL(blendmode(int, int)), pp->Cpal, SLOT(setActBlend(int, int)));
+//	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));
+//	connect(this, SIGNAL(blendmode(int, int)), pp->Cpal, SLOT(setActBlend(int, int)));
 	//Shape signals
 	//Not connected when transferring code: void columns(int, double); //Number, gap
 	connect(this, SIGNAL(cornerRadius(double)), pp, SLOT(setRR(double)));
@@ -4154,11 +4154,11 @@ void PageItem::emitAllToGUI()
 	emit lineStyleCapJoin(PLineArt, PLineEnd, PLineJoin);
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY);
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
-	emit gradientType(GrType);
-	double dur=m_Doc->unitRatio();
-	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
-	emit transparency(fillTransparencyVal, lineTransparencyVal);
-	emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
+//	emit gradientType(GrType);
+//	double dur=m_Doc->unitRatio();
+//	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
+//	emit transparency(fillTransparencyVal, lineTransparencyVal);
+//	emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
 	emit patternFill(patternVal, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);

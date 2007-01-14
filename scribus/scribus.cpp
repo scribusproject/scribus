@@ -2517,11 +2517,11 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setSvalue(double)));
 	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setLvalue(double, double, double, double)));
 	connect(view, SIGNAL(SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
-	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
-	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
-	connect(view, SIGNAL(ItemTrans(double, double)), propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
-	connect(view, SIGNAL(ItemBlend(int, int)), propertiesPalette->Cpal, SLOT(setActBlend(int, int)));
+//	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
+//	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+//	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
+//	connect(view, SIGNAL(ItemTrans(double, double)), propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
+//	connect(view, SIGNAL(ItemBlend(int, int)), propertiesPalette->Cpal, SLOT(setActBlend(int, int)));
 	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)));
 	connect(view, SIGNAL(ItemTextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
@@ -6483,7 +6483,7 @@ void ScribusMainWindow::setItemShade(int id)
 	slotDocCh();
 }
 
-void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
+void ScribusMainWindow::setCSMenu()
 {
 	QString la;
 	int lb;
@@ -6506,14 +6506,14 @@ void ScribusMainWindow::setCSMenu(QString , QString l, int  , int ls)
 		}
 		else
 		{
-			la = l;
-			lb = ls;
+			la = currItem->fillColor();
+			lb = currItem->fillShade();
 		}
 	}
 	else
 	{
-		la = l;
-		lb = ls;
+		la = currItem->fillColor();
+		lb = currItem->fillShade();
 	}
 	if (la == CommonStrings::None)
 		la = CommonStrings::NoneColor;
@@ -7144,7 +7144,7 @@ void ScribusMainWindow::updtGradFill()
 	VGradient vg(propertiesPalette->getFillGradient());
 	doc->itemSelection_SetFillGradient(vg);
 }
-
+/*
 //CB-->Doc
 void ScribusMainWindow::GetBrushPen()
 {
@@ -7155,7 +7155,7 @@ void ScribusMainWindow::GetBrushPen()
 	//CB We dont need to set the doc changed just to find the colour values...
 	//slotDocCh();
 }
-
+*/
 //CB-->??
 void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 {

@@ -232,7 +232,7 @@ public:
 	void SetFrameRounded();
 	void SetFrameOval();
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false, bool noResize = true);
-	void QueryFarben();
+//	void QueryFarben();
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool mousePressed();
 	bool groupTransactionStarted();
@@ -375,10 +375,10 @@ signals:
 	void SetSizeValue(double);
 	void SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	void SetLocalValues(double, double, double, double);
-	void ItemFarben(QString, QString, int, int);
-	void ItemGradient(int);
-	void ItemTrans(double, double);
-	void ItemBlend(int, int);
+//	void ItemFarben(QString, QString, int, int);
+//	void ItemGradient(int);
+//	void ItemTrans(double, double);
+//	void ItemBlend(int, int);
 	void ItemTextAttr(double);
 	void ItemTextUSval(int);
 	void ItemTextCols(int, double);

@@ -11053,6 +11053,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 }
 
 //CB get this out of here, remove the need completely if possible. Used for cpal on mpalette
+/*
 void ScribusView::QueryFarben()
 {
 	PageItem *currItem;
@@ -11064,7 +11065,7 @@ void ScribusView::QueryFarben()
 		emit ItemBlend(currItem->fillBlendmode(), currItem->lineBlendmode());
 	}
 }
-
+*/
 void ScribusView::ToPicFrame()
 {
 	PageItem *currItem = Doc->m_Selection->itemAt(0);

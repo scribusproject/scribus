@@ -1018,7 +1018,7 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 	connect(this, SIGNAL(ShapeEdit()), m_ScMW, SLOT(ToggleFrameEdit()));
 	connect(this, SIGNAL(NewFont(const QString&)), m_ScMW, SLOT(SetNewFont(const QString&)));
 	connect(this, SIGNAL(UpdtGui(int)), m_ScMW, SLOT(HaveNewSel(int)));
-	connect(this->Cpal, SIGNAL(QueryItem()), m_ScMW, SLOT(GetBrushPen()));
+	connect(this->Cpal, SIGNAL(modeChanged()), m_ScMW, SLOT(setCSMenu()));
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(DoUnGroup, SIGNAL(clicked()), m_ScMW, SLOT(UnGroupObj()) );
@@ -1056,6 +1056,8 @@ void Mpalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), 0, 0);
 
 	doc = d;
+	Cpal->setDocument(doc);
+	Cpal->setCurrentItem(NULL);
 	Umrech=doc->unitRatio();
 	double maxXYWHVal= 30000 * Umrech;
 	double minXYVal= -30000 * Umrech;
@@ -1115,15 +1117,18 @@ void Mpalette::unsetDoc()
 	HaveDoc = false;
 	HaveItem = false;
 	doc=NULL;
+	Cpal->setCurrentItem(NULL);
+	Cpal->setDocument(NULL);
 }
 
 void Mpalette::unsetItem()
 {
 	HaveItem=false;
 	CurItem = NULL;
+	Cpal->setCurrentItem(NULL);
 	NewSel(-1);
 }
-
+/*
 void Mpalette::setCurrentItem(PageItem *i)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
@@ -1151,7 +1156,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
 	LevelTxt->setText(QString::number(i->ItemNr));
 	setTextFlowMode(i->textFlowMode());
-	RoundRect->setValue(i->cornerRadius()*Umrech);
+	RoundRect->setValue(i->cornerRadius()*Umrech); */
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1161,12 +1166,14 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
 //	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
-	if (TabStack->currentIndex() == idColorsItem)
+/*	Cpal->setCurrentItem(CurItem);
+	Cpal->updateFromItem(); */
+/*	if (TabStack->currentIndex() == idColorsItem)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
-	Cpal->gradEdit->Preview->updateDisplay();
-	if (i->FrameType == 0)
+	Cpal->gradEdit->Preview->updateDisplay(); */
+/*	if (i->FrameType == 0)
 		SCustom->setPixmap(SCustom->getIconPixmap(0));
 	if (i->FrameType == 1)
 		SCustom->setPixmap(SCustom->getIconPixmap(1));
@@ -1258,13 +1265,13 @@ void Mpalette::setCurrentItem(PageItem *i)
 	else
 		TabStack->setItemEnabled(idGroupItem, false);
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
-	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int))); */
 	/*
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
 	*/
-	if (i->asPathText())
+/*	if (i->asPathText())
 	{
 		TabStack2->raiseWidget(1);
 		showcurveCheckBox->setChecked(i->PoShow);
@@ -1353,7 +1360,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 }
-
+*/
 
 void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 {
@@ -1388,11 +1395,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	HaveItem = false;
 	CurItem = i;
 
-	if (TabStack->currentIndex() == idColorsItem)
+	Cpal->setCurrentItem(CurItem);
+	Cpal->updateFromItem();
+/*	if (TabStack->currentIndex() == idColorsItem)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
-	Cpal->gradEdit->Preview->updateDisplay();
+	Cpal->gradEdit->Preview->updateDisplay(); */
 	if (CurItem->FrameType == 0)
 		SCustom->setPixmap(SCustom->getIconPixmap(0));
 	if (CurItem->FrameType == 1)
