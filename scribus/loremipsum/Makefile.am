@@ -1,4 +1,4 @@
-EXTRA_DIST = la.xml ar.xml cs.xml fi.xml de.xml el.xml he.xml ru.xml it.xml CMakeLists.txt
+EXTRA_DIST = la.xml ar.xml cs.xml fi.xml de.xml el.xml he.xml ru.xml it.xml sl.xml CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/loremipsum/
@@ -11,6 +11,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/he.xml $(prefix)/share/scribus/loremipsum/he.xml
 	$(INSTALL_DATA) $(srcdir)/it.xml $(prefix)/share/scribus/loremipsum/it.xml
 	$(INSTALL_DATA) $(srcdir)/ru.xml $(prefix)/share/scribus/loremipsum/ru.xml
+	$(INSTALL_DATA) $(srcdir)/sl.xml $(prefix)/share/scribus/loremipsum/sl.xml
 
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/loremipsum/la.xml
@@ -21,3 +22,4 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/loremipsum/el.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/he.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/ru.xml
+	-rm -f $(prefix)/share/scribus/loremipsum/sl.xml
