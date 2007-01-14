@@ -2045,6 +2045,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	else
 	{
 		QValueList<ParagraphStyle::TabRecord> tbs;
+ 		vg.setTabValues(tbs);
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
@@ -2062,9 +2063,11 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}
-			vg.setTabValues(tbs);
+// 			vg.setTabValues(tbs);
 			IT=IT.nextSibling();
 		}
+		if (tbs.count() > 0)
+			vg.setTabValues(tbs);
 	}
 }
 

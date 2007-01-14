@@ -1994,6 +1994,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	else
 	{
 		QValueList<ParagraphStyle::TabRecord> tbs;
+		vg.setTabValues(tbs);
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
