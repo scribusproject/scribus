@@ -443,7 +443,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabGeneralLayout3->addWidget( genRot, 0, 1, Qt::AlignLeft );
 	genText3 = new QLabel( genRot, tr( "Constrain to:" ), genRotBox, "genText3" );
 	subTabGeneralLayout3->addWidget( genText3, 0, 0);
-	genText4 = new QLabel( "Degrees", genRotBox, "genText4" );
+	genText4 = new QLabel( tr( "Degrees" ), genRotBox, "genText4" );
 	subTabGeneralLayout3->addWidget( genText4, 0, 2);
 	subTabGeneralLayout->addWidget( genRotBox, 1, 1);
 
