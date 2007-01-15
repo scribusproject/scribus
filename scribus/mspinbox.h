@@ -60,7 +60,7 @@ public:
 	\param name optional name of the object */
 	MSpinBox(QWidget *parent, const char * name = 0);
 
-	~MSpinBox() {};
+	~MSpinBox();
 	/*!
 	\author Franz Schmid
 	\brief Returns the current Value of the SpinBox
@@ -98,7 +98,6 @@ public:
 	void setTabAdvance(bool enable);
 	int Decimals;
 	int Width;
-	bool tabAdvance;
 	QLineEdit *ed;
 	void setDecimals( int deci );
 	bool isReadOnly() const;
@@ -130,6 +129,7 @@ public slots:
 	void getValues(double *min, double *max, int *deci, double *val);
 
 protected:
+ 	bool m_tabAdvance;
 	bool eventFilter( QObject* ob, QEvent* ev );
 	void setParameters( int s );
 	void setFPConstants(FunctionParser &fp);

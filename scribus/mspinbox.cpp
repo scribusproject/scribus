@@ -40,7 +40,6 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 	oldLineStep=0;
 	readOnly=false;
 	edited = false;
-	tabAdvance = true;
     connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 
@@ -55,7 +54,6 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 	setMaxValue(maxValue);
 	readOnly=false;
 	edited = false;
-	tabAdvance = true;
     connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 
@@ -68,8 +66,13 @@ MSpinBox::MSpinBox(QWidget *parent, const char * name): QSpinBox(parent, name)
 	oldLineStep=0;
 	readOnly=false;
 	edited = false;
-	tabAdvance = true;
 	connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
+}
+
+MSpinBox::~MSpinBox()
+{
+	if (ed)
+		disconnect( ed, SIGNAL(textChanged(const QString&)));
 }
 
 void MSpinBox::setParameters( int s )
@@ -85,11 +88,12 @@ void MSpinBox::setParameters( int s )
 		Decimals = 100;
 	}
 	edited = false;
+	m_tabAdvance = true;
 }
 
 void MSpinBox::setTabAdvance(bool enable)
 {
-	tabAdvance = enable;
+	m_tabAdvance = enable;
 }
 
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
@@ -126,7 +130,7 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		}
 		else if ((k->key() == Key_Return) || (k->key() == Key_Enter) || (k->key() == Key_Tab))
 		{
-			if (!tabAdvance)
+			if (!m_tabAdvance)
 			{
 				QSpinBox::interpretText();
 				return true;
