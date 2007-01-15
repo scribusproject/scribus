@@ -3652,7 +3652,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 {
 	int savedOwnPage = ite->OwnPage;
 	ite->OwnPage = PNr;
-	ite->asTextFrame()->layout();
+	if (ite->itemType() == PageItem::TextFrame)
+		ite->asTextFrame()->layout();
 	ite->OwnPage = savedOwnPage;
 	QString tmp("");
 	QString tmp2("");
@@ -3661,22 +3662,99 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
-	if (ite->itemType() == PageItem::TextFrame)
-		tmp += "BT\n";
 #ifndef NLS_PROTO
 	// Loop over each character (!) in the pageItem...
-	for (uint ll=0; ll < ite->itemText.lines(); ++ll) {
-		LineSpec ls = ite->itemText.line(ll);
-		tabDist = ls.x;
-		double CurX = ls.x;
-		
-		for (int d = ls.firstItem; d <= ls.lastItem; ++d)
+	if (ite->itemType() == PageItem::TextFrame)
+	{
+		tmp += "BT\n";
+		for (uint ll=0; ll < ite->itemText.lines(); ++ll)
+		{
+			LineSpec ls = ite->itemText.line(ll);
+			tabDist = ls.x;
+			double CurX = ls.x;
+			for (int d = ls.firstItem; d <= ls.lastItem; ++d)
+			{
+				const ScText * const hl = ite->itemText.item(d);
+				const QString ch = ite->itemText.text(d,1);
+				const CharStyle& chstyle(ite->itemText.charStyle(d));
+				const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
+				if ((ch[0] == SpecialChars::PARSEP) || (ch[0] == QChar(10)) || (ch[0] == SpecialChars::LINEBREAK) || (ch[0] == SpecialChars::FRAMEBREAK) || (ch[0] == SpecialChars::COLBREAK))
+					continue;
+				if (chstyle.effects() & ScStyle_SuppressSpace)
+					continue;
+				tTabValues = pstyle.tabValues();
+				if (chstyle.effects() & ScStyle_StartOfLine)
+					tabCc = 0;
+				if ((ch[0] == SpecialChars::TAB) && (tTabValues.count() != 0))
+				{
+					if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
+					{
+						ScText hl2;
+						static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
+						double wt = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize());
+						int coun = static_cast<int>((CurX+hl->glyph.xoffset - tabDist) / wt);
+						double sPos = CurX+hl->glyph.xoffset - (CurX+hl->glyph.xoffset - tabDist) + 1;
+						hl2.ch = QString(tTabValues[tabCc].tabFillChar);
+						hl2.setTracking(0);
+						hl2.setScaleH(1000);
+						hl2.setScaleV(1000);
+						hl2.glyph.yoffset = hl->glyph.yoffset;
+						for (int cx = 0; cx < coun; ++cx)
+						{
+							hl2.glyph.xoffset =  sPos + wt * cx;
+							if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
+							{
+								ScText hl3;
+								static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
+								hl3.ch = hl2.ch;
+								hl3.glyph.glyph = hl2.glyph.glyph;
+								hl3.setFillColor(hl2.strokeColor());
+								hl3.glyph.yoffset = hl2.glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
+								hl3.glyph.xoffset = hl2.glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
+								setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl3, pstyle, pag);
+							}
+							setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
+						}
+						tabCc++;
+					}
+					else
+					{
+						tabCc++;
+					}
+				}
+				if (ch[0] == SpecialChars::TAB) 
+				{
+					CurX += hl->glyph.wide();
+					continue;
+				}
+				if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
+				{
+					ScText hl2;
+					hl2.ch = ch;
+					hl2.glyph.glyph = hl->glyph.glyph;
+					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
+					hl2.setFillColor(hl->strokeColor());
+					hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
+					hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
+					hl2.glyph.scaleH = hl->glyph.scaleH;
+					hl2.glyph.scaleV = hl->glyph.scaleV;
+					setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
+				}
+				setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, hl, pstyle, pag);
+				CurX += hl->glyph.wide();
+				tabDist = CurX;
+			}
+		}
+	}
+	else
+	{
+		double CurX = 0;
+		for (int d = 0; d < ite->itemText.length(); ++d)
 		{
 			const ScText * const hl = ite->itemText.item(d);
 			const QString ch = ite->itemText.text(d,1);
 			const CharStyle& chstyle(ite->itemText.charStyle(d));
 			const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
-			
 			if ((ch[0] == SpecialChars::PARSEP) || (ch[0] == QChar(10)) || (ch[0] == SpecialChars::LINEBREAK) || (ch[0] == SpecialChars::FRAMEBREAK) || (ch[0] == SpecialChars::COLBREAK))
 				continue;
 			if (chstyle.effects() & ScStyle_SuppressSpace)
@@ -3690,17 +3768,13 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				{
 					ScText hl2;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-					//				hl2.cselect = hl->cselect;
-					
 					double wt = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize());
 					int coun = static_cast<int>((CurX+hl->glyph.xoffset - tabDist) / wt);
 					double sPos = CurX+hl->glyph.xoffset - (CurX+hl->glyph.xoffset - tabDist) + 1;
 					hl2.ch = QString(tTabValues[tabCc].tabFillChar);
-					
 					hl2.setTracking(0);
 					hl2.setScaleH(1000);
 					hl2.setScaleV(1000);
-					
 					hl2.glyph.yoffset = hl->glyph.yoffset;
 					for (int cx = 0; cx < coun; ++cx)
 					{
@@ -3714,10 +3788,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 							hl3.setFillColor(hl2.strokeColor());
 							hl3.glyph.yoffset = hl2.glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 							hl3.glyph.xoffset = hl2.glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
-							
-							setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl3, pstyle, pag);
+							setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, &hl3, pstyle, pag);
 						}
-						setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
+						setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, &hl2, pstyle, pag);
 					}
 					tabCc++;
 				}
@@ -3726,7 +3799,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					tabCc++;
 				}
 			}
-			if (ch[0] == SpecialChars::TAB) {
+			if (ch[0] == SpecialChars::TAB) 
+			{
 				CurX += hl->glyph.wide();
 				continue;
 			}
@@ -3736,16 +3810,14 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				hl2.ch = ch;
 				hl2.glyph.glyph = hl->glyph.glyph;
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-				//			hl2.cselect = hl->cselect;
 				hl2.setFillColor(hl->strokeColor());
 				hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 				hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 				hl2.glyph.scaleH = hl->glyph.scaleH;
 				hl2.glyph.scaleV = hl->glyph.scaleV;
-
-				setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
+				setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, &hl2, pstyle, pag);
 			}
-			setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, hl, pstyle, pag);
+			setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, hl, pstyle, pag);
 			CurX += hl->glyph.wide();
 			tabDist = CurX;
 		}
@@ -3765,7 +3837,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	{
 		tmp += "q\n";
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-		trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, x+hl->glyph.xoffset, -y+hl->glyph.yoffset );
+		trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->glyph.xoffset, -hl->glyph.yoffset );
 		tmp += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 		if (ite->BaseOffs != 0)
 			tmp += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
@@ -3884,7 +3956,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			if (ite->itemType() == PageItem::PathText)
 			{
 				QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-				trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, x+hl->glyph.xoffset, -y-hl->glyph.yoffset );
+				trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->glyph.xoffset, -hl->glyph.yoffset );
 				tmp2 += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 			}
 			if (!ite->asPathText())
