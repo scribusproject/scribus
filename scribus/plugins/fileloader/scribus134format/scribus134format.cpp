@@ -1133,6 +1133,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						}
 						IT=IT.nextSibling();
 					}
+					if (Neu->asPathText())
+					{
+						Neu->updatePolyClip();
+						Neu->Frame = true;
+					}
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
@@ -1305,6 +1310,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						IT=IT.nextSibling();
 					}
 					delete last;
+					if (Neu->asPathText())
+					{
+						Neu->updatePolyClip();
+						Neu->Frame = true;
+					}
 					if (Neu->fill_gradient.Stops() == 0)
 					{
 						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
@@ -2451,11 +2461,11 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
-	if (currItem->asPathText())
+/*	if (currItem->asPathText())
 	{
 		currItem->updatePolyClip();
 		currItem->Frame = true;
-	}
+	} */
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;
 	QString GrColor2;
@@ -2867,6 +2877,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						IT=IT.nextSibling();
 					}
 					delete last;
+					if (Neu->asPathText())
+					{
+						Neu->updatePolyClip();
+						Neu->Frame = true;
+					}
 					if (Neu->fill_gradient.Stops() == 0)
 					{
 						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
@@ -3015,6 +3030,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						IT=IT.nextSibling();
 					}
 					delete last;
+					if (Neu->asPathText())
+					{
+						Neu->updatePolyClip();
+						Neu->Frame = true;
+					}
 					if (Neu->fill_gradient.Stops() == 0)
 					{
 						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];

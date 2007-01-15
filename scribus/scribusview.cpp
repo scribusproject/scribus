@@ -11221,11 +11221,10 @@ void ScribusView::TextToPath()
 			double x, y, wide;
 			QString chstr, ccounter;
 			PageItem* bb;
-			for (uint ll=0; ll < currItem->itemText.lines(); ++ll)
+			
+			if (currItem->asPathText())
 			{
-				LineSpec ls = currItem->itemText.line(ll);
-				double CurX = ls.x;
-				for (int a = ls.firstItem; a <= ls.lastItem; ++a)
+				for (int a = 0; a < currItem->itemText.length(); ++a)
 				{
 					pts.resize(0);
 					x = 0.0;
@@ -11235,8 +11234,8 @@ void ScribusView::TextToPath()
 					chstr = currItem->itemText.text(a,1);
 					if ((chstr == QChar(13)) || (chstr == QChar(32)) || (chstr == QChar(29)))
 					{
-						if ((chstr == QChar(32)) || (chstr == QChar(29)))
-							CurX += hl->glyph.wide();
+//						if ((chstr == QChar(32)) || (chstr == QChar(29)))
+//							CurX += hl->glyph.wide();
 						continue;
 					}
 					if (chstr == QChar(30))
@@ -11244,11 +11243,10 @@ void ScribusView::TextToPath()
 						chstr = currItem->ExpandToken(a);
 						if (chstr == QChar(32))
 						{
-							CurX += hl->glyph.wide();
+//							CurX += hl->glyph.wide();
 							continue;
 						}
 					}
-//					int chs = hl->fontSize();
 					int chs = charStyle.fontSize();
 					if (hl->effects() & ScStyle_SmallCaps)
 					{
@@ -11258,72 +11256,42 @@ void ScribusView::TextToPath()
 							chstr = chstr.upper();
 						}
 					}
-					double csi = static_cast<double>(chs) / 100.0;
+//					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
 					QWMatrix chma, chma2, chma3, chma4, chma6;
-					if (currItem->asPathText())
+					QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
+					trafo *= QWMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
+					if (currItem->rotation() != 0)
 					{
-						QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-						trafo *= QWMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
-						if (currItem->rotation() != 0)
-						{
-							QWMatrix sca;
-							sca.translate(-currItem->xPos(), -currItem->yPos());
-							sca.rotate(currItem->rotation());
-							trafo *= sca;
-						}
-//						chma.scale(csi, csi);
-						chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
-						if (currItem->reversed())
-						{
-							if (a < currItem->itemText.length()-1)
-								wide = hl->font().charWidth(chstr[0], hl->fontSize(), currItem->itemText.text(a+1));
-							else
-								wide = hl->font().charWidth(chstr[0], hl->fontSize());
-							chma3.scale(-1, 1);
-							chma3.translate(-wide, 0);
-//							chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
-						}
-//						else
-						chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
-//							chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
-						if (hl->baselineOffset() != 0)
-							chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
-//							chma6.translate(0, -(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0));
-						uint gl = hl->font().char2CMap(chr);
-						pts = hl->font().glyphOutline(gl);
-						if (pts.size() < 4)
-							continue;
-						pts.map(chma * chma2 * chma3 * chma4 * chma6);
-						pts.map(trafo);
-						if (currItem->rotation() != 0)
-						{
-							QWMatrix sca;
-							sca.translate(currItem->xPos(), currItem->yPos());
-							pts.map(sca);
-						}
+						QWMatrix sca;
+						sca.translate(-currItem->xPos(), -currItem->yPos());
+						sca.rotate(currItem->rotation());
+						trafo *= sca;
 					}
-					else
+					chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
+					if (currItem->reversed())
 					{
-//						chma.scale(csi, csi);
-						uint gl = hl->font().char2CMap(chr);
-						pts = hl->font().glyphOutline(gl);
-						if (pts.size() < 4)
-							continue;
-						FPoint origin = hl->font().glyphOrigin(gl); 
-						x = origin.x() * csi;
-						y = origin.y() * csi;
-//						pts.map(chma);
-						chma = QWMatrix();
-						chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
-//						chma.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
-						pts.map(chma);
-						chma = QWMatrix();
-						if (currItem->imageFlippedH() && (!currItem->reversed()))
-							chma.scale(-1, 1);
-						if (currItem->imageFlippedV())
-							chma.scale(1, -1);
-						pts.map(chma);
+						if (a < currItem->itemText.length()-1)
+							wide = hl->font().charWidth(chstr[0], hl->fontSize(), currItem->itemText.text(a+1));
+						else
+							wide = hl->font().charWidth(chstr[0], hl->fontSize());
+						chma3.scale(-1, 1);
+						chma3.translate(-wide, 0);
+					}
+					chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
+					if (hl->baselineOffset() != 0)
+						chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
+					uint gl = hl->font().char2CMap(chr);
+					pts = hl->font().glyphOutline(gl);
+					if (pts.size() < 4)
+						continue;
+					pts.map(chma * chma2 * chma3 * chma4 * chma6);
+					pts.map(trafo);
+					if (currItem->rotation() != 0)
+					{
+						QWMatrix sca;
+						sca.translate(currItem->xPos(), currItem->yPos());
+						pts.map(sca);
 					}
 					uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_MouseButtonPressed);
 					bb = Doc->Items->at(z);
@@ -11351,10 +11319,96 @@ void ScribusView::TextToPath()
 						bb->setLineShade(100);
 					}
 					bb->setLineWidth(chs * hl->outlineWidth() / 10000.0);
-					if (currItem->asPathText())
-						Doc->AdjustItemSize(bb);
-					else
+					Doc->AdjustItemSize(bb);
+					bb->ContourLine = bb->PoLine.copy();
+					bb->ClipEdited = true;
+					Doc->setRedrawBounding(bb);
+					newGroupedItems.append(Doc->Items->take(z));
+//					CurX += hl->glyph.wide();
+				}
+			}
+			else
+			{
+				for (uint ll=0; ll < currItem->itemText.lines(); ++ll)
+				{
+					LineSpec ls = currItem->itemText.line(ll);
+					double CurX = ls.x;
+					for (int a = ls.firstItem; a <= ls.lastItem; ++a)
 					{
+						pts.resize(0);
+						x = 0.0;
+						y = 0.0;
+						ScText * hl = currItem->itemText.item(a);
+						const CharStyle& charStyle(currItem->itemText.charStyle(a));
+						chstr = currItem->itemText.text(a,1);
+						if ((chstr == QChar(13)) || (chstr == QChar(32)) || (chstr == QChar(29)))
+						{
+							if ((chstr == QChar(32)) || (chstr == QChar(29)))
+								CurX += hl->glyph.wide();
+							continue;
+						}
+						if (chstr == QChar(30))
+						{
+							chstr = currItem->ExpandToken(a);
+							if (chstr == QChar(32))
+							{
+								CurX += hl->glyph.wide();
+								continue;
+							}
+						}
+						int chs = charStyle.fontSize();
+						if (hl->effects() & ScStyle_SmallCaps)
+						{
+							if (chstr.upper() != chstr)
+							{
+								chs = QMAX(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
+								chstr = chstr.upper();
+							}
+						}
+						double csi = static_cast<double>(chs) / 100.0;
+						uint chr = chstr[0].unicode();
+						QWMatrix chma, chma2, chma3, chma4, chma6;
+						uint gl = hl->font().char2CMap(chr);
+						pts = hl->font().glyphOutline(gl);
+						if (pts.size() < 4)
+							continue;
+						FPoint origin = hl->font().glyphOrigin(gl); 
+						x = origin.x() * csi;
+						y = origin.y() * csi;
+						chma = QWMatrix();
+						chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
+						pts.map(chma);
+						chma = QWMatrix();
+						if (currItem->imageFlippedH() && (!currItem->reversed()))
+							chma.scale(-1, 1);
+						if (currItem->imageFlippedV())
+							chma.scale(1, -1);
+						pts.map(chma);
+						uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), !m_MouseButtonPressed);
+						bb = Doc->Items->at(z);
+						//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
+						//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
+						bb->setTextFlowMode(currItem->textFlowMode());
+						bb->setSizeLocked(currItem->sizeLocked());
+						bb->setLocked(currItem->locked());
+						bb->NamedLStyle = currItem->NamedLStyle;
+						bb->setItemName(currItem->itemName()+"+"+ccounter.setNum(a));
+						bb->AutoName = false;
+						bb->PoLine = pts.copy();
+						bb->setRotation(currItem->rotation());
+						bb->setFillColor(hl->fillColor());
+						bb->setFillShade(hl->fillShade());
+						if (currItem->itemText.charStyle(a).effects() & ScStyle_Outline)
+						{
+							bb->setLineColor(hl->strokeColor());
+							bb->setLineShade(hl->strokeShade());
+						}
+						else
+						{
+							bb->setLineColor(CommonStrings::None);
+							bb->setLineShade(100);
+						}
+						bb->setLineWidth(chs * hl->outlineWidth() / 10000.0);
 						FPoint tp2(getMinClipF(&bb->PoLine));
 						bb->PoLine.translate(-tp2.x(), -tp2.y());
 						FPoint tp(getMaxClipF(&bb->PoLine));
@@ -11375,12 +11429,12 @@ void ScribusView::TextToPath()
 							textY = currItem->height() - textY + y - (bb->height() - y);
 						FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
 						bb->moveBy(npo.x(),npo.y());
+						bb->ContourLine = bb->PoLine.copy();
+						bb->ClipEdited = true;
+						Doc->setRedrawBounding(bb);
+						newGroupedItems.append(Doc->Items->take(z));
+						CurX += hl->glyph.wide();
 					}
-					bb->ContourLine = bb->PoLine.copy();
-					bb->ClipEdited = true;
-					Doc->setRedrawBounding(bb);
-					newGroupedItems.append(Doc->Items->take(z));
-					CurX += hl->glyph.wide();
 				}
 			}
 			if ((currItem->asPathText()) && (currItem->PoShow))
