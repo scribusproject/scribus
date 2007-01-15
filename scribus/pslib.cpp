@@ -2554,7 +2554,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				ScFace::FontType type = hl->font().type();
 				if ((type == ScFace::TTF) ||  (hl->font().isOTF()) || (hl->font().subset()))
 				{
-					uint chr = chstr[0].unicode();
+//					uint chr = chstr[0].unicode();
+					uint chr = hl->font().char2CMap(chstr[0]);
 					if ((hl->font().canRender(chstr[0])) && (chr != 32))
 					{
 						PS_save();
@@ -2575,18 +2576,21 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							else
 								PutSeite(FillColor + " cmyk");
 							PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
-							if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
+							if ((hl->effects() & ScStyle_Outline))
 							{
-								PS_save();
-								PS_setlinewidth(tsz * hl->outlineWidth() / 10000.0);
-								SetFarbe(hl->strokeColor(), hl->strokeShade(), &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								if ((colorsToUse[hl->strokeColor()].isSpotColor()) && (!DoSep))
-									PutSeite(ToStr(hl->strokeShade() / 100.0)+" "+spotMap[hl->strokeColor()]);
-								else
-									PutSeite(StrokeColor + " cmyk");
-								PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
-								PS_restore();
+								if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
+								{
+									PS_save();
+									PS_setlinewidth(tsz * hl->outlineWidth() / 10000.0);
+									SetFarbe(hl->strokeColor(), hl->strokeShade(), &h, &s, &v, &k, gcr);
+									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									if ((colorsToUse[hl->strokeColor()].isSpotColor()) && (!DoSep))
+										PutSeite(ToStr(hl->strokeShade() / 100.0)+" "+spotMap[hl->strokeColor()]);
+									else
+										PutSeite(StrokeColor + " cmyk");
+									PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+									PS_restore();
+								}
 							}
 						}
 						PS_restore();
@@ -2609,22 +2613,25 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 					else
 						PS_show_xyG(hl->font().replacementName(), glyph, 0, 0, false);
-					if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
+					if ((hl->effects() & ScStyle_Outline))
 					{
-						uint gl = hl->font().char2CMap(chstr[0]);
-						FPointArray gly = hl->font().glyphOutline(gl);
-						QWMatrix chma;
-						chma.scale(tsz / 100.0, tsz / 100.0);
-						gly.map(chma);
-						PS_save();
-						PS_setlinewidth(tsz * hl->outlineWidth() / 10000.0);
-						PS_translate(0,  tsz / 10.0);
-						SetFarbe(hl->strokeColor(), hl->strokeShade(), &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						SetClipPath(&gly);
-						PS_closepath();
-						putColor(hl->strokeColor(), hl->strokeShade(), false);
-						PS_restore();
+						if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
+						{
+							uint gl = hl->font().char2CMap(chstr[0]);
+							FPointArray gly = hl->font().glyphOutline(gl);
+							QWMatrix chma;
+							chma.scale(tsz / 100.0, tsz / 100.0);
+							gly.map(chma);
+							PS_save();
+							PS_setlinewidth(tsz * hl->outlineWidth() / 10000.0);
+							PS_translate(0,  tsz / 10.0);
+							SetFarbe(hl->strokeColor(), hl->strokeShade(), &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							SetClipPath(&gly);
+							PS_closepath();
+							putColor(hl->strokeColor(), hl->strokeShade(), false);
+							PS_restore();
+						}
 					}
 					PS_restore();
 				}
