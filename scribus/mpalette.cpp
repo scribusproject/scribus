@@ -4405,9 +4405,9 @@ void Mpalette::updateColorSpecialGradient()
 		return;
 	double dur=doc->unitRatio();
 	PageItem *currItem=doc->m_Selection->itemAt(0);
-	Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
-							currItem->GrEndX * dur, currItem->GrEndY * dur,
-							currItem->width() * dur, currItem->height() * dur);
+	if (currItem)
+		Cpal->setSpecialGradient(currItem->GrStartX * dur, currItem->GrStartY * dur,
+								currItem->GrEndX * dur, currItem->GrEndY * dur);
 }
 
 void Mpalette::updateSpinBoxConstants()

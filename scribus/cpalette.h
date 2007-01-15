@@ -94,7 +94,7 @@ public slots:
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(int typ);
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
-	void setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h);
+	void setSpecialGradient(double x1, double y1, double x2, double y2);
 	void changeSpecial();
 	void setActShade();
 	void setActTrans(double, double);

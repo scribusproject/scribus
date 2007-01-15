@@ -318,7 +318,7 @@ void Cpalette::updateFromItem()
 		gradientQCombo->setCurrentItem(currentItem->GrType);
 		gradEdit->Preview->updateDisplay();
 		double dur = currentDoc->unitRatio();
-		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur, currentItem->width() * dur, currentItem->height() * dur);
+		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur);
 	}
 }
 
@@ -724,7 +724,7 @@ void Cpalette::setActGradient(int typ)
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 }
 
-void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h)
+void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2)
 {
 	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
