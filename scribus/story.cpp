@@ -2421,17 +2421,22 @@ void StoryEditor::updateTextFrame()
 	if (!textChanged)
 		return;
 	PageItem *nextItem = currItem;
-	while (nextItem != 0)
+	if (currItem->asTextFrame())
 	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
-		else
-			break;
+		while (nextItem != 0)
+		{
+			if (nextItem->BackBox != 0)
+				nextItem = nextItem->BackBox;
+			else
+				break;
+		}
 	}
 	PageItem* nb2 = nextItem;
 	nb2->itemText.clear();
-	while (nb2 != 0)
+	if (currItem->asTextFrame())
 	{
+		while (nb2 != 0)
+		{
 #if 0
 		for (int j = nb2->firstInFrame(); j <= nb2->lastInFrame(); ++j)
 		{
@@ -2465,9 +2470,10 @@ void StoryEditor::updateTextFrame()
 		}
 		nb2->itemText.clear();
 #endif
-		nb2->CPos = 0;
-		nb2->Dirty = false;
-		nb2 = nb2->NextBox;
+			nb2->CPos = 0;
+			nb2->Dirty = false;
+			nb2 = nb2->NextBox;
+		}
 	}
 	Editor->saveItemText(nextItem);
 	QPtrList<PageItem> FrameItemsDel;
@@ -2493,12 +2499,15 @@ void StoryEditor::updateTextFrame()
 	delete painter;
 	currDoc->RePos = rep;
 */
-	dynamic_cast<PageItem_TextFrame*>(nextItem)->layout();
-	nb2 = nextItem;
-	while (nb2 != 0)
+	if (currItem->asTextFrame())
 	{
-		nb2->Dirty = false;
-		nb2 = nb2->NextBox;
+		dynamic_cast<PageItem_TextFrame*>(nextItem)->layout();
+		nb2 = nextItem;
+		while (nb2 != 0)
+		{
+			nb2->Dirty = false;
+			nb2 = nb2->NextBox;
+		}
 	}
 	ScCore->primaryMainWindow()->view->DrawNew();
 	textChanged = false;
