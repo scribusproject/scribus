@@ -97,6 +97,8 @@ PageItem::PageItem(const PageItem & other)
 	effectsInUse(other.effectsInUse),
 	PoShow(other.PoShow),
 	BaseOffs(other.BaseOffs),
+	textPathType(other.textPathType),
+	textPathFlipped(other.textPathFlipped),
 	ClipEdited(other.ClipEdited),
 	FrameType(other.FrameType),
 	ItemNr(other.ItemNr),
@@ -347,6 +349,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
+	textPathType = 0;
+	textPathFlipped = false;
 	OwnPage = m_Doc->currentPage()->pageNr();
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
@@ -3426,6 +3430,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->DashOffset = DashOffset;
 	Buffer->PoShow = PoShow;
 	Buffer->BaseOffs = BaseOffs;
+	Buffer->textPathFlipped = textPathFlipped;
+	Buffer->textPathType = textPathType;
 	Buffer->TextflowMode = textFlowMode();
 	Buffer->Groups = Groups;
 	Buffer->IProfile = IProfile;
@@ -4018,6 +4024,9 @@ void PageItem::setPolyClip(int up)
 	if (PoLine.size() < 4)
 		return;
 	double rot;
+	int upval = up;
+	if (textPathFlipped)
+		upval *= -1;
 	QPoint np, np2;
 	QPointArray cl, cl1, cl2;
 	cl = FlattenPath(PoLine, Segments);
@@ -4026,7 +4035,7 @@ void PageItem::setPolyClip(int up)
 		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
 		QWMatrix ma;
 		ma.rotate(rot);
-		np = ma*QPoint(0, -up);
+		np = ma*QPoint(0, -upval);
 		cl1.resize(cl1.size()+1);
 		cl1.setPoint(cl1.size()-1, np+cl.point(a));
 		cl1.resize(cl1.size()+1);

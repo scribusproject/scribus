@@ -235,6 +235,8 @@ private slots:
 	void handleLock();
 	void handleLockSize();
 	void handlePrint();
+	void handlePathType();
+	void handlePathFlip();
 	void handlePathLine();
 	void handlePathDist();
 	void handlePathOffs();
@@ -340,6 +342,7 @@ protected:
 	QLabel* rndcornersLabel;
 	QLabel* startoffsetLabel;
 	QLabel* distfromcurveLabel;
+	QLabel* pathTextTypeLabel;
 	QLabel* topLabel;
 	QLabel* columnsLabel;
 	QLabel* bottomLabel;
@@ -428,12 +431,14 @@ protected:
 	QToolButton* textFlowUsesBoundingBox;
 	QToolButton* textFlowUsesContourLine;
 	QCheckBox* Aspect;
+	QCheckBox* flippedPathText;
 	QCheckBox* showcurveCheckBox;
 	QCheckBox* TopLine;
 	QCheckBox* LeftLine;
 	QCheckBox* RightLine;
 	QCheckBox* BottomLine;
 
+	ScComboBox* pathTextType;
 	QComboBox* langCombo;
 	QComboBox* InputP;
 	QComboBox* MonitorI;

@@ -316,6 +316,8 @@ public:
 	ScImageEffectList effectsInUse;
 	bool PoShow;
 	double BaseOffs;
+	int textPathType;
+	bool textPathFlipped;
 	bool ClipEdited;
 	// Don't know exactly what this is, but it's not the same as itemType
 	int FrameType;

@@ -1321,6 +1321,8 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("PICART", item->imageShown() ? 1 : 0);
 	ob->setAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 	ob->setAttribute("BASEOF", item->BaseOffs);
+	ob->setAttribute("textPathType", item->textPathType);
+	ob->setAttribute("textPathFlipped", static_cast<int>(item->textPathFlipped));
 	ob->setAttribute("FLIPPEDH", item->imageFlippedH());
 	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
 /*	ob->setAttribute("BBOXX",item->BBoxX);

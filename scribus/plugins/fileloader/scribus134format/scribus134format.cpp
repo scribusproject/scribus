@@ -2312,6 +2312,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->BottomLinkID =  obj->attribute("BottomLINK", "-1").toInt();
 	currItem->PoShow = obj->attribute("PLTSHOW", "0").toInt();
 	currItem->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
+	currItem->textPathType =  obj->attribute("textPathType", "0").toInt();
+	currItem->textPathFlipped = static_cast<bool>(obj->attribute("textPathFlipped", "0").toInt());
 	if ( obj->hasAttribute("TEXTFLOWMODE") )
 		currItem->setTextFlowMode((PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt());
 	else if ( obj->attribute("TEXTFLOW").toInt() )

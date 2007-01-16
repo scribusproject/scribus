@@ -416,9 +416,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Distance2->layout()->setMargin( 5 );
 	DistanceLayout2 = new QGridLayout( Distance2->layout() );
 	DistanceLayout2->setAlignment( Qt::AlignTop );
-	showcurveCheckBox = new QCheckBox( Distance2, "showcurveCheckBox" );
-	showcurveCheckBox->setText( "Show Curve" );
-	DistanceLayout2->addMultiCellWidget( showcurveCheckBox, 0, 0, 0, 1 );
+
+	pathTextType = new ScComboBox( false, Distance2, "pathTextType" );
+	DistanceLayout2->addWidget( pathTextType, 0, 1);
+	pathTextTypeLabel = new QLabel( "Type:", Distance2, "pathTextTypeLabel" );
+	DistanceLayout2->addWidget( pathTextTypeLabel, 0, 0);
+	
 	startoffsetLabel = new QLabel( "Start Offset:", Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
 	Dist = new MSpinBox( 0, 30000, Distance2, 1 );
@@ -430,6 +433,15 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	LineW = new MSpinBox( -300, 300, Distance2, 1 );
 	LineW->setLineStep(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
+
+	flippedPathText = new QCheckBox( Distance2, "flippedPathText" );
+	flippedPathText->setText( "Flip Text" );
+	DistanceLayout2->addMultiCellWidget( flippedPathText, 3, 3, 0, 1 );
+
+	showcurveCheckBox = new QCheckBox( Distance2, "showcurveCheckBox" );
+	showcurveCheckBox->setText( "Show Curve" );
+	DistanceLayout2->addMultiCellWidget( showcurveCheckBox, 4, 4, 0, 1 );
+
 	pageLayout_2b->addWidget(Distance2);
 	TabStack2->addWidget( page_2b, 1 );
 
@@ -943,6 +955,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
 	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	connect(showcurveCheckBox, SIGNAL(clicked()), this, SLOT(handlePathLine()));
+	connect(pathTextType, SIGNAL(activated(int)), this, SLOT(handlePathType()));
+	connect(flippedPathText, SIGNAL(clicked()), this, SLOT(handlePathFlip()));
 	connect(Dist, SIGNAL(valueChanged(int)), this, SLOT(handlePathDist()));
 	connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
 	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
@@ -1524,6 +1538,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	if (CurItem->asPathText())
 	{
 		TabStack2->raiseWidget(1);
+		pathTextType->setCurrentItem(CurItem->textPathType);
+		flippedPathText->setChecked(CurItem->textPathFlipped);
 		showcurveCheckBox->setChecked(CurItem->PoShow);
 		LineW->setValue(CurItem->BaseOffs * -1);
 		Dist->setValue(CurItem->textToFrameDistLeft());
@@ -3868,6 +3884,31 @@ void Mpalette::handleFlipV()
 }
 
 
+void Mpalette::handlePathType()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->textPathType = pathTextType->currentItem();
+		m_ScMW->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
+void Mpalette::handlePathFlip()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->textPathFlipped = flippedPathText->isChecked();
+		CurItem->updatePolyClip();
+		m_ScMW->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
 void Mpalette::handlePathLine()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
@@ -4115,7 +4156,12 @@ void Mpalette::languageChange()
 	rightLabel->setText( tr("&Right:"));
 	TabsButton->setText( tr("T&abulators..."));
 	Distance2->setTitle( tr("Path Text Properties"));
+	pathTextType->clear();
+	pathTextType->insertItem( tr("Default"));
+	pathTextType->insertItem( tr("Stair Step"));
+	flippedPathText->setText( "Flip Text" );
 	showcurveCheckBox->setText( tr("Show Curve"));
+	pathTextTypeLabel->setText( tr("Type:"));
 	startoffsetLabel->setText( tr("Start Offset:"));
 	distfromcurveLabel->setText( tr("Distance from Curve:"));
 	Distance3->setTitle( tr("Fill Rule"));

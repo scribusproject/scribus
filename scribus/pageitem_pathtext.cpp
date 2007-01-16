@@ -130,26 +130,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.more = false;
 //		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutGlyphs
-/*		if (chstr == QChar(29))
-			chstr2 = " ";
-		else if (chstr == QChar(24))
-			chstr2 = "-";
-		else
-			chstr2 = chstr;
-		if (a < itemText.length()-1)
-		{
-			if (itemText.text(a+1) == QChar(29))
-				chstr3 = " ";
-			else if (itemText.text(a+1) == QChar(24))
-				chstr3 = "-";
-			else
-				chstr3 = itemText.text(a+1, 1);
-			wide = hl->font().charWidth(chstr2[0], chs, chstr3[0]);
-		}
-		else
-			wide = hl->font().charWidth(chstr2[0], chs);
-		wide = wide * (hl->scaleH() / 1000.0);
-		dx = wide / 2.0; */
 		dx = hl->glyph.wide() / 2.0;
 		CurX += dx;
 		ext = false;
@@ -211,10 +191,20 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		hl->PRot = dx;
 #ifdef HAVE_CAIRO
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx, 0 );
-		trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() );
+		if (textPathFlipped)
+			trafo *= QWMatrix(1, 0, 0, -1, 0, 0);
+		if (textPathType == 0)
+			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
+		else if (textPathType == 1)
+			trafo *= QWMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
 #else
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
-		trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc );
+		if (textPathFlipped)
+			trafo *= QWMatrix(1, 0, 0, -1, 0, 0);
+		if (textPathType == 0)
+			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc ); // ID's Rainbow mode
+		else if (textPathType == 1)
+			trafo *= QWMatrix( 1, 0, 0, -1, point.x()*sc, point.y()*sc ); // ID's Stair Step mode
 #endif
 		QWMatrix sca = p->worldMatrix();
 		trafo *= sca;

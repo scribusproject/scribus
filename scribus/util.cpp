@@ -925,6 +925,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->RExtra=obj->attribute("REXTRA", "1").toDouble();
 	OB->PoShow = obj->attribute("PLTSHOW", "0").toInt();
 	OB->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
+	OB->textPathType =  obj->attribute("textPathType", "0").toInt();
+	OB->textPathFlipped = static_cast<bool>(obj->attribute("textPathFlipped", "0").toInt());
 	OB->ISize = qRound(obj->attribute("ISIZE", "12").toDouble() * 10);
 	if (obj->hasAttribute("EXTRAV"))
 		OB->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);

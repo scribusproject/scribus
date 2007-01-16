@@ -10928,6 +10928,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->Clip = Buffer->Clip.copy();
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;
+	currItem->textPathFlipped = Buffer->textPathFlipped;
+	currItem->textPathType = Buffer->textPathType;
 	//currItem->setTextFlowsAroundFrame(Buffer->Textflow);
 	//currItem->setTextFlowUsesBoundingBox(Buffer->Textflow2);
 	currItem->setTextFlowMode((PageItem::TextFlowMode) Buffer->TextflowMode);

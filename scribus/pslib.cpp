@@ -2564,7 +2564,15 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							SetFarbe(hl->fillColor(), hl->fillShade(), &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 							PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
-							PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+							if (c->textPathFlipped)
+							{
+								PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(0) + " " + ToStr(0) + "]\n");
+								PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\n");
+							}
+							if (c->textPathType == 0)
+								PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+							else if (c->textPathType == 1)
+								PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
 							PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 							PS_translate(0, (tsz / 10.0));
 							if (c->BaseOffs != 0)
@@ -2602,7 +2610,15 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_selectfont(hl->font().replacementName(), tsz / 10.0);
 					PS_save();
 					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
-					PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					if (c->textPathFlipped)
+					{
+						PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(0) + " " + ToStr(0) + "]\n");
+						PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\n");
+					}
+					if (c->textPathType == 0)
+						PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					else if (c->textPathType == 1)
+						PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
