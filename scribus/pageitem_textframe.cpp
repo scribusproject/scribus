@@ -1845,7 +1845,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	double wide, lineCorr;
 	QString chstr;
 	ScText *hl;
-
+	QString cachedStroke = "";
+	QString cachedFill = "";
+	int cachedFillShade = -1;
+	int cachedStrokeShade = -1;
+	QColor cachedFillQ;
+	QColor cachedStrokeQ;
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	double desc, asce, tabDist;
 	tTabValues.clear();
@@ -1928,8 +1933,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					continue;
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
-					SetFarbe(&tmp, charStyle.fillColor(), charStyle.fillShade());
-					p->setBrush(tmp);
+					if ((cachedFill == charStyle.fillColor()) && (cachedFillShade == charStyle.fillShade()))
+						p->setBrush(cachedFillQ);
+					else
+					{
+						SetFarbe(&tmp, charStyle.fillColor(), charStyle.fillShade());
+						p->setBrush(tmp);
+						cachedFillQ = tmp;
+						cachedFill = charStyle.fillColor();
+						cachedFillShade = charStyle.fillShade();
+					}
 				}
 				if (charStyle.effects() & ScStyle_DropCap)
 				{
@@ -2003,8 +2016,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					}
 					if (charStyle.strokeColor() != CommonStrings::None)
 					{
-						SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
-						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+						if ((cachedStroke == charStyle.strokeColor()) && (cachedStrokeShade == charStyle.strokeShade()))
+							p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
+						else
+						{
+							SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
+							p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+							cachedStrokeQ = tmp;
+							cachedStroke = charStyle.strokeColor();
+							cachedStrokeShade = charStyle.strokeShade();
+						}
 					}
 					// paint glyphs
 					if (e2.intersects(pf2.xForm(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))

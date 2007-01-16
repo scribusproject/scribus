@@ -84,6 +84,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	double distCurX;
 	QColor tmp;
 	CurX = Extra;
+	QString cachedStroke = "";
+	QString cachedFill = "";
+	int cachedFillShade = -1;
+	int cachedStrokeShade = -1;
+	QColor cachedFillQ;
+	QColor cachedStrokeQ;
 	if (!m_Doc->layerOutline(LayerNr))
 	{
 		if (PoShow)
@@ -215,6 +221,32 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		{
 			if (itemText.charStyle(a).fillColor() != CommonStrings::None)
 			{
+				if ((cachedFill == itemText.charStyle(a).fillColor()) && (cachedFillShade == itemText.charStyle(a).fillShade()))
+					p->setBrush(cachedFillQ);
+				else
+				{
+					SetFarbe(&tmp, itemText.charStyle(a).fillColor(), itemText.charStyle(a).fillShade());
+					p->setBrush(tmp);
+					cachedFillQ = tmp;
+					cachedFill = itemText.charStyle(a).fillColor();
+					cachedFillShade = itemText.charStyle(a).fillShade();
+				}
+			}
+			if (itemText.charStyle(a).strokeColor() != CommonStrings::None)
+			{
+				if ((cachedStroke == itemText.charStyle(a).strokeColor()) && (cachedStrokeShade == itemText.charStyle(a).strokeShade()))
+					p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
+				else
+				{
+					SetFarbe(&tmp, itemText.charStyle(a).strokeColor(), itemText.charStyle(a).strokeShade());
+					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+					cachedStrokeQ = tmp;
+					cachedStroke = itemText.charStyle(a).strokeColor();
+					cachedStrokeShade = itemText.charStyle(a).strokeShade();
+				}
+			}
+/*			if (itemText.charStyle(a).fillColor() != CommonStrings::None)
+			{
 				SetFarbe(&tmp, itemText.charStyle(a).fillColor(), itemText.charStyle(a).fillShade());
 				p->setBrush(tmp);
 			}
@@ -222,7 +254,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			{
 				SetFarbe(&tmp, itemText.charStyle(a).strokeColor(), itemText.charStyle(a).strokeShade());
 				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-			}
+			} */
 			drawGlyphs(p, itemText.charStyle(a), hl->glyph);
 		}
 		hl->glyph.xoffset = point.x();
