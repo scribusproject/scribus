@@ -2518,48 +2518,64 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					LinC->hide();
 					LinCT->hide();
-					QFileInfo fi = QFileInfo(currItem->Pfile);
-					InfoT->setText( tr("Picture"));
-					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
-					ParCT->setText( tr("File: "));
-					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
-					ParC->setText(fi.fileName());
-					InfoGroupLayout->addWidget( ParC, 1, 1 );
-					WordCT->setText( tr("Original PPI: "));
-					InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
-					WordC->setText(txtC.setNum(qRound(currItem->pixm.imgInfo.xres))+" x "+txtC2.setNum(qRound(currItem->pixm.imgInfo.yres)));
-					InfoGroupLayout->addWidget( WordC, 2, 1 );
-					CharCT->setText( tr("Actual PPI: "));
-					InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
-					CharC->setText(txtC.setNum(qRound(72.0 / currItem->imageXScale()))+" x "+
-					               txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
-					InfoGroupLayout->addWidget( CharC, 3, 1 );
-					ColCT->setText( tr("Colorspace: "));
-					InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
-					QString cSpace;
-					QString ext = fi.extension(false).lower();
-					if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
-						cSpace = tr("Unknown");
+					if (currItem->PicAvail)
+					{
+						QFileInfo fi = QFileInfo(currItem->Pfile);
+						InfoT->setText( tr("Picture"));
+						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						ParCT->setText( tr("File: "));
+						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+						ParC->setText(fi.fileName());
+						InfoGroupLayout->addWidget( ParC, 1, 1 );
+						WordCT->setText( tr("Original PPI: "));
+						InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
+						WordC->setText(txtC.setNum(qRound(currItem->pixm.imgInfo.xres))+" x "+txtC2.setNum(qRound(currItem->pixm.imgInfo.yres)));
+						InfoGroupLayout->addWidget( WordC, 2, 1 );
+						CharCT->setText( tr("Actual PPI: "));
+						InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
+						CharC->setText(txtC.setNum(qRound(72.0 / currItem->imageXScale()))+" x "+ txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
+						InfoGroupLayout->addWidget( CharC, 3, 1 );
+						ColCT->setText( tr("Colorspace: "));
+						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
+						QString cSpace;
+						QString ext = fi.extension(false).lower();
+						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+							cSpace = tr("Unknown");
+						else
+						{
+							switch (currItem->pixm.imgInfo.colorspace)
+							{
+								case 0:
+									cSpace = tr("RGB");
+									break;
+								case 1:
+									cSpace = tr("CMYK");
+									break;
+								case 2:
+									cSpace = tr("Grayscale");
+									break;
+								case 3:
+									cSpace = tr("Duotone");
+									break;
+							}
+						}
+						ColC->setText(cSpace);
+						InfoGroupLayout->addWidget( ColC, 4, 1 );
+					}
 					else
 					{
-						switch (currItem->pixm.imgInfo.colorspace)
-						{
-							case 0:
-								cSpace = tr("RGB");
-								break;
-							case 1:
-								cSpace = tr("CMYK");
-								break;
-							case 2:
-								cSpace = tr("Grayscale");
-								break;
-							case 3:
-								cSpace = tr("Duotone");
-								break;
-						}
+						InfoT->setText( tr("Picture"));
+						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						ParCT->setText( tr("no Image loaded"));
+						InfoGroupLayout->addMultiCellWidget( ParCT, 1, 1, 0, 1, Qt::AlignHCenter );
+						ParC->hide();
+						WordCT->hide();
+						WordC->hide();
+						CharCT->hide();
+						CharC->hide();
+						ColCT->hide();
+						ColC->hide();
 					}
-					ColC->setText(cSpace);
-					InfoGroupLayout->addWidget( ColC, 4, 1 );
 				}
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{
