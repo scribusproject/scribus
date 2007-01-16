@@ -171,13 +171,13 @@ query.h
 reformdoc.h
 rulermover.h
 sampleitem.h
-sccolorshade.h
+# sccolorshade.h
 scinputdialog.h
 scmenu.h
 scmessagebox.h
 scgtplugin.h
 scplugin.h
-scpreview.h
+# scpreview.h
 scprogressbar.h
 scraction.h
 scrap.h

@@ -4,7 +4,7 @@ ${CMAKE_SOURCE_DIR}/scribus
 )
 
 SET(HTML_GT_PLUGIN_MOC_CLASSES
-htmlim.h
+# htmlim.h
 )
 
 SET(HTML_GT_PLUGIN_SOURCES
