@@ -739,7 +739,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			gElements.append(el.at(ec));
 	}
 	groupLevel--;
-	if (gElements.count() < 2)
+	SvgStyle *gc = m_gc.current();
+	if (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0))
 	{
 		m_Doc->Items->take(z);
 		delete neu;
@@ -759,7 +760,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		double maxx = -99999.9;
 		double maxy = -99999.9;
 		GElements.append(neu);
-		SvgStyle *gc = m_gc.current();
 		for (uint gr = 0; gr < gElements.count(); ++gr)
 		{
 			PageItem* currItem = gElements.at(gr);
