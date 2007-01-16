@@ -4,6 +4,26 @@ EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup
  al_bottom_in.png al_bottom_out.png al_center_hor.png al_center_ver.png al_left_in.png al_left_out.png al_right_in.png al_right_out.png al_top_in.png al_top_out.png distribute_acrosspage.png distribute_acrossmargins.png distribute_bottom.png distribute_downpage.png distribute_downmargins.png distribute_hcentre.png \
  distribute_hdist.png distribute_hdist_val.png distribute_left.png distribute_right.png distribute_top.png distribute_vcentre.png distribute_vdist.png distribute_vdist_val.png vpl.png noicon.xpm clear_right.png layer-outline.png\
 ellipsis.png \
+16/align-horizontal-center.png \
+16/align-horizontal-left-out.png \
+16/align-horizontal-left.png \
+16/align-horizontal-right-out.png \
+16/align-horizontal-right.png \
+16/align-vertical-bottom-out.png \
+16/align-vertical-bottom.png \
+16/align-vertical-center.png \
+16/align-vertical-top-out.png \
+16/align-vertical-top.png \
+22/align-horizontal-center.png \
+22/align-horizontal-left-out.png \
+22/align-horizontal-left.png \
+22/align-horizontal-right-out.png \
+22/align-horizontal-right.png \
+22/align-vertical-bottom-out.png \
+22/align-vertical-bottom.png \
+22/align-vertical-center.png \
+22/align-vertical-top-out.png \
+22/align-vertical-top.png \
 22/checkbox.png \
 16/close.png \
 22/close.png \
@@ -11,6 +31,21 @@ ellipsis.png \
 16/color-stroke.png \
 22/combobox.png \
 22/color-picker.png \
+16/distribute-horizontal-equal.png \
+16/distribute-horizontal-left.png \
+16/distribute-horizontal-right.png \
+16/distribute-vertical-bottom.png \
+16/distribute-vertical-center.png \
+16/distribute-vertical-equal.png \
+16/distribute-vertical-top.png \
+22/distribute-horizontal-center.png \
+22/distribute-horizontal-equal.png \
+22/distribute-horizontal-left.png \
+22/distribute-horizontal-right.png \
+22/distribute-vertical-bottom.png \
+22/distribute-vertical-center.png \
+22/distribute-vertical-equal.png \
+22/distribute-vertical-top.png \
 16/document-new.png \
 22/document-new.png \
 16/document-open.png \
@@ -194,6 +229,26 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/addf.png $(prefix)/share/scribus/icons/addf.png
 	$(INSTALL_DATA) $(srcdir)/AddNode.png $(prefix)/share/scribus/icons/AddNode.png
 	$(INSTALL_DATA) $(srcdir)/AddPoint.png $(prefix)/share/scribus/icons/AddPoint.png
+	$(INSTALL_DATA) $(srcdir)/16/align-horizontal-center.png    $(prefix)/share/scribus/icons/16/align-horizontal-center.png
+	$(INSTALL_DATA) $(srcdir)/16/align-horizontal-left-out.png  $(prefix)/share/scribus/icons/16/align-horizontal-left-out.png
+	$(INSTALL_DATA) $(srcdir)/16/align-horizontal-left.png      $(prefix)/share/scribus/icons/16/align-horizontal-left.png
+	$(INSTALL_DATA) $(srcdir)/16/align-horizontal-right-out.png $(prefix)/share/scribus/icons/16/align-horizontal-right-out.png
+	$(INSTALL_DATA) $(srcdir)/16/align-horizontal-right.png     $(prefix)/share/scribus/icons/16/align-horizontal-right.png
+	$(INSTALL_DATA) $(srcdir)/16/align-vertical-bottom-out.png  $(prefix)/share/scribus/icons/16/align-vertical-bottom-out.png
+	$(INSTALL_DATA) $(srcdir)/16/align-vertical-bottom.png      $(prefix)/share/scribus/icons/16/align-vertical-bottom.png
+	$(INSTALL_DATA) $(srcdir)/16/align-vertical-center.png      $(prefix)/share/scribus/icons/16/align-vertical-center.png
+	$(INSTALL_DATA) $(srcdir)/16/align-vertical-top-out.png     $(prefix)/share/scribus/icons/16/align-vertical-top-out.png
+	$(INSTALL_DATA) $(srcdir)/16/align-vertical-top.png         $(prefix)/share/scribus/icons/16/align-vertical-top.png
+	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-center.png    $(prefix)/share/scribus/icons/22/align-horizontal-center.png
+	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-left-out.png $(prefix)/share/scribus/icons/22/align-horizontal-left-out.png
+	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-left.png      $(prefix)/share/scribus/icons/22/align-horizontal-left.png
+	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-right-out.png $(prefix)/share/scribus/icons/22/align-horizontal-right-out.png
+	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-right.png     $(prefix)/share/scribus/icons/22/align-horizontal-right.png
+	$(INSTALL_DATA) $(srcdir)/22/align-vertical-bottom-out.png  $(prefix)/share/scribus/icons/22/align-vertical-bottom-out.png
+	$(INSTALL_DATA) $(srcdir)/22/align-vertical-bottom.png      $(prefix)/share/scribus/icons/22/align-vertical-bottom.png
+	$(INSTALL_DATA) $(srcdir)/22/align-vertical-center.png      $(prefix)/share/scribus/icons/22/align-vertical-center.png
+	$(INSTALL_DATA) $(srcdir)/22/align-vertical-top-out.png     $(prefix)/share/scribus/icons/22/align-vertical-top-out.png
+	$(INSTALL_DATA) $(srcdir)/22/align-vertical-top.png         $(prefix)/share/scribus/icons/22/align-vertical-top.png
 	$(INSTALL_DATA) $(srcdir)/AllCaps.png $(prefix)/share/scribus/icons/AllCaps.png
 	$(INSTALL_DATA) $(srcdir)/al_bottom_in.png $(prefix)/share/scribus/icons/al_bottom_in.png
 	$(INSTALL_DATA) $(srcdir)/al_bottom_out.png $(prefix)/share/scribus/icons/al_bottom_out.png
@@ -255,6 +310,21 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/DelPoint.png $(prefix)/share/scribus/icons/DelPoint.png
 	$(INSTALL_DATA) $(srcdir)/dist.png $(prefix)/share/scribus/icons/dist.png
 	$(INSTALL_DATA) $(srcdir)/dist22.png $(prefix)/share/scribus/icons/dist22.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-equal.png   $(prefix)/share/scribus/icons/16/distribute-horizontal-equal.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-left.png    $(prefix)/share/scribus/icons/16/distribute-horizontal-left.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-right.png   $(prefix)/share/scribus/icons/16/distribute-horizontal-right.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-vertical-bottom.png    $(prefix)/share/scribus/icons/16/distribute-vertical-bottom.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-vertical-center.png    $(prefix)/share/scribus/icons/16/distribute-vertical-center.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-vertical-equal.png     $(prefix)/share/scribus/icons/16/distribute-vertical-equal.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-vertical-top.png       $(prefix)/share/scribus/icons/16/distribute-vertical-top.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-center.png  $(prefix)/share/scribus/icons/22/distribute-horizontal-center.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-equal.png   $(prefix)/share/scribus/icons/22/distribute-horizontal-equal.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-left.png    $(prefix)/share/scribus/icons/22/distribute-horizontal-left.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-right.png   $(prefix)/share/scribus/icons/22/distribute-horizontal-right.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-bottom.png    $(prefix)/share/scribus/icons/22/distribute-vertical-bottom.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-center.png    $(prefix)/share/scribus/icons/22/distribute-vertical-center.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-equal.png     $(prefix)/share/scribus/icons/22/distribute-vertical-equal.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-top.png       $(prefix)/share/scribus/icons/22/distribute-vertical-top.png
 	$(INSTALL_DATA) $(srcdir)/distribute_acrosspage.png $(prefix)/share/scribus/icons/distribute_acrosspage.png
 	$(INSTALL_DATA) $(srcdir)/distribute_acrossmargins.png $(prefix)/share/scribus/icons/distribute_acrossmargins.png
 	$(INSTALL_DATA) $(srcdir)/distribute_bottom.png $(prefix)/share/scribus/icons/distribute_bottom.png
@@ -620,6 +690,26 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/addf.png
 	-rm -f $(prefix)/share/scribus/icons/AddNode.png
 	-rm -f $(prefix)/share/scribus/icons/AddPoint.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-horizontal-center.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-horizontal-left-out.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-horizontal-left.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-horizontal-right-out.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-horizontal-right.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-vertical-bottom-out.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-vertical-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-vertical-center.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-vertical-top-out.png
+	-rm -f $(prefix)/share/scribus/icons/16/align-vertical-top.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-horizontal-center.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-horizontal-left-out.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-horizontal-left.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-horizontal-right-out.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-horizontal-right.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-bottom-out.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-center.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-top-out.png
+	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-top.png
 	-rm -f $(prefix)/share/scribus/icons/AllCaps.png
 	-rm -f $(prefix)/share/scribus/icons/al_bottom_in.png
 	-rm -f $(prefix)/share/scribus/icons/al_bottom_out.png
@@ -674,6 +764,21 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/DelPoint.png
 	-rm -f $(prefix)/share/scribus/icons/dist.png
 	-rm -f $(prefix)/share/scribus/icons/dist22.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-equal.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-left.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-right.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-vertical-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-vertical-center.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-vertical-equal.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-vertical-top.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-center.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-equal.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-left.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-right.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-center.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-equal.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-top.png
 	-rm -f $(prefix)/share/scribus/icons/distribute_acrosspage.png
 	-rm -f $(prefix)/share/scribus/icons/distribute_acrossmargins.png
 	-rm -f $(prefix)/share/scribus/icons/distribute_bottom.png

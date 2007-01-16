@@ -327,9 +327,26 @@ previewOff.png
 )
 
 INSTALL(FILES
+16/align-horizontal-center.png
+16/align-horizontal-left-out.png
+16/align-horizontal-left.png
+16/align-horizontal-right-out.png
+16/align-horizontal-right.png
+16/align-vertical-bottom-out.png
+16/align-vertical-bottom.png
+16/align-vertical-center.png
+16/align-vertical-top-out.png
+16/align-vertical-top.png
 16/close.png
 16/color-fill.png
 16/color-stroke.png
+16/distribute-horizontal-equal.png
+16/distribute-horizontal-left.png
+16/distribute-horizontal-right.png
+16/distribute-vertical-bottom.png
+16/distribute-vertical-center.png
+16/distribute-vertical-equal.png
+16/distribute-vertical-top.png
 16/document-new.png
 16/document-open.png
 16/document-print.png
@@ -400,10 +417,28 @@ INSTALL(FILES
 )
 
 INSTALL(FILES
+22/align-horizontal-center.png
+22/align-horizontal-left-out.png
+22/align-horizontal-left.png
+22/align-horizontal-right-out.png
+22/align-horizontal-right.png
+22/align-vertical-bottom-out.png
+22/align-vertical-bottom.png
+22/align-vertical-center.png
+22/align-vertical-top-out.png
+22/align-vertical-top.png
 22/close.png
 22/color-picker.png
 22/checkbox.png
 22/combobox.png
+22/distribute-horizontal-center.png
+22/distribute-horizontal-equal.png
+22/distribute-horizontal-left.png
+22/distribute-horizontal-right.png
+22/distribute-vertical-bottom.png
+22/distribute-vertical-center.png
+22/distribute-vertical-equal.png
+22/distribute-vertical-top.png
 22/document-new.png
 22/document-open.png
 22/document-print.png
@@ -473,4 +508,3 @@ INSTALL(FILES
 32/page-simple.png
   DESTINATION ${ICONDIR}32
 )
-

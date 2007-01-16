@@ -158,27 +158,27 @@ void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
 
-	alignLeftOutToolButton->setIconSet(QIconSet(loadIcon("al_left_out.png"), QIconSet::Small));
-	alignLeftInToolButton->setIconSet(QIconSet(loadIcon("al_left_in.png"), QIconSet::Small));
-	alignCenterHorToolButton->setIconSet(QIconSet(loadIcon("al_center_hor.png"), QIconSet::Small));
-	alignRightInToolButton->setIconSet(QIconSet(loadIcon("al_right_in.png"), QIconSet::Small));
-	alignRightOutToolButton->setIconSet(QIconSet(loadIcon("al_right_out.png"), QIconSet::Small));
+	alignLeftOutToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-left-out.png"), QIconSet::Small));
+	alignLeftInToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-left.png"), QIconSet::Small));
+	alignCenterHorToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-center.png"), QIconSet::Small));
+	alignRightInToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-right.png"), QIconSet::Small));
+	alignRightOutToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-right-out.png"), QIconSet::Small));
 	
-	alignTopOutToolButton->setIconSet(QIconSet(loadIcon("al_top_out.png"), QIconSet::Small));
-	alignTopInToolButton->setIconSet(QIconSet(loadIcon("al_top_in.png"), QIconSet::Small));
-	alignCenterVerToolButton->setIconSet(QIconSet(loadIcon("al_center_ver.png"), QIconSet::Small));
-	alignBottomInToolButton->setIconSet(QIconSet(loadIcon("al_bottom_in.png"), QIconSet::Small));
-	alignBottomOutToolButton->setIconSet(QIconSet(loadIcon("al_bottom_out.png"), QIconSet::Small));
+	alignTopOutToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-top-out.png"), QIconSet::Small));
+	alignTopInToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-top.png"), QIconSet::Small));
+	alignCenterVerToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-center.png"), QIconSet::Small));
+	alignBottomInToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-bottom.png"), QIconSet::Small));
+	alignBottomOutToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-bottom-out.png"), QIconSet::Small));
 	
-	distributeLeftToolButton->setIconSet(QIconSet(loadIcon("distribute_left.png"), QIconSet::Small));
-	distributeCenterHToolButton->setIconSet(QIconSet(loadIcon("distribute_hcentre.png"), QIconSet::Small));
-	distributeRightToolButton->setIconSet(QIconSet(loadIcon("distribute_right.png"), QIconSet::Small));
-	distributeDistHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist.png"), QIconSet::Small));
+	distributeLeftToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-left.png"), QIconSet::Small));
+	distributeCenterHToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-center.png"), QIconSet::Small));
+	distributeRightToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-right.png"), QIconSet::Small));
+	distributeDistHToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-equal.png"), QIconSet::Small));
 	
-	distributeBottomToolButton->setIconSet(QIconSet(loadIcon("distribute_bottom.png"), QIconSet::Small));
-	distributeCenterVToolButton->setIconSet(QIconSet(loadIcon("distribute_vcentre.png"), QIconSet::Small));
-	distributeTopToolButton->setIconSet(QIconSet(loadIcon("distribute_top.png"), QIconSet::Small));
-	distributeDistVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist.png"), QIconSet::Small));
+	distributeBottomToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-bottom.png"), QIconSet::Small));
+	distributeCenterVToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-center.png"), QIconSet::Small));
+	distributeTopToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-top.png"), QIconSet::Small));
+	distributeDistVToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-equal.png"), QIconSet::Small));
 	
 	distributeAcrossPageToolButton->setIconSet(QIconSet(loadIcon("distribute_acrosspage.png"), QIconSet::Small));
 	distributeDownPageToolButton->setIconSet(QIconSet(loadIcon("distribute_downpage.png"), QIconSet::Small));
