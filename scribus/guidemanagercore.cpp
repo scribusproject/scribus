@@ -347,8 +347,8 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 			target->setVerticalAutoGap(m_verticalAutoGap);
 			target->setHorizontalAutoRefer(m_horizontalAutoRefer);
 			target->setVerticalAutoRefer(m_verticalAutoRefer);
-			target->addHorizontals(horizontalStdG, Auto);
-			target->addVerticals(verticalStdG, Auto);
+			target->addHorizontals(horizontalAutoG, Auto);
+			target->addVerticals(verticalAutoG, Auto);
 			target->gx = gx;
 			target->gy = gy;
 			target->gw = gw;
