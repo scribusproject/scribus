@@ -801,10 +801,11 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			neu->PoLine = clipPath.copy();
 			neu->PoLine.map(mm);
 			clipPath.resize(0);
+			/* fix for needless large groups created by the cairo svg-export, won't work tho with complex clip paths
 			FPoint tp2(getMinClipF(&neu->PoLine));
 			FPoint tp(getMaxClipF(&neu->PoLine));
 			if ((tp2.x() < 0) && (tp2.y() < 0) && (tp.x() > neu->width()) && (tp.y() > neu->height()))
-				neu->SetRectFrame();
+				neu->SetRectFrame(); */
 		}
 		else
 			neu->SetRectFrame();
