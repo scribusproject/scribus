@@ -4052,7 +4052,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
 				polyLineItem->setRotation(currItem->rotation());
-				polyLineItem->setPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
+//				polyLineItem->setPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
 				AdjustItemSize(polyLineItem);
 
 				newItem->setLineColor(CommonStrings::None);
@@ -4082,7 +4082,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
-			newItem->setPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
+//			newItem->setPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
 			AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
@@ -4100,7 +4100,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 					emit UpdtObj(Doc->currentPage->pageNr(), b->ItemNr); */
 				//FIXME: Stop using the view here
 				AdjustItemSize(newItem);
-				newItem->updatePolyClip();
+//				newItem->updatePolyClip();
 				double dx = secondaryItem->xPos() - newItem->xPos();
 				double dy = secondaryItem->yPos() - newItem->yPos();
 				MoveItem(dx, dy, newItem);
@@ -5237,7 +5237,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 
 			if (currItem->asPathText())
 			{
-				currItem->updatePolyClip();
+//				currItem->updatePolyClip();
 				AdjustItemSize(currItem);
 			}
 //				emit refreshItem(currItem);
@@ -5289,7 +5289,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 
 			if (currItem->asPathText())
 			{
-				currItem->updatePolyClip();
+//				currItem->updatePolyClip();
 				AdjustItemSize(currItem);
 			}
 			//				emit refreshItem(currItem);
@@ -5341,7 +5341,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			
 			if (currItem->asPathText())
 			{
-				currItem->updatePolyClip();
+//				currItem->updatePolyClip();
 				AdjustItemSize(currItem);
 			}
 			//				emit refreshItem(currItem);
@@ -5394,7 +5394,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			
 			if (currItem->asPathText())
 			{
-				currItem->updatePolyClip();
+//				currItem->updatePolyClip();
 				AdjustItemSize(currItem);
 			}
 			//				emit refreshItem(currItem);
@@ -8391,6 +8391,8 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 	currItem->PoLine = Clip.copy();
 	if (currItem->asPolyLine())
 		currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+	else if (currItem->asPathText())
+		currItem->updatePolyClip();
 	else
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->Sizing = siz;
@@ -8427,7 +8429,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			currItem->PoLine.setMarker();
 			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 		}
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+//		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 		AdjustItemSize(currItem);
 		currItem->ContourLine = currItem->PoLine.copy();
 		m_View->Deselect(true);
