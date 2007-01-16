@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scimgdataloader_psd.h"
 #include "colorutil.h"
+#include "sccolorengine.h"
 
 #include <qfile.h>
 #include <qfileinfo.h>
@@ -66,7 +67,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return;
-			if( !LoadPSD(s, header) )
+			if( !LoadPSDResources(s, header, s.device()->at()) )
 				return;
 			if (m_embeddedProfile.size() > 0)
 			{
@@ -243,12 +244,41 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 			return false;
 	}
 	r_image.fill(0);
+
+	uint tmp;
+	uint cresStart;
+	uint cdataStart;
+	uint ressourceDataLen;
+	uint startRessource;
+
+	cresStart = s.device()->at();
+	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
+	s >> tmp;
+	cdataStart = s.device()->at();
+
+	LoadPSDResources(s, header, cresStart); 
+	
+	s.device()->at( cdataStart + tmp );
+	s >> ressourceDataLen;
+	startRessource = s.device()->at();
+
+	if  ((!m_imageInfoRecord.exifInfo.thumbnail.isNull()) && (header.reserved[0] == 't'))
+		return true;
+	bool ret = LoadPSDImgData(s, header, startRessource + ressourceDataLen);
+	return ret;
+}
+
+bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & header, uint dataOffset )
+{
+	// Create dst image.
+	m_imageInfoRecord.valid = false;
+
 	uint tmp;
 	uint cdataStart;
 	uint ressourceDataLen;
 	uint startRessource;
-	uint layerDataLen;
-	uint startLayers;
+
+	s.device()->at( dataOffset );
 
 	srand(314159265);
 	for (int i = 0; i < 4096; i++)
@@ -445,9 +475,14 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	startRessource = s.device()->at();
 	if (ressourceDataLen != 0)
 		parseRessourceData(s, header, ressourceDataLen);
-	if  ((!m_imageInfoRecord.exifInfo.thumbnail.isNull()) && (header.reserved[0] == 't'))
-		return true;
-	s.device()->at( startRessource + ressourceDataLen );
+	return true;
+}
+
+bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & header, uint dataOffset )
+{
+	uint layerDataLen;
+	uint startLayers;
+	s.device()->at( dataOffset );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
 	startLayers = s.device()->at();
@@ -1521,6 +1556,7 @@ bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
 
 void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 {
+	CMYKColor cmyk;
 	int c, c1, c2, c3, m, m1, m2, m3, y, y1, y2, y3, k, k1, k2, k3;
 	uchar cb = 255 - cbyte;
 	ScColor col;
@@ -1533,12 +1569,14 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (colorTableSc.count() == 2)
 	{
-		colorTableSc[0].getCMYK(&c, &m, &y, &k);
+		ScColorEngine::getCMYKValues(colorTableSc[0], NULL, cmyk);
+		cmyk.getValues(c, m, y, k);
 		c = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
 		m = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
 		y = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
 		k = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
-		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
+		ScColorEngine::getCMYKValues(colorTableSc[1], NULL, cmyk);
+		cmyk.getValues(c1, m1, y1, k1);
 		c1 = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
 		m1 = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
 		y1 = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
@@ -1551,17 +1589,20 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (colorTableSc.count() == 3)
 	{
-		colorTableSc[0].getCMYK(&c, &m, &y, &k);
+		ScColorEngine::getCMYKValues(colorTableSc[0], NULL, cmyk);
+		cmyk.getValues(c, m, y, k);
 		c = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
 		m = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
 		y = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
 		k = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
-		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
+		ScColorEngine::getCMYKValues(colorTableSc[1], NULL, cmyk);
+		cmyk.getValues(c1, m1, y1, k1);
 		c1 = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
 		m1 = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
 		y1 = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
 		k1 = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
-		colorTableSc[2].getCMYK(&c2, &m2, &y2, &k2);
+		ScColorEngine::getCMYKValues(colorTableSc[2], NULL, cmyk);
+		cmyk.getValues(c2, m2, y2, k2);
 		c2 = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
 		m2 = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
 		y2 = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
@@ -1574,22 +1615,26 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (colorTableSc.count() == 4)
 	{
-		colorTableSc[0].getCMYK(&c, &m, &y, &k);
+		ScColorEngine::getCMYKValues(colorTableSc[0], NULL, cmyk);
+		cmyk.getValues(c, m, y, k);
 		c = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
 		m = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
 		y = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
 		k = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
-		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
+		ScColorEngine::getCMYKValues(colorTableSc[1], NULL, cmyk);
+		cmyk.getValues(c1, m1, y1, k1);
 		c1 = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
 		m1 = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
 		y1 = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
 		k1 = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
-		colorTableSc[2].getCMYK(&c2, &m2, &y2, &k2);
+		ScColorEngine::getCMYKValues(colorTableSc[2], NULL, cmyk);
+		cmyk.getValues(c2, m2, y2, k2);
 		c2 = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
 		m2 = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
 		y2 = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
 		k2 = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
-		colorTableSc[3].getCMYK(&c3, &m3, &y3, &k3);
+		ScColorEngine::getCMYKValues(colorTableSc[3], NULL, cmyk);
+		cmyk.getValues(c3, m3, y3, k3);
 		c3 = QMIN((c3 * curveTable4[(int)cb]) >> 8, 255);
 		m3 = QMIN((m3 * curveTable4[(int)cb]) >> 8, 255);
 		y3 = QMIN((y3 * curveTable4[(int)cb]) >> 8, 255);

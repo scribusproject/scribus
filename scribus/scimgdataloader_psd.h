@@ -45,6 +45,8 @@ protected:
 	bool IsSupported( const PSDHeader & header );
 
 	bool LoadPSD( QDataStream & s, const PSDHeader & header);
+	bool LoadPSDResources( QDataStream & s, const PSDHeader & header, uint dataOffset );
+	bool LoadPSDImgData( QDataStream & s, const PSDHeader & header, uint dataOffset );
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	bool loadLayer( QDataStream & s, const PSDHeader & header);
