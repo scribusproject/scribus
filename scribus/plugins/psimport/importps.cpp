@@ -117,7 +117,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 //					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 //					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
-					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
 					while (!ts.atEnd())
@@ -138,7 +138,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 						FarNam = FarNam.remove(FarNam.length()-1,1);
 //						QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 //						FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
-						cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 						cc.setSpotColor(true);
 						CustColors.insert(FarNam, cc);
 					}
@@ -955,9 +955,13 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 		Code >> g;
 		Code >> b;
 		Code >> Opacity;
-		int Rc = static_cast<int>(r * 255 + 0.5);
+// Why adding 0.5 here color values range from 0 to 255 not 1 to 256 ??
+/*		int Rc = static_cast<int>(r * 255 + 0.5);
 		int Gc = static_cast<int>(g * 255 + 0.5);
-		int Bc = static_cast<int>(b * 255 + 0.5);
+		int Bc = static_cast<int>(b * 255 + 0.5); */
+		int Rc = qRound(r * 255);
+		int Gc = qRound(g * 255);
+		int Bc = qRound(b * 255);
 		int hR, hG, hB;
 		tmp.setColorRGB(Rc, Gc, Bc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
@@ -980,10 +984,14 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 		Code >> y;
 		Code >> k;
 		Code >> Opacity;
-		int Cc = static_cast<int>(c * 255 + 0.5);
+/*		int Cc = static_cast<int>(c * 255 + 0.5);
 		int Mc = static_cast<int>(m * 255 + 0.5);
 		int Yc = static_cast<int>(y * 255 + 0.5);
-		int Kc = static_cast<int>(k * 255 + 0.5);
+		int Kc = static_cast<int>(k * 255 + 0.5); */
+		int Cc = qRound(c * 255);
+		int Mc = qRound(m * 255);
+		int Yc = qRound(y * 255);
+		int Kc = qRound(k * 255);
 		int hC, hM, hY, hK;
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
