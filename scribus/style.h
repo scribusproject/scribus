@@ -18,6 +18,7 @@
 #define STYLE_H
 
 #include <cassert>
+#include <qsignal.h>
 #include <qstring.h>
 #include <qvaluelist.h>
 #include "scfonts.h"
