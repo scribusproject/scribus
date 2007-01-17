@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "pageitem.h"
+#include "text/storytext.h"
 
 class MenuManager;
 class MSpinBox;
