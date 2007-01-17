@@ -2520,7 +2520,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			for (d = c->firstInFrame(); d <= c->lastInFrame(); ++d)
 			{
 				hl = c->itemText.item(d);
-				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(32)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 					continue;
 				tsz = hl->fontSize();
 				chstr = hl->ch;
