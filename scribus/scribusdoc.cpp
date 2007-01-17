@@ -775,7 +775,7 @@ void ScribusDoc::enableCMS(bool enable)
 }
 
 
-void ScribusDoc::replaceStyles(QMap<QString,QString>& newNameForOld)
+void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {
 	// replace names in items
 	QPtrList<PageItem> * itemlist = & MasterItems;
@@ -808,7 +808,7 @@ void ScribusDoc::replaceStyles(QMap<QString,QString>& newNameForOld)
 }
 
 
-void ScribusDoc::replaceCharStyles(QMap<QString,QString>& newNameForOld)
+void ScribusDoc::replaceCharStyles(const QMap<QString,QString>& newNameForOld)
 {
 	// replace style in items
 	QPtrList<PageItem> * itemlist = & MasterItems;
