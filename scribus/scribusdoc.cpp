@@ -5210,8 +5210,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-									newStyle.displayName(), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
@@ -5227,26 +5226,22 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				if (start >= stop)
 					start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
 			}
-			for (int pos=start; pos < stop; ++pos) {
-				if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
+			for (int pos=start; pos < stop; ++pos)
+			{
+				if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
+				{
 					currItem->itemText.setStyle(pos, newStyle);
 				}
 			}
 			currItem->itemText.setStyle(stop, newStyle);
 			currItem->invalid = true;
-
-			if (currItem->asPathText())
-			{
-//				currItem->updatePolyClip();
-				AdjustItemSize(currItem);
-			}
-//				emit refreshItem(currItem);
 		}
 		else
 		{
 			currItem->itemText.setDefaultStyle(newStyle);
 		}
-		
+		if (currItem->asPathText())
+			currItem->updatePolyClip();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -5262,8 +5257,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										newStyle.displayName(), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.displayName(), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
@@ -5279,20 +5273,15 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				if (start >= stop)
 					start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
 			}
-			for (int pos=start; pos < stop; ++pos) {
-				if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
+			for (int pos=start; pos < stop; ++pos)
+			{
+				if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
+				{
 					currItem->itemText.applyStyle(pos, newStyle);
 				}
 			}
 			currItem->itemText.applyStyle(stop, newStyle);
 			currItem->invalid = true;
-
-			if (currItem->asPathText())
-			{
-//				currItem->updatePolyClip();
-				AdjustItemSize(currItem);
-			}
-			//				emit refreshItem(currItem);
 		}
 		else
 		{
@@ -5300,7 +5289,8 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 			dstyle.applyStyle(newStyle);
 			currItem->itemText.setDefaultStyle(dstyle);
 		}
-		
+		if (currItem->asPathText())
+			currItem->updatePolyClip();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -5315,8 +5305,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										newStyle.asString(), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.asString(), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
@@ -5327,31 +5316,28 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
 			if (appMode == modeEdit)
 			{
-				if (currItem->itemText.lengthOfSelection() > 0) {
+				if (currItem->itemText.lengthOfSelection() > 0)
+				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
 				}
-				else {
+				else
+				{
 					start = QMAX(currItem->firstInFrame(), currItem->CPos);
 					length = 1;
 				}
 			}
 			currItem->itemText.applyCharStyle(start, QMAX(0, length), newStyle);
 			currItem->invalid = true;
-			
-			if (currItem->asPathText())
-			{
-//				currItem->updatePolyClip();
-				AdjustItemSize(currItem);
-			}
-			//				emit refreshItem(currItem);
 		}
 		else
 		{
 			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 			dstyle.charStyle().applyCharStyle(newStyle);
 			currItem->itemText.setDefaultStyle(dstyle);
-		}				
+		}
+		if (currItem->asPathText())
+			currItem->updatePolyClip();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -5368,8 +5354,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										newStyle.asString(), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, newStyle.asString(), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
@@ -5380,24 +5365,19 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
 			if (appMode == modeEdit)
 			{
-				if (currItem->itemText.lengthOfSelection() > 0) {
+				if (currItem->itemText.lengthOfSelection() > 0)
+				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
 				}
-				else {
+				else
+				{
 					start = QMAX(currItem->firstInFrame(), currItem->CPos);
 					length = 1;
 				}
 			}
 			currItem->itemText.setCharStyle(start, length, newStyle);
 			currItem->invalid = true;
-			
-			if (currItem->asPathText())
-			{
-//				currItem->updatePolyClip();
-				AdjustItemSize(currItem);
-			}
-			//				emit refreshItem(currItem);
 		}
 		else
 		{
@@ -5405,7 +5385,8 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			dstyle.charStyle().setStyle(newStyle);
 			currItem->itemText.setDefaultStyle(dstyle);
 		}
-		
+		if (currItem->asPathText())
+			currItem->updatePolyClip();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();

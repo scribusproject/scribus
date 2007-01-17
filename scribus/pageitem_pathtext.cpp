@@ -58,6 +58,8 @@ using namespace std;
 PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::PathText, x, y, w, h, w2, fill, outline)
 {
+	firstChar = 0;
+	MaxChars = itemText.length();
 }
 
 void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)

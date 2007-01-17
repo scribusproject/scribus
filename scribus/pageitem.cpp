@@ -4025,6 +4025,8 @@ void PageItem::setPolyClip(int up)
 		return;
 	double rot;
 	int upval = up;
+	if (up == 0)
+		upval = 1;
 	if (textPathFlipped)
 		upval *= -1;
 	QPoint np, np2;
