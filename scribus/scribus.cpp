@@ -2891,7 +2891,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemConvertToTextFrame"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 
-		bool hPoly = true;
+		bool hPoly = false;
 		bool isGroup = true;
 		int firstElem = -1;
 		if (currItem->Groups.count() != 0)
@@ -2899,8 +2899,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		for (uint bx=0; bx<docSelectionCount; ++bx)
 		{
 			PageItem* bxi=doc->m_Selection->itemAt(bx);
-			if (!bxi->asPolygon())
-				hPoly = false;
+			if ((bxi->asPolygon()) || (bxi->asPolyLine()))
+				hPoly = true;
 			if (bxi->Groups.count() != 0)
 			{
 				if (bxi->Groups.top() != firstElem)
@@ -2914,9 +2914,9 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		if (docSelectionCount == 2)
 		{
 			PageItem* bx=doc->m_Selection->itemAt(1);
-			if (((currItem->itemType() == PageItem::TextFrame) || (bx->itemType() == PageItem::TextFrame)) && ((currItem->itemType() == PageItem::PolyLine) || (bx->itemType() == PageItem::PolyLine)))
+			if ((currItem->asTextFrame() && (bx->asPolygon() || bx->asPolyLine())) || (bx->asTextFrame() && (currItem->asPolygon() || currItem->asPolyLine())))
 			{
-				if ((currItem->NextBox == 0) && (currItem->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (currItem->Groups.count() == 0))
+				if ((currItem->NextBox == 0) && (currItem->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (currItem->Groups.count() == 0) && (bx->Groups.count() == 0))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
 

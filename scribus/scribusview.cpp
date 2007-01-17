@@ -11157,16 +11157,16 @@ void ScribusView::ToPathText()
 			polyLineItem=Doc->m_Selection->itemAt(0);
 			currItem=Doc->m_Selection->itemAt(1);
 		}
-		if (!polyLineItem->asPolyLine())
-			return;
-
-		Deselect(true);
-		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
-		RefreshItem(newItem);
-		SelectItem(newItem);
-		if (!Doc->isLoading())
-			emit UpdtObj(Doc->currentPageNumber(), newItem->ItemNr);
-		emit DocChanged();
+		if (polyLineItem->asPolyLine() || polyLineItem->asPolygon())
+		{
+			Deselect(true);
+			PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
+			RefreshItem(newItem);
+			SelectItem(newItem);
+			if (!Doc->isLoading())
+				emit UpdtObj(Doc->currentPageNumber(), newItem->ItemNr);
+			emit DocChanged();
+		}
 	}
 }
 
