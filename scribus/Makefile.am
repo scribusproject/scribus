@@ -244,6 +244,7 @@ scribus_SOURCES = \
 	splash.cpp	\
 	stencilreader.cpp	\
 	story.cpp	\
+	style.cpp \
 	styleitem.cpp \
 	stylemanager.cpp \
 	stylemanagerbase.ui \
@@ -493,6 +494,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/splash.h                      $(prefix)/include/scribus/splash.h
 	$(INSTALL_DATA) $(srcdir)/stencilreader.h               $(prefix)/include/scribus/stencilreader.h
 	$(INSTALL_DATA) $(srcdir)/story.h                       $(prefix)/include/scribus/story.h
+	$(INSTALL_DATA) $(srcdir)/style.h                       $(prefix)/include/scribus/style.h
 	$(INSTALL_DATA) $(srcdir)/styleselect.h                 $(prefix)/include/scribus/styleselect.h
 	$(INSTALL_DATA) $(srcdir)/tabcheckdoc.h                 $(prefix)/include/scribus/tabcheckdoc.h
 	$(INSTALL_DATA) $(srcdir)/tabdisplay.h                  $(prefix)/include/scribus/tabdisplay.h
