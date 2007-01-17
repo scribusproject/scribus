@@ -9,8 +9,6 @@
 
 template<class STYLE>
 class StyleSet : public StyleBase {
-	Q_OBJECT
-	
 public:
 	STYLE& operator[] (uint index) { 
 		assert(index < styles.count()); 
@@ -62,8 +60,6 @@ public:
 	StyleSet() : styles(), m_base(NULL), m_default(NULL) {}
 	
 	~StyleSet() { 
-		if (m_base)
-			disconnect(m_base, SIGNAL(invalidated()), this, SLOT(invalidate()));
 		clear(); 
 	}
 	
@@ -77,11 +73,10 @@ public:
 	}
 
 	void setBase(const StyleBase* base) {
-		if (m_base)
-			disconnect(m_base, SIGNAL(invalidated()), this, SLOT(invalidate()));
+		bool reallyNew = m_base != base;
 		m_base = base; 
-		if (m_base)
-			connect(m_base, SIGNAL(invalidated()), this, SLOT(invalidate()));
+		if (reallyNew)
+			invalidate();
 	}
 	
 	const StyleBase* base() const { 

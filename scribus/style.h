@@ -34,18 +34,17 @@ class Style;
   invalidate() to increase the version info. Styles using this StyleBase will then
   update their cached values the next time they are used.
 */
-class StyleBase : public QObject {
-	Q_OBJECT
+class StyleBase {
 	
 public:
 	StyleBase() 
-		: m_version(0) 
+		: m_version(0), m_sig()
 	{
 //		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 		
 	StyleBase(const StyleBase& o) 
-		: m_version(o.m_version)
+		: m_version(o.m_version), m_sig()
 	{
 //		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
@@ -68,14 +67,15 @@ public:
 //		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
 	}
 
-public slots:
-		void invalidate(); 
-	
-signals:
-	void invalidated();
+	void invalidate(); 
 
+	bool connect(const QObject* receiver, const char *member );
+	bool disconnect(const QObject* receiver, const char *member=0 );
+	
+	
 protected:
 	int m_version;
+	QSignal m_sig;
 };
 
 
@@ -220,8 +220,6 @@ public:
  */
 class StyleBaseProxy: public StyleBase 
 {
-	Q_OBJECT
-	
 public:
 	const Style* resolve(const QString& name) const {
 		const StyleBase* base = m_default->base();
@@ -253,6 +251,7 @@ public:
 	void setDefaultStyle(const Style* def) { 
 		assert(def);
 		m_default = def; 
+		invalidate();
 	}
 		
 	bool checkConsistency() const 

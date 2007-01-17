@@ -202,7 +202,6 @@ smtextstylewidgets.h
 smwidgets.h
 spalette.h
 story.h
-style.h
 styleitem.h
 stylemanager.h
 styleselect.h

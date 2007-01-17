@@ -19,5 +19,16 @@
 StyleBase::invalidate()
 { 
 	++m_version; 
-	emit invalidated(); 
+	m_sig.activate(); 
 }
+
+bool StyleBase::connect(const QObject* receiver, const char *member )
+{
+	return m_sig.connect(receiver, member);
+}
+
+bool StyleBase::disconnect(const QObject* receiver, const char *member )
+{
+	return m_sig.disconnect(receiver, member);
+}
+
