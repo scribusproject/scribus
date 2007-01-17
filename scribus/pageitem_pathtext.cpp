@@ -88,6 +88,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	QString cachedFill = "";
 	int cachedFillShade = -1;
 	int cachedStrokeShade = -1;
+	QString actStroke = "";
+	QString actFill = "";
+	int actFillShade = -1;
+	int actStrokeShade = -1;
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
 	if (!m_Doc->layerOutline(LayerNr))
@@ -219,88 +223,41 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		p->setWorldMatrix(trafo);
 		if (!m_Doc->RePos)
 		{
-			if (itemText.charStyle(a).fillColor() != CommonStrings::None)
+			actFill = itemText.charStyle(a).fillColor();
+			actFillShade = itemText.charStyle(a).fillShade();
+			if (actFill != CommonStrings::None)
 			{
-				if ((cachedFill == itemText.charStyle(a).fillColor()) && (cachedFillShade == itemText.charStyle(a).fillShade()))
-					p->setBrush(cachedFillQ);
-				else
+				if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
 				{
-					SetFarbe(&tmp, itemText.charStyle(a).fillColor(), itemText.charStyle(a).fillShade());
+					SetFarbe(&tmp, actFill, actFillShade);
 					p->setBrush(tmp);
 					cachedFillQ = tmp;
-					cachedFill = itemText.charStyle(a).fillColor();
-					cachedFillShade = itemText.charStyle(a).fillShade();
+					cachedFill = actFill;
+					cachedFillShade = actFillShade;
 				}
-			}
-			if (itemText.charStyle(a).strokeColor() != CommonStrings::None)
-			{
-				if ((cachedStroke == itemText.charStyle(a).strokeColor()) && (cachedStrokeShade == itemText.charStyle(a).strokeShade()))
-					p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
 				else
+					p->setBrush(cachedFillQ);
+			}
+			actStroke = itemText.charStyle(a).strokeColor();
+			actStrokeShade = itemText.charStyle(a).strokeShade();
+			if (actStroke != CommonStrings::None)
+			{
+				if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
 				{
-					SetFarbe(&tmp, itemText.charStyle(a).strokeColor(), itemText.charStyle(a).strokeShade());
+					SetFarbe(&tmp, actStroke, actStrokeShade);
 					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					cachedStrokeQ = tmp;
-					cachedStroke = itemText.charStyle(a).strokeColor();
-					cachedStrokeShade = itemText.charStyle(a).strokeShade();
+					cachedStroke = actStroke;
+					cachedStrokeShade = actStrokeShade;
 				}
+				else
+					p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
 			}
-/*			if (itemText.charStyle(a).fillColor() != CommonStrings::None)
-			{
-				SetFarbe(&tmp, itemText.charStyle(a).fillColor(), itemText.charStyle(a).fillShade());
-				p->setBrush(tmp);
-			}
-			if (itemText.charStyle(a).strokeColor() != CommonStrings::None)
-			{
-				SetFarbe(&tmp, itemText.charStyle(a).strokeColor(), itemText.charStyle(a).strokeShade());
-				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-			} */
 			drawGlyphs(p, itemText.charStyle(a), hl->glyph);
 		}
 		hl->glyph.xoffset = point.x();
 		hl->glyph.yoffset = point.y();
-/*		Zli = new ZZ;
-		Zli->Zeich = chstr;
-		if (hl->fillColor() != CommonStrings::None)
-		{
-			QColor tmp;
-			SetFarbe(&tmp, hl->fillColor(), hl->fillShade());
-			p->setBrush(tmp);
-		}
-		if (hl->strokeColor() != CommonStrings::None)
-		{
-			QColor tmp;
-			SetFarbe(&tmp, hl->strokeColor(), hl->strokeShade());
-			p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-		}
-		Zli->Farb = hl->fillColor();
-		Zli->Farb2 = hl->strokeColor();
-		Zli->shade = hl->fillShade();
-		Zli->shade2 = hl->strokeShade();
-		Zli->xco = 0;
-		Zli->yco = BaseOffs;
-		Zli->Sele = itemText.selected(a);
-		Zli->Siz = chs;
-		Zli->realSiz = hl->fontSize();
-		Zli->Style = hl->effects();
-		Zli->ZFo = hl->font();
-		Zli->wide = wide;
-		Zli->kern = hl->fontSize() * hl->tracking() / 10000.0;
-		Zli->scale = hl->scaleH();
-		Zli->scalev = hl->scaleV();
-		Zli->base = hl->baselineOffset();
-		Zli->shadowX = hl->shadowXOffset();
-		Zli->shadowY = hl->shadowYOffset();
-		Zli->outline = hl->outlineWidth();
-		Zli->underpos = hl->underlineOffset();
-		Zli->underwidth = hl->underlineWidth();
-		Zli->strikepos = hl->strikethruOffset();
-		Zli->strikewidth = hl->strikethruWidth();
-		Zli->embedded = 0;
-		if (!m_Doc->RePos)
-			DrawZeichenS(p, Zli); // FIXME: drawGlyphs
-		delete Zli;
-*/		p->setWorldMatrix(savWM);
+		p->setWorldMatrix(savWM);
 		p->restore();
 #ifndef HAVE_CAIRO
 		p->setZoomFactor(sc);
@@ -309,7 +266,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		oCurX = CurX;
 		CurX -= dx;
 		CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
-//		CurX += wide+hl->fontSize() * hl->tracking() / 10000.0;
 		first = false;
 	}
 #endif

@@ -1849,6 +1849,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	QString cachedFill = "";
 	int cachedFillShade = -1;
 	int cachedStrokeShade = -1;
+	QString actStroke = "";
+	QString actFill = "";
+	int actFillShade = -1;
+	int actStrokeShade = -1;
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
@@ -1931,18 +1935,20 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				chstr = hl->ch;
 				if (hl->glyph.glyph == 0)
 					continue;
-				if (charStyle.fillColor() != CommonStrings::None)
+				actFill = charStyle.fillColor();
+				actFillShade = charStyle.fillShade();
+				if (actFill != CommonStrings::None)
 				{
-					if ((cachedFill == charStyle.fillColor()) && (cachedFillShade == charStyle.fillShade()))
-						p->setBrush(cachedFillQ);
-					else
+					if ((cachedFillShade != actFillShade) || (cachedFill != actFill))
 					{
-						SetFarbe(&tmp, charStyle.fillColor(), charStyle.fillShade());
+						SetFarbe(&tmp, actFill, actFillShade);
 						p->setBrush(tmp);
 						cachedFillQ = tmp;
-						cachedFill = charStyle.fillColor();
-						cachedFillShade = charStyle.fillShade();
+						cachedFill = actFill;
+						cachedFillShade = actFillShade;
 					}
+					else
+						p->setBrush(cachedFillQ);
 				}
 				if (charStyle.effects() & ScStyle_DropCap)
 				{
@@ -2014,18 +2020,20 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
 						//							p->setBrush(white);
 					}
-					if (charStyle.strokeColor() != CommonStrings::None)
+					actStroke = charStyle.strokeColor();
+					actStrokeShade = charStyle.strokeShade();
+					if (actStroke != CommonStrings::None)
 					{
-						if ((cachedStroke == charStyle.strokeColor()) && (cachedStrokeShade == charStyle.strokeShade()))
-							p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
-						else
+						if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
 						{
-							SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
+							SetFarbe(&tmp, actStroke, actStrokeShade);
 							p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 							cachedStrokeQ = tmp;
-							cachedStroke = charStyle.strokeColor();
-							cachedStrokeShade = charStyle.strokeShade();
+							cachedStroke = actStroke;
+							cachedStrokeShade = actStrokeShade;
 						}
+						else
+							p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
 					}
 					// paint glyphs
 					if (e2.intersects(pf2.xForm(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
