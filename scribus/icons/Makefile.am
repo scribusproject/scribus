@@ -31,6 +31,7 @@ ellipsis.png \
 16/color-stroke.png \
 22/combobox.png \
 22/color-picker.png \
+16/distribute-horizontal-center.png \
 16/distribute-horizontal-equal.png \
 16/distribute-horizontal-left.png \
 16/distribute-horizontal-right.png \
@@ -240,7 +241,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/align-vertical-top-out.png     $(prefix)/share/scribus/icons/16/align-vertical-top-out.png
 	$(INSTALL_DATA) $(srcdir)/16/align-vertical-top.png         $(prefix)/share/scribus/icons/16/align-vertical-top.png
 	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-center.png    $(prefix)/share/scribus/icons/22/align-horizontal-center.png
-	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-left-out.png $(prefix)/share/scribus/icons/22/align-horizontal-left-out.png
+	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-left-out.png  $(prefix)/share/scribus/icons/22/align-horizontal-left-out.png
 	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-left.png      $(prefix)/share/scribus/icons/22/align-horizontal-left.png
 	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-right-out.png $(prefix)/share/scribus/icons/22/align-horizontal-right-out.png
 	$(INSTALL_DATA) $(srcdir)/22/align-horizontal-right.png     $(prefix)/share/scribus/icons/22/align-horizontal-right.png
@@ -310,6 +311,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/DelPoint.png $(prefix)/share/scribus/icons/DelPoint.png
 	$(INSTALL_DATA) $(srcdir)/dist.png $(prefix)/share/scribus/icons/dist.png
 	$(INSTALL_DATA) $(srcdir)/dist22.png $(prefix)/share/scribus/icons/dist22.png
+	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-center.png  $(prefix)/share/scribus/icons/16/distribute-horizontal-center.png
 	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-equal.png   $(prefix)/share/scribus/icons/16/distribute-horizontal-equal.png
 	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-left.png    $(prefix)/share/scribus/icons/16/distribute-horizontal-left.png
 	$(INSTALL_DATA) $(srcdir)/16/distribute-horizontal-right.png   $(prefix)/share/scribus/icons/16/distribute-horizontal-right.png
@@ -764,6 +766,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/DelPoint.png
 	-rm -f $(prefix)/share/scribus/icons/dist.png
 	-rm -f $(prefix)/share/scribus/icons/dist22.png
+	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-center.png
 	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-equal.png
 	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-left.png
 	-rm -f $(prefix)/share/scribus/icons/16/distribute-horizontal-right.png

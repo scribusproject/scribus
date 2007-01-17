@@ -340,6 +340,7 @@ INSTALL(FILES
 16/close.png
 16/color-fill.png
 16/color-stroke.png
+16/distribute-horizontal-center.png
 16/distribute-horizontal-equal.png
 16/distribute-horizontal-left.png
 16/distribute-horizontal-right.png
