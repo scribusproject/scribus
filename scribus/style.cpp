@@ -16,7 +16,7 @@
 
 #include "style.h"
 
-StyleBase::invalidate()
+void StyleBase::invalidate()
 { 
 	++m_version; 
 	m_sig.activate(); 
