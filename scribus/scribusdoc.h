@@ -384,13 +384,16 @@ public:
 	
 	const ParagraphStyle& paragraphStyle(QString name) { return docParagraphStyles[name]; }
 	const StyleSet<ParagraphStyle>& paragraphStyles()   { return docParagraphStyles; }
+	bool isDefaultStyle( const ParagraphStyle& p ) const { return docParagraphStyles.isDefault(p); }
+	bool isDefaultStyle( const CharStyle& c ) const { return docCharStyles.isDefault(c); }
+// 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
 	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
 	 *        called when a style was removed. New name may be "".
 	 * @param newNameForOld a map which maps the name of any style to remove to a new stylename
 	 */
-	void replaceStyles(QMap<QString,QString> newNameForOld);
+	void replaceStyles(const QMap<QString,QString>& newNameForOld);
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 
 	const CharStyle& charStyle(QString name) { return docCharStyles[name]; }
@@ -401,7 +404,7 @@ public:
 	 *        called when a style was removed. New name may be "".
 	 * @param newNameForOld a map which maps the name of any style to remove to a new stylename
 	 */
-	void replaceCharStyles(QMap<QString,QString> newNameForOld);
+	void replaceCharStyles(const QMap<QString,QString>& newNameForOld);
 
 	/**
 	 * @brief Should guides be locked or not
