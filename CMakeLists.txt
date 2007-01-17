@@ -96,7 +96,7 @@ SET(MIMEDIR "share/mime/packages/")
 
 #BUILD SETUP
 #None, Debug, Release, .. or custom ones
-SET(WANT_DEBUG 1)
+# SET(WANT_DEBUG 1)
 IF(WANT_DEBUG)
   SET(CMAKE_BUILD_TYPE Debug)
 ELSE(WANT_DEBUG)
