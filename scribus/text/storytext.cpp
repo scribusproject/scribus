@@ -37,7 +37,7 @@ public:
 	ParagraphStyle trailingStyle;
 	ScText_Shared(const StyleBase* pstyles) : QPtrList<ScText>(), 
 		defaultStyle(), 
-		pstyleBase(StyleBase::STORY_LEVEL, NULL),
+		pstyleBase(NULL),
 		refs(1), len(0), trailingStyle()
 	{
 		pstyleBase.setDefaultStyle( & defaultStyle );

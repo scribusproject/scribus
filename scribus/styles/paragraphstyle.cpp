@@ -18,7 +18,7 @@
 
 #include "style.h"
 
-ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle()
+ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(NULL), cstyle()
 {
 	setBase(NULL);
 	cstyle.setBase(NULL);
@@ -33,7 +33,7 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NUL
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(NULL), cstyle(other.charStyle())
 {
 	setBase(NULL);
 	cstyle.setBase(NULL);
@@ -63,41 +63,6 @@ QString ParagraphStyle::displayName() const
 		return (parentStyle())->displayName() + "+";
 }
 
-namespace {
-bool sametabs(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueList<ParagraphStyle::TabRecord>& other)
-{
-	ParagraphStyle::TabRecord tb;
-	bool tabEQ = false;
-	if ((other.count() == 0) && (tabs.count() == 0))
-		tabEQ = true;
-	else
-	{
-		for (uint t1 = 0; t1 < other.count(); t1++)
-		{
-			tb.tabPosition = other[t1].tabPosition;
-			tb.tabType = other[t1].tabType;
-			tb.tabFillChar = other[t1].tabFillChar;
-			tabEQ = false;
-			for (uint t2 = 0; t2 < tabs.count(); t2++)
-			{
-				ParagraphStyle::TabRecord tb2;
-				tb2.tabPosition = tabs[t2].tabPosition;
-				tb2.tabType = tabs[t2].tabType;
-				tb2.tabFillChar = tabs[t2].tabFillChar;
-				if ((tb2.tabFillChar == tb.tabFillChar) && (tb2.tabPosition == tb.tabPosition) && (tb2.tabType == tb.tabType))
-				{
-					tabEQ = true;
-					break;
-				}
-			}
-			if (!tabEQ)
-				break;
-		}
-	}
-	return tabEQ;
-}
-
-} // namespace
 
 bool ParagraphStyle::equiv(const Style& other) const
 {

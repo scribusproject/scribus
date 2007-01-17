@@ -9,6 +9,8 @@
 
 template<class STYLE>
 class StyleSet : public StyleBase {
+	Q_OBJECT
+	
 public:
 	STYLE& operator[] (uint index) { 
 		assert(index < styles.count()); 
@@ -35,7 +37,6 @@ public:
 	STYLE* append(STYLE* style) { 
 		styles.append(style); 
 		style->setBase(this); 
-		invalidate(); 
 		return style; 
 	}
 	
@@ -50,28 +51,37 @@ public:
 	void makeDefault(STYLE* def) { 
 		m_default = def; 
 		if(def) 
-			def->setBase(this); 
+			def->setBase(this);
+		invalidate();
 	}
 	
 	bool isDefault(const STYLE& style) const {
 		return &style == m_default;
 	}
 	
-	StyleSet() : styles(), m_base(NULL), m_baseversion(-1), m_default(NULL) {}
+	StyleSet() : styles(), m_base(NULL), m_default(NULL) {}
 	
-	~StyleSet() { clear(); }
+	~StyleSet() { 
+		if (m_base)
+			disconnect(m_base, SIGNAL(invalidated()), this, SLOT(invalidate()));
+		clear(); 
+	}
 	
 	void clear() { 
 		while(styles.count()>0) 
 		{ 
 			delete styles.front(); 
 			styles.pop_front(); 
-		} 
+		}
+		invalidate();
 	}
 
-	void setBase(const StyleBase* base) { 
+	void setBase(const StyleBase* base) {
+		if (m_base)
+			disconnect(m_base, SIGNAL(invalidated()), this, SLOT(invalidate()));
 		m_base = base; 
-		m_baseversion = -1;
+		if (m_base)
+			connect(m_base, SIGNAL(invalidated()), this, SLOT(invalidate()));
 	}
 	
 	const StyleBase* base() const { 
@@ -84,7 +94,6 @@ private:
 
 	QValueList<STYLE*> styles;
 	const StyleBase* m_base;
-	int m_baseversion;
 	STYLE* m_default;
 };
 
@@ -97,7 +106,6 @@ inline void StyleSet<STYLE>::remove(uint index)
 		return;
 	delete (*it);
 	styles.erase(it);
-	invalidate();
 }
 
 template<class STYLE>

@@ -1,6 +1,7 @@
 #ifndef STORYTEXT_H_
 #define STORYTEXT_H_
 
+#include <qobject.h>
 #include <qstring.h>
 #include <qvaluevector.h>
 #include <qptrvector.h>
@@ -74,7 +75,9 @@ struct LineSpec
  * offsets to its basepoint. Other information in the ScriptItem is only
  * used by the layouter.
  */
- class SCRIBUS_API StoryText {
+class SCRIBUS_API StoryText : public QObject {
+	Q_OBJECT
+	
  public:
  	StoryText(ScribusDoc * doc);
  	StoryText();
@@ -164,12 +167,14 @@ struct LineSpec
  	void invalidateObject(const PageItem* embedded);
  	/// call this if the shape of the paragraph changes (redos layout)
  	void invalidateLayout();
- 	/// call this if some logical style changes (redos shaping and layout)
+
+public slots:
+	/// call this if some logical style changes (redos shaping and layout)
  	void invalidateAll();
 
 
 
-
+public:
 // physical view
 
 	bool overflows() const;

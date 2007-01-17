@@ -34,20 +34,18 @@ class Style;
   invalidate() to increase the version info. Styles using this StyleBase will then
   update their cached values the next time they are used.
 */
-class StyleBase {
+class StyleBase : public QObject {
+	Q_OBJECT
+	
 public:
-	static const int DOC_LEVEL = 1;
-	static const int STORY_LEVEL = 1024;
-	static const int PAR_LEVEL = 1024 * 1024;
-
-	StyleBase(int level = DOC_LEVEL) 
-		: m_version(0), m_level(level) 
+	StyleBase() 
+		: m_version(0) 
 	{
 //		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 		
 	StyleBase(const StyleBase& o) 
-		: m_version(o.m_version), m_level(o.m_level)
+		: m_version(o.m_version)
 	{
 //		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
@@ -56,14 +54,12 @@ public:
 	StyleBase& operator= (const StyleBase& o)
 	{
 		m_version = o.m_version;
-		m_level = o.m_level;
 		return *this;
 	}
 	
 	
-	virtual int version() const  { return m_version; }
-	void invalidate()    { m_version += m_level; }
-
+	int version() const  { return m_version; }
+	
 	virtual bool baseContained(const StyleBase* base) const { return base == this; }
 	virtual bool checkConsistency() const { return true; }
 	virtual const Style* resolve(const QString& name) const = 0;
@@ -71,11 +67,15 @@ public:
 	{
 //		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
 	}
+
+public slots:
+		void invalidate(); 
 	
+signals:
+	void invalidated();
 
 protected:
 	int m_version;
-	int m_level;
 };
 
 
@@ -220,6 +220,8 @@ public:
  */
 class StyleBaseProxy: public StyleBase 
 {
+	Q_OBJECT
+	
 public:
 	const Style* resolve(const QString& name) const {
 		const StyleBase* base = m_default->base();
@@ -231,12 +233,12 @@ public:
 			return base->resolve(name);
 	}
 	
-	StyleBaseProxy(int level, const Style* style) 
-	: StyleBase(level), m_default(style), m_debugcnt(0) {
+	StyleBaseProxy(const Style* style) 
+	: StyleBase(), m_default(style) {
 	}
 	
 	StyleBaseProxy(const StyleBaseProxy& other)
-	: StyleBase(other), m_default(other.m_default), m_debugcnt(0) {
+	: StyleBase(other), m_default(other.m_default) {
 	}
 	
 	StyleBaseProxy& operator= (const StyleBaseProxy& other)
@@ -246,22 +248,13 @@ public:
 		return *this;
 	}
 	
-	int version() const  { 
-		++m_debugcnt;
-		const StyleBase* base = m_default->base();
-		assert (m_debugcnt < 50);
-		int result = (base && base != this) ? m_version ^ base->version() : m_version; 
-		--m_debugcnt;
-		return result;
-	}
-		
 	const Style* defaultStyle() const { return m_default; }
 	
 	void setDefaultStyle(const Style* def) { 
 		assert(def);
 		m_default = def; 
 	}
-	
+		
 	bool checkConsistency() const 
 	{ 
 		const StyleBase* base = m_default->base();
@@ -277,7 +270,6 @@ public:
 	
 private:
 	const Style* m_default;
-	mutable int m_debugcnt;
 };
 
 
