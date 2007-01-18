@@ -2285,6 +2285,10 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	pstyle.charStyle().setUnderlineWidth(qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10));
 	pstyle.charStyle().setStrikethruOffset(qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10));
 	pstyle.charStyle().setStrikethruWidth(qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10));
+	if (obj->hasAttribute("EXTRAV"))
+		pstyle.charStyle().setTracking(qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 10000.0));
+	else 
+		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
 	pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()));
 	tmp = "";
 	QValueList<ParagraphStyle::TabRecord> tbValues;
