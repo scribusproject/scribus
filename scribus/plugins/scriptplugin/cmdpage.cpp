@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "page.h"
 #include "scribuscore.h"
+#include "commonstrings.h"
+
 
 PyObject *scribus_actualpage(PyObject* /* self */)
 {
@@ -97,27 +99,48 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 {
 	int e;
-	char *name = const_cast<char*>("Normal");
+	char *name = const_cast<char*>("");
+	QString qName(CommonStrings::trMasterPageNormal);
 	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(name))
+
+	int loc = (e > -1) ? e : ScCore->primaryMainWindow()->doc->Pages->count();
+	if (ScCore->primaryMainWindow()->doc->pageSets[ScCore->primaryMainWindow()->doc->currentPageLayout].Columns != 1)
+	{
+		switch (ScCore->primaryMainWindow()->doc->locationOfPage(loc))
+		{
+			case LeftPage:
+				qName = CommonStrings::trMasterPageNormalLeft;
+				break;
+			case RightPage:
+				qName = CommonStrings::trMasterPageNormalRight;
+				break;
+			case MiddlePage:
+				qName = CommonStrings::trMasterPageNormalMiddle;
+				break;
+		}
+	}
+	if (QString(name).length() != 0)
+		qName = QString::fromUtf8(name);
+
+	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(qName))
 	{
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error"));
 		return NULL;
 	}
 	if (e < 0)
-		ScCore->primaryMainWindow()->slotNewPageP(ScCore->primaryMainWindow()->doc->Pages->count(), QString::fromUtf8(name));
+		ScCore->primaryMainWindow()->slotNewPageP(loc, qName);
 	else
 	{
 		e--;
-		if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+		if ((e < 0) || (e > static_cast<int>(loc - 1)))
 		{
 			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
 			return NULL;
 		}
-		ScCore->primaryMainWindow()->slotNewPageP(e, QString::fromUtf8(name));
+		ScCore->primaryMainWindow()->slotNewPageP(e, qName);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
