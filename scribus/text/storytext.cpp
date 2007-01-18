@@ -161,7 +161,7 @@ public:
 };
 
 
-StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
+StoryText::StoryText(ScribusDoc * doc_) : QObject(), doc(doc_)
 {
 	if (doc_) {
 		d = new ScText_Shared(&doc_->paragraphStyles());
@@ -181,7 +181,7 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 	invalidateAll();
 }
 
-StoryText::StoryText() : doc(NULL)
+StoryText::StoryText() : QObject(), doc(NULL)
 {
 	d = new ScText_Shared(NULL);
 
@@ -194,7 +194,7 @@ StoryText::StoryText() : doc(NULL)
 	m_lastMagicPos = -1;
 }
 
-StoryText::StoryText(const StoryText & other) : doc(other.doc)
+StoryText::StoryText(const StoryText & other) : QObject(), doc(other.doc)
 {
 	d = other.d;
 	d->refs++;
