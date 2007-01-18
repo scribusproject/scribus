@@ -1696,6 +1696,9 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		Editor->clear();
 		setCaption( tr( "Story Editor" ));
 	}
+	QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
+	if (!data.isNull())
+		seActions["editPaste"]->setEnabled(true);
 }
 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
@@ -2407,7 +2410,7 @@ void StoryEditor::CopyAvail(bool u)
 	seActions["editCopy"]->setEnabled(u);
 	seActions["editCut"]->setEnabled(u);
 	seActions["editClear"]->setEnabled(u);
-	seActions["editCopy"]->setEnabled(Editor->tBuffer.length() != 0);
+//	seActions["editCopy"]->setEnabled(Editor->tBuffer.length() != 0);
 }
 
 void StoryEditor::PasteAvail()
@@ -2767,7 +2770,7 @@ void StoryEditor::modifiedText()
 	firstSet = true;
 	seActions["fileRevert"]->setEnabled(true);
 	seActions["editUpdateFrame"]->setEnabled(true);
-	seActions["editPaste"]->setEnabled(Editor->tBuffer.length() != 0);
+//	seActions["editPaste"]->setEnabled(Editor->tBuffer.length() != 0);
 	updateStatus();
 }
 
