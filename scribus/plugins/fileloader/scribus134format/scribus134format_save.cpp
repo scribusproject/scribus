@@ -392,7 +392,7 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 {
 	fo.setAttribute("NAME", style.name());
 	const Style * parent = style.parentStyle();
-	if ( ! style.parent().isEmpty())
+/*	if ( ! style.parent().isEmpty())
 	{
 		fo.setAttribute("PARENT", style.parent());
 		if ( ! style.isInhAlignment())
@@ -459,8 +459,8 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 			tabs.setAttribute("Fill", tabCh);
 			fo.appendChild(tabs);
 		}
-	}
-/*	if ( ! style.parent().isEmpty())
+	}*/
+	if ( ! style.parent().isEmpty())
 		fo.setAttribute("PARENT", style.parent());
 	
 	if ( ! style.isInhAlignment())
@@ -501,7 +501,7 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 			tabs.setAttribute("Fill", tabCh);
 			fo.appendChild(tabs);
 		}
-	} */
+	}
 	fo.setAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
 	
 	putCStyle(docu, fo, style.charStyle());
@@ -525,7 +525,7 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 {
 	fo.setAttribute("CNAME", style.name());
 	const Style * parent = style.parentStyle();
-	if ( ! style.parent().isEmpty() )
+/*	if ( ! style.parent().isEmpty() )
 	{
 		fo.setAttribute("CPARENT", style.parent());
 		if ( ! style.isInhFont())	
@@ -586,7 +586,8 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 		fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
 		fo.setAttribute("KERN", style.tracking() / 10.0);
 	}
-/*	if ( ! style.parent().isEmpty() )
+*/
+	if ( ! style.parent().isEmpty() )
 		fo.setAttribute("CPARENT", style.parent());
 	if ( ! style.isInhFont())	
 		fo.setAttribute("FONT", style.font().scName());
@@ -623,7 +624,7 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 	if ( ! style.isInhBaselineOffset())
 		fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
 	if ( ! style.isInhTracking())
-		fo.setAttribute("KERN", style.tracking() / 10.0); */
+		fo.setAttribute("KERN", style.tracking() / 10.0); 
 	fo.setAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }
 
@@ -1099,10 +1100,12 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		ob.appendChild(it);
 	}
 	// paragraphstyle for trailing chars
-	QDomElement par = docu->createElement("para");
-	putPStyle(*docu, par, item->itemText.paragraphStyle(item->itemText.length()));
-	ob.appendChild(par);
-	
+	if (item->itemText.length() == 0 || item->itemText.text(item->itemText.length()-1) == SpecialChars::PARSEP)
+	{
+		QDomElement par = docu->createElement("para");
+		putPStyle(*docu, par, item->itemText.paragraphStyle(item->itemText.length()));
+		ob.appendChild(par);
+	}
 }
 
 void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items)
@@ -1300,7 +1303,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("TXTULW",item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
 	ob->setAttribute("TXTSTP",item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
 	ob->setAttribute("TXTSTW",item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
-	ob->setAttribute("TXTSTYLE",item->itemText.defaultStyle().charStyle().effects());
+	ob->setAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking() / 10.0);
 	ob->setAttribute("COLUMNS", item->columns());
 	ob->setAttribute("COLGAP", item->columnGap());
 	ob->setAttribute("NAMEDLST",item->NamedLStyle);
@@ -1313,7 +1316,6 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("PLINEJOIN", item->PLineJoin);
 	ob->setAttribute("LINESP",item->itemText.defaultStyle().lineSpacing());
 	ob->setAttribute("LINESPMode", item->itemText.defaultStyle().lineSpacingMode());
-	ob->setAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking());
 	ob->setAttribute("LOCALSCX",item->imageXScale());
 	ob->setAttribute("LOCALSCY",item->imageYScale());
 	ob->setAttribute("LOCALX",item->imageXOffset());

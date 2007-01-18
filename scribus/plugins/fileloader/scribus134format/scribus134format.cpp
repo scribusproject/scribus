@@ -1661,45 +1661,8 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 	if (it->hasAttribute("CPARENT"))
 		newStyle.setParent(it->attribute("CPARENT"));
 	
-	QString tmpf = it->attribute("FONT", doc->toolSettings.defFont);
-	PrefsManager* prefsManager=PrefsManager::instance();
-	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
-	{
-		/*		bool isThere = false;
-		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
-	{
-			if ((*dummyScFaces.at(dl)).scName() == tmpf)
-			{
-				isThere = true;
-				dummy = *dummyScFaces.at(dl);
-				break;
-			}
-	}
-		if (!isThere)
-	{
-			//			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
-			dummyScFaces.append(dummy);
-	}
-		*/
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-		{
-			newReplacement = true;
-			ScFace dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
-			prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-		}
-		else
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-	}
-	else
-	{
-		if (!doc->UsedFonts.contains(tmpf))
-		{
-			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
-		}
-	}
-	if (! tmpf.isEmpty() )
-		newStyle.setFont((*doc->AllFonts)[tmpf]);
+	if (it->hasAttribute("FONT"))
+		newStyle.setFont(findFont(doc,it->attribute("FONT")));
 	
 	if (it->hasAttribute("FONTSIZE"))
 		newStyle.setFontSize(qRound(it->attribute("FONTSIZE").toDouble() * 10));
@@ -1780,47 +1743,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	// more legacy stuff:
 	
 	if (it->hasAttribute("CFONT"))
-	{
-		tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-		PrefsManager* prefsManager=PrefsManager::instance();
-		if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
-		{
-			/*		bool isThere = false;
-			for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
-		{
-				if ((*dummyScFaces.at(dl)).scName() == tmpf)
-				{
-					isThere = true;
-					dummy = *dummyScFaces.at(dl);
-					break;
-				}
-		}
-			if (!isThere)
-		{
-				//			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
-				dummyScFaces.append(dummy);
-		}
-			*/
-			if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-			{
-				newReplacement = true;
-				ScFace dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
-				prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
-				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-			}
-			else
-				ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-		}
-		else
-		{
-			if (!doc->UsedFonts.contains(tmpf))
-			{
-				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
-			}
-		}
-		if (! tmpf.isEmpty() )
-			newStyle.setFont((*doc->AllFonts)[tmpf]);
-	}
+		newStyle.setFont(findFont(doc, it->attribute("CFONT")));
 	
 	if (it->hasAttribute("CSIZE"))
 		newStyle.setFontSize(qRound(it->attribute("CSIZE").toDouble() * 10));
@@ -2004,7 +1927,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	else
 	{
 		QValueList<ParagraphStyle::TabRecord> tbs;
-		vg.setTabValues(tbs);
+		vg.resetTabValues();
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
@@ -2031,6 +1954,31 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	GetCStyle( &pg, doc, vg.charStyle());
 	
 	fixLegacyParStyle(vg);
+}
+
+const ScFace& Scribus134Format::findFont(ScribusDoc *doc, const QString& fontname)
+{
+	if (fontname.isEmpty())
+		return ScFace::none();
+	
+	PrefsManager* prefsManager=PrefsManager::instance();
+	if (!(*m_AvailableFonts).contains(fontname) || !(*m_AvailableFonts)[fontname].usable())
+	{
+		if ((!prefsManager->appPrefs.GFontSub.contains(fontname)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[fontname]].usable()))
+		{
+			newReplacement = true;
+			ReplacedFonts.insert(fontname, doc->toolSettings.defFont);
+		}
+		else
+			ReplacedFonts.insert(fontname, prefsManager->appPrefs.GFontSub[fontname]);
+		ScFace dummy = (*m_AvailableFonts)[ReplacedFonts[fontname]].mkReplacementFor(fontname, doc->DocName);
+		(*m_AvailableFonts).insert(fontname, dummy);
+	}
+	else if ( !doc->UsedFonts.contains(fontname) )
+	{
+		doc->AddFont(fontname, qRound(doc->toolSettings.defSize / 10.0));
+	}
+	return (*m_AvailableFonts)[fontname];
 }
 
 
@@ -2221,25 +2169,48 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->setFillShade(obj->attribute("SHADE").toInt());
 	currItem->setLineShade(obj->attribute("SHADE2").toInt());
 	ParagraphStyle pstyle;
-	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
-	pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
-	pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(obj->attribute("ALIGN", "0").toInt()));
-	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
-	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
-	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
-	pstyle.charStyle().setStrokeShade(obj->attribute("TXTSTRSH", "100").toInt());
-	pstyle.charStyle().setFillShade(obj->attribute("TXTFILLSH", "100").toInt());
-	pstyle.charStyle().setScaleH(qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10));
-	pstyle.charStyle().setScaleV(qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10));
-	pstyle.charStyle().setBaselineOffset(qRound(obj->attribute("TXTBASE", "0").toDouble() * 10));
-	pstyle.charStyle().setShadowXOffset(qRound(obj->attribute("TXTSHX", "5").toDouble() * 10));
-	pstyle.charStyle().setShadowYOffset(qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10));
-	pstyle.charStyle().setOutlineWidth(qRound(obj->attribute("TXTOUT", "1").toDouble() * 10));
-	pstyle.charStyle().setUnderlineOffset(qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10));
-	pstyle.charStyle().setUnderlineWidth(qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10));
-	pstyle.charStyle().setStrikethruOffset(qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10));
-	pstyle.charStyle().setStrikethruWidth(qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10));
-	pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()));
+	if (obj->hasAttribute("LINESP"))
+		pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
+	if (obj->hasAttribute("LINESPMode"))
+		pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
+	if (obj->hasAttribute("ALIGN"))
+		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(obj->attribute("ALIGN", "0").toInt()));
+	if (obj->hasAttribute("IFONT"))
+		pstyle.charStyle().setFont(findFont(doc, obj->attribute("IFONT")));
+	if (obj->hasAttribute("ISIZE"))
+		pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE").toDouble() * 10));
+	if (obj->hasAttribute("TXTSTROKE"))
+		pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE"));
+	if (obj->hasAttribute("TXTFILL"))
+		pstyle.charStyle().setFillColor(obj->attribute("TXTFILL"));
+	if (obj->hasAttribute("TXTSTRSH"))
+		pstyle.charStyle().setStrokeShade(obj->attribute("TXTSTRSH").toInt());
+	if (obj->hasAttribute("TXTFILLSH"))
+		pstyle.charStyle().setFillShade(obj->attribute("TXTFILLSH").toInt());
+	if (obj->hasAttribute("TXTSCALE"))
+		pstyle.charStyle().setScaleH(qRound(obj->attribute("TXTSCALE").toDouble() * 10));
+	if (obj->hasAttribute("TXTSCALEV"))
+		pstyle.charStyle().setScaleV(qRound(obj->attribute("TXTSCALEV").toDouble() * 10));
+	if (obj->hasAttribute("TXTBASE"))
+		pstyle.charStyle().setBaselineOffset(qRound(obj->attribute("TXTBASE").toDouble() * 10));
+	if (obj->hasAttribute("TXTSHX"))
+		pstyle.charStyle().setShadowXOffset(qRound(obj->attribute("TXTSHX").toDouble() * 10));
+	if (obj->hasAttribute("TXTSHY"))
+		pstyle.charStyle().setShadowYOffset(qRound(obj->attribute("TXTSHY").toDouble() * 10));
+	if (obj->hasAttribute("TXTOUT"))
+		pstyle.charStyle().setOutlineWidth(qRound(obj->attribute("TXTOUT").toDouble() * 10));
+	if (obj->hasAttribute("TXTULP"))
+		pstyle.charStyle().setUnderlineOffset(qRound(obj->attribute("TXTULP").toDouble() * 10));
+	if (obj->hasAttribute("TXTULW"))
+		pstyle.charStyle().setUnderlineWidth(qRound(obj->attribute("TXTULW").toDouble() * 10));
+	if (obj->hasAttribute("TXTSTP"))
+		pstyle.charStyle().setStrikethruOffset(qRound(obj->attribute("TXTSTP").toDouble() * 10));
+	if (obj->hasAttribute("TXTSTW"))
+		pstyle.charStyle().setStrikethruWidth(qRound(obj->attribute("TXTSTW").toDouble() * 10));
+	if (obj->hasAttribute("TXTSTYLE"))
+		pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE").toInt()));
+	if (obj->hasAttribute("TXTKERN"))
+		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
 	currItem->itemText.setDefaultStyle(pstyle);
 	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
@@ -2327,10 +2298,6 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
-	if (obj->hasAttribute("EXTRAV"))
-		currItem->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
-	else
-		currItem->ExtraV = obj->attribute("TXTKERN").toInt();
 	currItem->DashOffset = obj->attribute("DASHOFF", "0.0").toDouble();
 	currItem->setReversed(static_cast<bool>(obj->attribute("REVERS", "0").toInt()));
 	currItem->setLocked(static_cast<bool>(obj->attribute("LOCK", "0").toInt()));
@@ -2463,11 +2430,11 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
-/*	if (currItem->asPathText())
+	if (currItem->asPathText())
 	{
 		currItem->updatePolyClip();
 		currItem->Frame = true;
-	} */
+	}
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;
 	QString GrColor2;

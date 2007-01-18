@@ -54,6 +54,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
+		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 		void writeCheckerProfiles(QDomDocument & docu);
 		void writeLinestyles(QDomDocument & docu);
