@@ -4159,6 +4159,7 @@ void Mpalette::languageChange()
 	pathTextType->clear();
 	pathTextType->insertItem( tr("Default"));
 	pathTextType->insertItem( tr("Stair Step"));
+	pathTextType->insertItem( tr("Skew"));
 	flippedPathText->setText( "Flip Text" );
 	showcurveCheckBox->setText( tr("Show Curve"));
 	pathTextTypeLabel->setText( tr("Type:"));

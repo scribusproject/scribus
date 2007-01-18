@@ -2573,6 +2573,20 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
 							else if (c->textPathType == 1)
 								PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+							else if (c->textPathType == 2)
+							{
+								double a = 1;
+								double b = -1;
+								if (hl->PtransX < 0)
+								{
+									a = -1;
+									b = 1;
+								}
+								if (fabs(hl->PtransX) > 0.1)
+									PutSeite("["+ToStr(a) + " " + ToStr((hl->PtransY / hl->PtransX) * b) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+								else
+									PutSeite("["+ToStr(a) + " " + ToStr(4) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+							}
 							PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 							PS_translate(0, (tsz / 10.0));
 							if (c->BaseOffs != 0)
@@ -2619,6 +2633,20 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
 					else if (c->textPathType == 1)
 						PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					else if (c->textPathType == 2)
+					{
+						double a = 1;
+						double b = -1;
+						if (hl->PtransX < 0)
+						{
+							a = -1;
+							b = 1;
+						}
+						if (fabs(hl->PtransX) > 0.1)
+							PutSeite("["+ToStr(a) + " " + ToStr((hl->PtransY / hl->PtransX) * b) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						else
+							PutSeite("["+ToStr(a) + " " + ToStr(4) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					}
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);

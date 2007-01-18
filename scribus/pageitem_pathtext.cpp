@@ -215,6 +215,16 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
 		else if (textPathType == 1)
 			trafo *= QWMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
+		else if (textPathType == 2)
+		{
+			double a = 1;
+			if (tangent.x() < 0)
+				a = -1;
+			if (fabs(tangent.x()) > 0.1)
+				trafo *= QWMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
+			else
+				trafo *= QWMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
+		}
 #else
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
 		if (textPathFlipped)
@@ -223,6 +233,16 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc ); // ID's Rainbow mode
 		else if (textPathType == 1)
 			trafo *= QWMatrix( 1, 0, 0, -1, point.x()*sc, point.y()*sc ); // ID's Stair Step mode
+		else if (textPathType == 2)
+		{
+			double a = 1;
+			if (tangent.x() < 0)
+				a = -1;
+			if (fabs(tangent.x()) > 0.1)
+				trafo *= QWMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x()*sc, point.y()*sc ); // ID's Skew mode
+			else
+				trafo *= QWMatrix( a, 4 * a, 0, -1, point.x()*sc, point.y()*sc );
+		}
 #endif
 		QWMatrix sca = p->worldMatrix();
 		trafo *= sca;

@@ -3843,6 +3843,20 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			trafo *= QWMatrix( hl->PtransX, -hl->PtransY, -hl->PtransY, -hl->PtransX, hl->glyph.xoffset, -hl->glyph.yoffset );
 		else if (ite->textPathType == 1)
 			trafo *= QWMatrix(1, 0, 0, -1, hl->glyph.xoffset, -hl->glyph.yoffset );
+		else if (ite->textPathType == 2)
+		{
+			double a = 1;
+			double b = -1;
+			if (hl->PtransX < 0)
+			{
+				a = -1;
+				b = 1;
+			}
+			if (fabs(hl->PtransX) > 0.1)
+				trafo *= QWMatrix( a, (hl->PtransY / hl->PtransX) * b, 0, -1, hl->glyph.xoffset, -hl->glyph.yoffset ); // ID's Skew mode
+			else
+				trafo *= QWMatrix( a, 6 * b, 0, -1, hl->glyph.xoffset, -hl->glyph.yoffset );
+		}
 		tmp += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 		if (ite->BaseOffs != 0)
 			tmp += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
