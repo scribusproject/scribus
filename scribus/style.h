@@ -35,7 +35,7 @@ class Style;
   invalidate() to increase the version info. Styles using this StyleBase will then
   update their cached values the next time they are used.
 */
-class StyleBase {
+class SCRIBUS_API StyleBase {
 	
 public:
 	StyleBase() 
@@ -90,7 +90,7 @@ protected:
  *  the stored m_baseversion against the StyleBase's version and updates all
  *  attributes if they are different.
  */
-class Style {
+class SCRIBUS_API Style {
 protected:
 	QString m_name;
 	const StyleBase* m_base;
