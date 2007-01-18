@@ -64,10 +64,11 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 
 void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 {
+//	itemText.setDefaultStyle(ParagraphStyle(itemText.defaultStyle()));
+//	m_Doc->AdjustItemSize(this);
 	firstChar = 0;
 	int a;
 	int chs;
-//	double wide;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
@@ -129,20 +130,24 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	segLen = PoLine.lenPathSeg(seg);
 #ifndef NLS_PROTO
-	for (a = 0; a < itemText.length(); ++a)
+	for (a = firstChar; a < itemText.length(); ++a)
 	{
 		CurY = 0;
 		hl = itemText.item(a);
 		chstr = hl->ch;
-		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
 			continue;
 		chs = hl->fontSize();
 		if (a < itemText.length()-1)
 			chstr += itemText.text(a+1, 1);
+		hl->glyph.yadvance = 0;
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
-		hl->glyph.more = false;
-//		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutGlyphs
+		hl->glyph.shrink();                                                           // HACK
 		dx = hl->glyph.wide() / 2.0;
+//		qDebug(QString("pathtext-draw: parent %1 parentc %2").arg((uint)itemText.paragraphStyle(a).parentStyle()).arg((uint)itemText.charStyle(a).parentStyle()));
+		qDebug(QString("pathtext-draw: co %1 %2 %3 %4").arg(itemText.charStyle(a).fillColor()).arg(itemText.charStyle(a).fillShade()).arg(itemText.charStyle(a).strokeColor()).arg(itemText.charStyle(a).strokeShade()));
+//		qDebug(QString("pathtext-draw: fo %1 %2").arg(itemText.charStyle(a).font().scName()).arg(hl->glyph.glyph));
 		CurX += dx;
 		ext = false;
 		while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
@@ -201,6 +206,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		hl->PtransX = tangent.x();
 		hl->PtransY = tangent.y();
 		hl->PRot = dx;
+		qDebug(QString("'%1' (%2,%3) %4+%5").arg(itemText.text(a)).arg(point.x()).arg(point.y()).arg(CurX).arg(dx));
 #ifdef HAVE_CAIRO
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx, 0 );
 		if (textPathFlipped)
@@ -271,4 +277,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		first = false;
 	}
 #endif
+	qDebug(QString("PageItem_PathText::DrawObj_Item repos=%1, %2 chars, [%3 %4 %5 %6 %7 %8] with %9").arg(m_Doc->RePos).arg(MaxChars)
+		   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m12()).arg(p->worldMatrix().m21()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy())
+		   .arg(QString("pen %1 brush%2 device%3 isPainting=%4").arg(p->pen().rgb()).arg(p->brush().rgb()).arg(p->device()? p->device()->paintingActive() : -999))
+		   );
 }
