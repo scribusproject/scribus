@@ -331,7 +331,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 	{
 		const std::string currPattern(static_cast<const char*>(rules[i].first));
 		const unsigned int len = currPattern.length();
-		unsigned int pos;
+		int pos;
 		nfa_state_t lastState;
 		
 		// determine if this is a start pattern
@@ -350,7 +350,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 //		std::cerr << "looking at pattern: " << currPattern << "\n";
 		// for all prefixes
 		do {
-			unsigned int pos2 = currPattern.find('/', pos);
+			std::string::size_type pos2 = currPattern.find('/', pos);
 			if (pos2 == std::string::npos)
 				pos2 = len;
 			
@@ -382,7 +382,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 //			std::cerr << "T " << lastState << "--(" << tok << ")-->" << nstate << "\n";
 			lastState = nstate;
 			pos = pos2 + 1;
-		} while(pos < len);
+		} while(pos < signed(len));
 		accepting.push_back(lastState);
 //		std::cerr << "accepted in " << lastState << "\n";
 
