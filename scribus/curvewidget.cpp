@@ -123,7 +123,7 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 	{
 		if (m_points.size() > 2)
 		{
-			FPoint closest_point;
+			FPoint closest_point = m_points.point(0);
 			FPoint p = m_points.point(0);
 			int pos = 0;
 			uint cc =0;
