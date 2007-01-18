@@ -35,8 +35,13 @@ for which a new license (GPL+exception) is in place.
 
 ScColor::ScColor(void)
 {
-	Model = colorModelCMYK;
-	CR = MG = YB = K = 0;
+//	Model = colorModelCMYK;
+//	CR = MG = YB = K = 0;
+	Model = colorModelRGB;
+	CR = 150;
+	MG = 100;
+	YB = 50;
+	K = 0;
 	Spot = false;
 	Regist = false;
 }
