@@ -74,6 +74,7 @@ public:
 	void setStyle(const ParagraphStyle& other);
 	void erase() { eraseStyle(*this); }
 
+	StyleBase* charStyleBase() { return & cstyleBase; }
 	const StyleBase* charStyleBase() const { return & cstyleBase; }
 	CharStyle & charStyle() { return cstyle; }
 	const CharStyle& charStyle() const { return cstyle; }

@@ -166,6 +166,8 @@ StoryText::StoryText(ScribusDoc * doc_) : QObject(), doc(doc_)
 {
 	if (doc_) {
 		d = new ScText_Shared(&doc_->paragraphStyles());
+		doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
+		doc->charStyles().connect(this, SLOT(invalidateAll()));
 	}
 	else {
 		d = new ScText_Shared(NULL);
@@ -200,6 +202,11 @@ StoryText::StoryText(const StoryText & other) : QObject(), doc(other.doc)
 	d = other.d;
 	d->refs++;
 	
+	if(doc) {
+		doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
+		doc->charStyles().connect(this, SLOT(invalidateAll()));
+	}
+	
 	selFirst = 0;
 	selLast = -1;
 	
@@ -213,6 +220,11 @@ StoryText::StoryText(const StoryText & other) : QObject(), doc(other.doc)
 
 StoryText::~StoryText()
 {
+	if (doc)
+	{
+		doc->paragraphStyles().disconnect(this, SLOT(invalidateAll()));
+		doc->charStyles().disconnect(this, SLOT(invalidateAll()));
+	}
 	d->refs--;
 	if (d->refs == 0) {
 		for (ScText *it = d->first(); it != 0; it = d->next())
@@ -261,8 +273,18 @@ StoryText& StoryText::operator= (const StoryText & other)
 		delete d;
 	}
 	
+	if(doc) {
+		doc->paragraphStyles().disconnect(this, SLOT(invalidateAll()));
+		doc->charStyles().disconnect(this, SLOT(invalidateAll()));
+	}
+	
 	doc = other.doc; 
 	d = other.d;
+	
+	if (doc) {
+		doc->paragraphStyles().connect(this, SLOT(invalidateAll()));
+		doc->charStyles().connect(this, SLOT(invalidateAll()));
+	}
 	
 	selFirst = 0;
 	selLast = -1;
@@ -629,7 +651,7 @@ void StoryText::setDefaultStyle(const ParagraphStyle& style)
 	d->defaultStyle = style;
 	d->defaultStyle.setBase( oldPBase );
 	d->defaultStyle.charStyle().setBase( oldCBase );
-	d->pstyleBase.invalidate();
+	invalidateAll();
 }
 
 
@@ -1150,10 +1172,17 @@ void StoryText::invalidateLayout()
 
 void StoryText::invalidateAll()
 {
+	d->pstyleBase.invalidate();
+	invalidate(0, nrOfItems());
 }
 
-void StoryText::invalidate(int firstitem, int lastitem)
+void StoryText::invalidate(int firstItem, int endItem)
 {
+	for (int i=firstItem; i < endItem; ++i) {
+		ParagraphStyle* par = item(i)->parstyle;
+		if (par)
+			par->charStyleBase()->invalidate();
+	}
 }
 
 

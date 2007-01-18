@@ -70,13 +70,13 @@ public:
 
 	void invalidate(); 
 
-	bool connect(const QObject* receiver, const char *member );
-	bool disconnect(const QObject* receiver, const char *member=0 );
+	bool connect(const QObject* receiver, const char *member ) const;
+	bool disconnect(const QObject* receiver, const char *member=0 ) const;
 	
 	
 protected:
 	int m_version;
-	QSignal m_sig;
+	mutable QSignal m_sig;
 };
 
 

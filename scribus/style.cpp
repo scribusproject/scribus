@@ -22,12 +22,12 @@ void StyleBase::invalidate()
 	m_sig.activate(); 
 }
 
-bool StyleBase::connect(const QObject* receiver, const char *member )
+bool StyleBase::connect(const QObject* receiver, const char *member ) const
 {
 	return m_sig.connect(receiver, member);
 }
 
-bool StyleBase::disconnect(const QObject* receiver, const char *member )
+bool StyleBase::disconnect(const QObject* receiver, const char *member ) const
 {
 	return m_sig.disconnect(receiver, member);
 }
