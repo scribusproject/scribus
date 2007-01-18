@@ -30,11 +30,12 @@ void ShadeButton::setShade(int id)
 {
 	bool ok = false;
 	uint a;
-	int c, b;
+	int c;
+	int b = 100;
 	for (a = 0; a < FillSh->count(); ++a)
-		{
+	{
 		FillSh->setItemChecked(FillSh->idAt(a), false);
-		}
+	}
 	c = FillSh->indexOf(id);
 	FillSh->setItemChecked(id, true);
 	if (c > 0)
@@ -44,23 +45,23 @@ void ShadeButton::setShade(int id)
 		return; // no need for > 100%, fix needed by SM, Riku
 	
 	if (c == 0)
-		{
+	{
 		Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
 		if (dia->exec())
-    		{
+    	{
 			c = dia->getEditText().toInt(&ok);
 			if (ok)
 				b = QMAX(QMIN(c, 100),0);
 			else
 				b = 100;
 			delete dia;
-			}
+		}
 		else
-			{
+		{
 			delete dia;
 			return;
-			}
 		}
+	}
 	setText(QString::number(b)+" %");
 	emit clicked();
 }

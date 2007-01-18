@@ -6485,8 +6485,8 @@ void ScribusMainWindow::setItemShade(int id)
 
 void ScribusMainWindow::setCSMenu()
 {
-	QString la;
-	int lb;
+	QString la = CommonStrings::NoneColor;
+	int lb = 100;
 	PageItem *currItem;
 	if (doc->m_Selection->count() != 0)
 	{
@@ -6509,11 +6509,6 @@ void ScribusMainWindow::setCSMenu()
 			la = currItem->fillColor();
 			lb = currItem->fillShade();
 		}
-	}
-	else
-	{
-		la = currItem->fillColor();
-		lb = currItem->fillShade();
 	}
 	if (la == CommonStrings::None)
 		la = CommonStrings::NoneColor;
