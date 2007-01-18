@@ -347,7 +347,7 @@ void StyleManager::slotNewPopup(int i)
 		slotOk(); // switch to edit mode for a new style
 
 	QString typeName = rcType_;
-	if (typeName == QString::null && i > -1)
+	if (typeName == QString::null)
 		typeName = newPopup_->text(i);
 	else if (typeName == QString::null && i < 0)
 		return; // nothing to create
