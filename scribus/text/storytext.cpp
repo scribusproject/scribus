@@ -389,7 +389,7 @@ static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
 {
 	ScText* it = that->item_p(pos);
 	if(!it->parstyle) {
-		it->parstyle = new ParagraphStyle();
+		it->parstyle = new ParagraphStyle(that->paragraphStyle(pos+1));
 		it->parstyle->setBase( & d->pstyleBase);
 //		it->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase() );
 	}
