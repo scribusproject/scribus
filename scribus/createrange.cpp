@@ -59,7 +59,7 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 	//First tab selected
 	if (m_RangeType==0)
 	{
-		int c=basicRangeListBox->count();
+		uint c=basicRangeListBox->count();
 		if (c==0)
 		{
 			basicAddToRange();
