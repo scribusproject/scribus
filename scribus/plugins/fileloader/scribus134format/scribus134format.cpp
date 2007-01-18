@@ -1087,8 +1087,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
 							PrefsManager* prefsManager=PrefsManager::instance();
-							readParagraphStyle(newStyle, pg, prefsManager->appPrefs.AvailFonts, m_Doc);
-							Neu->itemText.applyStyle(Neu->itemText.length(), newStyle);
+							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
 						}
 						else if (it.tagName()=="tab") {
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);

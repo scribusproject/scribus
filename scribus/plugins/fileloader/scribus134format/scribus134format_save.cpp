@@ -1100,7 +1100,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		ob.appendChild(it);
 	}
 	// paragraphstyle for trailing chars
-	if (item->itemText.length() == 0 || item->itemText.text(item->itemText.length()-1) == SpecialChars::PARSEP)
+	if (item->itemText.length() == 0 || item->itemText.text(item->itemText.length()-1) != SpecialChars::PARSEP)
 	{
 		QDomElement par = docu->createElement("para");
 		putPStyle(*docu, par, item->itemText.paragraphStyle(item->itemText.length()));
