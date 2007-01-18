@@ -63,11 +63,19 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 	}
 	okButton->setEnabled(false);
 	SWSyntaxHighlighter *sxHigh = new SWSyntaxHighlighter(cfgEdit);
+	//remove that unused warning!
+	sxHigh->currentParagraph();
 
 	// signals
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(resetButton_pressed()));
 	connect(cfgEdit, SIGNAL(textChanged()), this, SLOT(cfgEdit_changed()));
+}
+
+SWPrefsGui::~SWPrefsGui()
+{
+	//delete the highlighter
+	delete cfgEdit->syntaxHighlighter();
 }
 
 /*

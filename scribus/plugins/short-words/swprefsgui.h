@@ -33,7 +33,7 @@ class SWPrefsGui : public PrefsPanel
 
 	public:
 		SWPrefsGui(QWidget* parent);
-		~SWPrefsGui(){};
+		~SWPrefsGui();
 
 		QLabel* titleLabel;
 		QTextEdit* cfgEdit;

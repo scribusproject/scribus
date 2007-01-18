@@ -78,6 +78,8 @@ PythonConsole::PythonConsole( QWidget* parent)
 	commandEdit->setSizePolicy(commandEditSize);
 	// install syntax highlighter.
 	SyntaxHighlighter *sxHigh = new SyntaxHighlighter(commandEdit);
+	//remove that unused warning!
+	sxHigh->currentParagraph();
 
 	outputEdit = new QTextEdit(splitter, "outputEdit" );
 	outputEdit->setTextFormat(Qt::PlainText);
@@ -118,7 +120,8 @@ PythonConsole::PythonConsole( QWidget* parent)
  */
 PythonConsole::~PythonConsole()
 {
-	// no need to delete child widgets, Qt does it all for us
+	//delete the highlighter
+	delete commandEdit->syntaxHighlighter();
 }
 
 void PythonConsole::setFonts()
