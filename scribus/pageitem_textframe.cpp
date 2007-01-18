@@ -337,7 +337,7 @@ void PageItem_TextFrame::layout()
 	QRegion cm;
 	uint nrc;
 	int aSpa, CurrCol;
-	double chs, chsd;
+	double chs, chsd = 0;
 	int LastSP;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal;
 	QString chstr;
@@ -361,8 +361,8 @@ void PageItem_TextFrame::layout()
 	
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
-	double desc, asce, maxDY, desc2, maxDX;
-	int DropLines;
+	double desc=0, asce=0, maxDY=0, desc2=0, maxDX=0;
+	int DropLines = 0;
 	double DropCapDrop = 0;
 	bool StartOfCol = true;
 	
@@ -1626,6 +1626,7 @@ void PageItem_TextFrame::layout()
 		}
 // end of itemText
 		uint a = itemText.length()-1;
+		hl = a >=0 ? itemText.item(a) : NULL;
 		curLine.lastItem = a;
 		if (style.alignment() != 0)
 		{
