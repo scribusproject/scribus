@@ -3343,9 +3343,9 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
 	uint ObCount = maxC;
-	PageItem *item;
+	PageItem *item = NULL;
 	QDomElement ob;
-	uint objects;
+	uint objects = 0;
 	switch (master)
 	{
 		case 0:

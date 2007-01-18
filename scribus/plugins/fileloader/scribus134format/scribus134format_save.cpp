@@ -1111,9 +1111,9 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items)
 {
 	uint ObCount = maxC;
-	PageItem *item;
+	PageItem *item = NULL;
 	QDomElement ob;
-	uint objects;
+	uint objects = 0;
 	switch (master)
 	{
 		case 0:

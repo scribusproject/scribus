@@ -416,7 +416,6 @@ QString StoryText::text(int pos, uint len) const
 	if (pos < 0)
 		pos += length();
 
-	assert(len >= 0);
 	assert(pos >= 0);
 	assert(pos + signed(len) <= length());
 
