@@ -75,7 +75,8 @@ struct LineSpec
  * offsets to its basepoint. Other information in the ScriptItem is only
  * used by the layouter.
  */
-class SCRIBUS_API StoryText : public QObject {
+class SCRIBUS_API StoryText : public QObject 
+{
 	Q_OBJECT
 	
  public:

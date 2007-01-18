@@ -3,8 +3,9 @@
 #include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
 #include "scfonts.h"
-//#include "sctextstruct.h"
+#include "sctextstruct.h"
 #include "storytext.h"
+#include "storytext.moc"
 #include "scribus.h"
 #include "util.h"
 
