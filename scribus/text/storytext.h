@@ -10,6 +10,8 @@
 
 //#include "text/paragraphlayout.h"
 #include "text/frect.h"
+#include "sctextstruct.h"
+#include "style.h"
 
 #ifdef NLS_CONFORMANCE
 #define NLS_PRIVATE private
@@ -17,6 +19,15 @@
 #define NLS_PRIVATE public
 #endif
 
+class CharStyle;
+class ParagraphStyle;
+class PageItem;
+//class ScTextEngine;
+//class ScScriptItem;
+class ScribusDoc;
+class ScText_Shared;
+
+ 
 class SCRIBUS_API SpecialChars {
 public:
 	static QChar OBJECT;
@@ -35,16 +46,6 @@ public:
 	static QChar PAGENUMBER;
 //	static QChar SPACE;
 };
-
-class CharStyle;
-class ParagraphStyle;
-class PageItem;
-//class ScTextEngine;
-//class ScScriptItem;
-class ScText_Shared;
-class ScText;
-class ScribusDoc;
-
 
 struct LineSpec 
 {
@@ -260,4 +261,6 @@ private:
  	/// is true after layout() has been exercised
 // 	bool layouterValid;
  };
+
+
 #endif /*STORYTEXT_H_*/

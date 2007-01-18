@@ -10,6 +10,7 @@ storytext.h
 
 SET(SCRIBUS_TEXT_LIB_SOURCES
 storytext.cpp
+sctext_shared.cpp
 fsize.cpp
 frect.cpp
 )
