@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "scconfig.h"
 #include "fileunzip.h"
 
 #include <stdlib.h>
@@ -61,10 +62,18 @@ for which a new license (GPL+exception) is in place.
 #define MAXFILENAME (256)
 
 int do_extract_currentfile(unzFile uf, const int* popt_extract_without_path, int* popt_overwrite, const char* password);
-int do_extract_onefile(unzFile uf, const char* filename, int opt_extract_without_path, int opt_overwrite, const char* password);
-int mymkdir(const char* dirname);
-int makedir (char *newdir);
-void change_file_date(const char* filename, uLong dosdate, tm_unz tmu_date);
+int do_extract_onefile(unzFile uf, const QString& filename, int opt_extract_without_path, int opt_overwrite, const char* password);
+FILE*    openfile(const QString& filename, const QString& mode);
+unzFile  unzOpenFile(const QString& filename);
+int mymkdir(const QString& dirname);
+int makedir (const QString& newdir);
+void change_file_date(const QString& filename, uLong dosdate, tm_unz tmu_date);
+
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+zlib_filefunc_def file_api;
+static voidpf ZCALLBACK fopen_filefunc_unicode(voidpf opaque, const char *filename, int mode);
+#define utimbuf _utimbuf
+#endif
 
 FileUnzip::FileUnzip(QString zipFilePath)
 {
@@ -80,16 +89,8 @@ QString FileUnzip::getFile(QString name)
 	if (!fi.isWritable())
 		outDir = ScPaths::getApplicationDataDir();
 	QDir::setCurrent(outDir);
-	const QCString zipfilename(zipFile.local8Bit());
-	// NOTE that the ODF specification does not specify what text
-	// encoding strings in a zip file must have. Given this, we're
-	// forced to just guess. I've chosen to use the local 8 bit
-	// encoding, but it's possible that latin-1 is more compatible
-	// depending on the behaviour of the various ODF supporting
-	// apps. --CR
-	const QCString filename_to_extract(name.local8Bit());
-	unzFile uf = unzOpen(zipfilename.data());;
-	int ret = do_extract_onefile(uf,filename_to_extract.data(), 0, 1, NULL);
+	unzFile uf = unzOpenFile(zipFile);
+	int ret = do_extract_onefile(uf,name, 0, 1, NULL);
 	unzCloseCurrentFile(uf);
 	QDir::setCurrent(pwd);
 	if (ret != 0)
@@ -103,67 +104,103 @@ FileUnzip::~FileUnzip()
 
 }
 
+FILE* openfile(const QString& filename, const QString& mode)
+{
+	FILE* fout = NULL;
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+	fout = _wfopen(filename.ucs2(), mode.ucs2());
+#else
+	QCString fname = filename.local8Bit();
+	QCString fmode  = mode.local8Bit();
+    fout = fopen(fname.data(), fmode.data());
+#endif
+	return fout;
+}
 
-int mymkdir(char* dirname)
+unzFile unzOpenFile(const QString& filename)
+{
+	unzFile unz;
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+	fill_fopen_filefunc(&file_api);
+	file_api.zopen_file = fopen_filefunc_unicode;
+	unz = unzOpen2((const char*)filename.ucs2(), &file_api); 
+#else
+	QCString fname(filename.local8Bit());
+	unz = unzOpen(fname.data()); 
+#endif
+	return unz;
+}
+
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+static voidpf ZCALLBACK fopen_filefunc_unicode(voidpf opaque, const char *filename, int mode)
+{
+	FILE* file = NULL;
+	const wchar_t* mode_fopen = NULL;
+	if ((mode & ZLIB_FILEFUNC_MODE_READWRITEFILTER)==ZLIB_FILEFUNC_MODE_READ)
+		mode_fopen = L"rb";
+	else if (mode & ZLIB_FILEFUNC_MODE_EXISTING)
+		mode_fopen = L"r+b";
+	else if (mode & ZLIB_FILEFUNC_MODE_CREATE)
+		mode_fopen = L"wb";
+	if (!((filename == NULL) || (mode_fopen == NULL)))
+		file = _wfopen((const wchar_t *)filename, mode_fopen);
+	return file;
+}
+#endif
+
+int mymkdir(const QString& dirname)
 {
     int ret=0;
-#ifndef _MSC_VER
-    ret = mkdir (dirname,0775);
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+	ret = _wmkdir(dirname.ucs2());
+#elif defined(_WIN32)
+	QCString cdir = dirname.local8Bit();
+    ret = _mkdir(cdir.data());
 #else
-	ret = _mkdir(dirname);
+	QCString cdir = dirname.local8Bit();
+    ret = mkdir (cdir.data(), 0775);
 #endif
     return ret;
 }
 
-int makedir (char *newdir)
+int makedir (const QString& newdir)
 {
-  char *buffer ;
-  char *p;
-  int  len = (int)strlen(newdir);
+	QChar p;
+	QString buffer;
+	int len = newdir.length();
+	
+	if (len <= 0)
+		return 0;
+	buffer = newdir;
 
-  if (len <= 0)
-    return 0;
+	if (buffer.endsWith("/") || buffer.endsWith("\\"))
+		buffer.left(len - 1);
 
-  buffer = (char*)malloc(len+1);
-  strcpy(buffer,newdir);
+	if (mymkdir(buffer) == 0)
+		return 1;
 
-  if (buffer[len-1] == '/') {
-    buffer[len-1] = '\0';
-  }
-  if (mymkdir(buffer) == 0)
-    {
-      free(buffer);
-      return 1;
-    }
-
-  p = buffer+1;
-  while (1)
-    {
-      char hold;
-
-      while(*p && *p != '\\' && *p != '/')
-        p++;
-      hold = *p;
-      *p = 0;
-      if ((mymkdir(buffer) == -1) && (errno == ENOENT))
-        {
-          free(buffer);
-          return 0;
-        }
-      if (hold == 0)
-        break;
-      *p++ = hold;
-    }
-  free(buffer);
-  return 1;
+	uint cIndex = 1;
+	p = buffer[1];
+	while (1)
+	{
+		QString tmpBuf;
+		while(!p.isNull() && p != '\\' && p != '/')
+			p = buffer[cIndex++];
+		tmpBuf = buffer.left(cIndex - 1);
+		if ((mymkdir(tmpBuf) == -1) && (errno == ENOENT))
+			return 0;
+		if (p.isNull())
+			break;
+		p = buffer[++cIndex];
+	}
+	return 1;
 }
 
-
-
-int do_extract_onefile(unzFile uf, const char* filename, int opt_extract_without_path, int opt_overwrite, const char* password)
+int do_extract_onefile(unzFile uf, const QString& filename, int opt_extract_without_path, int opt_overwrite, const char* password)
 {
 //    int err = UNZ_OK;
-    if (unzLocateFile(uf,filename,CASESENSITIVITY)!=UNZ_OK)
+	QCString fname = filename.local8Bit();
+    if (unzLocateFile(uf,fname.data(),CASESENSITIVITY)!=UNZ_OK)
         return 2;
 
     if (do_extract_currentfile(uf,&opt_extract_without_path,
@@ -176,122 +213,125 @@ int do_extract_onefile(unzFile uf, const char* filename, int opt_extract_without
 
 int do_extract_currentfile(unzFile uf, const int* popt_extract_without_path, int*, const char* password)
 {
-    char filename_inzip[256];
-    char* filename_withoutpath;
-    char* p;
-    int err=UNZ_OK;
-    FILE *fout=NULL;
-    void* buf;
-    uInt size_buf;
+	char  fn_inzip[256];
+	QString filename_inzip;
+	QString filename_withoutpath;
+	int err=UNZ_OK;
+	FILE *fout=NULL;
+	void* buf;
+	uInt size_buf;
 
-    unz_file_info file_info;
-//    uLong ratio=0;
-    err = unzGetCurrentFileInfo(uf,&file_info,filename_inzip,sizeof(filename_inzip),NULL,0,NULL,0);
+	unz_file_info file_info;
+	//uLong ratio=0;
+	err = unzGetCurrentFileInfo(uf,&file_info,fn_inzip,sizeof(fn_inzip),NULL,0,NULL,0);
 
-    if (err!=UNZ_OK)
-        return err;
+	if (err!=UNZ_OK)
+		return err;
 
-    size_buf = WRITEBUFFERSIZE;
-    buf = (void*)malloc(size_buf);
-    if (buf==NULL)
-        return UNZ_INTERNALERROR;
+	size_buf = WRITEBUFFERSIZE;
+	buf = (void*)malloc(size_buf);
+	if (buf==NULL)
+		return UNZ_INTERNALERROR;
 
-    p = filename_withoutpath = filename_inzip;
-    while ((*p) != '\0')
+	QChar p;
+	uint cIndex = 0;
+	filename_inzip = QString::fromLocal8Bit(fn_inzip); 
+	filename_withoutpath = filename_inzip;
+	for (uint i = 0; i < filename_inzip.length(); i++)
+	{
+		p = filename_inzip[i];
+		if( (p == '/') || (p =='\\'))
+			filename_withoutpath = filename_inzip.mid(i+1);
+	}
+
+	if (filename_withoutpath.isEmpty())
+	{
+		if ((*popt_extract_without_path)==0)
+			mymkdir(filename_inzip);
+	}
+	else
     {
-        if (((*p)=='/') || ((*p)=='\\'))
-            filename_withoutpath = p+1;
-        p++;
-    }
+		QString write_filename;
+		int skip=0;
 
-    if ((*filename_withoutpath)=='\0')
-    {
-        if ((*popt_extract_without_path)==0)
-            mymkdir(filename_inzip);
-    }
-    else
-    {
-        char* write_filename;
-        int skip=0;
+		if ((*popt_extract_without_path)==0)
+			write_filename = filename_inzip;
+		else
+			write_filename = filename_withoutpath;
+		
+		err = unzOpenCurrentFilePassword(uf,password);
 
-        if ((*popt_extract_without_path)==0)
-            write_filename = filename_inzip;
-        else
-            write_filename = filename_withoutpath;
-
-        err = unzOpenCurrentFilePassword(uf,password);
-
-        if ((skip==0) && (err==UNZ_OK))
-        {
-            fout=fopen(write_filename,"wb");
-
+		if ((skip==0) && (err==UNZ_OK))
+		{
+			fout = openfile(write_filename, "wb");
             /* some zipfile don't contain directory alone before file */
-            if ((fout==NULL) && ((*popt_extract_without_path)==0) &&
-                                (filename_withoutpath!=(char*)filename_inzip))
-            {
-                char c=*(filename_withoutpath-1);
-                *(filename_withoutpath-1)='\0';
-                makedir(write_filename);
-                *(filename_withoutpath-1)=c;
-                fout=fopen(write_filename,"wb");
-            }
-        }
+			if ((fout==NULL) && ((*popt_extract_without_path)==0) &&
+								(filename_withoutpath != filename_inzip))
+			{
+				uint len = filename_inzip.length() - filename_withoutpath.length() - 1;
+				QString write_dir = filename_inzip.left(len);
+				makedir(write_dir);
+				fout = openfile(write_filename, "wb");
+			}
+		}
 
-        if (fout!=NULL)
-        {
+		if (fout!=NULL)
+		{
+			do
+			{
+				err = unzReadCurrentFile(uf,buf,size_buf);
+				if (err<0)
+					break;
+				if (err>0)
+					if (fwrite(buf,err,1,fout)!=1)
+					{
+						err=UNZ_ERRNO;
+						break;
+					}
+			}
+			while (err>0);
+			if (fout)
+				fclose(fout);
 
-            do
-            {
-                err = unzReadCurrentFile(uf,buf,size_buf);
-                if (err<0)
-                    break;
-                if (err>0)
-                    if (fwrite(buf,err,1,fout)!=1)
-                    {
-                        err=UNZ_ERRNO;
-                        break;
-                    }
-            }
-            while (err>0);
-            if (fout)
-                    fclose(fout);
+			if (err==0)
+				change_file_date(write_filename,file_info.dosDate,
+									file_info.tmu_date);
+		}
 
-            if (err==0)
-                change_file_date(write_filename,file_info.dosDate,
-                                 file_info.tmu_date);
-        }
+		if (err==UNZ_OK)
+			err = unzCloseCurrentFile (uf);
+		else
+			unzCloseCurrentFile(uf); /* don't lose the error */
+	}
 
-        if (err==UNZ_OK)
-            err = unzCloseCurrentFile (uf);
-        else
-            unzCloseCurrentFile(uf); /* don't lose the error */
-    }
-
-    free(buf);
-    return err;
+	free(buf);
+	return err;
 }
 
 /* change_file_date : change the date/time of a file
     filename : the filename of the file where date/time must be modified
     dosdate : the new date at the MSDos format (4 bytes)
     tmu_date : the SAME new date at the tm_unz format */
-void change_file_date(const char* filename, uLong, tm_unz tmu_date)
+void change_file_date(const QString& filename, uLong, tm_unz tmu_date)
 {
-  struct utimbuf ut;
-  struct tm newdate;
-  newdate.tm_sec = tmu_date.tm_sec;
-  newdate.tm_min=tmu_date.tm_min;
-  newdate.tm_hour=tmu_date.tm_hour;
-  newdate.tm_mday=tmu_date.tm_mday;
-  newdate.tm_mon=tmu_date.tm_mon;
-  if (tmu_date.tm_year > 1900)
-      newdate.tm_year=tmu_date.tm_year - 1900;
-  else
-      newdate.tm_year=tmu_date.tm_year ;
-  newdate.tm_isdst=-1;
+	struct utimbuf ut;
+	struct tm newdate;
+	newdate.tm_sec = tmu_date.tm_sec;
+	newdate.tm_min=tmu_date.tm_min;
+	newdate.tm_hour=tmu_date.tm_hour;
+	newdate.tm_mday=tmu_date.tm_mday;
+	newdate.tm_mon=tmu_date.tm_mon;
+	if (tmu_date.tm_year > 1900)
+		newdate.tm_year=tmu_date.tm_year - 1900;
+	else
+		newdate.tm_year=tmu_date.tm_year ;
+	newdate.tm_isdst=-1;
 
-  ut.actime=ut.modtime=mktime(&newdate);
-  utime(filename,&ut);
+	ut.actime=ut.modtime=mktime(&newdate);
+#if defined(_WIN32) && defined(HAVE_UNICODE)
+	_wutime(filename.ucs2(), &ut);
+#else
+	QCString fname = filename.local8Bit();
+	utime(fname.data(), &ut);
+#endif
 }
-
-
