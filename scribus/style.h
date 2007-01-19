@@ -39,13 +39,13 @@ class SCRIBUS_API StyleBase {
 	
 public:
 	StyleBase() 
-		: m_version(0), m_sig()
+		: m_version(0), m_sig(), m_cnt(0)
 	{
 //		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 		
 	StyleBase(const StyleBase& o) 
-		: m_version(o.m_version), m_sig()
+		: m_version(o.m_version), m_sig(), m_cnt(0)
 	{
 //		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
@@ -54,6 +54,7 @@ public:
 	StyleBase& operator= (const StyleBase& o)
 	{
 		m_version = o.m_version;
+		m_cnt = 0;
 		return *this;
 	}
 	
@@ -77,6 +78,7 @@ public:
 protected:
 	int m_version;
 	mutable QSignal m_sig;
+	mutable int m_cnt;
 };
 
 

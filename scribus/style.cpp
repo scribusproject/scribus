@@ -19,16 +19,23 @@
 void StyleBase::invalidate()
 { 
 	++m_version; 
-	m_sig.activate(); 
+	if (m_cnt > 0)          // activate() can be slow even if there's nothing to signal
+		m_sig.activate(); 
 }
 
 bool StyleBase::connect(const QObject* receiver, const char *member ) const
 {
-	return m_sig.connect(receiver, member);
+	bool result = m_sig.connect(receiver, member);
+	if (result)
+		++m_cnt;
+	return result;
 }
 
 bool StyleBase::disconnect(const QObject* receiver, const char *member ) const
 {
-	return m_sig.disconnect(receiver, member);
+	bool result = m_sig.disconnect(receiver, member);
+	if (result)
+		--m_cnt;
+	return result;
 }
 
