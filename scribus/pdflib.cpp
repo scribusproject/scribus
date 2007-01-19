@@ -2234,7 +2234,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							FPointArray clb = ite->PoLine.copy();
 							QWMatrix mm;
 							mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
-							mm.rotate(-ite->rotation());
+							mm.rotate(ite->rotation());
 							cl.map( mm );
 							ite->PoLine = cl;
 							PutPage(SetClipPath(ite));
@@ -2332,7 +2332,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					FPointArray clb = ite->PoLine.copy();
 					QWMatrix mm;
 					mm.translate(ite->xPos() - pag->xOffset(), (ite->yPos() - pag->yOffset()) - pag->height());
-					mm.rotate(-ite->rotation());
+					mm.rotate(ite->rotation());
 					cl.map( mm );
 					ite->PoLine = cl;
 					grcon += SetClipPath(ite);
@@ -4557,7 +4557,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 				FPointArray clb = item->PoLine.copy();
 				QWMatrix mm;
 				mm.translate(item->gXpos, item->gYpos);
-				mm.rotate(-item->rotation());
+				mm.rotate(item->rotation());
 				cl.map( mm );
 				item->PoLine = cl;
 				tmp2 += SetClipPath(item);

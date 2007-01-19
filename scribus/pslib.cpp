@@ -433,7 +433,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 				FPointArray cl = item->PoLine.copy();
 				QWMatrix mm;
 				mm.translate(item->gXpos, item->gYpos);
-				mm.rotate(-item->rotation());
+				mm.rotate(item->rotation());
 				cl.map( mm );
 				SetClipPath(&cl);
 				PS_closepath();
@@ -1838,7 +1838,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 								FPointArray cl = ite->PoLine.copy();
 								QWMatrix mm;
 								mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - Doc->Pages->at(a)->height());
-								mm.rotate(-ite->rotation());
+								mm.rotate(ite->rotation());
 								cl.map( mm );
 								SetClipPath(&cl);
 								PS_closepath();
@@ -2747,7 +2747,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 					FPointArray cl = c->PoLine.copy();
 					QWMatrix mm;
 					mm.translate(c->xPos() - a->xOffset(), (c->yPos() - a->yOffset()) - a->height());
-					mm.rotate(-c->rotation());
+					mm.rotate(c->rotation());
 					cl.map( mm );
 					SetClipPath(&cl);
 					PS_closepath();
