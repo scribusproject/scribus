@@ -168,7 +168,6 @@ FPointArray traceGlyph(FT_Face face, FT_UInt glyphIndex, int chs, double *x, dou
 		*err = true;
 		return pts2;
 	}
-	double uniEM = static_cast<double>(face->units_per_EM);
 	error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
 	if (error)
 	{
@@ -334,7 +333,6 @@ QPixmap fontSamples(ScFace * fnt, int s, QString ts, QColor back)
 
 bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 {
-	bool error;
 	char buf[50];
 	FT_ULong  charcode;
 	FT_UInt gindex;

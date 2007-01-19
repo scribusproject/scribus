@@ -1132,7 +1132,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	}
 	QMap<int, ParagraphStyle> UsedStyles;
 	QMap<int, int> UsedMapped2Saved;
-	int NewStylesNum = 5;
+//	int NewStylesNum = 5;
 	UsedStyles.clear();
 	UsedMapped2Saved.clear();
 /*

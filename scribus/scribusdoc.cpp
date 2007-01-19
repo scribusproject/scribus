@@ -6797,7 +6797,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount;
-	double newX;
+	double newX = 0.0;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:
@@ -7022,7 +7022,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 		return;
 	uint alignObjectsCount=AObjects.count();
 	int loopStart=0, loopEnd=alignObjectsCount;
-	double newY;
+	double newY = 0.0;
 	switch ( currAlignTo ) 
 	{
 		case alignFirst:

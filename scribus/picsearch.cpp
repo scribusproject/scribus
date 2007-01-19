@@ -24,7 +24,7 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
 	previewLabel->hide();
 	fileNameLabel->setText(fileName);
 
-	for (int i = 0; i < avalableFiles.count(); ++i)
+	for (uint i = 0; i < avalableFiles.count(); ++i)
 		foundFilesBox->insertItem( QDir::convertSeparators(avalableFiles[i]) );
 
 	// signals and slots connections

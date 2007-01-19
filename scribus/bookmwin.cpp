@@ -424,7 +424,7 @@ void BookMView::AddItem(QString text, QString Tit, PageItem *PageObject)
 void BookMView::DeleteItem(PageItem *pObject)
 {
 	BookMItem *ite;
-	int nr;
+	int nr = 0;
 	QListViewItemIterator itx(this);
 	for ( ; itx.current(); ++itx)
 	{

@@ -8299,7 +8299,8 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	QString siz = state->get("SIZE");
 	bool mov = static_cast<bool>(state->getInt("MOVED"));
 
-	int delFrom, delTo;
+	int delFrom = 0;
+	int delTo = 0;
 	switch (where)
 	{
 		case 0:

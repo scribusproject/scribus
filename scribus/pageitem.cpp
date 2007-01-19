@@ -653,7 +653,7 @@ void PageItem::setReversed(bool newReversed)
 bool PageItem::frameOverflows() const
 {
 #ifndef NLS_PROTO
-	return NextBox == NULL && itemText.length() > MaxChars;
+	return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);
 #else
 	return false; // FIXME:NLS
 #endif
@@ -1444,7 +1444,7 @@ QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
 		{
 			while (embedded == groupStack.top())
 			{
-				PageItem *tmpItem = groupClips.pop();
+//				PageItem *tmpItem = groupClips.pop();
 //				FPointArray cl = tmpItem->PoLine.copy();
 //				QWMatrix mm;
 //				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
@@ -1466,7 +1466,6 @@ QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
 QString PageItem::ExpandToken(uint base)
 {
 	uint zae = 0;
-	uint za2 = base;
 	QChar ch = itemText.text(base);
 	QString chstr = ch;
 	if (ch == SpecialChars::PAGENUMBER) {
@@ -2692,7 +2691,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!OnMasterPage.isEmpty());
-	Page *oldCurrentPage;
+	Page *oldCurrentPage = m_Doc->currentPage();
 	if (!OnMasterPage.isEmpty())
 	{
 		oldCurrentPage = m_Doc->currentPage();
@@ -2831,7 +2830,6 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 
 void PageItem::restoreResize(SimpleState *state, bool isUndo)
 {
-	ScribusView* view = m_Doc->view();
 	double  ow = state->getDouble("OLD_WIDTH");
 	double  oh = state->getDouble("OLD_HEIGHT");
 	double   w = state->getDouble("NEW_WIDTH");
@@ -2868,7 +2866,6 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 
 void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 {
-	ScribusView* view = m_Doc->view();
 	double ort = state->getDouble("OLD_ROT");
 	double  rt = state->getDouble("NEW_ROT");
 	double  ox = state->getDouble("OLD_RXPOS");
@@ -3264,7 +3261,7 @@ ObjAttrVector* PageItem::getObjectAttributes()
 ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
 {
 	int countFound=0;
-	ObjAttrVector::Iterator foundIt;
+	ObjAttrVector::Iterator foundIt = pageItemAttributes.begin();
 	for(ObjAttrVector::Iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
 	{
 		if ((*objAttrIt).name==attributeName)

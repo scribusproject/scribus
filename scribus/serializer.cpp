@@ -57,7 +57,7 @@ void Serializer::PutText(PageItem *Item)
 
 void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
 {
-	PageItem *nextItem;
+//	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->doc();
 	if (Absatz < 0 || Absatz > signed(doku->paragraphStyles().count()))

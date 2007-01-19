@@ -329,7 +329,7 @@ QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool s
 	WORD inC[4];
 	WORD outC[4];
 	int  r = rgb.r, g = rgb.g, b = rgb.b;
-	bool alert = true;
+//	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
 	if (ScCore->haveCMS() && cmsUse)
 	{
@@ -360,7 +360,7 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 	int  r = 0, g = 0, b = 0;
 	WORD inC[4];
 	WORD outC[4];
-	bool alert = true;
+//	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
 	if (ScCore->haveCMS() && cmsUse)
 	{
@@ -400,7 +400,7 @@ QColor ScColorEngine::getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool
 	int r = rgb.r;
 	int g = rgb.g;
 	int b = rgb.b; 
-	bool alert = true;
+//	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
 	if (ScCore->haveCMS() && cmsUse)
 	{
@@ -420,7 +420,7 @@ QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bo
 	int  r = 0, g = 0, b = 0;
 	WORD inC[4];
 	WORD outC[4];
-	bool alert = true;
+//	bool alert = true;
 	bool cmsUse = doc ? doc->HasCMS : false;
 	if (ScCore->haveCMS() && cmsUse)
 	{

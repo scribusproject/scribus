@@ -2653,7 +2653,14 @@ void StoryEditor::changeStyle(int )
 	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-		int PStart, PEnd, SelStart, SelEnd, PStart2, PEnd2, SelStart2, SelEnd2;
+		int PStart = 0;
+		int PEnd = 0;
+		int SelStart = 0;
+		int SelEnd = 0;
+		int PStart2 = 0;
+		int PEnd2 = 0;
+		int SelStart2 = 0;
+		int SelEnd2 = 0;
 		if (Editor->hasSelectedText())
 		{
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
@@ -2730,7 +2737,14 @@ void StoryEditor::changeAlign(int )
 	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-		int PStart, PEnd, SelStart, SelEnd, PStart2, PEnd2, SelStart2, SelEnd2;
+		int PStart = 0;
+		int PEnd = 0;
+		int SelStart = 0;
+		int SelEnd = 0;
+		int PStart2 = 0;
+		int PEnd2 = 0;
+		int SelStart2 = 0;
+		int SelEnd2 = 0;
 		if (Editor->hasSelectedText())
 		{
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);

@@ -580,7 +580,7 @@ void HelpBrowser::loadMenu()
 		QDomElement docElem = doc.documentElement();
 		QDomNode n = docElem.firstChild();
 		QListViewItem *qlvi=NULL, *qlvi2=NULL, *qlvi3=NULL, *qlvi4=NULL, *qlvi5=NULL, *qlvi6=NULL;
-		QListViewItem *tutorialsMenuItem;
+		QListViewItem *tutorialsMenuItem=NULL;
 		bool haveTutorials=false;
 
 		while( !n.isNull() )

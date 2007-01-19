@@ -2054,7 +2054,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				setAlphaBuffer( true );
 				imgInfo = pDataLoader->imageInfoRecord();
 			}
-			LPBYTE ptr2;
+			LPBYTE ptr2 = NULL;
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);

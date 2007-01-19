@@ -108,7 +108,7 @@ AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QButtonGroup( pare
 
 double* AutoformButtonGroup::getShapeData(int a, int *n)
 {
-	double *vals;
+	double *vals = NULL;
 	static double AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
@@ -253,6 +253,10 @@ double* AutoformButtonGroup::getShapeData(int a, int *n)
 		case 17:
 			*n = 68;
 			vals = AutoShapes17;
+			break;
+		default:
+			*n = 32;
+			vals = AutoShapes0;
 			break;
 		}
 	return vals;

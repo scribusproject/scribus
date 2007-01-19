@@ -142,7 +142,7 @@ bool CollectForOutput::collectItems()
 	uint counter = 0;
 	for (uint lc = 0; lc < 3; ++lc)
 	{
-		PageItem* ite;
+		PageItem* ite = NULL;
 		switch (lc)
 		{
 			case 0:

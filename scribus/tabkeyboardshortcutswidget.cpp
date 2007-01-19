@@ -327,8 +327,10 @@ void TabKeyboardShortcutsWidget::insertActions()
 	lviToMenuMap.clear();
 	keyTable->clear();
 	bool first, firstMenu=true;
-	QListViewItem *currLVI, *currMenuLVI;
-	QListViewItem *prevLVI, *prevMenuLVI;
+	QListViewItem *currLVI = NULL;
+	QListViewItem *currMenuLVI = NULL;
+	QListViewItem *prevLVI = NULL;
+	QListViewItem *prevMenuLVI = NULL;
 	for (QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
 	{
 		if (firstMenu)

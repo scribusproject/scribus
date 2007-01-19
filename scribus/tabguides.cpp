@@ -270,7 +270,7 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	minorSpace->setSuffix( unit );
 	majorSpace->setValue(prefsData->majorGrid * unitRatio);
 	majorSpace->setSuffix( unit );
-	snapDistance->setValue(prefsData->guideRad);
+	snapDistance->setValue(qRound(prefsData->guideRad));
 	snapDistance->setSuffix( " " + tr( "px" ) );
 	grabDistance->setValue(prefsData->grabRad);
 	grabDistance->setSuffix( " " + tr( " px" ) );

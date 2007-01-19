@@ -1614,7 +1614,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	else
 		pagemult = 1;
 	QValueList<double> dum;
-	double gx, gy, gw, gh;
+	double gx = 0.0;
+	double gy = 0.0;
+	double gw = 0.0;
+	double gh = 0.0;;
 	dum.clear();
 	PS_set_Info("Author", Doc->documentInfo.getAuthor());
 	PS_set_Info("Title", Doc->documentInfo.getTitle());
@@ -2682,6 +2685,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 #endif
 			break;
+		default:
+			break;
 		}
 		PS_restore();
 	}
@@ -3478,7 +3483,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	uint glyph = glyphs.glyph;
 
 	int h, s, v, k, tsz;
-	double wideR;
+	double wideR = 0.0;
 	QValueList<double> dum;
 	dum.clear();
 	tsz = hl->fontSize();
