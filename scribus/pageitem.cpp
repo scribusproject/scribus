@@ -3844,7 +3844,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			if (pixm.imgInfo.lowResType == 1)
 				scaling = pixm.imgInfo.xres / 72.0;
 			// Prevent exagerately large images when using low res preview modes
-			uint pixels = pixm.width() * pixm.height() / (scaling * scaling);
+			uint pixels = qRound(pixm.width() * pixm.height() / (scaling * scaling));
 			if (pixels > 3000000)
 			{
 				double ratio = pixels / 3000000.0;
