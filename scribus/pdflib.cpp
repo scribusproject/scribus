@@ -2018,7 +2018,7 @@ void PDFlib::PDF_End_Page()
 	}
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
-	int Gobj;
+	int Gobj = 0;
 	if (Options.Version >= 14)
 	{
 		StartObj(ObjCounter);
@@ -4681,73 +4681,16 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		ResCount++;
 		return tmp;
 	}
-	double w = currItem->width();
-	double h = -currItem->height();
-	double w2 = w / 2.0;
-	double h2 = h / 2.0;
-	double StartX = 0;
-	double StartY = 0;
-	double EndX = 0;
-	double EndY =0;
+	double StartX = currItem->GrStartX;
+	double StartY = -currItem->GrStartY;
+	double EndX = currItem->GrEndX;
+	double EndY =- currItem->GrEndY;
 	QValueList<double> StopVec;
 	QValueList<double> TransVec;
 	QStringList Gcolors;
 	QStringList colorNames;
 	QValueList<int> colorShades;
 	QPtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
-	switch (currItem->GrType)
-	{
-/*		case 1:
-			StartX = 0;
-			StartY = h2;
-			EndX = w;
-			EndY = h2;
-			break;
-		case 2:
-			StartX = w2;
-			StartY = 0;
-			EndX = w2;
-			EndY = h;
-			break;
-		case 3:
-			StartX = 0;
-			StartY = 0;
-			EndX = w;
-			EndY = h;
-			break;
-		case 4:
-			StartX = 0;
-			StartY = h;
-			EndX = w;
-			EndY = 0;
-			break;
-		case 5:
-			StartX = w2;
-			StartY = h2;
-			if (w >= h)
-			{
-				EndX = w;
-				EndY = h2;
-			}
-			else
-			{
-				EndX = w2;
-				EndY = h;
-			}
-			break; */
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-			StartX = currItem->GrStartX;
-			StartY = -currItem->GrStartY;
-			EndX = currItem->GrEndX;
-			EndY = -currItem->GrEndY;
-			break;
-	}
 	StopVec.clear();
 	TransVec.clear();
 	Gcolors.clear();
@@ -5667,7 +5610,9 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 	double syn = 0;
 	x2 = 0;
 	double aufl = Options.Resolution / 72.0;
-	int ImRes, ImWid, ImHei, origWidth, origHeight;
+	int ImRes, ImWid, ImHei;
+	int origWidth = 1;
+	int origHeight = 1;
 	struct ShIm ImInfo;
 	if ((!SharedImages.contains(fn)) || (fromAN) || (c->effectsInUse.count() != 0))
 	{
