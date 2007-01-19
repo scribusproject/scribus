@@ -1252,7 +1252,7 @@ void ScPainter::drawVPath( int mode )
 	}
 	else
 	{
-		double *dashes;
+		double *dashes = NULL;
 		cairo_set_line_width( m_cr, LineWidth );
 		if( m_array.count() > 0 )
 		{

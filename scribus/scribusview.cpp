@@ -2330,7 +2330,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		currItem = Doc->m_Selection->itemAt(0);
 		operItemMoving = false;
 
-		ItemState<QPair<FPointArray, FPointArray> > *state;
+		ItemState<QPair<FPointArray, FPointArray> > *state = NULL;
 		if (oldClip) // is there the old clip stored for the undo action
 		{
 			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
@@ -8628,7 +8628,7 @@ void ScribusView::slotDoCurs(bool draw)
 			{
 				textframe->CPos = textframe->itemText.length();
 			}
-			if (textframe->lastInFrame() >= textframe->itemText.nrOfItems() 
+			if (static_cast<uint>(textframe->lastInFrame()) >= textframe->itemText.nrOfItems() 
 				|| textframe->itemText.length() == 0)
 			{
 				x = 0;

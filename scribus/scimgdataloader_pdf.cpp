@@ -80,7 +80,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 {
 	float xres, yres;
-	short resolutionunit = 0;
+//	short resolutionunit = 0;
 	initialize();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())

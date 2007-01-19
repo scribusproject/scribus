@@ -262,7 +262,8 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
-	PyThreadState *stateo, *state;
+	PyThreadState *stateo = NULL;
+	PyThreadState *state = NULL;
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
 	// Set up a sub-interpreter if needed:

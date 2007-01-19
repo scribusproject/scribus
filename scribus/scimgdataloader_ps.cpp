@@ -161,6 +161,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					QByteArray imgc(thumbLen);
 					f.at(thumbStart);
 					uint readB = f.readBlock(imgc.data(), thumbLen);
+					readB = 0;
 					QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "preview.tiff");
 					QFile f2(tmpFile);
 					if (f2.open(IO_WriteOnly))
@@ -1321,6 +1322,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 			{
 				f.at(it.data().pos);
 				uint readB = f.readBlock(imgc.data(), it.data().len);
+				readB = 0;
 			}
 			f.close();
 			QFile f2(tmpFile2);
@@ -1530,7 +1532,7 @@ void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
 void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 {
 	float xres, yres;
-	short resolutionunit = 0;
+//	short resolutionunit = 0;
 	initialize();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -1541,7 +1543,7 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 	QString picFile = QDir::convertSeparators(fn);
 	double x, y, b, h;
 	bool found = false;
-	int retg = -1;
+//	int retg = -1;
 	QChar tc;
 	
 	QFile f(fn);

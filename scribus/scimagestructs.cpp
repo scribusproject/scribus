@@ -15,9 +15,9 @@ void ExifValues::init(void)
 {
 	width = 0;
 	height = 0;
-	float ExposureTime = 0;
-	float ApertureFNumber = 0;
-	int   ISOequivalent = 0;
+	ExposureTime = 0;
+	ApertureFNumber = 0;
+	ISOequivalent = 0;
 	cameraName.setLength(0);
 	cameraVendor.setLength(0);
 	comment.setLength(0);

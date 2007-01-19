@@ -1057,7 +1057,8 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 			unsigned char *s;
 			unsigned char *d;
 			unsigned char *sm = 0;
-			unsigned char r, g, b, a, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
+			unsigned char r, g, b, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
+			unsigned char a = 0;
 			uchar new_r, new_g, new_b;
 			unsigned int maxDestX;
 			for (int i = static_cast<int>(startSrcY); i < layerInfo[layer].height; i++)

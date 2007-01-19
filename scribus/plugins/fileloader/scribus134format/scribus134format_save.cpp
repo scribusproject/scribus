@@ -391,7 +391,7 @@ void Scribus134Format::writePStyles(QDomDocument & docu)
 void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const ParagraphStyle & style)
 {
 	fo.setAttribute("NAME", style.name());
-	const Style * parent = style.parentStyle();
+//	const Style * parent = style.parentStyle();
 /*	if ( ! style.parent().isEmpty())
 	{
 		fo.setAttribute("PARENT", style.parent());
@@ -524,7 +524,7 @@ void Scribus134Format::writeCStyles(QDomDocument & docu)
 void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const CharStyle & style)
 {
 	fo.setAttribute("CNAME", style.name());
-	const Style * parent = style.parentStyle();
+//	const Style * parent = style.parentStyle();
 /*	if ( ! style.parent().isEmpty() )
 	{
 		fo.setAttribute("CPARENT", style.parent());

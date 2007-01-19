@@ -302,8 +302,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
 			{
 				xres = yres = 72.0;
-				m_imageInfoRecord.xres = xres;
-				m_imageInfoRecord.yres = yres;
+				m_imageInfoRecord.xres = qRound(xres);
+				m_imageInfoRecord.yres = qRound(yres);
 				m_image.setDotsPerMeterX(2834);
 				m_image.setDotsPerMeterY(2834);
 				QFileInfo qfi(fn);

@@ -48,7 +48,7 @@ QPixmap ScPreview::createPreview(QString data)
 	ScText *hg;
 	ScText *hl;
 	QPtrList<ScText> Ptexti;
-	bool error;
+//	bool error;
 	ScColor lf = ScColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
@@ -942,7 +942,7 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 		ccx = " ";
 	double wide;
 	double csi = static_cast<double>(Siz) / 100.0;
-	uint chr = ccx[0].unicode();
+//	uint chr = ccx[0].unicode();
 	if (prefsManager->appPrefs.AvailFonts[ZFo].canRender(ccx[0]))
 	{
 		wide = prefsManager->appPrefs.AvailFonts[ZFo].charWidth(ccx[0])*(Siz / 10.0);

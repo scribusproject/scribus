@@ -130,7 +130,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						{
 							unsigned char *s = image->scanLine( heightt - 1 - y );
 							unsigned char r, g, b, a;
-							for(int xi=0; xi < widtht; ++xi )
+							for(uint xi=0; xi < widtht; ++xi )
 							{
 								r = s[0];
 								g = s[1];
@@ -221,7 +221,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 					{
 						unsigned char *s = image->scanLine( heightt - 1 - y );
 						unsigned char r, g, b, a;
-						for(int xi=0; xi < widtht; ++xi )
+						for(uint xi=0; xi < widtht; ++xi )
 						{
 							r = s[0];
 							g = s[1];
@@ -265,7 +265,8 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 	{
 		unsigned char *s = tmp->scanLine( yi );
 		unsigned char *d = r_image.scanLine( yi );
-		unsigned char r, g, b, a, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
+		unsigned char r, g, b, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
+		unsigned char a = 0;
 		for(int xi=0; xi < w; ++xi )
 		{
 			src_r = s[0];
@@ -1316,7 +1317,8 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 					sm += QMIN(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
 				}
 				startDstY++;
-				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
+				unsigned char r, g, b, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
+				unsigned char a = 0;
 				unsigned int maxDestX = r_image.width() - startDstX + startSrcX - 1;
 				for (unsigned int j = startSrcX; j < QMIN(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
 				{
