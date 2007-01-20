@@ -71,6 +71,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	offs = 0;
 	Markp = 0;
 	oldMark = 0;
+	ActCol = 1;
 	Mpressed = false;
 	ItemPosValid = false;
 	RulerCode = rc_none;
@@ -80,9 +81,10 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 
 void Hruler::mousePressEvent(QMouseEvent *m)
 {
-	Mpressed = true;
 	if (currDoc->isLoading())
 		return;
+	Mpressed = true;
+	MouseX = m->x();
 	if (ItemPosValid)
 	{
 		RulerCode = rc_none;
@@ -109,33 +111,30 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			}
 		}
 		if (ActCol == 0)
-			return;
-//		if (currDoc->currentParaStyle > 4)
 		{
-			Pos = (ItemPos-offs+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-			fpo = QRect(static_cast<int>(Pos)-3, topline, 6, 6);
-			if (fpo.contains(m->pos()))
-			{
-				RulerCode = rc_indentFirst;
-				MouseX = m->x();
-				return;
-			}
-			Pos = (ItemPos-offs+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-			fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
-			if (fpo.contains(m->pos()))
-			{
-				RulerCode = rc_leftMargin;
-				MouseX = m->x();
-				return;
-			}
-			Pos = (ItemPos-offs+RMargin+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
-			fpo = QRect(static_cast<int>(Pos)-5, 9, 8, 6);
-			if (fpo.contains(m->pos()))
-			{
-				RulerCode = rc_rightMargin;
-				MouseX = m->x();
-				return;
-			}
+			ActCol = 1;
+			return;
+		}
+		Pos = (ItemPos-offs+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
+		fpo = QRect(static_cast<int>(Pos)-3, topline, 6, 6);
+		if (fpo.contains(m->pos()))
+		{
+			RulerCode = rc_indentFirst;
+			return;
+		}
+		Pos = (ItemPos-offs+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
+		fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
+		if (fpo.contains(m->pos()))
+		{
+			RulerCode = rc_leftMargin;
+			return;
+		}
+		Pos = (ItemPos-offs+RMargin+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr)*Scaling;
+		fpo = QRect(static_cast<int>(Pos)-5, 9, 8, 6);
+		if (fpo.contains(m->pos()))
+		{
+			RulerCode = rc_rightMargin;
+			return;
 		}
 		if (TabValues.count() != 0)
 		{
@@ -166,7 +165,6 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			emit DocChanged(false);
 		}
-		MouseX = m->x();
 	}
 	else
 	{
@@ -221,10 +219,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 						if (TabValues[ActTab].tabType > 4)
 							TabValues[ActTab].tabType = 0;
 					}
-//					if (currDoc->currentParaStyle > 4)
-						currItem->changeCurrentStyle().setTabValues(TabValues);
-//					else
-//						currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
+					currItem->changeCurrentStyle().setTabValues(TabValues);
 					emit DocChanged(false);
 					break;
 				default:
@@ -239,10 +234,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				it = TabValues.at(ActTab);
 				TabValues.remove(it);
 				ActTab = 0;
-//				if (currDoc->currentParaStyle > 4)
-					currItem->changeCurrentStyle().setTabValues(TabValues);
-//				else
-//					currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
+				currItem->changeCurrentStyle().setTabValues(TabValues);
 				emit DocChanged(false);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
