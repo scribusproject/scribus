@@ -3184,9 +3184,11 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 	//Get the section of the new page index.
 	bool found=false;
 	DocumentSectionMap::Iterator it = sections.begin();
-	for (; it!= sections.end(); ++it)
+	if (otherPageIndex==0)
+		found=true;
+	for (; it!= sections.end() && !found; ++it)
 	{
-		if (otherPageIndex>=it.data().fromindex && otherPageIndex<=it.data().toindex)
+		if (otherPageIndex-1>=it.data().fromindex && otherPageIndex-1<=it.data().toindex)
 		{
 			found=true;
 			break;
@@ -3199,7 +3201,7 @@ void ScribusDoc::addPageToSection(const uint otherPageIndex, const uint location
 
 	//For this if: We are adding before the beginning of a section, so we must put this
 	//new page in the previous section and then increment the rest
-	if (otherPageIndex==it.data().fromindex && location==0 && it!=sections.begin())
+	if (otherPageIndex-1==it.data().fromindex && location==0 && it!=sections.begin())
 		--it2;
 	it2.data().toindex+=count;
 	++it2;
@@ -3388,7 +3390,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		}
 		GroupCounter = GrMax + 1;
 	}
-	addPageToSection(existingPage-1, whereToInsert, copyCount);
+	addPageToSection(existingPage, whereToInsert, copyCount);
 	setUsesAutomaticTextFrames(autoText);
 }
 
