@@ -245,6 +245,7 @@ public:
 	bool importCanceled;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
+	QStringList importedColors;
 };
 
 #endif

@@ -200,6 +200,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	unsupported = false;
 	importFailed = false;
 	importCanceled = true;
+	importedColors.clear();
 	docDesc = "";
 	docTitle = "";
 	groupLevel = 0;
@@ -313,7 +314,16 @@ void SVGPlug::convert(int flags)
 // 	m_Doc->m_Selection->clear();
 	tmpSel->clear();
 	if (Elements.count() == 0)
+	{
 		importFailed = true;
+		if (importedColors.count() != 0)
+		{
+			for (uint cd = 0; cd < importedColors.count(); cd++)
+			{
+				m_Doc->PageColors.remove(importedColors[cd]);
+			}
+		}
+	}
 	if (Elements.count() > 1)
 	{
 		bool isGroup = true;
@@ -427,6 +437,16 @@ void SVGPlug::convert(int flags)
 		m_Doc->view()->updatesOn(true);
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		importCanceled = dr->drag();
+		if (!importCanceled)
+		{
+			if (importedColors.count() != 0)
+			{
+				for (uint cd = 0; cd < importedColors.count(); cd++)
+				{
+					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+		}
 //		if (!dr->drag())
 //			qDebug("svgimport: could not start drag operation!");
 		delete ss;
@@ -2071,6 +2091,7 @@ QString SVGPlug::parseColor( const QString &s )
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert("FromSVG"+c.name(), tmp);
+		importedColors.append("FromSVG"+c.name());
 		ret = "FromSVG"+c.name();
 	}
 	return ret;

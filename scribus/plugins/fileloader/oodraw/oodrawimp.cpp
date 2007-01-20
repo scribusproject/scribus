@@ -208,6 +208,7 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	interactive = false;
 	importFailed = false;
 	importCanceled = true;
+	importedColors.clear();
 	tmpSel=new Selection(this, false);
 }
 
@@ -396,7 +397,16 @@ bool OODPlug::convert(int flags)
 	tmpSel->clear();
 //	if ((Elements.count() > 1) && (interactive))
 	if (Elements.count() == 0)
+	{
 		importFailed = true;
+		if (importedColors.count() != 0)
+		{
+			for (uint cd = 0; cd < importedColors.count(); cd++)
+			{
+				m_Doc->PageColors.remove(importedColors[cd]);
+			}
+		}
+	}
 	if (Elements.count() > 1)
 	{
 		bool isGroup = true;
@@ -507,6 +517,16 @@ bool OODPlug::convert(int flags)
 		m_Doc->view()->updatesOn(true);
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		importCanceled = dr->drag();
+		if (!importCanceled)
+		{
+			if (importedColors.count() != 0)
+			{
+				for (uint cd = 0; cd < importedColors.count(); cd++)
+				{
+					m_Doc->PageColors.remove(importedColors[cd]);
+				}
+			}
+		}
 //		if (!dr->drag())
 //			qDebug("oodraw import: couldn't start drag operation!");
 		delete ss;
@@ -1267,6 +1287,7 @@ QString OODPlug::parseColor( const QString &s )
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
 		m_Doc->PageColors.insert("FromOODraw"+c.name(), tmp);
+		importedColors.append("FromOODraw"+c.name());
 		ret = "FromOODraw"+c.name();
 	}
 	return ret;

@@ -120,6 +120,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
+					importedColors.append(FarNam);
 					while (!ts.atEnd())
 					{
 						uint oldPos = ts.device()->at();
@@ -141,6 +142,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 						cc.setSpotColor(true);
 						CustColors.insert(FarNam, cc);
+						importedColors.append(FarNam);
 					}
 				}
 				if (tmp.startsWith("%%EndComments"))
@@ -335,7 +337,15 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			qDebug(QString("psimport: drag type %1").arg(dr->format()));
 #endif
 			if (!dr->drag())
-				qDebug("psimport: couldn't start dragging!");
+			{
+				if (importedColors.count() != 0)
+				{
+					for (uint cd = 0; cd < importedColors.count(); cd++)
+					{
+						m_Doc->PageColors.remove(importedColors[cd]);
+					}
+				}
+			}
 			delete ss;
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
@@ -649,9 +659,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				}
 			}
 			else if (token == "co")
-				CurrColor = parseColor(params);
+				CurrColor = parseColor(params, eps);
 			else if (token == "corgb")
-				CurrColor = parseColor(params, colorModelRGB);
+				CurrColor = parseColor(params, eps, colorModelRGB);
 			else if (token == "ci")
 			{
 				clipCoords = Coords;
@@ -939,7 +949,7 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	i->addPoint(FPoint(x3, y3));
 }
 
-QString EPSPlug::parseColor(QString vals, colorModel model)
+QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 {
 	QString ret = CommonStrings::None;
 	if (vals.isEmpty())
@@ -1011,8 +1021,12 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	{
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
-		m_Doc->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		ret = "FromEPS"+tmp.name();
+		QString namPrefix = "FromEPS";
+		if (!eps)
+			namPrefix = "FromPS";
+		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
+		importedColors.append(namPrefix+tmp.name());
+		ret = namPrefix+tmp.name();
 	}
 	return ret;
 }

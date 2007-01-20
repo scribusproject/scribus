@@ -112,6 +112,7 @@ protected:
 	bool interactive;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
+	QStringList importedColors;
 };
 
 #endif

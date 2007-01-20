@@ -78,7 +78,7 @@ private:
 	\param model a color model
 	\retval QString Color Name
 	*/
-	QString parseColor(QString vals, colorModel model = colorModelCMYK);
+	QString parseColor(QString vals, bool eps, colorModel model = colorModelCMYK);
 	bool Image(QString vals);
 	
 	QPtrList<PageItem> Elements;
@@ -96,6 +96,7 @@ private:
 	bool cancel;
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
+	QStringList importedColors;
 
 public slots:
 	void cancelRequested() { cancel = true; }
