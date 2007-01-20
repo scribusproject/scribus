@@ -127,7 +127,6 @@ void ParagraphStyle::update(const StyleBase* base)
 
 void ParagraphStyle::applyStyle(const ParagraphStyle& other) 
 {
-	other.validate();
 	Style::applyStyle(other);
 	cstyle.applyCharStyle(other.charStyle());
 	cstyleBase.invalidate();
@@ -141,7 +140,6 @@ void ParagraphStyle::applyStyle(const ParagraphStyle& other)
 
 void ParagraphStyle::eraseStyle(const ParagraphStyle& other) 
 {
-	validate();
 	other.validate();
 	Style::eraseStyle(other);
 	cstyle.eraseCharStyle(other.charStyle());
@@ -156,11 +154,11 @@ void ParagraphStyle::eraseStyle(const ParagraphStyle& other)
 void ParagraphStyle::setStyle(const ParagraphStyle & other) 
 {
 	other.validate();
-	setParent("");
+	setParent(other.parent());
 	cstyle.setStyle(other.charStyle());
 	cstyleBase.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	inh_##attr_NAME = false; \
+	inh_##attr_NAME = other.inh_##attr_NAME; \
 	m_##attr_NAME = other.m_##attr_NAME;
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF

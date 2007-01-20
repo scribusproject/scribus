@@ -98,7 +98,6 @@ bool StyleFlag::operator!= (const StyleFlagValue right) const
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {
-	other.validate();
 	Style::applyStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (! other.inh_##attr_NAME) \
@@ -194,9 +193,9 @@ void CharStyle::update(const StyleBase* base)
 void CharStyle::setStyle(const CharStyle& other) 
 {
 	other.validate();
-	setParent("");
+	setParent(other.parent());
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	inh_##attr_NAME = false; \
+	inh_##attr_NAME = other.inh_##attr_NAME; \
 	m_##attr_NAME = other.m_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
