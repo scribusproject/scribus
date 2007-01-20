@@ -276,13 +276,13 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect& cl
 					if (clip.intersects(oldR))
 					{
 						DrawItem( currItem, painter, clip );
-						if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
+						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 						{
 							PageItem *nextItem = currItem;
 							while (nextItem != 0)
 							{
-								if (nextItem->BackBox != 0)
-									nextItem = nextItem->BackBox;
+								if (nextItem->prevInChain() != 0)
+									nextItem = nextItem->prevInChain();
 								else
 									break;
 							}
