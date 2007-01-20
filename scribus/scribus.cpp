@@ -5129,7 +5129,7 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	view->Deselect(true);
 	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
-	doc->addPageToSection(wo-1, 1, 1);
+	doc->addPageToSection(wo, 1, 1);
 	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 }
@@ -5237,8 +5237,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 //						 doc->currentPage()->pageNr(), false); // this Apply_MasterPage avoids DreawNew and PagePalette->ReBuild, which is much faster for 100 pp :-)
 		wot ++;
 	}
-	//Must use wo-1 as the dialog currently returns a page Index +1 due to old numbering scheme
-	doc->addPageToSection(wo-1, where, numPages);
+	//Use wo, the dialog currently returns a page Index +1 due to old numbering scheme, function now does the -1 as required
+	doc->addPageToSection(wo, where, numPages);
 	pagePalette->RebuildPage();
 	view->reformPages(mov);
 	view->DrawNew();
