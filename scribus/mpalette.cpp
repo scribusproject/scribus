@@ -111,7 +111,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertieparaStyleComboBox", false, 0)
+Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
 {
 	m_ScMW=0;
 	doc=0;
@@ -671,9 +671,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertieparaSty
 	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	paraStyleCombo = new ParaStyleComboBox(page_3);
-	styleLabel = new QLabel( paraStyleCombo, "St&yle:", page_3, "styleLabel" );
-	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
+	paraStyleLabel = new QLabel( paraStyleCombo, "Paragraph St&yle:", page_3, "parastyleLabel" );
+	GroupBox3aLayout->addWidget( paraStyleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( paraStyleCombo, 0, 1 );
+	charStyleCombo = new CharStyleComboBox(page_3);
+	charStyleLabel = new QLabel( charStyleCombo, "Character St&yle:", page_3, "charstyleLabel" );
+	GroupBox3aLayout->addWidget( charStyleLabel, 1, 0 );
+	GroupBox3aLayout->addWidget( charStyleCombo, 1, 1 );
 /*	langCombo = new ScComboBox( false, page_3, "Lang" );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
@@ -2373,13 +2377,24 @@ void Mpalette::setAli(int e)
 }
 
 
-void Mpalette::setParStyle(QString name)
+void Mpalette::setParStyle(const QString& name)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	paraStyleCombo->setFormat(name);
+	HaveItem = tmp;
+}
+
+
+void Mpalette::setCharStyle(const QString& name)
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
+	charStyleCombo->setFormat(name);
 	HaveItem = tmp;
 }
 
@@ -4173,7 +4188,8 @@ void Mpalette::languageChange()
 	textFlowUsesFrameShape->setTextLabel( tr("Use Frame &Shape"));
 	textFlowUsesBoundingBox->setTextLabel( tr("Use &Bounding Box"));
 	textFlowUsesContourLine->setTextLabel( tr("&Use Contour Line"));
-	styleLabel->setText( tr("St&yle:"));
+	paraStyleLabel->setText( tr("Paragraph St&yle:"));
+	charStyleLabel->setText( tr("Character St&yle:"));
 //	langLabel->setText( tr("Lan&guage:"));
 	FreeScale->setText( tr("&Free Scaling"));
 	imgDPIXLabel->setText( tr("Actual X-DPI:"));
@@ -4322,6 +4338,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(LineSp);
 	QToolTip::remove(linespacingButton);
 	QToolTip::remove(paraStyleCombo);
+	QToolTip::remove(charStyleCombo);
 //	QToolTip::remove(langCombo);
 
 	QToolTip::remove(LineMode);
@@ -4398,7 +4415,8 @@ void Mpalette::languageChange()
 	QToolTip::add(Extra, tr("Manual Tracking"));
 	QToolTip::add(LineSp, tr("Line Spacing"));
 	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
-	QToolTip::add(paraStyleCombo, tr("Style of current paragraph"));
+	QToolTip::add(paraStyleCombo, tr("Paragraph style of currently selected text or paragraph"));
+	QToolTip::add(charStyleCombo, tr("Character style of currently selected text or paragraph"));
 //	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 
 	QToolTip::add(LineMode, tr("Change settings for left or end points"));

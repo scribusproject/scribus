@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          ParaStyleComboBox.cpp  -  description
+                          spalette.cpp  -  description
                              -------------------
     begin                : Wed Apr 25 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -39,7 +39,7 @@ ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(true, parent, 
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
-void ParaStyleComboBox::setFormats(ScribusDoc *newCurrentDoc)
+void ParaStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 {
 	currentDoc = newCurrentDoc;
 	updateFormatList();
@@ -79,6 +79,64 @@ void ParaStyleComboBox::selFormat(int e)
 	for (uint x = 0; x < currentDoc->paragraphStyles().count(); ++x)
 	{
 		if (currentDoc->paragraphStyles()[x].name() == currentText())
+		{
+			emit newStyle(x);
+			break;
+		}
+	}
+}
+
+CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(true, parent, "Sfloat")
+{
+//	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
+//	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
+//  										 sizePolicy().hasHeightForWidth() ) );
+	setEditable(false);
+	insertItem( tr("No Style"));
+	currentDoc = NULL;
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void CharStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
+{
+	currentDoc = newCurrentDoc;
+	updateFormatList();
+}
+
+void CharStyleComboBox::setFormat(QString name)
+{
+	setCurrentText(name.isEmpty() ? tr("No Style") : name);
+}
+
+void CharStyleComboBox::updateFormatList()
+{
+	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	clear();
+	if (currentDoc != NULL)
+	{
+		QStringList st;
+		st.clear();
+		insertItem( tr("No Style"));
+		for (uint x = 0; x < currentDoc->charStyles().count(); ++x)
+			if ( !currentDoc->charStyles()[x].name().isEmpty() )
+				st.append(currentDoc->charStyles()[x].name());
+		st.sort();
+		insertStringList(st);
+	}
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void CharStyleComboBox::selFormat(int e)
+{
+	if (e == 0)
+	{
+		emit newStyle(0);
+		return;
+	}
+	for (uint x = 0; x < currentDoc->charStyles().count(); ++x)
+	{
+		if (currentDoc->charStyles()[x].name() == currentText())
 		{
 			emit newStyle(x);
 			break;

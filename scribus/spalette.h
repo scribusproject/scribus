@@ -33,7 +33,7 @@ class ScribusDoc;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API ParaStyleComboBox : public QComboBox  
+class SCRIBUS_API ParaStyleComboBox : public QComboBox
 {
 	Q_OBJECT
 
@@ -44,7 +44,7 @@ public:
 	ScribusDoc *currentDoc;
 	
 public slots:
-	void setFormats(ScribusDoc *newCurrentDoc);
+	void setDoc(ScribusDoc *newCurrentDoc);
 	void setFormat(QString name);
 	void updateFormatList();
 	void selFormat(int e);
@@ -52,6 +52,27 @@ public slots:
 signals:
 	void newStyle(int);
 	void editStyle();
+};
+
+class SCRIBUS_API CharStyleComboBox : public QComboBox
+{
+	Q_OBJECT
+
+public: 
+	CharStyleComboBox(QWidget* parent);
+	~CharStyleComboBox() {};
+	
+	ScribusDoc *currentDoc;
+	
+public slots:
+	void setDoc(ScribusDoc *newCurrentDoc);
+	void setFormat(QString name);
+	void updateFormatList();
+	void selFormat(int e);
+	
+signals:
+	void newStyle(int);
+	void editCharStyle();
 };
 
 #endif

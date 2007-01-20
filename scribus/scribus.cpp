@@ -465,6 +465,7 @@ void ScribusMainWindow::initPalettes()
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setNewParStyle(int)));
+	connect(propertiesPalette->charStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setNewCharStyle(int)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -1014,6 +1015,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		const ParagraphStyle& currPStyle(currItem->currentStyle());
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currPStyle.parent());
+		propertiesPalette->setCharStyle(currItem->currentCharStyle().displayName());
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
@@ -2338,7 +2340,8 @@ void ScribusMainWindow::SwitchWin()
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
 	pagePalette->setView(view);
-	propertiesPalette->paraStyleCombo->setFormats(doc);
+	propertiesPalette->paraStyleCombo->setDoc(doc);
+	propertiesPalette->charStyleCombo->setDoc(doc);
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
@@ -2487,7 +2490,8 @@ void ScribusMainWindow::HaveNewDoc()
 	propertiesPalette->Cpal->ChooseGrad(0);
 //	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
-	propertiesPalette->paraStyleCombo->setFormats(doc);
+	propertiesPalette->paraStyleCombo->setDoc(doc);
+	propertiesPalette->charStyleCombo->setDoc(doc);
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
@@ -3409,7 +3413,8 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 //		if ((docItemsCount - oldItemsCount) > 1)
 //			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
-		propertiesPalette->paraStyleCombo->setFormats(doc);
+		propertiesPalette->paraStyleCombo->setDoc(doc);
+		propertiesPalette->charStyleCombo->setDoc(doc);
 		propertiesPalette->SetLineFormats(doc);
 		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
@@ -4153,7 +4158,8 @@ bool ScribusMainWindow::DoFileClose()
 	propertiesPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
-	propertiesPalette->paraStyleCombo->setFormats(0);
+	propertiesPalette->paraStyleCombo->setDoc(0);
+	propertiesPalette->charStyleCombo->setDoc(0);
 	propertiesPalette->SetLineFormats(0);
 	if (doc->EditClip)
 		NoFrameEdit();
@@ -6876,6 +6882,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	}
 
 	propertiesPalette->paraStyleCombo->updateFormatList();
+	propertiesPalette->charStyleCombo->updateFormatList();
 	propertiesPalette->updateColorList();
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
@@ -6903,6 +6910,17 @@ void ScribusMainWindow::setNewParStyle(int a)
 	{
 //		doc->currentStyle = doc->docParagraphStyles[a];
 		doc->itemSelection_SetNamedParagraphStyle(doc->paragraphStyles()[a].name());
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		setTBvals(currItem);
+	}
+}
+
+void ScribusMainWindow::setNewCharStyle(int a)
+{
+	if (HaveDoc)
+	{
+//		doc->currentStyle = doc->docParagraphStyles[a];
+		doc->itemSelection_SetNamedCharStyle(doc->charStyles()[a].name());
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
@@ -7864,6 +7882,7 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 			buildFontMenu();
 			propertiesPalette->updateColorList();
 			propertiesPalette->paraStyleCombo->updateFormatList();
+			propertiesPalette->charStyleCombo->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
 //			outlinePalette->BuildTree();
 			slotDocCh();

@@ -473,6 +473,7 @@ public slots:
 	void saveLStyles(LineFormate *dia);
 	void setNewAlignment(int a);
 	void setNewParStyle(int a);
+	void setNewCharStyle(int a);
 	void setAbsValue(int a);
 	void selectItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(int Page, int Item, bool single = false);

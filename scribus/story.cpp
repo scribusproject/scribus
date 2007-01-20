@@ -82,7 +82,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	int pos = editor->StyledText.startOfParagraph(p) + i;
 	pmen = new QPopupMenu();
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
-	paraStyleCombo->setFormats(editor->doc);
+	paraStyleCombo->setDoc(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
 		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar);
@@ -1474,7 +1474,7 @@ void StoryEditor::buildGUI()
 	setDockEnabled(AlignTools, DockLeft, false);
 	setDockEnabled(AlignTools, DockRight, false);
 	setDockEnabled(AlignTools, DockBottom, false);
-	AlignTools->paraStyleCombo->setFormats(currDoc);
+	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StyleTools = new SToolBStyle(this);
 	setDockEnabled(StyleTools, DockLeft, false);
 	setDockEnabled(StyleTools, DockRight, false);
@@ -1671,7 +1671,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	disconnectSignals();
 	currDoc=doc;
 	textChanged=false;
-	AlignTools->paraStyleCombo->setFormats(currDoc);
+	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StrokeTools->setCurrentDocument(currDoc);
 	FillTools->setCurrentDocument(currDoc);
 	Editor->setCurrentDocument(currDoc);
@@ -2550,7 +2550,7 @@ void StoryEditor::slotEditStyles()
 	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
 	delete dia;
 
-	AlignTools->paraStyleCombo->setFormats(currDoc);
+	AlignTools->paraStyleCombo->setDoc(currDoc);
 	AlignTools->SetAlign(Editor->CurrAlign);
 	AlignTools->SetParaStyle(currItem->doc()->paragraphStyles().find(Editor->currentParaStyle));
 	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));

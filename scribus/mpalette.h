@@ -120,7 +120,8 @@ public:
 	Cpalette *Cpal;
 	Autoforms* SCustom;
 	Autoforms* SCustom2;
-	ParaStyleComboBox *paraStyleCombo;	
+	ParaStyleComboBox *paraStyleCombo;
+	CharStyleComboBox *charStyleCombo;
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
@@ -156,7 +157,8 @@ public slots:
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 	void setStil(int s);
 	void setAli(int e);
-	void setParStyle(QString name);
+	void setParStyle(const QString& name);
+	void setCharStyle(const QString& name);
 	void setShadowOffs(int x, int y);
 	void setUnderline(int p, int w);
 	void newUnderline();
@@ -361,7 +363,8 @@ protected:
 	QLabel* ShadeTxt2;
 	QLabel* ShadeTxt1;
 	QLabel* FillIcon;
-	QLabel* styleLabel;
+	QLabel* paraStyleLabel;
+	QLabel* charStyleLabel;
 	QLabel* langLabel;
 	QLabel* LineModeT;
 	QLabel* TextCms1;
