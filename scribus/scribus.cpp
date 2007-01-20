@@ -2728,7 +2728,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		scrActions["insertSampleText"]->setEnabled(true);
-		if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
+		if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
 		{
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
@@ -2737,7 +2737,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 			// FIXME: once there's one itemtext per story, always enable editcontents
-			if ((currItem->BackBox != 0) && (currItem->itemText.length() == 0))
+			if ((currItem->prevInChain() != 0) && (currItem->itemText.length() == 0))
 				scrActions["toolsEditContents"]->setEnabled(false);
 			else
 				scrActions["toolsEditContents"]->setEnabled(true);
@@ -2747,7 +2747,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["toolsEditContents"]->setEnabled(true);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		}
-		if (currItem->NextBox == 0)
+		if (currItem->nextInChain() == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
 //		if (doc->masterPageMode())
 //			scrActions["toolsLinkTextFrame"]->setEnabled(false);
@@ -2920,7 +2920,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			PageItem* bx=doc->m_Selection->itemAt(1);
 			if ((currItem->asTextFrame() && (bx->asPolygon() || bx->asPolyLine())) || (bx->asTextFrame() && (currItem->asPolygon() || currItem->asPolyLine())))
 			{
-				if ((currItem->NextBox == 0) && (currItem->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (currItem->Groups.count() == 0) && (bx->Groups.count() == 0))
+				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (bx->nextInChain() == 0) && (bx->prevInChain() == 0) && (currItem->Groups.count() == 0) && (bx->Groups.count() == 0))
 					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
 
@@ -3702,9 +3702,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		doc->setLoading(false);
 		doc->RePos = true;
-		QPixmap pgPix(10, 10);
-		QRect rd = QRect(0,0,9,9);
-		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		doc->setMasterPageMode(true);
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
@@ -3712,17 +3709,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
-			if (ite->asPathText())
-			{
-				ite->Frame = true;
-				ite->updatePolyClip();
-				ite->DrawObj(painter, rd);
-			}
-			else if (ite->asTextFrame() && ite->asTextFrame()->itemText.length()  > 0)
-			{
-				if ( ite->BackBox == 0 )
-					ite->asTextFrame()->layout();
-			}
+			ite->layout();
 		}
 //		RestoreBookMarks();
 		doc->setMasterPageMode(false);
@@ -3738,17 +3725,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
-			if (ite->itemType() == PageItem::PathText)
-			{
-				ite->Frame = true;
-				ite->updatePolyClip();
-				ite->DrawObj(painter, rd);
-			}
-			else if (ite->itemType() == PageItem::TextFrame)
-			{
-				if ( ite->BackBox == 0 )
-					ite->asTextFrame()->layout();
-			}
+			ite->layout();
 /*			if (doc->OldBM)
 			{
 				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
@@ -3763,19 +3740,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		for (uint azz=0; azz<doc->FrameItems.count(); ++azz)
 		{
 			PageItem *ite = doc->FrameItems.at(azz);
-			if ( ite->itemType() == PageItem::PathText )
-			{
-				ite->Frame = true;
-				ite->updatePolyClip();
-				ite->DrawObj(painter, rd);
-			}
-			else if ( ite->itemType() == PageItem::TextFrame )
-			{
-				ite->asTextFrame()->layout();
-			}
+			ite->layout();
 		}
-		painter->end();
-		delete painter;
 //		if (doc->OldBM)
 //			StoreBookmarks();
 		doc->RePos = false;
@@ -4524,8 +4490,8 @@ void ScribusMainWindow::slotEditCut()
 			PageItem *nextItem = currItem;
 			while (nextItem != 0)
 			{
-				if (nextItem->BackBox != 0)
-					nextItem = nextItem->BackBox;
+				if (nextItem->prevInChain() != 0)
+					nextItem = nextItem->prevInChain();
 				else
 					break;
 			}
@@ -4573,7 +4539,7 @@ void ScribusMainWindow::slotEditCut()
 					}
 				}
 				dynamic_cast<PageItem_TextFrame*>(nextItem)->deleteSelectedTextFromFrame();
-				nextItem = nextItem->NextBox;
+				nextItem = nextItem->nextInChain();
 			}
 			view->RefreshItem(currItem);
 		}
@@ -4617,8 +4583,8 @@ void ScribusMainWindow::slotEditCopy()
 			PageItem *nextItem = currItem;
 			while (nextItem != 0)
 			{
-				if (nextItem->BackBox != 0)
-					nextItem = nextItem->BackBox;
+				if (nextItem->prevInChain() != 0)
+					nextItem = nextItem->prevInChain();
 				else
 					break;
 			}
@@ -4665,7 +4631,7 @@ void ScribusMainWindow::slotEditCopy()
 						Buffer2 += QString::number(nextItem->itemText.charStyle(a).strikethruWidth())+'\n';
 					}
 				}
-				nextItem = nextItem->NextBox;
+				nextItem = nextItem->nextInChain();
 			}
 		}
 		else
@@ -4978,8 +4944,8 @@ void ScribusMainWindow::SelectAll()
 		PageItem *nextItem = currItem;
 		while (nextItem != 0)
 		{
-			if (nextItem->BackBox != 0)
-				nextItem = nextItem->BackBox;
+			if (nextItem->prevInChain() != 0)
+				nextItem = nextItem->prevInChain();
 			else
 				break;
 		}
@@ -4987,7 +4953,7 @@ void ScribusMainWindow::SelectAll()
 		{
 			nextItem->itemText.selectAll();
 			nextItem->HasSel = true;
-			nextItem = nextItem->NextBox;
+			nextItem = nextItem->nextInChain();
 		}
 		view->DrawNew();
 		EnableTxEdit();
@@ -8830,10 +8796,12 @@ void ScribusMainWindow::EditTabs()
 		if (doc->m_Selection->count() != 0)
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
-			TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->TabValues, currItem->width());
+			TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->itemText.defaultStyle().tabValues(), currItem->width());
 			if (dia->exec())
 			{
-				currItem->TabValues = dia->tmpTab;
+				ParagraphStyle newTabs(currItem->itemText.defaultStyle());
+				newTabs.setTabValues(dia->tmpTab);
+				currItem->itemText.setDefaultStyle(newTabs);
 				view->RefreshItem(currItem);
 				slotDocCh();
 			}

@@ -55,6 +55,7 @@ public:
 	~PageItem_PathText() {};
 	
 	virtual PageItem_PathText * asPathText() { return this; }
+	virtual void layout();
 
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);

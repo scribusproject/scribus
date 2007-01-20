@@ -222,7 +222,6 @@ void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
-//	getDummyScFaces=dummyScFaces;
 }
 
 bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -234,7 +233,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	ReplacedFonts.clear();
 	newReplacement = false;
-	dummyScFaces.clear();
 	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
@@ -255,8 +253,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	int a;
 	PageItem *Neu;
 	Page* Apage;
-	LFrames.clear();
-	LFrames2.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	itemRemapM.clear();
+	itemNextM.clear();
+	itemCountM = 0;
+	itemRemapF.clear();
+	itemNextF.clear();
+	itemCountF = 0;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -1027,16 +1032,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					}
 					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 						m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
-					if ((pg.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pg.attribute("AUTOTEXT").toInt())))
-					{
-						if (pg.attribute("BACKITEM").toInt() == -1)
-						{
-							if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
-								LFrames.append(m_Doc->Items->count());
-							else
-								LFrames2.append(m_Doc->Items->count());
-						}
-					}
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, m_Doc);
@@ -1164,7 +1159,27 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 */
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
-					Neu->NextIt = pg.attribute("NEXTITEM").toInt();
+					// first of linked chain?
+					if (pg.tagName()=="PAGEOBJECT")
+					{
+						itemRemap[itemCount++] = m_Doc->DocItems.count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNext[m_Doc->DocItems.count()] = pg.attribute("NEXTITEM").toInt();
+					}
+					else if (pg.tagName()=="MASTEROBJECT")
+					{
+						itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNextM[m_Doc->MasterItems.count()] = pg.attribute("NEXTITEM").toInt();
+					}
+					/* not sure if we want that...
+					else if (pg.tagName()=="FRAMEOBJECT")
+					{
+						itemRemapF[itemCountF++] = m_Doc->FrameItems->count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
+					}*/
+
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
@@ -1241,11 +1256,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				{
 					QDomElement pite = pa.toElement();
 					m_Doc->setMasterPageMode(false);
-					if ((pite.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pite.attribute("AUTOTEXT").toInt())))
-					{
-						if (pite.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(m_Doc->Items->count());
-					}
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
 					Neu = PasteItem(&pite, m_Doc);
@@ -1331,7 +1341,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->gWidth = pite.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pite.attribute("gHeight",defaultVal).toDouble();
-					Neu->NextIt = pite.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems2.append(Neu);
@@ -1507,56 +1516,56 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		la.outlineMode = false;
 		m_Doc->Layers.append(la);
 	}
-	if (LFrames.count() != 0)
+
+	// reestablish textframe links
+	if (itemNext.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = m_Doc->Items->at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			if (Its->isAutoText)
-				m_Doc->FirstAuto = Its;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				Itn = m_Doc->Items->at(Its->NextIt);
-				Its->NextBox = Itn;
-				Itn->BackBox = Its;
-				Its->itemText.append(Itn->itemText);
-				Itn->itemText = Its->itemText;
-				Its = Itn;
+				PageItem * Its = m_Doc->DocItems.at(lc.key());
+				PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.data()]);
+				if (Itn->prevInChain() || Its->nextInChain()) 
+				{
+					qDebug("scribus134format: corruption in linked textframes detected");
+					continue;
+				}
+				Its->link(Itn);
 			}
-			Its->NextBox = 0;
 		}
 	}
-	if (LFrames2.count() != 0)
+	
+	if (itemNextM.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames2.begin(); lc != LFrames2.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 		{
-			Its = m_Doc->MasterItems.at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			if (Its->isAutoText)
-				m_Doc->FirstAuto = Its;
-			while (Its->NextIt != -1)
+			if (itemRemapM[lc.data()] >= 0)
 			{
-				Itn = m_Doc->MasterItems.at(Its->NextIt);
-				Its->NextBox = Itn;
-				Itn->BackBox = Its;
-				Its->itemText.append(Itn->itemText);
-				Itn->itemText = Its->itemText;
-				Its = Itn;
+				PageItem * Its = m_Doc->MasterItems.at(lc.key());
+				PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.data()]);
+				if (Itn->prevInChain() || Its->nextInChain()) 
+				{
+					qDebug("scribus134format: corruption in linked textframes detected");
+					continue;
+				}
+				Its->link(Itn);
 			}
-			Its->NextBox = 0;
 		}
 	}
+	
+	// reestablish first/lastAuto
+	m_Doc->FirstAuto = m_Doc->LastAuto;
+	if (m_Doc->LastAuto)
+	{
+		while (m_Doc->LastAuto->nextInChain())
+			m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
+		while (m_Doc->FirstAuto->prevInChain())
+			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
+	}
+	
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setProgress(DOC.childNodes().count());
 	return true;
@@ -2332,10 +2341,12 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	else
 		currItem->Groups.clear();
+
+	QValueList<ParagraphStyle::TabRecord> tbs;
 	tmp = "";
-	currItem->TabValues.clear();
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
 	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
@@ -2346,7 +2357,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
 			tb.tabFillChar = QChar();
-			currItem->TabValues.append(tb);
+			tbs.append(tb);
 		}
 		tmp = "";
 	}
@@ -2367,11 +2378,17 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
-				currItem->TabValues.append(tb);
+				tbs.append(tb);
 			}
 			IT=IT.nextSibling();
 		}
 	}
+	if (tbs.count() > 0) {
+		ParagraphStyle newDefault(currItem->itemText.defaultStyle());
+		newDefault.setTabValues(tbs);
+		currItem->itemText.setDefaultStyle(newDefault);
+	}
+	
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
@@ -2511,7 +2528,15 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage = NULL;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
+	itemRemapM.clear();
+	itemNextM.clear();
+	itemCountM = 0;
+	itemRemapF.clear();
+	itemNextF.clear();
+	itemCountF = 0;
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
@@ -2767,11 +2792,26 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				if (pg.attribute("OwnPage").toInt() == pageNumber)
 				{
-					if (pg.attribute("NEXTITEM").toInt() != -1)
+					// first of linked chain?
+					if (pg.tagName()=="PAGEOBJECT")
 					{
-						if (pg.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(m_Doc->Items->count());
+						itemRemap[itemCount++] = m_Doc->DocItems.count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNext[m_Doc->DocItems.count()] = pg.attribute("NEXTITEM").toInt();
 					}
+					else if (pg.tagName()=="MASTEROBJECT")
+					{
+						itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNextM[m_Doc->MasterItems.count()] = pg.attribute("NEXTITEM").toInt();
+					}
+					/* not sure if we want that...
+					else if (pg.tagName()=="FRAMEOBJECT")
+					{
+						itemRemapF[itemCountF++] = m_Doc->FrameItems->count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
+					}*/
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, m_Doc);
@@ -2876,7 +2916,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}
 */					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
-					Neu->NextIt = baseobj + pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -2930,11 +2969,26 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				{
 					QDomElement pite = pa.toElement();
 					m_Doc->setMasterPageMode(false);
-					if ((pite.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pite.attribute("AUTOTEXT").toInt())))
+					// first of linked chain?
+					if (pg.tagName()=="PAGEOBJECT")
 					{
-						if (pite.attribute("BACKITEM").toInt() == -1)
-							LFrames.append(m_Doc->Items->count());
+						itemRemap[itemCount++] = m_Doc->DocItems.count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNext[m_Doc->DocItems.count()] = pg.attribute("NEXTITEM").toInt();
 					}
+					/* not sure if we want that...
+					else if (pg.tagName()=="MASTEROBJECT")
+					{
+						itemRemapM[itemCountM++] = m_Doc->MasterItems->count();
+						if (pg.attribute("NEXTITEM").toInt() != -1)
+							itemNextM[m_Doc->MasterItems->count()] = pg.attribute("NEXTITEM").toInt();
+					}
+					else if (pg.tagName()=="FRAMEOBJECT")
+					{
+							itemRemapF[itemCountF++] = m_Doc->FrameItems->count();
+							if (pg.attribute("NEXTITEM").toInt() != -1)
+								itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
+					}*/
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
 					Neu = PasteItem(&pite, m_Doc);
@@ -3020,7 +3074,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->gWidth = pite.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pite.attribute("gHeight",defaultVal).toDouble();
-					Neu->NextIt = pite.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -3084,34 +3137,55 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			it.key()->groupsLastItem = m_Doc->Items->at(it.data());
 		}
 	}
-	if (LFrames.count() != 0)
+	
+	// reestablish textframe links
+	if (itemNext.count() != 0 && !Mpage)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<int>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = m_Doc->Items->at((*lc));
-			Itr = Its;
-			Its->BackBox = 0;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				if (Its->NextIt < static_cast<int>(m_Doc->Items->count()))
+				PageItem * Its = m_Doc->DocItems.at(lc.key());
+				PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.data()]);
+				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
-					Itn = m_Doc->Items->at(Its->NextIt);
-					Its->NextBox = Itn;
-					Itn->BackBox = Its;
-					Its->itemText.append(Itn->itemText);
-					Itn->itemText = Its->itemText;
-					Its = Itn;
+					qDebug("scribus134format: corruption in linked textframes detected");
+					continue;
 				}
-				else
-					Its->NextIt = -1;
+				Its->link(Itn);
 			}
-			Its->NextBox = 0;
 		}
 	}
+	else if (itemNextM.count() != 0 && Mpage)
+	{
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+		{
+			if (itemRemapM[lc.data()] >= 0)
+			{
+				PageItem * Its = m_Doc->MasterItems.at(lc.key());
+				PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.data()]);
+				if (Itn->prevInChain() || Its->nextInChain()) 
+				{
+					qDebug("scribus134format: corruption in linked textframes detected");
+					continue;
+				}
+				Its->link(Itn);
+			}
+		}
+	}
+	
+	// reestablish first/lastAuto
+	m_Doc->FirstAuto = m_Doc->LastAuto;
+	if (m_Doc->LastAuto)
+	{
+		while (m_Doc->LastAuto->nextInChain())
+			m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
+		while (m_Doc->FirstAuto->prevInChain())
+			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
+	}
+
 	return true;
 }
 

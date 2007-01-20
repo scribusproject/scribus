@@ -677,17 +677,17 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.","python error"));
 		return NULL;
 	}
-	if (toitem->itemText.length() > 0)
+/*	if (toitem->itemText.length() > 0)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame must be empty.","python error"));
 		return NULL;
-	}
-	if (toitem->NextBox != 0)
+	}*/
+	if (toitem->nextInChain() != 0)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame links to another frame.","python error"));
 		return NULL;
 	}
-	if (toitem->BackBox != 0)
+	if (toitem->prevInChain() != 0)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.","python error"));
 		return NULL;
@@ -698,8 +698,7 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	// references to the others boxes
-	fromitem->NextBox = toitem;
-	toitem->BackBox = fromitem;
+	fromitem->link(toitem);
 	ScCore->primaryMainWindow()->view->DrawNew();
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
@@ -723,16 +722,17 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	// only linked
-	if (item->BackBox == 0)
+	if (item->prevInChain() == 0)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Object is not a linked text frame, can't unlink.","python error"));
 		return NULL;
 	}
-	if (item->NextBox == 0)
+/*	if (item->NextBox == 0)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Object the last frame in a series, can't unlink. Unlink the previous frame instead.","python error"));
 		return NULL;
 	}
+	*/
 /*	PageItem* nextbox = item->NextBox;
 
 	while (nextbox != 0)
@@ -746,9 +746,7 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	for (uint s = 0; s < a2; ++s)
 		item->BackBox->itemText.append(item->itemText.take(0));
 */
-	item->BackBox->NextBox = 0;
-	item->BackBox = 0;
-	item->itemText = StoryText(item->doc());
+	item->prevInChain()->unlink();
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
 	ScCore->primaryMainWindow()->view->DrawNew();

@@ -492,7 +492,7 @@ void PageItem_TextFrame::layout()
 							else
 								break;
 						}
-						nextItem = nextItem->BackBox;
+						nextItem = nextItem->prevInChain();
 					}
 				}
 				else
@@ -958,7 +958,7 @@ void PageItem_TextFrame::layout()
 							CurX = ColBound.x() + tCurX;
 						
 						// remember fill char
-						qDebug(QString("tab: %1 '%2'").arg(tCurX).arg(tabs.fillChar));
+//						qDebug(QString("tab: %1 '%2'").arg(tCurX).arg(tabs.fillChar));
 						if (!tabs.fillChar.isNull()) {
 							hl->glyph.grow();
 							GlyphLayout * tglyph = hl->glyph.more;
@@ -2217,8 +2217,8 @@ void PageItem_TextFrame::clearContents()
 	PageItem *nextItem = this;
 	while (nextItem != 0)
 	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
+		if (nextItem->prevInChain() != 0)
+			nextItem = nextItem->prevInChain();
 		else
 			break;
 	}
@@ -2227,7 +2227,7 @@ void PageItem_TextFrame::clearContents()
 		nextItem->CPos = 0;
 		nextItem->itemText.clear();
 		nextItem->invalid = true;
-		nextItem = nextItem->NextBox;
+		nextItem = nextItem->nextInChain();
 	}
 }
 
@@ -2869,8 +2869,8 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 void PageItem_TextFrame::deselectAll()
 {
 	PageItem *item = this;
-	while( item->BackBox )
-		item=item->BackBox;
+	while( item->prevInChain() )
+		item=item->prevInChain();
 
 	while ( item )
 	{
@@ -2880,7 +2880,7 @@ void PageItem_TextFrame::deselectAll()
 			m_Doc->view()->RefreshItem(this);
 			item->HasSel = false;
 		}
-		item = item->NextBox;
+		item = item->nextInChain();
 	}
 	//CB Replace with direct call for now //emit HasNoTextSel();
 	m_Doc->scMW()->DisableTxEdit();

@@ -264,14 +264,15 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	struct ScribusDoc::BookMa bok;
 	int counter;
 	bool newVersion = false;
-	struct Linked Link;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int x, a;
 	double xf, xf2;
 	PageItem *Neu;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
 	QDomDocument docu("scridoc");
 	QFile fi(fileName);
 	// Load the document text
@@ -630,13 +631,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					if ((obj.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(obj.attribute("AUTOTEXT").toInt())))
+					if (obj.tagName()=="PAGEOBJECT")
 					{
-						if (obj.attribute("BACKITEM").toInt() == -1)
+						itemRemap[itemCount++] = m_Doc->Items->count();
+						// member of linked chain?
+						if (obj.attribute("NEXTITEM").toInt() != -1)
 						{
-							Link.Start = counter;
-							Link.StPag = a;
-							LFrames.append(Link);
+							itemNext[m_Doc->Items->count()] = obj.attribute("NEXTITEM").toInt();
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
@@ -726,7 +727,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					Neu->isAutoText=static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
-					Neu->NextIt = obj.attribute("NEXTITEM").toInt();
+//					Neu->NextIt = obj.attribute("NEXTITEM").toInt();
 					Neu->NextPg = obj.attribute("NEXTPAGE").toInt();
 					if (Neu->isTableItem)
 					{
@@ -897,44 +898,37 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->Layers.append(la);
 	}
 	m_Doc->setActiveLayer(activeLayer);
-	if (LFrames.count() != 0)
+	
+	// reestablish textframe links
+	if (itemNext.count() != 0)
 	{
-		PageItem *Its;
-		PageItem *Itn;
-		PageItem *Itr;
-		QValueList<Linked>::Iterator lc;
-		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+		QMap<int,int>::Iterator lc;
+		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			Its = m_Doc->Items->at((*lc).Start);
-			Itr = Its;
-			Its->BackBox = 0;
-			if (Its->isAutoText)
-				m_Doc->FirstAuto = Its;
-			while (Its->NextIt != -1)
+			if (itemRemap[lc.data()] >= 0)
 			{
-				int itnr = 0;
-				for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
+				PageItem * Its = m_Doc->Items->at(lc.key());
+				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
-					if (m_Doc->Items->at(nn)->OwnPage == Its->NextPg)
-					{
-						if (itnr == Its->NextIt)
-						{
-							itnr = nn;
-							break;
-						}
-						itnr++;
-					}
+					qDebug("scribus12format: corruption in linked textframes detected");
+					continue;
 				}
-				Itn = m_Doc->Items->at(itnr);
-				Its->NextBox = Itn;
-				Itn->BackBox = Its;
-				Its->itemText.append(Itn->itemText);
-				Itn->itemText = Its->itemText;
-				Its = Itn;
+				Its->link(Itn);
 			}
-			Its->NextBox = 0;
 		}
+	}	
+
+	// reestablish first/lastAuto
+	m_Doc->FirstAuto = m_Doc->LastAuto;
+	if (m_Doc->LastAuto)
+	{
+		while (m_Doc->LastAuto->nextInChain())
+			m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
+		while (m_Doc->FirstAuto->prevInChain())
+			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
+	
 	m_View->unitSwitcher->setCurrentText(unitGetStrFromIndex(m_Doc->unitIndex()));
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setProgress(DOC.childNodes().count());
@@ -1145,9 +1139,10 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
-	struct Linked Link;
 	PageItem *Neu;
-	LFrames.clear();
+	itemRemap.clear();
+	itemNext.clear();
+	itemCount = 0;
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
@@ -1352,13 +1347,13 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					if ((obj.attribute("NEXTITEM").toInt() != -1) && (obj.attribute("NEXTPAGE").toInt() == pageNumber))
+					if (obj.tagName()=="PAGEOBJECT")
 					{
-						if (obj.attribute("BACKITEM").toInt() == -1)
+						itemRemap[itemCount++] = m_Doc->Items->count();
+						// member of linked chain?
+						if ((obj.attribute("NEXTITEM").toInt() != -1) && (obj.attribute("NEXTPAGE").toInt() == pageNumber))
 						{
-							Link.Start = counter;
-							Link.StPag = a;
-							LFrames.append(Link);
+							itemNext[m_Doc->Items->count()] = obj.attribute("NEXTITEM").toInt();
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
@@ -1427,11 +1422,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
 					{
-						Neu->NextIt = baseobj + obj.attribute("NEXTITEM").toInt();
+//						Neu->NextIt = baseobj + obj.attribute("NEXTITEM").toInt();
 						Neu->NextPg = a; // obj.attribute("NEXTPAGE").toInt();
 					}
-					else
-						Neu->NextIt = -1;
+//					else
+//						Neu->NextIt = -1;
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -1463,34 +1458,37 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							ta->BottomLink = 0;
 					}
 				}
-				if (LFrames.count() != 0)
+				// reestablish textframe links
+				if (itemNext.count() != 0)
 				{
-					PageItem *Its;
-					PageItem *Itn;
-					PageItem *Itr;
-					QValueList<Linked>::Iterator lc;
-					for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+					QMap<int,int>::Iterator lc;
+					for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 					{
-						Its = m_Doc->Items->at((*lc).Start);
-						Itr = Its;
-						Its->BackBox = 0;
-						while (Its->NextIt != -1)
+						if (itemRemap[lc.data()] >= 0)
 						{
-							if (Its->NextPg == a)
+							PageItem * Its = m_Doc->Items->at(lc.key());
+							PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+							if (Itn->prevInChain() || Its->nextInChain()) 
 							{
-								Itn = m_Doc->Items->at(Its->NextIt);
-								Its->NextBox = Itn;
-								Itn->BackBox = Its;
-								Its->itemText.append(Itn->itemText);
-								Itn->itemText = Its->itemText;
-								Its = Itn;
+								qDebug("scribus12format: corruption in linked textframes detected");
+								continue;
 							}
-							else
-								break;
+							Its->link(Itn);
 						}
-						Its->NextBox = 0;
 					}
 				}
+
+				// reestablish first/lastAuto
+				m_Doc->FirstAuto = m_Doc->LastAuto;
+				if (m_Doc->LastAuto)
+				{
+					while (m_Doc->LastAuto->nextInChain())
+						m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
+					while (m_Doc->FirstAuto->prevInChain())
+						m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
+				}
+				
+				
 				if (!Mpage)
 					m_View->reformPages();
 				PAGE=DOC.firstChild();

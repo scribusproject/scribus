@@ -391,75 +391,6 @@ void Scribus134Format::writePStyles(QDomDocument & docu)
 void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const ParagraphStyle & style)
 {
 	fo.setAttribute("NAME", style.name());
-//	const Style * parent = style.parentStyle();
-/*	if ( ! style.parent().isEmpty())
-	{
-		fo.setAttribute("PARENT", style.parent());
-		if ( ! style.isInhAlignment())
-			fo.setAttribute("ALIGN", style.alignment());
-		if ( ! style.isInhLineSpacingMode())
-			fo.setAttribute("LINESPMode", style.lineSpacingMode());
-		if ( ! style.isInhLineSpacing())
-			fo.setAttribute("LINESP", style.lineSpacing());
-		if ( ! style.isInhUseBaselineGrid())
-			fo.setAttribute("BASE", static_cast<int>(style.useBaselineGrid()));
-		if ( ! style.isInhLeftMargin())
-			fo.setAttribute("INDENT", style.leftMargin());
-		if ( ! style.isInhRightMargin())
-			fo.setAttribute("RMARGIN", style.rightMargin());
-		if ( ! style.isInhFirstIndent())
-			fo.setAttribute("FIRST", style.firstIndent());
-		if ( ! style.isInhGapBefore())
-			fo.setAttribute("VOR", style.gapBefore());
-		if ( ! style.isInhGapAfter())
-			fo.setAttribute("NACH", style.gapAfter());
-		if ( ! style.isInhHasDropCap())
-			fo.setAttribute("DROP", static_cast<int>(style.hasDropCap()));
-		if ( ! style.isInhDropCapLines())
-			fo.setAttribute("DROPLIN", style.dropCapLines());
-		if ( ! style.isInhDropCapOffset())
-			fo.setAttribute("DROPDIST", style.dropCapOffset());
-		if ( ! style.isInhTabValues())
-		{
-			for (uint a = 0; a < style.tabValues().count(); ++a)
-			{
-				QDomElement tabs = docu.createElement("Tabs");
-				tabs.setAttribute("Type", (*style.tabValues().at(a)).tabType);
-				tabs.setAttribute("Pos", (*style.tabValues().at(a)).tabPosition);
-				QString tabCh = "";
-				if (!(*style.tabValues().at(a)).tabFillChar.isNull())
-					tabCh = QString((*style.tabValues().at(a)).tabFillChar);
-				tabs.setAttribute("Fill", tabCh);
-				fo.appendChild(tabs);
-			}
-		}
-	}
-	else
-	{
-		fo.setAttribute("ALIGN", style.alignment());
-		fo.setAttribute("LINESPMode", style.lineSpacingMode());
-		fo.setAttribute("LINESP", style.lineSpacing());
-		fo.setAttribute("BASE", static_cast<int>(style.useBaselineGrid()));
-		fo.setAttribute("INDENT", style.leftMargin());
-		fo.setAttribute("RMARGIN", style.rightMargin());
-		fo.setAttribute("FIRST", style.firstIndent());
-		fo.setAttribute("VOR", style.gapBefore());
-		fo.setAttribute("NACH", style.gapAfter());
-		fo.setAttribute("DROP", static_cast<int>(style.hasDropCap()));
-		fo.setAttribute("DROPLIN", style.dropCapLines());
-		fo.setAttribute("DROPDIST", style.dropCapOffset());
-		for (uint a = 0; a < style.tabValues().count(); ++a)
-		{
-			QDomElement tabs = docu.createElement("Tabs");
-			tabs.setAttribute("Type", (*style.tabValues().at(a)).tabType);
-			tabs.setAttribute("Pos", (*style.tabValues().at(a)).tabPosition);
-			QString tabCh = "";
-			if (!(*style.tabValues().at(a)).tabFillChar.isNull())
-				tabCh = QString((*style.tabValues().at(a)).tabFillChar);
-			tabs.setAttribute("Fill", tabCh);
-			fo.appendChild(tabs);
-		}
-	}*/
 	if ( ! style.parent().isEmpty())
 		fo.setAttribute("PARENT", style.parent());
 	
@@ -524,69 +455,6 @@ void Scribus134Format::writeCStyles(QDomDocument & docu)
 void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const CharStyle & style)
 {
 	fo.setAttribute("CNAME", style.name());
-//	const Style * parent = style.parentStyle();
-/*	if ( ! style.parent().isEmpty() )
-	{
-		fo.setAttribute("CPARENT", style.parent());
-		if ( ! style.isInhFont())	
-			fo.setAttribute("FONT", style.font().scName());
-		if ( ! style.isInhFontSize())
-			fo.setAttribute("FONTSIZE", style.fontSize() / 10.0);
-		if ( ! style.isInhEffects())
-			fo.setAttribute("EFFECT", style.effects() & ScStyle_UserStyles);
-		if ( ! style.isInhFillColor())
-			fo.setAttribute("FCOLOR", style.fillColor());
-		if ( ! style.isInhFillShade())
-			fo.setAttribute("FSHADE", style.fillShade());
-		if ( ! style.isInhStrokeColor())
-			fo.setAttribute("SCOLOR", style.strokeColor());
-		if ( ! style.isInhStrokeShade())
-			fo.setAttribute("SSHADE", style.strokeShade());
-		if ( ! style.isInhShadowXOffset())
-			fo.setAttribute("TXTSHX", style.shadowXOffset() / 10.0);
-		if ( ! style.isInhShadowYOffset())
-			fo.setAttribute("TXTSHY", style.shadowYOffset() / 10.0);
-		if ( ! style.isInhOutlineWidth())
-			fo.setAttribute("TXTOUT", style.outlineWidth() / 10.0);
-		if ( ! style.isInhUnderlineOffset())
-			fo.setAttribute("TXTULP", style.underlineOffset() / 10.0);
-		if ( ! style.isInhUnderlineWidth())
-			fo.setAttribute("TXTULW", style.underlineWidth() / 10.0);
-		if ( ! style.isInhStrikethruOffset())
-			fo.setAttribute("TXTSTP", style.strikethruOffset() / 10.0);
-		if ( ! style.isInhStrikethruWidth())
-			fo.setAttribute("TXTSTW", style.strikethruWidth() / 10.0);
-		if ( ! style.isInhScaleH())
-			fo.setAttribute("SCALEH", style.scaleH() / 10.0);
-		if ( ! style.isInhScaleV())
-			fo.setAttribute("SCALEV", style.scaleV() / 10.0);
-		if ( ! style.isInhBaselineOffset())
-			fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
-		if ( ! style.isInhTracking())
-			fo.setAttribute("KERN", style.tracking() / 10.0);
-	}
-	else
-	{
-		fo.setAttribute("FONT", style.font().scName());
-		fo.setAttribute("FONTSIZE", style.fontSize() / 10.0);
-		fo.setAttribute("EFFECT", style.effects() & ScStyle_UserStyles);
-		fo.setAttribute("FCOLOR", style.fillColor());
-		fo.setAttribute("FSHADE", style.fillShade());
-		fo.setAttribute("SCOLOR", style.strokeColor());
-		fo.setAttribute("SSHADE", style.strokeShade());
-		fo.setAttribute("TXTSHX", style.shadowXOffset() / 10.0);
-		fo.setAttribute("TXTSHY", style.shadowYOffset() / 10.0);
-		fo.setAttribute("TXTOUT", style.outlineWidth() / 10.0);
-		fo.setAttribute("TXTULP", style.underlineOffset() / 10.0);
-		fo.setAttribute("TXTULW", style.underlineWidth() / 10.0);
-		fo.setAttribute("TXTSTP", style.strikethruOffset() / 10.0);
-		fo.setAttribute("TXTSTW", style.strikethruWidth() / 10.0);
-		fo.setAttribute("SCALEH", style.scaleH() / 10.0);
-		fo.setAttribute("SCALEV", style.scaleV() / 10.0);
-		fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
-		fo.setAttribute("KERN", style.tracking() / 10.0);
-	}
-*/
 	if ( ! style.parent().isEmpty() )
 		fo.setAttribute("CPARENT", style.parent());
 	if ( ! style.isInhFont())	
@@ -1205,16 +1073,17 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 				ob.appendChild(imeff);
 			}
 		}
-		if (item->TabValues.count() != 0)
+
+		if (item->itemText.defaultStyle().tabValues().count() != 0)
 		{
-			for (uint a = 0; a < item->TabValues.count(); ++a)
+			for (uint a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 			{
 				QDomElement tabs = docu->createElement("Tabs");
-				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
-				tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
+				tabs.setAttribute("Type", (*item->itemText.defaultStyle().tabValues().at(a)).tabType);
+				tabs.setAttribute("Pos", (*item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
 				QString tabCh = "";
-				if (!(*item->TabValues.at(a)).tabFillChar.isNull())
-					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
+				if (!(*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
+					tabCh = QString((*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
 				tabs.setAttribute("Fill", tabCh);
 				ob.appendChild(tabs);
 			}
@@ -1241,12 +1110,12 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
 		writeITEXTs(doc, docu, ob, item); 
-		if (item->BackBox != 0)
-			ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
+		if (item->prevInChain() != 0)
+			ob.setAttribute("BACKITEM", item->prevInChain()->ItemNr);
 		else
 			ob.setAttribute("BACKITEM", -1);
-		if (item->NextBox != 0)
-			ob.setAttribute("NEXTITEM", item->NextBox->ItemNr);
+		if (item->nextInChain() != 0)
+			ob.setAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else
 			ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("LAYER", item->LayerNr);

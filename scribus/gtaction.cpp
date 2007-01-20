@@ -100,14 +100,14 @@ void gtAction::write(const QString& text, gtStyle *style)
 	{
 		if (!doAppend)
 		{
-			if (it->NextBox != 0)
+			if (it->nextInChain() != 0)
 			{
-				PageItem *nextItem = it->NextBox;
+				PageItem *nextItem = it->nextInChain();
 				while (nextItem != 0)
 				{
 					nextItem->itemText.clear();
 					nextItem->CPos = 0;
-					nextItem = nextItem->NextBox;
+					nextItem = nextItem->nextInChain();
 				}
 			}
 			it->itemText.clear();
@@ -246,7 +246,9 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->setColumnGap(fstyle->getColumnsGap());
 	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	textFrame->setFillShade(fstyle->getBgShade());
-	textFrame->TabValues = QValueList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues()));
+	ParagraphStyle newTabs(textFrame->itemText.defaultStyle());
+	newTabs.setTabValues(QValueList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
+	textFrame->itemText.setDefaultStyle(newTabs);
 
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 // 	int pstyleIndex = findParagraphStyle(pstyle);

@@ -694,26 +694,26 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 
 							double a1, b1, a2, b2;
 							a1 = a2 = b1 = b2 = 0;
-							if (nextItem->NextBox != NULL)
+							if (nextItem->nextInChain() != NULL)
 							{
-								double x21 = nextItem->NextBox->xPos();
-								double y21 = nextItem->NextBox->yPos();
-								double x22 = x21+nextItem->NextBox->width();
-								double y22 = y21+nextItem->NextBox->height();
-								double x2mid = x21 + nextItem->NextBox->width()/2;
-								double y2mid = y21 + nextItem->NextBox->height()/2;
+								double x21 = nextItem->nextInChain()->xPos();
+								double y21 = nextItem->nextInChain()->yPos();
+								double x22 = x21+nextItem->nextInChain()->width();
+								double y22 = y21+nextItem->nextInChain()->height();
+								double x2mid = x21 + nextItem->nextInChain()->width()/2;
+								double y2mid = y21 + nextItem->nextInChain()->height()/2;
 								//x2mid = x21+(x22-x21)/2;
 								//y2mid = y21+(y22-y21)/2;
 
-								if (nextItem->NextBox->rotation()!=0.000)
+								if (nextItem->nextInChain()->rotation()!=0.000)
 								{
-									FPoint tempPoint(0,0, x21, y21, nextItem->NextBox->rotation(), 1, 1);
+									FPoint tempPoint(0,0, x21, y21, nextItem->nextInChain()->rotation(), 1, 1);
 									x21=tempPoint.x();
 									y21=tempPoint.y();
-									FPoint tempPoint2(0,0, x22, y22, nextItem->NextBox->rotation(), 1, 1);
+									FPoint tempPoint2(0,0, x22, y22, nextItem->nextInChain()->rotation(), 1, 1);
 									x22=tempPoint2.x();
 									y22=tempPoint2.y();
-									FPoint tempPoint3(0,0, x2mid, y2mid, nextItem->NextBox->rotation(), 1, 1);
+									FPoint tempPoint3(0,0, x2mid, y2mid, nextItem->nextInChain()->rotation(), 1, 1);
 									x2mid=tempPoint3.x();
 									y2mid=tempPoint3.y();
 								}
@@ -733,7 +733,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 							//Draw the link frame lines
 							FPoint Start(a1-nextItem->xPos(), b1-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
 							//FPoint Start = transformPoint(FPoint(nextItem->Width/2, nextItem->Height), nextItem->xPos(), nextItem->yPos(), nextItem->Rot, 1, 1);
-							nextItem = nextItem->NextBox;
+							nextItem = nextItem->nextInChain();
 							if (nextItem != NULL)
 							{
 								FPoint End(a2-nextItem->xPos(), b2-nextItem->yPos(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
@@ -746,15 +746,15 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				{
 					while (nextItem != 0)
 					{
-						if (nextItem->BackBox != 0)
-							nextItem = nextItem->BackBox;
+						if (nextItem->prevInChain() != 0)
+							nextItem = nextItem->prevInChain();
 						else
 							break;
 					}
 					while (nextItem != 0)
 					{
 						FPoint Start(nextItem->width()/2, nextItem->height(), nextItem->xPos(), nextItem->yPos(), nextItem->rotation(), 1, 1);
-						nextItem = nextItem->NextBox;
+						nextItem = nextItem->nextInChain();
 						//Draw the link frame indicator for a new link
 						//CB unsure if we need to do this
 						if (nextItem != 0)
@@ -1103,13 +1103,13 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 //						if ((!m_MouseButtonPressed) || (Doc->EditClip))
 						currItem->DrawObj(painter, clip);
 //						currItem->Redrawn = true;
-						if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
+						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 						{
 							PageItem *nextItem = currItem;
 							while (nextItem != 0)
 							{
-								if (nextItem->BackBox != 0)
-									nextItem = nextItem->BackBox;
+								if (nextItem->prevInChain() != 0)
+									nextItem = nextItem->prevInChain();
 								else
 									break;
 							}
@@ -1744,32 +1744,35 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						{
 							bb = pasted.at(dre);
 							currItem = Doc->m_Selection->itemAt(dre);
-							if ((currItem->asTextFrame()) && ((currItem->NextBox != 0) || (currItem->BackBox != 0)))
+							if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 							{
-								if (currItem->BackBox != 0)
+								PageItem* before = currItem->prevInChain();
+								PageItem* after = currItem->nextInChain();
+								currItem->unlink();
+								if (before != 0)
 								{
-									bb->BackBox = currItem->BackBox;
-									fin = Doc->m_Selection->findItem(currItem->BackBox);
+									fin = Doc->m_Selection->findItem(before);
 									if (fin != -1)
-										bb->BackBox = pasted.at(fin);
-									bb->BackBox->NextBox = bb;
+										before = pasted.at(fin);
+									before->unlink();
+									before->link(bb);
 								}
-								if (currItem->NextBox != 0)
+								if (after != 0)
 								{
-									bb->NextBox = currItem->NextBox;
-									fin = Doc->m_Selection->findItem(currItem->NextBox);
+									fin = Doc->m_Selection->findItem(after);
 									if (fin != -1)
-										bb->NextBox = pasted.at(fin);
-									bb->NextBox->BackBox = bb;
+										after = pasted.at(fin);									
+									bb->link(after);
 								}
 							}
 						}
-						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
+/*						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
 							currItem = Doc->m_Selection->itemAt(dre);
 							currItem->NextBox = 0;
 							currItem->BackBox = 0;
 						}
+*/
 						pasted.clear();
 						Doc->itemSelection_DeleteItem();
 					}
@@ -2589,7 +2592,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					ColCT->hide();
 					if (currItem->itemType() == PageItem::TextFrame)
 					{
-						if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
+						if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
 							InfoT->setText( tr("Linked Text"));
 						else
 							InfoT->setText( tr("Text Frame"));
@@ -2773,10 +2776,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 						if (!currItem->isTableItem)
 						{
-							if ((currItem->BackBox == 0) && (currItem->NextBox == 0))
+							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
 								m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 							m_ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
-							if ((currItem->BackBox == 0) && (currItem->NextBox == 0))
+							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
 								m_ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 						}
 					}
@@ -6055,9 +6058,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					PageItem *nextItem=currItem;
 					while (nextItem != 0)
 					{
-						if (nextItem->NextBox != 0)
+						if (nextItem->nextInChain() != 0)
 						{
-							nextItem = nextItem->NextBox;
+							nextItem = nextItem->nextInChain();
 							RefreshItem(nextItem);
 						}
 						else
@@ -6230,12 +6233,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&bb) && (bb->asTextFrame()))
 			{
-#ifndef NLS_PROTO
-				if ((bb->itemText.length() == 0) && (bb->NextBox == 0) && (bb->BackBox == 0) && (currItem != bb))
+				if ( //(bb->itemText.length() == 0) && 
+					 (bb->nextInChain() == 0) && (bb->prevInChain() == 0) && (currItem != bb))
 				{
-					currItem->NextBox = bb;
-					bb->BackBox = currItem;
-					bb->itemText = currItem->itemText;
+					currItem->link(bb);
 					// CB We need to do this because we draw in the order of the item list
 					// Which is also item number list.. but #3488: we must also renumber the items
 					if (bb->ItemNr < currItem->ItemNr)
@@ -6255,33 +6256,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					QMessageBox::warning(this, tr("Linking Text Frames"),
 											 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
 				}
-#else
-				//FIXME: why bb->NextBox == 0 ?? AV
-				if ((bb->itemText.length() == 0) && (bb->NextBox
-													 == 0) && (bb->BackBox == 0) && (currItem != bb))
-				{
-					currItem->NextBox = bb;
-					bb->BackBox = currItem;
-					// all following frames share this itemText
-						for (PageItem * frame = bb; frame; frame
-							 = frame->NextBox)
-							frame->itemText = currItem->itemText;
-					
-					if (bb->ItemNr < currItem->ItemNr)
-					{
-						Doc->Items->insert(currItem->ItemNr+1, bb);
-						bb = Doc->Items->take(bb->ItemNr);
-						Doc->renumberItemsInListOrder();
-					}
-					updateContents();
-					emit DocChanged();
-					Doc->ElemToLink = bb;
-				}
-				else
-					QMessageBox::warning(this, tr("Linking Text Frames"),
-										 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
-				
-#endif
 			}
 			else
 				Doc->ElemToLink = NULL;
@@ -6292,40 +6266,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&currItem) && (currItem->asTextFrame()))
 			{
-				if (currItem->BackBox != 0)
+				if (currItem->prevInChain() != 0)
 				{
-#if 0
-					if (currItem->NextBox != 0)
-					{
-						PageItem *nextItem = currItem->NextBox;
-						while (nextItem != 0)
-						{
-							uint a = nextItem->itemText.count();
-							for (uint s=0; s<a; ++s)
-								currItem->itemText.append(nextItem->itemText.take(0));
-							nextItem = nextItem->NextBox;
-						}
-					}
-					uint a2 = currItem->itemText.count();
-					for (uint s = 0; s < a2; ++s)
-						currItem->BackBox->itemText.append(currItem->itemText.take(0));
-					currItem->BackBox->NextBox = 0;
-					currItem->BackBox = 0;
-#else
-					if (currItem->NextBox != 0)
-					{
-						PageItem *nextItem = currItem->NextBox;
-						while (nextItem != 0)
-						{
-							nextItem->itemText = StoryText(Doc);
-							nextItem = nextItem->NextBox;
-						}
-					}
-					currItem->itemText = StoryText(Doc);
-					currItem->BackBox->NextBox = 0;
-					currItem->BackBox = 0;
-					
-#endif
+					currItem->prevInChain()->unlink();
 				}
 				emit DocChanged();
 				updateContents();
@@ -8628,7 +8571,7 @@ void ScribusView::slotDoCurs(bool draw)
 			{
 				textframe->CPos = textframe->itemText.length();
 			}
-			if (static_cast<uint>(textframe->lastInFrame()) >= textframe->itemText.nrOfItems() 
+			if (textframe->lastInFrame() >= signed(textframe->itemText.nrOfItems()) 
 				|| textframe->itemText.length() == 0)
 			{
 				x = 0;
@@ -10937,7 +10880,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 //	currItem->setFont(Buffer->IFont);
 //	currItem->setFontSize(Buffer->ISize);
 //	currItem->ExtraV = Buffer->ExtraV;
-	currItem->TabValues = Buffer->TabValues;
+//	currItem->TabValues = Buffer->TabValues;
 	currItem->DashValues = Buffer->DashValues;
 	currItem->DashOffset = Buffer->DashOffset;
 	currItem->setLocked(Buffer->Locked);
@@ -11188,25 +11131,26 @@ void ScribusView::TextToPath()
 #ifndef NLS_PROTO
 	m_ScMW->NoFrameEdit();
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
-	if ((currItem->BackBox != 0) || (currItem->NextBox != 0))
+	if ((currItem->prevInChain() != 0) || (currItem->nextInChain() != 0))
 	{
+		// select whole chain
 		PageItem *backItem = currItem;
 		while (backItem != 0)
 		{
-			if (backItem->BackBox != 0)
-				backItem = backItem->BackBox;
+			if (backItem->prevInChain() != 0)
+				backItem = backItem->prevInChain();
 			else
 				break;
 		}
 		currItem = backItem;
 		Deselect(true);
 		Doc->m_Selection->addItem(currItem);
-		backItem = currItem->NextBox;
+		backItem = currItem->nextInChain();
 		while (backItem != 0)
 		{
 			Doc->m_Selection->addItem(backItem);
-			if (backItem->NextBox != 0)
-				backItem = backItem->NextBox;
+			if (backItem->nextInChain() != 0)
+				backItem = backItem->nextInChain();
 			else
 				break;
 		}

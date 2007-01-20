@@ -2428,8 +2428,8 @@ void StoryEditor::updateTextFrame()
 	{
 		while (nextItem != 0)
 		{
-			if (nextItem->BackBox != 0)
-				nextItem = nextItem->BackBox;
+			if (nextItem->prevInChain() != 0)
+				nextItem = nextItem->prevInChain();
 			else
 				break;
 		}
@@ -2475,7 +2475,7 @@ void StoryEditor::updateTextFrame()
 #endif
 			nb2->CPos = 0;
 			nb2->Dirty = false;
-			nb2 = nb2->NextBox;
+			nb2 = nb2->nextInChain();
 		}
 	}
 	Editor->saveItemText(nextItem);
@@ -2509,7 +2509,7 @@ void StoryEditor::updateTextFrame()
 		while (nb2 != 0)
 		{
 			nb2->Dirty = false;
-			nb2 = nb2->NextBox;
+			nb2 = nb2->nextInChain();
 		}
 	}
 	ScCore->primaryMainWindow()->view->DrawNew();

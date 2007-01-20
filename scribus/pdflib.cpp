@@ -6336,7 +6336,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		for (uint ele = 0; ele < doc.Items->count(); ++ele)
 		{
 			PageItem* tel = doc.Items->at(ele);
-			if ((tel->asTextFrame()) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
+			if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
 					(!tel->inPdfArticle))
 			{
 				StartObj(ObjCounter);
@@ -6350,7 +6350,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				int fir = ObjCounter;
 				int ccb = ObjCounter;
 				bd.Parent = ObjCounter-1;
-				while (tel->NextBox != 0)
+				while (tel->nextInChain() != 0)
 				{
 					if (tel->OwnPage != -1)
 					{
@@ -6365,7 +6365,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 						Beads.append(bd);
 					}
 					tel->inPdfArticle = true;
-					tel = tel->NextBox;
+					tel = tel->nextInChain();
 				}
 				bd.Next = ccb + 1;
 				bd.Prev = ccb - 1;

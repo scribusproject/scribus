@@ -1209,15 +1209,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			{
 				PageItem * Its = m_Doc->Items->at(lc.key());
 				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
-				if (Itn->BackBox) 
+				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
 					continue;
 				}
-				Its->itemText.append(Itn->itemText);
-				Itn->itemText = Its->itemText;
-				Its->NextBox = Itn;
-				Itn->BackBox = Its;
+				Its->link(Itn);
 			}
 		}
 	}
@@ -1226,10 +1223,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	m_Doc->FirstAuto = m_Doc->LastAuto;
 	if (m_Doc->LastAuto)
 	{
-		while (m_Doc->LastAuto->NextBox)
-			m_Doc->LastAuto = m_Doc->LastAuto->NextBox;
-		while (m_Doc->FirstAuto->BackBox)
-			m_Doc->FirstAuto = m_Doc->FirstAuto->BackBox;
+		while (m_Doc->LastAuto->nextInChain())
+			m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
+		while (m_Doc->FirstAuto->prevInChain())
+			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
 	
 	if (m_mwProgressBar!=0)
@@ -2419,10 +2416,6 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
-	if (obj->hasAttribute("EXTRAV"))
-		currItem->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
-	else
-		currItem->ExtraV = obj->attribute("TXTKERN").toInt();
 	currItem->DashOffset = obj->attribute("DASHOFF", "0.0").toDouble();
 	currItem->setReversed(static_cast<bool>(obj->attribute("REVERS", "0").toInt()));
 	currItem->setLocked(static_cast<bool>(obj->attribute("LOCK", "0").toInt()));
@@ -3006,15 +2999,12 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			{
 				PageItem * Its = m_Doc->Items->at(lc.key());
 				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
-				if (Itn->BackBox) 
+				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
 					continue;
 				}
-				Its->itemText.append(Itn->itemText);
-				Itn->itemText = Its->itemText;
-				Its->NextBox = Itn;
-				Itn->BackBox = Its;
+				Its->link(Itn);
 			}
 		}
 	}	
@@ -3023,10 +3013,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	m_Doc->FirstAuto = m_Doc->LastAuto;
 	if (m_Doc->LastAuto)
 	{
-		while (m_Doc->LastAuto->NextBox)
-			m_Doc->LastAuto = m_Doc->LastAuto->NextBox;
-		while (m_Doc->FirstAuto->BackBox)
-			m_Doc->FirstAuto = m_Doc->FirstAuto->BackBox;
+		while (m_Doc->LastAuto->nextInChain())
+			m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
+		while (m_Doc->FirstAuto->prevInChain())
+			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
 	
 	return true;
@@ -3416,7 +3406,8 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 				ob.appendChild(imeff);
 			}
 		}
-		if (item->TabValues.count() != 0)
+/*
+ if (item->TabValues.count() != 0)
 		{
 			for (uint a = 0; a < item->TabValues.count(); ++a)
 			{
@@ -3430,6 +3421,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 				ob.appendChild(tabs);
 			}
 		}
+*/
 		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
 		{
 			QMap<int, ImageLoadRequest>::iterator it2;
@@ -3632,12 +3624,12 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			k--;
 			ob.appendChild(it);
 		}
-		if (item->BackBox != 0)
-			ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
+		if (item->prevInChain() != 0)
+			ob.setAttribute("BACKITEM", item->prevInChain()->ItemNr);
 		else
 			ob.setAttribute("BACKITEM", -1);
-		if (item->NextBox != 0)
-			ob.setAttribute("NEXTITEM", item->NextBox->ItemNr);
+		if (item->nextInChain() != 0)
+			ob.setAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else
 			ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("LAYER", item->LayerNr);

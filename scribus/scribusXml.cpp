@@ -1343,16 +1343,16 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 			ob.appendChild(imeff);
 		}
 	}
-	if (item->TabValues.count() != 0)
+	if (item->itemText.defaultStyle().tabValues().count() != 0)
 	{
-		for (uint a = 0; a < item->TabValues.count(); ++a)
+		for (uint a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 		{
 			QDomElement tabs = docu.createElement("Tabs");
-			tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
-			tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
+			tabs.setAttribute("Type", (*item->itemText.defaultStyle().tabValues().at(a)).tabType);
+			tabs.setAttribute("Pos", (*item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
 			QString tabCh = "";
-			if (!(*item->TabValues.at(a)).tabFillChar.isNull())
-				tabCh = QString((*item->TabValues.at(a)).tabFillChar);
+			if (!(*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
+				tabCh = QString((*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
 			tabs.setAttribute("Fill", tabCh);
 			ob.appendChild(tabs);
 		}

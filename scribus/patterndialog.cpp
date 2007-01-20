@@ -254,7 +254,7 @@ void PatternDialog::loadVectors(QString data)
 		}
 		else if (ite->itemType() == PageItem::TextFrame)
 		{
-			if ( ite->BackBox == 0 )
+			if ( ite->prevInChain() == 0 )
 				ite->asTextFrame()->layout();
 		}
 	}

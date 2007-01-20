@@ -78,9 +78,15 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items = 0);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
-		QValueList<int> LFrames;
-		QValueList<int> LFrames2;
-		QValueList<ScFace> dummyScFaces;
+		QMap<int, int> itemRemap;
+		QMap<int, int> itemNext;
+		QMap<int, int> itemRemapF;
+		QMap<int, int> itemNextF;
+		QMap<int, int> itemRemapM;
+		QMap<int, int> itemNextM;
+		int itemCount;
+		int itemCountM;
+		int itemCountF;
 		bool newReplacement;
 		QMap<QString,QString> ReplacedFonts;
 		QMap<uint,QString> DoVorl;

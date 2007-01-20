@@ -153,14 +153,14 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
-					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
+					for (uint t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
 					{
-						if (currItem->TabValues[t1].tabFillChar.isNull())
+						if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 							continue;
-						chstr = QString(currItem->TabValues[t1].tabFillChar);
+						chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
 						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
-							if (chstr.upper() != QString(currItem->TabValues[t1].tabFillChar))
+							if (chstr.upper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
 								chstr = chstr.upper();
 						}
 						chr = chstr[0].unicode();
@@ -265,14 +265,14 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
-					for (uint t1 = 0; t1 < currItem->TabValues.count(); t1++)
+					for (uint t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
 					{
-						if (currItem->TabValues[t1].tabFillChar.isNull())
+						if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 							continue;
-						chstr = QString(currItem->TabValues[t1].tabFillChar);
+						chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
 						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
-							if (chstr.upper() != QString(currItem->TabValues[t1].tabFillChar))
+							if (chstr.upper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
 								chstr = chstr.upper();
 						}
 						chr = chstr[0].unicode();

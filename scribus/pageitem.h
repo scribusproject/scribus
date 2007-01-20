@@ -266,6 +266,8 @@ public:
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
 	
+	/// creates valid layout information
+	virtual void layout() {}
 	/// returns true if text overflows
 	bool frameOverflows() const;
 	/// returns index of first char displayed in this frame, used to be 0
@@ -368,20 +370,21 @@ public:
 	bool HasSel;
   /** Flag fuer Textfluss */
 	bool FrameOnly;
-	PageItem *BackBox;
-	PageItem *NextBox;
-	int NextIt;
 	int NextPg;
 	bool Tinput;
 	bool isAutoText;
-#ifndef NLS_PROTO
+	PageItem* prevInChain() { return BackBox; }
+	PageItem* nextInChain() { return NextBox; }
+	void unlink();
+	void link(PageItem* nextFrame);
+
 protected:
+	PageItem *BackBox;
+	PageItem *NextBox;
 	uint firstChar;
 	uint MaxChars;
 public:
-#endif
 	bool inPdfArticle;
-	int ExtraV;
 	bool isRaster;
 	double OldB;
 	double OldH;
@@ -394,7 +397,6 @@ public:
 	bool AspectRatio;
 	QValueStack<int> Groups;
 	QValueList<double> DashValues;
-	QValueList<ParagraphStyle::TabRecord> TabValues;
 	double DashOffset;
 	VGradient fill_gradient;
 	bool fillRule;
@@ -1057,12 +1059,15 @@ protected:
 
 	int m_startArrowIndex;
 	int m_endArrowIndex;
-	
+
+protected:
   	/** Left, Top, Bottom, Right distances of text from the frame */
 	double Extra;
 	double TExtra;
 	double BExtra;
 	double RExtra;
+	
+public:
 	/** Radius of rounded corners */
 	double RadRect;
 	

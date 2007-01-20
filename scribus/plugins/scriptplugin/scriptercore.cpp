@@ -177,13 +177,13 @@ void ScripterCore::FinishScriptRun()
 				}
 				else
 				{
-					if ((ite->BackBox != 0) || (ite->NextBox != 0))
+					if ((ite->prevInChain() != 0) || (ite->nextInChain() != 0))
 					{
 						PageItem *nextItem = ite;
 						while (nextItem != 0)
 						{
-							if (nextItem->BackBox != 0)
-								nextItem = nextItem->BackBox;
+							if (nextItem->prevInChain() != 0)
+								nextItem = nextItem->prevInChain();
 							else
 								break;
 						}

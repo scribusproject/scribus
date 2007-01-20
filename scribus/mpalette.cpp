@@ -4050,10 +4050,12 @@ void Mpalette::ManageTabs()
 		PageItem_TextFrame *i2=CurItem->asTextFrame();
 		if (i2==0)
 			return;
-		TabManager *dia = new TabManager(this, doc->unitIndex(), i2->TabValues, i2->columnWidth());
+		TabManager *dia = new TabManager(this, doc->unitIndex(), i2->itemText.defaultStyle().tabValues(), i2->columnWidth());
 		if (dia->exec())
 		{
-			CurItem->TabValues = dia->tmpTab;
+			ParagraphStyle newStyle(CurItem->itemText.defaultStyle());
+			newStyle.setTabValues(dia->tmpTab);
+			CurItem->itemText.setDefaultStyle(newStyle);
 			m_ScMW->view->RefreshItem(CurItem);
 			emit DocChanged();
 		}

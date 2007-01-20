@@ -1400,12 +1400,10 @@ int ScribusDoc::addAutomaticTextFrame(const int pageNumber)
 		                     pageHeight-addToPage->Margins.Bottom-addToPage->Margins.Top,
 							 1, CommonStrings::None, toolSettings.dPen, true);
 		Items->at(z)->isAutoText = true;
-		Items->at(z)->BackBox = LastAuto;
 		Items->at(z)->Cols = qRound(PageSp);
 		Items->at(z)->ColGap = PageSpa;
 		if (LastAuto != 0) {
-			LastAuto->NextBox = Items->at(z);
-			Items->at(z)->itemText = LastAuto->itemText;
+			LastAuto->link(Items->at(z));
 		}	
 		else
 			FirstAuto = Items->at(z);
@@ -2587,14 +2585,14 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
 					Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 				}
-				for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+				for (uint t1 = 0; t1 < it->itemText.defaultStyle().tabValues().count(); t1++)
 				{
-					if (it->TabValues[t1].tabFillChar.isNull())
+					if (it->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 						continue;
-					chstr = QString(it->TabValues[t1].tabFillChar);
+					chstr = QString(it->itemText.defaultStyle().tabValues()[t1].tabFillChar);
 					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						if (chstr.upper() != QString(it->TabValues[t1].tabFillChar))
+						if (chstr.upper() != QString(it->itemText.defaultStyle().tabValues()[t1].tabFillChar))
 							chstr = chstr.upper();
 					}
 					chr = chstr[0].unicode();
@@ -3402,13 +3400,11 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			{
 				currItem->setColumns(iafData.columnCount);
 				currItem->setColumnGap(iafData.columnGap/docUnitRatio);
-				if (iafData.linkTextFrames && prevItem!=0)
+				if (iafData.linkTextFrames && prevItem != NULL )
 				{
-					currItem->BackBox = prevItem;
-					prevItem->NextBox = currItem;
-					currItem->itemText = prevItem->itemText;
+					prevItem->link(currItem);
 				}
-				if (!iafData.source.isEmpty() && prevItem==0 && QFile::exists(iafData.source))
+				if (!iafData.source.isEmpty() && prevItem == NULL && QFile::exists(iafData.source))
 				{
 					gtGetText* gt = new gtGetText(this);
 					if (iafData.impsetup.runDialog)
@@ -6191,7 +6187,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			else
 			if (currItem->asTextFrame() && ScCore->usingGUI())
 			{
-				if (currItem->itemText.length() != 0 && (currItem->NextBox == 0 || currItem->BackBox == 0))
+				if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
 				{
 					int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
 										tr("Do you really want to clear all your text?"),
@@ -6258,35 +6254,29 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
-			if ((currItem->NextBox != 0) || (currItem->BackBox != 0))
+			PageItem* before = currItem->prevInChain();
+			PageItem* after = currItem->nextInChain();
+			// update auto pointers
+			if (currItem->isAutoText && after == 0)
 			{
-				if (currItem->BackBox == 0)
+				LastAuto = before;
+			}
+			if (currItem->isAutoText && before == 0)
+			{
+				FirstAuto = after;
+			}
+			// unlink after
+			currItem->unlink();
+			if (before != 0)
+			{
+				// unlink before
+				before->unlink();
+				// repair link
+				if (after != 0)
 				{
-					currItem->NextBox->BackBox = 0;
-					if ((currItem->isAutoText) && (currItem->NextBox == 0))
-						LastAuto = 0;
-				}
-				else
-				{
-					currItem->BackBox->NextBox = currItem->NextBox;
-					if (currItem->NextBox != 0)
-						currItem->NextBox->BackBox = currItem->BackBox;
-					else
-					{
-						if (currItem->isAutoText)
-							LastAuto = currItem->BackBox;
-					}
+					before->link(after);
 				}
 			}
-			else
-			{
-				if (currItem->isAutoText)
-				{
-					LastAuto = 0;
-					FirstAuto = 0;
-				}
-			}
-			currItem->itemText = StoryText(this);
 		}
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);

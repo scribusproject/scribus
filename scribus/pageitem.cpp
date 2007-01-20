@@ -126,18 +126,14 @@ PageItem::PageItem(const PageItem & other)
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
 	FrameOnly(other.FrameOnly),
-	BackBox(other.BackBox),
-	NextBox(other.NextBox),
-	NextIt(other.NextIt),
 	NextPg(other.NextPg),
 	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
-#ifndef NLS_PROTO
+	BackBox(other.BackBox),
+	NextBox(other.NextBox),
 	firstChar(other.firstChar),
 	MaxChars(other.MaxChars),
-#endif
 	inPdfArticle(other.inPdfArticle),
-	ExtraV(other.ExtraV),
 	isRaster(other.isRaster),
 	OldB(other.OldB),
 	OldH(other.OldH),
@@ -150,7 +146,6 @@ PageItem::PageItem(const PageItem & other)
 	AspectRatio(other.AspectRatio),
 	Groups(other.Groups),
 	DashValues(other.DashValues),
-	TabValues(other.TabValues),
 	DashOffset(other.DashOffset),
 	fill_gradient(other.fill_gradient),
 	fillRule(other.fillRule),
@@ -309,11 +304,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	TExtra = 0;
 	BExtra = 0;
 	RExtra = 0;
-	ExtraV = 0;
-#ifndef NLS_PROTO
 	firstChar = 0;
 	MaxChars = 0;
-#endif
 	Pfile = "";
 	pixm = ScImage();
 	pixm.imgInfo.lowResType = m_Doc->toolSettings.lowResType;
@@ -412,7 +404,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Reverse = false;
 	NamedLStyle = "";
 	DashValues.clear();
-	TabValues.clear();
 	DashOffset = 0;
 	fillRule = true;
 	doOverprint = false;
@@ -670,6 +661,44 @@ int PageItem::lastInFrame() const
 #else
 	return itemText.length() - 1;
 #endif
+}
+
+
+void PageItem::link(PageItem* nxt)
+{
+	assert( !nextInChain() );
+	assert( !nxt->prevInChain() );
+	itemText.append(nxt->itemText);
+	nxt->itemText = itemText;
+	NextBox = nxt;
+	nxt->BackBox = this;
+	invalid = true;
+	nxt->invalid = true;
+}
+
+void PageItem::unlink()
+{
+	if( NextBox )
+	{
+		// make sure lastInFrame is valid
+		layout();
+		// move following text to new StoryText
+		itemText.select(lastInFrame()+1, itemText.length()-lastInFrame()-1);
+		StoryText follow(m_Doc);
+		follow.setDefaultStyle(itemText.defaultStyle());
+		follow.insert(0, itemText, true);
+		// remove following text from this chain
+		itemText.removeSelection();
+		// link following frames to new text
+		NextBox->firstChar = 0;
+		NextBox->BackBox = NULL;
+		while (NextBox) {
+			NextBox->itemText = follow;
+			NextBox->invalid = true;
+			NextBox = NextBox->NextBox;
+		}
+		// NextBox == NULL now
+	}
 }
 
 /// tests if a character is displayed by this frame
@@ -1786,6 +1815,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			p->setFillMode(1);
 			bool fr = p->fillRule();
 			p->setFillRule(false);
+//			double	a = gly.point(0).x();
+//			double	b = gly.point(0).y();
+//			double	c = gly.point(3).x();
+//			double	d = gly.point(3).y();
+//			qDebug(QString("drawglyphs: %1 (%2,%3) (%4,%5) scaled %6,%7 trans %8,%9")
+//				   .arg(gly.size()).arg(a).arg(b).arg(c).arg(d)
+//				   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy()));
 			p->setupTextPolygon(&gly);
 			if (m_Doc->layerOutline(LayerNr))
 			{
@@ -1811,7 +1847,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				}
 				return;
 			}
-			if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
+			if (glyph == 0)
+			{
+				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 1, SolidLine, FlatCap, MiterJoin);
+				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
+				p->strokePath();
+			}
+			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
 				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
@@ -3422,7 +3464,6 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->PoLine = PoLine.copy();
 	Buffer->ContourLine = ContourLine.copy();
 	//Buffer->UseContour = textFlowUsesContourLine();
-	Buffer->TabValues = TabValues;
 	Buffer->DashValues = DashValues;
 	Buffer->DashOffset = DashOffset;
 	Buffer->PoShow = PoShow;

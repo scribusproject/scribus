@@ -31,6 +31,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qdrawutil.h>
 #include <qbitmap.h>
+#include <qpixmap.h>
+#include <qrect.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
 #include <cmath>
@@ -61,6 +63,22 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 	firstChar = 0;
 	MaxChars = itemText.length();
 }
+
+
+void PageItem_PathText::layout()
+{
+	Frame = true;
+	updatePolyClip();
+	
+	QPixmap pgPix(10, 10);
+	QRect rd = QRect(0,0,9,9);
+	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());	
+	DrawObj(painter, rd);
+	painter->end();
+	delete painter;
+
+}
+
 
 void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 {

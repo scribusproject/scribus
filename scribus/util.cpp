@@ -660,8 +660,8 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	PageItem *nbl = currItem;
 	while (nextItem != 0)
 	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
+		if (nextItem->prevInChain() != 0)
+			nextItem = nextItem->prevInChain();
 		else
 			break;
 	}
@@ -683,7 +683,7 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 			first = false;
 		}
 		nbl = nextItem;
-		nextItem = nextItem->NextBox;
+		nextItem = nextItem->nextInChain();
 	}
 	if (nbl->frameOverflows()) {
 		paraN++;
