@@ -1116,6 +1116,11 @@ void Mpalette::setDoc(ScribusDoc *d)
 	updateColorList();
 
 	updateSpinBoxConstants();
+	paraStyleCombo->setDoc(doc);
+	charStyleCombo->setDoc(doc);
+	SetLineFormats(doc);
+	startArrow->rebuildList(&doc->arrowStyles);
+	endArrow->rebuildList(&doc->arrowStyles);
 
 	connect(this->Cpal, SIGNAL(NewTrans(double)), doc, SLOT(itemSelection_SetItemFillTransparency(double)));
 	connect(this->Cpal, SIGNAL(NewTransS(double)), doc, SLOT(itemSelection_SetItemLineTransparency(double)));
@@ -1137,6 +1142,9 @@ void Mpalette::unsetDoc()
 	doc=NULL;
 	Cpal->setCurrentItem(NULL);
 	Cpal->setDocument(NULL);
+	paraStyleCombo->setDoc(0);
+	charStyleCombo->setDoc(0);
+	SetLineFormats(0);
 }
 
 void Mpalette::unsetItem()

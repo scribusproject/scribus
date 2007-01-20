@@ -147,9 +147,6 @@ void ScripterCore::FinishScriptRun()
 	if (ScMW->HaveDoc)
 	{
 		ScMW->propertiesPalette->setDoc(ScMW->doc);
-		ScMW->propertiesPalette->paraStyleCombo->setDoc(ScMW->doc);
-		ScMW->propertiesPalette->SetLineFormats(ScMW->doc);
-		ScMW->propertiesPalette->updateColorList();
 		ScMW->layerPalette->setDoc(ScMW->doc);
 		ScMW->outlinePalette->setDoc(ScMW->doc);
 		ScMW->outlinePalette->BuildTree();

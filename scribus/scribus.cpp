@@ -2340,11 +2340,6 @@ void ScribusMainWindow::SwitchWin()
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
 	pagePalette->setView(view);
-	propertiesPalette->paraStyleCombo->setDoc(doc);
-	propertiesPalette->charStyleCombo->setDoc(doc);
-	propertiesPalette->SetLineFormats(doc);
-	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
-	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setDoc(doc);
@@ -2490,11 +2485,6 @@ void ScribusMainWindow::HaveNewDoc()
 	propertiesPalette->Cpal->ChooseGrad(0);
 //	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
-	propertiesPalette->paraStyleCombo->setDoc(doc);
-	propertiesPalette->charStyleCombo->setDoc(doc);
-	propertiesPalette->SetLineFormats(doc);
-	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
-	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
 	charPalette->setDoc(doc);
@@ -4124,9 +4114,6 @@ bool ScribusMainWindow::DoFileClose()
 	propertiesPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
-	propertiesPalette->paraStyleCombo->setDoc(0);
-	propertiesPalette->charStyleCombo->setDoc(0);
-	propertiesPalette->SetLineFormats(0);
 	if (doc->EditClip)
 		NoFrameEdit();
 	bookmarkPalette->BView->clear();
