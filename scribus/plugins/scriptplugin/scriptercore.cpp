@@ -147,7 +147,7 @@ void ScripterCore::FinishScriptRun()
 	if (ScMW->HaveDoc)
 	{
 		ScMW->propertiesPalette->setDoc(ScMW->doc);
-		ScMW->propertiesPalette->Spal->setFormats(ScMW->doc);
+		ScMW->propertiesPalette->paraStyleCombo->setFormats(ScMW->doc);
 		ScMW->propertiesPalette->SetLineFormats(ScMW->doc);
 		ScMW->propertiesPalette->updateColorList();
 		ScMW->layerPalette->setDoc(ScMW->doc);

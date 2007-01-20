@@ -374,7 +374,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	tmp.create(vg);
 	textFrame->doc()->redefineStyles(tmp, false);
 	
-	m_ScMW->propertiesPalette->Spal->updateFormatList();
+	m_ScMW->propertiesPalette->paraStyleCombo->updateFormatList();
 }
 
 void gtAction::removeParagraphStyle(const QString& name)

@@ -81,20 +81,20 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	editor->getCursorPosition(&p, &i);
 	int pos = editor->StyledText.startOfParagraph(p) + i;
 	pmen = new QPopupMenu();
-	Spalette* Spal = new Spalette(this);
-	Spal->setFormats(editor->doc);
+	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
+	paraStyleCombo->setFormats(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
 		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar);
 		if (len > 0)
-			Spal->setFormat(editor->StyledText.paragraphStyle(pos).displayName());
+			paraStyleCombo->setFormat(editor->StyledText.paragraphStyle(pos).displayName());
 		else
-			Spal->setFormat("");
+			paraStyleCombo->setFormat("");
 	}
 	else
-		Spal->setFormat("");
-	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
-	pmen->insertItem(Spal);
+		paraStyleCombo->setFormat("");
+	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
+	pmen->insertItem(paraStyleCombo);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 	delete pmen;
@@ -1058,8 +1058,8 @@ void SToolBStyle::SetKern(int k)
 SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), parent)
 {
 	GroupAlign = new AlignSelect(this);
-	Spal = new Spalette(this);
-	connect(Spal, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	paraStyleCombo = new ParaStyleComboBox(this);
+	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 
 	languageChange();
@@ -1067,8 +1067,8 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 
 void SToolBAlign::languageChange()
 {
-	QToolTip::remove(Spal);
-	QToolTip::add(Spal, tr("Style of current paragraph"));
+	QToolTip::remove(paraStyleCombo);
+	QToolTip::add(paraStyleCombo, tr("Style of current paragraph"));
 }
 
 
@@ -1081,9 +1081,9 @@ void SToolBAlign::SetAlign(int s)
 
 void SToolBAlign::SetParaStyle(int s)
 {
-	disconnect(Spal, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
-	Spal->selFormat(s);
-	connect(Spal, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	disconnect(paraStyleCombo, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	paraStyleCombo->selFormat(s);
+	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
 }
 
 
@@ -1474,7 +1474,7 @@ void StoryEditor::buildGUI()
 	setDockEnabled(AlignTools, DockLeft, false);
 	setDockEnabled(AlignTools, DockRight, false);
 	setDockEnabled(AlignTools, DockBottom, false);
-	AlignTools->Spal->setFormats(currDoc);
+	AlignTools->paraStyleCombo->setFormats(currDoc);
 	StyleTools = new SToolBStyle(this);
 	setDockEnabled(StyleTools, DockLeft, false);
 	setDockEnabled(StyleTools, DockRight, false);
@@ -1671,7 +1671,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	disconnectSignals();
 	currDoc=doc;
 	textChanged=false;
-	AlignTools->Spal->setFormats(currDoc);
+	AlignTools->paraStyleCombo->setFormats(currDoc);
 	StrokeTools->setCurrentDocument(currDoc);
 	FillTools->setCurrentDocument(currDoc);
 	Editor->setCurrentDocument(currDoc);
@@ -2550,7 +2550,7 @@ void StoryEditor::slotEditStyles()
 	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
 	delete dia;
 
-	AlignTools->Spal->setFormats(currDoc);
+	AlignTools->paraStyleCombo->setFormats(currDoc);
 	AlignTools->SetAlign(Editor->CurrAlign);
 	AlignTools->SetParaStyle(currItem->doc()->paragraphStyles().find(Editor->currentParaStyle));
 	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));

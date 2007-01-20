@@ -33,13 +33,13 @@ class ScribusDoc;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API Spalette : public QComboBox  
+class SCRIBUS_API ParaStyleComboBox : public QComboBox  
 {
 	Q_OBJECT
 
 public: 
-	Spalette(QWidget* parent);
-	~Spalette() {};
+	ParaStyleComboBox(QWidget* parent);
+	~ParaStyleComboBox() {};
 	
 	ScribusDoc *currentDoc;
 	

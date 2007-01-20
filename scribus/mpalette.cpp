@@ -111,7 +111,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
+Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertieparaStyleComboBox", false, 0)
 {
 	m_ScMW=0;
 	doc=0;
@@ -670,10 +670,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
-	Spal = new Spalette(page_3);
-	styleLabel = new QLabel( Spal, "St&yle:", page_3, "styleLabel" );
+	paraStyleCombo = new ParaStyleComboBox(page_3);
+	styleLabel = new QLabel( paraStyleCombo, "St&yle:", page_3, "styleLabel" );
 	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
-	GroupBox3aLayout->addWidget( Spal, 0, 1 );
+	GroupBox3aLayout->addWidget( paraStyleCombo, 0, 1 );
 /*	langCombo = new ScComboBox( false, page_3, "Lang" );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
@@ -2368,7 +2368,7 @@ void Mpalette::setAli(int e)
 //	}
 //	else
 //		GroupAlign->setEnabled(false);
-//	Spal->setFormat(e);
+//	paraStyleCombo->setFormat(e);
 	HaveItem = tmp;
 }
 
@@ -2379,7 +2379,7 @@ void Mpalette::setParStyle(QString name)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	Spal->setFormat(name);
+	paraStyleCombo->setFormat(name);
 	HaveItem = tmp;
 }
 
@@ -4321,7 +4321,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(Extra);
 	QToolTip::remove(LineSp);
 	QToolTip::remove(linespacingButton);
-	QToolTip::remove(Spal);
+	QToolTip::remove(paraStyleCombo);
 //	QToolTip::remove(langCombo);
 
 	QToolTip::remove(LineMode);
@@ -4398,7 +4398,7 @@ void Mpalette::languageChange()
 	QToolTip::add(Extra, tr("Manual Tracking"));
 	QToolTip::add(LineSp, tr("Line Spacing"));
 	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
-	QToolTip::add(Spal, tr("Style of current paragraph"));
+	QToolTip::add(paraStyleCombo, tr("Style of current paragraph"));
 //	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 
 	QToolTip::add(LineMode, tr("Change settings for left or end points"));

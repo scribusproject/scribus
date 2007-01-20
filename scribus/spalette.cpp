@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          spalette.cpp  -  description
+                          ParaStyleComboBox.cpp  -  description
                              -------------------
     begin                : Wed Apr 25 2001
     copyright            : (C) 2001 by Franz Schmid
@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "page.h"
 
-Spalette::Spalette(QWidget* parent) : QComboBox(true, parent, "Sfloat")
+ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(true, parent, "Sfloat")
 {
 //	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
 //	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
@@ -39,18 +39,18 @@ Spalette::Spalette(QWidget* parent) : QComboBox(true, parent, "Sfloat")
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
-void Spalette::setFormats(ScribusDoc *newCurrentDoc)
+void ParaStyleComboBox::setFormats(ScribusDoc *newCurrentDoc)
 {
 	currentDoc = newCurrentDoc;
 	updateFormatList();
 }
 
-void Spalette::setFormat(QString name)
+void ParaStyleComboBox::setFormat(QString name)
 {
 	setCurrentText(name.isEmpty() ? tr("No Style") : name);
 }
 
-void Spalette::updateFormatList()
+void ParaStyleComboBox::updateFormatList()
 {
 	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 	clear();
@@ -69,7 +69,7 @@ void Spalette::updateFormatList()
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
-void Spalette::selFormat(int e)
+void ParaStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
 	{

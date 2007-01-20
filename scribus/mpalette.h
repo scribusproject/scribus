@@ -120,7 +120,7 @@ public:
 	Cpalette *Cpal;
 	Autoforms* SCustom;
 	Autoforms* SCustom2;
-	Spalette *Spal;	
+	ParaStyleComboBox *paraStyleCombo;	
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;

@@ -263,7 +263,7 @@ void SMParagraphStyle::apply()
 
 	deleted_.clear(); // deletion done at this point
 
-	doc_->scMW()->propertiesPalette->Spal->updateFormatList();
+	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
 // CB 030107 SM does not need to update colours in propertiesPalette. this is a color list not 		the active item
 // 	doc_->scMW()->propertiesPalette->updateColorList();
 // 	FIXME private access in ScMW

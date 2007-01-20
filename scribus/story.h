@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 
 class MenuManager;
 class MSpinBox;
-class Spalette;
+class ParaStyleComboBox;
 class StyleSelect;
 class AlignSelect;
 class FontCombo;
@@ -264,7 +264,7 @@ public:
 	SToolBAlign(QMainWindow* parent);
 	~SToolBAlign() {};
 	AlignSelect* GroupAlign;
-	Spalette *Spal;
+	ParaStyleComboBox *paraStyleCombo;
 
 public slots:
 	void SetAlign(int s);

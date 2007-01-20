@@ -464,7 +464,7 @@ void ScribusMainWindow::initPalettes()
 	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
-	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewParStyle(int)));
+	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setNewParStyle(int)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -2338,7 +2338,7 @@ void ScribusMainWindow::SwitchWin()
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
 	pagePalette->setView(view);
-	propertiesPalette->Spal->setFormats(doc);
+	propertiesPalette->paraStyleCombo->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
@@ -2487,7 +2487,7 @@ void ScribusMainWindow::HaveNewDoc()
 	propertiesPalette->Cpal->ChooseGrad(0);
 //	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
-	propertiesPalette->Spal->setFormats(doc);
+	propertiesPalette->paraStyleCombo->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
 	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
@@ -3409,7 +3409,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 //		if ((docItemsCount - oldItemsCount) > 1)
 //			doc->GroupCounter++;
 		propertiesPalette->updateColorList();
-		propertiesPalette->Spal->setFormats(doc);
+		propertiesPalette->paraStyleCombo->setFormats(doc);
 		propertiesPalette->SetLineFormats(doc);
 		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
@@ -4153,7 +4153,7 @@ bool ScribusMainWindow::DoFileClose()
 	propertiesPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
-	propertiesPalette->Spal->setFormats(0);
+	propertiesPalette->paraStyleCombo->setFormats(0);
 	propertiesPalette->SetLineFormats(0);
 	if (doc->EditClip)
 		NoFrameEdit();
@@ -6875,7 +6875,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 		}
 	}
 
-	propertiesPalette->Spal->updateFormatList();
+	propertiesPalette->paraStyleCombo->updateFormatList();
 	propertiesPalette->updateColorList();
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
@@ -7863,7 +7863,7 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 			buildFontMenu();
 			propertiesPalette->updateColorList();
-			propertiesPalette->Spal->updateFormatList();
+			propertiesPalette->paraStyleCombo->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
 //			outlinePalette->BuildTree();
 			slotDocCh();
