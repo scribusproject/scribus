@@ -187,7 +187,7 @@ void TabDisplay::setPaperColor(QColor neu)
 
 void TabDisplay::setDisScale()
 {
-	DisScale = QMAX((100.0 + CaliSlider->value()) / 100.0, 0.01);
+	DisScale = QMAX((150.0 + CaliSlider->value()) / 100.0, 0.01);
 	drawRuler();
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 }
