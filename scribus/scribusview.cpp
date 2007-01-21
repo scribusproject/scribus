@@ -2569,7 +2569,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					{
 						InfoT->setText( tr("Picture"));
 						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
-						ParCT->setText( tr("no Image loaded"));
+						ParCT->setText( tr("No Image Loaded"));
 						InfoGroupLayout->addMultiCellWidget( ParCT, 1, 1, 0, 1, Qt::AlignHCenter );
 						ParC->hide();
 						WordCT->hide();
