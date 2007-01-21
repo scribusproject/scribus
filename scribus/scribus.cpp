@@ -7106,11 +7106,11 @@ void ScribusMainWindow::slotEditColors()
 	delete dia;
 }
 
-void ScribusMainWindow::slotStyleManager()
-{
-	styleManager->setDoc(HaveDoc ? doc : 0);
-	styleManager->setShown(!styleManager->isVisible());
-}
+// void ScribusMainWindow::slotStyleManager()
+// {
+// 	styleManager->setDoc(HaveDoc ? doc : 0);
+// 	styleManager->setShown(!styleManager->isVisible());
+// }
 
 void ScribusMainWindow::updtGradFill()
 {
