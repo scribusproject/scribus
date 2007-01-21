@@ -359,7 +359,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, ColorList& colors
 		}
 	}
 }
-
+/*
 void ScImage::liberateMemory(void **memory)
 {
 	assert(memory != (void **)NULL);
@@ -368,7 +368,7 @@ void ScImage::liberateMemory(void **memory)
 	free(*memory);
 	*memory=(void *) NULL;
 }
-
+*/
 void ScImage::solarize(double factor, bool cmyk)
 {
 	curveTable.resize(256);
@@ -738,7 +738,8 @@ void ScImage::sharpen(double radius, double sigma)
 	}
 	kernel[i/2]=(-2.0)*normalize;
 	convolveImage(&dest, widthk, kernel);
-	liberateMemory((void **) &kernel);
+	free(kernel);
+//	liberateMemory((void **) &kernel);
 	for( int yi=0; yi < dest.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(dest.scanLine( yi ));
