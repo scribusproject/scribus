@@ -216,7 +216,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(activated()), mainWindow, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), mainWindow, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editPatterns"], SIGNAL(activated()), mainWindow, SLOT(managePatterns()) );
-	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
+// 	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
 	connect( (*scrActions)["editParaStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditStyles()) );
 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditLineStyles()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), mainWindow, SLOT(manageMasterPages()) );
@@ -1522,7 +1522,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editEditWithImageEditor", QKeySequence());
 	defKeys.insert("editColors", QKeySequence());
 	defKeys.insert("editPatterns", QKeySequence());
-	defKeys.insert("editStyles", QKeySequence());
+	defKeys.insert("editStyles", QKeySequence(Qt::Key_F3));
 	defKeys.insert("editParaStyles", QKeySequence());
 	defKeys.insert("editLineStyles", QKeySequence());
 	defKeys.insert("editMasterPages", QKeySequence());
@@ -1800,7 +1800,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "fileDocSetup" << "filePreferences" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit
-	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editExtendedImageProperties" << "editColors" << "editParaStyles" << "editLineStyles" << "editMasterPages" << "editJavascripts";
+	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editExtendedImageProperties" << "editColors" << "editPatterns" << "editStyles" << "editParaStyles" << "editLineStyles" << "editMasterPages" << "editJavascripts";
 	//Style
 	++itmenu;
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};

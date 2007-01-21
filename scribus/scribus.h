@@ -431,7 +431,7 @@ public slots:
 	/** Farbeditor */
 	void slotEditColors();
 	/** Style Manager */
-	void slotStyleManager();
+// 	void slotStyleManager();
 	/*
 	// Setzt den Pen-Tonwert
 	void setPenShade(int sh);

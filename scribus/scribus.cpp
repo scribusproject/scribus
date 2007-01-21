@@ -456,7 +456,10 @@ void ScribusMainWindow::initPalettes()
 	SMCharacterStyle *tmpCS = new SMCharacterStyle();
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
+	connect( scrActions["editStyles"], SIGNAL(toggled(bool)) , styleManager, SLOT(setPaletteShown(bool)) );
+// 	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
 	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setOn(bool)));
+	styleManager->installEventFilter(this);
 
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
@@ -1153,7 +1156,13 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		if (currKeySeq == scrActions["toolsAlignDistribute"]->accel())
 			scrActions["toolsAlignDistribute"]->toggle();
 		else
-		//Undo actions
+		//Edit actions
+		if (currKeySeq == scrActions["editStyles"]->accel())
+		{
+			scrActions["editStyles"]->toggle();
+			qDebug("boo");
+		}
+		else
 		if (currKeySeq == scrActions["editUndoAction"]->accel() && scrActions["editUndoAction"]->isEnabled())
 			scrActions["editUndoAction"]->activate();
 		else
