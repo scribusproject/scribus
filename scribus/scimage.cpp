@@ -170,7 +170,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 		}
 	}
 }
-
+/*
 void ScImage::liberateMemory(void **memory)
 {
 	assert(memory != (void **)NULL);
@@ -179,7 +179,7 @@ void ScImage::liberateMemory(void **memory)
 	free(*memory);
 	*memory=(void *) NULL;
 }
-
+*/
 void ScImage::solarize(double factor, bool cmyk)
 {
 	curveTable.resize(256);
@@ -375,7 +375,8 @@ void ScImage::blur(double radius, double sigma)
 		{
 			if(last_kernel != (double *)NULL)
 			{
-				liberateMemory((void **) &last_kernel);
+				free(last_kernel);
+//				liberateMemory((void **) &last_kernel);
 			}
 			last_kernel=kernel;
 			kernel = (double *)NULL;
@@ -383,14 +384,16 @@ void ScImage::blur(double radius, double sigma)
 		}
 		if(last_kernel != (double *) NULL)
 		{
-			liberateMemory((void **) &kernel);
+			free(kernel);
+//			liberateMemory((void **) &kernel);
 			widthk-=2;
 			kernel = last_kernel;
 		}
 	}
 	if(widthk < 3)
 	{
-		liberateMemory((void **) &kernel);
+		free(kernel);
+//		liberateMemory((void **) &kernel);
 		return;
 	}
 	dest.create(width(), height(), 32);
@@ -416,9 +419,12 @@ void ScImage::blur(double radius, double sigma)
 			destTable[y][x] = temp[y];
 		}
 	}
-	liberateMemory((void **) &scanline);
-	liberateMemory((void **) &temp);
-	liberateMemory((void **) &kernel);
+	free(scanline);
+	free(temp);
+	free(kernel);
+//	liberateMemory((void **) &scanline);
+//	liberateMemory((void **) &temp);
+//	liberateMemory((void **) &kernel);
 	for( int yi=0; yi < dest.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(dest.scanLine( yi ));
@@ -547,7 +553,8 @@ void ScImage::sharpen(double radius, double sigma)
 	}
 	kernel[i/2]=(-2.0)*normalize;
 	convolveImage(&dest, widthk, kernel);
-	liberateMemory((void **) &kernel);
+	free(kernel);
+//	liberateMemory((void **) &kernel);
 	for( int yi=0; yi < dest.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(dest.scanLine( yi ));

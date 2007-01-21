@@ -200,7 +200,7 @@ private:
 	void swapByteOrder();
 
 	// Misc implementation
-	void liberateMemory(void **memory);
+//	void liberateMemory(void **memory);
 	void blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns);
 	int getBlurKernel(int width, double sigma, double **kernel);
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
