@@ -1520,7 +1520,10 @@ void Mpalette::SetCurItem(PageItem *i)
 		Rot->setEnabled(false);
 	}
 	else
+	{
+		setter = false;
 		TabStack3->raiseWidget(0);
+	}
 	LayerGroup->setEnabled(!setter);
 	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
