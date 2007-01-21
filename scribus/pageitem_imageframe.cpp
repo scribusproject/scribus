@@ -113,6 +113,19 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				}
 				else
 				{
+#ifdef HAVE_CAIRO
+					if (imageFlippedH())
+					{
+						p->translate(Width, 0);
+						p->scale(-1, 1);
+					}
+					if (imageFlippedV())
+					{
+						p->translate(0, Height);
+						p->scale(1, -1);
+					}
+					p->translate(LocalX*LocalScX, LocalY*LocalScY);
+#else
 					if (imageFlippedH())
 					{
 						p->translate(Width * sc, 0);
@@ -124,11 +137,10 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 						p->scale(1, -1);
 					}
 					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
+#endif
 					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
-//					QImage img(pixm.qImage());
-//					p->drawImage(&img);
 					p->drawImage(pixm.qImagePtr());
 				}
 			}
