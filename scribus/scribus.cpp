@@ -456,7 +456,7 @@ void ScribusMainWindow::initPalettes()
 	SMCharacterStyle *tmpCS = new SMCharacterStyle();
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
-	connect(styleManager, SIGNAL(closed()), scrActions["editStyles"], SLOT(toggle()));
+	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setOn(bool)));
 
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
