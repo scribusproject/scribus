@@ -2080,6 +2080,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		cp->insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);
 		checkerSettings.checkTransparency = false;
 		cp->insert( QT_TR_NOOP("PDF 1.4"), checkerSettings);
+		cp->insert( QT_TR_NOOP("PDF 1.5"), checkerSettings);
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
