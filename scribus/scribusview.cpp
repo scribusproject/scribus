@@ -8582,7 +8582,7 @@ void ScribusView::slotDoCurs(bool draw)
 					 || textframe->CPos >= textframe->itemText.length())
 			{
 				FRect bbox = textframe->itemText.boundingBox(QMAX(0,QMIN(textframe->lastInFrame(), textframe->itemText.length()-1)));
-				x = static_cast<int>(bbox.x() + textframe->itemText.item(textframe->lastInFrame())->glyph.wide());
+				x = static_cast<int>(bbox.x() + textframe->itemText.item(QMAX(0,QMIN(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
 				y = static_cast<int>(bbox.y());
 				if (bbox.height() <= 2)
 					y1 = static_cast<int>(bbox.y() + textframe->itemText.defaultStyle().charStyle().fontSize() / 30);
