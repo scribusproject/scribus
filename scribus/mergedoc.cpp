@@ -124,11 +124,7 @@ void MergeDoc::changeFile()
 	count = 0;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
-#ifdef HAVE_LIBZ
 	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
-#else
-	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
-#endif
 	if (!fromDocData->text().isEmpty())
 		dia->setSelection(fromDocData->text());
 	if (dia->exec() == QDialog::Accepted)

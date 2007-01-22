@@ -400,6 +400,8 @@ sccolorshade.cpp
 sccombobox.cpp
 scinputdialog.cpp
 scfonts.cpp
+scgtplugin.cpp
+scgzfile.cpp
 scimage.cpp
 scimagestructs.cpp
 scimgdataloader.cpp
@@ -410,7 +412,6 @@ scimgdataloader_ps.cpp
 scimgdataloader_psd.cpp
 scimgdataloader_qt.cpp
 scimgdataloader_tiff.cpp
-scgtplugin.cpp
 scpainter.cpp
 scpaths.cpp
 scpattern.cpp

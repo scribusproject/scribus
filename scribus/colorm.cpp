@@ -352,11 +352,7 @@ void ColorManager::loadFarben()
 	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
-#ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"));
-#else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"));
-#endif
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

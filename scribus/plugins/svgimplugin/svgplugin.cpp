@@ -21,9 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 #include <qcursor.h>
 #include <cmath>
-#ifdef HAVE_LIBZ
 #include <zlib.h>
-#endif
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "menumanager.h"
@@ -117,13 +115,8 @@ void SVGImportPlugin::registerFormats()
 	FileFormat fmt(this);
 	fmt.trName = svgName;
 	fmt.formatId = FORMATID_SVGIMPORT;
-#ifdef HAVE_LIBZ
 	fmt.filter = svgName + " (*.svg *.SVG *.svgz *.SVGZ)";
 	fmt.nameMatch = QRegExp("\\.(svg|svgz)$", false);
-#else
-	fmt.filter = svgName + " (*.svg *.SVG)";
-	fmt.nameMatch = QRegExp("\\.svg$", false);
-#endif
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = QStringList("image/svg+xml");
@@ -154,11 +147,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
-#ifdef HAVE_LIBZ
 		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
-#else
-		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);;All Files (*)"));
-#endif
 		if (diaf.exec())
 		{
 			filename = diaf.selectedFile();
@@ -208,7 +197,6 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f = "";
-#ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
 	{
 		gzFile gzDoc;
@@ -226,9 +214,6 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	}
 	else
 		loadText(fName, &f);
-#else
-	loadText(fName, &f);
-#endif
 	if(!inpdoc.setContent(f))
 		return;
 	m_gc.setAutoDelete( true );

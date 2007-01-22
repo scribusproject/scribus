@@ -89,9 +89,7 @@ extern "C"
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 */
-#ifdef HAVE_LIBZ
-	#include <zlib.h>
-#endif
+#include <zlib.h>
 
 
 using namespace std;
@@ -486,7 +484,6 @@ int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
 QString CompressStr(QString *in)
 {
 	QString out = "";
-#ifdef HAVE_LIBZ
 	QByteArray bb(in->length());
 	for (uint ax = 0; ax < in->length(); ++ax)
 		bb[ax] = uchar(QChar(in->at(ax)));
@@ -502,16 +499,12 @@ QString CompressStr(QString *in)
 		for (uint cl = 0; cl < exlen; ++cl)
 			out += QChar(bc[cl]);
 	}
-#else
-	out = *in;
-#endif
 	return out;
 }
 
 QByteArray CompressArray(QByteArray *in)
 {
 	QByteArray out;
-#ifdef HAVE_LIBZ
 	uLong exlen = uint(in->size() * 0.001 + 16) + in->size();
 	QByteArray temp(exlen);
 	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in->data(), uLong(in->size()), 9);
@@ -524,9 +517,6 @@ QByteArray CompressArray(QByteArray *in)
 		temp.resize(exlen);
 		out = temp;
 	}
-#else
-	out = *in;
-#endif
 	return out;
 }
 

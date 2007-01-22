@@ -18,9 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "colorutil.h"
-#ifdef HAVE_LIBZ
-	#include <zlib.h>
-#endif
+#include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
 #include <qvaluelist.h>
@@ -212,20 +210,15 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	 */
 	static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QCString cs = docu.toCString(); // UTF-8 QCString
-#ifdef HAVE_LIBZ
 	if(fileName.right(2) == "gz")
 	{
 		// zipped saving
 		// XXX: latin1() should probably be local8Bit()
-		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
-		if(gzDoc == NULL)
+		ScGzFile gzf(fileName, cs);
+		if (!gzf.write(xmlpi))
 			return false;
-		gzputs(gzDoc, xmlpi);
-		gzputs(gzDoc, cs.data());
-		gzclose(gzDoc);
 	}
 	else
-#endif
 	{
 		QFile f(fileName);
 		if(!f.open(IO_WriteOnly))

@@ -3991,14 +3991,9 @@ bool ScribusMainWindow::slotFileSaveAs()
 			fna = wdir;
 		fna += doc->DocName + ".sla";
 	}
-#ifdef HAVE_LIBZ
 	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
 // 	bool setter=true;
 	int optionFlags = fdCompressFile;
-#else
-	QString fileSpec=tr("Documents (*.sla);;All Files (*)");
-	int optionFlags = fdNone;
-#endif
 	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags);
 	if (!fn.isEmpty())
 	{

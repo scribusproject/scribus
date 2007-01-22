@@ -40,9 +40,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#ifdef HAVE_LIBZ
 #include <zlib.h>
-#endif
 #include "util.h"
 #include "colorutil.h"
 #include "scpattern.h"

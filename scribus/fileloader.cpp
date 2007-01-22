@@ -44,9 +44,7 @@ for which a new license (GPL+exception) is in place.
 // #include "plugins/psimport/importpsplugin.h"
 // #include "plugins/fileloader/oodraw/oodrawimp.h"
 
-#ifdef HAVE_LIBZ
-	#include <zlib.h>
-#endif
+#include <zlib.h>
 #include "util.h"
 #include "prefsmanager.h"
 

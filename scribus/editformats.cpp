@@ -378,11 +378,7 @@ void StilFormate::loadStyles()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("editformats", ".");
-#ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
-#else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
-#endif
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();

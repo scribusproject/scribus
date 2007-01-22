@@ -32,9 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "scribuscore.h"
 #include "page.h"
-#ifdef HAVE_LIBZ
 #include <zlib.h>
-#endif
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -116,20 +114,14 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-#ifdef HAVE_LIBZ
 		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), fdCompressFile);
-#else
-		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"), fdNone);
-#endif
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
 		if (openDia->exec())
 		{
-#ifdef HAVE_LIBZ
 			if (openDia->SaveZip->isChecked())
 				openDia->handleCompress();
-#endif
 			fileName = openDia->selectedFile();
 		}
 		delete openDia;
@@ -209,16 +201,12 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 	ProcessPage(Seite, &docu, &elem);
 	Seite = m_Doc->currentPage();
 	ProcessPage(Seite, &docu, &elem);
-#ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
 	{
-// zipped saving
-		gzFile gzDoc = gzopen(fName.latin1(),"wb");
-		if(gzDoc == NULL)
-			return;
-		gzputs(gzDoc, vo);
-		gzputs(gzDoc, docu.toString().utf8());
-		gzclose(gzDoc);
+		// zipped saving
+		ScGzFile gzf(fileName, docu.toString().utf8());
+		if (!gzf.write(vo))
+			return false;
 	}
 	else
 	{
@@ -232,17 +220,6 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 		s.writeRawBytes(utf8wr.data(), utf8wr.length());
 		f.close();
 	}
-#else
-	QFile f(fName);
-	if(!f.open(IO_WriteOnly))
-		return;
-	QTextStream s(&f);
-	QString wr = vo;
-	wr += docu.toString();
-	QCString utf8wr = wr.utf8();
-	s.writeRawBytes(utf8wr.data(), utf8wr.length());
-	f.close();
-#endif
 #endif
 }
 

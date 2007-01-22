@@ -77,11 +77,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	DoSep = false;
 	abortExport = false;
 	useSpotColors = spot;
-#ifdef HAVE_LIBZ
 	CompAvail = true;
-#else
-	CompAvail = false;
-#endif
 	GrayCalc =  "/setcmykcolor {exch 0.11 mul add exch 0.59 mul add exch 0.3 mul add\n";
 	GrayCalc += "               dup 1 gt {pop 1} if 1 exch sub oldsetgray} bind def\n";
 	GrayCalc += "/setrgbcolor {0.11 mul exch 0.59 mul add exch 0.3 mul add\n";

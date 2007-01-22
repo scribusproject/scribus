@@ -20,9 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "colorutil.h"
-#ifdef HAVE_LIBZ
-	#include <zlib.h>
-#endif
+#include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
 #include <qvaluelist.h>
@@ -78,13 +76,8 @@ void Scribus134Format::registerFormats()
 	fmt.formatId = FORMATID_SLA134IMPORT;
 	fmt.load = true;
 	fmt.save = true;
-#ifdef HAVE_LIBZ
 	fmt.filter = fmt.trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", false);
-#else
-	fmt.filter = fmt.trName + " (*.sla *.SLA *.scd *.SCD)";
-	fmt.nameMatch = QRegExp("\\.(sla|scd)", false);
-#endif
 	fmt.mimeTypes = QStringList();
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.priority = 64;
@@ -96,50 +89,13 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	QCString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-#ifdef HAVE_LIBZ
-		static const int gzipExpansionFactor=8;
-		// The file is gzip encoded and we can load gzip files.
-		// Set up to read the gzip file
-		gzFile gzDoc;
-		int i;
-		gzDoc = gzopen(fileName.latin1(),"rb");
-		if(gzDoc == NULL)
+		ScGzFile gzf(fileName);
+		if (!gzf.read(4096))
 		{
 			// FIXME: Needs better error return
 			return false;
 		}
-		// Allocate a buffer of a multiple of the compressed size of the file
-		// as a starting point for loading. We'll expand this buffer by powers
-		// of two if we run out of space.
-		const QFileInfo fi(fileName);
-		uint bufSize = QMIN(4096, fi.size()*gzipExpansionFactor);
-		docBytes = QCString(bufSize);
-		char* buf = docBytes.data();
-		uint bytesRead = 0;
-		// While there's free space, read into the buffer....
-		while (bytesRead<4096 && (i = gzread(gzDoc,buf,bufSize-bytesRead-1)) > 0)
-		{
-			// Ensure the string is null-terminated and move the
-			// write pointer to the current position.
-			buf[i]=0;
-			buf+=i;
-			bytesRead += i;
-			// And check that there's free space to work with, expanding the
-			// buffer if there's not.
-			if (bufSize - bytesRead < 4096)
-			{
-				bufSize *= 2;
-				docBytes.resize(bufSize);
-				buf = docBytes.data() + bytesRead;
-			}
-		}
-		gzclose(gzDoc);
-#else
-		// The file is gzip encoded but we can't load gzip files.
-		// Leave `f' empty, since we have no way to
-		// report a failure condition from here.
-		return false;
-#endif
+		docBytes = gzf.data();
 	}
 	else
 	{
@@ -157,50 +113,13 @@ QString Scribus134Format::readSLA(const QString & fileName)
 	QCString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-#ifdef HAVE_LIBZ
-		static const int gzipExpansionFactor=8;
-		// The file is gzip encoded and we can load gzip files.
-		// Set up to read the gzip file
-		gzFile gzDoc;
-		int i;
-		gzDoc = gzopen(fileName.latin1(),"rb");
-		if(gzDoc == NULL)
+		ScGzFile gzf(fileName);
+		if (!gzf.read())
 		{
 			// FIXME: Needs better error return
-			return "";
+			return false;
 		}
-		// Allocate a buffer of a multiple of the compressed size of the file
-		// as a starting point for loading. We'll expand this buffer by powers
-		// of two if we run out of space.
-		const QFileInfo fi(fileName);
-		uint bufSize = fi.size()*gzipExpansionFactor;
-		docBytes = QCString(bufSize);
-		char* buf = docBytes.data();
-		uint bytesRead = 0;
-		// While there's free space, read into the buffer....
-		while ((i = gzread(gzDoc,buf,bufSize-bytesRead-1)) > 0)
-		{
-			// Ensure the string is null-terminated and move the
-			// write pointer to the current position.
-			buf[i]=0;
-			buf+=i;
-			bytesRead += i;
-			// And check that there's free space to work with, expanding the
-			// buffer if there's not.
-			if (bufSize - bytesRead < 4096)
-			{
-				bufSize *= 2;
-				docBytes.resize(bufSize);
-				buf = docBytes.data() + bytesRead;
-			}
-		}
-		gzclose(gzDoc);
-#else
-		// The file is gzip encoded but we can't load gzip files.
-		// Leave `f' empty, since we have no way to
-		// report a failure condition from here.
-		return false;
-#endif
+		docBytes = gzf.data();
 	}
 	else
 	{

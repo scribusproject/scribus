@@ -197,6 +197,8 @@ scribus_SOURCES = \
 	sccombobox.cpp	\
 	scinputdialog.cpp \
 	scfonts.cpp	\
+	scgzfile.cpp \
+	scgtplugin.cpp	\
 	scimage.cpp	\
 	scimagestructs.cpp \
 	scimgdataloader.cpp \
@@ -209,7 +211,6 @@ scribus_SOURCES = \
 	scimgdataloader_tiff.cpp \
 	scmenu.cpp	\
 	scmessagebox.cpp	\
-	scgtplugin.cpp	\
 	scpainter.cpp	\
 	scpaths.cpp	\
 	scpattern.cpp	\
@@ -465,9 +466,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scinputdialog.h               $(prefix)/include/scribus/scinputdialog.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
-	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
 	$(INSTALL_DATA) $(srcdir)/scgtplugin.h                  $(prefix)/include/scribus/scgtplugin.h
+	$(INSTALL_DATA) $(srcdir)/scgzfile.h                    $(prefix)/include/scribus/scgzfile.h
 	$(INSTALL_DATA) $(srcdir)/scguardedptr.h                $(prefix)/include/scribus/scguardedptr.h
+	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
 	$(INSTALL_DATA) $(srcdir)/scpattern.h                   $(prefix)/include/scribus/scpattern.h
