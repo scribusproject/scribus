@@ -818,10 +818,11 @@ public: // Public attributes
 	bool SnapGuides;
 	bool GuideLock;
 	/** \brief Scratch space around Pages */
-	double ScratchLeft;
-	double ScratchRight;
-	double ScratchTop;
-	double ScratchBottom;
+	MarginStruct scratch;
+// 	double ScratchLeft;
+// 	double ScratchRight;
+// 	double ScratchTop;
+// 	double ScratchBottom;
 	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;

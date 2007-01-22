@@ -345,10 +345,10 @@ void PrefsManager::initDefaults()
 	appPrefs.DCMSset.DefaultIntentColors = 1;
 	appPrefs.DCMSset.DefaultIntentImages = 0;
 	appPrefs.GFontSub.clear();
-	appPrefs.ScratchLeft = 100;
-	appPrefs.ScratchRight = 100;
-	appPrefs.ScratchTop = 20;
-	appPrefs.ScratchBottom = 20;
+	appPrefs.scratch.Left = 100;
+	appPrefs.scratch.Right = 100;
+	appPrefs.scratch.Top = 20;
+	appPrefs.scratch.Bottom = 20;
 	struct PageSet pageS;
 	pageS.Name = CommonStrings::pageSet1;
 	pageS.FirstPage = 0;
@@ -1045,10 +1045,10 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesSettings.rulersShown));
 	dc.setAttribute("showBleed", static_cast<int>(appPrefs.guidesSettings.showBleed));
 	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesSettings.rulerMode));
-	dc.setAttribute("ScratchBottom", appPrefs.ScratchBottom);
-	dc.setAttribute("ScratchLeft", appPrefs.ScratchLeft);
-	dc.setAttribute("ScratchRight", appPrefs.ScratchRight);
-	dc.setAttribute("ScratchTop", appPrefs.ScratchTop);
+	dc.setAttribute("ScratchBottom", appPrefs.scratch.Bottom);
+	dc.setAttribute("ScratchLeft", appPrefs.scratch.Left);
+	dc.setAttribute("ScratchRight", appPrefs.scratch.Right);
+	dc.setAttribute("ScratchTop", appPrefs.scratch.Top);
 	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
@@ -1531,10 +1531,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 			appPrefs.showStartupDialog = static_cast<bool>(dc.attribute("StartUp", "1").toInt());
-			appPrefs.ScratchBottom = dc.attribute("ScratchBottom", "20").toDouble();
-			appPrefs.ScratchLeft = dc.attribute("ScratchLeft", "100").toDouble();
-			appPrefs.ScratchRight = dc.attribute("ScratchRight", "100").toDouble();
-			appPrefs.ScratchTop = dc.attribute("ScratchTop", "20").toDouble();
+			appPrefs.scratch.Bottom = dc.attribute("ScratchBottom", "20").toDouble();
+			appPrefs.scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
+			appPrefs.scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
+			appPrefs.scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
 			if (dc.hasAttribute("STECOLOR"))
 				appPrefs.STEcolor = QColor(dc.attribute("STECOLOR"));
 			if (dc.hasAttribute("STEFONT"))

@@ -138,10 +138,10 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	dc.setAttribute("POLYS", static_cast<int>(m_Doc->toolSettings.polyS));
 	dc.setAttribute("AutoSave", static_cast<int>(m_Doc->AutoSave));
 	dc.setAttribute("AutoSaveTime", m_Doc->AutoSaveTime);
-	dc.setAttribute("ScratchBottom", m_Doc->ScratchBottom);
-	dc.setAttribute("ScratchLeft", m_Doc->ScratchLeft);
-	dc.setAttribute("ScratchRight", m_Doc->ScratchRight);
-	dc.setAttribute("ScratchTop", m_Doc->ScratchTop);
+	dc.setAttribute("ScratchBottom", m_Doc->scratch.Bottom);
+	dc.setAttribute("ScratchLeft", m_Doc->scratch.Left);
+	dc.setAttribute("ScratchRight", m_Doc->scratch.Right);
+	dc.setAttribute("ScratchTop", m_Doc->scratch.Top);
 	dc.setAttribute("StartArrow", m_Doc->toolSettings.dStartArrow);
 	dc.setAttribute("EndArrow", m_Doc->toolSettings.dEndArrow);
 	dc.setAttribute("PEN",m_Doc->toolSettings.dPen);

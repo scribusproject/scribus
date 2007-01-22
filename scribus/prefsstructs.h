@@ -237,10 +237,11 @@ struct ApplicationPrefs
 	bool GCRMode;
 	QColor STEcolor;
 	QString STEfont;
-	double ScratchLeft;
+	MarginStruct scratch;
+/*	double ScratchLeft;
 	double ScratchRight;
 	double ScratchTop;
-	double ScratchBottom;
+	double ScratchBottom;*/
 	bool askBeforeSubstituite;
 	bool haveStylePreview;
 	bool showToolTips;

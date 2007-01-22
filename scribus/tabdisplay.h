@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
+class ScribusDoc;
+
 /*! \brief Display panel for preferences dialog.
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
@@ -23,7 +25,7 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 	public:
 		TabDisplay(QWidget* parent = 0, const char* name = 0);
 		~TabDisplay(){};
-		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings, QValueList<PageSet> &pageSets, int pageLayout);
+		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch);
 		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void setDocSetupMode();

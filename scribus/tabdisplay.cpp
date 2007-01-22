@@ -50,7 +50,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 }
 
-void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings, QValueList<PageSet> &pageSets, int pageLayout)
+void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
@@ -97,25 +97,25 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	buttonControlChars->setPixmap(pm);
 
 	checkUnprintable->setChecked( prefsData->marginColored );
-	checkPictures->setChecked(guidesSettings->showPic);
-	checkLink->setChecked(guidesSettings->linkShown);
-	checkControl->setChecked(guidesSettings->showControls);
-	checkFrame->setChecked(guidesSettings->framesShown);
-	checkLayerM->setChecked(guidesSettings->layerMarkersShown);
-	checkRuler->setChecked(guidesSettings->rulerMode);
-	checkBleed->setChecked(guidesSettings->showBleed);
+	checkPictures->setChecked(guidesSettings.showPic);
+	checkLink->setChecked(guidesSettings.linkShown);
+	checkControl->setChecked(guidesSettings.showControls);
+	checkFrame->setChecked(guidesSettings.framesShown);
+	checkLayerM->setChecked(guidesSettings.layerMarkersShown);
+	checkRuler->setChecked(guidesSettings.rulerMode);
+	checkBleed->setChecked(guidesSettings.showBleed);
 	topScratch->setDecimals( decimals );
 	topScratch->setMaxValue(1000);
-	topScratch->setValue(prefsData->ScratchTop * unitRatio);
+	topScratch->setValue(scratch.Top * unitRatio);
 	leftScratch->setDecimals( decimals );
 	leftScratch->setMaxValue(1000);
-	leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
+	leftScratch->setValue(scratch.Left * unitRatio);
 	bottomScratch->setDecimals( decimals );
 	bottomScratch->setMaxValue(1000);
-	bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
+	bottomScratch->setValue(scratch.Bottom * unitRatio);
 	rightScratch->setDecimals( decimals );
 	rightScratch->setMaxValue(1000);
-	rightScratch->setValue(prefsData->ScratchRight * unitRatio);
+	rightScratch->setValue(scratch.Right * unitRatio);
 	topScratch->setSuffix(unitSuffix);
 	bottomScratch->setSuffix(unitSuffix);
 	leftScratch->setSuffix(unitSuffix);

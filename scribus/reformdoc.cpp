@@ -142,7 +142,7 @@ void ReformDoc::restoreDefaults()
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	tabPage->restoreDefaults(currDoc);
-	tabView->restoreDefaults(prefsData, &currDoc->guidesSettings, currDoc->pageSets, currDoc->currentPageLayout);
+	tabView->restoreDefaults(prefsData, currDoc->guidesSettings, currDoc->pageSets, currDoc->currentPageLayout, currDoc->scratch);
 	tabView->setPaperColor(currDoc->papColor);
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
@@ -231,12 +231,12 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->m_pageSize = tabPage->prefsPageSizeName;
 	currDoc->pageWidth = tabPage->pageW;
 	currDoc->pageHeight = tabPage->pageH;
-	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->ScratchTop;
-	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->ScratchLeft;
-	currDoc->ScratchBottom = tabView->bottomScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchLeft = tabView->leftScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchRight = tabView->rightScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchTop = tabView->topScratch->value() / currDoc->unitRatio();
+	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->scratch.Top;
+	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->scratch.Left;
+	currDoc->scratch.Bottom = tabView->bottomScratch->value() / currDoc->unitRatio();
+	currDoc->scratch.Left = tabView->leftScratch->value() / currDoc->unitRatio();
+	currDoc->scratch.Right = tabView->rightScratch->value() / currDoc->unitRatio();
+	currDoc->scratch.Top = tabView->topScratch->value() / currDoc->unitRatio();
 	currDoc->bleeds.Bottom = tabPage->marginGroup->bottomBleed();
 	currDoc->bleeds.Top = tabPage->marginGroup->topBleed();
 	currDoc->bleeds.Left = tabPage->marginGroup->leftBleed();
@@ -280,8 +280,8 @@ void ReformDoc::updateDocumentSettings()
 			pp->initialMargins.Top = tpr2;
 			pp->initialMargins.Bottom = br2;
 		}
-		pp->setXOffset(currDoc->ScratchLeft);
-		pp->setYOffset(currDoc->ScratchTop);
+		pp->setXOffset(currDoc->scratch.Left);
+		pp->setYOffset(currDoc->scratch.Top);
 	}
 	uint docItemsCount = currDoc->MasterItems.count();
 	for (uint ite = 0; ite < docItemsCount; ++ite)

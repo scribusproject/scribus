@@ -93,12 +93,13 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	First(1), Last(0),
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
-	ScratchLeft(prefsData.ScratchLeft),
-	ScratchRight(prefsData.ScratchRight),
-	ScratchTop(prefsData.ScratchTop),
-	ScratchBottom(prefsData.ScratchBottom),
+	scratch(prefsData.scratch),
+// 	ScratchLeft(prefsData.ScratchLeft),
+// 	ScratchRight(prefsData.ScratchRight),
+// 	ScratchTop(prefsData.ScratchTop),
+// 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom)),
+	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -195,12 +196,13 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	First(1), Last(0),
 	viewCount(0), viewID(0),
 	SnapGuides(false), GuideLock(false),
-	ScratchLeft(prefsData.ScratchLeft),
-	ScratchRight(prefsData.ScratchRight),
-	ScratchTop(prefsData.ScratchTop),
-	ScratchBottom(prefsData.ScratchBottom),
+	scratch(prefsData.scratch),
+// 	ScratchLeft(prefsData.ScratchLeft),
+// 	ScratchRight(prefsData.ScratchRight),
+// 	ScratchTop(prefsData.ScratchTop),
+// 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(ScratchLeft + ScratchRight, ScratchTop + ScratchBottom)),
+	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -1239,7 +1241,7 @@ void ScribusDoc::addSymbols()
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	Q_ASSERT(masterPageMode()==false);
-	Page* addedPage = new Page(ScratchLeft, DocPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+	Page* addedPage = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -1268,7 +1270,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 {
 	//CB We dont create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
-	Page* addedPage = new Page(ScratchLeft, ScratchTop, pageWidth, pageHeight);
+	Page* addedPage = new Page(scratch.Left, scratch.Top, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -3761,7 +3763,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	int counter = pageSets[currentPageLayout].FirstPage;
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
-	double currentXPos=ScratchLeft, currentYPos=ScratchTop, lastYPos=Pages->at(0)->initialHeight();
+	double currentXPos=scratch.Left, currentYPos=scratch.Top, lastYPos=Pages->at(0)->initialHeight();
 	currentXPos += (pageWidth+pageSets[currentPageLayout].GapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
@@ -3777,8 +3779,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 		Seite->setPageNr(a);
 		if (masterPageMode())
 		{
-			Seite->setXOffset(ScratchLeft);
-			Seite->setYOffset(ScratchTop);
+			Seite->setXOffset(scratch.Left);
+			Seite->setYOffset(scratch.Top);
 			if (Seite->LeftPg == 0)
 			{
 				Seite->Margins.Right = Seite->initialMargins.Right;
@@ -3818,7 +3820,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			}
 			else
 			{
-				currentXPos = ScratchLeft;
+				currentXPos = scratch.Left;
 				if (pageSets[currentPageLayout].Columns > 1)
 					currentYPos += QMAX(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
@@ -3842,8 +3844,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 		}
 		Seite->Margins.Top = Seite->initialMargins.Top;
 		Seite->Margins.Bottom = Seite->initialMargins.Bottom;
-		maxXPos = QMAX(maxXPos, Seite->xOffset()+Seite->width()+ScratchRight);
-		maxYPos = QMAX(maxYPos, Seite->yOffset()+Seite->height()+ScratchBottom);
+		maxXPos = QMAX(maxXPos, Seite->xOffset()+Seite->width()+scratch.Right);
+		maxYPos = QMAX(maxYPos, Seite->yOffset()+Seite->height()+scratch.Bottom);
 	}
 	if (!isLoading())
 	{
@@ -3884,8 +3886,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	{
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+ScratchRight), QMAX(maxYPos, maxPoint.y()+ScratchBottom));
-		adjustCanvas(FPoint(QMIN(0, minPoint.x()-ScratchLeft),QMIN(0, minPoint.y()-ScratchTop)), maxSize, true);
+		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+scratch.Right), QMAX(maxYPos, maxPoint.y()+scratch.Bottom));
+		adjustCanvas(FPoint(QMIN(0, minPoint.x()-scratch.Left),QMIN(0, minPoint.y()-scratch.Top)), maxSize, true);
 		changed();
 	}
 	else
@@ -4401,7 +4403,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			--destLocation;
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
-		Page* destination = new Page(ScratchLeft, DocPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+		Page* destination = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
 		destination->setDocument(this);
 		destination->setPageNr(destLocation);
 		lastDest = destination;
@@ -5555,8 +5557,8 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
-	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+ScratchRight, currItem->BoundingY+currItem->BoundingH+ScratchBottom);
-	FPoint minSize(currItem->BoundingX-ScratchLeft, currItem->BoundingY-ScratchTop);
+	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+scratch.Right, currItem->BoundingY+currItem->BoundingH+scratch.Bottom);
+	FPoint minSize(currItem->BoundingX-scratch.Left, currItem->BoundingY-scratch.Top);
 	adjustCanvas(minSize, maxSize);
 }
 

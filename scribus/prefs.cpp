@@ -195,7 +195,7 @@ void Preferences::setupGui()
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData, &prefsData->guidesSettings, prefsData->pageSets, prefsData->FacingPages);
+	tabView->restoreDefaults(prefsData, prefsData->guidesSettings, prefsData->pageSets, prefsData->FacingPages, prefsData->scratch);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
@@ -352,10 +352,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
 	prefsManager->appPrefs.marginColored = tabView->checkUnprintable->isChecked();
-	prefsManager->appPrefs.ScratchBottom = tabView->bottomScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.ScratchLeft = tabView->leftScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.ScratchRight = tabView->rightScratch->value() / prefsUnitRatio;
-	prefsManager->appPrefs.ScratchTop = tabView->topScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.scratch.Bottom = tabView->bottomScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.scratch.Left = tabView->leftScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.scratch.Right = tabView->rightScratch->value() / prefsUnitRatio;
+	prefsManager->appPrefs.scratch.Top = tabView->topScratch->value() / prefsUnitRatio;
 	// GUI colors
 	prefsManager->appPrefs.DpapColor = tabView->colorPaper;
 	prefsManager->appPrefs.DFrameColor = tabView->colorFrame;

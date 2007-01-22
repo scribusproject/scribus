@@ -435,15 +435,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
-		m_Doc->ScratchBottom = dc.attribute("ScratchBottom", "20").toDouble();
+		m_Doc->scratch.Bottom = dc.attribute("ScratchBottom", "20").toDouble();
 		// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 		// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
 		if (dc.hasAttribute("ScatchLeft"))
-			m_Doc->ScratchLeft = dc.attribute("ScatchLeft", "100").toDouble();
+			m_Doc->scratch.Left = dc.attribute("ScatchLeft", "100").toDouble();
 		else
-			m_Doc->ScratchLeft = dc.attribute("ScratchLeft", "100").toDouble();
-		m_Doc->ScratchRight = dc.attribute("ScratchRight", "100").toDouble();
-		m_Doc->ScratchTop = dc.attribute("ScratchTop", "20").toDouble();
+			m_Doc->scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
+		m_Doc->scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
+		m_Doc->scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
 		m_Doc->toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
 		m_Doc->toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
 		m_Doc->toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();

@@ -601,8 +601,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		}
 		else
 		{
-			int x = static_cast<int>(Doc->ScratchLeft * Scale);
-			int y = static_cast<int>(Doc->ScratchTop * Scale);
+			int x = static_cast<int>(Doc->scratch.Left * Scale);
+			int y = static_cast<int>(Doc->scratch.Top * Scale);
 			int w = static_cast<int>(Doc->currentPage()->width() * Scale);
 			int h = static_cast<int>(Doc->currentPage()->height() * Scale);
 			QRect drawRect = QRect(x, y, w+5, h+5);
@@ -3956,8 +3956,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-					FPoint maxSize(gx+gw+Doc->ScratchRight, gy+gh+Doc->ScratchBottom);
-					FPoint minSize(gx-Doc->ScratchLeft, gy-Doc->ScratchTop);
+					FPoint maxSize(gx+gw+Doc->scratch.Right, gy+gh+Doc->scratch.Bottom);
+					FPoint minSize(gx-Doc->scratch.Left, gy-Doc->scratch.Top);
 					Doc->adjustCanvas(minSize, maxSize);
 				}
 				Doc->setRedrawBounding(currItem);
@@ -10169,8 +10169,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 	QImage pm;
 	QImage im;
 	int Nr = Doc->MasterNames[name];
-	int clipx = static_cast<int>(Doc->ScratchLeft);
-	int clipy = static_cast<int>(Doc->ScratchTop);
+	int clipx = static_cast<int>(Doc->scratch.Left);
+	int clipy = static_cast<int>(Doc->scratch.Top);
 	int clipw = qRound(Doc->MasterPages.at(Nr)->width());
 	int cliph = qRound(Doc->MasterPages.at(Nr)->height());
 	if ((clipw > 0) && (cliph > 0))
