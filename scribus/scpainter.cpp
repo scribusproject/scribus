@@ -547,14 +547,15 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 14)
 									{
-										new_r = dst_r;
-										new_g = dst_g;
-										new_b = dst_b;
-										RGBTOHLS(src_r, src_g, src_b);
+										new_r = src_r;
+										new_g = src_g;
+										new_b = src_b;
+										setLum(new_r, new_g, new_b, Lum(dst_r, dst_g, dst_b));
+/*										RGBTOHLS(src_r, src_g, src_b);
 										RGBTOHLS(new_r, new_g, new_b);
 										new_r = src_r;
 										new_b = src_b;
-										HLSTORGB(new_r, new_g, new_b);
+										HLSTORGB(new_r, new_g, new_b); */
 										src_r = new_r;
 										src_g = new_g;
 										src_b = new_b;
