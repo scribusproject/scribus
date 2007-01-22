@@ -574,6 +574,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite = Elements.at(Elements.count()-1);
 						ite->setFillColor(CurrColor);
 						ite->setFillTransparency(1.0 - Opacity);
+						lastPath = "";
 					}
 					else
 					{
@@ -602,8 +603,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 							}
 						}
 						Elements.append(ite);
+						lastPath = currPath;
 					}
-					lastPath = currPath;
 					currPath = "";
 				}
 			}
@@ -654,7 +655,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						}
 						Elements.append(ite);
 					}
-					lastPath = currPath;
+					lastPath = "";
 					currPath = "";
 				}
 			}
@@ -721,7 +722,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			{
 				QTextStream Lw(&params, IO_ReadOnly);
 				Lw >> LineW;
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "ld")
 			{
@@ -737,7 +738,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						DashPattern.append(dcp);
 					}
 				}
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "lc")
 			{
@@ -758,7 +759,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						CapStyle = Qt::FlatCap;
 						break;
 				}
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "lj")
 			{
@@ -779,7 +780,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						JoinStyle = Qt::MiterJoin;
 						break;
 				}
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "cp") {
 				ClosedPath = true;
