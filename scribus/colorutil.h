@@ -95,4 +95,9 @@ void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
 
 double SCRIBUS_API getCurveYValue(FPointArray &curve, double x, bool linear = false);
 
+double SCRIBUS_API Lum(uchar red, uchar green, uchar blue);
+double SCRIBUS_API LumD(double red, double green, double blue);
+void SCRIBUS_API setLum(uchar& red, uchar& green, uchar& blue, double lum);
+void SCRIBUS_API clipColor(double& red, double& green, double& blue);
+
 #endif

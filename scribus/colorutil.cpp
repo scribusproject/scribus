@@ -570,3 +570,48 @@ double getCurveYValue(FPointArray &curve, double x, bool linear)
 	return val;
 }
 
+double Lum(uchar red, uchar green, uchar blue)
+{
+	return 0.3 * (red / 255.0) + 0.59 * (green / 255.0) + 0.11 * (blue / 255.0);
+}
+
+double LumD(double red, double green, double blue)
+{
+	return 0.3 * red + 0.59 * green + 0.11 * blue;
+}
+
+void setLum(uchar& red, uchar& green, uchar& blue, double lum)
+{
+	double rP = (red / 255.0);
+	double gP = (green / 255.0);
+	double bP = (blue / 255.0);
+	double d = lum - Lum(red, green, blue);
+	rP += d;
+	gP += d;
+	bP += d;
+	clipColor(rP, gP, bP);
+	red = qRound(rP * 255);
+	green = qRound(gP * 255);
+	blue = qRound(bP * 255);
+	return;
+}
+
+void clipColor(double& red, double& green, double& blue)
+{
+	double l = LumD(red, green, blue);
+	double n = QMIN(red, QMIN(green, blue));
+	double x = QMAX(red, QMAX(green, blue));
+	if (n < 0.0)
+	{
+		red = l + (((red - l) * l) / (l - n));
+		green = l + (((green - l) * l) / (l - n));
+		blue = l + (((blue - l) * l) / (l - n));
+	}
+	if (x > 1.0)
+	{
+		red = l + (((red - l) * (1.0 - l)) / (x - l));
+		green = l + (((green - l) * (1.0 - l)) / (x - l));
+		blue = l + (((blue - l) * (1.0 - l)) / (x - l));
+	}
+}
+

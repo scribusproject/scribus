@@ -564,10 +564,11 @@ void ScPainter::endLayer()
 										new_r = dst_r;
 										new_g = dst_g;
 										new_b = dst_b;
-										RGBTOHSV(src_r, src_g, src_b);
+										setLum(new_r, new_g, new_b, Lum(src_r, src_g, src_b));
+/*										RGBTOHSV(src_r, src_g, src_b);
 										RGBTOHSV(new_r, new_g, new_b);
 										new_b = src_b;
-										HSVTORGB(new_r, new_g, new_b);
+										HSVTORGB(new_r, new_g, new_b); */
 										src_r = new_r;
 										src_g = new_g;
 										src_b = new_b;
