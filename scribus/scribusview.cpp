@@ -615,9 +615,9 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				painter->beginLayer(1.0, 0);
 				painter->setAntialiasing(false);
 				painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
-				painter->drawRect(Doc->ScratchLeft+5 / Scale, Doc->ScratchTop+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
+				painter->drawRect(Doc->scratch.Left+5 / Scale, Doc->scratch.Top+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
 				painter->setBrush(Doc->papColor);
-				painter->drawRect(Doc->ScratchLeft, Doc->ScratchTop, Doc->currentPage()->width(), Doc->currentPage()->height());
+				painter->drawRect(Doc->scratch.Left, Doc->scratch.Top, Doc->currentPage()->width(), Doc->currentPage()->height());
 				painter->setAntialiasing(true);
 #else
 				painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
