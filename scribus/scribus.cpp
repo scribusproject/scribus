@@ -1158,10 +1158,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		else
 		//Edit actions
 		if (currKeySeq == scrActions["editStyles"]->accel())
-		{
 			scrActions["editStyles"]->toggle();
-			qDebug("boo");
-		}
 		else
 		if (currKeySeq == scrActions["editUndoAction"]->accel() && scrActions["editUndoAction"]->isEnabled())
 			scrActions["editUndoAction"]->activate();
