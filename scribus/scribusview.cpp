@@ -566,10 +566,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			{
 				for (uint a = 0; a < docPagesCount; ++a)
 				{
-					int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
-					int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
-					int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
-					int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
+					int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
+					int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
+					int w = qRound(Doc->Pages->at(a)->width() * Scale);
+					int h = qRound(Doc->Pages->at(a)->height() * Scale);
 					QRect drawRect = QRect(x, y, w+5, h+5);
 					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
@@ -588,10 +588,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			{
 				for (uint a = 0; a < docPagesCount; ++a)
 				{
-					int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
-					int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
-					int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
-					int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
+					int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
+					int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
+					int w = qRound(Doc->Pages->at(a)->width() * Scale);
+					int h = qRound(Doc->Pages->at(a)->height() * Scale);
 					QRect drawRect = QRect(x, y, w+5, h+5);
 					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
@@ -601,25 +601,46 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		}
 		else
 		{
-			int x = static_cast<int>(Doc->scratch.Left * Scale);
-			int y = static_cast<int>(Doc->scratch.Top * Scale);
-			int w = static_cast<int>(Doc->currentPage()->width() * Scale);
-			int h = static_cast<int>(Doc->currentPage()->height() * Scale);
+			int x = qRound(Doc->scratch.Left * Scale);
+			int y = qRound(Doc->scratch.Top * Scale);
+			int w = qRound(Doc->currentPage()->width() * Scale);
+			int h = qRound(Doc->currentPage()->height() * Scale);
 			QRect drawRect = QRect(x, y, w+5, h+5);
 			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 			if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 			{
 				painter->setFillMode(ScPainter::Solid);
 				painter->setBrush(QColor(128,128,128));
+				double bleedRight = 0.0;
+				double bleedLeft = 0.0;
+				double bleedBottom = 0.0;
+				double bleedTop = 0.0;
+				Doc->getBleeds(Doc->currentPage(), &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
 #ifdef HAVE_CAIRO
 				painter->beginLayer(1.0, 0);
 				painter->setAntialiasing(false);
 				painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
-				painter->drawRect(Doc->scratch.Left+5 / Scale, Doc->scratch.Top+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
-				painter->setBrush(Doc->papColor);
-				painter->drawRect(Doc->scratch.Left, Doc->scratch.Top, Doc->currentPage()->width(), Doc->currentPage()->height());
+				if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
+				{
+					painter->drawRect(Doc->scratch.Left - bleedLeft+5 / Scale, Doc->scratch.Top - bleedTop+5 / Scale, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
+					painter->setBrush(Doc->papColor);
+					painter->drawRect(Doc->scratch.Left - bleedLeft, Doc->scratch.Top - bleedTop, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
+				}
+				else
+				{
+					painter->drawRect(Doc->scratch.Left+5 / Scale, Doc->scratch.Top+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
+					painter->setBrush(Doc->papColor);
+					painter->drawRect(Doc->scratch.Left, Doc->scratch.Top, Doc->currentPage()->width(), Doc->currentPage()->height());
+				}
 				painter->setAntialiasing(true);
 #else
+				if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
+				{
+					x = qRound((Doc->scratch.Left - bleedLeft) * Scale);
+					y = qRound((Doc->scratch.Top - bleedTop) * Scale);
+					w = qRound((Doc->currentPage()->width() + bleedLeft + bleedRight) * Scale);
+					h = qRound((Doc->currentPage()->height() + bleedBottom + bleedTop) * Scale);
+				}
 				painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 				painter->drawRect(x+5, y+5, w, h);
 				painter->setBrush(Doc->papColor);
