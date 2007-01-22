@@ -10203,6 +10203,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		Doc->minCanvasCoordinate = FPoint(0, 0);
 		Page* act = Doc->currentPage();
 		Doc->setCurrentPage(Doc->MasterPages.at(Nr));
+		bool ctrls = Doc->guidesSettings.showControls;
+		Doc->guidesSettings.showControls = false;
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
 		previewMode = true;
@@ -10221,6 +10223,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		//Hmm do we need master page mode before this? Seiten.cpp uses this function.
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		Doc->guidesSettings.framesShown = frs;
+		Doc->guidesSettings.showControls = ctrls;
 		setScale(sca);
 		Doc->setCurrentPage(act);
 		painter->end();
@@ -10257,7 +10260,9 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		double cy = Doc->minCanvasCoordinate.y();
 		Doc->minCanvasCoordinate = FPoint(0, 0);
 		bool frs = Doc->guidesSettings.framesShown;
+		bool ctrls = Doc->guidesSettings.showControls;
 		Doc->guidesSettings.framesShown = false;
+		Doc->guidesSettings.showControls = false;
 		Scale = sc;
 		previewMode = true;
 		forceRedraw = true;
@@ -10278,6 +10283,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 		painter->end();
 		Doc->guidesSettings.framesShown = frs;
+		Doc->guidesSettings.showControls = ctrls;
 		Scale = sca;
 		Doc->setCurrentPage(act);
 /*		double sx = pm.width() / static_cast<double>(maxGr);

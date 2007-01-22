@@ -174,7 +174,9 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 	double cy = m_Doc->minCanvasCoordinate.y();
 	m_Doc->minCanvasCoordinate = FPoint(0, 0);
 	bool frs = m_Doc->guidesSettings.framesShown;
+	bool ctrls = m_Doc->guidesSettings.showControls;
 	m_Doc->guidesSettings.framesShown = false;
+	m_Doc->guidesSettings.showControls = false;
 	m_View->setScale(1.0);
 	m_View->previewMode = true;
 	ScPainter *painter = new ScPainter(fName, clipw, cliph, 1.0, 0);
@@ -185,6 +187,7 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 	m_View->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 	painter->end();
 	m_Doc->guidesSettings.framesShown = frs;
+	m_Doc->guidesSettings.showControls = ctrls;
 	m_View->setScale(sca);
 	delete painter;
 	m_View->previewMode = false;
