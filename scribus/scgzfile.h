@@ -5,6 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#ifndef SCGZFILE_H
+#define SCGZFILE_H
+
 #include <qstring.h>
 #include <qcstring.h>
 
@@ -29,3 +32,5 @@ public:
 	bool write(void);
 	bool write(const char* header);
 };
+
+#endif
