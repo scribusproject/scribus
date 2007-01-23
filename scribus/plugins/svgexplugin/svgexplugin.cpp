@@ -204,7 +204,7 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 	if(fName.right(2) == "gz")
 	{
 		// zipped saving
-		ScGzFile gzf(fileName, docu.toString().utf8());
+		ScGzFile gzf(fName, docu.toString().utf8());
 		if (!gzf.write(vo))
 			return;
 	}
