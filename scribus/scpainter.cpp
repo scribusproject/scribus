@@ -524,10 +524,14 @@ void ScPainter::endLayer()
 										new_r = dst_r;
 										new_g = dst_g;
 										new_b = dst_b;
-										RGBTOHSV(src_r, src_g, src_b);
+										RGBTOHLS(src_r, src_g, src_b);
+										RGBTOHLS(new_r, new_g, new_b);
+										new_r = src_r;
+										HLSTORGB(new_r, new_g, new_b);
+/*										RGBTOHSV(src_r, src_g, src_b);
 										RGBTOHSV(new_r, new_g, new_b);
 										new_r = src_r;
-										HSVTORGB(new_r, new_g, new_b);
+										HSVTORGB(new_r, new_g, new_b); */
 										src_r = new_r;
 										src_g = new_g;
 										src_b = new_b;
@@ -537,10 +541,14 @@ void ScPainter::endLayer()
 										new_r = dst_r;
 										new_g = dst_g;
 										new_b = dst_b;
-										RGBTOHSV(src_r, src_g, src_b);
+										RGBTOHLS(src_r, src_g, src_b);
+										RGBTOHLS(new_r, new_g, new_b);
+										new_b = src_b;
+										HLSTORGB(new_r, new_g, new_b);
+/*										RGBTOHSV(src_r, src_g, src_b);
 										RGBTOHSV(new_r, new_g, new_b);
 										new_g = src_g;
-										HSVTORGB(new_r, new_g, new_b);
+										HSVTORGB(new_r, new_g, new_b); */
 										src_r = new_r;
 										src_g = new_g;
 										src_b = new_b;

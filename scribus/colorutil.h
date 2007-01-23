@@ -85,7 +85,7 @@ void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
  * \param hue hue "angle".
  * \return HLS value.
  */
-int SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
+double SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
 /*! \brief Convert a color in HLS space to RGB space.
  * \param hue the hue component (modified in place).
  * \param lightness the lightness component (modified in place).
