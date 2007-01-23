@@ -18676,6 +18676,10 @@ Przesunięcie w pionie: %3</translation>
         <source>Inde&amp;x</source>
         <translation type="obsolete">&amp;Indeks</translation>
     </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>

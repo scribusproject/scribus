@@ -3783,7 +3783,7 @@ is not passed, text flow is toggled.
         <translation>バーコードが不完全です</translation>
     </message>
     <message>
-        <source>9 or 10 digits separated appropriately with dashes</source>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16320,6 +16320,10 @@ Vertical shift: %3</source>
     <message>
         <source>Destination Frame:</source>
         <translation>出力先フレーム:</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -5182,10 +5182,6 @@ lo pida tu impresora.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5215,6 +5211,10 @@ lo pida tu impresora.</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22119,6 +22119,10 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

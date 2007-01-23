@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-07 00:54+0100\n"
+"POT-Creation-Date: 2007-01-24 00:10+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -6998,6 +6998,10 @@ msgstr ""
 msgid "Not Shown"
 msgstr ""
 
+#, fuzzy
+msgid "Table of Contents %1"
+msgstr "색깔(&C)..."
+
 msgid ""
 "<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
 "toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
@@ -7997,7 +8001,12 @@ msgstr ""
 msgid "2 digits"
 msgstr ""
 
-msgid "9 or 10 digits separated appropriately with dashes"
+msgid ""
+"12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 "
+"digits with dashes, but this standard was depreciated for public use after "
+"1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix "
+"978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final "
+"check-digit will be calculated automatically.)"
 msgstr ""
 
 msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
@@ -9636,10 +9645,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "LineStyleWBase"
 #~ msgstr "선 스타일(&L)..."
-
-#, fuzzy
-#~ msgid "Copy Contents"
-#~ msgstr "색깔(&C)..."
 
 #, fuzzy
 #~ msgid "Underline Words Only"
