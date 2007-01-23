@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qpixmap.h>
 #include <qbitmap.h>
+#include <qdom.h>
 #include <cstdlib>
 
 #include "scconfig.h"
@@ -188,7 +189,30 @@ void ColorManager::saveDefaults()
 		QFile fx(Fname);
 		if (fx.open(IO_WriteOnly))
 		{
-			CMYKColor cmyk;
+			QDomDocument docu("scribus");
+			QString st="<SCRIBUSCOLORS></SCRIBUSCOLORS>";
+			docu.setContent(st);
+			QDomElement elem = docu.documentElement();
+			elem.setAttribute("Name", dia->getEditText());
+			ColorList::Iterator itc;
+			for (itc = EditColors.begin(); itc != EditColors.end(); ++itc)
+			{
+				QDomElement co = docu.createElement("COLOR");
+				co.setAttribute("NAME",itc.key());
+				if (EditColors[itc.key()].getColorModel() == colorModelRGB)
+					co.setAttribute("RGB",EditColors[itc.key()].nameRGB());
+				else
+					co.setAttribute("CMYK",EditColors[itc.key()].nameCMYK());
+				co.setAttribute("Spot",static_cast<int>(EditColors[itc.key()].isSpotColor()));
+				co.setAttribute("Register",static_cast<int>(EditColors[itc.key()].isRegistrationColor()));
+				elem.appendChild(co);
+			}
+			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+			QCString cs = docu.toCString();
+			QTextStream s(&fx);
+			s.writeRawBytes(xmlpi, strlen(xmlpi));
+			s.writeRawBytes(cs, cs.length());
+/*			CMYKColor cmyk;
 			QTextStream tsx(&fx);
 			QString tmp;
 			ColorList::Iterator itc;
@@ -203,7 +227,7 @@ void ColorManager::saveDefaults()
 				tsx << tmp.setNum(yp) << "\t" ;
 				tsx << tmp.setNum(kp) << "\t" ;
 				tsx << itc.key() << "\n" ;
-			}
+			} */
 			fx.close();
 			if (dia->getEditText() != Name)
 			{
@@ -278,56 +302,93 @@ void ColorManager::loadDefaults(int id)
 			int Rval, Gval, Bval, Kval;
 			QTextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
-			while (!tsC.atEnd())
+			if (ColorEn.startsWith("<?xml version="))
 			{
-				ScColor tmp;
-				ColorEn = tsC.readLine().stripWhiteSpace();
-				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
-					continue;
-				
-				if (ColorEn[0].isNumber()) {
-					QTextStream CoE(&ColorEn, IO_ReadOnly);
-					CoE >> Rval;
-					CoE >> Gval;
-					CoE >> Bval;
-					if (cus)
+				QCString docBytes("");
+				loadRawText(pfadC2, docBytes);
+				QString docText("");
+				docText = QString::fromUtf8(docBytes);
+				QDomDocument docu("scridoc");
+				docu.setContent(docText);
+				ScColor lf = ScColor();
+				QDomElement elem = docu.documentElement();
+				QDomNode PAGE = elem.firstChild();
+				while(!PAGE.isNull())
+				{
+					QDomElement pg = PAGE.toElement();
+					if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 					{
-						CoE >> Kval;
-						Cname = CoE.read().stripWhiteSpace();
+						if (pg.hasAttribute("CMYK"))
+							lf.setNamedColor(pg.attribute("CMYK"));
+						else
+							lf.fromQColor(QColor(pg.attribute("RGB")));
+						if (pg.hasAttribute("Spot"))
+							lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+						else
+							lf.setSpotColor(false);
+						if (pg.hasAttribute("Register"))
+							lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+						else
+							lf.setRegistrationColor(false);
+						EditColors.insert(pg.attribute("NAME"), lf);
+					}
+					PAGE=PAGE.nextSibling();
+				}
+			}
+			else
+			{
+				while (!tsC.atEnd())
+				{
+					ScColor tmp;
+					ColorEn = tsC.readLine().stripWhiteSpace();
+					if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+						continue;
+					
+					if (ColorEn[0].isNumber()) {
+						QTextStream CoE(&ColorEn, IO_ReadOnly);
+						CoE >> Rval;
+						CoE >> Gval;
+						CoE >> Bval;
+						if (cus)
+						{
+							CoE >> Kval;
+							Cname = CoE.read().stripWhiteSpace();
+							tmp.setColor(Rval, Gval, Bval, Kval);
+						}
+						else
+						{
+							Cname = CoE.read().stripWhiteSpace();
+							tmp.setColorRGB(Rval, Gval, Bval);
+						}
+					}
+					else
+					{
+						QStringList fields = QStringList::split(QChar(9), ColorEn);
+						if (fields.count() != 5)
+							continue;
+						Cname = fields[0];
+						Rval = fields[1].toInt();
+						Gval = fields[2].toInt();
+						Bval = fields[3].toInt();
+						Kval = fields[4].toInt();
 						tmp.setColor(Rval, Gval, Bval, Kval);
 					}
-					else
+					if ((c<customSetStartIndex) && (Cname.length()==0))
 					{
-						Cname = CoE.read().stripWhiteSpace();
-						tmp.setColorRGB(Rval, Gval, Bval);
+						if (!cus)
+							Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+						else
+							Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
+						Cname.replace(" ","0");
 					}
+					if (EditColors.contains(Cname))
+					{
+						if (tmp==EditColors[Cname])
+							continue;
+						Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
+					}
+					EditColors.insert(Cname, tmp);
 				}
-				else {
-					QStringList fields = QStringList::split(QChar(9), ColorEn);
-					if (fields.count() != 5)
-						continue;
-					Cname = fields[0];
-					Rval = fields[1].toInt();
-					Gval = fields[2].toInt();
-					Bval = fields[3].toInt();
-					Kval = fields[4].toInt();
-					tmp.setColor(Rval, Gval, Bval, Kval);
-				}
-				if ((c<customSetStartIndex) && (Cname.length()==0))
-				{
-					if (!cus)
-						Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
-					else
-						Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
-					Cname.replace(" ","0");
-				}
-				if (EditColors.contains(Cname))
-				{
-					if (tmp==EditColors[Cname])
-						continue;
-					Cname=QString("%1%2").arg(Cname).arg(EditColors.count());
-				}
-				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();
 		}
