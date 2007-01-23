@@ -20,7 +20,7 @@ protected:
 	QByteArray barray;
 public:
 	ScGzFile(const QString& filename);
-	ScGzFile(const QString& filename, const QCString& array);
+	ScGzFile(const QString& filename, const QByteArray& array);
 
 	static const int gzipExpansionFactor;
 

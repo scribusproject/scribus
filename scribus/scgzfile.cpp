@@ -18,7 +18,7 @@ ScGzFile::ScGzFile(const QString& filename)
 	fname = filename;
 }
 
-ScGzFile::ScGzFile(const QString& filename, const QCString& array)
+ScGzFile::ScGzFile(const QString& filename, const QByteArray& array)
 {
 	fname = filename;
 	barray = array;
