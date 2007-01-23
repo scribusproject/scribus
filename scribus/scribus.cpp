@@ -3283,11 +3283,11 @@ bool ScribusMainWindow::slotPageImport()
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		std::vector<int> pageNs;
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
-		int startPage, nrToImport;
+		int startPage=0, nrToImport=pageNs.size();
 		bool doIt = true;
 		if (doc->masterPageMode())
 		{
-			if (pageNs.size() > 1)
+			if (nrToImport > 1)
 				loadPage(dia->getFromDoc(), pageNs[0] - 1, false);
 			doIt = false;
 		}
@@ -3300,14 +3300,12 @@ bool ScribusMainWindow::slotPageImport()
 				startPage = dia->getImportWherePage() + 1;
 			else
 				startPage = doc->DocPages.count() + 1;
-			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size(), doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
-			nrToImport = pageNs.size();
+			addNewPages(dia->getImportWherePage(), importWhere, nrToImport, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
 		}
 		else
 		{
 			startPage = doc->currentPage()->pageNr() + 1;
-			nrToImport = pageNs.size();
-			if (pageNs.size() > (doc->DocPages.count() - doc->currentPage()->pageNr()))
+			if (nrToImport > (doc->DocPages.count() - doc->currentPage()->pageNr()))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +
@@ -3321,9 +3319,8 @@ bool ScribusMainWindow::slotPageImport()
 				switch( scmReturn )
 				{
 					case 0:
-						nrToImport = pageNs.size();
 						addNewPages(doc->DocPages.count(), 2,
-									pageNs.size() - (doc->DocPages.count() - doc->currentPage()->pageNr()),
+									nrToImport - (doc->DocPages.count() - doc->currentPage()->pageNr()),
 									doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true);
 						break;
 					case 1:
