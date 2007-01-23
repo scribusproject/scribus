@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScColor;
 class ScribusDoc;
+class ColorListBox;
 #include "colorchart.h"
 #include "colorsetmanager.h"
 #include "mspinbox.h"
@@ -55,7 +56,7 @@ public:
 	QWidgetStack* TabStack;
 	QFrame* Frame5;
 	QFrame* Frame5a;
-	QListBox* ColorSwatch;
+	ColorListBox* ColorSwatch;
 	ColorChart* ColorMap;
 	QLabel* CyanP;
 	QLabel* CyanT;

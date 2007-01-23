@@ -11,6 +11,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorsetmanager.h"
 #include "scpaths.h"
+#include "util.h"
+#include "commonstrings.h"
+#include <qdom.h>
 
 ColorSetManager::ColorSetManager()
 {
@@ -45,17 +48,53 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 			int Rval, Gval, Bval;
 			QTextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
-			while (!tsC.atEnd())
+			if (ColorEn.startsWith("<?xml version="))
 			{
-				ColorEn = tsC.readLine();
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
-				CoE >> Cname;
-				ScColor tmp;
-				tmp.setColorRGB(Rval, Gval, Bval);
-				appPrefs.DColors.insert(Cname, tmp);
+				QCString docBytes("");
+				loadRawText(pfadC2, docBytes);
+				QString docText("");
+				docText = QString::fromUtf8(docBytes);
+				QDomDocument docu("scridoc");
+				docu.setContent(docText);
+				ScColor lf = ScColor();
+				QDomElement elem = docu.documentElement();
+				QDomNode PAGE = elem.firstChild();
+				while(!PAGE.isNull())
+				{
+					QDomElement pg = PAGE.toElement();
+					if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+					{
+						if (pg.hasAttribute("CMYK"))
+							lf.setNamedColor(pg.attribute("CMYK"));
+						else
+							lf.fromQColor(QColor(pg.attribute("RGB")));
+						if (pg.hasAttribute("Spot"))
+							lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+						else
+							lf.setSpotColor(false);
+						if (pg.hasAttribute("Register"))
+							lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+						else
+							lf.setRegistrationColor(false);
+						appPrefs.DColors.insert(pg.attribute("NAME"), lf);
+					}
+					PAGE=PAGE.nextSibling();
+				}
+			}
+			else
+			{
+				while (!tsC.atEnd())
+				{
+					ColorEn = tsC.readLine();
+					QTextStream CoE(&ColorEn, IO_ReadOnly);
+					CoE >> Rval;
+					CoE >> Gval;
+					CoE >> Bval;
+					CoE >> Cname;
+					ScColor tmp;
+					tmp.setColorRGB(Rval, Gval, Bval);
+					appPrefs.DColors.insert(Cname, tmp);
+				}
 			}
 			fiC.close();
 		}

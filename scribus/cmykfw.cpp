@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qfileinfo.h>
 #include <qdir.h>
+#include <qdom.h>
 #include <cstdlib>
 
 #include "commonstrings.h"
@@ -20,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "colorutil.h"
+#include "colorlistbox.h"
 #include "util.h"
 #include "sccolorengine.h"
 
@@ -227,7 +229,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame5aLayout->addWidget( Frame5, 0, AlignCenter);
 	TabStack->addWidget( Frame5a, 0 );
 
-	ColorSwatch = new QListBox(TabStack, "StyledL");
+	ColorSwatch = new ColorListBox(TabStack, "StyledL");
 	TabStack->addWidget( ColorSwatch, 1 );
 
 	Frame4Layout->addWidget( TabStack );
@@ -613,44 +615,80 @@ void CMYKChoose::SelSwatch(int n)
 				int Rval, Gval, Bval, Kval;
 				QTextStream tsC(&fiC);
 				ColorEn = tsC.readLine();
-				while (!tsC.atEnd())
+				if (ColorEn.startsWith("<?xml version="))
 				{
-					ScColor tmp;
-					ColorEn = tsC.readLine();
-					if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
-						continue;
-					QTextStream CoE(&ColorEn, IO_ReadOnly);
-					CoE >> Rval;
-					CoE >> Gval;
-					CoE >> Bval;
-					if (cus)
+					QCString docBytes("");
+					loadRawText(pfadC2, docBytes);
+					QString docText("");
+					docText = QString::fromUtf8(docBytes);
+					QDomDocument docu("scridoc");
+					docu.setContent(docText);
+					ScColor lf = ScColor();
+					QDomElement elem = docu.documentElement();
+					QDomNode PAGE = elem.firstChild();
+					while(!PAGE.isNull())
 					{
-						CoE >> Kval;
-						Cname = CoE.read().stripWhiteSpace();
-						tmp.setColor(Rval, Gval, Bval, Kval);
+						QDomElement pg = PAGE.toElement();
+						if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+						{
+							if (pg.hasAttribute("CMYK"))
+								lf.setNamedColor(pg.attribute("CMYK"));
+							else
+								lf.fromQColor(QColor(pg.attribute("RGB")));
+							if (pg.hasAttribute("Spot"))
+								lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+							else
+								lf.setSpotColor(false);
+							if (pg.hasAttribute("Register"))
+								lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+							else
+								lf.setRegistrationColor(false);
+							CurrSwatch.insert(pg.attribute("NAME"), lf);
+						}
+						PAGE=PAGE.nextSibling();
 					}
-					else
+				}
+				else
+				{
+					while (!tsC.atEnd())
 					{
-						Cname = CoE.read().stripWhiteSpace();
-						tmp.setColorRGB(Rval, Gval, Bval);
-					}
-
-					if ((n<customSetStartIndex) && (Cname.length()==0))
-					{
-						if (!cus)
-							Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
-						else
-							Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
-						Cname.replace(" ","0");
-					}
-					if (CurrSwatch.contains(Cname))
-					{
-						if (tmp==CurrSwatch[Cname])
+						ScColor tmp;
+						ColorEn = tsC.readLine();
+						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 							continue;
-						Cname=QString("%1%2").arg(Cname).arg(CurrSwatch.count());
+						QTextStream CoE(&ColorEn, IO_ReadOnly);
+						CoE >> Rval;
+						CoE >> Gval;
+						CoE >> Bval;
+						if (cus)
+						{
+							CoE >> Kval;
+							Cname = CoE.read().stripWhiteSpace();
+							tmp.setColor(Rval, Gval, Bval, Kval);
+						}
+						else
+						{
+							Cname = CoE.read().stripWhiteSpace();
+							tmp.setColorRGB(Rval, Gval, Bval);
+						}
+	
+						if ((n<customSetStartIndex) && (Cname.length()==0))
+						{
+							if (!cus)
+								Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+							else
+								Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
+							Cname.replace(" ","0");
+						}
+						if (CurrSwatch.contains(Cname))
+						{
+							if (tmp==CurrSwatch[Cname])
+								continue;
+							Cname=QString("%1%2").arg(Cname).arg(CurrSwatch.count());
+						}
+	
+						CurrSwatch.insert(Cname, tmp);
 					}
-
-					CurrSwatch.insert(Cname, tmp);
 				}
 				fiC.close();
 			}
@@ -671,8 +709,9 @@ void CMYKChoose::SelSwatch(int n)
 		QPixmap pm = QPixmap(30, 15);
 		for (it = CurrSwatch.begin(); it != CurrSwatch.end(); ++it)
 		{
-			pm.fill( ScColorEngine::getDisplayColor(CurrSwatch[it.key()], m_doc) );
-			ColorSwatch->insertItem(pm, it.key());
+			ColorSwatch->insertItem( new ColorFancyPixmapItem(it.data(), m_doc, it.key()) );
+//			pm.fill( ScColorEngine::getDisplayColor(CurrSwatch[it.key()], m_doc) );
+//			ColorSwatch->insertItem(pm, it.key());
 		}
 		ColorSwatch->setSelected(ColorSwatch->currentItem(), false);
 		TabStack->raiseWidget(1);
@@ -931,18 +970,24 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 void CMYKChoose::SelFromSwatch(int c)
 {
 	ScColor tmp = CurrSwatch[ColorSwatch->text(c)];
-	if (CMYKmode)
+	if (tmp.getColorModel() == colorModelCMYK)
+		SelModel( tr("CMYK"));
+	else
+		SelModel( tr("RGB"));
+/*	if (CMYKmode)
 	{
 		CMYKColor cmyk;
 		ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
 		tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
-	}
+	} */
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	setValues();
+	Separations->setChecked(tmp.isSpotColor());
+	Regist->setChecked(tmp.isRegistrationColor());
 }
 
 void CMYKChoose::setValues()
