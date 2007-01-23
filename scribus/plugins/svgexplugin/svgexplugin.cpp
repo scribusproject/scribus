@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "scribuscore.h"
 #include "page.h"
-#include <zlib.h>
+#include "scgzfile.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
@@ -206,7 +206,7 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 		// zipped saving
 		ScGzFile gzf(fileName, docu.toString().utf8());
 		if (!gzf.write(vo))
-			return false;
+			return;
 	}
 	else
 	{
