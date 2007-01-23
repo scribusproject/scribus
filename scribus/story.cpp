@@ -2872,7 +2872,7 @@ ScribusDoc* StoryEditor::currentDocument() const
 	return currDoc;
 }
 
-void StoryEditor::specialActionKeyEvent(/*QString actionName, */int unicodevalue)
+void StoryEditor::specialActionKeyEvent(QString /*actionName*/, int unicodevalue)
 {
 	Editor->insChars(QString(QChar(unicodevalue)));
 	QString guiInsertString=QChar(unicodevalue);
