@@ -2319,6 +2319,10 @@ void PageItem::changeImageScaleUndoAction()
 
 void PageItem::restore(UndoState *state, bool isUndo)
 {
+	bool useRasterBackup = m_Doc->useRaster;
+	bool SnapGuidesBackup = m_Doc->SnapGuides;
+	m_Doc->useRaster = false;
+	m_Doc->SnapGuides = false;
 	ScribusView* view = m_Doc->view();
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	bool oldMPMode=m_Doc->masterPageMode();
@@ -2461,6 +2465,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	if (!OnMasterPage.isEmpty())
 		m_Doc->currentPage = oldCurrentPage;
 	m_Doc->setMasterPageMode(oldMPMode);
+	m_Doc->useRaster = useRasterBackup;
+	m_Doc->SnapGuides = SnapGuidesBackup;
 }
 
 void PageItem::restoreMove(SimpleState *state, bool isUndo)
