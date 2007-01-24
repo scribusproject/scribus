@@ -173,6 +173,21 @@ public:
 	//Tab Fill Custom
 	static QString trCustomTabFill;
 	
+	//Paragraph Style Optical Margins
+	static QString trOpticalMarginsNone;
+	static QString trOpticalMarginsLeftProtruding;
+	static QString trOpticalMarginsRightProtruding;
+	static QString trOpticalMarginsLeftHangPunct;
+	static QString trOpticalMarginsRightHangPunct;
+	static QString trOpticalMarginsDefault;
+	
+	//Paragraph Style Word Tracking
+	static QString trMinWordTracking;
+	static QString trMaxWordTracking;
+	
+	//Paragraph Style Glyph Extension
+	static QString trMinGlyphExtension;
+	static QString trMaxGlyphExtension;
 };
 
 #endif

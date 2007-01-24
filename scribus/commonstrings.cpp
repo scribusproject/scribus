@@ -94,6 +94,19 @@ QString CommonStrings::trVisionFullColorBlind = "";
 
 QString CommonStrings::trCustomTabFill        = "";
 
+QString CommonStrings::trOpticalMarginsNone            = "";
+QString CommonStrings::trOpticalMarginsLeftProtruding  = "";
+QString CommonStrings::trOpticalMarginsRightProtruding = "";
+QString CommonStrings::trOpticalMarginsLeftHangPunct   = "";
+QString CommonStrings::trOpticalMarginsRightHangPunct  = "";
+QString CommonStrings::trOpticalMarginsDefault         = "";
+
+QString CommonStrings::trMinWordTracking   = "";
+QString CommonStrings::trMaxWordTracking   = "";
+QString CommonStrings::trMinGlyphExtension = "";
+QString CommonStrings::trMaxGlyphExtension = "";
+
+
 
 CommonStrings::CommonStrings()
 {
@@ -239,13 +252,28 @@ void CommonStrings::languageChange()
 	CommonStrings::november  = tr("November");
 	CommonStrings::december  = tr("December");
 	
-	CommonStrings::trVisionNormal = tr("Normal Vision", "Color Blindness - Normal Vision");
-	CommonStrings::trVisionProtanopia = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");
-	CommonStrings::trVisionDeuteranopia = tr("Deuteranopia (Green)", "Color Blindness - Greed Color Blind");
-	CommonStrings::trVisionTritanopia = tr("Tritanopia (Blue)", "Color Blindness - Blue Color Blind");
+	CommonStrings::trVisionNormal         = tr("Normal Vision", "Color Blindness - Normal Vision");
+	CommonStrings::trVisionProtanopia     = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");
+	CommonStrings::trVisionDeuteranopia   = tr("Deuteranopia (Green)", "Color Blindness - Greed Color Blind");
+	CommonStrings::trVisionTritanopia     = tr("Tritanopia (Blue)", "Color Blindness - Blue Color Blind");
 	CommonStrings::trVisionFullColorBlind = tr("Full Color Blindness", "Color Blindness - Full Color Blindness");
 	
 	CommonStrings::trCustomTabFill = tr("Custom: ","Custom Tab Fill Option");
+	
+	CommonStrings::trOpticalMarginsNone            = tr("None", "Optical Margin Setting");
+	CommonStrings::trOpticalMarginsLeftProtruding  = tr("Left Protruding", "Optical Margin Setting");
+	CommonStrings::trOpticalMarginsRightProtruding = tr("Right Protruding", "Optical Margin Setting");
+	CommonStrings::trOpticalMarginsLeftHangPunct   = tr("Left Hanging Punctuation", "Optical Margin Setting");
+	CommonStrings::trOpticalMarginsRightHangPunct  = tr("Right Hanging Punctuation", "Optical Margin Setting");
+	CommonStrings::trOpticalMarginsDefault         = tr("Default", "Optical Margin Setting");
+	
+	//Paragraph Style Word Tracking
+	CommonStrings::trMinWordTracking = tr("Min. Word Tracking");
+	CommonStrings::trMaxWordTracking = tr("Max. Word Tracking");
+	
+	//Paragraph Style Glyph Extension
+	CommonStrings::trMinGlyphExtension = tr("Min. Glyph Extension");
+	CommonStrings::trMaxGlyphExtension = tr("Max. Glyph Extension");
 }
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )

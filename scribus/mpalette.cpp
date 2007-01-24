@@ -668,7 +668,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupAlign = new AlignSelect(page_3);
 	pageLayout_3->addWidget( GroupAlign );
 
-	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
+	GroupBox3aLayout = new QGridLayout( 0, 6, 1, 0, 5, "Layout25");
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	paraStyleCombo = new ParaStyleComboBox(page_3);
 	paraStyleLabel = new QLabel( paraStyleCombo, "Paragraph St&yle:", page_3, "parastyleLabel" );
@@ -678,6 +678,37 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	charStyleLabel = new QLabel( charStyleCombo, "Character St&yle:", page_3, "charstyleLabel" );
 	GroupBox3aLayout->addWidget( charStyleLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( charStyleCombo, 1, 1 );
+	optMarginCombo = new QComboBox(page_3);
+	optMarginLabel = new QLabel( optMarginCombo, "Optical Margins:", page_3, "optMarginLabel" );
+	GroupBox3aLayout->addWidget( optMarginLabel, 2, 0 );
+	GroupBox3aLayout->addWidget( optMarginCombo, 2, 1 );
+	
+	wordTrackingLabel = new QLabel( optMarginCombo, "Word Tracking", page_3, "wordTrackingLabel" );
+	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
+	wordTrackingHLayout = new QHBoxLayout(0,0,5,"wordTrackingHLayout");
+	minWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
+	wordTrackingHLayout->add(minWordTrackingLabel);
+	wordTrackingHLayout->add(minWordTrackingSpinBox);
+	maxWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	maxWordTrackingLabel = new QLabel( maxWordTrackingSpinBox, "Max:", page_3, "wordTrackingMaxLabel" );
+	wordTrackingHLayout->add(maxWordTrackingLabel);
+	wordTrackingHLayout->add(maxWordTrackingSpinBox);
+	GroupBox3aLayout->addMultiCellLayout(wordTrackingHLayout, 4, 4, 0, 1);
+	
+	glyphExtensionLabel = new QLabel( optMarginCombo, "Glyph Extension", page_3, "glyphExtensionLabel" );
+	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
+	glyphExtensionHLayout = new QHBoxLayout(0,0,5,"glyphExtensionHLayout");
+	minGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
+	glyphExtensionHLayout->add(minGlyphExtensionLabel);
+	glyphExtensionHLayout->add(minGlyphExtSpinBox);
+	maxGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	maxGlyphExtensionLabel = new QLabel( maxGlyphExtSpinBox, "Max:", page_3, "glyphExtensionMaxLabel" );
+	glyphExtensionHLayout->add(maxGlyphExtensionLabel);
+	glyphExtensionHLayout->add(maxGlyphExtSpinBox);
+	GroupBox3aLayout->addMultiCellLayout(glyphExtensionHLayout, 6, 6, 0, 1);
+	
 /*	langCombo = new ScComboBox( false, page_3, "Lang" );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
@@ -4203,7 +4234,13 @@ void Mpalette::languageChange()
 	textFlowUsesContourLine->setTextLabel( tr("&Use Contour Line"));
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
-//	langLabel->setText( tr("Lan&guage:"));
+	optMarginLabel->setText( tr("Optical Margins:"));
+	wordTrackingLabel->setText( tr("Word Tracking"));
+	minWordTrackingLabel->setText( tr("Min:"));
+	maxWordTrackingLabel->setText( tr("Max:"));
+	glyphExtensionLabel->setText( tr("Glyph Extension"));
+	minGlyphExtensionLabel->setText( tr("Min:"));
+	maxGlyphExtensionLabel->setText( tr("Max:"));
 	FreeScale->setText( tr("&Free Scaling"));
 	imgDPIXLabel->setText( tr("Actual X-DPI:"));
 	imgDPIYLabel->setText( tr("Actual Y-DPI:"));

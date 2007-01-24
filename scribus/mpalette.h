@@ -316,6 +316,8 @@ protected:
 	QVBoxLayout* page_group_layout;
 	QHBoxLayout* ShapeGroupLayout2;
 	QGridLayout* Layout1t;
+	QHBoxLayout* wordTrackingHLayout;
+	QHBoxLayout* glyphExtensionHLayout;
 	
 	NameWidget* NameEdit;
 	
@@ -379,7 +381,13 @@ protected:
 	QLabel* endArrowText;
 	QLabel* TransTxt;
 	QLabel* TransTxt2;
-	
+	QLabel* optMarginLabel;
+	QLabel* wordTrackingLabel;
+	QLabel* minWordTrackingLabel;
+	QLabel* maxWordTrackingLabel;
+	QLabel* glyphExtensionLabel;
+	QLabel* minGlyphExtensionLabel;
+	QLabel* maxGlyphExtensionLabel;
 
 //	LabelButton* colgapLabel;
 	ScComboBox* colgapLabel;
@@ -451,6 +459,7 @@ protected:
 	QComboBox* LEndStyle;
 	ColorCombo* TxFill;
 	ScComboBox* blendMode;
+	QComboBox *optMarginCombo;
 
 	QListBox* StyledLine;
 
@@ -477,10 +486,13 @@ protected:
 	MSpinBox* imgDpiX;
 	MSpinBox* imgDpiY;
 	MSpinBox* LSize;
-
 	MSpinBox* ChScale;
 	MSpinBox* ChScaleV;
 	MSpinBox* ChBase;
+	MSpinBox* minWordTrackingSpinBox;
+	MSpinBox* maxWordTrackingSpinBox;
+	MSpinBox* minGlyphExtSpinBox;
+	MSpinBox* maxGlyphExtSpinBox;
 	QSpinBox* DCol;
 	QSpinBox* TransSpin;
 
