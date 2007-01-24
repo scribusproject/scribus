@@ -73,7 +73,7 @@ public:
 	SVGExPlug( ScribusDoc* doc );
 	~SVGExPlug();
 
-	bool export( QString fName ); 
+	bool doExport( QString fName ); 
 
 private:
 	ScribusDoc* m_Doc;

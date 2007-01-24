@@ -141,7 +141,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 					return true;
 			}
 			SVGExPlug *dia = new SVGExPlug(doc);
-			dia->export(fileName);
+			dia->doExport(fileName);
 			delete dia;
 		}
 		else
@@ -157,7 +157,7 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc )
 	m_ScMW=m_Doc->scMW();
 }
 
-bool SVGExPlug::export( QString fName )
+bool SVGExPlug::doExport( QString fName )
 {
 #ifdef USECAIRO
 	Page *Seite = m_Doc->currentPage();
