@@ -1760,11 +1760,11 @@ strings.
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation>Пиктограммы из проекта Tango:</translation>
+        <translation>Значки из проекта Tango:</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Портирование на OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
     </message>
 </context>
 <context>
@@ -3676,7 +3676,7 @@ strings.
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 или 13 цифр, разделённых тире. Устаревший формат ISBN-10 означает 9 или 10 цифр, разделённых тире, но с 1 января 2007 года этот стандарт является устаревшим. (Примечание: для преобразования старого ISBN-10 в новый ISBN-13 введите префикс 978- к первым 9 цифрам, например, 1-56592-479-7 -&gt; 978-1-56592-479. Контрольная цифра будет рассчитана автоматически.)</translation>
     </message>
 </context>
 <context>
@@ -4050,7 +4050,7 @@ This profile should be specific to your printer and not a generic profile (i.e. 
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>Компенсация чёрной точки -- это метод улучшения 
+        <translation>Компенсация чёрной точки — это метод улучшения 
 контрастности фотографий. Его рекомендуется 
 использовать при наличии фотографий в документе.</translation>
     </message>
@@ -5267,7 +5267,7 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation type="unfinished">Перемещается в каталог с документами.
+        <translation>Перемещается в каталог с документами.
 Это можно изменить через диалог общих параметров.</translation>
     </message>
     <message>
@@ -6680,7 +6680,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Расположение шрифтов может быть установлено только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающемся через меню «Файл -&gt; Настроить Scribus... -&gt; Шрифты», укажите расположение шрифтов.</translation>
     </message>
 </context>
 <context>
@@ -8797,7 +8797,7 @@ Corners:</source>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished"></translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -9165,7 +9165,7 @@ Corners:</source>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus пока что не может импортировать некоторые части этого документа</translation>
     </message>
 </context>
 <context>
@@ -9556,7 +9556,7 @@ Corners:</source>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макет документа</translation>
     </message>
 </context>
 <context>
@@ -13798,7 +13798,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation>scribus -l xx или scribus --lang xx, где xx - избранный язык.</translation>
+        <translation>scribus -l xx или scribus --lang xx, где xx — избранный язык.</translation>
     </message>
     <message>
         <source>Scribus Version</source>
@@ -14501,7 +14501,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished">&amp;Параметры</translation>
+        <translation>&amp;Параметры</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -14748,7 +14748,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Указатель оглавления %1</translation>
     </message>
 </context>
 <context>
@@ -15771,27 +15771,27 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>Встроить вс&amp;е</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Оконтуриваемые шрифты:</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Око&amp;нтурить все</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макет документа</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation>Встроить шрифты в файл PDF, чтобы документ везде выглядел так, как он выглядит на вашем компьютере. Некоторые шрифты, такие как OpenType, могут быть вставлены лишь с вычитанием глифов, поскольку их встраивание предусмотрено только в PDF 1.6.</translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
+        <translation>Встроить в PDF все гарнитуры с вычитанием. Это означает, что будут встроены только те глифы, которые используются в документе, а не весь комплект знаков. Некоторые шрифты, такие как OpenType, могут быть вставлены лишь с вычитанием глифов, поскольку их встраивание предусмотрено только в PDF 1.6.</translation>
     </message>
 </context>
 <context>
