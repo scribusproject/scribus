@@ -132,7 +132,7 @@ PageItem::PageItem(const PageItem & other)
 	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
 	NextBox(NULL),  // otherwise other.NextBox->BackBox would be inconsistent
 	firstChar(0),   // since this box is unlinked now
-	MaxChars(-1),   // since the layout is invalid now
+	MaxChars(0),   // since the layout is invalid now
 	inPdfArticle(other.inPdfArticle),
 	isRaster(other.isRaster),
 	OldB(other.OldB),
