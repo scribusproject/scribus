@@ -129,10 +129,10 @@ PageItem::PageItem(const PageItem & other)
 	NextPg(other.NextPg),
 	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
-	BackBox(other.BackBox),
-	NextBox(other.NextBox),
-	firstChar(other.firstChar),
-	MaxChars(other.MaxChars),
+	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
+	NextBox(NULL),  // otherwise other.NextBox->BackBox would be inconsistent
+	firstChar(0),   // since this box is unlinked now
+	MaxChars(-1),   // since the layout is invalid now
 	inPdfArticle(other.inPdfArticle),
 	isRaster(other.isRaster),
 	OldB(other.OldB),
@@ -239,6 +239,7 @@ PageItem::PageItem(const PageItem & other)
 	m_Doc->TotalItems++;
 	AnName += tmp.setNum(m_Doc->TotalItems);
 	uniqueNr = m_Doc->TotalItems;
+	invalid = true;
 }
 
 
