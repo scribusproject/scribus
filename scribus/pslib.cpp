@@ -3018,7 +3018,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 //	qDebug(QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage));
 	int savedOwnPage = ite->OwnPage;
 	ite->OwnPage = argh;
-	ite->asTextFrame()->layout();
+	ite->layout();
 	ite->OwnPage = savedOwnPage;
 #ifndef NLS_PROTO
 	ScText *hl;
