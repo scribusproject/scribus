@@ -102,32 +102,46 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 
 bool Serializer::Write(QString Cod)
 {
+	return writeWithEncoding(Filename, Cod, Objekt);
+}
+
+bool Serializer::writeWithEncoding(const QString& filename, const QString& encoding, 
+								   const QString& txt)
+{
 	QTextCodec *codec;
-	if (Cod.isEmpty())
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(Cod);
-	QCString dec = codec->fromUnicode( Objekt );
-	QFile f(Filename);
-	bool ret = false;
+		codec = QTextCodec::codecForName(encoding);
+	QCString dec = codec->fromUnicode( txt );
+	QFile f(filename);
 	if (f.open(IO_WriteOnly))
 	{
 		f.writeBlock(dec, dec.length());
 		f.close();
-		ret = true;
+		return true;
 	}
-	return ret;
+	return false;
 }
 
 bool Serializer::Read(QString Cod)
 {
+	return readWithEncoding(Filename, Cod, Objekt);
+}
+
+bool Serializer::readWithEncoding(const QString& filename, const QString& encoding, 
+								  QString &txt)
+{
 	QCString file;
 	QTextCodec *codec;
-	bool tmp = loadRawText(Filename, file);
-	if (Cod.isEmpty())
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(Cod);
-	Objekt = codec->toUnicode( file.data() );
-	return tmp;
+		codec = QTextCodec::codecForName(encoding);
+	if (loadRawText(filename, file))
+	{
+		txt = codec->toUnicode( file.data() );
+		return true;
+	}
+	return false;
 }

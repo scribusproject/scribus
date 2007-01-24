@@ -3702,6 +3702,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
+//			qDebug(QString("load M: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
 			ite->layout();
 		}
 //		RestoreBookMarks();
@@ -3718,6 +3719,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
+//			qDebug(QString("load D: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
 			ite->layout();
 /*			if (doc->OldBM)
 			{
@@ -3733,6 +3735,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		for (uint azz=0; azz<doc->FrameItems.count(); ++azz)
 		{
 			PageItem *ite = doc->FrameItems.at(azz);
+//			qDebug(QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
 			ite->layout();
 		}
 //		if (doc->OldBM)
@@ -4872,10 +4875,14 @@ void ScribusMainWindow::slotEditPaste()
 			}
 			else
 			{
+				// K.I.S.S.:
+				currItem->itemText.insertChars(0, Buffer2);
+				/*
 				Serializer *ss = new Serializer("");
 				ss->Objekt = Buffer2;
 				ss->GetText(currItem, -1, "", 0, true);
 				delete ss;
+				 */
 			}
 			view->RefreshItem(currItem);
 		}
@@ -5065,10 +5072,15 @@ void ScribusMainWindow::SaveText()
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.findRev("/")));
+		// time to retire...
+		/*
 		Serializer *se = new Serializer(fn);
 		se->PutText(doc->m_Selection->itemAt(0));
 		se->Write(LoadEnc);
 		delete se;
+		 */
+		const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
+		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));		
 	}
 }
 

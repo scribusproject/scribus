@@ -2204,7 +2204,7 @@ void StoryEditor::updateStatus()
 
 	QRegExp rx( "(\\w+)\\b" );
 	const QString& txt(Editor->StyledText.text(0, Editor->StyledText.length()));
-	int pos = 0;
+	int pos = 1;
 	int counter = end > start? 1 : 0;
 	int counter2 = Editor->StyledText.length() > 0? 1 : 0;
 	while ( pos >= 0 )
@@ -2492,16 +2492,6 @@ void StoryEditor::updateTextFrame()
 	}
 	FrameItemsDel.clear();
 	currDoc->updateFrameItems();
-/*	bool rep = currDoc->RePos;
-	currDoc->RePos = true;
-	QPixmap pgPix(1, 1);
-	ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-	painter->translate(0.5, 0.5);
-	nextItem->DrawObj(painter, QRect(0, 0, 1, 1));
-	painter->end();
-	delete painter;
-	currDoc->RePos = rep;
-*/
 	if (currItem->asTextFrame())
 	{
 		dynamic_cast<PageItem_TextFrame*>(nextItem)->layout();
@@ -2807,6 +2797,8 @@ void StoryEditor::LoadTextFile()
 		if (!fileName.isEmpty())
 		{
 			dirs->set("story_load", fileName.left(fileName.findRev("/")));
+			// time to retire...
+			/*
 			Serializer *ss = new Serializer(fileName);
 			if (ss->Read(LoadEnc))
 			{
@@ -2820,6 +2812,18 @@ void StoryEditor::LoadTextFile()
 				seActions["editClear"]->setEnabled(false);
 			}
 			delete ss;
+			 */
+			QString txt;
+			if (Serializer::readWithEncoding(fileName, LoadEnc, txt))
+			{
+				txt.replace(QRegExp("\r"), "");
+				txt.replace(QRegExp("\n"), QChar(13));
+				Editor->loadText(txt, currItem);
+				seActions["editPaste"]->setEnabled(false);
+				seActions["editCopy"]->setEnabled(false);
+				seActions["editCut"]->setEnabled(false);
+				seActions["editClear"]->setEnabled(false);
+			}
 		}
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
@@ -2849,10 +2853,13 @@ void StoryEditor::SaveTextFile()
 	if (!fileName.isEmpty())
 	{
 		dirs->set("story_save", fileName.left(fileName.findRev("/")));
+		Serializer::writeWithEncoding(fileName, LoadEnc, Editor->text());
+		/*
 		Serializer *ss = new Serializer(fileName);
 		ss->Objekt = Editor->text();
 		ss->Write(LoadEnc);
 		delete ss;
+		 */
 	}
 	blockUpdate = false;
 }

@@ -6139,11 +6139,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							cc = QApplication::clipboard()->text(QClipboard::Clipboard);
 						if (!cc.isNull())
 						{
+							// K.I.S.S.:
+							currItem->itemText.insertChars(0, cc);
+							/*
 							Serializer *ss = new Serializer("");
 							ss->Objekt = cc;
 							ss->GetText(currItem, -1, "", 0, true);
 							delete ss;
 							ss=NULL;
+							 */
 							if (Doc->docHyphenator->AutoCheck)
 								Doc->docHyphenator->slotHyphenate(currItem);
 							emit ChBMText(currItem);

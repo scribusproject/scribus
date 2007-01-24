@@ -44,6 +44,12 @@ public:
 	void GetText(PageItem *Item, int Absatz, QString font, int size, bool Append = false);
 	bool Write(QString Cod = "");
 	bool Read(QString Cod = "");
+
+	static bool readWithEncoding(const QString& filename, const QString& encoding, 
+								 QString & txt);
+	static bool writeWithEncoding(const QString& filename, const QString& encoding, 
+								  const QString& txt);
+
 };
 
 #endif
