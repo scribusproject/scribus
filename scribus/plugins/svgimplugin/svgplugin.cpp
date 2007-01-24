@@ -163,7 +163,8 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	}
 	else if (UndoManager::undoEnabled() && !m_Doc)
 		UndoManager::instance()->setUndoEnabled(false);
-	SVGPlug *dia = new SVGPlug(mw, filename, flags);
+	SVGPlug *dia = new SVGPlug(mw, flags);
+	dia->import(filename, flags);
 	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
@@ -181,7 +182,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	return true;
 }
 
-SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
+SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	QObject(mw)
 {	
 	tmpSel=new Selection(this, false);
@@ -196,7 +197,24 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 //	Conversion = 0.8;
 	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	QString f = "";
+	m_gc.setAutoDelete( true );
+}
+
+bool SVGPlug::import(QString fname, int flags)
+{
+	if (!loadData(fname))
+		return false;
+	QString CurDirP = QDir::currentDirPath();
+	QFileInfo efp(fname);
+	QDir::setCurrent(efp.dirPath());
+	convert(flags);
+	QDir::setCurrent(CurDirP);
+	return true;
+}
+
+bool SVGPlug::loadData(QString fName)
+{
+	QString f("");
 	if(fName.right(2) == "gz")
 	{
 		gzFile gzDoc;
@@ -204,7 +222,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 		int i;
 		gzDoc = gzopen(fName.latin1(),"rb");
 		if(gzDoc == NULL)
-			return;
+			return false;
 		while((i = gzread(gzDoc,&buff,4096)) > 0)
 		{
 			buff[i] = '\0';
@@ -214,14 +232,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	}
 	else
 		loadText(fName, &f);
-	if(!inpdoc.setContent(f))
-		return;
-	m_gc.setAutoDelete( true );
-	QString CurDirP = QDir::currentDirPath();
-	QFileInfo efp(fName);
-	QDir::setCurrent(efp.dirPath());
-	convert(flags);
-	QDir::setCurrent(CurDirP);
+	return inpdoc.setContent(f);
 }
 
 void SVGPlug::convert(int flags)

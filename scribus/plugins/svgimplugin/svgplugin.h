@@ -178,8 +178,10 @@ public:
 	\param fName QString
 	\param isInteractive flag to use GUI
 	 */
-	SVGPlug(ScribusMainWindow *mw, QString fname, int flags);
+	SVGPlug(ScribusMainWindow *mw, int flags);
 	~SVGPlug();
+	bool import(QString fname, int flags);
+	bool loadData(QString fname);
 	void convert(int flags);
 	void addGraphicContext();
 	void setupNode( const QDomElement &e );

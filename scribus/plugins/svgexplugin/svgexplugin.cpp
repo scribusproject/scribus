@@ -140,7 +140,8 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 				if (exit != 0)
 					return true;
 			}
-			SVGExPlug *dia = new SVGExPlug(doc, fileName);
+			SVGExPlug *dia = new SVGExPlug(doc);
+			dia->export(fileName);
 			delete dia;
 		}
 		else
@@ -149,14 +150,17 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	return true;
 }
 
-SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
+SVGExPlug::SVGExPlug( ScribusDoc* doc )
 {
 	m_Doc=doc;
-#ifdef USECAIRO
-	Page *Seite;
 	m_View=m_Doc->view();
 	m_ScMW=m_Doc->scMW();
-	Seite = m_Doc->currentPage();
+}
+
+bool SVGExPlug::export( QString fName )
+{
+#ifdef USECAIRO
+	Page *Seite = m_Doc->currentPage();
 	int clipx = static_cast<int>(Seite->xOffset());
 	int clipy = static_cast<int>(Seite->yOffset());
 	int clipw = qRound(Seite->width());
@@ -206,13 +210,13 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 		// zipped saving
 		ScGzFile gzf(fName, docu.toString().utf8());
 		if (!gzf.write(vo))
-			return;
+			return false;
 	}
 	else
 	{
 		QFile f(fName);
 		if(!f.open(IO_WriteOnly))
-			return;
+			return false;
 		QTextStream s(&f);
 		QString wr = vo;
 		wr += docu.toString();
@@ -221,6 +225,7 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 		f.close();
 	}
 #endif
+	return true;
 }
 
 #ifndef USECAIRO

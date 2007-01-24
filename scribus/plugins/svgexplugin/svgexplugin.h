@@ -70,8 +70,10 @@ public:
 	\brief Create the SVG exporter window
 	\param fName QString file name
 	 */
-	SVGExPlug( ScribusDoc* doc, QString fName );
+	SVGExPlug( ScribusDoc* doc );
 	~SVGExPlug();
+
+	bool export( QString fName ); 
 
 private:
 	ScribusDoc* m_Doc;
