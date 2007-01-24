@@ -38,10 +38,16 @@ for which a new license (GPL+exception) is in place.
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
-EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
+EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
 	m_Doc=doc;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+bool EPSPlug::import(QString fName, int flags, bool showProgress)
+{
+	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	cancel = false;
 	double x, y, b, h, c, m, k;
@@ -357,6 +363,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			m_Doc->reformPages();
 			m_Doc->view()->updatesOn(true);
 		}
+		success = true;
 	}
 	else
 	{
@@ -371,6 +378,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if ((showProgress) && (!interactive))
 		m_Doc->view()->DrawNew();
+	return success;
 }
 
 EPSPlug::~EPSPlug()

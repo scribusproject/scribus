@@ -34,12 +34,25 @@ public:
 	\brief Create the EPS importer window.
 	\param fName QString
 	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
 	\retval EPSPlug plugin
 	*/
-	EPSPlug( ScribusDoc* doc, QString fName, int flags, bool showProgress = true );
+	EPSPlug( ScribusDoc* doc, int flags );
 	~EPSPlug();
 
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Perform import.
+	\param fn QString
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval bool true if import was ok
+	 */
+	bool import(QString fn, int flags, bool showProgress = true);
+
 private:
+	
 	/*!
 	\author Franz Schmid
 	\date

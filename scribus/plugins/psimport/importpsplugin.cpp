@@ -158,8 +158,9 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 	}
 	else if (UndoManager::undoEnabled() && !m_Doc)
 		UndoManager::instance()->setUndoEnabled(false);
-	EPSPlug *dia = new EPSPlug(m_Doc, fileName, flags);
+	EPSPlug *dia = new EPSPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
+	dia->import(fileName, flags);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
 	else
