@@ -79,10 +79,12 @@ public:
 	}
 	Action& operator=(const Action& other)
 	{
-		if (--body->refs == 0)
-			delete body;
-		body = other.body;
-		++body->refs;
+		if (body != other.body) {
+			if (--body->refs == 0)
+				delete body;
+			body = other.body;
+			++body->refs;
+		}
 		return *this;
 	}
 

@@ -314,7 +314,7 @@ struct  AddText : public MakeAction<AddText_body<Type>, typename AddText_body<Ty
 
 
 /**
- *   Collects text (PCDATA) chanks and later stores it in the topmost object 
+ *   Collects text (PCDATA) chunks and later stores it in the topmost object 
  *   on the stack.
  *   This is only called once at the close tag of the current pattern.
  *   WARNING: not safe for nesting
