@@ -686,6 +686,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	wordTrackingLabel = new QLabel( optMarginCombo, "Word Tracking", page_3, "wordTrackingLabel" );
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
 	wordTrackingHLayout = new QHBoxLayout(0,0,5,"wordTrackingHLayout");
+	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
 	minWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
 	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
 	wordTrackingHLayout->add(minWordTrackingLabel);
@@ -699,6 +700,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	glyphExtensionLabel = new QLabel( optMarginCombo, "Glyph Extension", page_3, "glyphExtensionLabel" );
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
 	glyphExtensionHLayout = new QHBoxLayout(0,0,5,"glyphExtensionHLayout");
+	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
 	minGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
 	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
 	glyphExtensionHLayout->add(minGlyphExtensionLabel);
@@ -1017,6 +1019,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
+	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -2438,6 +2441,13 @@ void Mpalette::setCharStyle(const QString& name)
 	HaveItem = false;
 	charStyleCombo->setFormat(name);
 	HaveItem = tmp;
+}
+
+void Mpalette::setOpticalMargins(int i)
+{
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+// 	qDebug(QString("%1").arg(i));
 }
 
 
@@ -4235,6 +4245,16 @@ void Mpalette::languageChange()
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
 	optMarginLabel->setText( tr("Optical Margins:"));
+	int c=optMarginCombo->currentItem();
+	optMarginCombo->clear();
+	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsNone );
+//	Out for 1.3.4
+// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftProtruding );
+// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightProtruding );
+// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftHangPunct );
+// 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightHangPunct );
+	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsDefault );
+	optMarginCombo->setCurrentItem(c);
 	wordTrackingLabel->setText( tr("Word Tracking"));
 	minWordTrackingLabel->setText( tr("Min:"));
 	maxWordTrackingLabel->setText( tr("Max:"));
@@ -4316,7 +4336,11 @@ void Mpalette::languageChange()
 	imageXScaleSpinBox->setSuffix(pctSuffix);
 	imageYScaleSpinBox->setSuffix(pctSuffix);
 	Extra->setSuffix(pctSuffix);
-
+	minWordTrackingSpinBox->setSuffix(pctSuffix);
+	maxWordTrackingSpinBox->setSuffix(pctSuffix);
+	minGlyphExtSpinBox->setSuffix(pctSuffix);
+	maxGlyphExtSpinBox->setSuffix(pctSuffix);
+	
 	QString ptSuffix = tr(" pt");
 	Dist->setSuffix(ptSuffix);
 	LineW->setSuffix(ptSuffix);

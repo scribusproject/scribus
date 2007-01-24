@@ -159,6 +159,7 @@ public slots:
 	void setAli(int e);
 	void setParStyle(const QString& name);
 	void setCharStyle(const QString& name);
+	void setOpticalMargins(int);
 	void setShadowOffs(int x, int y);
 	void setUnderline(int p, int w);
 	void newUnderline();
