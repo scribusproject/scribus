@@ -931,23 +931,30 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					if ( e.text().isEmpty() )
 						continue;
 					storeObjectStyles(n2.toElement());
-					int FontSize = m_Doc->toolSettings.defSize;
-					int AbsStyle = 0;
-/*					if( m_styleStack.hasAttribute("fo:text-align"))
+//					int FontSize = m_Doc->toolSettings.defSize;
+//					int AbsStyle = 0;
+					ite->itemText.insertChars(-1, SpecialChars::PARSEP);
+					if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size") )
 					{
+						ParagraphStyle newStyle;
 						if (m_styleStack.attribute("fo:text-align") == "left")
-							AbsStyle = 0;
+							newStyle.setAlignment(ParagraphStyle::Leftaligned);
 						if (m_styleStack.attribute("fo:text-align") == "center")
-							AbsStyle = 1;
+							newStyle.setAlignment(ParagraphStyle::Centered);
 						if (m_styleStack.attribute("fo:text-align") == "right")
-							AbsStyle = 2;
-					} */
-					if( m_styleStack.hasAttribute("fo:font-size"))
-						FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
+							newStyle.setAlignment(ParagraphStyle::Rightaligned);
+						if( m_styleStack.hasAttribute("fo:font-size") )
+							newStyle.charStyle().setFontSize(m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10);
+						ite->itemText.applyStyle(-1, newStyle);
+					}
+					ite->itemText.insertChars(-2, QString::fromUtf8(e.text()) );
+					// time to retire...
+					/*
 					Serializer *ss = new Serializer("");
 					ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
 					ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
 					delete ss;
+					 */
 					firstPa = true;
 				}
 			}
@@ -971,27 +978,34 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				QDomElement e = n.toElement();
 				if ( e.text().isEmpty() )
 					continue;
-				int FontSize = m_Doc->toolSettings.defSize;
-				int AbsStyle = 0;
-/*				if( m_styleStack.hasAttribute("fo:text-align"))
-				{
-					if (m_styleStack.attribute("fo:text-align") == "left")
-						AbsStyle = 0;
-					if (m_styleStack.attribute("fo:text-align") == "center")
-						AbsStyle = 1;
-					if (m_styleStack.attribute("fo:text-align") == "right")
-						AbsStyle = 2;
-				} */
-				if( m_styleStack.hasAttribute("fo:font-size"))
-				{
-					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
-				}
+//				int FontSize = m_Doc->toolSettings.defSize;
+//				int AbsStyle = 0;
 /* ToDo: Add reading of Textstyles here */
-//FIXME:av				ite->setLineSpacing(FontSize + FontSize * 0.2);
+				ite->itemText.insertChars(-1, SpecialChars::PARSEP);
+				if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size"))
+				{
+					ParagraphStyle newStyle;
+					if (m_styleStack.attribute("fo:text-align") == "left")
+						newStyle.setAlignment(ParagraphStyle::Leftaligned);
+					if (m_styleStack.attribute("fo:text-align") == "center")
+						newStyle.setAlignment(ParagraphStyle::Centered);
+					if (m_styleStack.attribute("fo:text-align") == "right")
+						newStyle.setAlignment(ParagraphStyle::Rightaligned);
+					if (m_styleStack.hasAttribute("fo:font-size") )
+					{
+						int FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10;
+						newStyle.charStyle().setFontSize(FontSize);
+						newStyle.setLineSpacing(FontSize + FontSize * 0.2);
+					}
+					ite->itemText.applyStyle(-1, newStyle);
+				}
+				ite->itemText.insertChars(-2, QString::fromUtf8(e.text()));
+				/*
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
 				ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
 				delete ss;
+				 */
 				firstPa = true;
 				if (! ite->asPolyLine())
 					ite->convertTo(PageItem::TextFrame);
