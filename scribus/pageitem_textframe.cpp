@@ -1511,7 +1511,7 @@ void PageItem_TextFrame::layout()
 				// calc. needed vertical space
 				if (itemsInLine != 0)
 				{
-					if ((!AbsHasDrop) && (StartOfCol) && !(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing))
+					if ((!AbsHasDrop) && (StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 					{
 						double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						double currasce = 0;
@@ -1540,7 +1540,7 @@ void PageItem_TextFrame::layout()
 						curLine.y -= adj;
 						CurY -= adj;
 					}
-					else if ((!StartOfCol) && !(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+					else if ((!StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 					{
 						QChar ch = itemText.text(curLine.firstItem);
 						double firstasce = style.lineSpacing();
@@ -1755,7 +1755,7 @@ void PageItem_TextFrame::layout()
 		}
 		if (itemsInLine != 0)
 		{
-			if ((!AbsHasDrop) && (StartOfCol) && !(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing))
+			if ((!AbsHasDrop) && (StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 			{
 				double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				double currasce = 0;
@@ -1782,7 +1782,7 @@ void PageItem_TextFrame::layout()
 				curLine.y -= adj;
 				CurY -= adj;
 			}
-			else if ((!StartOfCol) && !(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+			else if ((!StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 			{
 				double firstasce = style.lineSpacing();
 				double currasce = 0;
