@@ -1290,10 +1290,13 @@ void PageItem_TextFrame::layout()
 							// end do
 //							qDebug(QString("endx @ %1").arg(EndX));
 
-							if (opticalMargins && a >= curLine.firstItem) {
-								double chs = itemText.charStyle(a).fontSize() * (itemText.charStyle(a).scaleH() / 1000.0);
-								QString chr = itemText.item(a)->glyph.more ? "-" : itemText.text(a,1);
-								double rightCorr = itemText.charStyle(a).font().realCharWidth(chr[0], chs / 10.0);
+							int b=a;
+							while (b > curLine.firstItem && isBreakingSpace(itemText.text(b)))
+								--b;
+							if (opticalMargins && b >= curLine.firstItem) {
+								double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
+								QString chr = itemText.item(b)->glyph.more ? "-" : itemText.text(b,1);
+								double rightCorr = itemText.charStyle(b).font().realCharWidth(chr[0], chs / 10.0);
 								if (QString("-,.`´'~").find(chr) >= 0
 									|| chr[0] == QChar(0x2018)
 									|| chr[0] == QChar(0x2019)
@@ -1316,8 +1319,8 @@ void PageItem_TextFrame::layout()
 										 )
 									rightCorr *= 0.5;
 								else {
-									rightCorr = itemText.charStyle(a).font().charWidth(chr[0], chs / 10.0);
-									rightCorr -= itemText.charStyle(a).font().charWidth(chr[0], chs / 10.0, QChar('.'));
+									rightCorr = itemText.charStyle(b).font().charWidth(chr[0], chs / 10.0);
+									rightCorr -= itemText.charStyle(b).font().charWidth(chr[0], chs / 10.0, QChar('.'));
 								}
 								EndX += rightCorr;
 //								qDebug(QString("orm %1 @ %2: %3 %4").arg(rightCorr).arg(a).arg(chr).arg(itemText.charStyle(a).effects() & ScStyle_HyphenationPossible? "smart" : ""));
@@ -1666,9 +1669,12 @@ void PageItem_TextFrame::layout()
 					 && (cl.contains(pf2.xForm(pt2))) 
 					 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
 				
-			if (opticalMargins && itemsInLine > 0) {
-				double chs = itemText.charStyle(a).fontSize() * (itemText.charStyle(a).scaleH() / 1000.0);
-				QString chr = itemText.item(a)->glyph.more ? "-" : itemText.text(a,1);
+			int b=a;
+			while (b > curLine.firstItem && isBreakingSpace(itemText.text(b)))
+				--b;
+			if (opticalMargins && b >= curLine.firstItem) {
+				double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
+				QString chr = itemText.item(b)->glyph.more ? "-" : itemText.text(b,1);
 				double rightCorr = itemText.charStyle(a).font().realCharWidth(chr[0], chs / 10.0);
 				if (QString("-,.`´'~").find(chr) >= 0
 					|| chr[0] == QChar(0x2018)
