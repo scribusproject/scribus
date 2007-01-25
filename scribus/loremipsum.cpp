@@ -44,9 +44,9 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "hyphenator.h"
 #include "util.h"
-#include "gtparagraphstyle.h"
-#include "gtframestyle.h"
-#include "gtwriter.h"
+// #include "gtparagraphstyle.h"
+// #include "gtframestyle.h"
+// #include "gtwriter.h"
 
 QString getLoremLocation(QString fname)
 {
@@ -234,7 +234,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 {
 	//CB: Avox please make insertText for text frame to nuke all this
 	// is it really applied?
-	bool done = false;
+// 	bool done = false;
 
 	for (uint i = 0; i < m_Doc->m_Selection->count(); ++i)
 	{
@@ -285,9 +285,9 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		if (m_Doc->docHyphenator->AutoCheck)
 			m_Doc->docHyphenator->slotHyphenate(currItem);
 	}
-	if (done)
-	{
+// 	if (done)
+// 	{
 		m_Doc->view()->updateContents();
 		m_Doc->changed();
-	}
+// 	}
 }
