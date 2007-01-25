@@ -1018,7 +1018,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		const ParagraphStyle& currPStyle(currItem->currentStyle());
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currPStyle.parent());
-		propertiesPalette->setCharStyle(currItem->currentCharStyle().displayName());
+		propertiesPalette->setCharStyle(currItem->currentCharStyle().name());
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
