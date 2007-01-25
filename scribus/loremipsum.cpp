@@ -99,7 +99,7 @@ QString LoremParser::createLorem(uint parCount)
 	QString lorem(loremIpsum[0]);
 	if (!loremIpsum.isEmpty())
 		for (uint i = 1; i < parCount + 1; ++i)
-			lorem += loremIpsum[rand()%loremIpsum.count()] + '\n';
+			lorem += loremIpsum[rand()%loremIpsum.count()] + SpecialChars::PARSEP;
 	return lorem.stripWhiteSpace();
 }
 
