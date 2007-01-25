@@ -3125,7 +3125,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	tsz = hl->fontSize();
 	if (hl->effects() & 2048)
 	{
-		if (pstyle.useBaselineGrid())
+		if (pstyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing())
 			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 		else
 		{
@@ -3489,7 +3489,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 /*	if (hl->effects() & ScStyle_DropCap)
 	{
 //		QString chstr; // dummy, FIXME: replace by glyph
-		if (pstyle.useBaselineGrid())
+		if (pstyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 		else
 		{

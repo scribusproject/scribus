@@ -3862,7 +3862,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	QString chstr = hl->ch;
 /*	if (hl->effects() & ScStyle_DropCap)
 	{
-		if (pstyle.useBaselineGrid())
+		if (pstyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 		else
 		{
