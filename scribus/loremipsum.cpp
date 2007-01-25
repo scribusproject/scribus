@@ -257,6 +257,8 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			qDebug("LoremManager::okButton_clicked() *lp == NULL");
 			return;
 		}
+
+#if 0		
 // 		Set up the gtWriter instance with the selected paragraph style
 		gtWriter* writer = new gtWriter(false, currItem);
 		if (writer != NULL)
@@ -270,16 +272,14 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 				done = true;
 				writer->append(lp->createLorem(paraCount));
 		}
-		delete writer;
-// 		Serializer *ss = new Serializer("");
-// 		if (ss != NULL)
-// 		{
-// 			done = true;
-// 			ss->Objekt = lp->createLorem(paraCount);
-// 			ss->GetText(currItem, -1, "", 0, false);
-// 			delete ss;
-// 		}
+		delete writer;		
+#endif
+		
+		// K.I.S.S.:
+		currItem->itemText.insertChars(0, lp->createLorem(paraCount));
+		
 		delete lp;
+
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (m_Doc->docHyphenator->AutoCheck)
