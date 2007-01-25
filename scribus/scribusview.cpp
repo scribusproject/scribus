@@ -8421,7 +8421,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextSize(currItem->itemText.charStyle(a).fontSize());
 				emit ItemTextUSval(currItem->itemText.charStyle(a).tracking());
 				emit ItemTextStil(currItem->itemText.charStyle(a).effects());
-				emit ItemTextAbs(findParagraphStyle(Doc, currItem->itemText.paragraphStyle(a)));
+				emit ItemTextAbs(currItem->itemText.paragraphStyle(a).alignment());
 				emit ItemTextFarben(currItem->itemText.charStyle(a).strokeColor(), currItem->itemText.charStyle(a).fillColor(), currItem->itemText.charStyle(a).strokeShade(), currItem->itemText.charStyle(a).fillShade());
 				return true;
 			}
@@ -8511,7 +8511,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextSize(Doc->currentStyle.charStyle().fontSize());
 				emit ItemTextUSval(Doc->currentStyle.charStyle().tracking());
 				emit ItemTextStil(Doc->currentStyle.charStyle().effects());
-				emit ItemTextAbs(findParagraphStyle(Doc, currItem->itemText.paragraphStyle(b)));
+				emit ItemTextAbs(currItem->itemText.paragraphStyle(b).alignment());
 				emit ItemTextBase(Doc->currentStyle.charStyle().baselineOffset());
 				return true;
 			}
