@@ -215,7 +215,6 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 		dumpIt(*dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle()), more + indent);
 }
 
-static const bool opticalMargins = false;
 
 static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
 {	
@@ -321,7 +320,11 @@ void PageItem_TextFrame::layout()
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		invalid = false;
-		dynamic_cast<PageItem_TextFrame*>(BackBox)->layout();
+		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
+		if (!prevInChain)
+			qDebug(QString("layout(): backBox=%1").arg((uint)BackBox));
+		else 
+			BackBox->layout();
 		return;
 	}
 	else if (!invalid && OnMasterPage.isEmpty()) {
@@ -343,6 +346,7 @@ void PageItem_TextFrame::layout()
 	QString chstr;
 	ScText *hl;
 	ParagraphStyle style;
+	bool opticalMargins = false;
 	
 	int HyphenCount = 0;
 	bool outs = false;
@@ -452,9 +456,19 @@ void PageItem_TextFrame::layout()
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
 		{
 			hl = itemText.item(a);
-			style = itemText.paragraphStyle(a);
+			if (a > 0 && itemText.text(a-1) == SpecialChars::PARSEP)
+				style = itemText.paragraphStyle(a);
+			if (itemsInLine == 0)
+				opticalMargins = style.opticalMargins();
+			
 //			qDebug(QString("style pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 			const CharStyle& charStyle = itemText.charStyle(a);
+			if (!charStyle.parent().isEmpty())
+			{
+//				qDebug(QString("charstyle pos %1: %2 (%3 %4 %5 %6 %7 %8 %9)").arg(a).arg(charStyle.parent())
+//					   .arg((uint)charStyle.parentStyle()).arg(charStyle.font().scName()).arg(charStyle.fontSize())
+//					   .arg(charStyle.fillColor()).arg(charStyle.strokeColor()).arg(charStyle.parentStyle()->name()).arg((uint)charStyle.parentStyle()->parentStyle()));
+			}				
 //			qDebug(QString("charstyle pos %1: %2 (%3)").arg(a).arg(charStyle.asString()).arg(charStyle.fontSize()));
 //			qDebug(QString("style @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
@@ -1354,7 +1368,8 @@ void PageItem_TextFrame::layout()
 					}
 					else if (a > curLine.firstItem) // no break position
 					{
-						a--;
+						--a;
+						/*--itemsInLine;*/
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
 //						qDebug(QString("style no break pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
@@ -1366,6 +1381,9 @@ void PageItem_TextFrame::layout()
 //						BuPos--;
 					}
 					else {
+					/*	--a;
+						--itemsInLine;
+						*/
 //						qDebug(QString("style nb0 @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //							   .arg(a));
@@ -1588,7 +1606,9 @@ void PageItem_TextFrame::layout()
 				}
 				*/
 //				LiList.clear();
-				if (itemsInLine > 0)
+				if (curLine.firstItem > curLine.lastItem)
+					qDebug(QString("layout: empty line %1 - %2").arg(curLine.firstItem).arg(curLine.lastItem));
+				else if (itemsInLine > 0)
 					itemText.appendLine(curLine);
 				itemsInLine = 0;
 				curLine.firstItem = a+1;
@@ -1625,7 +1645,7 @@ void PageItem_TextFrame::layout()
 			}
 		}
 // end of itemText
-		uint a = itemText.length()-1;
+		int a = itemText.length()-1;
 		hl = a >=0 ? itemText.item(a) : NULL;
 		curLine.lastItem = a;
 		if (style.alignment() != 0)
@@ -1856,9 +1876,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	int actStrokeShade = -1;
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
-	QValueList<ParagraphStyle::TabRecord> tTabValues;
+//	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	double desc, asce, tabDist;
-	tTabValues.clear();
+//	tTabValues.clear();
 	p->save();
 	pf2.begin(view->viewport());
 	QRect e2;
@@ -1927,8 +1947,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			{
 				hl = itemText.item(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
-				const ParagraphStyle& style(itemText.paragraphStyle(a));
-				tTabValues = style.tabValues();
+//				tTabValues = style.tabValues();
 				double chs = charStyle.fontSize() * hl->glyph.scaleV;
 				bool selected = itemText.selected(a);
 				if (charStyle.effects() & ScStyle_StartOfLine)
@@ -1953,6 +1972,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				if (charStyle.effects() & ScStyle_DropCap)
 				{
+					const ParagraphStyle& style(itemText.paragraphStyle(a));
 					if (style.useBaselineGrid())
 						chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
 					else

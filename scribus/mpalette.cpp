@@ -2446,7 +2446,7 @@ void Mpalette::setOpticalMargins(int i)
 {
 	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	doc->itemSelection_SetOpticalMargins(i);
+	doc->itemSelection_SetOpticalMargins(i==0 ? ParagraphStyle::OM_None : ParagraphStyle::OM_Default);
 }
 
 

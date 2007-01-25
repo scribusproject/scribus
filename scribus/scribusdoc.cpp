@@ -5165,18 +5165,9 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 
 void ScribusDoc::itemSelection_SetOpticalMargins(int i, Selection* customSelection)
 {
-	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
-	if (selectedItemCount == 0)
-		return;
-// 	for (uint i = 0; i < selectedItemCount; ++i)
-// 	{
-// 
-// 	}
-	if (selectedItemCount>1)
-		emit updateContents();
-	changed();
+	ParagraphStyle newStyle;
+	newStyle.setOpticalMargins(i);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
 void ScribusDoc::itemSelection_SetTracking(int kern, Selection* customSelection)
