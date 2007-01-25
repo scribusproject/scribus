@@ -4734,6 +4734,7 @@ void ScribusDoc::ChLineWidth(double w)
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
+	changed();
 }
 
 void ScribusDoc::ChLineArt(Qt::PenStyle w)
@@ -4752,6 +4753,7 @@ void ScribusDoc::ChLineArt(Qt::PenStyle w)
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
+	changed();
 }
 
 void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
@@ -4770,6 +4772,7 @@ void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
+	changed();
 }
 
 void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
@@ -4788,6 +4791,7 @@ void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
 		if (selectedItemCount > 1)
 			undoManager->commit();
 	}
+	changed();
 }
 
 void ScribusDoc::itemSelection_SetLineSpacing(double w, Selection* customSelection)
@@ -5140,6 +5144,21 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 	}
 }
 
+void ScribusDoc::itemSelection_SetOpticalMargins(int i, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+// 	for (uint i = 0; i < selectedItemCount; ++i)
+// 	{
+// 
+// 	}
+	if (selectedItemCount>1)
+		emit updateContents();
+	changed();
+}
 
 void ScribusDoc::itemSelection_SetTracking(int kern, Selection* customSelection)
 {
@@ -5245,6 +5264,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
+	changed();
 	emit updateContents();
 }
 
@@ -5294,6 +5314,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
+	changed();
 	emit updateContents();
 }
 
@@ -5341,6 +5362,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
+	changed();
 	emit updateContents();
 }
 
@@ -5390,6 +5412,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
+	changed();
 	emit updateContents();
 }
 

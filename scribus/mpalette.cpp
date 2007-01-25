@@ -2174,7 +2174,6 @@ void Mpalette::setLspMode(int id)
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->indexOf(id));
-		emit DocChanged();
 	}
 }
 
@@ -2447,7 +2446,7 @@ void Mpalette::setOpticalMargins(int i)
 {
 	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
-// 	qDebug(QString("%1").arg(i));
+	doc->itemSelection_SetOpticalMargins(i);
 }
 
 
@@ -2467,7 +2466,7 @@ void Mpalette::NewTScaleV()
 	{
 		doc->itemSelection_SetScaleV(qRound(ChScaleV->value() * 10));
 //		doc->currentStyle.charStyle().setScaleV(qRound(ChScaleV->value() * 10));
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -2477,7 +2476,7 @@ void Mpalette::NewTBase()
 	{
 		doc->itemSelection_SetBaselineOffset(qRound(ChBase->value() * 10));
 //		doc->currentStyle.charStyle().setBaselineOffset(qRound(ChBase->value() * 10));
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -2507,7 +2506,7 @@ void Mpalette::NewTScale()
 	{
 		doc->itemSelection_SetScaleH(qRound(ChScale->value() * 10));
 //		doc->currentStyle.charStyle().setScaleH(qRound(ChScale->value() * 10));
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -2902,7 +2901,7 @@ void Mpalette::NewLsp()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetLineSpacing(LineSp->value());
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -2965,7 +2964,7 @@ void Mpalette::NewSize()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetFontSize(qRound(Size->value()*10.0));
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -2976,7 +2975,7 @@ void Mpalette::NewExtra()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetTracking(qRound(Extra->value() * 10.0));
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3057,7 +3056,7 @@ void Mpalette::NewLS()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ChLineWidth(LSize->value() / Umrech);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3103,7 +3102,7 @@ void Mpalette::NewLSty()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ChLineArt(c);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3157,7 +3156,7 @@ void Mpalette::NewLJoin()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ChLineJoin(c);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3181,7 +3180,7 @@ void Mpalette::NewLEnd()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->ChLineEnd(c);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3272,7 +3271,7 @@ void Mpalette::NewAli(int a)
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetAlignment(a);
-		emit DocChanged();
+// 		emit DocChanged();
 
 //old:		if (findParagraphStyle(doc, doc->currentStyle) < 5)
 //			emit NewAlignment(a);
@@ -3295,7 +3294,7 @@ void Mpalette::newShadowOffs()
 		doc->itemSelection_SetShadowOffsets(x, y);
 //		doc->currentStyle.charStyle().setShadowXOffset(x);
 //		doc->currentStyle.charStyle().setShadowYOffset(y);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3320,7 +3319,7 @@ void Mpalette::newUnderline()
 		doc->itemSelection_SetUnderline(x, y);
 //		doc->currentStyle.charStyle().setUnderlineOffset(x);
 //		doc->currentStyle.charStyle().setUnderlineWidth(y);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3345,7 +3344,7 @@ void Mpalette::newStrike()
 		doc->itemSelection_SetStrikethru(x, y);
 //		doc->currentStyle.charStyle().setStrikethruOffset(x);
 //		doc->currentStyle.charStyle().setStrikethruWidth(y);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3377,7 +3376,7 @@ void Mpalette::newOutlineW()
 	{
 		doc->itemSelection_SetOutlineWidth(x);
 //		doc->currentStyle.charStyle().setOutlineWidth(x);
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3828,7 +3827,7 @@ void Mpalette::newTxtFill()
 	{
 		doc->itemSelection_SetFillColor(TxFill->currentText());
 //		doc->currentStyle.charStyle().setFillColor(TxFill->currentText());
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3838,7 +3837,7 @@ void Mpalette::newTxtStroke()
 	{
 		doc->itemSelection_SetStrokeColor(TxStroke->currentText());
 //		doc->currentStyle.charStyle().setStrokeColor(TxStroke->currentText());
-		emit DocChanged();
+// 		emit DocChanged();
 	}
 }
 
@@ -3859,7 +3858,7 @@ void Mpalette::setActShade()
 		doc->itemSelection_SetStrokeShade(b);
 //		doc->currentStyle.charStyle().setStrokeShade(b);
 	}
-	emit DocChanged();
+// 	emit DocChanged();
 }
 
 void Mpalette::setActFarben(QString p, QString b, int shp, int shb)

@@ -744,6 +744,7 @@ public:
 	void itemSelection_SetUnderline(int pos, int wid, Selection* customSelection=0);
 	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection=0);
 	void itemSelection_SetEffects(int s, Selection* customSelection=0);
+	void itemSelection_SetOpticalMargins(int i, Selection* customSelection=0);
 	
 //	void chAbStyle(PageItem *currItem, int s);
 
