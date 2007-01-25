@@ -18,10 +18,8 @@
 
 #include "style.h"
 
-ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(NULL), cstyle()
+ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(NULL), cstyleBaseIsInh(true), cstyle()
 {
-	setBase(NULL);
-	cstyle.setBase(NULL);
 	setParent("");
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(defaultStyle()->base())));
@@ -33,10 +31,12 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(NULL), cstyle()
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(NULL), cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(NULL), cstyleBaseIsInh(other.cstyleBaseIsInh), cstyle(other.charStyle())
 {
-	setBase(NULL);
-	cstyle.setBase(NULL);
+	if (cstyleBaseIsInh)
+		cstyle.setBase(NULL);
+	else
+		cstyle.setBase(other.charStyle().base());
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 	other.validate();
@@ -60,7 +60,7 @@ QString ParagraphStyle::displayName() const
 	//	else if ( inheritsAll() )
 	//		return parent()->displayName();
 	else 
-		return (parentStyle())->displayName() + "+";
+		return parentStyle()->displayName() + "+";
 }
 
 
@@ -69,7 +69,7 @@ bool ParagraphStyle::equiv(const Style& other) const
 	other.validate();
 	const ParagraphStyle* oth = dynamic_cast<const ParagraphStyle*> ( & other );
 	return  oth &&
-		parent() == oth->parent() 
+		parent() == oth->parent() && cstyle.equiv(oth->charStyle())
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		&& (inh_##attr_NAME == oth->inh_##attr_NAME) \
 		&& (inh_##attr_NAME || m_##attr_NAME == oth->m_##attr_NAME)
@@ -86,14 +86,20 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 
 	cstyle = other.charStyle();
-	cstyleBase = other.cstyleBase;
 
-	setBase(NULL);
 	// we dont want cstyleBase to point to other's charstyle...
-	cstyle.setBase(NULL);
 	cstyleBase.setDefaultStyle( &cstyle );
-	cstyleBase.invalidate();
-
+	
+	if (cstyleBaseIsInh)
+	{
+		const ParagraphStyle * parent = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
+		cstyle.setBase(parent ? parent->charStyleBase() : NULL);
+	}
+	else
+	{
+		cstyle.setBase(other.charStyle().base());
+	}
+	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -103,15 +109,38 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 }
 
 
+void ParagraphStyle::setBase(const StyleBase* base)
+{
+	Style::setBase(base);
+//	qDebug(QString("ParagraphStyle::setBase(%1) parent=%2").arg((unsigned long int)base).arg((unsigned long int)oth));
+	repairImplicitCharStyleInheritance();
+}
+
+void ParagraphStyle::repairImplicitCharStyleInheritance()
+{
+	if (cstyleBaseIsInh) {
+		const ParagraphStyle * newParent = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
+		cstyle.setBase(newParent ? newParent->charStyleBase() : NULL);
+	}
+}
+
+
+void ParagraphStyle::breakImplicitCharStyleInheritance(bool val)
+{ 
+	cstyleBaseIsInh = !val;
+	repairImplicitCharStyleInheritance();
+}
 
 void ParagraphStyle::update(const StyleBase* base)
 {
 	Style::update(base);
 	assert ( &cstyleBase != cstyle.base());
+
+	repairImplicitCharStyleInheritance();
+
 	const ParagraphStyle * oth = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
 //	qDebug(QString("ParagraphStyle::update(%1) parent=%2").arg((unsigned long int)base).arg((unsigned long int)oth));
 	if (oth) {
-		cstyle.setBase(oth->charStyleBase());
 		assert ( &cstyleBase != cstyle.base());
 		cstyle.validate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \

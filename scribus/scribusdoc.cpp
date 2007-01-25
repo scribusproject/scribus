@@ -390,10 +390,13 @@ void ScribusDoc::init()
 	
 	docParagraphStyles.create(pstyle);
 	docParagraphStyles.makeDefault( &(docParagraphStyles[0]) );
-
+	
 	docCharStyles.create(cstyle);
 	docCharStyles.makeDefault( &(docCharStyles[0]) );
+	
+	docParagraphStyles[0].breakImplicitCharStyleInheritance();
 	docParagraphStyles[0].charStyle().setBase( & docCharStyles );
+	docParagraphStyles[0].charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
 
 	currentStyle = pstyle;
 	
@@ -801,8 +804,10 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 	{
 		// ... as parent
 		const QString& parent(docParagraphStyles[i].parent());
-		if (newNameForOld.contains(parent))
+		if (newNameForOld.contains(parent)) {
 			docParagraphStyles[i].setParent(newNameForOld[parent]);
+			docParagraphStyles[i].repairImplicitCharStyleInheritance();
+		}
 		// ... as name
 		if (newNameForOld.contains(docParagraphStyles[i].name()))
 			docParagraphStyles.remove(i);
@@ -864,6 +869,20 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 		}
 		if (deletion.count() > 0)
 			replaceStyles(deletion);
+	}
+	// repair charstyle base:
+	for (uint i=0; i < docParagraphStyles.count(); ++i)
+	{
+		ParagraphStyle& sty(docParagraphStyles[i]);
+		if (docParagraphStyles.isDefault(sty))
+		{
+			sty.breakImplicitCharStyleInheritance(true);
+			sty.charStyle().setBase( & docCharStyles );
+			sty.charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
+		}
+		else {
+			sty.breakImplicitCharStyleInheritance(false);
+		}
 	}
 }
 

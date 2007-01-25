@@ -16,7 +16,7 @@
 
 //Syntax: ATTRDEF( datatype, gettername, name, defaultvalue)
 
-ATTRDEF(int, fontSize, FontSize, 10)
+ATTRDEF(int, fontSize, FontSize, 200)
 ATTRDEF(int, fillShade, FillShade, 100)
 ATTRDEF(int, strokeShade, StrokeShade, 100)
 ATTRDEF(StyleFlag, effects, Effects, ScStyle_Default)
@@ -31,8 +31,8 @@ ATTRDEF(int, underlineWidth, UnderlineWidth, 0)
 ATTRDEF(int, strikethruOffset, StrikethruOffset, 0)
 ATTRDEF(int, strikethruWidth, StrikethruWidth, 0)
 ATTRDEF(int, tracking, Tracking, 0)
-ATTRDEF(QString, fillColor, FillColor, "black")
-ATTRDEF(QString, strokeColor, StrokeColor, "black")
+ATTRDEF(QString, fillColor, FillColor, "undef")
+ATTRDEF(QString, strokeColor, StrokeColor, "Black")
 ATTRDEF(QString, language, Language, "")
 ATTRDEF(ScFace, font, Font, ScFace::none())
 

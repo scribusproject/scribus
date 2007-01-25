@@ -109,8 +109,8 @@ public:
 	Style& operator=(const Style& o) 
 	{ //assert(typeinfo() == o.typeinfo()); 
 		m_name = o.m_name; 
-		m_base = o.m_base; 
-		m_baseversion = o.m_baseversion; 
+//		m_base = o.m_base; 
+		m_baseversion = -1; 
 		m_parent = o.m_parent;
 		m_shortcut = o.m_shortcut;
 		return *this;
@@ -137,44 +137,22 @@ public:
 	QString parent() const           { return m_parent; }
 	void setParent(const QString& p) { if (m_parent != p) m_baseversion = -1; m_parent = p; }
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
-	const Style* parentStyle() const { //qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_base),16));
-		const Style * par = m_base ? m_base->resolve(m_parent) : NULL;
-		if (par == this) return NULL; else return par;
-	}
+	const Style* parentStyle() const;
 	
 	
-	virtual void setBase(const StyleBase* base)  { 
-		if (m_base != base) {
-			m_base = base;
-			m_baseversion = -1;
-			assert( !m_base || m_base->checkConsistency() );
-		}
-	  //qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
-	}
+	virtual void setBase(const StyleBase* base);
 	const StyleBase* base() const        { return m_base; }
 	
 	/**
 		sets a new StyleBase if b is not NULL and then uses the StyleBase
 		to set all inherited attributes to their valid value.
 	 */
-	virtual void update(const StyleBase* b = NULL) 
-	{
-		if (b)
-			m_base = b;
-		if (m_base)
-			m_baseversion = m_base->version(); 
-	}
+	virtual void update(const StyleBase* b = NULL);
 	
 	/**
 		Checks if this Style needs an update
 	 */
-	void validate() const
-	{ 
-		if (m_base && m_baseversion != m_base->version()) {
-			const_cast<Style*>(this)->update(m_base); 
-			assert( m_base->checkConsistency() );
-		}
-	}
+	void validate() const;
 
 	QString shortcut() const { return m_shortcut; }
 	void setShortcut(const QString &shortcut) { m_shortcut = shortcut; }
@@ -224,15 +202,7 @@ public:
 class StyleBaseProxy: public StyleBase 
 {
 public:
-	const Style* resolve(const QString& name) const {
-		const StyleBase* base = m_default->base();
-		if (name.isEmpty() || ! base)
-			return m_default;
-		else if (this == base)
-			return NULL;
-		else
-			return base->resolve(name);
-	}
+	const Style* resolve(const QString& name) const;
 	
 	StyleBaseProxy(const Style* style) 
 	: StyleBase(), m_default(style) {

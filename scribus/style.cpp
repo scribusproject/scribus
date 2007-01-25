@@ -17,7 +17,7 @@
 #include "style.h"
 
 void StyleBase::invalidate()
-{ 
+{
 	++m_version; 
 	if (m_cnt > 0)          // activate() can be slow even if there's nothing to signal
 		m_sig.activate(); 
@@ -39,3 +39,55 @@ bool StyleBase::disconnect(const QObject* receiver, const char *member ) const
 	return result;
 }
 
+
+void Style::setBase(const StyleBase* base)
+{ 
+	if (m_base != base) {
+		m_base = base;
+		m_baseversion = -1;
+		assert( !m_base || m_base->checkConsistency() );
+	}
+	//qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+}
+
+
+void Style::update(const StyleBase* b)
+{
+	if (b)
+		m_base = b;
+	if (m_base)
+		m_baseversion = m_base->version(); 
+}
+
+void Style::validate() const
+{ 
+	if (m_base && m_baseversion != m_base->version()) {
+		const_cast<Style*>(this)->update(m_base); 
+		assert( m_base->checkConsistency() );
+	}
+}
+
+
+const Style* Style::parentStyle() const 
+{ 
+	//qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_base),16));
+	const Style * par = m_base ? m_base->resolve(m_parent) : NULL;
+	if (par == this) return NULL; else return par;
+}
+
+
+const Style* StyleBaseProxy::resolve(const QString& name) const
+{
+	const StyleBase* base = m_default->base();
+//	if (!name.isEmpty())
+//		qDebug(QString("resolve %4 %3 -%1- %2").arg(name)
+//			   .arg(reinterpret_cast<uint>(base),16).arg(reinterpret_cast<uint>(this),16)
+//			   .arg(m_default->name()));
+
+	if (name.isEmpty() || ! base)
+		return m_default;
+	else if (this == base)
+		return NULL;
+	else
+		return base->resolve(name);
+}

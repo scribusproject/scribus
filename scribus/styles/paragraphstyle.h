@@ -65,6 +65,7 @@ public:
 
 	QString displayName() const;
 
+	void setBase(const StyleBase* base);
 	void update(const StyleBase*);
 	
 	bool equiv(const Style& other) const;
@@ -78,7 +79,15 @@ public:
 	const StyleBase* charStyleBase() const { return & cstyleBase; }
 	CharStyle & charStyle() { return cstyle; }
 	const CharStyle& charStyle() const { return cstyle; }
-	
+	/** Normally the base for charStyle() is parentStyle()->charStyleBase()
+		Use this method to break that relation and set charStyle()'s base manually
+	*/
+	void breakImplicitCharStyleInheritance(bool val = true);
+	/** used internally to establish the implicit relation 
+		charStyle().base() == parentStyle()->charStyleBase()
+		Done implicitly in setBase(), update(), operator= and breakImplicitCharStyleInheritance()
+	*/
+	void repairImplicitCharStyleInheritance();
 	
 	/** getter: validates and returns the attribute's value */
 	
@@ -121,9 +130,10 @@ public:
 	
 private:
 		
-		// member declarations:
-		StyleBaseProxy cstyleBase;
-		CharStyle cstyle;
+	// member declarations:
+	StyleBaseProxy cstyleBase;
+	bool cstyleBaseIsInh;
+	CharStyle cstyle;
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		attr_TYPE m_##attr_NAME; \
