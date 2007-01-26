@@ -3553,7 +3553,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		chstr = "-";
 	}
 	
-	if (glyph == 0 || glyph >= ScFace::CONTROL_GLYPHS)
+	if (glyph >= ScFace::CONTROL_GLYPHS)
 		return;
 
 	if (((cstyle.effects() & ScStyle_Underline)) //FIXME && (chstr != QChar(13)))  
@@ -3600,7 +3600,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	ScFace::FontType ftype = cstyle.font().type();
 	if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
 	{
-		if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')))
+		if (glyph == 0 || glyph != cstyle.font().char2CMap(QChar(' ')))
 		{
 			PS_save();
 			if (ite->reversed())
@@ -3661,7 +3661,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		}
 		PS_restore();
 	}
-	if ((cstyle.effects() & ScStyle_Outline) )//&& (chstr != QChar(13)))
+	if ((cstyle.effects() & ScStyle_Outline) || glyph == 0)//&& (chstr != QChar(13)))
 	{
 //		if (cstyle.font().canRender(chstr[0]))
 		{

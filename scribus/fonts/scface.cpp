@@ -75,6 +75,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
 	else if (gl == 0) {
+		sz *= 10;
 		FPointArray sq;
 		sq.addQuadPoint(0,0,0,0,sz,0,sz,0);
 		sq.addQuadPoint(sz,0,sz,0,sz,sz,sz,sz);
