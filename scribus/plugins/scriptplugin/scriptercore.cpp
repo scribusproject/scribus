@@ -296,8 +296,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
-		QString cm = QString("from __future__ import division\n");
-		cm        += QString("import sys\n");
+		//QString cm = QString("from __future__ import division\n"); removed due #5252 PV
+		QString cm = QString("import sys\n");
 		cm        += QString("import cStringIO\n");
 		/* Implementation of the help() in pydoc.py reads some OS variables
 		 * for output settings. I use ugly hack to stop freezing calling help()
