@@ -182,7 +182,7 @@ signals:
 	void toggledData(bool, int);
 	void toggledData(bool, double);
 	void toggledData(bool, QString);
-	void activatedUnicodeShortcut(QString, int);
+	void activatedUnicodeShortcut(const QString&, int);
 	
 protected:
 	void initScrAction();

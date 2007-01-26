@@ -947,7 +947,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	//Ligatures
 	*actionNamesList << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
 	for ( QStringList::Iterator it = actionNamesList->begin(); it != actionNamesList->end(); ++it )
-		connect( (*actionMap)[*it], SIGNAL(activatedUnicodeShortcut(QString, int)), actionParent, SLOT(specialActionKeyEvent(QString, int)) );
+		connect( (*actionMap)[*it], SIGNAL(activatedUnicodeShortcut(const QString&, int)), actionParent, SLOT(specialActionKeyEvent(const QString&, int)) );
 }
 
 void ActionManager::initSpecialActions()

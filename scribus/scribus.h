@@ -241,7 +241,7 @@ public:
 
 public slots:
 	void languageChange();
-	void specialActionKeyEvent(QString actionName, int unicodevalue);
+	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
 	void newView();
 	void ToggleStickyTools();
 	void ToggleAllGuides();

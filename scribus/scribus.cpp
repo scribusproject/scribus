@@ -1063,7 +1063,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 
 //Special keys assigned to actions are stolen by the action and not passed to
 //keyPressEvent so process them here.
-void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodevalue)
+void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int unicodevalue)
 {
 	if (HaveDoc)
 	{
