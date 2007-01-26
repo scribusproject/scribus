@@ -405,7 +405,7 @@ public slots:
 	void languageChange();
 
 protected slots:
-	void specialActionKeyEvent(/*const QString& actionName, */int /*unicodevalue*/);
+	void specialActionKeyEvent(const QString& /*actionName*/, int unicodevalue);
 
 signals:
 	void DocChanged();
