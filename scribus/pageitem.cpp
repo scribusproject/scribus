@@ -1859,8 +1859,8 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			}
 			if (glyph == 0)
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 2, SolidLine, FlatCap, MiterJoin);
-				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
+				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 1, SolidLine, FlatCap, MiterJoin);
+				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
 				p->strokePath();
 			}
 			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
