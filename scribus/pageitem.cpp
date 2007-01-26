@@ -669,6 +669,10 @@ void PageItem::link(PageItem* nxt)
 {
 	assert( !nextInChain() );
 	assert( !nxt->prevInChain() );
+	for (PageItem* ff=nxt; ff; ff=ff->nextInChain())
+	{
+		assert (ff != this);
+	}
 	itemText.append(nxt->itemText);
 	nxt->itemText = itemText;
 	NextBox = nxt;
@@ -1740,6 +1744,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		glyph = style.font().char2CMap(QChar('-'));
 	
 	if (glyph >= ScFace::CONTROL_GLYPHS) {
+//		qDebug(QString("drawGlyphs: skipping %1").arg(glyph));
 		// all those are empty
 		if (glyphs.more)
 		{
@@ -1786,6 +1791,10 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		}
 		if (gly.size() > 3)
 		{
+			if (glyph == 0)
+			{
+//				qDebug(QString("glyph 0: (%1,%2) * %3 %4 + %5").arg(glyphs.xoffset).arg(glyphs.yoffset).arg(glyphs.scaleH).arg(glyphs.scaleV).arg(glyphs.xadvance));
+			}
 #ifdef HAVE_CAIRO
 			p->save();
 			p->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
@@ -1850,7 +1859,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			}
 			if (glyph == 0)
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 1, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 2, SolidLine, FlatCap, MiterJoin);
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
 				p->strokePath();
 			}
@@ -1899,6 +1908,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 #ifdef HAVE_CAIRO
 			p->restore();
 #endif
+		}
+		else {
+//			qDebug(QString("drawGlyphs: empty glyph %1").arg(glyph));
 		}
 		if (style.effects() & ScStyle_Strikethrough)
 		{
