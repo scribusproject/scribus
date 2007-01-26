@@ -6258,8 +6258,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&bb) && (bb->asTextFrame()))
 			{
-				if ( //(bb->itemText.length() == 0) && 
-					 (bb->nextInChain() == 0) && (bb->prevInChain() == 0) && (currItem != bb))
+				PageItem* bblast = bb;
+				while (bblast->nextInChain())
+					bblast = bblast->nextInChain();
+				
+				if (currItem->nextInChain() == 0 && bb->prevInChain() == 0 && currItem != bblast)
 				{
 					currItem->link(bb);
 					// CB We need to do this because we draw in the order of the item list
@@ -6274,12 +6277,19 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					emit DocChanged();
 					Doc->ElemToLink = bb;
 				}
+				else if (currItem == bblast)
+				{
+					//CB Mouse is released when this messagebox takes focus
+					m_MouseButtonPressed = false;
+					QMessageBox::warning(this, tr("Linking Text Frames"),
+											 "<qt>" + tr("You are trying to link a frame to itself.") + "</qt>");
+				}
 				else
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_MouseButtonPressed = false;
 					QMessageBox::warning(this, tr("Linking Text Frames"),
-											 "<qt>" + tr("You are trying to link to a filled frame, or a frame to itself.") + "</qt>");
+										 "<qt>" + tr("You are trying to link a frame which is already linked.") + "</qt>");
 				}
 			}
 			else
