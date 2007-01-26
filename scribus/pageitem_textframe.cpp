@@ -665,7 +665,7 @@ void PageItem_TextFrame::layout()
 					asce = charStyle.font().realCharHeight(chstr[0], chsd / 10.0);
 //					qDebug(QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]));
 					hl->glyph.scaleH /= hl->glyph.scaleV;
-					hl->glyph.scaleV = (asce / charStyle.font().realCharAscent(chstr[0], charStyle.fontSize() / 10.0));
+					hl->glyph.scaleV = (asce / charStyle.font().realCharHeight(chstr[0], charStyle.fontSize() / 10.0));
 					hl->glyph.scaleH *= hl->glyph.scaleV;
 				}
 				hl->glyph.xadvance = wide;
@@ -1961,14 +1961,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			{
 				hl = itemText.item(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
-//				tTabValues = style.tabValues();
 				double chs = charStyle.fontSize() * hl->glyph.scaleV;
 				bool selected = itemText.selected(a);
 				if (charStyle.effects() & ScStyle_StartOfLine)
 					tabCc = 0;
 				chstr = hl->ch;
-				if (hl->glyph.glyph == 0)
-					continue;
 				actFill = charStyle.fillColor();
 				actFillShade = charStyle.fillShade();
 				if (actFill != CommonStrings::None)
@@ -2000,36 +1997,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 					}
 				}
-#if 0
-				// tabs & fill chars
-				if ((chstr == SpecialChars::TAB) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
-				{
-					if (charStyle.strokeColor() != CommonStrings::None)
-					{
-						SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
-						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-					}
-					QChar tabFillChar(tTabValues[tabCc].tabFillChar);
-					double wt = charStyle.font().charWidth(tabFillChar, chs / 10.0);
-					int coun = static_cast<int>((CurX - tabDist) / wt);
-					double sPos = tabDist - CurX + hl->glyph.xoffset + 1;
-					desc = -charStyle.font().descent(chs / 10.0);
-					asce = charStyle.font().ascent(chs / 10.0);
-					GlyphLayout tglyph;
-					tglyph.glyph = charStyle.font().char2CMap(tabFillChar);
-					tglyph.yoffset = hl->glyph.yoffset;
-					tglyph.scaleV = tglyph.scaleH = chs / charStyle.fontSize();
-					tglyph.xadvance = wt;
-					p->save();
-					for (int cx = 0; cx < coun; ++cx)
-					{
-						tglyph.xoffset =  sPos + wt * cx;
-						if (e2.intersects(pf2.xForm(QRect(qRound(CurX + tglyph.xoffset),qRound(ls.y + tglyph.yoffset-asce), qRound(tglyph.xadvance+1), qRound(asce+desc)))))
-							drawGlyphs(p, charStyle, tglyph);
-					}
-					p->restore();
-				}
-#endif
 				if (chstr[0] == SpecialChars::TAB)
 					tabCc++;
 				// paint selection
