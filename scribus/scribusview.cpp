@@ -8043,7 +8043,8 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 		FPoint h(0, bb->height(), bb->xPos(), bb->yPos(), bb->rotation(), 1, 1);
 		h -= g;
 		FPoint h1(h.x(), h.y(), 0, 0, 0, scx, scy);
-		bb->setLineWidth(QMAX(bb->lineWidth()*((scx+scy)/2), 0.01));
+		if (bb->Groups.count() != 0)				// change the LineWidth only when the item is within a real Group
+			bb->setLineWidth(QMAX(bb->lineWidth()*((scx+scy)/2), 0.01));
 		if (bb->itemType() == PageItem::Line)
 		{
 			bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
