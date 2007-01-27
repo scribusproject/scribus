@@ -8061,12 +8061,13 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 	double oldx = currItem->xPos();
 	double oldy = currItem->yPos();
 	currItem->moveBy(newX, newY);
-	if ((useRaster) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
+/*	if ((useRaster) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
 	{
-		currItem->setXYPos(qRound(currItem->xPos() / guidesSettings.minorGrid) * guidesSettings.minorGrid, qRound(currItem->yPos() / guidesSettings.minorGrid) * guidesSettings.minorGrid);
+		FPoint np = ApplyGridF(FPoint(currItem->xPos(), currItem->yPos()));
+		currItem->setXYPos(np.x(), np.y());
 	}
 	if ((SnapGuides) && (!m_View->operItemMoving) && (appMode == modeNormal) && (!EditClip) && (!fromMP))
-		SnapToGuides(currItem);
+		SnapToGuides(currItem); */
 	if ((currItem->xPos() != oldx) || (currItem->yPos() != oldy))
 		retw = true;
 	if (!fromMP)

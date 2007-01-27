@@ -3257,7 +3257,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						npx = FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 					}
 					else
-						npx = Doc->ApplyGridF(FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true));
+					{
+						npx = Doc->ApplyGridF(FPoint(nx, ny));
+						npx = FPoint(npx.x(), npx.y(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
+					}
 					if ((frameResizeHandle == 1) && !(currItem->asLine()) && (Doc->SnapGuides))
 						Doc->SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = Doc->SnapGuides;
@@ -4336,7 +4339,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 {
 	int newX, newY;
-	double nx, ny, dx, dy;
+	double nx, ny;
 	uint a;
 	PageItem *currItem;
 	QPoint np, np2, mop;
@@ -4870,10 +4873,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								{
 									if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
 									{
-										dx = currItem->xPos() - int (currItem->xPos() / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid;
-										dy = currItem->yPos() - int (currItem->yPos() / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid;
-										nx = (qRound(np.x() / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid - dx);
-										ny = (qRound(np.y() / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid - dy);
+										nx += currItem->xPos();
+										ny += currItem->yPos();
+										npf = Doc->ApplyGridF(FPoint(nx, ny));
+										nx = npf.x() - currItem->xPos();
+										ny = npf.y() - currItem->yPos();
 									}
 									if (Doc->SnapGuides)
 									{
