@@ -7412,9 +7412,15 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 	currItem->ClipEdited = true;
 	FPointArray Clip;
 	if (EditContour)
+	{
+		MarkClip(currItem, currItem->ContourLine);
 		Clip = currItem->ContourLine.copy();
+	}
 	else
+	{
+		MarkClip(currItem, currItem->PoLine);
 		Clip = currItem->PoLine.copy();
+	}
 	currItem->FrameType = 3;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
@@ -7444,7 +7450,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 	{
 		if ((np.x() < 0) && (!EditContour))
 		{
-			Doc->SizeItem(currItem->width() - np.x(), currItem->height(), currItem->ItemNr, false, false);
+			Doc->SizeItem(currItem->width() - np.x(), currItem->height(), currItem->ItemNr, false, false, false);
 			if (currItem->rotation() != 0)
 			{
 				FPoint npv(np.x(), 0);
@@ -7459,7 +7465,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		}
 		if ((np.y() < 0) && (!EditContour))
 		{
-			Doc->SizeItem(currItem->width(), currItem->height() - np.y(), currItem->ItemNr, false, false);
+			Doc->SizeItem(currItem->width(), currItem->height() - np.y(), currItem->ItemNr, false, false, false);
 			if (currItem->rotation() != 0)
 			{
 				FPoint npv(0, np.y());
@@ -7569,12 +7575,12 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		}
 		if (EditContour)
 		{
-			MarkClip(currItem, currItem->ContourLine);
+//			MarkClip(currItem, currItem->ContourLine);
 			currItem->ContourLine = Clip.copy();
 		}
 		else
 		{
-			MarkClip(currItem, currItem->PoLine);
+//			MarkClip(currItem, currItem->PoLine);
 			currItem->PoLine = Clip.copy();
 		}
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
