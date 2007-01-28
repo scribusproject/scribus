@@ -490,8 +490,7 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
-		//zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
-		zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+		zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -502,8 +501,7 @@ void NodePalette::ToggleAbsMode()
 {
 	if (doc==0)
 		return;
-	//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
-	FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+	FPoint zp(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	double unitRatio=doc->unitRatio();
@@ -583,12 +581,9 @@ void NodePalette::HaveNode(bool have, bool mov)
 		bool leaveEd = false;
 		PageItem*currItem=doc->m_Selection->itemAt(0);
 		if (view->EditContour)
-			//cc = view->SelItem.at(0)->ContourLine.size();
 			cc = currItem->ContourLine.size();
 		else
-			//cc = view->SelItem.at(0)->PoLine.size();
 			cc = currItem->PoLine.size();
-		//if (view->SelItem.at(0)->asPolyLine())
 		if (currItem->asPolyLine())
 		{
 			if (cc < 5)
@@ -613,7 +608,6 @@ void NodePalette::MoveK()
 		return;
 	doc->EditClipMode = 0;
 	view->EdPoints = false;
-	//PageItem *currItem = view->SelItem.at(0);
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (view->EditContour)
 		view->MarkClip(currItem, currItem->ContourLine, true);
@@ -635,7 +629,6 @@ void NodePalette::MoveN()
 	view->ClRe2 = -1;
 	view->SegP1 = -1;
 	view->SegP2 = -1;
-	//PageItem *currItem = view->SelItem.at(0);
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (view->EditContour)
 		view->MarkClip(currItem, currItem->ContourLine, true);
@@ -761,7 +754,6 @@ void NodePalette::unitChange()
 	scaleDistance->setSuffix( unitGetSuffixFromIndex(doc->unitIndex()) );
 	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
 	scaleDistance->setValues( minVal, maxVal, decimals, newScaleDistance );
-	//scaleDistance->setMinimumWidth(fontMetrics().width( scaleDistance->text() ));
 }
 
 ScribusDoc* NodePalette::currentDocument() const
