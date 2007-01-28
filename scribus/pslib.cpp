@@ -3600,7 +3600,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	ScFace::FontType ftype = cstyle.font().type();
 	if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
 	{
-		if (glyph == 0 || glyph != cstyle.font().char2CMap(QChar(' ')))
+		if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')))
 		{
 			PS_save();
 			if (ite->reversed())
@@ -3633,7 +3633,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			PS_restore();
 		}
 	}
-	else
+	else if (glyph != 0)
 	{
 		PS_selectfont(cstyle.font().replacementName(), tsz / 10.0);
 		PS_save();
