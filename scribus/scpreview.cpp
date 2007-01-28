@@ -188,6 +188,11 @@ QPixmap ScPreview::createPreview(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="ITEM")
 		{
+			if(static_cast<bool>(pg.attribute("isGroupControl", "0").toInt()))
+			{
+				DOC=DOC.nextSibling();
+				continue;
+			}
 			QString CurDirP = QDir::currentDirPath();
 			QDir::setCurrent(QDir::homeDirPath());
 			Segments.clear();
