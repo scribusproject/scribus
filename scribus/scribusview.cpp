@@ -5523,6 +5523,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		Ryp = Myp;
 		Rxp = Mxp;
 	}
+	SeRx = Mxp;
+	SeRy = Myp;
 	switch (Doc->appMode)
 	{
 		case modeNormal:
@@ -7574,15 +7576,9 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 			Clip.setPoint(kon, lk);
 		}
 		if (EditContour)
-		{
-//			MarkClip(currItem, currItem->ContourLine);
 			currItem->ContourLine = Clip.copy();
-		}
 		else
-		{
-//			MarkClip(currItem, currItem->PoLine);
 			currItem->PoLine = Clip.copy();
-		}
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 		MarkClip(currItem, Clip);
 	}
