@@ -979,7 +979,6 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 {
 	int a;
 	int chs;
-	double wide;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
@@ -1029,30 +1028,16 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		CurY = 0;
 		hl = item->itemText.item(a);
 		chstr = hl->ch;
-		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
 			continue;
 		chs = hl->fontSize();
-		//item->SetZeichAttr(*hl, &chs, &chstr); //FIXME: layoutglyphs
-		if (chstr == QChar(29))
-			chstr2 = " ";
-		else if (chstr == QChar(24))
-			chstr2 = "-";
-		else
-			chstr2 = chstr;
-		if (a < item->itemText.length() - 1)
-		{
-			if (item->itemText.item(a+1)->ch == QChar(29))
-				chstr3 = " ";
-			else if (item->itemText.item(a+1)->ch == QChar(24))
-				chstr3 = "-";
-			else
-				chstr3 = item->itemText.text(a+1, 1);
-			wide = hl->font().charWidth(chstr2[0], chs, chstr3[0]);
-		}
-		else
-			wide = hl->font().charWidth(chstr2[0], chs);
-		wide = wide * (hl->scaleH() / 1000.0);
-		dx = wide / 2.0;
+		if (a < item->itemText.length()-1)
+			chstr += item->itemText.text(a+1, 1);
+		hl->glyph.yadvance = 0;
+		item->layoutGlyphs(item->itemText.charStyle(a), chstr, hl->glyph);
+		hl->glyph.shrink();
+		dx = hl->glyph.wide() / 2.0;
 		CurX += dx;
 		ext = false;
 		while ( (seg < item->PoLine.size()-3) && (CurX > fsx + segLen))
@@ -1112,19 +1097,34 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		hl->PtransY = tangent.y();
 		hl->PRot = dx;
 		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx, 0 );
-		trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() );
+		if (item->textPathFlipped)
+			trafo *= QWMatrix(1, 0, 0, -1, 0, 0);
+		if (item->textPathType == 0)
+			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
+		else if (item->textPathType == 1)
+			trafo *= QWMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
+		else if (item->textPathType == 2)
+		{
+			double a = 1;
+			if (tangent.x() < 0)
+				a = -1;
+			if (fabs(tangent.x()) > 0.1)
+				trafo *= QWMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
+			else
+				trafo *= QWMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
+		}
 		QWMatrix sca = painter->worldMatrix();
 		trafo *= sca;
 		painter->save();
 		QWMatrix savWM = painter->worldMatrix();
 		painter->setWorldMatrix(trafo);
-		//DrawCharacters(item, painter, Zli);
+		DrawGlyphs(item, painter, item->itemText.charStyle(a), hl->glyph, clip);
 		painter->setWorldMatrix(savWM);
 		painter->restore();
 		//item->MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
-		CurX += wide+hl->fontSize() * hl->tracking() / 10000.0;
+		CurX += hl->glyph.wide() + hl->fontSize() * hl->tracking() / 10000.0;
 		first = false;
 	}
 }
