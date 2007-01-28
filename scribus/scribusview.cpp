@@ -2374,6 +2374,30 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				undoManager->cancelTransaction();
 			}
 		}
+		if (ClRe != -1)
+		{
+			double newX = m->x();
+			double newY = m->y();
+			FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
+			currItem->OldB2 = currItem->width();
+			currItem->OldH2 = currItem->height();
+			FPointArray Clip;
+			if (EditContour)
+				Clip = currItem->ContourLine;
+			else
+				Clip = currItem->PoLine;
+			FPoint npf = FPoint(Clip.point(ClRe).x() + np.x() / Scale, Clip.point(ClRe).y() + np.y() / Scale);
+			double nx = npf.x();
+			double ny = npf.y();
+			nx += currItem->xPos();
+			ny += currItem->yPos();
+			if (!Doc->ApplyGuides(&nx, &ny))
+				npf = Doc->ApplyGridF(FPoint(nx, ny));
+			else
+				npf = FPoint(nx, ny);
+			npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
+			MoveClipPoint(currItem, npf);
+		}
 
 		Doc->AdjustItemSize(currItem);
 		emit DocChanged();
@@ -4702,6 +4726,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newY = m->y();
 				FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
 				operItemMoving = true;
+				m_SnapCounter++;
+				if (m_SnapCounter > 3)
+					m_SnapCounter = 0;
 				currItem = Doc->m_Selection->itemAt(0);
 				currItem->OldB2 = currItem->width();
 				currItem->OldH2 = currItem->height();
@@ -4748,14 +4775,44 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							currItem->OldB2 = currItem->width();
 							currItem->OldH2 = currItem->height();
 							if (((ClRe != 0) && (SelNode.count() > 1)) || (SelNode.count() == 1))
+							{
+								if ((SelNode.count() == 1) && (m_SnapCounter > 2))
+								{
+									double nx = npf.x();
+									double ny = npf.y();
+									nx += currItem->xPos();
+									ny += currItem->yPos();
+									if (!Doc->ApplyGuides(&nx, &ny))
+										npf = Doc->ApplyGridF(FPoint(nx, ny));
+									else
+										npf = FPoint(nx, ny);
+									npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
+									m_SnapCounter = 0;
+								}
 								MoveClipPoint(currItem, npf);
+							}
 						}
 						currItem->OldB2 = currItem->width();
 						currItem->OldH2 = currItem->height();
 						ClRe = storedClRe;
 					}
 					else
+					{
+						if (m_SnapCounter > 2)
+						{
+							double nx = npf.x();
+							double ny = npf.y();
+							nx += currItem->xPos();
+							ny += currItem->yPos();
+							if (!Doc->ApplyGuides(&nx, &ny))
+								npf = Doc->ApplyGridF(FPoint(nx, ny));
+							else
+								npf = FPoint(nx, ny);
+							npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
+							m_SnapCounter = 0;
+						}
 						MoveClipPoint(currItem, npf);
+					}
 					Mxp = newX;
 					Myp = newY;
 				}
