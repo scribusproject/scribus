@@ -3553,187 +3553,187 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		chstr = "-";
 	}
 	
-	if (glyph >= ScFace::CONTROL_GLYPHS)
-		return;
-
-	if (((cstyle.effects() & ScStyle_Underline)) //FIXME && (chstr != QChar(13)))  
-		|| ((cstyle.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
+	if (glyph < ScFace::CONTROL_GLYPHS)
 	{
-//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
-		double Ulen = glyphs.xadvance;
-		double Upos, lw, kern;
-		if (cstyle.effects() & ScStyle_StartOfLine)
-			kern = 0;
-		else
-			kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
-		if ((cstyle.underlineOffset() != -1) || (cstyle.underlineWidth() != -1))
+		if (((cstyle.effects() & ScStyle_Underline)) //FIXME && (chstr != QChar(13)))  
+			|| ((cstyle.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace()))) 
 		{
-			if (cstyle.underlineOffset() != -1)
-				Upos = (cstyle.underlineOffset() / 1000.0) * (cstyle.font().descent(cstyle.fontSize() / 10.0));
+	//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
+			double Ulen = glyphs.xadvance;
+			double Upos, lw, kern;
+			if (cstyle.effects() & ScStyle_StartOfLine)
+				kern = 0;
 			else
+				kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
+			if ((cstyle.underlineOffset() != -1) || (cstyle.underlineWidth() != -1))
+			{
+				if (cstyle.underlineOffset() != -1)
+					Upos = (cstyle.underlineOffset() / 1000.0) * (cstyle.font().descent(cstyle.fontSize() / 10.0));
+				else
+					Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
+				if (cstyle.underlineWidth() != -1)
+					lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
+				else
+					lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+			}
+			else
+			{
 				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-			if (cstyle.underlineWidth() != -1)
-				lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
-			else
 				lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
-		}
-		else
-		{
-			Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-			lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
-		}
-		if (cstyle.baselineOffset() != 0)
-			Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
-		if (cstyle.fillColor() != CommonStrings::None)
-		{
-			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-			PS_setdash(Qt::SolidLine, 0, dum);
-			SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-		}
-		PS_setlinewidth(lw);
-		PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
-		PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
-		putColor(cstyle.fillColor(), cstyle.fillShade(), false);
-	}
-	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-	ScFace::FontType ftype = cstyle.font().type();
-	if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
-	{
-		if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')))
-		{
-			PS_save();
-			if (ite->reversed())
-			{
-				PS_translate(x + hl->glyph.xoffset, (y + hl->glyph.yoffset - (tsz / 10.0)) * -1);
-				PS_scale(-1, 1);
-				PS_translate(-glyphs.xadvance, 0);
 			}
-			else
-				PS_translate(x + glyphs.xoffset, (y + glyphs.yoffset - (cstyle.fontSize() / 10.0)) * -1);
 			if (cstyle.baselineOffset() != 0)
-				PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-			if (glyphs.scaleH != 1.0)
-				PS_scale(glyphs.scaleH, 1);
-			if (glyphs.scaleV != 1.0)
-			{
-				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (glyphs.scaleV)));
-				PS_scale(1, glyphs.scaleV);
-			}
+				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
 			if (cstyle.fillColor() != CommonStrings::None)
 			{
-				SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
-					PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
-				else
-					PutSeite(FillColor + " cmyk");
-				PS_showSub(glyph, cstyle.font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
-			}
-			PS_restore();
-		}
-	}
-	else if (glyph != 0)
-	{
-		PS_selectfont(cstyle.font().replacementName(), tsz / 10.0);
-		PS_save();
-		PS_translate(x + glyphs.xoffset, -y - glyphs.yoffset);
-		if (ite->reversed())
-		{
-			PS_scale(-1, 1);
-			PS_translate(glyphs.xadvance, 0);
-		}
-		if (cstyle.baselineOffset() != 0)
-			PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-		if (glyphs.scaleH != 1.0 || glyphs.scaleV != 1.0)
-			PS_scale(glyphs.scaleH, glyphs.scaleV);
-		if (cstyle.fillColor() != CommonStrings::None)
-		{
-			SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-			if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
-			{
-				PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
-				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, true);
-			}
-			else
-				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, false);
-		}
-		PS_restore();
-	}
-	if ((cstyle.effects() & ScStyle_Outline) || glyph == 0)//&& (chstr != QChar(13)))
-	{
-//		if (cstyle.font().canRender(chstr[0]))
-		{
-			FPointArray gly = cstyle.font().glyphOutline(glyph);
-			QWMatrix chma, chma2, chma3;
-			chma.scale(tsz / 100.0, tsz / 100.0);
-			chma2.scale(glyphs.scaleH, glyphs.scaleV);
-			if (cstyle.baselineOffset() != 0)
-				chma3.translate(0, -(cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-			gly.map(chma * chma2 * chma3);
-			if (ite->reversed())
-			{
-				chma = QWMatrix();
-				chma.scale(-1, 1);
-				chma.translate(wideR, 0);
-				gly.map(chma);
-			}
-			if ((cstyle.strokeColor() != CommonStrings::None) && ((tsz * cstyle.outlineWidth() / 10000.0) != 0))
-			{
-				PS_save();
-				PS_setlinewidth(tsz * cstyle.outlineWidth() / 10000.0);
 				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 				PS_setdash(Qt::SolidLine, 0, dum);
-				PS_translate(x + glyphs.xoffset, (y + glyphs.yoffset - (tsz / 10.0)) * -1);
-				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * glyphs.scaleV));
-				SetFarbe(cstyle.strokeColor(), cstyle.strokeShade(), &h, &s, &v, &k, gcr);
+				SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				SetClipPath(&gly);
-				PS_closepath();
-				putColor(cstyle.strokeColor(), cstyle.strokeShade(), false);
+			}
+			PS_setlinewidth(lw);
+			PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
+			PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
+			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
+		}
+		/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+		ScFace::FontType ftype = cstyle.font().type();
+		if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
+		{
+			if (glyph != 0 && glyph != cstyle.font().char2CMap(QChar(' ')))
+			{
+				PS_save();
+				if (ite->reversed())
+				{
+					PS_translate(x + hl->glyph.xoffset, (y + hl->glyph.yoffset - (tsz / 10.0)) * -1);
+					PS_scale(-1, 1);
+					PS_translate(-glyphs.xadvance, 0);
+				}
+				else
+					PS_translate(x + glyphs.xoffset, (y + glyphs.yoffset - (cstyle.fontSize() / 10.0)) * -1);
+				if (cstyle.baselineOffset() != 0)
+					PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
+				if (glyphs.scaleH != 1.0)
+					PS_scale(glyphs.scaleH, 1);
+				if (glyphs.scaleV != 1.0)
+				{
+					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (glyphs.scaleV)));
+					PS_scale(1, glyphs.scaleV);
+				}
+				if (cstyle.fillColor() != CommonStrings::None)
+				{
+					SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
+					PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
+					else
+						PutSeite(FillColor + " cmyk");
+					PS_showSub(glyph, cstyle.font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+				}
 				PS_restore();
 			}
 		}
-	}
-	if ((cstyle.effects() & ScStyle_Strikethrough))//&& (chstr != QChar(13)))
-	{
-//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
-		double Ulen = glyphs.xadvance;
-		double Upos, lw, kern;
-		if (cstyle.effects() & 16384)
-			kern = 0;
-		else
-			kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
-		if ((cstyle.strikethruOffset() != -1) || (cstyle.strikethruWidth() != -1))
+		else if (glyph != 0)
 		{
-			if (cstyle.strikethruOffset() != -1)
-				Upos = (cstyle.strikethruOffset() / 1000.0) * (cstyle.font().ascent(cstyle.fontSize() / 10.0));
+			PS_selectfont(cstyle.font().replacementName(), tsz / 10.0);
+			PS_save();
+			PS_translate(x + glyphs.xoffset, -y - glyphs.yoffset);
+			if (ite->reversed())
+			{
+				PS_scale(-1, 1);
+				PS_translate(glyphs.xadvance, 0);
+			}
+			if (cstyle.baselineOffset() != 0)
+				PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
+			if (glyphs.scaleH != 1.0 || glyphs.scaleV != 1.0)
+				PS_scale(glyphs.scaleH, glyphs.scaleV);
+			if (cstyle.fillColor() != CommonStrings::None)
+			{
+				SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep) && (useSpotColors))
+				{
+					PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
+					PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, true);
+				}
+				else
+					PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, false);
+			}
+			PS_restore();
+		}
+		if ((cstyle.effects() & ScStyle_Outline) || glyph == 0)//&& (chstr != QChar(13)))
+		{
+//		if (cstyle.font().canRender(chstr[0]))
+			{
+				FPointArray gly = cstyle.font().glyphOutline(glyph);
+				QWMatrix chma, chma2, chma3;
+				chma.scale(tsz / 100.0, tsz / 100.0);
+				chma2.scale(glyphs.scaleH, glyphs.scaleV);
+				if (cstyle.baselineOffset() != 0)
+					chma3.translate(0, -(cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
+				gly.map(chma * chma2 * chma3);
+				if (ite->reversed())
+				{
+					chma = QWMatrix();
+					chma.scale(-1, 1);
+					chma.translate(wideR, 0);
+					gly.map(chma);
+				}
+				if ((cstyle.strokeColor() != CommonStrings::None) && ((tsz * cstyle.outlineWidth() / 10000.0) != 0))
+				{
+					PS_save();
+					PS_setlinewidth(tsz * cstyle.outlineWidth() / 10000.0);
+					PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+					PS_setdash(Qt::SolidLine, 0, dum);
+					PS_translate(x + glyphs.xoffset, (y + glyphs.yoffset - (tsz / 10.0)) * -1);
+					PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * glyphs.scaleV));
+					SetFarbe(cstyle.strokeColor(), cstyle.strokeShade(), &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					SetClipPath(&gly);
+					PS_closepath();
+					putColor(cstyle.strokeColor(), cstyle.strokeShade(), false);
+					PS_restore();
+				}
+			}
+		}
+		if ((cstyle.effects() & ScStyle_Strikethrough))//&& (chstr != QChar(13)))
+		{
+			//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
+			double Ulen = glyphs.xadvance;
+			double Upos, lw, kern;
+			if (cstyle.effects() & 16384)
+				kern = 0;
 			else
+				kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
+			if ((cstyle.strikethruOffset() != -1) || (cstyle.strikethruWidth() != -1))
+			{
+				if (cstyle.strikethruOffset() != -1)
+					Upos = (cstyle.strikethruOffset() / 1000.0) * (cstyle.font().ascent(cstyle.fontSize() / 10.0));
+				else
+					Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
+				if (cstyle.strikethruWidth() != -1)
+					lw = (cstyle.strikethruWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
+				else
+					lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+			}
+			else
+			{
 				Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-			if (cstyle.strikethruWidth() != -1)
-				lw = (cstyle.strikethruWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
-			else
 				lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+			}
+			if (cstyle.baselineOffset() != 0)
+				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
+			if (cstyle.fillColor() != CommonStrings::None)
+			{
+				PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+				PS_setdash(Qt::SolidLine, 0, dum);
+				SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+			}
+			PS_setlinewidth(lw);
+			PS_moveto(x + glyphs.xoffset-kern, -y-glyphs.yoffset+Upos);
+			PS_lineto(x + glyphs.xoffset+Ulen, -y-glyphs.yoffset+Upos);
+			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 		}
-		else
-		{
-			Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-			lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
-		}
-		if (cstyle.baselineOffset() != 0)
-			Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
-		if (cstyle.fillColor() != CommonStrings::None)
-		{
-			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-			PS_setdash(Qt::SolidLine, 0, dum);
-			SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-		}
-		PS_setlinewidth(lw);
-		PS_moveto(x + glyphs.xoffset-kern, -y-glyphs.yoffset+Upos);
-		PS_lineto(x + glyphs.xoffset+Ulen, -y-glyphs.yoffset+Upos);
-		putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 	}
 	if (glyphs.more) {
 		// ugly hack until setTextCh interface is changed
