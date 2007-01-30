@@ -124,6 +124,7 @@ public slots:
 	\param val new Value
 	*/
 	virtual void setValue(double val);
+	void setLineStep(int val);
 	void setReadOnly(bool ro);
 	void setValues(double min, double max, int deci, double val);
 	void getValues(double *min, double *max, int *deci, double *val);
@@ -135,6 +136,7 @@ protected:
 	void setFPConstants(FunctionParser &fp);
 	bool readOnly;
 	int oldLineStep;
+	int currLineStep;
 	bool edited;
 	QMap <QString, double> functionParserConstants;
 };

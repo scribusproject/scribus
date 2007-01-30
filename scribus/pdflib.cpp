@@ -689,7 +689,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+			}
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
@@ -702,7 +705,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+			}
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
@@ -715,7 +721,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
+			}
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
@@ -1005,7 +1014,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				AllFonts[it.key()].glyphNames(gl);
 				int nglyphs = 0;
 				QMap<uint,std::pair<QChar,QString> >::Iterator gli;
-				for (gli = gl.begin(); gli != gl.end(); ++gli) {
+				for (gli = gl.begin(); gli != gl.end(); ++gli)
+				{
 					if (gli.key() > static_cast<uint>(nglyphs))
 						nglyphs = gli.key();
 				}
@@ -1046,14 +1056,16 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						uint glyph = 224 * Fc + ww2 - 32;
 						if (gl[glyph].second != "")
 						{
-							if (startOfSeq) {
+							if (startOfSeq)
+							{
 								PutDoc(QString::number(ww2)+" ");
 								startOfSeq = false;
 							}
 							PutDoc("/"+gl[glyph].second+" ");
 							crc++;
 						}
-						else {
+						else
+						{
 							startOfSeq = true;
 						}
 						if (signed(glyph) == nglyphs-1)
