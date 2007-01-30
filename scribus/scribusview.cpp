@@ -5103,49 +5103,22 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						}
 						if (!(currItem->isTableItem && currItem->isSingleSel))
 						{
+							Doc->m_Selection->setGroupRect();
+							double gx, gy, gh, gw;
+							Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 							moveGroup(dX, dY, false);
 							if (Doc->SnapGuides)
 							{
-								double nx = currItem->xPos();
-								double ny = currItem->yPos();
+								double nx = gx;
+								double ny = gy;
 								Doc->ApplyGuides(&nx, &ny);
-								moveGroup(nx-currItem->xPos(), ny-currItem->yPos(), false);
-								QWMatrix ma;
-								ma.translate(currItem->xPos(), currItem->yPos());
-								ma.rotate(currItem->rotation());
-								if (currItem->asLine())
-								{
-									nx = ma.m11() * currItem->width() + ma.dx();
-									ny = ma.m12() * currItem->width() + ma.dy();
-								}
-								else
-								{
-									nx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
-									ny = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
-								}
-								double nxo = nx;
-								double nyo = ny;
+								moveGroup(nx-gx, ny-gy, false);
+								Doc->m_Selection->setGroupRect();
+								Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+								nx = gx+gw;
+								ny = gy+gh;
 								Doc->ApplyGuides(&nx, &ny);
-								moveGroup(nx-nxo, ny-nyo, false);
-								if ((currItem->rotation() != 0.0) && (!currItem->asLine()))
-								{
-									nx = ma.m11() * currItem->width() + ma.dx();
-									ny = ma.m12() * currItem->width() + ma.dy();
-									nxo = nx;
-									nyo = ny;
-									Doc->ApplyGuides(&nx, &ny);
-									moveGroup(nx-nxo, ny-nyo, false);
-									nx = ma.m21() * currItem->height() + ma.dx();
-									ny = ma.m22() * currItem->height() + ma.dy();
-									nxo = nx;
-									nyo = ny;
-									Doc->ApplyGuides(&nx, &ny);
-									moveGroup(nx-nxo, ny-nyo, false);
-								}
-//								nx = currItem->xPos()+currItem->width();
-//								ny = currItem->yPos()+currItem->height();
-//								Doc->ApplyGuides(&nx, &ny);
-//								moveGroup(nx-(currItem->xPos()+currItem->width()), ny-(currItem->yPos()+currItem->height()), false);
+								moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 							}
 							if (Doc->useRaster)
 							{
@@ -5169,15 +5142,12 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							}
 						}
 					}
-					//erf = true;
 				}
 				else
 				{
 					Doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
 					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-//					double gxs, gys, ghs, gws;
-//					getGroupRectScreen(&gxs, &gys, &gws, &ghs);
 					int dX=newX-Mxp, dY=newY-Myp;
 					erf = true;
 					if (m->state() & ControlButton)
@@ -5206,7 +5176,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					}
 					Doc->m_Selection->setGroupRect();
-//					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					if (Doc->useRaster)
 					{
 						Doc->m_Selection->setGroupRect();
@@ -5228,7 +5197,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							moveGroup(gx-gxo, gy-gyo, false);
 						Doc->m_Selection->setGroupRect();
 					}
-					//erf = true;
 				}
 				if (erf)
 				{
