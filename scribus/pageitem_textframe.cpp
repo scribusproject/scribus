@@ -322,7 +322,7 @@ void PageItem_TextFrame::layout()
 		invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
 		if (!prevInChain)
-			qDebug(QString("layout(): backBox=%1").arg((uint)BackBox));
+			/*qDebug(QString("layout(): backBox=%1").arg((uint)BackBox))*/;
 		else 
 			BackBox->layout();
 		return;

@@ -34,7 +34,7 @@ QString SMRowWidget::toBeDeleted()
 
 QString SMRowWidget::replaceWith()
 {
-	return optionsCombo->currentItem() == 0 ? QString::null : optionsCombo->currentText();
+	return optionsCombo->currentItem() == 0 ? "" : optionsCombo->currentText();
 }
 
 SMRowWidget::~SMRowWidget()

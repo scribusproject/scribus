@@ -257,18 +257,13 @@ void SMParagraphStyle::apply()
 	for (uint i = 0; i < deleted_.count(); ++i)
 		replacement[deleted_[i].first] = deleted_[i].second;
 
-	doc_->redefineStyles(tmpStyles_, true);
-
-	//FIXME replace deleted styles in doc
+	doc_->redefineStyles(tmpStyles_, false);
+	doc_->replaceStyles(replacement);
 
 	deleted_.clear(); // deletion done at this point
 
 	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
 	doc_->scMW()->propertiesPalette->charStyleCombo->updateFormatList();
-// CB 030107 SM does not need to update colours in propertiesPalette. this is a color list not 		the active item
-// 	doc_->scMW()->propertiesPalette->updateColorList();
-// 	FIXME private access in ScMW
-// 	doc_->scMW()->updateColorMenu();
 	doc_->scMW()->view->DrawNew();
 	doc_->changed();
 }
@@ -1369,8 +1364,19 @@ void SMCharacterStyle::apply()
 	if (!doc_)
 		return;
 
-	deleted_.clear();
-	doc_->redefineCharStyles(tmpStyles_, true);
+	QMap<QString, QString> replacement;
+	for (uint i = 0; i < deleted_.count(); ++i)
+		replacement[deleted_[i].first] = deleted_[i].second;
+
+	doc_->redefineCharStyles(tmpStyles_, false);
+	doc_->replaceCharStyles(replacement);
+
+	deleted_.clear(); // deletion done at this point
+
+	doc_->scMW()->propertiesPalette->paraStyleCombo->updateFormatList();
+	doc_->scMW()->propertiesPalette->charStyleCombo->updateFormatList();
+	doc_->scMW()->view->DrawNew();
+	doc_->changed();
 }
 
 void SMCharacterStyle::editMode(bool isOn)
