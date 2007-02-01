@@ -5948,7 +5948,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeInsertPDFLinkAnnotation:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(CrossCursor), true);
 				break;
 			case modeMeasurementTool:
 			case modeEditGradientVectors:

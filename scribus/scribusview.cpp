@@ -1388,6 +1388,13 @@ void ScribusView::enterEvent(QEvent *)
 				break;
 			case modeMeasurementTool:
 			case modeEditGradientVectors:
+			case modeInsertPDFButton:
+			case modeInsertPDFTextfield:
+			case modeInsertPDFCheckbox:
+			case modeInsertPDFCombobox:
+			case modeInsertPDFListbox:
+			case modeInsertPDFTextAnnotation:
+			case modeInsertPDFLinkAnnotation:
 				qApp->setOverrideCursor(QCursor(CrossCursor), true);
 				break;
 			default:

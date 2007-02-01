@@ -1037,7 +1037,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 							PutDoc(QString::number(static_cast<int>(AllFonts[it.key()].glyphWidth(glyph)* 1000))+" ");
 						else
 							PutDoc("0 ");
-						
 						chCount++;
 						if (signed(glyph) == nglyphs-1)
 							break;
@@ -1047,7 +1046,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					StartObj(ObjCounter);
 					ObjCounter++;
 					PutDoc("<< /Type /Encoding\n");
-//					PutDoc("/BaseEncoding /" + AllFonts[it.key()]->FontEnc + "\n");
 					PutDoc("/Differences [ \n");
 					int crc = 0;
 					bool startOfSeq = true;
@@ -1077,7 +1075,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						}
 					}
 					PutDoc("]\n");
-
 					PutDoc(">>\nendobj\n");
 					StartObj(ObjCounter);
 					PutDoc("<<\n/Type /Font\n/Subtype ");
@@ -4072,7 +4069,6 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		else
 		{
 			uint idx = hl->glyph.glyph;
-			
 			uint idx1 = idx / 224;
 			tmp += UsedFontsP[style.font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 			if (style.strokeColor() != CommonStrings::None)
@@ -4105,6 +4101,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			}
 			else
 				tmp += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
+//			uchar idx2 = idx % 224 + 32 - hl->font().char2CMap(QChar(' '));
 			uchar idx2 = idx % 224 + 32;
 			tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		}
