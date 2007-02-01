@@ -1566,7 +1566,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	
 	double tracking = 0.0;
 	if ( (style.effects() & ScStyle_StartOfLine) == 0)
-		tracking = style.fontSize() * style.tracking() / 10000;
+		tracking = style.fontSize() * style.tracking() / 10000.0;
 
 	layout.xoffset = tracking;
 	layout.yoffset = 0;
