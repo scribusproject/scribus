@@ -844,7 +844,17 @@ void PageItem_TextFrame::layout()
 				else
 					chs = charStyle.fontSize();
 			}
-			// Smallcaps and such
+			// find tracking
+			if (current.itemsInLine == 0)
+			{
+				itemText.item(a)->setEffects(itemText.item(a)->effects() | ScStyle_StartOfLine);
+				kernVal = 0;
+			}
+			else
+			{
+				kernVal = 0; // chs * charStyle.tracking() / 10000.0;
+				itemText.item(a)->setEffects(itemText.item(a)->effects() & ~ScStyle_StartOfLine);
+			}
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width of char
@@ -1187,17 +1197,6 @@ void PageItem_TextFrame::layout()
 //			hl->glyph.yoffset = 0;
 			if (DropCmode)
 				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr[0], chsd / 10.0);
-			// find tracking
-			if (current.itemsInLine == 0)
-			{
-				itemText.item(a)->setEffects(itemText.item(a)->effects() | ScStyle_StartOfLine);
-				kernVal = 0;
-			}
-			else
-			{
-				kernVal = 0; // chs * charStyle.tracking() / 10000.0;
-				itemText.item(a)->setEffects(itemText.item(a)->effects() & ~ScStyle_StartOfLine);
-			}
 
 			// remember possible break
 			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
