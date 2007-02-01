@@ -370,8 +370,8 @@ void MSpinBox::setValue(double val)
 
 void MSpinBox::setLineStep(int val)
 {
-	QSpinBox::setLineStep( val * 100 );
-	currLineStep = val * 100;
+	QSpinBox::setLineStep( val * Decimals );
+	currLineStep = val * Decimals;
 }
 
 double MSpinBox::value()
