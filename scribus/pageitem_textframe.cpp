@@ -278,7 +278,6 @@ static bool isBreak(QChar c, bool includeColBreak = true)
 }
 
 
-
 enum TabStatus {
 	TabNONE    = 0,
 	TabLEFT    = TabNONE,
@@ -301,6 +300,7 @@ struct LineControl {
 	int      itemsInLine;
 	int      hyphenCount;
 	double   colWidth;
+	double   colGap;
 	double   colLeft;
 	double   colRight;
 	int      column;
@@ -312,7 +312,247 @@ struct LineControl {
 	double   yPos;
 	int      breakIndex;
 	double   breakXPos;
+	
+	
+	void init(double w, double h, const MarginStruct& extra, double lCorr)
+	{
+		insets = extra;
+		lineCorr = lCorr;
+		frameWidth = w;
+		frameHeight = h;
+	}
+	
+	void initColumns(double width, double gap)
+	{
+		column = 0;
+		colWidth = width;
+		colGap = gap;
+	}
+	
+	void nextColumn(double asce)
+	{
+		startOfCol = true;
+		colLeft = (colWidth + colGap) * column + insets.Left + lineCorr;
+		colRight = colLeft + colWidth;
+//		colRight += insets.Right + lineCorr; //???
+		xPos = colLeft;
+		yPos = asce + insets.Top + lineCorr + 1;
+	}
+	
+	bool isEndOfCol(double morespace = 0)
+	{
+		return yPos + morespace + insets.Bottom + lineCorr > frameHeight;
+	}
+	
+	void startLine(int first)
+	{		
+		itemsInLine = 0;
+		line.x = xPos;
+		line.y = yPos;
+		line.firstItem = first;
+		line.ascent = 10;
+		line.descent = 0;
+		line.width = 0;
+		line.naturalWidth = 0;
+		breakIndex = -1;
+		breakXPos = 0;
+	}
+	
+	void rememberBreak(int index, double pos)
+	{
+		breakIndex = index;
+		breakXPos = pos;
+	}
+	
+	
+	void breakLine(const StoryText& itemText, int last)
+	{
+		breakIndex = last;
+		breakXPos  = line.x;
+		for (int j = line.firstItem; j <= last; ++j)
+			if ( (itemText.item(j)->effects() & ScStyle_SuppressSpace) == 0)
+				breakXPos += itemText.item(j)->glyph.wide();
+	}
+	
+	void finishLine(double endX)
+	{
+		line.lastItem = breakIndex;
+		line.naturalWidth = breakXPos - line.x;
+		line.width = endX - line.x;
+	}
+	
+	
+	bool isEndOfLine(double moreSpace = 0)
+	{
+//		return xPos + insets.Right + lineCorr + moreSpace > colRight;
+		return xPos + lineCorr + moreSpace > colRight;
+	}
+	
+	double startOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace)
+	{
+		QPoint pt1, pt2;
+		double tmpX = xPos;
+		pt1 = QPoint(static_cast<int>(ceil(tmpX)), static_cast<int>(yPos + descent));
+		pt2 = QPoint(static_cast<int>(ceil(tmpX)), static_cast<int>(ceil(yPos - ascent)));
+		// increase pt1/pt2 until i-beam reaches end of line
+		while ((!shape.contains(pf2.xForm(pt1))) || (!shape.contains(pf2.xForm(pt2))))
+		{
+			tmpX++;
+			if (isEndOfLine(morespace))
+			{
+				return tmpX;
+			}
+			pt1 = QPoint(static_cast<int>(ceil(tmpX)), static_cast<int>(yPos + descent));
+			pt2 = QPoint(static_cast<int>(ceil(tmpX)), static_cast<int>(ceil(yPos - ascent)));
+		}
+		return tmpX;
+	}
+	
+	double endOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace = 0)
+	{
+		double EndX = floor(QMAX(line.x, breakXPos - 1));
+		QPoint pt1, pt2;
+		//	qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
+		do {
+			EndX += 0.125;
+			pt1 = QPoint(qRound(EndX + insets.Right), static_cast<int>(yPos+descent));
+			pt2 = QPoint(qRound(EndX + insets.Right), static_cast<int>(ceil(yPos-ascent)));
+		} while 
+//			(   (EndX + lineCorr  + insets.Right < colRight - morespace)
+			(   (EndX + lineCorr  < colRight - morespace)
+			  && shape.contains(pf2.xForm(pt1))
+			  && shape.contains(pf2.xForm(pt2)) 
+			  );
+		
+		return EndX;
+	}
+	
+	
+private:
+	double frameWidth;
+	double frameHeight;
+	MarginStruct insets;
+	double lineCorr;
 };
+
+
+
+static void justifyLine(StoryText& itemText, LineSpec& line)
+{
+	// count the available spaces
+	int aSpa = 0;
+	double OFs2;
+	for (int sof = line.firstItem; sof < line.lastItem; ++sof)
+	{
+		if (isExpandingSpace(itemText.text(sof))
+			&& ! (itemText.item(sof)->effects() & ScStyle_SuppressSpace)
+			)
+			aSpa++;
+	}
+	if (aSpa != 0)
+		OFs2 = (line.width - line.naturalWidth) / aSpa;
+	else
+		OFs2 = 0;
+	
+	// distribute whitespace on spaces
+	for (int yof = line.firstItem; yof < line.lastItem; ++yof)
+	{
+		if (isExpandingSpace(itemText.text(yof)) 
+			&& ! (itemText.item(yof)->effects() & ScStyle_SuppressSpace)
+			)
+		{
+			itemText.item(yof)->glyph.last()->xadvance += OFs2;
+		}
+	}
+}
+
+
+static void indentLine(LineSpec& line, double leftIndent)
+{
+	line.x += leftIndent;
+	line.width -= leftIndent;
+}
+
+static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
+{
+	int b = line.firstItem;
+	while (b < line.lastItem && (itemText.item(b)->effects() & ScStyle_SuppressSpace))
+		   ++b;
+	
+	double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
+	QChar chr = itemText.text(b);
+	double leftCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
+	if (QString("'´`").find(chr) >= 0
+		|| chr == QChar(0x2018)
+		|| chr == QChar(0x2019)
+		|| chr == QChar(0x201a)
+		|| chr == QChar(0x201b)
+		|| chr == QChar(0x2039)
+		|| chr == QChar(0x203a)
+		)
+		leftCorr *= -0.7;
+	else if (QString("\"").find(chr) >= 0
+			 || chr == QChar(0x00ab)
+			 || chr == QChar(0x00bb)
+			 || chr == QChar(0x201c)
+			 || chr == QChar(0x201d)
+			 || chr == QChar(0x201e)
+			 || chr == QChar(0x201f)
+			 ) 
+		leftCorr *= -0.5;
+	else {
+		leftCorr = itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0, chr);
+		leftCorr -= itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0);
+//				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, chr);
+//				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
+//				leftCorr = QMIN(leftCorr, leftCorr2);
+	}
+	return leftCorr;
+}
+
+
+static double opticalRightMargin(const StoryText& itemText, const LineSpec& line)
+{
+	int b = line.lastItem;
+	while (b > line.firstItem && 
+		   (isBreakingSpace(itemText.text(b)) || isBreak(itemText.text(b)))
+		   )
+		--b;
+	if (b >= line.firstItem) 
+	{
+		double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
+		QChar chr = (itemText.item(b)->effects() & ScStyle_SmartHyphenVisible) ? 
+			QChar('-') : itemText.text(b);
+		double rightCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
+		if (QString("-,.`´'~").find(chr) >= 0
+			|| chr == QChar(0x2018)
+			|| chr == QChar(0x2019)
+			|| chr == QChar(0x201a)
+			|| chr == QChar(0x201b)
+			|| chr == QChar(0x2039)
+			|| chr == QChar(0x203a)
+			|| chr == QChar(0x2032)
+			)
+			rightCorr *= 0.7;
+		else if (QString(";:\"").find(chr) >= 0
+				 || chr == QChar(0x00ab)
+				 || chr == QChar(0x00bb)
+				 || chr == QChar(0x201c)
+				 || chr == QChar(0x201d)
+				 || chr == QChar(0x201e)
+				 || chr == QChar(0x201f)
+				 || chr == QChar(0x2013)
+				 || chr == QChar(0x2033)
+				 )
+			rightCorr *= 0.5;
+		else {
+			rightCorr = itemText.charStyle(b).font().charWidth(chr, chs / 10.0);
+			rightCorr -= itemText.charStyle(b).font().charWidth(chr, chs / 10.0, QChar('.'));
+		}
+		return rightCorr;
+	}
+	return 0.0;
+}
 
 
 void PageItem_TextFrame::layout() 
@@ -322,7 +562,7 @@ void PageItem_TextFrame::layout()
 		invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
 		if (!prevInChain)
-			/*qDebug(QString("layout(): backBox=%1").arg((uint)BackBox))*/;
+			qDebug(QString("layout(): backBox=%1").arg((ulong)BackBox));
 		else 
 			BackBox->layout();
 		return;
@@ -336,19 +576,14 @@ void PageItem_TextFrame::layout()
 	QPainter pf2;
 	PageItem *nextItem;
 	QPoint pt1, pt2;
-	FPoint ColBound;
 	QRegion cm;
-	uint nrc;
-	int aSpa, CurrCol;
 	double chs, chsd = 0;
-	int LastSP;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal;
+	double oldCurY, EndX, OFs, wide, kernVal;
 	QString chstr;
 	ScText *hl;
 	ParagraphStyle style;
-	bool opticalMargins = false;
+	int /*ParagraphStyle::OpticalMarginType*/ opticalMargins = ParagraphStyle::OM_None;
 	
-	int HyphenCount = 0;
 	bool outs = false;
 	bool fBorder = false;
 	bool goNoRoom = false;
@@ -368,11 +603,25 @@ void PageItem_TextFrame::layout()
 	double desc=0, asce=0, maxDY=0, desc2=0, maxDX=0;
 	int DropLines = 0;
 	double DropCapDrop = 0;
-	bool StartOfCol = true;
 	
 	itemText.clearLines();
-	LineSpec curLine;
-		
+
+	double lineCorr = 0;
+	if (lineColor() != CommonStrings::None)
+		lineCorr = m_lineWidth / 2.0;
+	
+	// TODO: refactor this into PageItem
+	MarginStruct extra;
+	extra.Top = TExtra;
+	extra.Left = Extra;
+	extra.Right = RExtra;
+	extra.Bottom = BExtra;
+
+	LineControl current;
+	current.init(Width, Height, extra, lineCorr);
+	current.initColumns(columnWidth(), ColGap);
+	current.hyphenCount = 0;
+				 
 	// dump styles
 /*	
 	for (int i=0; i < itemText.nrOfParagraphs(); ++i) {
@@ -387,15 +636,10 @@ void PageItem_TextFrame::layout()
 	pf2.begin(view->viewport());
 	pf2.translate(Xpos, Ypos);
 	pf2.rotate(Rot);
-
-	double lineCorr = 0;
-	if (lineColor() != CommonStrings::None)
-		lineCorr = m_lineWidth / 2.0;
-
 	
 	setShadow();
 	if ((itemText.length() != 0)) // || (NextBox != 0))
-	{		
+	{
 		// determine layout area
 		QRegion cl = availableRegion(QRegion(pf2.xForm(Clip)));
 		
@@ -410,12 +654,8 @@ void PageItem_TextFrame::layout()
 			pf2.scale(1, -1);
 		}
 		
-		CurrCol = 0;
-		ColWidth = columnWidth();
-		// ColBound.x() is left border, ColBound.y() is right(!) border
-		ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-		ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
-		CurX = ColBound.x();
+		current.nextColumn(0);
+
 		// find start of first line
 		if (firstInFrame() < itemText.length())
 		{
@@ -433,33 +673,23 @@ void PageItem_TextFrame::layout()
 			else 
 				chs = hl->fontSize();
 			desc2 = -hl->font().descent(chs / 10.0);
-			CurY = TExtra+lineCorr;
+			current.yPos = extra.Top + lineCorr;
 		}
 		else // empty itemText:
 		{
 			desc2 = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
-			CurY = itemText.defaultStyle().lineSpacing() + TExtra+lineCorr-desc2;
+			current.yPos = itemText.defaultStyle().lineSpacing() + extra.Top+lineCorr-desc2;
 		}
-		int itemsInLine = 0;
-		curLine.x = curLine.y = 0;
-		curLine.firstItem = firstInFrame();
-		curLine.ascent = 10;
-		curLine.descent = 0;
-//		BuPos = 0;
-		LastSP = -1;
-		LastXp = 0;
+		current.startLine(firstInFrame());
 		outs = false;
 		OFs = 0;
-		OFs2 = 0;
-		aSpa = 0;
 		MaxChars = 0;
-		StartOfCol = true;
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
 		{
 			hl = itemText.item(a);
 			if (a > 0 && itemText.text(a-1) == SpecialChars::PARSEP)
 				style = itemText.paragraphStyle(a);
-			if (itemsInLine == 0)
+			if (current.itemsInLine == 0)
 				opticalMargins = style.opticalMargins();
 			
 //			qDebug(QString("style pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
@@ -493,7 +723,7 @@ void PageItem_TextFrame::layout()
 						{
 							if (nextItem->itemText.text(a-1) == SpecialChars::PARSEP)
 							{
-								CurY += style.gapBefore();
+								current.yPos += style.gapBefore();
 								if (chstr[0] != SpecialChars::PARSEP)
 								{
 									DropCmode = style.hasDropCap();
@@ -520,7 +750,7 @@ void PageItem_TextFrame::layout()
 					}
 					else
 						DropCmode = false;
-					CurY += style.gapBefore();
+					current.yPos += style.gapBefore();
 				}
 			}
 			{  // local block for 'fl'
@@ -533,7 +763,7 @@ void PageItem_TextFrame::layout()
 			if ( //((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && 
 				 (a > 0 && ! isBreak(itemText.text(a-1))) &&
 				 ! (a > 0 && isBreakingSpace(itemText.text(a-1)) && (itemText.charStyle(a-1).effects() & ScStyle_SuppressSpace) != ScStyle_SuppressSpace) &&
-				 (itemsInLine == 0) && (isBreakingSpace(hl->ch[0])))
+				 (current.itemsInLine == 0) && (isBreakingSpace(hl->ch[0])))
 			{
 				hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 				hl->glyph.xadvance = 0;
@@ -544,12 +774,12 @@ void PageItem_TextFrame::layout()
 
 //			qDebug(QString("textframe(%1,%2): len=%3, fontsize=%4, ascent=%5").arg(Xpos).arg(Ypos).arg(itemText.length())
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()));				
-			if (itemsInLine == 0)
+			if (current.itemsInLine == 0)
 			{
  				// more about par gap and dropcaps
-				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!StartOfCol))
+				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!current.startOfCol))
 				{
-					CurY += style.gapBefore();
+					current.yPos += style.gapBefore();
 					DropCapDrop = 0;
 					if (chstr[0] != SpecialChars::PARSEP)
 						DropCmode = style.hasDropCap();
@@ -567,7 +797,7 @@ void PageItem_TextFrame::layout()
 							else
 								DropCapDrop = charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
 						}
-						CurY += DropCapDrop;
+						current.yPos += DropCapDrop;
 					}
 				}
 			}
@@ -691,19 +921,14 @@ void PageItem_TextFrame::layout()
 			}
 			fBorder = false;
 			// end of col reached?
-//			qDebug(QString("eocol? %1 + %2 + %3 > %4 -- asce=%5").arg(CurY).arg(BExtra).arg(lineCorr).arg(Height).arg(asce));
-			if (CurY+BExtra+lineCorr > Height)
+//			qDebug(QString("eocol? %1 + %2 + %3 > %4 -- asce=%5").arg(current.yPos).arg(extra.Bottom).arg(lineCorr).arg(Height).arg(asce));
+			if (current.isEndOfCol())
 			{
-				StartOfCol = true;
-				CurrCol++;
-				if (CurrCol < Cols)
+				current.column++;
+				if (current.column < Cols)
 				{
 					// start next col
-					ColWidth = columnWidth();
-					ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-					CurX = ColBound.x();
-					ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
-					CurY = asce+TExtra+lineCorr+1;
+					current.nextColumn(asce);
 					if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) 
 						|| ((a == firstInFrame()) && (BackBox == 0)))
 					{
@@ -727,34 +952,32 @@ void PageItem_TextFrame::layout()
 						double by = Ypos;
 						if (OwnPage != -1)
 							by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-						int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+						int ol1 = qRound((by + current.yPos - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 						int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
-						CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
+						current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
 					}
 				}
 				else
 				{
-					nrc = a;
+					MaxChars = a;
 //					qDebug(QString("no room A: %1").arg(a));
 					goto NoRoom;
 				}
 			}
 			// ok, there's more room in col
-			if (itemsInLine == 0)
+			if (current.itemsInLine == 0)
 			{
-//				qDebug(QString("newline: '%1' %2 %3").arg(a).arg(CurY).arg(asce));
+//				qDebug(QString("newline: '%1' %2 %3").arg(a).arg(current.yPos).arg(asce));
 				// start a new line
 				double TopOffset = asce;
 				double BotOffset = desc2;
 				goNoRoom = false;
-				// ??? AV
-//				bool specialCase = false;
-				if (StartOfCol)
+				if (current.startOfCol)
 				{
-//					qDebug(QString("StartOfCol: %1 + %2 + %3").arg(asce).arg(TExtra).arg(lineCorr));
-					CurY = asce+TExtra+lineCorr+1;
+//					qDebug(QString("current.startOfCol: %1 + %2 + %3").arg(asce).arg(extra.Top).arg(lineCorr));
+					current.yPos = asce + extra.Top + lineCorr + 1;
 //							if (((a > 0) && (itemText.at(a-1)->ch == QChar(13))) || ((a == 0) && (BackBox == 0)))
-//								CurY += m_Doc->docParagraphStyles[hl->cab].gapBefore;
+//								current.yPos += m_Doc->docParagraphStyles[hl->cab].gapBefore;
 				}
 //				qDebug(QString("layout: nextline grid=%1 x %2").arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(m_Doc->typographicSettings.valueBaseGrid));
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
@@ -762,43 +985,41 @@ void PageItem_TextFrame::layout()
 					double by = Ypos;
 					if (OwnPage != -1)
 						by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-					int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+					int ol1 = qRound((by + current.yPos - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 					int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
 //					qDebug(QString("useBaselIneGrid: %1 * %2 + %3 - %4").arg(ol2 / 10000.0).arg(m_Doc->typographicSettings.valueBaseGrid).arg(m_Doc->typographicSettings.offsetBaseGrid).arg(by));
-					CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
+					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
 				}
-				if (CurY-TopOffset < 0.0)
-					CurY = TopOffset+1;
+				if (current.yPos-TopOffset < 0.0)
+					current.yPos = TopOffset+1;
 				// find linelength:
-//				pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
-//				pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
-//
-//				if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
-//				{
-//					specialCase = true;
-//					CurX -= Extra;
-//				}
-				pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
-				pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
+				pt1 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(current.yPos+BotOffset));
+				pt2 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(ceil(current.yPos-TopOffset)));
 				// increase pt1/pt2 until i-beam reaches end of line
-				while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
+//				qDebug(QString("linestart: %1 + %2 + %3 < %4").arg(current.xPos).arg(wide).arg(style.rightMargin()).arg(current.colRight));
+				double leftIndent = 0;
+				while (!cl.contains(pf2.xForm(pt1)) || !cl.contains(pf2.xForm(pt2)) || current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 				{
 					fBorder = true;
-					CurX++;
-					if (CurX+RExtra+lineCorr+wide > ColBound.y() - style.rightMargin())
+					current.xPos++;
+					if (current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 					{
-//						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(CurY).arg(StartOfCol).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(style.lineSpacing()).arg(CurrCol));
+						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(current.yPos).arg(current.startOfCol).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(style.lineSpacing()).arg(current.column));
 						// new line
 						fBorder = false;
-						if (StartOfCol)
+						current.xPos = current.colLeft;
+
+						leftIndent = style.leftMargin();
+						if (a > 0 && itemText.text(a-1) == SpecialChars::PARSEP)
+							leftIndent += style.firstIndent();
+
+						if (current.startOfCol)
 						{
-							CurX = ColBound.x();
-							CurY++;
+							current.yPos++;
 						}
 						else
 						{
-							CurY += style.lineSpacing();
-							CurX = ColBound.x();
+							current.yPos += style.lineSpacing();
 						}
 //						qDebug(QString("layout: next lower line grid=%1 x %2").arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(m_Doc->typographicSettings.valueBaseGrid));
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
@@ -806,22 +1027,17 @@ void PageItem_TextFrame::layout()
 							double by = Ypos;
 							if (OwnPage != -1)
 								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-							int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+							int ol1 = qRound((by + current.yPos - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
-							CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
+							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
 						}
-						if (CurY+BExtra+lineCorr > Height)
+						if (current.isEndOfCol())
 						{
-							StartOfCol = true;
 							fBorder = false;
-							CurrCol++;
-							if (CurrCol < Cols)
+							current.column++;
+							if (current.column < Cols)
 							{
-								ColWidth = columnWidth();
-								ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-								CurX = ColBound.x();
-								ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
-								CurY = asce+TExtra+lineCorr+1;
+								current.nextColumn(asce);
 								if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == firstInFrame()) && (BackBox == 0)))
 								{
 									if (chstr[0] != SpecialChars::PARSEP)
@@ -844,81 +1060,54 @@ void PageItem_TextFrame::layout()
 									double by = Ypos;
 									if (OwnPage != -1)
 										by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-									int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+									int ol1 = qRound((by + current.yPos - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 									int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
-									CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
+									current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
 								}
 							}
 							else
 							{
-								nrc = a;
+								MaxChars = a;
 //								qDebug(QString("no room B: %1").arg(a));
 								goto NoRoom;
 							}
 						}
 					}
-					pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
-					pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
+					pt1 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(current.yPos+BotOffset));
+					pt2 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(ceil(current.yPos-TopOffset)));
 				}
 
 				if (((fBorder)) && (!AbsHasDrop))
-					CurX += Extra;
+					current.xPos += extra.Left;
 				// indent first line of par
 				if (a > 0)
 				{
 					if (itemText.text(a-1) == SpecialChars::PARSEP)
-						CurX += style.firstIndent();
+						current.xPos += style.firstIndent();
 				}
 				else
 				{
 					if (BackBox == 0)
-						CurX += style.firstIndent();
+						current.xPos += style.firstIndent();
 					else
 					{
 						if (BackBox->frameDisplays(firstInFrame()-1))
 						{
 							if (BackBox->itemText.text(BackBox->lastInFrame()) == SpecialChars::PARSEP)
-								CurX += style.firstIndent();
+								current.xPos += style.firstIndent();
 						}
 						else
-							CurX += style.firstIndent();
+							current.xPos += style.firstIndent();
 					}
 				}
 				// add left margin
 				if (!AbsHasDrop)
-					CurX += style.leftMargin();
-				if (opticalMargins) {
-					double chs = itemText.charStyle(a).fontSize() * (itemText.charStyle(a).scaleH() / 1000.0);
-					double leftCorr = itemText.charStyle(a).font().realCharWidth(itemText.text(a), chs / 10.0);
-					if (QString("'´`").find(itemText.text(a)) >= 0
-						|| itemText.text(a) == QChar(0x2018)
-						|| itemText.text(a) == QChar(0x2019)
-						|| itemText.text(a) == QChar(0x201a)
-						|| itemText.text(a) == QChar(0x201b)
-						|| itemText.text(a) == QChar(0x2039)
-						|| itemText.text(a) == QChar(0x203a)
-						)
-						leftCorr *= -0.7;
-					else if (QString("\"").find(itemText.text(a)) >= 0
-							 || itemText.text(a) == QChar(0x00ab)
-							 || itemText.text(a) == QChar(0x00bb)
-							 || itemText.text(a) == QChar(0x201c)
-							 || itemText.text(a) == QChar(0x201d)
-							 || itemText.text(a) == QChar(0x201e)
-							 || itemText.text(a) == QChar(0x201f)
-							 ) 
-						leftCorr *= -0.5;
-					else {
-						leftCorr = itemText.charStyle(a).font().charWidth(QChar(' '), chs / 10.0, itemText.text(a));
-						leftCorr -= itemText.charStyle(a).font().charWidth(QChar(' '), chs / 10.0);
-		//				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, itemText.text(a));
-		//				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
-		//				leftCorr = QMIN(leftCorr, leftCorr2);
-					}
-					CurX += leftCorr;
+					current.xPos += style.leftMargin();
+				if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct) {
+					current.xPos += opticalLeftMargin(itemText, current.line);
 				}
-				curLine.x = CurX;
-				curLine.y = CurY;
+				current.line.x = current.xPos;
+				current.line.y = current.yPos;
 				fBorder = false;
 			}
 			else {
@@ -941,25 +1130,25 @@ void PageItem_TextFrame::layout()
 					tabs.active = false;
 				else // ???
 				{
-					tabs.xPos = CurX;
+					tabs.xPos = current.xPos;
 					tTabValues = style.tabValues();
 					if (tTabValues.isEmpty())
 					{
-						if ((CurX - ColBound.x()) != 0)
+						if ((current.xPos - current.colLeft) != 0)
 						{
-							if (CurX == ColBound.x() + ceil((CurX-ColBound.x()) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth)
-								CurX += m_Doc->toolSettings.dTabWidth;
+							if (current.xPos == current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth)
+								current.xPos += m_Doc->toolSettings.dTabWidth;
 							else
-								CurX = ColBound.x() + ceil((CurX-ColBound.x()) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
+								current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
 						}
 						else
-							CurX = ColBound.x() + m_Doc->toolSettings.dTabWidth;
+							current.xPos = current.colLeft + m_Doc->toolSettings.dTabWidth;
 						tabs.status = TabNONE;
 						tabs.active = false;
 					}
 					else
 					{
-						double tCurX = CurX - ColBound.x();
+						double tCurX = current.xPos - current.colLeft;
 						double oCurX = tCurX + wide;
 						for (int yg = static_cast<int>(tTabValues.count()-1); yg > -1; yg--)
 						{
@@ -972,9 +1161,9 @@ void PageItem_TextFrame::layout()
 						}
 						tabs.active = (tabs.status != TabLEFT);
 						if (tCurX == oCurX-wide)
-							CurX = ColBound.x() + ceil((CurX-ColBound.x()) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
+							current.xPos = current.colLeft + ceil((current.xPos-current.colLeft) / m_Doc->toolSettings.dTabWidth) * m_Doc->toolSettings.dTabWidth;
 						else
-							CurX = ColBound.x() + tCurX;
+							current.xPos = current.colLeft + tCurX;
 						
 						// remember fill char
 //						qDebug(QString("tab: %1 '%2'").arg(tCurX).arg(tabs.fillChar));
@@ -987,19 +1176,19 @@ void PageItem_TextFrame::layout()
 							tglyph->xadvance = 0;
 						}
 					}
-					hl->glyph.xadvance = CurX - tabs.xPos;
-//					wide = CurX - RTabX;
+					hl->glyph.xadvance = current.xPos - tabs.xPos;
+//					wide = current.xPos - RTabX;
 					tabs.charIndex = a;
 				}
 			}
 			
 			// remember y pos
-//			hl->glyph.yoffset = CurY + oldCurY;
+//			hl->glyph.yoffset = current.yPos + oldCurY;
 //			hl->glyph.yoffset = 0;
 			if (DropCmode)
 				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr[0], chsd / 10.0);
 			// find tracking
-			if (itemsInLine == 0)
+			if (current.itemsInLine == 0)
 			{
 				itemText.item(a)->setEffects(itemText.item(a)->effects() | ScStyle_StartOfLine);
 				kernVal = 0;
@@ -1009,77 +1198,92 @@ void PageItem_TextFrame::layout()
 				kernVal = 0; // chs * charStyle.tracking() / 10000.0;
 				itemText.item(a)->setEffects(itemText.item(a)->effects() & ~ScStyle_StartOfLine);
 			}
+
+			// remember possible break
+			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
+			{
+				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
+				{
+					current.rememberBreak(a, current.xPos);
+				}
+			}
+			
+			
 			// remember x pos
 			if (!tabs.active) // normal case
 			{
-//				hl->glyph.xoffset = QMAX(CurX+kernVal, ColBound.x());
-				//hl->glyph.xoffset = CurX+kernVal; // needed for left optical margin
-				CurX += wide+kernVal;
-//				CurX = QMAX(CurX, ColBound.x());
+//				hl->glyph.xoffset = QMAX(current.xPos+kernVal, current.colLeft);
+				//hl->glyph.xoffset = current.xPos+kernVal; // needed for left optical margin
+				current.xPos += wide+kernVal;
+//				current.xPos = QMAX(current.xPos, current.colLeft);
 			}
 			else if (tabs.active && tabs.status == TabCENTER) 	// center tab
 			{
-				CurX += (wide+kernVal) / 2;
-				CurX = QMAX(CurX, ColBound.x());
+				current.xPos += (wide+kernVal) / 2;
+				current.xPos = QMAX(current.xPos, current.colLeft);
 			}
 			else // other tabs.active			
 			{
-				CurX = QMAX(CurX, ColBound.x());
-				//hl->glyph.xoffset = CurX;
+				current.xPos = QMAX(current.xPos, current.colLeft);
+				//hl->glyph.xoffset = current.xPos;
 			}
 			
+			
 			// hyphenation
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
+			{
+				double breakPos = current.xPos;
+				if (hl->ch != "-")
+				{
+					breakPos += charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
+				}
+
+				double rightHang = 0;
+				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct) {
+					rightHang = 0.7 * charStyle.font().realCharWidth('-', (charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0));
+				}
+				
+				if (breakPos - 0 < current.colRight - style.rightMargin())
+				{
+					if ((current.hyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
+					{
+						current.rememberBreak(a, breakPos);
+					}
+				}
+			}
+
+			++current.itemsInLine;
+			
+/*						
 			//FIXME: asce / desc set correctly?
-			if ((((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  || hl->ch[0] == SpecialChars::SHYPHEN)
+			if ((((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  || hl->ch[0] == SpecialChars::SHYPHEN)
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
 				{
-					pt1 = QPoint(qRound(ceil(CurX+RExtra+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(CurY+desc));
-					pt2 = QPoint(qRound(ceil(CurX+RExtra+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(ceil(CurY-asce)));
+					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(current.yPos+desc));
+					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(ceil(current.yPos-asce)));
 				}
 				else
 				{
-					pt1 = QPoint(qRound(ceil(CurX+RExtra)), qRound(CurY+desc));
-					pt2 = QPoint(qRound(ceil(CurX+RExtra)), qRound(ceil(CurY-asce)));
+					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
+					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
 				}
 			}
-			else
+			else */
 			{
-				pt1 = QPoint(qRound(ceil(CurX+RExtra)), qRound(CurY+desc));
-				pt2 = QPoint(qRound(ceil(CurX+RExtra)), qRound(ceil(CurY-asce)));
+				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
+				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
 			}
 
 			// test if end of line reached
-			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin()))
+			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (current.isEndOfLine(style.rightMargin())))
 				outs = true;
-			if (CurY > (Height - BExtra - lineCorr))
+			if (current.isEndOfCol())
 				outs = true;
 			if ((hl->ch == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
 				goNoRoom = true;
 			if ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
-
-			// remember possible break
-			if ((isBreakingSpace(hl->ch[0]) || (hl->ch == SpecialChars::TAB)) && (!outs))
-			{
-				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
-				{
-					LastXp = CurX;
-					LastSP = a - curLine.firstItem;
-				}
-			}
-			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
-			{
-				if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
-				{
-					if (hl->ch == "-")
-						LastXp = CurX;
-					else
-						LastXp = CurX + charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
-					LastSP = a - curLine.firstItem;
-				}
-			}
-			++itemsInLine;
 
 			if (tabs.active)
 			{
@@ -1102,23 +1306,23 @@ void PageItem_TextFrame::layout()
 			{
 				DropCmode = false;
 				AbsHasDrop = true;
-				maxDY = CurY;
-				CurX += style.dropCapOffset();
+				maxDY = current.yPos;
+				current.xPos += style.dropCapOffset();
 				hl->glyph.xadvance += style.dropCapOffset();
-//				qDebug(QString("dropcapoffset: %1 -> %2").arg(CurX-style.dropCapOffset()).arg(CurX));
-				CurX = QMAX(CurX, ColBound.x());
-				maxDX = CurX;
+//				qDebug(QString("dropcapoffset: %1 -> %2").arg(current.xPos-style.dropCapOffset()).arg(current.xPos));
+				current.xPos = QMAX(current.xPos, current.colLeft);
+				maxDX = current.xPos;
 				QPointArray tcli(4);
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
-					CurY -= m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
+					current.yPos -= m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
 					double by = Ypos;
 					if (OwnPage != -1)
 						by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-					int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
+					int ol1 = qRound((by + current.yPos - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 					int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
-					CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
-					//FIXME: use colBound.x() instead of xOffset?
+					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
+					//FIXME: use current.colLeft instead of xOffset?
 					tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 					tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 				}
@@ -1126,14 +1330,14 @@ void PageItem_TextFrame::layout()
 				{
 					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
-						CurY -= style.lineSpacing() * (DropLines-1);
+						current.yPos -= style.lineSpacing() * (DropLines-1);
 						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY - DropLines * style.lineSpacing())));
 						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*style.lineSpacing())));
 					}
 					else
 					{
 						double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-						CurY -= currasce * (DropLines-1);
+						current.yPos -= currasce * (DropLines-1);
 						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*currasce)));
 						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*currasce)));
 					}
@@ -1142,7 +1346,7 @@ void PageItem_TextFrame::layout()
 				tcli.setPoint(3, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY)));
 				cm = QRegion(pf2.xForm(tcli));
 				cl = cl.subtract(cm);
-//				CurY = maxDY;
+//				current.yPos = maxDY;
 			}
 			// end of line
 			if ( isBreak(hl->ch[0], Cols > 1) || (outs))
@@ -1151,95 +1355,53 @@ void PageItem_TextFrame::layout()
 				tabs.status = TabNONE;
 				if (isBreak(hl->ch[0], Cols > 1))
 				{
+					// find end of line
+					current.breakLine(itemText, a);
+					EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+					current.finishLine(EndX);
+					
 					if (style.alignment() != 0)
 					{
-						// find end of line
-						EndX = floor(QMAX(curLine.x, LastXp - 10));
-//						qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
-						do {
-							EndX += 0.125;
-							pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
-							pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-						} while ((cl.contains(pf2.xForm(pt1))) 
-								 && (cl.contains(pf2.xForm(pt2))) 
-								 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
-							
-						// end do
-//						qDebug(QString("endx @ %1").arg(EndX));
-						
-						curLine.naturalWidth = CurX - curLine.x;
-						curLine.width = EndX - curLine.x;
+						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
+							current.line.width += opticalRightMargin(itemText, current.line);
+
+						OFs = 0;
 						if (style.alignment() == 2)
-							OFs = EndX - CurX;
+							OFs = current.line.width - current.line.naturalWidth;
 						if (style.alignment() == 1)
-							OFs = (EndX - CurX) / 2;
+							OFs = (current.line.width - current.line.naturalWidth) / 2;
 						if (style.alignment() == 3)
 							OFs = 0;
+						
 						if (style.alignment() == 4
 							|| (style.alignment() == 3 
 								&&  (hl->ch == SpecialChars::LINEBREAK ||
 									 hl->ch == SpecialChars::FRAMEBREAK ||
 									 hl->ch == SpecialChars::COLBREAK)
-								&&  !itemText.text(curLine.firstItem + itemsInLine-1).isSpace()))
+								&&  !itemText.text(current.line.lastItem - 1).isSpace()))
 						{
-							// count the available spaces
-							aSpa = 0;
-							for (int sof = 0; sof < itemsInLine; ++sof)
-							{
-								if (isExpandingSpace(itemText.text(curLine.firstItem + sof))
-									&& ! (itemText.item(curLine.firstItem + sof)->effects() & ScStyle_SuppressSpace)
-									)
-									aSpa++;
-							}
-							if (aSpa != 0)
-								OFs2 = (EndX - CurX) / aSpa;
-							else
-								OFs2 = 0;
-							OFs = 0;
-							// distribute whitespace on spaces
-							for (int yof = 0; yof < itemsInLine; ++yof)
-							{
-								/*
-								for (GlyphLayout* gp = &itemText.item(curLine.firstItem + yof)->glyph; gp; gp = gp->more)
-									gp->xoffset += OFs;
-								 */
-								if (isExpandingSpace(itemText.text(curLine.firstItem + yof))
-									&& ! (itemText.item(curLine.firstItem + yof)->effects() & ScStyle_SuppressSpace)
-									)
-								{
-									itemText.item(curLine.firstItem + yof)->glyph.last()->xadvance += OFs2;
-									OFs += OFs2;
-								}
-							}
+							justifyLine(itemText, current.line); 
 						}
 						else
 						{
 							// simple offset
-							curLine.x += OFs;
-/*							for (int xof = 0; xof < itemsInLine; ++xof)
-							{
-								itemText.item(curLine.firstItem + xof)->glyph.xoffset += OFs;
-							}
-*/
+							indentLine(current.line, OFs);
 						}
-						CurX = EndX;
-					}
-					else {
-						curLine.naturalWidth = CurX - curLine.x;
-						curLine.width = CurX - curLine.x;
+						current.xPos = current.line.x + current.line.width;
 					}
 				}
 				else // outs -- last char went outside the columns
 				{
-					if (LastSP >= 0)            // Hier koenen auch andere Trennungen eingebaut werden
+					if (current.breakIndex >= 0)            // Hier koenen auch andere Trennungen eingebaut werden
 					{
 						// go back to last break position
-//						qDebug(QString("new break pos a=%1 BuPos=%2 LastSP=%3").arg(a).arg(BuPos).arg(LastSP));
-						a = curLine.firstItem + LastSP;
+//						qDebug(QString("new break pos a=%1 BuPos=%2 current.breakIndex=%3").arg(a).arg(BuPos).arg(current.breakIndex));
+						a = current.breakIndex;
 						assert( a >= 0 );
 						assert( a < itemText.length() );
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
+						current.itemsInLine = a - current.line.firstItem + 1;
 //						qDebug(QString("style outs pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 //						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
@@ -1249,181 +1411,107 @@ void PageItem_TextFrame::layout()
 							hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 							hl->glyph.xadvance = 0;
 						}
-						LastXp = curLine.x;
-						for (int j=curLine.firstItem; j <= a; ++j)
-							LastXp += itemText.item(j)->glyph.wide();
+						
+						EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+						current.finishLine(EndX);
+
+//???						current.breakXPos = current.line.x;
+//???						for (int j=current.line.firstItem; j <= a; ++j)
+//???							current.breakXPos += itemText.item(j)->glyph.wide();
 						
 						if ((hl->effects() & ScStyle_HyphenationPossible) || hl->ch[0] == SpecialChars::SHYPHEN)
 						{
 							// insert hyphen
-							HyphenCount++;
+							current.hyphenCount++;
 							hl->setEffects(hl->effects() | ScStyle_SmartHyphenVisible);
-							hl->glyph.more = new GlyphLayout();
+							hl->glyph.grow();
 							hl->glyph.more->glyph = charStyle.font().char2CMap(QChar('-'));
 							hl->glyph.more->xadvance = charStyle.font().charWidth('-', itemText.charStyle(a).fontSize() / 10.0) * (itemText.charStyle(a).scaleH() / 1000.0);
-//							LastSP += 2;
-							LastXp += hl->glyph.more->xadvance;
+//							current.breakIndex += 2;
+//???							current.breakXPos += hl->glyph.more->xadvance;
 						}
 						else 
 						{
-							HyphenCount = 0;
+							if (hl->ch[0] != '-')
+								current.hyphenCount = 0;
 							hl->setEffects(hl->effects() & ~ScStyle_SmartHyphenVisible);
-							if (hl->glyph.more) {
-								delete hl->glyph.more;
-								hl->glyph.more = 0;
-							}
-//							LastSP += 1;
+							hl->glyph.shrink();
+//							current.breakIndex += 1;
 						}
+						
 						// Justification
 						if (style.alignment() != 0)
 						{
-							// find end of line
-							EndX = floor(QMAX(curLine.x, LastXp - 10));
-//							qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
-							do {
-								EndX += 0.125;
-								pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
-								pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-							} while ((cl.contains(pf2.xForm(pt1))) 
-									 && (cl.contains(pf2.xForm(pt2))) 
-									 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
-								
-							// end do
-//							qDebug(QString("endx @ %1").arg(EndX));
+							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
+								current.line.width += opticalRightMargin(itemText, current.line);
 
-							int b=a;
-							while (b > curLine.firstItem && isBreakingSpace(itemText.text(b)))
-								--b;
-							if (opticalMargins && b >= curLine.firstItem) {
-								double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
-								QString chr = itemText.item(b)->glyph.more ? "-" : itemText.text(b,1);
-								double rightCorr = itemText.charStyle(b).font().realCharWidth(chr[0], chs / 10.0);
-								if (QString("-,.`´'~").find(chr) >= 0
-									|| chr[0] == QChar(0x2018)
-									|| chr[0] == QChar(0x2019)
-									|| chr[0] == QChar(0x201a)
-									|| chr[0] == QChar(0x201b)
-									|| chr[0] == QChar(0x2039)
-									|| chr[0] == QChar(0x203a)
-									|| chr[0] == QChar(0x2032)
-									)
-									rightCorr *= 0.7;
-								else if (QString(";:\"").find(chr) >= 0
-										 || chr[0] == QChar(0x00ab)
-										 || chr[0] == QChar(0x00bb)
-										 || chr[0] == QChar(0x201c)
-										 || chr[0] == QChar(0x201d)
-										 || chr[0] == QChar(0x201e)
-										 || chr[0] == QChar(0x201f)
-										 || chr[0] == QChar(0x2013)
-										 || chr[0] == QChar(0x2033)
-										 )
-									rightCorr *= 0.5;
-								else {
-									rightCorr = itemText.charStyle(b).font().charWidth(chr[0], chs / 10.0);
-									rightCorr -= itemText.charStyle(b).font().charWidth(chr[0], chs / 10.0, QChar('.'));
-								}
-								EndX += rightCorr;
-//								qDebug(QString("orm %1 @ %2: %3 %4").arg(rightCorr).arg(a).arg(chr).arg(itemText.charStyle(a).effects() & ScStyle_HyphenationPossible? "smart" : ""));
-							}
-							curLine.naturalWidth = LastXp - curLine.x;
-							curLine.width = EndX - curLine.x;
+							OFs = 0;
 							if (style.alignment() == 2)
-								OFs = EndX - LastXp;
+								OFs = current.line.width - current.line.naturalWidth;
 							if (style.alignment() == 1)
-								OFs = (EndX - LastXp) / 2;
+								OFs = (current.line.width - current.line.naturalWidth) / 2;
+							
 							if ((style.alignment() == 3) 
 								|| (style.alignment() == 4))
 							{
-								// count available spaces
-								aSpa = 0; 
-								for (int sof = 0; sof<LastSP; ++sof)
-								{
-									if (isExpandingSpace(itemText.item(curLine.firstItem + sof)->ch[0])
-										&& ! (itemText.item(curLine.firstItem + sof)->effects() & ScStyle_SuppressSpace)
-										)
-										aSpa++;
-								}
-								if (aSpa > 0)
-									OFs2 = (EndX - LastXp) / aSpa;
-								else
-									OFs2 = 0;
-								
-								OFs = 0;
-//								qDebug(QString("just %1").arg(OFs2));
-								for (int yof = 0; yof < itemsInLine; ++yof)
-								{
-									if ( isExpandingSpace(itemText.item(curLine.firstItem + yof)->ch[0])
-										 && ! (itemText.item(curLine.firstItem + yof)->effects() & ScStyle_SuppressSpace)
-										 )
-									{
-										itemText.item(curLine.firstItem + yof)->glyph.last()->xadvance += OFs2;
-										OFs += OFs2;
-									}
-								}
+								justifyLine(itemText, current.line);
 							}
 							else
 							{
-								curLine.x += OFs;
+								indentLine(current.line, OFs);
 							}
 //							qDebug(QString("line: endx=%1 lastchar=%2").arg(EndX).arg(LiList.at(BuPos-1)->xco + LiList.at(BuPos-1)->wide));
-							CurX = EndX;
-						}
-						else {
-							curLine.naturalWidth = LastXp - curLine.x;
-							curLine.width = LastXp - curLine.x;
+							current.xPos = current.line.x + current.line.width;
 						}
 					}
-					else if (a > curLine.firstItem) // no break position
+					else  // no break position
 					{
-						--a;
-						/*--itemsInLine;*/
-						hl = itemText.item(a);
-						style = itemText.paragraphStyle(a);
+						if (a > current.line.firstItem)
+						{
+							--a;
+							--current.itemsInLine;
+							hl = itemText.item(a);
+							style = itemText.paragraphStyle(a);
+						}
+						current.breakLine(itemText, a);
 //						qDebug(QString("style no break pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
 //						qDebug(QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //							   .arg(a));
-						curLine.naturalWidth = CurX - curLine.x;
-						curLine.width = CurX - curLine.x;
-//						BuPos--;
-					}
-					else {
-					/*	--a;
-						--itemsInLine;
-						*/
-//						qDebug(QString("style nb0 @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
-//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
-//							   .arg(a));
+						EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+						current.finishLine(EndX);
+						qDebug(QString("no break pos: %1-%2 @ %3 wid %4 nat %5 endX %6")
+							   .arg(current.line.firstItem).arg(current.line.firstItem)
+							   .arg(current.line.x).arg(current.line.width).arg(current.line.naturalWidth).arg(EndX));
 					}
 				}
 				if ( outs || isBreak(hl->ch[0], (Cols > 1)) )
 				{
-					if ((outs) && (CurX+RExtra+lineCorr+wide < ColBound.y() - style.rightMargin()))
+					if (outs && current.isEndOfLine(hl->glyph.wide() + style.rightMargin()))
 					{
-						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK) 
+						if (( hl->ch[0] == SpecialChars::PARSEP || hl->ch[0] == SpecialChars::LINEBREAK) 
 							&& AbsHasDrop)
 						{
 							AbsHasDrop = false;
-							if (CurY < maxDY)
-								CurY = maxDY;
+							if (current.yPos < maxDY)
+								current.yPos = maxDY;
 						}
 						bool fromOut = true;
-						double BotOffset = desc+BExtra+lineCorr;
-						pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
-						pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-						while (CurX+RExtra+lineCorr < ColBound.y() - style.rightMargin())
+						double BotOffset = desc+extra.Bottom+lineCorr;
+//						pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
+//						pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
+						while (!current.isEndOfLine(style.rightMargin()))
 						{
-							CurX++;
-							if (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin())
+							current.xPos++;
+							if (current.isEndOfLine(style.rightMargin()))
 							{
 								fromOut = false;
 //								qDebug(QString("layout: next lower2 grid=%1 x %2").arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(m_Doc->typographicSettings.valueBaseGrid));
 								if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-									CurY += m_Doc->typographicSettings.valueBaseGrid;
+									current.yPos += m_Doc->typographicSettings.valueBaseGrid;
 								else
-									CurY += style.lineSpacing();
-								if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
+									current.yPos += style.lineSpacing();
+								if (current.isEndOfCol(desc) && (current.column+1 == Cols))
 								{
 									goNoRoom = true;
 //									qDebug(QString("go no room 1: %1").arg(a));
@@ -1431,39 +1519,41 @@ void PageItem_TextFrame::layout()
 								}
 								if (AbsHasDrop)
 								{
-									if ((CurY > maxDY) && (CurY - asce > maxDY))
+									if ((current.yPos > maxDY) && (current.yPos - asce > maxDY))
 									{
 										AbsHasDrop = false;
-										CurX = ColBound.x();
+										current.xPos = current.colLeft;
 									}
 									else
-										CurX = maxDX;
+										current.xPos = maxDX;
 								}
 								else
-									CurX = ColBound.x();
+									current.xPos = current.colLeft;
 								if (isBreak(hl->ch[0]))
 								{
 									if (hl->ch == SpecialChars::PARSEP)
-										CurY += style.gapAfter();
-									HyphenCount = 0;
+										current.yPos += style.gapAfter();
+									current.hyphenCount = 0;
 								}
 								break;
 							}
-							pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
-							pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-							if ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))))
+							pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
+							pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
+							if (cl.contains(pf2.xForm(pt1)) && cl.contains(pf2.xForm(pt2)))
 								break;
+//							else
+//								qDebug(QString("looking for start of line at %1,%2").arg(current.xPos).arg(current.yPos));
 						}
 						if (fromOut)
 						{
-							if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
+							if (current.isEndOfCol(desc) && (current.column+1 == Cols))
 							{
 								goNoRoom = true;
 //								qDebug(QString("go no room 2: %1").arg(a));
 								break;
 							}
-							CurX--;
-							CurX = QMAX(CurX, ColBound.x());
+							current.xPos--;
+							current.xPos = QMAX(current.xPos, current.colLeft);
 						}
 					}
 					else
@@ -1472,122 +1562,121 @@ void PageItem_TextFrame::layout()
 							&& AbsHasDrop)
 						{
 							AbsHasDrop = false;
-							if (CurY < maxDY)
-								CurY = maxDY;
+							if (current.yPos < maxDY)
+								current.yPos = maxDY;
 						}
 //						qDebug(QString("layout: next lower3 grid=%1 x %2").arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(m_Doc->typographicSettings.valueBaseGrid));
 
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-							CurY += m_Doc->typographicSettings.valueBaseGrid;
+							current.yPos += m_Doc->typographicSettings.valueBaseGrid;
 						else
 						{
 							if (a < lastInFrame())
-								CurY += itemText.paragraphStyle(a+1).lineSpacing();
+								current.yPos += itemText.paragraphStyle(a+1).lineSpacing();
 							else
-								CurY += style.lineSpacing();
+								current.yPos += style.lineSpacing();
 						}
 						if (AbsHasDrop)
 						{
-							if ((CurY > maxDY) && (CurY - asce > maxDY))
+							if ((current.yPos > maxDY) && (current.yPos - asce > maxDY))
 							{
 								AbsHasDrop = false;
-								CurX = ColBound.x();
+								current.xPos = current.colLeft;
 							}
 							else
-								CurX = maxDX;
+								current.xPos = maxDX;
 						}
 						else
-							CurX = ColBound.x();
+							current.xPos = current.colLeft;
 						if ( isBreak(hl->ch[0]) )
 						{
 							if (hl->ch == SpecialChars::PARSEP)
-								CurY += style.gapAfter();
-							HyphenCount = 0;
+								current.yPos += style.gapAfter();
+							current.hyphenCount = 0;
 						}
 					}
 				}
 				
 
 				// calc. needed vertical space
-				if (itemsInLine != 0)
+				if (current.itemsInLine != 0)
 				{
-					if ((!AbsHasDrop) && (StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
+					if ((!AbsHasDrop) && (current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 					{
-						double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
+						double firstasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 						double currasce = 0;
-						if ((itemText.text(curLine.firstItem) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem) == SpecialChars::LINEBREAK))
-							currasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-						else if (itemText.object(curLine.firstItem) != 0)
-							currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-						else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
-							currasce = itemText.charStyle(curLine.firstItem).font().realCharAscent(itemText.text(curLine.firstItem), itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-						for (int zc = 0; zc < itemsInLine; ++zc)
+						if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
+							currasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
+						else if (itemText.object(current.line.firstItem) != 0)
+							currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+						else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
+							currasce = itemText.charStyle(current.line.firstItem).font().realCharAscent(itemText.text(current.line.firstItem), itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
+						for (int zc = 0; zc < current.itemsInLine; ++zc)
 						{
-							QChar ch = itemText.text(curLine.firstItem + zc);
-							const CharStyle& cStyle(itemText.charStyle(curLine.firstItem + zc));
+							QChar ch = itemText.text(current.line.firstItem + zc);
+							const CharStyle& cStyle(itemText.charStyle(current.line.firstItem + zc));
 							if ((ch == SpecialChars::TAB) || (ch == QChar(10))
 								|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
 								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::LINEBREAK)
 								|| (ch == SpecialChars::FRAMEBREAK) || (ch == SpecialChars::NBSPACE))
 								continue;
-							if (itemText.object(curLine.firstItem + zc) != 0)
-								currasce = QMAX(currasce, (itemText.object(curLine.firstItem + zc)->gHeight + itemText.object(curLine.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0));
-							else //if (itemText.charStyle(curLine.firstItem + zc).effects() & ScStyle_DropCap == 0)
+							if (itemText.object(current.line.firstItem + zc) != 0)
+								currasce = QMAX(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0));
+							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
 								currasce = QMAX(currasce, cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0));
 						}
 						double adj = firstasce - currasce;
-						curLine.ascent = currasce;
-						curLine.y -= adj;
-						CurY -= adj;
+						current.line.ascent = currasce;
+						current.line.y -= adj;
+						current.yPos -= adj;
 					}
-					else if ((!StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+					else if ((!current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 					{
-						QChar ch = itemText.text(curLine.firstItem);
+						QChar ch = itemText.text(current.line.firstItem);
 						double firstasce = style.lineSpacing();
 						double currasce = 0;
-						if (itemText.object(curLine.firstItem) != 0)
-							currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-						else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
-							currasce = itemText.charStyle(curLine.firstItem).font().height(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-						for (int zc = 0; zc < itemsInLine; ++zc)
+						if (itemText.object(current.line.firstItem) != 0)
+							currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+						else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
+							currasce = itemText.charStyle(current.line.firstItem).font().height(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
+						for (int zc = 0; zc < current.itemsInLine; ++zc)
 						{
-							QChar ch = itemText.text(curLine.firstItem + zc);
+							QChar ch = itemText.text(current.line.firstItem + zc);
 							if ((ch == SpecialChars::TAB) || (ch == QChar(10))
 								|| (ch == SpecialChars::PARSEP) || (ch == SpecialChars::NBHYPHEN)
 								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
 								|| (ch == SpecialChars::LINEBREAK) || (ch == SpecialChars::NBSPACE))
 								continue;
-							if (itemText.object(curLine.firstItem + zc) != 0)
-								currasce = QMAX(currasce, (itemText.object(curLine.firstItem + zc)->gHeight + itemText.object(curLine.firstItem + zc)->lineWidth()) * (itemText.charStyle(curLine.firstItem + zc).scaleV() / 1000.0));
-							else //if (itemText.charStyle(curLine.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem + zc).font().height(itemText.charStyle(curLine.firstItem + zc).fontSize() / 10.0));
+							if (itemText.object(current.line.firstItem + zc) != 0)
+								currasce = QMAX(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem + zc).scaleV() / 1000.0));
+							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
+								currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem + zc).font().height(itemText.charStyle(current.line.firstItem + zc).fontSize() / 10.0));
 						}
 							
 						double adj = firstasce - currasce;
-						curLine.ascent = currasce;
-						curLine.y -= adj;
-						CurY -= adj;
+						current.line.ascent = currasce;
+						current.line.y -= adj;
+						current.yPos -= adj;
 					}
-					if ( itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap)
+					if ( itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap)
 					{
 						// put line back to top
-						curLine.y -= DropCapDrop;
-						itemText.item(curLine.firstItem)->glyph.yoffset += DropCapDrop;
+						current.line.y -= DropCapDrop;
+						itemText.item(current.line.firstItem)->glyph.yoffset += DropCapDrop;
 					}
 				}
 				
-				curLine.lastItem = a;
-				fillInTabLeaders(itemText, curLine);
+				fillInTabLeaders(itemText, current.line);
 
-				StartOfCol = false;
+				current.startOfCol = false;
 /* has no effect except setting wide, asce and desc
  				uint loopC = BuPos3;
 				if (m_Doc->guidesSettings.showControls)
 					loopC++;  // ??? AV
 				for (int zc = 0; zc < loopC; ++zc)
 				{
-					if ( zc >= itemsInLine) {
-						qDebug("layout: zc too large %d / %d", zc, itemsInLine);
+					if ( zc >= current.itemsInLine) {
+						qDebug("layout: zc too large %d / %d", zc, current.itemsInLine);
 						continue;
 					}
 					if ( startLin + zc >= itemText.length()) {
@@ -1597,7 +1686,7 @@ void PageItem_TextFrame::layout()
 //					else
 //						qDebug("layout: startLin, zc ok. %d, %d, %d", startLin, zc, LiList.count());
 					double wide2 = 0;
-					double xcoZli = itemText.item(curLine.firstItem + zc)->glyph.xoffset;
+					double xcoZli = itemText.item(current.line.firstItem + zc)->glyph.xoffset;
 //					itemText.item(startLin+zc)->glyph.xoffset = Zli2->xco;
 ///					itemText.item(startLin+zc)->glyph.yoffset = Zli2->yco;
 					tTabValues = itemText.paragraphStyle(startLin+zc).tabValues();
@@ -1616,39 +1705,32 @@ void PageItem_TextFrame::layout()
 					}
 				}
 				*/
-//				LiList.clear();
-				if (curLine.firstItem > curLine.lastItem)
-					qDebug(QString("layout: empty line %1 - %2").arg(curLine.firstItem).arg(curLine.lastItem));
-				else if (itemsInLine > 0)
-					itemText.appendLine(curLine);
-				itemsInLine = 0;
-				curLine.firstItem = a+1;
-//				BuPos = 0;
-				LastSP = -1;
-				LastXp = 0;
+//				qDebug(QString("layout: line %1 - %2 @ (%3,%4) wd %5/%6").arg(current.line.firstItem).arg(current.line.lastItem)
+//					   .arg(current.line.x).arg(current.line.y).arg(current.line.naturalWidth).arg(current.line.width));
+				if (current.line.firstItem > current.line.lastItem)
+					qDebug(QString("layout: empty line %1 - %2").arg(current.line.firstItem).arg(current.line.lastItem));
+				else if (current.itemsInLine > 0)
+					itemText.appendLine(current.line);
+				current.startLine(a+1);
 				outs = false;
 				if (goNoRoom)
 				{
 					goNoRoom = false;
-					nrc = a+1;
+					MaxChars = a+1;
 //					qDebug(QString("no room C: %1").arg(a+1));
 					goto NoRoom;
 				}
 				if (goNextColumn)
 				{
 					goNextColumn = false;
-					StartOfCol = true;
-					CurrCol++;
-					if (CurrCol < Cols)
+					current.column++;
+					if (current.column < Cols)
 					{
-						ColWidth = columnWidth();
-						ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-						CurX = ColBound.x();
-						ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+						current.nextColumn(asce);
 					}
 					else
 					{
-						nrc = a;
+						MaxChars = a;
 //						qDebug(QString("no room D: %1").arg(a));
 						goto NoRoom;
 					}
@@ -1658,59 +1740,22 @@ void PageItem_TextFrame::layout()
 // end of itemText
 		int a = itemText.length()-1;
 		hl = a >=0 ? itemText.item(a) : NULL;
-		curLine.lastItem = a;
+		current.breakLine(itemText, a);
+		EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
+		current.finishLine(EndX);
+
 		if (style.alignment() != 0)
 		{
-			EndX = floor(QMAX(curLine.x, CurX - 10));
-			do {
-				EndX += 0.125;
-				pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
-				pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-			} while ((cl.contains(pf2.xForm(pt1))) 
-					 && (cl.contains(pf2.xForm(pt2))) 
-					 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
-				
-			int b=a;
-			while (b > curLine.firstItem && isBreakingSpace(itemText.text(b)))
-				--b;
-			if (opticalMargins && b >= curLine.firstItem) {
-				double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
-				QString chr = itemText.item(b)->glyph.more ? "-" : itemText.text(b,1);
-				double rightCorr = itemText.charStyle(a).font().realCharWidth(chr[0], chs / 10.0);
-				if (QString("-,.`´'~").find(chr) >= 0
-					|| chr[0] == QChar(0x2018)
-					|| chr[0] == QChar(0x2019)
-					|| chr[0] == QChar(0x201a)
-					|| chr[0] == QChar(0x201b)
-					|| chr[0] == QChar(0x2039)
-					|| chr[0] == QChar(0x203a)
-					|| chr[0] == QChar(0x2032)
-					)
-					rightCorr *= 0.7;
-				else if (QString(";:\"").find(chr) >= 0
-						 || chr[0] == QChar(0x00ab)
-						 || chr[0] == QChar(0x00bb)
-						 || chr[0] == QChar(0x201c)
-						 || chr[0] == QChar(0x201d)
-						 || chr[0] == QChar(0x201e)
-						 || chr[0] == QChar(0x201f)
-						 || chr[0] == QChar(0x2013)
-						 || chr[0] == QChar(0x2033)
-						 )
-					rightCorr *= 0.5;
-				else {
-					rightCorr = itemText.charStyle(a).font().charWidth(chr[0], chs / 10.0);
-					rightCorr -= itemText.charStyle(a).font().charWidth(chr[0], chs / 10.0, QChar('.'));
-				}
-				EndX += rightCorr;
-//				qDebug(QString("orm %1 @ %2: %3 par").arg(rightCorr).arg(a).arg(chr));
+			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
+			{
+				current.line.width += opticalRightMargin(itemText, current.line);
 			}
-			curLine.naturalWidth = CurX - curLine.x;
-			curLine.width = EndX - curLine.x;
+			
+			OFs = 0;
 			if (style.alignment() == 2)
-				OFs = EndX - CurX;
+				OFs = current.line.width - current.line.naturalWidth;
 			if (style.alignment() == 1)
-				OFs = (EndX - CurX) / 2;
+				OFs = (current.line.width - current.line.naturalWidth) / 2;
 			if (style.alignment() == 3)
 				OFs = 0;
 			if (style.alignment() == 4
@@ -1718,112 +1763,87 @@ void PageItem_TextFrame::layout()
 					&&  (hl->ch == SpecialChars::LINEBREAK ||
 						 hl->ch == SpecialChars::FRAMEBREAK ||
 						 hl->ch == SpecialChars::COLBREAK)
-					&&  !itemText.text(curLine.firstItem + itemsInLine-1).isSpace()))
+					&&  !itemText.text(current.line.firstItem + current.itemsInLine-1).isSpace()))
 			{
-				aSpa = 0;
-				for (int sof = 0; sof < itemsInLine; ++sof)
-				{
-					if ( isExpandingSpace(itemText.item(curLine.firstItem + sof)->ch[0])
-						&& ! (itemText.item(curLine.firstItem + sof)->effects() & ScStyle_SuppressSpace)
-						 )
-						aSpa++;
-				}
-				if (aSpa != 0)
-					OFs2 = (EndX - CurX) / aSpa;
-				else
-					OFs2 = 0;
-				OFs = 0;
-				for (int yof = 0; yof < itemsInLine; ++yof)
-				{
-					if (isExpandingSpace(itemText.item(curLine.firstItem + yof)->ch[0])
-						&& ! (itemText.item(curLine.firstItem + yof)->effects() & ScStyle_SuppressSpace)
-						)
-					{
-						itemText.item(curLine.firstItem + yof)->glyph.last()->xadvance += OFs2;
-						OFs += OFs2;
-					}
-				}
+				justifyLine(itemText, current.line);
 			}
 			else
 			{
-				curLine.x += OFs;
+				indentLine(current.line, OFs);
 			}
 		}
-		else {
-			curLine.naturalWidth = CurX - curLine.x;
-			curLine.width = CurX - curLine.x;
-		}
-		if (itemsInLine != 0)
+
+		if (current.itemsInLine != 0)
 		{
-			if ((!AbsHasDrop) && (StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
+			if ((!AbsHasDrop) && (current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing))
 			{
-				double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
+				double firstasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 				double currasce = 0;
-				if ((itemText.text(curLine.firstItem) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem) == SpecialChars::LINEBREAK))
-					currasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-				else if (itemText.object(curLine.firstItem) != 0)
-					currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-				else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
-					currasce = itemText.charStyle(curLine.firstItem).font().realCharAscent(itemText.text(curLine.firstItem), itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-				for (int zc = 0; zc < itemsInLine; ++zc)
+				if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
+					currasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
+				else if (itemText.object(current.line.firstItem) != 0)
+					currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+				else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
+					currasce = itemText.charStyle(current.line.firstItem).font().realCharAscent(itemText.text(current.line.firstItem), itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
+				for (int zc = 0; zc < current.itemsInLine; ++zc)
 				{
-					if ((itemText.text(curLine.firstItem+zc) == SpecialChars::TAB) || (itemText.text(curLine.firstItem+zc) == QChar(10))
-						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem+zc) == SpecialChars::NBHYPHEN)
-						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::FRAMEBREAK) || (itemText.text(curLine.firstItem+zc) == SpecialChars::COLBREAK)
-						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(curLine.firstItem+zc) == SpecialChars::NBSPACE))
+					if ((itemText.text(current.line.firstItem+zc) == SpecialChars::TAB) || (itemText.text(current.line.firstItem+zc) == QChar(10))
+						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem+zc) == SpecialChars::NBHYPHEN)
+						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::FRAMEBREAK) || (itemText.text(current.line.firstItem+zc) == SpecialChars::COLBREAK)
+						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(current.line.firstItem+zc) == SpecialChars::NBSPACE))
 						continue;
-					if (itemText.object(curLine.firstItem+zc) != 0)
-						currasce = QMAX(currasce, (itemText.object(curLine.firstItem+zc)->gHeight + itemText.object(curLine.firstItem+zc)->lineWidth()) * itemText.charStyle(curLine.firstItem+zc).scaleV() / 1000.0);
-					else //if (itemText.charStyle(curLine.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem+zc).font().realCharAscent(itemText.text(curLine.firstItem+zc), itemText.charStyle(curLine.firstItem+zc).fontSize() / 10.0));
+					if (itemText.object(current.line.firstItem+zc) != 0)
+						currasce = QMAX(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0);
+					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
+						currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem+zc).font().realCharAscent(itemText.text(current.line.firstItem+zc), itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
-				curLine.ascent = currasce;
-				curLine.y -= adj;
-				CurY -= adj;
+				current.line.ascent = currasce;
+				current.line.y -= adj;
+				current.yPos -= adj;
 			}
-			else if ((!StartOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+			else if ((!current.startOfCol) && (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 			{
 				double firstasce = style.lineSpacing();
 				double currasce = 0;
-				if (itemText.object(curLine.firstItem) != 0)
-					currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-				else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
-					currasce = itemText.charStyle(curLine.firstItem).font().height(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-				for (int zc = 0; zc < itemsInLine; ++zc)
+				if (itemText.object(current.line.firstItem) != 0)
+					currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+				else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
+					currasce = itemText.charStyle(current.line.firstItem).font().height(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
+				for (int zc = 0; zc < current.itemsInLine; ++zc)
 				{
-					if ((itemText.text(curLine.firstItem+zc) == SpecialChars::TAB) || (itemText.text(curLine.firstItem+zc) == QChar(10))
-						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::PARSEP) || (itemText.text(curLine.firstItem+zc) == SpecialChars::NBHYPHEN)
-						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::COLBREAK) || (itemText.text(curLine.firstItem+zc) == SpecialChars::FRAMEBREAK)
-						|| (itemText.text(curLine.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(curLine.firstItem+zc) == SpecialChars::NBSPACE))
+					if ((itemText.text(current.line.firstItem+zc) == SpecialChars::TAB) || (itemText.text(current.line.firstItem+zc) == QChar(10))
+						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem+zc) == SpecialChars::NBHYPHEN)
+						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::COLBREAK) || (itemText.text(current.line.firstItem+zc) == SpecialChars::FRAMEBREAK)
+						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(current.line.firstItem+zc) == SpecialChars::NBSPACE))
 						continue;
-					if (itemText.object(curLine.firstItem+zc) != 0)
-						currasce = QMAX(currasce, (itemText.object(curLine.firstItem+zc)->gHeight + itemText.object(curLine.firstItem+zc)->lineWidth()) * (itemText.charStyle(curLine.firstItem+zc).scaleV() / 1000.0));
-					else //if (itemText.charStyle(curLine.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem+zc).font().height(itemText.charStyle(curLine.firstItem+zc).fontSize() / 10.0));
+					if (itemText.object(current.line.firstItem+zc) != 0)
+						currasce = QMAX(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0));
+					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
+						currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
-				curLine.ascent = currasce;
-				curLine.y -= adj;
-				CurY -= adj;
+				current.line.ascent = currasce;
+				current.line.y -= adj;
+				current.yPos -= adj;
 			}
-			if ( itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap )
+			if ( itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap )
 			{
 				// put line back to top
-				curLine.y -= DropCapDrop;
-				itemText.item(curLine.firstItem)->glyph.yoffset += DropCapDrop;
+				current.line.y -= DropCapDrop;
+				itemText.item(current.line.firstItem)->glyph.yoffset += DropCapDrop;
 			}
 		}
-		fillInTabLeaders(itemText, curLine);
-		StartOfCol = false;
+		fillInTabLeaders(itemText, current.line);
+		current.startOfCol = false;
 		goNextColumn = false;
-		if (itemsInLine > 0)
-			itemText.appendLine(curLine);
-		itemsInLine = 0;
-		curLine.firstItem = a + 1;
-//		BuPos = 0;
-		LastSP = -1;
-		outs = false;
+
+//		qDebug(QString("layout: last line %1 - %2 @ (%3,%4) wd %5/%6").arg(current.line.firstItem).arg(current.line.lastItem)
+//			   .arg(current.line.x).arg(current.line.y).arg(current.line.naturalWidth).arg(current.line.width));
+		
+		if (current.itemsInLine > 0) {
+			itemText.appendLine(current.line);
+		}
 	}
 	MaxChars = itemText.length();
 	invalid = false;
@@ -1837,21 +1857,20 @@ void PageItem_TextFrame::layout()
 			
 NoRoom:     
 	pf2.end();
-	MaxChars = nrc;
 	invalid = false;
 	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
 	if (next != 0)
 	{
 		next->invalid = true;
-		next->firstChar = nrc;
-		if (CPos > signed(nrc))
+		next->firstChar = MaxChars;
+		if (CPos > signed(MaxChars))
 		{
 			int nCP = CPos;
-//			CPos = nrc;
+//			CPos = MaxChars;
 			if ((m_Doc->appMode == modeEdit) && (Tinput))
 			{
 				//							OwnPage->Deselect(true);
-				next->CPos = QMAX(nCP, signed(nrc));
+				next->CPos = QMAX(nCP, signed(MaxChars));
 				//							Doc->currentPage = NextBox->OwnPage;
 				//							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 //				qDebug("textframe: len=%d, leaving relayout in editmode && Tinput", itemText.length());
@@ -1875,7 +1894,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	ScribusView* view = m_Doc->view();
 	QPainter pf2;
 	QPoint pt1, pt2;
-	FPoint ColBound;
 	QRegion cm;
 	double wide, lineCorr;
 	QString chstr;
@@ -2894,7 +2912,8 @@ double PageItem_TextFrame::columnWidth()
 		lineCorr = m_lineWidth;
 	else
 		lineCorr = 0;
-	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - lineCorr) / Cols;
+	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2 * lineCorr) / Cols;
+//	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - lineCorr) / Cols;
 }
 
 void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
@@ -2951,7 +2970,7 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 #endif
 	double colWidth = columnWidth();
 	double colLeft=0;
-	int currCol=0;
+	int curCol=0;
 	double lineCorr=0;
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
@@ -2959,16 +2978,16 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 		p->drawLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
 	if (BExtra + lineCorr!=0.0)
 		p->drawLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
-	double oldColRightX=Extra+lineCorr;
-	while(currCol<Cols)
+	double oldColRightX = Extra + lineCorr;
+	while(curCol < Cols)
 	{
-		colLeft=(colWidth + ColGap) * currCol + Extra + lineCorr;
-		if (colLeft!=0.0)
+		colLeft=(colWidth + ColGap) * curCol + Extra + lineCorr;
+		if (colLeft != 0.0)
 			p->drawLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
-		if (colLeft+colWidth!=Width)
-		p->drawLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
+		if (colLeft + colWidth != Width)
+			p->drawLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
 		oldColRightX=colLeft+colWidth;
-		++currCol;
+		++curCol;
 	}
 	
 }
