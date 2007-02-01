@@ -216,6 +216,9 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 }
 
 
+static const bool legacy = true;
+
+
 static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
 {	
 }
@@ -334,7 +337,8 @@ struct LineControl {
 		startOfCol = true;
 		colLeft = (colWidth + colGap) * column + insets.Left + lineCorr;
 		colRight = colLeft + colWidth;
-//		colRight += insets.Right + lineCorr; //???
+		if (legacy)
+			colRight += insets.Right + lineCorr; //???
 		xPos = colLeft;
 		yPos = asce + insets.Top + lineCorr + 1;
 	}
@@ -384,8 +388,10 @@ struct LineControl {
 	
 	bool isEndOfLine(double moreSpace = 0)
 	{
-//		return xPos + insets.Right + lineCorr + moreSpace > colRight;
-		return xPos + lineCorr + moreSpace > colRight;
+		if (legacy)
+			return xPos + insets.Right + lineCorr + moreSpace >= colRight;
+		else
+			return xPos + moreSpace >= colRight;
 	}
 	
 	double startOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace)
@@ -415,11 +421,10 @@ struct LineControl {
 		//	qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
 		do {
 			EndX += 0.125;
-			pt1 = QPoint(qRound(EndX + insets.Right), static_cast<int>(yPos+descent));
-			pt2 = QPoint(qRound(EndX + insets.Right), static_cast<int>(ceil(yPos-ascent)));
+			pt1 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(yPos+descent));
+			pt2 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(ceil(yPos-ascent)));
 		} while 
-//			(   (EndX + lineCorr  + insets.Right < colRight - morespace)
-			(   (EndX + lineCorr  < colRight - morespace)
+			(   (EndX + (legacy? lineCorr + insets.Right : 0) < colRight - morespace)
 			  && shape.contains(pf2.xForm(pt1))
 			  && shape.contains(pf2.xForm(pt2)) 
 			  );
@@ -557,6 +562,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 
 void PageItem_TextFrame::layout() 
 {
+	
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		invalid = false;
@@ -1011,7 +1017,7 @@ void PageItem_TextFrame::layout()
 				while (!cl.contains(pf2.xForm(pt1)) || !cl.contains(pf2.xForm(pt2)) || current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 				{
 					fBorder = true;
-					current.xPos++;
+					current.xPos += 0.125;
 					if (current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 					{
 //						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(current.yPos).arg(current.startOfCol).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(style.lineSpacing()).arg(current.column));
@@ -1193,28 +1199,16 @@ void PageItem_TextFrame::layout()
 			}
 			
 			// remember y pos
-//			hl->glyph.yoffset = current.yPos + oldCurY;
-//			hl->glyph.yoffset = 0;
 			if (DropCmode)
 				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr[0], chsd / 10.0);
 
-			// remember possible break
-			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
-			{
-				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
-				{
-					current.rememberBreak(a, current.xPos);
-				}
-			}
-			
 			
 			// remember x pos
+			double breakPos = current.xPos;
+			
 			if (!tabs.active) // normal case
 			{
-//				hl->glyph.xoffset = QMAX(current.xPos+kernVal, current.colLeft);
-				//hl->glyph.xoffset = current.xPos+kernVal; // needed for left optical margin
 				current.xPos += wide+kernVal;
-//				current.xPos = QMAX(current.xPos, current.colLeft);
 			}
 			else if (tabs.active && tabs.status == TabCENTER) 	// center tab
 			{
@@ -1224,38 +1218,13 @@ void PageItem_TextFrame::layout()
 			else // other tabs.active			
 			{
 				current.xPos = QMAX(current.xPos, current.colLeft);
-				//hl->glyph.xoffset = current.xPos;
 			}
 			
 			
-			// hyphenation
-			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
-			{
-				double breakPos = current.xPos;
-				if (hl->ch != "-")
-				{
-					breakPos += charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
-				}
-
-				double rightHang = 0;
-				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct) {
-					rightHang = 0.7 * charStyle.font().realCharWidth('-', (charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0));
-				}
-				
-				if (breakPos - 0 < current.colRight - style.rightMargin())
-				{
-					if ((current.hyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
-					{
-						current.rememberBreak(a, breakPos);
-					}
-				}
-			}
-
-			++current.itemsInLine;
-			
-/*						
 			//FIXME: asce / desc set correctly?
-			if ((((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  || hl->ch[0] == SpecialChars::SHYPHEN)
+			if (legacy && 
+				((hl->ch == "-" || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
+				|| hl->ch[0] == SpecialChars::SHYPHEN)
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
 				{
@@ -1268,7 +1237,7 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
 				}
 			}
-			else */
+			else
 			{
 				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
 				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
@@ -1284,6 +1253,43 @@ void PageItem_TextFrame::layout()
 			if ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
 
+
+			// remember possible break
+			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !(legacy && outs))
+			{
+				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
+				{
+					current.rememberBreak(a, legacy? current.xPos : breakPos);
+				}
+			}
+			
+
+			// hyphenation
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
+			{
+				breakPos = current.xPos;
+				if (hl->ch != "-")
+				{
+					breakPos += charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
+				}
+				
+				double rightHang = 0;
+				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct) {
+					rightHang = 0.7 * charStyle.font().realCharWidth('-', (charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0));
+				}
+				
+				if (breakPos - rightHang + (legacy? extra.Right + lineCorr : 0) < current.colRight - style.rightMargin())
+				{
+					if ((current.hyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
+					{
+						current.rememberBreak(a, breakPos);
+					}
+				}
+			}
+			
+						
+			++current.itemsInLine;
+			
 			if (tabs.active)
 			{
 				double cen = 1;
@@ -1300,7 +1306,7 @@ void PageItem_TextFrame::layout()
 					tabs.status = TabNONE;
 				}
 			}
-//			BuPos++;
+			
 			if (DropCmode)
 			{
 				DropCmode = false;
@@ -1426,8 +1432,6 @@ void PageItem_TextFrame::layout()
 							hl->glyph.grow();
 							hl->glyph.more->glyph = charStyle.font().char2CMap(QChar('-'));
 							hl->glyph.more->xadvance = charStyle.font().charWidth('-', itemText.charStyle(a).fontSize() / 10.0) * (itemText.charStyle(a).scaleH() / 1000.0);
-//							current.breakIndex += 2;
-//???							current.breakXPos += hl->glyph.more->xadvance;
 						}
 						else 
 						{
@@ -1435,7 +1439,6 @@ void PageItem_TextFrame::layout()
 								current.hyphenCount = 0;
 							hl->setEffects(hl->effects() & ~ScStyle_SmartHyphenVisible);
 							hl->glyph.shrink();
-//							current.breakIndex += 1;
 						}
 						
 						// Justification
