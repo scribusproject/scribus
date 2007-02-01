@@ -1090,6 +1090,30 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(Fc)] = ObjCounter;
 					ObjCounter++;
 				} // for(Fc)
+				StartObj(ObjCounter);
+				PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
+				for (int ww = 32; ww < 256; ++ww)
+				{
+					uint glyph = AllFonts[it.key()].char2CMap(QChar(ww));
+					if (gl.contains(glyph))
+						PutDoc(QString::number(static_cast<int>(AllFonts[it.key()].glyphWidth(glyph)* 1000))+" ");
+					else
+						PutDoc("0 ");
+				}
+				PutDoc("]\nendobj\n");
+				ObjCounter++;
+				StartObj(ObjCounter);
+				PutDoc("<<\n/Type /Font\n/Subtype ");
+				PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
+				PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
+				PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+				PutDoc("/FirstChar 0\n");
+				PutDoc("/LastChar 255\n");
+				PutDoc("/Widths "+QString::number(ObjCounter-1)+" 0 R\n");
+				PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
+				PutDoc(">>\nendobj\n");
+				Seite.FObjects["Fo"+QString::number(a)+"Form"] = ObjCounter;
+				ObjCounter++;
 //			} // FT_Has_PS_Glyph_Names
 		}
 		a++;
@@ -5122,7 +5146,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if (Options.Version < 14)
 				cnx += ind2PDFabr[ite->annotation().Font()];
 			else
-				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"S0";
+				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
 			if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
@@ -5406,7 +5430,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"S0";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
