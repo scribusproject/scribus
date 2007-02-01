@@ -1004,7 +1004,7 @@ void PageItem_TextFrame::layout()
 					current.xPos++;
 					if (current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 					{
-						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(current.yPos).arg(current.startOfCol).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(style.lineSpacing()).arg(current.column));
+//						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(current.yPos).arg(current.startOfCol).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(style.lineSpacing()).arg(current.column));
 						// new line
 						fBorder = false;
 						current.xPos = current.colLeft;
