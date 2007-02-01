@@ -1559,7 +1559,8 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	{
 		layout.glyph = ScFace::CONTROL_GLYPHS + chars[0].unicode();
 	}
-	else {
+	else 
+	{
 		layout.glyph = style.font().char2CMap(chars[0].unicode());
 	}
 	layout.xoffset = style.fontSize() * style.tracking() / 10000;
@@ -1711,7 +1712,8 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 #endif
 		p->setupTextPolygon(&points);
 		QColor oldBrush = p->brush();
-		p->setBrush(PrefsManager::instance()->appPrefs.DControlCharColor);
+		p->setBrush( (style.effects() & ScStyle_SuppressSpace) ? Qt::green
+					: PrefsManager::instance()->appPrefs.DControlCharColor);
 		if (stroke)
 		{
 			QColor tmp = p->pen();
@@ -1737,9 +1739,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		}			
 		return;
 	}
-//	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
-//			 glyph == (ScFace::CONTROL_GLYPHS + 32)) 
-//		glyph = style.font().char2CMap(QChar(' '));
+	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
+			 glyph == (ScFace::CONTROL_GLYPHS + 32)) 
+		glyph = style.font().char2CMap(QChar(' '));
 	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
 		glyph = style.font().char2CMap(QChar('-'));
 	

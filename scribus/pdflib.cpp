@@ -3872,6 +3872,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	}
 	int tsz = hl->fontSize();
 	QString chstr = hl->ch;
+	const CharStyle& style(*hl);
+	
 /*	if (hl->effects() & ScStyle_DropCap)
 	{
 		if (pstyle.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
@@ -3914,7 +3916,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		{
 			PageItem* embedded = emG.at(em);
 			tmp2 += "q\n";
-			tmp2 +=  FToStr(hl->scaleH() / 1000.0)+" 0 0 "+FToStr(hl->scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (hl->scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (hl->scaleV() / 1000.0)) - embedded->gYpos * (hl->scaleV() / 1000.0)+embedded->gHeight * (hl->baselineOffset() / 1000.0))+" cm\n";
+			tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
 			tmp2 += PDF_ProcessItem(embedded, pag, PNr, true);
 			tmp2 += "Q\n";
 		}
@@ -3923,63 +3925,74 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 
 	uint glyph = hl->glyph.glyph;
 
+	if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
+		glyph == (ScFace::CONTROL_GLYPHS + 32)) 
+	{
+		glyph = style.font().char2CMap(QChar(' '));
+		chstr = " ";
+	}
+	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
+	{
+		glyph = style.font().char2CMap(QChar('-'));
+		chstr = "-";
+	}
+	
 	if (glyph < ScFace::CONTROL_GLYPHS)
 	{
-		if (hl->strokeColor() != CommonStrings::None)
+		if (style.strokeColor() != CommonStrings::None)
 		{
 			StrokeColor = "";
-			StrokeColor += putColor(hl->strokeColor(), hl->strokeShade(), false);
+			StrokeColor += putColor(style.strokeColor(), style.strokeShade(), false);
 		}
-		if (hl->fillColor() != CommonStrings::None)
+		if (style.fillColor() != CommonStrings::None)
 		{
 			FillColor = "";
-			FillColor += putColor(hl->fillColor(), hl->fillShade(), true);
+			FillColor += putColor(style.fillColor(), style.fillShade(), true);
 		}
-		if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
+		if (((style.effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((style.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
 		{
-			//		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
+			//		double Ulen = style.font().charWidth(chstr[0], style.fontSize()) * (hl->glyph.scaleH);
 			double Ulen = hl->glyph.xadvance;
 			double Upos, Uwid, kern;
-			if (hl->effects() & ScStyle_StartOfLine)
+			if (style.effects() & ScStyle_StartOfLine)
 				kern = 0;
 			else
-				kern = hl->fontSize() * hl->tracking() / 10000.0;
-			if ((hl->underlineOffset() != -1) || (hl->underlineWidth() != -1))
+				kern = style.fontSize() * style.tracking() / 10000.0;
+			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 			{
-				if (hl->underlineOffset() != -1)
-					Upos = (hl->underlineOffset() / 1000.0) * (hl->font().descent(hl->fontSize() / 10.0));
+				if (style.underlineOffset() != -1)
+					Upos = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
 				else
-					Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
-				if (hl->underlineWidth() != -1)
-					Uwid = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
+					Upos = style.font().underlinePos(style.fontSize() / 10.0);
+				if (style.underlineWidth() != -1)
+					Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+					Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
 			else
 			{
-				Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
-				Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+				Upos = style.font().underlinePos(style.fontSize() / 10.0);
+				Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
-			if (hl->baselineOffset() != 0)
-				Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
-			if (hl->fillColor() != CommonStrings::None)
-				tmp2 += putColor(hl->fillColor(), hl->fillShade(), false);
+			if (style.baselineOffset() != 0)
+				Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+			if (style.fillColor() != CommonStrings::None)
+				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
 			tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
 			tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
 			tmp2 += "S\n";
 		}
-		if ((!hl->font().hasNames()) || (Options.SubsetList.contains(hl->font().replacementName())))
+		if ((!style.font().hasNames()) || (Options.SubsetList.contains(style.font().replacementName())))
 		{
-			//		uint chr = chstr[0].unicode();
-			if (glyph != hl->font().char2CMap(QChar(' ')))
+			if (glyph != style.font().char2CMap(QChar(' ')))
 			{
-				if ((hl->strokeColor() != CommonStrings::None) && (hl->effects() & ScStyle_Outline))
+				if ((style.strokeColor() != CommonStrings::None) && (style.effects() & ScStyle_Outline))
 				{
-					tmp2 += FToStr((tsz * hl->outlineWidth() / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
+					tmp2 += FToStr((tsz * style.outlineWidth() / 1000.0) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
 					tmp2 += StrokeColor;
 				}
-				if (hl->fillColor() != CommonStrings::None)
+				if (style.fillColor() != CommonStrings::None)
 					tmp2 += FillColor;
 				tmp2 += "q\n";
 				if (ite->itemType() == PageItem::PathText)
@@ -3997,15 +4010,15 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				{
 					if (ite->reversed())
 					{
-						double wid = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
-						tmp2 += "1 0 0 1 "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
+						double wid = style.font().charWidth(chstr[0], style.fontSize()) * (hl->glyph.scaleH);
+						tmp2 += "1 0 0 1 "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (style.baselineOffset() / 1000.0)))+" cm\n";
 						tmp2 += "-1 0 0 1 0 0 cm\n";
 						tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
 						tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 0 cm\n";
 					}
 					else
 					{
-						tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
+						tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (style.baselineOffset() / 1000.0)))+" cm\n";
 					}
 				}
 				else
@@ -4017,11 +4030,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				if (hl->glyph.scaleV != 1.0)
 					tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->glyph.scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
 				tmp2 += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 cm\n";
-				if (hl->fillColor() != CommonStrings::None)
-					tmp2 += "/"+hl->font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
-				if (hl->effects() & ScStyle_Outline)
+				if (style.fillColor() != CommonStrings::None)
+					tmp2 += "/"+style.font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
+				if (style.effects() & ScStyle_Outline)
 				{
-					FPointArray gly = hl->font().glyphOutline(glyph);
+					FPointArray gly = style.font().glyphOutline(glyph);
 					QWMatrix mat;
 					mat.scale(0.1, 0.1);
 					gly.map(mat);
@@ -4061,69 +4074,69 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			uint idx = hl->glyph.glyph;
 			
 			uint idx1 = idx / 224;
-			tmp += UsedFontsP[hl->font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
-			if (hl->strokeColor() != CommonStrings::None)
+			tmp += UsedFontsP[style.font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+			if (style.strokeColor() != CommonStrings::None)
 			{
 			tmp += StrokeColor;
-				if ((hl->effects() & ScStyle_Underline) || (hl->effects() & ScStyle_Strikethrough))
+				if ((style.effects() & ScStyle_Underline) || (style.effects() & ScStyle_Strikethrough))
 					tmp2 += StrokeColor;
 			}
-			if (hl->fillColor() != CommonStrings::None)
+			if (style.fillColor() != CommonStrings::None)
 			{
 				tmp += FillColor;
-				if ((hl->effects() & ScStyle_Underline) || (hl->effects() & ScStyle_Strikethrough))
+				if ((style.effects() & ScStyle_Underline) || (style.effects() & ScStyle_Strikethrough))
 					tmp2 += FillColor;
 			}
-			if (hl->effects() & 4)
-				tmp += FToStr(tsz * hl->outlineWidth() / 10000.0) + (hl->fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
+			if (style.effects() & 4)
+				tmp += FToStr(tsz * style.outlineWidth() / 10000.0) + (style.fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
 			else
 				tmp += "0 Tr\n";
 			if (!ite->asPathText())
 			{
 				if (ite->reversed())
 				{
-					//				int chs = hl->fontSize();
+					//				int chs = style.fontSize();
 					double wtr = hl->glyph.xadvance;
-					tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
+					tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
 					//				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
 				}
 				else
-					tmp +=  FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
+					tmp +=  FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
 			}
 			else
 				tmp += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
 			uchar idx2 = idx % 224 + 32;
 			tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		}
-		if ((hl->effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
+		if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
 		{
-			//		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
+			//		double Ulen = style.font().charWidth(chstr[0], style.fontSize()) * (hl->glyph.scaleH);
 			double Ulen = hl->glyph.xadvance;
 			double Upos, Uwid, kern;
 			if (hl->effects() & ScStyle_StartOfLine)
 				kern = 0;
 			else
-				kern = hl->fontSize() * hl->tracking() / 10000.0;
-			if ((hl->strikethruOffset() != -1) || (hl->strikethruWidth() != -1))
+				kern = style.fontSize() * style.tracking() / 10000.0;
+			if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
 			{
-				if (hl->strikethruOffset() != -1)
-					Upos = (hl->strikethruOffset() / 1000.0) * (hl->font().ascent(hl->fontSize() / 10.0));
+				if (style.strikethruOffset() != -1)
+					Upos = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
 				else
-					Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
-				if (hl->strikethruWidth() != -1)
-					Uwid = (hl->strikethruWidth() / 1000.0) * (hl->fontSize() / 10.0);
+					Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
+				if (style.strikethruWidth() != -1)
+					Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+					Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
 			else
 			{
-				Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
-				Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+				Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
+				Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
-			if (hl->baselineOffset() != 0)
-				Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
-			if (hl->fillColor() != CommonStrings::None)
-				tmp2 += putColor(hl->fillColor(), hl->fillShade(), false);
+			if (style.baselineOffset() != 0)
+				Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
+			if (style.fillColor() != CommonStrings::None)
+				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
 			tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
 			tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
