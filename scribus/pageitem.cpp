@@ -4136,10 +4136,8 @@ void PageItem::updatePolyClip()
 		const CharStyle& hl (itemText.charStyle(a));
 		int des = -static_cast<int>(hl.font().descent(hl.fontSize() / 10.0));
 		int asc = static_cast<int>(hl.font().ascent(hl.fontSize() / 10.0));
-		if (asc > asce)
-			asce = asc;
-		if (des > desc)
-			desc = des;
+		asce = QMAX(asce, asc);
+		desc = QMAX(desc, des);
 	}
 	setPolyClip(static_cast<int>(asce-BaseOffs));
 }

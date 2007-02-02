@@ -5318,6 +5318,17 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 			dstyle.applyStyle(newStyle);
 			currItem->itemText.setDefaultStyle(dstyle);
+			if (currItem->asPathText())
+			{
+				for (int pos=0; pos < currItem->itemText.length(); ++pos)
+				{
+					if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
+					{
+						currItem->itemText.applyStyle(pos, newStyle);
+					}
+				}
+				currItem->itemText.applyStyle(currItem->itemText.length(), newStyle);
+			}
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
@@ -5366,6 +5377,8 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 			dstyle.charStyle().applyCharStyle(newStyle);
 			currItem->itemText.setDefaultStyle(dstyle);
+			if (currItem->asPathText())
+				currItem->itemText.applyCharStyle(0, currItem->itemText.length(), newStyle);
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
@@ -5416,6 +5429,8 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 			ParagraphStyle dstyle(currItem->itemText.defaultStyle());
 			dstyle.charStyle().setStyle(newStyle);
 			currItem->itemText.setDefaultStyle(dstyle);
+			if (currItem->asPathText())
+				currItem->itemText.setCharStyle(0, currItem->itemText.length(), newStyle);
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
