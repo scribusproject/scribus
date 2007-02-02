@@ -27,6 +27,9 @@ ScGzFile::ScGzFile(const QString& filename, const QByteArray& array)
 bool ScGzFile::read(uint maxBytes)
 {
 	int i;
+	uint maxB = 0xFFFFFFFF;
+	if (maxBytes != 0)
+		maxB = maxBytes;
 	barray.resize(0);
 	gzFile gzDoc = NULL;
 	QCString fn(fname.local8Bit());
@@ -59,7 +62,7 @@ bool ScGzFile::read(uint maxBytes)
 			barray.resize(bufSize);
 			buf = barray.data() + bytesRead;
 		}
-		if (maxBytes >= 0 && bytesRead >= maxBytes)
+		if (maxB >= 0 && bytesRead >= maxB)
 			break;
 	}
 	gzclose(gzDoc);

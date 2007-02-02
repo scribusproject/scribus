@@ -28,7 +28,7 @@ public:
 	const QByteArray& data() { return barray; }
 	void  setData(const QByteArray& array) { barray = array; }
 
-	bool read(uint maxBytes = -1);
+	bool read(uint maxBytes = 0);
 	bool write(void);
 	bool write(const char* header);
 };
