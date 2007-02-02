@@ -355,6 +355,16 @@ void Tree::slotAddElement(PageItem *item)
 		return;
 	if (currDoc->isLoading())
 		return;
+	if (!item->OnMasterPage.isEmpty())
+	{
+		if (masterPageItemMapRev.contains(item->ItemNr))
+			return;
+	}
+	else
+	{
+		if (itemMapRev.contains(item->ItemNr))
+			return;
+	}
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	QListViewItem * object;
 	if (!item->OnMasterPage.isEmpty())
