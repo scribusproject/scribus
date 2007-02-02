@@ -4085,17 +4085,21 @@ void PageItem::updateGradientVectors()
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
 }
 
-void PageItem::setPolyClip(int up)
+void PageItem::setPolyClip(int up, int down)
 {
 	Clip.resize(0);
 	if (PoLine.size() < 4)
 		return;
 	double rot;
 	int upval = up;
+	int downval = down;
 	if (up == 0)
 		upval = 1;
 	if (textPathFlipped)
+	{
 		upval *= -1;
+		downval *= -1;
+	}
 	QPoint np, np2;
 	QPointArray cl, cl1, cl2;
 	cl = FlattenPath(PoLine, Segments);
@@ -4105,6 +4109,7 @@ void PageItem::setPolyClip(int up)
 		QWMatrix ma;
 		ma.rotate(rot);
 		np = ma*QPoint(0, -upval);
+		np2 = ma*QPoint(0, -downval);
 		cl1.resize(cl1.size()+1);
 		cl1.setPoint(cl1.size()-1, np+cl.point(a));
 		cl1.resize(cl1.size()+1);
@@ -4134,12 +4139,12 @@ void PageItem::updatePolyClip()
 	for (uint a = 0; a < itemTextCount; ++a)
 	{
 		const CharStyle& hl (itemText.charStyle(a));
-		int des = -static_cast<int>(hl.font().descent(hl.fontSize() / 10.0));
+		int des = static_cast<int>(hl.font().descent(hl.fontSize() / 10.0));
 		int asc = static_cast<int>(hl.font().ascent(hl.fontSize() / 10.0));
 		asce = QMAX(asce, asc);
 		desc = QMAX(desc, des);
 	}
-	setPolyClip(static_cast<int>(asce-BaseOffs));
+	setPolyClip(static_cast<int>(asce-BaseOffs), static_cast<int>(desc-BaseOffs));
 }
 
 void PageItem::handleModeEditKey(QKeyEvent * /* k */, bool & /* keyRepeat */)

@@ -237,7 +237,7 @@ public:
 	void SetRectFrame();
 	void SetOvalFrame();
 	void SetFrameRound();
-	void setPolyClip(int up);
+	void setPolyClip(int up, int down = 0);
 	void updatePolyClip();
 	void updateClip();
 	void convertClip();

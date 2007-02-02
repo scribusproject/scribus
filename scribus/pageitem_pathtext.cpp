@@ -67,16 +67,14 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 
 void PageItem_PathText::layout()
 {
-	Frame = true;
-	updatePolyClip();
-	
 	QPixmap pgPix(10, 10);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());	
 	DrawObj(painter, rd);
 	painter->end();
 	delete painter;
-
+	Frame = true;
+	updatePolyClip();
 }
 
 
