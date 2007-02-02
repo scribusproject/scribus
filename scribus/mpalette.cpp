@@ -2228,6 +2228,8 @@ void Mpalette::setFontFace(QString newFont)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
+	if (CurItem != NULL)
+		Fonts->RebuildList(doc, CurItem->isAnnotation());
 	Fonts->setCurrentFont(newFont);
 	HaveItem = tmp;
 }

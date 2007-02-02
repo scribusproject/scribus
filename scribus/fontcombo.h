@@ -64,7 +64,7 @@ public:
 	FontCombo(QWidget* pa);
 	~FontCombo() {};
 
-	void RebuildList(ScribusDoc *currentDoc);
+	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false);
 private:
 	PrefsManager* prefsManager;
 	QPixmap ttfFont;
@@ -81,7 +81,7 @@ public:
 	FontComboH(QWidget* parent);
 	~FontComboH() {};
 	QString currentFont();
-	void RebuildList(ScribusDoc *currentDoc);
+	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false);
 
 public slots:
 	void setCurrentFont(QString f);

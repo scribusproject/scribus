@@ -3305,7 +3305,7 @@ bool ScribusMainWindow::slotPageImport()
 		else
 		{
 			startPage = doc->currentPage()->pageNr() + 1;
-			if (nrToImport > (doc->DocPages.count() - doc->currentPage()->pageNr()))
+			if (static_cast<uint>(nrToImport) > (doc->DocPages.count() - doc->currentPage()->pageNr()))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +
@@ -6352,7 +6352,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 				PageItem *currItem = doc->m_Selection->itemAt(0);
 				nf2 = currItem->currentCharStyle().font().scName();
 			}
-			propertiesPalette->Fonts->RebuildList(doc);
+//			propertiesPalette->Fonts->RebuildList(doc);
 			buildFontMenu();
 		}
 	}
@@ -6366,6 +6366,11 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 void ScribusMainWindow::AdjustFontMenu(QString nf)
 {
 	QString df;
+	if (doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		FontSub->RebuildList(doc, currItem->isAnnotation());
+	}
 	FontSub->setCurrentText(nf);
 	//propertiesPalette->Fonts->setCurrentFont(nf);
 	for (uint a = 2; a < FontMenu->count(); ++a)

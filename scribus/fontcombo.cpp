@@ -73,7 +73,7 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 	RebuildList(0);
 }
 
-void FontCombo::RebuildList(ScribusDoc *currentDoc)
+void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 {
 	clear();
 	QMap<QString, QString> rlist;
@@ -98,6 +98,8 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc)
 		if (! fon.usable() )
 			continue;
 		ScFace::FontType type = fon.type();
+		if ((forAnnotation) && ((type == ScFace::OTF) || (fon.subset())))
+			continue;
 		if (type == ScFace::OTF)
 			insertItem(otfFont, it2.data());
 		else if (type == ScFace::TYPE1)
@@ -181,7 +183,7 @@ void FontComboH::setCurrentFont(QString f)
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
 
-void FontComboH::RebuildList(ScribusDoc *currentDoc)
+void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 {
 	currDoc = currentDoc;
 	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
@@ -220,6 +222,8 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 		if ( !fon.usable() || fon.isReplacement() )
 			continue;
 		ScFace::FontType type = fon.type();
+		if ((forAnnotation) && ((type == ScFace::OTF) || (fon.subset())))
+			continue;
 		if (type == ScFace::OTF)
 			fontFamily->insertItem(otfFont, it2a.data());
 		else if (type == ScFace::TYPE1)

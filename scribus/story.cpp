@@ -1680,6 +1680,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	{
 		setCaption( tr("Story Editor - %1").arg(currItem->itemName()));
 		firstSet = false;
+		FontTools->Fonts->RebuildList(currDoc, currItem->isAnnotation());
 		Editor->loadItemText(currItem);
 		Editor->getCursorPosition(&CurrPara, &CurrChar);
 		Editor->sync();
@@ -1795,6 +1796,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
 				textChanged = false;
+				FontTools->Fonts->RebuildList(currDoc, currItem->isAnnotation());
 				Editor->loadItemText(currItem);
 				Editor->getCursorPosition(&CurrPara, &CurrChar);
 				updateStatus();
