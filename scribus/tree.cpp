@@ -612,13 +612,16 @@ void Tree::BuildTree()
 				else
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
-					object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					if (pgItem->isGroupControl)
+						object->setText(0, pgItem->itemName());
+					else
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setPixmap( 0, groupIcon );
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->MasterItems.count(); ++ga)
 					{
 						PageItem* pgItem2 = currDoc->MasterItems.at(ga);
-						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (!pgItem2->isGroupControl))
 							subGroupList.append(pgItem2);
 					}
 					parseSubGroup(1, object, &subGroupList, true);
@@ -656,13 +659,16 @@ void Tree::BuildTree()
 				else
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
-					object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					if (pgItem->isGroupControl)
+						object->setText(0, pgItem->itemName());
+					else
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setPixmap( 0, groupIcon );
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
 					{
 						PageItem* pgItem2 = currDoc->DocItems.at(ga);
-						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (!pgItem2->isGroupControl))
 							subGroupList.append(pgItem2);
 					}
 					parseSubGroup(1, object, &subGroupList, false);
@@ -704,13 +710,16 @@ void Tree::BuildTree()
 				else
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
-					object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					if (pgItem->isGroupControl)
+						object->setText(0, pgItem->itemName());
+					else
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setPixmap( 0, groupIcon );
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
 					{
 						PageItem* pgItem2 = currDoc->DocItems.at(ga);
-						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (!pgItem2->isGroupControl))
 							subGroupList.append(pgItem2);
 					}
 					parseSubGroup(1, object, &subGroupList, false);
@@ -764,6 +773,9 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 			else
 			{
 				QListViewItem *grp = new QListViewItem( object, 0 );
+				if (pgItem->isGroupControl)
+					grp->setText(0, pgItem->itemName());
+				else
 				grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
 				grp->setPixmap( 0, groupIcon );
 				subGroup = new QPtrList<PageItem>;
@@ -772,7 +784,7 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 				{
 					PageItem* pgItem2 = subGroupList->at(ga);
 					if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
-						(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))))
+						(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))) && (!pgItem2->isGroupControl))
 						subGroup->append(pgItem2);
 				}
 				parseSubGroup(level+1, grp, subGroup, onMasterPage);
