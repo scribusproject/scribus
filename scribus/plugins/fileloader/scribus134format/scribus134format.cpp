@@ -1081,22 +1081,19 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					// first of linked chain?
 					if (pg.tagName()=="PAGEOBJECT")
 					{
-						itemRemap[itemCount++] = m_Doc->DocItems.count();
 						if (pg.attribute("NEXTITEM").toInt() != -1)
-							itemNext[m_Doc->DocItems.count()] = pg.attribute("NEXTITEM").toInt();
+							itemNext[Neu->ItemNr] = pg.attribute("NEXTITEM").toInt();
 					}
 					else if (pg.tagName()=="MASTEROBJECT")
 					{
-						itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
 						if (pg.attribute("NEXTITEM").toInt() != -1)
-							itemNextM[m_Doc->MasterItems.count()] = pg.attribute("NEXTITEM").toInt();
+							itemNextM[Neu->ItemNr] = pg.attribute("NEXTITEM").toInt();
 					}
 					/* not sure if we want that...
 					else if (pg.tagName()=="FRAMEOBJECT")
 					{
-						itemRemapF[itemCountF++] = m_Doc->FrameItems->count();
 						if (pg.attribute("NEXTITEM").toInt() != -1)
-							itemNextF[m_Doc->FrameItems->count()] = pg.attribute("NEXTITEM").toInt();
+							itemNextF[Neu->ItemNr] = pg.attribute("NEXTITEM").toInt();
 					}*/
 
 					if (pg.tagName()=="FRAMEOBJECT")
@@ -1442,10 +1439,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.data()] >= 0)
+			if (lc.data() >= 0)
 			{
 				PageItem * Its = m_Doc->DocItems.at(lc.key());
-				PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.data()]);
+				PageItem * Itn = m_Doc->DocItems.at(lc.data());
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus134format: corruption in linked textframes detected");
@@ -1461,10 +1458,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 		{
-			if (itemRemapM[lc.data()] >= 0)
+			if (lc.data() >= 0)
 			{
 				PageItem * Its = m_Doc->MasterItems.at(lc.key());
-				PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.data()]);
+				PageItem * Itn = m_Doc->MasterItems.at(lc.data());
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus134format: corruption in linked textframes detected");
