@@ -1793,7 +1793,8 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			QColor tmpC = p->pen();
 			p->setPen(p->brush());
 			p->setLineWidth(lw);
-			p->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
+//			p->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
+			p->drawLine(FPoint(glyphs.xoffset, -st), FPoint(glyphs.xoffset + glyphs.xadvance, -st));
 			p->setPen(tmpC);
 		}
 		if (gly.size() > 3)
