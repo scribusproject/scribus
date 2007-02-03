@@ -824,19 +824,34 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.data()] >= 0)
+			PageItem *Its = m_Doc->Items->at(lc.key());
+			PageItem *Itn = NULL;
+			if (lc.data()!= -1)
 			{
-				PageItem * Its = m_Doc->Items->at(lc.key());
-				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
-				if (Itn->prevInChain() || Its->nextInChain()) 
+				int itnr = 0;
+				for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
 				{
-					qDebug("scribus12format: corruption in linked textframes detected");
-					continue;
+					if (m_Doc->Items->at(nn)->OwnPage == Its->NextPg)
+					{
+						if (itnr == lc.data())
+						{
+							Itn = m_Doc->Items->at(nn);
+							break;
+						}
+						itnr++;
+					}
 				}
-				Its->link(Itn);
 			}
+			assert(Its && Its->asTextFrame());
+			assert(Itn && Itn->asTextFrame());
+			if (Itn->prevInChain() || Its->nextInChain()) 
+			{
+				qDebug("scribus12format: corruption in linked textframes detected");
+				continue;
+			}
+			Its->link(Itn);
 		}
-	}	
+	}
 
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -1383,17 +1398,32 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					QMap<int,int>::Iterator lc;
 					for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 					{
-						if (itemRemap[lc.data()] >= 0)
+						PageItem *Its = m_Doc->Items->at(lc.key());
+						PageItem *Itn = NULL;
+						if (lc.data()!= -1)
 						{
-							PageItem * Its = m_Doc->Items->at(lc.key());
-							PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
-							if (Itn->prevInChain() || Its->nextInChain()) 
+							int itnr = 0;
+							for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
 							{
-								qDebug("scribus12format: corruption in linked textframes detected");
-								continue;
+								if (m_Doc->Items->at(nn)->OwnPage == Its->NextPg)
+								{
+									if (itnr == lc.data())
+									{
+										Itn = m_Doc->Items->at(nn);
+										break;
+									}
+									itnr++;
+								}
 							}
-							Its->link(Itn);
 						}
+						assert(Its && Its->asTextFrame());
+						assert(Itn && Itn->asTextFrame());
+						if (Itn->prevInChain() || Its->nextInChain()) 
+						{
+							qDebug("scribus12format: corruption in linked textframes detected");
+							continue;
+						}
+						Its->link(Itn);
 					}
 				}
 
