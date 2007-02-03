@@ -72,6 +72,7 @@ void SMSpinBox::interpretText()
 		useParentValue_ = true;
 		setValue(pValue_, true);
 	}
+	QSpinBox::interpretText();
 }
 
 void SMSpinBox::setFont(bool wantBold)
@@ -166,6 +167,7 @@ void SMMSpinBox::interpretText()
 		useParentValue_ = true;
 		setValue(pValue_, true);
 	}
+	MSpinBox::interpretText();
 }
 
 void SMMSpinBox::setFont(bool wantBold)
