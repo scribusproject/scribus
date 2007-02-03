@@ -66,8 +66,9 @@ bool SMSpinBox::useParentValue()
 
 void SMSpinBox::interpretText()
 {
-	QString t = text();
-	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
+// 	QString t = text();
+// 	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
+	if (hasParent_ && text().isEmpty())
 	{
 		useParentValue_ = true;
 		setValue(pValue_, true);
@@ -161,8 +162,9 @@ bool SMMSpinBox::useParentValue()
 
 void SMMSpinBox::interpretText()
 {
-	QString t = text();
-	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
+// 	QString t = text();
+// 	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
+	if (hasParent_ && text().isEmpty())
 	{
 		useParentValue_ = true;
 		setValue(pValue_, true);
