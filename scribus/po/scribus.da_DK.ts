@@ -924,7 +924,7 @@ Returns a larger font info. It&apos;s a list of the tuples with:
         <translation>getXFontNames() -&gt; liste af tupler
 
 Returner større mængde font-info. Det er en liste af tuplerne med:
-[ (Scribus navn, Familie, Rigtige navn, substituere (1|0), indlejr PS (1|0), font-fil), (...), ... ]
+[ (Scribus navn, Familie, Rigtige navn, subset (1|0), indlejr PS (1|0), font-fil), (...), ... ]
 </translation>
     </message>
     <message>
@@ -1953,7 +1953,7 @@ Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not 
 currently selected item is used.</source>
         <translation>traceText([&quot;navn&quot;])
 
-Konverterer fonte i tekst-rammen &quot;navn&quot; til kurver. Hvis &quot;navn&quot; ikke angives, 
+Konverterer fonte i tekst-rammen &quot;navn&quot; til outline. Hvis &quot;navn&quot; ikke angives, 
 så bruges det markerede element.
 </translation>
     </message>
@@ -2723,7 +2723,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
     </message>
 </context>
 <context>
@@ -4600,10 +4600,6 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
         <translation>2 cifret</translation>
     </message>
     <message>
-        <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="obsolete">9 eller 10 cifret adskilt rigtigt med tankestreger</translation>
-    </message>
-    <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation>Variabel antal tegn, cifre og  enhver af følgende symboler -. *$/+%.</translation>
     </message>
@@ -4637,7 +4633,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 eller 13 cifre med tankestreger. Det forældede ISBN-10 format accepterer 9 eller 10 cifre med tankestreger, men denne standard er afskrevet efter 1. januar 2007. (Note: For at konvertere et gammel ISBN-10 til et nyt ISBN-13, sæt 978- foran de første 9 cifre, f.eks. 1-56592-479-7 -&gt; 978-1-56592-479. Det sidste tjekciffer bliver kalkuleret automatisk.)</translation>
     </message>
 </context>
 <context>
@@ -7622,7 +7618,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation>Substituere</translation>
+        <translation>Subset</translation>
     </message>
     <message>
         <source>Path to Font File</source>
@@ -7634,12 +7630,8 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <translation>PostScript</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation type="obsolete">Font søgestier kan kun sættes i Præferencer, og kun når der ikke er åbnet nogen dokumenter. Luk alle dokumenter, og brug så Redigér-&gt;Præferencer for at ændre font søgestien.</translation>
-    </message>
-    <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Font søgestier kan kun sættes, når der ikke er åbnet nogen dokumenter. Luk alle dokumenter, og brug så Fil -&gt;Præferencer &gt; fonte for at ændre font søgestien.</translation>
     </message>
 </context>
 <context>
@@ -7718,7 +7710,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Substituere</translation>
+        <translation>Subset</translation>
     </message>
     <message>
         <source>Access</source>
@@ -9753,16 +9745,12 @@ hjørner:</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <source> pt </source>
-        <translation type="obsolete"> pt </translation>
-    </message>
-    <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Navnet &quot;%1&quot; er ikke entydigt.&lt;br/&gt;Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -10120,7 +10108,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne fil indeholder nogle ikke-understøttede egenskaber</translation>
     </message>
 </context>
 <context>
@@ -10508,16 +10496,12 @@ hjørner:</translation>
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>Page Layout</source>
-        <translation type="obsolete">side udformning</translation>
-    </message>
-    <message>
         <source>First Page is:</source>
         <translation>Første side er:</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument udformning</translation>
     </message>
 </context>
 <context>
@@ -15747,7 +15731,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Indholdsfortegnelse %1</translation>
     </message>
 </context>
 <context>
@@ -16125,14 +16109,6 @@ Vertikal forskydning: %3</translation>
         <translation>Ge&amp;nerelt</translation>
     </message>
     <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation type="obsolete">&amp;Indlejre alle fonte</translation>
-    </message>
-    <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation type="obsolete">S&amp;ubstituere alle fonte</translation>
-    </message>
-    <message>
         <source>Embedding</source>
         <translation>Indlejrer</translation>
     </message>
@@ -16151,10 +16127,6 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Fonts to embed:</source>
         <translation>Fonte til indlejring:</translation>
-    </message>
-    <message>
-        <source>Fonts to subset:</source>
-        <translation type="obsolete">Fonte til substituering:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -16566,10 +16538,6 @@ Vertikal forskydning: %3</translation>
         <translation>Tillad at kommentarer og felter kan tilføjes PDF-Filen. Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Indlejr fonte i PDF-filen. Dette vil bevare opsætning og udseende af dokumentet.</translation>
-    </message>
-    <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Den tid effekten varer. En kortere tid vil øge farten af effekten, en længere tid vil nedsætte tempoet.</translation>
     </message>
@@ -16628,10 +16596,6 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Display Settings</source>
         <translation>Instillinger for visning</translation>
-    </message>
-    <message>
-        <source>Page Layout</source>
-        <translation type="obsolete">side udformning</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -16757,27 +16721,27 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Indlejr alle</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonte der skal laves til kurver:</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav &amp;kurver af alle</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument udformning</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation>Indlejr fonte i PDF-filen. Dette vil bevare opsætning og udseende af dokumentet. Nogle fonte, som Open Type, kan kun subsettes, da de ikke er i stand til at blive indlejret i PDF versioner før PDF 1.6. </translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
+        <translation>Subset alle fonte i PDF-filen. Subsetting af fonte er, når kun glyffer brugt i PDF-filen er indlejret, ikke hele fonten. Nogle fonte, som Open Type, kan kun subsettes, da de ikke er i stand til at blive indlejret i PDF versioner før PDF 1.6.</translation>
     </message>
 </context>
 <context>
