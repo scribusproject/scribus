@@ -141,9 +141,45 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			}
 		}
 	}
+	double totalTextLen = 0.0;
+	double totalCurveLen = 0.0;
+	double extraOffset = 0.0;
 	if (itemText.length() != 0)
+	{
 		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
+		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
+	}
 	segLen = PoLine.lenPathSeg(seg);
+	for (a = firstChar; a < itemText.length(); ++a)
+	{
+		hl = itemText.item(a);
+		chstr = hl->ch;
+		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
+			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
+			continue;
+		if (a < itemText.length()-1)
+			chstr += itemText.text(a+1, 1);
+		hl->glyph.yadvance = 0;
+		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
+		hl->glyph.shrink();
+		totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
+	}
+	for (uint segs = 0; segs < PoLine.size()-3; segs += 4)
+	{
+		totalCurveLen += PoLine.lenPathSeg(segs);
+	}
+	if ((itemText.defaultStyle().alignment() != 0) && (totalCurveLen >= totalTextLen + Extra))
+	{
+		if (itemText.defaultStyle().alignment() == 2)
+		{
+			CurX = totalCurveLen  - totalTextLen;
+			CurX -= Extra;
+		}
+		if (itemText.defaultStyle().alignment() == 1)
+			CurX = (totalCurveLen - totalTextLen) / 2.0;
+		if ((itemText.defaultStyle().alignment() == 3) || (itemText.defaultStyle().alignment() == 4))
+			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemText.length());
+	}
 #ifndef NLS_PROTO
 	for (a = firstChar; a < itemText.length(); ++a)
 	{
@@ -308,7 +344,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
-		CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
+		CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 		first = false;
 	}
 #endif
