@@ -4000,8 +4000,16 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			if (style.fillColor() != CommonStrings::None)
 				tmp2 += putColor(style.fillColor(), style.fillShade(), false);
 			tmp2 += FToStr(Uwid)+" w\n";
-			tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
-			tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+			if (style.effects() & ScStyle_Subscript)
+			{
+				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
+				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+			}
+			else
+			{
+				tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y+Upos)+" m\n";
+				tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y+Upos)+" l\n";
+			}
 			tmp2 += "S\n";
 		}
 		if ((!style.font().hasNames()) || (Options.SubsetList.contains(style.font().replacementName())))
