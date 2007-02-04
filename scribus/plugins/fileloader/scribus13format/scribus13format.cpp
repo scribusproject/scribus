@@ -2904,14 +2904,17 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		{
 			if (itemRemap[lc.data()] >= 0)
 			{
-				PageItem * Its = m_Doc->Items->at(lc.key());
-				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
-				if (Itn->prevInChain() || Its->nextInChain()) 
+				if ((static_cast<uint>(lc.key()) < m_Doc->Items->count()) && (static_cast<uint>(itemRemap[lc.data()]) < m_Doc->Items->count()))
 				{
-					qDebug("scribus13format: corruption in linked textframes detected");
-					continue;
+					PageItem * Its = m_Doc->Items->at(lc.key());
+					PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+					if (Itn->prevInChain() || Its->nextInChain()) 
+					{
+						qDebug("scribus13format: corruption in linked textframes detected");
+						continue;
+					}
+					Its->link(Itn);
 				}
-				Its->link(Itn);
 			}
 		}
 	}	
