@@ -1014,10 +1014,11 @@ void PageItem_TextFrame::layout()
 				// increase pt1/pt2 until i-beam reaches end of line
 //				qDebug(QString("linestart: %1 + %2 + %3 < %4").arg(current.xPos).arg(wide).arg(style.rightMargin()).arg(current.colRight));
 				double leftIndent = 0;
+				double xStep = legacy? 1 : 0.125;
 				while (!cl.contains(pf2.xForm(pt1)) || !cl.contains(pf2.xForm(pt2)) || current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 				{
 					fBorder = true;
-					current.xPos += 0.125;
+					current.xPos += xStep;
 					if (current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 					{
 //						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(current.yPos).arg(current.startOfCol).arg(style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing).arg(style.lineSpacing()).arg(current.column));
@@ -1237,14 +1238,19 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
 				}
 			}
+			else if (!legacy && isBreakingSpace(hl->ch[0]))
+			{
+				pt1 = QPoint(qRound(ceil(breakPos + extra.Right)), qRound(current.yPos+desc));
+				pt2 = QPoint(qRound(ceil(breakPos + extra.Right)), qRound(ceil(current.yPos-asce)));
+			}
 			else
 			{
 				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
 				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
 			}
-
+			
 			// test if end of line reached
-			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (current.isEndOfLine(style.rightMargin())))
+			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (legacy && current.isEndOfLine(style.rightMargin())))
 				outs = true;
 			if (current.isEndOfCol())
 				outs = true;
@@ -1255,11 +1261,11 @@ void PageItem_TextFrame::layout()
 
 
 			// remember possible break
-			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !(legacy && outs))
+			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
 			{
 				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
 				{
-					current.rememberBreak(a, legacy? current.xPos : breakPos);
+					current.rememberBreak(a, breakPos);
 				}
 			}
 			
@@ -1278,7 +1284,7 @@ void PageItem_TextFrame::layout()
 					rightHang = 0.7 * charStyle.font().realCharWidth('-', (charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0));
 				}
 				
-				if (breakPos - rightHang + (legacy? extra.Right + lineCorr : 0) < current.colRight - style.rightMargin())
+				if (legacy || (breakPos - rightHang < current.colRight - style.rightMargin()))
 				{
 					if ((current.hyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
 					{
