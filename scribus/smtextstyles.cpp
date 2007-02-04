@@ -342,6 +342,12 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		}
 	}
 
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	{
+		if (tmpStyles_[j].parent() == oldName)
+			tmpStyles_[j].setParent(newName);
+	}
+
 	QValueList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
@@ -1432,8 +1438,43 @@ void SMCharacterStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 
 void SMCharacterStyle::nameChanged(const QString &newName)
 {
-	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setName(newName);
+// 	for (uint i = 0; i < selection_.count(); ++i)
+// 		selection_[i]->setName(newName);
+
+	QString oldName = selection_[0]->name();
+	CharStyle c(*selection_[0]);
+	c.setName(newName);
+	tmpStyles_.create(c);
+	selection_.clear();
+	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	{
+		int index = tmpStyles_.find(oldName);
+		if (index > -1)
+		{
+			tmpStyles_.remove(index);
+			break;
+		}
+	}
+
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	{
+		if (tmpStyles_[j].parent() == oldName)
+			tmpStyles_[j].setParent(newName);
+	}
+
+	QValueList<RemoveItem>::iterator it;
+	for (it = deleted_.begin(); it != deleted_.end(); ++it)
+	{
+		if ((*it).second == oldName)
+		{
+			oldName = (*it).first;
+			deleted_.remove(it);
+			break;
+		}
+	}
+
+	deleted_.append(RemoveItem(oldName, newName));
 
 	if (!selectionIsDirty_)
 	{
