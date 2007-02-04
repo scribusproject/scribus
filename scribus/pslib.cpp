@@ -3595,8 +3595,16 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 			}
 			PS_setlinewidth(lw);
-			PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
-			PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
+			if (cstyle.effects() & ScStyle_Subscript)
+			{
+				PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
+				PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
+			}
+			else
+			{
+				PS_moveto(x + glyphs.xoffset-kern, -y + Upos);
+				PS_lineto(x + glyphs.xoffset+Ulen, -y + Upos);
+			}
 			putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 		}
 		/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
