@@ -5068,12 +5068,8 @@ May throw IndexError for an insertion out of bounds.
       <translation>Barcode incomplete</translation>
     </message>
     <message>
-      <source>For ISBN-10 the data should contain 9 or 10 digits separated appropriately by dash characters.
-For ISBN-13 the data should contain 12 or 13 digits separated appropriately by dash characters.
-If the last digit is not given then the ISBN checkdigit is calculated automatically.</source>
-      <translation>For ISBN-10 the data should contain 9 or 10 digits separated appropriately by dash characters.
-For ISBN-13 the data should contain 12 or 13 digits separated appropriately by dash characters.
-If the last digit is not given then the ISBN checkdigit is calculated automatically.</translation>
+      <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+      <translation>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)</translation>
     </message>
   </context>
   <context>
@@ -6048,6 +6044,13 @@ please choose another one.</translation>
     </message>
   </context>
   <context>
+    <name>CharStyleComboBox</name>
+    <message>
+      <source>No Style</source>
+      <translation>No Style</translation>
+    </message>
+  </context>
+  <context>
     <name>CharTable</name>
     <message>
       <source>Delete</source>
@@ -6294,10 +6297,6 @@ please choose another one.</translation>
       <translation>If colour management is enabled, a triangle warning indicator is a warning the the colour maybe outside of the colour gamut of the current printer profile selected.What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. Registration colours will have a registration mark next to the colour. More hints about gamut warnings are in the online help under Colour Management.</translation>
     </message>
     <message>
-      <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-      <translation>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</translation>
-    </message>
-    <message>
       <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
       <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</translation>
     </message>
@@ -6306,10 +6305,16 @@ please choose another one.</translation>
       <translation>Information</translation>
     </message>
     <message>
-      <source>The file %1 does not contain any new colors.
-If the file was an EPS try to import it with File -> Import</source>
-      <translation>The file %1 does not contain any new colours.
-If the file was an EPS try to import it with File -> Import</translation>
+      <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+      <translation>The file %1 does not contain colours which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the colour descriptions are located.
+ This prevents importing colours from some files.
+See the Edit Colours section of the documentation for more details.</translation>
     </message>
   </context>
   <context>
@@ -6624,6 +6629,72 @@ If the file was an EPS try to import it with File -> Import</translation>
       <source>Custom: </source>
       <comment>Custom Tab Fill Option</comment>
       <translation>Custom: </translation>
+    </message>
+    <message>
+      <source>Solid Line</source>
+      <translation>Solid Line</translation>
+    </message>
+    <message>
+      <source>Dashed Line</source>
+      <translation>Dashed Line</translation>
+    </message>
+    <message>
+      <source>Dotted Line</source>
+      <translation>Dotted Line</translation>
+    </message>
+    <message>
+      <source>Dash Dot Line</source>
+      <translation>Dash Dot Line</translation>
+    </message>
+    <message>
+      <source>Dash Dot Dot Line</source>
+      <translation>Dash Dot Dot Line</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <comment>Optical Margin Setting</comment>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>Left Protruding</source>
+      <comment>Optical Margin Setting</comment>
+      <translation>Left Protruding</translation>
+    </message>
+    <message>
+      <source>Right Protruding</source>
+      <comment>Optical Margin Setting</comment>
+      <translation>Right Protruding</translation>
+    </message>
+    <message>
+      <source>Left Hanging Punctuation</source>
+      <comment>Optical Margin Setting</comment>
+      <translation>Left Hanging Punctuation</translation>
+    </message>
+    <message>
+      <source>Right Hanging Punctuation</source>
+      <comment>Optical Margin Setting</comment>
+      <translation>Right Hanging Punctuation</translation>
+    </message>
+    <message>
+      <source>Default</source>
+      <comment>Optical Margin Setting</comment>
+      <translation>Default</translation>
+    </message>
+    <message>
+      <source>Min. Word Tracking</source>
+      <translation>Min. Word Tracking</translation>
+    </message>
+    <message>
+      <source>Max. Word Tracking</source>
+      <translation>Max. Word Tracking</translation>
+    </message>
+    <message>
+      <source>Min. Glyph Extension</source>
+      <translation>Min. Glyph Extension</translation>
+    </message>
+    <message>
+      <source>Max. Glyph Extension</source>
+      <translation>Max. Glyph Extension</translation>
     </message>
   </context>
   <context>
@@ -9680,10 +9751,6 @@ converting their vector data into Scribus objects.</translation>
       <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
-      <source>Documents (*.sla *.scd);;All Files (*)</source>
-      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
-    </message>
-    <message>
       <source>&amp;New</source>
       <translation>&amp;New</translation>
     </message>
@@ -10080,6 +10147,10 @@ converting their vector data into Scribus objects.</translation>
       <source>New Name:</source>
       <translation>New Name:</translation>
     </message>
+    <message>
+      <source>Copy #%1 of %2</source>
+      <translation>Copy #%1 of %2</translation>
+    </message>
   </context>
   <context>
     <name>Mdup</name>
@@ -10152,10 +10223,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
       <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
       <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
-    </message>
-    <message>
-      <source>Documents (*.sla *.scd);;All Files (*)</source>
-      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
       <source>Import Page(s)</source>
@@ -10502,10 +10569,6 @@ converting their vector data into Scribus objects.</translation>
       <translation>Saturation of colour of text fill</translation>
     </message>
     <message>
-      <source>Style of current paragraph</source>
-      <translation>Style of current paragraph</translation>
-    </message>
-    <message>
       <source>Change settings for left or end points</source>
       <translation>Change settings for left or end points</translation>
     </message>
@@ -10734,10 +10797,6 @@ Corners:</translation>
     <message>
       <source>&amp;Use Contour Line</source>
       <translation>&amp;Use Contour Line</translation>
-    </message>
-    <message>
-      <source>St&amp;yle:</source>
-      <translation>St&amp;yle:</translation>
     </message>
     <message>
       <source>&amp;Free Scaling</source>
@@ -11007,6 +11066,58 @@ Corners:</translation>
       <source>Click and hold down to select the line spacing mode.</source>
       <translation>Click and hold down to select the line spacing mode.</translation>
     </message>
+    <message>
+      <source>Default</source>
+      <translation>Default</translation>
+    </message>
+    <message>
+      <source>Stair Step</source>
+      <translation>Stair Step</translation>
+    </message>
+    <message>
+      <source>Skew</source>
+      <translation>Skew</translation>
+    </message>
+    <message>
+      <source>Type:</source>
+      <translation>Type:</translation>
+    </message>
+    <message>
+      <source>Paragraph St&amp;yle:</source>
+      <translation>Paragraph St&amp;yle:</translation>
+    </message>
+    <message>
+      <source>Character St&amp;yle:</source>
+      <translation>Character St&amp;yle:</translation>
+    </message>
+    <message>
+      <source>Optical Margins:</source>
+      <translation>Optical Margins:</translation>
+    </message>
+    <message>
+      <source>Word Tracking</source>
+      <translation>Word Tracking</translation>
+    </message>
+    <message>
+      <source>Min:</source>
+      <translation>Min:</translation>
+    </message>
+    <message>
+      <source>Max:</source>
+      <translation>Max:</translation>
+    </message>
+    <message>
+      <source>Glyph Extension</source>
+      <translation>Glyph Extension</translation>
+    </message>
+    <message>
+      <source>Paragraph style of currently selected text or paragraph</source>
+      <translation>Paragraph style of currently selected text or paragraph</translation>
+    </message>
+    <message>
+      <source>Character style of currently selected text or paragraph</source>
+      <translation>Character style of currently selected text or paragraph</translation>
+    </message>
   </context>
   <context>
     <name>MultiLine</name>
@@ -11055,32 +11166,12 @@ Corners:</translation>
       <translation>OK</translation>
     </message>
     <message>
-      <source> pt </source>
-      <translation> pt </translation>
-    </message>
-    <message>
-      <source>Solid Line</source>
-      <translation>Solid Line</translation>
-    </message>
-    <message>
-      <source>Dashed Line</source>
-      <translation>Dashed Line</translation>
-    </message>
-    <message>
-      <source>Dotted Line</source>
-      <translation>Dotted Line</translation>
-    </message>
-    <message>
-      <source>Dash Dot Line</source>
-      <translation>Dash Dot Line</translation>
-    </message>
-    <message>
-      <source>Dash Dot Dot Line</source>
-      <translation>Dash Dot Dot Line</translation>
-    </message>
-    <message>
       <source>Name &quot;%1&quot; isn't unique.&lt;br/>Please choose another.</source>
       <translation>Name &quot;%1&quot; isn't unique.&lt;br/>Please choose another.</translation>
+    </message>
+    <message>
+      <source>pt</source>
+      <translation>pt</translation>
     </message>
   </context>
   <context>
@@ -11529,6 +11620,10 @@ Corners:</translation>
     <message>
       <source>This file contains some unsupported features</source>
       <translation>This file contains some unsupported features</translation>
+    </message>
+    <message>
+      <source>The file could not be imported</source>
+      <translation>The file could not be imported</translation>
     </message>
   </context>
   <context>
@@ -12111,6 +12206,13 @@ Corners:</translation>
     </message>
   </context>
   <context>
+    <name>ParaStyleComboBox</name>
+    <message>
+      <source>No Style</source>
+      <translation>No Style</translation>
+    </message>
+  </context>
+  <context>
     <name>PatternDialog</name>
     <message>
       <source>Choose a Directory</source>
@@ -12598,6 +12700,10 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
       <source>Scribus was not able to load its preferences:&lt;br>%1&lt;br>Default settings will be loaded.</source>
       <translation>Scribus was not able to load its preferences:&lt;br>%1&lt;br>Default settings will be loaded.</translation>
+    </message>
+    <message>
+      <source>PDF 1.5</source>
+      <translation>PDF 1.5</translation>
     </message>
   </context>
   <context>
@@ -13156,10 +13262,6 @@ Check path and filename.</translation>
     <message>
       <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
       <translation>SVG-Images (*.svg *.svgz);;All Files (*)</translation>
-    </message>
-    <message>
-      <source>SVG-Images (*.svg);;All Files (*)</source>
-      <translation>SVG-Images (*.svg);;All Files (*)</translation>
     </message>
     <message>
       <source>All Files (*)</source>
@@ -13734,11 +13836,6 @@ External Links</translation>
       <translation>Can only link text frames.</translation>
     </message>
     <message>
-      <source>Target frame must be empty.</source>
-      <comment>python error</comment>
-      <translation>Target frame must be empty.</translation>
-    </message>
-    <message>
       <source>Target frame links to another frame.</source>
       <comment>python error</comment>
       <translation>Target frame links to another frame.</translation>
@@ -14091,11 +14188,6 @@ External Links</translation>
       <source>Object is not a linked text frame, can't unlink.</source>
       <comment>python error</comment>
       <translation>Object is not a linked text frame, can't unlink.</translation>
-    </message>
-    <message>
-      <source>Object the last frame in a series, can't unlink. Unlink the previous frame instead.</source>
-      <comment>python error</comment>
-      <translation>Object the last frame in a series, can't unlink. Unlink the previous frame instead.</translation>
     </message>
     <message>
       <source>Only text frames can be checked for overflowing</source>
@@ -15531,6 +15623,10 @@ converting their vector data into Scribus objects.</translation>
       <source>SVG file contains some unsupported features</source>
       <translation>SVG file contains some unsupported features</translation>
     </message>
+    <message>
+      <source>The file could not be imported</source>
+      <translation>The file could not be imported</translation>
+    </message>
   </context>
   <context>
     <name>SVGPlug</name>
@@ -16324,10 +16420,6 @@ Consider using the Preflight Verifier to correct them</translation>
       <translation>Documents (*.sla *.sla.gz);;All Files (*)</translation>
     </message>
     <message>
-      <source>Documents (*.sla);;All Files (*)</source>
-      <translation>Documents (*.sla);;All Files (*)</translation>
-    </message>
-    <message>
       <source>Group%1</source>
       <translation>Group%1</translation>
     </message>
@@ -16550,10 +16642,6 @@ Consider using the Preflight Verifier to correct them</translation>
       <translation>Linking Text Frames</translation>
     </message>
     <message>
-      <source>You are trying to link to a filled frame, or a frame to itself.</source>
-      <translation>You are trying to link to a filled frame, or a frame to itself.</translation>
-    </message>
-    <message>
       <source>Cannot Convert In-Use Item</source>
       <translation>Cannot Convert In-Use Item</translation>
     </message>
@@ -16630,6 +16718,18 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Enter Object Size</source>
       <translation>Enter Object Size</translation>
+    </message>
+    <message>
+      <source>No Image Loaded</source>
+      <translation>No Image Loaded</translation>
+    </message>
+    <message>
+      <source>You are trying to link a frame to itself.</source>
+      <translation>You are trying to link a frame to itself.</translation>
+    </message>
+    <message>
+      <source>You are trying to link a frame which is already linked.</source>
+      <translation>You are trying to link a frame which is already linked.</translation>
     </message>
   </context>
   <context>
@@ -17033,13 +17133,6 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
   </context>
   <context>
-    <name>Spalette</name>
-    <message>
-      <source>No Style</source>
-      <translation>No Style</translation>
-    </message>
-  </context>
-  <context>
     <name>StilFormate</name>
     <message>
       <source>Edit Styles</source>
@@ -17060,10 +17153,6 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
       <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
-    </message>
-    <message>
-      <source>Documents (*.sla *.scd);;All Files (*)</source>
-      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -17579,6 +17668,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Paragraph Style:</source>
       <translation>Paragraph Style:</translation>
+    </message>
+    <message>
+      <source>Table of Contents %1</source>
+      <translation>Table of Contents %1</translation>
     </message>
   </context>
   <context>
@@ -18445,6 +18538,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Distance from the top of the page for the first baseline</source>
       <translation>Distance from the top of the page for the first baseline</translation>
+    </message>
+    <message>
+      <source>px</source>
+      <translation>px</translation>
     </message>
   </context>
   <context>
@@ -20034,6 +20131,10 @@ when PDF document is opened:</translation>
       <source>Constrain value for the rotation tool when the Control key is pressed</source>
       <translation>Constrain value for the rotation tool when the Control key is pressed</translation>
     </message>
+    <message>
+      <source>Degrees</source>
+      <translation>Degrees</translation>
+    </message>
   </context>
   <context>
     <name>TabTypograpy</name>
@@ -20786,6 +20887,18 @@ X: %4, Y: %5</translation>
     <message>
       <source>Set start and end arrows</source>
       <translation>Set start and end arrows</translation>
+    </message>
+    <message>
+      <source>Remove all guides</source>
+      <translation>Remove all guides</translation>
+    </message>
+    <message>
+      <source>Copy</source>
+      <translation>Copy</translation>
+    </message>
+    <message>
+      <source>Copy page</source>
+      <translation>Copy page</translation>
     </message>
   </context>
   <context>
