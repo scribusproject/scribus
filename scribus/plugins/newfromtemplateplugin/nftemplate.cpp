@@ -107,13 +107,15 @@ void MenuNFT::RunNFTPlug()
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		ScMW->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
-		ScMW->doc->hasName = false;
-		UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
-		ScMW->doc->DocName = nftdia->currentDocumentTemplate->name;
-		ScMW->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
-		QDir::setCurrent(PrefsManager::instance()->documentDir());
-		ScMW->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		if(ScMW->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file)))
+		{
+			ScMW->doc->hasName = false;
+			UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
+			ScMW->doc->DocName = nftdia->currentDocumentTemplate->name;
+			ScMW->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
+			QDir::setCurrent(PrefsManager::instance()->documentDir());
+			ScMW->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		}
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;
