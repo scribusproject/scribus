@@ -590,7 +590,10 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				if (sitems.contains(styles[i].second))
 					parent = sitems[styles[i].second];
 				else
-					parent = rootItem;
+				{
+					styles.append(styles[i]);
+					continue;
+				}
 
 				sitem = new StyleViewItem(parent, styles[i].first, item_->typeName());
 				sitems[styles[i].first] = sitem;
@@ -607,7 +610,6 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 							sitem->text(SHORTCUT_COL), doc_->view(), key, 0, 0.0, key);
 			connect(styleActions_[key], SIGNAL(activatedData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
-
 		}
 	}
 }
