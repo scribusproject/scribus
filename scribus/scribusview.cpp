@@ -169,7 +169,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
 	zoomSpinBox->setValue( 100 );
-	zoomSpinBox->setLineStep(10);
+	zoomSpinBox->setLineStepM(10);
 	zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
 	zoomSpinBox->setSuffix( tr( " %" ) );
 #if OPTION_USE_QTOOLBUTTON

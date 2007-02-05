@@ -102,6 +102,7 @@ public:
 	void setDecimals( int deci );
 	bool isReadOnly() const;
 	void setConstants(const QMap<QString, double>&);
+ 	void setLineStepM(int val);
 
 public slots:
 	void textChanged();
@@ -124,7 +125,6 @@ public slots:
 	\param val new Value
 	*/
 	virtual void setValue(double val);
-	void setLineStep(int val);
 	void setReadOnly(bool ro);
 	void setValues(double min, double max, int deci, double val);
 	void getValues(double *min, double *max, int *deci, double *val);

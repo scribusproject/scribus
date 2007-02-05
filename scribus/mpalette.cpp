@@ -425,13 +425,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	startoffsetLabel = new QLabel( "Start Offset:", Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
 	Dist = new MSpinBox( 0, 30000, Distance2, 1 );
-	Dist->setLineStep(10);
+	Dist->setLineStepM(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
 
 	distfromcurveLabel = new QLabel( "Distance from Curve:", Distance2, "distfromcurveLabel" );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
 	LineW = new MSpinBox( -300, 300, Distance2, 1 );
-	LineW->setLineStep(10);
+	LineW->setLineStepM(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
 
 	flippedPathText = new QCheckBox( Distance2, "flippedPathText" );
@@ -1142,10 +1142,10 @@ void Mpalette::setDoc(ScribusDoc *d)
 	LSize->setMinValue( 0 );
 	Dist->setMaxValue( 30000 );
 	Dist->setMinValue( 0 );
-	Dist->setLineStep(10);
+	Dist->setLineStepM(10);
 	LineW->setMaxValue( 300 );
 	LineW->setMinValue( -300 );
-	LineW->setLineStep(10);
+	LineW->setLineStepM(10);
 
 	updateColorList();
 
