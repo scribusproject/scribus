@@ -4,6 +4,7 @@ INCLUDE_DIRECTORIES(
 )
 
 SET(COLORWHEEL_PLUGIN_MOC_CLASSES
+  colorblind.h
   colorwheel.h
   colorwheelwidget.h
   cwdialog.h
@@ -11,6 +12,7 @@ SET(COLORWHEEL_PLUGIN_MOC_CLASSES
 )
 
 SET(COLORWHEEL_PLUGIN_SOURCES
+  colorblind.cpp
   colorwheel.cpp
   colorwheelwidget.cpp
   cwdialog.cpp
