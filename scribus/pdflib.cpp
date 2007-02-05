@@ -1045,6 +1045,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					ObjCounter++;
 					StartObj(ObjCounter);
 					ObjCounter++;
+					QString toUnicodeMap = "";
+					int toUnicodeMapCounter = 0;
 					PutDoc("<< /Type /Encoding\n");
 					PutDoc("/Differences [ \n");
 					int crc = 0;
@@ -1060,6 +1062,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 								startOfSeq = false;
 							}
 							PutDoc("/"+gl[glyph].second+" ");
+							QString tmp, tmp2;
+							tmp.sprintf("%02X", ww2);
+							tmp2.sprintf("%04X", gl[glyph].first.unicode());
+							toUnicodeMap += QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
+							toUnicodeMapCounter++;
 							crc++;
 						}
 						else
@@ -1076,6 +1083,28 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					}
 					PutDoc("]\n");
 					PutDoc(">>\nendobj\n");
+					QString toUnicodeMapStream = "";
+					toUnicodeMapStream += "/CIDInit /ProcSet findresource begin\n";
+					toUnicodeMapStream += "12 dict begin\n";
+					toUnicodeMapStream += "begincmap\n";
+					toUnicodeMapStream += "/CIDSystemInfo <<\n";
+					toUnicodeMapStream += "/Registry (Adobe)\n";
+					toUnicodeMapStream += "/Ordering (UCS)\n";
+					toUnicodeMapStream += "/Supplement 0\n";
+					toUnicodeMapStream += ">> def\n";
+					toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
+					toUnicodeMapStream += "/CMapType 2 def\n";
+					toUnicodeMapStream += "1 begincodespacerange\n";
+					toUnicodeMapStream += "<00> <FF>\n";
+					toUnicodeMapStream += "endcodespacerange\n";
+					toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapCounter);
+					toUnicodeMapStream += toUnicodeMap;
+					toUnicodeMapStream += "endbfchar\n";
+					toUnicodeMapStream += "endcmap\n";
+					toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
+					toUnicodeMapStream += "end\n";
+					toUnicodeMapStream += "end\n";
+					WritePDFStream(toUnicodeMapStream);
 					StartObj(ObjCounter);
 					PutDoc("<<\n/Type /Font\n/Subtype ");
 					PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
@@ -1083,8 +1112,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 					PutDoc("/FirstChar 0\n");
 					PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
-					PutDoc("/Widths "+QString::number(ObjCounter-2)+" 0 R\n");
-					PutDoc("/Encoding "+QString::number(ObjCounter-1)+" 0 R\n");
+					PutDoc("/Widths "+QString::number(ObjCounter-3)+" 0 R\n");
+					PutDoc("/Encoding "+QString::number(ObjCounter-2)+" 0 R\n");
+					PutDoc("/ToUnicode "+QString::number(ObjCounter-1)+" 0 R\n");
 					PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
 					PutDoc(">>\nendobj\n");
 					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(Fc)] = ObjCounter;
