@@ -2769,7 +2769,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482;-Portierung:</translation>
     </message>
 </context>
 <context>
@@ -4956,7 +4956,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 oder 13 Ziffern mit Strichen. Das alte ISBN-10-Format kennt 9 oder 10 Ziffern mit Strichen, aber dieser Standard ist seit dem 1. Januar 2007 obsolet. (Anmerkung: Um eine alte ISBN-10-Nummer nach ISBN-13 zu konvertieren, fügen Sie 978- zu den ersten 9 Ziffern hinzu, z. B. 1-56592-479-7 -&gt; 978-1-56592-479. Die Prüfsumme wird automatisch berechnet.)</translation>
     </message>
 </context>
 <context>
@@ -10963,7 +10963,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -12017,7 +12017,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentlayout</translation>
     </message>
 </context>
 <context>
@@ -18771,7 +18771,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhaltsverzeichnis %1</translation>
     </message>
 </context>
 <context>
@@ -20031,19 +20031,19 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle &amp;Einbetten</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriften in Umrisse umwandeln:</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alle in Umrisse umwandeln</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentlayout</translation>
     </message>
 </context>
 <context>
