@@ -174,6 +174,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	ReplacedFonts.clear();
 	newReplacement = false;
 	dummyScFaces.clear();
+	DoVorl.clear();
+	DoVorl[0] = "";
+	DoVorl[1] = "";
+	DoVorl[2] = "";
+	DoVorl[3] = "";
+	DoVorl[4] = "";
+	VorlC = 5;
 	
 //start old ReadDoc
 	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
@@ -355,6 +362,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if(pg.tagName()=="STYLE")
 			{
 				vg.erase();
+				GetStyle(&pg, &vg, NULL, m_Doc, true);
+#if 0
 				vg.setName(pg.attribute("NAME"));
 				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
 				vg.setLineSpacing(pg.attribute("LINESP").toDouble());
@@ -432,6 +441,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				}
 //				else
 //					vg.tabValues().clear();
+#endif
 				StyleSet<ParagraphStyle> temp;
 				temp.create(vg);
 				m_Doc->redefineStyles(temp, false);
@@ -640,7 +650,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, m_Doc, false, false, Neu);
+							GetItemText(&it, m_Doc, true, false, Neu);
 						IT=IT.nextSibling();
 					}
 					Neu->isAutoText=static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
@@ -950,53 +960,6 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
-#if 0
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
-	{
-		hg = new ScText;
-		hg->ch = tmp2.at(cxx);
-		if (hg->ch == QChar(5))
-			hg->ch = QChar(13);
-		if (hg->ch == QChar(4))
-			hg->ch = QChar(9);
-		if (unknown)
-			hg->setFont(dummy);
-		else
-			hg->setFont((*doc->AllFonts)[tmpf]);
-		hg->setFontSize(size);
-		hg->setFillColor(fcolor);
-		hg->setTracking(extra);
-		hg->setFillShade(shade);
-		hg->setEffects(static_cast<StyleFlag>(cstyle));
-		if (impo)
-		{
-			if (VorLFound)
-				hg->cab = DoVorl[ab].toUInt();
-			else
-			{
-				if (ab < 5)
-					hg->cab = ab;
-				else
-					hg->cab = 0;
-			}
-		}
-		else
-			hg->cab = ab;
-		hg->setStrokeColor(stroke);
-		hg->setStrokeShade(shade2);
-		hg->setScaleH(QMIN(QMAX(scale, 100), 4000));
-		hg->setScaleV(QMIN(QMAX(scalev, 100), 4000));
-		hg->setBaselineOffset(base);
-		hg->setShadowXOffset(shX);
-		hg->setShadowYOffset(shY);
-		hg->setOutlineWidth(outL);
-		hg->setUnderlineOffset(ulp);
-		hg->setUnderlineWidth(ulw);
-		hg->setStrikethruOffset(stp);
-		hg->setStrikethruWidth(stw);
-		obj->itemText.append(hg);
-	}
-#else
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle style;
@@ -1014,22 +977,6 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		style.setTracking(extra);
 		style.setFillShade(shade);
 		style.setEffects(static_cast<StyleFlag>(cstyle));
-		/* FIXME:NLS
-		if (impo)
-		{
-			if (VorLFound)
-				hg->cab = DoVorl[ab].toUInt();
-			else
-			{
-				if (ab < 5)
-					hg->cab = ab;
-				else
-					hg->cab = 0;
-			}
-		}
-		else
-			hg->cab = ab;
-*/
 		style.setStrokeColor(stroke);
 		style.setStrokeShade(shade2);
 		style.setScaleH(QMIN(QMAX(scale, 100), 4000));
@@ -1045,18 +992,20 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		int pos = obj->itemText.length();
 		obj->itemText.insertChars(pos, QString(ch));
 		obj->itemText.applyCharStyle(pos, 1, style); // FIXME:NLS
-		if (ch == SpecialChars::PARSEP) {
+		if (ch == SpecialChars::PARSEP || cxx+1 == tmp2.length()) {
+//			qDebug(QString("scribus12 para: %1 %2 %3 %4").arg(ab)
+//				   .arg(ab < signed(DoVorl.size())? DoVorl[ab] : QString("./."))
+//				   .arg(VorLFound).arg(DoVorl.size()));
 			ParagraphStyle pstyle;
 			if (ab < 5) {
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(ab));
 			}
-			else {
-				pstyle.setParent( doc->paragraphStyles()[ab-5].name());
+			else if (VorLFound) {
+				pstyle.setParent( DoVorl[ab] );
 			}
 			obj->itemText.applyStyle(pos, pstyle); 
 		}
 	}
-#endif	
 	return;
 }
 
@@ -1096,11 +1045,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	DoVorl.clear();
 	DoFonts.clear();
 	DoFonts[m_Doc->toolSettings.defFont] = m_Doc->toolSettings.defFont;
-	DoVorl[0] = "0";
-	DoVorl[1] = "1";
-	DoVorl[2] = "2";
-	DoVorl[3] = "3";
-	DoVorl[4] = "4";
+	DoVorl[0] = "";
+	DoVorl[1] = "";
+	DoVorl[2] = "";
+	DoVorl[3] = "";
+	DoVorl[4] = "";
 	VorlC = 5;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
@@ -1299,7 +1248,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
 					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
 						m_Doc->OldBM = true;
-					OB.textAlignment = DoVorl[obj.attribute("ALIGN", "0").toInt()].toUInt();
+					OB.textAlignment = obj.attribute("ALIGN", "0").toInt();
 					tmpf = obj.attribute("IFONT", m_Doc->toolSettings.defFont);
 					if (tmpf.isEmpty())
 						tmpf = m_Doc->toolSettings.defFont;
@@ -1579,7 +1528,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = tmV.setNum(xx);
+					DoVorl[VorlC] = docParagraphStyles[xx].name();
 					VorlC++;
 				}
 				fou = true;
@@ -1602,7 +1551,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				fou = true;
 				if (fl)
 				{
-					DoVorl[VorlC] = tmV.setNum(xx);
+					DoVorl[VorlC] = docParagraphStyles[xx].name();
 					VorlC++;
 				}
 				break;
@@ -1620,7 +1569,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		}
 		if (fl)
 		{
-			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
+			DoVorl[VorlC] = vg->name();
 			VorlC++;
 		}
 	}
