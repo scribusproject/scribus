@@ -65,8 +65,8 @@ public:
 
 	QString displayName() const;
 
-	void setBase(const StyleBase* base);
-	void update(const StyleBase*);
+	void setContext(const StyleContext* context);
+	void update(const StyleContext*);
 	
 	bool equiv(const Style& other) const;
 	
@@ -75,17 +75,17 @@ public:
 	void setStyle(const ParagraphStyle& other);
 	void erase() { eraseStyle(*this); }
 
-	StyleBase* charStyleBase() { return & cstyleBase; }
-	const StyleBase* charStyleBase() const { return & cstyleBase; }
+	StyleContext* charStyleContext() { return & cstyleContext; }
+	const StyleContext* charStyleContext() const { return & cstyleContext; }
 	CharStyle & charStyle() { return cstyle; }
 	const CharStyle& charStyle() const { return cstyle; }
-	/** Normally the base for charStyle() is parentStyle()->charStyleBase()
-		Use this method to break that relation and set charStyle()'s base manually
+	/** Normally the context for charStyle() is parentStyle()->charStyleContext()
+		Use this method to break that relation and set charStyle()'s context manually
 	*/
 	void breakImplicitCharStyleInheritance(bool val = true);
 	/** used internally to establish the implicit relation 
-		charStyle().base() == parentStyle()->charStyleBase()
-		Done implicitly in setBase(), update(), operator= and breakImplicitCharStyleInheritance()
+		charStyle().context() == parentStyle()->charStyleContext()
+		Done implicitly in setContext(), update(), operator= and breakImplicitCharStyleInheritance()
 	*/
 	void repairImplicitCharStyleInheritance();
 	
@@ -131,8 +131,8 @@ public:
 private:
 		
 	// member declarations:
-	StyleBaseProxy cstyleBase;
-	bool cstyleBaseIsInh;
+	StyleContextProxy cstyleContext;
+	bool cstyleContextIsInh;
 	CharStyle cstyle;
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \

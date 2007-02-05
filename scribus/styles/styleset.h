@@ -8,7 +8,7 @@
 
 
 template<class STYLE>
-class StyleSet : public StyleBase {
+class StyleSet : public StyleContext {
 public:
 	STYLE& operator[] (uint index) { 
 		assert(index < styles.count()); 
@@ -34,7 +34,7 @@ public:
 	
 	STYLE* append(STYLE* style) { 
 		styles.append(style); 
-		style->setBase(this); 
+		style->setContext(this); 
 		return style; 
 	}
 	
@@ -49,7 +49,7 @@ public:
 	void makeDefault(STYLE* def) { 
 		m_default = def; 
 		if(def) 
-			def->setBase(this);
+			def->setContext(this);
 		invalidate();
 	}
 	
@@ -57,7 +57,7 @@ public:
 		return &style == m_default;
 	}
 	
-	StyleSet() : styles(), m_base(NULL), m_default(NULL) {}
+	StyleSet() : styles(), m_context(NULL), m_default(NULL) {}
 	
 	~StyleSet() { 
 		clear(); 
@@ -72,15 +72,15 @@ public:
 		invalidate();
 	}
 
-	void setBase(const StyleBase* base) {
-		bool reallyNew = m_base != base;
-		m_base = base; 
+	void setContext(const StyleContext* context) {
+		bool reallyNew = m_context != context;
+		m_context = context; 
 		if (reallyNew)
 			invalidate();
 	}
 	
-	const StyleBase* base() const { 
-		return m_base; 
+	const StyleContext* context() const { 
+		return m_context; 
 	}
 	
 private:
@@ -88,7 +88,7 @@ private:
 	StyleSet& operator= (const StyleSet&) { assert(false); return *this; }
 
 	QValueList<STYLE*> styles;
-	const StyleBase* m_base;
+	const StyleContext* m_context;
 	STYLE* m_default;
 };
 
@@ -122,7 +122,7 @@ inline const Style* StyleSet<STYLE>::resolve(const QString& name) const
 		if (styles[i]->name() == name)
 			return styles[i];
 	}
-	return m_base ? m_base->resolve(name) : NULL;
+	return m_context ? m_context->resolve(name) : NULL;
 }
 
 template<class STYLE>
@@ -137,7 +137,7 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 			{
 				found = true;
 				(*styles[i]) = defs[j];
-				(*styles[i]).setBase(this);
+				(*styles[i]).setContext(this);
 				if (defs.m_default == defs.styles[j])
 					makeDefault(styles[i]);
 				break;

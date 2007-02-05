@@ -8,6 +8,8 @@ SET(SCRIBUS_STYLES_MOC_CLASSES
 )
 
 SET(SCRIBUS_STYLES_LIB_SOURCES
+stylecontext.cpp
+stylecontextproxy.cpp
 charstyle.cpp
 paragraphstyle.cpp
 )

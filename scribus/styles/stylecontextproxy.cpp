@@ -13,42 +13,22 @@
 *                                                                         *
 ***************************************************************************/
 
-
 #include "style.h"
+#include "stylecontextproxy.h"
 
 
-void Style::setContext(const StyleContext* context)
-{ 
-	if (m_context != context) {
-		m_context = context;
-		m_contextversion = -1;
-		assert( !m_context || m_context->checkConsistency() );
-	}
-	//qDebug(QString("setContext of %2 context %1").arg(reinterpret_cast<uint>(m_context),16).arg(reinterpret_cast<uint>(this),16));
-}
-
-
-void Style::update(const StyleContext* b)
+const Style* StyleContextProxy::resolve(const QString& name) const
 {
-	if (b)
-		m_context = b;
-	if (m_context)
-		m_contextversion = m_context->version(); 
+	const StyleContext* context = m_default->context();
+	//	if (!name.isEmpty())
+	//		qDebug(QString("resolve %4 %3 -%1- %2").arg(name)
+	//			   .arg(reinterpret_cast<uint>(context),16).arg(reinterpret_cast<uint>(this),16)
+	//			   .arg(m_default->name()));
+	
+	if (name.isEmpty() || ! context)
+		return m_default;
+	else if (this == context)
+		return NULL;
+	else
+		return context->resolve(name);
 }
-
-void Style::validate() const
-{ 
-	if (m_context && m_contextversion != m_context->version()) {
-		const_cast<Style*>(this)->update(m_context); 
-		assert( m_context->checkConsistency() );
-	}
-}
-
-
-const Style* Style::parentStyle() const 
-{ 
-	//qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_context),16));
-	const Style * par = m_context ? m_context->resolve(m_parent) : NULL;
-	if (par == this) return NULL; else return par;
-}
-

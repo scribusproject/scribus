@@ -261,12 +261,12 @@ static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
 	ScText* it = that->item_p(pos);
 	if(!it->parstyle) {
 		it->parstyle = new ParagraphStyle(that->paragraphStyle(pos+1));
-		it->parstyle->setBase( & d->pstyleBase);
+		it->parstyle->setContext( & d->pstyleContext);
 		it->parstyle->setName("para"); // DONT TRANSLATE
 		it->parstyle->charStyle().setName("cpara"); // DONT TRANSLATE
-//		it->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase() );
+//		it->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 	}
-	d->replaceCharStyleBaseInParagraph(pos, it->parstyle->charStyleBase());
+	d->replaceCharStyleContextInParagraph(pos, it->parstyle->charStyleContext());
 }
 /**
      need to remove the ParagraphStyle structure and replace all pointers
@@ -282,10 +282,10 @@ static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 		delete it->parstyle;
 		it->parstyle = 0;
 	}
-	// demote this parsep so the assert code in replaceCharStyleBaseInParagraph()
+	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
 	// doesnt choke:
 	it->ch = "";
-	d->replaceCharStyleBaseInParagraph(pos, that->paragraphStyle(pos+1).charStyleBase());	
+	d->replaceCharStyleContextInParagraph(pos, that->paragraphStyle(pos+1).charStyleContext());	
 }
 
 void StoryText::removeChars(int pos, uint len)
@@ -328,13 +328,13 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	if (txt.length() == 0)
 		return;
 	
-	const StyleBase* cStyleBase = paragraphStyle(pos).charStyleBase();
+	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
 	//	assert( !style.font().isNone() );
 	
 	for (uint i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
 		item->ch= txt.mid(i, 1);
-		item->setBase(cStyleBase);
+		item->setContext(cStyleContext);
 		d->insert(pos + i, item);
 		d->len++;
 		if (item->ch[0] == SpecialChars::PARSEP) {
@@ -499,10 +499,10 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	else if ( !that->d->current()->parstyle ) {
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
 		that->d->current()->parstyle = new ParagraphStyle();
-		that->d->current()->parstyle->setBase( & d->pstyleBase);
+		that->d->current()->parstyle->setContext( & d->pstyleContext);
 		that->d->current()->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
 		that->d->current()->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DONT TRANSLATE
-//		that->d->current()->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase());
+//		that->d->current()->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
 	else {
 //		qDebug(QString("using parstyle at %1").arg(pos));
@@ -520,17 +520,17 @@ const ParagraphStyle& StoryText::defaultStyle() const
 
 void StoryText::setDefaultStyle(const ParagraphStyle& style)
 {
-	const StyleBase * oldPBase = d->defaultStyle.base();
-	const StyleBase * oldCBase = d->defaultStyle.charStyle().base();
+	const StyleContext * oldPContext = d->defaultStyle.context();
+	const StyleContext * oldCContext = d->defaultStyle.charStyle().context();
 	d->defaultStyle = style;
-	d->defaultStyle.setBase( oldPBase );
+	d->defaultStyle.setContext( oldPContext );
 	d->defaultStyle.setName( "storydefault" ); // DONT TRANSLATE
 	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DONT TRANSLATE
-//	qDebug(QString("defstyle %1 base %2 defcstyle %3 cbase %4 newbase %5")
-//		   .arg((uint)&d->defaultStyle,16).arg((uint)oldPBase,16)
-//		   .arg((uint)&d->defaultStyle.charStyle(),16).arg((uint)oldCBase,16)
-//		   .arg((uint)d->defaultStyle.charStyle().base(),16));
-//	d->defaultStyle.charStyle().setBase( oldCBase );
+//	qDebug(QString("defstyle %1 context %2 defcstyle %3 ccontext %4 newcontext %5")
+//		   .arg((uint)&d->defaultStyle,16).arg((uint)oldPContext,16)
+//		   .arg((uint)&d->defaultStyle.charStyle(),16).arg((uint)oldCContext,16)
+//		   .arg((uint)d->defaultStyle.charStyle().context(),16));
+//	d->defaultStyle.charStyle().setContext( oldCContext );
 	invalidateAll();
 }
 
@@ -610,10 +610,10 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 		if (!d->at(i)->parstyle) {
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
-			d->at(i)->parstyle->setBase( & d->pstyleBase);
+			d->at(i)->parstyle->setContext( & d->pstyleContext);
 			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DONT TRANSLATE
 			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DONT TRANSLATE
-//			d->at(i)->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase() );
+//			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 		}
 //		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->applyStyle(style);
@@ -642,10 +642,10 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 		if (!d->at(i)->parstyle) {
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
-			d->at(i)->parstyle->setBase( & d->pstyleBase);
+			d->at(i)->parstyle->setContext( & d->pstyleContext);
 			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DONT TRANSLATE
 			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DONT TRANSLATE
-//			d->at(i)->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase());
+//			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 		}
 		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->eraseStyle(style);
@@ -1056,7 +1056,7 @@ void StoryText::invalidateLayout()
 
 void StoryText::invalidateAll()
 {
-	d->pstyleBase.invalidate();
+	d->pstyleContext.invalidate();
 	invalidate(0, nrOfItems());
 }
 
@@ -1065,7 +1065,7 @@ void StoryText::invalidate(int firstItem, int endItem)
 	for (int i=firstItem; i < endItem; ++i) {
 		ParagraphStyle* par = item(i)->parstyle;
 		if (par)
-			par->charStyleBase()->invalidate();
+			par->charStyleContext()->invalidate();
 	}
 }
 

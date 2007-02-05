@@ -9,27 +9,27 @@
 #include "scribus.h"
 #include "util.h"
 
-ScText_Shared::ScText_Shared(const StyleBase* pstyles) : QPtrList<ScText>(), 
+ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QPtrList<ScText>(), 
 	defaultStyle(), 
-	pstyleBase(NULL),
+	pstyleContext(NULL),
 	refs(1), len(0), trailingStyle()
 {
-	pstyleBase.setDefaultStyle( & defaultStyle );
+	pstyleContext.setDefaultStyle( & defaultStyle );
 	setAutoDelete(true);
-	defaultStyle.setBase( pstyles );
-	trailingStyle.setBase( &pstyleBase );
-//		defaultStyle.charStyle().setBase( cstyles );
+	defaultStyle.setContext( pstyles );
+	trailingStyle.setContext( &pstyleContext );
+//		defaultStyle.charStyle().setContext( cstyles );
 //		qDebug(QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles)));
 }
 		
 
 ScText_Shared::ScText_Shared(const ScText_Shared& other) : QPtrList<ScText>(), 
 	defaultStyle(other.defaultStyle), 
-	pstyleBase(other.pstyleBase),
+	pstyleContext(other.pstyleContext),
 	refs(1), len(0), trailingStyle(other.trailingStyle)
 {
-	pstyleBase.setDefaultStyle( &defaultStyle );
-	trailingStyle.setBase( &pstyleBase );
+	pstyleContext.setDefaultStyle( &defaultStyle );
+	trailingStyle.setContext( &pstyleContext );
 	setAutoDelete(true); 
 	QPtrListIterator<ScText> it( other );
 	ScText* elem;
@@ -38,13 +38,13 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) : QPtrList<ScText>(),
 		ScText* elem2 = new ScText(*elem);
 		append(elem2);
 		if (elem2->parstyle) {
-			elem2->parstyle->setBase( & pstyleBase);
-//				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
-			replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
+			elem2->parstyle->setContext( & pstyleContext);
+//				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext() );
+			replaceCharStyleContextInParagraph(count()-1, elem2->parstyle->charStyleContext());
 		}
 	}
 	len = count();
-	replaceCharStyleBaseInParagraph(len,  trailingStyle.charStyleBase() );
+	replaceCharStyleContextInParagraph(len,  trailingStyle.charStyleContext() );
 //		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 }
 
@@ -54,10 +54,10 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 	{
 		defaultStyle = other.defaultStyle;
 		trailingStyle = other.trailingStyle;
-		pstyleBase = other.pstyleBase;
-		pstyleBase.setDefaultStyle( &defaultStyle );
-		defaultStyle.setBase( other.defaultStyle.base() );
-		trailingStyle.setBase( &pstyleBase );
+		pstyleContext = other.pstyleContext;
+		pstyleContext.setDefaultStyle( &defaultStyle );
+		defaultStyle.setContext( other.defaultStyle.context() );
+		trailingStyle.setContext( &pstyleContext );
 		clear();
 		QPtrListIterator<ScText> it( other );
 		ScText* elem;
@@ -66,19 +66,19 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 			ScText* elem2 = new ScText(*elem);
 			append(elem2);
 			if (elem2->parstyle) {
-				elem2->parstyle->setBase( & pstyleBase );
+				elem2->parstyle->setContext( & pstyleContext );
 //					qDebug(QString("StoryText::copy: * %1 align=%2").arg(elem2->parstyle->parent())
 //						   .arg(elem2->parstyle->alignment())
-//						   .arg((uint)elem2->parstyle->base()));
-					//				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
-				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
+//						   .arg((uint)elem2->parstyle->context()));
+					//				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext() );
+				replaceCharStyleContextInParagraph(count()-1, elem2->parstyle->charStyleContext());
 			}
 		}
 		len = count();
-		pstyleBase.invalidate();
+		pstyleContext.invalidate();
 //			qDebug(QString("StoryText::copy: %1 align=%2 %3").arg(trailingStyle.parentStyle()->name())
-//				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.base()));
-		replaceCharStyleBaseInParagraph(len,  trailingStyle.charStyleBase());
+//				   .arg(trailingStyle.alignment()).arg((uint)trailingStyle.context()));
+		replaceCharStyleContextInParagraph(len,  trailingStyle.charStyleContext());
 	}
 //			qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 	return *this;
@@ -89,11 +89,11 @@ ScText_Shared::~ScText_Shared() {
 }
 
 /**
-	A char's stylebase is the containing paragraph's style, 
+	A char's stylecontext is the containing paragraph's style, 
 	This routines makes sure that all charstyles look for defaults
 	in the parstyle first.
 	*/
-void ScText_Shared::replaceCharStyleBaseInParagraph(int pos, const StyleBase* newBase)
+void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleContext* newContext)
 {
 	QPtrListIterator<ScText> it( *this );
 	it += (pos-1);
@@ -101,12 +101,12 @@ void ScText_Shared::replaceCharStyleBaseInParagraph(int pos, const StyleBase* ne
 	while ( (elem = it.current()) != NULL ) {
 		if (elem->ch[0] == SpecialChars::PARSEP)
 			break;
-		elem->setBase(newBase);
+		elem->setContext(newContext);
 		--it;
 	}
 	// assert that all chars point to the following parstyle
 	QPtrListIterator<ScText> test( *this );
-	const StyleBase* lastBase = NULL;
+	const StyleContext* lastContext = NULL;
 	while ( (elem = it.current()) != NULL ) {
 		if ( elem->ch.isEmpty() ) 
 		{
@@ -115,21 +115,21 @@ void ScText_Shared::replaceCharStyleBaseInParagraph(int pos, const StyleBase* ne
 		else if (elem->ch[0] == SpecialChars::PARSEP)
 		{
 			assert( elem->parstyle );
-			if ( lastBase )
-				assert( lastBase == elem->parstyle->charStyleBase() );
-			lastBase = NULL;
+			if ( lastContext )
+				assert( lastContext == elem->parstyle->charStyleContext() );
+			lastContext = NULL;
 		}
-		else if (lastBase == NULL)
+		else if (lastContext == NULL)
 		{
-			lastBase = elem->base();
+			lastContext = elem->context();
 		}
 		else 
 		{
-			assert( lastBase == elem->base() );
+			assert( lastContext == elem->context() );
 		}
 		++it;
 	}
-	if ( lastBase )
-		assert( lastBase == trailingStyle.charStyleBase() );
+	if ( lastContext )
+		assert( lastContext == trailingStyle.charStyleContext() );
 }
 

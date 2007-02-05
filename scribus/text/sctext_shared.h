@@ -11,6 +11,7 @@
 //#include "text/paragraphlayout.h"
 #include "text/frect.h"
 #include "style.h"
+#include "styles/stylecontextproxy.h"
 
 #ifdef NLS_CONFORMANCE
 #define NLS_PRIVATE private
@@ -27,11 +28,11 @@ class SCRIBUS_API ScText_Shared : public QPtrList<ScText>
 {
 public:
 	ParagraphStyle defaultStyle;
-	StyleBaseProxy pstyleBase;
+	StyleContextProxy pstyleContext;
 	uint refs;
 	uint len;
 	ParagraphStyle trailingStyle;
-	ScText_Shared(const StyleBase* pstyles);	
+	ScText_Shared(const StyleContext* pstyles);	
 
 	ScText_Shared(const ScText_Shared& other);
 
@@ -40,11 +41,11 @@ public:
 	~ScText_Shared();
 	
 	/**
-	   A char's stylebase is the containing paragraph's style, 
+	   A char's stylecontext is the containing paragraph's style, 
        This routines makes sure that all charstyles look for defaults
 	   in the parstyle first.
 	 */
-	void replaceCharStyleBaseInParagraph(int pos, const StyleBase* newBase);
+	void replaceCharStyleContextInParagraph(int pos, const StyleContext* newContext);
 };
 
 #endif /*SCTEXT_SHARED_H*/

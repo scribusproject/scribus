@@ -387,7 +387,7 @@ void SMParagraphStyle::reloadTmpStyles()
 	deleted_.clear();
 	tmpStyles_.redefine(doc_->paragraphStyles(), true);
 	Q_ASSERT(tmpStyles_.count() > 0);
-	tmpStyles_[0].charStyle().setBase(cstyles_);
+	tmpStyles_[0].charStyle().setContext(cstyles_);
 }
 
 void SMParagraphStyle::setupConnections()

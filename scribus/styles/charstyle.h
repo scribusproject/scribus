@@ -96,7 +96,7 @@ public:
 	
 	QString displayName() const;
 
-	void update(const StyleBase * b);
+	void update(const StyleContext * b);
 	
 	bool equiv(const Style& other) const;	
 	
@@ -166,8 +166,8 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
-//	m_base = NULL;
-	m_baseversion = -1;
+//	m_context = NULL;
+	m_contextversion = -1;
 	return *this;
 }
 
@@ -178,7 +178,7 @@ inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
-//	m_base = NULL;
-	m_baseversion = -1;
+//	m_context = NULL;
+	m_contextversion = -1;
 }
 

@@ -14,41 +14,28 @@
 ***************************************************************************/
 
 
-#include "style.h"
+#include "stylecontext.h"
 
-
-void Style::setContext(const StyleContext* context)
-{ 
-	if (m_context != context) {
-		m_context = context;
-		m_contextversion = -1;
-		assert( !m_context || m_context->checkConsistency() );
-	}
-	//qDebug(QString("setContext of %2 context %1").arg(reinterpret_cast<uint>(m_context),16).arg(reinterpret_cast<uint>(this),16));
-}
-
-
-void Style::update(const StyleContext* b)
+void StyleContext::invalidate()
 {
-	if (b)
-		m_context = b;
-	if (m_context)
-		m_contextversion = m_context->version(); 
+	++m_version; 
+	if (m_cnt > 0)          // activate() can be slow even if there's nothing to signal
+		m_sig.activate(); 
 }
 
-void Style::validate() const
-{ 
-	if (m_context && m_contextversion != m_context->version()) {
-		const_cast<Style*>(this)->update(m_context); 
-		assert( m_context->checkConsistency() );
-	}
+bool StyleContext::connect(const QObject* receiver, const char *member ) const
+{
+	bool result = m_sig.connect(receiver, member);
+	if (result)
+		++m_cnt;
+	return result;
 }
 
-
-const Style* Style::parentStyle() const 
-{ 
-	//qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_context),16));
-	const Style * par = m_context ? m_context->resolve(m_parent) : NULL;
-	if (par == this) return NULL; else return par;
+bool StyleContext::disconnect(const QObject* receiver, const char *member ) const
+{
+	bool result = m_sig.disconnect(receiver, member);
+	if (result)
+		--m_cnt;
+	return result;
 }
 

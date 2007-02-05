@@ -135,7 +135,7 @@ bool CharStyle::equiv(const Style & other) const
 
 QString CharStyle::displayName() const
 {
-	if ( hasName() || !hasParent() || ! m_base)
+	if ( hasName() || !hasParent() || ! m_context)
 		return name();
 //	else if ( inheritsAll() )
 //		return parent()->displayName();
@@ -176,9 +176,9 @@ QString CharStyle::asString() const
 }
 
 
-void CharStyle::update(const StyleBase* base)
+void CharStyle::update(const StyleContext* context)
 {
-	Style::update(base);
+	Style::update(context);
 	const CharStyle * oth = dynamic_cast<const CharStyle*> ( parentStyle() );
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
