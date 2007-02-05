@@ -1,6 +1,6 @@
 noinst_LTLIBRARIES=libstyles.la
 
-libstyles_la_SOURCES=charstyle.cpp paragraphstyle.cpp
+libstyles_la_SOURCES=charstyle.cpp paragraphstyle.cpp stylecontext.cpp stylecontextproxy.cpp
 
 EXTRA_DIST = CMakeLists.txt
 
