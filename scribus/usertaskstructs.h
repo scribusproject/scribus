@@ -36,6 +36,7 @@ struct ItemMultipleDuplicateData
 	int copyShiftOrGap;
 	double copyShiftGapH;
 	double copyShiftGapV;
+	double copyRotation;
 	int gridRows;
 	int gridCols;
 	double gridGapH;

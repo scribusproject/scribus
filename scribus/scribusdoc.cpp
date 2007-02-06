@@ -7645,12 +7645,17 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	bool savedAlignGuides = SnapGuides;
 	useRaster = false;
 	SnapGuides = false;
+	DoDrawing = false;
+	view()->updatesOn(false);
+	m_ScMW->ScriptRunning = true;
 	if (mdData.type==0) // Copy and offset or set a gap
 	{
 		double dH = mdData.copyShiftGapH / docUnitRatio;
 		double dV = mdData.copyShiftGapV / docUnitRatio;
 		double dH2 = dH;
 		double dV2 = dV;
+		double dR = mdData.copyRotation;
+		double dR2 = dR;
 		if (mdData.copyShiftOrGap==1)
 		{
 			dH2+=m_Selection->width();
@@ -7666,13 +7671,16 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				PageItem* bItem=m_Selection->itemAt(b);
 				bItem->setLocked(false);
 				MoveItem(dH2, dV2, bItem, true);
+				if (dR != 0.0)
+					RotateItem(dR2, bItem);
 			}
 			dH2 += dH;
 			dV2 += dV;
+			dR2 += dR;
 		}
 		changed();
 		m_View->Deselect(true);
-		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3").arg(mdData.copyCount).arg(dH).arg(dV);
+		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(dH).arg(dV).arg(dR);
 	}
 	else
 	if (mdData.type==1) // Create a grid of duplicated items
@@ -7706,6 +7714,10 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 	//FIXME: Enable paste without doing this save/restore
 	useRaster = savedAlignGrid;
 	SnapGuides = savedAlignGuides;
+	DoDrawing = true;
+	view()->updatesOn(true);
+	m_ScMW->ScriptRunning = false;
+	view()->DrawNew();
 }
 
 void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection)

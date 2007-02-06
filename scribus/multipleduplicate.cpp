@@ -27,6 +27,7 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	QWidget::setTabOrder(horizShiftMSpinBox, vertShiftMSpinBox);
 	QWidget::setTabOrder(gridColsSpinBox, horizRCGapMSpinBox);
 	QWidget::setTabOrder(horizRCGapMSpinBox, vertRCGapMSpinBox);
+	QWidget::setTabOrder(vertRCGapMSpinBox, rotationMSpinBox);
 	
 	//set up mspinboxes
 	int decimals = unitGetDecimalsFromIndex(unitIndex);
@@ -35,6 +36,7 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	vertShiftMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
 	horizRCGapMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
 	vertRCGapMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
+	rotationMSpinBox->setValues(-180.0, 180.0, 10, 0.0);
 	horizShiftMSpinBox->setSuffix(unitSuffix);
 	vertShiftMSpinBox->setSuffix(unitSuffix);
 	horizRCGapMSpinBox->setSuffix(unitSuffix);
@@ -65,13 +67,14 @@ void MultipleDuplicate::setCopiesShiftGap(int sel)
 
 void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 {
-	mdData.type=tabWidget->currentPageIndex();
-	mdData.copyCount=numberOfCopiesSpinBox->value();
-	mdData.copyShiftOrGap=copiesCreateButtonGroup->selectedId();
-	mdData.copyShiftGapH=horizShiftMSpinBox->value();
-	mdData.copyShiftGapV=vertShiftMSpinBox->value();
-	mdData.gridRows=gridRowsSpinBox->value();
-	mdData.gridCols=gridColsSpinBox->value();
-	mdData.gridGapH=horizRCGapMSpinBox->value();
-	mdData.gridGapV=vertRCGapMSpinBox->value();
+	mdData.type = tabWidget->currentPageIndex();
+	mdData.copyCount = numberOfCopiesSpinBox->value();
+	mdData.copyShiftOrGap = copiesCreateButtonGroup->selectedId();
+	mdData.copyShiftGapH = horizShiftMSpinBox->value();
+	mdData.copyShiftGapV = vertShiftMSpinBox->value();
+	mdData.copyRotation = rotationMSpinBox->value();
+	mdData.gridRows = gridRowsSpinBox->value();
+	mdData.gridCols = gridColsSpinBox->value();
+	mdData.gridGapH = horizRCGapMSpinBox->value();
+	mdData.gridGapV = vertRCGapMSpinBox->value();
 }
