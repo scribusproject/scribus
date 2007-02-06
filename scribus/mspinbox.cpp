@@ -38,7 +38,7 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 	ed = editor();
 	QSpinBox::setLineStep(Decimals);
 	oldLineStep = 0;
-	Decimals = Decimals;
+	currLineStep = Decimals;
 	readOnly=false;
 	edited = false;
     connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
@@ -51,7 +51,7 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 	ed = editor();
 	QSpinBox::setLineStep(Decimals);
 	oldLineStep=0;
-	Decimals = Decimals;
+	currLineStep = Decimals;
 	setMinValue(minValue);
 	setMaxValue(maxValue);
 	readOnly=false;
@@ -66,7 +66,7 @@ MSpinBox::MSpinBox(QWidget *parent, const char * name): QSpinBox(parent, name)
 	ed = editor();
 	QSpinBox::setLineStep(Decimals); // pv - dummy setup for designer's constructor
 	oldLineStep=0;
-	Decimals = Decimals;
+	currLineStep = Decimals;
 	readOnly=false;
 	edited = false;
 	connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
@@ -112,21 +112,21 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		bool controlB=k->state() & ControlButton;
 		if (k->key() == Key_Shift && !controlB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals / 10, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (k->key() == Key_Control && !shiftB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals * 10, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if ((k->key() == Key_Control && shiftB) || (k->key() == Key_Shift && controlB))
 		{
-			QSpinBox::setLineStep(QMAX(Decimals / 100, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep / 100, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
@@ -147,21 +147,21 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		bool controlB=k->stateAfter() & ControlButton;
 		if ((k->key() == Key_Shift && !controlB) || (k->key() == Key_Control && !shiftB))
 		{
-			QSpinBox::setLineStep(Decimals);
+			QSpinBox::setLineStep(currLineStep);
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (k->key() == Key_Shift && controlB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals * 10, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (k->key() == Key_Control && shiftB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals / 10, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
@@ -177,21 +177,21 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		bool controlB=k->state() & ControlButton;
 		if (shiftB && !controlB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals / 10, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		} 
 		else if (!shiftB && controlB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals * 10, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (shiftB && controlB)
 		{
-			QSpinBox::setLineStep(QMAX(Decimals / 100, 1));
+			QSpinBox::setLineStep(QMAX(currLineStep / 100, 1));
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
@@ -199,7 +199,7 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		else
 		if (!shiftB && !controlB)
 		{
-			QSpinBox::setLineStep(Decimals);
+			QSpinBox::setLineStep(currLineStep);
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
@@ -339,7 +339,7 @@ void MSpinBox::setDecimals(int deci)
 {
 	Decimals = deci;
 	QSpinBox::setLineStep(Decimals);
-	Decimals = Decimals;
+	currLineStep = Decimals;
 	if (deci < 10)
 		Width = 0;
 	if ((deci > 9) && (deci < 100))
