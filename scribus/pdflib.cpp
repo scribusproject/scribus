@@ -1045,6 +1045,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					ObjCounter++;
 					StartObj(ObjCounter);
 					ObjCounter++;
+					QStringList toUnicodeMaps;
+					QValueList<int> toUnicodeMapsCount;
 					QString toUnicodeMap = "";
 					int toUnicodeMapCounter = 0;
 					PutDoc("<< /Type /Encoding\n");
@@ -1067,6 +1069,13 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 							tmp2.sprintf("%04X", gl[glyph].first.unicode());
 							toUnicodeMap += QString("<%1> <%2>\n").arg(tmp).arg((tmp2));
 							toUnicodeMapCounter++;
+							if (toUnicodeMapCounter == 100)
+							{
+								toUnicodeMaps.append(toUnicodeMap);
+								toUnicodeMapsCount.append(toUnicodeMapCounter);
+								toUnicodeMap = "";
+								toUnicodeMapCounter = 0;
+							}
 							crc++;
 						}
 						else
@@ -1080,6 +1089,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 							PutDoc("\n");
 							crc = 0;
 						}
+					}
+					if (toUnicodeMapCounter != 0)
+					{
+						toUnicodeMaps.append(toUnicodeMap);
+						toUnicodeMapsCount.append(toUnicodeMapCounter);
 					}
 					PutDoc("]\n");
 					PutDoc(">>\nendobj\n");
@@ -1095,11 +1109,14 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					toUnicodeMapStream += "/CMapName /Adobe-Identity-UCS def\n";
 					toUnicodeMapStream += "/CMapType 2 def\n";
 					toUnicodeMapStream += "1 begincodespacerange\n";
-					toUnicodeMapStream += "<00> <FF>\n";
+					toUnicodeMapStream += "<0000> <FFFF>\n";
 					toUnicodeMapStream += "endcodespacerange\n";
-					toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapCounter);
-					toUnicodeMapStream += toUnicodeMap;
-					toUnicodeMapStream += "endbfchar\n";
+					for (uint uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
+					{
+						toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapsCount[uniC]);
+						toUnicodeMapStream += toUnicodeMaps[uniC];
+						toUnicodeMapStream += "endbfchar\n";
+					}
 					toUnicodeMapStream += "endcmap\n";
 					toUnicodeMapStream += "CMapName currentdict /CMap defineresource pop\n";
 					toUnicodeMapStream += "end\n";
