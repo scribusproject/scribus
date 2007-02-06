@@ -341,8 +341,8 @@ void PicStatus::fillTable()
 		if (item->itemType() == PageItem::ImageFrame)
 		{
 			ItemNrs.append(i);
-			++i;
 		}
+		++i;
 	}
 	i = 0;
 	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
@@ -350,8 +350,8 @@ void PicStatus::fillTable()
 		if (item->itemType() == PageItem::ImageFrame)
 		{
 			ItemNrs.append(i);
-			++i;
 		}
+		++i;
 	}
 
 	i = 0;
