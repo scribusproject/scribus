@@ -3108,27 +3108,36 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			++lp;
 		targetPage->LeftPg = lp;
 	}
-//	QMap<int,int> TableID;
-//	QPtrList<PageItem> TableItems;
 	sourcePage->guides.copy(&targetPage->guides);
-//	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
-	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
-//	setMasterPageMode(true);
 	uint end2 = MasterItems.count();
 	m_Selection->clear();
-	for (uint ite = 0; ite < end; ++ite)
+	QValueList<Layer>::iterator it;
+	if (Layers.count()!= 0)
 	{
-		PageItem *itemToCopy = DocItems.at(ite);
-		if (itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr()))
-			m_Selection->addItem(itemToCopy, true);
+		int currActiveLayer = activeLayer();
+		for (it = Layers.begin(); it != Layers.end(); ++it)
+		{
+			setActiveLayer((*it).LNr);
+			for (uint ite = 0; ite < end; ++ite)
+			{
+				PageItem *itemToCopy = DocItems.at(ite);
+				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+					m_Selection->addItem(itemToCopy, true);
+			}
+			if (m_Selection->count() != 0)
+			{
+				ScriXmlDoc *ss = new ScriXmlDoc();
+				QString dataS = ss->WriteElem(this, view(), m_Selection);
+				setMasterPageMode(true);
+				setCurrentPage(targetPage);
+				ss->ReadElem(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
+				delete ss;
+			}
+			m_Selection->clear();
+		}
+		setActiveLayer(currActiveLayer);
 	}
-	ScriXmlDoc *ss = new ScriXmlDoc();
-	QString dataS = ss->WriteElem(this, view(), m_Selection);
-	setMasterPageMode(true);
-	setCurrentPage(targetPage);
-	ss->ReadElem(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
-	m_Selection->clear();
 	uint end3 = MasterItems.count();
 	for (uint a = end2; a < end3; ++a)
 	{
@@ -3136,89 +3145,6 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 		newItem->OnMasterPage = masterPageName;
 		newItem->OwnPage = MasterNames[masterPageName];
 	}
-/*	for (uint a = 0; a < end; ++a)
-	{
-		PageItem *itemToCopy = DocItems.at(a);
-		if (itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr()))
-		{
-			itemToCopy->copyToCopyPasteBuffer(&BufferT);
-			if (itemToCopy->Groups.count() != 0)
-			{
-				BufferT.Groups.clear();
-				QValueStack<int>::Iterator nx;
-				QValueStack<int> tmpGroup;
-				for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
-				{
-					tmpGroup.push((*nx)+GroupCounter);
-					GrMax = QMAX(GrMax, (*nx)+GroupCounter);
-				}
-				for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
-				{
-					BufferT.Groups.push((*nx));
-				}
-			}
-			m_View->PasteItem(&BufferT, true, true);
-			PageItem* newItem = Items->at(Items->count()-1);
-			newItem->OnMasterPage = masterPageName;
-			newItem->OwnPage=MasterNames[masterPageName];
-			if (newItem->isTableItem)
-			{
-				TableItems.append(newItem);
-				TableID.insert(a, newItem->ItemNr);
-			}
-			//CB 2906 When this item is pasted it needs moving relative to the origin of the master page
-			double OldBX = newItem->BoundingX;
-			double OldBY = newItem->BoundingY;
-			newItem->moveBy(-sourcePage->xOffset() + targetPage->xOffset(), -sourcePage->yOffset() + targetPage->yOffset());
-			newItem->BoundingX = OldBX - sourcePage->xOffset() + targetPage->xOffset();
-			newItem->BoundingY = OldBY - sourcePage->yOffset() + targetPage->yOffset();
-			bool upDtImg = false;
-			if (itemToCopy->pixm.imgInfo.valid)
-			{
-				newItem->pixm.imgInfo = itemToCopy->pixm.imgInfo;
-				upDtImg = true;
-			}
-			if (itemToCopy->effectsInUse.count() != 0)
-			{
-				newItem->effectsInUse = itemToCopy->effectsInUse;
-				upDtImg = true;
-			}
-			if (upDtImg)
-			{
-				int fho = newItem->imageFlippedH();
-				int fvo = newItem->imageFlippedV();
-				LoadPict(newItem->Pfile, newItem->ItemNr, true);
-				newItem->setImageFlippedH(fho);
-				newItem->setImageFlippedV(fvo);
-				newItem->AdjustPictScale();
-			}
-
-		}
-	}
-	uint tableItemsCount = TableItems.count();
-	if (tableItemsCount != 0)
-	{
-		for (uint ttc = 0; ttc < tableItemsCount; ++ttc)
-		{
-			PageItem* ta = TableItems.at(ttc);
-			if (ta->TopLinkID != -1)
-				ta->TopLink = Items->at(TableID[ta->TopLinkID]);
-			else
-				ta->TopLink = 0;
-			if (ta->LeftLinkID != -1)
-				ta->LeftLink = Items->at(TableID[ta->LeftLinkID]);
-			else
-				ta->LeftLink = 0;
-			if (ta->RightLinkID != -1)
-				ta->RightLink = Items->at(TableID[ta->RightLinkID]);
-			else
-				ta->RightLink = 0;
-			if (ta->BottomLinkID != -1)
-				ta->BottomLink = Items->at(TableID[ta->BottomLinkID]);
-			else
-				ta->BottomLink = 0;
-		}
-	} */
 	targetPage->MPageNam = "";
 	setLoading(false);
 	GroupCounter = GrMax + 1;
@@ -4466,15 +4392,29 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		m_Selection->clear();
 		if (oldItems>0)
 		{
-			for (uint ite = 0; ite < oldItems; ++ite)
+			QValueList<Layer>::iterator it;
+			if (Layers.count()!= 0)
 			{
-				PageItem *itemToCopy = Items->at(ite);
-				if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
-					m_Selection->addItem(itemToCopy, true);
+				int currActiveLayer = activeLayer();
+				for (it = Layers.begin(); it != Layers.end(); ++it)
+				{
+					setActiveLayer((*it).LNr);
+					for (uint ite = 0; ite < oldItems; ++ite)
+					{
+						PageItem *itemToCopy = Items->at(ite);
+						if ((itemToCopy->OwnPage == static_cast<int>(from->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
+							m_Selection->addItem(itemToCopy, true);
+					}
+					if (m_Selection->count() != 0)
+					{
+						ScriXmlDoc *ss = new ScriXmlDoc();
+						ss->ReadElem(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view());
+						m_Selection->clear();
+						delete ss;
+					}
+				}
+				setActiveLayer(currActiveLayer);
 			}
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			ss->ReadElem(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view());
-			m_Selection->clear();
 		}
 		from->guides.copy(&destination->guides);
 		GroupCounter = GrMax + 1;
