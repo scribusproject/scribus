@@ -4657,6 +4657,12 @@ void ScribusMainWindow::slotEditPaste()
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
 			if (currItem->HasSel)
 				currItem->deleteSelectedTextFromFrame();
+
+			if (currItem->CPos < 0)
+				currItem->CPos = 0;
+			if (currItem->CPos > currItem->itemText.length())
+				currItem->CPos = currItem->itemText.length();
+			
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
 			{
 				QString Buf = Buffer2.mid(13);
@@ -4876,7 +4882,7 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				// K.I.S.S.:
-				currItem->itemText.insertChars(0, Buffer2);
+				currItem->itemText.insertChars(currItem->CPos, Buffer2);
 				/*
 				Serializer *ss = new Serializer("");
 				ss->Objekt = Buffer2;
