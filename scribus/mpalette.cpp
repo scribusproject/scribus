@@ -4684,6 +4684,18 @@ void Mpalette::doGrouping()
 	DoGroup->setEnabled(false);
 	DoUnGroup->setEnabled(true);
 	setMultipleSelection(true);
+	double gx, gy, gh, gw;
+	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	if (TopLeft->isChecked())
+		m_ScMW->view->RCenter = FPoint(gx, gy);
+	if (TopRight->isChecked())
+		m_ScMW->view->RCenter = FPoint(gx + gw, gy);
+	if (Center->isChecked())
+		m_ScMW->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+	if (BottomLeft->isChecked())
+		m_ScMW->view->RCenter = FPoint(gx, gy + gh);
+	if (BottomRight->isChecked())
+		m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
 }
 
 void Mpalette::EditSh2()
