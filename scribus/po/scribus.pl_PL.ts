@@ -4722,7 +4722,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 lub 13 cyfr rozdzielonych łącznikami. Starszy format ISBN-10 dopuszcza 9 lub 10 cyfr rozdzielonych łącznikami, ale po 1 stycznia 2007 nie zaleca się jego używania (Uwaga: aby zamienić stary format ISBN-10 na nowy format ISBN-13, należy dodać z przodu 978-, np. 1-56592-479-7 -&gt; 978-1-56592-479. Ostateczna liczba kontrolna zostanie obliczona automatycznie)</translation>
     </message>
 </context>
 <context>
@@ -8652,7 +8652,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation>Szpalty&amp;y:</translation>
+        <translation>Szpalt&amp;y:</translation>
     </message>
     <message>
         <source>Refer to:</source>
@@ -15317,6 +15317,10 @@ is not exhaustive due to exceptions from called functions.
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation>Niemiecki (Szwajcarski)</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -18678,7 +18682,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Spis treści %1</translation>
     </message>
 </context>
 <context>
