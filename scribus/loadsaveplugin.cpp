@@ -268,6 +268,11 @@ bool FileFormat::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<P
 	return (plug && load) ? plug->readStyles(fileName, doc, docParagraphStyles) : false;
 }
 
+bool FileFormat::readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const
+{
+	return (plug && load) ? plug->readCharStyles(fileName, doc, docCharStyles) : false;
+}
+
 bool FileFormat::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty) const
 {
 	return (plug && load) ? plug->readLineStyles(fileName, Sty) : false;
