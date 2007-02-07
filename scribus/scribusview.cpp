@@ -6130,14 +6130,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					Deselect(true);
 					slotDoCurs(true);
 					emit Amode(modeNormal);
-					SeleItem(m);
-					if (Doc->m_Selection->count() == 0)
-					{
-						Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
-						Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
-						SeRx = Mxp;
-						SeRy = Myp;
-					}
 					return;
 				}
 				//<<CB Add in shift select to text frames
@@ -6210,14 +6202,21 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					if (currItem->asImageFrame() && !tx.contains(m->x(), m->y()))
 					{
 						Deselect(true);
-						emit Amode(modeNormal);
-						SeleItem(m);
-						if (Doc->m_Selection->count() == 0)
+						if (SeleItem(m))
 						{
-							Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
-							Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
-							SeRx = Mxp;
-							SeRy = Myp;
+							currItem = Doc->m_Selection->itemAt(0);
+							if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+								emit Amode(modeEdit);
+							else
+							{
+								emit PaintingDone();
+								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+							}
+						}
+						else
+						{
+							emit PaintingDone();
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 						}
 					}
 				}
