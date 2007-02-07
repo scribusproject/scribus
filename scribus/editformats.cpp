@@ -83,7 +83,7 @@ const QString DelStyle::getReplacementStyle()
 	return replacementStyle;
 }
 
-ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld)
+ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld)
 		: QDialog( parent, "ChooseStyles", true, 0 )
 {
 	setCaption( tr( "Choose Styles" ) );
@@ -99,29 +99,12 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 // 	bool tabEQ = false;
 	for (uint x = 0; x < styleList->count(); ++x)
 	{
-		ParagraphStyle vg;
-		ParagraphStyle vg2;
-		vg = (*styleList)[x];
-		bool found = false;
-		for (uint xx=0; xx<styleOld->count(); ++xx)
+		ParagraphStyle& vg ((*styleList)[x]);
+		const ParagraphStyle* vg2 = static_cast<const ParagraphStyle*>(styleOld->resolve(vg.name()));
+		bool found = vg2 && vg.equiv(*vg2);
+		if (found)
 		{
-			vg2 = (*styleOld)[xx];
-			if (vg.name() == vg2.name())
-			{
-				if (vg.equiv(vg2))
-				{
-					found = true;
-				}
-				else
-				{
-					vg.setName("Copy of "+vg2.name());
-					found = false;
-				}
-				break;
-			}
-		}
-		if (!found)
-		{
+			vg.setName("Copy of "+vg2->name());
 			QCheckListItem *item = new QCheckListItem (StyleView, vg.name(), QCheckListItem::CheckBox);
 			item->setOn(true);
 			storedStyles.insert(item, counter);
@@ -248,23 +231,9 @@ void StilFormate::selEditFormat(QListBoxItem *c)
 
 void StilFormate::dupFormat()
 {
-	ParagraphStyle sty; // = TempVorl[sFnumber];
-	sty.setName( tr("Copy of %1").arg(TempVorl[sFnumber].name()));
-	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(TempVorl[sFnumber].lineSpacingMode()));
-	sty.setLineSpacing(TempVorl[sFnumber].lineSpacing());
-	sty.setAlignment(TempVorl[sFnumber].alignment());
-	sty.setLeftMargin(TempVorl[sFnumber].leftMargin());
-	sty.setRightMargin(TempVorl[sFnumber].rightMargin());
-	sty.setFirstIndent(TempVorl[sFnumber].firstIndent());
-	sty.setGapBefore(TempVorl[sFnumber].gapBefore());
-	sty.setGapAfter(TempVorl[sFnumber].gapAfter());
-	sty.setHasDropCap(TempVorl[sFnumber].hasDropCap());
-	sty.setDropCapLines(TempVorl[sFnumber].dropCapLines());
-	sty.setDropCapOffset(TempVorl[sFnumber].dropCapOffset());
-	sty.setUseBaselineGrid(TempVorl[sFnumber].useBaselineGrid());
-	sty.setTabValues(TempVorl[sFnumber].tabValues());
-	sty.charStyle() = TempVorl[sFnumber].charStyle();
-	TempVorl.create(sty);
+	ParagraphStyle * sty = new ParagraphStyle(TempVorl[sFnumber]);
+	sty->setName( tr("Copy of %1").arg(TempVorl[sFnumber].name()));
+	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,
 	                                static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
@@ -280,6 +249,7 @@ void StilFormate::neuesFormat()
 	int topIndex=ListBox1->topItem();
 	ParagraphStyle sty;
 	sty.setName( tr("New Style"));
+	/*
 	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(0));
 	sty.setLineSpacing(((Docu->toolSettings.defSize / 10.0) * 
 			static_cast<double>(Docu->typographicSettings.autoLineSpacing) / 100) 
@@ -312,6 +282,7 @@ void StilFormate::neuesFormat()
 	sty.charStyle().setScaleV(1000);
 	sty.charStyle().setBaselineOffset(0);
 	sty.charStyle().setTracking(0);
+	 */
 	TempVorl.create(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
@@ -363,6 +334,7 @@ void StilFormate::deleteFormat()
 		}
 		ReplaceList.insert(TempVorl[sFnumber].name(), dia->getReplacementStyle());
 		ListBox1->removeItem(sFnumber);
+		// this might be unsafe...
 		TempVorl.remove(sFnumber);
 		UpdateFList();
 	}
@@ -383,7 +355,7 @@ void StilFormate::loadStyles()
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
-		QValueList<ParagraphStyle> TempVorl2;
+		StyleSet<ParagraphStyle> TempVorl2;
 		Docu->loadStylesFromFile(selectedFile, &TempVorl2);
 		ChooseStyles* dia2 = new ChooseStyles(this, &TempVorl2, &TempVorl);
 		if (dia2->exec())
@@ -393,11 +365,11 @@ void StilFormate::loadStyles()
 			QMap<QCheckListItem*, int>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
-				ParagraphStyle sty;
+				const ParagraphStyle& sty(TempVorl2[it.data()]);
 				if (it.key()->isOn())
 				{
-					sty = TempVorl2[it.data()];
-					TempVorl.create(sty);
+//					sty = TempVorl2[it.data()];
+//					TempVorl.create(sty);
 					if ((!Docu->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
 						neededColors.append(sty.charStyle().strokeColor());
 					if ((!Docu->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
@@ -423,6 +395,7 @@ void StilFormate::loadStyles()
 			}
 		}
 		delete dia2;
+		TempVorl.redefine(TempVorl2, false);
 		UpdateFList();
 	}
 	else

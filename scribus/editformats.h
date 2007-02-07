@@ -55,7 +55,7 @@ class SCRIBUS_API ChooseStyles : public QDialog
 	Q_OBJECT
 
 public:
-	ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld );
+	ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld );
 	~ChooseStyles() {};
 
 	QListView* StyleView;

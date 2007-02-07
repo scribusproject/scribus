@@ -909,7 +909,7 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
  * including plugins.
  * - 2004-09-14 Craig Ringer
  */
-void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles)
+void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles)
 {
 	StyleSet<ParagraphStyle> *wrkStyles = NULL;
 	/*
@@ -917,7 +917,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 	 * on the document styles otherwise. 
 	 */
 	if (tempStyles != NULL) {
-		wrkStyles = new StyleSet<ParagraphStyle>;
+		wrkStyles = tempStyles;
 	}
 	else {
 		wrkStyles = &docParagraphStyles; 
@@ -929,14 +929,9 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 		//TODO put in nice user warning
 			return;
 
-		if (fl.ReadStyles(fileName, this, *wrkStyles))
+		if (!fl.ReadStyles(fileName, this, *wrkStyles))
 		{
-			if (tempStyles != NULL) {
-				for(uint i=0; i < wrkStyles->count(); ++i)
-					tempStyles->append((*wrkStyles)[i]);
-				delete wrkStyles;
-			}
-			
+			//TODO put in nice user warning			
 		}
 	}
 }
