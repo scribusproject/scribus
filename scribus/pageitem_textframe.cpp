@@ -765,20 +765,34 @@ void PageItem_TextFrame::layout()
 				fl &= ~ScStyle_SmartHyphenVisible;
 				hl->setEffects(fl);
 			}
-			// No space at begin of line, unless at begin of par (eeks)
-			if ( //((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && 
-				 (a > 0 && ! isBreak(itemText.text(a-1))) &&
-				 ! (a > 0 && isBreakingSpace(itemText.text(a-1)) && (itemText.charStyle(a-1).effects() & ScStyle_SuppressSpace) != ScStyle_SuppressSpace) &&
-				 (current.itemsInLine == 0) && (isBreakingSpace(hl->ch[0])))
+			// No space at begin of line, 
+			if (legacy)
 			{
-				hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
-				hl->glyph.xadvance = 0;
-				continue;
+				// unless at begin of par (eeks)
+				if ( (current.itemsInLine == 0) && (isBreakingSpace(hl->ch[0]))
+					 && (a > 0 && ! isBreak(itemText.text(a-1)))
+					 && ! (a > 0 && isBreakingSpace(itemText.text(a-1)) 
+						   && (itemText.charStyle(a-1).effects() & ScStyle_SuppressSpace) != ScStyle_SuppressSpace))
+				{
+					hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
+					hl->glyph.xadvance = 0;
+					continue;
+				}
+				else
+					hl->setEffects(hl->effects() & ~ScStyle_SuppressSpace);
 			}
-			else
-				hl->setEffects(hl->effects() & ~ScStyle_SuppressSpace);
-
-//			qDebug(QString("textframe(%1,%2): len=%3, fontsize=%4, ascent=%5").arg(Xpos).arg(Ypos).arg(itemText.length())
+			else // from 134 on use NBSPACE for this effect
+			{
+				if ( current.itemsInLine == 0 && isBreakingSpace(hl->ch[0]))
+				{
+					hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
+					hl->glyph.xadvance = 0;
+					continue;
+				}
+				else
+					hl->setEffects(hl->effects() & ~ScStyle_SuppressSpace);
+			}
+			//			qDebug(QString("textframe(%1,%2): len=%3, fontsize=%4, ascent=%5").arg(Xpos).arg(Ypos).arg(itemText.length())
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()));				
 			if (current.itemsInLine == 0)
 			{
