@@ -411,6 +411,18 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 		fo.setAttribute("DROPLIN", style.dropCapLines());
 	if ( ! style.isInhDropCapOffset())
 		fo.setAttribute("DROPDIST", style.dropCapOffset());
+	if ( ! style.isInhOpticalMargins())
+		fo.setAttribute("OpticalMargins", style.opticalMargins());
+	if ( ! style.isInhHyphenationMode())
+		fo.setAttribute("HyphenationMode", style.hyphenationMode());
+	if ( ! style.isInhMinWordTracking())
+		fo.setAttribute("MinWordTrack", style.minWordTracking());
+	if ( ! style.isInhMaxWordTracking())
+		fo.setAttribute("MaxWordTrack", style.maxWordTracking());
+	if ( ! style.isInhMinGlyphExtension())
+		fo.setAttribute("MinGlyphShrink", style.minGlyphExtension());
+	if ( ! style.isInhMaxGlyphExtension())
+		fo.setAttribute("MaxGlyphExtend", style.maxGlyphExtension());
 
 	if ( ! style.isInhTabValues())
 	{

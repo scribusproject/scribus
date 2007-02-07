@@ -1876,6 +1876,19 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 			vg.setTabValues(tbs);
 	}
 	
+	if (pg.hasAttribute("OpticalMargins"))
+		vg.setOpticalMargins(pg.attribute("OpticalMargins").toInt());
+	if (pg.hasAttribute("HyphenationMode"))
+		vg.setHyphenationMode(pg.attribute("HyphenationMode").toInt());
+	if (pg.hasAttribute("MinWordTrack"))
+		vg.setMinWordTracking(pg.attribute("MinWordTrack").toInt());
+	if (pg.hasAttribute("MaxWordTrack"))
+		vg.setMaxWordTracking(pg.attribute("MaxWordTrack").toInt());
+	if (pg.hasAttribute("MinGlyphShrink"))
+		vg.setMinGlyphExtension(pg.attribute("MinGlyphShrink").toInt());
+	if (pg.hasAttribute("MaxGlyphExtend"))
+		vg.setMaxGlyphExtension(pg.attribute("MaxGlyphExtend").toInt());
+	
 	GetCStyle( &pg, doc, vg.charStyle());
 	
 	fixLegacyParStyle(vg);
