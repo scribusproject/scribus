@@ -36,6 +36,7 @@ public:
 	bool LoadFile(ScribusDoc* currDoc);
 	bool SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar *dia2);
 	bool ReadStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
+	bool ReadCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 	bool ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
 	bool ReadColors(const QString& fileName, ColorList & colors);
 	bool ReadLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);

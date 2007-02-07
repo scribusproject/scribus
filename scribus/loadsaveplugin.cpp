@@ -216,6 +216,11 @@ bool LoadSavePlugin::readStyles(const QString& /*fileName*/, ScribusDoc* /*doc*/
 	return false;
 }
 
+bool LoadSavePlugin::readCharStyles(const QString& /*fileName*/, ScribusDoc* /*doc*/, StyleSet<CharStyle> &/*docCharStyles*/)
+{
+	return false;
+}
+
 bool LoadSavePlugin::readLineStyles(const QString& /*fileName*/, QMap<QString,multiLine>* /*Sty*/)
 {
 	return false;

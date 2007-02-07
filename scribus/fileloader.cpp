@@ -320,6 +320,16 @@ bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, StyleSet<P
 	return false;
 }
 
+bool FileLoader::ReadCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles)
+{
+	QValueList<FileFormat>::const_iterator it;
+	if (findFormat(FileType, it)) {
+		(*it).plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
+		return (*it).readCharStyles(fileName, doc, docCharStyles);
+	}
+	return false;
+}
+
 bool FileLoader::ReadColors(const QString& fileName, ColorList & colors)
 {
 	QValueList<FileFormat>::const_iterator it;

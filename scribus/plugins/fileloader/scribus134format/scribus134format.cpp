@@ -3257,6 +3257,39 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 	return true;
 }
 
+bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles)
+{
+	CharStyle cstyle;
+	QDomDocument docu("scridoc");
+	QString tmpf, tmf;
+	QString f (readSLA(fileName));
+	if (f.isEmpty())
+		return false;
+	if(!docu.setContent(f))
+		return false;
+	QDomElement elem=docu.documentElement();
+	if (elem.tagName() != "SCRIBUSUTF8NEW")
+		return false;
+	QDomNode DOC=elem.firstChild();
+	while(!DOC.isNull())
+	{
+		QDomElement dc=DOC.toElement();
+		QDomNode PAGE=DOC.firstChild();
+		while(!PAGE.isNull())
+		{
+			QDomElement pg=PAGE.toElement();
+			if(pg.tagName()=="CHARSTYLE")
+			{
+				GetCStyle(&pg, doc, cstyle);
+				docCharStyles.create(cstyle);
+			}
+			PAGE=PAGE.nextSibling();
+		}
+		DOC=DOC.nextSibling();
+	}
+	return true;
+}
+
 bool Scribus134Format::readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty)
 {
 	QDomDocument docu("scridoc");
