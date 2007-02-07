@@ -102,13 +102,15 @@ ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList
 		ParagraphStyle& vg ((*styleList)[x]);
 		const ParagraphStyle* vg2 = static_cast<const ParagraphStyle*>(styleOld->resolve(vg.name()));
 		bool found = vg2 && vg.equiv(*vg2);
-		if (found)
+		if (!found)
 		{
-			vg.setName("Copy of "+vg2->name());
+			if (vg2)
+				vg.setName("Copy of "+vg2->name());
 			QCheckListItem *item = new QCheckListItem (StyleView, vg.name(), QCheckListItem::CheckBox);
 			item->setOn(true);
 			storedStyles.insert(item, counter);
 		}
+		qDebug(QString("load styles: found %1 dup %2 equiv %3").arg(vg.name()).arg((ulong)vg2).arg(found));
 		counter++;
 	}
 	StyleView->setSorting(0);
@@ -369,7 +371,8 @@ void StilFormate::loadStyles()
 				if (it.key()->isOn())
 				{
 //					sty = TempVorl2[it.data()];
-//					TempVorl.create(sty);
+					qDebug(QString("load style %1").arg(sty.name()));
+					TempVorl.create(sty);
 					if ((!Docu->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
 						neededColors.append(sty.charStyle().strokeColor());
 					if ((!Docu->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
@@ -395,7 +398,7 @@ void StilFormate::loadStyles()
 			}
 		}
 		delete dia2;
-		TempVorl.redefine(TempVorl2, false);
+//		TempVorl.redefine(TempVorl2, false);
 		UpdateFList();
 	}
 	else

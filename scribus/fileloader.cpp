@@ -313,8 +313,10 @@ bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar
 bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	QValueList<FileFormat>::const_iterator it;
-	if (findFormat(FileType, it))
+	if (findFormat(FileType, it)) {
+		(*it).plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 		return (*it).readStyles(fileName, doc, docParagraphStyles);
+	}
 	return false;
 }
 
