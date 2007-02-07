@@ -5081,7 +5081,22 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					if (currItem->asImageFrame() && !tx.contains(m->x(), m->y()))
 					{
 						Deselect(true);
-						emit Amode(modeNormal);
+						if (SeleItem(m))
+						{
+							currItem = Doc->m_Selection->itemAt(0);
+							if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
+								emit Amode(modeEdit);
+							else
+							{
+								emit PaintingDone();
+								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+							}
+						}
+						else
+						{
+							emit PaintingDone();
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						}
 					}
 				}
 			}
