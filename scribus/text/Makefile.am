@@ -1,8 +1,8 @@
 noinst_LTLIBRARIES=libtext.la
 METASOURCES = AUTO
-libtext_la_SOURCES=fsize.cpp frect.cpp storytext.cpp sctext_shared.cpp
+libtext_la_SOURCES=fsize.cpp frect.cpp storytext.cpp sctext_shared.cpp specialchars.cpp
 
-EXTRA_DIST = sctext_shared.h storytext.h fsize.h frect.h CMakeLists.txt
+EXTRA_DIST = sctext_shared.h storytext.h fsize.h frect.h specialchars.h CMakeLists.txt
 
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)

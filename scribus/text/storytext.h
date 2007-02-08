@@ -1,3 +1,27 @@
+/*
+ For general Scribus (>=1.3.2) copyright and licensing information please refer
+ to the COPYING file provided with the program. Following this notice may exist
+ a copyright and/or license notice that predates the release of Scribus 1.3.2
+ for which a new license (GPL+exception) is in place.
+ */
+/***************************************************************************
+pageitem.cpp  -  description
+-------------------
+    begin                : Sat Apr 7 2001
+    copyright            : (C) 2001 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+	***************************************************************************/
+
+/***************************************************************************
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
+
+
 #ifndef STORYTEXT_H_
 #define STORYTEXT_H_
 
@@ -10,6 +34,7 @@
 
 //#include "text/paragraphlayout.h"
 #include "text/frect.h"
+#include "text/specialchars.h"
 #include "sctextstruct.h"
 #include "style.h"
 
@@ -28,24 +53,6 @@ class ScribusDoc;
 class ScText_Shared;
 
  
-class SCRIBUS_API SpecialChars {
-public:
-	static QChar OBJECT;
-	static QChar TAB;
-	static QChar PARSEP;
-	static QChar LINEBREAK;
-	static QChar COLBREAK;
-	static QChar FRAMEBREAK;
-	static QChar SHYPHEN;
-	static QChar OLD_NBHYPHEN;
-	static QChar OLD_NBSPACE;
-	static QChar NBHYPHEN;
-	static QChar NBSPACE;
-	static QChar ZWNBSPACE;
-	static QChar ZWSPACE;
-	static QChar PAGENUMBER;
-//	static QChar SPACE;
-};
 
 struct LineSpec 
 {
@@ -247,8 +254,10 @@ private:
 	
  	/// mark these runs as invalid, ie. need itemize and shaping
  	void invalidate(int firstRun, int lastRun);
- 	
-// 	int splitRun(int pos);
+ 	void removeParSep(int pos);
+ 	void insertParSep(int pos);
+
+	// 	int splitRun(int pos);
  	
  	/** bring physical view in sync with logical one. 
  	 *  This gets called automatically from all physical view methods
