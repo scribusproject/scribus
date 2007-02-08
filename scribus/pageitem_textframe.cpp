@@ -260,26 +260,6 @@ static void fillInTabLeaders(StoryText & itemText, LineSpec & curLine)
 }
 
 
-static bool isBreakingSpace(QChar c)
-{
-	static const QChar blnk(' ');
-	return c == blnk || c == SpecialChars::ZWSPACE;
-}
-
-static bool isExpandingSpace(QChar c)
-{
-	static const QChar blnk(' ');
-	return c == blnk || c == SpecialChars::NBSPACE;
-}
-
-static bool isBreak(QChar c, bool includeColBreak = true)
-{
-	return (c == SpecialChars::PARSEP 
-			|| c == SpecialChars::LINEBREAK 
-			|| c == SpecialChars::FRAMEBREAK 
-			|| (includeColBreak && c == SpecialChars::COLBREAK));
-}
-
 
 enum TabStatus {
 	TabNONE    = 0,
@@ -449,7 +429,7 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 	double OFs2;
 	for (int sof = line.firstItem; sof < line.lastItem; ++sof)
 	{
-		if (isExpandingSpace(itemText.text(sof))
+		if (SpecialChars::isExpandingSpace(itemText.text(sof))
 			&& ! (itemText.item(sof)->effects() & ScStyle_SuppressSpace)
 			)
 			aSpa++;
@@ -462,7 +442,7 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 	// distribute whitespace on spaces
 	for (int yof = line.firstItem; yof < line.lastItem; ++yof)
 	{
-		if (isExpandingSpace(itemText.text(yof)) 
+		if (SpecialChars::isExpandingSpace(itemText.text(yof)) 
 			&& ! (itemText.item(yof)->effects() & ScStyle_SuppressSpace)
 			)
 		{
@@ -520,7 +500,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 {
 	int b = line.lastItem;
 	while (b > line.firstItem && 
-		   (isBreakingSpace(itemText.text(b)) || isBreak(itemText.text(b)))
+		   (SpecialChars::isBreakingSpace(itemText.text(b)) || SpecialChars::isBreak(itemText.text(b)))
 		   )
 		--b;
 	if (b >= line.firstItem) 
@@ -769,9 +749,9 @@ void PageItem_TextFrame::layout()
 			if (legacy)
 			{
 				// unless at begin of par (eeks)
-				if ( (current.itemsInLine == 0) && (isBreakingSpace(hl->ch[0]))
-					 && (a > 0 && ! isBreak(itemText.text(a-1)))
-					 && ! (a > 0 && isBreakingSpace(itemText.text(a-1)) 
+				if ( (current.itemsInLine == 0) && (SpecialChars::isBreakingSpace(hl->ch[0]))
+					 && (a > 0 && ! SpecialChars::isBreak(itemText.text(a-1)))
+					 && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a-1)) 
 						   && (itemText.charStyle(a-1).effects() & ScStyle_SuppressSpace) != ScStyle_SuppressSpace))
 				{
 					hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
@@ -783,7 +763,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
-				if ( current.itemsInLine == 0 && isBreakingSpace(hl->ch[0]))
+				if ( current.itemsInLine == 0 && SpecialChars::isBreakingSpace(hl->ch[0]))
 				{
 					hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 					hl->glyph.xadvance = 0;
@@ -859,8 +839,8 @@ void PageItem_TextFrame::layout()
 			}
 			else // ! dropCapMode
 			{
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
-					chs = qRound((hl->cembedded->gHeight + hl->cembedded->lineWidth()) * 10);
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+					chs = qRound((hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
 			}
@@ -878,8 +858,8 @@ void PageItem_TextFrame::layout()
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width of char
-			if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
-				wide = hl->cembedded->gWidth + hl->cembedded->lineWidth();
+			if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 			else
 			{
 /*				if (a+1 < itemText.length())
@@ -903,9 +883,9 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// drop caps are wider...
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
-					wide = hl->cembedded->gWidth + hl->cembedded->lineWidth();
+					wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						asce = m_Doc->typographicSettings.valueBaseGrid * DropLines;
 					else
@@ -916,7 +896,7 @@ void PageItem_TextFrame::layout()
 							asce = charStyle.font().height(style.charStyle().fontSize() / 10.0) * DropLines;
 					}
 					hl->glyph.scaleH /= hl->glyph.scaleV;
-					hl->glyph.scaleV = (asce / (hl->cembedded->gHeight + hl->cembedded->lineWidth()));
+					hl->glyph.scaleV = (asce / (hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()));
 					hl->glyph.scaleH *= hl->glyph.scaleV;
 				}
 				else
@@ -938,7 +918,7 @@ void PageItem_TextFrame::layout()
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
 				// find ascent / descent
 				double hlcsize10=charStyle.fontSize() / 10.0;
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
 					desc = desc2 = 0;
 				}
@@ -1252,7 +1232,7 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
 				}
 			}
-			else if (!legacy && isBreakingSpace(hl->ch[0]))
+			else if (!legacy && SpecialChars::isBreakingSpace(hl->ch[0]))
 			{
 				pt1 = QPoint(qRound(ceil(breakPos + extra.Right)), qRound(current.yPos+desc));
 				pt2 = QPoint(qRound(ceil(breakPos + extra.Right)), qRound(ceil(current.yPos-asce)));
@@ -1275,9 +1255,9 @@ void PageItem_TextFrame::layout()
 
 
 			// remember possible break
-			if ( (isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
+			if ( (SpecialChars::isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
 			{
-				if ( a == firstInFrame() || !isBreakingSpace(itemText.text(a-1)) )
+				if ( a == firstInFrame() || !SpecialChars::isBreakingSpace(itemText.text(a-1)) )
 				{
 					current.rememberBreak(a, breakPos);
 				}
@@ -1374,11 +1354,11 @@ void PageItem_TextFrame::layout()
 //				current.yPos = maxDY;
 			}
 			// end of line
-			if ( isBreak(hl->ch[0], Cols > 1) || (outs))
+			if ( SpecialChars::isBreak(hl->ch[0], Cols > 1) || (outs))
 			{
 				tabs.active = false;
 				tabs.status = TabNONE;
-				if (isBreak(hl->ch[0], Cols > 1))
+				if (SpecialChars::isBreak(hl->ch[0], Cols > 1))
 				{
 					// find end of line
 					current.breakLine(itemText, a);
@@ -1507,7 +1487,7 @@ void PageItem_TextFrame::layout()
 							   .arg(current.line.x).arg(current.line.width).arg(current.line.naturalWidth).arg(EndX));
 					}
 				}
-				if ( outs || isBreak(hl->ch[0], (Cols > 1)) )
+				if ( outs || SpecialChars::isBreak(hl->ch[0], (Cols > 1)) )
 				{
 					if (outs && current.isEndOfLine(hl->glyph.wide() + style.rightMargin()))
 					{
@@ -1551,7 +1531,7 @@ void PageItem_TextFrame::layout()
 								}
 								else
 									current.xPos = current.colLeft;
-								if (isBreak(hl->ch[0]))
+								if (SpecialChars::isBreak(hl->ch[0]))
 								{
 									if (hl->ch == SpecialChars::PARSEP)
 										current.yPos += style.gapAfter();
@@ -1610,7 +1590,7 @@ void PageItem_TextFrame::layout()
 						}
 						else
 							current.xPos = current.colLeft;
-						if ( isBreak(hl->ch[0]) )
+						if ( SpecialChars::isBreak(hl->ch[0]) )
 						{
 							if (hl->ch == SpecialChars::PARSEP)
 								current.yPos += style.gapAfter();
@@ -1889,7 +1869,7 @@ NoRoom:
 		{
 			int nCP = CPos;
 //			CPos = MaxChars;
-			if ((m_Doc->appMode == modeEdit) && (Tinput))
+			if (m_Doc->appMode == modeEdit)
 			{
 				//							OwnPage->Deselect(true);
 				next->CPos = QMAX(nCP, signed(MaxChars));
@@ -2088,11 +2068,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 #endif
 						if (hl->ch[0] == SpecialChars::OBJECT) 
 						{
-							DrawObj_Embedded(p, e, charStyle, hl->cembedded);
+							DrawObj_Embedded(p, e, charStyle, hl->embedded.getItem());
 #ifdef HAVE_CAIRO
-							CurX += (hl->cembedded->gWidth + hl->cembedded->lineWidth());
+							CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 #else
-							CurX += (hl->cembedded->gWidth + hl->cembedded->lineWidth()) *  p->zoomFactor();
+							CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) *  p->zoomFactor();
 #endif
 						}
 						else
@@ -2247,8 +2227,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
-	Tinput = false;
-	FrameOnly = false;
+//	Tinput = false;
 	p->restore();
 }
 
@@ -2355,7 +2334,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					conv = 32;
 				itemText.insertChars(CPos, QString(QChar(conv)));
 				CPos += 1;
-				Tinput = true;
+//				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
 				view->RefreshItem(this);
 				keyRepeat = false;
@@ -2642,11 +2621,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.lengthOfSelection() == 0)
 			itemText.select(CPos, 1, true);
 		deleteSelectedTextFromFrame();
-		Tinput = false;
+//		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
-			Tinput = false;
+//			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
 		view->RefreshItem(this);
@@ -2671,11 +2650,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			itemText.select(CPos, 1, true);
 		}
 		deleteSelectedTextFromFrame();
-		Tinput = false;
+//		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
-			Tinput = false;
+//			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
 		view->RefreshItem(this);
@@ -2688,7 +2667,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			itemText.insertChars(CPos, QString(SpecialChars::TAB));
 			CPos += 1;
-			Tinput = true;
+//			Tinput = true;
 			view->RefreshItem(this);
 			break;
 		}
@@ -2715,7 +2694,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					m_Doc->docHyphenator->slotHyphenateWord(this, Twort, Tcoun);
 				}
 			}
-			Tinput = true;
+//			Tinput = true;
 			view->RefreshItem(this);
 		}
 		break;
@@ -2735,7 +2714,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 		itemText.removeSelection();
 		HasSel = false;
 	}
-	m_Doc->updateFrameItems();
+//	m_Doc->updateFrameItems();
 	m_Doc->scMW()->DisableTxEdit();
 }
 

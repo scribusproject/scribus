@@ -1081,7 +1081,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 
 						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)));
 						currItem->CPos += 1;
-						currItem->Tinput = true;
+//						currItem->Tinput = true;
 						view->RefreshItem(currItem);
 					}
 					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
@@ -1098,7 +1098,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
 							currItem->CPos += 1;
 #endif
-							currItem->Tinput = true;
+//							currItem->Tinput = true;
 							view->RefreshItem(currItem);
 						}
 					}
@@ -4969,7 +4969,6 @@ void ScribusMainWindow::SelectAll()
 				if (!currItem->isSelected())
 				{
 					doc->m_Selection->addItem(currItem);
-					currItem->FrameOnly = true;
 					currItem->paintObj();
 				}
 			}

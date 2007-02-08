@@ -91,7 +91,6 @@ void gtAction::clearFrame()
 {
 	textFrame->itemText.clear();
 	textFrame->CPos = 0;
-	textFrame->doc()->updateFrameItems();
 }
 
 void gtAction::write(const QString& text, gtStyle *style)
@@ -112,7 +111,6 @@ void gtAction::write(const QString& text, gtStyle *style)
 			}
 			it->itemText.clear();
 			it->CPos = 0;
-			textFrame->doc()->updateFrameItems();
 		}
 	}
 	int paragraphStyle = -1;

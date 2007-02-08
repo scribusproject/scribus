@@ -497,8 +497,7 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 	}
 	if ((!item->isEmbedded))
 		double scpInv = 1.0;
-	item->Tinput = false;
-	item->FrameOnly = false;
+//	item->Tinput = false;
 	painter->restore();
 }
 
@@ -643,8 +642,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 	{
 		if (!item->doc()->DoDrawing)
 		{
-			cembedded->Tinput = false;
-			cembedded->FrameOnly = false;
+//			cembedded->Tinput = false;
 			return;
 		}
 		emG.append(cembedded);

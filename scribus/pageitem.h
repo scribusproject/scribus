@@ -368,10 +368,7 @@ public:
 	bool invalid;
   /** Flag fuer Auswahl */
 	bool HasSel;
-  /** Flag fuer Textfluss */
-	bool FrameOnly;
 	int NextPg;
-	bool Tinput;
 	bool isAutoText;
 	PageItem* prevInChain() { return BackBox; }
 	PageItem* nextInChain() { return NextBox; }
