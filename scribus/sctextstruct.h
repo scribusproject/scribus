@@ -89,27 +89,44 @@ struct SCRIBUS_API GlyphLayout {
 	
 };
 
+class InlineFrameData;
+
+class SCRIBUS_API InlineFrame
+{
+public:
+	InlineFrame(PageItem* item);
+	InlineFrame(const InlineFrame& other);
+	InlineFrame& operator= (const InlineFrame& other);
+	virtual ~InlineFrame();
+	
+	bool hasItem();
+	bool isShared();
+	PageItem* getItem();
+	QPtrList<PageItem> getGroupedItems();
+private:
+	InlineFrameData* d;
+};
+
+
 #ifndef NLS_PROTO
 class SCRIBUS_API ScText : public CharStyle
 {
 public:
-//	bool cselect; // to go
-//	short cab; // to go
 	ParagraphStyle* parstyle; // only for parseps
 	GlyphLayout glyph;
 	float PtransX;
 	float PtransY;
 	float PRot;
-	PageItem* cembedded;
+	InlineFrame embedded;
 	QString ch;
 	ScText() : //cselect(false), cab(0), 
 		parstyle(NULL), glyph(), 
-		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), cembedded(NULL), ch() {}
+		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), embedded(NULL), ch() {}
 	ScText(const ScText& other) : 
 		CharStyle(other),
 		parstyle(NULL), glyph(other.glyph), 
 		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), 
-		cembedded(other.cembedded), ch(other.ch)
+		embedded(other.embedded), ch(other.ch)
 	{
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);

@@ -125,9 +125,8 @@ PageItem::PageItem(const PageItem & other)
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
-	FrameOnly(other.FrameOnly),
 	NextPg(other.NextPg),
-	Tinput(other.Tinput),
+//	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
 	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
 	NextBox(NULL),  // otherwise other.NextBox->BackBox would be inconsistent
@@ -295,7 +294,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	PLineEnd = FlatCap;
 	PLineJoin = MiterJoin;
 	Select = false;
-	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
 	CurX = 0;
@@ -389,7 +387,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	setUName(AnName);
 	m_annotation.setBorderColor(outline);
 	HasSel = false;
-	Tinput = false;
+//	Tinput = false;
 	isAutoText = false;
 	inPdfArticle = false;
 	isRaster = false;
@@ -811,8 +809,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	double sc;
 	if (!m_Doc->DoDrawing)
 	{
-		Tinput = false;
-		FrameOnly = false;
+//		Tinput = false;
 		return;
 	}
 	DrawObj_Pre(p, sc);
@@ -1112,93 +1109,96 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		//if (m_Doc->m_Selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
-	Tinput = false;
-	FrameOnly = false;
+//	Tinput = false;
 	p->restore();
 }
 
 void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, PageItem* cembedded)
 {
+	if (!cembedded)
+		return;
+
+	if (!m_Doc->DoDrawing)
+	{
+//		cembedded->Tinput = false;
+		return;
+	}
+
 	QPtrList<PageItem> emG;
 	emG.clear();
-	if (cembedded != 0)
+	emG.append(cembedded);
+	if (cembedded->Groups.count() != 0)
 	{
-		if (!m_Doc->DoDrawing)
+		for (uint ga=0; ga<m_Doc->FrameItems.count(); ++ga)
 		{
-			cembedded->Tinput = false;
-			cembedded->FrameOnly = false;
-			return;
-		}
-		emG.append(cembedded);
-		if (cembedded->Groups.count() != 0)
-		{
-			for (uint ga=0; ga<m_Doc->FrameItems.count(); ++ga)
+			if (m_Doc->FrameItems.at(ga)->Groups.count() != 0)
 			{
-				if (m_Doc->FrameItems.at(ga)->Groups.count() != 0)
+				if (m_Doc->FrameItems.at(ga)->Groups.top() == cembedded->Groups.top())
 				{
-					if (m_Doc->FrameItems.at(ga)->Groups.top() == cembedded->Groups.top())
+					if (m_Doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
 					{
-						if (m_Doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
-						{
-							if (emG.find(m_Doc->FrameItems.at(ga)) == -1)
-								emG.append(m_Doc->FrameItems.at(ga));
-						}
+						if (emG.find(m_Doc->FrameItems.at(ga)) == -1)
+							emG.append(m_Doc->FrameItems.at(ga));
 					}
 				}
 			}
 		}
-		for (uint em = 0; em < emG.count(); ++em)
+	}
+	
+	for (uint em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		
+		p->save();
+		embedded->Xpos = Xpos //+ hl->glyph.xOffset() 
+			+ embedded->gXpos;
+		embedded->Ypos = Ypos //+ hl->glyph.yOffset() 
+			- (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
+		p->translate((//hl->xco + 
+					  embedded->gXpos * (style.scaleH() / 1000.0)) * p->zoomFactor(), 
+					 (//hl->yco 
+					  - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)) * p->zoomFactor());
+		if (style.baselineOffset() != 0)
 		{
-			PageItem* embedded = emG.at(em);
-
-			p->save();
-			double pws=0;
-/*	FIXME
-				embedded->Xpos = Xpos + hl->xco + embedded->gXpos;
-			embedded->Ypos = Ypos + (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0))) + embedded->gYpos;
-			p->translate((hl->xco + embedded->gXpos * (hl->scale / 1000.0)) * p->zoomFactor(), (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0)) + embedded->gYpos * (hl->scalev / 1000.0)) * p->zoomFactor());
-			if (hl->base != 0)
-			{
-				p->translate(0, -embedded->gHeight * (hl->base / 1000.0) * p->zoomFactor());
-				embedded->Ypos -= embedded->gHeight * (hl->base / 1000.0);
-			}
-			p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
-			embedded->Dirty = Dirty;
-			embedded->invalid = invalid;
-			double sc;
-			double pws = embedded->m_lineWidth;
-			embedded->DrawObj_Pre(p, sc);
-			switch(embedded->itemType())
-			{
-				case ImageFrame:
-				case TextFrame:
-				case Polygon:
-				case PathText:
-					embedded->DrawObj_Item(p, e, sc);
-					break;
-				case Line:
-				case PolyLine:
-					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					embedded->DrawObj_Item(p, e, sc);
-					break;
-				default:
-					break;
-			}
-			embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-			embedded->DrawObj_Post(p);
-*/
-			p->restore();
-			embedded->m_lineWidth = pws;
+			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0) * p->zoomFactor());
+			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
 		}
+		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		embedded->Dirty = Dirty;
+		embedded->invalid = invalid;
+		double sc;
+		double pws = embedded->m_lineWidth;
+		embedded->DrawObj_Pre(p, sc);
+		switch(embedded->itemType())
+		{
+			case ImageFrame:
+			case TextFrame:
+			case Polygon:
+			case PathText:
+				embedded->DrawObj_Item(p, e, sc);
+				break;
+			case Line:
+			case PolyLine:
+				embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+				embedded->DrawObj_Item(p, e, sc);
+				break;
+			default:
+				break;
+		}
+		embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		embedded->DrawObj_Post(p);
+
+		p->restore();
+		embedded->m_lineWidth = pws;
 	}
 }
+
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
 	if (!m_Doc->DoDrawing)
 	{
-		Tinput = false;
-		FrameOnly = false;
+//		Tinput = false;
 		return;
 	}
 	//qDebug("paintObj(QRect e, QPixmap *ppX)");
@@ -1236,7 +1236,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		OldB = Width;
 		OldH = Height;
 	}
-	if ((!Tinput) && (!m_Doc->RePos))
+	if (//(!Tinput) && 
+		(!m_Doc->RePos))
 	{
 		if (Select) // && (!Doc->EditClip))
 		{
@@ -1342,8 +1343,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		//if (m_Doc->m_Selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
-	Tinput = false;
-	FrameOnly = false;
+//	Tinput = false;
 	p.end();
 // 	checkChanges(); // Check changes for undo actions
 }

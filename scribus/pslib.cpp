@@ -3140,28 +3140,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			}
 		}
 	}
-	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
+	if ((hl->ch == QChar(25)) && (hl->embedded.hasItem()))
 	{
-		QPtrList<PageItem> emG;
-		emG.clear();
-		emG.append(hl->cembedded);
-		if (hl->cembedded->Groups.count() != 0)
-		{
-			for (uint ga=0; ga<Doc->FrameItems.count(); ++ga)
-			{
-				if (Doc->FrameItems.at(ga)->Groups.count() != 0)
-				{
-					if (Doc->FrameItems.at(ga)->Groups.top() == hl->cembedded->Groups.top())
-					{
-						if (Doc->FrameItems.at(ga)->ItemNr != hl->cembedded->ItemNr)
-						{
-							if (emG.find(Doc->FrameItems.at(ga)) == -1)
-								emG.append(Doc->FrameItems.at(ga));
-						}
-					}
-				}
-			}
-		}
+		QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
+
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
@@ -3506,28 +3488,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		}
 	}
 	*/
-	if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
+	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 	{
-		QPtrList<PageItem> emG;
-		emG.clear();
-		emG.append(hl->cembedded);
-		if (hl->cembedded->Groups.count() != 0)
-		{
-			for (uint ga=0; ga<Doc->FrameItems.count(); ++ga)
-			{
-				if (Doc->FrameItems.at(ga)->Groups.count() != 0)
-				{
-					if (Doc->FrameItems.at(ga)->Groups.top() == hl->cembedded->Groups.top())
-					{
-						if (Doc->FrameItems.at(ga)->ItemNr != hl->cembedded->ItemNr)
-						{
-							if (emG.find(Doc->FrameItems.at(ga)) == -1)
-								emG.append(Doc->FrameItems.at(ga));
-						}
-					}
-				}
-			}
-		}
+		QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
+
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);

@@ -1,3 +1,27 @@
+/*
+ For general Scribus (>=1.3.2) copyright and licensing information please refer
+ to the COPYING file provided with the program. Following this notice may exist
+ a copyright and/or license notice that predates the release of Scribus 1.3.2
+ for which a new license (GPL+exception) is in place.
+ */
+/***************************************************************************
+pageitem.cpp  -  description
+-------------------
+    begin                : Sat Apr 7 2001
+    copyright            : (C) 2001 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+	***************************************************************************/
+
+/***************************************************************************
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
+
+
 //FIXME: this include must go to sctextstruct.h !
 #include <qvaluelist.h>
 #include <cassert>  //added to make Fedora-5 happy
@@ -9,23 +33,6 @@
 #include "storytext.moc"
 #include "scribus.h"
 #include "util.h"
-
-
-QChar SpecialChars::OBJECT     = QChar(25);
-QChar SpecialChars::TAB        = QChar(9);
-QChar SpecialChars::PARSEP     = QChar(13);
-QChar SpecialChars::LINEBREAK  = QChar(28);
-QChar SpecialChars::COLBREAK   = QChar(26);
-QChar SpecialChars::FRAMEBREAK = QChar(27);
-QChar SpecialChars::SHYPHEN    = QChar(0xAD);
-QChar SpecialChars::NBHYPHEN   = QChar(0x2011);
-QChar SpecialChars::NBSPACE    = QChar(0xA0);
-QChar SpecialChars::OLD_NBHYPHEN   = QChar(24);
-QChar SpecialChars::OLD_NBSPACE    = QChar(29);
-QChar SpecialChars::ZWNBSPACE  = QChar(0x2060);
-QChar SpecialChars::ZWSPACE    = QChar(0x200B);
-QChar SpecialChars::PAGENUMBER      = QChar(30);
-//QChar SpecialChars::SPACE      = QChar(32);
 
 
 
@@ -94,19 +101,6 @@ StoryText::~StoryText()
 	}
 	d->refs--;
 	if (d->refs == 0) {
-		for (ScText *it = d->first(); it != 0; it = d->next())
-		{
-			if ((it->ch[0] == SpecialChars::OBJECT) && (it->cembedded != 0) && doc) {
-				doc->FrameItems.remove(it->cembedded);
-				delete it->cembedded;
-				it->cembedded = 0;
-			}
-			else if ((it->ch[0] == SpecialChars::PARSEP)) {
-				delete it->parstyle;
-				it->parstyle = 0;
-			}
-		}
-		
 		d->clear();
 		d->len = 0;
 		delete d;
@@ -175,19 +169,6 @@ void StoryText::clear()
 	d->defaultStyle.erase();
 	d->trailingStyle.erase();
 	
-	for (ScText *it = d->first(); it != 0; it = d->next())
-	{
-		if ((it->ch[0] == SpecialChars::OBJECT) && (it->cembedded != 0) && doc) {
-			doc->FrameItems.remove(it->cembedded);
-			delete it->cembedded;
-			it->cembedded = 0;
-		}
-		else if ((it->ch[0] == SpecialChars::PARSEP) && it->parstyle) {
-			delete it->parstyle;
-			it->parstyle = 0;
-		}
-	}
-	
 	d->clear();
 	d->len = 0;
 	invalidateAll();
@@ -229,7 +210,8 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 			pos += 1;
 		}
 		else if (other.text(i) == SpecialChars::OBJECT) {
-			insertObject(pos+len, other.object(i));
+			insertChars(pos, SpecialChars::OBJECT);
+			item(pos)->embedded = other.item(i)->embedded;
 			cstyleStart = i+1;
 			pos += 1;
 		}
@@ -256,11 +238,11 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 /**
     Make sure that the paragraph CharStyle's point to the new ParagraphStyle
  */
-static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
+void StoryText::insertParSep(int pos)
 {
-	ScText* it = that->item_p(pos);
+	ScText* it = item_p(pos);
 	if(!it->parstyle) {
-		it->parstyle = new ParagraphStyle(that->paragraphStyle(pos+1));
+		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
 		it->parstyle->setName("para"); // DONT TRANSLATE
 		it->parstyle->charStyle().setName("cpara"); // DONT TRANSLATE
@@ -272,9 +254,9 @@ static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
      need to remove the ParagraphStyle structure and replace all pointers
      to it...
  */
-static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
+void StoryText::removeParSep(int pos)
 {
-	ScText* it = that->item_p(pos);
+	ScText* it = item_p(pos);
 	if (it->parstyle) {
 //		const CharStyle* oldP = & it->parstyle->charStyle();
 //		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
@@ -285,7 +267,7 @@ static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
 	// doesnt choke:
 	it->ch = "";
-	d->replaceCharStyleContextInParagraph(pos, that->paragraphStyle(pos+1).charStyleContext());	
+	d->replaceCharStyleContextInParagraph(pos, paragraphStyle(pos+1).charStyleContext());	
 }
 
 void StoryText::removeChars(int pos, uint len)
@@ -300,12 +282,8 @@ void StoryText::removeChars(int pos, uint len)
 	for ( int i=pos + static_cast<int>(len) - 1; i >= pos; --i )
 	{
 		ScText *it = d->at(i);
-		if ((it->ch[0] == SpecialChars::OBJECT) && (it->cembedded != 0) && doc) {
-			doc->FrameItems.remove(it->cembedded);
-			it->cembedded = 0;
-		}
-		else if ((it->ch[0] == SpecialChars::PARSEP)) {
-			removeParSep(this, this->d, i);
+		if ((it->ch[0] == SpecialChars::PARSEP)) {
+			removeParSep(i);
 		}
 //		qDebug("remove char %d at %d", it->ch[0].unicode(), i);
 		d->take(i);
@@ -339,7 +317,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		d->len++;
 		if (item->ch[0] == SpecialChars::PARSEP) {
 //			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
-			insertParSep(this, this->d, pos + i);
+			insertParSep(pos + i);
 		}
 	}
 
@@ -360,11 +338,11 @@ void StoryText::replaceChar(int pos, QChar ch)
 		return;
 	
 	if (d->at(pos)->ch[0] == SpecialChars::PARSEP) {
-		removeParSep(this, this->d, pos);
+		removeParSep(pos);
 	}
 	item->ch = ch;
 	if (d->at(pos)->ch[0] == SpecialChars::PARSEP) {
-		insertParSep(this, this->d, pos);
+		insertParSep(pos);
 	}
 	
 	invalidate(pos, pos + 1);
@@ -397,7 +375,7 @@ void StoryText::insertObject(int pos, PageItem* ob)
 		pos += length()+1;
 
 	insertChars(pos, SpecialChars::OBJECT);
-	const_cast<StoryText *>(this)->d->at(pos)->cembedded = ob;
+	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
 }
 
 
@@ -444,11 +422,8 @@ PageItem* StoryText::object(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	StoryText* that = const_cast<StoryText *>(this);	
-	if (that->d->at(pos)->cembedded != NULL)
-		return that->d->at(pos)->cembedded;
-	else
-		return NULL;
+	StoryText* that = const_cast<StoryText *>(this);
+	return that->d->at(pos)->embedded.getItem();
 }
 
 

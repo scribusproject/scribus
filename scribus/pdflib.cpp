@@ -3962,28 +3962,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		}
 	}
 	*/
-	if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
+	InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
+	if ((hl->ch == SpecialChars::OBJECT) && (embedded.hasItem()))
 	{
-		QPtrList<PageItem> emG;
-		emG.clear();
-		emG.append(hl->cembedded);
-		if (hl->cembedded->Groups.count() != 0)
-		{
-			for (uint ga=0; ga<doc.FrameItems.count(); ++ga)
-			{
-				if (doc.FrameItems.at(ga)->Groups.count() != 0)
-				{
-					if (doc.FrameItems.at(ga)->Groups.top() == hl->cembedded->Groups.top())
-					{
-						if (doc.FrameItems.at(ga)->ItemNr != hl->cembedded->ItemNr)
-						{
-							if (emG.find(doc.FrameItems.at(ga)) == -1)
-								emG.append(doc.FrameItems.at(ga));
-						}
-					}
-				}
-			}
-		}
+		QPtrList<PageItem> emG = embedded.getGroupedItems();
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);

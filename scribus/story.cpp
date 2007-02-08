@@ -2481,6 +2481,7 @@ void StoryEditor::updateTextFrame()
 		}
 	}
 	Editor->saveItemText(nextItem);
+#if 0
 	QPtrList<PageItem> FrameItemsDel;
 	FrameItemsDel.setAutoDelete(true);
 	for (uint a = 0; a < Editor->FrameItems.count(); ++a)
@@ -2493,10 +2494,11 @@ void StoryEditor::updateTextFrame()
 		Editor->FrameItems.remove(FrameItemsDel.at(a));
 	}
 	FrameItemsDel.clear();
+#endif
 	currDoc->updateFrameItems();
 	if (currItem->asTextFrame())
 	{
-		dynamic_cast<PageItem_TextFrame*>(nextItem)->layout();
+		nextItem->layout();
 		nb2 = nextItem;
 		while (nb2 != 0)
 		{

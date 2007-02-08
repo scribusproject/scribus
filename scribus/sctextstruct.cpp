@@ -9,7 +9,106 @@ for which a new license (GPL+exception) is in place.
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
+#include "pageitem.h"
+#include "scribusdoc.h"
 
+
+struct InlineFrameData
+{
+	PageItem* item;
+	int refs;
+	
+	void reserve()  
+	{ 
+		++refs; 
+	}
+	
+	void release()
+	{
+		--refs;
+		if (refs == 0 && item != NULL)
+		{
+			item->doc()->FrameItems.remove(item);
+			item->doc()->updateFrameItems();
+			delete item;
+			item = NULL;
+		}
+	}
+};
+
+InlineFrame::InlineFrame(PageItem* item)
+{
+	d = new InlineFrameData;
+	d->item = item;
+	d->refs = 1;
+}
+
+InlineFrame::InlineFrame(const InlineFrame& other)
+{
+	d = other.d;
+	d->reserve();	
+}
+
+InlineFrame& InlineFrame::operator= (const InlineFrame& other)
+{
+	if (this != &other)
+	{
+		d->release();
+		d = other.d;
+		d->reserve();
+	}
+	return *this;
+}
+
+InlineFrame::~InlineFrame()
+{
+	d->release();
+}
+
+bool InlineFrame::hasItem()
+{
+	return d->item != NULL;
+}
+
+bool InlineFrame::isShared()
+{
+	return d->refs > 1;
+}
+
+PageItem* InlineFrame::getItem()
+{
+	return d->item;
+}
+
+QPtrList<PageItem> InlineFrame::getGroupedItems()
+{
+	QPtrList<PageItem> result;
+	result.setAutoDelete(false);
+	if (hasItem())
+	{
+		PageItem* dItem = d->item;
+		ScribusDoc& doc(*dItem->doc());
+		result.append(d->item);
+		if (dItem->Groups.count() != 0)
+		{
+			for (uint ga=0; ga < doc.FrameItems.count(); ++ga)
+			{
+				if (doc.FrameItems.at(ga)->Groups.count() != 0)
+				{
+					if (doc.FrameItems.at(ga)->Groups.top() == dItem->Groups.top())
+					{
+						if (doc.FrameItems.at(ga)->ItemNr != dItem->ItemNr)
+						{
+							if (result.find(doc.FrameItems.at(ga)) == -1)
+								result.append(doc.FrameItems.at(ga));
+						}
+					}
+				}
+			}
+		}
+	}
+	return result;
+}
 
 
 ScText::~ScText() 
@@ -23,5 +122,5 @@ ScText::~ScText()
 	}
 	if (parstyle)
 		delete parstyle;
-	//if (cembedded) delete cembedded
+	parstyle = NULL;
 }
