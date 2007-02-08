@@ -1245,6 +1245,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					if (!m_Doc->MLineStyles.contains(OB.NamedLStyle))
 						OB.NamedLStyle = "";
+					OB.startArrowIndex =  0;
+					OB.endArrowIndex =  0;
 					OB.isBookmark=obj.attribute("BOOKMARK").toInt();
 					if ((OB.isBookmark) && (m_Doc->BookMarks.count() == 0))
 						m_Doc->OldBM = true;

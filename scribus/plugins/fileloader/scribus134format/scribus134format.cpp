@@ -2092,8 +2092,20 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	}
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
-	currItem->setStartArrowIndex(obj->attribute("startArrowIndex", "0").toInt());
-	currItem->setEndArrowIndex(obj->attribute("endArrowIndex", "0").toInt());
+	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
+	if (startArrowIndex < 0 || startArrowIndex > doc->arrowStyles.size())
+	{
+		qDebug(QString("scribus134format: invalid arrow index: %").arg(startArrowIndex));
+		startArrowIndex = 0;
+	}
+	currItem->setStartArrowIndex(startArrowIndex);
+	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
+	if (endArrowIndex < 0 || endArrowIndex > doc->arrowStyles.size())
+	{
+		qDebug(QString("scribus134format: invalid arrow index: %").arg(endArrowIndex));
+		endArrowIndex = 0;
+	}
+	currItem->setEndArrowIndex(endArrowIndex);
 	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))

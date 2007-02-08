@@ -2151,8 +2151,20 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		break;
 	}
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
-	currItem->setStartArrowIndex(obj->attribute("startArrowIndex", "0").toInt());
-	currItem->setEndArrowIndex(obj->attribute("endArrowIndex", "0").toInt());
+	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
+	if (startArrowIndex < 0 || startArrowIndex > doc->arrowStyles.size())
+	{
+		qDebug(QString("scribus13format: invalid arrow index: %").arg(startArrowIndex));
+		startArrowIndex = 0;
+	}
+	currItem->setStartArrowIndex(startArrowIndex);
+	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
+	if (endArrowIndex < 0 || endArrowIndex > doc->arrowStyles.size())
+	{
+		qDebug(QString("scribus13format: invalid arrow index: %").arg(endArrowIndex));
+		endArrowIndex = 0;
+	}
+	currItem->setEndArrowIndex(endArrowIndex);
 	currItem->NamedLStyle = obj->attribute("NAMEDLST", "");
 	currItem->isBookmark = obj->attribute("BOOKMARK").toInt();
 	if ((currItem->isBookmark) && (doc->BookMarks.count() == 0))
@@ -3377,8 +3389,8 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			tstp = style1.strikethruOffset() / 10.0;
 			tstw = style1.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
-			if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->cembedded != 0))
-				tobj = item->itemText.item(k)->cembedded->ItemNr;
+			if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->embedded.hasItem()))
+				tobj = item->itemText.item(k)->embedded.getItem()->ItemNr;
 			else
 #endif
 				tobj = -1;
@@ -3442,8 +3454,8 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			tstp2 = style2.strikethruOffset() / 10.0;
 			tstw2 = style2.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
-			if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->cembedded != 0))
-				tobj2 = item->itemText.item(k)->cembedded->ItemNr;
+			if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->embedded.hasItem()))
+				tobj2 = item->itemText.item(k)->embedded.getItem()->ItemNr;
 			else
 #endif
 				tobj2 = -1;
@@ -3503,8 +3515,8 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 				tstp2 = style3.strikethruOffset() / 10.0;
 				tstw2 = style3.strikethruWidth() / 10.0;
 #ifndef NLS_PROTO
-				if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->cembedded != 0))
-					tobj2 = item->itemText.item(k)->cembedded->ItemNr;
+				if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->embedded.hasItem()))
+					tobj2 = item->itemText.item(k)->embedded.getItem()->ItemNr;
 				else
 #endif
 					tobj2 = -1;
