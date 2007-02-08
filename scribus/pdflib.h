@@ -242,6 +242,8 @@ private:
 	MultiProgressDialog* progressDialog;
 	bool abortExport;
 	bool usingGUI;
+	double bleedDisplacementX;
+	double bleedDisplacementY;
 	
 protected slots:
 	void cancelRequested();

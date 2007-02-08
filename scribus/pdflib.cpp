@@ -2234,6 +2234,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	double bleedRight = 0.0;
 	double bleedLeft = 0.0;
 	double markOffs = 0.0;
+	bleedDisplacementX = 0.0;
+	bleedDisplacementY = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 		markOffs = 20.0 + Options.markOffset;
 	if (!pag->MPageNam.isEmpty())
@@ -2262,6 +2264,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			}
 		}
 		PutPage("q 1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
+		bleedDisplacementX = bleedLeft+markOffs;
+		bleedDisplacementY = Options.bleeds.Bottom+markOffs;
 	}
 	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
@@ -5439,7 +5443,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
 			break;
 	}
-	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
+	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
 	PutDoc(">>\nendobj\n");
 	QMap<int, QString> ind2PDFabr2;
 	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
