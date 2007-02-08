@@ -5185,12 +5185,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			Inhal = "";
 			Bmc++;
 			Inhal += QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
-			QString encText = "";
-			for (uint telen = 0; telen < ip->Titel.length(); telen++)
-			{
-				encText += ip->Titel.at(telen);
-			}
-			Inhal += "<<\n/Title "+EncStringUTF16("("+encText+")", ip->ItemNr+Basis)+"\n";
+			Inhal += "<<\n/Title "+EncStringUTF16("("+ip->Titel+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else
