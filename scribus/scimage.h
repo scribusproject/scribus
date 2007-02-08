@@ -197,7 +197,7 @@ private:
 	void colorize(ScColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
-	void swapByteOrder();
+	void swapByteOrder(int one=3, int two=2, int three=1, int four=0);
 
 	// Misc implementation
 //	void liberateMemory(void **memory);

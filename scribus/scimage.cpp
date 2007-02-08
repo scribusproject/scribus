@@ -750,19 +750,63 @@ void ScImage::swapRGBA()
 }
 
 
-void ScImage::swapByteOrder()
+void ScImage::swapByteOrder(int one, int two, int three, int four)
 {
-	for (int i = 0; i < height(); ++i)
+	if (one >= 0)
 	{
-		unsigned int *ptr = (QRgb *) scanLine(i);
-		unsigned char r, g, b, a;
-		for (int j = 0; j < width(); ++j)
-		{			
-			r = qRed(*ptr);
-			g = qGreen(*ptr);
-			b = qBlue(*ptr);
-			a = qAlpha(*ptr);
-			*ptr++ = qRgba(g,r,a,b);
+		for (int i = 0; i < height(); ++i)
+		{
+			unsigned char *ptr = (unsigned char *) scanLine(i);
+			unsigned char val[4];
+			for (int j = 0; j < width(); ++j)
+			{			
+				val[0] = ptr[one];
+				val[1] = ptr[two];
+				val[2] = ptr[three];
+				val[3] = ptr[four];
+				*ptr++ = val[0];
+				*ptr++ = val[1];
+				*ptr++ = val[2];
+				*ptr++ = val[3];
+			}
+		}
+	}
+	else
+	{
+		// debug: make stripes 
+		// one: -1=forward -2=backward
+		// two: 0=hor, 1=vert
+		// three: width of stripe
+		// four: shift in permutation list
+		
+		static uint perm[24][4] = { { 0,1,2,3 }, { 0,1,3,2 }, { 0,2,1,3 }, { 0,2,3,1 }, { 0,3,1,2 }, { 0,3,2,1 },
+		{ 1,0,2,3 }, { 1,0,3,2 }, { 1,2,0,3 }, { 1,2,3,0 }, { 1,3,0,2 }, { 1,3,2,0 },
+		{ 2,1,0,3 }, { 2,1,3,0 }, { 2,0,1,3 }, { 2,0,3,1 }, { 2,3,1,0 }, { 2,3,0,1 },
+		{ 3,1,2,0 }, { 3,1,0,2 }, { 3,2,1,0 }, { 3,2,0,1 }, { 3,0,1,2 }, { 3,0,2,1 } };
+		
+		for (int i = 0; i < height(); ++i)
+		{
+			unsigned char *ptr = (unsigned char *) scanLine(i);
+			unsigned char val[4];
+			for (int j = 0; j < width(); ++j)
+			{			
+				uint *per = perm[ ((two?j:i) / three + four) % 24 ];
+				if (one == -1) {
+					val[0] = ptr[per[0]];
+					val[1] = ptr[per[1]];
+					val[2] = ptr[per[2]];
+					val[3] = ptr[per[3]];
+				} else {
+					val[per[0]] = ptr[0];
+					val[per[1]] = ptr[1];
+					val[per[2]] = ptr[2];
+					val[per[3]] = ptr[3];
+				}
+				*ptr++ = val[0];
+				*ptr++ = val[1];
+				*ptr++ = val[2];
+				*ptr++ = val[3];
+			}
 		}
 	}
 }
@@ -3728,7 +3772,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					if (realCMYK != 0)
 						*realCMYK = true;
 					if (systemBigEndian) {
-						swapByteOrder();
+						swapByteOrder(3,0,1,2);
 					}
 					else {
 						swapRGBA();
@@ -4237,6 +4281,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	if (isNull())
 		return  ret;
+		
 #ifdef HAVE_CMS
 	if (CMSuse && useProf)
 	{
@@ -4288,6 +4333,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		}
 		if (BlackPoint)
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+
+		xform = 0;
 		switch (reqType)
 		{
 		case 0: // CMYK
@@ -4295,8 +4342,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
 			break;
 		case 1: // RGB
-			if (isCMYK)
+			if (isCMYK) {
+				if (systemBigEndian)
+					swapByteOrder(3, 2, 1, 0);
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
+			}
 			break;
 		case 2: // RGB Proof
 			{
@@ -4316,11 +4366,15 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			}
 			break;
 		case 3: // no Conversion just raw Data
-			xform = 0;
 			break;
 		}
+				
 		if (xform)
 		{
+			if (systemBigEndian && reqType == 2 && isCMYK) {
+				swapByteOrder(3, 2, 1, 0);
+			}
+			
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
@@ -4350,19 +4404,28 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				}
 				else
 					cmsDoTransform(xform, ptr, ptr, width());
-				// if transforming from CMYK to RGB, flatten the alpha channel
-				// which will still contain the black channel
-				if (isCMYK && reqType != 0 && !bilevel)
+			}
+			
+			if (systemBigEndian && reqType == 2 && isCMYK) {
+				swapByteOrder(3, 2, 1, 0);
+			}
+			
+			// if transforming from CMYK to RGB, flatten the alpha channel
+			// which will still contain the black channel
+			if (isCMYK && reqType != 0 && !bilevel)
+			{
+				QRgb alphaFF = qRgba(0,0,0,255);
+				for (int i = 0; i < height(); i++)
 				{
+					LPBYTE ptr = scanLine(i);
 					QRgb *p = (QRgb *) ptr;
-					QRgb alphaFF = qRgba(0,0,0,255);
 					for (int j = 0; j < width(); j++, p++)
 						*p |= alphaFF;
 				}
-
 			}
 			cmsDeleteTransform (xform);
 		}
+		
 		if (inputProf)
 			cmsCloseProfile(inputProf);
 	}
@@ -4393,17 +4456,37 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		case 2:
 			if (isCMYK)
 			{
-				for (int i = 0; i < height(); i++)
+				if (systemBigEndian)
 				{
-					QRgb *ptr = (QRgb *) scanLine(i);
-					unsigned char cr, cg, cb, ck;
-					for (int j = 0; j < width(); j++)
+					for (int i = 0; i < height(); i++)
 					{
-						ck = qAlpha(*ptr);
-						cr = 255 - QMIN(255, qRed(*ptr) + ck);
-						cg = 255 - QMIN(255, qGreen(*ptr) + ck);
-						cb = 255 - QMIN(255, qBlue(*ptr) + ck);
-						*ptr++ = qRgba(cr,cg,cb,255);
+						QRgb *ptr = (QRgb *) scanLine(i);
+						unsigned char cr, cg, cb, ck;
+						for (int j = 0; j < width(); j++)
+						{
+							unsigned char * quad = (unsigned char*) ptr;
+							ck = quad[0];
+							cr = 255 - QMIN(255, quad[1] + ck);
+							cg = 255 - QMIN(255, quad[2] + ck);
+							cb = 255 - QMIN(255, quad[3] + ck);
+							*ptr++ = qRgba(cr,cg,cb,255);
+						}
+					}
+				}
+				else
+				{
+					for (int i = 0; i < height(); i++)
+					{
+						QRgb *ptr = (QRgb *) scanLine(i);
+						unsigned char cr, cg, cb, ck;
+						for (int j = 0; j < width(); j++)
+						{
+							ck = qAlpha(*ptr);
+							cr = 255 - QMIN(255, qRed(*ptr) + ck);
+							cg = 255 - QMIN(255, qGreen(*ptr) + ck);
+							cb = 255 - QMIN(255, qBlue(*ptr) + ck);
+							*ptr++ = qRgba(cr,cg,cb,255);
+						}
 					}
 				}
 			}
