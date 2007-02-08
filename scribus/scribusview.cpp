@@ -6455,6 +6455,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			z = Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
 			currItem = Doc->Items->at(z);
 			currItem->setIsAnnotation(true);
+			currItem->AutoName = false;
 			switch (Doc->appMode)
 			{
 			case modeInsertPDFButton:
@@ -9529,6 +9530,7 @@ void ScribusView::ToggleAnnotation()
 				currItem->setIsAnnotation(!currItem->isAnnotation());
 				if (currItem->isAnnotation())
 				{
+					currItem->AutoName = false;
 					if (old)
 						emit DelBM(currItem);
 					currItem->isBookmark = false;
