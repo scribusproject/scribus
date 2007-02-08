@@ -91,14 +91,14 @@ ScPaths::ScPaths() :
 
 	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
-	m_docDir = QString("%1/Contents/share/scribus/doc/").arg(pathPtr);
+	m_docDir = QString("%1/Contents/share/doc/scribus/").arg(pathPtr);
 	m_iconDir = QString("%1/Contents/share/scribus/icons/").arg(pathPtr);
 	m_sampleScriptDir = QString("%1/Contents/share/scribus/samples/").arg(pathPtr);
 	m_scriptDir = QString("%1/Contents/share/scribus/scripts/").arg(pathPtr);
 	m_templateDir = QString("%1/Contents/share/scribus/templates/").arg(pathPtr);
 	m_libDir = QString("%1/Contents/lib/scribus/").arg(pathPtr);
 	m_pluginDir = QString("%1/Contents/lib/scribus/plugins/").arg(pathPtr);
-	QApplication::setLibraryPaths(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
+//	QApplication::setLibraryPaths(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
 	CFRelease(pluginRef);
 	CFRelease(macPath);
 
@@ -111,7 +111,7 @@ ScPaths::ScPaths() :
 	qDebug(QString("scpaths: template dir=%1").arg(m_templateDir));
 	qDebug(QString("scpaths: lib dir=%1").arg(m_libDir));
 	qDebug(QString("scpaths: plugin dir=%1").arg(m_pluginDir));
-	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
+//	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
 
 #elif defined(_WIN32)
 	QString appPath = qApp->applicationDirPath();
