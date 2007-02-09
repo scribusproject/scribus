@@ -431,7 +431,7 @@ ScribusDoc::~ScribusDoc()
 {
 	m_guardedObject.nullify();
 	DocItems.setAutoDelete(true);
-	FrameItems.setAutoDelete(true);
+//	FrameItems.setAutoDelete(true);
 	DocItems.clear();
 	FrameItems.clear();
 	MasterPages.setAutoDelete(true);
