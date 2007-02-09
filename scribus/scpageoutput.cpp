@@ -1394,8 +1394,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						painter->translate(CurX, ls.y);
 						if (hl->ch[0] == SpecialChars::OBJECT)
 						{
-							DrawItem_Embedded(item, painter, clip, charStyle, hl->cembedded);
-							CurX += (hl->cembedded->gWidth + hl->cembedded->lineWidth());
+							DrawItem_Embedded(item, painter, clip, charStyle, hl->embedded.getItem());
+							CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 						}
 						else
 						{
