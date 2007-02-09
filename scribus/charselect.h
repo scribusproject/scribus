@@ -48,6 +48,8 @@ public:
 	void setupRangeCombo();
 	void generatePreview(int charClass);
 
+	CharTable* userTable() { return m_userTable; };
+
 private:
 	ScribusDoc* m_doc;
 	//! \brief Current font name
@@ -57,9 +59,9 @@ private:
 	//! \brief Currently selected character category. See usedCharClasses.
 	int m_characterClass;
 	//! \brief A all font's character table widget.
-	CharTable* charTable;
+	CharTable* m_charTable;
 	//! \brief User's defined char palette
-	CharTable* userTable;
+	CharTable* m_userTable;
 	UnicodeChooseButton* unicodeButton;
 
 	QValueList<CharClassDef> allClasses;
@@ -118,8 +120,8 @@ protected:
 	PageItem *m_Item;
 
 	// GUI
-	QGroupBox* bigPalette;
-	QGroupBox* quickPalette;
+	QGroupBox* m_bigPalette;
+	QGroupBox* m_quickPalette;
 
 	QLabel* insText;
 	QLabel* sample;

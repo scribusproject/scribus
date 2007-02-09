@@ -60,7 +60,7 @@ class PrefsManager;
 class PrefsContext;
 class StoryEditor;
 class ColorCombo;
-// class CharSelect;
+class CharSelect;
 
 
 class SCRIBUS_API SEditor : public QTextEdit
@@ -284,11 +284,8 @@ public:
 	SToolBFont(QMainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;
-	MSpinBox* Size;
 	MSpinBox* ChScale;
 	MSpinBox* ChScaleV;
-	QLabel* ScaleTxt;
-	QLabel* ScaleTxtV;
 
 public slots:
 	void SetFont(QString f);
@@ -296,13 +293,20 @@ public slots:
 	void SetScale(int s);
 	void SetScaleV(int s);
 	void newSizeHandler();
-	void languageChange();
 
 signals:
 	void NewFont(const QString &);
 	void NewSize(double);
 	void NewScale(int);
 	void NewScaleV(int);
+
+private:
+	MSpinBox* Size;
+	QLabel* ScaleTxt;
+	QLabel* ScaleTxtV;
+
+private slots:
+	void languageChange();
 };
 
 class SCRIBUS_API StoryEditor : public QMainWindow
@@ -314,16 +318,31 @@ public:
 	StoryEditor( QWidget* parent );
 // 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor();
-	void closeEvent(QCloseEvent *);
-	void keyPressEvent (QKeyEvent * e);
-	bool eventFilter( QObject* ob, QEvent* ev );
+
+	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
+
+	ScribusDoc* currentDocument() const;
+	PageItem* currentItem() const;
+	SEditor* Editor;
+	bool activFromApp;
+
+public slots:
+	void newAlign(int st);
+	void newTxFill(int c, int s);
+	void newTxStroke(int c, int s);
+	void newTxFont(const QString &f);
+	void newTxSize(double s);
+	void newTxStyle(int s);
+
+signals:
+	void DocChanged();
+	void EditSt();
+
+private:
 	//int exec();
 	void changeAlign(int align);
 	int result;
-	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
 	bool textDataChanged() const;
-	PageItem* currentItem() const;
-	ScribusDoc* currentDocument() const;
 
 	/*! \brief Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
 	bool smartSelection;
@@ -331,31 +350,26 @@ public:
 
 	ScribusDoc* currDoc;
 	PageItem* currItem;
-	SEditor* Editor;
+
 	bool textChanged;
 	bool firstSet;
-	bool activFromApp;
+
 	bool blockUpdate;
 	int CurrPara;
 	int CurrChar;
 
-public slots:
+protected slots:
 	void setBackPref();
 	void setFontPref();
-	void newTxFill(int c, int s);
-	void newTxStroke(int c, int s);
-	void newTxFont(const QString &f);
-	void newTxSize(double s);
 	void newTxScale(int s);
 	void newTxScaleV(int s);
-	void newTxStyle(int s);
 	void newTxKern(int s);
 	void newShadowOffs(int x, int y);
 	void newTxtOutline(int o);
 	void newTxtUnderline(int p, int w);
 	void newTxtStrike(int p, int w);
 	void updateProps(int p, int ch);
-	void newAlign(int st);
+
 	void newStyle(int st);
 	void changeStyleSB(int pa, int st);
 	void changeStyle(int st);
@@ -382,20 +396,15 @@ public slots:
 	void modifiedText();
 	void LoadTextFile();
 	void SaveTextFile();
-	// 10/12/2004 - pv - #1203: wrong selection on double click
-	void doubleClick(int para, int pos);
 	void setSmart(bool);
 	void languageChange();
 
-protected slots:
 	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
 	/*! \brief Slot to insert special characters from charSelect widget. */
 	void slot_insertSpecialChar();
 	void slot_insertUserSpecialChar(QChar);
-
-signals:
-	void DocChanged();
-	void EditSt();
+	// 10/12/2004 - pv - #1203: wrong selection on double click
+	void doubleClick(int para, int pos);
 
 protected:
 	void initActions();
@@ -412,15 +421,20 @@ protected:
 
 	/*! \brief Special Characters dialog.
 	It uses a little bit ugly method to operate with.
-	charSelect is not initialized in any constructor because
-	there is no known PageItem and Font in the start of app.
-	So it is initialized on user's demand (it saves memory
-	when user don't use it too) in Do_insSp() slot.
-	Inserting the characters is done in slot_insertSpecialChar()
-	slot.
+	It's a duplication of the main window's charPalette due
+	the lack of setParent() in qt3 and a ugly behaviour of
+	the reparent().
+	charSelect is created as a copy of the charPalette.
 	\author Petr Vanek <petr@scribus.info>
 	*/
-// 	CharSelect *charSelect;
+	CharSelect *charSelect;
+	bool charSelectUsed;
+	void showEvent(QShowEvent *);
+	void hideEvent(QHideEvent *);
+
+	void closeEvent(QCloseEvent *);
+	void keyPressEvent (QKeyEvent * e);
+	bool eventFilter( QObject* ob, QEvent* ev );
 
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;

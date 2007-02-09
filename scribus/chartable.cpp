@@ -177,7 +177,11 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 void CharTable::deleteOwnCharacter(int index)
 {
 	if (m_characters.remove(m_characters[index]) > 0)
+	{
 		recalcCellSizes();
+		// WTF? why it does not repaint?
+		repaint(0, 0, width(), height(), true);
+	}
 	else
 		qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error propably");
 }

@@ -1189,43 +1189,62 @@ void SToolBFont::newSizeHandler()
 // }
 
 /* Main Story Editor Class, no current document */
-StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal |
+StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel), // WType_Dialog) //WShowModal |
+	activFromApp(true),
+	currDoc(NULL),
+	currItem(NULL),
+	textChanged(false),
+	firstSet(false),
+	blockUpdate(false),
+	CurrPara(0),
+	CurrChar(0),
+	charSelect(NULL),
+	charSelectUsed(false)
 {
 	prefsManager=PrefsManager::instance();
-	currDoc = NULL;
-	currItem = NULL;
-// 	charSelect = NULL;
-	#ifdef Q_WS_MAC
+#ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
-	#endif
+#endif
 	buildGUI();
-	CurrPara = 0;
-	CurrChar = 0;
-	firstSet = false;
-	activFromApp = true;
 	/*
 	//Editor->loadItemText(ite);
 	updateProps(0,0);
 	updateStatus();
 	*/
-	textChanged = false;
 	Editor->setFocus();
 	Editor->setFarbe(false);
-	blockUpdate = false;
 	loadPrefs();
 }
 
 StoryEditor::~StoryEditor()
 {
 	savePrefs();
-	connect(ScCore->primaryMainWindow()->charPalette,
-			SIGNAL(insertSpecialChar()),
-			ScCore->primaryMainWindow()->charPalette,
-			SLOT(slot_insertSpecialChar()));
-	connect(ScCore->primaryMainWindow()->charPalette,
-			SIGNAL(insertUserSpecialChar(QChar)),
-			ScCore->primaryMainWindow()->charPalette,
-			SLOT(slot_insertUserSpecialChar(QChar)));
+}
+
+void StoryEditor::showEvent(QShowEvent *)
+{
+	charSelect = new CharSelect(this);
+	charSelect->userTable()->setCharacters(
+						  ScCore->primaryMainWindow()->charPalette->userTable()->characters());
+	connect(charSelect, SIGNAL(insertSpecialChar()),
+			this, SLOT(slot_insertSpecialChar()));
+	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
+			this, SLOT(slot_insertUserSpecialChar(QChar)));
+}
+
+void StoryEditor::hideEvent(QHideEvent *)
+{
+	if (charSelectUsed)
+		ScCore->primaryMainWindow()->charPalette->userTable()->setCharacters(
+								charSelect->userTable()->characters());
+	if (charSelect->isShown())
+		charSelect->close();
+	disconnect(charSelect, SIGNAL(insertSpecialChar()),
+			   this, SLOT(slot_insertSpecialChar()));
+	disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
+			   this, SLOT(slot_insertUserSpecialChar(QChar)));
+	delete charSelect;
+	charSelect = NULL;
 }
 
 void StoryEditor::savePrefs()
@@ -1659,11 +1678,6 @@ void StoryEditor::connectSignals()
 	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
 	connect(StyleTools, SIGNAL(newUnderline(int, int)), this, SLOT(newTxtUnderline(int, int)));
 	connect(StyleTools, SIGNAL(newStrike(int, int )), this, SLOT(newTxtStrike(int, int)));
-	// PV - char palette
-	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-	disconnect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertSpecialChar()));
-	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
-	disconnect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertUserSpecialChar(QChar)), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertUserSpecialChar(QChar)));
 }
 
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
@@ -2228,16 +2242,22 @@ void StoryEditor::updateStatus()
 
 void StoryEditor::Do_insSp()
 {
-	ScCore->primaryMainWindow()->charPalette->show();
+	//ScCore->primaryMainWindow()->charPalette->show();
+	charSelectUsed = true;
+	if (charSelect->isShown())
+		return;
+	charSelect->setEnabled(true, 0);
+	charSelect->setDoc(currDoc);
+	charSelect->show();
 }
 
 void StoryEditor::slot_insertSpecialChar()
 {
 	blockUpdate = true;
-	if (!ScCore->primaryMainWindow()->charPalette->getCharacters().isEmpty())
+	if (!charSelect->getCharacters().isEmpty())
 	{
-		Editor->insChars(ScCore->primaryMainWindow()->charPalette->getCharacters());
-		Editor->insert(ScCore->primaryMainWindow()->charPalette->getCharacters());
+		Editor->insChars(charSelect->getCharacters());
+		Editor->insert(charSelect->getCharacters());
 	}
 	blockUpdate = false;
 }
