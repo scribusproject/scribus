@@ -82,6 +82,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
 	itemText.invalidateAll();
 	firstChar = 0;
+	MaxChars = 0;
 	int a;
 	int chs;
 	QString chstr, chstr2, chstr3;
@@ -360,6 +361,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 		first = false;
 	}
+	MaxChars++;  // ugly Hack
 #endif
 //	qDebug(QString("PageItem_PathText::DrawObj_Item repos=%1, %2 chars, [%3 %4 %5 %6 %7 %8] with %9").arg(m_Doc->RePos).arg(MaxChars)
 //		   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m12()).arg(p->worldMatrix().m21()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy())
