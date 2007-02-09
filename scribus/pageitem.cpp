@@ -1236,8 +1236,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		OldB = Width;
 		OldH = Height;
 	}
-	if (//(!Tinput) && 
-		(!m_Doc->RePos))
+	if ((!FrameOnly) && (!m_Doc->RePos))
 	{
 		if (Select) // && (!Doc->EditClip))
 		{
@@ -1344,6 +1343,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		//	drawLockedMarker(p);
 	}
 //	Tinput = false;
+	FrameOnly = false;
 	p.end();
 // 	checkChanges(); // Check changes for undo actions
 }

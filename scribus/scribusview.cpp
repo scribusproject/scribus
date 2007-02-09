@@ -7193,7 +7193,9 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
 		updateContents();
 //		currItem->Tinput = true;
+		currItem->FrameOnly = true;
 		currItem->paintObj();
+		currItem->FrameOnly = false;
 		MarkClip(currItem, currItem->ContourLine, true);
 		if (UndoManager::undoEnabled())
 		{
@@ -7337,7 +7339,9 @@ void ScribusView::Reset1Control()
 		currItem->ContourLine.setPoint(ClRe, np);
 		updateContents();
 //		currItem->Tinput = true;
+		currItem->FrameOnly = true;
 		currItem->paintObj();
+		currItem->FrameOnly = false;
 	}
 	else
 	{
@@ -7418,7 +7422,9 @@ void ScribusView::ResetControl()
 	{
 		updateContents();
 //		currItem->Tinput = true;
+		currItem->FrameOnly = true;
 		currItem->paintObj();
+		currItem->FrameOnly = false;
 	}
 	FPointArray cli;
 	if ((EditContour) && (currItem->ContourLine.size() != 0))
@@ -8794,6 +8800,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 		{
 			Doc->m_Selection->addItem(currItem);
 			currItem->isSingleSel = true;
+			currItem->FrameOnly = true;
 			currItem->paintObj();
 		}
 		else
@@ -8819,6 +8826,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 								if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
 									Doc->m_Selection->addItem(Doc->Items->at(ga));
 							}
+							Doc->Items->at(ga)->FrameOnly = true;
 							Doc->Items->at(ga)->paintObj();
 						}
 					}
@@ -8827,6 +8835,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			else
 			{
 				Doc->m_Selection->addItem(currItem);
+				currItem->FrameOnly = true;
 				currItem->paintObj();
 			}
 			//CB FIXME/TODO We are surely prepending here and we have turned off 
@@ -9052,6 +9061,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 
 											}
 											Doc->Items->at(ga)->isSingleSel = false;
+											Doc->Items->at(ga)->FrameOnly = true;
 										}
 									}
 								}
@@ -9059,12 +9069,14 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							else
 							{
 								currItem->isSingleSel = true;
+								currItem->FrameOnly = true;
 								currItem->paintObj();
 							}
 						}
 						else
 						{
 							Doc->m_Selection->addItem(currItem, true);
+							currItem->FrameOnly = true;
 							currItem->paintObj();
 						}
 					}
@@ -9075,7 +9087,9 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							PageItem *bb = Doc->m_Selection->itemAt(0);
 							Doc->m_Selection->removeItem(currItem);
 							Doc->m_Selection->prependItem(currItem);
+							currItem->FrameOnly = true;
 							currItem->paintObj();
+							bb->FrameOnly = true;
 							bb->paintObj();
 						}
 					}
@@ -9084,6 +9098,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
 						{
 							PageItem *bb = Doc->m_Selection->itemAt(aa);
+							bb->FrameOnly = true;
 							bb->paintObj();
 						}
 						Doc->m_Selection->connectItemToGUI();
@@ -9183,6 +9198,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 												Doc->m_Selection->addItem(Doc->Items->at(ga), true);
 										}
 										Doc->Items->at(ga)->isSingleSel = false;
+										Doc->Items->at(ga)->FrameOnly = true;
 									}
 								}
 							}
@@ -9190,6 +9206,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						else
 						{
 							currItem->isSingleSel = true;
+							currItem->FrameOnly = true;
 							currItem->paintObj();
 						}
 					}
@@ -9199,6 +9216,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						//CB 301206 We shouldnt be ignoring the GUI here...
 						//Doc->m_Selection->addItem(currItem, true);
 						Doc->m_Selection->addItem(currItem);
+						currItem->FrameOnly = true;
 						currItem->paintObj();
 					}
 				}
@@ -9209,9 +9227,11 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						PageItem *bb = Doc->m_Selection->itemAt(0);
 						Doc->m_Selection->removeItem(currItem);
 						Doc->m_Selection->prependItem(currItem);
+						currItem->FrameOnly = true;
 						currItem->paintObj();
 						//CB dont think we need to paint here when we paint below
 						//CB With the change of 301206, perhaps we need to?
+						bb->FrameOnly = true;
 						bb->paintObj();
 					}
 				}

@@ -4969,6 +4969,7 @@ void ScribusMainWindow::SelectAll()
 				if (!currItem->isSelected())
 				{
 					doc->m_Selection->addItem(currItem);
+					currItem->FrameOnly = true;
 					currItem->paintObj();
 				}
 			}

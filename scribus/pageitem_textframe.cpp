@@ -2228,6 +2228,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		//	drawLockedMarker(p);
 	}
 //	Tinput = false;
+	FrameOnly = false;
 	p->restore();
 }
 
