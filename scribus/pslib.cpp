@@ -2550,6 +2550,57 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					SetFarbe(style.fillColor(), style.fillShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				{
+					PS_save();
+					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
+					if (c->textPathFlipped)
+					{
+						PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(0) + " " + ToStr(0) + "]\n");
+						PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\n");
+					}
+					if (c->textPathType == 0)
+						PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					else if (c->textPathType == 1)
+						PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					else if (c->textPathType == 2)
+					{
+						double a = 1;
+						double b = -1;
+						if (hl->PtransX < 0)
+						{
+							a = -1;
+							b = 1;
+						}
+						if (fabs(hl->PtransX) > 0.1)
+							PutSeite("["+ToStr(a) + " " + ToStr((hl->PtransY / hl->PtransX) * b) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+						else
+							PutSeite("["+ToStr(a) + " " + ToStr(4) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
+					}
+					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
+//					PS_translate(0, (tsz / 10.0));
+					if (c->BaseOffs != 0)
+						PS_translate(0, -c->BaseOffs);
+					if (style.scaleH() != 1000)
+						PS_scale(style.scaleH() / 1000.0, 1);
+					QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
+					for (uint em = 0; em < emG.count(); ++em)
+					{
+						PageItem* embedded = emG.at(em);
+						PS_save();
+						PS_translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)));
+						if (style.baselineOffset() != 0)
+							PS_translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
+						if (style.scaleH() != 1000)
+							PS_scale(style.scaleH() / 1000.0, 1);
+						if (style.scaleV() != 1000)
+							PS_scale(1, style.scaleV() / 1000.0);
+						ProcessItem(Doc, a, embedded, PNr, sep, farb, ic, gcr, master, true);
+						PS_restore();
+					}
+					PS_restore();
+					continue;
+				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
 				ScFace::FontType type = style.font().type();
 				if ((type == ScFace::TTF) ||  (style.font().isOTF()) || (style.font().subset()))
@@ -3107,7 +3158,13 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);
 			}
 			setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, hl, pstyle, pg, sep, farb, ic, master);
-			CurX += hl->glyph.wide();
+			if (hl->ch[0] == SpecialChars::OBJECT)
+			{
+				InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
+				CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth());
+			}
+			else
+				CurX += hl->glyph.wide();
 			tabDist = CurX;
 		}
 	}

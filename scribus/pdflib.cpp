@@ -3821,7 +3821,13 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
 				}
 				setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, hl, pstyle, pag);
-				CurX += hl->glyph.wide();
+				if (hl->ch[0] == SpecialChars::OBJECT)
+				{
+					InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
+					CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth());
+				}
+				else
+					CurX += hl->glyph.wide();
 				tabDist = CurX;
 			}
 		}
@@ -3940,7 +3946,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		tmp += FToStr(trafo.m11())+" "+FToStr(trafo.m12())+" "+FToStr(trafo.m21())+" "+FToStr(trafo.m22())+" "+FToStr(trafo.dx())+" "+FToStr(trafo.dy())+" cm\n";
 		if (ite->BaseOffs != 0)
 			tmp += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
-		tmp += "BT\n";
+		if (hl->ch != SpecialChars::OBJECT)
+			tmp += "BT\n";
 	}
 	int tsz = hl->fontSize();
 	QString chstr = hl->ch;
@@ -3970,9 +3977,17 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		{
 			PageItem* embedded = emG.at(em);
 			tmp2 += "q\n";
-			tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+			if (ite->asPathText())
+				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+			else
+				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
 			tmp2 += PDF_ProcessItem(embedded, pag, PNr, true);
 			tmp2 += "Q\n";
+		}
+		if (ite->asPathText())
+		{
+			tmp += tmp2+"Q\n";
+			tmp2 = "";
 		}
 		return;
 	}

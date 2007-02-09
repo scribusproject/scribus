@@ -78,7 +78,7 @@ void PageItem_PathText::layout()
 }
 
 
-void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
+void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
 	itemText.invalidateAll();
 	firstChar = 0;
@@ -332,7 +332,13 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				else
 					p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
 			}
-			drawGlyphs(p, itemText.charStyle(a), hl->glyph);
+			if (hl->ch[0] == SpecialChars::OBJECT)
+			{
+				p->translate(0.0, BaseOffs);
+				DrawObj_Embedded(p, e, itemText.charStyle(a), hl->embedded.getItem());
+			}
+			else
+				drawGlyphs(p, itemText.charStyle(a), hl->glyph);
 		}
 		hl->glyph.xoffset = point.x();
 		hl->glyph.yoffset = point.y();
@@ -344,7 +350,14 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
-		CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
+		if (hl->ch[0] == SpecialChars::OBJECT)
+#ifdef HAVE_CAIRO
+			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+#else
+			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) *  p->zoomFactor();
+#endif
+		else
+			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 		first = false;
 	}
 #endif
