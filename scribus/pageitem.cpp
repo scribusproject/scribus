@@ -1110,6 +1110,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		//	drawLockedMarker(p);
 	}
 //	Tinput = false;
+	FrameOnly = false;
 	p->restore();
 }
 
@@ -1199,6 +1200,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	if (!m_Doc->DoDrawing)
 	{
 //		Tinput = false;
+		FrameOnly = false;
 		return;
 	}
 	//qDebug("paintObj(QRect e, QPixmap *ppX)");
