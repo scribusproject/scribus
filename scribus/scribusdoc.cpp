@@ -7653,8 +7653,10 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		double dR2 = dR;
 		if (mdData.copyShiftOrGap==1)
 		{
-			dH2+=m_Selection->width();
-			dV2+=m_Selection->height();
+			if (dH != 0.0)
+				dH2 += m_Selection->width();
+			if (dV != 0.0)
+				dV2 += m_Selection->height();
 		}
 		m_ScMW->slotEditCopy();
 		m_View->Deselect(true);
@@ -7679,6 +7681,13 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 			}
 			dH2 += dH;
 			dV2 += dV;
+			if (mdData.copyShiftOrGap==1)
+			{
+				if (dH != 0.0)
+					dH2 += m_Selection->width();
+				if (dV != 0.0)
+					dV2 += m_Selection->height();
+			}
 			dR2 += dR;
 		}
 		changed();
