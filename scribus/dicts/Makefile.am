@@ -4,7 +4,7 @@ EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi
              hyph_pt_BR.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic \
              README_ca_ES.txt README_en_EN.txt README_lt_LT.txt README_hyph_ro_RO.txt README_ru_RU_0.txt \
              README_cs_CZ.txt README_en_GB.txt README_hyph_ia.txt README_hyph_nb_NO.txt README_hyph_nn_NO.txt \
-             README_sk_SK.txt README_cy_GB.txt README_es_ES.txt README_pl_PL.txt README_sl_SI.txt README_da_DK.txt \
+             README_sk_SK.txt README_cy_GB.txt README_es_ES.txt README_hyph_pl_PL.txt README_sl_SI.txt README_da_DK.txt \
              README_fi_FI.txt README_pt_BR.txt README_sv_SE.txt README_de_DE.txt README_hu_HU.txt README_pt_PT.txt \
              README_uk_UA.txt CMakeLists.txt
 
@@ -57,7 +57,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/README_lt_LT.txt $(libdir)/scribus/dicts/README_lt_LT.txt
 	$(INSTALL_DATA) $(srcdir)/README_hyph_nb_NO.txt $(libdir)/scribus/dicts/README_hyph_nb_NO.txt
 	$(INSTALL_DATA) $(srcdir)/README_hyph_nn_NO.txt $(libdir)/scribus/dicts/README_hyph_nn_NO.txt
-	$(INSTALL_DATA) $(srcdir)/README_pl_PL.txt $(libdir)/scribus/dicts/README_pl_PL.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_pl_PL.txt $(libdir)/scribus/dicts/README_hyph_pl_PL.txt
 	$(INSTALL_DATA) $(srcdir)/README_pt_BR.txt $(libdir)/scribus/dicts/README_pt_BR.txt
 	$(INSTALL_DATA) $(srcdir)/README_pt_PT.txt $(libdir)/scribus/dicts/README_pt_PT.txt
 	$(INSTALL_DATA) $(srcdir)/README_hyph_ro_RO.txt $(libdir)/scribus/dicts/README_hyph_ro_RO.txt
@@ -115,7 +115,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/README_lt_LT.txt
 	-rm -f $(libdir)/scribus/dicts/README_nb_NO.txt
 	-rm -f $(libdir)/scribus/dicts/README_nn_NO.txt
-	-rm -f $(libdir)/scribus/dicts/README_pl_PL.txt
+	-rm -f $(libdir)/scribus/dicts/README_hyph_pl_PL.txt
 	-rm -f $(libdir)/scribus/dicts/README_pt_BR.txt
 	-rm -f $(libdir)/scribus/dicts/README_pt_PT.txt
 	-rm -f $(libdir)/scribus/dicts/README_ro_RO.txt
