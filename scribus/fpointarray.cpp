@@ -141,7 +141,7 @@ bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, i
 	return true;
 }
 
-void FPointArray::point(uint i, double *x, double *y)
+void FPointArray::point(uint i, double *x, double *y) const
 {
 //	FPoint p = QMemArray<FPoint>::at(i);
 	ConstIterator p = begin();
@@ -153,7 +153,7 @@ void FPointArray::point(uint i, double *x, double *y)
 }
 
 
-QPoint FPointArray::pointQ(uint i)
+QPoint FPointArray::pointQ(uint i) const
 {
 //	FPoint p = QMemArray<FPoint>::at(i);
 	ConstIterator p = begin();
@@ -187,12 +187,12 @@ void FPointArray::scale( double sx, double sy )
 }
 
 
-FPoint FPointArray::WidthHeight()
+FPoint FPointArray::WidthHeight() const
 {
 	if ( count == 0 )
 		return FPoint( 0.0, 0.0 );		// null rectangle
-	Iterator pd = begin();
-	Iterator pend = begin();
+	ConstIterator pd = begin();
+	ConstIterator pend = begin();
 	pend += count;
 	double minx, maxx, miny, maxy;
 	minx = maxx = pd->xp;
@@ -266,7 +266,7 @@ void FPointArray::addPoint(FPoint p)
 }
 
 
-bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+bool FPointArray::hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) const
 {
 	int i = count-4;
 	if (i < 0)
@@ -315,7 +315,7 @@ void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 	*p = p4;
 }
 
-double FPointArray::lenPathSeg(int seg)
+double FPointArray::lenPathSeg(int seg) const
 {
 	FPoint p1 = point(seg);
 	FPoint k1 = point(seg+1);
@@ -349,7 +349,7 @@ double FPointArray::lenPathSeg(int seg)
 	return newLen;
 }
 
-double FPointArray::lenPathDist(int seg, double t1, double t2)
+double FPointArray::lenPathDist(int seg, double t1, double t2) const
 {
 	FPoint p1 = point(seg);
 	FPoint k1 = point(seg+1);
@@ -373,7 +373,7 @@ double FPointArray::lenPathDist(int seg, double t1, double t2)
 	return newLen;
 }
 
-void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n )
+void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const
 {
 	// Calculate derivative if necessary.
 	FPoint d;
@@ -406,7 +406,7 @@ void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn
 	*p = ((tm * tm * tm) * p1) + (3 * t * (tm * tm) * k1) + (3 * (t * t) * tm * k2 + (t * t * t) * p2);
 }
 
-void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 )
+void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const
 {
 	// Copy points.
 	FPoint* q = new FPoint[ 4 ];

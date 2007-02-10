@@ -97,7 +97,7 @@ public:
 	 * @brief Returns an unique identifier number for the UndoObject
 	 * @return unique identifier number for the UndoObjet
 	 */
-	virtual ulong getUId();
+	ulong getUId() const;
 
 	/**
 	 * @brief Method used when an undo/redo is requested.

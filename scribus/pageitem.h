@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "vgradient.h"
 #include "text/nlsconfig.h"
 #include "text/storytext.h"
+#include "desaxe/saxio.h"
 
 class ScPainter;
 class ScribusDoc;
@@ -59,7 +60,7 @@ struct CopyPasteBuffer;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API PageItem : public QObject, public UndoObject
+class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO 
 {
 	Q_OBJECT
 
@@ -180,6 +181,10 @@ protected:
 public:
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
+
+	virtual void saxx(SaxHandler & ) const;
+	static void desaxeRules(Xml_string prefixPattern, desaxe::Digester & ruleset);
+	
 	/**
 	 * @brief Clear the contents of a frame.
 	 * WARNING: Currently *they* do not check if the user wants this.
@@ -214,7 +219,7 @@ public:
 	/*!
 	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
 	 */
-	ObjectAttribute getObjectAttribute(QString);
+	ObjectAttribute getObjectAttribute(QString) const;
 	void setObjectAttributes(ObjAttrVector*);
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
@@ -243,7 +248,7 @@ public:
 	void convertClip();
 	//QRect getRedrawBounding(const double);
 	//void setRedrawBounding();
-	void getBoundingRect(double *x1, double *y1, double *x2, double *y2);
+	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
 	 * No coordinates transformation is performed
@@ -251,7 +256,7 @@ public:
 		@param y Y position
 	 * @return bool true if x, i in the item
 	 */
-	bool pointWithinItem(const int x, const int y);
+	bool pointWithinItem(const int x, const int y) const;
 	/**
 	 * @brief Check if the mouse is within the items boundaries
 	 * This method performs necessary page to device transformations
@@ -261,7 +266,7 @@ public:
 		@param scale scale of the vport
 	 * @return bool true if the x, y is in the bounds 
 	 */
-	bool mouseWithinItem(QWidget* vport, const int x, const int y, double scale);
+	bool mouseWithinItem(QWidget* vport, const int x, const int y, double scale) const;
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
@@ -327,7 +332,7 @@ public:
 	uint ItemNr;
   /** Internal unique Item-Number, used for the undo system */
 	uint uniqueNr;
-  /** Hat Element Rahmen? */
+  /** Hat Element Rahmen? FIXME: still used?*/
 	bool Frame;
   /** Seite zu der das Element gehoert */
 	int OwnPage;
@@ -373,6 +378,8 @@ public:
 	bool isAutoText;
 	PageItem* prevInChain() { return BackBox; }
 	PageItem* nextInChain() { return NextBox; }
+	const PageItem* prevInChain() const { return BackBox; }
+	const PageItem* nextInChain() const { return NextBox; }
 	void unlink();
 	void link(PageItem* nextFrame);
 
@@ -513,7 +520,7 @@ public:
 	QString pattern() const { return patternVal; }
 
 	/** @brief Get the pattern transformation matrix of the object */
-	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation);
+	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation) const;
 
 	/**
 	 * @brief Set the fill pattern of the object.
@@ -836,6 +843,7 @@ public:
 	void setIsAnnotation(bool);
 	void setAnnotation(const Annotation& ad);
 	Annotation& annotation() { return m_annotation; }
+	const Annotation& annotation() const { return m_annotation; }
 	
 	bool imageShown() const { return PicArt; }
 	void setImageShown(bool);

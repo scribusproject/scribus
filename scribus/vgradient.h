@@ -97,7 +97,7 @@ public:
 	class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
 	{
 	protected:
-		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
+		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 ) const;
 	public:
 		// Reimplement inSort so that two color stop with same offset can be found
 		// in the same order they are inserted
@@ -121,7 +121,7 @@ public:
 	void removeStop( const VColorStop& colorStop );
 	void removeStop( uint n );
 	void clearStops();
-	uint Stops() { return m_colorStops.count(); }
+	uint Stops()  const { return m_colorStops.count(); }
 
 	// This function let only one stop with offset value equal to 0 and 1.0
 	// by removing the firsts with 0.0 value and the lasts with 1.0 value;

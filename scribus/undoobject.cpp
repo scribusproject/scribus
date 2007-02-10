@@ -45,7 +45,7 @@ UndoObject::UndoObject(const QString &objectName, QPixmap *objectIcon)
 	upixmap_ = objectIcon;
 }
 
-ulong UndoObject::getUId()
+ulong UndoObject::getUId() const
 {
 	return id_;
 }

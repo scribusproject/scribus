@@ -26,14 +26,14 @@ for which a new license (GPL+exception) is in place.
 #include <algorithm>
 
 // colorStop comparison function for stable_sort function
-bool compareStops( const VColorStop* item1, const VColorStop* item2 )
+bool compareStops( const VColorStop* item1, const VColorStop* item2 ) 
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
 	return ( r1 < r2 ? true : false );
 }
 
-int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
+int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 ) const
 {
 	double r1 = ( (VColorStop*)item1 )->rampPoint;
 	double r2 = ( (VColorStop*)item2 )->rampPoint;

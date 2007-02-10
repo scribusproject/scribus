@@ -27,11 +27,12 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <qstring.h>
+#include "desaxe/saxio.h"
 
 //FIXME: Someone please fix these variable names.. 
 //They are simply moved here, not all fixed.
 //TODO make the usage in various places a little simpler
-class Annotation
+class Annotation : public SaxIO
 {
 	public:
 		//Do we need a null or an empty QString for these? Remove the qstring initialisations if null is ok.
@@ -44,6 +45,7 @@ class Annotation
 		{
 		}
 		
+	void saxx(SaxHandler& handler) const;
 		void setType(int newType) { AnType=newType; }
 		void setAction(const QString& newAction) { AnAction=newAction; }
 		void setE_act(const QString& newE_act) { An_E_act=newE_act; }

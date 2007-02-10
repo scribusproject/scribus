@@ -2066,7 +2066,7 @@ void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX,
 	patternRotation = rotation;
 }
 
-void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation)
+void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation) const
 {
 	 scaleX = patternScaleX;
 	 scaleY = patternScaleY;
@@ -3330,11 +3330,11 @@ ObjAttrVector* PageItem::getObjectAttributes()
 	return &pageItemAttributes;
 }
 
-ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
+ObjectAttribute PageItem::getObjectAttribute(QString attributeName) const
 {
 	int countFound=0;
-	ObjAttrVector::Iterator foundIt = pageItemAttributes.begin();
-	for(ObjAttrVector::Iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
+	ObjAttrVector::const_iterator foundIt = pageItemAttributes.begin();
+	for(ObjAttrVector::const_iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
 	{
 		if ((*objAttrIt).name==attributeName)
 		{
@@ -3636,7 +3636,7 @@ void PageItem::SetFrameRound()
 	FrameType = 2;
 }
 
-void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2)
+void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
 	double minx = 99999.9;
 	double miny = 99999.9;
@@ -3672,9 +3672,9 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2)
 }
 
 
-bool PageItem::pointWithinItem(const int x, const int y)
+bool PageItem::pointWithinItem(const int x, const int y) const
 {
-	setRedrawBounding();
+	const_cast<PageItem*>(this)-> setRedrawBounding();
 	// FIXME: We should be rounding or truncating here, not letting the compiler do it.
 	// Should we be rounding, truncating up, or truncating down?
 	//CB is this now correct?
@@ -3682,7 +3682,7 @@ bool PageItem::pointWithinItem(const int x, const int y)
 	return itemRect.contains(x, y);
 }
 
-bool PageItem::mouseWithinItem(QWidget* vport, const int x, const int y, double scale)
+bool PageItem::mouseWithinItem(QWidget* vport, const int x, const int y, double scale) const
 {
 	QPainter p;
 	QRect transRect;
