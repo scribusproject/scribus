@@ -39,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scpaths.h"
 #include "selection.h"
-// #include "serializer.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
