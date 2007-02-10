@@ -27,12 +27,13 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <qstring.h>
+#include "scribusapi.h"
 #include "desaxe/saxio.h"
 
 //FIXME: Someone please fix these variable names.. 
 //They are simply moved here, not all fixed.
 //TODO make the usage in various places a little simpler
-class Annotation : public SaxIO
+class SCRIBUS_API Annotation : public SaxIO
 {
 	public:
 		//Do we need a null or an empty QString for these? Remove the qstring initialisations if null is ok.
