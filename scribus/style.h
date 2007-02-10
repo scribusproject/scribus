@@ -61,7 +61,7 @@ public:
 		return *this;
 	}
 	
-	Style(const Style& o) : m_name(o.m_name), 
+	Style(const Style& o) : SaxIO(), m_name(o.m_name), 
 		m_context(o.m_context), m_contextversion(o.m_contextversion), m_parent(o.m_parent), m_shortcut(o.m_shortcut) {} 
 	
 	virtual ~Style()                 {}
