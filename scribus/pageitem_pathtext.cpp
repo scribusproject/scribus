@@ -163,7 +163,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->glyph.yadvance = 0;
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
-		totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
+		if (hl->ch[0] == SpecialChars::OBJECT)
+			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+		else
+			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
 	for (uint segs = 0; segs < PoLine.size()-3; segs += 4)
 	{
@@ -196,7 +199,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->glyph.yadvance = 0;
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();                                                           // HACK
-		dx = hl->glyph.wide() / 2.0;
+		if (hl->ch[0] == SpecialChars::OBJECT)
+			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) / 2.0;
+		else
+			dx = hl->glyph.wide() / 2.0;
 //		qDebug(QString("pathtext-draw: parent %1 parentc %2").arg((uint)itemText.paragraphStyle(a).parentStyle()).arg((uint)itemText.charStyle(a).parentStyle()));
 //		qDebug(QString("pathtext-draw: co %1 %2 %3 %4").arg(itemText.charStyle(a).fillColor()).arg(itemText.charStyle(a).fillShade()).arg(itemText.charStyle(a).strokeColor()).arg(itemText.charStyle(a).strokeShade()));
 //		qDebug(QString("pathtext-draw: fo %1 %2").arg(itemText.charStyle(a).font().scName()).arg(hl->glyph.glyph));
@@ -352,11 +358,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		oCurX = CurX;
 		CurX -= dx;
 		if (hl->ch[0] == SpecialChars::OBJECT)
-#ifdef HAVE_CAIRO
 			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
-#else
-			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) *  p->zoomFactor();
-#endif
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
 		first = false;

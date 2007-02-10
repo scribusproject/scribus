@@ -1118,13 +1118,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 {
 	if (!cembedded)
 		return;
-
 	if (!m_Doc->DoDrawing)
-	{
-//		cembedded->Tinput = false;
 		return;
-	}
-
 	QPtrList<PageItem> emG;
 	emG.clear();
 	emG.append(cembedded);
@@ -1145,25 +1140,27 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 			}
 		}
 	}
-	
 	for (uint em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
-		
 		p->save();
-		embedded->Xpos = Xpos //+ hl->glyph.xOffset() 
-			+ embedded->gXpos;
-		embedded->Ypos = Ypos //+ hl->glyph.yOffset() 
-			- (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
-		p->translate((//hl->xco + 
-					  embedded->gXpos * (style.scaleH() / 1000.0)) * p->zoomFactor(), 
-					 (//hl->yco 
-					  - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)) * p->zoomFactor());
+		embedded->Xpos = Xpos + embedded->gXpos;
+		embedded->Ypos = Ypos - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
+#ifdef HAVE_CAIRO
+		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+		if (style.baselineOffset() != 0)
+		{
+			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
+		}
+#else
+		p->translate(( embedded->gXpos * (style.scaleH() / 1000.0)) * p->zoomFactor(), (-(embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)) * p->zoomFactor());
 		if (style.baselineOffset() != 0)
 		{
 			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0) * p->zoomFactor());
 			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
 		}
+#endif
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->Dirty = Dirty;
 		embedded->invalid = invalid;
@@ -1188,7 +1185,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		}
 		embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->DrawObj_Post(p);
-
 		p->restore();
 		embedded->m_lineWidth = pws;
 	}
