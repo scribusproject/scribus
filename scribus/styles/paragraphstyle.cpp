@@ -17,6 +17,8 @@
 
 
 #include "style.h"
+#include "desaxe/saxiohelper.h"
+
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIsInh(true), cstyle()
 {
@@ -53,6 +55,46 @@ ParagraphStyle::~ParagraphStyle()
 //	qDebug(QString("~ParagraphStyle %1").arg(reinterpret_cast<uint>(this)));
 }
 	
+static QString toXMLString(ParagraphStyle::AlignmentType val)
+{
+	return QString::number(static_cast<int>(val));
+}
+
+
+static QString toXMLString(const QValueList<ParagraphStyle::TabRecord> & )
+{
+	return "dummy";
+}
+						  
+void ParagraphStyle::saxx(SaxHandler& handler) const
+{
+	Xml_attr att;
+	if (!name().isEmpty())
+		att.insert("name", name());
+	if (!parent().isEmpty())
+		att.insert("parent", parent());
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	if (!inh_##attr_NAME && # attr_NAME != "TabValues") \
+		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
+#include "paragraphstyle.attrdefs.cxx"
+#undef ATTRDEF
+	handler.begin("style", att);
+	QValueList<ParagraphStyle::TabRecord>::const_iterator it;
+	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
+	{
+		const ParagraphStyle::TabRecord& tb(*it);
+		Xml_attr tab;
+		tab.insert("pos", toXMLString(tb.tabPosition));
+		tab.insert("fillChar", toXMLString(tb.tabFillChar.unicode()));
+		tab.insert("type", toXMLString(tb.tabType));
+		handler.begin("tabstop", tab);
+		handler.end("tabstop");
+	}
+	charStyle().saxx(handler);
+	handler.end("style");
+}
+
+
 QString ParagraphStyle::displayName() const
 {
 	if ( hasName() || !hasParent() || !m_context)

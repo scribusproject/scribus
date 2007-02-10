@@ -240,6 +240,7 @@ aboutplugins.cpp
 actionmanager.cpp
 aligndistribute.cpp
 alignselect.cpp
+annotation.cpp
 annota.cpp
 annot.cpp
 applytemplatedialog.cpp
@@ -356,6 +357,7 @@ newtemp.cpp
 oneclick.cpp
 page.cpp
 pageitem.cpp
+pageitem_desaxe.cpp
 pageitemattributes.cpp
 pageitem_imageframe.cpp
 pageitem_line.cpp

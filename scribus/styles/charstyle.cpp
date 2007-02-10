@@ -11,7 +11,7 @@
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "style.h"
-
+#include "desaxe/saxiohelper.h"
 
 StyleFlag& StyleFlag::operator&= (const StyleFlag& right){        
 	int result = static_cast<int>(value) & static_cast<int>(right.value);        
@@ -95,6 +95,24 @@ bool StyleFlag::operator!= (const StyleFlagValue right) const
 {
 	return !(*this==right);
 }
+
+
+void CharStyle::saxx(SaxHandler& handler) const
+{
+	Xml_attr att;
+	if (!name().isEmpty())
+		att.insert("name", name());
+	if (!parent().isEmpty())
+		att.insert("parent", parent());
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	if (!inh_##attr_NAME) \
+		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
+#include "charstyle.attrdefs.cxx"
+#undef ATTRDEF
+	handler.begin("charstyle", att);
+	handler.end("charstyle");
+}
+
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {

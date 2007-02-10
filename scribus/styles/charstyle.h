@@ -94,6 +94,8 @@ public:
 	
 	CharStyle & operator=(const CharStyle & other);
 	
+	void saxx(SaxHandler& handler) const;
+	
 	QString displayName() const;
 
 	void update(const StyleContext * b);

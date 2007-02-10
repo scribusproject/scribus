@@ -63,6 +63,8 @@ public:
 	ParagraphStyle& operator=(const ParagraphStyle& other);
 	~ParagraphStyle();
 
+	void saxx(SaxHandler& handler) const;
+	
 	QString displayName() const;
 
 	void setContext(const StyleContext* context);

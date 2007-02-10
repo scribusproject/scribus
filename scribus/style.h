@@ -25,6 +25,7 @@
 #include "scribusapi.h"
 #include "sccolor.h"
 #include "styles/stylecontext.h"
+#include "desaxe/saxio.h"
 
 
 /**
@@ -36,7 +37,7 @@
  *  the stored m_contextversion against the StyleContext's version and updates all
  *  attributes if they are different.
  */
-class SCRIBUS_API Style {
+class SCRIBUS_API Style : public SaxIO {
 protected:
 	QString m_name;
 	const StyleContext* m_context;

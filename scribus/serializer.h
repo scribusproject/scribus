@@ -25,31 +25,57 @@ for which a new license (GPL+exception) is in place.
 #define SERIALIZER_H
 
 #include <qstring.h>
+#include <qfile.h>
 #include "scribusapi.h"
-#include "scribusview.h"
+#include "selection.h"
+#include "desaxe/saxio.h"
+
 /**
-  *@author Franz Schmid
+  * This class reads/writes Scribus datastructures from/to SAX streams 
+  * (was done by ScribusXML before). It also serves as a testbed for the new
+  * Scribus 1.4 file format
+  *
+  * Currently it also holds to old methods which are used to read/write text 
+  * from/to a file.
+  *
+  * @author Andreas Vox
   */
 
-class SCRIBUS_API Serializer {
-public: 
-	Serializer(QString name);
-	~Serializer() {};
-	QString Filename;
-	QString Objekt;
-	int Count;
-	
-	QString GetObjekt();
-	void PutText(PageItem *Item);
-	void GetText(PageItem *Item, int Absatz, QString font, int size, bool Append = false);
-	bool Write(QString Cod = "");
-	bool Read(QString Cod = "");
+class ScribusDoc;
 
+class SCRIBUS_API Serializer : public desaxe::Digester {
+public: 
+
+	/** Construct a Serializer object which can be used to (de)serialize Scribus
+		elements. Since it has Digester as a superclass, a Serializer object can
+	    also be used where a SaxHandler is required as argument, eg. the saxx() method.
+	 */
+	Serializer(ScribusDoc& doc);
+	/**
+	  Writes all objects in selection to handler as a fragment. Needed styles and colors
+	  are included.
+	*/
+	static void serializeObjects(const Selection& objects, SaxHandler& handler);
+	/**
+	  Reads objects from the given QString which must represent a fragment, imports them
+	  into the document and returns a (nonGUI) selection to it.
+	*/
+	Selection deserializeObjects(const QString & xml);
+	/**
+	  Reads objects from the given QFile which must represent a fragment, imports them
+	  into the document and returns a (nonGUI) selection to it.
+	 */
+	Selection deserializeObjects(const QFile & xml);
+	
+	/** Legacy method to read plain text for a textframe */
 	static bool readWithEncoding(const QString& filename, const QString& encoding, 
 								 QString & txt);
+	/** Legacy method to write plain text from a textframe */
 	static bool writeWithEncoding(const QString& filename, const QString& encoding, 
 								  const QString& txt);
 
+private:
+		ScribusDoc& m_Doc;
 };
 
 #endif

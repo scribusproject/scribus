@@ -29,6 +29,7 @@ scribus_SOURCES = \
 	aligndistribute.cpp	\
 	aligndistributebase.ui	\
 	alignselect.cpp	\
+	annotation.cpp	\
 	annota.cpp	\
 	annot.cpp	\
 	applytemplatedialog.cpp	\
@@ -153,6 +154,7 @@ scribus_SOURCES = \
 	pageitemattributesbase.ui	\
 	pageitemattributes.cpp	\
 	pageitem.cpp	\
+	pageitem_desaxe.cpp	\
 	pageitem_imageframe.cpp	\
 	pageitem_line.cpp	\
 	pageitem_pathtext.cpp	\

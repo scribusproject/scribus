@@ -12,6 +12,7 @@
 #ifndef SIMPLE_ACTIONS_H
 #define SIMPLE_ACTIONS_H
 
+#include "desaxe/actions.h"
 /*****
 
     Defines the following actions:

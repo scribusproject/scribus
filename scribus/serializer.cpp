@@ -28,82 +28,14 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <qtextcodec.h>
 #include "util.h"
-#include "text/nlsconfig.h"
 
-Serializer::Serializer(QString name)
+Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
-	Filename = name;
-	Objekt = "";
+	// register desaxe rules for styles, colors and elems
 }
 
-QString Serializer::GetObjekt()
-{
-	return Objekt;
-}
 
-void Serializer::PutText(PageItem *Item)
-{
-	int a;
-	QString Dat = "";
-	for (a=0; a < Item->itemText.length(); ++a)
-	{
-		QString b = Item->itemText.text(a, 1);
-		if (b == QChar(13))
-			b = "\n";
-		Dat += b;
-	}
-	Objekt = Dat;
-}
 
-void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
-{
-//	PageItem *nextItem;
-	PageItem *it = Item;
-	ScribusDoc* doku = it->doc();
-	if (Absatz < 0 || Absatz > signed(doku->paragraphStyles().count()))
-		Absatz = 0;
-	
-	if (!Append)
-	{
-		it->itemText.clear();
-		it->CPos = 0;
-	}
-	QString txt = Objekt.remove(QChar(0)).remove(QChar(13));
-	txt = txt.replace(QChar(10), QChar(13)).replace(QChar(5), QChar(13));
-	uint insPos = Append? it->CPos : it->itemText.length();
-	it->itemText.insertChars(insPos, txt);
-	ParagraphStyle newStyle;
-	CharStyle newCharStyle;
-	if ( Absatz > 0 )
-		newStyle.setParent(doku->paragraphStyles()[Absatz].name());
-	if ( !font.isEmpty() )
-		newCharStyle.setFont((*doku->AllFonts)[font]);
-	if ( size > 0 )
-		newCharStyle.setFontSize(size);
-	
-	if (Append)
-	{
-		it->itemText.applyCharStyle(insPos, txt.length(), newCharStyle);
-		for (uint i=0; i < it->itemText.nrOfParagraphs(); ++i) {
-			uint pos = it->itemText.startOfParagraph(i);
-			if (pos >= insPos + txt.length())
-				break;
-			if (pos >= insPos)
-				it->itemText.applyStyle(insPos, newStyle);
-		}
-		it->CPos = insPos + txt.length();
-	}
-	else if ( Absatz >= 0 || !font.isEmpty() || size > 0)
-	{
-		newStyle.charStyle() = newCharStyle;
-		it->itemText.setDefaultStyle(newStyle);
-	}
-}
-
-bool Serializer::Write(QString Cod)
-{
-	return writeWithEncoding(Filename, Cod, Objekt);
-}
 
 bool Serializer::writeWithEncoding(const QString& filename, const QString& encoding, 
 								   const QString& txt)
@@ -124,10 +56,6 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 	return false;
 }
 
-bool Serializer::Read(QString Cod)
-{
-	return readWithEncoding(Filename, Cod, Objekt);
-}
 
 bool Serializer::readWithEncoding(const QString& filename, const QString& encoding, 
 								  QString &txt)
