@@ -118,7 +118,7 @@ public:
 			todo.pop_front();
 			std::map<INPUT,std::set<STATE> > ntrans;
 			// for all states in from
-			typename std::set<STATE>::iterator s_it;
+			typename std::set<STATE>::const_iterator s_it;
 			typename std::map<INPUT, std::set<STATE> >::iterator tr_it;
 			for (s_it=from.begin(); s_it != from.end(); ++s_it)
 			{
@@ -151,7 +151,7 @@ public:
 			}
 		}
 		const std::set<INPUT>& inp(FA_base<STATE, INPUT, std::set<STATE> >::inputs());
-		typename std::set<INPUT>::iterator i;
+		typename std::set<INPUT>::const_iterator i;
 		for (i=inp.begin(); i != inp.end(); ++i)
 			result->addInput(*i);
 		return result;
