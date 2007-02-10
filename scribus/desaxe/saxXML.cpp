@@ -8,6 +8,7 @@
  */
 
 #include <fstream>
+#include <cassert>
 #include "saxXML.h"
 
 using namespace std;
