@@ -180,6 +180,7 @@ for which a new license (GPL+exception) is in place.
 #include "insertaframe.h"
 #include "patterndialog.h"
 #include "sccolorengine.h"
+#include "desaxe/saxXML.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -4628,6 +4629,10 @@ void ScribusMainWindow::slotEditCopy()
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
+			SaxXML tmpfile("tmp-scribus.xml", true);
+			tmpfile.beginDoc();
+			doc->m_Selection->itemAt(0)->saxx(tmpfile);
+			tmpfile.endDoc();
 			Buffer2 = BufferI;
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
@@ -4883,12 +4888,6 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				// K.I.S.S.:
 				currItem->itemText.insertChars(currItem->CPos, Buffer2);
-				/*
-				Serializer *ss = new Serializer("");
-				ss->Objekt = Buffer2;
-				ss->GetText(currItem, -1, "", 0, true);
-				delete ss;
-				 */
 			}
 			view->RefreshItem(currItem);
 		}
@@ -5078,13 +5077,6 @@ void ScribusMainWindow::SaveText()
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.findRev("/")));
-		// time to retire...
-		/*
-		Serializer *se = new Serializer(fn);
-		se->PutText(doc->m_Selection->itemAt(0));
-		se->Write(LoadEnc);
-		delete se;
-		 */
 		const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
 		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));		
 	}
