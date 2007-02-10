@@ -396,7 +396,7 @@ void ScribusDoc::init()
 	
 	docParagraphStyles[0].breakImplicitCharStyleInheritance();
 	docParagraphStyles[0].charStyle().setContext( & docCharStyles );
-	docParagraphStyles[0].charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
+//	docParagraphStyles[0].charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
 
 	currentStyle = pstyle;
 	
@@ -878,7 +878,7 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 		{
 			sty.breakImplicitCharStyleInheritance(true);
 			sty.charStyle().setContext( & docCharStyles );
-			sty.charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
+//			sty.charStyle().setName( "cdocdefault" ); // DONT TRANSLATE
 		}
 		else {
 			sty.breakImplicitCharStyleInheritance(false);
