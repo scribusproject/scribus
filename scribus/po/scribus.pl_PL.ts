@@ -2714,7 +2714,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wersja dla OS/2&amp;#174;/eComStation&amp;#8482;:</translation>
     </message>
 </context>
 <context>
@@ -4049,7 +4049,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Wyrównaj</translation>
+        <translation>Wyrównaj</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4117,7 +4117,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished">Rozmieść</translation>
+        <translation>Rozmieść</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -4857,7 +4857,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps, *.epsi);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -5146,10 +5146,8 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
         <translation>Kod kreskowy niekompletny</translation>
     </message>
     <message>
-        <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
-For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
-If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
-        <translation type="unfinished"></translation>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation>12 lub 13 cyfr rozdzielonych łącznikami. Starszy format ISBN-10 dopuszcza 9 lub 10 cyfr rozdzielonych łącznikami, ale po 1 stycznia 2007 nie zaleca się jego używania (Uwaga: aby zamienić stary format ISBN-10 na nowy format ISBN-13, należy dodać z przodu 978-, np. 1-56592-479-7 -&gt; 978-1-56592-479. Ostateczna liczba kontrolna zostanie obliczona automatycznie)</translation>
     </message>
 </context>
 <context>
@@ -6091,7 +6089,7 @@ proszę wybrać inną nazwę.</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
 </context>
 <context>
@@ -6313,7 +6311,14 @@ proszę wybrać inną nazwę.</translation>
     </message>
     <message>
         <source>Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta znaków</translation>
+    </message>
+</context>
+<context>
+    <name>CharStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation>Bez stylu</translation>
     </message>
 </context>
 <context>
@@ -6625,19 +6630,22 @@ proszę wybrać inną nazwę.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Inne pliki (*.eps *.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Informacja</translation>
+        <translation>Informacja</translation>
     </message>
     <message>
-        <source>The file %1 does not contain any new colors.
-If the file was an EPS try to import it with File -&gt; Import</source>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6992,7 +7000,7 @@ If the file was an EPS try to import it with File -&gt; Import</source>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyncza strona</translation>
+        <translation>Pojedyńcza strona</translation>
     </message>
     <message>
         <source>Double Sided</source>
@@ -7196,6 +7204,72 @@ If the file was an EPS try to import it with File -&gt; Import</source>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation>Definicja użytkownika:</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation>Linia ciągła</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation>Linia przerywana</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation>Linia punktowana</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation>Linia kreskowo-punktowa</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation>Linia punkt punkt kreska</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Left Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Wystający w lewo</translation>
+    </message>
+    <message>
+        <source>Right Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Wystający w prawo</translation>
+    </message>
+    <message>
+        <source>Left Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Interunkcja wystająca z lewej</translation>
+    </message>
+    <message>
+        <source>Right Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Interpunkcja wystająca z prawej</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Domyślny</translation>
+    </message>
+    <message>
+        <source>Min. Word Tracking</source>
+        <translation>Min. odstęp między słowami</translation>
+    </message>
+    <message>
+        <source>Max. Word Tracking</source>
+        <translation>Maks. odstęp między słowami</translation>
+    </message>
+    <message>
+        <source>Min. Glyph Extension</source>
+        <translation>Min. rozciągnięcie glifu</translation>
+    </message>
+    <message>
+        <source>Max. Glyph Extension</source>
+        <translation>Maks. rozciągnięcie glifu</translation>
     </message>
 </context>
 <context>
@@ -10249,11 +10323,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń linie pomocnicze z &amp;aktualnej strony</translation>
     </message>
     <message>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń linie pomocnicze z &amp;wszytkich stron</translation>
     </message>
 </context>
 <context>
@@ -10517,11 +10591,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Aperture:</source>
-        <translation type="unfinished"></translation>
+        <translation>Apertura:</translation>
     </message>
     <message>
         <source>ISO equiv.:</source>
-        <translation type="unfinished"></translation>
+        <translation>ISO equiv.:</translation>
     </message>
 </context>
 <context>
@@ -11195,7 +11269,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj warstwę - odkreśl, aby wyłączyć drukowanie. </translation>
     </message>
     <message>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
@@ -11246,7 +11320,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -11442,7 +11516,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>Standard Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardowe Lorem Ipsum</translation>
     </message>
 </context>
 <context>
@@ -11757,6 +11831,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>New Name:</source>
         <translation>Nowa nazwa:</translation>
     </message>
+    <message>
+        <source>Copy #%1 of</source>
+        <translation type="obsolete">Kopia %1</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation>Kopia %1 z %2</translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -11840,7 +11922,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
@@ -12238,7 +12320,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Styl aktualnego akapitu</translation>
+        <translation type="obsolete">Styl aktualnego akapitu</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -12488,7 +12570,7 @@ Corners:</source>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation>St&amp;yl:</translation>
+        <translation type="obsolete">St&amp;yl:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
@@ -12803,6 +12885,58 @@ Proszę wybrać inną.</translation>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation>Domyślna</translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation>Schodek</translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation>Skośna</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation>Styl &amp;akapitu:</translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation>Styl z&amp;naków:</translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optical Margins:</source>
+        <translation>Optyczne marginesy:</translation>
+    </message>
+    <message>
+        <source>Word Tracking</source>
+        <translation>Odstęp między słowami</translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation>Min:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation>Max:</translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation>Rozciągnięcie glifów</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -12852,27 +12986,27 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Linia ciągła</translation>
+        <translation type="obsolete">Linia ciągła</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Linia przerywana</translation>
+        <translation type="obsolete">Linia przerywana</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Linia punktowana</translation>
+        <translation type="obsolete">Linia punktowana</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Linia kreskowo-punktowa</translation>
+        <translation type="obsolete">Linia kreskowo-punktowa</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Linia punkt punkt kreska</translation>
+        <translation type="obsolete">Linia punkt punkt kreska</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -12895,6 +13029,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Nazwa &quot;%1&quot; nie jest jednoznaczna. Proszę wybrać inną.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -12996,6 +13134,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation>Obrót:</translation>
     </message>
 </context>
 <context>
@@ -13264,7 +13406,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Układ dokumentu</translation>
     </message>
 </context>
 <context>
@@ -13464,7 +13606,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished">Grupa%1</translation>
+        <translation>Grupa%1</translation>
     </message>
 </context>
 <context>
@@ -13502,6 +13644,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>This file contains some unsupported features</source>
         <translation>Ten plik zawiera nieobsługiwane elementy</translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation>Nie udało się zaimportować pliku</translation>
     </message>
 </context>
 <context>
@@ -14279,7 +14425,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Układ dokumentu</translation>
     </message>
 </context>
 <context>
@@ -14421,6 +14567,13 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>D</source>
         <translation type="obsolete">D</translation>
+    </message>
+</context>
+<context>
+    <name>ParaStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation>Bez stylu</translation>
     </message>
 </context>
 <context>
@@ -15710,6 +15863,10 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus nie był w stanie wczytać pliku konfiguracyjnego. &lt;br&gt;%1&lt;br&gt;Zostaną wczytane domyślne ustawienia.</translation>
     </message>
+    <message>
+        <source>PDF 1.5</source>
+        <translation>PDF 1.5</translation>
+    </message>
 </context>
 <context>
     <name>PresetLayout</name>
@@ -16306,7 +16463,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>Grafiki SVG (*.svg);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Grafiki SVG (*.svg);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -16985,7 +17142,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation>Ramka docelowa musi być pusta.</translation>
+        <translation type="obsolete">Ramka docelowa musi być pusta.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
@@ -17374,11 +17531,6 @@ Czy chcesz zastąpić go zapisywanym właśnie plikiem?</translation>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Obiekt nie jest ramką tekstową połączoną z inną ramką, nie da się go odłączyć.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
@@ -18096,7 +18248,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nie można ustalić liczby wierszy w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
@@ -18139,15 +18291,15 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>Niemiecki (Szwajcarski)</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="unfinished">Hebrajskie</translation>
+        <translation>Hebrajski</translation>
     </message>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
-        <translation type="unfinished">Wsparcie dla Scribusa  1.3.0-&gt;1.3.3.7</translation>
+        <translation>Wsparcie dla Scribusa  1.3.0-&gt;1.3.3.7</translation>
     </message>
 </context>
 <context>
@@ -19274,6 +19426,10 @@ converting their vector data into Scribus objects.</source>
         <source>SVG file contains some unsupported features</source>
         <translation>Plik SVG zawiera nieobługiwane właściwości</translation>
     </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation>Nie udało się zaimportować pliku</translation>
+    </message>
 </context>
 <context>
     <name>SVGPlug</name>
@@ -19579,7 +19735,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
-        <translation type="unfinished">Document Scribusa  1.3.0-&gt;1.3.3.7</translation>
+        <translation>Document Scribusa  1.3.0-&gt;1.3.3.7</translation>
     </message>
 </context>
 <context>
@@ -20367,7 +20523,7 @@ materiału wejściowego, aby je poprawić</translation>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation>Ilość kopii: %1
+        <translation type="obsolete">Ilość kopii: %1
 Przesunięcie w poziomie: %2
 Przesunięcie w pionie: %3</translation>
     </message>
@@ -20390,6 +20546,13 @@ Odstęp w pionie: %3</translation>
     <message>
         <source>Default Character Style</source>
         <translation>Domyślny styl znaku</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3
+Rotation: %4</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20890,7 +21053,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Documents (*.sla);;All Files (*)</source>
-        <translation>Dokumenty (*.sla);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Group%1</source>
@@ -21168,7 +21331,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation>Próbujesz przyłączyć ramkę do pełnej ramki, albo do tej samej ramki.</translation>
+        <translation type="obsolete">Próbujesz przyłączyć ramkę do pełnej ramki, albo do tej samej ramki.</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
@@ -21270,6 +21433,18 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <source>Enter Object Size</source>
         <translation>Podaj rozmiar obiektu</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation>NIe został wczytany obrazek</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame which is already linked.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21778,7 +21953,7 @@ You can choose between normal and several color blindness forms</source>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation>Bez stylu</translation>
+        <translation type="obsolete">Bez stylu</translation>
     </message>
 </context>
 <context>
@@ -21817,7 +21992,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -22450,6 +22625,10 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <source>Inde&amp;x</source>
         <translation type="obsolete">&amp;Indeks</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation>Spis treści %1</translation>
     </message>
 </context>
 <context>
@@ -23349,6 +23528,10 @@ połączeń między ramkami.</translation>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Odstęp od górnej krawędzi strony to pierwszej linii pisma</translation>
+    </message>
+    <message>
+        <source>px</source>
+        <translation>px</translation>
     </message>
 </context>
 <context>
@@ -24328,7 +24511,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyncza strona</translation>
+        <translation>Pojedyńcza strona</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -24554,7 +24737,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Układ dokumentu</translation>
     </message>
 </context>
 <context>
@@ -25209,6 +25392,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Degrees</source>
+        <translation>Stopnie</translation>
     </message>
 </context>
 <context>
@@ -25982,6 +26169,18 @@ X: %4, Y: %5</translation>
     <message>
         <source>Set start and end arrows</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove all guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopiuj</translation>
+    </message>
+    <message>
+        <source>Copy page</source>
+        <translation>Kopiuj stronę</translation>
     </message>
 </context>
 <context>
