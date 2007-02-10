@@ -1,6 +1,6 @@
 noinst_LTLIBRARIES=libdesaxe.la
 METASOURCES = AUTO
-libdesaxe_la_SOURCES=digster.cpp digester_parse.cpp saxXML.cpp saxiohelper.cpp
+libdesaxe_la_SOURCES=digester.cpp digester_parse.cpp saxXML.cpp saxiohelper.cpp
 
 EXTRA_DIST = acions.h automata.h base_ations.h control_actions.h desaxe_conf.h digester.h prog_actions.h saxXML.h saxhandler.h saxio.h simple_actions.h saxiohelper.h
 
