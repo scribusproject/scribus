@@ -33,9 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "text/nlsconfig.h"
 
-// We use some common routines defined in fileloader.h
-#include "fileloader.h"
-
 #include <iostream>
 
 #include "scconfig.h"
@@ -51,14 +48,6 @@ ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
 }
-
-// bool ScriXmlDoc::IsScribus(QString fileName)
-// {
-// 	QString fText(FileLoader::readSLA(fileName));
-// 	if ((fText.isEmpty()) || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", true) == 0))
-// 		return false;
-// 	return true;
-// }
 
 void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj)
 {

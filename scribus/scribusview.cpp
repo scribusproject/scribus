@@ -6180,13 +6180,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						{
 							// K.I.S.S.:
 							currItem->itemText.insertChars(0, cc);
-							/*
-							Serializer *ss = new Serializer("");
-							ss->Objekt = cc;
-							ss->GetText(currItem, -1, "", 0, true);
-							delete ss;
-							ss=NULL;
-							 */
 							if (Doc->docHyphenator->AutoCheck)
 								Doc->docHyphenator->slotHyphenate(currItem);
 							emit ChBMText(currItem);
@@ -10947,7 +10940,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->LeftLinkID = Buffer->LeftLinkID;
 	currItem->RightLinkID = Buffer->RightLinkID;
 	currItem->BottomLinkID = Buffer->BottomLinkID;
-	currItem->Clip = Buffer->Clip.copy();
+	currItem->Clip = Buffer->Clip.copy(); //irrelevant, overwritten below
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;
 	currItem->textPathFlipped = Buffer->textPathFlipped;

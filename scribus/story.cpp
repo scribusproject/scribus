@@ -2821,22 +2821,6 @@ void StoryEditor::LoadTextFile()
 		if (!fileName.isEmpty())
 		{
 			dirs->set("story_load", fileName.left(fileName.findRev("/")));
-			// time to retire...
-			/*
-			Serializer *ss = new Serializer(fileName);
-			if (ss->Read(LoadEnc))
-			{
-				QString data = ss->GetObjekt();
-				data.replace(QRegExp("\r"), "");
-				data.replace(QRegExp("\n"), QChar(13));
-				Editor->loadText(data, currItem);
-				seActions["editPaste"]->setEnabled(false);
-				seActions["editCopy"]->setEnabled(false);
-				seActions["editCut"]->setEnabled(false);
-				seActions["editClear"]->setEnabled(false);
-			}
-			delete ss;
-			 */
 			QString txt;
 			if (Serializer::readWithEncoding(fileName, LoadEnc, txt))
 			{
@@ -2878,12 +2862,6 @@ void StoryEditor::SaveTextFile()
 	{
 		dirs->set("story_save", fileName.left(fileName.findRev("/")));
 		Serializer::writeWithEncoding(fileName, LoadEnc, Editor->text());
-		/*
-		Serializer *ss = new Serializer(fileName);
-		ss->Objekt = Editor->text();
-		ss->Write(LoadEnc);
-		delete ss;
-		 */
 	}
 	blockUpdate = false;
 }
