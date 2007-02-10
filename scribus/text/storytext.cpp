@@ -244,8 +244,8 @@ void StoryText::insertParSep(int pos)
 	if(!it->parstyle) {
 		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
-		it->parstyle->setName("para"); // DONT TRANSLATE
-		it->parstyle->charStyle().setName("cpara"); // DONT TRANSLATE
+//		it->parstyle->setName("para"); // DONT TRANSLATE
+//		it->parstyle->charStyle().setName("cpara"); // DONT TRANSLATE
 //		it->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 	}
 	d->replaceCharStyleContextInParagraph(pos, it->parstyle->charStyleContext());
@@ -475,8 +475,8 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
 		that->d->current()->parstyle = new ParagraphStyle();
 		that->d->current()->parstyle->setContext( & d->pstyleContext);
-		that->d->current()->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
-		that->d->current()->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DONT TRANSLATE
+//		that->d->current()->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
+//		that->d->current()->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DONT TRANSLATE
 //		that->d->current()->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
 	else {
@@ -499,8 +499,8 @@ void StoryText::setDefaultStyle(const ParagraphStyle& style)
 	const StyleContext * oldCContext = d->defaultStyle.charStyle().context();
 	d->defaultStyle = style;
 	d->defaultStyle.setContext( oldPContext );
-	d->defaultStyle.setName( "storydefault" ); // DONT TRANSLATE
-	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DONT TRANSLATE
+//	d->defaultStyle.setName( "storydefault" ); // DONT TRANSLATE
+//	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DONT TRANSLATE
 //	qDebug(QString("defstyle %1 context %2 defcstyle %3 ccontext %4 newcontext %5")
 //		   .arg((uint)&d->defaultStyle,16).arg((uint)oldPContext,16)
 //		   .arg((uint)&d->defaultStyle.charStyle(),16).arg((uint)oldCContext,16)
@@ -586,8 +586,8 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
-			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DONT TRANSLATE
-			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DONT TRANSLATE
+//			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DONT TRANSLATE
+//			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DONT TRANSLATE
 //			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 		}
 //		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
@@ -618,8 +618,8 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
-			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DONT TRANSLATE
-			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DONT TRANSLATE
+//			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DONT TRANSLATE
+//			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DONT TRANSLATE
 //			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 		}
 		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
@@ -1163,5 +1163,110 @@ int StoryText::endOfItem(uint itm) const
 	assert( static_cast<int>(itm) < length() );
 
 	return itm + 1;
+}
+
+
+
+void StoryText::saxx(SaxHandler& handler) const
+{
+	Xml_attr empty;
+	Xml_attr pageno;
+	pageno.insert("name", "pgno");
+
+	handler.begin("text-content", empty);
+	defaultStyle().saxx(handler);
+
+	CharStyle lastStyle;
+	bool lastWasPar = true;
+	int lastPos = 0;
+	for (int i=0; i < length(); ++i)
+	{
+		const QChar curr(text(i));
+		const CharStyle& style(charStyle(i));
+		
+		if (curr == SpecialChars::OBJECT ||
+			curr == SpecialChars::TAB ||
+			curr == SpecialChars::PARSEP ||
+			curr == SpecialChars::LINEBREAK ||
+			curr == SpecialChars::COLBREAK ||
+			curr == SpecialChars::FRAMEBREAK ||
+			curr == SpecialChars::PAGENUMBER ||
+			curr.unicode() < 32 || 
+			(0xd800 <= curr.unicode() && curr.unicode() < 0xe000) ||
+			curr.unicode() == 0xfffe || curr.unicode() == 0xffff ||
+			style != lastStyle)
+		{
+			// something new, write pending chars
+			if  (i - lastPos > 0)
+			{
+				handler.chars(text(lastPos, i-lastPos));
+			}
+			lastPos = i;
+		}
+
+		lastWasPar = (curr == SpecialChars::PARSEP);
+		if (lastWasPar)
+		{
+			handler.begin("para", empty);
+			paragraphStyle(i).saxx(handler);
+			handler.end("para");
+		}
+		else if (curr == SpecialChars::OBJECT && object(i) != NULL)
+		{
+			object(i)->saxx(handler);
+		}
+		else if (curr == SpecialChars::TAB)
+		{
+			handler.begin("tab", empty);
+			handler.end("tab");
+		}
+		else if (curr == SpecialChars::LINEBREAK)
+		{
+			handler.begin("breakline", empty);
+			handler.end("breakline");
+		}
+		else if (curr == SpecialChars::COLBREAK)
+		{
+			handler.begin("breakcol", empty);
+			handler.end("breakcol");
+		}
+		else if (curr == SpecialChars::FRAMEBREAK)
+		{
+			handler.begin("breakframe", empty);
+			handler.end("breakframe");
+		}
+		else if (curr == SpecialChars::PAGENUMBER)
+		{
+			handler.begin("var", pageno);
+			handler.end("var");
+		}
+		else if (curr.unicode() < 32 || 
+				 (0xd800 <= curr.unicode() && curr.unicode() < 0xe000) ||
+				 curr.unicode() == 0xfffe || curr.unicode() == 0xffff)
+		{
+			Xml_attr unic;
+			unic.insert("code", QString::number(curr.unicode()));
+			handler.begin("unicode", unic);
+			handler.end("unicode");
+		}
+		else if (lastStyle != style)
+		{
+			style.saxx(handler);
+			lastStyle = style;
+			continue;
+		}
+		else
+			continue;
+		lastPos = i+1;
+	}
+	
+	if  (length() - lastPos > 0)
+		handler.chars(text(lastPos, length()-lastPos));
+	
+	if (!lastWasPar)
+		paragraphStyle(length()-1).saxx(handler);
+	
+	handler.end("text-content");
+
 }
 

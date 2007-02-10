@@ -37,6 +37,7 @@ pageitem.cpp  -  description
 #include "text/specialchars.h"
 #include "sctextstruct.h"
 #include "style.h"
+#include "desaxe/saxio.h"
 
 #ifdef NLS_CONFORMANCE
 #define NLS_PRIVATE private
@@ -83,7 +84,7 @@ struct LineSpec
  * offsets to its basepoint. Other information in the ScriptItem is only
  * used by the layouter.
  */
-class SCRIBUS_API StoryText : public QObject 
+class SCRIBUS_API StoryText : public QObject, public SaxIO
 {
 	Q_OBJECT
 	
@@ -93,6 +94,7 @@ class SCRIBUS_API StoryText : public QObject
  	StoryText(const StoryText & other);
  	StoryText& operator= (const StoryText & other);
  	virtual ~StoryText();
+	virtual void saxx(SaxHandler& handler) const;
  	void clear();
 	StoryText copy() const;
 	void insert(int pos, const StoryText& other, bool onlySelection = false);
