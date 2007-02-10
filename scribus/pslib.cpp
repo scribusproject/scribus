@@ -2584,9 +2584,30 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
 					QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
+					QPtrStack<PageItem> groupStack;
 					for (uint em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
+						if (embedded->isGroupControl)
+						{
+							PS_save();
+							FPointArray cl = embedded->PoLine.copy();
+							QWMatrix mm;
+							mm.translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)) * -1);
+							if (style.baselineOffset() != 0)
+								mm.translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
+							if (style.scaleH() != 1000)
+								mm.scale(style.scaleH() / 1000.0, 1);
+							if (style.scaleV() != 1000)
+								mm.scale(1, style.scaleV() / 1000.0);
+							mm.rotate(embedded->rotation());
+							cl.map( mm );
+							SetClipPath(&cl);
+							PS_closepath();
+							PS_clip(true);
+							groupStack.push(embedded->groupsLastItem);
+							continue;
+						}
 						PS_save();
 						PS_translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)));
 						if (style.baselineOffset() != 0)
@@ -2597,6 +2618,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_scale(1, style.scaleV() / 1000.0);
 						ProcessItem(Doc, a, embedded, PNr, sep, farb, ic, gcr, master, true);
 						PS_restore();
+						if (groupStack.count() != 0)
+						{
+							while (embedded == groupStack.top())
+							{
+								PS_restore();
+								groupStack.pop();
+							}
+						}
 					}
 					PS_restore();
 					continue;
@@ -3548,10 +3577,30 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 	{
 		QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
-
+		QPtrStack<PageItem> groupStack;
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
+			if (embedded->isGroupControl)
+			{
+				PS_save();
+				FPointArray cl = embedded->PoLine.copy();
+				QWMatrix mm;
+				mm.translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)));
+				if (cstyle.baselineOffset() != 0)
+					mm.translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
+				if (cstyle.scaleH() != 1000)
+					mm.scale(cstyle.scaleH() / 1000.0, 1);
+				if (cstyle.scaleV() != 1000)
+					mm.scale(1, cstyle.scaleV() / 1000.0);
+				mm.rotate(embedded->rotation());
+				cl.map( mm );
+				SetClipPath(&cl);
+				PS_closepath();
+				PS_clip(true);
+				groupStack.push(embedded->groupsLastItem);
+				continue;
+			}
 			PS_save();
 			PS_translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
 			if (cstyle.baselineOffset() != 0)
@@ -3562,6 +3611,14 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				PS_scale(1, cstyle.scaleV() / 1000.0);
 			ProcessItem(Doc, pg, embedded, argh, sep, farb, ic, gcr, master, true);
 			PS_restore();
+			if (groupStack.count() != 0)
+			{
+				while (embedded == groupStack.top())
+				{
+					PS_restore();
+					groupStack.pop();
+				}
+			}
 		}
 		return;
 	}

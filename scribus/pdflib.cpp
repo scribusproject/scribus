@@ -3973,9 +3973,35 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	if ((hl->ch == SpecialChars::OBJECT) && (embedded.hasItem()))
 	{
 		QPtrList<PageItem> emG = embedded.getGroupedItems();
+		QPtrStack<PageItem> groupStack;
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
+			if (embedded->isGroupControl)
+			{
+				tmp2 += "q\n";
+				FPointArray cl = embedded->PoLine.copy();
+				FPointArray clb = embedded->PoLine.copy();
+				QWMatrix mm;
+				if (ite->asPathText())
+					mm.translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)) * -1);
+				else
+					mm.translate(x + hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+				if (style.baselineOffset() != 0)
+					mm.translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
+				if (style.scaleH() != 1000)
+					mm.scale(style.scaleH() / 1000.0, 1);
+				if (style.scaleV() != 1000)
+					mm.scale(1, style.scaleV() / 1000.0);
+				mm.rotate(embedded->rotation());
+				cl.map( mm );
+				embedded->PoLine = cl;
+				tmp2 += SetClipPath(embedded);
+				tmp2 += "h W* n\n";
+				groupStack.push(embedded->groupsLastItem);
+				embedded->PoLine = clb.copy();
+				continue;
+			}
 			tmp2 += "q\n";
 			if (ite->asPathText())
 				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
@@ -3983,6 +4009,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
 			tmp2 += PDF_ProcessItem(embedded, pag, PNr, true);
 			tmp2 += "Q\n";
+			if (groupStack.count() != 0)
+			{
+				while (embedded == groupStack.top())
+				{
+					tmp2 += "Q\n";
+					groupStack.pop();
+				}
+			}
 		}
 		if (ite->asPathText())
 		{

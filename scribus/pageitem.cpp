@@ -1121,6 +1121,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 	if (!m_Doc->DoDrawing)
 		return;
 	QPtrList<PageItem> emG;
+	QPtrStack<PageItem> groupStack;
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
@@ -1162,6 +1163,21 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		}
 #endif
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		if (embedded->isGroupControl)
+		{
+			p->restore();
+			p->save();
+#ifdef HAVE_CAIRO
+			FPointArray cl = embedded->PoLine.copy();
+			QWMatrix mm;
+			mm.translate(embedded->Xpos-Xpos, embedded->Ypos-Ypos);
+			mm.rotate(embedded->rotation());
+			cl.map( mm );
+			p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
+#endif
+			groupStack.push(embedded->groupsLastItem);
+			continue;
+		}
 		embedded->Dirty = Dirty;
 		embedded->invalid = invalid;
 		double sc;
@@ -1186,6 +1202,17 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->DrawObj_Post(p);
 		p->restore();
+		if (groupStack.count() != 0)
+		{
+			while (embedded == groupStack.top())
+			{
+#ifdef HAVE_CAIRO
+				p->endLayer();
+#endif
+				p->restore();
+				groupStack.pop();
+			}
+		}
 		embedded->m_lineWidth = pws;
 	}
 }
