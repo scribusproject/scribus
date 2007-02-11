@@ -674,6 +674,8 @@ QPtrList<PageItem> OODPlug::parseElement(const QDomElement &e)
 		GElements = parseTextBox(e);
 	else if ( STag == "draw:frame" )
 		GElements = parseFrame(e);
+	else if ( STag == "draw:connector" )
+		GElements = parseConnector(e);
 	else
 	{
 		// warn if unsupported feature are encountered
@@ -946,6 +948,21 @@ QPtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
 			*/
 			firstPa = true;
 		}
+	}
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parseConnector(const QDomElement &e)
+{
+	QPtrList<PageItem> elements;
+	if (e.hasAttribute("svg:x1") && e.hasAttribute("svg:x2") && e.hasAttribute("svg:y1") && e.hasAttribute("svg:y2"))
+	{
+		elements = parseLine(e);
+	}
+	else
+	{
+		unsupported = true;
+		qDebug("an unsupported form of connector was found");
 	}
 	return elements;
 }

@@ -115,6 +115,7 @@ protected:
 	QPtrList<PageItem> parsePath(const QDomElement &e);
 	QPtrList<PageItem> parseTextBox(const QDomElement &e);
 	QPtrList<PageItem> parseFrame(const QDomElement &e);
+	QPtrList<PageItem> parseConnector(const QDomElement &e);
 	void parseStyle(OODrawStyle& style, const QDomElement &e);
 	void finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawStyle& oostyle);
 	void createStyleMap( QDomDocument &docstyles );
