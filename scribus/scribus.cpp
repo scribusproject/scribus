@@ -1360,7 +1360,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							break;
 						}
 					}
-					doc->OpenNodes = outlinePalette->buildReopenVals();
+//					doc->OpenNodes = outlinePalette->buildReopenVals();
 					docCheckerPalette->clearErrorList();
 					if ( w )
 						w->showNormal();
@@ -2011,10 +2011,10 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 
 ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView)
 {
-	if (HaveDoc)
-	{
-		doc->OpenNodes = outlinePalette->buildReopenVals();
-	}
+//	if (HaveDoc)
+//	{
+//		doc->OpenNodes = outlinePalette->buildReopenVals();
+//	}
 	undoManager->setUndoEnabled(false);
 	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
 	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
@@ -2268,8 +2268,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 
 void ScribusMainWindow::windowsMenuActivated( int id )
 {
-	if (HaveDoc)
-		doc->OpenNodes = outlinePalette->buildReopenVals();
+//	if (HaveDoc)
+//		doc->OpenNodes = outlinePalette->buildReopenVals();
 	QWidget* windowWidget = wsp->windowList().at( id );
 	if ( windowWidget )
 		windowWidget->showNormal();
@@ -3371,8 +3371,8 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 	bool ret = false;
 	if (!fileName.isEmpty())
 	{
-		if (!Mpa)
-			doc->OpenNodes = outlinePalette->buildReopenVals();
+//		if (!Mpa)
+//			doc->OpenNodes = outlinePalette->buildReopenVals();
 		FileLoader *fl = new FileLoader(fileName);
 		if (fl->TestFile() == -1)
 		{
@@ -3415,7 +3415,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		if (!Mpa)
 		{
 			outlinePalette->BuildTree();
-			outlinePalette->reopenTree(doc->OpenNodes);
+//			outlinePalette->reopenTree(doc->OpenNodes);
 			scanDocument();
 			docCheckerPalette->buildErrorList(doc);
 		}
@@ -4880,7 +4880,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
 				outlinePalette->BuildTree();
-				outlinePalette->reopenTree(doc->OpenNodes);
+//				outlinePalette->reopenTree(doc->OpenNodes);
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
 				currItem->CPos += 1;
 			}
@@ -6251,7 +6251,7 @@ void ScribusMainWindow::MovePage()
 			view->DrawNew();
 			pagePalette->RebuildPage();
 			outlinePalette->BuildTree();
-			outlinePalette->reopenTree(doc->OpenNodes);
+//			outlinePalette->reopenTree(doc->OpenNodes);
 		}
 	}
 	delete dia;
@@ -7844,7 +7844,7 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 		vie->DrawNew();
 		if (doc == docc)
 		{
-			doc->OpenNodes = outlinePalette->buildReopenVals();
+//			doc->OpenNodes = outlinePalette->buildReopenVals();
 			buildFontMenu();
 			propertiesPalette->updateColorList();
 			propertiesPalette->paraStyleCombo->updateFormatList();
@@ -7852,7 +7852,7 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 			propertiesPalette->SetLineFormats(docc);
 //			outlinePalette->BuildTree();
 			slotDocCh();
-			outlinePalette->reopenTree(doc->OpenNodes);
+//			outlinePalette->reopenTree(doc->OpenNodes);
 		}
 	}
 	delete ss;
@@ -7923,7 +7923,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			pagePalette->enablePalette(false);
 			dia->show();
 			ActWin->setMasterPagesPalette(dia);
-			doc->OpenNodes = outlinePalette->buildReopenVals();
+//			doc->OpenNodes = outlinePalette->buildReopenVals();
 		}
 	}
 }

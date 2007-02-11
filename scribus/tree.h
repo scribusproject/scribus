@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include <qpixmap.h>
+#include <qlistview.h>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -17,11 +18,21 @@ for which a new license (GPL+exception) is in place.
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class QListView;
-class QListViewItem;
 class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
+class Page;
+
+class SCRIBUS_API TreeItem : public QListViewItem
+{
+public:
+	TreeItem(TreeItem* parent, TreeItem* after);
+	TreeItem(QListView* parent, TreeItem* after);
+	~TreeItem() {};
+	PageItem *PageItemObject;
+	Page *PageObject;
+	int type;
+};
 
 class SCRIBUS_API Tree : public ScrPaletteBase
 {
@@ -41,7 +52,7 @@ public:
 	void reopenTree(QValueList<int> op);
 	QListViewItem* getListItem(uint SNr, int Nr);
 	void setItemIcon(QListViewItem *item, int typ);
-	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onMasterPage);
+	void parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGroupList, int itemType);
 	QValueList<int> buildReopenVals();
 
 public slots:
@@ -74,19 +85,6 @@ protected:
 	void clearPalette();
 	int idElemCol;
 	QListView* reportDisplay;
-	QMap<QListViewItem*, int> itemMap;
-	QMap<QListViewItem*, int> groupMap;
-	QMap<QListViewItem*, int> pageMap;
-	QMap<QListViewItem*, int> masterPageItemMap;
-	QMap<QListViewItem*, int> masterPageGroupMap;
-	QMap<QListViewItem*, QString> masterPageMap;
-/* Reverse mapping for selecting Listview Items */
-	QMap<int, QListViewItem*> itemMapRev;
-	QMap<int, QListViewItem*> groupMapRev;
-	QMap<int, QListViewItem*> pageMapRev;
-	QMap<int, QListViewItem*> masterPageItemMapRev;
-	QMap<int, QListViewItem*> masterPageGroupMapRev;
-	QMap<QString, QListViewItem*> masterPageMapRev;
 	QListViewItem* freeObjects;
 	QListViewItem* rootObject;
 	ScribusMainWindow* m_MainWindow;
