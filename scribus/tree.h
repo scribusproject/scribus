@@ -59,6 +59,7 @@ public slots:
 	void BuildTree(bool storeVals = true);
 	void languageChange();
 	void slotShowSelect(uint SNr, int Nr);
+	void setPaletteShown(bool);
 
 signals:
 	void ToggleAllPalettes();

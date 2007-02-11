@@ -58,7 +58,7 @@ for which a new license (GPL+exception) is in place.
 	#define SPLITHC SplitHCursor
 #endif
 #include "scribus.h"
-#include "tree.h"
+//#include "tree.h"
 #include "mpalette.h"
 #include "scribusXml.h"
 #include "selection.h"
@@ -6183,7 +6183,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							if (Doc->docHyphenator->AutoCheck)
 								Doc->docHyphenator->slotHyphenate(currItem);
 							emit ChBMText(currItem);
-							m_ScMW->outlinePalette->BuildTree();
+//							m_ScMW->outlinePalette->BuildTree();
 						}
 						else
 						{
@@ -9530,7 +9530,7 @@ void ScribusView::ToBack()
 {
 	if (Doc->sendItemSelectionToBack())
 	{
-		m_ScMW->outlinePalette->BuildTree();
+//		m_ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
 		updateContents();
@@ -9542,7 +9542,7 @@ void ScribusView::ToFront()
 {
 	if (Doc->bringItemSelectionToFront())
 	{
-		m_ScMW->outlinePalette->BuildTree();
+//		m_ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -9596,7 +9596,7 @@ void ScribusView::LowerItem()
 		}
 		Doc->m_Selection->clear();
 		Doc->renumberItemsInListOrder();
-		m_ScMW->outlinePalette->BuildTree();
+//		m_ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);
 		*Doc->m_Selection=tempSelection;
@@ -9655,7 +9655,7 @@ void ScribusView::RaiseItem()
 		}
 		Doc->m_Selection->clear();
 		Doc->renumberItemsInListOrder();
-		m_ScMW->outlinePalette->BuildTree();
+//		m_ScMW->outlinePalette->BuildTree();
 		if (wasGUISelection)
 			tempSelection.setIsGUISelection(true);
 		*Doc->m_Selection=tempSelection;

@@ -74,7 +74,6 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 //	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
 }
 
-
 void Tree::setMainWindow(ScribusMainWindow *mw)
 {
 	m_MainWindow=mw;
@@ -96,6 +95,13 @@ void Tree::unsetDoc()
 {
 	currDoc=NULL;
 	clearPalette();
+}
+
+void Tree::setPaletteShown(bool visible)
+{
+	ScrPaletteBase::setPaletteShown(visible);
+	if ((visible) && (currDoc != NULL))
+		BuildTree();
 }
 
 /*void Tree::keyPressEvent(QKeyEvent *k)
@@ -615,7 +621,6 @@ void Tree::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	Q_ASSERT(currDoc!=NULL);
 	if (currDoc==NULL)
 		return;
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));

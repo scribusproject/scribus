@@ -2244,8 +2244,11 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	if (!doc->masterPageMode())
 		pagePalette->Rebuild();
 	outlinePalette->setDoc(doc);
-	outlinePalette->BuildTree(false);
-	outlinePalette->reopenTree();
+	if (outlinePalette->isVisible())
+	{
+		outlinePalette->BuildTree(false);
+		outlinePalette->reopenTree();
+	}
 	RestoreBookMarks();
 	if (!doc->isLoading())
 	{
@@ -2489,7 +2492,8 @@ void ScribusMainWindow::HaveNewDoc()
 	guidePalette->setDoc(doc);
 	charPalette->setDoc(doc);
 	outlinePalette->setDoc(doc);
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
@@ -3064,8 +3068,8 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	ActWin->setMenuStatus(1, scrActions["fileClose"]->isEnabled());
 	ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
 	ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
-
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 }
 
 void ScribusMainWindow::updateRecent(QString fn)
@@ -3405,7 +3409,6 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 		if (!Mpa)
 		{
-			outlinePalette->BuildTree();
 			scanDocument();
 			docCheckerPalette->buildErrorList(doc);
 		}
@@ -4869,7 +4872,8 @@ void ScribusMainWindow::slotEditPaste()
 				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
-				outlinePalette->BuildTree();
+				if (outlinePalette->isVisible())
+					outlinePalette->BuildTree();
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
 				currItem->CPos += 1;
 			}
@@ -5086,7 +5090,8 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
 	doc->addPageToSection(wo, 1, 1);
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 }
 
@@ -5198,7 +5203,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	pagePalette->RebuildPage();
 	view->reformPages(mov);
 	view->DrawNew();
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 
 	undoManager->setUndoEnabled(true);
 
@@ -5220,15 +5226,6 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 {
 	doc->addPage(w, masterPageName, true);
 	view->addPage(w, mov);
-/*	if ((!doc->loading) && (!doc->masterPageMode))
-		outlinePalette->BuildTree(doc); */
-/*	if ((!doc->loading) && (!doc->masterPageMode))
-	{
-		AdjustBM();
-		if ((doc->PageAT) && (doc->pageCount != 1))
-			outlinePalette->slotAddElement(w, 0);
-	}
-	slotDocCh(!doc->loading); */
 }
 
 
@@ -6133,8 +6130,8 @@ void ScribusMainWindow::DeletePage2(int pg)
 	undoManager->setUndoEnabled(true); // ugly hack continues
 	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
-	doc->OpenNodes.clear();
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	//CB done by doc::reformpages
 	//slotDocCh();
 	pagePalette->RebuildPage();
@@ -6215,7 +6212,8 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	undoManager->setUndoEnabled(true); // ugly hack continues
 	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -6237,7 +6235,8 @@ void ScribusMainWindow::MovePage()
 			view->reformPages();
 			view->DrawNew();
 			pagePalette->RebuildPage();
-			outlinePalette->BuildTree();
+			if (outlinePalette->isVisible())
+				outlinePalette->BuildTree();
 		}
 	}
 	delete dia;
@@ -6257,7 +6256,8 @@ void ScribusMainWindow::CopyPage()
 		view->Deselect(true);
 		view->DrawNew();
 		pagePalette->RebuildPage();
-		outlinePalette->BuildTree();
+		if (outlinePalette->isVisible())
+			outlinePalette->BuildTree();
 	}
 	delete dia;
 }
@@ -7946,7 +7946,8 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	view->DrawNew();
 	pagePalette->Rebuild();
-	outlinePalette->BuildTree();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 //	slotDocCh();
 }
 
