@@ -275,6 +275,7 @@ bool OODPlug::convert(int flags)
 	bool isOODraw2 = false;
 	QDomNode drawPagePNode;
 	int PageCounter = 0;
+	QPtrList<PageItem> Elements;
 	createStyleMap( inpStyles );
 	QDomElement docElem = inpContents.documentElement();
 	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
@@ -390,7 +391,9 @@ bool OODPlug::convert(int flags)
 		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );
-		parseGroup( dpg );
+		QPtrList<PageItem> el = parseGroup( dpg );
+		for (uint ec = 0; ec < el.count(); ++ec)
+			Elements.append(el.at(ec));
 		if ((interactive) && (PageCounter == 1))
 			break;
 	}
@@ -548,592 +551,683 @@ bool OODPlug::convert(int flags)
 
 QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 {
-	QPtrList<PageItem> GElements;
+	OODrawStyle oostyle;
 	FPointArray ImgClip;
-	ImgClip.resize(0);
-	VGradient gradient;
-	double GradientAngle = 0;
-	double xGoff = 0;
-	double yGoff= 0;
-	bool HaveGradient = false;
-	int GradientType = 0;
+	QPtrList<PageItem> elements, cElements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
-	double lwidth = 0;
-	double x, y, w, h;
-	double FillTrans = 0;
-	double StrokeTrans = 0;
-	QValueList<double> dashes;
+	storeObjectStyles(e);
+	parseStyle(oostyle, e);
+	QString drawID = e.attribute("draw:name");
+	int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem *neu = m_Doc->Items->at(zn);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		QString StrokeColor = CommonStrings::None;
-		QString FillColor = CommonStrings::None;
-		FillTrans = 0;
-		StrokeTrans = 0;
-		int z = -1;
-		dashes.clear();
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
-		QString STag = b.tagName();
-		QString drawID = b.attribute("draw:name");
-		storeObjectStyles(b);
-		if( m_styleStack.hasAttribute("draw:stroke") )
+		QPtrList<PageItem> el = parseElement(b);
+		for (uint ec = 0; ec < el.count(); ++ec)
+			cElements.append(el.at(ec));
+	}
+	if (cElements.count() < 2)
+	{
+		m_Doc->Items->take(zn);
+		delete neu;
+		for (uint a = 0; a < m_Doc->Items->count(); ++a)
 		{
-			if( m_styleStack.attribute( "draw:stroke" ) == "none" )
-				lwidth = 0.0;
+			m_Doc->Items->at(a)->ItemNr = a;
+		}
+		for (uint gr = 0; gr < cElements.count(); ++gr)
+		{
+			elements.append(cElements.at(gr));
+		}
+	}
+	else
+	{
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		elements.append(neu);
+		for (uint gr = 0; gr < cElements.count(); ++gr)
+		{
+			PageItem* currItem = cElements.at(gr);
+			double lw = currItem->lineWidth() / 2.0;
+			if (currItem->rotation() != 0)
+			{
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = QMIN(minx, pb.point(pc).x());
+					miny = QMIN(miny, pb.point(pc).y());
+					maxx = QMAX(maxx, pb.point(pc).x());
+					maxy = QMAX(maxy, pb.point(pc).y());
+				}
+			}
 			else
 			{
-				if( m_styleStack.hasAttribute("svg:stroke-width"))
-				{
-					lwidth = parseUnit(m_styleStack.attribute("svg:stroke-width"));
-					if (lwidth == 0)
-						lwidth = 1;
-				}
-				if( m_styleStack.hasAttribute("svg:stroke-color"))
-					StrokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
-				if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
-					StrokeTrans = m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' ).toDouble() / 100.0;
-				if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
-				{
-					QString style = m_styleStack.attribute( "draw:stroke-dash" );
-					if( style == "Ultrafine Dashed")
-						dashes << 1.4 << 1.4;
-					else if( style == "Fine Dashed" )
-						dashes << 14.4 << 14.4;
-					else if( style == "Fine Dotted")
-						dashes << 13 << 13;
-					else if( style == "Ultrafine 2 Dots 3 Dashes")
-						dashes << 1.45 << 3.6 << 1.45 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6;
-					else if( style == "Line with Fine Dots")
-					{
-						dashes << 56.9 << 4.31;
-						for (int dd = 0; dd < 10; ++ dd)
-						{
-							dashes << 8.6 << 4.31;
-						}
-					}
-					else if( style == "2 Dots 1 Dash" )
-						dashes << 2.8 << 5.75 << 2.8 << 5.75 << 5.75 << 5.75;
-				}
+				minx = QMIN(minx, currItem->xPos()-lw);
+				miny = QMIN(miny, currItem->yPos()-lw);
+				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 			}
 		}
-		if( m_styleStack.hasAttribute( "draw:fill" ) )
+		double gx = minx;
+		double gy = miny;
+		double gw = maxx - minx;
+		double gh = maxy - miny;
+		neu->setXYPos(gx, gy);
+		neu->setWidthHeight(gw, gh);
+		if (ImgClip.size() != 0)
+			neu->PoLine = ImgClip.copy();
+		else
+			neu->SetRectFrame();
+		ImgClip.resize(0);
+		neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+		neu->Groups.push(m_Doc->GroupCounter);
+		neu->isGroupControl = true;
+		neu->groupsLastItem = cElements.at(cElements.count()-1);
+		if( !e.attribute("id").isEmpty() )
+			neu->setItemName(e.attribute("id"));
+		else
+			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+//		neu->setFillTransparency(1 - gc->Opacity);
+		for (uint gr = 0; gr < cElements.count(); ++gr)
 		{
-			QString fill = m_styleStack.attribute( "draw:fill" );
-			if( fill == "solid" )
+			cElements.at(gr)->Groups.push(m_Doc->GroupCounter);
+			elements.append(cElements.at(gr));
+		}
+		neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+		m_Doc->GroupCounter++;
+	}
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parseElement(const QDomElement &e)
+{
+	QPtrList<PageItem> GElements;
+	QString STag = e.tagName();
+	if ( STag == "draw:g" )
+	{
+		GElements = parseGroup(e);
+		return GElements;
+	}
+	if ( STag == "draw:rect" )
+		GElements = parseRect(e);
+	else if ( STag == "draw:circle" || STag == "draw:ellipse" )
+		GElements = parseEllipse(e);
+	else if ( STag == "draw:line" )
+		GElements = parseLine(e);
+	else if ( STag == "draw:polygon" )
+		GElements = parsePolygon(e);
+	else if ( STag == "draw:polyline" )
+		GElements = parsePolyline(e);
+	else if( STag == "draw:path" )
+		GElements = parsePath(e);
+	else if ( STag == "draw:text-box" )
+		GElements = parseTextBox(e);
+	else if ( STag == "draw:frame" )
+		GElements = parseFrame(e);
+	else
+	{
+		// warn if unsupported feature are encountered
+		unsupported = true;
+		qDebug("Not supported yet: %s", STag.local8Bit().data());
+	}
+	return GElements;
+}
+
+QPtrList<PageItem> OODPlug::parseRect(const QDomElement &e)
+{
+	OODrawStyle style;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x = parseUnit(e.attribute("svg:x"));
+	double y = parseUnit(e.attribute("svg:y")) ;
+	double w = parseUnit(e.attribute("svg:width"));
+	double h = parseUnit(e.attribute("svg:height"));
+	double corner = parseUnit(e.attribute("draw:corner-radius"));
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	if (corner != 0)
+	{
+		ite->setCornerRadius(corner);
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	finishNodeParsing(e, *ite, style);
+	elements.append(ite);
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parseEllipse(const QDomElement &e)
+{
+	OODrawStyle style;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x = parseUnit(e.attribute("svg:x"));
+	double y = parseUnit(e.attribute("svg:y")) ;
+	double w = parseUnit(e.attribute("svg:width"));
+	double h = parseUnit(e.attribute("svg:height"));
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	finishNodeParsing(e, *ite, style);
+	elements.append(ite);
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parseLine(const QDomElement &e)
+{
+	OODrawStyle style;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x1 = e.attribute( "svg:x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x1" ) );
+	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
+	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
+	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->PoLine.resize(4);
+	ite->PoLine.setPoint(0, FPoint(x1, y1));
+	ite->PoLine.setPoint(1, FPoint(x1, y1));
+	ite->PoLine.setPoint(2, FPoint(x2, y2));
+	ite->PoLine.setPoint(3, FPoint(x2, y2));
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(), wh.y());
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	if (!e.hasAttribute("draw:transform"))
+	{
+		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+		m_Doc->AdjustItemSize(ite);
+	}
+	finishNodeParsing(e, *ite, style);
+	elements.append(ite);
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parsePolygon(const QDomElement &e)
+{
+	OODrawStyle style;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->PoLine.resize(0);
+	appendPoints(&ite->PoLine, e);
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(), wh.y());
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	if (!e.hasAttribute("draw:transform"))
+	{
+		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+		m_Doc->AdjustItemSize(ite);
+	}
+	finishNodeParsing(e, *ite, style);
+	elements.append(ite);
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parsePolyline(const QDomElement &e)
+{
+	OODrawStyle style;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->PoLine.resize(0);
+	appendPoints(&ite->PoLine, e);
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(), wh.y());
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	if (!e.hasAttribute("draw:transform"))
+	{
+		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+		m_Doc->AdjustItemSize(ite);
+	}
+	finishNodeParsing(e, *ite, style);
+	elements.append(ite);
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parsePath(const QDomElement &e)
+{
+	OODrawStyle style;
+	FPointArray pArray;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	PageItem::ItemType itype = parseSVG(e.attribute("svg:d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon;
+	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->PoLine.resize(0);
+	ite->PoLine = pArray;
+	if (ite->PoLine.size() < 4)
+	{
+// 		m_Doc->m_Selection->addItem(ite);
+		tmpSel->addItem(ite);
+// 		m_Doc->itemSelection_DeleteItem();
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+	}
+	else
+	{
+		double x = parseUnit(e.attribute("svg:x"));
+		double y = parseUnit(e.attribute("svg:y")) ;
+		double w = parseUnit(e.attribute("svg:width"));
+		double h = parseUnit(e.attribute("svg:height"));
+		double vx = 0;
+		double vy = 0;
+		double vw = 1;
+		double vh = 1;
+		parseViewBox(e, &vx, &vy, &vw, &vh);
+		QWMatrix mat;
+		mat.translate(x, y);
+		mat.scale(w / vw, h / vh);
+		ite->PoLine.map(mat);
+		FPoint wh = getMaxClipF(&ite->PoLine);
+		ite->setWidthHeight(wh.x(), wh.y());
+		ite->ClipEdited = true;
+		ite->FrameType = 3;
+		if (!e.hasAttribute("draw:transform"))
+		{
+			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+			m_Doc->AdjustItemSize(ite);
+		}
+		finishNodeParsing(e, *ite, style);
+		elements.append(ite);
+	}
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parseTextBox(const QDomElement &e)
+{
+	OODrawStyle style;
+	QPtrList<PageItem> elements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x = parseUnit(e.attribute("svg:x"));
+	double y = parseUnit(e.attribute("svg:y")) ;
+	double w = parseUnit(e.attribute("svg:width"));
+	double h = parseUnit(e.attribute("svg:height"));
+	storeObjectStyles(e);
+	parseStyle(style, e);
+	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), style.strokeWidth, CommonStrings::None, style.strokeColor, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->setFillColor(style.fillColor);
+	ite->setLineColor(style.strokeColor);
+	finishNodeParsing(e, *ite, style);
+	elements.append(ite);
+	return elements;
+}
+
+QPtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
+{
+	OODrawStyle oostyle;
+	QPtrList<PageItem> elements;
+	QString drawID = e.attribute("draw:name");
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x = parseUnit(e.attribute("svg:x"));
+	double y = parseUnit(e.attribute("svg:y")) ;
+	double w = parseUnit(e.attribute("svg:width"));
+	double h = parseUnit(e.attribute("svg:height"));
+	storeObjectStyles(e);
+	parseStyle(oostyle, e);
+	QDomNode n = e.firstChild();
+	QString STag2 = n.toElement().tagName();
+	if ( STag2 == "draw:text-box" )
+	{
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), oostyle.strokeWidth, CommonStrings::None, oostyle.strokeColor, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+		ite->setFillTransparency(oostyle.fillTrans);
+		ite->setLineTransparency(oostyle.strokeTrans);
+		ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+		if (!drawID.isEmpty())
+			ite->setItemName(drawID);
+		elements.append(ite);
+		bool firstPa = false;
+		for ( QDomNode n2 = n.firstChild(); !n2.isNull(); n2 = n2.nextSibling() )
+		{
+			if ( !n2.hasAttributes() && !n2.hasChildNodes() )
+				continue;
+			QDomElement e2 = n2.toElement();
+			if ( e2.text().isEmpty() )
+				continue;
+			storeObjectStyles(n2.toElement());
+//			int FontSize = m_Doc->toolSettings.defSize;
+//			int AbsStyle = 0;
+			ite->itemText.insertChars(-1, SpecialChars::PARSEP);
+			if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size") )
 			{
-				if( m_styleStack.hasAttribute( "draw:fill-color" ) )
-					FillColor = parseColor( m_styleStack.attribute("draw:fill-color"));
-				if( m_styleStack.hasAttribute( "draw:transparency" ) )
-					FillTrans = m_styleStack.attribute( "draw:transparency" ).remove( '%' ).toDouble() / 100.0;
+				ParagraphStyle newStyle;
+				if (m_styleStack.attribute("fo:text-align") == "left")
+					newStyle.setAlignment(ParagraphStyle::Leftaligned);
+				if (m_styleStack.attribute("fo:text-align") == "center")
+					newStyle.setAlignment(ParagraphStyle::Centered);
+				if (m_styleStack.attribute("fo:text-align") == "right")
+					newStyle.setAlignment(ParagraphStyle::Rightaligned);
+				if( m_styleStack.hasAttribute("fo:font-size") )
+					newStyle.charStyle().setFontSize(m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10);
+				ite->itemText.applyStyle(-1, newStyle);
 			}
-			else if( fill == "gradient" )
+			ite->itemText.insertChars(-2, QString::fromUtf8(e2.text()) );
+			// time to retire...
+			/*
+			Serializer *ss = new Serializer("");
+			ss->Objekt = QString::fromUtf8(e2.text())+QChar(10);
+			ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
+			delete ss;
+			*/
+			firstPa = true;
+		}
+	}
+	return elements;
+}
+
+void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
+{
+	oostyle.haveGradient = false;
+	oostyle.gradient.clearStops();
+	if( m_styleStack.hasAttribute("draw:stroke") )
+	{
+		if( m_styleStack.attribute( "draw:stroke" ) == "none" )
+			oostyle.strokeWidth = 0.0;
+		else
+		{
+			if( m_styleStack.hasAttribute("svg:stroke-width"))
 			{
-				HaveGradient = true;
-				GradientAngle = 0;
-				gradient.clearStops();
-				gradient.setRepeatMethod( VGradient::none );
-				QString style = m_styleStack.attribute( "draw:fill-gradient-name" );
-				QDomElement* draw = m_draws[style];
-				if( draw )
+				oostyle.strokeWidth = parseUnit(m_styleStack.attribute("svg:stroke-width"));
+				if (oostyle.strokeWidth == 0)
+					oostyle.strokeWidth = 1;
+			}
+			if( m_styleStack.hasAttribute("svg:stroke-color"))
+				oostyle.strokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
+			if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
+				oostyle.strokeTrans = m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' ).toDouble() / 100.0;
+			if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
+			{
+				QString style = m_styleStack.attribute( "draw:stroke-dash" );
+				if( style == "Ultrafine Dashed")
+					oostyle.dashes << 1.4 << 1.4;
+				else if( style == "Fine Dashed" )
+					oostyle.dashes << 14.4 << 14.4;
+				else if( style == "Fine Dotted")
+					oostyle.dashes << 13 << 13;
+				else if( style == "Ultrafine 2 Dots 3 Dashes")
+					oostyle.dashes << 1.45 << 3.6 << 1.45 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6;
+				else if( style == "Line with Fine Dots")
 				{
-					double border = 0.0;
-					int shadeS = 100;
-					int shadeE = 100;
-					if( draw->hasAttribute( "draw:border" ) )
-						border += draw->attribute( "draw:border" ).remove( '%' ).toDouble() / 100.0;
-					if( draw->hasAttribute( "draw:start-intensity" ) )
-						shadeS = draw->attribute( "draw:start-intensity" ).remove( '%' ).toInt();
-					if( draw->hasAttribute( "draw:end-intensity" ) )
-						shadeE = draw->attribute( "draw:end-intensity" ).remove( '%' ).toInt();
-					QString type = draw->attribute( "draw:style" );
-					if( type == "linear" || type == "axial" )
+					oostyle.dashes << 56.9 << 4.31;
+					for (int dd = 0; dd < 10; ++ dd)
 					{
-						gradient.setType( VGradient::linear );
-						GradientAngle = draw->attribute( "draw:angle" ).toDouble() / 10;
-						GradientType = 1;
+						oostyle.dashes << 8.6 << 4.31;
 					}
-					else if( type == "radial" || type == "ellipsoid" )
-					{
-						if( draw->hasAttribute( "draw:cx" ) )
-							xGoff = draw->attribute( "draw:cx" ).remove( '%' ).toDouble() / 100.0;
-						else
-							xGoff = 0.5;
-						if( draw->hasAttribute( "draw:cy" ) )
-							yGoff = draw->attribute( "draw:cy" ).remove( '%' ).toDouble() / 100.0;
-						else
-							yGoff = 0.5;
-						GradientType = 2;
-					}
-					QString c, c2;
-					c = parseColor( draw->attribute( "draw:start-color" ) );
-					c2 = parseColor( draw->attribute( "draw:end-color" ) );
+				}
+				else if( style == "2 Dots 1 Dash" )
+					oostyle.dashes << 2.8 << 5.75 << 2.8 << 5.75 << 5.75 << 5.75;
+			}
+		}
+	}
+	if( m_styleStack.hasAttribute( "draw:fill" ) )
+	{
+		QString fill = m_styleStack.attribute( "draw:fill" );
+		if( fill == "solid" )
+		{
+			if( m_styleStack.hasAttribute( "draw:fill-color" ) )
+				oostyle.fillColor = parseColor( m_styleStack.attribute("draw:fill-color"));
+			if( m_styleStack.hasAttribute( "draw:transparency" ) )
+				oostyle.fillTrans = m_styleStack.attribute( "draw:transparency" ).remove( '%' ).toDouble() / 100.0;
+		}
+		else if( fill == "gradient" )
+		{
+			oostyle.haveGradient = true;
+			oostyle.gradientAngle = 0;
+			oostyle.gradient.clearStops();
+			oostyle.gradient.setRepeatMethod( VGradient::none );
+			QString style = m_styleStack.attribute( "draw:fill-gradient-name" );
+			QDomElement* draw = m_draws[style];
+			if( draw )
+			{
+				double border = 0.0;
+				int shadeS = 100;
+				int shadeE = 100;
+				if( draw->hasAttribute( "draw:border" ) )
+					border += draw->attribute( "draw:border" ).remove( '%' ).toDouble() / 100.0;
+				if( draw->hasAttribute( "draw:start-intensity" ) )
+					shadeS = draw->attribute( "draw:start-intensity" ).remove( '%' ).toInt();
+				if( draw->hasAttribute( "draw:end-intensity" ) )
+					shadeE = draw->attribute( "draw:end-intensity" ).remove( '%' ).toInt();
+				QString type = draw->attribute( "draw:style" );
+				if( type == "linear" || type == "axial" )
+				{
+					oostyle.gradient.setType( VGradient::linear );
+					oostyle.gradientAngle = draw->attribute( "draw:angle" ).toDouble() / 10;
+					oostyle.gradientType = 1;
+				}
+				else if( type == "radial" || type == "ellipsoid" )
+				{
+					if( draw->hasAttribute( "draw:cx" ) )
+						oostyle.gradientPointX = draw->attribute( "draw:cx" ).remove( '%' ).toDouble() / 100.0;
+					else
+						oostyle.gradientPointX = 0.5;
+					if( draw->hasAttribute( "draw:cy" ) )
+						oostyle.gradientPointY = draw->attribute( "draw:cy" ).remove( '%' ).toDouble() / 100.0;
+					else
+						oostyle.gradientPointY = 0.5;
+					oostyle.gradientType = 2;
+				}
+				QString c, c2;
+				c = parseColor( draw->attribute( "draw:start-color" ) );
+				c2 = parseColor( draw->attribute( "draw:end-color" ) );
+				const ScColor& col1 = m_Doc->PageColors[c];
+				const ScColor& col2 = m_Doc->PageColors[c2];
+				if (((oostyle.gradientAngle > 90) && (oostyle.gradientAngle < 271)) || (oostyle.gradientType == 2))
+				{
 					const ScColor& col1 = m_Doc->PageColors[c];
 					const ScColor& col2 = m_Doc->PageColors[c2];
-					if (((GradientAngle > 90) && (GradientAngle < 271)) || (GradientType == 2))
-					{
-						const ScColor& col1 = m_Doc->PageColors[c];
-						const ScColor& col2 = m_Doc->PageColors[c2];
-						gradient.addStop( ScColorEngine::getRGBColor(col2, m_Doc), 0.0, 0.5, 1, c2, shadeE );
-						gradient.addStop( ScColorEngine::getRGBColor(col1, m_Doc), 1.0 - border, 0.5, 1, c, shadeS );
-					}
-					else
-					{
-						gradient.addStop( ScColorEngine::getRGBColor(col1, m_Doc), border, 0.5, 1, c, shadeS );
-						gradient.addStop( ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1, c2, shadeE );
-					}
+					oostyle.gradient.addStop( ScColorEngine::getRGBColor(col2, m_Doc), 0.0, 0.5, 1, c2, shadeE );
+					oostyle.gradient.addStop( ScColorEngine::getRGBColor(col1, m_Doc), 1.0 - border, 0.5, 1, c, shadeS );
+				}
+				else
+				{
+					oostyle.gradient.addStop( ScColorEngine::getRGBColor(col1, m_Doc), border, 0.5, 1, c, shadeS );
+					oostyle.gradient.addStop( ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1, c2, shadeE );
 				}
 			}
 		}
-		if( STag == "draw:g" )
+	}
+}
+
+void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawStyle& oostyle)
+{
+	item.setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+	bool firstPa = false;
+	QString drawID = elm.attribute("draw:name");
+	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		if ( !n.hasAttributes() && !n.hasChildNodes() )
+			continue;
+		QDomElement e = n.toElement();
+		if ( e.text().isEmpty() )
+			continue;
+		//	int FontSize = m_Doc->toolSettings.defSize;
+		//	int AbsStyle = 0;
+		/* ToDo: Add reading of Textstyles here */
+		item.itemText.insertChars(-1, SpecialChars::PARSEP);
+		if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size"))
 		{
-			int zn = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
-			PageItem *neu = m_Doc->Items->at(zn);
-			GElements.append(neu);
-			Elements.append(neu);
-			QPtrList<PageItem> gElements = parseGroup( b );
-			if (gElements.count() < 2)
+			ParagraphStyle newStyle;
+			if (m_styleStack.attribute("fo:text-align") == "left")
+				newStyle.setAlignment(ParagraphStyle::Leftaligned);
+			if (m_styleStack.attribute("fo:text-align") == "center")
+				newStyle.setAlignment(ParagraphStyle::Centered);
+			if (m_styleStack.attribute("fo:text-align") == "right")
+				newStyle.setAlignment(ParagraphStyle::Rightaligned);
+			if (m_styleStack.hasAttribute("fo:font-size") )
 			{
-				GElements.removeLast();
-				Elements.remove(neu);
-				m_Doc->Items->take(zn);
-				delete neu;
-				for (uint a = 0; a < m_Doc->Items->count(); ++a)
-				{
-					m_Doc->Items->at(a)->ItemNr = a;
-				}
-				for (uint gr = 0; gr < gElements.count(); ++gr)
-				{
-					GElements.append(gElements.at(gr));
-				}
+				int FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10;
+				newStyle.charStyle().setFontSize(FontSize);
+				newStyle.setLineSpacing(FontSize + FontSize * 0.2);
 			}
-			else
+			item.itemText.applyStyle(-1, newStyle);
+		}
+		item.itemText.insertChars(-2, QString::fromUtf8(e.text()));
+		/*
+		Serializer *ss = new Serializer("");
+		ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
+		ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
+		delete ss;
+		*/
+		firstPa = true;
+		if (! item.asPolyLine())
+			item.convertTo(PageItem::TextFrame);
+	}
+	item.setFillTransparency(oostyle.fillTrans);
+	item.setLineTransparency(oostyle.strokeTrans);
+	if (oostyle.dashes.count() != 0)
+		item.DashValues = oostyle.dashes;
+	if (!drawID.isEmpty())
+		item.setItemName(drawID);
+	if (elm.hasAttribute("draw:transform"))
+	{
+		parseTransform(&item.PoLine, elm.attribute("draw:transform"));
+		item.ClipEdited = true;
+		item.FrameType = 3;
+		FPoint wh = getMaxClipF(&item.PoLine);
+		item.setWidthHeight(wh.x(), wh.y());
+		item.Clip = FlattenPath(item.PoLine, item.Segments);
+		m_Doc->AdjustItemSize(&item);
+	}
+	item.OwnPage = m_Doc->OnPage(&item);
+	//ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+	item.setTextFlowMode(PageItem::TextFlowDisabled);
+	if (oostyle.haveGradient)
+	{
+		item.GrType = 0;
+		if (oostyle.gradient.Stops() > 1)
+		{
+			item.fill_gradient = oostyle.gradient;
+			if (oostyle.gradientType == 1)
 			{
-				double minx = 99999.9;
-				double miny = 99999.9;
-				double maxx = -99999.9;
-				double maxy = -99999.9;
-				for (uint gr = 0; gr < gElements.count(); ++gr)
+				bool flipped = false;
+				double gradientAngle(oostyle.gradientAngle);
+				if ((gradientAngle == 0) || (gradientAngle == 180) || (gradientAngle == 90) || (gradientAngle == 270))
 				{
-					PageItem* currItem = gElements.at(gr);
-					double lw = currItem->lineWidth() / 2.0;
-					if (currItem->rotation() != 0)
+					if ((gradientAngle == 0) || (gradientAngle == 180))
 					{
-						FPointArray pb;
-						pb.resize(0);
-						pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-						pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-						pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-						pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-						for (uint pc = 0; pc < 4; ++pc)
+						item.GrType = 2;
+						item.GrStartX = item.width() / 2.0;
+						item.GrStartY = 0;
+						item.GrEndX = item.width() / 2.0;
+						item.GrEndY = item.height();
+					}
+					else if ((gradientAngle == 90) || (gradientAngle == 270))
+					{
+						item.GrType = 1;
+						item.GrStartX = 0;
+						item.GrStartY = item.height() / 2.0;
+						item.GrEndX = item.width();
+						item.GrEndY = item.height() / 2.0;
+					}
+				}
+				else
+				{
+					if ((gradientAngle > 90) && (gradientAngle < 270))
+						gradientAngle -= 180;
+					else if ((gradientAngle > 270) && (gradientAngle < 360))
+					{
+						gradientAngle = 360 - gradientAngle;
+						flipped = true;
+					}
+					double xpos;
+					xpos = (item.width() / 2) * tan(gradientAngle* M_PI / 180.0) * (item.height() / item.width()) + (item.width() / 2);
+					if ((xpos < 0) || (xpos > item.width()))
+					{
+						xpos = (item.height() / 2)- (item.height() / 2) * tan(gradientAngle* M_PI / 180.0) * (item.height() / item.width());
+						if (flipped)
 						{
-							minx = QMIN(minx, pb.point(pc).x());
-							miny = QMIN(miny, pb.point(pc).y());
-							maxx = QMAX(maxx, pb.point(pc).x());
-							maxy = QMAX(maxy, pb.point(pc).y());
+							item.GrEndX = item.width();
+							item.GrEndY = item.height() - xpos;
+							item.GrStartX = 0;
+							item.GrStartY = xpos;
+						}
+						else
+						{
+							item.GrEndY = xpos;
+							item.GrEndX = item.width();
+							item.GrStartX = 0;
+							item.GrStartY = item.height() - xpos;
 						}
 					}
 					else
 					{
-						minx = QMIN(minx, currItem->xPos()-lw);
-						miny = QMIN(miny, currItem->yPos()-lw);
-						maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-						maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+						item.GrEndX = xpos;
+						item.GrEndY = item.height();
+						item.GrStartX = item.width() - xpos;
+						item.GrStartY = 0;
 					}
-				}
-				double gx = minx;
-				double gy = miny;
-				double gw = maxx - minx;
-				double gh = maxy - miny;
-				neu->setXYPos(gx, gy);
-				neu->setWidthHeight(gw, gh);
-				if (ImgClip.size() != 0)
-					neu->PoLine = ImgClip.copy();
-				else
-					neu->SetRectFrame();
-				ImgClip.resize(0);
-				neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
-				neu->Groups.push(m_Doc->GroupCounter);
-				neu->isGroupControl = true;
-				neu->groupsLastItem = gElements.at(gElements.count()-1);
-				if( !e.attribute("id").isEmpty() )
-					neu->setItemName(e.attribute("id"));
-				else
-					neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-//				neu->setFillTransparency(1 - gc->Opacity);
-				for (uint gr = 0; gr < gElements.count(); ++gr)
-				{
-					gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
-					GElements.append(gElements.at(gr));
-				}
-				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-				m_Doc->GroupCounter++;
-			}
-			z = -1;
-		}
-		else if( STag == "draw:rect" )
-		{
-			x = parseUnit(b.attribute("svg:x"));
-			y = parseUnit(b.attribute("svg:y")) ;
-			w = parseUnit(b.attribute("svg:width"));
-			h = parseUnit(b.attribute("svg:height"));
-			double corner = parseUnit(b.attribute("draw:corner-radius"));
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			if (corner != 0)
-			{
-				ite->setCornerRadius(corner);
-				ite->SetFrameRound();
-				m_Doc->setRedrawBounding(ite);
-			}
-		}
-		else if( STag == "draw:circle" || STag == "draw:ellipse" )
-		{
-			x = parseUnit(b.attribute("svg:x"));
-			y = parseUnit(b.attribute("svg:y")) ;
-			w = parseUnit(b.attribute("svg:width"));
-			h = parseUnit(b.attribute("svg:height"));
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, lwidth, FillColor, StrokeColor, true);
-		}
-		else if( STag == "draw:line" ) // line
-		{
-			double x1 = b.attribute( "svg:x1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x1" ) );
-			double y1 = b.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y1" ) );
-			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
-			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine.resize(4);
-			ite->PoLine.setPoint(0, FPoint(x1, y1));
-			ite->PoLine.setPoint(1, FPoint(x1, y1));
-			ite->PoLine.setPoint(2, FPoint(x2, y2));
-			ite->PoLine.setPoint(3, FPoint(x2, y2));
-			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->setWidthHeight(wh.x(), wh.y());
-			ite->ClipEdited = true;
-			ite->FrameType = 3;
-			if (!b.hasAttribute("draw:transform"))
-			{
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->AdjustItemSize(ite);
-			}
-			HaveGradient = false;
-		}
-		else if ( STag == "draw:polygon" )
-		{
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine.resize(0);
-			appendPoints(&ite->PoLine, b);
-			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->setWidthHeight(wh.x(), wh.y());
-			ite->ClipEdited = true;
-			ite->FrameType = 3;
-			if (!b.hasAttribute("draw:transform"))
-			{
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->AdjustItemSize(ite);
-			}
-		}
-		else if( STag == "draw:polyline" )
-		{
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine.resize(0);
-			appendPoints(&ite->PoLine, b);
-			FPoint wh = getMaxClipF(&ite->PoLine);
-			ite->setWidthHeight(wh.x(), wh.y());
-			ite->ClipEdited = true;
-			ite->FrameType = 3;
-			if (!b.hasAttribute("draw:transform"))
-			{
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->AdjustItemSize(ite);
-			}
-		}
-		else if( STag == "draw:path" )
-		{
-			FPointArray pArray;
-			PageItem::ItemType itype = parseSVG(b.attribute("svg:d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon;
-			z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine.resize(0);
-			ite->PoLine = pArray;
-			if (ite->PoLine.size() < 4)
-			{
-// 				m_Doc->m_Selection->addItem(ite);
-				tmpSel->addItem(ite);
-// 				m_Doc->itemSelection_DeleteItem();
-				m_Doc->itemSelection_DeleteItem(tmpSel);
-				z = -1;
-			}
-			else
-			{
-				x = parseUnit(b.attribute("svg:x"));
-				y = parseUnit(b.attribute("svg:y")) ;
-				w = parseUnit(b.attribute("svg:width"));
-				h = parseUnit(b.attribute("svg:height"));
-				double vx = 0;
-				double vy = 0;
-				double vw = 1;
-				double vh = 1;
-				parseViewBox(b, &vx, &vy, &vw, &vh);
-				QWMatrix mat;
-				mat.translate(x, y);
-				mat.scale(w / vw, h / vh);
-				ite->PoLine.map(mat);
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(), wh.y());
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				if (!b.hasAttribute("draw:transform"))
-				{
-					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-					m_Doc->AdjustItemSize(ite);
-				}
-			}
-		}
-		else if ( STag == "draw:text-box" )
-		{
-			x = parseUnit(b.attribute("svg:x"));
-			y = parseUnit(b.attribute("svg:y")) ;
-			w = parseUnit(b.attribute("svg:width"));
-			h = parseUnit(b.attribute("svg:height"));
-			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
-		}
-		else if ( STag == "draw:frame" )
-		{
-			x = parseUnit(b.attribute("svg:x"));
-			y = parseUnit(b.attribute("svg:y")) ;
-			w = parseUnit(b.attribute("svg:width"));
-			h = parseUnit(b.attribute("svg:height"));
-			QDomNode n = b.firstChild();
-			QString STag2 = n.toElement().tagName();
-			if ( STag2 == "draw:text-box" )
-			{
-				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
-				PageItem* ite = m_Doc->Items->at(z);
-				ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-				ite->setFillTransparency(FillTrans);
-				ite->setLineTransparency(StrokeTrans);
-				ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-				if (!drawID.isEmpty())
-					ite->setItemName(drawID);
-				GElements.append(ite);
-				Elements.append(ite);
-				bool firstPa = false;
-				for ( QDomNode n2 = n.firstChild(); !n2.isNull(); n2 = n2.nextSibling() )
-				{
-					if ( !n2.hasAttributes() && !n2.hasChildNodes() )
-						continue;
-					QDomElement e = n2.toElement();
-					if ( e.text().isEmpty() )
-						continue;
-					storeObjectStyles(n2.toElement());
-//					int FontSize = m_Doc->toolSettings.defSize;
-//					int AbsStyle = 0;
-					ite->itemText.insertChars(-1, SpecialChars::PARSEP);
-					if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size") )
+					if (flipped)
 					{
-						ParagraphStyle newStyle;
-						if (m_styleStack.attribute("fo:text-align") == "left")
-							newStyle.setAlignment(ParagraphStyle::Leftaligned);
-						if (m_styleStack.attribute("fo:text-align") == "center")
-							newStyle.setAlignment(ParagraphStyle::Centered);
-						if (m_styleStack.attribute("fo:text-align") == "right")
-							newStyle.setAlignment(ParagraphStyle::Rightaligned);
-						if( m_styleStack.hasAttribute("fo:font-size") )
-							newStyle.charStyle().setFontSize(m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10);
-						ite->itemText.applyStyle(-1, newStyle);
+						item.GrEndX = item.width() - xpos;
+						item.GrEndY = item.height();
+						item.GrStartX = xpos;
+						item.GrStartY = 0;
 					}
-					ite->itemText.insertChars(-2, QString::fromUtf8(e.text()) );
-					// time to retire...
-					/*
-					Serializer *ss = new Serializer("");
-					ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-					ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
-					delete ss;
-					 */
-					firstPa = true;
+					item.GrType = 6;
 				}
 			}
-			z = -1;
+			if (oostyle.gradientType == 2)
+			{
+				item.GrType = 7;
+				item.GrStartX = item.width() * oostyle.gradientPointX;
+				item.GrStartY = item.height()* oostyle.gradientPointY;
+				if (item.width() >= item.height())
+				{
+					item.GrEndX = item.width();
+					item.GrEndY = item.height() / 2.0;
+				}
+				else
+				{
+					item.GrEndX = item.width() / 2.0;
+					item.GrEndY = item.height();
+				}
+				//m_Doc->view()->updateGradientVectors(ite);
+				item.updateGradientVectors();
+			}
 		}
 		else
 		{
-			unsupported = true;
-			qDebug("Not supported yet: %s", STag.local8Bit().data());
-			continue;
-		}
-		if (z != -1)
-		{
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-			bool firstPa = false;
-			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
-			{
-				if ( !n.hasAttributes() && !n.hasChildNodes() )
-					continue;
-				QDomElement e = n.toElement();
-				if ( e.text().isEmpty() )
-					continue;
-//				int FontSize = m_Doc->toolSettings.defSize;
-//				int AbsStyle = 0;
-/* ToDo: Add reading of Textstyles here */
-				ite->itemText.insertChars(-1, SpecialChars::PARSEP);
-				if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size"))
-				{
-					ParagraphStyle newStyle;
-					if (m_styleStack.attribute("fo:text-align") == "left")
-						newStyle.setAlignment(ParagraphStyle::Leftaligned);
-					if (m_styleStack.attribute("fo:text-align") == "center")
-						newStyle.setAlignment(ParagraphStyle::Centered);
-					if (m_styleStack.attribute("fo:text-align") == "right")
-						newStyle.setAlignment(ParagraphStyle::Rightaligned);
-					if (m_styleStack.hasAttribute("fo:font-size") )
-					{
-						int FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10;
-						newStyle.charStyle().setFontSize(FontSize);
-						newStyle.setLineSpacing(FontSize + FontSize * 0.2);
-					}
-					ite->itemText.applyStyle(-1, newStyle);
-				}
-				ite->itemText.insertChars(-2, QString::fromUtf8(e.text()));
-				/*
-				Serializer *ss = new Serializer("");
-				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
-				delete ss;
-				 */
-				firstPa = true;
-				if (! ite->asPolyLine())
-					ite->convertTo(PageItem::TextFrame);
-			}
-			ite->setFillTransparency(FillTrans);
-			ite->setLineTransparency(StrokeTrans);
-			if (dashes.count() != 0)
-				ite->DashValues = dashes;
-			if (!drawID.isEmpty())
-				ite->setItemName(drawID);
-			if (b.hasAttribute("draw:transform"))
-			{
-				parseTransform(&ite->PoLine, b.attribute("draw:transform"));
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(), wh.y());
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->AdjustItemSize(ite);
-			}
-			ite->OwnPage = m_Doc->OnPage(ite);
-			ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-			if (HaveGradient)
-			{
-				ite->GrType = 0;
-				if (gradient.Stops() > 1)
-				{
-					ite->fill_gradient = gradient;
-					if (GradientType == 1)
-					{
-						bool flipped = false;
-						if ((GradientAngle == 0) || (GradientAngle == 180) || (GradientAngle == 90) || (GradientAngle == 270))
-						{
-							if ((GradientAngle == 0) || (GradientAngle == 180))
-							{
-								ite->GrType = 2;
-								ite->GrStartX = ite->width() / 2.0;
-								ite->GrStartY = 0;
-								ite->GrEndX = ite->width() / 2.0;
-								ite->GrEndY = ite->height();
-							}
-							else if ((GradientAngle == 90) || (GradientAngle == 270))
-							{
-								ite->GrType = 1;
-								ite->GrStartX = 0;
-								ite->GrStartY = ite->height() / 2.0;
-								ite->GrEndX = ite->width();
-								ite->GrEndY = ite->height() / 2.0;
-							}
-						}
-						else
-						{
-							if ((GradientAngle > 90) && (GradientAngle < 270))
-								GradientAngle -= 180;
-							else if ((GradientAngle > 270) && (GradientAngle < 360))
-							{
-								GradientAngle = 360 - GradientAngle;
-								flipped = true;
-							}
-							double xpos;
-							xpos = (ite->width() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width()) + (ite->width() / 2);
-							if ((xpos < 0) || (xpos > ite->width()))
-							{
-								xpos = (ite->height() / 2)- (ite->height() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width());
-								if (flipped)
-								{
-									ite->GrEndX = ite->width();
-									ite->GrEndY = ite->height() - xpos;
-									ite->GrStartX = 0;
-									ite->GrStartY = xpos;
-								}
-								else
-								{
-									ite->GrEndY = xpos;
-									ite->GrEndX = ite->width();
-									ite->GrStartX = 0;
-									ite->GrStartY = ite->height() - xpos;
-								}
-							}
-							else
-							{
-								ite->GrEndX = xpos;
-								ite->GrEndY = ite->height();
-								ite->GrStartX = ite->width() - xpos;
-								ite->GrStartY = 0;
-							}
-							if (flipped)
-							{
-								ite->GrEndX = ite->width() - xpos;
-								ite->GrEndY = ite->height();
-								ite->GrStartX = xpos;
-								ite->GrStartY = 0;
-							}
-							ite->GrType = 6;
-						}
-					}
-					if (GradientType == 2)
-					{
-						ite->GrType = 7;
-						ite->GrStartX = ite->width() * xGoff;
-						ite->GrStartY = ite->height()* yGoff;
-						if (ite->width() >= ite->height())
-						{
-							ite->GrEndX = ite->width();
-							ite->GrEndY = ite->height() / 2.0;
-						}
-						else
-						{
-							ite->GrEndX = ite->width() / 2.0;
-							ite->GrEndY = ite->height();
-						}
-						//m_Doc->view()->updateGradientVectors(ite);
-						ite->updateGradientVectors();
-					}
-				}
-				else
-				{
-					QPtrVector<VColorStop> cstops = gradient.colorStops();
-					ite->setFillColor(cstops.at(0)->name);
-					ite->setFillShade(cstops.at(0)->shade);
-				}
-				HaveGradient = false;
-			}
-			GElements.append(ite);
-			Elements.append(ite);
+			QPtrVector<VColorStop> cstops = oostyle.gradient.colorStops();
+			item.setFillColor(cstops.at(0)->name);
+			item.setFillShade(cstops.at(0)->shade);
 		}
 	}
-	return GElements;
 }
 
 void OODPlug::createStyleMap( QDomDocument &docstyles )

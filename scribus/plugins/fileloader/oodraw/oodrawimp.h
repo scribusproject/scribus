@@ -57,6 +57,35 @@ class FPointArray;
 class QDomDocument;
 class QDomElement;
 
+class OODrawStyle
+{
+public:
+	OODrawStyle() :
+	  fillColor("None"),
+	  strokeColor("None"),
+	  fillTrans(0.0),
+	  strokeTrans(0.0),
+	  strokeWidth(0.0),
+	  haveGradient(false),
+	  gradientType(0.0),
+	  gradientAngle(0.0),
+	  gradientPointX(0.0),
+	  gradientPointY(0.0)
+	  {}
+	QString fillColor;
+	QString strokeColor;
+	double  fillTrans;
+	double  strokeTrans;
+	double  strokeWidth;
+	QValueList<double> dashes;
+	bool    haveGradient;
+	int     gradientType;
+	VGradient gradient;
+	double  gradientAngle;
+	double  gradientPointX;
+	double  gradientPointY;
+};
+
 class OODPlug : public QObject
 {
 	Q_OBJECT
@@ -77,6 +106,17 @@ protected:
 
 	bool convert(int flags);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
+	QPtrList<PageItem> parseElement(const QDomElement &e);
+	QPtrList<PageItem> parseRect(const QDomElement &e);
+	QPtrList<PageItem> parseEllipse(const QDomElement &e);
+	QPtrList<PageItem> parseLine(const QDomElement &e);
+	QPtrList<PageItem> parsePolygon(const QDomElement &e);
+	QPtrList<PageItem> parsePolyline(const QDomElement &e);
+	QPtrList<PageItem> parsePath(const QDomElement &e);
+	QPtrList<PageItem> parseTextBox(const QDomElement &e);
+	QPtrList<PageItem> parseFrame(const QDomElement &e);
+	void parseStyle(OODrawStyle& style, const QDomElement &e);
+	void finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawStyle& oostyle);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );
@@ -106,7 +146,6 @@ protected:
 	QString metaPath;
 	double CurrX, CurrY, StartX, StartY;
 	int PathLen;
-	QPtrList<PageItem> Elements;
 	bool FirstM, WasM, PathClosed, HaveMeta;
 
 	bool interactive;
