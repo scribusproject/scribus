@@ -1360,7 +1360,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							break;
 						}
 					}
-//					doc->OpenNodes = outlinePalette->buildReopenVals();
+					outlinePalette->buildReopenVals();
 					docCheckerPalette->clearErrorList();
 					if ( w )
 						w->showNormal();
@@ -2011,10 +2011,8 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 
 ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount, bool showView)
 {
-//	if (HaveDoc)
-//	{
-//		doc->OpenNodes = outlinePalette->buildReopenVals();
-//	}
+	if (HaveDoc)
+		outlinePalette->buildReopenVals();
 	undoManager->setUndoEnabled(false);
 	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
 	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
@@ -2173,11 +2171,11 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	if (ActWin->doc()==NULL)
 		return;
 
-/*	if (doc != NULL)
+	if (doc != NULL)
 	{
-		if ((HaveDoc) && (doc != ActWin->doc))
-			doc->OpenNodes = outlinePalette->buildReopenVals();
-	} */
+		if ((HaveDoc) && (doc != ActWin->doc()))
+			outlinePalette->buildReopenVals();
+	}
 	docCheckerPalette->clearErrorList();
 
 	doc = ActWin->doc();
@@ -2246,11 +2244,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	if (!doc->masterPageMode())
 		pagePalette->Rebuild();
 	outlinePalette->setDoc(doc);
-	outlinePalette->BuildTree();
-//	outlinePalette->reopenTree(doc->OpenNodes);
-/*	bookmarkPalette->BView->NrItems = doc->NrItems;
-	bookmarkPalette->BView->First = doc->First;
-	bookmarkPalette->BView->Last = doc->Last; */
+	outlinePalette->BuildTree(false);
+	outlinePalette->reopenTree();
 	RestoreBookMarks();
 	if (!doc->isLoading())
 	{
@@ -2268,8 +2263,6 @@ void ScribusMainWindow::newActWin(QWidget *w)
 
 void ScribusMainWindow::windowsMenuActivated( int id )
 {
-//	if (HaveDoc)
-//		doc->OpenNodes = outlinePalette->buildReopenVals();
 	QWidget* windowWidget = wsp->windowList().at( id );
 	if ( windowWidget )
 		windowWidget->showNormal();
@@ -3371,8 +3364,6 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 	bool ret = false;
 	if (!fileName.isEmpty())
 	{
-//		if (!Mpa)
-//			doc->OpenNodes = outlinePalette->buildReopenVals();
 		FileLoader *fl = new FileLoader(fileName);
 		if (fl->TestFile() == -1)
 		{
@@ -3415,7 +3406,6 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 		if (!Mpa)
 		{
 			outlinePalette->BuildTree();
-//			outlinePalette->reopenTree(doc->OpenNodes);
 			scanDocument();
 			docCheckerPalette->buildErrorList(doc);
 		}
@@ -3440,8 +3430,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	if (!fi.exists())
 		return false;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-/*	if (HaveDoc)
-		doc->OpenNodes = outlinePalette->buildReopenVals(); */
+	if (HaveDoc)
+		outlinePalette->buildReopenVals();
 	bool ret = false;
 	QWidgetList windows = wsp->windowList();
 	ScribusWin* ActWinOld = NULL;
@@ -4880,7 +4870,6 @@ void ScribusMainWindow::slotEditPaste()
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
 				outlinePalette->BuildTree();
-//				outlinePalette->reopenTree(doc->OpenNodes);
 				currItem->itemText.insertObject(currItem->CPos, currItem3);
 				currItem->CPos += 1;
 			}
@@ -6226,7 +6215,6 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	undoManager->setUndoEnabled(true); // ugly hack continues
 	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
-//	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
@@ -6239,7 +6227,6 @@ void ScribusMainWindow::MovePage()
 	MovePages *dia = new MovePages(this, doc->currentPage()->pageNr()+1, doc->Pages->count(), true);
 	if (dia->exec())
 	{
-//		doc->OpenNodes = outlinePalette->buildReopenVals();
 		int from = dia->getFromPage();
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
@@ -6251,7 +6238,6 @@ void ScribusMainWindow::MovePage()
 			view->DrawNew();
 			pagePalette->RebuildPage();
 			outlinePalette->BuildTree();
-//			outlinePalette->reopenTree(doc->OpenNodes);
 		}
 	}
 	delete dia;
@@ -7844,15 +7830,12 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 		vie->DrawNew();
 		if (doc == docc)
 		{
-//			doc->OpenNodes = outlinePalette->buildReopenVals();
 			buildFontMenu();
 			propertiesPalette->updateColorList();
 			propertiesPalette->paraStyleCombo->updateFormatList();
 			propertiesPalette->charStyleCombo->updateFormatList();
 			propertiesPalette->SetLineFormats(docc);
-//			outlinePalette->BuildTree();
 			slotDocCh();
-//			outlinePalette->reopenTree(doc->OpenNodes);
 		}
 	}
 	delete ss;
@@ -7923,7 +7906,6 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			pagePalette->enablePalette(false);
 			dia->show();
 			ActWin->setMasterPagesPalette(dia);
-//			doc->OpenNodes = outlinePalette->buildReopenVals();
 		}
 	}
 }
@@ -7965,7 +7947,6 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	view->DrawNew();
 	pagePalette->Rebuild();
 	outlinePalette->BuildTree();
-//	outlinePalette->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
 
@@ -8165,7 +8146,6 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		}
 		doc->GroupCounter++;
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-//		outlinePalette->BuildTree();
 		slotDocCh();
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);

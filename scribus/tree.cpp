@@ -210,7 +210,7 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 			while ( it.current() )
 			{
 				item = (TreeItem*)it.current();
-				if ((item->type == 1) && (item->PageItemObject->ItemNr == Nr))
+				if ((item->type == 1) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
 				{
 					retVal = it.current();
 					break;
@@ -241,7 +241,7 @@ QListViewItem* Tree::getListItem(uint SNr, int Nr)
 			while ( it.current() )
 			{
 				item = (TreeItem*)it.current();
-				if (((item->type == 3) || (item->type == 4)) && (item->PageItemObject->ItemNr == Nr))
+				if (((item->type == 3) || (item->type == 4)) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
 				{
 					retVal = it.current();
 					break;
@@ -491,36 +491,59 @@ void Tree::rebuildPageD()
 	} */
 }
 
-void Tree::reopenTree(QValueList<int> )
+void Tree::reopenTree()
 {
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if (op.count() == 0)
+	if (currDoc->OpenNodes.count() == 0)
 		return;
-	if (op[0] == 1)
-		ListView1->setOpen(ListView1->firstChild(), true);
-	for (uint e = 1; e < op.count(); ++e)
+	TreeItem *item = 0;
+	QListViewItemIterator it( reportDisplay );
+	while ( it.current() )
 	{
-		ListView1->setOpen(Seiten.at(op[e]), true);
-	} */
+		item = (TreeItem*)it.current();
+		for (uint olc = 0; olc < currDoc->OpenNodes.count(); olc++)
+		{
+			if (item->type == currDoc->OpenNodes[olc].type)
+			{
+				if ((item->type == -3) || (item->type == -2))
+					reportDisplay->setOpen(it.current(), true);
+				else if ((item->type == 0) || (item->type == 2))
+				{
+					if (item->PageObject == currDoc->OpenNodes[olc].page)
+						reportDisplay->setOpen(it.current(), true);
+				}
+				else if ((item->type == 2) || (item->type == 3) || (item->type == 4))
+				{
+					if (item->PageItemObject == currDoc->OpenNodes[olc].item)
+						reportDisplay->setOpen(it.current(), true);
+				}
+			}
+		}
+		++it;
+	}
 }
 
-QValueList<int> Tree::buildReopenVals()
+void Tree::buildReopenVals()
 {
-	QValueList<int> op;
-	op.clear();
-/*	if (ListView1->childCount() == 0)
-		return op;
-	if (ListView1->firstChild()->isOpen())
-		op.append(1);
-	else
-		op.append(0);
-	for (uint e = 0; e < Seiten.count(); ++e)
+	ScribusDoc::OpenNodesList ol;
+	if (reportDisplay->childCount() == 0)
+		return;
+	currDoc->OpenNodes.clear();
+	TreeItem *item = 0;
+	QListViewItemIterator it( reportDisplay );
+	while ( it.current() )
 	{
-		if (ListView1->isOpen(Seiten.at(e)))
-			op.append(e);
-	} */
-	return op;
+		item = (TreeItem*)it.current();
+		if (item->isOpen())
+		{
+			ol.type = item->type;
+			ol.page = item->PageObject;
+			ol.item = item->PageItemObject;
+			currDoc->OpenNodes.append(ol);
+		}
+		++it;
+	}
 }
 
 void Tree::slotSelect(QListViewItem* ite)
@@ -588,19 +611,23 @@ void Tree::resizeEvent(QResizeEvent *r)
 	reportDisplay->resize(r->size());
 }
 
-void Tree::BuildTree()
+void Tree::BuildTree(bool storeVals)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	clearPalette();
 	Q_ASSERT(currDoc!=NULL);
 	if (currDoc==NULL)
 		return;
+	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	setUpdatesEnabled(false);
+	if (storeVals)
+		buildReopenVals();
+	clearPalette();
 	QPtrList<PageItem> subGroupList;
 	TreeItem * item = new TreeItem( reportDisplay, 0 );
 	rootObject = item;
 	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
+	item->type = -2;
 	TreeItem * pagep = 0;
 	freeObjects = 0;
 	PageItem* pgItem;
@@ -716,6 +743,7 @@ void Tree::BuildTree()
 		TreeItem *page = new TreeItem( item, pagep );
 		pagep = page;
 		freeObjects = page;
+		page->type = -3;
 		for (uint b = 0; b < currDoc->DocItems.count(); ++b)
 		{
 			pgItem = currDoc->DocItems.at(b);
@@ -755,6 +783,10 @@ void Tree::BuildTree()
 		page->setText(0, tr("Free Objects"));
 	}
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	if (storeVals)
+		reopenTree();
+	setUpdatesEnabled(true);
+	repaint();
 }
 
 void Tree::parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGroupList, int itemType)

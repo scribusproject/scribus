@@ -49,14 +49,14 @@ public:
 	void unsetDoc();
 	
 	void rebuildPageD();
-	void reopenTree(QValueList<int> op);
+	void reopenTree();
 	QListViewItem* getListItem(uint SNr, int Nr);
 	void setItemIcon(QListViewItem *item, int typ);
 	void parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGroupList, int itemType);
-	QValueList<int> buildReopenVals();
+	void buildReopenVals();
 
 public slots:
-	void BuildTree();
+	void BuildTree(bool storeVals = true);
 	void languageChange();
 	void slotShowSelect(uint SNr, int Nr);
 

@@ -59,7 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 #include "story.h"
-#include "tree.h"
+// #include "tree.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
@@ -6289,7 +6289,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	emit updateContents();
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	//CB FIXME remove this and tree.h too
-	m_ScMW->outlinePalette->BuildTree();
+//	m_ScMW->outlinePalette->BuildTree();
 
 	if (itemSelection->isGUISelection())
 	{

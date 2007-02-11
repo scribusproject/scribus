@@ -967,7 +967,13 @@ public:
 	QMap<QString, ScPattern> docPatterns;
 	QWidget* WinHan;
 	bool DoDrawing;
-	QValueList<int> OpenNodes;
+	struct OpenNodesList
+	{
+		int type;
+		Page *page;
+		PageItem *item;
+	};
+	QValueList<OpenNodesList> OpenNodes;
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docLayerErrors;
 	QMap<int, errorCodes> docItemErrors;
