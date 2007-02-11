@@ -11,6 +11,7 @@ fi.xml
 he.xml
 it.xml
 la.xml
+nl.xml
 ru.xml
 sl.xml
   DESTINATION ${SHAREDIR}loremipsum
