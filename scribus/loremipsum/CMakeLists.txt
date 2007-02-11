@@ -5,6 +5,7 @@ INCLUDE_DIRECTORIES(
 INSTALL(FILES
 arabic.xml
 czech.xml
+dutch.xml
 finnish.xml
 german.xml
 greek.xml
