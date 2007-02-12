@@ -46,6 +46,7 @@ FPointArray & FPointArray::operator=( const FPointArray &a )
 	assign( a );
 	count = a.count; 
 	capacity = a.capacity;
+	svgState = NULL;
 	return *this; 
 }
 
