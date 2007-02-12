@@ -7946,8 +7946,8 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	view->DrawNew();
 	pagePalette->Rebuild();
-	if (outlinePalette->isVisible())
-		outlinePalette->BuildTree();
+//	if (outlinePalette->isVisible())
+//		outlinePalette->BuildTree();
 //	slotDocCh();
 }
 

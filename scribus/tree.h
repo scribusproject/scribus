@@ -73,7 +73,7 @@ signals:
 
 protected slots:
 	//virtual void reject();
-	void slotRightClick(QListViewItem* ite, const QPoint &, int);
+	void slotRightClick(QListViewItem* ite, const QPoint &, int col);
 	void slotDoRename(QListViewItem* ite, int col);
 	void slotRemoveElement(uint SNr, uint Nr);
 	void slotUpdateElement(uint SNr, uint Nr);

@@ -144,6 +144,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	NameGroupLayout = new QHBoxLayout( NameGroup->layout() );
 	NameGroupLayout->setAlignment( Qt::AlignTop );
 	NameEdit = new NameWidget(NameGroup);
+	NameEdit->setFocusPolicy(QWidget::ClickFocus);
 	NameGroupLayout->addWidget( NameEdit );
 	pageLayout->addWidget( NameGroup );
 

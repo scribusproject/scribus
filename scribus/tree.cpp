@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "page.h"
 #include "scribus.h"
+#include "mpalette.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -55,9 +56,9 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	reportDisplay->addColumn( tr("Information"));
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->setSorting(-1);
-	reportDisplay->setSelectionMode(QListView::Single); */
-//	reportDisplay->setDefaultRenameAction(QListView::Accept);
+	reportDisplay->setSorting(-1); */
+	reportDisplay->setSelectionMode(QListView::Single);
+	reportDisplay->setDefaultRenameAction(QListView::Accept);
 	unsetDoc();
 	imageIcon = loadIcon("Bild.xpm");
 	lineIcon = loadIcon("Stift.xpm");
@@ -70,8 +71,8 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	languageChange();
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-//	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-//	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
+	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
+	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
 }
 
 void Tree::setMainWindow(ScribusMainWindow *mw)
@@ -104,90 +105,65 @@ void Tree::setPaletteShown(bool visible)
 		BuildTree();
 }
 
-/*void Tree::keyPressEvent(QKeyEvent *k)
+void Tree::slotRightClick(QListViewItem *ite, const QPoint &, int col)
 {
-	QDialog::keyPressEvent(k);
-}
-*/
-void Tree::slotRightClick(QListViewItem* , const QPoint &, int)
-{
-/*	if (ite == NULL)
+	if (ite == NULL)
 		return;
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if (vie->Doc->masterPageMode)
-		return;
-	if (Seiten.containsRef(ite))
-		return;
-	for (uint e = 0; e < PageObj.count(); ++e)
+	TreeItem *item = (TreeItem*)ite;
+	if (item != NULL)
 	{
-		if (PageObj.at(e)->Elemente.containsRef(ite))
-		{
-			ite->startRename(0);
-			break;
-		}
-	} */
+		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+			ite->startRename(col);
+	}
 }
 
-void Tree::slotDoRename(QListViewItem* , int )
+void Tree::slotDoRename(QListViewItem *ite , int col)
 {
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if (vie->Doc->masterPageMode)
-		return;
-	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	int sref, oref;
-	for (uint e = 0; e < PageObj.count(); ++e)
+	disconnect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
+	TreeItem *item = (TreeItem*)ite;
+	if (item != NULL)
 	{
-		if (PageObj.at(e)->Elemente.containsRef(ite))
+		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
-			oref = PageObj.at(e)->Elemente.findRef(ite);
-			if (oref != -1)
+			QString NameOld = item->PageItemObject->itemName();
+			QString NameNew = ite->text(col);
+			if (NameOld != NameNew)
 			{
-				sref = Seiten.findRef(ite->parent());
-				if (sref != -1)
+				if (NameNew == "")
+					ite->setText(col, NameOld);
+				else
 				{
-					QString NameOld = vie->Pages.at(sref)->Items.at(oref)->AnName;
-					QString NameNew = ite->text(col);
-					if (NameOld == NameNew)
-						break;
-					if (NameNew == "")
-					{
-						ite->setText(col, NameOld);
-						break;
-					}
 					bool found = false;
-					for (uint a = 0; a < vie->Pages.count(); ++a)
+					for (uint b = 0; b < currDoc->Items->count(); ++b)
 					{
-						for (uint b = 0; b < vie->Pages.at(a)->Items.count(); ++b)
+						if ((NameNew == currDoc->Items->at(b)->itemName()) && (currDoc->Items->at(b) != item->PageItemObject))
 						{
-							if (NameNew == vie->Pages.at(a)->Items.at(b)->AnName)
-							{
-								found = true;
-								break;
-							}
-						}
-						if (found)
+							found = true;
 							break;
+						}
 					}
 					if (found)
 					{
-						QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), CommonStrings::tr_OK);
+						QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
 						ite->setText(col, NameOld);
 					}
 					else
 					{
-						vie->Pages.at(sref)->Items.at(oref)->AnName = NameNew;
-						vie->Pages.at(sref)->Items.at(oref)->AutoName = false;
-						m_MainWindow->slotDocCh(false);
-						m_MainWindow->HaveNewSel(vie->Pages.at(sref)->Items.at(oref)->PType);
-						break;
+						item->PageItemObject->setItemName(NameNew);
+						item->PageItemObject->AutoName = false;
+						m_MainWindow->propertiesPalette->SetCurItem(item->PageItemObject);
+						currDoc->setModified(true);
+						reportDisplay->setSelected(ite, true);
 					}
 				}
 			}
 		}
 	}
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int))); */
+	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 }
 
 QListViewItem* Tree::getListItem(uint SNr, int Nr)
@@ -556,8 +532,11 @@ void Tree::slotSelect(QListViewItem* ite)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
+	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	selectionTriggered = true;
 	TreeItem *item = (TreeItem*)ite;
+	uint pg = 0;
+	PageItem *pgItem = NULL;
 	switch (item->type)
 	{
 		case 0:
@@ -577,26 +556,29 @@ void Tree::slotSelect(QListViewItem* ite)
 			}
 			break;
 		case 2:
+			pg = item->PageObject->pageNr();
 			m_MainWindow->closeActiveWindowMasterPageEditor();
-			emit selectPage(item->PageObject->pageNr());
+			emit selectPage(pg);
 			break;
 		case 3:
 		case 4:
+			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
-			if (item->PageItemObject->Groups.count() == 0)
-				emit selectElement(item->PageItemObject->OwnPage, item->PageItemObject->ItemNr, false);
+			if (pgItem->Groups.count() == 0)
+				emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
 			else
 			{
-				if (item->PageItemObject->isGroupControl)
-					emit selectElement(item->PageItemObject->OwnPage, item->PageItemObject->ItemNr, false);
+				if (pgItem->isGroupControl)
+					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
 				else
-					emit selectElement(item->PageItemObject->OwnPage, item->PageItemObject->ItemNr, true);
+					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, true);
 			}
 			break;
 		default:
 			break;
 	}
 	selectionTriggered = false;
+	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
 /*
@@ -622,6 +604,8 @@ void Tree::BuildTree(bool storeVals)
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 	if (currDoc==NULL)
+		return;
+	if (selectionTriggered)
 		return;
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	setUpdatesEnabled(false);
@@ -660,6 +644,7 @@ void Tree::BuildTree(bool storeVals)
 					object->type = 1;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem->itemType());
+					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
 				else
@@ -672,6 +657,7 @@ void Tree::BuildTree(bool storeVals)
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setPixmap( 0, groupIcon );
+					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->MasterItems.count(); ++ga)
@@ -708,6 +694,7 @@ void Tree::BuildTree(bool storeVals)
 					object->type = 3;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem->itemType());
+					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
 				else
@@ -720,6 +707,7 @@ void Tree::BuildTree(bool storeVals)
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setPixmap( 0, groupIcon );
+					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
@@ -761,6 +749,7 @@ void Tree::BuildTree(bool storeVals)
 					object->type = 4;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem->itemType());
+					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
 				else
@@ -773,6 +762,7 @@ void Tree::BuildTree(bool storeVals)
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
 					object->setPixmap( 0, groupIcon );
+					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
@@ -787,11 +777,11 @@ void Tree::BuildTree(bool storeVals)
 		}
 		page->setText(0, tr("Free Objects"));
 	}
-	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	if (storeVals)
 		reopenTree();
 	setUpdatesEnabled(true);
 	repaint();
+	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
 void Tree::parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGroupList, int itemType)
@@ -811,6 +801,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGro
 				grp->type = itemType;
 				grp->setText(0, pgItem->itemName());
 				setItemIcon(grp, pgItem->itemType());
+				grp->setRenameEnabled(0, true);
 				pgItem->Dirty = true;
 			}
 			else
@@ -823,6 +814,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGro
 				else
 				grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
 				grp->setPixmap( 0, groupIcon );
+				grp->setRenameEnabled(0, true);
 				pgItem->Dirty = true;
 				subGroup = new QPtrList<PageItem>;
 				subGroup->clear();
