@@ -12,7 +12,7 @@
 #ifndef SIMPLE_ACTIONS_H
 #define SIMPLE_ACTIONS_H
 
-#include "desaxe/actions.h"
+#include "actions.h"
 /*****
 
     Defines the following actions:
@@ -23,6 +23,9 @@
     Getter<O,D>( fun )                              O -> O D
     Setter<O,D>( fun )                              O D -> O D
     SetAttribute<O,D>( fun, name, default)          O -> O
+    SetAttribute<O,D>( fun, name)                   O -> O
+    SetAttributeWithConversion<O,D>( f, n, c, def)  O -> O
+    SetAttributeWithConversion<O,D>( f, n, convert) O -> O
     SetAttributes<O>( fun )                         O -> O
     SetText<O,D>( fun )                             O -> O
     AddText<O,D>( fun )                             O -> O
@@ -36,9 +39,11 @@
 
 namespace desaxe {
 
+	using namespace desaxe;
+	
 /**
  *   Pushes a new object of type Obj_Type onto the stack.
- *   If no create method is given, Obj_Type needs a default constructor
+ *   Obj_Type needs a default constructor
  */
 template<class Obj_Type>
 class Factory_body : public Generator_body<Obj_Type>
@@ -54,12 +59,12 @@ public:
 	: create_(create) 
     {}
 	
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string name, Xml_attr attr)
     { 
-		dig->push(create_? create_() : new Obj_Type()); 
+		this->dig->push(create_? create_() : new Obj_Type()); 
     }	
 private:
-    const Obj_Type* (*create_)();
+    Obj_Type* (*create_)();
 };
 
 template <class Type>
@@ -70,6 +75,35 @@ struct  Factory : public MakeGenerator<Factory_body<Type>, Type, typename Factor
 
 	Factory()
 	: MakeGenerator<Factory_body<Type>, Type, typename Factory_body<Type>::FunType>::MakeGenerator() {} 
+};
+
+
+/**
+ *   Pushes a new object of type Obj_Type onto the stack.
+ */
+template<class Obj_Type>
+class FactoryWithArgs_body : public Generator_body<Obj_Type>
+{
+public:
+	typedef Obj_Type* (*FunType)(Xml_string, Xml_attr);
+	
+	FactoryWithArgs_body(FunType create) 
+		: create_(create) 
+    {}
+	
+	void begin(const Xml_string name, Xml_attr attr)
+    { 
+		this->dig->push(create_(name, attr)); 
+    }	
+private:
+		Obj_Type* (*create_)(Xml_string, Xml_attr);
+};
+
+template <class Type>
+struct  FactoryWithArgs : public MakeGenerator<FactoryWithArgs_body<Type>, Type, typename FactoryWithArgs_body<Type>::FunType> 
+{
+	FactoryWithArgs(typename FactoryWithArgs_body<Type>::FunType create)
+	: MakeGenerator<FactoryWithArgs_body<Type>, Type, typename FactoryWithArgs_body<Type>::FunType>::MakeGenerator(create) {} 
 };
 
 
@@ -93,7 +127,7 @@ public:
 	
 	void begin(const Xml_string tag, Xml_attr)
 	{ 
-		dig->push(create_? create_(tag) : new Obj_Type(tag)); 
+		this->dig->push(create_? create_(tag) : new Obj_Type(tag)); 
 	}	
 private:
 	FunType create_;
@@ -128,7 +162,7 @@ public:
 	
 	void begin(const Xml_string, Xml_attr)
 	{
-		dig->push(new Obj_Type(proto));
+		this->dig->push(new Obj_Type(proto_));
 	}
 private:
 	const Obj_Type* proto_;
@@ -160,9 +194,9 @@ public:
 	
 	void begin(const Xml_string, Xml_attr)
 	{
-		Obj_Type* obj = dig->template top<Obj_Type>(1);
+		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
 		Data_Type* data = (obj->*get_)();
-		dig->push(data);
+		this->dig->push(data);
 	}
 private:
 	FunType get_;	
@@ -192,8 +226,8 @@ public:
 	
 	void end(const Xml_string)
 	{ 
-		Data_Type* data= dig->template top<Data_Type>(); 
-		Obj_Type* obj = dig->template top<Obj_Type>(1);
+		Data_Type* data = this->dig->template top<Data_Type>(); 
+		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
 #ifdef DESAXE_DEBUG
 		std::cerr << "setter(ptr): " << obj << " .= " << data << "\n";
 #endif
@@ -227,8 +261,8 @@ public:
 	
 	void end(const Xml_string)
 	{ 
-		Data_Type* data= dig->template top<Data_Type>(); 
-		Obj_Type* obj = dig->template top<Obj_Type>(1);
+		Data_Type* data = this->dig->template top<Data_Type>(); 
+		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
 #ifdef DESAXE_DEBUG
 		std::cerr << "setter: " << obj << " .= *(" << data << ")\n";
 #endif
@@ -261,7 +295,7 @@ public:
 	
 	void begin(const Xml_string, Xml_attr attr)
 	{
-		Obj_Type* obj = dig->template top<Obj_Type>();
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it;
 		for(it=attr.begin(); it != attr.end(); ++it)
 			(obj->*set_)( Xml_key(it), Xml_data(it) ); 
@@ -281,6 +315,102 @@ struct  SetAttributes : public MakeAction<SetAttributes_body<Type>, typename Set
 
 
 /**
+ *   Stores named attribute to the topmost object on the stack if attribute present,
+ *   or stores defauot if present.
+ */
+template<class Obj_Type, class Data_Type>
+class SetAttribute_body : public Action_body
+{
+public:
+	typedef void (Obj_Type::*FunType)(Data_Type) ;
+	
+	SetAttribute_body(FunType set, Xml_string name) 
+		: set_(set), name_(name), default_(), hasDefault_(false)
+	{}
+	
+	SetAttribute_body(FunType set, Xml_string name, Data_Type deflt) 
+		: set_(set), name_(name), default_(deflt), hasDefault_(true)
+	{}
+		
+	void begin(const Xml_string, Xml_attr attr)
+	{
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
+		Xml_attr::iterator it = attr.find(name_);
+		if (it != attr.end() )
+			(obj->*set_)( Data_Type(Xml_data(it)) );
+		else if (hasDefault_)
+			(obj->*set_)( default_ );			
+	}	
+private:
+	FunType set_;
+	Xml_string name_;
+	Data_Type default_;
+	bool hasDefault_;
+};
+
+
+template <class Type, class Data>
+struct  SetAttribute : public MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data> 
+{
+	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, Xml_string name)
+	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>::MakeAction(set,name) {} 
+
+	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, Xml_string name, Data deflt)
+	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>::MakeAction(set,name,deflt) {} 
+};
+
+
+
+/**
+*   Stores named attribute to the topmost object on the stack if attribute present,
+ *   or stores defauot if present.
+ */
+template<class Obj_Type, class Data_Type>
+class SetAttributeWithConversion_body : public Action_body
+{
+public:
+	typedef void (Obj_Type::*FunType)(Data_Type) ;
+	typedef Data_Type (*ConvType)(Xml_string);
+	
+	SetAttributeWithConversion_body(FunType set, Xml_string name, ConvType conv) 
+		: set_(set), name_(name), conv_(conv), default_(), hasDefault_(false)
+	{}
+	
+	SetAttributeWithConversion_body(FunType set, Xml_string name, ConvType conv, Data_Type deflt) 
+		: set_(set), name_(name), conv_(conv), default_(deflt), hasDefault_(true)
+	{}
+	
+	void begin(const Xml_string, Xml_attr attr)
+	{
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
+		Xml_attr::iterator it = attr.find(name_);
+		if (it != attr.end())
+			(obj->*set_)( conv_(Xml_data(it)) );
+		else if (hasDefault_)
+			(obj->*set_)( default_ );			
+	}	
+private:
+	FunType set_;
+	Xml_string name_;
+	ConvType conv_;
+	Data_Type default_;
+	bool hasDefault_;
+};
+
+
+template <class Type, class Data>
+struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data> 
+{	
+	SetAttributeWithConversion(typename SetAttributeWithConversion_body<Type,Data>::FunType set, Xml_string name, typename SetAttributeWithConversion_body<Type,Data>::ConvType conv)
+	: MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data>::MakeAction(set,name,conv) {} 
+	
+	SetAttributeWithConversion(typename SetAttributeWithConversion_body<Type,Data>::FunType set, Xml_string name, typename SetAttributeWithConversion_body<Type,Data>::ConvType conv, Data deflt)
+	: MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data>::MakeAction(set,name,conv,deflt) {} 
+};
+
+
+
+/**
  *   Stores text (PCDATA) in the topmost object on the stack.
  *   This might be called more than once.
  */
@@ -295,7 +425,7 @@ public:
 	
 	void chars(const Xml_string txt)
 	{
-		Obj_Type* obj = dig->template top<Obj_Type>();
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		(obj->*addT)( txt ); 
 	}	
 private:
@@ -341,7 +471,7 @@ public:
 	
 	void end(const Xml_string tag)
 	{
-		Obj_Type* obj = dig->template top<Obj_Type>();
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		(obj->*setT)( txt ); 
 	}	
 	
@@ -374,7 +504,7 @@ public:
 	
 	void end(const Xml_string)
 	{ 
-		dig->setResult(dig->template top<Data_Type>());
+		this->dig->setResult(dig->template top<Data_Type>());
 	}
 };
 

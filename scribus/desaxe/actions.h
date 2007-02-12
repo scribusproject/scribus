@@ -111,13 +111,15 @@ class Dummy {};
  * your own Actions. You have to implement MyAction constructors if you
  * want constructors with arguments.
  */
-template <class Body, class Arg1=Dummy, class Arg2=Dummy, class Arg3=Dummy>
+template <class Body, class Arg1=Dummy, class Arg2=Dummy, class Arg3=Dummy, class Arg4=Dummy, class Arg5=Dummy>
 struct MakeAction : public Action 
 {
 	MakeAction() : Action(new Body()) {}
 	MakeAction(Arg1 a1) : Action(new Body(a1)) {}
 	MakeAction(Arg1 a1, Arg2 a2) : Action(new Body(a1, a2)) {}
 	MakeAction(Arg1 a1, Arg2 a2, Arg3 a3) : Action(new Body(a1, a2, a3)) {}
+	MakeAction(Arg1 a1, Arg2 a2, Arg3 a3, Arg4 a4) : Action(new Body(a1, a2, a3, a4)) {}
+	MakeAction(Arg1 a1, Arg2 a2, Arg3 a3, Arg4 a4, Arg5 a5) : Action(new Body(a1, a2, a3, a4, a5)) {}
 };
 
 
