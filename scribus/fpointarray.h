@@ -39,9 +39,9 @@ class SVGState;
 class SCRIBUS_API FPointArray : private QMemArray<FPoint>
 {
 public: 
-	FPointArray() : count(0), capacity(0) {};
-	FPointArray(int size) : QMemArray<FPoint>(size), count(size), capacity(size) {};
-	FPointArray(const FPointArray &a) : QMemArray<FPoint>(a), count(a.count), capacity(a.capacity) {};
+	FPointArray() : count(0), capacity(0), svgState(NULL) {};
+	FPointArray(int size) : QMemArray<FPoint>(size), count(size), capacity(size), svgState(NULL) {};
+	FPointArray(const FPointArray &a) : QMemArray<FPoint>(a), count(a.count), capacity(a.capacity), svgState(NULL) {};
 	uint size() const { return count; };
 	bool resize(uint newCount);
 	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
@@ -80,7 +80,7 @@ public:
 	void svgClosePath();
 	void calculateArc(bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
 	bool parseSVG(const QString& svgPath, double Conversion = 1);
-	QString svgPath();
+	QString svgPath() const;
 private:
 	uint count;
 	uint capacity;
