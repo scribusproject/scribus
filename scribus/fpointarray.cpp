@@ -492,7 +492,7 @@ struct SVGState
 };
 
 
-QString FPointArray::svgPath()
+QString FPointArray::svgPath() const
 {
 	Xml_string result;
 	bool hasPoint = false;
@@ -503,7 +503,6 @@ QString FPointArray::svgPath()
 		point(i++, &x, &y);
 		if (x > 900000 && y > 900000)  // marker for closepath
 		{
-			result += "Z";
 			hasPoint = false;
 			continue;
 		}
