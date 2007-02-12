@@ -292,7 +292,7 @@ void PageItem::saxx(SaxHandler& handler) const
 
 class CreatePageItem_body : public Generator_body<PageItem>
 {
-	void begin (Xml_string /*tagname*/, Xml_attr attr)
+	void begin (const Xml_string /*tagname*/, Xml_attr attr)
 	{
 		PageItem* result;
 		ScribusDoc* doc = this->dig->top<ScribusDoc>();
