@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include <cstdarg>
 #include <math.h>
+#include <qregexp.h>
+
 #include "util.h"
 
 using namespace std;
@@ -457,4 +459,598 @@ bool FPointArray::operator!=(const FPointArray &rhs) const
 	return QMemArray<FPoint>::operator!=(rhs);
 }
 
+
+struct SVGState
+{
+	double CurrX, CurrY, StartX, StartY;
+	bool FirstM, WasM, PathClosed;
+	int PathLen;
+	
+	void reset(double x, double y)
+	{
+		CurrX = x;
+		CurrY = y;
+		StartX = x;
+		StartY = y;
+		PathLen = 0;
+	}
+	
+	void move(double x, double y, int newPoints)
+	{
+		CurrX = x;
+		CurrY = y;
+		PathLen += newPoints;
+	}
+	
+	bool needsMarker()
+	{
+		bool result = (!FirstM) && (WasM);
+		if (result)
+			PathLen += 4;
+		return result;
+	}
+};
+
+
+QString FPointArray::svgPath()
+{
+	Xml_string result;
+	bool hasPoint = false;
+	double x, y, x1, y1, x2, y2, xe=0, ye=0; 
+	uint i=0;
+	while (i < size())
+	{
+		point(i++, &x, &y);
+		if (x > 900000 && y > 900000)  // marker for closepath
+		{
+			result += "Z";
+			hasPoint = false;
+			continue;
+		}
+		if (!hasPoint || x != xe || y != ye) // start a subpath
+		{
+			result += "M";
+			result += QString::number(x);
+			result += " ";
+			result += QString::number(y);
+			result += "C";
+			hasPoint = true;
+		}
+		else 
+			result += " ";
+		
+		point(i++, &x1, &y1);
+		point(i++, &x2, &y2);
+		point(i++, &xe, &ye);
+		result += QString::number(x1);
+		result += " ";
+		result += QString::number(y1);
+		result += " ";
+		result += QString::number(x2);
+		result += " ";
+		result += QString::number(y2);
+		result += " ";
+		result += QString::number(xe);
+		result += " ";
+		result += QString::number(ye);
+	}
+	return result;	
+}
+
+
+FPointArray::~FPointArray()
+{
+	if (svgState)
+		delete svgState;
+}
+
+
+void FPointArray::svgInit()
+{
+	if (!svgState)
+		svgState = new SVGState;
+	svgState->reset(0,0);
+	svgState->FirstM = true;
+	svgState->WasM = false;
+}
+
+
+void FPointArray::svgMoveTo(double x, double y)
+{
+	svgState->reset(x, y);
+	svgState->WasM = true;
+}
+
+
+void FPointArray::svgLineTo(double x1, double y1)
+{
+	if (svgState->needsMarker())
+	{
+		setMarker();
+	}
+	if (size() > 3)
+	{
+		FPoint b1 = point(size()-4);
+		FPoint b2 = point(size()-3);
+		FPoint b3 = point(size()-2);
+		FPoint b4 = point(size()-1);
+		FPoint n1 = FPoint(svgState->CurrX, svgState->CurrY);
+		FPoint n2 = FPoint(x1, y1);
+		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
+			return;
+	}
+	addPoint(FPoint(svgState->CurrX, svgState->CurrY));
+	addPoint(FPoint(svgState->CurrX, svgState->CurrY));
+	addPoint(FPoint(x1, y1));
+	addPoint(FPoint(x1, y1));
+	svgState->move(x1, y1, 4);
+}
+
+
+void FPointArray::svgCurveToCubic(double x1, double y1, double x2, double y2, double x3, double y3)
+{
+	if (svgState->needsMarker())
+	{
+		setMarker();
+	}
+	if (svgState->PathLen > 3)
+	{
+		FPoint b1 = point(size()-4);
+		FPoint b2 = point(size()-3);
+		FPoint b3 = point(size()-2);
+		FPoint b4 = point(size()-1);
+		FPoint n1 = FPoint(svgState->CurrX, svgState->CurrY);
+		FPoint n2 = FPoint(x1, y1);
+		FPoint n3 = FPoint(x3, y3);
+		FPoint n4 = FPoint(x2, y2);
+		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
+			return;
+	}
+	addPoint(FPoint(svgState->CurrX, svgState->CurrY));
+	addPoint(FPoint(x1, y1));
+	addPoint(FPoint(x3, y3));
+	addPoint(FPoint(x2, y2));
+	svgState->move(x3, y3, 4);
+}
+
+
+void FPointArray::svgClosePath()
+{
+	if (svgState->PathLen > 2)
+	{
+		if ((svgState->PathLen == 4) || (point(size()-2).x() != svgState->StartX) || (point(size()-2).y() != svgState->StartY))
+		{
+			addPoint(point(size()-2));
+			addPoint(point(size()-3));
+			addPoint(FPoint(svgState->StartX, svgState->StartY));
+			addPoint(FPoint(svgState->StartX, svgState->StartY));
+		}
+	}
+}
+
+void FPointArray::svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1)
+{
+	calculateArc(false, svgState->CurrX, svgState->CurrY, angle, x1, y1, r1, r2, largeArcFlag, sweepFlag);
+}
+
+void FPointArray::calculateArc(bool relative, double &curx, double &cury, double angle, 
+							   double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag)
+{
+	double sin_th, cos_th;
+	double a00, a01, a10, a11;
+	double x0, y0, x1, y1, xc, yc;
+	double d, sfactor, sfactor_sq;
+	double th0, th1, th_arc;
+	int i, n_segs;
+	sin_th = sin(angle * (M_PI / 180.0));
+	cos_th = cos(angle * (M_PI / 180.0));
+	double dx;
+	if(!relative)
+		dx = (curx - x) / 2.0;
+	else
+		dx = -x / 2.0;
+	double dy;
+	if(!relative)
+		dy = (cury - y) / 2.0;
+	else
+		dy = -y / 2.0;
+	double _x1 =  cos_th * dx + sin_th * dy;
+	double _y1 = -sin_th * dx + cos_th * dy;
+	double Pr1 = r1 * r1;
+	double Pr2 = r2 * r2;
+	double Px = _x1 * _x1;
+	double Py = _y1 * _y1;
+	// Spec : check if radii are large enough
+	double check = Px / Pr1 + Py / Pr2;
+	if(check > 1)
+	{
+		r1 = r1 * sqrt(check);
+		r2 = r2 * sqrt(check);
+	}
+	a00 = cos_th / r1;
+	a01 = sin_th / r1;
+	a10 = -sin_th / r2;
+	a11 = cos_th / r2;
+	x0 = a00 * curx + a01 * cury;
+	y0 = a10 * curx + a11 * cury;
+	if(!relative)
+		x1 = a00 * x + a01 * y;
+	else
+		x1 = a00 * (curx + x) + a01 * (cury + y);
+	if(!relative)
+		y1 = a10 * x + a11 * y;
+	else
+		y1 = a10 * (curx + x) + a11 * (cury + y);
+	/* (x0, y0) is current point in transformed coordinate space.
+		(x1, y1) is new point in transformed coordinate space.
+		
+		The arc fits a unit-radius circle in this space.
+	    */
+	d = (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0);
+	sfactor_sq = 1.0 / d - 0.25;
+	if(sfactor_sq < 0)
+		sfactor_sq = 0;
+	sfactor = sqrt(sfactor_sq);
+	if(sweepFlag == largeArcFlag)
+		sfactor = -sfactor;
+	xc = 0.5 * (x0 + x1) - sfactor * (y1 - y0);
+	yc = 0.5 * (y0 + y1) + sfactor * (x1 - x0);
+	
+	/* (xc, yc) is center of the circle. */
+	th0 = atan2(y0 - yc, x0 - xc);
+	th1 = atan2(y1 - yc, x1 - xc);
+	th_arc = th1 - th0;
+	if(th_arc < 0 && sweepFlag)
+		th_arc += 2 * M_PI;
+	else if(th_arc > 0 && !sweepFlag)
+		th_arc -= 2 * M_PI;
+	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
+	for(i = 0; i < n_segs; i++)
+	{
+	{
+		double sin_th, cos_th;
+		double a00, a01, a10, a11;
+		double x1, y1, x2, y2, x3, y3;
+		double t;
+		double th_half;
+		double _th0 = th0 + i * th_arc / n_segs;
+		double _th1 = th0 + (i + 1) * th_arc / n_segs;
+		sin_th = sin(angle * (M_PI / 180.0));
+		cos_th = cos(angle * (M_PI / 180.0));
+		/* inverse transform compared with rsvg_path_arc */
+		a00 = cos_th * r1;
+		a01 = -sin_th * r2;
+		a10 = sin_th * r1;
+		a11 = cos_th * r2;
+		th_half = 0.5 * (_th1 - _th0);
+		t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
+		x1 = xc + cos(_th0) - t * sin(_th0);
+		y1 = yc + sin(_th0) + t * cos(_th0);
+		x3 = xc + cos(_th1);
+		y3 = yc + sin(_th1);
+		x2 = x3 + t * sin(_th1);
+		y2 = y3 - t * cos(_th1);
+		svgCurveToCubic(a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3 );
+	}
+	}
+	if(!relative)
+		curx = x;
+	else
+		curx += x;
+	if(!relative)
+		cury = y;
+	else
+		cury += y;
+}
+
+
+static const char * getCoord( const char *ptr, double &number )
+{
+	int integer, exponent;
+	double decimal, frac;
+	int sign, expsign;
+	
+	exponent = 0;
+	integer = 0;
+	frac = 1.0;
+	decimal = 0;
+	sign = 1;
+	expsign = 1;
+	
+	// read the sign
+	if(*ptr == '+')
+		ptr++;
+	else if(*ptr == '-')
+	{
+		ptr++;
+		sign = -1;
+	}
+	
+	// read the integer part
+	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		integer = (integer * 10) + *(ptr++) - '0';
+	if(*ptr == '.') // read the decimals
+	{
+		ptr++;
+		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+			decimal += (*(ptr++) - '0') * (frac *= 0.1);
+	}
+	
+	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	{
+		ptr++;
+		
+		// read the sign of the exponent
+		if(*ptr == '+')
+			ptr++;
+		else if(*ptr == '-')
+		{
+			ptr++;
+			expsign = -1;
+		}
+		
+		exponent = 0;
+		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		{
+			exponent *= 10;
+			exponent += *ptr - '0';
+			ptr++;
+		}
+	}
+	number = integer + decimal;
+	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
+	// skip the following space
+	if(*ptr == ' ')
+		ptr++;
+	
+	return ptr;
+}
+
+
+bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
+{
+	QString d = svgPath;
+	d = d.replace( QRegExp( "," ), " ");
+	bool ret = false;
+	if( !d.isEmpty() )
+	{
+		d = d.simplifyWhiteSpace();
+		const char *ptr = d.latin1();
+		const char *end = d.latin1() + d.length() + 1;
+		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
+		double px1, py1, px2, py2, px3, py3;
+		bool relative;
+		svgInit();
+		char command = *(ptr++), lastCommand = ' ';
+		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
+		while( ptr < end )
+		{
+			if( *ptr == ' ' )
+				ptr++;
+			relative = false;
+			switch( command )
+			{
+			case 'm':
+				relative = true;
+			case 'M':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					svgState->WasM = true;
+					subpathx = curx = relative ? curx + tox : tox;
+					subpathy = cury = relative ? cury + toy : toy;
+					svgMoveTo(curx, cury );
+					break;
+				}
+			case 'l':
+				relative = true;
+			case 'L':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					svgLineTo( curx, cury );
+					break;
+				}
+			case 'h':
+				{
+					ptr = getCoord( ptr, tox );
+					tox *= Conversion;
+					curx = curx + tox;
+					svgLineTo( curx, cury );
+					break;
+				}
+			case 'H':
+				{
+					ptr = getCoord( ptr, tox );
+					tox *= Conversion;
+					curx = tox;
+					svgLineTo( curx, cury );
+					break;
+				}
+			case 'v':
+				{
+					ptr = getCoord( ptr, toy );
+					toy *= Conversion;
+					cury = cury + toy;
+					svgLineTo( curx, cury );
+					break;
+				}
+			case 'V':
+				{
+					ptr = getCoord( ptr, toy );
+					toy *= Conversion;
+					cury = toy;
+					svgLineTo(  curx, cury );
+					break;
+				}
+			case 'z':
+			case 'Z':
+				{
+					curx = subpathx;
+					cury = subpathy;
+					svgClosePath();
+					break;
+				}
+			case 'c':
+				relative = true;
+			case 'C':
+				{
+					ptr = getCoord( ptr, x1 );
+					ptr = getCoord( ptr, y1 );
+					ptr = getCoord( ptr, x2 );
+					ptr = getCoord( ptr, y2 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x1 *= Conversion;
+					y1 *= Conversion;
+					x2 *= Conversion;
+					y2 *= Conversion;
+					px1 = relative ? curx + x1 : x1;
+					py1 = relative ? cury + y1 : y1;
+					px2 = relative ? curx + x2 : x2;
+					py2 = relative ? cury + y2 : y2;
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x2 : x2;
+					contrly = relative ? cury + y2 : y2;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 's':
+				relative = true;
+			case 'S':
+				{
+					ptr = getCoord( ptr, x2 );
+					ptr = getCoord( ptr, y2 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x2 *= Conversion;
+					y2 *= Conversion;
+					px1 = 2 * curx - contrlx;
+					py1 = 2 * cury - contrly;
+					px2 = relative ? curx + x2 : x2;
+					py2 = relative ? cury + y2 : y2;
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x2 : x2;
+					contrly = relative ? cury + y2 : y2;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 'q':
+				relative = true;
+			case 'Q':
+				{
+					ptr = getCoord( ptr, x1 );
+					ptr = getCoord( ptr, y1 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x1 *= Conversion;
+					y1 *= Conversion;
+					px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
+					py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
+					px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
+					py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
+					contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 't':
+				relative = true;
+			case 'T':
+				{
+					ptr = getCoord(ptr, tox);
+					ptr = getCoord(ptr, toy);
+					tox *= Conversion;
+					toy *= Conversion;
+					xc = 2 * curx - contrlx;
+					yc = 2 * cury - contrly;
+					px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
+					py1 = relative ? (cury + 2 * yc) * (1.0 / 3.0) : (cury + 2 * yc) * (1.0 / 3.0);
+					px2 = relative ? ((curx + tox) + 2 * xc) * (1.0 / 3.0) : (tox + 2 * xc) * (1.0 / 3.0);
+					py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+					contrlx = xc;
+					contrly = yc;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 'a':
+				relative = true;
+			case 'A':
+				{
+					bool largeArc, sweep;
+					double angle, rx, ry;
+					ptr = getCoord( ptr, rx );
+					ptr = getCoord( ptr, ry );
+					ptr = getCoord( ptr, angle );
+					ptr = getCoord( ptr, tox );
+					ry *= Conversion;
+					rx *= Conversion;
+					largeArc = tox == 1;
+					ptr = getCoord( ptr, tox );
+					sweep = tox == 1;
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					calculateArc( relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
+				}
+			}
+			lastCommand = command;
+			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
+			{
+				// there are still coords in this command
+				if(command == 'M')
+					command = 'L';
+				else if(command == 'm')
+					command = 'l';
+			}
+			else
+				command = *(ptr++);
+
+			if( lastCommand != 'C' && lastCommand != 'c' &&
+			        lastCommand != 'S' && lastCommand != 's' &&
+			        lastCommand != 'Q' && lastCommand != 'q' &&
+			        lastCommand != 'T' && lastCommand != 't')
+			{
+				contrlx = curx;
+				contrly = cury;
+			}
+		}
+		if ((lastCommand != 'z') && (lastCommand != 'Z'))
+			ret = true;
+		if (size() > 2)
+		{
+			if ((point(0).x() == point(size()-2).x()) && (point(0).y() == point(size()-2).y()))
+				ret = false;
+		}
+	}
+	return ret;
+
+}
 

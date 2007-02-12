@@ -34,6 +34,8 @@ for which a new license (GPL+exception) is in place.
   *@author Franz Schmid
   */
 
+class SVGState;
+
 class SCRIBUS_API FPointArray : private QMemArray<FPoint>
 {
 public: 
@@ -68,10 +70,21 @@ public:
 	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const;
 	bool operator==(const FPointArray &rhs) const;
 	bool operator!=(const FPointArray &rhs) const;
-	~FPointArray() {};
+	~FPointArray();
+	void svgInit();
+	void svgMoveTo(double x, double y);
+	void svgLineTo(double x, double y);
+	//void svgCurveTo(double x1, double y1, double x2, double y2);
+	void svgCurveToCubic(double x1, double y1, double x2, double y2, double x3, double y3);
+	void svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1);
+	void svgClosePath();
+	void calculateArc(bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
+	bool parseSVG(const QString& svgPath, double Conversion = 1);
+	QString svgPath();
 private:
 	uint count;
 	uint capacity;
+	SVGState * svgState;
 };
 
 #endif
