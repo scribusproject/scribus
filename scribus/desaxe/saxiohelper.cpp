@@ -3,83 +3,102 @@
 #include "scfonts.h"
 #include "fpointarray.h"
 
+// FIXME: this is too Qt dependent
+Xml_string toXMLString(unsigned int val)
+{
+	return QString::number(val);
+}
 
-QString toXMLString(uint val)
+unsigned int parseUInt(Xml_string str)
+{
+	return str.toUInt();
+}
+
+Xml_string toXMLString(int val)
 {
 	return QString::number(val);
 }
 
 
-QString toXMLString(int val)
+int parseInt(Xml_string str)
+{
+	return str.toInt();
+}
+
+
+Xml_string toXMLString(unsigned long val)
+{
+	return QString::number(val);
+}
+
+unsigned long parseULong(Xml_string str)
+{
+	return str.toULong();
+}
+
+Xml_string toXMLString(long val)
 {
 	return QString::number(val);
 }
 
 
-QString toXMLString(double val)
+long parseLong(Xml_string str)
+{
+	return str.toLong();
+}
+
+
+Xml_string toXMLString(double val)
 {
 	return QString::number(val);
 }
 
 
-QString toXMLString(const QString& val)
+double parseDouble(Xml_string str)
+{
+	return str.toDouble();
+}
+
+
+Xml_string toXMLString(float val)
+{
+	return QString::number(val);
+}
+
+
+float parseFloat(Xml_string str)
+{
+	return str.toFloat();
+}
+
+
+Xml_string toXMLString(bool what)
+{
+	return what? "yes" : "no";
+}
+
+
+bool parseBool(Xml_string str)
+{
+	return str == "yes";
+}
+
+
+Xml_string toXMLString(const Xml_string& val)
 {
 	return val;
 }
 
 
-QString toXMLString(const ScFace& val)
+
+// FIXME: the following should not be in desaxe:
+Xml_string toXMLString(const ScFace& val)
 {
 	return val.scName();
 }
 
 
-QString toXMLString(bool what)
+Xml_string toXMLString(const FPointArray& path)
 {
-	return what? "yes" : "no";
-}
-
-QString toXMLString(const FPointArray& path)
-{
-	QString result;
-	bool hasPoint = false;
-	double x, y, x1, y1, x2, y2, xe=0, ye=0; 
-	uint i=0;
-	while (i < path.size())
-	{
-		path.point(i++, &x, &y);
-		if (x > 900000 && y > 900000)  // marker for closepath
-		{
-			result += "Z";
-			hasPoint = false;
-			continue;
-		}
-		if (!hasPoint || x != xe || y != ye) // start a subpath
-		{
-			result += "M";
-			result += QString::number(x);
-			result += " ";
-			result += QString::number(y);
-			result += "C";
-			hasPoint = true;
-		}
-		else 
-			result += " ";
-		
-		path.point(i++, &x1, &y1);
-		path.point(i++, &x2, &y2);
-		path.point(i++, &xe, &ye);
-		result += QString::number(x1);
-		result += " ";
-		result += QString::number(y1);
-		result += " ";
-		result += QString::number(x2);
-		result += " ";
-		result += QString::number(y2);
-		result += " ";
-		result += QString::number(xe);
-		result += " ";
-		result += QString::number(ye);
-	}
-	return result;
+	return path.svgPath();
 }
