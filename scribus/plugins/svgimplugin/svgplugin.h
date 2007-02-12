@@ -188,8 +188,9 @@ public:
 	void setupTransform( const QDomElement &e );
 	void finishNode( const QDomElement &e, PageItem* item);
 	bool isIgnorableNode( const QDomElement &e );
-	QSize parseWidthHeight(const QDomElement &e, double conv);
-	QRect parseViewBox(const QDomElement &e);
+	FPoint parseTextPosition(const QDomElement &e);
+	QSize  parseWidthHeight(const QDomElement &e, double conv);
+	QRect  parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);

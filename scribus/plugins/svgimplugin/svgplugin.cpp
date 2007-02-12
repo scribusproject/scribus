@@ -614,6 +614,28 @@ bool SVGPlug::isIgnorableNode( const QDomElement &e )
 	return false;
 }
 
+FPoint SVGPlug::parseTextPosition(const QDomElement &e)
+{
+	// FIXME According to spec, we should in fact return a point list 
+	QString xatt =  e.attribute( "x", "0" );
+	QString yatt =  e.attribute( "y", "0" );
+	if ( xatt.contains(',') || xatt.contains(' ') )
+	{
+		xatt.replace(QChar(','), QChar(' '));
+		QStringList xl(QStringList::split(QChar(' '), xatt));
+		xatt = xl.first();
+	}
+	if ( yatt.contains(',') || yatt.contains(' ') )
+	{
+		yatt.replace(QChar(','), QChar(' '));
+		QStringList yl(QStringList::split(QChar(' '), yatt));
+		yatt = yl.first();
+	}
+	double x = parseUnit( xatt );
+	double y = parseUnit( yatt );
+	return FPoint(x, y);
+}
+
 QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
 {
 	QSize size(550, 841);
@@ -639,6 +661,13 @@ QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
 	{
 		w *= (sw.endsWith("%") ? size.width() : 1.0);
 		h *= (sh.endsWith("%") ? size.height() : 1.0);
+	}
+	// OpenOffice files may not have width and height attributes, so avoid unnecessary large dimensions
+	if (w > 10000 || h > 10000)
+	{
+		double m = max(w, h);
+		w = w / m * 842;
+		h = h / m * 842;
 	}
 	size.setWidth(qRound(w));
 	size.setHeight(qRound(h));
@@ -1122,10 +1151,10 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	setupNode(e);
 	QDomNode c = e.firstChild();
-//	double BaseX = m_Doc->currentPage()->xOffset();
-//	double BaseY = m_Doc->currentPage()->yOffset();
-	double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
-	double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
+	//double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
+	//double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
+	FPoint p = parseTextPosition(e);
+	double x = p.x(), y = p.y();
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
 	{
 		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
@@ -1184,8 +1213,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
 	{
-		double x1 = parseUnit( e.attribute( "x", "0" ) );
-		double y1 = parseUnit( e.attribute( "y", "0" ) );
+		FPoint p = parseTextPosition(e);
+		double x1 = p.x(), y1 = p.y();
 		double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
 		double my = mm.m12() * x1 + mm.m22() * y1 + mm.dy();
 		ite->setXPos(mx + BaseX);
