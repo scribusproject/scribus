@@ -316,8 +316,15 @@ public:
 	QString NamedLStyle;
   /** Defines clipping region of the elements; */
 	QPointArray Clip;
+	
 	FPointArray PoLine;
+	const FPointArray shape() const { return PoLine; }
+	void setShape(FPointArray val) { PoLine = val; }
+	
 	FPointArray ContourLine;
+	const FPointArray contour() const { return ContourLine; }
+	void setContour(FPointArray val) { ContourLine = val; }
+	
 	FPointArray imageClip;
 	QValueList<uint> Segments;
 	ScImageEffectList effectsInUse;
@@ -325,6 +332,21 @@ public:
 	double BaseOffs;
 	int textPathType;
 	bool textPathFlipped;
+	bool flipPathText() const { return textPathFlipped; }
+	void setFlipPathText(bool val) { textPathFlipped = val; }
+	int pathTextType() const { return textPathType; }
+	void setPathTextType(int val) { textPathType = val; }
+	double pathTextBaseOffset() const { return BaseOffs; }
+	void setPathTextBaseOffset(double val) { BaseOffs = val; }
+	bool pathTextShowFrame() const { return PoShow; }
+	void setPathTextShowFrame(bool val) { PoShow = val; }
+	
+	bool useEmbeddedImageProfile() const { return UseEmbedded; }
+	void setUseEmbeddedImageProfile(bool val) { UseEmbedded = val; }
+	QString embeddedImageProfile() const { return EmProfile; }
+	void setEmbeddedImageProfile(QString val) { EmProfile = val; }
+
+	
 	bool ClipEdited;
 	// Don't know exactly what this is, but it's not the same as itemType
 	int FrameType;
@@ -332,9 +354,9 @@ public:
 	uint ItemNr;
   /** Internal unique Item-Number, used for the undo system */
 	uint uniqueNr;
-  /** Hat Element Rahmen? FIXME: still used?*/
+  /** Hat Element Rahmen? FIXME: still used? - in DrawObject_Post */
 	bool Frame;
-  /** Seite zu der das Element gehoert */
+  /** page this element belongs to */
 	int OwnPage;
 	/** @brief Old page number tracked for the move undo action */
 	int oldOwnPage;
@@ -345,10 +367,25 @@ public:
 	QString Pfile;
 	QString Pfile2;
 	QString Pfile3;
+	QString externalFile() const { return Pfile; }
+	void setExternalFile(QString val) { Pfile = val; }
+	
+	//FIXME: maybe these should go into annotation?
+	QString fileIconPressed() const { return Pfile2; }
+	void setFileIconPressed(QString val) { Pfile2 = val; }
+	QString fileIconRollover() const { return Pfile3; }
+	void setFileIconRollover(QString val) { Pfile3 = val; }
+	
 	QString IProfile;
 	bool UseEmbedded;
 	QString EmProfile;
 	int IRender;
+	// some accessor methods:
+	int cmsRenderingIntent() const { return IRender; }
+	void setCmsRenderingIntent(int val) { IRender = val; }
+	QString cmsProfile() const { return IProfile; }
+	void setCmsProfile(QString val) { IProfile = val; }
+	
   /** Bild verfuegbar */
 	bool PicAvail;
 	int OrigW;
@@ -373,8 +410,8 @@ public:
 	bool invalid;
   /** Flag fuer Auswahl */
 	bool HasSel;
+	/** avoid artefacts while moving */
 	bool FrameOnly;
-	int NextPg;
 	bool isAutoText;
 	PageItem* prevInChain() { return BackBox; }
 	PageItem* nextInChain() { return NextBox; }
@@ -401,8 +438,20 @@ public:
 	bool ScaleType;
 	bool AspectRatio;
 	QValueStack<int> Groups;
+	const QValueStack<int>& groups() const { return Groups; }
+	QValueStack<int>& groups() { return Groups; }
+	void setGroups( QValueStack<int> val) { Groups = val; }
+	
+	bool controlsGroup() const { return isGroupControl; }
+	void setControlsGroup(bool val) { isGroupControl = val; }
+	
 	QValueList<double> DashValues;
 	double DashOffset;
+	const QValueList<double>& dashes() const { return DashValues; }
+	QValueList<double>& dashes() { return DashValues; }
+	void setDashes(QValueList<double> val) { DashValues = val; }
+	double dashOffset() const { return DashOffset; }
+	void setDashOffset(double val) { DashOffset = val; }
 	VGradient fill_gradient;
 	bool fillRule;
 	bool doOverprint;
@@ -448,7 +497,8 @@ public:
 	void resizeBy(const double, const double);
 	//Rotation
 	double rotation() const { return Rot; }
-	void setRotation(const double, bool drawingOnly=false);
+	void setRotation(const double, bool drawingOnly);
+	void setRotation(const double r) { setRotation(r, false); }  // needed for deSaXe
 	void rotateBy(const double);
 	//Selection
 	bool isSelected() const { return Select; }
@@ -471,8 +521,34 @@ public:
 	//Rounded Corners
 	double cornerRadius() const { return RadRect; }
 	void setCornerRadius(double);
-
-
+	// PDF bookmark
+	bool isPDFBookmark() const { return isBookmark; }
+	void setIsPDFBookmark(bool val) { isBookmark = val; }
+	// 0=none, 1,2,3,4=linear, 5=radial, 6=free linear, 7=free radial, 8=pattern 
+	int gradientType() const { return GrType; }
+	void setGradientType(int val) { GrType = val; }
+	// 
+	bool fillEvenOdd() const { return fillRule; }
+	void setFillEvenOdd(bool val) { fillRule = val; }
+	//
+	bool overprint() const { return doOverprint; }
+	void setOverprint(bool val) { doOverprint = val; }
+	// rect / oval / round / other
+	int frameType() const { return FrameType; }
+	void setFrameType(int val) { FrameType = val; }
+	//
+	bool hasDefaultShape() const { return !ClipEdited; }
+	void setHasDefaultShape(bool val) { ClipEdited = !val; }
+	//
+	bool isAutoFrame() const { return isAutoText; }
+	void setIsAutoFrame(bool val) { isAutoText = val; }
+	//
+	bool keepAspectRatio() const { return AspectRatio; }
+	void setKeepAspectRatio(bool val) { AspectRatio = val; }
+	//
+	bool fitImageToFrame() const { return ScaleType; }
+	void setFitImageToFrame(bool val) { ScaleType = val; }
+	
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return Extra; }
 	double textToFrameDistRight() const { return RExtra; }
@@ -1114,7 +1190,7 @@ public:
 signals:
 	//Frame signals
 	void myself(PageItem *);
-	void frameType(int);
+	void frameType(int);   // not related to Frametype but to m_itemIype :-/
 	void position(double, double); //X,Y
 	void widthAndHeight(double, double); //W,H
 	void rotation(double); //Degrees rotation	

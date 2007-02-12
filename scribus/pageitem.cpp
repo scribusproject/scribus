@@ -125,7 +125,6 @@ PageItem::PageItem(const PageItem & other)
 	itemText(other.itemText),
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
-	NextPg(other.NextPg),
 //	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
 	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
