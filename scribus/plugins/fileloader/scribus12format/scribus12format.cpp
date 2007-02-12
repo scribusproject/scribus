@@ -199,6 +199,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
+	nextPg.clear();
 	QDomDocument docu("scridoc");
 	QFile fi(fileName);
 	// Load the document text
@@ -657,7 +658,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 //					Neu->NextIt = obj.attribute("NEXTITEM").toInt();
-					Neu->NextPg = obj.attribute("NEXTPAGE").toInt();
+					nextPg[Neu->ItemNr] = obj.attribute("NEXTPAGE").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -841,7 +842,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				int itnr = 0;
 				for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
 				{
-					if (m_Doc->Items->at(nn)->OwnPage == Its->NextPg)
+					if (m_Doc->Items->at(nn)->OwnPage == nextPg[Its->ItemNr])
 					{
 						if (itnr == lc.data())
 						{
@@ -1026,6 +1027,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
+	nextPg.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
@@ -1308,7 +1310,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
 					{
 //						Neu->NextIt = baseobj + obj.attribute("NEXTITEM").toInt();
-						Neu->NextPg = a; // obj.attribute("NEXTPAGE").toInt();
+						nextPg[Neu->ItemNr] = a; // obj.attribute("NEXTPAGE").toInt();
 					}
 //					else
 //						Neu->NextIt = -1;
@@ -1356,7 +1358,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							int itnr = 0;
 							for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
 							{
-								if (m_Doc->Items->at(nn)->OwnPage == Its->NextPg)
+								if (m_Doc->Items->at(nn)->OwnPage == nextPg[Its->ItemNr])
 								{
 									if (itnr == lc.data())
 									{

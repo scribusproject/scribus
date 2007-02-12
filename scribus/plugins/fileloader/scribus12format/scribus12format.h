@@ -59,6 +59,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		QMap<QString,QString> DoFonts;
 		QMap<int,int> itemRemap;
 		QMap<int,int> itemNext;
+		QMap<int,int> nextPg; // old PageItem::NextPg attribute; transformation for PageItem* pi: pi->NextPg  ==>  nextPg[pi->ItemNr]
 		int itemCount;
 		QMap<uint,QString> DoVorl;
 		uint VorlC;
