@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "selection.h"
 #include "undomanager.h"
+#include "dynamictip.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -80,6 +81,7 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	selectionTriggered = false;
 	freeObjects = 0;
 	languageChange();
+	dynTip = new DynamicTip(reportDisplay);
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));

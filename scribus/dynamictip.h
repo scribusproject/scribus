@@ -28,21 +28,25 @@ for which a new license (GPL+exception) is in place.
 #include <qlistbox.h>
 #include <qtable.h>
 #include <qstringlist.h>
+#include <qlistview.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
 class SCRIBUS_API DynamicTip : public QToolTip
 {
 public:
-	enum TipType {
+	enum TipType
+	{
 		ColorListBox,
 		Table,
-		TableHeader
+		TableHeader,
+		TreeView
 	};
 
 	DynamicTip( QListBox* parent, ColorList* pale );
 	DynamicTip( QTable* parent );
 	DynamicTip( QHeader *parent );
+	DynamicTip( QListView *parent );
 	virtual ~DynamicTip() {};
 	void addHeaderTip(QString tip);
 	void clearHeaderTips();
@@ -53,6 +57,7 @@ protected:
 	QTable* table;
 	QHeader *header;
 	QStringList headerTips;
+	QListView *listV;
 	TipType kind;
 };
 

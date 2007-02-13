@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "dynamictip.h"
 #include "seiten.h"
+#include "tree.h"
+#include "pageitem.h"
 
 DynamicTip::DynamicTip( QListBox* parent, ColorList* pale ) : QToolTip( parent )
 {
@@ -41,6 +43,12 @@ DynamicTip::DynamicTip( QHeader *parent ) : QToolTip( parent )
 {
 	header = parent;
 	kind = TableHeader;
+}
+
+DynamicTip::DynamicTip( QListView* parent ) : QToolTip( parent->viewport() )
+{
+	listV = parent;
+	kind = TreeView;
 }
 
 void DynamicTip::maybeTip( const QPoint &pos )
@@ -87,6 +95,72 @@ void DynamicTip::maybeTip( const QPoint &pos )
 	{
 		int col = header->sectionAt(pos.x());
 		tip( header->sectionRect(col), headerTips[col] );
+	}
+	else if (kind == TreeView)
+	{
+		QListViewItem* it = listV->itemAt(pos);
+		if (it != 0)
+		{
+			TreeItem *item = (TreeItem*)it;
+			if (item != NULL)
+			{
+				QString tipText = "";
+				if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+				{
+					PageItem *pgItem = item->PageItemObject;
+					switch (pgItem->itemType())
+					{
+						case PageItem::ImageFrame:
+							tipText = QObject::tr("Image");
+							break;
+						case PageItem::TextFrame:
+							switch (pgItem->annotation().Type())
+							{
+								case 2:
+									tipText = QObject::tr("PDF Push Button");
+									break;
+								case 3:
+									tipText = QObject::tr("PDF Text Field");
+									break;
+								case 4:
+									tipText = QObject::tr("PDF Check Box");
+									break;
+								case 5:
+									tipText = QObject::tr("PDF Combo Box");
+									break;
+								case 6:
+									tipText = QObject::tr("PDF List Box");
+									break;
+								case 10:
+									tipText = QObject::tr("PDF Text Annotation");
+									break;
+								case 11:
+									tipText = QObject::tr("PDF Link Annotation");
+									break;
+								default:
+									tipText = QObject::tr("Text");
+									break;
+							}
+							break;
+						case PageItem::Line:
+							tipText = QObject::tr("Line");
+							break;
+						case PageItem::Polygon:
+							tipText = QObject::tr("Polygon");
+							break;
+						case PageItem::PolyLine:
+							tipText = QObject::tr("Polyline");
+							break;
+						case PageItem::PathText:
+							tipText = QObject::tr("PathText");
+							break;
+						default:
+							break;
+					}
+					tip(listV->itemRect(it), tipText);
+				}
+			}
+		}
 	}
 }
 

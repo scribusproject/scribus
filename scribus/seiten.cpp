@@ -405,7 +405,7 @@ int SeView::GetPage(int r, int c, bool *last)
 		{
 			if (numCols() == 1)
 			{
-				if (rowcounter*rowmult == r)
+				if ((rowcounter*rowmult) == r)
 				{
 					ret = a;
 					return ret;
