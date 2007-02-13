@@ -40,6 +40,13 @@ ActionManager::ActionManager ( QObject * parent, const char * name ) :
 {
 }
 
+ActionManager::~ActionManager()
+{
+	delete modeActionNames;
+	delete nonEditActionNames;
+	delete unicodeCharActionNames;
+}
+
 void ActionManager::init(ScribusMainWindow *mw)
 {
 	mainWindow=mw;

@@ -49,7 +49,7 @@ class SCRIBUS_API ActionManager : public QObject
 	friend class StoryEditor;
 	public:
 		ActionManager ( QObject * parent, const char * name );	
-		~ActionManager() {};
+		~ActionManager();
 		void init(ScribusMainWindow *);
 		static void createDefaultShortcuts();
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
