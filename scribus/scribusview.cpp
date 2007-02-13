@@ -4328,12 +4328,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	for (uint i = 0; i < Doc->m_Selection->count(); ++i)
 		Doc->m_Selection->itemAt(i)->checkChanges(true);
 
-	//Commit drag created items to undo manager. View needs to emit this AddObj() for the outline palette (for now)
+	//Commit drag created items to undo manager.
 	if (Doc->m_Selection->itemAt(0)!=NULL)
 	{
-		bool emitToOutline = Doc->itemAddCommit(Doc->m_Selection->itemAt(0)->ItemNr);
-		if (emitToOutline)
-			emit AddObj(Doc->m_Selection->itemAt(0));
+		Doc->itemAddCommit(Doc->m_Selection->itemAt(0)->ItemNr);
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	zoomSpinBox->clearFocus();
@@ -11106,8 +11104,6 @@ void ScribusView::ToPicFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::ImageFrame);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage()->pageNr(), newItem->ItemNr);
 	emit DocChanged();
 }
 
@@ -11118,8 +11114,6 @@ void ScribusView::ToPolyFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage()->pageNr(), newItem->ItemNr);
 	emit DocChanged();
 }
 
@@ -11130,8 +11124,6 @@ void ScribusView::ToTextFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage()->pageNr(), newItem->ItemNr);
 	emit DocChanged();
 }
 
@@ -11142,8 +11134,6 @@ void ScribusView::ToBezierFrame()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage()->pageNr(), newItem->ItemNr);
 	emit DocChanged();
 }
 
@@ -11154,8 +11144,6 @@ void ScribusView::Bezier2Poly()
 	PageItem* newItem=Doc->convertItemTo(currItem, PageItem::Polygon);
 	RefreshItem(newItem);
 	SelectItem(newItem);
-	if (!Doc->isLoading())
-		emit UpdtObj(Doc->currentPage()->pageNr(), newItem->ItemNr);
 	emit DocChanged();
 }
 
@@ -11178,8 +11166,6 @@ void ScribusView::ToPathText()
 			PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PathText, polyLineItem);
 			RefreshItem(newItem);
 			SelectItem(newItem);
-			if (!Doc->isLoading())
-				emit UpdtObj(Doc->currentPageNumber(), newItem->ItemNr);
 			emit DocChanged();
 		}
 	}

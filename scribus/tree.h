@@ -41,15 +41,10 @@ class SCRIBUS_API Tree : public ScrPaletteBase
 
 public:
 	Tree( QWidget* parent );
-	//void keyPressEvent(QKeyEvent *k);
-	//void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
-	
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	
-	void rebuildPageD();
 	void reopenTree();
 	QListViewItem* getListItem(uint SNr, int Nr);
 	void setItemIcon(QListViewItem *item, PageItem *pgItem);
@@ -64,25 +59,14 @@ public slots:
 
 signals:
 	void ToggleAllPalettes();
-	//void Schliessen();
-	//void CloseMpal();
-	//void CloseSpal();
 	void selectElement(int, int, bool);
 	void selectPage(int);
 	void selectMasterPage(QString);
-	void selectMasterPageElement(QString, int);
 
 protected slots:
-	//virtual void reject();
 	void slotRightClick(QListViewItem* ite, const QPoint &, int col);
 	void slotRenameItem();
 	void slotDoRename(QListViewItem* ite, int col);
-	void slotRemoveElement(uint SNr, uint Nr);
-	void slotUpdateElement(uint SNr, uint Nr);
-	void slotAddElement(PageItem *item);
-	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
-	void slotDelPage(uint Nr);
-	void slotAddPage(uint Nr);
 	void slotSelect(QListViewItem* ite);
 protected:
 	void clearPalette();

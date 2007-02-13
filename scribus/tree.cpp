@@ -55,13 +55,6 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->setSorting(-1);
-/*	reportDisplay->addColumn( tr("Type"));
-	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->addColumn( tr("Information"));
-	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->setSorting(-1); */
 	reportDisplay->setSelectionMode(QListView::Single);
 	reportDisplay->setDefaultRenameAction(QListView::Accept);
 	unsetDoc();
@@ -681,89 +674,6 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
-void Tree::slotRemoveElement(uint , uint )
-{
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
-		return;
-	if (PageObj.count() != 0)
-	{
-		if (PageObj.at(SNr)->Elemente.count() != 0)
-		{
-			delete PageObj.at(SNr)->Elemente.at(Nr);
-			PageObj.at(SNr)->Elemente.take(Nr);
-		}
-	} */
-}
-
-void Tree::slotUpdateElement(uint SNr, uint Nr)
-{
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-/*	QListViewItem *item = getListItem(SNr, Nr);
-	if (!item)
-	{
-		qDebug("Tree::slotUpdateElement(%i,%i): NULL item from getListItem(...)",SNr,Nr);
-		return;
-	}
-	PageItem* pgItem;
-	if (currDoc->masterPageMode())
-		pgItem = currDoc->MasterItems.at(Nr);
-	else
-		pgItem = currDoc->DocItems.at(Nr);
-	if ((pgItem->Groups.count() != 0) && (!pgItem->isSingleSel))
-		return;
-	setItemIcon(item, pgItem->itemType()); */
-/*	QString cc, xp, yp, fon, GroupTxt;
-	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
-		return;
-	if (SNr > Seiten.count()-1)
-		return;
-	if ( Nr > PageObj.at(SNr)->Elemente.count()-1)
-		return;
-	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	PageObj.at(SNr)->Elemente.at(Nr)->setText(0, vie->Pages.at(SNr)->Items.at(Nr)->AnName);
-	xp = tr("X:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Xpos);
-	yp = tr("Y:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Ypos);
-	fon = tr("Font:")+" "+vie->Pages.at(SNr)->Items.at(Nr)->IFont;
-	if (vie->Pages.at(SNr)->Items.at(Nr)->Groups.count() != 0)
-	{
-		GroupTxt = tr("Group ")+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Groups.top())+" ";
-		xp.prepend(GroupTxt);
-	}
-	switch (vie->Pages.at(SNr)->Items.at(Nr)->PType)
-	{
-	case 2:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Image"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+vie->Pages.at(SNr)->Items.at(Nr)->Pfile);
-		break;
-	case 4:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Text"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
-		break;
-	case 5:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Line"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
-		break;
-	case 6:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Polygon"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
-		break;
-	case 7:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Polyline"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
-		break;
-	case 8:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("PathText"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
-		break;
-	}
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*))); */
-}
-
 void Tree::setItemIcon(QListViewItem *item, PageItem *pgItem)
 {
 	switch (pgItem->itemType())
@@ -815,116 +725,6 @@ void Tree::setItemIcon(QListViewItem *item, PageItem *pgItem)
 	default:
 		break;
 	}
-}
-
-void Tree::slotAddElement(PageItem *item)
-{
-	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-	if (currDoc->isLoading())
-		return;
-/*	if (!item->OnMasterPage.isEmpty())
-	{
-		if (masterPageItemMapRev.contains(item->ItemNr))
-			return;
-	}
-	else
-	{
-		if (itemMapRev.contains(item->ItemNr))
-			return;
-	}
-	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	QListViewItem * object;
-	if (!item->OnMasterPage.isEmpty())
-	{
-		QListViewItem * page = masterPageMapRev[item->OnMasterPage];
-		object = new QListViewItem( page, 0 );
-		masterPageItemMap.insert(object, item->ItemNr);
-		masterPageItemMapRev.insert(item->ItemNr, object);
-	}
-	else
-	{
-		if (item->OwnPage != -1)
-		{
-			QListViewItem * page = pageMapRev[item->OwnPage];
-			object = new QListViewItem( page, 0 );
-			itemMap.insert(object, item->ItemNr);
-			itemMapRev.insert(item->ItemNr, object);
-		}
-		else
-		{
-			QListViewItem * page = freeObjects;
-			if (freeObjects == 0)
-			{
-				page = new QListViewItem( rootObject, 0 );
-				page->setText(0, tr("Free items"));
-				freeObjects = page;
-			}
-			object = new QListViewItem( page, 0 );
-			itemMap.insert(object, item->ItemNr);
-			itemMapRev.insert(item->ItemNr, object);
-		}
-	}
-	object->setText(0, item->itemName());
-	setItemIcon(object, item->itemType());
-	reportDisplay->clearSelection();
-	reportDisplay->setSelected(object, true);
-	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*))); */
-}
-
-void Tree::slotMoveElement(uint , uint , uint )
-{
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-	if ((vie->Doc->masterPageMode) || (vie->Doc->loading))
-		return;
-	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
-	PageObj.at(SNr)->Elemente.insert(NrNew, tmp); */
-}
-
-void Tree::slotAddPage(uint )
-{
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-	QString cc;
-	if (ListView1->childCount() == 0)
-		return;
-	Seiten.insert(Nr, new QListViewItem(ListView1->firstChild(), "Seiten"));
-	Seiten.current()->setText(0, tr("Page")+" "+cc.setNum(Nr+1));
-	PageObj.insert(Nr, new Elem);
-	rebuildPageD(); */
-}
-
-void Tree::slotDelPage(uint )
-{
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-	if (vie->Doc->masterPageMode)
-		return;
-	if (Seiten.count() != 0)
-	{
-		delete Seiten.at(Nr);
-		Seiten.take(Nr);
-		PageObj.take(Nr);
-		rebuildPageD();
-	} */
-}
-
-void Tree::rebuildPageD()
-{
-/*	if (!m_MainWindow || m_MainWindow->ScriptRunning)
-		return;
-	QString cc,tmpstr;
-	uint pagenumwidth;
-
-	tmpstr.setNum( Seiten.count() );
-	pagenumwidth=tmpstr.length();
-	for (uint e = 0; e < Seiten.count(); ++e)
-	{
-		tmpstr.setNum(e+1);
-		cc = tmpstr.rightJustify (pagenumwidth, '0');
-		Seiten.at(e)->setText(0, tr("Page")+" "+cc);
-	} */
 }
 
 void Tree::reopenTree()
@@ -1035,19 +835,6 @@ void Tree::slotSelect(QListViewItem* ite)
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
-/*
-void Tree::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void Tree::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
-}
-*/
 void Tree::resizeEvent(QResizeEvent *r)
 {
 	reportDisplay->resize(r->size());
@@ -1294,6 +1081,5 @@ void Tree::languageChange()
 
 void Tree::clearPalette()
 {
-	//GUI
 	reportDisplay->clear();
 }

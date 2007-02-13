@@ -423,8 +423,6 @@ signals:
 	//void EditGuides();
 	void MousePos(double, double);
 	void callGimp();
-	void AddObj(PageItem *);
-	void UpdtObj(uint, uint);
 	void signalGuideInformation(int, double);
 };
 #endif

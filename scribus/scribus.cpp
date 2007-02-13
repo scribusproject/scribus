@@ -2563,15 +2563,6 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(callImageEditor()));
-	connect(view, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
-	connect(view, SIGNAL(AddObj(PageItem *)), outlinePalette, SLOT(slotAddElement(PageItem *)));
-/*	if (!doc->masterPageMode)
-	{
-		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
-		connect(doc->currentPage, SIGNAL(AddObj(uint, uint)), outlinePalette, SLOT(slotAddElement(uint, uint)));
-		connect(doc->currentPage, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
-		connect(doc->currentPage, SIGNAL(MoveObj(uint, uint, uint)), outlinePalette, SLOT(slotMoveElement(uint, uint, uint)));
-	} */
 }
 
 void ScribusMainWindow::HaveNewSel(int Nr)
@@ -3037,11 +3028,6 @@ void ScribusMainWindow::rebuildStyleMenu(int itemType)
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
 {
-/*	if ((reb) && (!doc->masterPageMode) && (view->SelItem.count() != 0))
-	{
-		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
-			outlinePalette->slotUpdateElement(doc->currentPage->PageNr, view->SelItem.at(upd)->ItemNr);
-	} */
 	if (!doc->isLoading() && docCheckerPalette->isVisible())
 	{
 		scanDocument();
