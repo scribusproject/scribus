@@ -166,6 +166,8 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	parentStoryEditor=parentSE;
 	wasMod = false;
 	StoredSel = false;
+	SelCharStart = 0;
+	SelParaStart = 0;
 	StyledText.clear();
 	cBuffer.clear();
 	setUndoRedoEnabled(true);
@@ -375,12 +377,16 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 
 void SEditor::focusOutEvent(QFocusEvent *e)
 {
+	int p,c;
+	getCursorPosition(&p, &c);
+	//qDebug(QString("SE focusOut: %1/%2 (%3 %4/%5)").arg(p).arg(c).arg(StoredSel).arg(SelParaStart).arg(SelCharStart));
 	if (hasSelectedText())
 	{
 		getSelection(&SelParaStart, &SelCharStart, &SelParaEnd, &SelCharEnd);
 		StoredSel = true;
 	}
 	else {
+		getCursorPosition(&SelParaStart, &SelCharStart);
 		StoredSel = false;
 	}
 	QTextEdit::focusOutEvent(e);
@@ -388,11 +394,19 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 
 void SEditor::focusInEvent(QFocusEvent *e)
 {
+	int p,c;
+	getCursorPosition(&p, &c);
+	//qDebug(QString("SE focusIn: %1/%2 (%3 %4/%5)").arg(p).arg(c).arg(StoredSel).arg(SelParaStart).arg(SelCharStart));
 	if (StoredSel)
 	{
 		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
 		StoredSel = false;
 	}
+	else {
+		setCursorPosition(SelParaStart, SelCharStart);
+		StoredSel = false;
+	}
+		
 	QTextEdit::focusInEvent(e);
 }
 
@@ -493,16 +507,17 @@ void SEditor::loadItemText(PageItem *currItem)
 	StyledText.append(currItem->itemText);
 	updateAll();
 	int npars = currItem->itemText.nrOfParagraphs();
-	int currPar = 0;
-	int currChar;
-	while (currItem->CPos >= (currChar = currItem->itemText.endOfParagraph(currPar))
-		   && currPar < npars)
-		++currPar;
-	if (currItem->CPos < currChar)
-		currChar = currItem->CPos;
-	currChar -= currItem->itemText.startOfParagraph(currPar);
-	setCursorPosition(currPar, currChar);
-	emit setProps(currPar, currChar);
+	SelParaStart = 0;
+	while (currItem->CPos >= (SelCharStart = currItem->itemText.endOfParagraph(SelParaStart))
+		   && SelParaStart < npars)
+		++SelParaStart;
+	if (currItem->CPos < SelCharStart)
+		SelCharStart = currItem->CPos;
+	SelCharStart -= currItem->itemText.startOfParagraph(SelParaStart);
+	StoredSel = false;
+	//qDebug("SE::loadItemText: cursor");
+	setCursorPosition(SelParaStart, SelCharStart);
+	emit setProps(SelParaStart, SelCharStart);
 }
 
 void SEditor::loadText(QString tx, PageItem *currItem)
@@ -515,6 +530,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	updateAll();
 	if (StyledText.length() != 0)
 		emit setProps(0, 0);
+	//qDebug("SE::loadText: cursor");
 	setCursorPosition(0, 0);
 }
 
@@ -615,6 +631,7 @@ void SEditor::updateAll()
 	setAlign(Ali);
 	setStyle(Csty);
 	insert(Text);
+	setCursorPosition(p, i);
 	setUpdatesEnabled(true);
 	//CB Removed to fix 2083 setCursorPosition(p, i);
 }
@@ -652,6 +669,7 @@ void SEditor::updateFromChars(int pa)
 	removeSelection();
 	setAlign(StyledText.paragraphStyle(start).alignment());
 	setUpdatesEnabled(true);
+	//qDebug(QString("SE::updateFromChars: cursor %1/%2").arg(p).arg(i));
 	setCursorPosition(p, i);
 }
 
@@ -661,6 +679,7 @@ void SEditor::updateSel(const ParagraphStyle& newStyle)
 	int PStart, PEnd, SelStart, SelEnd, start;
 	if (StoredSel)
 	{
+		//qDebug("SE::updateSel: setsel");
 		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
 		StoredSel = false;
 	}
@@ -696,6 +715,7 @@ void SEditor::deleteSel()
 	end = StyledText.startOfParagraph(PEnd) + SelEnd;
 	if (end > start)
 		StyledText.removeChars(start, end-start);
+	//qDebug("SE::deleteSel: cursor");
 	setCursorPosition(PStart, SelStart);
 }
 
@@ -798,6 +818,7 @@ void SEditor::paste()
 	}
 	updateAll();
 	setUpdatesEnabled(false);
+	//qDebug("SE::paste: cursor");
 	setCursorPosition(currentPara, currentCharPos);
 	for (int a = 0; a < advanceLen; ++a)
 	{
@@ -1766,7 +1787,7 @@ void StoryEditor::closeEvent(QCloseEvent *)
 	}
 	else
 		result = QDialog::Rejected;
-	setCurrentDocumentAndItem(currDoc, NULL);
+	setCurrentDocumentAndItem(NULL, NULL);
 	savePrefs();
 // 	if (charSelect != NULL)
 // 		charSelect->close();
@@ -2013,9 +2034,10 @@ void StoryEditor::updateProps(int p, int ch)
 		return;
 	if ((p >= static_cast<int>(Editor->StyledText.nrOfParagraphs())) || (Editor->StyledText.length() == 0) || (!firstSet))
 	{
-		if (false && !firstSet)
+		int pos = Editor->StyledText.startOfParagraph(p) + ch;
+		if (!firstSet)
 		{
-			const CharStyle& curstyle(currItem->itemText.defaultStyle().charStyle());
+			const CharStyle& curstyle(pos < Editor->StyledText.length()? currItem->itemText.charStyle(pos) : currItem->itemText.defaultStyle().charStyle());
 			Editor->CurrTextFill = curstyle.fillColor();
 			Editor->CurrTextFillSh = curstyle.fillShade();
 			Editor->CurrTextStroke = curstyle.strokeColor();
@@ -2352,6 +2374,7 @@ bool StoryEditor::Do_new()
 	Editor->clear();
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
+	//qDebug("SE::Do_new: cursor");
 	Editor->setCursorPosition(0, 0);
 	seActions["fileRevert"]->setEnabled(false);
 	seActions["editCopy"]->setEnabled(false);
@@ -2446,6 +2469,7 @@ void StoryEditor::updateTextFrame()
 	if (!textChanged)
 		return;
 	PageItem *nextItem = currItem;
+#if 0
 	if (currItem->asTextFrame())
 	{
 		while (nextItem != 0)
@@ -2456,13 +2480,14 @@ void StoryEditor::updateTextFrame()
 				break;
 		}
 	}
+#endif
 	PageItem* nb2 = nextItem;
 	nb2->itemText.clear();
+#if 0
 	if (currItem->asTextFrame())
 	{
 		while (nb2 != 0)
 		{
-#if 0
 		for (int j = nb2->firstInFrame(); j <= nb2->lastInFrame(); ++j)
 		{
 			if ((nb2->itemText.text(j) == SpecialChars::OBJECT) && (nb2->itemText.item(j)->cembedded != 0))
@@ -2494,12 +2519,12 @@ void StoryEditor::updateTextFrame()
 			}
 		}
 		nb2->itemText.clear();
-#endif
 			nb2->CPos = 0;
 			nb2->Dirty = false;
 			nb2 = nb2->nextInChain();
 		}
 	}
+#endif
 	Editor->saveItemText(nextItem);
 #if 0
 	QPtrList<PageItem> FrameItemsDel;
@@ -2516,6 +2541,7 @@ void StoryEditor::updateTextFrame()
 	FrameItemsDel.clear();
 #endif
 	currDoc->updateFrameItems();
+#if 0
 	if (currItem->asTextFrame())
 	{
 		nextItem->layout();
@@ -2526,6 +2552,7 @@ void StoryEditor::updateTextFrame()
 			nb2 = nb2->nextInChain();
 		}
 	}
+#endif
 	ScCore->primaryMainWindow()->view->DrawNew();
 	textChanged = false;
 	seActions["fileRevert"]->setEnabled(false);
@@ -2569,6 +2596,7 @@ void StoryEditor::slotEditStyles()
 	AlignTools->SetParaStyle(currItem->doc()->paragraphStyles().find(Editor->currentParaStyle));
 	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
+	//qDebug("SE::slotEditStyles: cursor");
 	Editor->setCursorPosition(p, i);
 	updateProps(p, i);
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
@@ -2612,8 +2640,8 @@ void StoryEditor::changeStyleSB(int pa, int st)
 		Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 
 		Editor->updateFromChars(pa);
-		Editor->setCursorPosition(pa, 0);
-		updateProps(pa, 0);
+//		Editor->setCursorPosition(pa, 0);
+//		updateProps(pa, 0);
 		Editor->ensureCursorVisible();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	}
@@ -2646,6 +2674,7 @@ void StoryEditor::changeStyleSB(int pa, int st)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
+		//qDebug("SE::changeStyleSB: cursor");
 		Editor->setCursorPosition(0, 0);
 		updateProps(0, 0);
 	}
@@ -2696,6 +2725,7 @@ void StoryEditor::changeStyle(int )
 		}
 		if (sel)
 			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
+		//qDebug("SE::changeStyle: cursor");
 		Editor->setCursorPosition(p, i);
 		Editor->ensureCursorVisible();
 		updateProps(p, i);
@@ -2730,6 +2760,7 @@ void StoryEditor::changeStyle(int )
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
+		//qDebug("SE::changeStyle00: cursor");
 		Editor->setCursorPosition(0, 0);
 		updateProps(0, 0);
 	}
@@ -2780,6 +2811,7 @@ void StoryEditor::changeAlign(int )
 		}
 		if (sel)
 			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
+		//qDebug("SE::changeAlign: cursor");
 		Editor->setCursorPosition(p, i);
 		Editor->ensureCursorVisible();
 		updateProps(p, i);
