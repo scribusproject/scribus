@@ -74,6 +74,7 @@ signals:
 protected slots:
 	//virtual void reject();
 	void slotRightClick(QListViewItem* ite, const QPoint &, int col);
+	void slotRenameItem();
 	void slotDoRename(QListViewItem* ite, int col);
 	void slotRemoveElement(uint SNr, uint Nr);
 	void slotUpdateElement(uint SNr, uint Nr);
@@ -88,6 +89,8 @@ protected:
 	QListView* reportDisplay;
 	QListViewItem* freeObjects;
 	QListViewItem* rootObject;
+	QListViewItem* currentObject;
+	int currentColumn;
 	ScribusMainWindow* m_MainWindow;
 	QPixmap imageIcon;
 	QPixmap textIcon;

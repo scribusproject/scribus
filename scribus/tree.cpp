@@ -18,6 +18,10 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "scribus.h"
 #include "mpalette.h"
+#include "actionmanager.h"
+#include "util.h"
+#include "selection.h"
+#include "undomanager.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -122,8 +126,396 @@ void Tree::slotRightClick(QListViewItem *ite, const QPoint &, int col)
 	if (item != NULL)
 	{
 		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
-			ite->startRename(col);
+		{
+			currentObject = ite;
+			currentColumn = col;
+			PageItem *currItem = item->PageItemObject;
+			QPopupMenu *pmen = new QPopupMenu();
+			QPopupMenu *pmen2 = new QPopupMenu();
+			QPopupMenu *pmen3 = new QPopupMenu();
+			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			QPopupMenu *pmen4 = new QPopupMenu();
+			QPopupMenu *pmenEditContents = new QPopupMenu();
+			QPopupMenu *pmenLevel = new QPopupMenu();
+			QPopupMenu *pmenPDF = new QPopupMenu();
+			QPopupMenu *pmenResolution = new QPopupMenu();
+			bool _isGlobalMode = currDoc->view()->undoManager->isGlobalMode();
+			m_MainWindow->scrActions["editActionMode"]->setOn(true);
+			uint docSelectionCount = currDoc->m_Selection->count();
+			if (docSelectionCount == 1)
+				currDoc->view()->undoManager->showObject(currDoc->m_Selection->itemAt(0)->getUId());
+			else if (docSelectionCount > 1)
+				currDoc->view()->undoManager->showObject(Um::NO_UNDO_STACK);
+			else if (docSelectionCount == 0)
+				currDoc->view()->undoManager->showObject(currDoc->currentPage()->getUId());
+			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
+			{
+				QButtonGroup *InfoGroup = new QButtonGroup( this, "InfoGroup" );
+				InfoGroup->setFrameShape( QButtonGroup::NoFrame );
+				InfoGroup->setFrameShadow( QButtonGroup::Plain );
+				InfoGroup->setTitle("");
+				InfoGroup->setExclusive( true );
+				InfoGroup->setColumnLayout(0, Qt::Vertical );
+				InfoGroup->layout()->setSpacing( 0 );
+				InfoGroup->layout()->setMargin( 0 );
+				QGridLayout *InfoGroupLayout = new QGridLayout( InfoGroup->layout() );
+				InfoGroupLayout->setAlignment( Qt::AlignTop );
+				InfoGroupLayout->setSpacing( 2 );
+				InfoGroupLayout->setMargin( 0 );
+				QString txtC, txtC2;
+				QLabel *InfoT = new QLabel(InfoGroup, "ct");
+				QLabel *LinCT = new QLabel(InfoGroup, "lt");
+				QLabel *LinC = new QLabel(InfoGroup, "lc");
+				QLabel *ParCT = new QLabel(InfoGroup, "pt");
+				QLabel *ParC = new QLabel(InfoGroup, "pc");
+				QLabel *WordCT = new QLabel(InfoGroup, "wt");
+				QLabel *WordC = new QLabel(InfoGroup, "wc");
+				QLabel *CharCT = new QLabel(InfoGroup, "ct");
+				QLabel *CharC = new QLabel(InfoGroup, "cc");
+				QLabel *ColCT = new QLabel(InfoGroup, "ct");
+				QLabel *ColC = new QLabel(InfoGroup, "cc");
+				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
+				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					LinC->hide();
+					LinCT->hide();
+					if (currItem->PicAvail)
+					{
+						QFileInfo fi = QFileInfo(currItem->Pfile);
+						InfoT->setText( tr("Picture"));
+						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						ParCT->setText( tr("File: "));
+						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+						ParC->setText(fi.fileName());
+						InfoGroupLayout->addWidget( ParC, 1, 1 );
+						WordCT->setText( tr("Original PPI: "));
+						InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
+						WordC->setText(txtC.setNum(qRound(currItem->pixm.imgInfo.xres))+" x "+txtC2.setNum(qRound(currItem->pixm.imgInfo.yres)));
+						InfoGroupLayout->addWidget( WordC, 2, 1 );
+						CharCT->setText( tr("Actual PPI: "));
+						InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
+						CharC->setText(txtC.setNum(qRound(72.0 / currItem->imageXScale()))+" x "+ txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
+						InfoGroupLayout->addWidget( CharC, 3, 1 );
+						ColCT->setText( tr("Colorspace: "));
+						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
+						QString cSpace;
+						QString ext = fi.extension(false).lower();
+						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+							cSpace = tr("Unknown");
+						else
+						{
+							switch (currItem->pixm.imgInfo.colorspace)
+							{
+								case 0:
+									cSpace = tr("RGB");
+									break;
+								case 1:
+									cSpace = tr("CMYK");
+									break;
+								case 2:
+									cSpace = tr("Grayscale");
+									break;
+								case 3:
+									cSpace = tr("Duotone");
+									break;
+							}
+						}
+						ColC->setText(cSpace);
+						InfoGroupLayout->addWidget( ColC, 4, 1 );
+					}
+					else
+					{
+						InfoT->setText( tr("Picture"));
+						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						ParCT->setText( tr("No Image Loaded"));
+						InfoGroupLayout->addMultiCellWidget( ParCT, 1, 1, 0, 1, Qt::AlignHCenter );
+						ParC->hide();
+						WordCT->hide();
+						WordC->hide();
+						CharCT->hide();
+						CharC->hide();
+						ColCT->hide();
+						ColC->hide();
+					}
+				}
+				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+				{
+					int Parag = 0;
+					int Words = 0;
+					int Chara = 0;
+					int ParagN = 0;
+					int WordsN = 0;
+					int CharaN = 0;
+					ColC->hide();
+					ColCT->hide();
+					if (currItem->itemType() == PageItem::TextFrame)
+					{
+						if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
+							InfoT->setText( tr("Linked Text"));
+						else
+							InfoT->setText( tr("Text Frame"));
+					}
+					else
+						InfoT->setText( tr("Text on a Path"));
+					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
+					WordAndPara(currItem, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
+					ParCT->setText( tr("Paragraphs: "));
+					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+					if (ParagN != 0)
+						ParC->setText(txtC.setNum(Parag+ParagN)+" ("+txtC2.setNum(ParagN)+")");
+					else
+						ParC->setText(txtC.setNum(Parag));
+					InfoGroupLayout->addWidget( ParC, 1, 1 );
+					LinCT->setText( tr("Lines: "));
+					InfoGroupLayout->addWidget( LinCT, 2, 0, Qt::AlignRight );
+					LinC->setText(txtC.setNum(currItem->itemText.lines()));
+					InfoGroupLayout->addWidget( LinC, 2, 1 );
+					WordCT->setText( tr("Words: "));
+					InfoGroupLayout->addWidget( WordCT, 3, 0, Qt::AlignRight );
+					if (WordsN != 0)
+						WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
+					else
+						WordC->setText(txtC.setNum(Words));
+					InfoGroupLayout->addWidget( WordC, 3, 1 );
+					CharCT->setText( tr("Chars: "));
+					InfoGroupLayout->addWidget( CharCT, 4, 0, Qt::AlignRight );
+					if (CharaN != 0)
+						CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
+					else
+						CharC->setText(txtC.setNum(Chara));
+					InfoGroupLayout->addWidget( CharC, 4, 1 );
+				}
+				int row = InfoGroupLayout->numRows(); // <a.l.e>
+				PrintCT->setText( tr("Print: "));
+				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
+				if (currItem->printEnabled())
+					PrintC->setText( tr("Enabled"));
+				else
+					PrintC->setText( tr("Disabled"));
+				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
+				pmen4->insertItem(InfoGroup);
+				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
+					m_MainWindow->scrActions["itemImageInfo"]->addTo(pmen4);
+				pmen->insertItem( tr("In&fo"), pmen4);
+			}
+			pmen->insertSeparator();
+			m_MainWindow->scrActions["editUndoAction"]->addTo(pmen);
+			m_MainWindow->scrActions["editRedoAction"]->addTo(pmen);
+			if (currItem->itemType() == PageItem::ImageFrame ||
+				currItem->itemType() == PageItem::TextFrame ||
+				currItem->itemType() == PageItem::PathText)
+			{
+				pmen->insertSeparator();
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					m_MainWindow->scrActions["fileImportImage"]->addTo(pmen);
+					if (currItem->PicAvail)
+					{
+						if (!currItem->isTableItem)
+							m_MainWindow->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
+						if (currItem->pixm.imgInfo.valid)
+							m_MainWindow->scrActions["itemExtendedImageProperties"]->addTo(pmen);
+						m_MainWindow->scrActions["itemUpdateImage"]->addTo(pmen);
+					}
+					pmen->insertItem( tr("Preview Settings"), pmenResolution);
+					m_MainWindow->scrActions["itemImageIsVisible"]->addTo(pmenResolution);
+					pmenResolution->insertSeparator();
+					m_MainWindow->scrActions["itemPreviewLow"]->addTo(pmenResolution);
+					m_MainWindow->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
+					m_MainWindow->scrActions["itemPreviewFull"]->addTo(pmenResolution);
+					if (currItem->PicAvail && currItem->isRaster)
+					{
+						m_MainWindow->scrActions["styleImageEffects"]->addTo(pmen);
+						m_MainWindow->scrActions["editEditWithImageEditor"]->addTo(pmen);
+					}
+				}
+				if (currItem->itemType() == PageItem::TextFrame)
+				{
+					m_MainWindow->scrActions["fileImportText"]->addTo(pmen);
+					m_MainWindow->scrActions["fileImportAppendText"]->addTo(pmen);
+					m_MainWindow->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+					m_MainWindow->scrActions["insertSampleText"]->addTo(pmen);
+				}
+				if (currItem->itemType() == PageItem::PathText)
+					m_MainWindow->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+			}
+			if (currDoc->m_Selection->count() == 1)
+			{
+				pmen->insertSeparator();
+				m_MainWindow->scrActions["itemAttributes"]->addTo(pmen);
+			}	
+			if (currItem->itemType() == PageItem::TextFrame)
+			{
+				if (currDoc->currentPage()->pageName().isEmpty())
+				{
+					m_MainWindow->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
+					m_MainWindow->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
+					if (currItem->isAnnotation())
+					{
+						if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
+							m_MainWindow->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
+						else
+							m_MainWindow->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
+					}
+				}
+				pmen->insertItem( tr("&PDF Options"), pmenPDF);
+			}
+			pmen->insertSeparator();
+			m_MainWindow->scrActions["itemLock"]->addTo(pmen);
+			m_MainWindow->scrActions["itemLockSize"]->addTo(pmen);
+			if (!currItem->isSingleSel)
+			{
+				m_MainWindow->scrActions["itemSendToScrapbook"]->addTo(pmen);
+				m_MainWindow->scrActions["itemSendToPattern"]->addTo(pmen);
+				if (currDoc->layerCount() > 1)
+				{
+					QMap<int,int> layerMap;
+					for (QValueList<Layer>::iterator it = currDoc->Layers.begin(); it != currDoc->Layers.end(); ++it)
+						layerMap.insert((*it).Level, (*it).LNr);
+					int i=layerMap.count()-1;
+					while (i>=0)
+					{
+						if (currDoc->layerLocked(layerMap[i]))
+							m_MainWindow->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
+						else
+							m_MainWindow->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
+						m_MainWindow->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
+					}
+
+					pmen->insertItem( tr("Send to La&yer"), pmen3);
+				}
+			}
+			if ((currItem->Groups.count() != 0) && (currItem->isGroupControl))
+				m_MainWindow->scrActions["itemUngroup"]->addTo(pmen);
+			if (!currItem->locked())
+			{
+				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
+				{
+					pmen->insertItem( tr("Le&vel"), pmenLevel);
+					m_MainWindow->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
+					m_MainWindow->scrActions["itemRaise"]->addTo(pmenLevel);
+					m_MainWindow->scrActions["itemLower"]->addTo(pmenLevel);
+					m_MainWindow->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
+				}
+			}
+			if (currDoc->appMode != modeEdit && currDoc->m_Selection->itemsAreSameType()) //Create convertTo Menu
+			{
+				bool insertConvertToMenu=false;
+				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+				{
+					insertConvertToMenu=true;
+					if (currItem->itemType() == PageItem::PathText)
+						m_MainWindow->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+					else
+					{
+						if (currItem->isTableItem)
+							m_MainWindow->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+						if (!currItem->isTableItem)
+						{
+							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
+								m_MainWindow->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							m_MainWindow->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
+								m_MainWindow->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						}
+					}
+				}
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					insertConvertToMenu=true;
+					m_MainWindow->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					if (!currItem->isTableItem)
+						m_MainWindow->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+				}
+				if (currItem->itemType() == PageItem::Polygon)
+				{
+					insertConvertToMenu=true;
+					m_MainWindow->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
+					m_MainWindow->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					m_MainWindow->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+				}
+				bool insertedMenusEnabled = false;
+				for (uint pc = 0; pc < pmen2->count(); pc++)
+				{
+					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
+						insertedMenusEnabled = true;
+				}
+				if ((insertConvertToMenu) && (insertedMenusEnabled))
+					pmen->insertItem( tr("Conve&rt to"), pmen2);
+			}
+			pmen->insertSeparator();
+			pmen->insertItem( tr("Rename") , this, SLOT(slotRenameItem()));
+			if (!currItem->locked() && !(currItem->isSingleSel))
+				m_MainWindow->scrActions["editCut"]->addTo(pmen);
+			if (!(currItem->isSingleSel))
+				m_MainWindow->scrActions["editCopy"]->addTo(pmen);
+			if ((currDoc->appMode == modeEdit) && (m_MainWindow->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+				m_MainWindow->scrActions["editPaste"]->addTo(pmen);
+			if (!currItem->locked() && (currDoc->appMode != modeEdit) && (!(currItem->isSingleSel)))
+				pmen->insertItem( tr("&Delete"), currDoc, SLOT(itemSelection_DeleteItem()));
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+			{
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					if (currItem->PicAvail)
+						m_MainWindow->scrActions["editCopyContents"]->addTo(pmenEditContents);
+					if (m_MainWindow->contentsBuffer.sourceType==PageItem::ImageFrame)
+					{
+						m_MainWindow->scrActions["editPasteContents"]->addTo(pmenEditContents);
+						m_MainWindow->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
+					}
+					if (currItem->PicAvail)
+						m_MainWindow->scrActions["editClearContents"]->addTo(pmenEditContents);
+					if ((currItem->PicAvail) || (m_MainWindow->contentsBuffer.sourceType==PageItem::ImageFrame))
+						pmen->insertItem( tr("Contents"), pmenEditContents);
+				}
+				else
+				{
+					if (currItem->itemText.lines() != 0)
+					{
+						m_MainWindow->scrActions["editClearContents"]->addTo(pmenEditContents);
+						pmen->insertItem( tr("Contents"), pmenEditContents);
+					}
+				}
+			}
+			pmen->exec(QCursor::pos());
+			m_MainWindow->scrActions["editActionMode"]->setOn(!_isGlobalMode);
+			if (_isGlobalMode)
+				currDoc->view()->undoManager->showObject(Um::GLOBAL_UNDO_MODE);
+			else
+			{
+				docSelectionCount = currDoc->m_Selection->count();
+				if (docSelectionCount == 1)
+					currDoc->view()->undoManager->showObject(currDoc->m_Selection->itemAt(0)->getUId());
+				else if (docSelectionCount > 1)
+					currDoc->view()->undoManager->showObject(Um::NO_UNDO_STACK);
+				else if (docSelectionCount == 0)
+					currDoc->view()->undoManager->showObject(currDoc->currentPage()->getUId());
+			}
+			delete pmen;
+			delete pmen2;
+			delete pmen3;
+			delete pmen4;
+			delete pmenEditContents;
+			delete pmenLevel;
+			delete pmenPDF;
+			delete pmenResolution;
+			pmen=NULL;
+			pmen2=NULL;
+			pmen3=NULL;
+			pmen4=NULL;
+			pmenEditContents=NULL;
+			pmenLevel=NULL;
+			pmenPDF=NULL;
+			pmenResolution=NULL;
+		}
 	}
+}
+
+void Tree::slotRenameItem()
+{
+	currentObject->startRename(currentColumn);
 }
 
 void Tree::slotDoRename(QListViewItem *ite , int col)
