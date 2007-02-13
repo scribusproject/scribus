@@ -125,7 +125,34 @@ void Tree::slotRightClick(QListViewItem *ite, const QPoint &, int col)
 	TreeItem *item = (TreeItem*)ite;
 	if (item != NULL)
 	{
-		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+		if ((item->type == 0) || (item->type == 2))
+		{
+			QPopupMenu *pmen = new QPopupMenu();
+			m_MainWindow->scrActions["viewShowMargins"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowFrames"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowLayerMarkers"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowImages"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowGrid"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowGuides"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowBaseline"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowTextChain"]->addTo(pmen);
+			m_MainWindow->scrActions["viewRulerMode"]->addTo(pmen);
+			pmen->insertSeparator();
+			m_MainWindow->scrActions["viewSnapToGrid"]->addTo(pmen);
+			m_MainWindow->scrActions["viewSnapToGuides"]->addTo(pmen);
+			m_MainWindow->scrActions["pageManageGuides"]->addTo(pmen);
+			m_MainWindow->scrActions["pageManageMargins"]->addTo(pmen);
+			if (item->type == 2)
+			{
+				m_MainWindow->scrActions["pageApplyMasterPage"]->addTo(pmen);
+				pmen->insertSeparator();
+				m_MainWindow->scrActions["pageDelete"]->addTo(pmen);
+			}
+			pmen->exec(QCursor::pos());
+			delete pmen;
+			pmen=NULL;
+		}
+		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
 			currentObject = ite;
 			currentColumn = col;
