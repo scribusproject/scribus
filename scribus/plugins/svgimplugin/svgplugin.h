@@ -227,8 +227,7 @@ public:
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
 	QDomDocument inpdoc;
-	double CurrX, CurrY, StartX, StartY, Conversion;
-	int PathLen;
+	double Conversion;
 	QString docDesc;
 	QString docTitle;
 	int groupLevel;
@@ -236,7 +235,7 @@ public:
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;
 	QMap<QString, FPointArray>		m_clipPaths;
-	bool FirstM, WasM, PathClosed;
+	bool PathClosed;
 	double viewTransformX;
 	double viewTransformY;
 	double viewScaleX;
