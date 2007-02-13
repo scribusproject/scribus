@@ -66,6 +66,13 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	polylineIcon = loadIcon("beziertool.png");
 	polygonIcon = loadIcon("spline.png");
 	groupIcon = loadIcon("u_group.png");
+	buttonIcon = loadIcon("22/insert-button.png");
+	textFieldIcon = loadIcon("22/text-field.png");
+	checkBoxIcon = loadIcon("22/checkbox.png");
+	comboBoxIcon = loadIcon("22/combobox.png");
+	listBoxIcon = loadIcon("22/list-box.png");
+	annotTextIcon = loadIcon("22/pdf-annotations.png");
+	annotLinkIcon = loadIcon("goto.png");
 	selectionTriggered = false;
 	freeObjects = 0;
 	languageChange();
@@ -336,15 +343,41 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*))); */
 }
 
-void Tree::setItemIcon(QListViewItem *item, int typ)
+void Tree::setItemIcon(QListViewItem *item, PageItem *pgItem)
 {
-	switch (typ)
+	switch (pgItem->itemType())
 	{
 	case PageItem::ImageFrame:
 		item->setPixmap( 0, imageIcon );
 		break;
 	case PageItem::TextFrame:
-		item->setPixmap( 0, textIcon );
+		switch (pgItem->annotation().Type())
+		{
+			case 2:
+				item->setPixmap( 0, buttonIcon );
+				break;
+			case 3:
+				item->setPixmap( 0, textFieldIcon );
+				break;
+			case 4:
+				item->setPixmap( 0, checkBoxIcon );
+				break;
+			case 5:
+				item->setPixmap( 0, comboBoxIcon );
+				break;
+			case 6:
+				item->setPixmap( 0, listBoxIcon );
+				break;
+			case 10:
+				item->setPixmap( 0, annotTextIcon );
+				break;
+			case 11:
+				item->setPixmap( 0, annotLinkIcon );
+				break;
+			default:
+				item->setPixmap( 0, textIcon );
+				break;
+		}
 		break;
 	case PageItem::Line:
 		item->setPixmap( 0, lineIcon );
@@ -643,7 +676,7 @@ void Tree::BuildTree(bool storeVals)
 					object->PageItemObject = pgItem;
 					object->type = 1;
 					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem->itemType());
+					setItemIcon(object, pgItem);
 					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
@@ -693,7 +726,7 @@ void Tree::BuildTree(bool storeVals)
 					object->PageItemObject = pgItem;
 					object->type = 3;
 					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem->itemType());
+					setItemIcon(object, pgItem);
 					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
@@ -748,7 +781,7 @@ void Tree::BuildTree(bool storeVals)
 					object->PageItemObject = pgItem;
 					object->type = 4;
 					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem->itemType());
+					setItemIcon(object, pgItem);
 					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
@@ -800,7 +833,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGro
 				grp->PageItemObject = pgItem;
 				grp->type = itemType;
 				grp->setText(0, pgItem->itemName());
-				setItemIcon(grp, pgItem->itemType());
+				setItemIcon(grp, pgItem);
 				grp->setRenameEnabled(0, true);
 				pgItem->Dirty = true;
 			}

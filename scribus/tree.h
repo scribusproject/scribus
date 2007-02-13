@@ -51,7 +51,7 @@ public:
 	void rebuildPageD();
 	void reopenTree();
 	QListViewItem* getListItem(uint SNr, int Nr);
-	void setItemIcon(QListViewItem *item, int typ);
+	void setItemIcon(QListViewItem *item, PageItem *pgItem);
 	void parseSubGroup(int level, TreeItem* object, QPtrList<PageItem> *subGroupList, int itemType);
 	void buildReopenVals();
 
@@ -95,6 +95,13 @@ protected:
 	QPixmap polygonIcon;
 	QPixmap polylineIcon;
 	QPixmap groupIcon;
+	QPixmap buttonIcon;
+	QPixmap textFieldIcon;
+	QPixmap checkBoxIcon;
+	QPixmap comboBoxIcon;
+	QPixmap listBoxIcon;
+	QPixmap annotTextIcon;
+	QPixmap annotLinkIcon;
 	bool selectionTriggered;
 	ScribusDoc *currDoc;
 };
