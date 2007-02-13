@@ -58,11 +58,11 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	reportDisplay->setSelectionMode(QListView::Single);
 	reportDisplay->setDefaultRenameAction(QListView::Accept);
 	unsetDoc();
-	imageIcon = loadIcon("Bild.xpm");
+	imageIcon = loadIcon("22/insert-image.png");
 	lineIcon = loadIcon("Stift.xpm");
-	textIcon = loadIcon("Text.xpm");
-	polylineIcon = loadIcon("beziertool.png");
-	polygonIcon = loadIcon("spline.png");
+	textIcon = loadIcon("22/insert-text-frame.png");
+	polylineIcon = loadIcon("22/draw-path.png");
+	polygonIcon = loadIcon("22/draw-polygon.png");
 	groupIcon = loadIcon("u_group.png");
 	buttonIcon = loadIcon("22/insert-button.png");
 	textFieldIcon = loadIcon("22/text-field.png");
