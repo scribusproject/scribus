@@ -77,21 +77,13 @@ QString StencilReader::createShape(QString datain)
 	co2.setAttribute("Spot","0");
 	co2.setAttribute("Register","0");
 	group.appendChild(co2);
-	if (svg.hasAttribute("width"))
-		GrW = parseUnit(svg.attribute("width","50"));
-	if (svg.hasAttribute("height"))
-		GrH = parseUnit(svg.attribute("height","50"));
-	if (svg.hasAttribute("svg:width"))
-		GrW = parseUnit(svg.attribute("svg:width","50"));
-	if (svg.hasAttribute("svg:height"))
-		GrH = parseUnit(svg.attribute("svg:height","50"));
 	QDomNode DOC = svg.firstChild();
-	QDomNodeList listItems = DOC.childNodes();
 	double minXCoor = 0.0;
 	double minYCoor = 0.0;
 	double maxXCoor = 0.0;
 	double maxYCoor = 0.0;
 	bool firstCheck = true;
+	int groupElemCounter = 0;
 	Conversion = 1.0;
 	while(!DOC.isNull())
 	{
@@ -111,7 +103,7 @@ QString StencilReader::createShape(QString datain)
 			QString params = substyle[1].stripWhiteSpace();
 			if (command == "fill")
 			{
-				if (!((params == "foreground") || (params == "background") || (params == "none") || (params == "default")))
+				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
 				{
 					fill.setNamedColor( params );
 					FillCol = "FromDia"+fill.name();
@@ -119,7 +111,7 @@ QString StencilReader::createShape(QString datain)
 			}
 			else if (command == "stroke")
 			{
-				if (!((params == "foreground") || (params == "background") || (params == "none") || (params == "default")))
+				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
 				{
 					fill.setNamedColor( params );
 					FillCol = "FromDia"+fill.name();
@@ -217,6 +209,11 @@ QString StencilReader::createShape(QString datain)
 			}
 			if (STag == "svg:polygon")
 				svgClosePath(&PoLine);
+			if (PoLine.size() < 4)
+			{
+				DOC = DOC.nextSibling();
+				continue;
+			}
 		}
 		else if (STag == "svg:circle")
 		{
@@ -271,6 +268,12 @@ QString StencilReader::createShape(QString datain)
 				continue;
 			}
 		}
+		if (PoLine.size() < 4)
+		{
+			DOC = DOC.nextSibling();
+			continue;
+		}
+		groupElemCounter++;
 		FPoint tp2(getMinClipF(&PoLine));
 		PoLine.translate(-tp2.x(), -tp2.y());
 		FPoint wh(getMaxClipF(&PoLine));
@@ -299,10 +302,9 @@ QString StencilReader::createShape(QString datain)
 	Dx = minXCoor * Conversion;
 	Dy = minYCoor* Conversion;
 	QDomElement obGroup;
-	int groupElemCounter = 0;
-	if (listItems.count() != 1)
+	if (groupElemCounter != 1)
 	{
-		group.setAttribute("COUNT", list2.count()+1);
+		group.setAttribute("COUNT", groupElemCounter+1);
 		obGroup = data.createElement("ITEM");
 		writeDefaults(obGroup);
 		obGroup.setAttribute("PWIDTH", 0);
@@ -319,7 +321,8 @@ QString StencilReader::createShape(QString datain)
 		group.appendChild(obGroup);
 	}
 	else
-		group.setAttribute("COUNT", list2.count());
+		group.setAttribute("COUNT", groupElemCounter);
+	int groupElemCounter2 = 0;
 	DOC = svg.firstChild();
 	while(!DOC.isNull())
 	{
@@ -351,9 +354,9 @@ QString StencilReader::createShape(QString datain)
 				QString params	= substyle[1].stripWhiteSpace();
 				if (command == "fill")
 				{
-					if (params == "foreground")
+					if ((params == "foreground") || (params == "fg"))
 						FillCol = defStrokeCol;
-					else if (params == "background")
+					else if ((params == "background") || (params == "bg"))
 						FillCol = defFillCol;
 					else if  (params == "default")
 						FillCol = "None";
@@ -372,9 +375,9 @@ QString StencilReader::createShape(QString datain)
 				}
 				else if (command == "stroke")
 				{
-					if (params == "foreground")
+					if ((params == "foreground") || (params == "fg"))
 						StrokeCol = defStrokeCol;
-					else if (params == "background")
+					else if ((params == "background") || (params == "bg"))
 						StrokeCol = defFillCol;
 					else if  (params == "default")
 						StrokeCol = defStrokeCol;
@@ -470,6 +473,11 @@ QString StencilReader::createShape(QString datain)
 			}
 			if (STag == "svg:polygon")
 				svgClosePath(&PoLine);
+			if (PoLine.size() < 4)
+			{
+				DOC = DOC.nextSibling();
+				continue;
+			}
 		}
 		else if (STag == "svg:circle")
 		{
@@ -524,6 +532,11 @@ QString StencilReader::createShape(QString datain)
 				continue;
 			}
 		}
+		if (PoLine.size() < 4)
+		{
+			DOC = DOC.nextSibling();
+			continue;
+		}
 		QDomElement ob = data.createElement("ITEM");
 		ob.setAttribute("PWIDTH", strokewidth);
 		ob.setAttribute("PCOLOR2", StrokeCol);
@@ -531,7 +544,7 @@ QString StencilReader::createShape(QString datain)
 		ob.setAttribute("PLINEART", Dash);
 		ob.setAttribute("PLINEEND", LineEnd);
 		ob.setAttribute("PLINEJOIN", LineJoin);
-		if (listItems.count() != 1)
+		if (groupElemCounter != 1)
 		{
 			ob.setAttribute("GROUPS", 1);
 			ob.setAttribute("NUMGROUP", 1);
@@ -582,12 +595,12 @@ QString StencilReader::createShape(QString datain)
 		}
 		ob.setAttribute("POCOOR", polp);
 		group.appendChild(ob);
-		groupElemCounter++;
+		groupElemCounter2++;
 		DOC = DOC.nextSibling();
 	}
 	if (groupElemCounter > 1)
 	{
-		obGroup.setAttribute("groupsLastItem", groupElemCounter);
+		obGroup.setAttribute("groupsLastItem", groupElemCounter2);
 		static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 											1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 											0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
