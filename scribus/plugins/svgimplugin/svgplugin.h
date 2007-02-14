@@ -189,7 +189,7 @@ public:
 	void finishNode( const QDomElement &e, PageItem* item);
 	bool isIgnorableNode( const QDomElement &e );
 	FPoint parseTextPosition(const QDomElement &e);
-	QSize  parseWidthHeight(const QDomElement &e, double conv);
+	QSize  parseWidthHeight(const QDomElement &e);
 	QRect  parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
@@ -227,7 +227,6 @@ public:
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
 	QDomDocument inpdoc;
-	double Conversion;
 	QString docDesc;
 	QString docTitle;
 	int groupLevel;

@@ -194,8 +194,6 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	docDesc = "";
 	docTitle = "";
 	groupLevel = 0;
-//	Conversion = 0.8;
-	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	m_gc.setAutoDelete( true );
 }
@@ -239,10 +237,8 @@ void SVGPlug::convert(int flags)
 {
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
-//	Conversion = 0.8;
-	Conversion = 1.0;
 	QDomElement docElem = inpdoc.documentElement();
-	QSize wh = parseWidthHeight(docElem, 1.0 /*0.8*/);
+	QSize wh = parseWidthHeight(docElem);
 	double width = wh.width();
 	double height = wh.height();
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -287,7 +283,7 @@ void SVGPlug::convert(int flags)
 	if( !docElem.attribute( "viewBox" ).isEmpty() )
 	{
 		QWMatrix matrix;
-		QSize wh2 = parseWidthHeight(docElem, 1.0);
+		QSize wh2 = parseWidthHeight(docElem);
 		double w2 = wh2.width();
 		double h2 = wh2.height();
 		addGraphicContext();
@@ -636,19 +632,16 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e)
 	return FPoint(x, y);
 }
 
-QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
+QSize SVGPlug::parseWidthHeight(const QDomElement &e)
 {
 	QSize size(550, 841);
 	QString sw = e.attribute("width", "100%");
 	QString sh = e.attribute("height", "100%");
 	double w =  550, h = 841;
-	double oldConv = Conversion;
-	Conversion = conv;
 	if (!sw.isEmpty())
 		w = sw.endsWith("%") ? fromPercentage(sw) : parseUnit(sw);
 	if (!sh.isEmpty())
 		h = sh.endsWith("%") ? fromPercentage(sh) : parseUnit(sh);
-	Conversion = oldConv;
 	if (!e.attribute("viewBox").isEmpty())
 	{
 		QRect viewBox = parseViewBox(e);
@@ -1092,14 +1085,14 @@ QPtrList<PageItem> SVGPlug::parsePolyline(const QDomElement &e)
 			{
 				x = (*(it++)).toDouble();
 				y = (*it).toDouble();
-				ite->PoLine.svgMoveTo(x * Conversion, y * Conversion);
+				ite->PoLine.svgMoveTo(x, y);
 				bFirst = false;
 			}
 			else
 			{
 				x = (*(it++)).toDouble();
 				y = (*it).toDouble();
-				ite->PoLine.svgLineTo(x * Conversion, y * Conversion);
+				ite->PoLine.svgLineTo(x, y);
 			}
 		}
 		if (( STag == "polygon" ) && (pointList.count() > 4))
@@ -1481,7 +1474,7 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "px" )
 		value = value * 0.8;
 	else if(noUnit)
-		value = value; // * Conversion;
+		value = value;
 	return value;
 }
 
@@ -1506,8 +1499,8 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 		{
 			if(params.count() == 3)
 			{
-				double x = params[1].toDouble() * Conversion;
-				double y = params[2].toDouble() * Conversion;
+				double x = params[1].toDouble();
+				double y = params[2].toDouble();
 				result.translate(x, y);
 				result.rotate(params[0].toDouble());
 				result.translate(-x, -y);
@@ -1518,9 +1511,9 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 		else if(subtransform[0] == "translate")
 		{
 			if(params.count() == 2)
-				result.translate(params[0].toDouble() * Conversion, params[1].toDouble() * Conversion);
+				result.translate(params[0].toDouble(), params[1].toDouble());
 			else    // Spec : if only one param given, assume 2nd param to be 0
-				result.translate(params[0].toDouble() * Conversion, 0);
+				result.translate(params[0].toDouble(), 0);
 		}
 		else if(subtransform[0] == "scale")
 		{
@@ -1539,7 +1532,7 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 			{
 				double sx = params[0].toDouble();
 				double sy = params[3].toDouble();
-				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble() * Conversion, params[5].toDouble() * Conversion);
+				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble(), params[5].toDouble());
 			}
 		}
 		ret = result * ret;
@@ -1611,7 +1604,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 
 bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 {
-	return ite->parseSVG(s, Conversion);
+	return ite->parseSVG(s, 1.0);
 }
 
 
