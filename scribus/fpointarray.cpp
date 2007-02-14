@@ -811,7 +811,7 @@ static const char * getCoord( const char *ptr, double &number )
 }
 
 
-bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
+bool FPointArray::parseSVG(const QString& svgPath)
 {
 	QString d = svgPath;
 	d = d.replace( QRegExp( "," ), " ");
@@ -840,8 +840,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					tox *= Conversion;
-					toy *= Conversion;
 					svgState->WasM = true;
 					subpathx = curx = relative ? curx + tox : tox;
 					subpathy = cury = relative ? cury + toy : toy;
@@ -854,8 +852,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					tox *= Conversion;
-					toy *= Conversion;
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					svgLineTo( curx, cury );
@@ -864,7 +860,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 			case 'h':
 				{
 					ptr = getCoord( ptr, tox );
-					tox *= Conversion;
 					curx = curx + tox;
 					svgLineTo( curx, cury );
 					break;
@@ -872,7 +867,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 			case 'H':
 				{
 					ptr = getCoord( ptr, tox );
-					tox *= Conversion;
 					curx = tox;
 					svgLineTo( curx, cury );
 					break;
@@ -880,7 +874,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 			case 'v':
 				{
 					ptr = getCoord( ptr, toy );
-					toy *= Conversion;
 					cury = cury + toy;
 					svgLineTo( curx, cury );
 					break;
@@ -888,7 +881,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 			case 'V':
 				{
 					ptr = getCoord( ptr, toy );
-					toy *= Conversion;
 					cury = toy;
 					svgLineTo(  curx, cury );
 					break;
@@ -911,12 +903,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 					ptr = getCoord( ptr, y2 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					tox *= Conversion;
-					toy *= Conversion;
-					x1 *= Conversion;
-					y1 *= Conversion;
-					x2 *= Conversion;
-					y2 *= Conversion;
 					px1 = relative ? curx + x1 : x1;
 					py1 = relative ? cury + y1 : y1;
 					px2 = relative ? curx + x2 : x2;
@@ -938,10 +924,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 					ptr = getCoord( ptr, y2 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					tox *= Conversion;
-					toy *= Conversion;
-					x2 *= Conversion;
-					y2 *= Conversion;
 					px1 = 2 * curx - contrlx;
 					py1 = 2 * cury - contrly;
 					px2 = relative ? curx + x2 : x2;
@@ -963,10 +945,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 					ptr = getCoord( ptr, y1 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					tox *= Conversion;
-					toy *= Conversion;
-					x1 *= Conversion;
-					y1 *= Conversion;
 					px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
 					py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
 					px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
@@ -986,8 +964,6 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 				{
 					ptr = getCoord(ptr, tox);
 					ptr = getCoord(ptr, toy);
-					tox *= Conversion;
-					toy *= Conversion;
 					xc = 2 * curx - contrlx;
 					yc = 2 * cury - contrly;
 					px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
@@ -1013,15 +989,11 @@ bool FPointArray::parseSVG(const QString& svgPath, double Conversion)
 					ptr = getCoord( ptr, ry );
 					ptr = getCoord( ptr, angle );
 					ptr = getCoord( ptr, tox );
-					ry *= Conversion;
-					rx *= Conversion;
 					largeArc = tox == 1;
 					ptr = getCoord( ptr, tox );
 					sweep = tox == 1;
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					tox *= Conversion;
-					toy *= Conversion;
 					calculateArc( relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
 				}
 			}

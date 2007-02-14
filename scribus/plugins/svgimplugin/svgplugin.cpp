@@ -1604,7 +1604,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 
 bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 {
-	return ite->parseSVG(s, 1.0);
+	return ite->parseSVG(s);
 }
 
 

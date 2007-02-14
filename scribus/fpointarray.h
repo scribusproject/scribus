@@ -79,7 +79,7 @@ public:
 	void svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1);
 	void svgClosePath();
 	void calculateArc(bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
-	bool parseSVG(const QString& svgPath, double Conversion = 1);
+	bool parseSVG(const QString& svgPath);
 	QString svgPath() const;
 private:
 	uint count;
