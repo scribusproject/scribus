@@ -112,7 +112,7 @@ void PatternDialog::loadPatternDir()
 		{
 			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
 			mainWin->mainWindowProgressBar->reset();
-			mainWin->mainWindowProgressBar->setTotalSteps(d.count());
+			mainWin->mainWindowProgressBar->setTotalSteps(d.count() * 2);
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 			for (uint dc = 0; dc < d.count(); ++dc)
@@ -121,17 +121,27 @@ void PatternDialog::loadPatternDir()
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();
-//				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
-				if ((ext == "sml") || (ext == "sce"))
+				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
 					loadVectors(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+			}
+			for (uint dc = 0; dc < d.count(); ++dc)
+			{
+				mainWin->mainWindowProgressBar->setProgress(d.count() + dc);
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QString ext = fi.extension(true).lower();
+				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
+					continue;
 				else if (formats.contains(ext))
 				{
 					QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
-					ScPattern pat = ScPattern();
-					pat.setDoc(m_doc);
-					pat.setPattern(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 					if (!dialogPatterns.contains(patNam))
+					{
+						ScPattern pat = ScPattern();
+						pat.setDoc(m_doc);
+						pat.setPattern(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 						dialogPatterns.insert(patNam, pat);
+					}
 				}
 				else
 					continue;
@@ -149,8 +159,7 @@ void PatternDialog::loadPatternDir()
 void PatternDialog::loadPattern()
 {
 	QString fileName;
-//	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
-	QString formats = "Scribus Objects (*.sce *.SCE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
+	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
 	QString form1 = "";
 	QString form2 = "";
 	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
@@ -188,8 +197,7 @@ void PatternDialog::loadPattern()
 	{
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.findRev("/")));
 		QFileInfo fi(fileName);
-//		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
-		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "sce"))
+		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
 		{
 			loadVectors(fileName);
 			updatePatternList();

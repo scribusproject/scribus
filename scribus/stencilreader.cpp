@@ -111,7 +111,7 @@ QString StencilReader::createShape(QString datain)
 			QString params = substyle[1].stripWhiteSpace();
 			if (command == "fill")
 			{
-				if (!((params == "foreground") || (params == "background") || (params == "none")))
+				if (!((params == "foreground") || (params == "background") || (params == "none") || (params == "default")))
 				{
 					fill.setNamedColor( params );
 					FillCol = "FromDia"+fill.name();
@@ -119,7 +119,7 @@ QString StencilReader::createShape(QString datain)
 			}
 			else if (command == "stroke")
 			{
-				if (!((params == "foreground") || (params == "background") || (params == "none")))
+				if (!((params == "foreground") || (params == "background") || (params == "none") || (params == "default")))
 				{
 					fill.setNamedColor( params );
 					FillCol = "FromDia"+fill.name();
@@ -355,12 +355,19 @@ QString StencilReader::createShape(QString datain)
 						FillCol = defStrokeCol;
 					else if (params == "background")
 						FillCol = defFillCol;
+					else if  (params == "default")
+						FillCol = "None";
 					else if (params == "none")
 						FillCol = "None";
 					else
 					{
 						fill.setNamedColor( params );
-						FillCol = "FromDia"+fill.name();
+						if (fill == Qt::white)
+							FillCol = "White";
+						else if (fill == Qt::black)
+							FillCol = "Black";
+						else
+							FillCol = "FromDia"+fill.name();
 					}
 				}
 				else if (command == "stroke")
@@ -369,12 +376,19 @@ QString StencilReader::createShape(QString datain)
 						StrokeCol = defStrokeCol;
 					else if (params == "background")
 						StrokeCol = defFillCol;
+					else if  (params == "default")
+						StrokeCol = defStrokeCol;
 					else if (params == "none")
 						StrokeCol = "None";
 					else
 					{
 						stroke.setNamedColor( params );
-						StrokeCol = "FromDia"+stroke.name();
+						if (stroke == Qt::white)
+							StrokeCol = "White";
+						else if (stroke == Qt::black)
+							StrokeCol = "Black";
+						else
+							StrokeCol = "FromDia"+stroke.name();
 					}
 				}
 				else if (command == "stroke-width")
