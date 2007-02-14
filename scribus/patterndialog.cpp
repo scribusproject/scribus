@@ -221,14 +221,14 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-/*	else if (fi.extension(true).lower() == "shape")
+	else if (fi.extension(true).lower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
 		StencilReader *pre = new StencilReader();
 		data = pre->createShape(f);
 		delete pre;
-	} */
+	}
 	else if (fi.extension(true).lower() == "sce")
 	{
 		QString f = "";

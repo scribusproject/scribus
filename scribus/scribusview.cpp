@@ -1699,7 +1699,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						delete pre;
 						emit LoadElem(data, ex, ey, false, false, Doc, this);
 					}
-/*					else if (fi.extension(true).lower() == "shape")
+					else if (fi.extension(true).lower() == "shape")
 					{
 						QString f = "";
 						loadText(ur.path(), &f);
@@ -1707,7 +1707,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						data = pre->createShape(f);
 						delete pre;
 						emit LoadElem(data, ex, ey, false, false, Doc, this);
-					} */
+					}
 					else
 						emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
 				}
@@ -9744,14 +9744,14 @@ void ScribusView::PasteRecentToPage(int id)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-/*	else if (fi.extension(true).lower() == "shape")
+	else if (fi.extension(true).lower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
 		StencilReader *pre = new StencilReader();
 		data = pre->createShape(f);
 		delete pre;
-	} */
+	}
 	else if (fi.extension(true).lower() == "sce")
 	{
 		QString f = "";
