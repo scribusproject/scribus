@@ -568,6 +568,8 @@ void FPointArray::svgLineTo(double x1, double y1)
 	{
 		setMarker();
 	}
+	svgState->FirstM = false;
+	svgState->WasM = false;
 	if (size() > 3)
 	{
 		FPoint b1 = point(size()-4);
@@ -593,6 +595,8 @@ void FPointArray::svgCurveToCubic(double x1, double y1, double x2, double y2, do
 	{
 		setMarker();
 	}
+	svgState->FirstM = false;
+	svgState->WasM = false;
 	if (svgState->PathLen > 3)
 	{
 		FPoint b1 = point(size()-4);
