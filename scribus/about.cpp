@@ -294,6 +294,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("pl").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt").local8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Fausto Guilherme</td><td>faustoguilherme@gmail.com</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt_BR").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Ludi Maciel</td><td>iludi@uol.com.br</td></tr>" +
 											"<tr><td>Frederico Gon&#231;alves</td><td></td></tr>" +

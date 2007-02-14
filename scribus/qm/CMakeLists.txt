@@ -35,6 +35,7 @@ scribus.lt_LT.qm
 scribus.nb.qm
 scribus.nl.qm
 scribus.pl.qm
+scribus.pt.qm
 scribus.pt_BR.qm
 scribus.ru.qm
 scribus.se.qm
