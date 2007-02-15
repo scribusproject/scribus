@@ -25,22 +25,10 @@ StencilReader::StencilReader()
 QString StencilReader::createShape(QString datain)
 {
 	QString tmp = "";
-	QString FillCol = "White";
-	QString StrokeCol = "Black";
-	QString defFillCol = "White";
-	QString defStrokeCol = "Black";
 	double GrW = 50.0;
 	double GrH = 50.0;
 	double Dx = 0.0;
 	double Dy = 0.0;
-	QColor stroke = Qt::black;
-	QColor fill = Qt::white;
-	Qt::PenStyle Dash = Qt::SolidLine;
-	Qt::PenCapStyle LineEnd = Qt::FlatCap;
-	Qt::PenJoinStyle LineJoin = Qt::MiterJoin;
-	int fillStyle = 1;
-	double strokewidth = 1.0;
-	bool poly = false;
 	QDomDocument docu("scridoc");
 	docu.setContent(datain);
 	QDomElement elem=docu.documentElement();
@@ -82,218 +70,10 @@ QString StencilReader::createShape(QString datain)
 	double minYCoor = 0.0;
 	double maxXCoor = 0.0;
 	double maxYCoor = 0.0;
-	bool firstCheck = true;
 	int groupElemCounter = 0;
 	Conversion = 1.0;
-	while(!DOC.isNull())
-	{
-		double x1, y1, x2, y2;
-		FPointArray PoLine;
-		PoLine.resize(0);
-		QDomElement pg=DOC.toElement();
-		QString STag = pg.tagName();
-		QString style = pg.attribute( "style", "" ).simplifyWhiteSpace();
-		if (style.isEmpty())
-			style = pg.attribute( "svg:style", "" ).simplifyWhiteSpace();
-		QStringList substyles = QStringList::split( ';', style );
-		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
-		{
-			QStringList substyle = QStringList::split( ':', (*it) );
-			QString command = substyle[0].stripWhiteSpace();
-			QString params = substyle[1].stripWhiteSpace();
-			if (command == "fill")
-			{
-				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
-				{
-					fill.setNamedColor( params );
-					FillCol = "FromDia"+fill.name();
-				}
-			}
-			else if (command == "stroke")
-			{
-				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
-				{
-					fill.setNamedColor( params );
-					FillCol = "FromDia"+fill.name();
-				}
-			}
-			ColorList::Iterator it;
-			bool found = false;
-			int r, g, b;
-			QColor tmpR;
-			if ((fill == Qt::white) || (fill == Qt::black))
-				continue;
-			for (it = PageColors.begin(); it != PageColors.end(); ++it)
-			{
-				if (it.data().getColorModel() == colorModelRGB)
-				{
-					it.data().getRGB(&r, &g, &b);
-					tmpR.setRgb(r, g, b);
-					if (fill == tmpR)
-					{
-						FillCol = it.key();
-						found = true;
-						break;
-					}
-				}
-			}
-			if (!found)
-			{
-				ScColor tmp;
-				tmp.fromQColor(fill);
-				tmp.setSpotColor(false);
-				tmp.setRegistrationColor(false);
-				PageColors.insert(FillCol, tmp);
-				QDomElement co = data.createElement("COLOR");
-				co.setAttribute("NAME",FillCol);
-				co.setAttribute("RGB",fill.name());
-				co.setAttribute("Spot","0");
-				co.setAttribute("Register","0");
-				group.appendChild(co);
-			}
-		}
-		if (STag == "svg:line")
-		{
-			x1 = pg.attribute("x1").toDouble() * Conversion;
-			y1 = pg.attribute("y1").toDouble() * Conversion;
-			x2 = pg.attribute("x2").toDouble() * Conversion;
-			y2 = pg.attribute("y2").toDouble() * Conversion;
-			PoLine.addPoint(x1, y1);
-			PoLine.addPoint(x1, y1);
-			PoLine.addPoint(x2, y2);
-			PoLine.addPoint(x2, y2);
-		}
-		else if (STag == "svg:rect")
-		{
-			x1 = pg.attribute("x").toDouble() * Conversion;
-			y1 = pg.attribute("y").toDouble() * Conversion;
-			x2 = pg.attribute("width").toDouble() * Conversion;
-			y2 = pg.attribute("height").toDouble() * Conversion;
-			static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
-									1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
-									0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
-			for (int a = 0; a < 29; a += 4)
-			{
-				double xa = x2 * rect[a];
-				double ya = y2 * rect[a+1];
-				double xb = x2 * rect[a+2];
-				double yb = y2 * rect[a+3];
-				PoLine.addPoint(x1+xa, y1+ya);
-				PoLine.addPoint(x1+xb, y1+yb);
-			}
-		}
-		else if ((STag == "svg:polygon") || (STag == "svg:polyline"))
-		{
-			bool bFirst = true;
-			double x = 0.0;
-			double y = 0.0;
-			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
-			QStringList pointList = QStringList::split( ' ', points );
-			FirstM = true;
-			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
-			{
-				if( bFirst )
-				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
-					svgMoveTo(x * Conversion, y * Conversion);
-					bFirst = false;
-					WasM = true;
-				}
-				else
-				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
-					svgLineTo(&PoLine, x * Conversion, y * Conversion);
-				}
-			}
-			if (STag == "svg:polygon")
-				svgClosePath(&PoLine);
-			if (PoLine.size() < 4)
-			{
-				DOC = DOC.nextSibling();
-				continue;
-			}
-		}
-		else if (STag == "svg:circle")
-		{
-			x1 = pg.attribute("r").toDouble() * Conversion;
-			y1 = pg.attribute("r").toDouble() * Conversion;
-			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
-			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
-			x1 *= 2.0;
-			y1 *= 2.0;
-			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
-									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
-									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
-									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
-			for (int a = 0; a < 29; a += 4)
-			{
-				double xa = x1 * rect[a];
-				double ya = y1 * rect[a+1];
-				double xb = x1 * rect[a+2];
-				double yb = y1 * rect[a+3];
-				PoLine.addPoint(x2+xa, y2+ya);
-				PoLine.addPoint(x2+xb, y2+yb);
-			}
-		}
-		else if (STag == "svg:ellipse")
-		{
-			x1 = pg.attribute("rx").toDouble() * Conversion;
-			y1 = pg.attribute("ry").toDouble() * Conversion;
-			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
-			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
-			x1 *= 2.0;
-			y1 *= 2.0;
-			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
-									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
-									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
-									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
-			for (int a = 0; a < 29; a += 4)
-			{
-				double xa = x1 * rect[a];
-				double ya = y1 * rect[a+1];
-				double xb = x1 * rect[a+2];
-				double yb = y1 * rect[a+3];
-				PoLine.addPoint(x2+xa, y2+ya);
-				PoLine.addPoint(x2+xb, y2+yb);
-			}
-		}
-		else if (STag == "svg:path")
-		{
-			poly = parseSVG( pg.attribute( "d" ), &PoLine );
-			if (PoLine.size() < 4)
-			{
-				DOC = DOC.nextSibling();
-				continue;
-			}
-		}
-		if (PoLine.size() < 4)
-		{
-			DOC = DOC.nextSibling();
-			continue;
-		}
-		groupElemCounter++;
-		FPoint tp2(getMinClipF(&PoLine));
-		PoLine.translate(-tp2.x(), -tp2.y());
-		FPoint wh(getMaxClipF(&PoLine));
-		if (firstCheck)
-		{
-			minXCoor = tp2.x();
-			minYCoor = tp2.y();
-			maxXCoor = tp2.x() + wh.x();
-			maxYCoor = tp2.y() + wh.y();
-			firstCheck = false;
-		}
-		else
-		{
-			minXCoor = QMIN(minXCoor, tp2.x());
-			minYCoor = QMIN(minYCoor, tp2.y());
-			maxXCoor = QMAX(maxXCoor, tp2.x() + wh.x());
-			maxYCoor = QMAX(maxYCoor, tp2.y() + wh.y());
-		}
-		DOC = DOC.nextSibling();
-	}
+	bool firstCheck = true;
+	parseGroupProperties(data, group, DOC, groupElemCounter, minXCoor, minYCoor, maxXCoor, maxYCoor, firstCheck);
 	GrW = maxXCoor - minXCoor;
 	GrH = maxYCoor - minYCoor;
 	Conversion = 100.0 / QMAX(GrW, GrH);
@@ -310,10 +90,10 @@ QString StencilReader::createShape(QString datain)
 		obGroup.setAttribute("PWIDTH", 0);
 		obGroup.setAttribute("PCOLOR", "None");
 		obGroup.setAttribute("PCOLOR2", "None");
-		obGroup.setAttribute("PLINEART", Dash);
-		obGroup.setAttribute("PLINEEND", LineEnd);
-		obGroup.setAttribute("PLINEJOIN", LineJoin);
-		obGroup.setAttribute("ANNAME", "Group");
+		obGroup.setAttribute("PLINEART", Qt::SolidLine);
+		obGroup.setAttribute("PLINEEND", Qt::FlatCap);
+		obGroup.setAttribute("PLINEJOIN", Qt::MiterJoin);
+		obGroup.setAttribute("ANNAME", "DiaGroup");
 		obGroup.setAttribute("GROUPS", 1);
 		obGroup.setAttribute("NUMGROUP", 1);
 		obGroup.setAttribute("isGroupControl", 1);
@@ -324,6 +104,59 @@ QString StencilReader::createShape(QString datain)
 		group.setAttribute("COUNT", groupElemCounter);
 	int groupElemCounter2 = 0;
 	DOC = svg.firstChild();
+	parseGroup(data, group, DOC, groupElemCounter, groupElemCounter2, Dx, Dy);
+	if (groupElemCounter > 1)
+	{
+		obGroup.setAttribute("groupsLastItem", groupElemCounter2);
+		static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+											1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+											0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		FPointArray PoLine;
+		PoLine.resize(0);
+		for (int a = 0; a < 29; a += 4)
+		{
+			double xa = GrW * rect[a];
+			double ya = GrH * rect[a+1];
+			double xb = GrW * rect[a+2];
+			double yb = GrH * rect[a+3];
+			PoLine.addPoint(0+xa, 0+ya);
+			PoLine.addPoint(0+xb, 0+yb);
+		}
+		obGroup.setAttribute("XPOS", 0);
+		obGroup.setAttribute("YPOS",0);
+		obGroup.setAttribute("WIDTH",GrW);
+		obGroup.setAttribute("HEIGHT",GrH);
+		obGroup.setAttribute("NUMPO", PoLine.size());
+		QString polp = "";
+		double xf, yf;
+		QString tmpSt, tmpSt2;
+		for (uint nxx=0; nxx<PoLine.size(); ++nxx)
+		{
+			PoLine.point(nxx, &xf, &yf);
+			polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
+		}
+		obGroup.setAttribute("POCOOR", polp);
+	}
+	group.setAttribute("W", GrW);
+	group.setAttribute("H", GrH);
+	return data.toString();
+}
+
+void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode &DOC, int groupElemCounter, int &groupElemCounter2, double Dx, double Dy)
+{
+	QString tmp = "";
+	QString FillCol = "White";
+	QString StrokeCol = "Black";
+	QString defFillCol = "White";
+	QString defStrokeCol = "Black";
+	QColor stroke = Qt::black;
+	QColor fill = Qt::white;
+	Qt::PenStyle Dash = Qt::SolidLine;
+	Qt::PenCapStyle LineEnd = Qt::FlatCap;
+	Qt::PenJoinStyle LineJoin = Qt::MiterJoin;
+	int fillStyle = 1;
+	double strokewidth = 0.1;
+	bool poly = false;
 	while(!DOC.isNull())
 	{
 		double x1, y1, x2, y2;
@@ -346,6 +179,7 @@ QString StencilReader::createShape(QString datain)
 		if (!style.isEmpty())
 		{
 			FillCol = "None";
+			strokewidth = 0.1;
 			QStringList substyles = QStringList::split( ';', style );
 			for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 			{
@@ -532,6 +366,11 @@ QString StencilReader::createShape(QString datain)
 				continue;
 			}
 		}
+		else if (STag == "svg:g")
+		{
+			QDomNode child = DOC.firstChild();
+			parseGroup(data, group, child, groupElemCounter, groupElemCounter2, Dx, Dy);
+		}
 		if (PoLine.size() < 4)
 		{
 			DOC = DOC.nextSibling();
@@ -598,41 +437,226 @@ QString StencilReader::createShape(QString datain)
 		groupElemCounter2++;
 		DOC = DOC.nextSibling();
 	}
-	if (groupElemCounter > 1)
+}
+
+void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group, QDomNode &DOC, int &groupElemCounter, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck)
+{
+	QColor fill, stroke;
+	QString FillCol, StrokeCol;
+	while(!DOC.isNull())
 	{
-		obGroup.setAttribute("groupsLastItem", groupElemCounter2);
-		static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
-											1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
-											0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+		double x1, y1, x2, y2;
 		FPointArray PoLine;
 		PoLine.resize(0);
-		for (int a = 0; a < 29; a += 4)
+		QDomElement pg = DOC.toElement();
+		QString STag = pg.tagName();
+		QString style = pg.attribute( "style", "" ).simplifyWhiteSpace();
+		if (style.isEmpty())
+			style = pg.attribute( "svg:style", "" ).simplifyWhiteSpace();
+		QStringList substyles = QStringList::split( ';', style );
+		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 		{
-			double xa = GrW * rect[a];
-			double ya = GrH * rect[a+1];
-			double xb = GrW * rect[a+2];
-			double yb = GrH * rect[a+3];
-			PoLine.addPoint(0+xa, 0+ya);
-			PoLine.addPoint(0+xb, 0+yb);
+			QStringList substyle = QStringList::split( ':', (*it) );
+			QString command = substyle[0].stripWhiteSpace();
+			QString params = substyle[1].stripWhiteSpace();
+			if (command == "fill")
+			{
+				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
+				{
+					fill.setNamedColor( params );
+					FillCol = "FromDia"+fill.name();
+				}
+			}
+			else if (command == "stroke")
+			{
+				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
+				{
+					fill.setNamedColor( params );
+					FillCol = "FromDia"+fill.name();
+				}
+			}
+			ColorList::Iterator it;
+			bool found = false;
+			int r, g, b;
+			QColor tmpR;
+			if ((fill == Qt::white) || (fill == Qt::black))
+				continue;
+			for (it = PageColors.begin(); it != PageColors.end(); ++it)
+			{
+				if (it.data().getColorModel() == colorModelRGB)
+				{
+					it.data().getRGB(&r, &g, &b);
+					tmpR.setRgb(r, g, b);
+					if (fill == tmpR)
+					{
+						FillCol = it.key();
+						found = true;
+						break;
+					}
+				}
+			}
+			if (!found)
+			{
+				ScColor tmp;
+				tmp.fromQColor(fill);
+				tmp.setSpotColor(false);
+				tmp.setRegistrationColor(false);
+				PageColors.insert(FillCol, tmp);
+				QDomElement co = data.createElement("COLOR");
+				co.setAttribute("NAME",FillCol);
+				co.setAttribute("RGB",fill.name());
+				co.setAttribute("Spot","0");
+				co.setAttribute("Register","0");
+				group.appendChild(co);
+			}
 		}
-		obGroup.setAttribute("XPOS", 0);
-		obGroup.setAttribute("YPOS",0);
-		obGroup.setAttribute("WIDTH",GrW);
-		obGroup.setAttribute("HEIGHT",GrH);
-		obGroup.setAttribute("NUMPO", PoLine.size());
-		QString polp = "";
-		double xf, yf;
-		QString tmpSt, tmpSt2;
-		for (uint nxx=0; nxx<PoLine.size(); ++nxx)
+		if (STag == "svg:line")
 		{
-			PoLine.point(nxx, &xf, &yf);
-			polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
+			x1 = pg.attribute("x1").toDouble() * Conversion;
+			y1 = pg.attribute("y1").toDouble() * Conversion;
+			x2 = pg.attribute("x2").toDouble() * Conversion;
+			y2 = pg.attribute("y2").toDouble() * Conversion;
+			PoLine.addPoint(x1, y1);
+			PoLine.addPoint(x1, y1);
+			PoLine.addPoint(x2, y2);
+			PoLine.addPoint(x2, y2);
 		}
-		obGroup.setAttribute("POCOOR", polp);
+		else if (STag == "svg:rect")
+		{
+			x1 = pg.attribute("x").toDouble() * Conversion;
+			y1 = pg.attribute("y").toDouble() * Conversion;
+			x2 = pg.attribute("width").toDouble() * Conversion;
+			y2 = pg.attribute("height").toDouble() * Conversion;
+			static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+									1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+									0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x2 * rect[a];
+				double ya = y2 * rect[a+1];
+				double xb = x2 * rect[a+2];
+				double yb = y2 * rect[a+3];
+				PoLine.addPoint(x1+xa, y1+ya);
+				PoLine.addPoint(x1+xb, y1+yb);
+			}
+		}
+		else if ((STag == "svg:polygon") || (STag == "svg:polyline"))
+		{
+			bool bFirst = true;
+			double x = 0.0;
+			double y = 0.0;
+			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+			QStringList pointList = QStringList::split( ' ', points );
+			FirstM = true;
+			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+			{
+				if( bFirst )
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgMoveTo(x * Conversion, y * Conversion);
+					bFirst = false;
+					WasM = true;
+				}
+				else
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgLineTo(&PoLine, x * Conversion, y * Conversion);
+				}
+			}
+			if (STag == "svg:polygon")
+				svgClosePath(&PoLine);
+			if (PoLine.size() < 4)
+			{
+				DOC = DOC.nextSibling();
+				continue;
+			}
+		}
+		else if (STag == "svg:circle")
+		{
+			x1 = pg.attribute("r").toDouble() * Conversion;
+			y1 = pg.attribute("r").toDouble() * Conversion;
+			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
+			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 *= 2.0;
+			y1 *= 2.0;
+			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
+									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
+									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
+									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x1 * rect[a];
+				double ya = y1 * rect[a+1];
+				double xb = x1 * rect[a+2];
+				double yb = y1 * rect[a+3];
+				PoLine.addPoint(x2+xa, y2+ya);
+				PoLine.addPoint(x2+xb, y2+yb);
+			}
+		}
+		else if (STag == "svg:ellipse")
+		{
+			x1 = pg.attribute("rx").toDouble() * Conversion;
+			y1 = pg.attribute("ry").toDouble() * Conversion;
+			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
+			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 *= 2.0;
+			y1 *= 2.0;
+			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
+									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
+									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
+									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x1 * rect[a];
+				double ya = y1 * rect[a+1];
+				double xb = x1 * rect[a+2];
+				double yb = y1 * rect[a+3];
+				PoLine.addPoint(x2+xa, y2+ya);
+				PoLine.addPoint(x2+xb, y2+yb);
+			}
+		}
+		else if (STag == "svg:path")
+		{
+			parseSVG( pg.attribute( "d" ), &PoLine );
+			if (PoLine.size() < 4)
+			{
+				DOC = DOC.nextSibling();
+				continue;
+			}
+		}
+		else if (STag == "svg:g")
+		{
+			QDomNode child = DOC.firstChild();
+			parseGroupProperties(data, group, child, groupElemCounter, minXCoor, minYCoor, maxXCoor, maxYCoor, firstCheck);
+		}
+		if (PoLine.size() < 4)
+		{
+			DOC = DOC.nextSibling();
+			continue;
+		}
+		groupElemCounter++;
+		FPoint tp2(getMinClipF(&PoLine));
+		PoLine.translate(-tp2.x(), -tp2.y());
+		FPoint wh(getMaxClipF(&PoLine));
+		if (firstCheck)
+		{
+			minXCoor = tp2.x();
+			minYCoor = tp2.y();
+			maxXCoor = tp2.x() + wh.x();
+			maxYCoor = tp2.y() + wh.y();
+			firstCheck = false;
+		}
+		else
+		{
+			minXCoor = QMIN(minXCoor, tp2.x());
+			minYCoor = QMIN(minYCoor, tp2.y());
+			maxXCoor = QMAX(maxXCoor, tp2.x() + wh.x());
+			maxYCoor = QMAX(maxYCoor, tp2.y() + wh.y());
+		}
+		DOC = DOC.nextSibling();
 	}
-	group.setAttribute("W", GrW);
-	group.setAttribute("H", GrH);
-	return data.toString();
 }
 
 double StencilReader::parseUnit(const QString &unit)

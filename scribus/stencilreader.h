@@ -17,6 +17,8 @@ public:
 	StencilReader();
 	~StencilReader() {};
 	QString createShape(QString data);
+	void parseGroup(QDomDocument &data, QDomElement &group, QDomNode &DOC, int groupElemCounter, int &groupElemCounter2, double Dx, double Dy);
+	void parseGroupProperties(QDomDocument &data, QDomElement &group, QDomNode &DOC, int &groupElemCounter, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck);
 	double parseUnit(const QString &unit);
 	const char * getCoord( const char *ptr, double &number );
 	bool parseSVG( const QString &s, FPointArray *ite );
