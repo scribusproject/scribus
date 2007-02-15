@@ -1693,6 +1693,11 @@ void Mpalette::SetCurItem(PageItem *i)
 		}
 		if (!isGroup)
 			DoGroup->setEnabled(true);
+		else
+		{
+			if (CurItem->isGroupControl)
+				NameEdit->setEnabled(true);
+		}
 		if (CurItem->Groups.count() != 0)
 			DoUnGroup->setEnabled(true);
 	}

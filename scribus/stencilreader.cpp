@@ -93,7 +93,7 @@ QString StencilReader::createShape(QString datain)
 		obGroup.setAttribute("PLINEART", Qt::SolidLine);
 		obGroup.setAttribute("PLINEEND", Qt::FlatCap);
 		obGroup.setAttribute("PLINEJOIN", Qt::MiterJoin);
-		obGroup.setAttribute("ANNAME", "DiaGroup");
+		obGroup.setAttribute("ANNAME", name.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 		obGroup.setAttribute("GROUPS", 1);
 		obGroup.setAttribute("NUMGROUP", 1);
 		obGroup.setAttribute("isGroupControl", 1);
@@ -188,7 +188,7 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 				QString params	= substyle[1].stripWhiteSpace();
 				if (command == "fill")
 				{
-					if ((params == "foreground") || (params == "fg"))
+					if ((params == "foreground") || (params == "fg") || (params == "inverse"))
 						FillCol = defStrokeCol;
 					else if ((params == "background") || (params == "bg"))
 						FillCol = defFillCol;
@@ -211,7 +211,7 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 				{
 					if ((params == "foreground") || (params == "fg"))
 						StrokeCol = defStrokeCol;
-					else if ((params == "background") || (params == "bg"))
+					else if ((params == "background") || (params == "bg") || (params == "inverse"))
 						StrokeCol = defFillCol;
 					else if  (params == "default")
 						StrokeCol = defStrokeCol;
@@ -461,7 +461,7 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			QString params = substyle[1].stripWhiteSpace();
 			if (command == "fill")
 			{
-				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
+				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default") || (params == "inverse")))
 				{
 					fill.setNamedColor( params );
 					FillCol = "FromDia"+fill.name();
@@ -469,7 +469,7 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			}
 			else if (command == "stroke")
 			{
-				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")))
+				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")) || (params == "inverse"))
 				{
 					fill.setNamedColor( params );
 					FillCol = "FromDia"+fill.name();
@@ -1423,6 +1423,13 @@ QString StencilReader::createObjects(QString datain)
 	QDomNodeList list = elem.elementsByTagName("Dimensions");
 	if (list.count() == 0)
 		return tmp;
+	QString name = "KivioGroup";
+	QDomNodeList descList = elem.elementsByTagName("Title");
+	if (descList.count() != 0)
+	{
+		QDomElement namElem = descList.item(0).toElement();
+		name = namElem.attribute("data", "");
+	}
 	QDomDocument data("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
 	data.setContent(st);
@@ -1548,7 +1555,7 @@ QString StencilReader::createObjects(QString datain)
 		obGroup.setAttribute("PLINEART", Dash);
 		obGroup.setAttribute("PLINEEND", LineEnd);
 		obGroup.setAttribute("PLINEJOIN", LineJoin);
-		obGroup.setAttribute("ANNAME", "Group");
+		obGroup.setAttribute("ANNAME", name.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 		obGroup.setAttribute("GROUPS", 1);
 		obGroup.setAttribute("NUMGROUP", 1);
 		obGroup.setAttribute("isGroupControl", 1);
