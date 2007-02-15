@@ -1098,6 +1098,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		fitWindow->setChecked(Opts.fitWindow);
 		QMap<QString,QString>::Iterator itja;
 		actionCombo->clear();
+		actionCombo->insertItem( tr("No Script"));
 		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 			actionCombo->insertItem(itja.key());
 		if (doc->JavaScripts.contains(Opts.openAction))
