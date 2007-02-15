@@ -63,13 +63,14 @@ QPixmap ScPreview::createPreview(QString data)
 	QPixmap pmd;
 	QImage ip2;
 	FPoint gv;
-	int chs;
+	int chs, currItem, fillBlendmode, strokeBlendmode;
 	QPointArray cl;
 	QColor tmpfa;
 	QString chstr;
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
 	QValueList<ArrowDesc> arrowStyles;
+	QValueStack<int> groupStack;
 	arrowStyles = prefsManager->appPrefs.arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
@@ -85,8 +86,15 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrH = elem.attribute("H").toDouble();
 //	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
 	double pmmax = 60 / QMAX(GrW+50, GrH+50);
+#ifdef HAVE_CAIRO
+	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, 32);
+	tmp.fill( qRgba(255, 255, 255, 0) );
+	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height(), 1.0, 0);
+	pS->beginLayer(1.0, 0);
+#else
 	QPixmap tmp(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
+#endif
 	pS->translate(25,25);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
@@ -183,16 +191,13 @@ QPixmap ScPreview::createPreview(QString data)
 		DOC=DOC.nextSibling();
 	}
 	DOC=elem.firstChild();
+	currItem = -1;
 	while(!DOC.isNull())
 	{
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="ITEM")
 		{
-			if(static_cast<bool>(pg.attribute("isGroupControl", "0").toInt()))
-			{
-				DOC=DOC.nextSibling();
-				continue;
-			}
+			currItem++;
 			QString CurDirP = QDir::currentDirPath();
 			QDir::setCurrent(QDir::homeDirPath());
 			Segments.clear();
@@ -295,6 +300,8 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.TranspStroke = pg.attribute("TransValueS", "0.0").toDouble();
 			else
 				OB.TranspStroke = OB.Transparency;
+			fillBlendmode = pg.attribute("TransBlend", "0").toInt();
+			strokeBlendmode = pg.attribute("TransBlendS", "0").toInt();
 			if (pg.hasAttribute("NUMCLIP"))
 			{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
@@ -441,7 +448,28 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.LayerNr = -1;
 			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
 			OB.endArrowIndex =  arrowID[pg.attribute("endArrowIndex", "0").toInt()];
+			if(static_cast<bool>(pg.attribute("isGroupControl", "0").toInt()))
+			{
+				pS->save();
+#ifdef HAVE_CAIRO
+				FPointArray cl = OB.PoLine.copy();
+				QWMatrix mm;
+				mm.translate(OB.Xpos, OB.Ypos);
+				mm.rotate(static_cast<double>(OB.Rot));
+				cl.map( mm );
+				pS->beginLayer(1.0 - OB.Transparency, pg.attribute("TransBlend", "0").toInt(), &cl);
+#endif
+				groupStack.push(pg.attribute("groupsLastItem", "0").toInt());
+				DOC=DOC.nextSibling();
+				continue;
+			}
 			pS->save();
+#ifdef HAVE_CAIRO
+			if (fillBlendmode != 0)
+				pS->beginLayer(1.0 - OB.Transparency, fillBlendmode);
+			else
+#endif
+				pS->setBrushOpacity(1.0 - OB.Transparency);
 			pS->translate(OB.Xpos, OB.Ypos);
 			pS->rotate(static_cast<double>(OB.Rot));
 			if (OB.Pcolor != CommonStrings::None)
@@ -529,8 +557,6 @@ QPixmap ScPreview::createPreview(QString data)
 			}
 			else
 				pS->setLineWidth(0);
-			pS->setBrushOpacity(1.0 - OB.Transparency);
-			pS->setPenOpacity(1.0 - OB.TranspStroke);
 			bool doStroke;
 			int mode;
 			doStroke = true;
@@ -891,8 +917,18 @@ QPixmap ScPreview::createPreview(QString data)
 				Q_ASSERT(false);
 				break;
 			}
+#ifdef HAVE_CAIRO
+			if (fillBlendmode != 0)
+				pS->endLayer();
+#endif
 			if (doStroke)
 			{
+#ifdef HAVE_CAIRO
+				if (strokeBlendmode != 0)
+					pS->beginLayer(1.0 - OB.TranspStroke, strokeBlendmode);
+				else
+#endif
+					pS->setPenOpacity(1.0 - OB.TranspStroke);
 				if (OB.Pcolor2 != CommonStrings::None)
 				{
 					SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
@@ -918,19 +954,42 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->drawPolyLine();
 					}
 				}
+#ifdef HAVE_CAIRO
+				if (strokeBlendmode != 0)
+					pS->endLayer();
+#endif
 			}
 			pS->restore();
+			if (groupStack.count() != 0)
+			{
+				while (currItem == groupStack.top())
+				{
+#ifdef HAVE_CAIRO
+					pS->endLayer();
+#endif
+					pS->restore();
+					groupStack.pop();
+				}
+			}
 			QDir::setCurrent(CurDirP);
 		}
 		DOC=DOC.nextSibling();
 	}
+#ifdef HAVE_CAIRO
+	pS->endLayer();
+#endif
 	pS->end();
+#ifdef HAVE_CAIRO
+	QImage tmpi = tmp.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
+#else
 	QImage tmpi1 = tmp.convertToImage();
 	QImage tmpi = tmpi1.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
-	tmp.convertFromImage(tmpi);
+#endif
+	QPixmap ret;
+	ret.convertFromImage(tmpi);
 	delete pS;
 	FT_Done_FreeType( library );
-	return tmp;
+	return ret;
 }
 
 void ScPreview::SetFarbe(QColor *tmp, const QString& farbe, int shad)
