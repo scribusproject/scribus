@@ -13,32 +13,122 @@ for which a new license (GPL+exception) is in place.
 #include "../formatidlist.h"
 #include "loadsaveplugin.h"
 #include "scribuscore.h"
+#include "selection.h"
 
 #include <qstring.h>
 
-PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
+PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 {
-	char *aText = 0;
-	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), const_cast<char*>("utf-8"), &aText))
+	char *Image;
+	double x = 0.0;
+	double y = 0.0;
+	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
 		return NULL;
-
 	if(!checkHaveDocument())
 		return NULL;
-
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT);
-	if (!fmt)
+	if( fmt )
+	{
+		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		{
+			double x2, y2, w, h;
+			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		}
+	}
+	else
 	{
 		PyErr_SetString(PyExc_Exception, "SVG Import plugin not available");
 		return NULL;
 	}
-	if (!fmt->loadFile(QString::fromUtf8(aText), 0))
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
+{
+	char *Image;
+	double x = 0.0;
+	double y = 0.0;
+	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
+	if( fmt )
 	{
-		PyErr_SetString(PyExc_Exception, "Import failed");
+		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		{
+			double x2, y2, w, h;
+			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		}
+	}
+	else
+	{
+		PyErr_SetString(PyExc_Exception, "EPS Import plugin not available");
 		return NULL;
 	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
 
-	ScCore->primaryMainWindow()->doc->setLoading(false);
+PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
+{
+	char *Image;
+	double x = 0.0;
+	double y = 0.0;
+	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT);
+	if( fmt )
+	{
+		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		{
+			double x2, y2, w, h;
+			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		}
+	}
+	else
+	{
+		PyErr_SetString(PyExc_Exception, "OpenOffice Import plugin not available");
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
 
+PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
+{
+	char *Image;
+	double x = 0.0;
+	double y = 0.0;
+	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", &Image, &x, &y))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT);
+	if( fmt )
+	{
+		fmt->loadFile(QString::fromUtf8(Image), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		{
+			double x2, y2, w, h;
+			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+			ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
+		}
+	}
+	else
+	{
+		PyErr_SetString(PyExc_Exception, "OpenOffice Import plugin not available");
+		return NULL;
+	}
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -49,5 +139,5 @@ PV */
 void svgimportdocwarnings()
 {
     QStringList s;
-    s << scribus_importsvg__doc__;
+    s << scribus_placesvg__doc__ << scribus_placeeps__doc__ << scribus_placesxd__doc__ << scribus_placeodg__doc__;
 }

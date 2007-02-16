@@ -45,7 +45,8 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 			lfCreateDoc = 1,
 			lfUseCurrentPage = 2,
 			lfInsertPage = 4,
-			lfInteractive = 8
+			lfInteractive = 8,
+			lfScripted = 16
 		};
 
 		// Static functions:

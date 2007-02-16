@@ -303,7 +303,6 @@ void SVGPlug::convert(int flags)
 		m_Doc->documentInfo.setTitle(docTitle);
 		m_Doc->documentInfo.setComments(docDesc);
 	}
-// 	m_Doc->m_Selection->clear();
 	tmpSel->clear();
 	if (Elements.count() == 0)
 	{
@@ -401,50 +400,59 @@ void SVGPlug::convert(int flags)
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
-		m_Doc->DragP = true;
-		m_Doc->DraggedElem = 0;
-		m_Doc->DragElements.clear();
-		for (uint dre=0; dre<Elements.count(); ++dre)
+		if (flags & LoadSavePlugin::lfScripted)
 		{
-			m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
-// 			m_Doc->m_Selection->addItem(Elements.at(dre), true);
-			tmpSel->addItem(Elements.at(dre), true);
+			bool loadF = m_Doc->isLoading();
+			m_Doc->setLoading(false);
+			m_Doc->changed();
+			m_Doc->setLoading(loadF);
+			for (uint dre=0; dre<Elements.count(); ++dre)
+			{
+ 				m_Doc->m_Selection->addItem(Elements.at(dre), true);
+			}
+	 		m_Doc->m_Selection->setGroupRect();
+			m_Doc->view()->updatesOn(true);
+			importCanceled = false;
 		}
-		ScriXmlDoc *ss = new ScriXmlDoc();
-// 		m_Doc->m_Selection->setGroupRect();
-		tmpSel->setGroupRect();
-		//QDragObject *dr = new QTextDrag(ss->WriteElem(&m_Doc->view()->SelItem, m_Doc, m_Doc->view()), m_Doc->view()->viewport());
-// 		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view());
-		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view());
+		else
+		{
+			m_Doc->DragP = true;
+			m_Doc->DraggedElem = 0;
+			m_Doc->DragElements.clear();
+			for (uint dre=0; dre<Elements.count(); ++dre)
+			{
+				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
+				tmpSel->addItem(Elements.at(dre), true);
+			}
+			ScriXmlDoc *ss = new ScriXmlDoc();
+			tmpSel->setGroupRect();
+			QDragObject * dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view());
 #ifndef QT_MAC
 // see #2526
-// 		m_Doc->itemSelection_DeleteItem();
-		m_Doc->itemSelection_DeleteItem(tmpSel);
-// 		m_Doc->m_Selection->clear();
+			m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif
-		m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
-		m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
-		m_Doc->minCanvasCoordinate = minSize;
-		m_Doc->maxCanvasCoordinate = maxSize;
-		m_Doc->view()->updatesOn(true);
-		dr->setPixmap(loadIcon("DragPix.xpm"));
-		importCanceled = dr->drag();
-		if (!importCanceled)
-		{
-			if (importedColors.count() != 0)
+			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
+			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
+			m_Doc->minCanvasCoordinate = minSize;
+			m_Doc->maxCanvasCoordinate = maxSize;
+			m_Doc->view()->updatesOn(true);
+			dr->setPixmap(loadIcon("DragPix.xpm"));
+			importCanceled = dr->drag();
+			if (!importCanceled)
 			{
-				for (uint cd = 0; cd < importedColors.count(); cd++)
+				if (importedColors.count() != 0)
 				{
-					m_Doc->PageColors.remove(importedColors[cd]);
+					for (uint cd = 0; cd < importedColors.count(); cd++)
+					{
+						m_Doc->PageColors.remove(importedColors[cd]);
+					}
 				}
 			}
+			delete ss;
+			m_Doc->DragP = false;
+			m_Doc->DraggedElem = 0;
+			m_Doc->DragElements.clear();
 		}
-//		if (!dr->drag())
-//			qDebug("svgimport: could not start drag operation!");
-		delete ss;
-		m_Doc->DragP = false;
-		m_Doc->DraggedElem = 0;
-		m_Doc->DragElements.clear();
 	}
 	else
 	{

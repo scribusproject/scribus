@@ -10,17 +10,52 @@ for which a new license (GPL+exception) is in place.
 // Brings in <Python.h> first
 #include "cmdvar.h"
 
-PyDoc_STRVAR(scribus_importsvg__doc__,
-QT_TR_NOOP("importSVG(\"string\")\n\
+/*! docstring */
+PyDoc_STRVAR(scribus_placesvg__doc__,
+QT_TR_NOOP("placeSVG(\"filename\", x, y)\n\
 \n\
-The \"string\" must be a valid filename for a SVG image. The text\n\
-must be UTF8 encoded or 'unicode' string(recommended).\n\
+Places the SVG \"filename\" onto the current page,\n\
+x and y specify the coordinate of the topleft corner of the SVG placed on the page\n\
+\n\
+If loading was successful, the selection contains the imported SVG\n\
 "));
-/**
-Imports a SVG image file.
-(Henning Schroeder 2005-06-29)
-*/
-PyObject *scribus_importsvg(PyObject* /*self*/, PyObject* args);
+/*! Places an SVG file. */
+PyObject *scribus_placesvg(PyObject */*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_placeeps__doc__,
+QT_TR_NOOP("placeEPS(\"filename\", x, y)\n\
+\n\
+Places the EPS \"filename\" onto the current page,\n\
+x and y specify the coordinate of the topleft corner of the SVG placed on the page\n\
+\n\
+If loading was successful, the selection contains the imported SVG\n\
+"));
+/*! Places an EPS file. */
+PyObject *scribus_placeeps(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_placesxd__doc__,
+QT_TR_NOOP("placeSXD(\"filename\", x, y)\n\
+\n\
+Places the SXD \"filename\" onto the current page,\n\
+x and y specify the coordinate of the topleft corner of the SXD placed on the page\n\
+\n\
+If loading was successful, the selection contains the imported SXD\n\
+"));
+/*! Places an SXD file. */
+PyObject *scribus_placesxd(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_placeodg__doc__,
+QT_TR_NOOP("placeODG(\"filename\", x, y)\n\
+\n\
+Places the ODG \"filename\" onto the current page,\n\
+x and y specify the coordinate of the topleft corner of the ODG placed on the page\n\
+\n\
+If loading was successful, the selection contains the imported ODG\n\
+"));
+/*! Places an ODG file. */
+PyObject *scribus_placeodg(PyObject */*self*/, PyObject* args);
 
 #endif
