@@ -98,7 +98,7 @@ QPixmap ScPreview::createPreview(QString data)
 	pS->translate(25,25);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
-	FT_Init_FreeType( &library );
+//	FT_Init_FreeType( &library );
 	while(!DOC.isNull())
 	{
 		QDomElement pg=DOC.toElement();
@@ -459,7 +459,7 @@ QPixmap ScPreview::createPreview(QString data)
 				cl.map( mm );
 				pS->beginLayer(1.0 - OB.Transparency, pg.attribute("TransBlend", "0").toInt(), &cl);
 #endif
-				groupStack.push(pg.attribute("groupsLastItem", "0").toInt());
+				groupStack.push(pg.attribute("groupsLastItem", "0").toInt() + currItem);
 				DOC=DOC.nextSibling();
 				continue;
 			}
@@ -988,7 +988,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QPixmap ret;
 	ret.convertFromImage(tmpi);
 	delete pS;
-	FT_Done_FreeType( library );
+//	FT_Done_FreeType( library );
 	return ret;
 }
 
