@@ -355,7 +355,7 @@ struct  SetterWithConversion : public MakeAction<SetterWithConversion_body<Type,
 	SetterWithConversion(typename SetterWithConversion_body<Type, Data, Store>::FunType set)
 	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>(set, NULL) {} 
 	SetterWithConversion(typename BodyType::FunType set, typename SetterWithConversion_body<Type, Data, Store>::ConvType conv)
-	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>set, conv) {} 
+	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>(set, conv) {} 
 };
 
 
@@ -567,7 +567,7 @@ struct  SetText : public MakeAction<SetText_body<Type>, typename SetText_body<Ty
 {
 	typedef SetText_body<Type> BodyType;
 	SetText(typename BodyType::FunType set)
-	: MakeAction<BodyType, typename BodyType::FunType>set) {} 
+	: MakeAction<BodyType, typename BodyType::FunType>(set) {} 
 };
 
 
