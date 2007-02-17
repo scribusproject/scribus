@@ -181,6 +181,7 @@ for which a new license (GPL+exception) is in place.
 #include "patterndialog.h"
 #include "sccolorengine.h"
 #include "desaxe/saxXML.h"
+#include "desaxe/simple_actions.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -4608,10 +4609,11 @@ void ScribusMainWindow::slotEditCopy()
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
+
 			SaxXML tmpfile("tmp-scribus.xml", true);
-			tmpfile.beginDoc();
-			doc->m_Selection->itemAt(0)->saxx(tmpfile);
-			tmpfile.endDoc();
+			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
+			Serializer::serializeObjects(*doc->m_Selection, tmpfile);
+			
 			Buffer2 = BufferI;
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
@@ -6032,7 +6034,7 @@ void ScribusMainWindow::setItemTypeStyle(int id)
 void ScribusMainWindow::setStilvalue(int s)
 {
 	int c = s & 1919;
-	doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(c));
+//	doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(c));
 	scrActions["typeEffectNormal"]->setOn(c==0);
 	scrActions["typeEffectSuperscript"]->setOn(c & 1);
 	scrActions["typeEffectSubscript"]->setOn(c & 2);
@@ -6050,7 +6052,7 @@ void ScribusMainWindow::setItemHoch(int h)
 {
 	if (doc->m_Selection->count() != 0)
 	{
-		doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(h));
+//		doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(h));
 		setStilvalue(h);
 		doc->itemSelection_SetEffects(h);
 	}
@@ -6328,7 +6330,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	}
 	AdjustFontMenu(nf2);
 	doc->itemSelection_SetFont(nf2);
-	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
+//	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	view->DrawNew();
 	slotDocCh();
 }
@@ -6834,7 +6836,7 @@ void ScribusMainWindow::setNewAlignment(int a)
 {
 	if (HaveDoc)
 	{
-		doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a));
+//		doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a));
 		doc->itemSelection_SetAlignment(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -6867,7 +6869,7 @@ void ScribusMainWindow::setNewCharStyle(int a)
 void ScribusMainWindow::setAbsValue(int a)
 {
 //	doc->currentStyle = doc->docParagraphStyles[a];
-	doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a<5 ? a : 0));
+//	doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a<5 ? a : 0));
 	propertiesPalette->setAli(a);
 	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
 	for (int b=0; b<5; ++b)

@@ -182,8 +182,11 @@ public:
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
 
-	virtual void saxx(SaxHandler & ) const;
-	static void desaxeRules(Xml_string prefixPattern, desaxe::Digester & ruleset);
+	static const Xml_string saxxDefaultElem;
+	static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
+	
+	virtual void saxx(SaxHandler& handler, Xml_string elemtag) const;
+	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 	
 	/**
 	 * @brief Clear the contents of a frame.

@@ -4,7 +4,7 @@
 #include "annotation.h"
 #include "util.h"
 
-void Annotation::saxx(SaxHandler& handler) const
+void Annotation::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
 	Xml_attr att;
 	att.insert("ANTYPE", QString::number(Type()));
@@ -44,6 +44,10 @@ void Annotation::saxx(SaxHandler& handler) const
 	att.insert("ANPLACE", QString::number(IPlace()));
 	att.insert("ANSCALE", QString::number(ScaleW()));
 	
-	handler.begin("pdfannotation", att);
-	handler.end("pdfannotation");
+	handler.beginEnd(elemtag, att);
 }
+
+const Xml_string Annotation::saxxDefaultElem("pdfannotation");
+
+void Annotation::desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
+{}

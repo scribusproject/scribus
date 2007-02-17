@@ -8,7 +8,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fi.xml $(prefix)/share/scribus/loremipsum/fi.xml
 	$(INSTALL_DATA) $(srcdir)/de.xml $(prefix)/share/scribus/loremipsum/de.xml
 	$(INSTALL_DATA) $(srcdir)/el.xml $(prefix)/share/scribus/loremipsum/el.xml
-	$(INSTALL_DATA) $(srcdir)/en.xml $(prefix)/share/scribus/loremipsum/el.xml
+	$(INSTALL_DATA) $(srcdir)/en.xml $(prefix)/share/scribus/loremipsum/en.xml
 	$(INSTALL_DATA) $(srcdir)/he.xml $(prefix)/share/scribus/loremipsum/he.xml
 	$(INSTALL_DATA) $(srcdir)/it.xml $(prefix)/share/scribus/loremipsum/it.xml
 	$(INSTALL_DATA) $(srcdir)/nl.xml $(prefix)/share/scribus/loremipsum/nl.xml

@@ -33,7 +33,9 @@ pageitem.cpp  -  description
 #include "storytext.moc"
 #include "scribus.h"
 #include "util.h"
-
+#include "desaxe/saxiohelper.h"
+#include "desaxe/digester.h"
+#include "desaxe/simple_actions.h"
 
 
 StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
@@ -561,22 +563,6 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 	assert(pos >= 0);
 	assert(pos <= length());
 
-/*	int paraStyle = QMAX(0, findParagraphStyle(doc, style)); //FIXME:NLS
-	int i = pos - 1;
-	if (length() > 0) {
-		// find start of para
-		while (i >= 0 && at(i)->ch[0] != SpecialChars::PARSEP) {
-			--i;
-		}
-		// set 'cab' field
-		do {
-			++i;
-			at(i)->cab = paraStyle;
-		}
-		while (i+1 < length() && d->at(i)->ch[0] != SpecialChars::PARSEP);
-	} 
-	++i; */
-	
 	int i = pos;
 	while (i < length() && d->at(i)->ch[0] != SpecialChars::PARSEP) {
 		++i;
@@ -1166,15 +1152,16 @@ int StoryText::endOfItem(uint itm) const
 }
 
 
+using namespace desaxe;
 
-void StoryText::saxx(SaxHandler& handler) const
+void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
 	Xml_attr empty;
 	Xml_attr pageno;
 	pageno.insert("name", "pgno");
 
-	handler.begin("text-content", empty);
-	defaultStyle().saxx(handler);
+	handler.begin(elemtag, empty);
+	defaultStyle().saxx(handler, "defaultstyle");
 
 	CharStyle lastStyle;
 	bool lastWasPar = true;
@@ -1217,37 +1204,31 @@ void StoryText::saxx(SaxHandler& handler) const
 		}
 		else if (curr == SpecialChars::TAB)
 		{
-			handler.begin("tab", empty);
-			handler.end("tab");
+			handler.beginEnd("tab", empty);
 		}
 		else if (curr == SpecialChars::LINEBREAK)
 		{
-			handler.begin("breakline", empty);
-			handler.end("breakline");
+			handler.beginEnd("breakline", empty);
 		}
 		else if (curr == SpecialChars::COLBREAK)
 		{
-			handler.begin("breakcol", empty);
-			handler.end("breakcol");
+			handler.beginEnd("breakcol", empty);
 		}
 		else if (curr == SpecialChars::FRAMEBREAK)
 		{
-			handler.begin("breakframe", empty);
-			handler.end("breakframe");
+			handler.beginEnd("breakframe", empty);
 		}
 		else if (curr == SpecialChars::PAGENUMBER)
 		{
-			handler.begin("var", pageno);
-			handler.end("var");
+			handler.beginEnd("var", pageno);
 		}
 		else if (curr.unicode() < 32 || 
 				 (0xd800 <= curr.unicode() && curr.unicode() < 0xe000) ||
 				 curr.unicode() == 0xfffe || curr.unicode() == 0xffff)
 		{
 			Xml_attr unic;
-			unic.insert("code", QString::number(curr.unicode()));
-			handler.begin("unicode", unic);
-			handler.end("unicode");
+			unic.insert("code", toXMLString(curr.unicode()));
+			handler.beginEnd("unicode", unic);
 		}
 		else if (lastStyle != style)
 		{
@@ -1266,7 +1247,111 @@ void StoryText::saxx(SaxHandler& handler) const
 	if (!lastWasPar)
 		paragraphStyle(length()-1).saxx(handler);
 	
-	handler.end("text-content");
+	handler.end(elemtag);
 
 }
 
+
+class AppendText_body : public Action_body
+{
+public:	
+	void chars(const Xml_string txt)
+	{
+		StoryText* obj = this->dig->top<StoryText>();
+		obj->insertChars(-1, txt ); 
+	}
+};
+
+struct  AppendText : public MakeAction<AppendText_body> 
+{};
+
+
+class AppendSpecial_body : public Action_body
+{
+public:
+	AppendSpecial_body(QChar sp) : chr(sp) {}
+	
+	void begin(const Xml_string tag, Xml_attr attr)
+	{
+		StoryText* obj = this->dig->top<StoryText>();
+		Xml_attr::iterator code = attr.find("code");
+		if (tag == "unicode" && code != attr.end())
+			obj->insertChars(-1, QChar(parseUInt(Xml_data(code))));
+		else
+			obj->insertChars(-1, chr);
+	}
+private:
+	QChar chr;
+};
+
+struct AppendSpecial : public MakeAction<AppendSpecial_body, QChar>
+{
+	AppendSpecial(QChar sp) : MakeAction<AppendSpecial_body, QChar>(sp) {}
+	AppendSpecial() : MakeAction<AppendSpecial_body, QChar>(SpecialChars::BLANK) {}
+};
+
+
+class AppendInlineFrame_body : public Action_body
+{
+public:
+	void end(const Xml_string tag) // this could be a setter if we had StoryText::appendObject() ...
+	{
+		StoryText* story = this->dig->top<StoryText>(1);
+		PageItem* obj = this->dig->top<PageItem>(0);
+		story->insertObject(-1, obj);
+	}
+};
+
+struct AppendInlineFrame : public MakeAction<AppendInlineFrame_body>
+{};
+
+
+class ApplyStyle_body : public Action_body
+{
+public:
+	void end(const Xml_string tag) 
+	{
+		qDebug("storytext desaxe: apply style");
+		StoryText* story = this->dig->top<StoryText>(1);
+		ParagraphStyle* obj = this->dig->top<ParagraphStyle>(0);
+		story->applyStyle(-1, *obj);
+	}
+};
+
+struct ApplyStyle : public MakeAction<ApplyStyle_body>
+{};
+
+
+const Xml_string StoryText::saxxDefaultElem("story");
+
+void StoryText::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+{
+	Xml_string storyPrefix(Digester::concat(prefixPattern, elemtag));
+	ruleset.addRule(storyPrefix, Factory<StoryText>());
+
+	ParagraphStyle::desaxeRules(storyPrefix, ruleset, "defaultstyle");
+	ruleset.addRule(Digester::concat(storyPrefix, "defaultstyle"), SetterWithConversion<StoryText, const ParagraphStyle&, ParagraphStyle>( & StoryText::setDefaultStyle ));
+	
+	CharStyle::desaxeRules(storyPrefix, ruleset, CharStyle::saxxDefaultElem);
+//	ruleset.addRule(Digester::concat(storyPrefix, CharStyle::saxxDefaultElem), ApplyCharStyle() );
+	
+	ruleset.addRule(storyPrefix, AppendText());
+	
+	Xml_string paraPrefix(Digester::concat(storyPrefix, "para"));
+	ruleset.addRule(paraPrefix, AppendSpecial(SpecialChars::PARSEP) ); 
+	ParagraphStyle::desaxeRules(paraPrefix, ruleset, "style");
+	ruleset.addRule(Digester::concat(paraPrefix, "style"), ApplyStyle() );
+	
+	ruleset.addRule(Digester::concat(storyPrefix, "breakline"), AppendSpecial(SpecialChars::LINEBREAK) );
+	ruleset.addRule(Digester::concat(storyPrefix, "breakcol"), AppendSpecial(SpecialChars::COLBREAK) );
+	ruleset.addRule(Digester::concat(storyPrefix, "breakframe"), AppendSpecial(SpecialChars::FRAMEBREAK) );
+	ruleset.addRule(Digester::concat(storyPrefix, "tab"), AppendSpecial(SpecialChars::TAB) ); 
+	ruleset.addRule(Digester::concat(storyPrefix, "unicode"), AppendSpecial() ); 
+	ruleset.addRule(Digester::concat(storyPrefix, "var"), AppendSpecial(SpecialChars::PAGENUMBER) ); 
+	
+	//PageItem::desaxeRules(storyPrefix, ruleset); argh, that would be recursive!
+	ruleset.addRule(Digester::concat(storyPrefix, "item"), Factory<QObject>() ); 
+	ruleset.addRule(Digester::concat(storyPrefix, "item"), IdRef<QObject>() ); 	
+	ruleset.addRule(Digester::concat(storyPrefix, "item"), AppendInlineFrame() ); 
+	
+}

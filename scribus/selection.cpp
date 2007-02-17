@@ -195,7 +195,7 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 	return false;
 }
 
-PageItem *Selection::itemAt(int index)
+PageItem *Selection::itemAt_(int index)
 {
 	if (!m_SelList.isEmpty() && static_cast<uint>(index)<m_SelList.count())
 	{
@@ -286,24 +286,24 @@ PageItem* Selection::takeItem(uint itemIndex)
 	return NULL;
 }
 
-QStringList Selection::getSelectedItemsByName()
+QStringList Selection::getSelectedItemsByName() const
 {
 	QStringList names;
-	SelectionList::Iterator it=m_SelList.begin();
-	SelectionList::Iterator itend=m_SelList.end();
+	SelectionList::ConstIterator it=m_SelList.begin();
+	SelectionList::ConstIterator itend=m_SelList.end();
 	for ( ; it!=itend ; ++it)
 		names.append((*it)->itemName());
 	return names;
 }
 
-double Selection::width( )
+double Selection::width() const
 {
 	if (m_SelList.isEmpty())
 		return 0.0;
 	double minX=9999999.9;
 	double maxX=-9999999.9;
-	SelectionList::Iterator it=m_SelList.begin();
-	SelectionList::Iterator itend=m_SelList.end();
+	SelectionList::ConstIterator it=m_SelList.begin();
+	SelectionList::ConstIterator itend=m_SelList.end();
 	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
 	for ( ; it!=itend ; ++it)
 	{
@@ -316,14 +316,14 @@ double Selection::width( )
 	return maxX-minX;
 }
 
-double Selection::height( )
+double Selection::height() const
 {
 	if (m_SelList.isEmpty())
 		return 0.0;
 	double minY=9999999.9;
 	double maxY=-9999999.9;
-	SelectionList::Iterator it=m_SelList.begin();
-	SelectionList::Iterator itend=m_SelList.end();
+	SelectionList::ConstIterator it=m_SelList.begin();
+	SelectionList::ConstIterator itend=m_SelList.end();
 	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
 	for ( ; it!=itend ; ++it)
 	{
@@ -384,19 +384,19 @@ void Selection::getGroupRect(double *x, double *y, double *w, double *h)
 	*h = groupH;
 }
 
-bool Selection::itemsAreSameType()
+bool Selection::itemsAreSameType() const
 {
 	//CB Putting count=1 before isempty test as its probably the most likely, given our view code.
 	if (m_SelList.count()==1)
 		return true;
 	if (m_SelList.isEmpty())
 		return false;
-	SelectionList::Iterator it=m_SelList.begin();
-	SelectionList::Iterator itend=m_SelList.end();
-	PageItem::ItemType itemType=(*it)->itemType();
+	SelectionList::ConstIterator it=m_SelList.begin();
+	SelectionList::ConstIterator itend=m_SelList.end();
+	PageItem::ItemType itemType = (*it)->itemType();
 	for ( ; it!=itend ; ++it)
 	{
-		if ((*it)->itemType()!=itemType)
+		if ((*it)->itemType() != itemType)
 			return false;
 	}
 	return true;

@@ -14,8 +14,11 @@
 
 #include "desaxe_conf.h"
 #include "saxhandler.h"
-#include "digester.h"
+//#include "digester.h"
 
+namespace desaxe {
+class Digester;
+}
 
 /** Interface class for any object which wants to use deSaXe to load from 
     and save to XML.
@@ -23,10 +26,18 @@
 class SaxIO {
 public:
 	/**
-	  Writes an XML representation of this object
-	 */ 
+	    Writes an XML representation of this object
+	 */
+	virtual void saxx(SaxHandler &, const Xml_string elemtag) const = 0;
+	/**
+	    Writes an XML representation of this object using the default element tag, see below
+	 */
 	virtual void saxx(SaxHandler & ) const = 0;
 	virtual ~SaxIO() {}
+	/**
+		Element tag which is usually used to serialize this object. "" means no elem is created by saxx()
+	 */
+	static const Xml_string saxxDefaultElem;
 	/**
 	  Fills the digester with rules wich ensure that an object which was
 	  saved via saxx() will be reconstructed on top of the digester stack.
@@ -35,7 +46,7 @@ public:
 	  Unfortunately there are no virtual static functions, so this is just a dummy
 	  serving as a template.
 	 */
-	static void desaxeRules(Xml_string prefixPattern, desaxe::Digester & ruleset) {}
+	static void desaxeRules(Xml_string prefixPattern, desaxe::Digester & ruleset, const Xml_string elemtag = saxxDefaultElem) {}
 };
 
 #endif

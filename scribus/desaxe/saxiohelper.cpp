@@ -1,7 +1,14 @@
 
 #include "saxiohelper.h"
+#include "saxio.h"
 #include "scfonts.h"
 #include "fpointarray.h"
+
+
+
+
+const Xml_string SaxIO::saxxDefaultElem("");
+
 
 // FIXME: this is too Qt dependent
 Xml_string toXMLString(unsigned int val)

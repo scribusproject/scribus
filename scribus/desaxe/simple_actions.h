@@ -20,8 +20,10 @@
     Factory<D>( fun )                               - -> D
     Factory<D>()                                    - -> D
     Prototype<D>( data )                            - -> D
+    Top<O>( 3 )                                     O x x x -> O x x x O
     Getter<O,D>( fun )                              O -> O D
     Setter<O,D>( fun )                              O D -> O D
+    SetterWithConversion<O,D,S>( fun )              O S -> O S
     SetAttribute<O,D>( fun, name, default)          O -> O
     SetAttribute<O,D>( fun, name)                   O -> O
     SetAttributeWithConversion<O,D>( f, n, c, def)  O -> O
@@ -29,9 +31,11 @@
     SetAttributes<O>( fun )                         O -> O
     SetText<O,D>( fun )                             O -> O
     AddText<O,D>( fun )                             O -> O
-    *Transform<D,E> ( fun )                          D -> E
+    Transform<D,E> ( fun )                          D -> E
     *TransformLater<D,E> ( fun )                     D -> E
-    *Idref<O>()                                      O -> O
+    IdRef<O>()                                      O -> O
+    Lookup<D>( name )                               - -> D
+    PatchIdRefAttribute<O,D>( fun, name)            O -> O
     Result<O>()                                     O -> O
 
 *****/
@@ -178,6 +182,37 @@ struct  Prototype : public MakeGenerator<Prototype_body<Type>, Type, const Type&
 
 
 
+/**
+ *   Pushes a new pointer to the n-th object on the stack. 
+ */
+template<class Obj_Type>
+class Top_body : public Generator_body<Obj_Type>
+{
+public:
+	Top_body(unsigned int n) 
+	: distance(n) 
+	{}
+		
+	void begin(const Xml_string, Xml_attr)
+	{
+		this->dig->push(this->dig->template top<Obj_Type>(distance));
+	}
+private:
+	unsigned int distance;
+};
+
+
+template <class Type>
+struct  Top : public MakeGenerator<Top_body<Type>, Type, unsigned int> 
+{
+	Top(unsigned int distance)
+	: MakeGenerator<Top_body<Type>, Type, unsigned int>::MakeGenerator(distance) {}
+	Top()
+	: MakeGenerator<Top_body<Type>, Type, unsigned int>::MakeGenerator(0) {}
+};
+
+
+
 /** 
  *  Reads an object of type Data_Type from the object on top of the stack,
  *  then pushes this Data_Type object onto the stack.
@@ -212,7 +247,7 @@ struct  Getter : public MakeGenerator<Getter_body<Type, Data>, Data, typename Ge
 
 
 /**
- *    Writes the topmost object to the topmost but one object on the stack.
+ *    Writes the topmost object to the topmost object but one on the stack, where the set method takes a pointer
  */
 template<class Obj_Type, class Data_Type>
 class SetterP_body : public Action_body 
@@ -247,7 +282,7 @@ struct  SetterP : public MakeAction<SetterP_body<Type, Data>, typename SetterP_b
 
 
 /**
- *  Writes the topmost object to the topmost but one object on the stack.
+ *  Writes the topmost object to the topmost object but one on the stack.
  */
 template<class Obj_Type, class Data_Type>
 class Setter_body : public Action_body 
@@ -278,6 +313,49 @@ struct  Setter : public MakeAction<Setter_body<Type, Data>, typename Setter_body
 {
 	Setter(typename Setter_body<Type, Data>::FunType set)
 	: MakeAction<Setter_body<Type, Data>, typename Setter_body<Type, Data>::FunType>::MakeAction(set) {} 
+};
+
+
+/**
+*  Writes the topmost object to the topmost object but one on the stack.
+ */
+template<class Obj_Type, class Data_Type, class Store_Type>
+class SetterWithConversion_body : public Action_body 
+{
+public:
+	typedef void (Obj_Type::*FunType)(Data_Type);
+	typedef Data_Type (*ConvType)(Store_Type);
+	
+	SetterWithConversion_body(FunType set, ConvType conv) 
+		: set_(set), conv_(conv)
+	{}
+	
+	void end(const Xml_string)
+	{ 
+		Store_Type* data = this->dig->template top<Store_Type>(); 
+		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
+#ifdef DESAXE_DEBUG
+		std::cerr << "setter: " << obj << " .= " << conv_ << "(*" << data << ")\n";
+#endif
+		if (conv_)
+			(obj->*set_)( conv_(*data) );
+		else
+			(obj->*set_)( static_cast<Data_Type>(*data) ); 
+	}	
+private:
+		FunType set_;
+	ConvType conv_;
+};
+
+
+template <class Type, class Data, class Store>
+struct  SetterWithConversion : public MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType> 
+{
+	typedef SetterWithConversion_body<Type, Data, Store> BodyType;
+	SetterWithConversion(typename SetterWithConversion_body<Type, Data, Store>::FunType set)
+	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>::MakeAction(set, NULL) {} 
+	SetterWithConversion(typename BodyType::FunType set, typename SetterWithConversion_body<Type, Data, Store>::ConvType conv)
+	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>::MakeAction(set, conv) {} 
 };
 
 
@@ -363,7 +441,7 @@ struct  SetAttribute : public MakeAction<SetAttribute_body<Type,Data>, typename 
 
 /**
 *   Stores named attribute to the topmost object on the stack if attribute present,
- *   or stores defauot if present.
+ *   or stores default if present.
  */
 template<class Obj_Type, class Data_Type>
 class SetAttributeWithConversion_body : public Action_body
@@ -384,7 +462,7 @@ public:
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it = attr.find(name_);
-		if (it != attr.end())
+		if (it != attr.end() && conv_)
 			(obj->*set_)( conv_(Xml_data(it)) );
 		else if (hasDefault_)
 			(obj->*set_)( default_ );			
@@ -401,11 +479,13 @@ private:
 template <class Type, class Data>
 struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data> 
 {	
-	SetAttributeWithConversion(typename SetAttributeWithConversion_body<Type,Data>::FunType set, Xml_string name, typename SetAttributeWithConversion_body<Type,Data>::ConvType conv)
-	: MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data>::MakeAction(set,name,conv) {} 
+	typedef SetAttributeWithConversion_body<Type,Data> BodyType;
 	
-	SetAttributeWithConversion(typename SetAttributeWithConversion_body<Type,Data>::FunType set, Xml_string name, typename SetAttributeWithConversion_body<Type,Data>::ConvType conv, Data deflt)
-	: MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data>::MakeAction(set,name,conv,deflt) {} 
+	SetAttributeWithConversion(typename BodyType::FunType set, Xml_string name, typename BodyType::ConvType conv)
+	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>::MakeAction(set,name,conv) {} 
+	
+	SetAttributeWithConversion(typename BodyType::FunType set, Xml_string name, typename BodyType::ConvType conv, Data deflt)
+	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>::MakeAction(set,name,conv,deflt) {} 
 };
 
 
@@ -485,8 +565,207 @@ private:
 template <class Type>
 struct  SetText : public MakeAction<SetText_body<Type>, typename SetText_body<Type>::FunType> 
 {
-	SetText(typename SetText_body<Type>::FunType set)
-	: MakeAction<SetText_body<Type>, typename SetText_body<Type>::FunType>::MakeAction(set) {} 
+	typedef SetText_body<Type> BodyType;
+	SetText(typename BodyType::FunType set)
+	: MakeAction<BodyType, typename BodyType::FunType>::MakeAction(set) {} 
+};
+
+
+
+
+/** 
+*  This applies "id" and "idref" attributes to the object on top of the stack.
+*  In case of an "id" attribute, if there is no entry with this ID in
+*  the digester's storage, the topmost object is stored there. Otherwise the
+*  topmost object is replaced with the stored object.
+*  In case of an "idref" attribute, if there is no entry with this ID in
+*  the digester's storage, the topmost object is also stored there. Then the 
+*  trigger "WithinIdRef" is set during begin() and the processing continues 
+*  normally. When end() is called, the topmost object is replaced by the
+*  stored one (this will be a no-op if there wasnt an entry in storage before)
+*/
+template<class Obj_Type>
+class IdRef_body : public Action_body
+{
+public:
+	IdRef_body() : stack() {}
+	
+	void begin(const Xml_string, Xml_attr attr)
+	{
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
+		Mode mode;
+		Xml_attr::iterator it = attr.find("id");
+		if (it != attr.end())
+		{
+			mode.ID = attr["id"];
+			mode.isIdRef = false;
+		}
+		else {
+			Xml_attr::iterator it = attr.find("idref");
+			if (it != attr.end())
+			{
+				mode.ID = attr["idref"];
+				mode.isIdRef = true;
+			}
+			else {
+				mode.ID = "";
+				mode.isIdRef = false;
+			}
+		}
+		Obj_Type* storedObj = this->dig->template lookup<Obj_Type>(mode.ID);
+		if ( !storedObj )
+		{
+			this->dig->store(mode.ID, obj);
+		}
+		else if ( !mode.isIdRef )
+		{
+			delete (this->dig->template top<Obj_Type>());
+			this->dig->pop();
+			this->dig->push(this->dig->template lookup<Obj_Type>(mode.ID));
+		}
+		else
+		{
+			// NYI: set trigger
+		}
+		stack.push_back(mode);
+		
+	}
+	void end(const Xml_string)
+	{
+		Mode mode = stack.back();
+		stack.pop_back();
+		if (mode.isIdRef)
+		{
+			delete (this->dig->template top<Obj_Type>());
+			this->dig->pop();
+			this->dig->push(this->dig->template lookup<Obj_Type>(mode.ID));
+			// NYI reset trigger
+		}
+	}
+private:
+	struct Mode { Xml_string ID; bool isIdRef; };
+	std::vector<Mode> stack;
+};
+
+
+template <class Type>
+struct  IdRef : public MakeAction<IdRef_body<Type> > 
+{};
+
+
+/** 
+ *  Reads an object of type Data_Type from the digesters
+ *  storage and pushes it onto the stack.
+ *  WARNING: this might be a NULL pointer
+ */
+template<class Data_Type>
+class Lookup_body : public Generator_body<Data_Type>
+{
+public:
+	Lookup_body(Xml_string ID) 
+		: ID_(ID)
+	{}
+	
+	void begin(const Xml_string, Xml_attr)
+	{
+		Data_Type* data = this->dig->template lookup<Data_Type>(ID_);
+		this->dig->push(data);
+	}
+private:
+	Xml_string ID_;	
+};
+
+
+template <class Data>
+struct  Lookup : public MakeGenerator<Lookup_body<Data>, Xml_string> 
+{
+	Lookup(Xml_string ID)
+	: MakeGenerator<Lookup_body<Data>, Xml_string>::MakeGenerator(ID) {} 
+};
+
+
+
+/**
+*  Transforms the topmost object to the topmost object but one on the stack. // FIXME: this should just be a getter...
+ */
+template<class Obj_Type, class Arg_Type>
+class Transform_body : public Action_body 
+{
+public:
+	typedef Obj_Type (*FunType)(const Arg_Type&);
+	
+	Transform_body(FunType fun) 
+		: fun_(fun), stack()
+	{}
+	
+	void begin(const Xml_string, Xml_attr)
+	{ 
+		Cell cell;
+		cell.arg = this->dig->template top<Arg_Type>(); 
+		cell.obj = fun_(*cell.arg);
+#ifdef DESAXE_DEBUG
+		std::cerr << "transform: " << cell.arg << " -> " << cell.obj << ")\n";
+#endif
+		stack.push_back(cell);
+		this->dig->pop();
+		this->dig->push(&cell.obj); 
+	}	
+
+	void end(const Xml_string)
+	{
+		Cell cell = stack.back();
+		stack.pop_back();
+		this->dig->pop();
+		this->dig->push(cell.arg); 
+	}
+private:
+		FunType fun_;
+	struct Cell { Arg_Type* arg; Obj_Type obj; }; 
+	std::vector<Cell> stack;
+};
+
+
+template <class Type, class Arg>
+struct  Transform : public MakeAction<Transform_body<Type, Arg>, typename Transform_body<Type, Arg>::FunType> 
+{
+	typedef Transform_body<Type, Arg> BodyType;
+	Transform(typename BodyType::FunType f) : MakeAction<BodyType, typename BodyType::FunType>::MakeAction(f) {} 
+};
+
+
+
+
+template<class Obj_Type, class Data_Type>
+class PatchIdRefAttribute_body : public Action_body
+{
+public:
+	typedef void (Obj_Type::*FunType)(Data_Type*) ;
+	
+	PatchIdRefAttribute_body(FunType set, Xml_string name) 
+		: set_(set), name_(name)
+	{}
+	
+	void begin(const Xml_string, Xml_attr attr)
+	{
+		Xml_attr::iterator it = attr.find(name_);
+		if (it != attr.end())
+		{
+			Obj_Type* obj = this->dig->template top<Obj_Type>();
+			this->dig->template patchInvoke<Obj_Type,Data_Type>(Xml_data(it), obj, set_);
+		}
+	}	
+private:
+	FunType set_;
+	Xml_string name_;
+};
+
+
+template <class Type, class Data>
+struct  PatchIdRefAttribute : public MakeAction<PatchIdRefAttribute_body<Type,Data>, typename PatchIdRefAttribute_body<Type,Data>::FunType, Xml_string> 
+{
+	typedef PatchIdRefAttribute_body<Type,Data> BodyType;
+	PatchIdRefAttribute(typename BodyType::FunType set, Xml_string name)
+	: MakeAction<BodyType, typename BodyType::FunType, Xml_string>::MakeAction(set,name) {} 
 };
 
 

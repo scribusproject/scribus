@@ -38,7 +38,7 @@ class SCRIBUS_API Selection : public QObject
 		 * \brief Create an empty selection that is not a GUI selection
 		 * @param  parent QObject
 		 */
-		Selection(QObject* parent);
+		explicit Selection(QObject* parent);   // otherwise implicit conversion Selection* -> Selection& is possible
 		/**
 		 * \brief Create an empty selection that may be a GUI selection
 		 * @param  parent QObject
@@ -127,20 +127,22 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item PageItem reference
 		 */
 		bool primarySelectionIs(const PageItem* item) const { return (!m_SelList.isEmpty() && (item==m_SelList.first())); }
-		PageItem *itemAt(int index=0);
-		QStringList getSelectedItemsByName();
+		PageItem *itemAt(int index=0) { return itemAt_(index); }
+		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }
+		QStringList getSelectedItemsByName() const;
 		bool isMultipleSelection() const { return m_hasGroupSelection; }
 		bool isGUISelection() const { return m_isGUISelection; }
 		void setIsGUISelection(bool guiSelection) { m_isGUISelection=guiSelection; }
-		double width();
-		double height();
+		double width() const;
+		double height() const;
 		//set the group rectangle properties
 		void setGroupRect();
 		void getGroupRect(double *x, double *y, double *w, double *h);
 		//!\brief Test to see if all items in the selection are the same typedef
-		bool itemsAreSameType();
+		bool itemsAreSameType() const;
 		
 	protected:
+		PageItem *itemAt_(int index=0);
 		SelectionList m_SelList;
 		bool m_hasGroupSelection;
 		bool m_isGUISelection;

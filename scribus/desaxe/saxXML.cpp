@@ -29,6 +29,7 @@ void SaxXML::beginDoc()
 
 void SaxXML::endDoc()
 {
+	m_stream << "\n";
 	m_stream.flush(); m_file.close();
 }
 

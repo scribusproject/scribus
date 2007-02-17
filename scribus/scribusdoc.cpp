@@ -5214,6 +5214,56 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 }
 
 
+/*
+void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	if (selectedItemCount > 1)
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove manual paragrphstyle" ), Um::IFont);
+	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	{
+		PageItem *currItem = itemSelection->itemAt(aa);
+		uint currItemTextCount=currItem->itemText.length();
+		if (currItemTextCount != 0 && appMode == modeEdit)
+		{
+			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
+			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
+			if (appMode == modeEdit)
+			{
+				start = currItem->itemText.startOfSelection();
+				stop = currItem->itemText.endOfSelection();
+				if (start >= stop)
+					start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
+			}
+			for (int pos=start; pos < stop; ++pos)
+			{
+				if (currItem->itemText.text(pos) == SpecialChars::PARSEP)
+				{
+					ParagraphStyle newStyle;
+					newStyle.setParent(currItem->itemText.paragraphStyle(pos).parent());
+					currItem->itemText.setStyle(pos, newStyle);
+				}
+			}
+			ParagraphStyle newStyle2;
+			newStyle2.setParent(currItem->itemText.paragraphStyle(stop).parent());
+			currItem->itemText.setStyle(stop, newStyle2);
+			currItem->invalid = true;
+		}
+		if (currItem->asPathText())
+			currItem->updatePolyClip();
+	}
+	if (selectedItemCount > 1)
+		undoManager->commit();
+	changed();
+	emit updateContents();
+}
+*/
+
+
 void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -5376,6 +5426,72 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	emit updateContents();
 }
 
+/*
+void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	if (selectedItemCount > 1)
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove manual charstyle" ), Um::IFont);
+	for (uint aa = 0; aa < selectedItemCount; ++aa)
+	{
+		PageItem *currItem = itemSelection->itemAt(aa);
+		uint currItemTextCount=currItem->itemText.length();
+		if (currItemTextCount != 0 && appMode == modeEdit)
+		{
+			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
+			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
+			if (appMode == modeEdit)
+			{
+				if (currItem->itemText.lengthOfSelection() > 0)
+				{
+					start = currItem->itemText.startOfSelection();
+					length = currItem->itemText.endOfSelection() - start;
+				}
+				else
+				{
+					start = QMAX(currItem->firstInFrame(), currItem->CPos);
+					length = 1;
+				}
+			}
+			QString lastParent;
+			int stop = start+length;
+			int lastPos = start;
+			for (int i=start; i < stop; ++i)
+			{
+				const QString& curParent(currItem->itemText.charStyle(i).parent());
+				if (curParent != lastParent)
+				{
+					lastParent = curParent;
+					if ( i-lastPos > 0)
+					{
+						CharStyle newStyle;
+						newStyle.setParent(lastParent);
+						currItem->itemText.setCharStyle(lastPos, i-lastPos, newStyle);
+						lastPos = i;
+					}
+				}
+			}
+			if (lastPos < stop)
+			{
+				CharStyle newStyle2;
+				newStyle2.setParent(lastParent);
+				currItem->itemText.setCharStyle(lastPos, stop-lastPos, newStyle2);
+			}
+			currItem->invalid = true;
+		}
+		if (currItem->asPathText())
+			currItem->updatePolyClip();
+	}
+	if (selectedItemCount > 1)
+		undoManager->commit();
+	changed();
+	emit updateContents();
+}
+*/
 
 /*
 template<typename Arg, void (PageItem::*Fun)(Arg)>

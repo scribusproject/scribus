@@ -18,6 +18,7 @@
 
 #include "style.h"
 #include "desaxe/saxiohelper.h"
+#include "desaxe/simple_actions.h"
 
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIsInh(true), cstyle()
@@ -55,45 +56,6 @@ ParagraphStyle::~ParagraphStyle()
 //	qDebug(QString("~ParagraphStyle %1").arg(reinterpret_cast<uint>(this)));
 }
 	
-static QString toXMLString(ParagraphStyle::AlignmentType val)
-{
-	return QString::number(static_cast<int>(val));
-}
-
-
-static QString toXMLString(const QValueList<ParagraphStyle::TabRecord> & )
-{
-	return "dummy";
-}
-						  
-void ParagraphStyle::saxx(SaxHandler& handler) const
-{
-	Xml_attr att;
-	if (!name().isEmpty())
-		att.insert("name", name());
-	if (!parent().isEmpty())
-		att.insert("parent", parent());
-#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if (!inh_##attr_NAME && # attr_NAME != "TabValues") \
-		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
-#include "paragraphstyle.attrdefs.cxx"
-#undef ATTRDEF
-	handler.begin("style", att);
-	QValueList<ParagraphStyle::TabRecord>::const_iterator it;
-	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
-	{
-		const ParagraphStyle::TabRecord& tb(*it);
-		Xml_attr tab;
-		tab.insert("pos", toXMLString(tb.tabPosition));
-		tab.insert("fillChar", toXMLString(tb.tabFillChar.unicode()));
-		tab.insert("type", toXMLString(tb.tabType));
-		handler.begin("tabstop", tab);
-		handler.end("tabstop");
-	}
-	charStyle().saxx(handler);
-	handler.end("style");
-}
-
 
 QString ParagraphStyle::displayName() const
 {
@@ -235,3 +197,103 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 #undef ATTRDEF
 }
 
+
+static QString toXMLString(ParagraphStyle::AlignmentType val)
+{
+	return QString::number(static_cast<int>(val));
+}
+
+
+static QString toXMLString(const QValueList<ParagraphStyle::TabRecord> & )
+{
+	return "dummy";
+}
+
+void ParagraphStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
+{
+	Xml_attr att;
+	if (!name().isEmpty())
+		att.insert("name", name());
+	if (!parent().isEmpty())
+		att.insert("parent", parent());
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	if (!inh_##attr_NAME && # attr_NAME != "TabValues") \
+		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
+#include "paragraphstyle.attrdefs.cxx"
+#undef ATTRDEF
+	handler.begin(elemtag, att);
+	QValueList<ParagraphStyle::TabRecord>::const_iterator it;
+	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
+	{
+		const ParagraphStyle::TabRecord& tb(*it);
+		Xml_attr tab;
+		tab.insert("pos", toXMLString(tb.tabPosition));
+		tab.insert("fillChar", toXMLString(tb.tabFillChar.unicode()));
+		tab.insert("type", toXMLString(tb.tabType));
+		handler.beginEnd("tabstop", tab);
+	}
+	charStyle().saxx(handler);
+	handler.end(elemtag);
+}
+
+///   PageItem StoryText -> PageItem StoryText
+class SetCharStyle_body : public desaxe::Action_body
+{
+	void end (const Xml_string /*tagname*/)
+	{
+		ParagraphStyle* pstyle = this->dig->top<ParagraphStyle>(1);
+		CharStyle* cstyle = this->dig->top<CharStyle>(0);
+		pstyle->charStyle() = *cstyle;
+	}
+};
+
+class SetCharStyle : public desaxe::MakeAction<SetCharStyle_body>
+{};
+
+
+
+
+template<>
+ParagraphStyle::AlignmentType parse(Xml_string str)
+{
+	return parseEnum<ParagraphStyle::AlignmentType>(str);
+}
+
+
+template<>
+ParagraphStyle::LineSpacingMode parse(Xml_string str)
+{
+	return parseEnum<ParagraphStyle::LineSpacingMode>(str);
+}
+
+
+typedef QValueList<ParagraphStyle::TabRecord> Tablist;
+
+template<>
+Tablist parse(Xml_string str)
+{
+	return Tablist();
+}
+
+
+using namespace desaxe;
+
+const Xml_string ParagraphStyle::saxxDefaultElem("style");
+
+void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+{
+	typedef ParagraphStyle::TabRecord TabRecord;
+		
+	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
+	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());
+	ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, const QString&>( & ParagraphStyle::setName, "name", &parse<const QString&>));
+	ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, const QString&>( & ParagraphStyle::setParent, "parent", &parse<const QString&>));
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	if ( # attr_NAME != "TabValues") \
+		ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, attr_TYPE> ( & ParagraphStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
+#include "paragraphstyle.attrdefs.cxx"
+#undef ATTRDEF
+	Xml_string charstylePrefix(Digester::concat(stylePrefix, CharStyle::saxxDefaultElem));
+	CharStyle::desaxeRules(stylePrefix, ruleset);
+	ruleset.addRule(charstylePrefix, SetCharStyle());
+}

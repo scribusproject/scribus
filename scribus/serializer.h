@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "selection.h"
 #include "desaxe/saxio.h"
+#include "desaxe/digester.h"
 
 /**
   * This class reads/writes Scribus datastructures from/to SAX streams 

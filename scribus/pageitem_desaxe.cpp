@@ -14,6 +14,7 @@
 #include "scribusdoc.h"
 
 
+
 using namespace desaxe;
 
 
@@ -203,10 +204,12 @@ static Xml_attr PageItemAttributes(const PageItem* item)
 	return result;
 }	
 
-void PageItem::saxx(SaxHandler& handler) const
+void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
 	Xml_attr att(PageItemAttributes(this));
-	handler.begin("item", att);
+	Xml_attr dumm;
+//	qDebug(QString("PageItem::saxx %1 %2").arg((ulong) &handler));
+	handler.begin(elemtag, att);
 
 	if (effectsInUse.count() != 0)
 	{
@@ -284,9 +287,9 @@ void PageItem::saxx(SaxHandler& handler) const
 	}
 	if(itemText.length() > 0)
 	{
-		itemText.saxx(handler);
+		itemText.saxx(handler, "text-content");
 	}
-	handler.end("item");
+	handler.end(elemtag);
 }
 
 
@@ -337,9 +340,28 @@ class CreatePageItem : public MakeGenerator<CreatePageItem_body, PageItem>
 {};
 
 
-void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset)
+
+///   PageItem StoryText -> PageItem StoryText
+class SetItemText_body : public Action_body
 {
-	Xml_string itemPrefix(prefixPattern + "/item");
+	void end (const Xml_string /*tagname*/)
+	{
+		PageItem* item = this->dig->top<PageItem>(1);
+		StoryText* story = this->dig->top<StoryText>(0);
+		item->itemText.clear();
+		item->itemText.setDefaultStyle(story->defaultStyle());
+		item->itemText.append(*story);  // story has no document attached, so we dont want to assign here
+	}
+};
+
+class SetItemText : public MakeAction<SetItemText_body>
+{};
+
+const Xml_string PageItem::saxxDefaultElem("item");
+
+void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+{
+	Xml_string itemPrefix(Digester::concat(prefixPattern, elemtag));
 	
 	// the generator CreatePageItem currently *requires* the Scribusdoc at the top of the stack
 	ruleset.addRule(itemPrefix, CreatePageItem() );
@@ -460,4 +482,8 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset)
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QValueList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));
+
+	StoryText::desaxeRules(itemPrefix, ruleset, "text-content");
+	Xml_string storyPrefix = Digester::concat(itemPrefix, "text-content");
+	ruleset.addRule(storyPrefix, SetItemText());
 }

@@ -63,7 +63,11 @@ public:
 	ParagraphStyle& operator=(const ParagraphStyle& other);
 	~ParagraphStyle();
 
-	void saxx(SaxHandler& handler) const;
+	static const Xml_string saxxDefaultElem;
+	static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
+	
+	virtual void saxx(SaxHandler& handler, Xml_string elemtag) const;
+	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 	
 	QString displayName() const;
 

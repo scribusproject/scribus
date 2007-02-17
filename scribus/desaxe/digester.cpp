@@ -92,14 +92,17 @@ private:
 };
 
 
-Digester::Digester() : objects(), errors() 
+Digester::Digester() : objects(), storage(), errors() 
 { 
 	state = new RuleState();
+	result_.ptr = NULL;
+	result_.type = "";
 }
 
 
 Digester::~Digester() {
 	delete state;
+	deletePatches(patches);
 }
 
 
@@ -107,6 +110,10 @@ Digester& Digester::operator=(const Digester& other)
 {
 	delete state;
 	state = new RuleState(*other.state);
+	objects = other.objects;
+	storage = other.storage;
+	result_ = other.result_;
+	errors = other.errors;
 	return *this;
 }
 
@@ -132,7 +139,9 @@ void Digester::addRule(const Xml_string pattern, Action action)
 void Digester::beginDoc()
 {
 	state->reset();
+#ifdef DESAXE_DEBUG	
 	state->dump();
+#endif
 }
 
 void Digester::endDoc()
@@ -147,7 +156,7 @@ void Digester::begin(Xml_string tag, Xml_attr attr)
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "B " << it->first << "\n";
+		std::cerr << "B " << it->first << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).begin(tag, attr);
 	}
@@ -160,7 +169,7 @@ void Digester::end(Xml_string tag)
 	for(it=rules.rbegin(); it!=rules.rend(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "E " << it->first << "\n";
+		std::cerr << "E " << it->first << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).end(tag);
 	}
@@ -174,12 +183,27 @@ void Digester::chars(Xml_string text)
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "C " << it->first << "\n";
+		std::cerr << "C " << it->first << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).chars(text);
 	}
 }
 
+
+Xml_string Digester::concat(const Xml_string pattern1, const Xml_string pattern2)
+{
+	if (pattern1 == "")
+		return pattern2;
+	else if (pattern2 == "")
+		return pattern1;
+	else if ( (pattern1[pattern1.length()-1] != '/') && (pattern2[0] != '/') )
+		// insert "/" as separator
+		return pattern1 + "/" + pattern2;
+	else if ( (pattern1[pattern1.length()-1]=='/') || (pattern2[0]=='/') )
+		return pattern1 + pattern2;
+	else // cut off one "/"
+		return pattern1 + std::string(static_cast<const std::string&>(pattern2), 1, std::string::npos);
+}
 
 
 RuleState::RuleState() : rules(), dfa(NULL), stateStack(), valid(false)

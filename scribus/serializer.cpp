@@ -28,6 +28,11 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <qtextcodec.h>
 #include "util.h"
+#include "desaxe/simple_actions.h"
+#include "desaxe/saxXML.h"
+
+using namespace desaxe;
+
 
 Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
@@ -35,6 +40,41 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 }
 
 
+void Serializer::serializeObjects(const Selection& selection, SaxHandler&)
+{
+	// write object to tmpfile
+	SaxXML tmpfile("tmp-scribus1.xml", true);
+	tmpfile.beginDoc();
+	selection.itemAt(0)->saxx(tmpfile);
+	tmpfile.endDoc();
+
+	// run object thru deserializer
+	Digester serializer;
+	PageItem::desaxeRules("**", serializer);
+	serializer.addRule("**/item", Result<PageItem>());
+	serializer.push(selection.itemAt(0)->doc());
+	serializer.beginDoc();
+	selection.itemAt(0)->saxx(serializer);
+	serializer.endDoc();
+
+	// write deserialized object to disk
+	SaxXML tmpfile2("tmp-scribus2.xml", true);
+	tmpfile2.beginDoc();
+	PageItem* des = serializer.result<PageItem>();
+	des->saxx(tmpfile2);
+	tmpfile2.endDoc();
+}
+
+
+Selection Serializer::deserializeObjects(const QString & xml)
+{
+	return *m_Doc.m_Selection;
+}
+
+Selection Serializer::deserializeObjects(const QFile & xml)
+{
+	return *m_Doc.m_Selection;
+}
 
 
 bool Serializer::writeWithEncoding(const QString& filename, const QString& encoding, 
