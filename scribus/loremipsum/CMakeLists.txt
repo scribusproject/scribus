@@ -7,6 +7,7 @@ ar.xml
 cs.xml
 de.xml
 el.xml
+en.xml
 fi.xml
 he.xml
 it.xml
