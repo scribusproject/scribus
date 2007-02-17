@@ -20,31 +20,23 @@ namespace automata {
 template<class STATE, class INPUT, class OUTPUT>
 class FA_base {
 public:
-	FA_base(STATE s, OUTPUT d)
-	: states_(), inputs_(), transitions_(), noTransitions(), start_(s), default_(d) 
-	{ 
-		states_.insert(s); 
-	}
-	FA_base(const std::set<STATE>& states, const std::set<INPUT>& inputs, STATE start, STATE deflt)
-	: states_(states), inputs_(inputs), transitions_(), noTransitions(), start_(start), default_(deflt) {
-		if (states_.find(start) == states_.end())
-			states_.insert(start);	
-	}
+	FA_base(STATE s, OUTPUT d);
+	FA_base(const std::set<STATE>& states, const std::set<INPUT>& inputs, STATE start, STATE deflt);
 	virtual ~FA_base();
 
 	typedef std::map<INPUT, OUTPUT> Transitions;
 
-	const std::set<STATE>& states() const { return states_; }
-	const std::set<INPUT>& inputs() const { return inputs_; }
+	const std::set<STATE>& states() const;
+	const std::set<INPUT>& inputs() const;
 	const Transitions& transitions(STATE s) const;
-	const STATE start() const             { return start_; }
-	const OUTPUT deflt() const             { return default_; }
+	const STATE start() const;
+	const OUTPUT deflt() const;
 	const OUTPUT next(STATE from, INPUT input) const;
 	
 	void addState(STATE newState);
 	void addInput(INPUT newInput);
 	void setTransition(STATE from, INPUT input, OUTPUT to);
-	
+
 protected:
 	std::set<STATE> states_;
 	std::set<INPUT> inputs_;
@@ -54,6 +46,42 @@ protected:
 	OUTPUT default_;
 };
 
+template<class STATE, class INPUT, class OUTPUT>
+FA_base<STATE, INPUT, OUTPUT>::FA_base(STATE s, OUTPUT d) : states_(), inputs_(), transitions_(), noTransitions(), start_(s), default_(d) 
+{ 
+	states_.insert(s); 
+}
+
+template<class STATE, class INPUT, class OUTPUT>
+FA_base<STATE, INPUT, OUTPUT>::FA_base(const std::set<STATE>& states, const std::set<INPUT>& inputs, STATE start, STATE deflt) : states_(states), inputs_(inputs), transitions_(), noTransitions(), start_(start), default_(deflt) 
+{
+	if (states_.find(start) == states_.end())
+		states_.insert(start);	
+}
+
+template<class STATE, class INPUT, class OUTPUT>
+const std::set<STATE>& FA_base<STATE, INPUT, OUTPUT>::states() const 
+{ 
+	return states_; 
+}
+
+template<class STATE, class INPUT, class OUTPUT>
+const std::set<INPUT>& FA_base<STATE, INPUT, OUTPUT>::inputs() const 
+{ 
+	return inputs_; 
+}
+
+template<class STATE, class INPUT, class OUTPUT>
+const STATE FA_base<STATE, INPUT, OUTPUT>::start() const
+{ 
+	return start_; 
+}
+
+template<class STATE, class INPUT, class OUTPUT>
+const OUTPUT FA_base<STATE, INPUT, OUTPUT>::deflt() const
+{ 
+	return default_; 
+}
 
 template<class STATE, class INPUT>
 class DFA : public FA_base<STATE, INPUT, STATE> {
@@ -159,9 +187,6 @@ public:
 };
 
 
-
-
-
 template<class STATE, class INPUT, class OUTPUT>
 FA_base<STATE,INPUT,OUTPUT>::~FA_base() 
 {
@@ -169,7 +194,7 @@ FA_base<STATE,INPUT,OUTPUT>::~FA_base()
 }
 	
 template<class STATE, class INPUT, class OUTPUT>
-const typename FA_base<STATE,INPUT,OUTPUT>::Transitions& FA_base<STATE,INPUT,OUTPUT>::transitions(STATE s) const
+const FA_base<STATE,INPUT,OUTPUT>::Transitions& FA_base<STATE,INPUT,OUTPUT>::transitions(STATE s) const
 { 
 	typename std::map<STATE, Transitions>::const_iterator tr = transitions_.find(s);
 	if (tr != transitions_.end())

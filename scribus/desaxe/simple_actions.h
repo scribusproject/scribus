@@ -277,7 +277,7 @@ template <class Type, class Data>
 struct  SetterP : public MakeAction<SetterP_body<Type, Data>, typename SetterP_body<Type, Data>::FunType> 
 {
 	SetterP(typename SetterP_body<Type, Data>::FunType set)
-	: MakeAction<SetterP_body<Type, Data>, typename SetterP_body<Type, Data>::FunType>::MakeAction(set) {} 
+	: MakeAction<SetterP_body<Type, Data>, typename SetterP_body<Type, Data>::FunType>(set) {} 
 };
 
 
@@ -312,7 +312,7 @@ template <class Type, class Data>
 struct  Setter : public MakeAction<Setter_body<Type, Data>, typename Setter_body<Type, Data>::FunType> 
 {
 	Setter(typename Setter_body<Type, Data>::FunType set)
-	: MakeAction<Setter_body<Type, Data>, typename Setter_body<Type, Data>::FunType>::MakeAction(set) {} 
+	: MakeAction<Setter_body<Type, Data>, typename Setter_body<Type, Data>::FunType>(set) {} 
 };
 
 
@@ -353,9 +353,9 @@ struct  SetterWithConversion : public MakeAction<SetterWithConversion_body<Type,
 {
 	typedef SetterWithConversion_body<Type, Data, Store> BodyType;
 	SetterWithConversion(typename SetterWithConversion_body<Type, Data, Store>::FunType set)
-	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>::MakeAction(set, NULL) {} 
+	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>(set, NULL) {} 
 	SetterWithConversion(typename BodyType::FunType set, typename SetterWithConversion_body<Type, Data, Store>::ConvType conv)
-	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>::MakeAction(set, conv) {} 
+	: MakeAction<SetterWithConversion_body<Type, Data, Store>, typename SetterWithConversion_body<Type, Data, Store>::FunType, typename SetterWithConversion_body<Type, Data, Store>::ConvType>set, conv) {} 
 };
 
 
@@ -387,7 +387,7 @@ template <class Type>
 struct  SetAttributes : public MakeAction<SetAttributes_body<Type>, typename SetAttributes_body<Type>::FunType> 
 {
 	SetAttributes(typename SetAttributes_body<Type>::FunType set)
-	: MakeAction<SetAttributes_body<Type>, typename SetAttributes_body<Type>::FunType>::MakeAction(set) {} 
+	: MakeAction<SetAttributes_body<Type>, typename SetAttributes_body<Type>::FunType>(set) {} 
 };
 
 
@@ -431,10 +431,10 @@ template <class Type, class Data>
 struct  SetAttribute : public MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data> 
 {
 	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, Xml_string name)
-	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>::MakeAction(set,name) {} 
+	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>(set,name) {} 
 
 	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, Xml_string name, Data deflt)
-	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>::MakeAction(set,name,deflt) {} 
+	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>(set,name,deflt) {} 
 };
 
 
@@ -482,10 +482,10 @@ struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversio
 	typedef SetAttributeWithConversion_body<Type,Data> BodyType;
 	
 	SetAttributeWithConversion(typename BodyType::FunType set, Xml_string name, typename BodyType::ConvType conv)
-	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>::MakeAction(set,name,conv) {} 
+	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>(set,name,conv) {} 
 	
 	SetAttributeWithConversion(typename BodyType::FunType set, Xml_string name, typename BodyType::ConvType conv, Data deflt)
-	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>::MakeAction(set,name,conv,deflt) {} 
+	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>(set,name,conv,deflt) {} 
 };
 
 
@@ -518,7 +518,7 @@ template <class Type>
 struct  AddText : public MakeAction<AddText_body<Type>, typename AddText_body<Type>::FunType> 
 {
 	AddText(typename AddText_body<Type>::FunType set)
-	: MakeAction<AddText_body<Type>, typename AddText_body<Type>::FunType>::MakeAction(set) {} 
+	: MakeAction<AddText_body<Type>, typename AddText_body<Type>::FunType>(set) {} 
 };
 
 
@@ -567,7 +567,7 @@ struct  SetText : public MakeAction<SetText_body<Type>, typename SetText_body<Ty
 {
 	typedef SetText_body<Type> BodyType;
 	SetText(typename BodyType::FunType set)
-	: MakeAction<BodyType, typename BodyType::FunType>::MakeAction(set) {} 
+	: MakeAction<BodyType, typename BodyType::FunType>set) {} 
 };
 
 
@@ -729,7 +729,7 @@ template <class Type, class Arg>
 struct  Transform : public MakeAction<Transform_body<Type, Arg>, typename Transform_body<Type, Arg>::FunType> 
 {
 	typedef Transform_body<Type, Arg> BodyType;
-	Transform(typename BodyType::FunType f) : MakeAction<BodyType, typename BodyType::FunType>::MakeAction(f) {} 
+	Transform(typename BodyType::FunType f) : MakeAction<BodyType, typename BodyType::FunType>(f) {} 
 };
 
 
@@ -765,7 +765,7 @@ struct  PatchIdRefAttribute : public MakeAction<PatchIdRefAttribute_body<Type,Da
 {
 	typedef PatchIdRefAttribute_body<Type,Data> BodyType;
 	PatchIdRefAttribute(typename BodyType::FunType set, Xml_string name)
-	: MakeAction<BodyType, typename BodyType::FunType, Xml_string>::MakeAction(set,name) {} 
+	: MakeAction<BodyType, typename BodyType::FunType, Xml_string>(set,name) {} 
 };
 
 
