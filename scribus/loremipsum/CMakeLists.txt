@@ -7,6 +7,7 @@ arabic.xml
 czech.xml
 dutch.xml
 finnish.xml
+english.xml
 german.xml
 greek.xml
 hebrew.xml

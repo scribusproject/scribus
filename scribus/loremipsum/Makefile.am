@@ -1,4 +1,4 @@
-EXTRA_DIST = loremipsum.xml arabic.xml czech.xml finnish.xml german.xml greek.xml hebrew.xml russian.xml italian.xml slovenian.xml CMakeLists.txt dutch.xml
+EXTRA_DIST = loremipsum.xml arabic.xml czech.xml finnish.xml english.xml german.xml greek.xml hebrew.xml russian.xml italian.xml slovenian.xml CMakeLists.txt dutch.xml
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/loremipsum/
@@ -8,6 +8,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/dutch.xml $(prefix)/share/scribus/loremipsum/dutch.xml
 	$(INSTALL_DATA) $(srcdir)/finnish.xml $(prefix)/share/scribus/loremipsum/finnish.xml
 	$(INSTALL_DATA) $(srcdir)/german.xml $(prefix)/share/scribus/loremipsum/german.xml
+	$(INSTALL_DATA) $(srcdir)/english.xml $(prefix)/share/scribus/loremipsum/english.xml
 	$(INSTALL_DATA) $(srcdir)/greek.xml $(prefix)/share/scribus/loremipsum/greek.xml
 	$(INSTALL_DATA) $(srcdir)/hebrew.xml $(prefix)/share/scribus/loremipsum/hebrew.xml
 	$(INSTALL_DATA) $(srcdir)/italian.xml $(prefix)/share/scribus/loremipsum/italian.xml
@@ -19,6 +20,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/loremipsum/arabic.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/czech.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/dutch.xml
+	-rm -f $(prefix)/share/scribus/loremipsum/english.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/finnish.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/german.xml
 	-rm -f $(prefix)/share/scribus/loremipsum/greek.xml
