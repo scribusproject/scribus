@@ -194,7 +194,7 @@ FA_base<STATE,INPUT,OUTPUT>::~FA_base()
 }
 	
 template<class STATE, class INPUT, class OUTPUT>
-const FA_base<STATE,INPUT,OUTPUT>::Transitions& FA_base<STATE,INPUT,OUTPUT>::transitions(STATE s) const
+const typename FA_base<STATE,INPUT,OUTPUT>::Transitions& FA_base<STATE,INPUT,OUTPUT>::transitions(STATE s) const
 { 
 	typename std::map<STATE, Transitions>::const_iterator tr = transitions_.find(s);
 	if (tr != transitions_.end())
