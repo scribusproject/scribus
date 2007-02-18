@@ -75,10 +75,10 @@ template <class Type>
 struct  Factory : public MakeGenerator<Factory_body<Type>, Type, typename Factory_body<Type>::FunType> 
 {
 	Factory(typename Factory_body<Type>::FunType create)
-	: MakeGenerator<Factory_body<Type>, Type, typename Factory_body<Type>::FunType>::MakeGenerator(create) {} 
+	: MakeGenerator<Factory_body<Type>, Type, typename Factory_body<Type>::FunType>(create) {} 
 
 	Factory()
-	: MakeGenerator<Factory_body<Type>, Type, typename Factory_body<Type>::FunType>::MakeGenerator() {} 
+	: MakeGenerator<Factory_body<Type>, Type, typename Factory_body<Type>::FunType>() {} 
 };
 
 

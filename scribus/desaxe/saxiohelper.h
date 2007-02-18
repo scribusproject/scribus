@@ -43,49 +43,49 @@ DATA parse(Xml_string str)
 
 template<>
 inline
-unsigned int parse(Xml_string str)
+unsigned int parse<unsigned int>(Xml_string str)
 {
 	return parseUInt(str);
 }
 
 template<>
 inline
-int parse(Xml_string str)
+int parse<int>(Xml_string str)
 {
 	return parseInt(str);
 }
 
 template<>
 inline
-unsigned long parse(Xml_string str)
+unsigned long parse<unsigned long>(Xml_string str)
 {
 	return parseULong(str);
 }
 
 template<>
 inline
-long parse(Xml_string str)
+long parse<long>(Xml_string str)
 {
 	return parseLong(str);
 }
 
 template<>
 inline
-double parse(Xml_string str)
+double parse<double>(Xml_string str)
 {
 	return parseDouble(str);
 }
 
 template<>
 inline
-float parse(Xml_string str)
+float parse<float>(Xml_string str)
 {
 	return parseFloat(str);
 }
 
 template<>
 inline
-bool parse(Xml_string str)
+bool parse<bool>(Xml_string str)
 {
 	return parseBool(str);
 }
