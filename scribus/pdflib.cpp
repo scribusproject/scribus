@@ -6004,13 +6004,13 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else
 				imgE = true;
 		}
+		origWidth = img.width();
+		origHeight = img.height();
 		img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
 		if (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
 		{
 			sxn = sx * (1.0 / aufl);
 			syn = sy * (1.0 / aufl);
-			origWidth = img.width();
-			origHeight = img.height();
 		}
 		if (alphaM)
 		{
