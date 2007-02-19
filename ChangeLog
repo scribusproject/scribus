@@ -1,5 +1,55 @@
 Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.7 release are included in the 1.3.3.7 Version too)
 
+Scribus - 1.3.3.8cvs
+====================
+- 0005371: [Translation] Ukrainian translation update for 1.3.3.8 release (malex)
+- 0005369: [Translation] Update Danish Translation (malex)
+- 0005345: [Import / Export] "Out of memory" on exported PDF (jghali)
+- 0003852: [Import / Export] Scribus Crashes with Signal 11 on PDF Export to RGB (cbradney)
+- 0005254: [PDF] Cannot create usable PDF forms (fschmid)
+- 0005288: [PDF] Contents page in pdf reader rendering incorrect. (fschmid)
+- 0005314: [PDF] pdf causes errors in acrobat.exe (fschmid)
+- 0005273: [-] Cannot calculate pdf fields correctly. (fschmid)
+- 0005327: [-] New Dutch file for sample text (cbradney)
+- 0005325: [General] Answer to 0005322: Danish Hyphenation patterns distributed without license and copyright information (cbradney)
+- 0005324: [NLS] LPPL compliant README for PL hyphenation patters (for both branches 1.3.4 and 1.3.3.*) (cbradney)
+- 0005292: [Graphics / Image Frames] combine polygons is broken (jghali)
+- 0004082: [General] Former 1.2 file almost uneditable in 1.3.3cvs and crashing 1.3.4cvs (avox)
+- 0005311: [Translation] Polish translation update for 1.3.3.8 (cbradney)
+- 0005293: [Usability] obejcts don't get selected on click, if clicked while an image frame is in "pan mode" (fschmid)
+- 0005280: [Build System] Extras - Farbkreis (subik)
+- 0005304: [Translation] Translation update - pt_BR (cbradney)
+- 0005303: [Translation] German Translation update for 1.3.3.8 (cbradney)
+- 0005238: [General] Crash when escaping new from template after font substitution dialog (cbradney)
+- 0005252: [Scripter] Scripts run from Script -> Execute Script improperly type some arithmetic expressions (subik)
+- 0005285: [Translation] Updated Danish Translation (plinnell)
+- 0005251: [Story Editor / Text Frames] Impossible to insert glyphs in the SE (cbradney)
+- 0005245: [Translation] Updated translation into Russian (plinnell)
+- 0005236: [User Interface] When undoing with snap on, esp snap to grid, it will snap the items to a location rather than to the original position. (fschmid)
+- 0002552: [Graphics / Image Frames] TIFF image does not display on page and prints bright green (avox)
+- 0005204: [Documentation] Table in the docs isn't rendered correctly (plinnell)
+- 0004427: [PPCOSX] Cant import JPG in a normal way on Aqua Build (avox)
+- 0005187: [General] Code Cleanup (cbradney)
+- 0005139: [General] CMYK Spots don't display the same as pure CMYK with color management. (jghali)
+- 0005158: [Translation] Slovenian Translation Update (plinnell)
+- 0005166: [Build System] Wrong version number reported when built with cmake (cbradney)
+- 0005146: [Import / Export] NO PNG EXPORT TO PDF (avox)
+- 0005159: [Translation] Add Slovenian lorem-ipsum File (plinnell)
+- 0005156: [Build System] cmake doesn't install the GenericCMYK profile (fschmid)
+- 0005160: [Translation] scribus.xml Error - Slovenian string needs change (plinnell)
+- 0005154: [General] Scribus fails to run on Mac OS X (avox)
+- 0005143: [Translation] Default name for tocs isn't translatable (cbradney)
+- 0005119: [General] Applying a style to a TOC requires closing the doc setup (cbradney)
+- 0005062: [Documentation] Add a note on tooltips at the beginning of the docs and to the README file (plinnell)
+- 0005134: [Translation] Polish translation update for 1.3.3.7cvs (cbradney)
+- 0003054: [User Interface] preference icons shouldnt be transparent (jghali)
+
+Scribus - 1.3.3.7
+=================
+- 0003199: [PPCOSX] Help About missing the logo (cbradney)
+- 0003095: [PPCOSX] Aqua Scribus Not all fonts available (avox)
+
+
 Scribus - 1.3.3.7cvs
 ====================
 - 0005015: [Story Editor / Text Frames] Crash after Cut&Paste or Copy&Paste (jghali)
