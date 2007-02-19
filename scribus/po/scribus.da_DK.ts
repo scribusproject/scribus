@@ -13468,6 +13468,10 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <source>%1 may be corrupted : missing resolution tags</source>
         <translation>%1 er måske beskadiget: manglende opløsnings-mærker</translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation>Tysk (Schweizisk)</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
