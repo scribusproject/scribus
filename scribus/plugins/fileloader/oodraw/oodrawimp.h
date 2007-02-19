@@ -117,7 +117,7 @@ protected:
 	QPtrList<PageItem> parseFrame(const QDomElement &e);
 	QPtrList<PageItem> parseConnector(const QDomElement &e);
 	void parseStyle(OODrawStyle& style, const QDomElement &e);
-	void finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawStyle& oostyle);
+	PageItem* finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );

@@ -717,7 +717,7 @@ QPtrList<PageItem> OODPlug::parseRect(const QDomElement &e)
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	finishNodeParsing(e, *ite, style);
+	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
 	return elements;
 }
@@ -736,7 +736,7 @@ QPtrList<PageItem> OODPlug::parseEllipse(const QDomElement &e)
 	parseStyle(style, e);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX+x, BaseY+y, w, h, style.strokeWidth, style.fillColor, style.strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	finishNodeParsing(e, *ite, style);
+	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
 	return elements;
 }
@@ -769,7 +769,7 @@ QPtrList<PageItem> OODPlug::parseLine(const QDomElement &e)
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 		m_Doc->AdjustItemSize(ite);
 	}
-	finishNodeParsing(e, *ite, style);
+	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
 	return elements;
 }
@@ -795,7 +795,7 @@ QPtrList<PageItem> OODPlug::parsePolygon(const QDomElement &e)
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 		m_Doc->AdjustItemSize(ite);
 	}
-	finishNodeParsing(e, *ite, style);
+	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
 	return elements;
 }
@@ -821,7 +821,7 @@ QPtrList<PageItem> OODPlug::parsePolyline(const QDomElement &e)
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 		m_Doc->AdjustItemSize(ite);
 	}
-	finishNodeParsing(e, *ite, style);
+	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
 	return elements;
 }
@@ -871,7 +871,7 @@ QPtrList<PageItem> OODPlug::parsePath(const QDomElement &e)
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 			m_Doc->AdjustItemSize(ite);
 		}
-		finishNodeParsing(e, *ite, style);
+		ite = finishNodeParsing(e, ite, style);
 		elements.append(ite);
 	}
 	return elements;
@@ -893,7 +893,7 @@ QPtrList<PageItem> OODPlug::parseTextBox(const QDomElement &e)
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->setFillColor(style.fillColor);
 	ite->setLineColor(style.strokeColor);
-	finishNodeParsing(e, *ite, style);
+	ite = finishNodeParsing(e, ite, style);
 	elements.append(ite);
 	return elements;
 }
@@ -946,7 +946,12 @@ QPtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
 				if (m_styleStack.attribute("fo:text-align") == "right")
 					newStyle.setAlignment(ParagraphStyle::Rightaligned);
 				if( m_styleStack.hasAttribute("fo:font-size") )
-					newStyle.charStyle().setFontSize(m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10);
+				{
+					QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
+					int FontSize = (int) (fs.toFloat() * 10.0);
+					newStyle.charStyle().setFontSize(FontSize);
+					newStyle.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
+				}
 				ite->itemText.applyStyle(-1, newStyle);
 			}
 			ite->itemText.insertChars(-2, QString::fromUtf8(e2.text()) );
@@ -1092,9 +1097,9 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 	}
 }
 
-void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawStyle& oostyle)
+PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle)
 {
-	item.setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+	item->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 	bool firstPa = false;
 	QString drawID = elm.attribute("draw:name");
 	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
@@ -1107,7 +1112,7 @@ void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawSt
 		//	int FontSize = m_Doc->toolSettings.defSize;
 		//	int AbsStyle = 0;
 		/* ToDo: Add reading of Textstyles here */
-		item.itemText.insertChars(-1, SpecialChars::PARSEP);
+		item->itemText.insertChars(-1, SpecialChars::PARSEP);
 		if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size"))
 		{
 			ParagraphStyle newStyle;
@@ -1119,13 +1124,14 @@ void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawSt
 				newStyle.setAlignment(ParagraphStyle::Rightaligned);
 			if (m_styleStack.hasAttribute("fo:font-size") )
 			{
-				int FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt()*10;
+				QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
+				int FontSize = (int) (fs.toFloat()*10);
 				newStyle.charStyle().setFontSize(FontSize);
-				newStyle.setLineSpacing(FontSize + FontSize * 0.2);
+				newStyle.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
 			}
-			item.itemText.applyStyle(-1, newStyle);
+			item->itemText.applyStyle(-1, newStyle);
 		}
-		item.itemText.insertChars(-2, QString::fromUtf8(e.text()));
+		item->itemText.insertChars(-2, QString::fromUtf8(e.text()));
 		/*
 		Serializer *ss = new Serializer("");
 		ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
@@ -1133,34 +1139,34 @@ void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawSt
 		delete ss;
 		*/
 		firstPa = true;
-		if (! item.asPolyLine())
-			item.convertTo(PageItem::TextFrame);
+		if (!item->asPolyLine() && !item->asTextFrame())
+			item = m_Doc->convertItemTo(item, PageItem::TextFrame);
 	}
-	item.setFillTransparency(oostyle.fillTrans);
-	item.setLineTransparency(oostyle.strokeTrans);
+	item->setFillTransparency(oostyle.fillTrans);
+	item->setLineTransparency(oostyle.strokeTrans);
 	if (oostyle.dashes.count() != 0)
-		item.DashValues = oostyle.dashes;
+		item->DashValues = oostyle.dashes;
 	if (!drawID.isEmpty())
-		item.setItemName(drawID);
+		item->setItemName(drawID);
 	if (elm.hasAttribute("draw:transform"))
 	{
-		parseTransform(&item.PoLine, elm.attribute("draw:transform"));
-		item.ClipEdited = true;
-		item.FrameType = 3;
-		FPoint wh = getMaxClipF(&item.PoLine);
-		item.setWidthHeight(wh.x(), wh.y());
-		item.Clip = FlattenPath(item.PoLine, item.Segments);
-		m_Doc->AdjustItemSize(&item);
+		parseTransform(&item->PoLine, elm.attribute("draw:transform"));
+		item->ClipEdited = true;
+		item->FrameType = 3;
+		FPoint wh = getMaxClipF(&item->PoLine);
+		item->setWidthHeight(wh.x(), wh.y());
+		item->Clip = FlattenPath(item->PoLine, item->Segments);
+		m_Doc->AdjustItemSize(item);
 	}
-	item.OwnPage = m_Doc->OnPage(&item);
+	item->OwnPage = m_Doc->OnPage(item);
 	//ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-	item.setTextFlowMode(PageItem::TextFlowDisabled);
+	item->setTextFlowMode(PageItem::TextFlowDisabled);
 	if (oostyle.haveGradient)
 	{
-		item.GrType = 0;
+		item->GrType = 0;
 		if (oostyle.gradient.Stops() > 1)
 		{
-			item.fill_gradient = oostyle.gradient;
+			item->fill_gradient = oostyle.gradient;
 			if (oostyle.gradientType == 1)
 			{
 				bool flipped = false;
@@ -1169,19 +1175,19 @@ void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawSt
 				{
 					if ((gradientAngle == 0) || (gradientAngle == 180))
 					{
-						item.GrType = 2;
-						item.GrStartX = item.width() / 2.0;
-						item.GrStartY = 0;
-						item.GrEndX = item.width() / 2.0;
-						item.GrEndY = item.height();
+						item->GrType = 2;
+						item->GrStartX = item->width() / 2.0;
+						item->GrStartY = 0;
+						item->GrEndX = item->width() / 2.0;
+						item->GrEndY = item->height();
 					}
 					else if ((gradientAngle == 90) || (gradientAngle == 270))
 					{
-						item.GrType = 1;
-						item.GrStartX = 0;
-						item.GrStartY = item.height() / 2.0;
-						item.GrEndX = item.width();
-						item.GrEndY = item.height() / 2.0;
+						item->GrType = 1;
+						item->GrStartX = 0;
+						item->GrStartY = item->height() / 2.0;
+						item->GrEndX = item->width();
+						item->GrEndY = item->height() / 2.0;
 					}
 				}
 				else
@@ -1194,68 +1200,69 @@ void OODPlug::finishNodeParsing(const QDomElement &elm, PageItem& item, OODrawSt
 						flipped = true;
 					}
 					double xpos;
-					xpos = (item.width() / 2) * tan(gradientAngle* M_PI / 180.0) * (item.height() / item.width()) + (item.width() / 2);
-					if ((xpos < 0) || (xpos > item.width()))
+					xpos = (item->width() / 2) * tan(gradientAngle* M_PI / 180.0) * (item->height() / item->width()) + (item->width() / 2);
+					if ((xpos < 0) || (xpos > item->width()))
 					{
-						xpos = (item.height() / 2)- (item.height() / 2) * tan(gradientAngle* M_PI / 180.0) * (item.height() / item.width());
+						xpos = (item->height() / 2)- (item->height() / 2) * tan(gradientAngle* M_PI / 180.0) * (item->height() / item->width());
 						if (flipped)
 						{
-							item.GrEndX = item.width();
-							item.GrEndY = item.height() - xpos;
-							item.GrStartX = 0;
-							item.GrStartY = xpos;
+							item->GrEndX = item->width();
+							item->GrEndY = item->height() - xpos;
+							item->GrStartX = 0;
+							item->GrStartY = xpos;
 						}
 						else
 						{
-							item.GrEndY = xpos;
-							item.GrEndX = item.width();
-							item.GrStartX = 0;
-							item.GrStartY = item.height() - xpos;
+							item->GrEndY = xpos;
+							item->GrEndX = item->width();
+							item->GrStartX = 0;
+							item->GrStartY = item->height() - xpos;
 						}
 					}
 					else
 					{
-						item.GrEndX = xpos;
-						item.GrEndY = item.height();
-						item.GrStartX = item.width() - xpos;
-						item.GrStartY = 0;
+						item->GrEndX = xpos;
+						item->GrEndY = item->height();
+						item->GrStartX = item->width() - xpos;
+						item->GrStartY = 0;
 					}
 					if (flipped)
 					{
-						item.GrEndX = item.width() - xpos;
-						item.GrEndY = item.height();
-						item.GrStartX = xpos;
-						item.GrStartY = 0;
+						item->GrEndX = item->width() - xpos;
+						item->GrEndY = item->height();
+						item->GrStartX = xpos;
+						item->GrStartY = 0;
 					}
-					item.GrType = 6;
+					item->GrType = 6;
 				}
 			}
 			if (oostyle.gradientType == 2)
 			{
-				item.GrType = 7;
-				item.GrStartX = item.width() * oostyle.gradientPointX;
-				item.GrStartY = item.height()* oostyle.gradientPointY;
-				if (item.width() >= item.height())
+				item->GrType = 7;
+				item->GrStartX = item->width() * oostyle.gradientPointX;
+				item->GrStartY = item->height()* oostyle.gradientPointY;
+				if (item->width() >= item->height())
 				{
-					item.GrEndX = item.width();
-					item.GrEndY = item.height() / 2.0;
+					item->GrEndX = item->width();
+					item->GrEndY = item->height() / 2.0;
 				}
 				else
 				{
-					item.GrEndX = item.width() / 2.0;
-					item.GrEndY = item.height();
+					item->GrEndX = item->width() / 2.0;
+					item->GrEndY = item->height();
 				}
 				//m_Doc->view()->updateGradientVectors(ite);
-				item.updateGradientVectors();
+				item->updateGradientVectors();
 			}
 		}
 		else
 		{
 			QPtrVector<VColorStop> cstops = oostyle.gradient.colorStops();
-			item.setFillColor(cstops.at(0)->name);
-			item.setFillShade(cstops.at(0)->shade);
+			item->setFillColor(cstops.at(0)->name);
+			item->setFillShade(cstops.at(0)->shade);
 		}
 	}
+	return item;
 }
 
 void OODPlug::createStyleMap( QDomDocument &docstyles )
