@@ -60,7 +60,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "14";
+	QString BUILD_DAY = "19";
 	QString BUILD_MONTH = CommonStrings::february;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -149,6 +149,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Craig Ringer</td><td>craig@postnewspapers.com.au</td></tr>" +
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
 											"<tr><td>Jean Ghali</td><td>jghali@libertysurf.fr</td></tr>" +
+											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 
 											"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
@@ -158,7 +159,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
 											"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
 											"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
-											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 											"<tr><td>Marti Maria</td><td></td></tr>" +
 											"<tr><td>Alexandre Prokoudine</td><td>alexandre.prokoudine@gmail.com</td></tr>"
 											"<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
