@@ -2850,7 +2850,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; Порт:</translation>
     </message>
 </context>
 <context>
@@ -4760,7 +4760,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 чи 13 цифр з тире. Застарілий ISBN-10 формат дозволяє 9 чи 10 цифр з тире, але цей стандарт не рекомендується для загального використання після 1 січня 2007 року. (Примітка: для переводу старого ISBN-10 формату в новий ISBN-13, додайте префікс 978- до перших 9 цифр, наприклад 1-56592-479-7 -&gt; 978-1-56592-479. Остання перевірочна цифра буде вирахувана автоматично.)</translation>
     </message>
 </context>
 <context>
@@ -6043,95 +6043,95 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна ліва</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна середня</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна права</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Понеділок</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Вівторок</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Середа</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Четвер</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>П&quot;ятниця</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Субота</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Неділя</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>Січень</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>Лютий</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished">Березень</translation>
+        <translation>Березень</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation>Квітень</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Травень</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Червень</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Липень</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>Серпень</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>Вересень</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>Жовтень</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>Листопад</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>Грудень</translation>
     </message>
 </context>
 <context>
@@ -7217,11 +7217,11 @@ failed!</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть і тримайте для вибору режиму установки міжрядкового інтервалу.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично</translation>
     </message>
 </context>
 <context>
@@ -7766,7 +7766,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шляхи пошуку шрифтів можуть бути вибрані лише при відсутності відчинених документів. Зачиніть всі відчинені документи і використайте Файл&gt;Установки&gt;Шрифти для зміни шляхів пошуку шрифтів.</translation>
     </message>
 </context>
 <context>
@@ -8984,19 +8984,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо перейменувати майстер сторінку</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменовувати &quot;Звичайну&quot; сторінку не дозволено.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати майстер сторінку</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова назва:</translation>
     </message>
 </context>
 <context>
@@ -9824,11 +9824,11 @@ Corners:</source>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Натисніть і тримайте для вибору режиму установки міжрядкового інтервалу.</translation>
     </message>
 </context>
 <context>
@@ -9907,7 +9907,7 @@ Corners:</source>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">тчк</translation>
+        <translation>тчк</translation>
     </message>
 </context>
 <context>
@@ -10262,7 +10262,7 @@ Corners:</source>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей файл містить деякі властивості, які не підтримуються програмою</translation>
     </message>
 </context>
 <context>
@@ -10681,7 +10681,7 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макетування документа</translation>
     </message>
 </context>
 <context>
@@ -15948,7 +15948,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміст %1</translation>
     </message>
 </context>
 <context>
@@ -16965,35 +16965,35 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод стиснення зображень. Автоматичний дозволяє Скрибусу вибрати найкращий метод. ZIP не має втрати якості і гарно працює для зображень з однотонними кольорами. JPEG краще підходить для створення менших PDF файлів з багатьма фотографічними зображеннями (з деякою втратою якості зображень). Якщо у вас немає потреби в особливих методах стиснення - залиште установку автоматичною.</translation>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Рівні якості для методів стиснення зображень, які допускають втрату якості: Мінімальна (25%), Низька (50%), Середня (75%), Висока (85%), Максимальна (95%). Майте на увазі, що рівень якості не визначає напряму розмір кінцевого зображення - і розмір і втрата якості відрізняються від зображення до зображення на кожному рівні якості. Навіть при виборі Максимальної якості завжди буде деяка втрата якости при використанні формату jpeg.</translation>
     </message>
     <message>
         <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вбудувати всі</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифти для контурної обробки:</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Контурно обробити всі шрифти</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Макетування документа</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити шрифти в PDF. Вставка шрифтів збереже макет і вигляд вашого документа. Деякі шрифти, такі як OpenType не можуть бути вставлені, так як у версіях PDF до 1.6 для них доступна лише вибірка.</translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити вибірку шрифтів в PDF. Вибірка шрифтів означає, що в PDF будуть вставлені лише ті глифи, які використовуються в документі, а не весь шрифт. Деякі шрифти, такі як Open Type лише дозволяють вибірку, бо їх неможливо вставити у версії PDF до 1.6.</translation>
     </message>
 </context>
 <context>
@@ -18041,48 +18041,49 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Пробую отримати файл з поновленною версією Скрибуса</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(з вашого комп&quot;ютера не буде послано назовні ніяких данних)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вийшло отримати файл з поновленням в рамках дозволеного часу.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка при спробі отримати файл з поновленням: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не знайдений на сервері</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо відчинити файл версії: %1
+Помилка:%2 на строці: %3, в ряду: %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>В процесі пошуку поновлень Скрибуса сталася помилка. Будь-ласка перевірте ваш зв&quot;язок с інтернетом.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Для вашої версії Скрибуса %1 поновлень не знайдено</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Знайдено одне чи кілька поновлень для вашої версії Скрибуса (%1):</translation>
     </message>
     <message>
         <source>This list may contain development versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цей список може містити версії, які знаходяться в процессі розробки.</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Будь-ласка відвідайте www.scribus.net для отримання більш детальної інформації.</translation>
     </message>
 </context>
 <context>
@@ -18244,7 +18245,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Відчинити</translation>
+        <translation>Відчинити</translation>
     </message>
 </context>
 <context>
