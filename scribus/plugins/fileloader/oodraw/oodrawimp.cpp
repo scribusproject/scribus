@@ -732,15 +732,15 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					if (m_styleStack.attribute("fo:text-align") == "right")
 						AbsStyle = 2;
 				}
-				if( m_styleStack.hasAttribute("fo:font-family"))
+				if( m_styleStack.hasAttribute("fo:font-size"))
 				{
-					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
+					FontSize = (int) (m_styleStack.attribute("fo:font-size").remove( "pt" ).toFloat() * 10);
 				}
 /* ToDo: Add reading of Textstyles here */
-				ite->setLineSpacing(FontSize + FontSize * 0.2);
+				ite->setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
+				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize, firstPa);
 				delete ss;
 				firstPa = true;
 				if (! ite->asPolyLine())
