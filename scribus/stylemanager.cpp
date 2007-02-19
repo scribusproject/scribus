@@ -11,12 +11,17 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "smreplacedia.h"
+#include "smtextstyles.h"
+#include "smlinestyle.h"
 #include "styleitem.h"
 #include "selection.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "commonstrings.h"
+#include "customfdialog.h"
+#include "fileloader.h"
+#include "smstyleimport.h"
 #include <qheader.h>
 #include <qlabel.h>
 #include <qlistview.h>
@@ -77,6 +82,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 
 	connect(newPopup_, SIGNAL(activated(int)), this, SLOT(slotNewPopup(int)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
+	connect(importButton, SIGNAL(clicked()), this, SLOT(slotImport()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(slotClean()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(slotApply()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
@@ -250,7 +256,135 @@ void StyleManager::slotDelete()
 
 void StyleManager::slotImport()
 {
-	
+	if (!doc_)
+		return;
+
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString wdir = dirs->get("editformats", ".");
+	CustomFDialog dia(this, wdir, tr("Open"), tr("doc_ments (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	if (dia.exec() == QDialog::Accepted)
+	{
+		QString selectedFile = dia.selectedFile();
+		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
+
+		StyleSet<ParagraphStyle> tmpParaStyles;
+		StyleSet<CharStyle> tmpCharStyles;
+		QMap<QString, multiLine> tmpLineStyles;
+
+		doc_->loadStylesFromFile(selectedFile, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
+
+// FIXME Once all styles are derived from Style remove this and make a proper
+//       implementation
+// Start hack
+
+		SMParagraphStyle *pstyle = 0;
+		SMCharacterStyle *cstyle = 0;
+		SMLineStyle      *lstyle = 0;
+		for (uint i = 0; i < items_.count(); ++i)
+		{
+			pstyle = dynamic_cast<SMParagraphStyle*>(items_.at(i));
+			if (pstyle)
+				break;
+		}
+		for (uint i = 0; i < items_.count(); ++i)
+		{
+			cstyle = dynamic_cast<SMCharacterStyle*>(items_.at(i));
+			if (cstyle)
+				break;
+		}
+		for (uint i = 0; i < items_.count(); ++i)
+		{
+			lstyle = dynamic_cast<SMLineStyle*>(items_.at(i));
+			if (lstyle)
+				break;
+		}
+
+		Q_ASSERT(pstyle && cstyle && lstyle);
+
+		ImportDialog *dia2 = new ImportDialog(this, &tmpParaStyles, pstyle->tmpStyles(),
+		                                            &tmpCharStyles, cstyle->tmpStyles(),
+		                                            &tmpLineStyles, &(lstyle->tmpLines));
+// end hack
+
+		if (dia2->exec())
+		{
+			QStringList neededColors;
+			neededColors.clear();
+			QMap<QCheckListItem*, QString>::Iterator it;
+			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
+			{
+				ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(it.data())]);
+				if (it.key()->isOn())
+				{
+					if (dia2->clashRename())
+					{
+						sty.setName(pstyle->getUniqueName(sty.name()));
+						pstyle->tmpStyles()->create(sty);
+					}
+					else
+					{
+						if (pstyle->tmpStyles()->find(sty.name()) >= 0)
+							(*(pstyle->tmpStyles()))[pstyle->tmpStyles()->find(it.data())] = sty;
+						else
+							pstyle->tmpStyles()->create(sty);
+					}
+
+					if ((!doc_->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
+						neededColors.append(sty.charStyle().strokeColor());
+					if ((!doc_->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
+						neededColors.append(sty.charStyle().fillColor());
+				}
+			}
+
+// 			for (it = dia2->storedCharStyles.begin(); it != dia2->storedCharStyles.end(); ++it)
+// 			{
+// 				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(it.data())]);
+// 				if (it.key()->isOn())
+// 				{
+// 					qDebug("Loading: %s", it.data().ascii());
+// 					if (dia2->clashRename())
+// 					{
+// 						sty.setName(cstyle->getUniqueName(sty.name()));
+// 						cstyle->tmpStyles()->create(sty);
+// 					}
+// 					else
+// 					{
+// 						if (cstyle->tmpStyles()->find(sty.name()) >= 0)
+// 							(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(it.data())] = sty;
+// 						else
+// 							cstyle->tmpStyles()->create(sty);
+// 					}
+// 
+// 					if ((!doc_->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
+// 						neededColors.append(sty.strokeColor());
+// 					if ((!doc_->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
+// 						neededColors.append(sty.fillColor());
+// 				}
+// 			}
+
+			if (!neededColors.isEmpty())
+			{
+				FileLoader fl(selectedFile);
+				if (fl.TestFile() == -1)
+				//TODO put in nice user warning
+					return;
+				ColorList LColors;
+				if (fl.ReadColors(selectedFile, LColors))
+				{
+					ColorList::Iterator itc;
+					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
+					{
+						if (neededColors.contains(itc.key()))
+							doc_->PageColors.insert(itc.key(), itc.data());
+					}
+				}
+			}
+		}
+		delete dia2;
+		reloadStyleView(false);
+	}
+	else
+		return;
 }
 
 void StyleManager::slotEdit()

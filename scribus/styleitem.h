@@ -164,6 +164,9 @@ public:
 	/** @brief Called when the currently selected style's name has changed */
 	virtual void nameChanged(const QString &newName) = 0;
 
+	/** @brief Return a unique name for a style using the base in the name */
+	virtual QString getUniqueName(const QString &base) = 0;
+
 	/** @brief reload all the gui strings whenever this method is called */
 	virtual void languageChange() = 0;
 

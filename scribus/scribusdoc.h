@@ -394,7 +394,9 @@ public:
 	 * @param newNameForOld a map which maps the name of any style to remove to a new stylename
 	 */
 	void replaceStyles(const QMap<QString,QString>& newNameForOld);
-	void loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles = NULL);
+	void loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles = NULL,
+	                                          StyleSet<CharStyle> *tempCharStyles = NULL,
+	                                          QMap<QString, multiLine> *tempLineStyles = NULL);
 
 	const CharStyle& charStyle(QString name) { return docCharStyles[name]; }
 	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }

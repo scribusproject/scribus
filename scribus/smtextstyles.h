@@ -41,6 +41,7 @@ public:
 	void setShortcut(const QString &shortcut);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
+	QString getUniqueName(const QString &name);
 	void languageChange();
 	StyleSet<ParagraphStyle>* tmpStyles(); // butt ugly
 
@@ -61,7 +62,6 @@ private:
 	void updateStyleList();
 	void reloadTmpStyles();
 	QValueList<CharStyle> getCharStyles();
-	QString getUniqueName(const QString &name);
 
 private slots:
 	// pstyle
@@ -120,6 +120,7 @@ public:
 	void setShortcut(const QString &shortcut);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
+	QString getUniqueName(const QString &name);
 	void languageChange();
 	StyleSet<CharStyle>* tmpStyles();
 
@@ -138,7 +139,6 @@ private:
 	void reloadTmpStyles();
 	void setupConnections();
 	void removeConnections();
-	QString getUniqueName(const QString &name);
 
 private slots:
 	void slotFontSize();
@@ -155,6 +155,7 @@ private slots:
 	void slotBaselineOffset();
 	void slotFont(QString s);
 	void slotParentChanged(const QString &parent);
+
 };
 
 #endif

@@ -67,6 +67,7 @@ public:
 	void setShortcut(const QString &shortcut);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
+	QString getUniqueName(const QString &name);
 	void languageChange();
 
 signals:
@@ -85,7 +86,6 @@ private:
 
 	void setSelection(const QString& styleName);
 	void setMultiSelection(const QStringList& styles);
-	QString getUniqueName(const QString &name);
 	void setupConnections();
 	void removeConnections();
 	void updateSList();
@@ -104,6 +104,10 @@ private slots:
 	void slotLineWidth();
 	void slotAddLine();
 	void slotDeleteLine();
+
+	// FIXME make line styles subclass of Style and remove this hack
+	// ugly hack which will be removed once all styles are subclassed from Style
+	friend class StyleManager;
 };
 
 #endif

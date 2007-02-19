@@ -904,24 +904,39 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
 	}
 }
 
+
 /*
  * Split out from loadStyles in editFormats.cpp so it's callable from anywhere,
  * including plugins.
  * - 2004-09-14 Craig Ringer
  */
-void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles)
+void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
+                                                      StyleSet<CharStyle> *tempCharStyles,
+                                                      QMap<QString, multiLine> *tempLineStyles)
 {
-	StyleSet<ParagraphStyle> *wrkStyles = NULL;
+	StyleSet<ParagraphStyle> *wrkStyles     = NULL;
+	StyleSet<CharStyle> *wrkCharStyles      = NULL;
+	QMap<QString, multiLine> *wrkLineStyles = NULL;
+
 	/*
 	 * Use the working styles struct if passed, or work directly
 	 * on the document styles otherwise. 
 	 */
-	if (tempStyles != NULL) {
+	if (tempStyles != NULL)
 		wrkStyles = tempStyles;
-	}
-	else {
-		wrkStyles = &docParagraphStyles; 
-	}
+	else
+		wrkStyles = &docParagraphStyles;
+
+	if (tempCharStyles != NULL)
+		wrkCharStyles = tempCharStyles;
+	else
+		wrkCharStyles = &docCharStyles;
+
+	if (tempLineStyles != NULL)
+		wrkLineStyles = tempLineStyles;
+	else
+		wrkLineStyles = &MLineStyles;
+
 	if (!fileName.isEmpty())
 	{
 		FileLoader fl(fileName);
@@ -931,7 +946,17 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 
 		if (!fl.ReadStyles(fileName, this, *wrkStyles))
 		{
-			//TODO put in nice user warning			
+			//TODO put in nice user warning
+		}
+
+		if (!fl.ReadCharStyles(fileName, this, *wrkCharStyles))
+		{
+			//TODO put in nice user warning
+		}
+
+		if (!fl.ReadLineStyles(fileName, wrkLineStyles))
+		{
+			//TODO put in nice user warning
 		}
 	}
 }
