@@ -240,6 +240,7 @@ scribus_SOURCES = \
 	smcstylewbase.ui \
 	smreplacediabase.ui \
 	smreplacedia.cpp \
+	smstyleimport.cpp \
 	smtextstyles.cpp \
 	smtextstylewidgets.cpp \
 	smwidgets.cpp \

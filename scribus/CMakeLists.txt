@@ -197,6 +197,7 @@ selfield.h
 shadebutton.h
 smlinestyle.h
 smreplacedia.h
+smstyleimport.h
 smtextstyles.h
 smtextstylewidgets.h
 smwidgets.h
@@ -442,6 +443,7 @@ serializer.cpp
 shadebutton.cpp
 smlinestyle.cpp
 smreplacedia.cpp
+smstyleimport.cpp
 smtextstyles.cpp
 smtextstylewidgets.cpp
 smwidgets.cpp
