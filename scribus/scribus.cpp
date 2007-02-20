@@ -601,8 +601,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
+// 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
+// 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit");
 	scrActions["editUndoAction"]->setEnabled(false);
@@ -621,8 +621,8 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editSearchReplace"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(false);
-	scrActions["editParaStyles"]->setEnabled(false);
-	scrActions["editLineStyles"]->setEnabled(false);
+// 	scrActions["editParaStyles"]->setEnabled(false);
+// 	scrActions["editLineStyles"]->setEnabled(false);
 	scrActions["editMasterPages"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
 	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
@@ -2441,8 +2441,8 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(true);
-	scrActions["editParaStyles"]->setEnabled(true);
-	scrActions["editLineStyles"]->setEnabled(true);
+// 	scrActions["editParaStyles"]->setEnabled(true);
+// 	scrActions["editLineStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
 
@@ -4138,8 +4138,8 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
-		scrActions["editParaStyles"]->setEnabled(false);
-		scrActions["editLineStyles"]->setEnabled(false);
+// 		scrActions["editParaStyles"]->setEnabled(false);
+// 		scrActions["editLineStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
