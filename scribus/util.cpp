@@ -1408,7 +1408,7 @@ QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
 void tDebug(QString message)
 {
 	QDateTime debugTime;
-	qDebug(QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message));
+	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).ascii());
 }
 
 QString setupImageFormats()
