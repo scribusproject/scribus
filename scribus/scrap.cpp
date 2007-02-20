@@ -138,7 +138,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 		QDir dd = QDir(dir);
 		dd.mkdir(QDir::cleanDirPath(QDir::convertSeparators(dir + "/" + fid.baseName())));
 	}
-	QString source = "";;
+	QString source = "";
 	QString target = "";
 	DOC = elem.firstChild();
 	while(!DOC.isNull())
@@ -183,7 +183,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 					QFileInfo fi(Pfile2);
 					QString target = QDir::cleanDirPath(QDir::convertSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
 					copyFile(source, target);
-					pg.setAttribute("PFILE", fid.baseName() + "/" + fi.fileName());
+					pg.setAttribute("PFILE2", fid.baseName() + "/" + fi.fileName());
 				}
 				QString Pfile3 = pg.attribute("PFILE3","");
 				if (!Pfile3.isEmpty())
@@ -201,7 +201,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 					QFileInfo fi(Pfile3);
 					QString target = QDir::cleanDirPath(QDir::convertSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
 					copyFile(source, target);
-					pg.setAttribute("PFILE", fid.baseName() + "/" + fi.fileName());
+					pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
 				}
 				pg.setAttribute("relativePaths", 1);
 			}
@@ -477,15 +477,15 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
 	newButton = new QToolButton(this, "newButton" );
-	newButton->setPixmap(loadIcon("DateiNeu16.png"));
+	newButton->setPixmap(loadIcon("16/document-new.png"));
 	loadButton = new QToolButton(this, "loadButton" );
-	loadButton->setPixmap(loadIcon("DateiOpen16.png"));
+	loadButton->setPixmap(loadIcon("16/document-open.png"));
 	saveAsButton = new QToolButton(this, "saveAsButton" );
-	saveAsButton->setPixmap(loadIcon("DateiSave16.png"));
+	saveAsButton->setPixmap(loadIcon("16/document-save-as.png"));
 	importButton = new QToolButton(this, "importButton" );
 	importButton->setPixmap(loadIcon("compfile16.png"));
 	closeButton = new QToolButton(this, "closeButton" );
-	closeButton->setPixmap(loadIcon("DateiClos16.png"));
+	closeButton->setPixmap(loadIcon("16/close.png"));
 	buttonLayout->addWidget( newButton );
 	buttonLayout->addWidget( loadButton );
 	buttonLayout->addWidget( saveAsButton );
@@ -500,20 +500,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
-	
-	/*
-	fmenu = new QPopupMenu();
-	fNew = fmenu->insertItem(loadIcon("DateiNeu16.png"), "", this, SLOT(NewLib()), CTRL+Key_N);
-	fLoad = fmenu->insertItem(loadIcon("DateiOpen16.png"), "", this, SLOT(Load()), CTRL+Key_O);
-	fSaveAs = fmenu->insertItem( loadIcon("DateiSave16.png"), "", this, SLOT(SaveAs()));
-	fmenu->insertSeparator();
-	fImport = fmenu->insertItem("", this, SLOT(Import()));
-	fmenu->insertSeparator();
-	fClose = fmenu->insertItem(loadIcon("DateiClos16.png"), "", this, SLOT(closeLib()));
-	menuBar = new QMenuBar(this);
-	mFile=menuBar->insertItem( "", fmenu);
-	BiblioLayout->setMenuBar( menuBar );
-	*/
+
 	Frame3 = new QTabWidget( this, "Frame3" );
 
 	activeBView = new BibView(this);
@@ -833,6 +820,24 @@ bool Biblio::copyObj(int id)
 	f.close();
 	bv->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.extension(true).lower())), pm);
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(bv->ScFilename + "/" + nam +".png")), "PNG");
+	QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + fi.baseName()));
+	if ((fiD.exists()) && (fiD.isDir()))
+	{
+		QDir dd = QDir(QDir::cleanDirPath(QDir::convertSeparators(bv->ScFilename)));
+		dd.mkdir(QDir::cleanDirPath(QDir::convertSeparators(bv->ScFilename + "/" + nam)));
+		QDir d(QDir::convertSeparators(activeBView->ScFilename + "/" + fi.baseName()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		if ((d.exists()) && (d.count() != 0))
+		{
+			for (uint dc = 0; dc < d.count(); ++dc)
+			{
+				QString source = QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + fi.baseName() + "/" + d[dc]));
+				QString target = QDir::cleanDirPath(QDir::convertSeparators(bv->ScFilename + "/" + nam + "/" + d[dc]));
+				copyFile(source, target);
+			}
+		}
+		if (fiD.baseName() != nam)
+			adjustReferences(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.extension(true).lower()));
+	}
 	(void) new QIconViewItem(bv, nam, pm);
 	if (bv == tempBView)
 	{
@@ -848,6 +853,20 @@ bool Biblio::copyObj(int id)
 			{
 				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 				f2.remove();
+			}
+			QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+			if ((fiD.exists()) && (fiD.isDir()))
+			{
+				QDir dd = QDir(QDir::convertSeparators(tempBView->ScFilename));
+				QDir d(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+				if ((d.exists()) && (d.count() != 0))
+				{
+					for (uint dc = 0; dc < d.count(); ++dc)
+					{
+						QFile::remove(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + "/" + d[dc]));
+					}
+				}
+				dd.rmdir(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
 			}
 			tempBView->objectMap.remove(it);
 			QIconViewItem* ite = tempBView->firstItem();
@@ -875,13 +894,23 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 /*	if (!activeBView->canWrite)
 		return; */
 // Above code is commented out because QFileInfo::permissons does not work properly
-	QFile f(activeBView->objectMap[name].Data);
-	f.remove();
+	QFile::remove(activeBView->objectMap[name].Data);
 	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
 	if (fi.exists())
+		QFile::remove(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
+	QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + name));
+	if ((fiD.exists()) && (fiD.isDir()))
 	{
-		QFile f2(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
-		f2.remove();
+		QDir dd = QDir(QDir::convertSeparators(activeBView->ScFilename));
+		QDir d(QDir::convertSeparators(activeBView->ScFilename + "/" + name), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		if ((d.exists()) && (d.count() != 0))
+		{
+			for (uint dc = 0; dc < d.count(); ++dc)
+			{
+				QFile::remove(QDir::convertSeparators(activeBView->ScFilename + "/" + name + "/" + d[dc]));
+			}
+		}
+		dd.rmdir(name);
 	}
 	activeBView->objectMap.remove(name);
 	delete ite;
@@ -915,6 +944,13 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 			QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"));
 			if (fi.exists())
 				d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
+			QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName));
+			if ((fiD.exists()) && (fiD.isDir()))
+			{
+				QDir d = QDir();
+				d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text())));
+				adjustReferences(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
+			}
 			activeBView->objectMap.remove(OldName);
 			activeBView->AddObj(ite->text(), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")), ObjPreview);
 			activeBView->sort(activeBView->sortDirection());
@@ -924,6 +960,64 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 		}
 	}
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+}
+
+void Biblio::adjustReferences(QString nam)
+{
+	QCString cf;
+	if (loadRawText(nam, cf))
+	{
+		QString f;
+		if (cf.left(16) == "<SCRIBUSELEMUTF8")
+			f = QString::fromUtf8(cf.data());
+		else
+		f = cf.data();
+		QDomDocument docu("scridoc");
+		docu.setContent(f);
+		QDomElement elem = docu.documentElement();
+		QDomNode DOC = elem.firstChild();
+		QFileInfo fid(nam);
+		while(!DOC.isNull())
+		{
+			QDomElement pg = DOC.toElement();
+			if(pg.tagName() == "ITEM")
+			{
+				PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+				if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
+				{
+					QString Pfile = pg.attribute("PFILE");
+					if (!Pfile.isEmpty())
+					{
+						QFileInfo fi(Pfile);
+						pg.setAttribute("PFILE", fid.baseName() + "/" + fi.fileName());
+					}
+					QString Pfile2 = pg.attribute("PFILE2","");
+					if (!Pfile2.isEmpty())
+					{
+						QFileInfo fi(Pfile2);
+						pg.setAttribute("PFILE2", fid.baseName() + "/" + fi.fileName());
+					}
+					QString Pfile3 = pg.attribute("PFILE3","");
+					if (!Pfile3.isEmpty())
+					{
+						QFileInfo fi(Pfile3);
+						pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
+					}
+					pg.setAttribute("relativePaths", 1);
+				}
+			}
+			DOC = DOC.nextSibling();
+		}
+		QFile fl(nam);
+		if(!fl.open(IO_WriteOnly))
+			return ;
+		QTextStream s;
+		QCString cs = docu.toCString();
+		s.setEncoding(QTextStream::UnicodeUTF8);
+		s.setDevice(&fl);
+		s.writeRawBytes(cs.data(), cs.length());
+		fl.close();
+	}
 }
 
 void Biblio::DropOn(QDropEvent *e)
@@ -1023,6 +1117,20 @@ void Biblio::ObjFromMenu(QString text)
 				QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 				f2.remove();
 			}
+			QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+			if ((fiD.exists()) && (fiD.isDir()))
+			{
+				QDir dd = QDir(QDir::convertSeparators(tempBView->ScFilename));
+				QDir d(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+				if ((d.exists()) && (d.count() != 0))
+				{
+					for (uint dc = 0; dc < d.count(); ++dc)
+					{
+						QFile::remove(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + "/" + d[dc]));
+					}
+				}
+				dd.rmdir(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+			}
 			tempBView->objectMap.remove(it);
 			QIconViewItem* ite = tempBView->firstItem();
 			if (ite != 0)
@@ -1067,6 +1175,20 @@ void Biblio::ObjFromCopyAction(QString text)
 			QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 			f2.remove();
 		}
+		QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+		if ((fiD.exists()) && (fiD.isDir()))
+		{
+			QDir dd = QDir(QDir::convertSeparators(tempBView->ScFilename));
+			QDir d(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+			if ((d.exists()) && (d.count() != 0))
+			{
+				for (uint dc = 0; dc < d.count(); ++dc)
+				{
+					QFile::remove(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + "/" + d[dc]));
+				}
+			}
+			dd.rmdir(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+		}
 		tempBView->objectMap.remove(it);
 		QIconViewItem* ite = tempBView->firstItem();
 		if (ite != 0)
@@ -1089,21 +1211,26 @@ void Biblio::CleanUpTemp()
 			QFile f2(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 			f2.remove();
 		}
+		QFileInfo fiD(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+		if ((fiD.exists()) && (fiD.isDir()))
+		{
+			QDir dd = QDir(QDir::convertSeparators(tempBView->ScFilename));
+			QDir d(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()), "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+			if ((d.exists()) && (d.count() != 0))
+			{
+				for (uint dc = 0; dc < d.count(); ++dc)
+				{
+					QFile::remove(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + "/" + d[dc]));
+				}
+			}
+			dd.rmdir(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key()));
+		}
 	}
 }
 
 void Biblio::languageChange()
 {
 	setCaption( tr( "Scrapbook" ) );
-// 	menuBar->changeItem( mFile, tr("&File"));
-// 	menuBar->changeItem( mView, tr("&Preview"));
-// 
-// 	fmenu->changeItem(fNew, tr("&New"));
-// 	fmenu->changeItem(fLoad, tr("&Load..."));
-// 	fmenu->changeItem(fSaveAs, tr("Save &As..."));
-// 	fmenu->changeItem(fClose, tr("&Close"));
-// 	fmenu->changeItem(fImport, tr("&Import Scrapbook File..."));
-	
  	QToolTip::add( newButton, tr( "Create a new scrapbook page" ) );
  	QToolTip::add( loadButton, tr( "Load an existing scrapbook" ) );
  	QToolTip::add( saveAsButton, tr( "Save the selected scrapbook" ) );

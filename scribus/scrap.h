@@ -66,6 +66,7 @@ public:
 	~Biblio() {};
 	void ObjFromMenu(QString text);
 	void ObjFromCopyAction(QString text);
+	void adjustReferences(QString nam);
 	void CleanUpTemp();
 	void setScrapbookFileName(QString);
 	const QString getScrapbookFileName();
