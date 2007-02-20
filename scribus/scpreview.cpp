@@ -48,7 +48,6 @@ QPixmap ScPreview::createPreview(QString data)
 	ScText *hg;
 	ScText *hl;
 	QPtrList<ScText> Ptexti;
-//	bool error;
 	ScColor lf = ScColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
@@ -56,12 +55,6 @@ QPixmap ScPreview::createPreview(QString data)
 	QString tmpf, tmpx, tmp2, tmp3;
 	int x, y;
 	double xf, yf, asce;
-	QPainter pm;
-	QPainter pb;
-	QPainter pd;
-	QBitmap bmd;
-	QPixmap pmd;
-	QImage ip2;
 	FPoint gv;
 	int chs, currItem, fillBlendmode, strokeBlendmode;
 	QPointArray cl;
@@ -84,7 +77,6 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrY = elem.attribute("YP").toDouble();
 	double GrW = elem.attribute("W").toDouble();
 	double GrH = elem.attribute("H").toDouble();
-//	double pmmax = prefsManager->appPrefs.PSize / QMAX(GrW+50, GrH+50);
 	double pmmax = 60 / QMAX(GrW+50, GrH+50);
 #ifdef HAVE_CAIRO
 	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, 32);
@@ -98,7 +90,6 @@ QPixmap ScPreview::createPreview(QString data)
 	pS->translate(25,25);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
-//	FT_Init_FreeType( &library );
 	while(!DOC.isNull())
 	{
 		QDomElement pg=DOC.toElement();

@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class ScColor;
 class PrefsManager;
+class QDomDocument;
 
 class SCRIBUS_API ScPreview
 {
@@ -25,7 +26,6 @@ public:
 	QMap<QString,ScColor> Farben;
 	QMap<QString,multiLine> MLineStyles;
 	QValueList<uint> Segments;
-	FT_Library   library;
 protected:
 	PrefsManager* prefsManager;
 };

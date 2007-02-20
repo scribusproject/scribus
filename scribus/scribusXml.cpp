@@ -822,6 +822,33 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				}
 				OB.itemText = "";
 				OB.LayerNr = -1;
+				if ((Fi) && (pite.hasAttribute("relativePaths")))
+				{
+					if (static_cast<bool>(pite.attribute("relativePaths", "0").toInt()));
+					{
+						if (!OB.Pfile.isEmpty())
+						{
+							QFileInfo pfi(fileName);
+							QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
+							QFileInfo pfi2(test);
+							OB.Pfile = pfi2.absFilePath();
+						}
+						if (!OB.Pfile2.isEmpty())
+						{
+							QFileInfo pfi(fileName);
+							QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
+							QFileInfo pfi2(test);
+							OB.Pfile2 = pfi2.absFilePath();
+						}
+						if (!OB.Pfile3.isEmpty())
+						{
+							QFileInfo pfi(fileName);
+							QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
+							QFileInfo pfi2(test);
+							OB.Pfile3 = pfi2.absFilePath();
+						}
+					}
+				}
 				view->PasteItem(&OB, true, true, false);
 				PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 				Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
@@ -957,6 +984,33 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			}
 			OB.itemText = "";
 			OB.LayerNr = -1;
+			if ((Fi) && (pg.hasAttribute("relativePaths")))
+			{
+				if (static_cast<bool>(pg.attribute("relativePaths", "0").toInt()));
+				{
+					if (!OB.Pfile.isEmpty())
+					{
+						QFileInfo pfi(fileName);
+						QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
+						QFileInfo pfi2(test);
+						OB.Pfile = pfi2.absFilePath();
+					}
+					if (!OB.Pfile2.isEmpty())
+					{
+						QFileInfo pfi(fileName);
+						QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
+						QFileInfo pfi2(test);
+						OB.Pfile2 = pfi2.absFilePath();
+					}
+					if (!OB.Pfile3.isEmpty())
+					{
+						QFileInfo pfi(fileName);
+						QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
+						QFileInfo pfi2(test);
+						OB.Pfile3 = pfi2.absFilePath();
+					}
+				}
+			}
 			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			IT=DOC.firstChild();

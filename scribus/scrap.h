@@ -34,6 +34,7 @@ public:
 	~BibView() {};
 	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
+	void checkAndChange(QString &text, QString nam, QString dir);
 	void SaveContents(QString name, QString oldName);
 	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
