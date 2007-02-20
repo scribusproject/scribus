@@ -4506,6 +4506,6 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		QMessageBox::warning(ScMW, CommonStrings::trWarning, message, 1, 0, 0);
 	}
 	else if (!message.isEmpty())
-		qWarning( message.local8Bit().data() );
+		qWarning( "%s", message.local8Bit().data() );
 	return true;
 }
