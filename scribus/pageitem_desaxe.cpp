@@ -165,11 +165,11 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		if (item->groupsLastItem != 0)
 			result.insert("groupsLastItem", toXMLString(item->groupsLastItem->getUId()));
 	}
-	QString idreflist = "";
+	QString grouplist = "";
 	QValueStack<int>::const_iterator it;
 	for (it = item->groups().begin(); it != item->groups().end(); ++it)
-		idreflist += toXMLString( item->doc()->DocItems.at(*it)->getUId()) + " ";	
-	result.insert("groups", toXMLString(idreflist));
+		grouplist += toXMLString( *it ) + " ";	
+	result.insert("groups", toXMLString(grouplist));
 	
 	result.insert("isTableItem", toXMLString(item->isTableItem));
 	result.insert("TopLine", toXMLString(item->TopLine));
@@ -376,6 +376,48 @@ class LoadImage : public MakeAction<LoadImage_body>
 {};
 
 
+class AdjustGroupIds_body : public Action_body
+{
+	void begin (const Xml_string tagname, Xml_attr attr)
+	{
+		if (tagname != PageItem::saxxDefaultElem)
+		{
+			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+			minGroup = doc->GroupCounter;
+			maxGroup = minGroup - 1;
+		}
+	}
+
+	void end (const Xml_string tagname)
+	{
+		if (tagname != PageItem::saxxDefaultElem)
+		{
+			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+			doc->GroupCounter = maxGroup + 1;
+		}
+		else {
+			PageItem* item = this->dig->top<PageItem>();
+			QValueStack<int> groups;
+			for (uint i=0; i < item->groups().count(); ++i)
+			{
+				int newGroup = minGroup + item->groups()[i];
+				if (newGroup > maxGroup)
+					maxGroup = newGroup;
+				groups.append(newGroup);
+			}
+			item->setGroups(groups);
+		}
+	}
+	
+private:
+	int minGroup;
+	int maxGroup;
+};
+
+class AdjustGroupIds : public MakeAction<AdjustGroupIds_body>
+{};
+
+
 
 
 const Xml_string PageItem::saxxDefaultElem("item");
@@ -497,4 +539,9 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(storyPrefix, SetItemText());
 	
 	ruleset.addRule(itemPrefix, LoadImage());
+	
+	AdjustGroupIds adjustGroupIds;
+	ruleset.addRule("/", adjustGroupIds);
+	ruleset.addRule(itemPrefix, adjustGroupIds);
+	
 }
