@@ -384,7 +384,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 
 			// create loop if REPEAT token
 			if (tok == REPEAT) {
-				nfa->addTransition(lastState, ANY, lastState);
+				nfa->addTransition(lastState, ANY, lastState); //FIXME: that's wrong, need to create repeating state
 //				std::cerr << "T " << lastState << "--*-->" << lastState << "\n";
 				pos = pos2 + 1;
 				continue;

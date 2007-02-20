@@ -76,7 +76,7 @@ FPointArray parseSVG(Xml_string str)
 }
 
 
-static Xml_attr PageItemAttributes(const PageItem* item)
+static Xml_attr PageItemXMLAttributes(const PageItem* item)
 {
 	Xml_attr result;
 	
@@ -206,7 +206,7 @@ static Xml_attr PageItemAttributes(const PageItem* item)
 
 void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
-	Xml_attr att(PageItemAttributes(this));
+	Xml_attr att(PageItemXMLAttributes(this));
 	Xml_attr dumm;
 //	qDebug(QString("PageItem::saxx %1 %2").arg((ulong) &handler));
 	handler.begin(elemtag, att);
@@ -246,8 +246,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 			Xml_attr patt;
 			patt.insert("pattern", pattern());
 			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-			const_cast<PageItem*>(this)->
-				patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 			patt.insert("pScaleX", toXMLString(patternScaleX));
 			patt.insert("pScaleY", toXMLString(patternScaleY));
 			patt.insert("pOffsetX", toXMLString(patternOffsetX));
@@ -285,7 +284,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 	{
 		annotation().saxx(handler);
 	}
-	if(itemText.length() > 0)
+	if (prevInChain() == NULL && itemText.length() > 0)
 	{
 		itemText.saxx(handler, "text-content");
 	}
@@ -298,9 +297,10 @@ class CreatePageItem_body : public Generator_body<PageItem>
 	void begin (const Xml_string /*tagname*/, Xml_attr attr)
 	{
 		PageItem* result;
-		ScribusDoc* doc = this->dig->top<ScribusDoc>();
+		ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 		
-		int type = parseInt(attr["itemtype"]);
+		PageItem::ItemType type = parseEnum<PageItem::ItemType>(attr["itemtype"]);
+		PageItem::ItemFrameType frametype = parseEnum<PageItem::ItemFrameType>(attr["frame-type"]);
 		double xpos = parseDouble(attr["xorigin"]);
 		double ypos = parseDouble(attr["yorigin"]);
 		double width = parseDouble(attr["width"]);
@@ -308,7 +308,9 @@ class CreatePageItem_body : public Generator_body<PageItem>
 		double linewidth = parseDouble(attr["line-width"]);
 		QString fillC = attr["fill-color"];
 		QString lineC = attr["line-color"];
-		switch (type)
+		int nr = doc->itemAdd(type, frametype, xpos, ypos, width, height, linewidth, fillC, lineC, false);
+		result = doc->Items->at(nr);
+/*		switch (type)
 		{
 			case PageItem::ImageFrame:
 				result = new PageItem_ImageFrame(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
@@ -332,6 +334,8 @@ class CreatePageItem_body : public Generator_body<PageItem>
 				result = NULL;
 				break;
 		}
+		doc->Items->append(result);
+		*/
 		this->dig->push(result);
 	}
 };
@@ -357,22 +361,40 @@ class SetItemText_body : public Action_body
 class SetItemText : public MakeAction<SetItemText_body>
 {};
 
+
+class LoadImage_body : public Action_body
+{
+	void end (const Xml_string /*tagname*/)
+	{
+		PageItem* item = this->dig->top<PageItem>();
+		if (item->itemType() == PageItem::ImageFrame)
+			item->loadImage(item->externalFile(), true);
+	}
+};
+
+class LoadImage : public MakeAction<LoadImage_body>
+{};
+
+
+
+
 const Xml_string PageItem::saxxDefaultElem("item");
 
 void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string itemPrefix(Digester::concat(prefixPattern, elemtag));
 	
-	// the generator CreatePageItem currently *requires* the Scribusdoc at the top of the stack
+	// the generator CreatePageItem *requires* the Scribusdoc stored as "<scribusdoc>"
 	ruleset.addRule(itemPrefix, CreatePageItem() );
 
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLayer, "layer", &parseInt )); // set to activelayer in constructor
+	ruleset.addRule(itemPrefix, IdRef<PageItem>() );
 //	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>("id", toXMLString(const_cast<PageItem*>(item)->getUId())); // set automatically
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLayer, "layer", &parseInt )); // set to activelayer in constructor
 	static const QString dummy(""); // otherwise the next line gives a warning: default-initialization of 'const QString& desaxe::SetAttributeWithConversion_body<PageItem, const QString&>::default_', which has reference type ...
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setItemName, "name", dummy ));    // ... which could be ignored, but without is nicer
-//	ruleset.addRule(itemPrefix, ?(?"nextframe",  toXMLString(item->nextInChain()->getUId())); 
+	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::link, "nextframe" ));
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & ?PageItem::setLevel, "level", &parseInt ));  // set automatically
-//	ruleset.addRule(itemPrefix, SetAttribute("itemtype", toXMLString(item->itemType()));  // in createPageItem()
+//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::??, "itemtype", &parseInt ));  // automatically in createPageItem()
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>(?, "ownpage", &parseInt);  // set to current page in constructor
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsPDFBookmark,  "is-bookmark", &parseBool ));
@@ -380,14 +402,14 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setLocked, "locked", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setSizeLocked, "size-locked", &parseBool ));
 	
-//	ruleset.addRule("width", toXMLString(item->width()));  // in createPageItem()
-//	ruleset.addRule("height", toXMLString(item->height()));  // in createPageItem()
-//	ruleset.addRule("xorigin", toXMLString(item->xPos()));  // in createPageItem()
-//	ruleset.addRule("yorigin", toXMLString(item->yPos()));  // in createPageItem()
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setWidth, "width", &parseDouble ));  // also in createPageItem()
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setHeight, "height", &parseDouble ));  // also in createPageItem()
+//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setXPos, "xorigin", &parseDouble ));  // also in createPageItem()
+//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setYPos, "yorigin", &parseDouble ));  // also in createPageItem()
 	//	ruleset.addRule("XPOS",item->xPos() - doc->currentPage()->xOffset());
 	//	ruleset.addRule("YPOS",item->yPos() - doc->currentPage()->yOffset());
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setRotation, "rotation", &parseDouble ));
-//	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>("fill-color", item->fillColor());  // in createPageItem()
+	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setFillColor, "fill-color", dummy ));  // also in createPageItem()
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillShade, "fill-shade", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setFillTransparency, "fill-transparency", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillBlendmode, "fill-blendmode", &parseInt ));
@@ -396,11 +418,11 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setFillEvenOdd, "frame-fill-evenodd", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setOverprint, "do-overprint", &parseBool ));
 	
-//	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>("line-color", item->lineColor());  // in createPageItem()
+	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setLineColor, "line-color", dummy ));  // also in createPageItem()
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLineShade, "line-shade", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineTransparency, "line-transparency", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLineBlendmode, "line-blendmode", &parseInt ));
-//	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLineWidth, "line-width", &parseInt ));  // in createPageItem()
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineWidth, "line-width", &parseDouble ));  // also in createPageItem()
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PenStyle>( & PageItem::setLineStyle, "line-style", &parseEnum<PenStyle> ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PenCapStyle>( & PageItem::setLineEnd, "line-cap", &parseEnum<PenCapStyle> ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PenJoinStyle>( & PageItem::setLineJoin, "line-join", &parseEnum<PenJoinStyle> ));
@@ -445,37 +467,24 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setCmsRenderingIntent, "cms-intent", &parseInt ));
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setControlsGroup, "isGroupControl", &parseBool ));
-//			ruleset.addRule("groupsLastItem", toXMLString(item->groupsLastItem->ItemNr - item->ItemNr));
+	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setGroupsLastItem, "groupsLastItem" ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QValueStack<int> >( & PageItem::setGroups, "groups", &parseIntStack ));
 
-/*	
-	ruleset.addRule("isTableItem", toXMLString(item->isTableItem));
-	ruleset.addRule("TopLine", toXMLString(item->TopLine));
-	ruleset.addRule("LeftLine", toXMLString(item->LeftLine));
-	ruleset.addRule("RightLine", toXMLString(item->RightLine));
-	ruleset.addRule("BottomLine", toXMLString(item->BottomLine));
-	if (item->isTableItem)
-	{
-		if (item->TopLink != 0)
-			ruleset.addRule("TopLINK", toXMLString(item->TopLink->ItemNr));
-		else
-			ruleset.addRule("TopLINK", "-1");
-		if (item->LeftLink != 0)
-			ruleset.addRule("LeftLINK", toXMLString(item->LeftLink->ItemNr));
-		else
-			ruleset.addRule("LeftLINK", "-1");
-		if (item->RightLink != 0)
-			ruleset.addRule("RightLINK", toXMLString(item->RightLink->ItemNr));
-		else
-			ruleset.addRule("RightLINK", "-1");
-		if (item->BottomLink != 0)
-			ruleset.addRule("BottomLINK", toXMLString(item->BottomLink->ItemNr));
-		else
-			ruleset.addRule("BottomLINK", "-1");
-		ruleset.addRule("OwnLINK", toXMLString(item->ItemNr));
-	}
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsTableItem, "isTableItem", &parseBool ));
+	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setTopLink, "TopLink" ));
+	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setLeftLink, "LeftLink" ));
+	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setRightLink, "RightLink" ));
+	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setBottomLink, "BottomLink" ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasTopLine, "TopLine", &parseBool ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasLeftLine, "LeftLine", &parseBool ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasRightLine, "RightLine", &parseBool ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasBottomLine, "BottomLine", &parseBool ));
 	
-					*/
+	// TODO: gradients & patterns
+	// TODO: image effects
+	// TODO: annotation
+	// TODO: obj attributes
+	
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setExternalFile, "image-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconPressed, "icon-pressed-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconRollover, "icon-rollover-file" ));
@@ -486,4 +495,6 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	StoryText::desaxeRules(itemPrefix, ruleset, "text-content");
 	Xml_string storyPrefix = Digester::concat(itemPrefix, "text-content");
 	ruleset.addRule(storyPrefix, SetItemText());
+	
+	ruleset.addRule(itemPrefix, LoadImage());
 }

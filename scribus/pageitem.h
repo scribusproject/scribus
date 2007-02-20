@@ -472,9 +472,20 @@ public:
 	bool TopLine;
 	bool BottomLine;
 	bool isTableItem;
+	void setIsTableItem(bool val) { isTableItem = val; }
+	void setHasLeftLine(bool val) { LeftLine = val; }
+	void setHasRightLine(bool val) { RightLine = val; }
+	void setHasTopLine(bool val) { TopLine = val; }
+	void setHasBottomLine(bool val) { BottomLine = val; }
+	void setLeftLink(PageItem* lnk) { LeftLink = lnk; }
+	void setRightLink(PageItem* lnk) { RightLink = lnk; }
+	void setTopLink(PageItem* lnk) { TopLink = lnk; }
+	void setBottomLink(PageItem* lnk) { BottomLink = lnk; }
 	bool isSingleSel;
 	bool isGroupControl;
 	PageItem *groupsLastItem;
+	void setGroupsLastItem(PageItem* lnk) { groupsLastItem = lnk; }
+	void setIsGroupControl(bool val) { isGroupControl = val; }
 	double BoundingX;
 	double BoundingY;
 	double BoundingW;

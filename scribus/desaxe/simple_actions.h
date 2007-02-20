@@ -249,7 +249,7 @@ struct  Getter : public MakeGenerator<Getter_body<Type, Data>, Data, typename Ge
 /**
  *    Writes the topmost object to the topmost object but one on the stack, where the set method takes a pointer
  */
-template<class Obj_Type, class Data_Type>
+template<class Obj_Type, class Data_Type, class Store_Type>
 class SetterP_body : public Action_body 
 {
 public:
@@ -261,7 +261,7 @@ public:
 	
 	void end(const Xml_string)
 	{ 
-		Data_Type* data = this->dig->template top<Data_Type>(); 
+		Store_Type* data = this->dig->template top<Store_Type>(); 
 		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
 #ifdef DESAXE_DEBUG
 		std::cerr << "setter(ptr): " << obj << " .= " << data << "\n";
@@ -273,11 +273,11 @@ private:
 };
 
 
-template <class Type, class Data>
-struct  SetterP : public MakeAction<SetterP_body<Type, Data>, typename SetterP_body<Type, Data>::FunType> 
+template <class Type, class Data, class Store = Data>
+struct  SetterP : public MakeAction<SetterP_body<Type, Data, Store>, typename SetterP_body<Type, Data, Store>::FunType> 
 {
-	SetterP(typename SetterP_body<Type, Data>::FunType set)
-	: MakeAction<SetterP_body<Type, Data>, typename SetterP_body<Type, Data>::FunType>(set) {} 
+	SetterP(typename SetterP_body<Type, Data, Store>::FunType set)
+	: MakeAction<SetterP_body<Type, Data, Store>, typename SetterP_body<Type, Data, Store>::FunType>(set) {} 
 };
 
 

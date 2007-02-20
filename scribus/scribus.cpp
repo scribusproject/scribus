@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <iostream>
+#include <sstream>
 #include <signal.h>
 #include <string>
 
@@ -181,7 +182,6 @@ for which a new license (GPL+exception) is in place.
 #include "patterndialog.h"
 #include "sccolorengine.h"
 #include "desaxe/saxXML.h"
-#include "desaxe/simple_actions.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -4516,8 +4516,18 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
+			/*
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
+			 */
+			
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
+			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
+			
+			BufferI = QString(xmlString.str());			
+			
 			Buffer2 = BufferI;
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
@@ -4525,7 +4535,7 @@ void ScribusMainWindow::slotEditCut()
 				rebuildRecentPasteMenu();
 			}
 			doc->itemSelection_DeleteItem();
-			delete ss;
+//			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -4607,20 +4617,24 @@ void ScribusMainWindow::slotEditCopy()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
+			/*
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
-
-			SaxXML tmpfile("tmp-scribus.xml", true);
+			 */
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
 			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
-			Serializer::serializeObjects(*doc->m_Selection, tmpfile);
+			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
 			
+			BufferI = QString(xmlString.str());
+			qDebug(BufferI);
 			Buffer2 = BufferI;
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
 				scrapbookPalette->ObjFromCopyAction(Buffer2);
 				rebuildRecentPasteMenu();
 			}
-			delete ss;
+			/*delete ss;*/
 		}
 		BuFromApp = true;
 		ClipB->setText(BufferI);
@@ -4661,77 +4675,6 @@ void ScribusMainWindow::slotEditPaste()
 					QStringList::Iterator it;
 					wt = QStringList::split("\t", cc);
 					it = wt.begin();
-#if 0
-					ScText *hg;
-					hg = new ScText;
-					hg->ch = (*it);
-					if (hg->ch == QChar(5))
-						hg->ch = QChar(13);
-					if (hg->ch == QChar(4))
-						hg->ch = QChar(9);
-/* 	Don't copy inline frames for now, as this is a very complicated thing.
-		We need to figure out a good way to copy inline frames, this must
-		be able to preserve them across documents. No idea how to solve
-		that yet. */
-					if (hg->ch == QChar(25))
-						hg->ch = QChar(32);
-					it++;
-					hg->setFont((*doc->AllFonts)[*it]);
-					it++;
-					hg->setFontSize((*it).toInt());
-					it++;
-					hg->setFillColor(*it);
-					it++;
-					hg->setTracking((*it).toInt());
-					it++;
-					hg->setFillShade((*it).toInt());
-					it++;
-					hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
-					it++;
-//					hg->cab = (*it).toInt();
-					it++;
-					if (it == NULL)
-						hg->setStrokeColor(CommonStrings::None);
-					else
-						hg->setStrokeColor(*it);
-					it++;
-					if (it == NULL)
-						hg->setStrokeShade(100);
-					else
-						hg->setStrokeShade((*it).toInt());
-					it++;
-					if (it == NULL)
-						hg->setScaleH(1000);
-					else
-						hg->setScaleH((*it).toInt());
-					it++;
-					if (it == NULL)
-						hg->setScaleV(1000);
-					else
-						hg->setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
-					it++;
-					hg->setBaselineOffset(it == NULL ? 0 : (*it).toInt());
-					it++;
-					hg->setShadowXOffset(it == NULL ? 50 : (*it).toInt());
-					it++;
-					hg->setShadowYOffset(it == NULL ? -50 : (*it).toInt());
-					it++;
-					hg->setOutlineWidth(it == NULL ? 10 : (*it).toInt());
-					it++;
-					hg->setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
-					it++;
-					hg->setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
-					it++;
-					hg->setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
-					it++;
-					hg->setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
-					currItem->itemText.insertChars(currItem->CPos, hg);
-					currItem->CPos += 1;
-					hg->PRot = 0;
-					hg->PtransX = 0;
-					hg->PtransY = 0;
-					hg->cembedded = 0;
-#else
 					CharStyle nstyle;
 					QString ch = (*it);
 					if (ch == QChar(5))
@@ -4802,10 +4745,9 @@ void ScribusMainWindow::slotEditPaste()
 						currItem->itemText.applyCharStyle(currItem->CPos, 1, nstyle);
 					}
 					currItem->CPos += 1;
-#endif
 				}
 			}
-			else if (Buffer2.startsWith("<SCRIBUSELEM"))
+			else if (Buffer2.startsWith("<SCRIBUSELEM") || Buffer2.contains("<SCRIBUSFRAGMENT"))
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
@@ -4816,7 +4758,10 @@ void ScribusMainWindow::slotEditPaste()
 				FPoint maxSize = doc->maxCanvasCoordinate;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				if (Buffer2.startsWith("<SCRIBUSELEM"))
+					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				else 
+					Serializer(*doc).deserializeObjects(Buffer2.utf8());
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				//int tempList=doc->m_Selection->backupToTempList(0);
@@ -4874,7 +4819,7 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else
 		{
-			if (Buffer2.startsWith("<SCRIBUSELEM"))
+			if (Buffer2.startsWith("<SCRIBUSELEM") || Buffer2.contains("<SCRIBUSFRAGMENT"))
 			{
 				view->Deselect(true);
 				uint ac = doc->Items->count();
@@ -4882,7 +4827,17 @@ void ScribusMainWindow::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				qDebug(Buffer2);
+				if (Buffer2.startsWith("<SCRIBUSELEM"))
+					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+				else {
+					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.utf8());
+					double x = doc->currentPage()->xOffset();
+					double y = doc->currentPage()->yOffset();
+					for (uint i=0; i < pastedObjects.count(); ++i)
+						if (! pastedObjects.itemAt(i)->isEmbedded)
+							pastedObjects.itemAt(i)->moveBy(x, y);
+				}
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				for (uint as = ac; as < doc->Items->count(); ++as)
@@ -4989,15 +4944,16 @@ void ScribusMainWindow::ClipChange()
 	cc = ClipB->text();
 #endif
 
-	scrActions["editPaste"]->setEnabled(false);
 	if (!cc.isNull())
 	{
 		if (!BuFromApp)
 			Buffer2 = cc;
 		BuFromApp = false;
-		if (HaveDoc && (cc.startsWith("<SCRIBUSELEM") || doc->appMode == modeEdit))
-			scrActions["editPaste"]->setEnabled(true);
 	}
+	scrActions["editPaste"]->setEnabled(HaveDoc && 
+										(Buffer2.startsWith("<SCRIBUSELEM") 
+										 || Buffer2.contains("<SCRIBUSFRAGMENT") 
+										 || doc->appMode == modeEdit));
 }
 
 void ScribusMainWindow::EnableTxEdit()
@@ -7808,12 +7764,13 @@ void ScribusMainWindow::StoreBookmarks()
 	doc->Last = bookmarkPalette->BView->Last;
 }
 
-void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
+void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
 {
 	if (doc == docc)
 		NoFrameEdit();
+	
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	if(ss->ReadElem(Name, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
+	if(ss->ReadElem(xml, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
 	{
 		vie->DrawNew();
 		if (doc == docc)
@@ -7826,7 +7783,7 @@ void ScribusMainWindow::slotElemRead(QString Name, double x, double y, bool art,
 			slotDocCh();
 		}
 	}
-	delete ss;
+	// delete ss;
 }
 
 void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)

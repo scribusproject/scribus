@@ -269,13 +269,13 @@ void CharStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
 
 
 template<>
-StyleFlag parse(Xml_string str)
+StyleFlag parse<StyleFlag>(Xml_string str)
 {
 	return StyleFlag(parseInt(str));
 }
 
 template<>
-ScFace parse(Xml_string str)
+ScFace parse<ScFace>(Xml_string str)
 {
 	// FIXME: enable font substitution here
 	return PrefsManager::instance()->appPrefs.AvailFonts[str];

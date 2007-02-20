@@ -37,43 +37,59 @@ using namespace desaxe;
 Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
 	// register desaxe rules for styles, colors and elems
+	addRule("/SCRIBUSFRAGMENT", Factory<QPtrList<PageItem> >());
+	PageItem::desaxeRules("", *this, "item");
+	addRule("/SCRIBUSFRAGMENT/item", SetterP<QPtrList<PageItem>,const PageItem,PageItem>( & QPtrList<PageItem>::append ));
+	addRule("/SCRIBUSFRAGMENT", Result<QPtrList<PageItem> >());	
 }
 
 
-void Serializer::serializeObjects(const Selection& selection, SaxHandler&)
+void Serializer::serializeObjects(const Selection& selection, SaxHandler& handler)
 {
-	// write object to tmpfile
-	SaxXML tmpfile("tmp-scribus1.xml", true);
-	tmpfile.beginDoc();
-	selection.itemAt(0)->saxx(tmpfile);
-	tmpfile.endDoc();
-
-	// run object thru deserializer
-	Digester serializer;
-	PageItem::desaxeRules("**", serializer);
-	serializer.addRule("**/item", Result<PageItem>());
-	serializer.push(selection.itemAt(0)->doc());
-	serializer.beginDoc();
-	selection.itemAt(0)->saxx(serializer);
-	serializer.endDoc();
-
-	// write deserialized object to disk
-	SaxXML tmpfile2("tmp-scribus2.xml", true);
-	tmpfile2.beginDoc();
-	PageItem* des = serializer.result<PageItem>();
-	des->saxx(tmpfile2);
-	tmpfile2.endDoc();
+	Xml_attr attr;
+	handler.beginDoc();
+	handler.begin("SCRIBUSFRAGMENT", attr);
+	for (uint i=0; i < selection.count(); ++i)
+		selection.itemAt(i)->saxx(handler);
+	handler.end("SCRIBUSFRAGMENT");
+	handler.endDoc();
 }
 
 
-Selection Serializer::deserializeObjects(const QString & xml)
+Selection Serializer::deserializeObjects(const QCString & xml)
 {
-	return *m_Doc.m_Selection;
+	store<ScribusDoc>("<scribusdoc>", &m_Doc);
+//	push<QPtrList<PageItem> >(new QPtrList<PageItem>);
+	parseMemory(xml, xml.length());
+
+	QPtrList<PageItem>* objects = result<QPtrList<PageItem> >();
+	Selection result( &m_Doc, false);
+
+	for (uint i=0; i < objects->count(); ++i)
+	{
+		result.addItem(objects->at(i));
+	}
+
+	delete objects;
+	return result;
 }
 
 Selection Serializer::deserializeObjects(const QFile & xml)
 {
-	return *m_Doc.m_Selection;
+	store<ScribusDoc>("<scribusdoc>", &m_Doc);
+	QFileInfo fi(xml);
+	parseFile(fi.filePath());
+	
+	QPtrList<PageItem>* objects = result<QPtrList<PageItem> >();
+	Selection result( &m_Doc, false);
+	
+	for (uint i=0; i < objects->count(); ++i)
+	{
+		result.addItem(objects->at(i));
+	}
+	
+	delete objects;
+	return result;
 }
 
 

@@ -23,7 +23,7 @@
 #include "saxhandler.h"
 
 
-#define DESAXE_DEBUG 1
+//#define DESAXE_DEBUG 1
 
 namespace desaxe {
 	
@@ -32,8 +32,9 @@ class RuleState;
 
 namespace {  // ANON
 	
-	struct VarPtr
+	class VarPtr
 	{
+	public:
 		void* ptr;
 		std::string type;
 	};
@@ -72,14 +73,17 @@ namespace {  // ANON
 	}
 	
 
-	struct Patch {
-		// internal linked list
-		Patch* next;
-		Patch(Patch* nxt) : next(nxt) {}
-		
-		virtual void run(VarPtr lnk);
-		virtual ~Patch() {}
-	};
+
+class Patch {
+public:
+	// internal linked list
+	Patch* next;
+	Patch(Patch* nxt) : next(nxt) {}
+	
+	virtual void run(VarPtr lnk) = 0;
+	virtual ~Patch() {}
+};
+
 
 } // namespace ANON	
 
@@ -256,7 +260,7 @@ void Digester::push(ObjType* obj)
 // now lookup / store / patch business
 
 namespace {
-
+	
 	template <class LinkType>
 	struct Patch1 : public Patch
 	{
@@ -316,6 +320,10 @@ namespace {
 		patches.clear();
 	}
 
+	
+//	template<> class Patch1<void>;
+//	template<> class Patch2<VarPtr,void>;
+	
 } //namespace ANON
 
 
@@ -367,7 +375,7 @@ void Digester::patchCall(const Xml_string idref, void (*fun)(LinkType*) )
 	}
 	else
 	{
-		Patch1<LinkType>(fun).run(cell);
+		Patch1<LinkType>(fun).run(cell->second);
 	}
 }
 
@@ -382,7 +390,7 @@ void Digester::patchInvoke(const Xml_string idref, ObjType* obj, void (ObjType::
 	}
 	else
 	{
-		Patch2<ObjType,LinkType>(obj, fun).run(cell);
+		Patch2<ObjType,LinkType>(obj, fun).run(cell->second);
 	}
 }
 

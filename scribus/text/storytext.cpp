@@ -378,6 +378,7 @@ void StoryText::insertObject(int pos, PageItem* ob)
 
 	insertChars(pos, SpecialChars::OBJECT);
 	const_cast<StoryText *>(this)->d->at(pos)->embedded = InlineFrame(ob);
+	ob->isEmbedded = true;   // this might not be enough...
 }
 
 
@@ -498,7 +499,7 @@ const ParagraphStyle& StoryText::defaultStyle() const
 void StoryText::setDefaultStyle(const ParagraphStyle& style)
 {
 	const StyleContext * oldPContext = d->defaultStyle.context();
-	const StyleContext * oldCContext = d->defaultStyle.charStyle().context();
+//	const StyleContext * oldCContext = d->defaultStyle.charStyle().context();
 	d->defaultStyle = style;
 	d->defaultStyle.setContext( oldPContext );
 //	d->defaultStyle.setName( "storydefault" ); // DONT TRANSLATE
@@ -1322,6 +1323,52 @@ struct ApplyStyle : public MakeAction<ApplyStyle_body>
 {};
 
 
+class ApplyCharStyle_body : public Action_body
+{
+public:
+	ApplyCharStyle_body() : storyTag(StoryText::saxxDefaultElem), lastPos(0), lastStyle()
+	{}
+	ApplyCharStyle_body(const Xml_string& tag) : storyTag(tag), lastPos(0), lastStyle()
+	{}
+	
+	void end(const Xml_string tag) 
+	{
+		qDebug("storytext desaxe: apply charstyle");
+		if (tag == CharStyle::saxxDefaultElem)
+		{
+			StoryText* story = this->dig->top<StoryText>(1);
+			CharStyle* obj = this->dig->top<CharStyle>(0);
+			int len = story->length();
+			if (len > lastPos && lastStyle != *obj)
+			{
+				story->applyCharStyle(lastPos, len - lastPos, lastStyle);
+				lastPos = len;
+				lastStyle = *obj;
+			}
+		}
+		else if (tag == StoryText::saxxDefaultElem)
+		{
+			StoryText* story = this->dig->top<StoryText>();
+			int len = story->length();
+			if (len > lastPos)
+			{
+				story->applyCharStyle(lastPos, len - lastPos, lastStyle);
+			}
+		}
+	}
+private:
+	Xml_string storyTag;
+	int lastPos;
+	CharStyle lastStyle;
+};
+
+struct ApplyCharStyle : public MakeAction<ApplyCharStyle_body, const Xml_string&>
+{
+	ApplyCharStyle() : MakeAction<ApplyCharStyle_body, const Xml_string&>() {}
+	ApplyCharStyle(const Xml_string& tag) : MakeAction<ApplyCharStyle_body, const Xml_string&>(tag) {}
+};
+
+
 const Xml_string StoryText::saxxDefaultElem("story");
 
 void StoryText::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
@@ -1333,7 +1380,9 @@ void StoryText::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_str
 	ruleset.addRule(Digester::concat(storyPrefix, "defaultstyle"), SetterWithConversion<StoryText, const ParagraphStyle&, ParagraphStyle>( & StoryText::setDefaultStyle ));
 	
 	CharStyle::desaxeRules(storyPrefix, ruleset, CharStyle::saxxDefaultElem);
-//	ruleset.addRule(Digester::concat(storyPrefix, CharStyle::saxxDefaultElem), ApplyCharStyle() );
+	ApplyCharStyle applyCharStyle(elemtag);
+	ruleset.addRule(Digester::concat(storyPrefix, CharStyle::saxxDefaultElem), applyCharStyle );
+	ruleset.addRule(storyPrefix, applyCharStyle );
 	
 	ruleset.addRule(storyPrefix, AppendText());
 	
@@ -1350,8 +1399,6 @@ void StoryText::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_str
 	ruleset.addRule(Digester::concat(storyPrefix, "var"), AppendSpecial(SpecialChars::PAGENUMBER) ); 
 	
 	//PageItem::desaxeRules(storyPrefix, ruleset); argh, that would be recursive!
-	ruleset.addRule(Digester::concat(storyPrefix, "item"), Factory<QObject>() ); 
-	ruleset.addRule(Digester::concat(storyPrefix, "item"), IdRef<QObject>() ); 	
 	ruleset.addRule(Digester::concat(storyPrefix, "item"), AppendInlineFrame() ); 
 	
 }

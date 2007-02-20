@@ -252,16 +252,36 @@ class SetCharStyle : public desaxe::MakeAction<SetCharStyle_body>
 
 
 
+class SetTabStop_body : public desaxe::Action_body
+{
+	void begin (const Xml_string /*tagname*/, Xml_attr attr)
+	{
+		ParagraphStyle* pstyle = this->dig->top<ParagraphStyle>();
+		ParagraphStyle::TabRecord tb;
+		tb.tabPosition = parseDouble(attr["pos"]);
+		tb.tabFillChar = QChar(parseInt(attr["fillChar"]));
+		tb.tabType = parseInt(attr["type"]);
+		QValueList<ParagraphStyle::TabRecord> tabs = pstyle->tabValues();
+		tabs.append(tb);
+		pstyle->setTabValues(tabs);
+	}
+};
+
+class SetTabStop : public desaxe::MakeAction<SetTabStop_body>
+{};
+
+
+
 
 template<>
-ParagraphStyle::AlignmentType parse(Xml_string str)
+ParagraphStyle::AlignmentType parse<ParagraphStyle::AlignmentType>(Xml_string str)
 {
 	return parseEnum<ParagraphStyle::AlignmentType>(str);
 }
 
 
 template<>
-ParagraphStyle::LineSpacingMode parse(Xml_string str)
+ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(Xml_string str)
 {
 	return parseEnum<ParagraphStyle::LineSpacingMode>(str);
 }
@@ -270,7 +290,7 @@ ParagraphStyle::LineSpacingMode parse(Xml_string str)
 typedef QValueList<ParagraphStyle::TabRecord> Tablist;
 
 template<>
-Tablist parse(Xml_string str)
+Tablist parse<Tablist>(Xml_string str)
 {
 	return Tablist();
 }
@@ -296,4 +316,7 @@ void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xm
 	Xml_string charstylePrefix(Digester::concat(stylePrefix, CharStyle::saxxDefaultElem));
 	CharStyle::desaxeRules(stylePrefix, ruleset);
 	ruleset.addRule(charstylePrefix, SetCharStyle());
+	
+	Xml_string tabPrefix(Digester::concat(stylePrefix, "tabstop"));
+	ruleset.addRule(tabPrefix, SetTabStop());
 }

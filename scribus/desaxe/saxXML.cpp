@@ -23,7 +23,7 @@ SaxXML::~SaxXML() { m_stream.flush(); m_file.close(); }
 
 void SaxXML::beginDoc()
 {
-	m_stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+	//m_stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 }
 
 

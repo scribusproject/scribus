@@ -61,7 +61,7 @@ public:
 	  Reads objects from the given QString which must represent a fragment, imports them
 	  into the document and returns a (nonGUI) selection to it.
 	*/
-	Selection deserializeObjects(const QString & xml);
+	Selection deserializeObjects(const QCString & xml);
 	/**
 	  Reads objects from the given QFile which must represent a fragment, imports them
 	  into the document and returns a (nonGUI) selection to it.
