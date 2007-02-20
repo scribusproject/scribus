@@ -253,7 +253,7 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>20</width>
-                                        <height>6</height>
+                                        <height>5</height>
                                     </size>
                                 </property>
                             </spacer>
@@ -264,6 +264,9 @@
                                 <hbox>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>3</number>
                                     </property>
                                     <widget class="QToolButton">
                                         <property name="name">
@@ -329,6 +332,23 @@
                                     </widget>
                                 </hbox>
                             </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer21_3</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>3</height>
+                                    </size>
+                                </property>
+                            </spacer>
                             <widget class="QLayoutWidget">
                                 <property name="name">
                                     <cstring>layout31</cstring>
@@ -336,6 +356,9 @@
                                 <hbox>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>3</number>
                                     </property>
                                     <widget class="QToolButton">
                                         <property name="name">

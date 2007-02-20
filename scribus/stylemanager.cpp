@@ -835,10 +835,17 @@ void StyleManager::slotClean()
 		++it;
 	}
 
-	if (isEditMode_ && item_)
+	if (isEditMode_)
 	{
-		reloadStyleView();
+		StyleItem *tmp = item_;
+
+		for (uint i = 0; i < items_.count(); ++i)
+		{
+			item_ = items_.at(i);
+			reloadStyleView();
+		}
 		slotSetupWidget();
+		item_ = tmp;
 	}
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
