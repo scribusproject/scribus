@@ -362,7 +362,7 @@ class SetItemText : public MakeAction<SetItemText_body>
 {};
 
 
-class LoadImage_body : public Action_body
+class LoadPicture_body : public Action_body
 {
 	void end (const Xml_string /*tagname*/)
 	{
@@ -372,7 +372,7 @@ class LoadImage_body : public Action_body
 	}
 };
 
-class LoadImage : public MakeAction<LoadImage_body>
+class LoadPicture : public MakeAction<LoadPicture_body>
 {};
 
 
@@ -538,7 +538,7 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	Xml_string storyPrefix = Digester::concat(itemPrefix, "text-content");
 	ruleset.addRule(storyPrefix, SetItemText());
 	
-	ruleset.addRule(itemPrefix, LoadImage());
+	ruleset.addRule(itemPrefix, LoadPicture());
 	
 	AdjustGroupIds adjustGroupIds;
 	ruleset.addRule("/", adjustGroupIds);
