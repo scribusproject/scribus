@@ -185,8 +185,9 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_True); // return True not None for backward compat
-	return Py_True;
+	/*Py_INCREF(Py_True);  return True not None for backward compat
+	return Py_True; */
+	Py_RETURN_TRUE;
 }
 
 static PyMethodDef ImageExport_methods[] = {
