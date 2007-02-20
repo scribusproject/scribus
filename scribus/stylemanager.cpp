@@ -261,7 +261,7 @@ void StyleManager::slotImport()
 
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("editformats", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), tr("doc_ments (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();
@@ -301,13 +301,14 @@ void StyleManager::slotImport()
 
 		Q_ASSERT(pstyle && cstyle && lstyle);
 
-		ImportDialog *dia2 = new ImportDialog(this, &tmpParaStyles, pstyle->tmpStyles(),
-		                                            &tmpCharStyles, cstyle->tmpStyles(),
-		                                            &tmpLineStyles, &(lstyle->tmpLines));
+		ImportDialog *dia2 = new ImportDialog(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 // end hack
 
+		QValueList<QPair<QString, QString> > selected;
 		if (dia2->exec())
 		{
+			if (!isEditMode_)
+				slotOk();
 			QStringList neededColors;
 			neededColors.clear();
 			QMap<QCheckListItem*, QString>::Iterator it;
@@ -328,7 +329,7 @@ void StyleManager::slotImport()
 						else
 							pstyle->tmpStyles()->create(sty);
 					}
-
+					selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
 					if ((!doc_->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
 						neededColors.append(sty.charStyle().strokeColor());
 					if ((!doc_->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
@@ -336,38 +337,60 @@ void StyleManager::slotImport()
 				}
 			}
 
-// 			for (it = dia2->storedCharStyles.begin(); it != dia2->storedCharStyles.end(); ++it)
-// 			{
-// 				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(it.data())]);
-// 				if (it.key()->isOn())
-// 				{
-// 					qDebug("Loading: %s", it.data().ascii());
-// 					if (dia2->clashRename())
-// 					{
-// 						sty.setName(cstyle->getUniqueName(sty.name()));
-// 						cstyle->tmpStyles()->create(sty);
-// 					}
-// 					else
-// 					{
-// 						if (cstyle->tmpStyles()->find(sty.name()) >= 0)
-// 							(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(it.data())] = sty;
-// 						else
-// 							cstyle->tmpStyles()->create(sty);
-// 					}
-// 
-// 					if ((!doc_->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
-// 						neededColors.append(sty.strokeColor());
-// 					if ((!doc_->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
-// 						neededColors.append(sty.fillColor());
-// 				}
-// 			}
+			for (it = dia2->storedCharStyles.begin(); it != dia2->storedCharStyles.end(); ++it)
+			{
+				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(it.data())]);
+				if (it.key()->isOn())
+				{
+					if (dia2->clashRename())
+					{
+						sty.setName(cstyle->getUniqueName(sty.name()));
+						cstyle->tmpStyles()->create(sty);
+					}
+					else
+					{
+						if (cstyle->tmpStyles()->find(sty.name()) >= 0)
+							(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(it.data())] = sty;
+						else
+							cstyle->tmpStyles()->create(sty);
+					}
+					selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
+					if ((!doc_->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
+						neededColors.append(sty.strokeColor());
+					if ((!doc_->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
+						neededColors.append(sty.fillColor());
+				}
+			}
+
+			for (it = dia2->storedLineStyles.begin(); it != dia2->storedLineStyles.end(); ++it)
+			{
+				multiLine &sty = tmpLineStyles[it.data()];
+				QString styName = it.data();
+
+				if (it.key()->isOn())
+				{
+					if (dia2->clashRename())
+						styName = lstyle->getUniqueName(styName);
+
+					lstyle->tmpLines[styName] = sty;
+					selected << QPair<QString, QString>(lstyle->typeName(), styName);
+					
+					for (uint i = 0; i < sty.count(); ++i)
+					{
+						if ((!doc_->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
+							neededColors.append(sty[i].Color);
+					}
+				}
+			}
 
 			if (!neededColors.isEmpty())
 			{
 				FileLoader fl(selectedFile);
 				if (fl.TestFile() == -1)
-				//TODO put in nice user warning
+				{ //TODO put in nice user warning
+					delete dia2;
 					return;
+				}
 				ColorList LColors;
 				if (fl.ReadColors(selectedFile, LColors))
 				{
@@ -382,9 +405,40 @@ void StyleManager::slotImport()
 		}
 		delete dia2;
 		reloadStyleView(false);
+		setSelection(selected);
+		slotDirty();
+		slotSetupWidget();
 	}
 	else
 		return;
+}
+
+void StyleManager::setSelection(const QValueList<QPair<QString, QString> > &selected)
+{
+	styleView->clearSelection();
+	
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selectable);
+	StyleViewItem *item;
+
+	while (it.current())
+	{
+		item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
+		{
+			for (uint i = 0; i < selected.count(); ++i)
+			{
+				if (item->rootName() == selected[i].first && item->text(NAME_COL) == selected[i].second)
+				{
+					styleView->setCurrentItem(item);
+					item->setSelected(true);
+					item->repaint();
+				}
+			}
+		}
+		++it;
+	}
+
+	styleView->triggerUpdate();
 }
 
 void StyleManager::slotEdit()

@@ -19,9 +19,9 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleList, StyleSet<ParagraphStyle> *pstyleOld,
-	                                         StyleSet<CharStyle> *cstyleList, StyleSet<CharStyle> *cstyleOld,
-	                                         QMap<QString, multiLine> *lstyleList, QMap<QString, multiLine> *lstyleOld)
+ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleList,
+	                                         StyleSet<CharStyle> *cstyleList,
+	                                         QMap<QString, multiLine> *lstyleList)
 : QDialog( parent, "ImportDialog", true, 0 )
 {
 	setCaption( tr( "Choose Styles" ) );
@@ -38,28 +38,18 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 	for (uint x = 0; x < cstyleList->count(); ++x)
 	{
 		CharStyle& vg ((*cstyleList)[x]);
-		const CharStyle* vg2 = static_cast<const CharStyle*>(cstyleOld->resolve(vg.name()));
-		bool found = vg2 && vg.equiv(*vg2);
-		if (!found)
-		{
-			QCheckListItem *item = new QCheckListItem (croot, vg.name(), QCheckListItem::CheckBox);
-			item->setOn(true);
-			storedCharStyles.insert(item, vg.name());
-		}
+		QCheckListItem *item = new QCheckListItem (croot, vg.name(), QCheckListItem::CheckBox);
+		item->setOn(true);
+		storedCharStyles.insert(item, vg.name());
 	}
 
 	QListViewItem *proot = new QListViewItem(StyleView, tr("Paragraph Styles"));
 	for (uint x = 0; x < pstyleList->count(); ++x)
 	{
 		ParagraphStyle& vg ((*pstyleList)[x]);
-		const ParagraphStyle* vg2 = static_cast<const ParagraphStyle*>(pstyleOld->resolve(vg.name()));
-		bool found = vg2 && vg.equiv(*vg2);
-		if (!found)
-		{
-			QCheckListItem *item = new QCheckListItem (proot, vg.name(), QCheckListItem::CheckBox);
-			item->setOn(true);
-			storedStyles.insert(item, vg.name());
-		}
+		QCheckListItem *item = new QCheckListItem (proot, vg.name(), QCheckListItem::CheckBox);
+		item->setOn(true);
+		storedStyles.insert(item, vg.name());
 	}
 
 	QListViewItem *lroot = new QListViewItem(StyleView, tr("Line Styles"));

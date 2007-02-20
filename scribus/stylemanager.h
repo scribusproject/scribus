@@ -111,6 +111,8 @@ private:
 	void reloadStyleView(bool loadFromDoc = true); // are the styles loaded from doc or from tmp cache
 	bool shortcutExists(const QString &keys);
 	void updateActionName(const QString &oldName, const QString &newName);
+	/* QPair.first = type name and QPair.second = style name */
+	void setSelection(const QValueList<QPair<QString, QString> > &selected);
 
 private slots:
 	void slotOk();

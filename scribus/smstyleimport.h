@@ -30,9 +30,9 @@ class SCRIBUS_API ImportDialog : public QDialog
 
 public:
 	ImportDialog(QWidget* parent,
-	             StyleSet<ParagraphStyle> *pstyleList, StyleSet<ParagraphStyle> *pstyleOld,
-	             StyleSet<CharStyle> *cstyleList, StyleSet<CharStyle> *cstyleOld,
-	             QMap<QString, multiLine> *lstyleList, QMap<QString, multiLine> *lstyleOld);
+	             StyleSet<ParagraphStyle> *pstyleList,
+	             StyleSet<CharStyle> *cstyleList,
+	             QMap<QString, multiLine> *lstyleList);
 	~ImportDialog() {};
 
 	QMap<QCheckListItem*, QString> storedStyles;
