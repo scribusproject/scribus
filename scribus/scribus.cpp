@@ -4727,7 +4727,7 @@ void ScribusMainWindow::slotEditPaste()
 						ch = SpecialChars::PARSEP;
 					if (ch == QChar(4))
 						ch = SpecialChars::TAB;
-					/* 	Don't copy inline frames for now, as this is a very complicated thing.
+						Don't copy inline frames for now, as this is a very complicated thing.
 						We need to figure out a good way to copy inline frames, this must
 						be able to preserve them across documents. No idea how to solve
 						that yet. *--/
