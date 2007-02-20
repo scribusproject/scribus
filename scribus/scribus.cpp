@@ -182,6 +182,8 @@ for which a new license (GPL+exception) is in place.
 #include "patterndialog.h"
 #include "sccolorengine.h"
 #include "desaxe/saxXML.h"
+#include "desaxe/digester.h"
+#include "desaxe/simple_actions.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -4456,7 +4458,20 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if ((currItem->itemText.length() == 0) || (!currItem->HasSel))
 				return;
-			PageItem *nextItem = currItem;
+			StoryText itemText(doc);
+			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
+			itemText.insert(0, currItem->itemText, true);
+			
+			BufferI = itemText.text(0, itemText.length());
+			
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			xmlStream.beginDoc();
+			itemText.saxx(xmlStream, "SCRIBUSTEXT");
+			xmlStream.endDoc();
+			Buffer2 = QString(xmlString.str());
+			
+			/*			PageItem *nextItem = currItem;
 			while (nextItem != 0)
 			{
 				if (nextItem->prevInChain() != 0)
@@ -4510,6 +4525,8 @@ void ScribusMainWindow::slotEditCut()
 				dynamic_cast<PageItem_TextFrame*>(nextItem)->deleteSelectedTextFromFrame();
 				nextItem = nextItem->nextInChain();
 			}
+			*/
+			dynamic_cast<PageItem_TextFrame*>(currItem)->deleteSelectedTextFromFrame();
 			view->RefreshItem(currItem);
 		}
 		else
@@ -4554,12 +4571,25 @@ void ScribusMainWindow::slotEditCopy()
 	QString BufferI = "";
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))
 	{
-		Buffer2 = "<SCRIBUSTEXT>";
+		Buffer2 = "<SCRIBUSTEXT/>";
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if ((doc->appMode == modeEdit) && (currItem->HasSel))
 		{
-			Buffer2 += "";
-			PageItem *nextItem = currItem;
+			StoryText itemText(doc);
+			itemText.setDefaultStyle(currItem->itemText.defaultStyle());
+			itemText.insert(0, currItem->itemText, true);
+			
+			BufferI = itemText.text(0, itemText.length());
+			
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			xmlStream.beginDoc();
+			itemText.saxx(xmlStream, "SCRIBUSTEXT");
+			xmlStream.endDoc();
+			Buffer2 = QString(xmlString.str());
+			qDebug(Buffer2);
+			
+/*			PageItem *nextItem = currItem;
 			while (nextItem != 0)
 			{
 				if (nextItem->prevInChain() != 0)
@@ -4612,6 +4642,7 @@ void ScribusMainWindow::slotEditCopy()
 				}
 				nextItem = nextItem->nextInChain();
 			}
+			*/
 		}
 		else
 		{
@@ -4663,9 +4694,24 @@ void ScribusMainWindow::slotEditPaste()
 			if (currItem->CPos > currItem->itemText.length())
 				currItem->CPos = currItem->itemText.length();
 			
-			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
+			if (Buffer2.startsWith("<SCRIBUSTEXT"))
 			{
-				QString Buf = Buffer2.mid(13);
+				Serializer dig(*doc);
+				dig.store<ScribusDoc>("<scribusdoc>", doc);
+				StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
+				dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
+
+				QCString xml( Buffer2.utf8() );
+				dig.parseMemory(xml, xml.length());
+				
+				StoryText* story = dig.result<StoryText>();
+				
+				currItem->itemText.insert(currItem->CPos, *story);
+				currItem->CPos += story->length();
+				
+				delete story;
+				
+/*				QString Buf = Buffer2.mid(13);
 				QTextStream t(&Buf, IO_ReadOnly);
 				QString cc;
 				while (!t.atEnd())
@@ -4684,7 +4730,7 @@ void ScribusMainWindow::slotEditPaste()
 					/* 	Don't copy inline frames for now, as this is a very complicated thing.
 						We need to figure out a good way to copy inline frames, this must
 						be able to preserve them across documents. No idea how to solve
-						that yet. */
+						that yet. *--/
 					if (ch == SpecialChars::OBJECT)
 						ch = QChar(32);
 					it++;
@@ -4746,6 +4792,7 @@ void ScribusMainWindow::slotEditPaste()
 					}
 					currItem->CPos += 1;
 				}
+*/
 			}
 			else if (Buffer2.startsWith("<SCRIBUSELEM") || Buffer2.contains("<SCRIBUSFRAGMENT"))
 			{
@@ -4835,8 +4882,11 @@ void ScribusMainWindow::slotEditPaste()
 					double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
 					for (uint i=0; i < pastedObjects.count(); ++i)
-						if (! pastedObjects.itemAt(i)->isEmbedded)
-							pastedObjects.itemAt(i)->moveBy(x, y);
+						if (! pastedObjects.itemAt(i)->isEmbedded) 
+						{
+							const Page* pg = doc->OwnPage(pastedObjects.itemAt(i));
+							pastedObjects.itemAt(i)->moveBy(x - pg->xOffset(), y - pg->yOffset(), true);
+						}
 				}
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
