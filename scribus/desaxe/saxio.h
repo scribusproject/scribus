@@ -28,7 +28,7 @@ public:
 	/**
 	    Writes an XML representation of this object
 	 */
-	virtual void saxx(SaxHandler &, const Xml_string elemtag) const = 0;
+	virtual void saxx(SaxHandler &, const Xml_string /* elemtag */) const = 0;
 	/**
 	    Writes an XML representation of this object using the default element tag, see below
 	 */
@@ -46,7 +46,7 @@ public:
 	  Unfortunately there are no virtual static functions, so this is just a dummy
 	  serving as a template.
 	 */
-	static void desaxeRules(Xml_string prefixPattern, desaxe::Digester & ruleset, const Xml_string elemtag = saxxDefaultElem) {}
+	static void desaxeRules(Xml_string /* prefixPattern */, desaxe::Digester & /* ruleset */, const Xml_string /* elemtag */ = saxxDefaultElem) {}
 };
 
 #endif
