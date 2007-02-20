@@ -824,7 +824,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				OB.LayerNr = -1;
 				if ((Fi) && (pite.hasAttribute("relativePaths")))
 				{
-					if (static_cast<bool>(pite.attribute("relativePaths", "0").toInt()));
+					if (static_cast<bool>(pite.attribute("relativePaths", "0").toInt()))
 					{
 						if (!OB.Pfile.isEmpty())
 						{
@@ -986,7 +986,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			OB.LayerNr = -1;
 			if ((Fi) && (pg.hasAttribute("relativePaths")))
 			{
-				if (static_cast<bool>(pg.attribute("relativePaths", "0").toInt()));
+				if (static_cast<bool>(pg.attribute("relativePaths", "0").toInt()))
 				{
 					if (!OB.Pfile.isEmpty())
 					{
