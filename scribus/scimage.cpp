@@ -4131,8 +4131,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
 				{
 					xres = yres = 72.0;
-					imgInfo.xres = xres;
-					imgInfo.yres = yres;
+					imgInfo.xres = imgInfo.yres = 72;
+//					imgInfo.xres = xres;
+//					imgInfo.yres = yres;
 					setDotsPerMeterX(2834);
 					setDotsPerMeterY(2834);
 					QFileInfo qfi(fn);
