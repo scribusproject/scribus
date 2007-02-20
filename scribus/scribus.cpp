@@ -4884,7 +4884,7 @@ void ScribusMainWindow::slotEditPaste()
 					for (uint i=0; i < pastedObjects.count(); ++i)
 						if (! pastedObjects.itemAt(i)->isEmbedded) 
 						{
-							const Page* pg = doc->OwnPage(pastedObjects.itemAt(i));
+							const Page* pg = doc->Pages->at(doc->OnPage(pastedObjects.itemAt(i)));
 							pastedObjects.itemAt(i)->moveBy(x - pg->xOffset(), y - pg->yOffset(), true);
 						}
 				}
