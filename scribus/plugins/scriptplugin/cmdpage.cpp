@@ -23,8 +23,9 @@ PyObject *scribus_redraw(PyObject* /* self */)
 	if(!checkHaveDocument())
 		return NULL;
 	ScCore->primaryMainWindow()->view->DrawNew();
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
@@ -56,8 +57,9 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_True);	// return True not None for backward compat
-	return Py_True;
+// 	Py_INCREF(Py_True); // return True not None for backward compat
+// 	return Py_True;
+	Py_RETURN_TRUE;
 }
 
 PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
@@ -74,8 +76,9 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->DeletePage2(e);
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
@@ -92,8 +95,9 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->view->GotoPage(e);
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
@@ -142,8 +146,9 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		}
 		ScCore->primaryMainWindow()->slotNewPageP(e, qName);
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_pagecount(PyObject* /* self */)
@@ -244,8 +249,9 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 		}
 		ScCore->primaryMainWindow()->doc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getVguides(PyObject* /* self */)
@@ -294,8 +300,9 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 		}
 		ScCore->primaryMainWindow()->doc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getpagemargins(PyObject* /* self */)
