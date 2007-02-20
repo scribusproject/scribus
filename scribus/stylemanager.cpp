@@ -404,6 +404,10 @@ void StyleManager::slotImport()
 			}
 		}
 		delete dia2;
+// Start hack part 2
+		pstyle->currentDoc(doc_);
+		cstyle->currentDoc(doc_);
+// end hack part 2
 		reloadStyleView(false);
 		setSelection(selected);
 		slotDirty();
