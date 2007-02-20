@@ -104,8 +104,9 @@ PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setColor(c, m, y, k);
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
@@ -139,8 +140,9 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 				// silently changing colours in newColour?
 				(*colorList)[col].setColor(c, m, y, k);
 		}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
@@ -149,7 +151,7 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	char *Repl = const_cast<char*>(CommonStrings::None.latin1());
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
-	if (Name == "")
+	if (strcmp(Name, "") == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a color with an empty name.","python error"));
 		return NULL;
@@ -180,8 +182,9 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
@@ -207,8 +210,9 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings
