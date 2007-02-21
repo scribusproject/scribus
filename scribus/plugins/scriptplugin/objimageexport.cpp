@@ -156,9 +156,12 @@ static PyObject *ImageExport_save(ImageExport *self)
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
 		return NULL;
 	}
-// 	Py_INCREF(Py_True); // return True not None for backward compat
-// 	return Py_True;
+#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
+ 	Py_INCREF(Py_True); // return True not None for backward compat
+ 	return Py_True;
+#else
 	Py_RETURN_TRUE;
+#endif
 }
 
 static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
@@ -186,9 +189,12 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
 		return NULL;
 	}
-// 	Py_INCREF(Py_True); // return True not None for backward compat
-// 	return Py_True;
+#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
+ 	Py_INCREF(Py_True); // return True not None for backward compat
+ 	return Py_True;
+#else
 	Py_RETURN_TRUE;
+#endif
 }
 
 static PyMethodDef ImageExport_methods[] = {
