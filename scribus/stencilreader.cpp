@@ -475,21 +475,21 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 					FillCol = "FromDia"+fill.name();
 				}
 			}
-			ColorList::Iterator it;
+			ColorList::Iterator itc;
 			bool found = false;
 			int r, g, b;
 			QColor tmpR;
 			if ((fill == Qt::white) || (fill == Qt::black))
 				continue;
-			for (it = PageColors.begin(); it != PageColors.end(); ++it)
+			for (itc = PageColors.begin(); itc != PageColors.end(); ++itc)
 			{
-				if (it.data().getColorModel() == colorModelRGB)
+				if (itc.data().getColorModel() == colorModelRGB)
 				{
-					it.data().getRGB(&r, &g, &b);
+					itc.data().getRGB(&r, &g, &b);
 					tmpR.setRgb(r, g, b);
 					if (fill == tmpR)
 					{
-						FillCol = it.key();
+						FillCol = itc.key();
 						found = true;
 						break;
 					}
@@ -548,20 +548,20 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
 			QStringList pointList = QStringList::split( ' ', points );
 			FirstM = true;
-			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+			for( QStringList::Iterator it1 = pointList.begin(); it1 != pointList.end(); it1++ )
 			{
 				if( bFirst )
 				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
+					x = (*(it1++)).toDouble();
+					y = (*it1).toDouble();
 					svgMoveTo(x * Conversion, y * Conversion);
 					bFirst = false;
 					WasM = true;
 				}
 				else
 				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
+					x = (*(it1++)).toDouble();
+					y = (*it1).toDouble();
 					svgLineTo(&PoLine, x * Conversion, y * Conversion);
 				}
 			}
