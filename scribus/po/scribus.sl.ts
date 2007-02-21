@@ -4258,7 +4258,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 ali 13 številk z vezaji. Zastarela oblika ISBN-10 sprejema 9 ali 10 številk z vezaji, vendar ni več v javni uporabi po 1. januarju 2007. (Opomba: Za pretvorbo stare številke ISBN-10 v novo ISBN-13, na začetek dodajte predpono 978- prvim 9 številkam, npr. 1-56592-479-7 -&gt; 978-1-56592-479. Zadnja preskusna številka bo izračunana samodejno.)</translation>
     </message>
 </context>
 <context>
@@ -21793,7 +21793,7 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kazalo vsebine %1</translation>
     </message>
 </context>
 <context>
