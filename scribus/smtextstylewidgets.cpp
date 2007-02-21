@@ -26,22 +26,10 @@ for which a new license (GPL+exception) is in place.
 
 static bool isEqual(double a, double b)
 {
-	double maxUlps = 0.00001;
-    // Make sure maxUlps is non-negative and small enough that the
-    // default NAN won't compare as equal to anything.
-    assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
-    int aInt = *(int*)&a;
-    // Make aInt lexicographically ordered as a twos-complement int
-    if (aInt < 0)
-        aInt = 0x80000000 - aInt;
-    // Make bInt lexicographically ordered as a twos-complement int
-    int bInt = *(int*)&b;
-    if (bInt < 0)
-        bInt = 0x80000000 - bInt;
-    int intDiff = abs(aInt - bInt);
-    if (intDiff <= maxUlps)
-        return true;
-    return false;
+	Q_ASSERT(a >  -21473 && b > -21473 && a < 21474 && b < 21474);
+	long al = static_cast<long>(10000 * a);
+	long bl = static_cast<long>(10000 * b);
+    return al == bl;
 }
 
 SMPStyleWidget::SMPStyleWidget()
