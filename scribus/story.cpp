@@ -3066,8 +3066,8 @@ void StoryEditor::Do_leave()
 	{
 		blockUpdate = true;
 		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-		                             tr("Do you really want to lose all your changes?"),
-		                             QMessageBox::Yes, QMessageBox::No, QMessageBox::NoButton);
+									tr("Do you really want to lose all your changes?"),
+									QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
@@ -3100,7 +3100,7 @@ bool StoryEditor::Do_new()
 		blockUpdate = true;
 		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 	                             tr("Do you really want to clear all your text?"),
-	                             QMessageBox::Yes, QMessageBox::No, QMessageBox::NoButton);
+	                             QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
