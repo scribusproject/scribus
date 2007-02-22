@@ -210,7 +210,9 @@ template<class ObjType>
 inline
 ObjType*  Digester::result() 
 { 
-	chkcell<ObjType> (result_);
+	ObjType* dummy;
+	if (result_.type != typeid(dummy).name())
+		return NULL;
 #ifdef DESAXE_DEBUG
 	std::cerr << "result-> " << static_cast<ObjType*>(result_.ptr) << "\n";
 #endif
