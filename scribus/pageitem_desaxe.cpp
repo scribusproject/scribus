@@ -80,7 +80,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 {
 	Xml_attr result;
 	
-	result.insert("id", toXMLString(const_cast<PageItem*>(item)->getUId()));
+	result.insert("id", "obj" + toXMLString(const_cast<PageItem*>(item)->getUId()));
 	result.insert("name", item->itemName());
 	const PageItem* nxt = item->nextInChain(); 
 	if (nxt)
