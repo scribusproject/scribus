@@ -1150,8 +1150,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 		PyErr_SetString(PyExc_SystemError, fn.ascii());
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 static PyMethodDef PDFfile_methods[] = {

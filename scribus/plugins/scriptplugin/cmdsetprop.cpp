@@ -77,12 +77,9 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	//ScCore->primaryMainWindow()->view->updateGradientVectors(currItem);
 	currItem->updateGradientVectors();
 	ScCore->primaryMainWindow()->view->RefreshItem(currItem);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
@@ -97,12 +94,9 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillColor(QString::fromUtf8(Color));
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+ //	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
@@ -122,12 +116,9 @@ PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillTransparency(1.0 - w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
@@ -147,12 +138,9 @@ PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillBlendmode(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+ //	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
@@ -167,12 +155,9 @@ PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineColor(QString::fromUtf8(Color));
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
@@ -192,12 +177,9 @@ PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setLineTransparency(1.0 - w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+ //	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
@@ -217,12 +199,9 @@ PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setLineBlendmode(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
@@ -242,12 +221,9 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setLineWidth(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
@@ -267,12 +243,9 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineShade(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
@@ -292,12 +265,9 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->setFillShade(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlinejoin(PyObject* /* self */, PyObject* args)
@@ -312,12 +282,9 @@ PyObject *scribus_setlinejoin(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->PLineJoin = Qt::PenJoinStyle(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+ //	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlineend(PyObject* /* self */, PyObject* args)
@@ -332,12 +299,9 @@ PyObject *scribus_setlineend(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->PLineEnd = Qt::PenCapStyle(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
@@ -352,12 +316,9 @@ PyObject *scribus_setlinestyle(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	i->PLineArt = Qt::PenStyle(w);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
@@ -381,12 +342,9 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	currItem->SetFrameRound();
 	ScCore->primaryMainWindow()->doc->setRedrawBounding(currItem);
 	ScCore->primaryMainWindow()->view->SetFrameRounded();
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
@@ -406,12 +364,9 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	currItem->NamedLStyle = QString::fromUtf8(Style);
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

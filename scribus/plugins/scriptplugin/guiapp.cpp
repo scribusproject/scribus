@@ -16,16 +16,18 @@ PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
 		return NULL;
 	ScCore->primaryMainWindow()->setStatusBarInfoText(QString::fromUtf8(aText));
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_progressreset(PyObject* /* self */)
 {
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	qApp->processEvents();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
@@ -36,8 +38,9 @@ PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setTotalSteps(steps);
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(0);
 	qApp->processEvents();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
@@ -52,8 +55,9 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(position);
 	qApp->processEvents();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 
@@ -67,8 +71,9 @@ PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 		qApp->setOverrideCursor(Qt::WaitCursor);
 	else
 		qApp->restoreOverrideCursor();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
@@ -84,8 +89,9 @@ PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->slotDocCh(true);
 	else
 		ScCore->primaryMainWindow()->slotDocCh(false);*/
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
@@ -102,8 +108,9 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor)."));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

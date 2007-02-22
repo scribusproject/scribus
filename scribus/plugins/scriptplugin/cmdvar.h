@@ -23,6 +23,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribus.h"
 
+#ifndef Py_RETURN_NONE
+	#define Py_RETURN_NONE return Py_INCREF(Py_None), Py_None
+#endif
+
+#ifndef Py_RETURN_TRUE
+	#define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True
+#endif
+
 class ScripterCore;
 
 // Globals for testing Qt properties and probably other more intresting future

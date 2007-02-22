@@ -123,8 +123,9 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	delete dia2;
 	if (styleCount == ScCore->primaryMainWindow()->doc->paragraphStyles().count())
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+//		Py_INCREF(Py_None);
+//		return Py_None;
+		Py_RETURN_NONE;
 	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->paragraphStyles()[ScCore->primaryMainWindow()->doc->paragraphStyles().count() - 1].name().utf8());
 }

@@ -104,12 +104,9 @@ PyObject *scribus_setcolor(PyObject* /* self */, PyObject* args)
 		}
 		(*colorList)[col].setColor(c, m, y, k);
 	}
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
@@ -143,12 +140,9 @@ PyObject *scribus_newcolor(PyObject* /* self */, PyObject* args)
 				// silently changing colours in newColour?
 				(*colorList)[col].setColor(c, m, y, k);
 		}
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+ //	Py_INCREF(Py_None);
+ //	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
@@ -188,12 +182,9 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 	}
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
@@ -219,12 +210,9 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error"));
 		return NULL;
 	}
-#if ((PY_MAJOR_VERSION == 2) && (PY_MINOR_VERSION < 4))
- 	Py_INCREF(Py_None);
- 	return Py_None;
-#else
+// 	Py_INCREF(Py_None);
+// 	return Py_None;
 	Py_RETURN_NONE;
-#endif
 }
 
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings

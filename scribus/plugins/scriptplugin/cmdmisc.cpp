@@ -22,8 +22,9 @@ PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	ScCore->primaryMainWindow()->doc->DoDrawing = static_cast<bool>(e);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_fontnames(PyObject* /* self */)
@@ -136,8 +137,9 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 			return NULL;
 		}
 		// For historical reasons, we need to return true on success.
-		Py_INCREF(Py_True);
-		return Py_True;
+//		Py_INCREF(Py_True);
+//		return Py_True;
+		Py_RETURN_TRUE;
 	}
 }
 
@@ -172,8 +174,9 @@ PyObject *scribus_setactlayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getactlayer(PyObject* /* self */)
@@ -218,8 +221,9 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
@@ -250,8 +254,9 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
@@ -282,8 +287,9 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
@@ -314,8 +320,9 @@ PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
@@ -346,8 +353,9 @@ PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
@@ -378,8 +386,9 @@ PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
@@ -410,8 +419,9 @@ PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
@@ -442,8 +452,9 @@ PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
@@ -715,8 +726,9 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
@@ -733,8 +745,9 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->addLayer(QString::fromUtf8(Name), true);
 	ScCore->primaryMainWindow()->changeLayer(ScCore->primaryMainWindow()->doc->activeLayer());
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getlanguage(PyObject* /* self */)

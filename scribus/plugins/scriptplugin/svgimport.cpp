@@ -42,8 +42,9 @@ PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_Exception, "SVG Import plugin not available");
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
@@ -71,8 +72,9 @@ PyObject *scribus_placeeps(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_Exception, "EPS Import plugin not available");
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
@@ -100,8 +102,9 @@ PyObject *scribus_placesxd(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_Exception, "OpenOffice Import plugin not available");
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
@@ -129,8 +132,9 @@ PyObject *scribus_placeodg(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_Exception, "OpenOffice Import plugin not available");
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

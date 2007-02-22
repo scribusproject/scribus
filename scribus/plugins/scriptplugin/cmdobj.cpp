@@ -468,8 +468,9 @@ PyObject *scribus_deleteobj(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
 	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 	ScCore->primaryMainWindow()->doc->itemSelection_DeleteItem();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 
@@ -504,8 +505,9 @@ PyObject *scribus_textflow(PyObject* /* self */, PyObject* args)
 		i->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 	ScCore->primaryMainWindow()->view->DrawNew();
 	ScCore->primaryMainWindow()->slotDocCh(true);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 
@@ -586,8 +588,9 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.","python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -631,8 +634,9 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	// do the duplicate
 	ScCore->primaryMainWindow()->slotEditCopy();
 	ScCore->primaryMainWindow()->slotEditPaste();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

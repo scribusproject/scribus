@@ -27,8 +27,9 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->doc->LoadPict(QString::fromUtf8(Image), item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
@@ -50,8 +51,9 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	item->setImageXYScale(x, y);
 	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
 	ScCore->primaryMainWindow()->doc->updatePic();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
@@ -87,8 +89,9 @@ PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 	//ScCore->primaryMainWindow()->view->Deselect();
 	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
 	//	ScCore->primaryMainWindow()->view->SelectItemNr(oldSelection.current()->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
@@ -127,8 +130,9 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	//ScCore->primaryMainWindow()->view->Deselect();
 	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
 //		ScCore->primaryMainWindow()->view->SelectItemNr(oldSelection.current()->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
@@ -143,8 +147,9 @@ PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 	if (item == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - x, item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
@@ -159,8 +164,9 @@ PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 	if (item == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->doc->RotateItem(x * -1.0, item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
@@ -175,8 +181,9 @@ PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 	if (item == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(x), ValueToPoint(y), item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
@@ -231,8 +238,9 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
@@ -246,8 +254,9 @@ PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->UnGroupObj();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
@@ -272,8 +281,9 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
 	ScCore->primaryMainWindow()->view->scaleGroup(sc, sc);
 	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
@@ -308,8 +318,9 @@ PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_deselect(PyObject* /* self */)
@@ -317,8 +328,9 @@ PyObject *scribus_deselect(PyObject* /* self */)
 	if(!checkHaveDocument())
 		return NULL;
 	ScCore->primaryMainWindow()->view->Deselect();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
@@ -387,8 +399,9 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
 	
 	ScCore->primaryMainWindow()->view->RefreshItem(item);
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
