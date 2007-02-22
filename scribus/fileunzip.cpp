@@ -108,7 +108,7 @@ FILE* openfile(const QString& filename, const QString& mode)
 {
 	FILE* fout = NULL;
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	fout = _wfopen(filename.ucs2(), mode.ucs2());
+	fout = _wfopen((const wchar_t*) filename.ucs2(), (const wchar_t*) mode.ucs2());
 #else
 	QCString fname = filename.local8Bit();
 	QCString fmode  = mode.local8Bit();
@@ -152,7 +152,7 @@ int mymkdir(const QString& dirname)
 {
     int ret=0;
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	ret = _wmkdir(dirname.ucs2());
+	ret = _wmkdir((const wchar_t*) dirname.ucs2());
 #elif defined(_WIN32)
 	QCString cdir = dirname.local8Bit();
     ret = _mkdir(cdir.data());
@@ -329,7 +329,7 @@ void change_file_date(const QString& filename, uLong, tm_unz tmu_date)
 
 	ut.actime=ut.modtime=mktime(&newdate);
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	_wutime(filename.ucs2(), &ut);
+	_wutime((const wchar_t*) filename.ucs2(), &ut);
 #else
 	QCString fname = filename.local8Bit();
 	utime(fname.data(), &ut);

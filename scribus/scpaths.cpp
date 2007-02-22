@@ -295,7 +295,7 @@ QString ScPaths::getTempFileDir(void)
 	DWORD result = GetTempPathW(1024, wTempPath);
 	if ( result )
 	{
-		tempPath = QString::fromUcs2(wTempPath);
+		tempPath = QString::fromUcs2((const unsigned short*) wTempPath);
 		tempPath.replace( '\\', '/' );
 		tempPath += "/";
 		// GetTempPath may return Windows directory, better not use this one

@@ -909,7 +909,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
-	maxDim = sqrt( clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight ) * 2;
+	maxDim = sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) ) * 2;
 	if ( maxDim <= 0 ) 
 		return;
 
@@ -1091,7 +1091,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
-	maxDim = sqrt( clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight ) * 2;
+	maxDim = sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) ) * 2;
 	if ( maxDim <= 0 ) return;
 
 	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
@@ -1212,7 +1212,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 
 	clipBoxWidth = rect.width();
 	clipBoxHeight = rect.height();
-	maxDim = sqrt( clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight ) * 2;
+	maxDim = sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) ) * 2;
 	if ( maxDim <= 0 ) return;
 
 	FPoint pc( gradient.origin().x(), gradient.origin().y() );
