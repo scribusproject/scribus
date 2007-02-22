@@ -8,6 +8,7 @@ czech.xml
 dutch.xml
 finnish.xml
 english.xml
+eo.xml
 german.xml
 greek.xml
 hebrew.xml
