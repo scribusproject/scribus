@@ -422,6 +422,7 @@ public:
 	const PageItem* nextInChain() const { return NextBox; }
 	void unlink();
 	void link(PageItem* nextFrame);
+	void dropLinks();
 
 protected:
 	PageItem *BackBox;
@@ -485,7 +486,6 @@ public:
 	bool isGroupControl;
 	PageItem *groupsLastItem;
 	void setGroupsLastItem(PageItem* lnk) { groupsLastItem = lnk; }
-	void setIsGroupControl(bool val) { isGroupControl = val; }
 	double BoundingX;
 	double BoundingY;
 	double BoundingW;

@@ -674,8 +674,34 @@ void PageItem::link(PageItem* nxt)
 	nxt->itemText = itemText;
 	NextBox = nxt;
 	nxt->BackBox = this;
+	// update AutoText
+	if (isAutoText)
+	{
+		PageItem* after = nxt;
+		while (after)
+		{
+			after->isAutoText = true;
+			m_Doc->LastAuto = after;
+			after = after->NextBox;
+		}
+	}
+	else if (nxt->isAutoText)
+	{
+		PageItem* before = this;
+		while (before)
+		{
+			before->isAutoText = true;
+			m_Doc->FirstAuto = before;
+			before = before->BackBox;
+		}
+	}
 	invalid = true;
-	nxt->invalid = true;
+	while (nxt)
+	{
+		nxt->invalid = true;
+		nxt->firstChar = 0;
+		nxt = nxt->NextBox;
+	}
 }
 
 void PageItem::unlink()
@@ -691,15 +717,62 @@ void PageItem::unlink()
 		follow.insert(0, itemText, true);
 		// remove following text from this chain
 		itemText.removeSelection();
+		// update auto pointers
+		if (isAutoText)
+		{
+			PageItem* before = this;
+			while (before) 
+			{
+				before->isAutoText = false;
+				before = before->BackBox;
+			}
+			m_Doc->FirstAuto = NextBox;
+		}
 		// link following frames to new text
 		NextBox->firstChar = 0;
 		NextBox->BackBox = NULL;
 		while (NextBox) {
 			NextBox->itemText = follow;
 			NextBox->invalid = true;
+			NextBox->firstChar = 0;
 			NextBox = NextBox->NextBox;
 		}
 		// NextBox == NULL now
+	}
+}
+
+
+void PageItem::dropLinks()
+{
+	// update auto pointers
+	if (isAutoText && NextBox == 0)
+	{
+		m_Doc->LastAuto = BackBox;
+	}
+	if (isAutoText && BackBox == 0)
+	{
+		m_Doc->FirstAuto = NextBox;
+	}
+	isAutoText = false;
+
+	// leave text in remaining chain
+	PageItem* before = BackBox;
+	PageItem* after = NextBox;
+	if (after != 0 || before != 0)
+	{
+		itemText = StoryText(m_Doc);
+		if (before)
+			before->NextBox = after;
+		if (after) 
+		{
+			after->BackBox = before;
+			while (after)
+			{ 
+				after->invalid = true;
+				after->firstChar = 0;
+				after = after->NextBox;
+			}
+		}
 	}
 }
 
