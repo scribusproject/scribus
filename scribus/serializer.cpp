@@ -49,8 +49,13 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& handle
 	Xml_attr attr;
 	handler.beginDoc();
 	handler.begin("SCRIBUSFRAGMENT", attr);
-	for (uint i=0; i < selection.count(); ++i)
-		selection.itemAt(i)->saxx(handler);
+	ScribusDoc* doc = selection.itemAt(0)->doc();
+	for (uint i=0; i < doc->Items->count(); ++i)
+	{
+		int k = selection.findItem(doc->Items->at(i));
+		if (k >=0)
+			doc->Items->at(i)->saxx(handler);
+	}
 	handler.end("SCRIBUSFRAGMENT");
 	handler.endDoc();
 }
@@ -67,6 +72,7 @@ Selection Serializer::deserializeObjects(const QCString & xml)
 
 	for (uint i=0; i < objects->count(); ++i)
 	{
+//		qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
 		result.addItem(objects->at(i));
 	}
 
@@ -74,10 +80,10 @@ Selection Serializer::deserializeObjects(const QCString & xml)
 	return result;
 }
 
-Selection Serializer::deserializeObjects(const QFile & xml)
+Selection Serializer::deserializeObjects(const QFile & file)
 {
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
-	QFileInfo fi(xml);
+	QFileInfo fi(file);
 	parseFile(fi.filePath());
 	
 	QPtrList<PageItem>* objects = result<QPtrList<PageItem> >();
@@ -85,6 +91,7 @@ Selection Serializer::deserializeObjects(const QFile & xml)
 	
 	for (uint i=0; i < objects->count(); ++i)
 	{
+//		qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
 		result.addItem(objects->at(i));
 	}
 	
