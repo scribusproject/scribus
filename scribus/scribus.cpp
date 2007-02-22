@@ -4533,26 +4533,26 @@ void ScribusMainWindow::slotEditCut()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-			/*
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
-			 */
 			
+			// old version:
+			ScriXmlDoc *ss = new ScriXmlDoc();
+			Buffer2 = ss->WriteElem(doc, view, doc->m_Selection);
+			
+			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
-			
 			BufferI = QString(xmlString.str());			
 			
-			Buffer2 = BufferI;
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
 				scrapbookPalette->ObjFromCopyAction(Buffer2);
 				rebuildRecentPasteMenu();
 			}
+			Buffer2 = BufferI;
 			doc->itemSelection_DeleteItem();
-//			delete ss;
+			delete ss;
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -4648,24 +4648,34 @@ void ScribusMainWindow::slotEditCopy()
 		{
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
-			/*
+			
+			// old version:
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
-			 */
+			Buffer2 = ss->WriteElem(doc, view, doc->m_Selection);
+			
+			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
-			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
-			
 			BufferI = QString(xmlString.str());
-			qDebug(BufferI);
-			Buffer2 = BufferI;
+			
+			// debug:
+			SaxXML tmpfile1("tmp-scribus1.xml", true);
+			Serializer::serializeObjects(*doc->m_Selection, tmpfile1);
+			Serializer digester(*doc);
+			QFile file ("tmp-scribus1.xml");
+			Selection objects = digester.deserializeObjects(file);
+			SaxXML tmpfile2("tmp-scribus2.xml", true);
+			Serializer::serializeObjects(objects, tmpfile2);
+			doc->itemSelection_DeleteItem(&objects);
+			
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
 				scrapbookPalette->ObjFromCopyAction(Buffer2);
 				rebuildRecentPasteMenu();
 			}
-			/*delete ss;*/
+			Buffer2 = BufferI;
+			delete ss;
 		}
 		BuFromApp = true;
 		ClipB->setText(BufferI);
@@ -4877,16 +4887,23 @@ void ScribusMainWindow::slotEditPaste()
 				qDebug(Buffer2);
 				if (Buffer2.startsWith("<SCRIBUSELEM"))
 					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-				else {
+				else 
+				{
 					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.utf8());
-					double x = doc->currentPage()->xOffset();
+					/*double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
 					for (uint i=0; i < pastedObjects.count(); ++i)
 						if (! pastedObjects.itemAt(i)->isEmbedded) 
 						{
-							const Page* pg = doc->Pages->at(doc->OnPage(pastedObjects.itemAt(i)));
-							pastedObjects.itemAt(i)->moveBy(x - pg->xOffset(), y - pg->yOffset(), true);
+						//	const Page* pg = doc->Pages->at(doc->OnPage(pastedObjects.itemAt(i)));
+						//	if (!pg)
+						//		pg = doc->Pages->at(doc->Pages->count() - 1);
+						//	if (pg)
+						//		pastedObjects.itemAt(i)->moveBy(x - pg->xOffset(), y - pg->yOffset(), true);
+							qDebug(QString("move pasted: %1 %2,%3 + %4,%5").arg((ulong)pastedObjects.itemAt(i)).arg(x).arg(y).arg(pastedObjects.itemAt(i)->xPos()).arg(pastedObjects.itemAt(i)->yPos()));
+							pastedObjects.itemAt(i)->moveBy(x, y, true);
 						}
+					*/
 				}
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;

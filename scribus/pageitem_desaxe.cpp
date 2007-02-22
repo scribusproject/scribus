@@ -88,7 +88,6 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("layer", toXMLString(item->LayerNr));
 	result.insert("level", toXMLString(item->ItemNr));
 	result.insert("itemtype", toXMLString(item->itemType()));
-	result.insert("ownpage", toXMLString(item->OwnPage));
 	
 	result.insert("is-bookmark", toXMLString(item->isPDFBookmark()));
 	result.insert("printable", toXMLString(item->printEnabled()));
@@ -97,10 +96,18 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	
 	result.insert("width", toXMLString(item->width()));
 	result.insert("height", toXMLString(item->height()));
-	result.insert("xorigin", toXMLString(item->xPos()));
-	result.insert("yorigin", toXMLString(item->yPos()));
-	//	result.insert("XPOS",item->xPos() - doc->currentPage()->xOffset());
-	//	result.insert("YPOS",item->yPos() - doc->currentPage()->yOffset());
+	result.insert("ownpage", toXMLString(item->OwnPage));
+	Page* page = item->doc()->Pages->at(item->OwnPage);
+	if (page)
+	{
+		result.insert("xorigin", toXMLString(item->xPos() - page->xOffset()));
+		result.insert("yorigin", toXMLString(item->yPos() - page->yOffset()));
+	}
+	else
+	{
+		result.insert("xorigin", toXMLString(item->xPos()));
+		result.insert("yorigin", toXMLString(item->yPos()));
+	}
 	result.insert("rotation", toXMLString(item->rotation()));
 	result.insert("fill-color", item->fillColor());
 	result.insert("fill-shade", toXMLString(item->fillShade()));
@@ -159,25 +166,28 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("cms-profile", item->cmsProfile());
 	result.insert("cms-intent", toXMLString(item->cmsRenderingIntent()));
 	
-	result.insert("isGroupControl", toXMLString(item->controlsGroup()));
-	if (item->isGroupControl)
+	if (item->groups().count() > 0)
 	{
-		if (item->groupsLastItem != 0)
-			result.insert("groupsLastItem", toXMLString(item->groupsLastItem->getUId()));
+		QString grouplist = "";
+		QValueStack<int>::const_iterator it;
+		for (it = item->groups().begin(); it != item->groups().end(); ++it)
+			grouplist += toXMLString( *it ) + " ";	
+		result.insert("groups", toXMLString(grouplist));
+		result.insert("isGroupControl", toXMLString(item->controlsGroup()));
+		if (item->isGroupControl)
+		{
+			if (item->groupsLastItem != 0)
+				result.insert("groupsLastItem", toXMLString(item->groupsLastItem->getUId()));
+		}
 	}
-	QString grouplist = "";
-	QValueStack<int>::const_iterator it;
-	for (it = item->groups().begin(); it != item->groups().end(); ++it)
-		grouplist += toXMLString( *it ) + " ";	
-	result.insert("groups", toXMLString(grouplist));
 	
 	result.insert("isTableItem", toXMLString(item->isTableItem));
-	result.insert("TopLine", toXMLString(item->TopLine));
-	result.insert("LeftLine", toXMLString(item->LeftLine));
-	result.insert("RightLine", toXMLString(item->RightLine));
-	result.insert("BottomLine", toXMLString(item->BottomLine));
 	if (item->isTableItem)
 	{
+		result.insert("TopLine", toXMLString(item->TopLine));
+		result.insert("LeftLine", toXMLString(item->LeftLine));
+		result.insert("RightLine", toXMLString(item->RightLine));
+		result.insert("BottomLine", toXMLString(item->BottomLine));
 		if (item->TopLink != 0)
 			result.insert("TopLINK", toXMLString(item->TopLink->getUId()));
 		if (item->LeftLink != 0)
@@ -300,9 +310,11 @@ class CreatePageItem_body : public Generator_body<PageItem>
 		ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 		
 		PageItem::ItemType type = parseEnum<PageItem::ItemType>(attr["itemtype"]);
-		PageItem::ItemFrameType frametype = parseEnum<PageItem::ItemFrameType>(attr["frame-type"]);
-		double xpos = parseDouble(attr["xorigin"]);
-		double ypos = parseDouble(attr["yorigin"]);
+		PageItem::ItemFrameType frametype = PageItem::Unspecified; // parseEnum<PageItem::ItemFrameType>(attr["frame-type"]);
+		// int ownpage = parseInt(attr["ownpage"]);
+		// doc->setCurrentPage(doc->Pages->at(ownpage));
+		double xpos = parseDouble(attr["xorigin"]) + doc->currentPage()->xOffset();
+		double ypos = parseDouble(attr["yorigin"]) + doc->currentPage()->yOffset();
 		double width = parseDouble(attr["width"]);
 		double height = parseDouble(attr["height"]);
 		double linewidth = parseDouble(attr["line-width"]);
@@ -310,33 +322,8 @@ class CreatePageItem_body : public Generator_body<PageItem>
 		QString lineC = attr["line-color"];
 		int nr = doc->itemAdd(type, frametype, xpos, ypos, width, height, linewidth, fillC, lineC, false);
 		result = doc->Items->at(nr);
-/*		switch (type)
-		{
-			case PageItem::ImageFrame:
-				result = new PageItem_ImageFrame(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
-				break;
-			case PageItem::TextFrame:
-				result = new PageItem_TextFrame(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
-				break;
-			case PageItem::PathText:
-				result = new PageItem_PathText(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
-				break;
-			case PageItem::PolyLine:
-				result = new PageItem_PolyLine(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
-				break;
-			case PageItem::Polygon:
-				result = new PageItem_Polygon(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
-				break;
-			case PageItem::Line:
-				result = new PageItem_Line(doc, xpos, ypos, width, height, linewidth, fillC, lineC);
-				break;
-			default:
-				result = NULL;
-				break;
-		}
-		doc->Items->append(result);
-		*/
 		this->dig->push(result);
+		qDebug(QString("pushed item: %1,%2 params %3,%4").arg(result->xPos()).arg(result->yPos()).arg(xpos).arg(ypos));
 	}
 };
 
@@ -448,8 +435,6 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setHeight, "height", &parseDouble ));  // also in createPageItem()
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setXPos, "xorigin", &parseDouble ));  // also in createPageItem()
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setYPos, "yorigin", &parseDouble ));  // also in createPageItem()
-	//	ruleset.addRule("XPOS",item->xPos() - doc->currentPage()->xOffset());
-	//	ruleset.addRule("YPOS",item->yPos() - doc->currentPage()->yOffset());
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setRotation, "rotation", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setFillColor, "fill-color", dummy ));  // also in createPageItem()
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillShade, "fill-shade", &parseInt ));
