@@ -222,8 +222,8 @@ int MSpinBox::mapTextToValue(bool *)
 {
 	FunctionParser fp;
 	setFPConstants(fp);
-	QString ts = text();
-	QString su = suffix().stripWhiteSpace();
+	QString ts = text().lower();
+	QString su = suffix().stripWhiteSpace().lower();
 	ts.replace(",", ".");
 	ts.replace("%", "");
 	int pos = ts.length();
