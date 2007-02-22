@@ -557,6 +557,9 @@ void PageItem_TextFrame::layout()
 //		qDebug(QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage));
 		return;
 	}
+	if (invalid && BackBox == NULL)
+		firstChar = 0;
+	
 //	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
 	ScribusView* view = m_Doc->view();
 	QPainter pf2;
