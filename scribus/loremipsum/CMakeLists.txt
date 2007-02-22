@@ -8,6 +8,7 @@ cs.xml
 de.xml
 el.xml
 en.xml
+eo.xml
 fi.xml
 he.xml
 it.xml
