@@ -3216,6 +3216,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		default:
+			qDebug("unknown item type");
 			break;
 	}
 	Q_CHECK_PTR(newItem);
@@ -6346,7 +6347,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = itemSelection->itemAt(offs);
-			if ((((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
+		if ((((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
 		{
 			offs++;
 			continue;
@@ -6380,17 +6381,9 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
 		{
-			PageItem* before = currItem->prevInChain();
-			PageItem* after = currItem->nextInChain();
-			// update auto pointers
-			if (currItem->isAutoText && after == 0)
-			{
-				LastAuto = before;
-			}
-			if (currItem->isAutoText && before == 0)
-			{
-				FirstAuto = after;
-			}
+			currItem->dropLinks();
+			
+			/* this code will instead remove the contained text
 			// unlink after
 			currItem->unlink();
 			if (before != 0)
@@ -6403,6 +6396,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 					before->link(after);
 				}
 			}
+			*/
 		}
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);
