@@ -526,8 +526,9 @@ void StyleManager::slotScrap()
 
 void StyleManager::slotNew()
 {
-	if (!isEditMode_)
-		slotOk(); // switch to edit mode for a new style
+//#5334: Dont open into edit mdoe until user has selected a style type
+// 	if (!isEditMode_)
+// 		slotOk(); // switch to edit mode for a new style
 
 	// TODO maybe there's something more clever for this
 	newPopup_->exec(newButton->mapToGlobal(QPoint(0, newButton->height() + 2)));
