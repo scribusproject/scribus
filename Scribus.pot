@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3415,6 +3415,9 @@ msgstr ""
 msgid "German"
 msgstr ""
 
+msgid "German (Swiss)"
+msgstr ""
+
 msgid "German (Trad.)"
 msgstr ""
 
@@ -3524,21 +3527,6 @@ msgid "Edit Line Styles"
 msgstr ""
 
 msgid "Do you really want to delete this style?"
-msgstr ""
-
-msgid "Select Lorem Ipsum"
-msgstr ""
-
-msgid "Get More:"
-msgstr ""
-
-msgid "XML File:"
-msgstr ""
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-msgid "Paragraphs:"
 msgstr ""
 
 msgid "Scribus Crash"
@@ -4631,6 +4619,9 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
 msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Lorem Ipsum"
 msgstr ""
 
 msgid "Always use standard Lorem Ipsum"
@@ -7674,6 +7665,18 @@ msgstr ""
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid "Select Lorem Ipsum"
+msgstr ""
+
+msgid "Get More:"
+msgstr ""
+
+msgid "XML File:"
+msgstr ""
+
+msgid "Paragraphs:"
 msgstr ""
 
 msgid "&Barcode Generator..."
