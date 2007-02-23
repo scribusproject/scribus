@@ -248,7 +248,6 @@ scribus_SOURCES = \
 	splash.cpp	\
 	stencilreader.cpp	\
 	story.cpp	\
-	style.cpp \
 	styleitem.cpp \
 	stylemanager.cpp \
 	stylemanagerbase.ui \
