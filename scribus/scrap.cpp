@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qcursor.h>
+#include <qtoolbox.h>
 #include "query.h"
 #include "scpreview.h"
 #include "prefsfile.h"
@@ -472,7 +473,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	BiblioLayout = new QVBoxLayout( this );
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );
-	
+
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
@@ -494,26 +495,31 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	QSpacerItem* spacer = new QSpacerItem( 16, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	BiblioLayout->addLayout( buttonLayout );
-	
+
+
+//	Frame3 = new QTabWidget( this, "Frame3" );
+	Frame3 = new QToolBox( this, "Frame3" );
+	activeBView = new BibView(this);
+//	Frame3->addTab(activeBView, tr("Main"));
+	Frame3->addItem(activeBView, tr("Main"));
+	tempBView = new BibView(this);
+//	Frame3->addTab(tempBView, tr("Copied Items"));
+	Frame3->addItem(tempBView, tr("Copied Items"));
+	tempCount = 0;
+	BiblioLayout->addWidget( Frame3 );
+
+	languageChange();
+
 	connect(newButton, SIGNAL(clicked()), this, SLOT(NewLib()));
 	connect(loadButton, SIGNAL(clicked()), this, SLOT(Load()));
 	connect(saveAsButton, SIGNAL(clicked()), this, SLOT(SaveAs()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
-
-	Frame3 = new QTabWidget( this, "Frame3" );
-
-	activeBView = new BibView(this);
-	Frame3->addTab(activeBView, tr("Main"));
-	tempBView = new BibView(this);
-	Frame3->addTab(tempBView, tr("Copied Items"));
-	tempCount = 0;
-	BiblioLayout->addWidget( Frame3 );
-	languageChange();
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	connect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
-	connect(Frame3, SIGNAL(currentChanged(QWidget*)), this, SLOT(libChanged(QWidget* )));
+//	connect(Frame3, SIGNAL(currentChanged(QWidget*)), this, SLOT(libChanged(QWidget* )));
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 }
 
 void Biblio::setOpenScrapbooks(QStringList &fileNames)
@@ -532,13 +538,16 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 				Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
 			else */
 // Above code is commented out because QFileInfo::permissons does not work properly
-			Frame3->addTab(activeBView, d.dirName());
+//			Frame3->addTab(activeBView, d.dirName());
+			Frame3->addItem(activeBView, d.dirName());
 			activeBView->ReadContents(fileName);
 			activeBView->ScFilename = fileName;
 		}
 	}
-	activeBView = (BibView*)Frame3->page(0);
-	Frame3->setCurrentPage(0);
+//	activeBView = (BibView*)Frame3->page(0);
+//	Frame3->setCurrentPage(0);
+	activeBView = (BibView*)Frame3->item(0);
+	Frame3->setCurrentIndex(0);
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	connect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -552,7 +561,8 @@ QStringList Biblio::getOpenScrapbooks()
 	{
 		for (int a = 2; a < Frame3->count(); a++)
 		{
-			BibView* bv = (BibView*)Frame3->page(a);
+//			BibView* bv = (BibView*)Frame3->page(a);
+			BibView* bv = (BibView*)Frame3->item(a);
 			ret.append(bv->ScFilename);
 		}
 	}
@@ -606,7 +616,8 @@ void Biblio::NewLib()
 	{
 		for (int a = 0; a < Frame3->count(); a++)
 		{
-			BibView* bv = (BibView*)Frame3->page(a);
+//			BibView* bv = (BibView*)Frame3->page(a);
+			BibView* bv = (BibView*)Frame3->item(a);
 			if (fileName == bv->ScFilename)
 				return;
 		}
@@ -615,13 +626,15 @@ void Biblio::NewLib()
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 		QDir d(fileName);
 		activeBView = new BibView(this);
-		Frame3->addTab(activeBView, d.dirName());
+//		Frame3->addTab(activeBView, d.dirName());
+		Frame3->addItem(activeBView, d.dirName());
 		activeBView->ScFilename = fileName;
-		Frame3->showPage(activeBView);
+//		Frame3->showPage(activeBView);
+		Frame3->setCurrentItem(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absPath());
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
-	connect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
+		connect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 		connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	}
 }
@@ -634,7 +647,8 @@ void Biblio::Load()
 	{
 		for (int a = 0; a < Frame3->count(); a++)
 		{
-			BibView* bv = (BibView*)Frame3->page(a);
+//			BibView* bv = (BibView*)Frame3->page(a);
+			BibView* bv = (BibView*)Frame3->item(a);
 			if (fileName == bv->ScFilename)
 				return;
 		}
@@ -647,10 +661,12 @@ void Biblio::Load()
 			Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
 		else */
 // Above code is commented out because QFileInfo::permissons does not work properly
-			Frame3->addTab(activeBView, d.dirName());
+//		Frame3->addTab(activeBView, d.dirName());
+		Frame3->addItem(activeBView, d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
-		Frame3->showPage(activeBView);
+//		Frame3->showPage(activeBView);
+		Frame3->setCurrentItem(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absPath());
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
@@ -690,7 +706,8 @@ void Biblio::SaveAs()
 	{
 		for (int a = 0; a < Frame3->count(); a++)
 		{
-			BibView* bv = (BibView*)Frame3->page(a);
+//			BibView* bv = (BibView*)Frame3->page(a);
+			BibView* bv = (BibView*)Frame3->item(a);
 			if (fn == bv->ScFilename)
 				return;
 		}
@@ -708,29 +725,35 @@ void Biblio::closeLib()
 {
 	if (Frame3->count() == 2)
 		close();
-	if ((Frame3->currentPageIndex() == 0) || (Frame3->currentPageIndex() == 1))
+//	if ((Frame3->currentPageIndex() == 0) || (Frame3->currentPageIndex() == 1))
+	if ((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1))
 		return;
 	else
 	{
 		disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		disconnect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 		disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
-		Frame3->removePage(activeBView);
+//		Frame3->removePage(activeBView);
+		Frame3->removeItem(activeBView);
 //		delete activeBView;   currently disabled as the whole TabWidget vanishes when executing that delete?????
-		activeBView = (BibView*)Frame3->page(0);
-		Frame3->setCurrentPage(0);
+//		activeBView = (BibView*)Frame3->page(0);
+//		Frame3->setCurrentPage(0);
+		activeBView = (BibView*)Frame3->item(0);
+		Frame3->setCurrentIndex(0);
 		connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 		connect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 		connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	}
 }
 
-void Biblio::libChanged(QWidget *lib)
+// void Biblio::libChanged(QWidget *lib)
+void Biblio::libChanged(int index)
 {
 	disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	disconnect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 	disconnect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
-	activeBView = (BibView*)lib;
+//	activeBView = (BibView*)lib;
+	activeBView = (BibView*)Frame3->item(index);
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	connect(activeBView, SIGNAL(mouseButtonClicked(int, QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, QIconViewItem*)));
 	connect(activeBView, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
@@ -746,11 +769,14 @@ void Biblio::HandleMouse(int button, QIconViewItem *ite)
 		QPopupMenu *pmenu3 = new QPopupMenu();
 		for (int a = 0; a < Frame3->count(); a++)
 		{
-			BibView* bv = (BibView*)Frame3->page(a);
+//			BibView* bv = (BibView*)Frame3->page(a);
+			BibView* bv = (BibView*)Frame3->item(a);
 			if (bv != activeBView)
 			{
-				pmenu2->insertItem(Frame3->tabLabel(Frame3->page(a)), a);
-				pmenu3->insertItem(Frame3->tabLabel(Frame3->page(a)), a);
+//				pmenu2->insertItem(Frame3->tabLabel(Frame3->page(a)), a);
+//				pmenu3->insertItem(Frame3->tabLabel(Frame3->page(a)), a);
+				pmenu2->insertItem(Frame3->itemLabel(Frame3->indexOf(Frame3->item(a))), a);
+				pmenu3->insertItem(Frame3->itemLabel(Frame3->indexOf(Frame3->item(a))), a);
 			}
 		}
 		connect(pmenu2, SIGNAL(activated(int)), this, SLOT(copyObj(int)));
@@ -779,7 +805,8 @@ bool Biblio::copyObj(int id)
 {
 	QIconViewItem *ite = activeBView->currentItem();
 	QString nam = ite->text();
-	BibView* bv = (BibView*)Frame3->page(id);
+//	BibView* bv = (BibView*)Frame3->page(id);
+	BibView* bv = (BibView*)Frame3->item(id);
 	if (bv->objectMap.contains(nam))
 	{
 		Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
@@ -1059,7 +1086,8 @@ void Biblio::ObjFromMenu(QString text)
 /*	if (!activeBView->canWrite)
 		return; */
 // Above code is commented out because QFileInfo::permissons does not work properly
-	if (Frame3->currentPageIndex() == 1)
+//	if (Frame3->currentPageIndex() == 1)
+	if (Frame3->currentIndex() == 1)
 	{
 		nam = tr("Object") + tmp.setNum(tempCount);
 		tempCount++;
@@ -1103,7 +1131,8 @@ void Biblio::ObjFromMenu(QString text)
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new QIconViewItem(activeBView, nam, pm);
 	delete pre;
-	if (Frame3->currentPageIndex() == 1)
+//	if (Frame3->currentPageIndex() == 1)
+	if (Frame3->currentIndex() == 1)
 	{
 		if (tempBView->objectMap.count() > static_cast<uint>(PrefsManager::instance()->appPrefs.numScrapbookCopies))
 		{

@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 class QHBoxLayout;
 class QToolButton;
 class QVBoxLayout;
+class QToolBox;
 
 class SCRIBUS_API BibView : public QIconView
 {
@@ -93,7 +94,8 @@ private slots:
 	void Load();
 	void SaveAs();
 	void closeLib();
-	void libChanged(QWidget *lib);
+//	void libChanged(QWidget *lib);
+	void libChanged(int index);
 	void Import();
 
 signals:
@@ -104,7 +106,8 @@ protected:
 // 	QPopupMenu* pmenu;
 // 	QPopupMenu* fmenu;
 // 	QMenuBar* menuBar;
-	QTabWidget* Frame3;
+//	QTabWidget* Frame3;
+	QToolBox* Frame3;
 	QVBoxLayout* BiblioLayout;
 	BibView* activeBView;
 	int tempCount;
