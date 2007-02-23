@@ -73,7 +73,7 @@ StoryText::StoryText() : doc(NULL)
 	m_lastMagicPos = -1;
 }
 
-StoryText::StoryText(const StoryText & other) : QObject(), doc(other.doc)
+StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), doc(other.doc)
 {
 	d = other.d;
 	d->refs++;
@@ -1196,7 +1196,8 @@ void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
 		if (lastWasPar)
 		{
 			handler.begin("para", empty);
-			paragraphStyle(i).saxx(handler);
+			if (paragraphStyle(i) != ParagraphStyle())
+				paragraphStyle(i).saxx(handler);
 			handler.end("para");
 		}
 		else if (curr == SpecialChars::OBJECT && object(i) != NULL)

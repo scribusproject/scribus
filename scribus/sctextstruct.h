@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfonts.h"
 #include "style.h"
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
 
 class PageItem;
 

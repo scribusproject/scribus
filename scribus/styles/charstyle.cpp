@@ -10,7 +10,7 @@
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
-#include "style.h"
+#include "charstyle.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
 #include "prefsmanager.h"
@@ -254,10 +254,7 @@ Xml_string toXMLString(StyleFlag val)
 void CharStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
 	Xml_attr att;
-	if (!name().isEmpty())
-		att.insert("name", name());
-	if (!parent().isEmpty())
-		att.insert("parent", parent());
+	Style::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
@@ -291,8 +288,7 @@ void CharStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_str
 	{
 		Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 		ruleset.addRule(stylePrefix, Factory<CharStyle>());
-		ruleset.addRule(stylePrefix, SetAttributeWithConversion<CharStyle, const QString&>( & CharStyle::setName, "name", &parse<const QString&>));
-		ruleset.addRule(stylePrefix, SetAttributeWithConversion<CharStyle, const QString&>( & CharStyle::setParent, "parent", &parse<const QString&>));
+		Style::desaxeRules(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<CharStyle, attr_TYPE> ( & CharStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
 #include "charstyle.attrdefs.cxx"

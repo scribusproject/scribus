@@ -16,7 +16,7 @@
 
 
 
-#include "style.h"
+#include "paragraphstyle.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
 
@@ -212,10 +212,7 @@ static QString toXMLString(const QValueList<ParagraphStyle::TabRecord> & )
 void ParagraphStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
 	Xml_attr att;
-	if (!name().isEmpty())
-		att.insert("name", name());
-	if (!parent().isEmpty())
-		att.insert("parent", parent());
+	Style::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME && # attr_NAME != "TabValues") \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
@@ -232,7 +229,8 @@ void ParagraphStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
 		tab.insert("type", toXMLString(tb.tabType));
 		handler.beginEnd("tabstop", tab);
 	}
-	charStyle().saxx(handler);
+	if (charStyle() != CharStyle())
+		charStyle().saxx(handler);
 	handler.end(elemtag);
 }
 
@@ -306,8 +304,7 @@ void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xm
 		
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());
-	ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, const QString&>( & ParagraphStyle::setName, "name", &parse<const QString&>));
-	ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, const QString&>( & ParagraphStyle::setParent, "parent", &parse<const QString&>));
+	Style::desaxeRules(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if ( # attr_NAME != "TabValues") \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, attr_TYPE> ( & ParagraphStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));

@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include "pagestructs.h"
 #include "style.h"
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
 #include "scribusapi.h"
 
 class ScribusDoc;

@@ -13,8 +13,12 @@
 *                                                                         *
 ***************************************************************************/
 
+#ifndef PARAGRAPHSTYLE_H
+#define PARAGRAPHSTYLE_H
 
-// DONT INCLUDE this file directly, include "style.h" instead!
+#include "style.h"
+#include "charstyle.h"
+#include "styles/stylecontextproxy.h"
 
 class SCRIBUS_API ParagraphStyle : public Style
 {
@@ -108,6 +112,8 @@ public:
 	void set##attr_NAME(attr_TYPE v) { m_##attr_NAME = v; inh_##attr_NAME = false; }
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
+	void appendTabValue(const TabRecord& tab) { validate(); m_TabValues.append(tab); inh_TabValues = false; }
+	
 	
 	/** setter: resets the attribute's value and sets inherited flag */
 	
@@ -148,3 +154,5 @@ private:
 #undef ATTRDEF
 		
 };
+
+#endif

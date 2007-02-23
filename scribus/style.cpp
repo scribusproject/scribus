@@ -15,7 +15,9 @@
 
 
 #include "style.h"
-
+#include "desaxe/digester.h"
+#include "desaxe/simple_actions.h"
+#include "desaxe/saxiohelper.h"
 
 void Style::setContext(const StyleContext* context)
 { 
@@ -52,3 +54,22 @@ const Style* Style::parentStyle() const
 	if (par == this) return NULL; else return par;
 }
 
+using namespace desaxe;
+
+static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
+{
+	ruleset.addRule(prefixPattern, SetAttributeWithConversion<Style, const QString&>( & Style::setName, "name", &parse<const QString&>));
+	ruleset.addRule(prefixPattern, SetAttributeWithConversion<Style, const QString&>( & Style::setParent, "parent", &parse<const QString&>));
+	ruleset.addRule(prefixPattern, SetAttributeWithConversion<Style, const QString&>( & Style::setShortcut, "shortcut", &parse<const QString&>));
+}
+
+
+void Style::saxxAttributes(Xml_attr& attr) const
+{
+	if (!name().isEmpty())
+		attr["name"] = name();
+	if(!parent().isEmpty())
+		attr["parent"] = parent();
+	if (!shortcut().isEmpty())
+		attr["shortcut"] = shortcut();
+}

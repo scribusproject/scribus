@@ -11,17 +11,9 @@
 //#include "text/paragraphlayout.h"
 #include "text/frect.h"
 #include "style.h"
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
 #include "styles/stylecontextproxy.h"
-
-#ifdef NLS_CONFORMANCE
-#define NLS_PRIVATE private
-#else
-#define NLS_PRIVATE public
-#endif
-
-class CharStyle;
-class ParagraphStyle;
-class PageItem;
 
 
 class SCRIBUS_API ScText_Shared : public QPtrList<ScText>

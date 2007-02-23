@@ -66,6 +66,16 @@ public:
 	
 	virtual ~Style()                 {}
 
+	
+	// this is an abstract class, so:
+	// static const Xml_string saxxDefaultElem; 
+	static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag);
+	
+	void saxxAttributes(Xml_attr& attr) const;
+	//virtual void saxx(SaxHandler& handler, Xml_string elemtag) const;
+	//virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+	
+	
 	QString name() const             { return m_name; }
 	void setName(const QString& n)   { m_name = n; }
 	bool hasName() const             { return ! m_name.isEmpty(); }
@@ -139,11 +149,6 @@ public:
 	}
 };
 
-
-//FIXME: make this proper: charstyle.h #includes style.h, pstyle.h #includes style.h and stylecontextproxy.h
-#include "styles/stylecontextproxy.h"
-#include "styles/charstyle.h"
-#include "styles/paragraphstyle.h"
 
 
 #endif

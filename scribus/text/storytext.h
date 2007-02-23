@@ -37,6 +37,8 @@ pageitem.cpp  -  description
 #include "text/specialchars.h"
 #include "sctextstruct.h"
 #include "style.h"
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
 #include "desaxe/saxio.h"
 
 #ifdef NLS_CONFORMANCE
