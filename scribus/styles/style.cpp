@@ -56,7 +56,7 @@ const Style* Style::parentStyle() const
 
 using namespace desaxe;
 
-void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
+void  Style::desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
 {
 	ruleset.addRule(prefixPattern, SetAttributeWithConversion<Style, const QString&>( & Style::setName, "name", &parse<const QString&>));
 	ruleset.addRule(prefixPattern, SetAttributeWithConversion<Style, const QString&>( & Style::setParent, "parent", &parse<const QString&>));
