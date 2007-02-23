@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: 2006-11-02 22:04+0200\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -3592,6 +3592,10 @@ msgstr "Εσθονική"
 msgid "German"
 msgstr "Γερμανική"
 
+#, fuzzy
+msgid "German (Swiss)"
+msgstr "Γερμανική (Παραδοσιακή)"
+
 msgid "German (Trad.)"
 msgstr "Γερμανική (Παραδοσιακή)"
 
@@ -3702,21 +3706,6 @@ msgstr "Επεξεργασία στυλ γραμμών"
 
 msgid "Do you really want to delete this style?"
 msgstr "Επιθυμείτε πραγματικά τη διαγραφή αυτού του στυλ;"
-
-msgid "Select Lorem Ipsum"
-msgstr "Επιλογή δείγματος κειμένου"
-
-msgid "Get More:"
-msgstr "Λήψη περισσοτέρων:"
-
-msgid "XML File:"
-msgstr "Αρχείο XML:"
-
-msgid "Lorem Ipsum"
-msgstr "Δείγμα κειμένου"
-
-msgid "Paragraphs:"
-msgstr "Παράγραφοι:"
 
 msgid "Scribus Crash"
 msgstr "Κατάρρευση του Scribus"
@@ -4862,6 +4851,9 @@ msgstr ""
 
 msgid "Show Startup Dialog"
 msgstr "Εμφάνιση διαλόγου έναρξης"
+
+msgid "Lorem Ipsum"
+msgstr "Δείγμα κειμένου"
 
 msgid "Always use standard Lorem Ipsum"
 msgstr "Πάντα χρήση τυπικού δείγματος κειμένου"
@@ -8203,6 +8195,18 @@ msgid ""
 msgstr ""
 "Η τιμή που έχετε εισάγει είναι εκτός ορίου του αριθμού σελίδων στο τρέχον "
 "έγγραφο (%1-%2)."
+
+msgid "Select Lorem Ipsum"
+msgstr "Επιλογή δείγματος κειμένου"
+
+msgid "Get More:"
+msgstr "Λήψη περισσοτέρων:"
+
+msgid "XML File:"
+msgstr "Αρχείο XML:"
+
+msgid "Paragraphs:"
+msgstr "Παράγραφοι:"
 
 msgid "&Barcode Generator..."
 msgstr "&Δημιουργός γραμμωτού κώδικα..."

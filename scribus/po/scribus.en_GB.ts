@@ -13437,6 +13437,10 @@ is not exhaustive due to exceptions from called functions.
       <source>%1 may be corrupted : missing or wrong resolution tags</source>
       <translation>%1 may be corrupted : missing or wrong resolution tags</translation>
     </message>
+    <message>
+      <source>German (Swiss)</source>
+      <translation>German (Swiss)</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>

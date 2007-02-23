@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -3968,6 +3968,10 @@ msgid "German"
 msgstr "Vokiðkai:"
 
 #, fuzzy
+msgid "German (Swiss)"
+msgstr "Vokiðkai:"
+
+#, fuzzy
 msgid "German (Trad.)"
 msgstr "Vokiðkai:"
 
@@ -4096,24 +4100,6 @@ msgstr "Keisti stilius"
 #, fuzzy
 msgid "Do you really want to delete this style?"
 msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
-
-#, fuzzy
-msgid "Select Lorem Ipsum"
-msgstr "Paþymëti objekts"
-
-msgid "Get More:"
-msgstr ""
-
-#, fuzzy
-msgid "XML File:"
-msgstr "Failas:"
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-#, fuzzy
-msgid "Paragraphs:"
-msgstr "Stiliai..."
 
 #, fuzzy
 msgid "Scribus Crash"
@@ -5379,6 +5365,9 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
 msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Lorem Ipsum"
 msgstr ""
 
 msgid "Always use standard Lorem Ipsum"
@@ -8885,6 +8874,21 @@ msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
 msgstr ""
+
+#, fuzzy
+msgid "Select Lorem Ipsum"
+msgstr "Paþymëti objekts"
+
+msgid "Get More:"
+msgstr ""
+
+#, fuzzy
+msgid "XML File:"
+msgstr "Failas:"
+
+#, fuzzy
+msgid "Paragraphs:"
+msgstr "Stiliai..."
 
 msgid "&Barcode Generator..."
 msgstr ""

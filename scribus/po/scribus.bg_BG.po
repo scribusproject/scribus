@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -3882,6 +3882,10 @@ msgid "German"
 msgstr "Немски:"
 
 #, fuzzy
+msgid "German (Swiss)"
+msgstr "Немски:"
+
+#, fuzzy
 msgid "German (Trad.)"
 msgstr "Немски:"
 
@@ -4008,24 +4012,6 @@ msgstr "Редактиране на стилове"
 #, fuzzy
 msgid "Do you really want to delete this style?"
 msgstr "Наистина ли искате да изтриете този стил?"
-
-#, fuzzy
-msgid "Select Lorem Ipsum"
-msgstr "Маркирани обекти"
-
-msgid "Get More:"
-msgstr ""
-
-#, fuzzy
-msgid "XML File:"
-msgstr "Файл:"
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-#, fuzzy
-msgid "Paragraphs:"
-msgstr "Стилове..."
 
 #, fuzzy
 msgid "Scribus Crash"
@@ -5259,6 +5245,9 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
 msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Lorem Ipsum"
 msgstr ""
 
 msgid "Always use standard Lorem Ipsum"
@@ -8696,6 +8685,21 @@ msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
 msgstr ""
+
+#, fuzzy
+msgid "Select Lorem Ipsum"
+msgstr "Маркирани обекти"
+
+msgid "Get More:"
+msgstr ""
+
+#, fuzzy
+msgid "XML File:"
+msgstr "Файл:"
+
+#, fuzzy
+msgid "Paragraphs:"
+msgstr "Стилове..."
 
 msgid "&Barcode Generator..."
 msgstr ""

@@ -13664,6 +13664,10 @@ External Links
         <source>Warning</source>
         <translation type="unfinished">警告</translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>

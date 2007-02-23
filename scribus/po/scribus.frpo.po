@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: 2006-03-13 15:27+0100\n"
 "Last-Translator: Louis Desjardins <louis_desjardins@mardigrafe.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -3584,6 +3584,10 @@ msgstr ""
 msgid "German"
 msgstr "Allemand"
 
+#, fuzzy
+msgid "German (Swiss)"
+msgstr "Allemand (Trad.)"
+
 msgid "German (Trad.)"
 msgstr "Allemand (Trad.)"
 
@@ -3694,21 +3698,6 @@ msgstr "Édition des styles de filets"
 
 msgid "Do you really want to delete this style?"
 msgstr "Effacer définitivement ce style ?"
-
-msgid "Select Lorem Ipsum"
-msgstr "Sélectionner le faux texte"
-
-msgid "Get More:"
-msgstr "Plus :"
-
-msgid "XML File:"
-msgstr "Fichier XML :"
-
-msgid "Lorem Ipsum"
-msgstr "Faux texte"
-
-msgid "Paragraphs:"
-msgstr "Paragraphes :"
 
 msgid "Scribus Crash"
 msgstr "Plantage de Scribus"
@@ -4845,6 +4834,9 @@ msgstr "Aperçu du style de paragraphe courant lors de l'édition des styles"
 
 msgid "Show Startup Dialog"
 msgstr "Afficher l'écran de démarrage"
+
+msgid "Lorem Ipsum"
+msgstr "Faux texte"
 
 msgid "Always use standard Lorem Ipsum"
 msgstr "Toujours utiliser le faux texte Lorem Ipsum"
@@ -8153,6 +8145,18 @@ msgid ""
 msgstr ""
 "La valeur que vous avez entrée est plus grande que le nombre de pages du "
 "présent document (%1-%2)."
+
+msgid "Select Lorem Ipsum"
+msgstr "Sélectionner le faux texte"
+
+msgid "Get More:"
+msgstr "Plus :"
+
+msgid "XML File:"
+msgstr "Fichier XML :"
+
+msgid "Paragraphs:"
+msgstr "Paragraphes :"
 
 msgid "&Barcode Generator..."
 msgstr "C&réateur de codes à barres..."

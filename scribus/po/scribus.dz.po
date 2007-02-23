@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -3837,6 +3837,10 @@ msgid "German"
 msgstr "ཇར་མཱན།"
 
 #, fuzzy
+msgid "German (Swiss)"
+msgstr "ཇར་མཱན།"
+
+#, fuzzy
 msgid "German (Trad.)"
 msgstr "ཇར་མཱན།"
 
@@ -3954,24 +3958,6 @@ msgstr "གྲལ་ཐིག་གི་བཟོ་རྣམ་ཚུ་ཞུ
 #, fuzzy
 msgid "Do you really want to delete this style?"
 msgstr "བཟོ་རྣམ་འདི་ཁྱོད་ཀྱིས་བཏོན་གཏང་ནི་འདི་ཐད་རི་འབའ་རི་ཨིན་ན?"
-
-#, fuzzy
-msgid "Select Lorem Ipsum"
-msgstr "རྣམ་གྲངས་སེལ་འཐུ་འབད།"
-
-msgid "Get More:"
-msgstr ""
-
-#, fuzzy
-msgid "XML File:"
-msgstr "ཨེཆ་ཊི་ཨེཤ་ཨེལ་ ཡིག་སྣོད་ཚུ།"
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-#, fuzzy
-msgid "Paragraphs:"
-msgstr "དོན་མཚམས་ཚུ : "
 
 msgid "Scribus Crash"
 msgstr "སི་ཀིརི་བསི་བརྡབ་འཁྲུག"
@@ -5178,6 +5164,9 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
 msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Lorem Ipsum"
 msgstr ""
 
 msgid "Always use standard Lorem Ipsum"
@@ -8648,6 +8637,21 @@ msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
 msgstr ""
+
+#, fuzzy
+msgid "Select Lorem Ipsum"
+msgstr "རྣམ་གྲངས་སེལ་འཐུ་འབད།"
+
+msgid "Get More:"
+msgstr ""
+
+#, fuzzy
+msgid "XML File:"
+msgstr "ཨེཆ་ཊི་ཨེཤ་ཨེལ་ ཡིག་སྣོད་ཚུ།"
+
+#, fuzzy
+msgid "Paragraphs:"
+msgstr "དོན་མཚམས་ཚུ : "
 
 msgid "&Barcode Generator..."
 msgstr ""

@@ -12468,6 +12468,10 @@ Liens externes
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 semble corrompu : les balises de résolution sont absentes ou incorrectes</translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>

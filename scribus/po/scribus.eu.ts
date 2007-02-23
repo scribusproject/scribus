@@ -13857,6 +13857,10 @@ motakoa dela, eskertuko genizuke arazo honen berri emango bazenu.</translation>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>

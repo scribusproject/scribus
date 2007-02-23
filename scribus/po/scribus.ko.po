@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -3566,6 +3566,9 @@ msgstr ""
 msgid "German"
 msgstr ""
 
+msgid "German (Swiss)"
+msgstr ""
+
 msgid "German (Trad.)"
 msgstr ""
 
@@ -3681,23 +3684,6 @@ msgstr ""
 
 msgid "Do you really want to delete this style?"
 msgstr ""
-
-msgid "Select Lorem Ipsum"
-msgstr ""
-
-msgid "Get More:"
-msgstr ""
-
-#, fuzzy
-msgid "XML File:"
-msgstr "파일로:"
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-#, fuzzy
-msgid "Paragraphs:"
-msgstr "문단 스타일(&P)..."
 
 msgid "Scribus Crash"
 msgstr ""
@@ -4826,6 +4812,9 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
 msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Lorem Ipsum"
 msgstr ""
 
 msgid "Always use standard Lorem Ipsum"
@@ -7973,6 +7962,20 @@ msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
 msgstr ""
+
+msgid "Select Lorem Ipsum"
+msgstr ""
+
+msgid "Get More:"
+msgstr ""
+
+#, fuzzy
+msgid "XML File:"
+msgstr "파일로:"
+
+#, fuzzy
+msgid "Paragraphs:"
+msgstr "문단 스타일(&P)..."
 
 msgid "&Barcode Generator..."
 msgstr ""

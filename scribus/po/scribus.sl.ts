@@ -17182,6 +17182,10 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.</translation>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 je morda okvarjena : manjkajoče ali napačne oznake ločljivosti</translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>

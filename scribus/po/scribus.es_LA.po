@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 00:10+0100\n"
+"POT-Creation-Date: 2007-02-23 21:08+0100\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -3967,6 +3967,10 @@ msgid "German"
 msgstr "Alemán:"
 
 #, fuzzy
+msgid "German (Swiss)"
+msgstr "Alemán:"
+
+#, fuzzy
 msgid "German (Trad.)"
 msgstr "Alemán:"
 
@@ -4095,24 +4099,6 @@ msgstr "Editar Estilos"
 #, fuzzy
 msgid "Do you really want to delete this style?"
 msgstr "¿Realmente quiere borrar este Estilo?"
-
-#, fuzzy
-msgid "Select Lorem Ipsum"
-msgstr "Seleccionar Objetos"
-
-msgid "Get More:"
-msgstr ""
-
-#, fuzzy
-msgid "XML File:"
-msgstr "Archivo:"
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-#, fuzzy
-msgid "Paragraphs:"
-msgstr "Estilos..."
 
 #, fuzzy
 msgid "Scribus Crash"
@@ -5377,6 +5363,9 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
 msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Lorem Ipsum"
 msgstr ""
 
 msgid "Always use standard Lorem Ipsum"
@@ -8881,6 +8870,21 @@ msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
 msgstr ""
+
+#, fuzzy
+msgid "Select Lorem Ipsum"
+msgstr "Seleccionar Objetos"
+
+msgid "Get More:"
+msgstr ""
+
+#, fuzzy
+msgid "XML File:"
+msgstr "Archivo:"
+
+#, fuzzy
+msgid "Paragraphs:"
+msgstr "Estilos..."
 
 msgid "&Barcode Generator..."
 msgstr ""

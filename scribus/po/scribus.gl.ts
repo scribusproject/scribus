@@ -19098,6 +19098,10 @@ Importador de PDB</translation>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
