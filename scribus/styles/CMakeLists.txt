@@ -8,7 +8,7 @@ SET(SCRIBUS_STYLES_MOC_CLASSES
 )
 
 SET(SCRIBUS_STYLES_LIB_SOURCES
-styel.cpp
+style.cpp
 stylecontext.cpp
 stylecontextproxy.cpp
 linestyle.cpp
