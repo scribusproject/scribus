@@ -15748,7 +15748,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Check for PDF Annotations and Fields</source>
-      <translation>Tarkasta PDF-huomautukset ja kentät</translation>
+      <translation>Tarkasta PDF-merkinnät ja kentät</translation>
     </message>
     <message>
       <source>Add Profile</source>
@@ -16181,7 +16181,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Allow Adding &amp;Annotations and Fields</source>
-      <translation>Salli &amp;kenttien lisääminen</translation>
+      <translation>Salli &amp;kenttien ja merkintöjen lisääminen</translation>
     </message>
     <message>
       <source>S&amp;ecurity</source>
@@ -16433,7 +16433,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-      <translation>Salli kenttien ja huomautusten lisääminen PDF-tiedostoon. Jos kohtaa ei valita, kenttien ja huomautusten muokkaus on estetty.</translation>
+      <translation>Salli kenttien ja merkintöjen lisääminen PDF-tiedostoon. Jos kohtaa ei valita, kenttien ja merkintöjen muokkaus on estetty.</translation>
     </message>
     <message>
       <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -17863,7 +17863,7 @@ Virhe: %2 rivillä %3, rivi: %4</translation>
     </message>
     <message>
       <source>Insert PDF Annotations</source>
-      <translation>Lisää PDF-huomautus</translation>
+      <translation>Lisää PDF-merkintä</translation>
     </message>
   </context>
   <context>
