@@ -334,6 +334,8 @@ QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
 {
 	if (!Options.Encrypt)
 	{
+		if (in.length() < 3)
+			return "<>";
 		QString tmp = in.mid(1, in.length()-2);
 		QByteArray us = EncodeUTF16(tmp);
 		QString uk = "";
@@ -658,7 +660,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
+			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -671,7 +677,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
+			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -684,7 +694,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
+			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -4373,8 +4387,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	ScImage img2;
 	ScImage img3;
 	QMap<int, QString> ind2PDFabr;
-//	static const QString bifonts[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
-//			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
 	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
 												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
@@ -4452,7 +4464,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			QString cnx = "("+ind2PDFabr[ite->annotation().Font()]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
+			QString cnx = "(/"+StdFonts[ind2PDFabr[ite->annotation().Font()]]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != CommonStrings::None)
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
 			if (ite->fillColor() != CommonStrings::None)
@@ -4689,14 +4701,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	}
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
 	PutDoc(">>\nendobj\n");
-	QMap<int, QString> ind2PDFabr2;
-	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
-												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
-												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
-												"/ZapfDingbats", "/Symbol"};
-	size_t ar2 = sizeof(tmpf) / sizeof(*tmpf);
-	for (uint ax = 0; ax < ar2; ++ax)
-		ind2PDFabr2[ax] = tmpf[ax];
 	if ((ite->annotation().Type() == 2) && (ite->annotation().UseIcons()))
 	{
 		if (!ite->Pfile.isEmpty())
@@ -4730,7 +4734,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+		cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4744,7 +4748,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		}
 		else
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
-//		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if (ite->annotation().Type() == 4)
@@ -4752,9 +4755,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc = "q\nBT\n";
 		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/ZaDb "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
+		cc += "/"+StdFonts["/ZapfDingbats"]+" "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
-//		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if ((ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
@@ -4770,8 +4772,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
-//		cc += ind2PDFabr[ite->AnFont];
+		cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
