@@ -495,7 +495,35 @@ struct SVGState
 
 QString FPointArray::svgPath() const
 {
-	Xml_string result;
+	QString tmp = "";
+	FPoint np, np1, np2;
+	bool nPath = true;
+	if (size() > 3)
+	{
+		for (uint poi=0; poi < size()-3; poi += 4)
+		{
+			if (point(poi).x() > 900000)
+			{
+//				tmp += "Z ";
+				nPath = true;
+				continue;
+			}
+			if (nPath)
+			{
+				np = point(poi);
+				tmp += "M"+QString::number(np.x())+" "+QString::number(np.y())+" ";
+				nPath = false;
+			}
+			np = point(poi+1);
+			tmp += "C"+QString::number(np.x())+" "+QString::number(np.y())+" ";
+			np1 = point(poi+3);
+			tmp += QString::number(np1.x())+" "+QString::number(np1.y())+" ";
+			np2 = point(poi+2);
+			tmp += QString::number(np2.x())+" "+QString::number(np2.y())+" ";
+		}
+	}
+	return tmp;
+/*	Xml_string result;
 	bool hasPoint = false;
 	double x, y, x1, y1, x2, y2, xe=0, ye=0; 
 	uint i=0;
@@ -534,7 +562,7 @@ QString FPointArray::svgPath() const
 		result += " ";
 		result += QString::number(ye);
 	}
-	return result;	
+	return result;	*/
 }
 
 
