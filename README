@@ -1,5 +1,6 @@
-This is Scribus Version 1.3.3.7, the tenth release of the 1.3.x development
-series.
+This is Scribus Version 1.3.3.8, the eleventh release of the 1.3.x development
+series. We have stablized 1.3.3.x and now consider his our stable release. 
+Scribus 1.2.x is deprecated.
 
 CHANGES 1.2.x to 1.3.x
 ======================
@@ -36,7 +37,7 @@ To convert older( =< 1.1.1) documents follow the procedure below:
 When you now open old documents Scribus will convert all font names
 automatically.
 
-Scribus 1.3.3.7 includes support for building via CMake, a replacement
+Scribus 1.3.3.8 includes support for building via CMake, a replacement
 for traditional autotools. 
 Please see:http://docs.scribus.net/index.php?lang=en&page=install4 for details.
 
@@ -94,9 +95,9 @@ the gradient to have equal shading from beginning to end, especially if there
  and not fixable by us. The gradient will export and print properly.
  The optional cairo build is a compile time option. The is enabled by:
 ./configure --enable-cairo
-The cairo build option is experimental, has not received all the needed
- regression tests and requires cairo 0.9+ or greater. 
-Cario 1.2.x+ is strongly recommended.
+The cairo build option is optional, has not received all the needed
+ regression tests and requires cairo 1.2.x+ or greater. 
+Cario 1.2.x+ is strongly recommended. 
 
 Our experimental Cairo build does not have these issues.  We encourage those
  willing to test the Cairo backend builds and report issues to the mailing 
@@ -243,4 +244,4 @@ the Scribus community so special.
 For the Scribus Team,
 Craig Ringer
 Peter Linnell
-in September 2006
+in February 2007
