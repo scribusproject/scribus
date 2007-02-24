@@ -214,7 +214,7 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 	Xml_attr att;
 	Style::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if (!inh_##attr_NAME && # attr_NAME != "TabValues") \
+	if (!inh_##attr_NAME && strcmp(# attr_NAME, "TabValues") != 0) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
@@ -306,7 +306,7 @@ void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xm
 	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());
 	Style::desaxeRules(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if ( strcmp(# attr_NAME, "TabValues")!=0 ) \
+	if ( strcmp(# attr_NAME, "TabValues") != 0) \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, attr_TYPE> ( & ParagraphStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF

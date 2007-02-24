@@ -174,7 +174,7 @@ void LineStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
 	Xml_attr att;
 	Style::saxxAttributes(att);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if (!inh_##attr_NAME && # attr_NAME != "Sublines") \
+	if (!inh_##attr_NAME && strcmp(# attr_NAME, "Sublines") != 0 ) \
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
 #include "linestyle.attrdefs.cxx"
 #undef ATTRDEF
@@ -232,7 +232,7 @@ void LineStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_str
 	Style::desaxeRules(Digester::concat(stylePrefix, "**"), ruleset, "subline");
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if ( # attr_NAME != "Sublines" ) { \
+	if ( strcmp(# attr_NAME, "Sublines") != 0 ) { \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<LineStyle, attr_TYPE> ( & LineStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> )); \
 		ruleset.addRule(subPrefix, SetAttributeWithConversion<LineStyle, attr_TYPE> ( & LineStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> )); \
 	}
