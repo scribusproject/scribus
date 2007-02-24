@@ -169,7 +169,7 @@ static QString toXMLString(const Sublist & )
 }
 
 
-void LineStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
+void LineStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
