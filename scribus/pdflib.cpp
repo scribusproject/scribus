@@ -690,6 +690,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		{
 			if (pgit->isAnnotation())
 			{
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 			}
@@ -706,6 +708,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		{
 			if (pgit->isAnnotation())
 			{
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 			}
@@ -722,6 +726,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		{
 			if (pgit->isAnnotation())
 			{
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 			}
@@ -745,7 +751,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 			{
 				if (pgit->isAnnotation())
+				{
+					if (pgit->annotation().Type() == 4)
+						StdFonts.insert("/ZapfDingbats", "");
 					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				}
 				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 				{
 					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
@@ -5152,8 +5162,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	ScImage img2;
 	ScImage img3;
 	QMap<int, QString> ind2PDFabr;
-//	static const QString bifonts[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
-//			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
 	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
 												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
 												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
@@ -5234,7 +5242,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			PutDoc(" >>\n");
 			QString cnx = "(";
 			if (Options.Version < 14)
-				cnx += ind2PDFabr[ite->annotation().Font()];
+				cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 			else
 				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
@@ -5476,14 +5484,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	}
 	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
 	PutDoc(">>\nendobj\n");
-	QMap<int, QString> ind2PDFabr2;
-	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
-												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
-												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
-												"/ZapfDingbats", "/Symbol"};
-	size_t ar2 = sizeof(tmpf) / sizeof(*tmpf);
-	for (uint ax = 0; ax < ar2; ++ax)
-		ind2PDFabr2[ax] = tmpf[ax];
 	if ((ite->annotation().Type() == 2) && (ite->annotation().UseIcons()))
 	{
 		if (!ite->Pfile.isEmpty())
@@ -5518,7 +5518,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
 		if (Options.Version < 14)
-			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
 			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
@@ -5534,7 +5534,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		}
 		else
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
-//		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if (ite->annotation().Type() == 4)
@@ -5542,9 +5541,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc = "q\nBT\n";
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
-		cc += "/ZaDb "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
+		cc += "/"+StdFonts["/ZapfDingbats"]+" "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
-//		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if ((ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
@@ -5561,11 +5559,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
 		if (Options.Version < 14)
-			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"S0";
-//		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
-//		cc += ind2PDFabr[ite->AnFont];
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
