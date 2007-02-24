@@ -2428,11 +2428,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
 	{
 		QPopupMenu *pmen = new QPopupMenu();
-		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
+		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
 		{
 			Mxp = m->x();
 			Myp = m->y();
-			if (m_ScMW->Buffer2.startsWith("<SCRIBUSELEM"))
+			if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")))
 				pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
 			{
@@ -9669,7 +9669,21 @@ void ScribusView::PasteToPage()
 	uint ac = Doc->Items->count();
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
-	emit LoadElem(m_ScMW->Buffer2, Mxp / Scale, Myp / Scale, false, false, Doc, this);
+	if (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT"))
+	{
+		bool savedAlignGrid = Doc->useRaster;
+		bool savedAlignGuides = Doc->SnapGuides;
+		Selection pastedObjects = Serializer(*Doc).deserializeObjects(m_ScMW->Buffer2.utf8());
+		Doc->useRaster = savedAlignGrid;
+		Doc->SnapGuides = savedAlignGuides;
+		pastedObjects.setGroupRect();
+		double gx, gy, gh, gw;
+		pastedObjects.getGroupRect(&gx, &gy, &gw, &gh);
+		moveGroup(Mxp / Scale - gx, Myp / Scale - gy, false, &pastedObjects);
+		Doc->m_Selection->clear();
+	}
+	else
+		emit LoadElem(m_ScMW->Buffer2, Mxp / Scale, Myp / Scale, false, false, Doc, this);
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();

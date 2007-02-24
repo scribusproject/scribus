@@ -73,7 +73,9 @@ Selection Serializer::deserializeObjects(const QCString & xml)
 	for (uint i=0; i < objects->count(); ++i)
 	{
 //		qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
-		result.addItem(objects->at(i));
+		PageItem* currItem = objects->at(i);
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		result.addItem(currItem);
 	}
 
 	delete objects;
@@ -92,7 +94,9 @@ Selection Serializer::deserializeObjects(const QFile & file)
 	for (uint i=0; i < objects->count(); ++i)
 	{
 //		qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
-		result.addItem(objects->at(i));
+		PageItem* currItem = objects->at(i);
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+		result.addItem(currItem);
 	}
 	
 	delete objects;
