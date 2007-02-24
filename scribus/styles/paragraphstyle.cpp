@@ -209,7 +209,7 @@ static QString toXMLString(const QValueList<ParagraphStyle::TabRecord> & )
 	return "dummy";
 }
 
-void ParagraphStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
+void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
@@ -306,7 +306,7 @@ void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xm
 	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());
 	Style::desaxeRules(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if ( # attr_NAME != "TabValues") \
+	if ( strcmp(# attr_NAME, "TabValues")!=0 ) \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, attr_TYPE> ( & ParagraphStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF

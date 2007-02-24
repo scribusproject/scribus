@@ -251,7 +251,7 @@ Xml_string toXMLString(StyleFlag val)
 }
 
 
-void CharStyle::saxx(SaxHandler& handler, Xml_string elemtag) const
+void CharStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
