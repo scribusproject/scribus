@@ -1,43 +1,23 @@
-============
-COPYRIGHT
-============
-This dictionary is based on a subset of the
-Czech wordlist created by Tomas Cermak (original
-author) and contributors Petr Prenghy, Hanus Adler
-and Petr Kolar for ispell and his original version
-is located on ftp://ftp.vslib.cz/pub/unix/ispell/czech/.
+Hyphenation dictionary
+----------------------
 
-The affix file is a modified version of the czech.aff 
-file and is licensed under the terms of the GNU GPL2 
-as published by the Free Software Foundation.
+Language: Czech (Czech Republic) (cs CZ).
+Origin:   Based on the TeX hyphenation tables
+License:  GPL license, 2003
+Author:   Pavel@Janik.cz (Pavel Janík)
 
-Thanks to authors for there wonderful work.
+HYPH cs CZ hyph_cs
 
-The modifications to the affix file and wordlist to make it work
-with Myspell are (c) 2002 Libor Rejc (rejc@mail.cz) and are 
-also covered by the GPL version 2 license.
+ These patterns were converted from TeX hyphenation patterns by the package
+ lingucomponent-tools
+ (http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/oo-cs/lingucomponent-tools/). 
 
-These files are distributed in the hope that they will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-============
-INSTALLATION
-============
-
-Postup instalace:
-
-http://whiteboard.openoffice.org/lingucomponent/download_dictionary.html
-
-Dotazy, pripominky, namety:
-
-rejc@mail.cz
-
+ The license of original files is GNU GPL (they are both parts of csTeX). My
+ work on them was to only run the scripts from lingucomponent-tools package
+ (dual LGPL/SISSL license so it can be integrated).
+ -- 
+ Pavel Janík
+ 2003
 
 ===============
 LICENSE
