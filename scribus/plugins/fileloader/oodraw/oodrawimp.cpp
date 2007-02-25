@@ -923,47 +923,8 @@ QPtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
 		ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 		if (!drawID.isEmpty())
 			ite->setItemName(drawID);
+		ite = parseTextP(e, ite);
 		elements.append(ite);
-		bool firstPa = false;
-		for ( QDomNode n2 = n.firstChild(); !n2.isNull(); n2 = n2.nextSibling() )
-		{
-			if ( !n2.hasAttributes() && !n2.hasChildNodes() )
-				continue;
-			QDomElement e2 = n2.toElement();
-			if ( e2.text().isEmpty() )
-				continue;
-			storeObjectStyles(n2.toElement());
-//			int FontSize = m_Doc->toolSettings.defSize;
-//			int AbsStyle = 0;
-			ite->itemText.insertChars(-1, SpecialChars::PARSEP);
-			if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size") )
-			{
-				ParagraphStyle newStyle;
-				if (m_styleStack.attribute("fo:text-align") == "left")
-					newStyle.setAlignment(ParagraphStyle::Leftaligned);
-				if (m_styleStack.attribute("fo:text-align") == "center")
-					newStyle.setAlignment(ParagraphStyle::Centered);
-				if (m_styleStack.attribute("fo:text-align") == "right")
-					newStyle.setAlignment(ParagraphStyle::Rightaligned);
-				if( m_styleStack.hasAttribute("fo:font-size") )
-				{
-					QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
-					int FontSize = (int) (fs.toFloat() * 10.0);
-					newStyle.charStyle().setFontSize(FontSize);
-					newStyle.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
-				}
-				ite->itemText.applyStyle(-1, newStyle);
-			}
-			ite->itemText.insertChars(-2, QString::fromUtf8(e2.text()) );
-			// time to retire...
-			/*
-			Serializer *ss = new Serializer("");
-			ss->Objekt = QString::fromUtf8(e2.text())+QChar(10);
-			ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
-			delete ss;
-			*/
-			firstPa = true;
-		}
 	}
 	return elements;
 }
@@ -1097,11 +1058,39 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 	}
 }
 
-PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle)
+void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e)
 {
-	item->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-	bool firstPa = false;
-	QString drawID = elm.attribute("draw:name");
+	if ( m_styleStack.hasAttribute("fo:font-size") )
+	{
+		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
+		int FontSize = (int) (fs.toFloat() * 10.0);
+		style.setFontSize(FontSize);
+	}
+}
+
+void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e)
+{
+	if ( m_styleStack.hasAttribute("fo:text-align") )
+	{
+		QString attValue = m_styleStack.attribute("fo:text-align");
+		if (attValue == "left")
+			style.setAlignment(ParagraphStyle::Leftaligned);
+		if (attValue == "center")
+			style.setAlignment(ParagraphStyle::Centered);
+		if (attValue == "right")
+			style.setAlignment(ParagraphStyle::Rightaligned);
+	}
+	if ( m_styleStack.hasAttribute("fo:font-size") )
+	{
+		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
+		int FontSize = (int) (fs.toFloat() * 10.0);
+		style.charStyle().setFontSize(FontSize);
+		style.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
+	}
+}
+
+PageItem* OODPlug::parseTextP (const QDomElement& elm, PageItem* item)
+{
 	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		if ( !n.hasAttributes() && !n.hasChildNodes() )
@@ -1109,39 +1098,65 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 		QDomElement e = n.toElement();
 		if ( e.text().isEmpty() )
 			continue;
-		//	int FontSize = m_Doc->toolSettings.defSize;
-		//	int AbsStyle = 0;
-		/* ToDo: Add reading of Textstyles here */
+		storeObjectStyles(e);
 		item->itemText.insertChars(-1, SpecialChars::PARSEP);
-		if( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size"))
+		if (e.hasChildNodes())
+			item = parseTextSpans(e, item);
+		else
+		{
+			if ( m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size") )
+			{
+				ParagraphStyle newStyle;
+				parseParagraphStyle(newStyle, e);
+				item->itemText.applyStyle(-1, newStyle);
+			}
+			item->itemText.insertChars(-2, QString::fromUtf8(e.text()) );
+			if (!item->asPolyLine() && !item->asTextFrame())
+				item = m_Doc->convertItemTo(item, PageItem::TextFrame);
+		}
+		
+	}
+	return item;
+}
+
+PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
+{
+	bool firstSpan = true;
+	for ( QDomNode n = elm.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		QDomElement e = n.toElement();
+		QString sTag = e.tagName();
+		if (e.text().isEmpty() || sTag != "text:span")
+			continue;
+		storeObjectStyles(e);
+		QString chars = e.text();
+		int pos = item->itemText.length();
+		if ( firstSpan && (m_styleStack.hasAttribute("fo:text-align") || m_styleStack.hasAttribute("fo:font-size")) )
 		{
 			ParagraphStyle newStyle;
-			if (m_styleStack.attribute("fo:text-align") == "left")
-				newStyle.setAlignment(ParagraphStyle::Leftaligned);
-			if (m_styleStack.attribute("fo:text-align") == "center")
-				newStyle.setAlignment(ParagraphStyle::Centered);
-			if (m_styleStack.attribute("fo:text-align") == "right")
-				newStyle.setAlignment(ParagraphStyle::Rightaligned);
-			if (m_styleStack.hasAttribute("fo:font-size") )
-			{
-				QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
-				int FontSize = (int) (fs.toFloat()*10);
-				newStyle.charStyle().setFontSize(FontSize);
-				newStyle.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
-			}
+			parseParagraphStyle(newStyle, e);
 			item->itemText.applyStyle(-1, newStyle);
 		}
-		item->itemText.insertChars(-2, QString::fromUtf8(e.text()));
-		/*
-		Serializer *ss = new Serializer("");
-		ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-		ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
-		delete ss;
-		*/
-		firstPa = true;
+		item->itemText.insertChars( -2, chars);
+		if ( !firstSpan && m_styleStack.hasAttribute("fo:font-size") )
+		{
+			CharStyle newStyle;
+			parseCharStyle(newStyle, e);
+			item->itemText.applyCharStyle(pos, chars.length(), newStyle);
+		}
 		if (!item->asPolyLine() && !item->asTextFrame())
 			item = m_Doc->convertItemTo(item, PageItem::TextFrame);
+		firstSpan = false;
 	}
+	return item;
+}
+
+PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle)
+{
+	item->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+	bool firstPa = false;
+	QString drawID = elm.attribute("draw:name");
+	item = parseTextP(elm, item);
 	item->setFillTransparency(oostyle.fillTrans);
 	item->setLineTransparency(oostyle.strokeTrans);
 	if (oostyle.dashes.count() != 0)
