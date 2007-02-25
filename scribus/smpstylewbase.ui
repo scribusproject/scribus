@@ -53,7 +53,10 @@
                             </sizepolicy>
                         </property>
                         <property name="frameShape">
-                            <enum>NoFrame</enum>
+                            <enum>GroupBoxPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Plain</enum>
                         </property>
                         <property name="title">
                             <string>Tabulators and Indentation</string>

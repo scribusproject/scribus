@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "smtextstylewidgets.h"
 #include "smtextstylewidgets.moc"
+#include "units.h"
 #include "util.h"
 #include "commonstrings.h"
 #include "smwidgets.h"
@@ -50,49 +51,46 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->setSpacing( 5 );
 	distancesBoxLayout->setMargin( 10 );
 
-	lineSpacingMode_ = new SMScComboBox(distancesBox, "linespacingCombo");
-	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
-	distancesBoxLayout->addMultiCellWidget(lineSpacingMode_, 0, 0, 1, 3);
-	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
-
 	pixmapLabel0 = new QLabel(distancesBox, "pixmapLabel0");
 	pixmapLabel0->setMinimumSize(QSize(22,22));
 	pixmapLabel0->setMaximumSize(QSize(22,22));
 	pixmapLabel0->setPixmap(loadIcon("linespacing2.png"));
-	distancesBoxLayout->addWidget(pixmapLabel0, 1, 0);
+	distancesBoxLayout->addWidget(pixmapLabel0, 0, 0);
+	
+	lineSpacingMode_ = new SMScComboBox(distancesBox, "linespacingCombo");
+	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
+	distancesBoxLayout->addMultiCellWidget(lineSpacingMode_, 0, 0, 1, 2);
+	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
 	lineSpacing_ = new SMMSpinBox(1, 300, distancesBox, 1 );
-	lineSpacing_->setSuffix( tr( " pt" ));
-	distancesBoxLayout->addWidget(lineSpacing_, 1,1);
+	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
+	distancesBoxLayout->addWidget(lineSpacing_, 0, 3);
 
 	pixmapLabel3 = new QLabel( "", distancesBox, "TextLabel1_2_2" );
 	pixmapLabel3->setPixmap( loadIcon("above.png") );
-	distancesBoxLayout->addWidget( pixmapLabel3, 1, 2 );
+	distancesBoxLayout->addWidget( pixmapLabel3, 1, 0 );
 
 	spaceAbove_ = new SMMSpinBox( 0, 300, distancesBox, 1 );
-	spaceAbove_->setSuffix( tr( " pt" ) );
-	distancesBoxLayout->addWidget( spaceAbove_, 1, 3 );
+	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
+	distancesBoxLayout->addWidget( spaceAbove_, 1, 1 );
 
 	pixmapLabel4 = new QLabel( "", distancesBox, "TextLabel1_2_3" );
 	pixmapLabel4->setPixmap( loadIcon("below.png") );
-	distancesBoxLayout->addWidget( pixmapLabel4, 2, 2 );
+	distancesBoxLayout->addWidget( pixmapLabel4, 2, 0 );
 
 	spaceBelow_ = new SMMSpinBox( 0, 300, distancesBox, 1 );
-	spaceBelow_->setSuffix( tr( " pt" ) );
-	distancesBoxLayout->addWidget( spaceBelow_, 2, 3 );
+	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
+	distancesBoxLayout->addWidget( spaceBelow_, 2, 1 );
 
 	alignement_ = new SMAlignSelect(distancesBox);
-	distancesBoxLayout->addMultiCellWidget(alignement_, 3,3,1,3);
+	distancesBoxLayout->addMultiCellWidget(alignement_, 3,3,0,3);
 }
 
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
 {
-	if (i == 0)
-		lineSpacing_->setEnabled(true);
-	else
-		lineSpacing_->setEnabled(false);
+	lineSpacing_->setEnabled(i == 0);
 }
 
 void SMPStyleWidget::languageChange()
@@ -124,9 +122,9 @@ void SMPStyleWidget::languageChange()
 	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
 	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
-	lineSpacing_->setSuffix( tr(" pt"));
-	spaceAbove_->setSuffix( tr(" pt"));
-	spaceBelow_->setSuffix( tr(" pt"));
+	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
+	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
+	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
 	parentLabel->setText( tr("Based On:"));
 	distancesBox->setTitle( tr("Distances and Alignment"));
 	dropCapsBox->setTitle( tr("Drop Caps"));
@@ -153,7 +151,7 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout->addWidget(dropCapLines_, 0, 1);
 
 	dropCapOffset_ = new SMMSpinBox(-3000, 3000, dropCapsBox, 1);
-	dropCapOffset_->setSuffix( tr(" pt"));
+	dropCapOffset_->setSuffix(unitGetSuffixFromIndex(0));
 	capLabel2 = new QLabel(dropCapLines_, tr("Distance from Text:"), dropCapsBox, "CapLabel2");
 	dropCapsBoxLayout->addWidget(capLabel2, 1, 0);
 	dropCapsBoxLayout->addWidget(dropCapOffset_, 1, 1);
@@ -642,7 +640,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 	fontSize_ = new SMMSpinBox( 1, 2048, characterBox, 1 );
 	fontSize_->setMinimumSize( QSize( 70, 22 ) );
-	fontSize_->setSuffix( tr( " pt" ) );
+	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 
 	fontSizeLabel_ = new QLabel( "" ,characterBox, "TextF2" );
 	fontSizeLabel_->setPixmap(loadIcon("Zeichen.xpm"));
@@ -803,7 +801,7 @@ void SMCStylePage::languageChange()
 	fontHScale_->setSuffix( tr(" %"));
 	baselineOffset_->setSuffix( tr(" %"));
 	tracking_->setSuffix( tr(" %"));
-	fontSize_->setSuffix( tr(" pt"));
+	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 }
 
 void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
