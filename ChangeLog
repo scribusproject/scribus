@@ -1,7 +1,18 @@
-Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.7 release are included in the 1.3.3.7 Version too)
+Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.8 release are included in the 1.3.3.8 Version too)
 
 Scribus - 1.3.3.8cvs
 ====================
+- 0005230: [Releases] 1.3.3.8 Release (plinnell)
+- 0004620: [PDF] Undeclared font in default appearance (DA) of PDF (fschmid)
+- 0005345: [Import / Export] "Out of memory" on exported PDF (jghali)
+- 0005382: [PDF] Bookmark names export incorrectly (fschmid)
+- 0005341: [Printing] Strange behavior of the printing (jghali)
+- 0005328: [Internal] new german hyphenation files available (plinnell)
+- 0005365: [Printing] Gradient with different shades of a spot color gets converted to CMYK instead of halftones (fschmid)
+- 0005385: [Import / Export] Bug creating the /DA attribute of PDF forms (fschmid)
+- 0005384: [Translation] Finnish translation update (Tsoots)
+- 0005381: [Translation] Updated translation for 1.3.3.7 (and 1.3.3.8) (cbradney)
+- 0005370: [Story Editor / Text Frames] wrong labels in "Clear All Text" confirmation prompt (cbradney)
 - 0005371: [Translation] Ukrainian translation update for 1.3.3.8 release (malex)
 - 0005369: [Translation] Update Danish Translation (malex)
 - 0005345: [Import / Export] "Out of memory" on exported PDF (jghali)
