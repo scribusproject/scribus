@@ -95,8 +95,8 @@ docitemattrprefs.h
 docsections.h
 # documentinformation.h
 druck.h
-edit1format.h
-editformats.h
+# edit1format.h
+# editformats.h
 editor.h
 effectsdialog.h
 extimageprops.h
@@ -285,8 +285,8 @@ documentinformation.cpp
 druck.cpp
 dynamictip.cpp
 editor.cpp
-edit1format.cpp
-editformats.cpp
+# edit1format.cpp
+# editformats.cpp
 effectsdialog.cpp
 exif.cpp
 extimageprops.cpp

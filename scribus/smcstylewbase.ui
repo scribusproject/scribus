@@ -38,7 +38,7 @@
                         <cstring>parentLabel</cstring>
                     </property>
                     <property name="text">
-                        <string>Parent</string>
+                        <string>Based On:</string>
                     </property>
                 </widget>
                 <widget class="QComboBox">

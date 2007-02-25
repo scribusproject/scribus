@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #define FONTCOMBO_H
 
 #include <qcombobox.h>
+#include <qlabel.h>
 #include <qlistbox.h>
 #include <qlayout.h>
 #include <qwidget.h>
@@ -78,13 +79,14 @@ class SCRIBUS_API FontComboH : public QWidget
 	Q_OBJECT
 
 public:
-	FontComboH(QWidget* parent);
+	FontComboH(QWidget* parent, bool labels=false);
 	~FontComboH() {};
 	QString currentFont();
 	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false);
 
 public slots:
 	void setCurrentFont(QString f);
+	void languageChange();
 
 signals:
 	void fontSelected(QString);
@@ -96,12 +98,15 @@ protected slots:
 protected:
 	QComboBox* fontFamily;
 	QComboBox* fontStyle;
+	QLabel *fontFaceLabel;
+	QLabel *fontStyleLabel;
 	PrefsManager* prefsManager;
 	ScribusDoc *currDoc;
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
-	QVBoxLayout* fontComboLayout;
+	QGridLayout* fontComboLayout;
+	bool showLabels;
 };
 
 #endif

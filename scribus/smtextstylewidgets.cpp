@@ -127,7 +127,7 @@ void SMPStyleWidget::languageChange()
 	lineSpacing_->setSuffix( tr(" pt"));
 	spaceAbove_->setSuffix( tr(" pt"));
 	spaceBelow_->setSuffix( tr(" pt"));
-	parentLabel->setText( tr("Parent"));
+	parentLabel->setText( tr("Based On:"));
 	distancesBox->setTitle( tr("Distances and Alignment"));
 	dropCapsBox->setTitle( tr("Drop Caps"));
 	tabsBox->setTitle( tr("Tabulators and Indentation"));
@@ -271,7 +271,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 	f.setBold(true);
 	parentDropCapButton->setFont(f);
 
-	cpage->parentLabel->setText( tr("Based on"));
+	cpage->parentLabel->setText( tr("Based On:"));
 	cpage->show(&pstyle->charStyle(), cstyles, defLang);
 
 	parentCombo->clear();
@@ -547,7 +547,7 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 
 void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang)
 {
-	cpage->parentLabel->setText( tr("Based on"));
+	cpage->parentLabel->setText( tr("Based On:"));
 
 	QValueList<CharStyle*> cstyle;
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -798,7 +798,7 @@ void SMCStylePage::languageChange()
 /*        End Tooltips             */
 /***********************************/
 
-	parentLabel->setText( tr("Parent"));
+	parentLabel->setText( tr("Based On:"));
 	fontVScale_->setSuffix( tr(" %"));
 	fontHScale_->setSuffix( tr(" %"));
 	baselineOffset_->setSuffix( tr(" %"));

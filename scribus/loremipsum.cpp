@@ -276,7 +276,6 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		
 		// K.I.S.S.:
 		currItem->itemText.insertChars(0, lp->createLorem(paraCount));
-		
 		delete lp;
 
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
@@ -286,7 +285,8 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	}
 // 	if (done)
 // 	{
-		m_Doc->view()->updateContents();
+// 		m_Doc->view()->updateContents();
+		m_Doc->view()->DrawNew();
 		m_Doc->changed();
 // 	}
 }

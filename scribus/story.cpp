@@ -2575,37 +2575,37 @@ void StoryEditor::SearchText()
 
 void StoryEditor::slotEditStyles()
 {
-	blockUpdate = true;
-	EditorBar->setRepaint(false);
-	int p=0, i=0;
-	Editor->getCursorPosition(&p, &i);
-	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-	disconnect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
-	disconnect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
-	//emit EditSt();
-
-	StilFormate *dia = new StilFormate(this, currDoc);
-	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
-	if (dia->exec())
-		ScCore->primaryMainWindow()->saveStyles(dia);
-	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
-	delete dia;
-
-	AlignTools->paraStyleCombo->setDoc(currDoc);
-	AlignTools->SetAlign(Editor->CurrAlign);
-	AlignTools->SetParaStyle(currItem->doc()->paragraphStyles().find(Editor->currentParaStyle));
-	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
-	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
-	//qDebug("SE::slotEditStyles: cursor");
-	Editor->setCursorPosition(p, i);
-	updateProps(p, i);
-	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-	Editor->sync();
-	Editor-> repaintContents();
-	EditorBar->setRepaint(true);
-	EditorBar->doRepaint();
-	qApp->processEvents();
-	blockUpdate = false;
+// 	blockUpdate = true;
+// 	EditorBar->setRepaint(false);
+// 	int p=0, i=0;
+// 	Editor->getCursorPosition(&p, &i);
+// 	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+// 	disconnect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
+// 	disconnect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
+// 	//emit EditSt();
+// 
+// 	StilFormate *dia = new StilFormate(this, currDoc);
+// 	connect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
+// 	if (dia->exec())
+// 		ScCore->primaryMainWindow()->saveStyles(dia);
+// 	disconnect(dia, SIGNAL(saveStyle(StilFormate *)), ScCore->primaryMainWindow(), SLOT(saveStyles(StilFormate *)));
+// 	delete dia;
+// 
+// 	AlignTools->paraStyleCombo->setDoc(currDoc);
+// 	AlignTools->SetAlign(Editor->CurrAlign);
+// 	AlignTools->SetParaStyle(currItem->doc()->paragraphStyles().find(Editor->currentParaStyle));
+// 	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
+// 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
+// 	//qDebug("SE::slotEditStyles: cursor");
+// 	Editor->setCursorPosition(p, i);
+// 	updateProps(p, i);
+// 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+// 	Editor->sync();
+// 	Editor-> repaintContents();
+// 	EditorBar->setRepaint(true);
+// 	EditorBar->doRepaint();
+// 	qApp->processEvents();
+// 	blockUpdate = false;
 }
 
 void StoryEditor::newAlign(int st)

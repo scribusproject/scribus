@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>394</width>
+            <width>396</width>
             <height>373</height>
         </rect>
     </property>
@@ -72,7 +72,7 @@
                                     <cstring>parentLabel</cstring>
                                 </property>
                                 <property name="text">
-                                    <string>Parent</string>
+                                    <string>Based On:</string>
                                 </property>
                             </widget>
                             <widget class="QComboBox">

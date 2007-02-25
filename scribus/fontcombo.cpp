@@ -110,21 +110,45 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
-FontComboH::FontComboH(QWidget* parent) : QWidget(parent, "FontComboH")
+FontComboH::FontComboH(QWidget* parent, bool labels) :
+		QWidget(parent, "FontComboH"),
+		fontFaceLabel(0),
+		fontStyleLabel(0),
+		showLabels(labels)
 {
 	prefsManager = PrefsManager::instance();
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	currDoc = 0;
-	fontComboLayout = new QVBoxLayout( this, 0, 0, "fontComboLayout");
+	fontComboLayout = new QGridLayout( this, 0, 0);
+	int col=0;
+	if (showLabels)
+	{
+		fontFaceLabel=new QLabel("", this, "fontFaceLabel");
+		fontStyleLabel=new QLabel("", this, "fontStyleLabel");
+		fontComboLayout->addWidget(fontFaceLabel,0,0);
+		fontComboLayout->addWidget(fontStyleLabel,1,0);
+		fontComboLayout->setColStretch(1,10);
+		col=1;
+	}
 	fontFamily = new ScComboBox( false, this, "fontFamily" );
-	fontComboLayout->addWidget(fontFamily);
+	fontComboLayout->addWidget(fontFamily,0,col);
 	fontStyle = new ScComboBox( false, this, "fontStyle" );
-	fontComboLayout->addWidget(fontStyle);
+	fontComboLayout->addWidget(fontStyle,1,col);
 	RebuildList(0);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	languageChange();
+}
+
+void FontComboH::languageChange()
+{
+	if(showLabels)
+	{
+		fontFaceLabel->setText( tr("Face:"));
+		fontStyleLabel->setText( tr("Style:"));
+	}
 }
 
 void FontComboH::familySelected(int id)

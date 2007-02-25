@@ -676,7 +676,7 @@ void SMColorCombo::currentChanged()
 /***********************************************************************/
 
 SMFontComboH::SMFontComboH(QWidget *parent)
-: FontComboH(parent),
+: FontComboH(parent, true),
   hasParent_(false),
   useParentValue_(false),
   pFont_(QString::null),

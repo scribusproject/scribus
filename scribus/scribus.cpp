@@ -6490,67 +6490,68 @@ void ScribusMainWindow::setCSMenu()
 		scrActions[QString("shade%1").arg(lb)]->setOn(true);
 }
 
-void ScribusMainWindow::slotEditLineStyles()
-{
-	if (HaveDoc)
-	{
-		LineFormate *dia = new LineFormate(this, doc);
-		connect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
-		if (dia->exec())
-			saveLStyles(dia);
-		disconnect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
-		delete dia;
-	}
-}
+// void ScribusMainWindow::slotEditLineStyles()
+// {
+// 	if (HaveDoc)
+// 	{
+// 		LineFormate *dia = new LineFormate(this, doc);
+// 		connect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
+// 		if (dia->exec())
+// 			saveLStyles(dia);
+// 		disconnect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
+// 		delete dia;
+// 	}
+// }
 
-void ScribusMainWindow::saveLStyles(LineFormate *dia)
-{
-	PageItem* ite;
-	doc->MLineStyles = dia->TempStyles;
-	for (uint d = 0; d < doc->DocItems.count(); ++d)
-	{
-		ite = doc->DocItems.at(d);
-		if (!ite->NamedLStyle.isEmpty())
-		{
-			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-		}
-	}
-	for (uint d1 = 0; d1 < doc->MasterItems.count(); ++d1)
-	{
-		ite = doc->MasterItems.at(d1);
-		if (!ite->NamedLStyle.isEmpty())
-		{
-			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-		}
-	}
-	for (uint d1 = 0; d1 < doc->FrameItems.count(); ++d1)
-	{
-		ite = doc->FrameItems.at(d1);
-		if (!ite->NamedLStyle.isEmpty())
-		{
-			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-		}
-	}
-	propertiesPalette->SetLineFormats(doc);
-	view->DrawNew();
-}
+// void ScribusMainWindow::saveLStyles(LineFormate *dia)
+// {
+// 	PageItem* ite;
+// 	doc->MLineStyles = dia->TempStyles;
+// 	for (uint d = 0; d < doc->DocItems.count(); ++d)
+// 	{
+// 		ite = doc->DocItems.at(d);
+// 		if (!ite->NamedLStyle.isEmpty())
+// 		{
+// 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+// 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
+// 		}
+// 	}
+// 	for (uint d1 = 0; d1 < doc->MasterItems.count(); ++d1)
+// 	{
+// 		ite = doc->MasterItems.at(d1);
+// 		if (!ite->NamedLStyle.isEmpty())
+// 		{
+// 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+// 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
+// 		}
+// 	}
+// 	for (uint d1 = 0; d1 < doc->FrameItems.count(); ++d1)
+// 	{
+// 		ite = doc->FrameItems.at(d1);
+// 		if (!ite->NamedLStyle.isEmpty())
+// 		{
+// 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+// 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
+// 		}
+// 	}
+// 	propertiesPalette->SetLineFormats(doc);
+// 	view->DrawNew();
+// }
 
-void ScribusMainWindow::slotEditStyles()
-{
-	if (HaveDoc)
-	{
-		StilFormate *dia = new StilFormate(this, doc);
-		connect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
-		if (dia->exec())
-			saveStyles(dia);
-		disconnect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
-		delete dia;
-	}
-}
+// void ScribusMainWindow::slotEditStyles()
+// {
+// 	if (HaveDoc)
+// 	{
+// 		StilFormate *dia = new StilFormate(this, doc);
+// 		connect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
+// 		if (dia->exec())
+// 			saveStyles(dia);
+// 		disconnect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
+// 		delete dia;
+// 	}
+// }
 
+//CB still called from SE
 void ScribusMainWindow::saveStyles(StilFormate *dia)
 {
 	QValueList<uint> ers;

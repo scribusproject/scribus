@@ -75,8 +75,6 @@ scribus_SOURCES = \
 	docsections.cpp	\
 	druck.cpp	\
 	dynamictip.cpp	\
-	edit1format.cpp	\
-	editformats.cpp	\
 	editor.cpp	\
 	effectsdialog.cpp	\
 	exif.cpp	\
@@ -299,6 +297,7 @@ scribus_SOURCES = \
 	scribuscore.cpp	\
 	main.cpp
 
+
 #	NOTE we have no conditional for this file yet, as Makefile.am is not used on win32 VCC.
 #	main_win32.cpp. Needs to be enabled in the future for mingw compilation
 
@@ -369,8 +368,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/documentinformation.h         $(prefix)/include/scribus/documentinformation.h
 	$(INSTALL_DATA) $(srcdir)/druck.h                       $(prefix)/include/scribus/druck.h
 	$(INSTALL_DATA) $(srcdir)/dynamictip.h                  $(prefix)/include/scribus/dynamictip.h
-	$(INSTALL_DATA) $(srcdir)/edit1format.h                 $(prefix)/include/scribus/edit1format.h
-	$(INSTALL_DATA) $(srcdir)/editformats.h                 $(prefix)/include/scribus/editformats.h
 	$(INSTALL_DATA) $(srcdir)/editor.h                      $(prefix)/include/scribus/editor.h
 	$(INSTALL_DATA) $(srcdir)/extimageprops.h               $(prefix)/include/scribus/extimageprops.h
 	$(INSTALL_DATA) $(srcdir)/fileloader.h                  $(prefix)/include/scribus/fileloader.h
@@ -577,8 +574,6 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/documentinformation.h
 	-rm -f $(prefix)/include/scribus/druck.h
 	-rm -f $(prefix)/include/scribus/dynamictip.h
-	-rm -f $(prefix)/include/scribus/edit1format.h
-	-rm -f $(prefix)/include/scribus/editformats.h
 	-rm -f $(prefix)/include/scribus/editor.h
 	-rm -f $(prefix)/include/scribus/extimageprops.h
 	-rm -f $(prefix)/include/scribus/fileloader.h
