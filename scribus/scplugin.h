@@ -286,6 +286,11 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 *
 		 */
 		virtual bool run(QString target = QString::null) = 0;
+		/*!\brief Run the plug-in's main action.
+		 * This method behaves as the previous one. Except there is
+		 * a parent widget reference. It's useful e.g. when you need to
+		 * open a dialog on a specific parent one. */
+		virtual bool run(QWidget* /*parent*/, QString /*target = QString::null*/) { return false; };
 
 		/**
 		 * @brief Run the plugin on a QIODevice
@@ -448,7 +453,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000003
+#define PLUGIN_API_VERSION 0x00000004
 
 
 #endif

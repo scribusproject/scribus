@@ -1,0 +1,56 @@
+Scribus v1.3.3.7 beta for OS/2 & eComStation
+
+Scribus is an open-source program that brings award-winning
+professional page layout to Linux/Unix, MacOS X, OS/2 and Windows
+desktops with a combination of "press-ready" output and 
+new approaches to page layout.
+
+Underneath the modern and user friendly interface, Scribus 
+supports professional publishing features, such as CMYK color,
+separations, ICC color management and versatile PDF creation.
+
+The Scribus Team is very pleased to welcome a release on the OS/2 &
+eComStation platform. We would like to thank Paul Smedley who has
+taken the time to port Scribus itself, and those who have ported the
+other supporting libraries to OS/2. We will endeavour to find and
+resolve issues specific to the platform when they are discovered,
+specifically relating to levels of supporting libraries such as Qt.
+
+- Supports OS/2 Warp4(R) and eComStation(TM)
+- Requires libc061.dll - which is available from
+  ftp://ftp.netlabs.org/pub/gcc/libc-0.6.1-csd1.zip
+- GhostScript is a recommended installation as per the standard
+  Scribus install instructions. Set the PostScript interpreter in
+  Scribus' preferences to point to your installation. Example: the
+  AFPL GhostScript executable from their gs854os2.zip is gsos2.exe.
+  This package includes install instructions (note the GS_LIB 
+  environment variable).
+
+Known issues:
+- Printing support is not complete, but PDF export is, you can easily
+  print via Acrobat Reader or another PDF viewer as a temporary 
+  workaround.
+- The Qt released on OS/2 is quite old and issues may arise due to
+  this fact.
+
+
+General feedback can be provided to paul@smedley.info and via the
+normal Scribus communications methods (IRC, mailing list etc), bug
+reports should go to http://bugs.scribus.net.
+
+Regards
+Scribus Team
+
+--
+
+Porter's Note
+If you like this software and want to support continued OS/2 ports,
+please consider donating via PayPal via the link at
+http://smedley.info/os2ports,
+or via the Mensys online store at http://www.mensys.net/os2ports
+
+Cheers,
+
+Paul Smedley
+Adelaide, Australia
+January, 2007

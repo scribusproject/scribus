@@ -95,6 +95,8 @@ public:
 	
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
 	void deleteMasterPage(const int);
+	//! @brief Rename a master page
+	bool renameMasterPage(const QString& oldPageName, const QString& newPageName);
 	void deletePage(const int);
 	/**
 	 * @brief Add a master page with this function, do not use addPage
@@ -283,7 +285,7 @@ public:
 	bool deleteTaggedItems();
 
 	bool AddFont(QString name, int fsize = 10);
-	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
+	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
@@ -416,7 +418,7 @@ public:
 	 * @brief Load images into an image frame, moved from the view
 	 * @retval Return false on failure
 	 */
-	bool LoadPict(QString fn, int ItNr, bool reload = false);
+	bool LoadPict(QString fn, int ItNr, bool reload = false, bool showMsg = false);
 	/**
 	 * 
 	 * @param fn 
@@ -424,7 +426,7 @@ public:
 	 * @param reload 
 	 * @return 
 	 */
-	bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
+	bool loadPict(QString fn, PageItem *pageItem, bool reload = false, bool showMsg = false);
 	/**
 	 * \brief Handle image with color profiles
 	 * @param Pr profile
@@ -714,15 +716,16 @@ public: // Public attributes
 	cmsHPROFILE DocInputProf;
 	cmsHPROFILE DocOutputProf;
 	cmsHPROFILE DocPrinterProf;
-	cmsHTRANSFORM stdTrans;
-	cmsHTRANSFORM stdProof;
+	cmsHTRANSFORM stdTransCMYK2Mon;
+	cmsHTRANSFORM stdTransRGBDoc2Mon;
+	cmsHTRANSFORM stdTransRGBDoc2CMYK;
+	cmsHTRANSFORM stdTransCMYK2RGBDoc;
+	cmsHTRANSFORM stdProofRGB;
+	cmsHTRANSFORM stdProofRGBGC;
+	cmsHTRANSFORM stdProofCMYK;
+	cmsHTRANSFORM stdProofCMYKGC;
 	cmsHTRANSFORM stdTransImg;
 	cmsHTRANSFORM stdProofImg;
-	cmsHTRANSFORM stdTransCMYK;
-	cmsHTRANSFORM stdProofCMYK;
-	cmsHTRANSFORM stdTransRGB;
-	cmsHTRANSFORM stdProofGC;
-	cmsHTRANSFORM stdProofCMYKGC;
 	bool SoftProofing;
 	bool Gamut;
 	int IntentMonitor;
@@ -812,7 +815,8 @@ public slots:
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ChangePreviewResolution(int id);
 	void itemSelection_ClearItem(Selection* customSelection=0);
-	void itemSelection_DeleteItem(Selection* customSelection=0);
+	//! Delete the items in the current selection. When force is true, we do not warn the user and make SE happy too. Force is used from @sa Page::restorePageItemCreation
+	void itemSelection_DeleteItem(Selection* customSelection=0, bool forceDeletion = false);
 	void itemSelection_SetItemFillTransparency(double t);
 	void itemSelection_SetItemLineTransparency(double t);
 	void itemSelection_FlipH();

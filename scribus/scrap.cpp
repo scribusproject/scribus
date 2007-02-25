@@ -60,21 +60,25 @@ void BibView::keyPressEvent(QKeyEvent *k)
 
 QDragObject *BibView::dragObject()
 {
-	QString dt = objectMap[currentItem()->text()].Data.utf8();
+	QString dt = objectMap[currentItem()->text()].Data;
 	QFileInfo fi(dt);
 	if (fi.extension(true).lower() == "sml")
 	{
-		QString f = "";
-		loadText(dt, &f);
+		QCString cf;
+		loadRawText(dt, cf);
+		QString f = QString::fromUtf8(cf.data());
 		StencilReader *pre = new StencilReader();
 		dt = pre->createObjects(f);
 		delete pre;
 	}
 	else if (fi.extension(true).lower() == "sce")
 	{
-		QString f = "";
-		loadText(dt, &f);
-		dt = f;
+		QCString cf;
+		loadRawText(dt, cf);
+		if (cf.left(16) == "<SCRIBUSELEMUTF8")
+			dt = QString::fromUtf8(cf.data());
+		else
+			dt = cf.data();
 	}
 	QDragObject *dr = new QTextDrag(dt, this);
 	dr->setPixmap(objectMap[currentItem()->text()].Preview);
@@ -97,14 +101,14 @@ void BibView::SaveContents(QString name, QString oldName)
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			QString f = "";
-			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])), &f))
+			QCString cf;
+			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])), cf))
 				continue;
 			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
 			if(!fil.open(IO_WriteOnly))
 				continue ;
 			QTextStream s(&fil);
-			s.writeRawBytes(f, f.length());
+			s.writeRawBytes(cf.data(), cf.length());
 			fil.close();
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])));
@@ -113,6 +117,11 @@ void BibView::SaveContents(QString name, QString oldName)
 				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
 			else
 			{
+				QString f;
+				if (cf.left(16) == "<SCRIBUSELEMUTF8")
+					f = QString::fromUtf8(cf.data());
+				else
+					f = cf.data();
 				ScPreview *pre = new ScPreview();
 				pm = pre->createPreview(f);
 				delete pre;
@@ -126,14 +135,14 @@ void BibView::SaveContents(QString name, QString oldName)
 	{
 		for (uint dc = 0; dc < d2.count(); ++dc)
 		{
-			QString f = "";
-			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])), &f))
+			QCString cf;
+			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])), cf))
 				continue;
 			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])));
 			if(!fil.open(IO_WriteOnly))
 				continue ;
 			QTextStream s(&fil);
-			s.writeRawBytes(f, f.length());
+			s.writeRawBytes(cf.data(), cf.length());
 			fil.close();
 			QPixmap pm;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])));
@@ -142,6 +151,7 @@ void BibView::SaveContents(QString name, QString oldName)
 				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
 			else
 			{
+				QString f = QString::fromUtf8(cf.data());
 				StencilReader *pre = new StencilReader();
 				pm = pre->createPreview(f);
 				delete pre;
@@ -154,16 +164,24 @@ void BibView::SaveContents(QString name, QString oldName)
 
 void BibView::ReadOldContents(QString name, QString newName)
 {
+	bool isUtf8 = false;
 	QDomDocument docu("scridoc");
-	QString f = "";
-	if (!loadText(name, &f))
+	QString ff;
+	QCString cf;
+	if (!loadRawText(name, cf))
 		return;
-	QString ff = "";
 	// these were corrupting the scrapbook entries, removed and works ok now, Riku
 // 	if (f.startsWith("<SCRIBUSSCRAPUTF8"))
 // 		ff = QString::fromUtf8(f);
 // 	else
-		ff = f;
+//		ff = f;
+	if( cf.left(17) == "<SCRIBUSSCRAPUTF8")
+	{
+		ff = QString::fromUtf8(cf.data());
+		isUtf8 = true;
+	}
+	else
+		ff = QString::fromLocal8Bit(cf.data());
 	if(!docu.setContent(ff))
 		return;
 	QDomElement elem=docu.documentElement();
@@ -180,7 +198,8 @@ void BibView::ReadOldContents(QString name, QString newName)
 				continue ;
 			QTextStream s(&fi);
 			QString fn = GetAttr(&dc, "DATA");
-			s.writeRawBytes(fn, fn.length());
+			cf = isUtf8? fn.utf8() : fn.local8Bit();
+			s.writeRawBytes(cf.data(), cf.length());
 			fi.close();
 		}
 		DOC=DOC.nextSibling();
@@ -202,9 +221,9 @@ void BibView::ReadContents(QString name)
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			QString f = "";
 			QPixmap pm;
-			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), &f))
+			QCString cf;
+			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
 			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
@@ -212,6 +231,11 @@ void BibView::ReadContents(QString name)
 				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
 			else
 			{
+				QString f;
+				if (cf.left(16) == "<SCRIBUSELEMUTF8")
+					f = QString::fromUtf8(cf.data());
+				else
+					f = cf.data();
 				ScPreview *pre = new ScPreview();
 				pm = pre->createPreview(f);
 //				if (canWrite)
@@ -227,9 +251,9 @@ void BibView::ReadContents(QString name)
 	{
 		for (uint dc = 0; dc < d2.count(); ++dc)
 		{
-			QString f = "";
 			QPixmap pm;
-			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), &f))
+			QCString cf;
+			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])));
 			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
@@ -237,6 +261,7 @@ void BibView::ReadContents(QString name)
 				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
 			else
 			{
+				QString f = QString::fromUtf8(cf.data());
 				StencilReader *pre = new StencilReader();
 				pm = pre->createPreview(f);
 //				if (canWrite)
@@ -277,7 +302,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	Frame3 = new QTabWidget( this, "Frame3" );
 
 	activeBView = new BibView(this);
-	Frame3->addTab(activeBView, "Main");
+	Frame3->addTab(activeBView, tr("Main"));
 	BiblioLayout->addWidget( Frame3 );
 	languageChange();
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
@@ -573,9 +598,8 @@ void Biblio::ItemRenamed(QIconViewItem *ite)
 
 void Biblio::DropOn(QDropEvent *e)
 {
-	QString text, tmp, nam;
 	bool img;
-	tmp = "";
+	QString text, nam, tmp = "";
 	if (QTextDrag::decode(e, text))
 	{
 		QUrl ur(text);
@@ -584,21 +608,23 @@ void Biblio::DropOn(QDropEvent *e)
 		img = ((ext=="eps")||(ext=="ps")||(ext=="png")||(ext=="gif")||(ext=="jpg")||(ext=="xpm"));
 		if ((fi.exists()) && (!img))
 		{
-			if (loadText(ur.path(), &text))
+			QCString rawText;
+			if (loadRawText(ur.path(), rawText))
 			{
-				if (text.startsWith("<SCRIBUSELEM>"))
-				{
-					tmp = text;
-				}
+				if (rawText.left(16) == "<SCRIBUSELEMUTF8")
+					tmp = QString::fromUtf8(rawText.data());
+				else if (rawText.left(13) == "<SCRIBUSELEM>")
+					tmp = rawText;
 			}
 		}
 		else
 		{
-			if (text.startsWith("<SCRIBUSELEM>"))
+			if (text.startsWith("<SCRIBUSELEM"))
 			{
 				tmp = text;
 			}
 		}
+		text = tmp;
 		ObjFromMenu(text);
 	}
 }
@@ -631,20 +657,15 @@ void Biblio::ObjFromMenu(QString text)
 		return;
 	}
 	delete dia;
-	tmp = text;
-	QString ff = "";
-	// these were corrupting the encoding, by removing it should be now ok, we'll see, Riku
-// 	if (tmp.startsWith("<SCRIBUSELEMUTF8"))
-// 		ff = QString::fromUtf8(tmp);
-// 	else
-		ff = tmp;
+	QString ff = text;
 	QFile f(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")));
 	if(!f.open(IO_WriteOnly))
 		return ;
 	QTextStream s;
+	QCString cs = ff.utf8();
 	s.setEncoding(QTextStream::UnicodeUTF8);
 	s.setDevice(&f);
-	s.writeRawBytes(ff, ff.length());
+	s.writeRawBytes(cs.data(), cs.length());
 	f.close();
 	ScPreview *pre = new ScPreview();
 	QPixmap pm = pre->createPreview(ff);

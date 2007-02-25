@@ -76,8 +76,9 @@ in alpha mask too.
 \param target a base pixmap. Some kind of painter.
 \param x coordinate
 \param y coordinate
+\param useMask if alpha mask should be used
 */
-void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
+void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
 QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
@@ -141,6 +142,13 @@ inline double SCRIBUS_API distance(double, double);
    \retval double Constrained angle
  */
 double SCRIBUS_API constrainAngle(double angle);
+/*! \brief Get the rotation angle (in radian) from a transformation matrix
+   Will make code simpler and reduce interval or provide as a parameter
+   \param matrix the transformation matrix
+   \param def the value that should be return if matrix is not a rotation matrix
+   \retval double the rotation angle
+ */
+double SCRIBUS_API getRotationFromMatrix(QWMatrix& matrix, double def);
 const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);

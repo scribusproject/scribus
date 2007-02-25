@@ -52,12 +52,12 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 	// defaults
 	if (QFile::exists(RC_PATH_USR))
 	{
-		titleLabel->setText(tr("User settings"));
+		titleLabel->setText( tr("User settings"));
 		loadCfgFile(RC_PATH_USR);
 	}
 	else
 	{
-		titleLabel->setText(tr("System wide configuration"));
+		titleLabel->setText( tr("System wide configuration"));
 		resetButton->setEnabled(false);
 		loadCfgFile(RC_PATH);
 	}
@@ -76,8 +76,8 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
  */
 void SWPrefsGui::languageChange()
 {
-	okButton->setText(tr("&Save"));
-	resetButton->setText(tr("&Reset"));
+	okButton->setText( tr("&Save"));
+	resetButton->setText( tr("&Reset"));
 	// tooltips
 	QToolTip::add(okButton, tr("Save user configuration"));
 	QToolTip::add(resetButton, "<qt>" + tr("Reload system wide configuration and remove user defined one") + "</qt>");
@@ -113,7 +113,7 @@ void SWPrefsGui::okButton_pressed()
 	stream.setCodec(QTextCodec::codecForName("utf8"));
 	stream << cfgEdit->text();
 	f.close();
-	titleLabel->setText(tr("User settings saved"));
+	titleLabel->setText( tr("User settings saved"));
 	okButton->setEnabled(false);
 }
 
@@ -124,7 +124,7 @@ void SWPrefsGui::resetButton_pressed()
 	d.remove(RC_PATH_USR);
 	okButton->setEnabled(false);
 	resetButton->setEnabled(false);
-	titleLabel->setText(tr("System wide configuration reloaded"));
+	titleLabel->setText( tr("System wide configuration reloaded"));
 }
 
 void SWPrefsGui::cfgEdit_changed()
@@ -138,7 +138,7 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 	QFile f(filename);
 	if (!f.open(IO_ReadOnly))
 	{
-		titleLabel->setText(tr("Cannot open file %1").arg(f.name()));
+		titleLabel->setText( tr("Cannot open file %1").arg(f.name()));
 		return false;
 	}
 	cfgEdit->clear();

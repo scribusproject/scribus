@@ -1,0 +1,8 @@
+INCLUDE_DIRECTORIES(
+"${CMAKE_SOURCE_DIR}/scribus"
+)
+
+INSTALL(FILES
+scribus13.ksxml
+  DESTINATION ${LIBDIR}keysets
+)

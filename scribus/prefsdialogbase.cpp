@@ -132,7 +132,7 @@ void PrefsDialogBase::languageChange()
 {
 	buttonOk->setText( CommonStrings::tr_OK );
 	buttonCancel->setText( CommonStrings::tr_Cancel );
-	saveButton->setText(tr("Save..."));
+	saveButton->setText( tr("Save..."));
 	backToDefaults->setText( tr( "&Defaults" ) );
 }
 

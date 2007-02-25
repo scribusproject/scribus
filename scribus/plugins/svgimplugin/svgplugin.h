@@ -9,8 +9,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdom.h>
 #include <qptrstack.h>
+#include <qsize.h>
 #include "pluginapi.h"
+#include "fpointarray.h"
 #include "loadsaveplugin.h"
+#include "../formatidlist.h"
 #include "vgradient.h"
 
 class ScrAction;
@@ -38,7 +41,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 
 	public slots:
 		/*!
@@ -47,7 +50,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		 */
-		virtual bool import(QString filename = QString::null);
+		virtual bool import(QString filename = QString::null, int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
@@ -110,6 +113,7 @@ class SvgStyle
 {
 public:
 	SvgStyle() :
+		Display(true),
 		CSpace(false),
 		CurCol("None"),
 		dashOffset(0),
@@ -132,10 +136,12 @@ public:
 		PLineEnd(Qt::FlatCap),
 		PLineJoin(Qt::MiterJoin),
 		StrokeCol("None"),
-		Transparency(0.0),
-		TranspStroke(0.0)
+		Opacity(1.0),
+		FillOpacity(1.0),
+		StrokeOpacity(1.0)
 		{
 		}
+	bool Display;
 	bool CSpace;
 	QString CurCol;
 	QValueList<double> dashArray;
@@ -160,8 +166,10 @@ public:
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
 	QString StrokeCol;
-	double Transparency;
-	double TranspStroke;
+	double Opacity;
+	double FillOpacity;
+	double StrokeOpacity;
+	QString textAnchor;
 };
 
 class SVGPlug : public QObject
@@ -175,12 +183,25 @@ public:
 	\param fName QString
 	\param isInteractive flag to use GUI
 	 */
-	SVGPlug(QString fname, bool isInteractive);
+	SVGPlug(QString fname, int flags);
 	~SVGPlug();
-	void convert();
+	void convert(int flags);
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
+	bool isIgnorableNode( const QDomElement &e );
+	FPoint parseTextPosition(const QDomElement &e);
+	QSize  parseWidthHeight(const QDomElement &e, double conv);
+	QRect  parseViewBox(const QDomElement &e);
+	void parseDefs(const QDomElement &e);
+	void parseClipPath(const QDomElement &e);
+	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
+	QPtrList<PageItem> parseElement(const QDomElement &e);
+	QPtrList<PageItem> parseText(const QDomElement &e);
+	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
+	QPtrList<PageItem> parseSwitch(const QDomElement &e);
+	QPtrList<PageItem> parseUse(const QDomElement &e);
+	QDomElement getNodeFromUseElement(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
 	QWMatrix parseTransform(const QString &transform);
@@ -199,21 +220,20 @@ public:
 	void parseGradient( const QDomElement &e );
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
-	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
 	ScribusDoc* currDoc;
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
-	QPtrList<PageItem> Elements;
 	QPtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
+	QMap<QString, QDomElement>		m_nodeMap;
+	QMap<QString, FPointArray>		m_clipPaths;
 	bool FirstM, WasM, PathClosed;
 	double viewTransformX;
 	double viewTransformY;
 	double viewScaleX;
 	double viewScaleY;
-	bool haveViewBox;
 	bool interactive;
 	//! \brief Indicator if there is any unsupported feature in imported svg.
 	bool unsupported;

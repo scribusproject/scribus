@@ -1,4 +1,17 @@
-EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro2.png acro3.png acroreader5.1.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png docinfo.png docinfo2.png fonts2.png fonts3.png fonts4.png fontpref2.png fontpref3.png fontpref4.png fontpref1.png fontsampler.png fontsampler2.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png htmlstyle.png htmlimport.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png oochart.png ooeps1.png oogettext1.png pagetemplate1.png pdfeffect1.png pdfeffect2.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png  printpreview.png  RDF.png batik1.png  gimpoptions2.png prefs.png prefsdisplay.png  prefs-mac-1.png cmspanel.png  gimpoptions3.png  prefs2.png scribustru4.png colormanager2.png  hyphen1.png   Scripter_error_string.png fontprev.png hyphen2.png  prefs4.png prefs5.png prefs6.png prefs8.png prefs10.png prefs11.png prefs12.png prefs15.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1.png scribuscms1.png printer1.png printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png swmenu.png swdialog.png after_short_words.png before_short_words.png scribus2.png
+EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro2.png acro3.png acroreader5.1.png cmsmodify1.png \
+colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png docinfo.png docinfo2.png fonts2.png fonts3.png \
+fonts4.png fontpref2.png fontpref3.png fontpref4.png fontpref1.png fontsampler.png fontsampler2.png gammagrayscale.png \
+gsadv1.png gsadv2.png gsadv3.png htmlstyle.png htmlimport.png hyphen1.png hyphen2.png hyphen3.png imageeffects.png \
+inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png oochart.png ooeps1.png \
+oogettext1.png pagetemplate1.png pdfeffect1.png pdfeffect2.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png \
+svg1.png gimpoptions1.png  printpreview.png  RDF.png batik1.png  gimpoptions2.png prefs.png prefsdisplay.png \
+prefs-mac-1.png cmspanel.png  gimpoptions3.png  prefs2.png scribustru4.png colormanager1.png colormanager2.png  hyphen1.png   \
+Scripter_error_string.png fontprev.png hyphen2.png  prefs4.png prefs5.png prefs6.png prefs8.png prefs10.png prefs11.png \
+prefs12.png prefs15.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1.png scribuscms1.png printer1.png \
+printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png \
+formularz_nowy.png formularz_pole_num.png siatka_jednostki_miar.png siatka_menu.png symbole.png ulica.png \
+wlasciwosci_pola.png wyslij_formularz.png result.png prefsblgrid1.png swmenu.png swdialog.png after_short_words.png  \
+before_short_words.png scribus2.png CMakeLists.txt layers1.png layers2.png
 
 install-data-local:
 
@@ -16,6 +29,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/cmspanel.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmspanel.png
 	$(INSTALL_DATA) $(srcdir)/cmsmodify1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmsmodify1.png
 	$(INSTALL_DATA) $(srcdir)/colormgmtscreen.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormgmtscreen.png
+	$(INSTALL_DATA) $(srcdir)/colormanager1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager1.png
 	$(INSTALL_DATA) $(srcdir)/colormanager2.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager2.png
 	$(INSTALL_DATA) $(srcdir)/cups1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cups1.png
 	$(INSTALL_DATA) $(srcdir)/cups2.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cups2.png
@@ -46,7 +60,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hyphen1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/hyphen1.png
 	$(INSTALL_DATA) $(srcdir)/hyphen2.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/hyphen2.png
 	$(INSTALL_DATA) $(srcdir)/hyphen3.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/hyphen3.png
+	$(INSTALL_DATA) $(srcdir)/imageeffects.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/imageeffects.png
 	$(INSTALL_DATA) $(srcdir)/inkscape.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/inkscape.png
+	$(INSTALL_DATA) $(srcdir)/layers1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers1.png
+	$(INSTALL_DATA) $(srcdir)/layers2.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers2.png
 	$(INSTALL_DATA) $(srcdir)/kfontinstaller.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/kfontinstaller.png
 	$(INSTALL_DATA) $(srcdir)/ksnapshot.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/ksnapshot.png
 	$(INSTALL_DATA) $(srcdir)/monprof1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof1.png
@@ -119,6 +136,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/batik1.png	
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmsmodify1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmspanel.png
+	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager2.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormgmtscreen.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cups1.png
@@ -153,9 +171,12 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/hyphen1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/hyphen2.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/hyphen3.png
+	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/imageeffects.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/inkscape.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/kfontinstaller.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/ksnapshot.png
+	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers1.png
+	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers2.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof2.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof3.png

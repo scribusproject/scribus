@@ -8,9 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "cmdvar.h"
 #include "cmdutil.h"
 
-// We need svgplugin.h for the SVG format ID, and for
-// the FileFormat interface.
-#include "plugins/svgimplugin/svgplugin.h"
+// We need svgpluginid.h for the SVG format ID, and
+// loadsaveplugin.h for the FileFormat interface.
+#include "../formatidlist.h"
+#include "loadsaveplugin.h"
 
 #include <qstring.h>
 
@@ -23,14 +24,13 @@ PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 
-	const FileFormat * fmt
-		= LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT);
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT);
 	if (!fmt)
 	{
 		PyErr_SetString(PyExc_Exception, "SVG Import plugin not available");
 		return NULL;
 	}
-	if (!fmt->loadFile(QString::fromUtf8(aText)))
+	if (!fmt->loadFile(QString::fromUtf8(aText), 0))
 	{
 		PyErr_SetString(PyExc_Exception, "Import failed");
 		return NULL;

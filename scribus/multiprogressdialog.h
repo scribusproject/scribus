@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef MULTIPROGRESSDIALOG_H
 #define MULTIPROGRESSDIALOG_H
 
+#include "scribusapi.h"
 #include "multiprogressdialogbase.h"
 
 #include <qprogressbar.h>
@@ -38,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qmap.h>
 
-class MultiProgressDialog : public MultiProgressDialogBase
+class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 {
 	Q_OBJECT
 

@@ -46,7 +46,7 @@ Recommended Spec File Description:
 %description
 Scribus is an desktop open source page layout program with the aim of producing 
 commerical grade output in PDF and Postscript, primarily, though not exclusively
-for Linux. Scirbus runs natively on Linux, BSD, Solaris, and Win32.
+for Linux. Scirbus runs natively on Linux, BSD, OS/2, Solaris, and Win32.
 
 Recommended Spec File Summary: Scribus - Open Source Page Layout 
 
@@ -56,7 +56,7 @@ Please remove all references to proprietary applications.
 
 * We have included a scribus.xml file for updating the mime info database. 
 We are still missing some locales, but in our testing it works properly. 
-We are awaiting IANA approval for our mime type.
+We now have IANA approval for our mime type.
 
 An example command to install and refresh the mime database in a spec file 
 (distro specfic macros might vary):
@@ -89,4 +89,4 @@ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in January 2006
+in February 2006

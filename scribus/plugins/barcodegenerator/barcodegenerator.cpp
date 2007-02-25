@@ -13,7 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "commonstrings.h"
 #include "undomanager.h"
-#include "../psimport/importps.h"
+#include "loadsaveplugin.h"
+#include "../formatidlist.h"
 #include <qcombobox.h>
 #include <qtextedit.h>
 #include <qlineedit.h>
@@ -26,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qfiledialog.h>
 #include <qregexp.h>
-
 
 BarcodeType::BarcodeType(QString cmd, QString exa,
 						 QString comm, QString regExp,
@@ -56,7 +56,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["EAN-2"] = BarcodeType("ean2", "42", tr("2 digits"),
 							   "[0-9]{2,2}");
 	map["ISBN"] = BarcodeType("isbn", "1-58880-149",
-							  tr("9 or 10 digits separated appropriately with dashes"),
+							  tr("12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)"),
 							  "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
 	map["Code-39"] = BarcodeType("code39", "CODE-39",
@@ -226,20 +226,10 @@ void BarcodeGenerator::okButton_pressed()
 {
 	// no need to call paintBarcode(tmpFile, 300); because
 	// it's created by previous run...
-	if (UndoManager::undoEnabled() && ScMW->HaveDoc)
-	{
-		UndoManager::instance()->beginTransaction(ScMW->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, psFile, Um::IEPS);
-	}
-	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
-		UndoManager::instance()->setUndoEnabled(false);
 	hide();
-	EPSPlug *dia = new EPSPlug(psFile, true, false);
-	Q_CHECK_PTR(dia);
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->commit();
-	else
-		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
+	if( fmt )
+		fmt->loadFile(QString::fromUtf8(psFile), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
 	accept();
 }
 
@@ -250,7 +240,7 @@ void BarcodeGenerator::cancelButton_pressed()
 
 bool BarcodeGenerator::codeEdit_check(const QString& )//s)
 {
-	/* propably not needed as the backend do it for us (PV)
+	/* probably not needed as the backend do it for us (PV)
 	QRegExp rx(map[bcCombo->currentText()].regularExp);
 	if (!rx.exactMatch(s))
 	{

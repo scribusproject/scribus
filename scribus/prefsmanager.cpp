@@ -188,6 +188,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.gridShown = false;
 	appPrefs.guidesSettings.guidesShown = false;
+	appPrefs.guidesSettings.colBordersShown = false;
 	appPrefs.guidesSettings.baseShown = false;
 	appPrefs.guidesSettings.showPic = true;
 	appPrefs.guidesSettings.showControls = false;
@@ -248,7 +249,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.magMin = 10;
 	appPrefs.toolSettings.magMax = 3200;
 	appPrefs.toolSettings.magStep = 200;
-	appPrefs.toolSettings.dBrushPict = "White";
+	appPrefs.toolSettings.dBrushPict = CommonStrings::None;
 	appPrefs.toolSettings.shadePict = 100;
 	appPrefs.toolSettings.scaleX = 1;
 	appPrefs.toolSettings.scaleY = 1;
@@ -294,8 +295,7 @@ void PrefsManager::initDefaults()
 	appPrefs.CustomColorSets.clear();
 	appPrefs.PrPr_Mode = false;
 	appPrefs.Gcr_Mode = true;
-	appPrefs.PrPr_AlphaText = false;
-	appPrefs.PrPr_AlphaGraphics = false;
+	appPrefs.PrPr_AntiAliasing = false;
 	appPrefs.PrPr_Transparency = false;
 	appPrefs.PrPr_C = true;
 	appPrefs.PrPr_M = true;
@@ -788,8 +788,111 @@ const QString& PrefsManager::colorSetName()
 	return appPrefs.DColorSet;
 }
 
+bool PrefsManager::isToolColor(const QString& name)
+{
+	return isToolColor(appPrefs.toolSettings, name);
+}
+
+bool PrefsManager::isToolColor(const struct toolPrefs& settings, const QString& name)
+{
+	if (settings.dPenText == name)
+		return true;
+	if (settings.dStrokeText == name)
+		return true;
+	if (settings.dTextBackGround == name)
+		return true;
+	if (settings.dTextLineColor == name)
+		return true;
+	if (settings.dPen == name)
+		return true;
+	if (settings.dBrush == name)
+		return true;
+	if (settings.dPenLine == name)
+		return true;
+	if (settings.dBrushPict == name)
+		return true;
+	return false;
+}
+
+QStringList PrefsManager::toolColorNames()
+{
+	return toolColorNames(appPrefs.toolSettings);
+}
+
+QStringList PrefsManager::toolColorNames(const struct toolPrefs& settings)
+{
+	QStringList names;
+	names.append(settings.dPenText);
+	if (!names.contains(settings.dStrokeText))
+		names.append(settings.dStrokeText);
+	if (!names.contains(settings.dTextBackGround))
+		names.append(settings.dTextBackGround);
+	if (!names.contains(settings.dTextLineColor))
+		names.append(settings.dTextLineColor);
+	if (!names.contains(settings.dPen))
+		names.append(settings.dPen);
+	if (!names.contains(settings.dBrush))
+		names.append(settings.dBrush);
+	if (!names.contains(settings.dPenLine))
+		names.append(settings.dPenLine);
+	if (!names.contains(settings.dBrushPict))
+		names.append(settings.dBrushPict);
+	return names;
+}
+
+void PrefsManager::replaceToolColors(const QMap<QString, QString> replaceMap)
+{
+	replaceToolColors(appPrefs.toolSettings, replaceMap);
+}
+
+void PrefsManager::replaceToolColors(struct toolPrefs& settings, const QMap<QString, QString> replaceMap)
+{
+	if (replaceMap.contains(settings.dPenText))
+		settings.dPenText = replaceMap[settings.dPenText];
+	if (replaceMap.contains(settings.dStrokeText))
+		settings.dStrokeText = replaceMap[settings.dStrokeText];
+	if (replaceMap.contains(settings.dTextBackGround))
+		settings.dTextBackGround = replaceMap[settings.dTextBackGround];
+	if (replaceMap.contains(settings.dTextLineColor))
+		settings.dTextLineColor = replaceMap[settings.dTextLineColor];
+	if (replaceMap.contains(settings.dPen))
+		settings.dPen = replaceMap[settings.dPen];
+	if (replaceMap.contains(settings.dBrush))
+		settings.dBrush = replaceMap[settings.dBrush];
+	if (replaceMap.contains(settings.dPenLine))
+		settings.dPenLine = replaceMap[settings.dPenLine];
+	if (replaceMap.contains(settings.dBrushPict))
+		settings.dBrushPict = replaceMap[settings.dBrushPict];
+}
+
 void PrefsManager::setColorSet(const ColorList& colorSet)
 {
+	// Color set may have changed and tools color not be present in the new color set
+	ColorList tmpSet = colorSet;
+	QString penText = appPrefs.toolSettings.dPenText;
+	if (!tmpSet.contains(penText) && penText != CommonStrings::None)
+		tmpSet[penText] = appPrefs.DColors[penText];
+	QString strokeText = appPrefs.toolSettings.dStrokeText;
+	if (!tmpSet.contains(strokeText) && strokeText != CommonStrings::None)
+		tmpSet[strokeText] = appPrefs.DColors[strokeText];
+	QString textBackGround = appPrefs.toolSettings.dTextBackGround;
+	if (!tmpSet.contains(textBackGround) && textBackGround != CommonStrings::None)
+		tmpSet[textBackGround] = appPrefs.DColors[textBackGround];
+	QString textLineColor = appPrefs.toolSettings.dTextLineColor;
+	if (!tmpSet.contains(textLineColor) && textLineColor != CommonStrings::None)
+		tmpSet[textLineColor] = appPrefs.DColors[textLineColor];
+	QString pen = appPrefs.toolSettings.dPen;
+	if (!tmpSet.contains(pen) && pen != CommonStrings::None)
+		tmpSet[pen] = appPrefs.DColors[pen];
+	QString brush = appPrefs.toolSettings.dBrush;
+	if (!tmpSet.contains(brush) && brush != CommonStrings::None)
+		tmpSet[brush] = appPrefs.DColors[brush];
+	QString penLine = appPrefs.toolSettings.dPenLine;
+	if (!tmpSet.contains(penLine) && penLine != CommonStrings::None)
+		tmpSet[penLine] = appPrefs.DColors[penLine];
+	QString brushPict = appPrefs.toolSettings.dBrushPict;
+	if (!tmpSet.contains(brushPict) && brushPict != CommonStrings::None)
+		tmpSet[brushPict] = appPrefs.DColors[brushPict];
 	appPrefs.DColors=colorSet;
 }
 
@@ -861,6 +964,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("SCRIPTS", appPrefs.ScriptDir);
 	dc.setAttribute("TEMPLATES", appPrefs.documentTemplatesDir);
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(appPrefs.guidesSettings.guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(appPrefs.guidesSettings.colBordersShown));
 	dc.setAttribute("FRV", static_cast<int>(appPrefs.guidesSettings.framesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(appPrefs.guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(appPrefs.guidesSettings.baseShown));
@@ -1070,8 +1174,7 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
 	dc8Pr.setAttribute("Mode", static_cast<int>(appPrefs.PrPr_Mode));
 	dc8Pr.setAttribute("GcrMode", static_cast<int>(appPrefs.Gcr_Mode));
-	dc8Pr.setAttribute("AlphaText", static_cast<int>(appPrefs.PrPr_AlphaText));
-	dc8Pr.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.PrPr_AlphaGraphics));
+	dc8Pr.setAttribute("AntiAliasing", static_cast<int>(appPrefs.PrPr_AntiAliasing));
 	dc8Pr.setAttribute("Transparency", static_cast<int>(appPrefs.PrPr_Transparency));
 	dc8Pr.setAttribute("Cyan", static_cast<int>(appPrefs.PrPr_C));
 	dc8Pr.setAttribute("Magenta", static_cast<int>(appPrefs.PrPr_M));
@@ -1305,6 +1408,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.ScriptDir = dc.attribute("SCRIPTS","");
 			appPrefs.documentTemplatesDir = dc.attribute("TEMPLATES","");
 			appPrefs.guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+			appPrefs.guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 			appPrefs.guidesSettings.framesShown = static_cast<bool>(dc.attribute("FRV", "1").toInt());
 			appPrefs.guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 			appPrefs.guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "1").toInt());
@@ -1408,7 +1512,7 @@ bool PrefsManager::ReadPref(QString ho)
 			//CB Reset prefs zoom step value to 200% instead of old values.
 			if (appPrefs.toolSettings.magStep<100)
 				appPrefs.toolSettings.magStep=200;
-			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT");
+			appPrefs.toolSettings.dBrushPict = dc.attribute("CPICT", CommonStrings::None);
 			appPrefs.toolSettings.shadePict = dc.attribute("PICTSHADE", "100").toInt();
 			appPrefs.toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();
 			appPrefs.toolSettings.scaleY = dc.attribute("PICTSCY", "1").toDouble();
@@ -1596,8 +1700,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.PrPr_Mode = static_cast<bool>(dc.attribute("Mode", "0").toInt());
 			appPrefs.Gcr_Mode = static_cast<bool>(dc.attribute("GcrMode", "1").toInt());
-			appPrefs.PrPr_AlphaText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
-			appPrefs.PrPr_AlphaGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
+			appPrefs.PrPr_AntiAliasing = static_cast<bool>(dc.attribute("AntiAliasing", "0").toInt());
 			appPrefs.PrPr_Transparency = static_cast<bool>(dc.attribute("Transparency", "0").toInt());
 			appPrefs.PrPr_C = static_cast<bool>(dc.attribute("Cyan", "1").toInt());
 			appPrefs.PrPr_M = static_cast<bool>(dc.attribute("Magenta", "1").toInt());
@@ -1606,7 +1709,10 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="EXTERNAL")
 		{
-			setGhostscriptExecutable(dc.attribute("GS", "gs"));
+			int gsa1 = testGSAvailability(dc.attribute("GS", "gs"));
+			int gsa2 = testGSAvailability(ghostscriptExecutable());
+			if( (gsa1 == 0) || (gsa2 != 0) )
+				setGhostscriptExecutable(dc.attribute("GS", "gs"));
 			appPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
 			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
 			appPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();

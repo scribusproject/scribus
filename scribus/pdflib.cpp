@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include <qtextstream.h>
+#include <qtextcodec.h>
 #include <qdir.h>
 #include <cstdlib>
 #include <cmath>
@@ -113,7 +114,7 @@ PDFlib::PDFlib(ScribusDoc & docu)
 		KeyGen[a] = kg_array[a];
 	if (usingGUI)
 	{
-		progressDialog = new MultiProgressDialog(tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
+		progressDialog = new MultiProgressDialog( tr("Saving PDF"), CommonStrings::tr_Cancel, ScMW, "pdfexportprogress");
 		Q_CHECK_PTR(progressDialog);
 		QStringList barNames, barTexts;
 		barNames << "EMP" << "EP" << "ECPI";
@@ -233,6 +234,28 @@ QString PDFlib::PDFEncode(const QString & in)
 	return tmp;
 }
 
+QByteArray PDFlib::EncodeUTF16(const QString &in)
+{
+	QString tmp("");
+	for (uint d = 0; d < in.length(); ++d)
+	{
+		QChar cc(in.at(d));
+		if ((cc == '(') || (cc == ')') || (cc == '\\'))
+			tmp += '\\';
+		tmp += cc;
+	}
+	QTextCodec *codec = QTextCodec::codecForName("ISO-10646-UCS-2");
+	QCString cres = codec->fromUnicode( tmp );
+	uchar sw;
+	for(uint d = 0; d < cres.size()-1; d += 2)
+	{
+		sw = cres[d];
+		cres[d] = cres[d+1];
+		cres[d+1] = sw;
+	}
+	return cres;
+}
+
 QString PDFlib::EncStream(const QString & in, int ObjNum)
 {
 	if (in.length() < 1)
@@ -302,6 +325,51 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
 	for (uint cl = 0; cl < tmp.length(); ++cl)
+		uk += QChar(ou[cl]);
+	tmp = "<"+String2Hex(&uk, false)+">";
+	return tmp;
+}
+
+QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
+{
+	if (!Options.Encrypt)
+	{
+		if (in.length() < 3)
+			return "<>";
+		QString tmp = in.mid(1, in.length()-2);
+		QByteArray us = EncodeUTF16(tmp);
+		QString uk = "";
+		for (uint cl = 0; cl < us.size(); ++cl)
+			uk += QChar(us[cl]);
+		return "<"+String2Hex(&uk, false)+">";
+	}
+	rc4_context_t rc4;
+	QString tmp;
+	int dlen = 0;
+	if (in.length() < 3)
+		return "<>";
+	tmp = in.mid(1, in.length()-2);
+	QByteArray us = EncodeUTF16(tmp);
+	QByteArray ou(us.size());
+	QByteArray data(10);
+	if (KeyLen > 5)
+		data.resize(21);
+	for (int cd = 0; cd < KeyLen; ++cd)
+	{
+		data[cd] = EncryKey[cd];
+		dlen++;
+	}
+	data[dlen++] = ObjNum;
+	data[dlen++] = ObjNum >> 8;
+	data[dlen++] = ObjNum >> 16;
+	data[dlen++] = 0;
+	data[dlen++] = 0;
+	QByteArray step1(16);
+	step1 = ComputeMD5Sum(&data);
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
+	QString uk = "";
+	for (uint cl = 0; cl < ou.size(); ++cl)
 		uk += QChar(ou[cl]);
 	tmp = "<"+String2Hex(&uk, false)+">";
 	return tmp;
@@ -500,14 +568,17 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	QString IDg(Datum);
 	IDg += Options.Datei;
 	IDg += "Scribus "+QString(VERSION);
-	IDg += "Libpdf for Scribus "+QString(VERSION);
+	IDg += "Scribus PDF Library "+QString(VERSION);
 	IDg += doc.documentInfo.getTitle();
 	IDg += doc.documentInfo.getAuthor();
 	IDg += "/False";
 	FileID = ComputeMD5(IDg);
 	if (Options.Encrypt)
 	{
-		KeyLen = Options.Version == 14 ? 16 : 5;
+		if ((Options.Version == 14) || (Options.Version == 15))
+			KeyLen = 16;
+		else
+			KeyLen = 5;
 		CalcOwnerKey(Options.PassOwner, Options.PassUser);
 		CalcUserKey(Options.PassUser, Options.Permissions);
 		for (uint cl2 = 0; cl2 < 32; ++cl2)
@@ -541,14 +612,14 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	Datum += tmp;
 	StartObj(2);
 	PutDoc("<<\n/Creator "+EncString("(Scribus "+QString(VERSION)+")",2)+"\n");
-	PutDoc("/Producer "+EncString("(Libpdf for Scribus "+QString(VERSION)+")",2)+"\n");
+	PutDoc("/Producer "+EncString("(Scribus PDF Library "+QString(VERSION)+")",2)+"\n");
 	QString docTitle = doc.documentInfo.getTitle();
 	if ((Options.Version == 12) && (docTitle.isEmpty()))
-		PutDoc("/Title "+EncString("("+doc.DocName+")",2)+"\n");
+		PutDoc("/Title "+EncStringUTF16("("+doc.DocName+")",2)+"\n");
 	else
-		PutDoc("/Title "+EncString("("+doc.documentInfo.getTitle()+")",2)+"\n");
-	PutDoc("/Author "+EncString("("+doc.documentInfo.getAuthor()+")",2)+"\n");
-	PutDoc("/Keywords "+EncString("("+doc.documentInfo.getKeywords()+")",2)+"\n");
+		PutDoc("/Title "+EncStringUTF16("("+doc.documentInfo.getTitle()+")",2)+"\n");
+	PutDoc("/Author "+EncStringUTF16("("+doc.documentInfo.getAuthor()+")",2)+"\n");
+	PutDoc("/Keywords "+EncStringUTF16("("+doc.documentInfo.getKeywords()+")",2)+"\n");
 	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
 	PutDoc("/ModDate "+EncString("("+Datum+")",2)+"\n");
 	if (Options.Version == 12)
@@ -589,7 +660,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
+			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -602,7 +677,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
+			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -615,7 +694,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			if (pgit->isAnnotation())
+			{
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				if (pgit->annotation().Type() == 4)
+					StdFonts.insert("/ZapfDingbats", "");
+			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.at(e)->cfont->scName(), DocFonts[pgit->itemText.at(e)->cfont->scName()]);
@@ -640,7 +723,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
 		Foi::FontFormat fformat = AllFonts[it.key()]->formatCode;
-		if ((AllFonts[it.key()]->isOTF) || (!AllFonts[it.key()]->HasNames) || (AllFonts[it.key()]->Subset) || (Options.SubsetList.contains(it.key())))
+		if ((!AllFonts[it.key()]->HasNames) || (Options.SubsetList.contains(it.key())))
 		{
 			QString fon("");
 			QMap<uint,FPointArray>::Iterator ig;
@@ -648,6 +731,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 			{
 				FPoint np, np1, np2;
 				bool nPath = true;
+				fon = "";
 				if (ig.data().size() > 3)
 				{
 					FPointArray gly = ig.data().copy();
@@ -676,23 +760,28 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 							 FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
 					}
 					fon += "h f*\n";
-					StartObj(ObjCounter);
-					ObjCounter++;
 					np = getMinClipF(&gly);
 					np1 = getMaxClipF(&gly);
-					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
-					PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-					PutDoc(">>\n");
-					if ((Options.Compress) && (CompAvail))
-						fon = CompressStr(&fon);
-					PutDoc("/Length "+QString::number(fon.length()+1));
-					if ((Options.Compress) && (CompAvail))
-						PutDoc("\n/Filter /FlateDecode");
-					PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
-					Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
-					fon = "";
 				}
+				else
+				{
+					fon = "h";
+					np = FPoint(0, 0);
+					np1 = FPoint(0, 0);
+				}
+				StartObj(ObjCounter);
+				ObjCounter++;
+				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+				PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
+				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+				PutDoc(">>\n");
+				if ((Options.Compress) && (CompAvail))
+					fon = CompressStr(&fon);
+				PutDoc("/Length "+QString::number(fon.length()+1));
+				if ((Options.Compress) && (CompAvail))
+					PutDoc("\n/Filter /FlateDecode");
+				PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
+				Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
 			}
 			AllFonts[it.key()]->RealGlyphs.clear();
 		}
@@ -1028,7 +1117,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 				if (colorsToUse[itf.key()].isRegistrationColor())
 					PutDoc("All");
 				else
-					PutDoc(itf.key().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ).replace("#", "_"));
+					PutDoc(itf.key().simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				PutDoc(" /DeviceCMYK "+QString::number(ObjCounter-1)+" 0 R ]\nendobj\n");
 				spotD.ResName = spotNam+QString::number(spotCount);
 				spotD.ResNum = ObjCounter;
@@ -1059,7 +1148,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 			ObjCounter++;
 			PutDoc("<<\n");
 			PutDoc("/Type /OCG\n");
-			PutDoc("/Name ("+ll.Name+")\n");
+			PutDoc("/Name ");
+			PutDoc(EncStringUTF16("("+ll.Name+")", ObjCounter-1));
+			PutDoc("\n");
 			PutDoc(">>\nendobj\n");
 			Lnr++;
 		}
@@ -1243,9 +1334,12 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite));
+										PutPage("h\nS\n");
+									}
 								}
 							}
 						}
@@ -1264,10 +1358,13 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								PutPage(setStrokeMulti(&ml[it]));
-								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->width())+" 0 l\n");
-								PutPage("S\n");
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage("0 0 m\n");
+									PutPage(FToStr(ite->width())+" 0 l\n");
+									PutPage("S\n");
+								}
 							}
 						}
 						if (ite->startArrowIndex() != 0)
@@ -1347,9 +1444,12 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite));
+										PutPage("h\nS\n");
+									}
 								}
 							}
 						}
@@ -1380,9 +1480,12 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite, false));
-									PutPage("S\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite, false));
+										PutPage("S\n");
+									}
 								}
 							}
 						}
@@ -1475,13 +1578,15 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 									else
 									{
 										multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-										for (int it = ml.size()-1;
-											it > -1; it--)
+										for (int it = ml.size()-1; it > -1; it--)
+										{
+											if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 											{
-											PutPage(setStrokeMulti(&ml[it]));
-											PutPage(SetClipPath(ite, false));
-											PutPage("S\n");
+												PutPage(setStrokeMulti(&ml[it]));
+												PutPage(SetClipPath(ite, false));
+												PutPage("S\n");
 											}
+										}
 									}
 								}
 								PutPage("Q\n");
@@ -1592,13 +1697,44 @@ void PDFlib::PDF_End_Page()
 	uint PgNr =  ActPageP->pageNr();
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
+	int Gobj;
+	if (Options.Version >= 14)
+	{
+		StartObj(ObjCounter);
+		Gobj = ObjCounter;
+		ObjCounter++;
+		PutDoc("<< /S /Transparency\n");
+		if (Options.UseRGB)
+			PutDoc("/CS /DeviceRGB\n");
+		else
+		{
+			if (Options.isGrayscale)
+				PutDoc("/CS /DeviceGray\n");
+			else
+#ifdef HAVE_CMS
+			{
+				if ((CMSuse) && (Options.UseProfiles))
+					PutDoc("/CS "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+				else
+#endif
+					PutDoc("/CS /DeviceCMYK\n");
+#ifdef HAVE_CMS
+			}
+#endif
+		}
+		PutDoc(">>\nendobj\n");
+	}
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
-	PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+
-		" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
+	if (Options.Version == 12)
+		PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
+	else
+		PutDoc("/TrimBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
+	if (Options.Version >= 14)
+		PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	if (Options.Thumbnails)
 		PutDoc("/Thumb "+QString::number(Seite.Thumb)+" 0 R\n");
 	if (Seite.AObjects.count() != 0)
@@ -1842,9 +1978,12 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 									multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 									for (int it = ml.size()-1; it > -1; it--)
 									{
-										PutPage(setStrokeMulti(&ml[it]));
-										PutPage(SetClipPath(ite));
-										PutPage("h\nS\n");
+										if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+										{
+											PutPage(setStrokeMulti(&ml[it]));
+											PutPage(SetClipPath(ite));
+											PutPage("h\nS\n");
+										}
 									}
 								}
 							}
@@ -1861,6 +2000,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						if (!ite->isTableItem)
+							continue;
+						if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
 							continue;
 						PutPage("q\n");
 						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options.Version >= 14))
@@ -2008,6 +2149,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					if (ite->LayerNr != ll.LNr)
 						continue;
 					if (!ite->isTableItem)
+						continue;
+					if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
 						continue;
 					double x = pag->xOffset();
 					double y = pag->yOffset();
@@ -2293,9 +2436,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite);
+							tmp += "h\nS\n";
+						}
 					}
 				}
 			}
@@ -2335,9 +2481,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite);
+							tmp += "h\nS\n";
+						}
 					}
 				}
 			}
@@ -2354,10 +2503,13 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					tmp += setStrokeMulti(&ml[it]);
-					tmp += "0 0 m\n";
-					tmp += FToStr(ite->width())+" 0 l\n";
-					tmp += "S\n";
+					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					{
+						tmp += setStrokeMulti(&ml[it]);
+						tmp += "0 0 m\n";
+						tmp += FToStr(ite->width())+" 0 l\n";
+						tmp += "S\n";
+					}
 				}
 			}
 			if (ite->startArrowIndex() != 0)
@@ -2440,9 +2592,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite);
+							tmp += "h\nS\n";
+						}
 					}
 				}
 			}
@@ -2473,9 +2628,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite, false);
-						tmp += "S\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite, false);
+							tmp += "S\n";
+						}
 					}
 				}
 			}
@@ -2568,13 +2726,15 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 						else
 						{
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-							for (int it = ml.size()-1;
-								it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
+							{
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 								{
-								tmp += setStrokeMulti(&ml[it]);
-								tmp += SetClipPath(ite, false);
-								tmp += "S\n";
+									tmp += setStrokeMulti(&ml[it]);
+									tmp += SetClipPath(ite, false);
+									tmp += "S\n";
 								}
+							}
 						}
 					}
 					tmp += "Q\n";
@@ -2941,6 +3101,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						hl3.cshade2 = hl2.cshade2;
 						hl3.yp = hl2.yp - (hl2.csize * hl2.cshadowy / 10000.0);
 						hl3.xp = hl2.xp + (hl2.csize * hl2.cshadowx / 10000.0);
+						hl3.PtransX = hl2.PtransX;
+						hl3.PtransY = hl2.PtransY;
 						hl3.csize = hl2.csize;
 						hl3.cstyle = hl2.cstyle;
 						hl3.cfont = hl2.cfont;
@@ -2978,6 +3140,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 			hl2.cshade2 = hl->cshade2;
 			hl2.yp = hl->yp - (hl->csize * hl->cshadowy / 10000.0);
 			hl2.xp = hl->xp + (hl->csize * hl->cshadowx / 10000.0);
+			hl2.PtransX = hl->PtransX;
+			hl2.PtransY = hl->PtransY;
+			hl2.PRot = hl->PRot;
 			hl2.csize = hl->csize;
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;
@@ -3130,7 +3295,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		FillColor = "";
 		FillColor += putColor(hl->ccolor, hl->cshade, true);
 	}
-	if ((hl->cfont->isOTF) || (!hl->cfont->HasNames) || (hl->cfont->Subset) || (Options.SubsetList.contains(hl->cfont->scName())))
+	if ((!hl->cfont->HasNames) || (Options.SubsetList.contains(hl->cfont->scName())))
 	{
 		uint chr = chx[0].unicode();
 		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
@@ -3679,10 +3844,10 @@ QString PDFlib::PDF_Transparenz(PageItem *currItem)
 
 QString PDFlib::PDF_Gradient(PageItem *currItem)
 {
-	double w = currItem->width();
-	double h = -currItem->height();
-	double w2 = w / 2.0;
-	double h2 = h / 2.0;
+//	double w = currItem->width();
+//	double h = -currItem->height();
+//	double w2 = w / 2.0;
+//	double h2 = h / 2.0;
 	double StartX = 0;
 	double StartY = 0;
 	double EndX = 0;
@@ -3691,7 +3856,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	QValueList<double> TransVec;
 	QStringList Gcolors;
 	QPtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
-	switch (currItem->GrType)
+/*	switch (currItem->GrType)
 	{
 		case 1:
 			StartX = 0;
@@ -3733,15 +3898,23 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->width());
-			StartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->height());
-			EndX = QMIN(QMAX(currItem->GrEndX, 0), currItem->width());
-			EndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->height());
+			StartX = currItem->GrStartX;
+			StartY = -currItem->GrStartY;
+			EndX = currItem->GrEndX;
+			EndY = -currItem->GrEndY;
 			break;
-	}
+	} */
+	StartX = currItem->GrStartX;
+	StartY = -currItem->GrStartY;
+	EndX = currItem->GrEndX;
+	EndY = -currItem->GrEndY;
+	QStringList colorNames;
+	QValueList<int> colorShades;
 	StopVec.clear();
 	TransVec.clear();
 	Gcolors.clear();
+	colorNames.clear();
+	colorShades.clear();
 	if ((currItem->GrType == 5) || (currItem->GrType == 7))
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
@@ -3749,38 +3922,312 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			TransVec.prepend(cstops.at(cst)->opacity);
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
 			Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+			colorNames.prepend(cstops.at(cst)->name);
+			colorShades.prepend(cstops.at(cst)->shade);
 		}
 	}
 	else
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
-			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
-			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-			double x = fabs(ma.m11() * w2 + ma.dx());
-			double y = fabs(ma.m12() * w2 + ma.dy());
+			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
-			StopVec.append(-y);
+			StopVec.append(y);
 			Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+			colorNames.append(cstops.at(cst)->name);
+			colorShades.append(cstops.at(cst)->shade);
 		}
 	}
-	QString tmp(PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors));
+	QString tmp(PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors, colorNames, colorShades));
 	return tmp;
 }
 
-QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors)
+QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors, QStringList colorNames, QValueList<int> colorShades)
 {
 	QString tmp("");
 	bool first = true;
+	bool oneSpot1 = false;
+	bool oneSpot2 = false;
+	bool twoSpot = false;
+	bool spotMode = false;
+	int cc, mc, yc, kc;
 	double w = currItem->width();
 	double h = -currItem->height();
-	double w2 = QMIN(QMAX(currItem->GrStartX, 0), currItem->width());
-	double h2 = -1.0 * QMIN(QMAX(currItem->GrStartY, 0), currItem->height());
+	double w2 = currItem->GrStartX;
+	double h2 = -currItem->GrStartY;
 	uint colorsCountm1=Colors.count()-1;
 	for (uint c = 0; c < colorsCountm1; ++c)
+	{
+		oneSpot1 = false;
+		oneSpot2 = false;
+		twoSpot = false;
+		spotMode = false;
+		QString spot1 = colorNames[c].simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
+		QString spot2 = colorNames[c+1].simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
+		QString TRes("");
+		if ((Options.Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
+		{
+			StartObj(ObjCounter);
+			QString ShName = ResNam+QString::number(ResCount);
+			Shadings[ShName] = ObjCounter;
+			ResCount++;
+			ObjCounter++;
+			PutDoc("<<\n");
+			if ((currItem->GrType == 5) || (currItem->GrType == 7))
+				PutDoc("/ShadingType 3\n");
+			else
+				PutDoc("/ShadingType 2\n");
+			PutDoc("/ColorSpace /DeviceGray\n");
+			PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
+			if ((currItem->GrType == 5) || (currItem->GrType == 7))
+			{
+				PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c+1)))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c)))+"]\n");
+				PutDoc("/Extend [true true]\n");
+				PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+				PutDoc("/C0 ["+FToStr((*Trans.at(c+1)))+"]\n");
+				PutDoc("/C1 ["+FToStr((*Trans.at(c)))+"]\n");
+			}
+			else
+			{
+				PutDoc("/Coords ["+FToStr((*Stops.at(c*2)))+"  "+FToStr((*Stops.at(c*2+1)))+" "+FToStr((*Stops.at(c*2+2)))+" "+FToStr((*Stops.at(c*2+3)))+"]\n");
+				PutDoc("/Extend [true true]\n");
+				PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+				PutDoc("/C0 ["+FToStr((*Trans.at(c)))+"]\n");
+				PutDoc("/C1 ["+FToStr((*Trans.at(c+1)))+"]\n");
+			}
+			PutDoc("/N 1\n>>\n>>\nendobj\n");
+			StartObj(ObjCounter);
+			ObjCounter++;
+			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n");
+			PutDoc("/FormType 1\n");
+			PutDoc("/Group << /S /Transparency /CS /DeviceGray >>\n");
+			PutDoc("/BBox [ 0 0 "+FToStr(currItem->width())+" "+FToStr(-currItem->height())+" ]\n");
+			PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+			if (Shadings.count() != 0)
+			{
+				PutDoc("/Shading << \n");
+				QMap<QString,int>::Iterator it3;
+				for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+					PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
+				PutDoc(">>\n");
+			}
+			PutDoc(">>\n");
+			QString stre = "";
+			stre += "q\n"+SetClipPath(currItem)+"h\nW* n\n"+"/"+ShName+" sh\nQ\n";
+			if ((Options.Compress) && (CompAvail))
+				stre = CompressStr(&stre);
+			PutDoc("/Length "+QString::number(stre.length())+"\n");
+			if ((Options.Compress) && (CompAvail))
+				PutDoc("/Filter /FlateDecode\n");
+			PutDoc(">>\nstream\n"+EncStream(stre, ObjCounter-1)+"\nendstream\nendobj\n");
+			Seite.XObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
+			ResCount++;
+			StartObj(ObjCounter);
+			QString GXName = ResNam+QString::number(ResCount);
+			Transpar[GXName] = ObjCounter;
+			ResCount++;
+			ObjCounter++;
+			PutDoc("<< /Type /ExtGState\n");
+			PutDoc("/SMask << /S /Luminosity /G "+QString::number(ObjCounter-2)+" 0 R >>\n");
+			PutDoc("/BM /Normal\n>>\nendobj\n");
+			TRes = GXName;
+		}
+		StartObj(ObjCounter);
+		QString ShName = ResNam+QString::number(ResCount);
+		Shadings[ShName] = ObjCounter;
+		ResCount++;
+		ObjCounter++;
+		PutDoc("<<\n");
+		if ((currItem->GrType == 5) || (currItem->GrType == 7))
+			PutDoc("/ShadingType 3\n");
+		else
+			PutDoc("/ShadingType 2\n");
+		if (Options.UseRGB)
+			PutDoc("/ColorSpace /DeviceRGB\n");
+		else
+		{
+			if (Options.isGrayscale)
+				PutDoc("/ColorSpace /DeviceGray\n");
+			else
+			{
+				if ((doc.HasCMS) && (Options.UseProfiles))
+					PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
+				else
+				{
+					if (spotMap.contains(colorNames[c]))
+						oneSpot1 = true;
+					else if  (spotMap.contains(colorNames[c+1]))
+						oneSpot2 = true;
+					if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+					{
+						oneSpot1 = false;
+						oneSpot2 = false;
+						twoSpot = true;
+					}
+					if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!Options.UseSpotColors)) 
+						PutDoc("/ColorSpace /DeviceCMYK\n");
+					else
+					{
+						spotMode = true;
+						PutDoc("/ColorSpace [ /DeviceN [");
+						if (oneSpot1)
+							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot1+" ]\n");
+						else if (oneSpot2)
+							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot2+" ]\n");
+						else if (twoSpot)
+							PutDoc(" /"+spot1+" /"+spot2+" ]\n");
+						PutDoc("/DeviceCMYK\n");
+						PutDoc(QString::number(ObjCounter)+" 0 R\n");
+						PutDoc("]\n");
+					}
+				}
+			}
+		}
+		PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
+		if ((currItem->GrType == 5) || (currItem->GrType == 7))
+		{
+			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c+1)))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c)))+"]\n");
+			if (Colors.count() == 2)
+				PutDoc("/Extend [true true]\n");
+			else
+			{
+				if (first)
+					PutDoc("/Extend [false true]\n");
+				else
+				{
+					if (c == Colors.count()-2)
+						PutDoc("/Extend [true false]\n");
+					else
+						PutDoc("/Extend [false false]\n");
+				}
+			}
+			first = false;
+			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+			if (Options.UseSpotColors)
+			{
+				if (oneSpot1)
+				{
+					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
+					PutDoc("/C0 ["+Colors[c+1]+" 0 ]\n");
+				}
+				else if (oneSpot2)
+				{
+					PutDoc("/C1 ["+Colors[c]+" 0 ]\n");
+					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (twoSpot)
+				{
+					PutDoc("/C1 ["+FToStr(colorShades[c] / 100.0)+" 0]\n");
+					PutDoc("/C0 [0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else
+				{
+					PutDoc("/C1 ["+Colors[c]+"]\n");
+					PutDoc("/C0 ["+Colors[c+1]+"]\n");
+				}
+			}
+			else
+			{
+				PutDoc("/C0 ["+Colors[c+1]+"]\n");
+				PutDoc("/C1 ["+Colors[c]+"]\n");
+			}
+		}
+		else
+		{
+			PutDoc("/Coords ["+FToStr((*Stops.at(c*2)))+"  "+FToStr((*Stops.at(c*2+1)))+" "+FToStr((*Stops.at(c*2+2)))+" "+FToStr((*Stops.at(c*2+3)))+"]\n");
+			if (Colors.count() == 2)
+				PutDoc("/Extend [true true]\n");
+			else
+			{
+				if (first)
+					PutDoc("/Extend [true false]\n");
+				else
+				{
+					if (c == Colors.count()-2)
+						PutDoc("/Extend [false true]\n");
+					else
+						PutDoc("/Extend [false false]\n");
+				}
+			}
+			first = false;
+			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+			if (Options.UseSpotColors)
+			{
+				if (oneSpot1)
+				{
+					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
+					PutDoc("/C1 ["+Colors[c+1]+" 0 ]\n");
+				}
+				else if (oneSpot2)
+				{
+					PutDoc("/C0 ["+Colors[c]+" 0 ]\n");
+					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (twoSpot)
+				{
+					PutDoc("/C0 ["+FToStr(colorShades[c] / 100.0)+" 0]\n");
+					PutDoc("/C1 [0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else
+				{
+					PutDoc("/C0 ["+Colors[c]+"]\n");
+					PutDoc("/C1 ["+Colors[c+1]+"]\n");
+				}
+			}
+			else
+			{
+				PutDoc("/C0 ["+Colors[c]+"]\n");
+				PutDoc("/C1 ["+Colors[c+1]+"]\n");
+			}
+		}
+		PutDoc("/N 1\n>>\n>>\nendobj\n");
+		if (spotMode)
+		{
+			QString colorDesc;
+			StartObj(ObjCounter);
+			ObjCounter++;
+			PutDoc("<<\n/FunctionType 4\n");
+			if (twoSpot)
+			{
+				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
+				doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc = "{\nexch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n";
+				doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n}\n";
+			}
+			else
+			{
+				PutDoc("/Domain [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
+				if (oneSpot1)
+					doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				else
+					doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n}\n";
+			}
+			PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
+			PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
+			PutDoc(">>\nstream\n"+EncStream(colorDesc, ObjCounter-1)+"\nendstream\nendobj\n");
+		}
+		tmp += "q\n";
+		if ((Options.Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
+			tmp += "/"+TRes+" gs\n";
+		tmp += SetClipPath(currItem);
+		tmp += "h\nW* n\n";
+		tmp += "/"+ShName+" sh\nQ\n";
+	}
+/*	for (uint c = 0; c < colorsCountm1; ++c)
 	{
 		QString TRes("");
 		if ((Options.Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
@@ -3925,12 +4372,12 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 		}
 		PutDoc("/N 1\n>>\n>>\nendobj\n");
 		tmp += "q\n";
-		if ((Options.Version == 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
+		if ((Options.Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 			tmp += "/"+TRes+" gs\n";
 		tmp += SetClipPath(currItem);
 		tmp += "h\nW* n\n";
 		tmp += "/"+ShName+" sh\nQ\n";
-	}
+	} */
 	return tmp;
 }
 
@@ -3940,8 +4387,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	ScImage img2;
 	ScImage img3;
 	QMap<int, QString> ind2PDFabr;
-	static const QString bifonts[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
-			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
+	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
+												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
+												"/ZapfDingbats", "/Symbol"};
 	static const size_t ar = sizeof(bifonts) / sizeof(*bifonts);
 	for (uint a = 0; a < ar; ++a)
 		ind2PDFabr[a] = bifonts[a];
@@ -4015,7 +4464,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			QString cnx = "("+ind2PDFabr[ite->annotation().Font()]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
+			QString cnx = "(/"+StdFonts[ind2PDFabr[ite->annotation().Font()]]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != CommonStrings::None)
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
 			if (ite->fillColor() != CommonStrings::None)
@@ -4252,14 +4701,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	}
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
 	PutDoc(">>\nendobj\n");
-	QMap<int, QString> ind2PDFabr2;
-	const QString tmpf[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
-												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
-												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
-												"/ZapfDingbats", "/Symbol"};
-	size_t ar2 = sizeof(tmpf) / sizeof(*tmpf);
-	for (uint ax = 0; ax < ar2; ++ax)
-		ind2PDFabr2[ax] = tmpf[ax];
 	if ((ite->annotation().Type() == 2) && (ite->annotation().UseIcons()))
 	{
 		if (!ite->Pfile.isEmpty())
@@ -4293,7 +4734,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
+		cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4307,7 +4748,6 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		}
 		else
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
-//		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if (ite->annotation().Type() == 4)
@@ -4315,9 +4755,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc = "q\nBT\n";
 		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/ZaDb "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
+		cc += "/"+StdFonts["/ZapfDingbats"]+" "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
-//		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
 	if ((ite->annotation().Type() == 5) || (ite->annotation().Type() == 6))
@@ -4333,8 +4772,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
-//		cc += ind2PDFabr[ite->AnFont];
+		cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
@@ -4467,6 +4905,7 @@ void PDFlib::PDF_xForm(double w, double h, QString im)
 	PutDoc("/Length "+QString::number(im.length())+"\n");
 	PutDoc(">>\nstream\n"+EncStream(im, ObjCounter-1)+"\nendstream\nendobj\n");
 	Seite.XObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
+	ResCount++;
 }
 
 void PDFlib::PDF_Form(const QString& im)
@@ -4504,7 +4943,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 	bool found = false;
 	bool alphaM = false;
 	bool realCMYK = false;
-	int afl;
+	int afl = Options.Resolution;
 	double x2, ax, ay, a2, a1;
 	double sxn = 0;
 	double syn = 0;
@@ -4556,19 +4995,19 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			if (ext == "pdf")
 			{
 				if (Options.UseRGB)
-					img.LoadPicture(fn, Profil, Embedded, Intent, true, 2, afl);
+					img.LoadPicture(fn, Profil, Intent, Embedded, true, 2, afl);
 				else
 				{
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options.UseProfiles2))
-						img.LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
+						img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, afl);
 					else
 					{
 #endif
 						if (Options.isGrayscale)
-							img.LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
+							img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, afl);
 						else
-							img.LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
+							img.LoadPicture(fn, Profil, Intent, Embedded, true, 0, afl);
 #ifdef HAVE_CMS
 					}
 #endif
@@ -4610,19 +5049,19 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					if (found)
 					{
 						if (Options.UseRGB)
-							img.LoadPicture(fn, Profil, Embedded, Intent, true, 2, afl);
+							img.LoadPicture(fn, Profil, Intent, Embedded, true, 2, afl);
 						else
 						{
 #ifdef HAVE_CMS
 							if ((CMSuse) && (Options.UseProfiles2))
-								img.LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
+								img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, afl);
 							else
 							{
 #endif
 								if (Options.isGrayscale)
-									img.LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
+									img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, afl);
 								else
-									img.LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
+									img.LoadPicture(fn, Profil, Intent, Embedded, true, 0, afl);
 #ifdef HAVE_CMS
 							}
 #endif
@@ -4645,24 +5084,24 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 			if (Options.UseRGB)
-				img.LoadPicture(fn, Profil, Embedded, Intent, true, 2, 72, &realCMYK);
+				img.LoadPicture(fn, Profil, Intent, Embedded, true, 2, 72, &realCMYK);
 			else
 			{
 #ifdef HAVE_CMS
 				if ((CMSuse) && (Options.UseProfiles2))
-					img.LoadPicture(fn, Profil, Embedded, Intent, true, 3, 72, &realCMYK);
+					img.LoadPicture(fn, Profil, Intent, Embedded, true, 3, 72, &realCMYK);
 				else
 				{
 #endif
 					if (Options.isGrayscale)
-						img.LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK);
+						img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, 72, &realCMYK);
 					else
-						img.LoadPicture(fn, Profil, Embedded, Intent, true, 0, 72, &realCMYK);
+						img.LoadPicture(fn, Profil, Intent, Embedded, true, 0, 72, &realCMYK);
 #ifdef HAVE_CMS
 				}
 #endif
 			}
-			if (Options.RecalcPic)
+			if ((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
 			{
 				double afl = QMIN(Options.PicRes, Options.Resolution);
 				a2 = (72.0 / sx) / afl;
@@ -4728,7 +5167,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					}
 				}
 				PutDoc("<<\n");
-				if ((Options.CompressMethod != 3) && (CompAvail))
+				if ((Options.CompressMethod != 3) && (CompAvail) && (Options.Compress))
 				{
 					PutDoc("/Filter /FlateDecode\n");
 					dataP = CompressStr(&dataP);
@@ -4767,12 +5206,12 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				imgE = true;
 		}
 		img.applyEffect(c->effectsInUse, c->document()->PageColors, imgE);
-		if (!Options.RecalcPic)
+		origWidth = img.width();
+		origHeight = img.height();
+		if (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
 		{
 			sxn = sx * (1.0 / aufl);
 			syn = sy * (1.0 / aufl);
-			origWidth = img.width();
-			origHeight = img.height();
 		}
 		if (alphaM)
 		{
@@ -4857,13 +5296,13 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		bool specialCMYK = false;
 		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
-			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!Options.RecalcPic))
+			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
 				im = "";
 				loadText(fn, &im);
 				cm = 1;
 			}
-			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!Options.RecalcPic) && (!img.imgInfo.progressive))
+			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
 				im = "";
 				loadText(fn, &im);
@@ -4976,16 +5415,8 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		ImWid = SharedImages[fn].Width;
 		ImHei = SharedImages[fn].Height;
 		aufl = SharedImages[fn].aufl;
-		if (!Options.RecalcPic)
-		{
-			sxn = sx * (1.0 / aufl);
-			syn = sy * (1.0 / aufl);
-		}
-		else
-		{
-			sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
-			syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
-		}
+		sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
+		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 	}
 	if ((ext == "eps") || (ext == "pdf"))// compensate gsResolution setting
 	{
@@ -5037,14 +5468,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			Inhal = "";
 			Bmc++;
 			Inhal += QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
-			QString encText = QString(QChar(254))+QString(QChar(255));
-			for (uint telen = 0; telen < ip->Titel.length(); telen++)
-			{
-				QChar ch = ip->Titel.at(telen);
-				encText += QChar(ch.row());
-				encText += QChar(ch.cell());
-			}
-			Inhal += "<<\n/Title "+EncString("("+encText+")", ip->ItemNr+Basis)+"\n";
+			Inhal += "<<\n/Title "+EncStringUTF16("("+ip->Titel+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else

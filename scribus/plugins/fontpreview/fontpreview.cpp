@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
-FontPreview::FontPreview(QString fontName)
-	: FontPreviewBase(ScMW, "FontPreview", true, 0)
+FontPreview::FontPreview(QWidget * parent, QString fontName)
+	: FontPreviewBase(parent, "FontPreview", true, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
 
@@ -123,7 +123,7 @@ void FontPreview::keyReleaseEvent(QKeyEvent *k)
 {
 	if (k->isAutoRepeat())
 	{
-		fontPreview->setText(tr("Sample will be shown after key release"));
+		fontPreview->setText( tr("Sample will be shown after key release"));
 		return;
 	}
 	if (allowSample())
@@ -139,6 +139,8 @@ void FontPreview::fontList_mouseButtonClicked( int, QListViewItem *item, const Q
 
 void FontPreview::paintSample(QListViewItem *item)
 {
+	if (!item)
+		return;
 	sampleItem->setFontSize(sizeSpin->value() * 10, true);
 	sampleItem->setFont(item->text(0));
 	QPixmap pixmap = sampleItem->getSample(fontPreview->maximumWidth(),

@@ -107,7 +107,7 @@ public:
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
-	bool LoadPicture(const QString & fn, const QString & Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+	bool LoadPicture(const QString & fn, const QString & Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
 
 	struct PSDLayer
 	{
@@ -197,9 +197,10 @@ private:
 	void colorize(ScColor color, int shade, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
+	void swapByteOrder(int one=3, int two=2, int three=1, int four=0);
 
 	// Misc implementation
-	void liberateMemory(void **memory);
+//	void liberateMemory(void **memory);
 	void blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns);
 	int getBlurKernel(int width, double sigma, double **kernel);
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);

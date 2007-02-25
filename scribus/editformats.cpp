@@ -345,10 +345,10 @@ void StilFormate::neuesFormat()
 	sty.DropLin = 2;
 	sty.DropDist = 0;
 	sty.FontEffect = 0;
-	sty.FColor = Docu->toolSettings.dBrush;
-	sty.FShade = Docu->toolSettings.dShade;
-	sty.SColor = Docu->toolSettings.dPen;
-	sty.SShade = Docu->toolSettings.dShade2;
+	sty.FColor = Docu->toolSettings.dPenText;
+	sty.FShade = Docu->toolSettings.dTextPenShade;
+	sty.SColor = Docu->toolSettings.dStrokeText;
+	sty.SShade = Docu->toolSettings.dTextStrokeShade;
 	sty.BaseAdj = false;
 	sty.txtShadowX = 50;
 	sty.txtShadowY = -50;

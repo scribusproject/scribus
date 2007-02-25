@@ -91,14 +91,14 @@ ScPaths::ScPaths() :
 
 	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
-	m_docDir = QString("%1/Contents/share/scribus/doc/").arg(pathPtr);
+	m_docDir = QString("%1/Contents/share/doc/scribus/").arg(pathPtr);
 	m_iconDir = QString("%1/Contents/share/scribus/icons/").arg(pathPtr);
 	m_sampleScriptDir = QString("%1/Contents/share/scribus/samples/").arg(pathPtr);
 	m_scriptDir = QString("%1/Contents/share/scribus/scripts/").arg(pathPtr);
 	m_templateDir = QString("%1/Contents/share/scribus/templates/").arg(pathPtr);
 	m_libDir = QString("%1/Contents/lib/scribus/").arg(pathPtr);
 	m_pluginDir = QString("%1/Contents/lib/scribus/plugins/").arg(pathPtr);
-	QApplication::setLibraryPaths(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
+//	QApplication::setLibraryPaths(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
 	CFRelease(pluginRef);
 	CFRelease(macPath);
 
@@ -111,7 +111,7 @@ ScPaths::ScPaths() :
 	qDebug(QString("scpaths: template dir=%1").arg(m_templateDir));
 	qDebug(QString("scpaths: lib dir=%1").arg(m_libDir));
 	qDebug(QString("scpaths: plugin dir=%1").arg(m_pluginDir));
-	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
+//	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
 
 #elif defined(_WIN32)
 	QString appPath = qApp->applicationDirPath();
@@ -126,6 +126,19 @@ ScPaths::ScPaths() :
 	m_pluginDir = QString("%1/plugins/").arg(appPath);
 	QApplication::setLibraryPaths(QString("%1/qtplugins/").arg(appPath));
 #endif
+/*
+	if(!m_shareDir.endsWith("/"))        m_shareDir += "/";
+	if(!m_docDir.endsWith("/"))          m_docDir += "/";
+	if(!m_fontDir.endsWith("/"))         m_fontDir += "/";
+*/
+	if(!m_iconDir.endsWith("/"))         m_iconDir += "/";
+/*
+	if(!m_sampleScriptDir.endsWith("/")) m_sampleScriptDir += "/";
+	if(!m_scriptDir.endsWith("/"))       m_scriptDir += "/";
+	if(!m_templateDir.endsWith("/"))     m_templateDir += "/";
+	if(!m_libDir.endsWith("/"))          m_libDir += "/";
+	if(!m_pluginDir.endsWith("/"))       m_pluginDir += "/";
+*/
 }
 
 ScPaths::~ScPaths() {};
@@ -228,6 +241,7 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 {
 	QStringList createDirs;
 #ifdef Q_OS_MAC
+	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
 #elif defined(Q_WS_X11)
 	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
 	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
@@ -246,6 +260,48 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 		createDirs.append(programFilesCommon + "create/swatches/");
 #endif
 	return createDirs;
+}
+
+QString ScPaths::getApplicationDataDir(void)
+{
+#if defined(_WIN32)
+	QString appData = getSpecialDir(CSIDL_APPDATA);
+	if (QDir(appData).exists())
+		return (appData + "/Scribus/");
+#endif
+	return (QDir::homeDirPath() + "/.scribus/");
+}
+
+QString ScPaths::getUserDocumentDir(void)
+{
+#if defined(_WIN32)
+	QString userDocs = getSpecialDir(CSIDL_PERSONAL);
+	if	(QDir(userDocs).exists())
+		return userDocs;
+#endif
+	return (QDir::homeDirPath() + "/");
+}
+
+QString ScPaths::getTempFileDir(void)
+{
+#if defined(_WIN32)
+	QString tempPath;
+	WCHAR wTempPath[1024];
+	DWORD result = GetTempPathW(1024, wTempPath);
+	if ( result )
+	{
+		tempPath = QString::fromUcs2(wTempPath);
+		tempPath.replace( '\\', '/' );
+		tempPath += "/";
+		// GetTempPath may return Windows directory, better not use this one
+		// for temporary files
+		if (QDir(tempPath).exists() && tempPath != getSpecialDir(CSIDL_WINDOWS))
+			return tempPath;
+	}
+	return getApplicationDataDir();
+#else
+	return (QDir::homeDirPath() + "/.scribus/");
+#endif
 }
 
 QString ScPaths::getSpecialDir(int folder)

@@ -432,7 +432,7 @@ void AlignDistributePalette::alignLeftOut()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newX = 99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -459,7 +459,7 @@ void AlignDistributePalette::alignLeftOut()
 					newX = QMIN((*alignObjects)[a].x1, newX);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newX-(*alignObjects)[i].x2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -475,7 +475,7 @@ void AlignDistributePalette::alignLeftIn()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newX = 99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -502,7 +502,7 @@ void AlignDistributePalette::alignLeftIn()
 					newX = QMIN((*alignObjects)[a].x1, newX);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newX-(*alignObjects)[i].x1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -518,7 +518,7 @@ void AlignDistributePalette::alignCenterHor()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newX;
 		switch ( currAlignTo ) 
 		{
@@ -555,7 +555,7 @@ void AlignDistributePalette::alignCenterHor()
 				newX = minX + (maxX-minX)/2;
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newX-(*alignObjects)[i].x1-((*alignObjects)[i].width)/2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -571,7 +571,7 @@ void AlignDistributePalette::alignRightIn()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newX = -99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -600,7 +600,7 @@ void AlignDistributePalette::alignRightIn()
 					newX = QMAX((*alignObjects)[a].x2, newX);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newX-(*alignObjects)[i].x2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -616,7 +616,7 @@ void AlignDistributePalette::alignRightOut()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newX = -99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -645,7 +645,7 @@ void AlignDistributePalette::alignRightOut()
 					newX = QMAX((*alignObjects)[a].x2, newX);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newX-(*alignObjects)[i].x1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -661,7 +661,7 @@ void AlignDistributePalette::alignTopOut()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newY = 99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -688,7 +688,7 @@ void AlignDistributePalette::alignTopOut()
 					newY = QMIN((*alignObjects)[a].y1, newY);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newY-(*alignObjects)[i].y2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -704,7 +704,7 @@ void AlignDistributePalette::alignTopIn()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newY = 99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -731,7 +731,7 @@ void AlignDistributePalette::alignTopIn()
 					newY = QMIN((*alignObjects)[a].y1, newY);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newY-(*alignObjects)[i].y1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -748,7 +748,7 @@ void AlignDistributePalette::alignCenterVer()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newY;
 		switch ( currAlignTo ) 
 		{
@@ -785,7 +785,7 @@ void AlignDistributePalette::alignCenterVer()
 				newY = minY + (maxY-minY)/2;
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newY-(*alignObjects)[i].y1-((*alignObjects)[i].height)/2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -802,7 +802,7 @@ void AlignDistributePalette::alignBottomIn()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newY = -99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -831,7 +831,7 @@ void AlignDistributePalette::alignBottomIn()
 					newY = QMAX((*alignObjects)[a].y2, newY);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newY-(*alignObjects)[i].y2;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)
@@ -847,7 +847,7 @@ void AlignDistributePalette::alignBottomOut()
 	{
 		if (!startAlign())
 			return;
-		uint loopStart=0, loopEnd=alignObjectsCount;
+		int loopStart=0, loopEnd=alignObjectsCount;
 		double newY = -99999.9;
 		switch ( currAlignTo ) 
 		{
@@ -876,7 +876,7 @@ void AlignDistributePalette::alignBottomOut()
 					newY = QMAX((*alignObjects)[a].y2, newY);
 				break;
 		}
-		for (uint i = loopStart; i <= loopEnd; ++i)
+		for (int i = loopStart; i <= loopEnd; ++i)
 		{
 			double diff=newY-(*alignObjects)[i].y1;
 			for (uint j = 0; j < (*alignObjects)[i].Objects.count(); ++j)

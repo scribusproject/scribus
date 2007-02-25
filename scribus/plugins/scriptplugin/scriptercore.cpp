@@ -117,7 +117,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 
 void ScripterCore::buildRecentScriptsMenu()
 {
-	RecentScripts.clear();
+	RecentScripts = SavedRecentScripts;
 	scrRecentScriptActions.clear();
 	if (SavedRecentScripts.count() != 0)
 	{
@@ -294,8 +294,8 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
-		QString cm = QString("from __future__ import division\n");
-		cm        += QString("import sys\n");
+		//QString cm = QString("from __future__ import division\n"); removed due #5252 PV
+		QString cm = QString("import sys\n");
 		cm        += QString("import cStringIO\n");
 		/* Implementation of the help() in pydoc.py reads some OS variables
 		 * for output settings. I use ugly hack to stop freezing calling help()
@@ -351,9 +351,11 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				ScMW->closeSplash();
 				QMessageBox::warning(ScMW,
 									tr("Script error"),
-									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
-									+ "<pre>" +errorMsg + "</pre>"
-									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker."));
+									"<qt><p>"
+									+ tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
+									+ "</p><pre>" +errorMsg + "</pre><p>"
+									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.")
+									+ "</p></qt>");
 			}
 		} // end if result == NULL
 		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
@@ -505,12 +507,12 @@ void ScripterCore::aboutScript()
 	QString docstring = content.section("\"\"\"", 1, 1);
 	if (!docstring.isEmpty())
 	{
-		html += QString("<h1>%1 %2</h1>").arg(tr("Documentation for:")).arg(fi.fileName());
+		html += QString("<h1>%1 %2</h1>").arg( tr("Documentation for:")).arg(fi.fileName());
 		html += QString("<p>%1</p>").arg(docstring.replace("\n\n", "<br><br>"));
 	}
 	else
 	{
-		html += QString("<p><b>%1 %2 %3</b></p>").arg(tr("Script")).arg(fi.fileName()).arg(tr(" doesn't contain any docstring!"));
+		html += QString("<p><b>%1 %2 %3</b></p>").arg( tr("Script")).arg(fi.fileName()).arg( tr(" doesn't contain any docstring!"));
 		html += QString("<pre>%4</pre>").arg(content);
 	}
 	html += "</body></html>";

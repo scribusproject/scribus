@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "qprocess.h"
 #include "scmessagebox.h"
+#include "scpixmapcache.h"
 #include "scpaths.h"
 
 extern "C"
@@ -90,8 +91,9 @@ extern "C"
 	#include CMS_INC
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
 extern bool BlackPoint;
@@ -265,7 +267,7 @@ QString GetAttr(QDomElement *el, QString at, QString def)
 
 QPixmap loadIcon(QString nam)
 {
-	QString iconFilePath = QString("%1/%2").arg(ScPaths::instance().iconDir()).arg(nam);
+	QString iconFilePath(QString("%1%2").arg(ScPaths::instance().iconDir()).arg(nam));
 	QPixmap pm;
 	if (!QFile::exists(iconFilePath))
 		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
@@ -347,7 +349,6 @@ bool loadRawText(const QString & filename, QCString & buf)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		bool ret;
 		QCString tempBuf(f.size() + 1);
 		if (f.open(IO_ReadOnly))
 		{
@@ -777,6 +778,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	}
 	OB->Shade = obj->attribute("SHADE").toInt();
 	OB->Shade2 = obj->attribute("SHADE2").toInt();
+	OB->FillRule = obj->attribute("fillRule", "1").toInt();
 	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
 	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
 	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();
@@ -870,6 +872,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		OB->Pcolor = CommonStrings::None;
+	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
 	OB->Textflow=obj->attribute("TEXTFLOW").toInt();
 	OB->Textflow2 =obj->attribute("TEXTFLOW2", "0").toInt();
 	OB->UseContour = obj->attribute("TEXTFLOW3", "0").toInt();
@@ -1002,7 +1005,7 @@ QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
  */
 QPixmap * getSmallPixmap(QColor rgb)
 {
-	static QMap<QRgb, QPixmap*> pxCache;
+	static ScPixmapCache<QRgb> pxCache;
 
 	QRgb index=rgb.rgb();
 	if (pxCache.contains(index))
@@ -1023,7 +1026,7 @@ QPixmap * getSmallPixmap(QColor rgb)
 
 QPixmap * getWidePixmap(QColor rgb)
 {
-	static QMap<QRgb, QPixmap*> pxCache;
+	static ScPixmapCache<QRgb> pxCache;
 
 	QRgb index=rgb.rgb();
 	if (pxCache.contains(index))
@@ -1062,7 +1065,7 @@ static Q_UINT64 code64(ScColor & col) {
 }
 
 QPixmap * getFancyPixmap(ScColor col) {
-	static QMap<Q_UINT64, QPixmap*> pxCache;
+	static ScPixmapCache<Q_UINT64> pxCache;
 
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
@@ -1104,21 +1107,29 @@ QPixmap * getFancyPixmap(ScColor col) {
 }
 
 
-void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y)
+void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 {
 	// there is no alpha mask in the beginning
-	if (target.mask()==0)
-		target.setMask(QBitmap(target.width(), target.height(), true));
+	if (useMask)
+	{
+		if (target.mask()==0)
+			target.setMask(QBitmap(target.width(), target.height(), useMask));
+	}
 	QPainter p;
-	QPainter alpha; // transparency handling
 	p.begin(&target);
-	alpha.begin(target.mask());
-	alpha.setBrush(Qt::color1);
-	alpha.setPen(Qt::color1);
 	p.drawPixmap(x, y, toPaint);
-	alpha.drawRect(x, y, 15, 15);
+	if (useMask)
+	{
+		QPainter alpha; // transparency handling
+		alpha.begin(target.mask());
+		alpha.setBrush(Qt::color1);
+		alpha.setPen(Qt::color1);
+		alpha.drawRect(x, y, 15, 15);
+		if (toPaint.mask() != 0)
+			alpha.drawPixmap(x, y, *toPaint.mask());
+		alpha.end();
+	}
 	p.end();
-	alpha.end();
 }
 
 FPoint getMaxClipF(FPointArray* Clip)
@@ -1212,6 +1223,29 @@ double constrainAngle(double angle)
 	if (newAngle==360.0)
 		newAngle=0.0;
 	return newAngle;
+}
+
+double getRotationFromMatrix(QWMatrix& matrix, double def)
+{
+	double value = def;
+	double norm = sqrt(fabs(matrix.det()));
+	if (norm > 0.0000001)
+	{
+		double m11 = matrix.m11() / norm;
+		double m12 = matrix.m12() / norm;
+		double m21 = matrix.m21() / norm;
+		double m22 = matrix.m22() / norm;
+		if (fabs(m11) <= 1.0 && fabs(m12) <= 1.0 && fabs(m21) <= 1.0 && fabs(m22) <= 1.0)
+		{
+			QWMatrix mat(m11, m12, m21, m22, 0, 0);
+			if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
+			{
+				double ac = acos(mat.m11());
+				value = (mat.m21() >= 0.0) ? ac : (-ac);
+			}
+		}
+	}
+	return value;
 }
 
 const QString getStringFromSequence(DocumentSectionType type, uint position)

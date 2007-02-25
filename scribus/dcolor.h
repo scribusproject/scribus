@@ -11,7 +11,7 @@ class QDialog;
 class QLayout;
 class QLabel;
 class QPushbutton;
-class QCombobox;
+class ColorCombo;
 
 #include "scribusapi.h"
 
@@ -30,7 +30,7 @@ private:
     QLabel* replaceLabel;
     QPushButton* okButton;
     QPushButton* cancelButton;
-    QComboBox* replacementColData;
+    ColorCombo* replacementColData;
     QVBoxLayout* dialogLayout;
     QGridLayout* delColorLayout;
     QHBoxLayout* okCancelLayout;

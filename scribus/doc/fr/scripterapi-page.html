@@ -1,0 +1,84 @@
+<qt>
+<title>Commandes relatives aux pages</title>
+<h2>Commandes relatives aux pages</h2>
+
+<dl>
+
+<dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
+<dd><code><a href="#-currentPage">currentPage</a>() -&gt; nombre entier</code>
+<p>Retourne le num&eacute;ro de la page de travail courante. Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1, peu importe le premier num&eacute;ro de page affich&eacute; dans votre document. </p></dd>
+	
+<dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
+<dd><code><a href="#-deletePage">deletePage</a>(nr)</code>
+<p>Supprime la page donn&eacute;e. Inop&eacute;rant si le document contient seulement une page. Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1,peu importe le premier num&eacute;ro de page affich&eacute; dans votre document.</p>
+<p>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites</p></dd>
+
+<dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
+<dd><code><a href="#-getAllObjects">getAllObjects</a>() -&gt; liste</code>
+<p>Retourne une liste contenant les noms de tous les objets de la page courante.</p></dd>
+
+<dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
+<dd><code><a href="#-getHGuides">getHGuides</a>() -&gt; liste</code>
+<p>Retourne une liste contenant les positions des guides horizontaux. Les valeurs sont dans les unit&eacute;s courantes du document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+<dd><code><a href="#-getVGuides">getVGuides</a>()</code>
+<p>Voir <a href="#-getHGuides">getHGuides</a>.</p></dd>
+
+<dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
+<dd><code><a href="#-getPageItems">getPageItems</a>() -&gt; liste</code>
+<p>Retourne une liste de vecteurs contenant les &eacute;l&eacute;ments de la page courante. Le vecteur est le suivant : (nom, objetType, ordre) par exemple [('Texte1', 4, 0), ('Image1', 2, 1)] signifie que l'objet nomm&eacute; 'Texte1' est un cadre de texte (type 4) et est le premier dans la page...</p></dd>
+
+<dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
+<dd><code><a href="#-getPageMargins">getPageMargins</a>()</code>
+<p>Retourne les marges de la page comme un vecteur (haut, gauche, droite, bas) dans les unit&eacute;s courantes. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
+<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; vecteur</code>
+<p>Retourne un vecteur avec les dimensions de la page mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
+<dd><code><a href="#-gotoPage">gotoPage</a>(nr)</code>
+<p>D&eacute;place &agrave; la page "nr" (c'est-&agrave;-dire, la page courante devient "nr"). Notez que gotoPage ne change pas (actuellement) la page affich&eacute;e dans la vue de l'utilisateur; il &eacute;tablit simplement la page sur laquelle les commandes du script agiront.</p>
+<p>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites.</p></dd>
+	
+<dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
+<dd><code><a href="#-newPage">newPage</a>(lieu [,"modele"])</code>
+<p>Cr&eacute;e une nouvelle page. Si "lieu" est &agrave; -1, la nouvelle page est ajout&eacute;e &agrave; la fin du document, sinon la nouvelle page est ins&eacute;r&eacute;e avant "lieu". Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1, peu importe le premier num&eacute;ro de page affich&eacute; dans votre document. Le param&egrave;tre optionnel "mod&egrave;le" sp&eacute;cifie le nom du gabarit pour la nouvelle page.</p>
+<p>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites</p></dd>
+	
+<dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
+<dd><code><a href="#-pageCount">pageCount</a>() -&gt; entier</code>
+<p>Retourne le nombre de pages dans le document.</p></dd>
+
+<dt><a name="-pageDimension"><strong>pageDimension</strong></a>(...)</dt>
+<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; vecteur</code>
+<p>Alias. Retourne un vecteur avec les dimensions de la page mesur&eacute;es dans les unit&eacute;s courantes du document. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+	
+<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
+<dd><code><a href="#-redrawAll">redrawAll</a>()</code>
+<p>Redessine toutes les pages.</p></dd>
+
+<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+<dd><code><a href="#-savePageAsEPS">savePageAsEPS</a>("nom")</code>
+<p>Enregistre la page courante comme EPS dans le fichier "nom".</p>
+<p>Peut g&eacute;n&eacute;rer ScribusError si l'enregistrement &eacute;choue.</p></dd>
+
+<dt><a name="-setHGuides"><strong>setHGuides</strong></a>(...)</dt>
+<dd><code><a href="#-setHGuides">setHGuides</a>(liste)</code>
+<p>&Eacute;tablit les guides horizontaux. Le param&egrave;tre d'entr&eacute;e doit &ecirc;tre une liste de positions de guide mesur&eacute;es dans le unit&eacute;s courantes du document - voir les constantes UNIT_&lt;type&gt;.</p>
+<p>Exemple : <a href="#-setHGuides">setHGuides</a>(<a href="#-getHGuides">getHGuides</a>() + [200.0, 210.0] # ajoute de nouveaux guides sans en perdre aucun<br>
+<a href="#-setHGuides">setHGuides</a>([90,250]) # remplace la totalit&eacute; des guides courants</p></dd>
+         
+<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
+<dd><code><a href="#-setRedraw">setRedraw</a>(bool)</code>
+<p>D&eacute;sactive le rafra&icirc;chissement d'&eacute;cran quand "bool = False", sinon le rafra&icirc;chissement est activ&eacute;. Ce changement persistera
+m&ecirc;me apr&egrave;s l'ex&eacute;cution du script, donc assurez-vous d'appeler <a href="#-setRedraw">setRedraw</a>(True) dans une clause "finally:" au d&eacute;but de votre script.</p></dd>
+
+<dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
+<dd><code><a href="#-setVGuides">setVGuides</a>()</code>
+<p>Voir <a href="#-setHGuides">setHGuides</a>.</p></dd>
+
+</dl>
+</qt>
+ 

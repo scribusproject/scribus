@@ -106,8 +106,8 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getFontSize([&quot;name&quot;]) -&gt; float
 
-Palauttaa kirjaintyypin koon pisteinä tekstikehykselle &quot;name&quot;. Jos tekstikehyksessä
-on tekstiä valittuna palautetaan valinnan ensimmäisen kirjaintyypin koko.
+Palauttaa fontin koon pisteinä tekstikehykselle &quot;name&quot;. Jos tekstikehyksessä
+on tekstiä valittuna palautetaan valinnan ensimmäisen fontin koko.
 Jos &quot;name&quot; ei ole määritelty, käytetään valittuna olevaa kohdetta.</translation>
     </message>
     <message>
@@ -184,12 +184,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -222,12 +224,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </translation>
@@ -445,16 +449,6 @@ May raise ScribusError if the save fails.
 Tallentaa aktiivisen asiakirjan nimellä &quot;nimi&quot;, joka voi olla täydellinen tai suhteellinen polku.
 
 Saattaa aiheuttaa ScribusError:n, jos tallennus epäonnistuu.</translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Asettaa asiakirjan tiedot. &quot;author&quot; (tekijä), &quot;info&quot; (tietoja) ja &quot;description&quot; (kuvaus) ovat stringejä.</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -2533,6 +2527,28 @@ Delete the named master page.
 Delete the named master page.
 </translation>
     </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</translation>
+    </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2641,8 +2657,12 @@ Delete the named master page.
         <translation>Windows&amp;#174; -versio:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation>maaliskuu</translation>
+        <source>Tango Project Icons:</source>
+        <translation>Tango-projektin kuvakkeet:</translation>
+    </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation>OS/2&amp;#174;/eComStation -versio:</translation>
     </message>
 </context>
 <context>
@@ -2681,7 +2701,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Copyright:</source>
-        <translation>Copyright:</translation>
+        <translation>Tekijänoikeudet:</translation>
     </message>
     <message>
         <source>License:</source>
@@ -2759,7 +2779,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation>A&amp;siakirjan asettelu...</translation>
+        <translation>A&amp;siakirjan ominaisuudet...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -2803,7 +2823,7 @@ Delete the named master page.
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation>Et&amp;si/Korvaa...</translation>
+        <translation>Et&amp;si ja korvaa...</translation>
     </message>
     <message>
         <source>Edit Image...</source>
@@ -2907,7 +2927,7 @@ Delete the named master page.
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation>&amp;Kopioi</translation>
+        <translation>&amp;Tee kopio</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
@@ -3151,7 +3171,7 @@ Delete the named master page.
     </message>
     <message>
         <source>&amp;Arrange Pages</source>
-        <translation>&amp;Järjestä sivuja</translation>
+        <translation>Sivu&amp;jen hallinta</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -3243,7 +3263,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Muokkaa tekstiä editorilla</translation>
+        <translation>Avaa tekstimuokkaimessa</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
@@ -3439,11 +3459,11 @@ Delete the named master page.
     </message>
     <message>
         <source>Toggle Palettes</source>
-        <translation>Näytä/piilota ikkunat</translation>
+        <translation>Näytä tai piilota ikkunat</translation>
     </message>
     <message>
         <source>Toggle Guides</source>
-        <translation>Näytä/piilota apuviivat</translation>
+        <translation>Näytä tai piilota apuviivat</translation>
     </message>
     <message>
         <source>Dehyphenate Text</source>
@@ -3483,7 +3503,7 @@ Delete the named master page.
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;Tietoja laajennuksista</translation>
+        <translation>&amp;Tietoja liitännäisistä</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -3496,11 +3516,11 @@ Delete the named master page.
     </message>
     <message>
         <source>Insert Non Breaking Dash</source>
-        <translation>Lisää katkeamaton viiva</translation>
+        <translation>Lisää sitova viiva</translation>
     </message>
     <message>
         <source>Insert Non Breaking Space</source>
-        <translation>Lisää katkeamaton väli</translation>
+        <translation>Lisää sitova väli</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
@@ -3589,7 +3609,7 @@ Delete the named master page.
     <message>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation>&amp;Rakenne</translation>
+        <translation>&amp;Ääriviivat</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -3603,6 +3623,10 @@ Delete the named master page.
     <message>
         <source>C&amp;lear</source>
         <translation>T&amp;yhjennä</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Näytä tekstikehyksen palstat</translation>
     </message>
 </context>
 <context>
@@ -3621,23 +3645,23 @@ Delete the named master page.
     </message>
     <message>
         <source>First Selected</source>
-        <translation>Ensin valittuun</translation>
+        <translation>ensin valittuun</translation>
     </message>
     <message>
         <source>Last Selected</source>
-        <translation>Viimeiseksi valittuun</translation>
+        <translation>viimeiseksi valittuun</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Sivuun</translation>
+        <translation>sivuun</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation>Reunukseen</translation>
+        <translation>reunuksiin</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation>Valintaan</translation>
+        <translation>valintaan</translation>
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
@@ -3741,7 +3765,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Guide</source>
-        <translation>Apuviiva</translation>
+        <translation>apuviivaan</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
@@ -4079,7 +4103,7 @@ Delete the named master page.
     </message>
     <message>
         <source>On Blur</source>
-        <translation>On Blur</translation>
+        <translation>Häivytettäessä</translation>
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
@@ -4087,7 +4111,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Lähetä data HTML:na</translation>
+        <translation>Lähetä data HTML:nä</translation>
     </message>
     <message>
         <source>Text Field</source>
@@ -4255,7 +4279,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Outlined</source>
-        <translation>Rajattu äärivoin</translation>
+        <translation>Rajattu ääriviivoin</translation>
     </message>
     <message>
         <source>Visible</source>
@@ -4299,7 +4323,7 @@ Delete the named master page.
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation>PDF 1.3:n kanssa käytettävä kirjaintyyppi:</translation>
+        <translation>PDF 1.3:n kanssa käytettävä fontti</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF 1.3</source>
@@ -4352,11 +4376,11 @@ Delete the named master page.
     </message>
     <message>
         <source>External Web-Link</source>
-        <translation>Ulkoinen web-linkki</translation>
+        <translation>Web-linkki</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
-        <translation>Kommenttien asetukset</translation>
+        <translation>Merkinnän asetukset</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -4515,10 +4539,6 @@ Delete the named master page.
         <translation>2 numeroa</translation>
     </message>
     <message>
-        <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation>9 tai 10 numeroa eroteltuina viivoilla</translation>
-    </message>
-    <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
         <translation>Kirjainmerkkejä, numeroita ja symboleja: -, *, $, /, +, %</translation>
     </message>
@@ -4545,6 +4565,10 @@ Delete the named master page.
     <message>
         <source>Variable number of hexadecimal characters</source>
         <translation>Hex-merkkejä</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation>12 tai 13 numeroa viivoilla. ISBN-10-muoto sallii 9 tai 10 numeroa viivojen kanssa, mutta tämä standardi merkattiin vanhenevaksi 1. tammikuuuta 2007 jälkeen. (Muuttaaksesi vanhan ISBN-10-numeron uudeksi ISBN-13-numeroksi sijoita 978 yhdeksännumeroisen ISBN-10-numerosi eteen. Esimerkiksi: 1-56592-479-7 -&gt; 978-1-56592-479. Viimeinen tarkistusnumero lasketaan automaattisesti.</translation>
     </message>
 </context>
 <context>
@@ -4737,6 +4761,22 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Valitse hakemisto</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Leikekirja (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Valitse leikekirjatiedosto</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Tuo leikekirjatiedosto...</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation>Oletus</translation>
     </message>
 </context>
 <context>
@@ -4958,7 +4998,7 @@ Toiminnon käyttö vaatii tarkat profiilit ja se tulee huomioida ainoastaan varo
     </message>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation>Käytä &amp;Tumman pään tasausta (BPC)</translation>
+        <translation>Käytä &amp;Tumman pään tasausta</translation>
     </message>
     <message>
         <source>&amp;RGB Pictures:</source>
@@ -5057,11 +5097,11 @@ Toiminnon käyttö vaatii tarkat profiilit ja se tulee huomioida ainoastaan varo
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>On spottiväri</translation>
+        <translation>On lisäväri</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
-        <translation>On prosessiväri</translation>
+        <translation>On kohdistusväri</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -5072,6 +5112,14 @@ Sitä ei voi käyttää.</translation>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Värin nimi on jo olemassa</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation>Valitsemalla tämä tulostetaan väri kaikille painolevyille. Kohdistusvärejä käytetään tuottamaan mm. leikkuu- ja kohdistusmerkit. Kohdistusvärejä ei yleensä käytetä lopulliseen julkaisuun kuuluvissa osissa.</translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation>Valitsemalla tämä väristä tehdään lisäväri (spot color), jolloin painoprosessiin lisätään uusi laatta tai erottelu kutakin lisäväriä varten. Lisävärejä käytetään useimmiten, kun esimerkiksi logon väri halutaan saada juuri oikeaksi eikä sitä voida esittää CMYK-musteilla. Metalli- ja hohtovärit ovat esimerkiksi tällaisia värejä.</translation>
     </message>
 </context>
 <context>
@@ -5089,7 +5137,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Kirjaintyyppi:</translation>
+        <translation>Fontti:</translation>
     </message>
     <message>
         <source>Character Class:</source>
@@ -5288,7 +5336,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation>Vapaat kohteet</translation>
+        <translation>Sivujen ulkopuoliset kohteet</translation>
     </message>
     <message>
         <source>Problems found</source>
@@ -5409,7 +5457,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation>Tuo värejä nykyiseen kokoelmaan asiakirjasta</translation>
+        <translation>Tuo värejä nykyiseen värisarjaan toisesta asiakirjasta</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -5458,6 +5506,10 @@ Sitä ei voi käyttää.</translation>
     <message>
         <source>New Color</source>
         <translation>Uusi väri</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>Jos värienhallinta on käytössä, varoituskolmio kertoo värin mahdollisesti olevan tulostusalueen ulkopuolella nykyiselle tulostinprofiilille. Tämä tarkoittaa, ettei väriä voida tulostaa täsmälleen samannäköisenä kuin se näkyy näytöllä. Lisävärit merkataan punaisella ympyrällä. Kohdistusvärien merkkinä on tähtäimen kuva värin vieressä. Lisätietoja tulostusalueen ulkopuolella olevista väreistä löytyy verkko-ohjeesta Color Management -osasta.</translation>
     </message>
 </context>
 <context>
@@ -5623,7 +5675,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>&amp;Värien komponentit...</translation>
+        <translation>&amp;Värin komponentit...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
@@ -5718,7 +5770,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
         <source>Color setting helper</source>
-        <translation>Väriasetusavustaja</translation>
+        <translation>Avustaa värien valinnassa</translation>
     </message>
     <message>
         <source>Color selector with color theory included.</source>
@@ -5791,7 +5843,99 @@ Sitä ei voi käyttää.</translation>
     <message>
         <source>None</source>
         <comment>color name</comment>
-        <translation>Ei mitään</translation>
+        <translation>Ei väriä</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normaali</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation>Normaali vasen</translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation>Normaali keski</translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation>Normaali oikea</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Maanantai</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Tiistai</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Keskiviikko</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Torstai</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Perjantai</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Lauantai</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Sunnuntai</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>Tammikuu</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation>Helmikuu</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation>Maaliskuu</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>Huhtikuu</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>Toukokuu</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation>Kesäkuu</translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation>Heinäkuu</translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation>Elokuu</translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation>Syyskuu</translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation>Lokakuu</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation>Marraskuu</translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation>Joulukuu</translation>
     </message>
 </context>
 <context>
@@ -5953,7 +6097,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
         <source>Mirror</source>
-        <translation>Peili</translation>
+        <translation>Peilaus</translation>
     </message>
     <message>
         <source>Option</source>
@@ -6014,7 +6158,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation>&amp;Sisällytä kirjaintyypit</translation>
+        <translation>&amp;Sisällytä fontit</translation>
     </message>
 </context>
 <context>
@@ -6428,7 +6572,7 @@ Voit määrittää sen asetuksissa.</translation>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation>Ei mitään</translation>
+        <translation>Ei suhdetta</translation>
     </message>
     <message>
         <source>None</source>
@@ -6656,7 +6800,7 @@ kuvaamaan kaikkia sivuja tai 1-5 sivuväliä.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Muunna spottivärit prosessiväreiksi</translation>
+        <translation>Muunna lisävärit prosessiväreiksi</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -6691,7 +6835,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Mahdollistaa spottivärien muuntamisen prosessiväreiksi. Jos et aio painaa käyttäen spottivärejä, tämä on paras jättää valituksi.</translation>
+        <translation>Mahdollistaa lisävärien muuntamisen prosessiväreiksi. Jos et aio painaa käyttäen lisävärejä, tämä on paras jättää valituksi.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -6775,11 +6919,11 @@ failed!</source>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Valitun tekstin tai kohteen kirjaintyyppi</translation>
+        <translation>Valitun tekstin tai kohteen fontti</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Kirjaintyypin koko</translation>
+        <translation>Fontin koko</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -6851,7 +6995,7 @@ failed!</source>
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
-        <translation>Näytä/piilota kappaletyylin esimerkki</translation>
+        <translation>Näytä tai piilota kappaletyylin esimerkki</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
@@ -6874,15 +7018,19 @@ failed!</source>
         <translation>Siirtymä peruslinjasta</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation>Paina valitaksesi rivivälin tyypin</translation>
+        <source>Auto</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Napsauta ja pidä painike painettuna valitaksesi rivivälin tyypin</translation>
     </message>
 </context>
 <context>
     <name>Editor</name>
     <message>
         <source>Editor</source>
-        <translation>Editori</translation>
+        <translation>Muokkain</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -7321,7 +7469,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>Jotkin kirjaintyypit dokumentissa vaihdettiin:</translation>
+        <translation>Jotkin asiakirjan fontit vaihdettiin:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -7332,11 +7480,11 @@ joita on tarkoitus katsella näytöltä</translation>
     <name>FontPrefs</name>
     <message>
         <source>Font Name</source>
-        <translation>Kirjaintyypin nimi</translation>
+        <translation>Fontin nimi</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Korvaavat kirjaintyypit</translation>
+        <translation>Korvaavat fontit</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -7352,15 +7500,15 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Available Fonts</source>
-        <translation>Mahdolliset kirjaintyypit</translation>
+        <translation>Mahdolliset fontit</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation>L&amp;öydetyt kirjaintyypit</translation>
+        <translation>L&amp;öydetyt fontit</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation>&amp;Korvaavat kirjaintyypit</translation>
+        <translation>&amp;Korvaavat fontit</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
@@ -7389,12 +7537,12 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Kirjaintyypin nimi</translation>
+        <translation>Fontin nimi</translation>
     </message>
     <message>
         <source>Use Font</source>
         <comment>font preview</comment>
-        <translation>Käytä kirjaintyyppiä</translation>
+        <translation>Käytä fonttia</translation>
     </message>
     <message>
         <source>Embed in:</source>
@@ -7409,11 +7557,11 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Path to Font File</source>
         <comment>font preview</comment>
-        <translation>Polku kirjaintyyppitiedostoon</translation>
+        <translation>Polku fonttitiedostoon</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Kirjaintyyppien hakupolut voi asettaa ainoastaan asetuksissa, kun yhtään asiakirjaa ei ole avoinna. Sulje kaikki avoimet asiakirjat ja avaa Muokkaa&gt;Asetukset muuttaaksesi hakemistoja, joista kirjaintyyppejä etsitään.</translation>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation>Fonttien sijainnin voi asettaa ainoastaan, kun yhtään dokumenttia ei ole avoinna. Sulje kaikki dokumentit ja aset fonttihakemistot kohdassa Tiedosto&gt;Asetukset&gt;Fontit.</translation>
     </message>
 </context>
 <context>
@@ -7424,7 +7572,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Size of the selected font</source>
-        <translation>Valitun kirjaintyypin koko</translation>
+        <translation>Valitun fontin koko</translation>
     </message>
     <message>
         <source>User</source>
@@ -7439,7 +7587,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation>Lisää valittu kirjaintyyppi Tyyli-Kirjaintyyppi-valikkoon</translation>
+        <translation>Lisää valittu fontti Tyyli-Fontti-valikkoon</translation>
     </message>
     <message>
         <source>Leave preview</source>
@@ -7457,14 +7605,14 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>Nopea kirjaintyyppien etsiminen nimen perusteella. Yleisimmät jokerimerkit (*, ?, [...]) ovat käytössä. Esimerkiksi t* listaa kaikki kirjaintyypit, joiden nimi alkaa t:llä tai T:llä. *bold* listaa kaikki kirjaintyypit, joiden nimestä löytyy sana bold, bolder...</translation>
+        <translation>Nopea fonttien etsiminen nimen perusteella. Yleisimmät jokerimerkit (*, ?, [...]) ovat käytössä. Esimerkiksi t* listaa kaikki fontit, joiden nimi alkaa t:llä tai T:llä. *bold* listaa kaikki fontit, joiden nimestä löytyy sana bold, bolder...</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Kirjaintyyppien esikatselu</translation>
+        <translation>Fonttien esikatselu</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -7480,7 +7628,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Kirjaintyypin nimi</translation>
+        <translation>Fontin nimi</translation>
     </message>
     <message>
         <source>Doc</source>
@@ -7500,7 +7648,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation>&amp;Kirjaintyypin koko:</translation>
+        <translation>&amp;Fontin koko:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -7543,30 +7691,30 @@ joita on tarkoitus katsella näytöltä</translation>
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation>&amp;Kirjaintyyppien esikatselu...</translation>
+        <translation>&amp;Fonttien esikatselu...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
-        <translation>Kirjaintyyppien esikatselun dialogi</translation>
+        <translation>Fonttien esikatselun dialogi</translation>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation>Järjestä, etsi ja selaa saatavilla olevia kirjaintyyppejä.</translation>
+        <translation>Järjestä, etsi ja selaa käytettävissä olevia fontteja</translation>
     </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation>Korvaa kirjaintyyppi</translation>
+        <translation>Korvaa fontti</translation>
     </message>
     <message>
         <source>Original Font</source>
-        <translation>Alkuperäinen kirjaintyyppi</translation>
+        <translation>Alkuperäinen fontti</translation>
     </message>
     <message>
         <source>Substitution Font</source>
-        <translation>Korvaava kirjaintyyppi</translation>
+        <translation>Korvaava fontti</translation>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
@@ -7574,15 +7722,15 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation>Asiakirja sisältää kirjaintyyppejä, joita ei löydy järjestelmästäsi. Valitse ne korvaavat kirjaintyypit. Peruuttaminen lopettaa asiakirjan latauksen.</translation>
+        <translation>Asiakirja sisältää fontteja, joita ei löydy järjestelmästäsi. Valitse ne korvaavat fontit. Peruuttaminen lopettaa asiakirjan latauksen.</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Peruuta kirjaintyyppien korvaus ja keskeytä asikirjan lataaminen.</translation>
+        <translation>Peruuta fonttien korvaus ja keskeytä asiakirjan lataaminen.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Jos käytät tätä Scribus korvaa kaikissa asiakirjoissa nämä fontit valinnoillasi. Kirjaintyyppien korvaavuuksia voi myöhemmin säätää valikon kohdassa Muokkaa-&gt;Asetukset-&gt;Kirjaintyypit.</translation>
+        <translation>Jos käytät tätä Scribus korvaa kaikissa asiakirjoissa nämä fontit valinnoillasi. Fonttien korvaavuuksia voi myöhemmin säätää valikon kohdassa Muokkaa-&gt;Asetukset-&gt;Fontit.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -7903,7 +8051,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Date / Time:</source>
-        <translation>Päivämäärä/aika:</translation>
+        <translation>Päivämäärä ja aika:</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
@@ -7974,7 +8122,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation>Tuo E&amp;PS/PS...</translation>
+        <translation>Tuo E&amp;PS- tai PS-tiedosto...</translation>
     </message>
     <message>
         <source>Imports EPS Files</source>
@@ -8125,7 +8273,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
-        <translation>Haluatko poistaa tämän skriptin?</translation>
+        <translation>Poistetaanko skripti?</translation>
     </message>
     <message>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
@@ -8255,7 +8403,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Do you want to delete all objects on this layer too?</source>
-        <translation>Haluatko myös poistaa kaikki kohteet tältä tasolta?</translation>
+        <translation>Poistetaanko myös kaikki kohteet tältä tasolta?</translation>
     </message>
     <message>
         <source>Name</source>
@@ -8338,7 +8486,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Do you really want to delete this style?</source>
-        <translation>Haluatko poistaa tämän tyylin?</translation>
+        <translation>Poistetaanko tyyli?</translation>
     </message>
 </context>
 <context>
@@ -8350,10 +8498,6 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <source>%</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>LineStyleWBase</source>
-        <translation>LineStyleWBase</translation>
     </message>
 </context>
 <context>
@@ -8567,11 +8711,11 @@ vektoridatan Scribus-objekteiksi.</translation>
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation>Muokka mallisivuja</translation>
+        <translation>Muokkaa mallisivuja</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
-        <translation>Haluatko poistaa tämän mallisivun?</translation>
+        <translation>Poistetaanko mallisivu?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -8628,6 +8772,22 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <source>New Master Page %1</source>
         <translation>Uusi mallisivu %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation>Mallisivua ei voitu nimetä uudelleen</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation>Normaalia oletusmallisivua ei voi nimetä uudelleen</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation>Nimeä mallisivu uudelleen</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation>Uusi nimi:</translation>
     </message>
 </context>
 <context>
@@ -8767,11 +8927,11 @@ vektoridatan Scribus-objekteiksi.</translation>
     <name>MissingFont</name>
     <message>
         <source>Missing Font</source>
-        <translation>Puuttuva kirjaintyyppi</translation>
+        <translation>Puuttuva fontti</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation>Kirjaintyyppiä %1 ei ole asennettu.</translation>
+        <translation>Fonttia %1 ei ole asennettu.</translation>
     </message>
     <message>
         <source>Use</source>
@@ -8865,7 +9025,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Kirjaintyypin koko</translation>
+        <translation>Fontin koko</translation>
     </message>
     <message>
         <source>End Points</source>
@@ -9021,15 +9181,15 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Tulosta/Älä tulosta kohdetta</translation>
+        <translation>Tulosta tai jätä kohde tulostamatta</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Valitun kohteen kirjaintyyppi</translation>
+        <translation>Valitun kohteen fontti</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation>Merkkien leveyssuuntainen skaalaus</translation>
+        <translation>Merkkien leveyssuuntainen koon muutos</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -9173,7 +9333,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation>Vaihda palstan tai palstojen välin leveys</translation>
+        <translation>Vaihda leveydeksi palstan tai palstojen välin leveys</translation>
     </message>
     <message>
         <source>Column width</source>
@@ -9182,10 +9342,6 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <source>Path Text Properties</source>
         <translation>Polulla olevan tekstin ominaisuudet</translation>
-    </message>
-    <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation>Pakota alempien kehysten teksti kiertämään kohteen muoto</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -9274,11 +9430,11 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Vasen:</translation>
+        <translation>&amp;Vasemmalla:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;Oikea:</translation>
+        <translation>&amp;Oikealla:</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
@@ -9294,19 +9450,19 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;Ei skaalausta</translation>
+        <translation>&amp;Ei sovitusta</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation>Skaalaa &amp;vaakatasossa:</translation>
+        <translation>Skaalaa &amp;vaakasuunnassa:</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation>Skaalaa &amp;pystytasossa:</translation>
+        <translation>Skaalaa &amp;pystysuunnassa:</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation>Skaalaa &amp;kehyksen kokoon</translation>
+        <translation>Sovita &amp;kehyksen kokoon</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
@@ -9351,14 +9507,6 @@ Corners:</source>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Kehyksen tavutuksen kieli</translation>
-    </message>
-    <message>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Käytä ympäröivää kehystä kohteen muodon sijaan tekstin kierron rajana</translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Käytä vapaasti muokattavaa reunusta tekstin kierron rajana</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -9406,15 +9554,7 @@ Corners:</source>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Nimi %1 on jo käytössä.&lt;br/&gt;Ole hyvä ja valitse toinen.</translation>
-    </message>
-    <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Tekstin ääriviivan väri. Käytettävissä tekstille ääriviivaefektin kanssa.</translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Tekstin täytön väri. Käytettävissä tekstille ääriviivaefektin kanssa.</translation>
+        <translation>Nimi %1 on jo käytössä. &lt;br/&gt;Ole hyvä ja valitse toinen.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9429,8 +9569,32 @@ Corners:</source>
         <translation>nollasta poikkeavat</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation>Paina valitaksesi rivivälin tyypin</translation>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Tekstin ääriviivojen tai varjon väri. Jos molemmat ovat valittuna, ne käyttävät samaa väriä.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Valitun tekstin väri. Jos tekstille on valittu ääriviivat tämä väri on täyttöväri. Jos käytössä on teksti varjolla, tämä on tekstin väri.</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation>Pakota alempien kehysten tekstit kiertämään tämä kohde. Alla olevat ominaisuudet määrittävät kierron laadun tarkemmin.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Käytä nelikulmion muotoista rajausaluetta kehyksen todellisen muodon sijaan tekstin kierron rajana.</translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Käytä vapaasti muokattavaa reunusta tekstin kierron rajana. Oletusarvona reunuksella on kehyksen muoto.</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Napsauta ja pidä painike painettuna valitaksesi rivivälin tyypin</translation>
     </message>
 </context>
 <context>
@@ -9446,10 +9610,6 @@ Corners:</source>
     <message>
         <source> pt</source>
         <translation> pt</translation>
-    </message>
-    <message>
-        <source> pt </source>
-        <translation> pt </translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -9505,7 +9665,11 @@ Corners:</source>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation>Nimi %1 on jo käytössä.&lt;br/&gt;Ole hyvä ja valitse toinen.</translation>
+        <translation>Nimi %1 on jo käytössä. &lt;br/&gt;Ole hyvä ja valitse toinen.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -9857,6 +10021,10 @@ Corners:</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation>Tiedostossa on käytetty joitain ominaisuuksia, jotka eivät ole tuettuja</translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -9894,7 +10062,7 @@ Corners:</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Aseta tämänhetkiset valinnat oletusarvoiksi äläkä kysy asetuksia uudestaan tuotaessa OASIS OpenDocument-tiedostosta.</translation>
+        <translation>Aseta tämänhetkiset valinnat oletusarvoiksi äläkä kysy asetuksia uudestaan tuotaessa OASIS OpenDocument -tiedostosta.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -9943,7 +10111,7 @@ Corners:</source>
     </message>
     <message>
         <source>Output one file for eac&amp;h page</source>
-        <translation>&amp;Vie yksi sivu per tiedosto</translation>
+        <translation>&amp;Tee jokaisesta sivusta oma tiedosto</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -10005,27 +10173,19 @@ Corners:</source>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation>Näytä/Älä näytä C (syaani) muste</translation>
+        <translation>Näytä tai piilota C (syaani) painolevy</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation>Näytä/Älä näytä M (magenta) muste</translation>
+        <translation>Näytä tai piilota M (magenta) painolevy</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation>Näytä/Älä näytä Y (keltainen) muste</translation>
+        <translation>Näytä tai piilota Y (keltainen) painolevy</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation>Näytä/Älä näytä K (musta) muste</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>&amp;Reunanpehmennys tekstiin</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Reunanpehmennys &amp;grafiikkaan</translation>
+        <translation>Näytä tai piilota K (musta) painolevy</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -10053,7 +10213,7 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Under Color Removal</source>
-        <translation>&amp;Alivärin poisto (UCR)</translation>
+        <translation>&amp;Alivärin poisto</translation>
     </message>
     <message>
         <source>Separation Name</source>
@@ -10088,14 +10248,6 @@ Corners:</source>
         <translation>Tulosta...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Parantaa tekstikohteitten ulkonäkö esikatselun nopeuden kustannuksella. Koskee ainoastaan Type 1 -kirjaintyyppejä</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Parantaa True Type sekä Open Type kirjaintyyppien että EPS, PDF ja vektorigrafiikan esitystä nopeuden kustannuksella.</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi. 
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata 
@@ -10111,6 +10263,14 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
         <source>File</source>
         <translation>Tiedosto</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Käytä reun&amp;anpehmennystä</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Parantaa Type 1, TrueType- ja OpenType-fonttien sekä vektorigrafiikan ulkonäköä esikatselussa. Saattaa hidastaa prosessia hieman.</translation>
     </message>
 </context>
 <context>
@@ -10144,7 +10304,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Kulmikas viiva</translation>
+        <translation>Viivaketju</translation>
     </message>
     <message>
         <source>PathText</source>
@@ -10172,7 +10332,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation>Ei mitään</translation>
+        <translation>Ei suhdetta</translation>
     </message>
 </context>
 <context>
@@ -10249,12 +10409,12 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>Page Layout</source>
-        <translation>Sivun asettelu</translation>
-    </message>
-    <message>
         <source>First Page is:</source>
         <translation>Ensimmäinen sivu on:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation>Dokumentin asettelu</translation>
     </message>
 </context>
 <context>
@@ -10273,7 +10433,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation>Tässä ovat kaikki mallisivusi. Luodaksesi uuden sivun raahaa mallisivu paikkaan johon haluat uuden sivun</translation>
+        <translation>Tässä ovat kaikki mallisivusi. Luodaksesi uuden sivun raahaa mallisivu paikkaan, johon haluat uuden sivun.</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -10529,7 +10689,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation>tuntematon laajennuksen tyyppi</translation>
+        <translation>tuntematon liitännäistyyppi</translation>
     </message>
     <message>
         <source>Plugin: %1 loaded</source>
@@ -10566,7 +10726,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Plugin ID</source>
-        <translation>Laajennoksen ID</translation>
+        <translation>Liitännäisen ID</translation>
     </message>
     <message>
         <source>File</source>
@@ -10624,7 +10784,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Käytä koveruus-/kuperuuskerrointa muuttaaksesi kohteen muotoa.</translation>
+        <translation>Käytä koveruus- tai kuperuuskerrointa muuttaaksesi kohteen muotoa.</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -10632,7 +10792,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-        <translation>Negatiivinen arvo tekee monikulmiosta koveran (tai tähden muotoisen), positiivinen arvo tekee siitä kuperan.</translation>
+        <translation>Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen), positiivinen arvo tekee siitä kuperan.</translation>
     </message>
 </context>
 <context>
@@ -10719,7 +10879,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation>Valikoissa ja ikkunoissa käytettävän kirjaintyypin koko</translation>
+        <translation>Valikoissa ja ikkunoissa käytettävän fontin koko</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -10851,7 +11011,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation>&amp;Väli:</translation>
+        <translation>&amp;Tallennusväli:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -10895,7 +11055,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation>Kumoa/Tee uudelleen</translation>
+        <translation>Kumoa ja tee uudelleen</translation>
     </message>
     <message>
         <source>Action history length</source>
@@ -10907,7 +11067,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Kirjaintyypit</translation>
+        <translation>Fontit</translation>
     </message>
     <message>
         <source>Color Management</source>
@@ -10959,15 +11119,15 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation>Työalue</translation>
+        <translation>Sivujen ulkopuolinen alue</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation>Säädä näyttösi viivaimella.</translation>
+        <translation>Säädä näyttösi viivaimen avulla.</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation>Kysy aina ennen kirjaintyyppien korvaamista</translation>
+        <translation>Kysy aina ennen fonttien korvaamista</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
@@ -10979,7 +11139,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation>Laajennokset</translation>
+        <translation>Liitännäiset</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -11003,19 +11163,19 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Määrittelee tyhjän tilan määrän asiakirjan vasemmalla puolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+        <translation>Määrittelee tyhjän tilan määrän asiakirjan vasemmalla puolella. Tilaa voi käyttää kohteitten säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Määrittelee tyhjän tilan määrän asiakirjan oikealla puolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+        <translation>Määrittelee tyhjän tilan määrän asiakirjan oikealla puolella. Tilaa voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Määrittelee tyhjän tilan määrän asiakirjan yläpuolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+        <translation>Määrittelee tyhjän tilan määrän asiakirjan yläpuolella. Tilaa voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Määrittelee tyhjän tilan määrän asiakirjan alapuolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+        <translation>Määrittelee tyhjän tilan määrän asiakirjan alapuolella. Tilaa voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -11083,7 +11243,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation>Scribus tallentaa kopion asiakirjastasi bak-päätteellä aina kuna aika edellisestä tallennuksesta täyttyy.</translation>
+        <translation>Scribus tallentaa kopion asiakirjastasi bak-päätteellä aina, kun aika edellisestä tallennuksesta täyttyy.</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
@@ -11114,8 +11274,8 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
         <translation>Oletushakemisto ICC-profiileille. Tätä ei voi muuttaa asiakirjan ollessa avoinna. Oletuksena Scribus hakee profiileja järjestelmähakemistoista Windowsissa ja Mac OSX:ssä. Linuxissa ja Unixeissa profiileja etsitään hakemistoista $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc </translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Ghostscript-tulkin sijainti tiedostojärjestelmässä</translation>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Lisää Ghostscript-tulkin sijainti. Windowsissa käytä ohjelmaa nimeltä gswin32c.exe (ei gswin32.exe).</translation>
     </message>
 </context>
 <context>
@@ -11232,17 +11392,6 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
 </context>
 <context>
-    <name>PropertiesToolBar</name>
-    <message>
-        <source>Properties</source>
-        <translation>Ominaisuudet</translation>
-    </message>
-    <message>
-        <source>X, Y, Z</source>
-        <translation>X, Y, Z</translation>
-    </message>
-</context>
-<context>
     <name>PythonConsole</name>
     <message>
         <source>&amp;Open...</source>
@@ -11353,7 +11502,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
         <source>A&amp;lpha channel:</source>
-        <translation>&amp;Alpha kanava:</translation>
+        <translation>&amp;Alpha-kanava:</translation>
     </message>
     <message>
         <source>&amp;Basic colors</source>
@@ -11496,7 +11645,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
         <source>Symlink to Special</source>
-        <translation>Symbolinen linkki to Special</translation>
+        <translation>Symbolinen linkki erikoistiedostoon</translation>
     </message>
     <message>
         <source>File</source>
@@ -11508,7 +11657,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
         <source>Special</source>
-        <translation>Special</translation>
+        <translation>Erikoistiedosto</translation>
     </message>
     <message>
         <source>Open</source>
@@ -11580,7 +11729,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Haluatko varmasti poistaa %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Poistetaanko %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
@@ -11643,11 +11792,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Kirjaintyyppi</translation>
+        <translation>&amp;Fontti</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation>Kirjaintyypin &amp;tyyli</translation>
+        <translation>Fontin &amp;tyyli</translation>
     </message>
     <message>
         <source>&amp;Size</source>
@@ -11695,7 +11844,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation>Valitse kirjaintyyppi</translation>
+        <translation>Valitse fontti</translation>
     </message>
 </context>
 <context>
@@ -11764,7 +11913,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Haluatko korvata tiedoston %1?</translation>
+        <translation>Korvataanko tiedosto %1?</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -11950,7 +12099,7 @@ External Links
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Kirjaintyyppi %1 on viallinen ja sitä ei käytetä</translation>
+        <translation>Fontti %1 on viallinen ja sitä ei käytetä</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -11971,10 +12120,6 @@ External Links
     <message>
         <source>Bulgarian</source>
         <translation>bulgaria</translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation>brasilia</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -12050,11 +12195,11 @@ External Links
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation>norja (Bokmaal)</translation>
+        <translation>kirjanorja</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation>norja (nnyorsk)</translation>
+        <translation>nykynorja</translation>
     </message>
     <message>
         <source>Norwegian</source>
@@ -12135,12 +12280,12 @@ External Links
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kirjaintyypin kokoa ei voi saada muusta kuin tekstikehyksestä.</translation>
+        <translation>fontin kokoa ei voi saada muusta kuin tekstikehyksestä.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kirjaintyyppiä ei voi saada muusta kuin tekstikehyksestä.</translation>
+        <translation>Fonttia ei voi saada muusta kuin tekstikehyksestä.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
@@ -12189,7 +12334,7 @@ External Links
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation>OpenOffice.org Writer asiakirjat</translation>
+        <translation>OpenOffice.org Writer -asiakirjat</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -12285,7 +12430,7 @@ External Links
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation>Kirjaintyyppiä ei löydy.</translation>
+        <translation>Fonttia ei löydy.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
@@ -12325,17 +12470,17 @@ External Links
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation>Kirjaintyypin koko virheellinen. Täytyy olla 1 &lt;= koko &lt;= 512.</translation>
+        <translation>Fontin koko virheellinen. Täytyy olla 1 &lt;= koko &lt;= 512.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kirjaintyypin koon voi asettaa vain tekstikehyksessä.</translation>
+        <translation>Fontin koon voi asettaa vain tekstikehyksessä.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kirjaintyypin voi asettaa vain tekstikehyksessä.</translation>
+        <translation>Fontin voi asettaa vain tekstikehyksessä.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
@@ -12439,7 +12584,7 @@ External Links
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation>OpenDocument tekstiasiakirjat</translation>
+        <translation>OpenDocument-tekstiasiakirjat</translation>
     </message>
     <message>
         <source>Croatian</source>
@@ -12568,67 +12713,63 @@ External Links
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation>Kirjaintyyppi %1 on viallinen, ei upoteta</translation>
+        <translation>Fontti %1 on viallinen, ei upoteta</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation>Kirjaintyyppi %1 on viallinen, ei upoteta</translation>
+        <translation>Fontti %1 on viallinen, ei upoteta</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation>Kirjaintyyppi %1 on viallinen (FreeType2), ohitetaan se</translation>
+        <translation>Fontti %1 on viallinen (FreeType2), ohitetaan se</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation>Kirjaintyyppi %1 on viallinen, ohitetaan se</translation>
+        <translation>Fontti %1 on viallinen, ohitetaan se</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation>Kirjaintyypissä %1 on viallinen merkki %2 (merkkikoodi %3)</translation>
+        <translation>Fontissa %1 on viallinen merkki %2 (merkkikoodi %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation>Kirjaintyyppi %1 on viallinen. Sitä ei käytetä</translation>
+        <translation>Fontti %1 on viallinen. Sitä ei käytetä</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation>Kirjaintyyppiä %1 ei voida lukea, ei upotusta</translation>
+        <translation>Fonttia %1 ei voida lukea, ei upotusta</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation>Kirjaintyypin %1 lataus epäonnistui, tuntematon tiedostotyyppi</translation>
+        <translation>Fontin %1 lataus epäonnistui, tuntematon tiedostotyyppi</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation>Kirjaintyyppi %1 ladattiin %2(%3)</translation>
+        <translation>Fontti %1 ladattiin %2(%3)</translation>
     </message>
     <message>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation>Kirjaintyyppi %1(%2) on kopio tyypistä %3</translation>
+        <translation>Fontti %1(%2) on kopio tyypistä %3</translation>
     </message>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation>Ladataan kirjaintyyppiä %1 (löydettiin fontconfigilla)</translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Kirjaintyyppi %1 (löydettiin fontconfigilla) on viallinen. Sitä ei käytetä</translation>
+        <translation>Ladataan fonttia %1 (löydettiin fontconfigilla)</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation>Kirjaintyypin lataus epäonnistui. Freetype2 ei löytänyt tiedostoa</translation>
+        <translation>Fontin lataus epäonnistui. Freetype2 ei löytänyt tiedostoa</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation>Kirjaintyyppi %1 on viallinen (FreeType). Sitä ei käytetä</translation>
+        <translation>Fontti %1 on viallinen (FreeType). Sitä ei käytetä</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation>Kirjaintyypillä %1 on viallinen merkki %2 (merkkikoodi %3). Sitä ei käytetä</translation>
+        <translation>Fontilla %1 on viallinen merkki %2 (merkkikoodi %3). Sitä ei käytetä</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation>haetaan perhettä %1 kirjaintyypistä %1 (siirtymä=%3, nTaulu=%4)</translation>
+        <translation>haetaan perhettä %1 fontista %1 (siirtymä=%3, nTaulu=%4)</translation>
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
@@ -13020,27 +13161,27 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Creating Font Cache</source>
-        <translation>Luodaan välimuistia kirjaintyypeille</translation>
+        <translation>Luodaan välimuistia fonteille</translation>
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation>Uusi kirjaintyyppi löydetty, tarkastetaan...</translation>
+        <translation>Uusi fontti löydetty, tarkastetaan...</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation>Muokattu kirjaintyyppi löytyi, tarkastetaan...</translation>
+        <translation>Muokattu fontti löytyi, tarkastetaan...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
-        <translation>Luetaan kirjaintyyppien välimuistia</translation>
+        <translation>Luetaan fonttivälimuistia</translation>
     </message>
     <message>
         <source>Writing updated Font Cache</source>
-        <translation>Päivitetään kirjaintyyppien välimuistia</translation>
+        <translation>Päivitetään fonttivälimuistia</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Etsitään kirjaintyyppejä</translation>
+        <translation>Etsitään fontteja</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
@@ -13048,11 +13189,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation>Muutoksia asiakirjaan ei ole tallennettu ja olet pyytänyt palauttamaan viimeksi tallennetun. Haluatko kumota muutokset ja palauttaa tallennetun asiakirjan?</translation>
+        <translation>Muutoksia asiakirjaan ei ole tallennettu ja olet pyytänyt palauttamaan viimeksi tallennetun. Kumotaanko muutokset ja palautetaan tallennettu asiakirja?</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
-        <translation>Tiedosto &quot;%1&quot; on jo olemassa &lt;br/&gt;Haluatko korvata sen?</translation>
+        <translation>Tiedosto &quot;%1&quot; on jo olemassa &lt;br/&gt;Korvataanko se?</translation>
     </message>
     <message>
         <source>page</source>
@@ -13065,7 +13206,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font Preview</source>
-        <translation>Kirjaintyypin esikatselu</translation>
+        <translation>Fonttien esikatselu</translation>
     </message>
     <message>
         <source>My Plugin</source>
@@ -13081,7 +13222,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>PS/EPS Importer</source>
-        <translation>PS/EPS-tuoja</translation>
+        <translation>PS- ja EPS-tuoja</translation>
     </message>
     <message>
         <source>Save As Template</source>
@@ -13110,7 +13251,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Old .sla format support</source>
-        <translation>Vanhan .sla tiedostomuodon tuki</translation>
+        <translation>Vanhan sla-tiedostomuodon tuki</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
@@ -13181,17 +13322,58 @@ is not exhaustive due to exceptions from called functions.
         <translation>Tiedostoa %1 ei voitu avata</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation>Tiedosto ei ole PDB-asiakirja. Jos tiedät tiedoston olevan PDB-asiakirja, lähetä bugiraportti.</translation>
-    </message>
-    <message>
         <source>Luxembourgish</source>
-        <translation>Luxemburg</translation>
+        <translation>luxemburg</translation>
     </message>
     <message>
         <source>Japanese</source>
-        <translation>Japani</translation>
+        <translation>japani</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Annetulla mallisivun nimellä ei löydy mallisivua.</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>arabia</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>viro</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>islanti</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 saattaa olla virheellinen. Tarkkuustiedot puuttuvat.</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>Tiedostoa ei tunnistettu PDB-asiakirjaksi. Jos tiedät sen olevan sellainen, kirjoita virheraportti.</translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation>bretoni</translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation>englanti (Amerikka)</translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation>englanti (Australia)</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation>%1 saattaa olla virheellinen: puuttuva tai väärä resoluutio</translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13315,7 +13497,7 @@ is not exhaustive due to exceptions from called functions.
     <name>ReformDoc</name>
     <message>
         <source>Document Setup</source>
-        <translation>Asiakirjan asettelu</translation>
+        <translation>Asiakirjan ominaisuudet</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -13327,7 +13509,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Vasen:</translation>
+        <translation>&amp;Vasemmalla:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
@@ -13335,7 +13517,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>O&amp;ikea:</translation>
+        <translation>O&amp;ikealla:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -13447,7 +13629,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Kirjaintyypit</translation>
+        <translation>Fontit</translation>
     </message>
     <message>
         <source>PDF Export</source>
@@ -13483,7 +13665,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation>Merkkaa marginaalien ulkopuolinen alue marginaalin värillä</translation>
+        <translation>Merkkaa reunuksien ulkopuolinen alue reunuksen värillä</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -13495,7 +13677,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Minimum Scratch Space</source>
-        <translation>Pienin mahdollinen työalue</translation>
+        <translation>Sivujen ulkopuolinen alue</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
@@ -13523,7 +13705,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation>Käytä kokoasetusta kaikkiin sivuihin</translation>
+        <translation>Käytä koon asetuksia kaikkiin sivuihin</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
@@ -13669,11 +13851,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation>Valitun tekstin kirjaintyyppi</translation>
+        <translation>Valitun tekstin fontti</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Kirjaintyypin koko</translation>
+        <translation>Fontin koko</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
@@ -13681,7 +13863,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font Settings</source>
-        <translation>Kirjaintyypin asetukset</translation>
+        <translation>Fontin asetukset</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
@@ -13692,7 +13874,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBStyle</name>
     <message>
         <source>Character Settings</source>
-        <translation>Kirjaintyypin asetukset</translation>
+        <translation>Fontin asetukset</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
@@ -13821,7 +14003,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation>Käyttäjän asetukset ovat jo olemassa. Haluatko korvata ne?</translation>
+        <translation>Käyttäjän asetukset ovat jo olemassa. Korvataanko ne?</translation>
     </message>
     <message>
         <source>Cannot write file %1.</source>
@@ -13956,7 +14138,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Haluatko poistaa kaiken tekstin?</translation>
+        <translation>Poistetaanko kaikki teksti?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
@@ -13964,7 +14146,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Poisto-operaatio peruutetaan.</translation>
+        <translation>Kohde %1 on parhaillaan avoinna tekstimuokkaimessa. Poisto-operaatio peruutetaan.</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation>ICC-profiilien avaamisessa tapahtui virhe. Värienhallintaa ei otettu käyttöön.</translation>
     </message>
 </context>
 <context>
@@ -13983,7 +14169,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation>Alustetaan tekstieditoria</translation>
+        <translation>Alustetaan tekstimuokkainta</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
@@ -14011,7 +14197,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Etsitään kirjaintyyppejä</translation>
+        <translation>Etsitään fontteja</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
@@ -14027,7 +14213,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Kirjaintyypit alustettu</translation>
+        <translation>Fontit alustettu</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -14067,7 +14253,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Kirjaintyyppi</translation>
+        <translation>&amp;Fontti</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
@@ -14249,7 +14435,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation>Kohde %1 on avoinna tekstieditorissa. Leikkaus peruutetaan.</translation>
+        <translation>Kohde %1 on avoinna tekstimuokkaimessa. Leikkaus peruutetaan.</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -14422,11 +14608,15 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
-        <translation>Haluatko korvata nykyisen kuvan?</translation>
+        <translation>Korvataanko nykyinen kuva?</translation>
     </message>
     <message>
         <source>Contents</source>
         <translation>Sisältö</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>Liga&amp;tuurit</translation>
     </message>
 </context>
 <context>
@@ -14461,7 +14651,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation>Näytä tietoa kirjaintyypeistä niitä ladattaessa</translation>
+        <translation>Näytä tietoa fonteista niitä ladattaessa</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
@@ -14518,6 +14708,10 @@ pystysuora siirtyminen: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Bugit ja kehitysideat</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Näytä konsoli-ikkuna</translation>
     </message>
 </context>
 <context>
@@ -14664,7 +14858,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Muutosoperaatio peruutetaan.</translation>
+        <translation>Kohde %1 on parhaillaan avoinna tekstimuokkaimessa. Muutosoperaatio peruutetaan.</translation>
     </message>
     <message>
         <source>Contents</source>
@@ -14721,7 +14915,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation>Python-laajennuksen alustus epäonnistui. Yksityiskohdat tulostettiin stderr:iin.</translation>
+        <translation>Python-liitännäisen alustus epäonnistui. Yksityiskohdat tulostettiin stderr:iin.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
@@ -14837,15 +15031,15 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Kirjaintyyppi</translation>
+        <translation>Fontti</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Kirjaintyypin koko</translation>
+        <translation>Fontin koko</translation>
     </message>
     <message>
         <source>Font Effects</source>
-        <translation>Kirjaintyyppien tehosteet</translation>
+        <translation>Fonttien tehosteet</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -14992,6 +15186,10 @@ pystysuora siirtyminen: %3</translation>
         <comment>short words plugin</comment>
         <translation>Short &amp;Words...</translation>
     </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation>Liitännäinen sitovien välilyöntien lisäämiseksi ennen ja jälkeen listattuja sanoja. Saatavilla seuraaville kielille:</translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -15062,7 +15260,7 @@ pystysuora siirtyminen: %3</translation>
     <name>StoryEditor</name>
     <message>
         <source>Story Editor</source>
-        <translation>Tekstieditori</translation>
+        <translation>Tekstimuokkain</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -15098,7 +15296,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
-        <translation>Haluatko tallentaa muutokset?</translation>
+        <translation>Tallennetaanko muutokset?</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -15178,7 +15376,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation>&amp;Käytettävä kirjaintyyppi...</translation>
+        <translation>&amp;Käytettävä fontti...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -15186,7 +15384,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation>&amp;Kirjaintyyppien esikatselu...</translation>
+        <translation>&amp;Fonttien esikatselu...</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -15202,15 +15400,15 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Story Editor - %1</source>
-        <translation>Tekstieditori - %1</translation>
+        <translation>Tekstimuokkain - %1</translation>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
-        <translation>Haluatko menettää kaikki tekemäsi muutokset?</translation>
+        <translation>Kaikki muutokset menetetään. Jatketaanko?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Haluatko poistaa kaiken tekstin?</translation>
+        <translation>Poistetaanko kaikki teksti?</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
@@ -15266,10 +15464,6 @@ pystysuora siirtyminen: %3</translation>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation>Alleviivattu</translation>
-    </message>
-    <message>
         <source>Small Caps</source>
         <translation>Kapiteelit</translation>
     </message>
@@ -15282,25 +15476,30 @@ pystysuora siirtyminen: %3</translation>
         <translation>Yläindeksi</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Yliviivattu</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation>Alleviivaa ainoastaan sanat</translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation>Kaikki versaalina</translation>
     </message>
     <message>
-        <source>Shadow</source>
-        <translation>Varjo</translation>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Alleviivaa tekstiä. Pidä näppäin alhaalla asettaaksesi viivan leveyden ja sijainnin.</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation>Ääriviivat</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Alleviivaa ainoastaan sanoja. Pidä näppäin alhaalla asettaaksesi viivan leveyden ja sijainnin.</translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Yliviivaus. Pidä näppäin alhaalla asettaaksesi viivan leveyden ja sijainnin.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Ääriviivat. Pidä näppäin alhaalla asettaaksesi viivan leveyden</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Teksti varjolla. Pidä näppäin alhaalla asettaaksesi varjon sijainnin.
+
+</translation>
     </message>
 </context>
 <context>
@@ -15433,8 +15632,8 @@ pystysuora siirtyminen: %3</translation>
         <translation>Kohdekehys:</translation>
     </message>
     <message>
-        <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <source>Table of Contents %1</source>
+        <translation>Sisällysluettelo %1</translation>
     </message>
 </context>
 <context>
@@ -15503,10 +15702,6 @@ pystysuora siirtyminen: %3</translation>
         <source>Destination Frame:</source>
         <translation>Kohdekehys:</translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
-    </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
@@ -15556,7 +15751,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
-        <translation>Tarkasta PDF-huomautukset ja kentät</translation>
+        <translation>Tarkasta PDF-merkinnät ja kentät</translation>
     </message>
     <message>
         <source>Add Profile</source>
@@ -15816,20 +16011,12 @@ pystysuora siirtyminen: %3</translation>
         <translation>&amp;Yleiset</translation>
     </message>
     <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Upota kaikki kirjaintyypit</translation>
-    </message>
-    <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation>Tee osa&amp;joukko kirjaintyypeistä</translation>
-    </message>
-    <message>
         <source>Embedding</source>
         <translation>Upottaminen</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation>Käytetyt kirjaintyypit:</translation>
+        <translation>Käytetyt fontit</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -15841,15 +16028,11 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation>Upotettavat kirjaintyypit:</translation>
-    </message>
-    <message>
-        <source>Fonts to subset:</source>
-        <translation>Kirjaintyypit osajoukoiksi:</translation>
+        <translation>Upotettavat fontit</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation>K&amp;irjaintyypit</translation>
+        <translation>&amp;Fontit</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
@@ -16001,7 +16184,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>Salli &amp;kenttien lisääminen</translation>
+        <translation>Salli &amp;kenttien ja merkintöjen lisääminen</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
@@ -16237,15 +16420,11 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Muunna spottivärit prosessiväreiksi</translation>
-    </message>
-    <message>
-        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Pakkaustasot häviöllisille pakkausmenetelmille: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %). Huomioi, että taso ei suoraan vaikuta tuloksena saatavan kuvan kokoon. Kuvan koko ja laadun heikkeneminen ovat tapauskohtaisia jokaisella pakkaustasolla.</translation>
+        <translation>Muunna lisävärit prosessiväreiksi</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Mahdollistaa spottivärien muuntamisen prosessiväreiksi. Jos et aio painaa käyttäen spottivärejä, tämä on paras jättää valituksi.</translation>
+        <translation>Mahdollistaa lisävärien muuntamisen prosessiväreiksi. Jos et aio painaa käyttäen lisävärejä, tämä on paras jättää valituksi.</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
@@ -16257,11 +16436,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation>Salli kenttien ja huomautusten lisääminen PDF-tiedostoon. Jos kohtaa ei valita, kenttien ja huomautusten muokkaus on estetty.</translation>
-    </message>
-    <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Upota kirjaintyypit PDF-tiedostoon. Kirjaintyyppien upotus säilyttää asiakirjan ulkoasun.</translation>
+        <translation>Salli kenttien ja merkintöjen lisääminen PDF-tiedostoon. Jos kohtaa ei valita, kenttien ja merkintöjen muokkaus on estetty.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -16322,10 +16497,6 @@ pystysuora siirtyminen: %3</translation>
     <message>
         <source>Display Settings</source>
         <translation>Näytön asetukset</translation>
-    </message>
-    <message>
-        <source>Page Layout</source>
-        <translation>Sivun asettelu</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -16431,10 +16602,6 @@ yhteydessä suoritettava JavaScript:</translation>
         <translation>Mahdollistaa esitysefektien käytön PDF-lukijaohjelmissa, jotka tukevat niitä kokonäytön tilassa.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Pakkausmenetelmä kuville. Automaattinen antaa Scribuksen valita parhaan pakkausmenetelmän. Zip on häviötön ja hyvä kuville, joissa on paljon tasaisia väripintoja. JPEG auttaa luomaan pienemmän PDF-tiedoston, jos käytössä on paljon kuvia. JPEG-pakkausta käytettäessä kuvien laatu saattaa kärsiä hieman. Automaattinen on hyvä valinta, ellei ole erityistä tarvetta muilla pakkausasetuksille. Asetus on käytössä ainoastaan JPEG-kuvilla.</translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Muuta bittikarttakuvien resoluutio valittuun DPI-arvoon. Ilman valintaa kuvat tallennetaan niiden omilla resoluutioilla. Käyttö hidastaa tallennusta ja kasvattaa muistin käyttöä.</translation>
     </message>
@@ -16446,12 +16613,44 @@ yhteydessä suoritettava JavaScript:</translation>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Sivun näytön aika, joka odotetaan ennen esityksen alkua. 0 ottaa automaattisen sivunvaihdoin pois käytöstä</translation>
     </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation>Käytettävä pakkausmenetelmä kuville. Automaattinen antaa Scribuksen tehdä valinnan parhaasta pakkauksesta. ZIP on häviötön ja hyvä tasavärisille kuville. JPEG on tehokkaampi ja auttaa tuottamaan pienempiä PDF-tiedostoja, jos asiakirja sisältää paljon kuvia. JPEG-pakkauksen kanssa saattaa kuvien laatu kärsiä. Automaattinen on varma valinta, ellet erityisesti halua käyttää jotain muuta vaihtoehtoa.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation>Häviöllisen pakkauksen laatu: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %) ja Paras (95 %). Pakkauksen laatu ei ole suoraan verrannollinen kohteena olevan kuvan kokoon. Koko ja laadun heikennys ovat molemmat kuvakohtaisia. Parhaallakin laadulla kuvissa esiintyy jonkin verran laadun heikkenemistä jpeg-kuvilla.</translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation>&amp;Upota kaikki</translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation>Ääriviivoiksi muutettavat fontit:</translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation>Muunn&amp;a kaikki ääriviivoiksi</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation>Asiakirjan asettelu</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation>Upota fontit PDF-dokumenttiin. Fonttien upottaminen säilyttää dokumenttisi ulkonäön. Joitain fonttityyppejä ei voi upottaa vaan ne täytyy muuntaa ääriviivoiksi (esim. Open Type, joka voidaan upottaa ainoastaan tallennettaessa PDF-versiolla 1.6).</translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation>Muunna valitut fontit ääriviivoiksi. Ääriviivoiksi muunnettaessa valituilla fonteilla kirjoitetut tekstit muunnetaan vektoreiksi, jolloin fonttia ei tarvitse upottaa mukaan PDF-dokumenttiin. Joidenkin fonttien kohdalla tämä on ainoa mahdollisuus säilyttää dokumentin ulkonäkö, koska PDF-standardi ei salli esimerkikis Open Type -fonttien upottamista vasta kuin versiossa 1.6.</translation>
+    </message>
 </context>
 <context>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation>Kirjaintyyppi:</translation>
+        <translation>Fontti:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -16619,15 +16818,15 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation>Kirjaintyyppi uuteen tekstikehykseen</translation>
+        <translation>Fontti uuteen tekstikehykseen</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation>Kirjaintyypin koko uuteen tekstikehykseen</translation>
+        <translation>Fontin koko uuteen tekstikehykseen</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation>Kirjaintyypin väri</translation>
+        <translation>Fontin väri</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
@@ -16639,7 +16838,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation>Esimerkki valitusta kirjaintyypistä</translation>
+        <translation>Esimerkki valitusta fontista</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
@@ -16774,7 +16973,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation>&amp;Skaalaus:</translation>
+        <translation>&amp;Koon muutos:</translation>
     </message>
     <message>
         <source>Superscript</source>
@@ -16786,7 +16985,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation>S&amp;kaalaus:</translation>
+        <translation>K&amp;oon muutos:</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -16814,7 +17013,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation>Skaa&amp;laus:</translation>
+        <translation>Koo&amp;n muutos:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
@@ -16826,39 +17025,39 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Siirtymä kirjaintyypin peruslinjan yläpuolelle</translation>
+        <translation>Siirtymä fontin peruslinjan yläpuolelle</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Yläindeksin kirjaintyypin koko verrattuna normaaliin kirjaintyyppiin</translation>
+        <translation>Yläindeksin fontin koko verrattuna normaaliin fonttiin</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Siirtymä kirjaintyypin peruslinjan alapuolelle</translation>
+        <translation>Siirtymä fontin peruslinjan alapuolelle</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Alaindeksin kirjaintyypin koko verrattuna normaaliin kirjasimeen</translation>
+        <translation>Alaindeksin fontin koko verrattuna normaaliin fonttiin</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Kapiteelin kirjainten koko verrattuna normaaliin kirjaintyyppiin</translation>
+        <translation>Kapiteelin fontin koko verrattuna normaaliin fonttiin</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Rivivälin kasvu prosentteina kirjaintyypin koosta</translation>
+        <translation>Rivivälin kasvu prosentteina fontin koosta</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Siirtymä kirjaintyypin peruslinjan alapuolelle ilmaistuna prosentteina.</translation>
+        <translation>Siirtymä fontin peruslinjan alapuolelle ilmaistuna prosentteina.</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation>Riviväli ilmaistuna prosentteina kirjaintyypin koosta</translation>
+        <translation>Riviväli ilmaistuna prosentteina fontin koosta</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Siirtymä kirjaintyypin peruslinjan yläpuolelle ilmaistuna prosentteina.
+        <translation>Siirtymä fontin peruslinjan yläpuolelle ilmaistuna prosentteina.
 
 </translation>
     </message>
@@ -17199,35 +17398,35 @@ to %2</source>
     </message>
     <message>
         <source>Set font</source>
-        <translation>Aseta kirjaintyyppi</translation>
+        <translation>Aseta fontti</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation>Aseta kirjaintyypin koko</translation>
+        <translation>Aseta fontin koko</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation>Aseta kirjaintyypin leveys</translation>
+        <translation>Aseta fontin leveys</translation>
     </message>
     <message>
         <source>Set font height</source>
-        <translation>Aseta kirjaintyypin korkeus</translation>
+        <translation>Aseta fontin korkeus</translation>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation>Aseta kirjaintyypin täyttöväri</translation>
+        <translation>Aseta fontin täyttöväri</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation>Aseta kirjaintyypin reunan väri</translation>
+        <translation>Aseta fontin reunan väri</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
-        <translation>Aseta kirjaintyypin täyttövärin sävy</translation>
+        <translation>Aseta fontin täyttövärin sävy</translation>
     </message>
     <message>
         <source>Set font stroke color shade</source>
-        <translation>Aseta kirjaintyypin reunuksen värin sävy</translation>
+        <translation>Aseta fontin reunuksen värin sävy</translation>
     </message>
     <message>
         <source>Set kerning</source>
@@ -17251,7 +17450,7 @@ to %2</source>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation>Aseta kirjainefekti</translation>
+        <translation>Aseta fonttiefekti</translation>
     </message>
     <message>
         <source>Image frame</source>
@@ -17271,7 +17470,7 @@ to %2</source>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Kulmikas viiva</translation>
+        <translation>Viivaketju</translation>
     </message>
     <message>
         <source>Convert to</source>
@@ -17291,7 +17490,7 @@ to %2</source>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation>Työalue</translation>
+        <translation>Sivujen ulkopuolinen alue</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
@@ -17446,6 +17645,18 @@ X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation>Palauta hallintapiste</translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation>Palauta hallintapisteet</translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation>Kuvaefektien käsittely</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -17476,6 +17687,55 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation>Haetaan Scribuksen versiotietoja</translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation>(tietoja koneeltasi ei lähetetä eteenpäin)</translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation>Päivitystiedoston haku epäonnistui</translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation>Virhe haettaessa päivitystietoja: %1</translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation>Tiedostoa ei löydy palvelimelta</translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation>Päivitystiedosto ei voitu avata: %1 
+Virhe: %2 rivillä %3, rivi: %4</translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation>Virhe haettaessa Scribuksen päivitystietoja. Tarkasta internetyhteytesi.</translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation>Päivityksiä Scribus %1 -versiollesi ei ole saatavilla</translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation>Yksi tai useampi päivitys löytyi Scribus %1 -versiollesi:</translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation>Tässä listassa saattaa olla mukana kehitysversioita</translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation>Lisätietoja saa osoitteesta www.scribus.net </translation>
     </message>
 </context>
 <context>
@@ -17606,7 +17866,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>Lisää PDF-huomautus</translation>
+        <translation>Lisää PDF-merkintä</translation>
     </message>
 </context>
 <context>
@@ -17634,6 +17894,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Import Text Only</source>
         <translation>Tuo ainoastaan teksti</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Avaa</translation>
     </message>
 </context>
 <context>
@@ -17731,7 +17995,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Varmista että kuvia voidaan käyttää vapaasti. Jos kirjaintyyppiä ei voi levittää, älä kerää niitä tallentaessasi asiakirjamallin.</translation>
+        <translation>Varmista että kuvia voidaan käyttää vapaasti. Jos fontteja ei voi levittää, älä kerää niitä tallentaessasi asiakirjamallin.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>

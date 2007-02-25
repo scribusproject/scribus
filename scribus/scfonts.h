@@ -26,6 +26,9 @@ for which a new license (GPL+exception) is in place.
 
 // #include "scfonts_encoding.h"
 
+FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
+
+
 /*  Base Class Foi : This is subclassed by a class to handle Type1 fonts, a class
 		to handle TrueType fonts, and potentially any other type that becomes appropriate in
 		the future.

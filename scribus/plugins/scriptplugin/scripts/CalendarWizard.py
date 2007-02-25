@@ -25,7 +25,7 @@ There are 2 types of calender supported:
 But everything works with both orientations well of course too.
 
 AUTHOR:
-    Petr Vanek <petr@yarpen.cz>
+    Petr Vanek <petr@scribus.info>
 
 LICENSE:
 This program is free software; you can redistribute it and/or modify
@@ -68,22 +68,26 @@ except ImportError:
 
 
 localization = {
-'default' :
-    [['January', 'February', 'March', 'April', 'May',
-      'June', 'July', 'August', 'September', 'October',
-      'November', 'December'],
-     ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
-# alphabetically ordered
 'Czech' :
     [['Leden', 'Únor', 'Březen', 'Duben', 'Květen',
         'Červen', 'Červenec', 'Srpen', 'Září',
         'Říjen', 'Listopad', 'Prosinec'],
      ['Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota', 'Neděle']],
+'Czech-short' :
+    [['Leden', 'Únor', 'Březen', 'Duben', 'Květen',
+        'Červen', 'Červenec', 'Srpen', 'Září',
+        'Říjen', 'Listopad', 'Prosinec'],
+     ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne']],
 'English' :
     [['January', 'February', 'March', 'April',
       'May', 'June', 'July', 'August', 'September',
       'October', 'November', 'December'],
      ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday']],
+'English-short' :
+    [['January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September', 'October',
+      'November', 'December'],
+     ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
 'Finnish' :
     [['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu',
       'Toukokuu', 'Kesäkuu', 'Heinäkuu', 'Elokuu', 'Syyskuu',
@@ -101,9 +105,9 @@ localization = {
      ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag']],
 'Italian' :
     [['Gennaio', 'Febbraio', 'Marzo', 'Aprile',
-      u'Pu\xf2', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
-      'Ottobre', 'Novembre', 'Dicembre'],
-     ['Lunedě','Martedě','Mercoledě','Giovedě',u'Venerd\xec','Sabato','Domenica']],
+       'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre',
+       'Ottobre', 'Novembre', 'Dicembre'],
+    [u'Luned\xec', u'Marted\xec', u'Mercoled\xec', u'Gioved\exc', u'Venerd\xec', 'Sabato', 'Domenica']],
 # Polish by "Łukasz [DeeJay1] Jernaś" <deejay1@nsj.srem.pl>
 'Polish' :
     [['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj',
@@ -120,13 +124,11 @@ localization = {
       'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
       'Октябрь', 'Ноябрь', 'Декабрь'],
      ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота', 'Воскресенье']],
-
 'Spanish' :
     [['Enero', 'Febrero', 'Marco', 'Abril', 'Mayo',
       'Junio', 'Julio', 'Agosto', 'Septiembre',
       'Octubre', 'Noviembre', 'Diciembre'],
      ['Lunes', 'Martes', u'Mi\xe9rcoles', 'Jueves', 'Viernes', u'S\xe1bado', 'Domingo']],
-
 'Swedish' :
     [['Januari', 'Februari','Mars', 'April','Maj', 'Juni','Juli', 'Augusti','September', 'Oktober', 'November', 'December'],
      ['Måndag', 'Tisdag','Onsdag', 'Torsdag','Fredag', 'Lördag','Söndag']]
@@ -322,7 +324,7 @@ class TkCalendar(Frame):
     def __init__(self, master=None):
         """ Setup the dialog """
         # refernce to the localization dictionary
-        self.key = 'default'
+        self.key = 'English'
         Frame.__init__(self, master)
         self.grid()
         self.master.resizable(0, 0)
@@ -334,7 +336,9 @@ class TkCalendar(Frame):
         # langs
         self.langLabel = Label(self, text='Select language:')
         self.langListbox = Listbox(self, selectmode=SINGLE, height=10)
-        for i in localization.keys():
+        keys = localization.keys()
+        keys.sort()
+        for i in keys:
             self.langListbox.insert(END, i)
         self.langButton = Button(self, text='Change language', command=self.languageChange)
         # calendar type
@@ -405,7 +409,7 @@ class TkCalendar(Frame):
         # fill the values
         self.realLangChange()
 
-    def languageChange(self, lang='default'):
+    def languageChange(self, lang='English'):
         """ Called by Change button. Get language list value and
             call real re-filling. """
         ix = self.langListbox.curselection()
@@ -414,7 +418,7 @@ class TkCalendar(Frame):
             return
         self.realLangChange(lang=self.langListbox.get(ix[0]))
 
-    def realLangChange(self, lang='default'):
+    def realLangChange(self, lang='English'):
         """ Real widget setup. Ot takes values from localization dictionary.
         [0] = months, [1] Days """
         self.key = lang

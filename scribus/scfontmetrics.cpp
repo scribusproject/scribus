@@ -153,7 +153,7 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 	pts2.resize(0);
 	firstP = FPoint(0,0);
 	FirstM = true;
-	error = FT_Set_Char_Size( face, 0, chs*64, 72, 72 );
+	error = FT_Set_Char_Size( face, 0, chs*6400, 72, 72 );
 	if (error)
 	{
 		*err = error;
@@ -177,10 +177,10 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 		*err = error;
 		return pts2;
 	}
-	*x = face->glyph->metrics.horiBearingX / 64.0;
-	*y = face->glyph->metrics.horiBearingY / 64.0;
+	*x = face->glyph->metrics.horiBearingX / 6400.0;
+	*y = face->glyph->metrics.horiBearingY / 6400.0;
 	QWMatrix ma;
-	ma.scale(1, -1);
+	ma.scale(0.01, -0.01);
 	pts.map(ma);
 	pts.translate(0, chs);
 	pts2.putPoints(0, pts.size()-2, pts, 0);
@@ -236,7 +236,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 				break;
 			if (gly.size() > 3)
 			{
-				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
 				ymax = QMAX(ymax, gp.y());
 				p->setupPolygon(&gly);
@@ -257,7 +257,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 			gly = traceChar(face, dv, s, &x, &y, &error);
 			if (gly.size() > 3)
 			{
-				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
 				ymax = QMAX(ymax, gp.y());
 				p->setupPolygon(&gly);
@@ -487,7 +487,8 @@ double Cwidth(ScribusDoc *currentDoc, Foi* name, QString ch, int Size, QString c
 	if (name->CharWidth.contains(c1))
 	{
 		width = name->CharWidth[c1]*size10;
-		if (name->HasKern)
+		// workaround for #3661
+		if (true || name->HasKern)
 		{
 			face = currentDoc->FFonts[name->scName()];
 			uint cl = FT_Get_Char_Index(face, c1);

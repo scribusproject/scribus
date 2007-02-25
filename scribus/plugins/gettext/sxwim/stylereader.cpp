@@ -439,7 +439,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::parse(QString fileName)
  {
- 	xmlSAXParseFile(sSAXHandler, fileName.ascii(), 1);
+#if defined(_WIN32)
+	QString fname = QDir::convertSeparators(fileName);
+	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+#else
+	QCString fn(fileName.local8Bit());
+#endif
+ 	xmlSAXParseFile(sSAXHandler, fn.data(), 1);
  }
  
  gtStyle* StyleReader::getStyle(const QString& name)

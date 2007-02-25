@@ -103,7 +103,7 @@ public:
 	void setStyle(int Csty);
 	void setFarbe(bool marker);
 	void insChars(QString t);
-	void insStyledText();
+	void insStyledText(int *newParaCount, int *lengthLastPara);		
 	void copyStyledText();
 
 	typedef QPtrList<PtiSmall> ChList;
@@ -405,7 +405,7 @@ public slots:
 	void languageChange();
 
 protected slots:
-	void specialActionKeyEvent(QString actionName, int unicodevalue);
+	void specialActionKeyEvent(const QString& /*actionName*/, int unicodevalue);
 
 signals:
 	void DocChanged();

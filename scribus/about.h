@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
-#include <qtextview.h>
+#include "helpbrowser.h"
 #include <qpushbutton.h>
 #include <qlayout.h>
 
@@ -28,23 +28,29 @@ public:
 	QLabel* pixmapLabel1;
 	QLabel* buildID;
 	QPushButton* okButton;
+	QPushButton* checkForUpdateButton;
 	QTabWidget* tabWidget2;
 	QWidget* tab;
 	QWidget* tab_2;
 	QWidget* tab_3;
 	QWidget* tab_4;
-	QTextView* textView1;
-	QTextView* textView2;
-	QTextView* textView4;
+	QWidget* tab_5;
+	TextBrowser* textView1;
+	TextBrowser* textView2;
+	TextBrowser* textView4;
+	TextBrowser* textView5;
 
 protected:
 	QVBoxLayout* aboutLayout;
+	QVBoxLayout* updateLayout;
 	QHBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout1;
 	QHBoxLayout* tabLayout_2;
 	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* layout2;
 
+protected slots:
+	void runUpdateCheck();
 };
 
 #endif // ABOUT_H

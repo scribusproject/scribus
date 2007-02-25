@@ -89,34 +89,39 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		}
 		doku->updateFrameItems();
 	}
-	for (a=0; a<Objekt.length(); ++a)
+	
+	const ParagraphStyle& pstyle(doku->docParagraphStyles[Absatz]);
+	uint len = Objekt.length();
+	for (a=0; a < len; ++a)
 	{
-		if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
+		QChar ch(Objekt.at(a));
+		uint unicd = ch.unicode();
+		if (unicd == 0 || unicd == 13)
 			continue;
+		if (unicd == 10 || unicd == 5)
+			ch = QChar(13);
 		hg = new ScText;
-		hg->ch = Objekt.at(a);
-		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
-			hg->ch = QChar(13);
-		if (!doku->docParagraphStyles[Absatz].Font.isEmpty())
+		hg->ch = ch;
+		if (!pstyle.Font.isEmpty())
 		{
-			hg->cfont = (*doku->AllFonts)[doku->docParagraphStyles[Absatz].Font];
-			hg->csize = doku->docParagraphStyles[Absatz].FontSize;
-			hg->cstyle = doku->docParagraphStyles[Absatz].FontEffect;
-			hg->ccolor = doku->docParagraphStyles[Absatz].FColor;
-			hg->cshade = doku->docParagraphStyles[Absatz].FShade;
-			hg->cstroke = doku->docParagraphStyles[Absatz].SColor;
-			hg->cshade2 = doku->docParagraphStyles[Absatz].SShade;
-			hg->cshadowx = doku->docParagraphStyles[Absatz].txtShadowX;
-			hg->cshadowy = doku->docParagraphStyles[Absatz].txtShadowY;
-			hg->coutline = doku->docParagraphStyles[Absatz].txtOutline;
-			hg->cunderpos = doku->docParagraphStyles[Absatz].txtUnderPos;
-			hg->cunderwidth = doku->docParagraphStyles[Absatz].txtUnderWidth;
-			hg->cstrikepos = doku->docParagraphStyles[Absatz].txtStrikePos;
-			hg->cstrikewidth = doku->docParagraphStyles[Absatz].txtStrikeWidth;
-			hg->cscale = doku->docParagraphStyles[Absatz].scaleH;
-			hg->cscalev = doku->docParagraphStyles[Absatz].scaleV;
-			hg->cbase = doku->docParagraphStyles[Absatz].baseOff;
-			hg->cextra = doku->docParagraphStyles[Absatz].kernVal;
+			hg->cfont = (*doku->AllFonts)[pstyle.Font];
+			hg->csize = pstyle.FontSize;
+			hg->cstyle = pstyle.FontEffect;
+			hg->ccolor = pstyle.FColor;
+			hg->cshade = pstyle.FShade;
+			hg->cstroke = pstyle.SColor;
+			hg->cshade2 = pstyle.SShade;
+			hg->cshadowx = pstyle.txtShadowX;
+			hg->cshadowy = pstyle.txtShadowY;
+			hg->coutline = pstyle.txtOutline;
+			hg->cunderpos = pstyle.txtUnderPos;
+			hg->cunderwidth = pstyle.txtUnderWidth;
+			hg->cstrikepos = pstyle.txtStrikePos;
+			hg->cstrikewidth = pstyle.txtStrikeWidth;
+			hg->cscale = pstyle.scaleH;
+			hg->cscalev = pstyle.scaleV;
+			hg->cbase = pstyle.baseOff;
+			hg->cextra = pstyle.kernVal;
 		}
 		else
 		{
@@ -176,13 +181,13 @@ bool Serializer::Write(QString Cod)
 
 bool Serializer::Read(QString Cod)
 {
+	QCString file;
 	QTextCodec *codec;
-	bool tmp = loadText(Filename, &Objekt);
+	bool tmp = loadRawText(Filename, file);
 	if (Cod.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);
-	QString dec = codec->toUnicode( Objekt );
-	Objekt = dec;
+	Objekt = codec->toUnicode( file.data() );
 	return tmp;
 }

@@ -96,19 +96,19 @@ void TOCIndexPrefs::languageChange()
 	tocParagraphStyleLabel->setText( tr( "Paragraph Style:" ) );
 	tocDestFrameLabel->setText( tr( "Destination Frame:" ) );
 	tabTOCIndexWidget->changeTab( tab, tr( "Table Of Contents" ) );
-	tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
+//	tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
 }
 
 void TOCIndexPrefs::init()
 {
 	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
-	trStrNone=QT_TR_NOOP("None");
+	trStrNone=tr("None");
 	strNone=CommonStrings::None;
-	trStrPNBeginning=QT_TR_NOOP("At the beginning");
+	trStrPNBeginning= tr("At the beginning");
 	strPNBeginning="At the beginning";
-	trStrPNEnd=QT_TR_NOOP("At the end");
+	trStrPNEnd= tr("At the end");
 	strPNEnd="At the end";
-	trStrPNNotShown=QT_TR_NOOP("Not Shown");
+	trStrPNNotShown= tr("Not Shown");
 	strPNNotShown="Not Shown";
 
 	itemNumberPlacementComboBox->clear();
@@ -244,7 +244,7 @@ void TOCIndexPrefs::addToC()
 			found=true;
 	}
 	if (found || newName.isEmpty())
-		newName=QString("Table of Contents %1").arg(localToCSetupVector.count()+1);
+		newName=tr("Table of Contents %1").arg(localToCSetupVector.count()+1);
 	ToCSetup newToCEntry;
 	newToCEntry.name=newName;
 	newToCEntry.itemAttrName=strNone;
@@ -255,6 +255,8 @@ void TOCIndexPrefs::addToC()
 	localToCSetupVector.append(newToCEntry);
 	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	updateToCListBox();
+	if (localToCSetupVector.count()==1) //reinit parastyles if we are adding the first TOC
+		updateParagraphStyleComboBox();
 	tocListBox->setCurrentItem(localToCSetupVector.count()-1);
 	selectToC(localToCSetupVector.count()-1);
 	enableGUIWidgets();

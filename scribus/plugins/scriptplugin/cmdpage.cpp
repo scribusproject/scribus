@@ -19,7 +19,9 @@ PyObject *scribus_redraw(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
+	ScMW->ScriptRunning = false;
 	ScMW->view->DrawNew();
+	ScMW->ScriptRunning = true;
 	Py_INCREF(Py_None);
 	return Py_None;
 }

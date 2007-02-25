@@ -10,7 +10,7 @@ libtxtim_la_LDFLAGS = -version-info 0:0:0
 libtxtim_la_METASOURCES = AUTO
 libtxtim_la_SOURCES = txtim.cpp 
 
-EXTRA_DIST = txtim.cpp txtim.h  
+EXTRA_DIST = txtim.cpp txtim.h  CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

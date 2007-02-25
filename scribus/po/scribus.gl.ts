@@ -389,7 +389,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(tamaño, marxes, orientación, númeroPrimeiraPáxina,
+        <translation type="obsolete">newDocument(tamaño, marxes, orientación, númeroPrimeiraPáxina,
                      unidade, tipoPáxinas, ordePrimeiraPáxina) -&gt; booleano
 
 Crea un documento novo e devolve verdadeiro se o consegue. Os parámetros teñen o
@@ -426,6 +426,49 @@ PAGE_4, 3)
 
 Pode provocar un Scribuserror se ordePrimeiraPáxina é maior do que permite tipoPáxinas.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -714,7 +757,7 @@ Pode provocar un ScribusError se non se puido gardar.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;autor&quot;, &quot;información&quot;, &quot;descrición&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;autor&quot;, &quot;información&quot;, &quot;descrición&quot;) -&gt; bool
 
 Consigna a información do documento. &quot;Autor&quot;, &quot;Información&quot;, &quot;Descrición&quot;
 son cadeas.</translation>
@@ -2915,6 +2958,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 Amplía o documento na xanela principal. As accións teñen valores redondos
 como 20.0, 100.0, etc. Ampliar até Axustar utiliza -100 como marcador.</translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3244,7 +3302,15 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Marzo</translation>
+        <translation type="obsolete">Marzo</translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3433,7 +3499,7 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>&amp;Limpar o Contido</translation>
+        <translation type="obsolete">&amp;Limpar o Contido</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -4137,11 +4203,11 @@ A ausencia de apoio a librarías indícase cun *</translation>
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation>Copiar o Contido</translation>
+        <translation type="obsolete">Copiar o Contido</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation>Pegar o Contido</translation>
+        <translation type="obsolete">Pegar o Contido</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -4244,7 +4310,7 @@ Paleta co Esquema do Documento</translation>
     </message>
     <message>
         <source>Paste Contents (Absolute)</source>
-        <translation>Pegar o Contido (Absoluto)</translation>
+        <translation type="obsolete">Pegar o Contido (Absoluto)</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
@@ -4263,6 +4329,18 @@ efecto de tipo</translation>
         <translation>C&amp;ontornos
 
 Convertir a siluetas</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Limpar</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5465,7 +5543,7 @@ acción</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation>9 ou 10 díxitos separados adecuadamente por guións</translation>
+        <translation type="obsolete">9 ou 10 díxitos separados adecuadamente por guións</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
@@ -5498,6 +5576,10 @@ acción</translation>
     <message>
         <source>Barcode incomplete</source>
         <translation>Código de barras incompleto</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5600,7 +5682,7 @@ acción</translation>
     </message>
     <message>
         <source>Make check digit visible in text</source>
-        <translation>Facer que o código de control se vexa no texto</translation>
+        <translation type="obsolete">Facer que o código de control se vexa no texto</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -5728,6 +5810,22 @@ Escolla outro.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Escolla un Directorio</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6113,6 +6211,14 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Name of the color is not unique</source>
         <translation>O nome da cor non é único</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6524,6 +6630,10 @@ e a tecla Eliminar elimina o último que se inseriu</translation>
         <source>New Color</source>
         <translation>Cor Nova</translation>
     </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -6893,6 +7003,98 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <source>Right Page</source>
         <translation>Páxina Dereita</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished">Marzo</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8115,13 +8317,29 @@ fallou!</translation>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation>A conversión da Imaxe:
+        <translation type="obsolete">A conversión da Imaxe:
 %1
 fallou!</translation>
     </message>
     <message>
         <source>Error</source>
         <translation>Erro</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8485,6 +8703,22 @@ O erro foi:
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Escolla para unha lectura máis doada dos estilos de textos con pouca cor</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Tracking Manual</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished">Separación dos caracteres da liña base</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
     </message>
 </context>
 <context>
@@ -9213,7 +9447,11 @@ antevisión da fonte</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>As rotas de procura de fontes só se poden indicar nas Preferencias, e só cando non hai nengún documento aberto. Feche todos os documentos e vaia entón a Modificar -&gt; Preferencias para mudar a rota de procura de fontes.</translation>
+        <translation type="obsolete">As rotas de procura de fontes só se poden indicar nas Preferencias, e só cando non hai nengún documento aberto. Feche todos os documentos e vaia entón a Modificar -&gt; Preferencias para mudar a rota de procura de fontes.</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9532,7 +9770,11 @@ Isto pódese desfacer ou mudar en Modificar &gt; Preferencias &gt; Fontes.</tran
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Aquí pode adicionar, modificar ou eliminar Paradas de Cor.</translation>
+        <translation type="obsolete">Aquí pode adicionar, modificar ou eliminar Paradas de Cor.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10440,7 +10682,7 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation>LineStyleWBase</translation>
+        <translation type="obsolete">LineStyleWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -11119,6 +11361,22 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <source>New Master Page %1</source>
         <translation>Páxina Mestra Nova %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11806,15 +12064,15 @@ Arred&amp;ondadas:</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Facer que o texto das molduras inferiores flúa arredor da silueta do obxecto</translation>
+        <translation type="obsolete">Facer que o texto das molduras inferiores flúa arredor da silueta do obxecto</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Usar a caixa que o rodea, en vez da silueta da moldura, para o fluxo do texto</translation>
+        <translation type="obsolete">Usar a caixa que o rodea, en vez da silueta da moldura, para o fluxo do texto</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Usar unha ssegunda liña baseada orixinalmente na forma da moldura para o fluxo do texto</translation>
+        <translation type="obsolete">Usar unha ssegunda liña baseada orixinalmente na forma da moldura para o fluxo do texto</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -12068,11 +12326,11 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Cor do trazo do texto. Só está disponíbel coa decoración de texto &quot;contorno&quot;.</translation>
+        <translation type="obsolete">Cor do trazo do texto. Só está disponíbel coa decoración de texto &quot;contorno&quot;.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Cor do enchido do texto. Só está disponíbel coa decoración de texto &quot;contorno&quot;.</translation>
+        <translation type="obsolete">Cor do enchido do texto. Só está disponíbel coa decoración de texto &quot;contorno&quot;.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -12085,6 +12343,34 @@ Escolla outro.</translation>
     <message>
         <source>Non Zero</source>
         <translation>Non Cero</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12139,7 +12425,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -12178,6 +12464,10 @@ Escolla outro.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>O nome &quot;%1&quot; non é único.&lt;br/&gt;Escolla outro.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -12795,6 +13085,10 @@ nome de formato de importación/exportación</translation>
         <translation>OpenOffice.org 1.x Draw
 
 nome de formato de importación/exportación</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13681,11 +13975,11 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>&amp;Texto Anti-alias</translation>
+        <translation type="obsolete">&amp;Texto Anti-alias</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>&amp;Gráficos Anti-alias</translation>
+        <translation type="obsolete">&amp;Gráficos Anti-alias</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -13799,11 +14093,11 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Permite unha vista máis cómoda dos elementos de texto no visor a costa dunha exhibición máis lenta. Isto só afecta ás fontes Type 1</translation>
+        <translation type="obsolete">Permite unha vista máis cómoda dos elementos de texto no visor a costa dunha exhibición máis lenta. Isto só afecta ás fontes Type 1</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Permite unha vista máis cómoda das Fontes Truetype, OpenType, EPS, PDF e gráficos vectoriais na antevisión a costa dunha exhibición máis lenta</translation>
+        <translation type="obsolete">Permite unha vista máis cómoda das Fontes Truetype, OpenType, EPS, PDF e gráficos vectoriais na antevisión a costa dunha exhibición máis lenta</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -13821,6 +14115,14 @@ A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou
     <message>
         <source>File</source>
         <translation>Ficheiro</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14321,11 +14623,15 @@ relación</translation>
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Disposición da Páxina</translation>
+        <translation type="obsolete">Disposición da Páxina</translation>
     </message>
     <message>
         <source>First Page is:</source>
         <translation>A Primeira Páxina é:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15961,7 +16267,7 @@ Se se deixa en 0 armacenarase unha cantidade infinita de accións.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Localización no sistema de ficheiros do intérprete de Ghostscript</translation>
+        <translation type="obsolete">Localización no sistema de ficheiros do intérprete de Ghostscript</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
@@ -16023,6 +16329,10 @@ Se se deixa en 0 armacenarase unha cantidade infinita de accións.</translation>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="obsolete">Un xeito de apagar algunhas das sombras en gris compostas de cian, amarelo e maxenta e usar negro no seu lugar.
 A UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes, ainda que é preciso experimentar segundo cada caso. A UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16735,7 +17045,7 @@ Comprobe a rota e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Portugués do Brasil</translation>
+        <translation type="obsolete">Portugués do Brasil</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -18044,7 +18354,7 @@ Carregar configuración PDF</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>A fonte %1 (atopada mediante fontconfig) está mal, desbótase</translation>
+        <translation type="obsolete">A fonte %1 (atopada mediante fontconfig) está mal, desbótase</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -18736,11 +19046,61 @@ Importador de PDB</translation>
     <message>
         <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation>Probabelmente non se recoñece este ficheiro como un documento PDB. Informe deste erro se ten a certeza de que o é.</translation>
+        <translation type="obsolete">Probabelmente non se recoñece este ficheiro como un documento PDB. Informe deste erro se ten a certeza de que o é.</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
         <translation>Luxemburgués</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Árabe</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21130,6 +21490,10 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>O elemento %1 está a ser modificado no Editor de Artigos. Cancelarase a operación de eliminación</translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -21587,6 +21951,14 @@ Desprazamento vertical: %3</translation>
         <source>Do you really want to replace your existing image?</source>
         <translation>Pretende substituir a imaxe existente?</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contido</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -21677,6 +22049,10 @@ Desprazamento vertical: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Problemas</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21864,6 +22240,10 @@ Desprazamento vertical: %3</translation>
     <message>
         <source>Grayscale</source>
         <translation>Escala de grises</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contido</translation>
     </message>
 </context>
 <context>
@@ -22558,6 +22938,10 @@ extensión de abreviaturas...</translation>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Extensión especial para adicionar espazos que non quebran antes ou despóis das chamadas abreviaturas.</translation>
     </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -22917,7 +23301,7 @@ extensión de abreviaturas...</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Subliñado</translation>
+        <translation type="obsolete">Subliñado</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -22933,7 +23317,7 @@ extensión de abreviaturas...</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Tachado</translation>
+        <translation type="obsolete">Tachado</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -22941,7 +23325,7 @@ extensión de abreviaturas...</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Subliñar Só as Palabras</translation>
+        <translation type="obsolete">Subliñar Só as Palabras</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -22953,14 +23337,34 @@ extensión de abreviaturas...</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Sombra</translation>
+        <translation type="obsolete">Sombra</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Contorno
+        <translation type="obsolete">Contorno
 
 Selector de Estilo de Texto</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23098,7 +23502,11 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índi&amp;ce</translation>
+        <translation type="obsolete">Índi&amp;ce</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23169,7 +23577,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índi&amp;ce</translation>
+        <translation type="obsolete">Índi&amp;ce</translation>
     </message>
 </context>
 <context>
@@ -23517,11 +23925,11 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Embeber todas as Fontes</translation>
+        <translation type="obsolete">&amp;Embeber todas as Fontes</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>&amp;Subconxunto de todas as Fontes</translation>
+        <translation type="obsolete">&amp;Subconxunto de todas as Fontes</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -23545,7 +23953,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Fontes en subconxunto:</translation>
+        <translation type="obsolete">Fontes en subconxunto:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -23847,7 +24255,7 @@ manterá a dispoción e aparencia do seu documento.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Extensión de tempo durante a que se mostra a páxina antes de que a presentación comece na páxina seleccionada.</translation>
+        <translation type="obsolete">Extensión de tempo durante a que se mostra a páxina antes de que a presentación comece na páxina seleccionada.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -24089,7 +24497,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Níveis de calidade da compresión para métodos de compresión con perda: Mínimo (25%), Medio (75%), Alto (85%), Máximo (95%). Observe que un nível de calidade non determina directamente o tamaño da imaxe resultante - tanto o tamaño como a perda de calidade varían de imaxe en imaxe en calquer nível de calidade dado.</translation>
+        <translation type="obsolete">Níveis de calidade da compresión para métodos de compresión con perda: Mínimo (25%), Medio (75%), Alto (85%), Máximo (95%). Observe que un nível de calidade non determina directamente o tamaño da imaxe resultante - tanto o tamaño como a perda de calidade varían de imaxe en imaxe en calquer nível de calidade dado.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -24117,7 +24525,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Embeber as fontes no PDF. Embeber as fontes manterá a disposición e a aparencia do seu documento.</translation>
+        <translation type="obsolete">Embeber as fontes no PDF. Embeber as fontes manterá a disposición e a aparencia do seu documento.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -24169,7 +24577,7 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     </message>
     <message>
         <source>Page Layout</source>
-        <translation>Disposición da Páxina</translation>
+        <translation type="obsolete">Disposición da Páxina</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -24271,7 +24679,7 @@ ao abrir o documento PDF:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Método de compresión a utilizar coas imaxes. Permite automaticamente que Scribus escolla o mellor método. ZIP non ten perdas e é bon para imaxes con cores sólidas. JPEG é mellor para crear ficheiros PDF máis pequenos con moitas fotos (cunha posíbel perda lixeira de calidade). Déixeo en Automático a non ser que precise de métodos especiais de compresión. Isto só afecta ás imaxes JPEG</translation>
+        <translation type="obsolete">Método de compresión a utilizar coas imaxes. Permite automaticamente que Scribus escolla o mellor método. ZIP non ten perdas e é bon para imaxes con cores sólidas. JPEG é mellor para crear ficheiros PDF máis pequenos con moitas fotos (cunha posíbel perda lixeira de calidade). Déixeo en Automático a non ser que precise de métodos especiais de compresión. Isto só afecta ás imaxes JPEG</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -24284,6 +24692,42 @@ ao abrir o documento PDF:</translation>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Non mostrar os obxectos que fiquen por fora das marxes no ficheiro exportado</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25369,6 +25813,18 @@ X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -25401,6 +25857,54 @@ X: %4, Y: %5</translation>
         <translation>%1: %2
 
 destino de desfacer: acción (p.ex. Moldura de Texto: Mudar Tamaño)</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25833,6 +26337,10 @@ extensión abreviaturas</translation>
     <message>
         <source>Encoding:</source>
         <translation>Codificación:</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
