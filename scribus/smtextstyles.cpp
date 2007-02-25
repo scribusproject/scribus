@@ -1176,6 +1176,7 @@ SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0
 {
 	widget_ = new QTabWidget();
 	Q_CHECK_PTR(widget_);
+	widget_->setMargin(5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
 	page_ = new SMCStylePage();
 	Q_CHECK_PTR(page_);
 	widget_->addTab(page_, tr("Properties"));
