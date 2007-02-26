@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE scribus PUBLIC "-//Scribus//DTD File Format//EN" "scribus.dtd" [
+<!ENTITY img0 SYSTEM "scribuslogo.png" NDATA png>
+]>
+<scribus>
+    <metadata>
+        <!-- COMMENT OUT TEMPORARILY TO SILENCE VALIDATING PARSER
+      <rdf:RDF
+         xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+         <Work rdf:about="About this document.">
+            <dc:title>New file format test xml document.</dc:title>
+            <dc:description>This document illustrates the use of new Scribus DTD for the 1.3.x+ file format.</dc:description>
+            <dc:subject>xml,  DTD, file format, Scribus</dc:subject>
+            <dc:publisher><Agent rdf:about="http://www.scribus.net/"><dc:title>Scribus Project</dc:title></Agent></dc:publisher>
+            <dc:creator><Agent rdf:about="http://www.scribus.net/"><dc:title>Oleksandr Moskalenko</dc:title></Agent></dc:creator>
+            <dc:rights><Agent rdf:about="http://web.resource.org/cc/PublicDomain"><dc:title>Public Domain</dc:title></Agent></dc:rights>
+            <dc:date>2005-09-10</dc:date>
+            <dc:format>dtp/xml</dc:format>
+            <dc:type>http://scribus.tagancha.org/xml/scribus.dtd</dc:type>
+            <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+         </Work>
+         <License rdf:about="http://web.resource.org/cc/PublicDomain">
+            <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+            <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+            <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+         </License>
+      </rdf:RDF>
+      -->
+    </metadata>
+    <settings default-page-size="Letter" default-page-orientation="Portrait"
+        default-page-width="612" default-page-height="792" default-unit="pt"
+        facing-pages="no" left-page-first="no" first-page-number="1"
+        automatic-text-frames="no" margin-guide-left="40"
+        margin-guide-right="40" margin-guide-top="40"
+        margin-guide-bottom="40" columns="1" column-gap="11"/>
+    <colors>
+        <color color-register="0" color-spot="0" color-rgb="#f0f8ff" color-cmyk="#0f070000" color-name="AliceBlue" />
+        <color color-register="0" color-spot="0" color-rgb="#faebd7" color-cmyk="#000f2305" color-name="AntiqueWhite" />
+        <color color-register="0" color-spot="0" color-rgb="#ffefdb" color-cmyk="#00102400" color-name="AntiqueWhite1" />
+        <color color-register="0" color-spot="0" color-rgb="#eedfcc" color-cmyk="#000f2211" color-name="AntiqueWhite2" />
+        <color color-register="0" color-spot="0" color-rgb="#cdc0b0" color-cmyk="#000d1d32" color-name="AntiqueWhite3" />
+        <color color-register="0" color-spot="0" color-rgb="#8b8378" color-cmyk="#00081374" color-name="AntiqueWhite4" />
+        <color color-register="0" color-spot="0" color-rgb="#7fffd4" color-cmyk="#80002b00" color-name="Aquamarine" />
+        <color color-register="0" color-spot="0" color-rgb="#7fffd4" color-cmyk="#80002b00" color-name="Aquamarine1" />
+        <color color-register="0" color-spot="0" color-rgb="#76eec6" color-cmyk="#78002811" color-name="Aquamarine2" />
+        <color color-register="0" color-spot="0" color-rgb="#66cdaa" color-cmyk="#67002332" color-name="Aquamarine3" />
+        <color color-register="0" color-spot="0" color-rgb="#458b74" color-cmyk="#46001774" color-name="Aquamarine4" />
+        <color color-register="0" color-spot="0" color-rgb="#f0ffff" color-cmyk="#0f000000" color-name="Azure" />
+        <color color-register="0" color-spot="0" color-rgb="#f0ffff" color-cmyk="#0f000000" color-name="Azure1" />
+        <color color-register="0" color-spot="0" color-rgb="#e0eeee" color-cmyk="#0e000011" color-name="Azure2" />
+        <color color-register="0" color-spot="0" color-rgb="#c1cdcd" color-cmyk="#0c000032" color-name="Azure3" />
+        <color color-register="0" color-spot="0" color-rgb="#838b8b" color-cmyk="#08000074" color-name="Azure4" />
+        <color color-register="0" color-spot="0" color-rgb="#f5f5dc" color-cmyk="#0000190a" color-name="Beige" />
+        <color color-register="0" color-spot="0" color-rgb="#ffe4c4" color-cmyk="#001b3b00" color-name="Bisque" />
+        <color color-register="0" color-spot="0" color-rgb="#ffe4c4" color-cmyk="#001b3b00" color-name="Bisque1" />
+        <color color-register="0" color-spot="0" color-rgb="#eed5b7" color-cmyk="#00193711" color-name="Bisque2" />
+        <color color-register="0" color-spot="0" color-rgb="#cdb79e" color-cmyk="#00162f32" color-name="Bisque3" />
+        <color color-register="0" color-spot="0" color-rgb="#8b7d6b" color-cmyk="#000e2074" color-name="Bisque4" />
+        <color color-register="0" color-spot="0" color-rgb="#000000" color-cmyk="#000000ff" color-name="Black" />
+        <color color-register="0" color-spot="0" color-rgb="#ffebcd" color-cmyk="#00143200" color-name="BlanchedAlmond" />
+        <color color-register="0" color-spot="0" color-rgb="#0000ff" color-cmyk="#ffff0000" color-name="Blue" />
+    </colors>
+    <styles>
+        <par-style  id="parstyle0" shortcut="Ctrl+Shift+1"
+                    font-face="Bitstream Vera Regular"
+                    font-family-hint="Bitstream Vera"
+                    font-weight-hint="Regular" font-slant-hint="Normal"
+                    font-size="12" font-size-units="pt" font-width="1"
+                    char-tracking="0" word-tracking="0" font-kerning="0"
+                    font-leading-type="relative" font-leading-type-amount="1"
+                    font-leading-mode="proportional" font-leading-mode-amount="1"
+                    text-stroke-color="black" text-stroke-opacity="0"
+                    text-fill-color="black" text-fill-opacity="0"
+                    justification="left" language="en" text-direction="ltr"
+                    par-indent-unit="pt" par-indent-first="20"
+                    par-indent-left="0" par-indent-right="0"
+                    par-indent-hanging="no" par-spacing-unit="pt"
+                    par-spacing-before="14" par-spacing-after="14"
+                    par-type="normal"/>
+        <txt-style  id="txtstyle0" shortcut="Ctrl+Shift+2" parentstyleid="parstyle0"/>
+        <txt-style  id="txtstyle1" shortcut="Ctrl+Shift+3" parentstyleid="parstyle0"
+            justification="justify"/>
+        <txt-style  id="txtstyle2" shortcut="Ctrl+Shift+4" parentstyleid="parstyle0"
+            font-face="Bitstream Vera Bold" font-weight-hint="Bold"/>
+        <table-style id="tblstyle0"/>
+        <table-cellstyle id="tcellstyle0" border-color="yello"
+            background-color="teal"/>
+    </styles>
+    <canvas id="canvas0" width="8.5" height="11.0" sizeunit="in">
+        <canvasobjects>
+                <imgframe id="fimg0" width="200" height="200" sizeunit="pt"
+                    canvasorigin="ltop" xorigin="400" yorigin="500"
+                    originunit="pt">
+                    <img id="img0" src="img0" type="png" width="100"
+                        height="100" sizeunit="pt" vresolution="150"
+                        hresolution="150"/>
+                </imgframe>
+                <imgframe id="fimg1" width="100" height="150" sizeunit="pt"
+                    canvasorigin="ltop" xorigin="200" yorigin="250"
+                    originunit="pt">
+                <img id="img1" src="img0" type="png" width="100" height="100"
+                    sizeunit="pt" vresolution="150" hresolution="150"/>
+                </imgframe>
+                <imgframe id="fimg2" width="200" height="200" sizeunit="pt"
+                    canvasorigin="ltop" xorigin="10" yorigin="5"
+                    originunit="pt">
+                    <img id="img2" src="img0" type="png" width="100"
+                        height="100" sizeunit="pt" vresolution="150"
+                        hresolution="150"/>
+                </imgframe>
+                <textframe id="ftxt0" width="300" height="200" sizeunit="pt"
+                    canvasorigin="ltop" xorigin="100" yorigin="700"
+                    originunit="pt" rotation="0.00" basepoint="ltop"
+                    level="0" printable="yes" nextframeid="ftxt1">
+                    <textcontentobj idref="txtcontent0"/>
+               </textframe>
+                <textframe id="ftxt1" width="300" height="120" sizeunit="pt"
+                    canvasorigin="ltop" xorigin="400" yorigin="700"
+                    originunit="pt" rotation="0.00" basepoint="ltop" level="0"
+                    printable="yes" >
+                    <textcontentobj idref="txtcontent1"/>
+               </textframe>
+               <table id="table0" table-style="tblstyle0">
+                   <table-caption>
+                       <textcontentobj idref="txtcontent2"/>
+                   </table-caption>
+                   <table-row>
+                       <table-cell table-cellstyle="tcellstyle0" rowspan="2">
+                           <textcontentobj idref="txtcontent3"/>
+                       </table-cell>
+                       <table-cell table-cellstyle="tcellstyle0">
+                           <textcontentobj idref="txtcontent4"/>
+                       </table-cell>
+                       <table-cell table-cellstyle="tcellstyle0">
+                           <textcontentobj idref="txtcontent5"/>
+                       </table-cell>
+                   </table-row>
+                   <table-row>
+                       <table-cell table-cellstyle="tcellstyle0" colspan="2">
+                           <textcontentobj idref="txtcontent6"/>
+                       </table-cell>
+                   </table-row>
+               </table>
+               <svgobject id="svg0" width="120" height="120" sizeunit="pt"
+                    canvasorigin="ltop" xorigin="435" yorigin="290"
+                    originunit="pt" rotation="0.00" basepoint="ltop"
+                    level="1" printable="yes">
+                    <svgcontentobj idref="svgcontent0"/>
+               </svgobject>
+               <epsobject id="eps0" width="120" height="120" sizeunit="pt"
+                   canvasorigin="ltop" xorigin="575" yorigin="290"
+                    originunit="pt" rotation="0.00" basepoint="ltop"
+                    level="1" printable="yes">
+                    <epscontentobj idref="epscontent0"/>
+               </epsobject>
+        </canvasobjects>
+        <scratchspace id="scratch0" canvasid="canvas0" visible="yes" printable="no">
+            <imgframeobj idref="fimg2"/>
+        </scratchspace>
+        <page id="page0" width="8.5" height="11.0" sizeunit="in" canvasorigin="ltop"
+            xorigin="40" yorigin="40" originunit="pt" orientation="portrait">
+            <layer id="layer0" name="Background" level="0" visible="yes"
+                printable="yes">
+                <imgframeobj idref="fimg0"/>
+                <textframeobj idref="ftxt0"/>
+                <textframeobj idref="ftxt1"/>
+                <tableobj idref="table0"/>
+           </layer>
+        </page>
+    </canvas>
+    <content>
+        <textcontent id="txtcontent0">
+            <paragraph id="par0" parstyle="parstyle0">
+                <text parentpar="par0" txtstyle="txtstyle0"> Hello World!
+                    This is a test document for the new Scribus file
+                    format. This block is aligned to the
+                    left</text><text parentpar="par0"
+                    txtstyle="txtstyle1"> and this one is justified
+                    but inherits all other properties of the same
+                    paragraph style.
+                </text>
+            </paragraph>
+            <paragraph id="par1" parstyle="parstyle0">
+                <text parentpar="par1" txtstyle="txtstyle1"> This text
+                    is located in the second paragraph.
+                </text>
+            </paragraph>
+        </textcontent>
+        <textcontent id="txtcontent1">
+            <paragraph id="par7" parstyle="parstyle0">
+                <text parentpar="par7" txtstyle="txtstyle0"> This is another
+                    text frame. Isn't it pretty?
+                </text>
+            </paragraph>
+        </textcontent>
+        <textcontent id="txtcontent2">
+            <paragraph id="par2" parstyle="parstyle0">
+                <text parentpar="par2" txtstyle="txtstyle2">
+                    Table 1.
+                </text>
+                <text parentpar="par2" txtstyle="txtstyle0">
+                    This is a test table number 1.
+                </text>
+            </paragraph>
+        </textcontent>
+        <textcontent id="txtcontent3">
+            <paragraph id="par3" parstyle="parstyle0">
+                <text parentpar="par3" txtstyle="txtstyle0">
+                    This is the first cell of the first row of a test table.
+                    It spans two rows.
+                </text>
+            </paragraph>
+        </textcontent>
+        <textcontent id="txtcontent4">
+            <paragraph id="par4" parstyle="parstyle0">
+                <text parentpar="par4" txtstyle="txtstyle0">
+                    This is the second cell of the first row of a test table.
+                </text>
+            </paragraph>
+        </textcontent>
+        <textcontent id="txtcontent5">
+            <paragraph id="par5" parstyle="parstyle0">
+                <text parentpar="par5" txtstyle="txtstyle0">
+                    This is the third cell of the first row of a test table.
+                </text>
+            </paragraph>
+        </textcontent>
+        <textcontent id="txtcontent6">
+            <paragraph id="par6" parstyle="parstyle0">
+                <text parentpar="par6" txtstyle="txtstyle0">
+                    This is the second cell of the second row of a test table
+                    because the first cell spans rows 1 and 2. This cell spans
+                    two columns 2 and 3.
+                </text>
+            </paragraph>
+        </textcontent>
+        <svgcontent id="svgcontent0">
+            <svg></svg>
+            <!--
+            <svg
+               xmlns:dc="http://purl.org/dc/elements/1.1/"
+               xmlns:cc="http://web.resource.org/cc/"
+               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+               xmlns:svg="http://www.w3.org/2000/svg"
+               xmlns="http://www.w3.org/2000/svg"
+               xmlns:xlink="http://www.w3.org/1999/xlink"
+               xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd"
+               xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+               width="744.09448819"
+               height="1052.3622047"
+               id="svg2"
+               sodipodi:version="0.32"
+               inkscape:version="0.42.2"
+               sodipodi:docbase="/home/malex/scribus/xml/scribus/main"
+               sodipodi:docname="s.svg">
+              <defs
+                 id="defs4">
+                <linearGradient
+                   id="linearGradient2044">
+                  <stop
+                     style="stop-color:#d51e8d;stop-opacity:0.92941177;"
+                     offset="0.0000000"
+                     id="stop2054" />
+                  <stop
+                     style="stop-color:#5bdcb6;stop-opacity:1.0000000;"
+                     offset="1.0000000"
+                     id="stop2048" />
+                </linearGradient>
+                <linearGradient
+                   inkscape:collect="always"
+                   xlink:href="#linearGradient2044"
+                   id="linearGradient2050"
+                   x1="277.94727"
+                   y1="254.24908"
+                   x2="284.10547"
+                   y2="254.24908"
+                   gradientUnits="userSpaceOnUse" />
+                <linearGradient
+                   inkscape:collect="always"
+                   xlink:href="#linearGradient2044"
+                   id="linearGradient2081"
+                   gradientUnits="userSpaceOnUse"
+                   x1="277.94727"
+                   y1="254.24908"
+                   x2="284.10547"
+                   y2="254.24908" />
+                <linearGradient
+                   inkscape:collect="always"
+                   xlink:href="#linearGradient2044"
+                   id="linearGradient2083"
+                   gradientUnits="userSpaceOnUse"
+                   x1="277.94727"
+                   y1="254.24908"
+                   x2="284.10547"
+                   y2="254.24908" />
+                <linearGradient
+                   inkscape:collect="always"
+                   xlink:href="#linearGradient2044"
+                   id="linearGradient2085"
+                   gradientUnits="userSpaceOnUse"
+                   x1="277.94727"
+                   y1="254.24908"
+                   x2="284.10547"
+                   y2="254.24908" />
+                <linearGradient
+                   inkscape:collect="always"
+                   xlink:href="#linearGradient2044"
+                   id="linearGradient2087"
+                   gradientUnits="userSpaceOnUse"
+                   x1="277.94727"
+                   y1="254.24908"
+                   x2="284.10547"
+                   y2="254.24908" />
+              </defs>
+              <sodipodi:namedview
+                 id="base"
+                 pagecolor="#ffffff"
+                 bordercolor="#666666"
+                 borderopacity="1.0"
+                 inkscape:pageopacity="0.0"
+                 inkscape:pageshadow="2"
+                 inkscape:zoom="0.35000000"
+                 inkscape:cx="375.00000"
+                 inkscape:cy="520.00000"
+                 inkscape:document-units="px"
+                 inkscape:current-layer="layer1"
+                 inkscape:window-width="754"
+                 inkscape:window-height="511"
+                 inkscape:window-x="0"
+                 inkscape:window-y="50" />
+              <metadata
+                 id="metadata7">
+                <rdf:RDF>
+                  <cc:Work
+                     rdf:about="">
+                    <dc:format>image/svg+xml</dc:format>
+                    <dc:type
+                       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                  </cc:Work>
+                </rdf:RDF>
+              </metadata>
+              <g
+                 inkscape:label="Layer 1"
+                 inkscape:groupmode="layer"
+                 id="layer1">
+                <rect
+                   style="fill:#0000ff;fill-opacity:0.75000000;fill-rule:evenodd;stroke:#000000;stroke-width:1.0000000pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1.0000000"
+                   id="rect1306"
+                   width="234.28572"
+                   height="182.85715"
+                   x="291.42856"
+                   y="372.36218" />
+                <flowRoot
+                   xml:space="preserve"
+                   id="flowRoot1308"
+                   transform="matrix(13.99080,0.000000,0.000000,12.33266,-3525.044,-2672.746)"
+                   style="fill:url(#linearGradient2081);fill-opacity:1.0000000"><flowRegion
+                     id="flowRegion1310"
+                     style="fill:url(#linearGradient2083);fill-opacity:1.0000000"><rect
+                       id="rect1312"
+                       width="128.57143"
+                       height="85.714287"
+                       x="277.14285"
+                       y="246.64790"
+                       style="fill:url(#linearGradient2085);fill-opacity:1.0" /></flowRegion><flowPara
+                     id="flowPara1314"
+                     style="fill:url(#linearGradient2087);fill-opacity:1.0000000">S</flowPara></flowRoot>  </g>
+            </svg>
+            -->
+        </svgcontent>
+        <epscontent id="epscontent0">
+            <eps>
+            <!--
+            %!PS-Adobe-3.0 EPSF-3.0
+            %%Creator: inkscape 0.42.2
+            %%Pages: 1
+            %%Orientation: Portrait
+            %%BoundingBox: 0 0 596 842
+            %%HiResBoundingBox: 0.0000000 0.0000000 596.00000 842.00000
+            %%EndComments
+            %%Page: 1 1
+            0 842 translate
+            0.80000000 -0.80000000 scale
+            gsave [1.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000] concat
+            gsave
+            0.0000000 0.0000000 1.0000000 setrgbcolor
+            newpath
+            291.42856 372.36218 moveto
+            525.71428 372.36218 lineto
+            525.71428 555.21933 lineto
+            291.42856 555.21933 lineto
+            291.42856 372.36218 lineto
+            closepath
+            eofill
+            grestore
+            0.0000000 0.0000000 0.0000000 setrgbcolor
+            [] 0 setdash
+            1.2500000 setlinewidth
+            0 setlinejoin
+            0 setlinecap
+            newpath
+            291.42856 372.36218 moveto
+            525.71428 372.36218 lineto
+            525.71428 555.21933 lineto
+            291.42856 555.21933 lineto
+            291.42856 372.36218 lineto
+            closepath
+            stroke
+            gsave [13.990800 0.0000000 0.0000000 12.332660 -3525.0440 -2672.7460] concat
+            gsave
+            <<
+            /ShadingType 2
+            /ColorSpace /DeviceRGB
+            /Coords [277.94727 254.24908 284.10547 254.24908]
+            /Extend [true true]
+            /Domain [0 1]
+            /Function <<
+            /FunctionType 3
+            /Functions
+            [
+            <<
+            /FunctionType 2
+            /Domain [0 1]
+            /C0 [0.83529413 0.11764706 0.55294120]
+            /C1 [0.35686275 0.86274511 0.71372551]
+            /N 1
+            >>
+            ]
+            /Domain [0 1]
+            /Bounds [ ]
+            /Encode [ 0 1 ]
+            >>
+            >>
+            newpath
+            283.57812 250.15630 moveto
+            283.57812 251.31060 lineto
+            283.12890 251.09576 282.70507 250.93561 282.30664 250.83013 curveto
+            281.90820 250.72467 281.52343 250.67194 281.15234 250.67193 curveto
+            280.50781 250.67194 280.00976 250.79694 279.65820 251.04693 curveto
+            279.31054 251.29693 279.13672 251.65240 279.13672 252.11333 curveto
+            279.13672 252.50006 279.25195 252.79303 279.48242 252.99224 curveto
+            279.71679 253.18756 280.15820 253.34576 280.80664 253.46685 curveto
+            281.52148 253.61333 lineto
+            282.40429 253.78131 283.05468 254.07818 283.47266 254.50396 curveto
+            283.89452 254.92584 284.10546 255.49224 284.10547 256.20318 curveto
+            284.10546 257.05084 283.82031 257.69341 283.25000 258.13091 curveto
+            282.68359 258.56841 281.85156 258.78716 280.75391 258.78716 curveto
+            280.33984 258.78716 279.89843 258.74029 279.42969 258.64654 curveto
+            278.96484 258.55279 278.48242 258.41412 277.98242 258.23052 curveto
+            277.98242 257.01177 lineto
+            278.46289 257.28130 278.93359 257.48443 279.39453 257.62115 curveto
+            279.85547 257.75787 280.30859 257.82623 280.75391 257.82622 curveto
+            281.42968 257.82623 281.95117 257.69341 282.31836 257.42779 curveto
+            282.68554 257.16216 282.86913 256.78326 282.86914 256.29107 curveto
+            282.86913 255.86138 282.73632 255.52545 282.47070 255.28326 curveto
+            282.20898 255.04107 281.77734 254.85943 281.17578 254.73833 curveto
+            280.45508 254.59771 lineto
+            279.57226 254.42193 278.93359 254.14654 278.53906 253.77154 curveto
+            278.14453 253.39654 277.94726 252.87506 277.94727 252.20708 curveto
+            277.94726 251.43365 278.21875 250.82428 278.76172 250.37896 curveto
+            279.30859 249.93365 280.06054 249.71100 281.01758 249.71099 curveto
+            281.42773 249.71100 281.84570 249.74811 282.27148 249.82232 curveto
+            282.69726 249.89655 283.13281 250.00787 283.57812 250.15630 curveto
+            clip
+            gsave [1.0000000 0.0000000 0.0000000 1.0000000 2.9226621e-14 3.1918912e-15] concat
+            shfill
+            grestore
+            grestore
+            grestore
+            grestore
+            showpage
+            -->
+            </eps>
+        </epscontent>
+    </content>
+</scribus>
