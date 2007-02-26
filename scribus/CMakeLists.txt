@@ -36,6 +36,7 @@ multiprogressdialogbase.ui
 pageitemattributesbase.ui
 patterndialogbase.ui
 picsearchbase.ui
+picsearchoptionsbase.ui
 picstatusbase.ui
 smlinestylewbase.ui
 smreplacediabase.ui
@@ -157,6 +158,7 @@ patterndialog.h
 pdflib.h
 pdfopts.h
 picsearch.h
+picsearchoptions.h
 picstatus.h
 pluginmanager.h
 pluginmanagerprefsgui.h
@@ -376,6 +378,7 @@ pdfoptions.cpp
 pdfoptionsio.cpp
 pdfopts.cpp
 picsearch.cpp
+picsearchoptions.cpp
 picstatus.cpp
 pluginmanager.cpp
 pluginmanagerprefsgui.cpp

@@ -62,7 +62,7 @@
                     <cstring>tabInfo</cstring>
                 </property>
                 <attribute name="title">
-                    <string>Informations</string>
+                    <string>Information</string>
                 </attribute>
                 <vbox>
                     <property name="name">
@@ -121,15 +121,7 @@
                                     <bool>false</bool>
                                 </property>
                                 <property name="flat">
-                                    <bool>true</bool>
-                                </property>
-                            </widget>
-                            <widget class="QCheckBox" row="1" column="2">
-                                <property name="name">
-                                    <cstring>caseInsensitiveCheck</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Ignore Case</string>
+                                    <bool>false</bool>
                                 </property>
                             </widget>
                             <widget class="QLabel" row="0" column="1">
@@ -319,7 +311,7 @@
                                     <cstring>groupSize</cstring>
                                 </property>
                                 <property name="title">
-                                    <string>Sizes</string>
+                                    <string>Size</string>
                                 </property>
                                 <grid>
                                     <property name="name">
@@ -336,7 +328,7 @@
                                             <cstring>textLabel9</cstring>
                                         </property>
                                         <property name="text">
-                                            <string>in Pixels:</string>
+                                            <string>Pixels:</string>
                                         </property>
                                     </widget>
                                     <widget class="QLabel" row="1" column="0">
@@ -366,7 +358,7 @@
                                             <cstring>textLabel1_4</cstring>
                                         </property>
                                         <property name="text">
-                                            <string>printed:</string>
+                                            <string>Printed:</string>
                                         </property>
                                     </widget>
                                     <widget class="QLabel" row="1" column="1">
@@ -435,7 +427,7 @@
                                             <bool>false</bool>
                                         </property>
                                         <property name="flat">
-                                            <bool>true</bool>
+                                            <bool>false</bool>
                                         </property>
                                     </widget>
                                     <widget class="QLabel" row="2" column="0">
@@ -454,7 +446,7 @@
                                             <cstring>textLabel1_3</cstring>
                                         </property>
                                         <property name="text">
-                                            <string>Objekt:</string>
+                                            <string>Object:</string>
                                         </property>
                                     </widget>
                                     <widget class="QPushButton" row="1" column="2">
@@ -468,7 +460,7 @@
                                             <bool>false</bool>
                                         </property>
                                         <property name="flat">
-                                            <bool>true</bool>
+                                            <bool>false</bool>
                                         </property>
                                     </widget>
                                     <widget class="QLabel" row="0" column="1">
@@ -566,7 +558,7 @@
                                     <cstring>isVisible</cstring>
                                 </property>
                                 <property name="text">
-                                    <string>is visible</string>
+                                    <string>Image Visible</string>
                                 </property>
                             </widget>
                             <widget class="QPushButton" row="0" column="2">
@@ -590,7 +582,7 @@
                                     <cstring>isPrinting</cstring>
                                 </property>
                                 <property name="text">
-                                    <string>is printing</string>
+                                    <string>Print Image</string>
                                 </property>
                             </widget>
                         </grid>
