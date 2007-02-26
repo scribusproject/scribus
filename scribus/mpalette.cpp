@@ -573,7 +573,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout41->setAlignment( Qt::AlignLeft );
 
 	Fonts = new FontComboH(page_3);
-	Fonts->setMaximumSize(200, 80);
+//	Fonts->setMaximumSize(200, 80);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 
 	Size = new MSpinBox( 0.5, 2048, page_3, 1 );
