@@ -8402,6 +8402,8 @@ void ScribusMainWindow::StatusPic()
 		PicStatus *dia = new PicStatus(this, doc);
 		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
+		connect(dia, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
+		connect(dia, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 		dia->exec();
 		delete dia;
 	}
