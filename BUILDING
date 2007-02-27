@@ -5,7 +5,7 @@ particular distributions and operating systems.
 CMake Build
 ====================
 
-Scribus 1.3.3.6 and Scribus 1.3.4 plus have an optional build system which
+Scribus 1.3.3.6+ and Scribus 1.3.4 plus have an optional build system which
 replaces the traditionally used so called autotools. CMake (cmake.org) is 
 a modern, cross-platform replacement for autotools. 
 
@@ -14,7 +14,7 @@ for details *after* reviewing the build requirements below.
 
 
 
-REQUIREMENTS AND BUILDING
+REQUIREMENTS AND BUILDING - *BSD/Linux/*nix
 =========================
 
 Install the below packages BEFORE running configure or compiling Scribus:
@@ -25,7 +25,8 @@ Requirements:
 	libart >= 2.3.10+ (2.3.17+ recommended)
 	libtiff >= 3.6.0
 	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
-
+	libjpeg (depending on how Qt is packaged)
+	libpng
 
 
 Recommended:
@@ -252,7 +253,7 @@ configure or make.
 
 More info can be found in the README.
 
-SuSE
+Suse/Opensuse
 ====
 
 Recommended packages for compiling from source on SuSE 9.x/10.x:
@@ -263,6 +264,8 @@ Recommended packages for compiling from source on SuSE 9.x/10.x:
 	liblcms-devel
 	libtiff-devel
 	libxml2-devel
+	libpng-devel
+	libjpeg-devel
 	cups-devel
 	openssl-devel (required if CUPS support is needed) 
 	libpng-devel
@@ -272,7 +275,9 @@ Recommended packages for compiling from source on SuSE 9.x/10.x:
 	tk
 	python-imaging
 
-You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.x on anything older than Suse 9.1. In addtion, you are recommended to have the updated KDE/Qt packages which are provided as supplemental from ftp.suse.com or mirrors.
+You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.x
+on anything older than Suse 9.1. In addtion, you are recommended to have the updated KDE/Qt
+packages which are provided as supplemental from ftp.suse.com or mirrors.
 
 Mac OS X
 ========
