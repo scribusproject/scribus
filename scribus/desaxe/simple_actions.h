@@ -612,20 +612,23 @@ public:
 				mode.isIdRef = false;
 			}
 		}
-		Obj_Type* storedObj = this->dig->template lookup<Obj_Type>(mode.ID);
-		if ( !storedObj )
+		if (mode.ID != "")
 		{
-			this->dig->store(mode.ID, obj);
-		}
-		else if ( !mode.isIdRef )
-		{
-			delete (this->dig->template top<Obj_Type>());
-			this->dig->pop();
-			this->dig->push(this->dig->template lookup<Obj_Type>(mode.ID));
-		}
-		else
-		{
-			// NYI: set trigger
+			Obj_Type* storedObj = this->dig->template lookup<Obj_Type>(mode.ID);
+			if ( !storedObj )
+			{
+				this->dig->store(mode.ID, obj);
+			}
+			else if ( !mode.isIdRef )
+			{
+				delete (this->dig->template top<Obj_Type>());
+				this->dig->pop();
+				this->dig->push(this->dig->template lookup<Obj_Type>(mode.ID));
+			}
+			else
+			{
+				// NYI: set trigger
+			}
 		}
 		stack.push_back(mode);
 		

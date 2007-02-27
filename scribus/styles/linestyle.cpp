@@ -10,6 +10,7 @@
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
+#include "styles/style.h"
 #include "linestyle.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
@@ -178,7 +179,11 @@ void LineStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME));
 #include "linestyle.attrdefs.cxx"
 #undef ATTRDEF
+	if (!name().isEmpty())
+		att["id"] = elemtag + (unsigned long long)(this);
 	handler.begin(elemtag, att);
+	if (parentStyle())
+		parentStyle()->saxx(handler);	
 	Sublist::const_iterator it;
 	for (it=m_Sublines.begin(); it != m_Sublines.end(); ++it)
 	{
@@ -225,11 +230,15 @@ void LineStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_str
 {
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<LineStyle>());
-	Style::desaxeRules(prefixPattern, ruleset, elemtag);
-	
-	Xml_string subPrefix(Digester::concat(Digester::concat(stylePrefix, "**"), "subline"));
+	ruleset.addRule(stylePrefix, IdRef<LineStyle>());
+	Style::desaxeRules<LineStyle>(prefixPattern, ruleset, elemtag);
+
+//  "**" doesnt work yet - av
+//	Xml_string stylePrefixRec(Digester::concat(stylePrefix, "**"));
+	const Xml_string& stylePrefixRec(stylePrefix);
+	Xml_string subPrefix(Digester::concat(stylePrefixRec, "subline"));
 	ruleset.addRule(subPrefix, Factory<LineStyle>());
-	Style::desaxeRules(Digester::concat(stylePrefix, "**"), ruleset, "subline");
+	Style::desaxeRules<LineStyle>(stylePrefixRec, ruleset, "subline");
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if ( strcmp(# attr_NAME, "Sublines") != 0 ) { \

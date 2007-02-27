@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "desaxe/simple_actions.h"
 #include "desaxe/saxXML.h"
+#include "desaxe/uniqueid.h"
+
 
 using namespace desaxe;
 
@@ -44,9 +46,10 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 }
 
 
-void Serializer::serializeObjects(const Selection& selection, SaxHandler& handler)
+void Serializer::serializeObjects(const Selection& selection, SaxHandler& outputhandler)
 {
 	Xml_attr attr;
+	UniqueID handler( & outputhandler );
 	handler.beginDoc();
 	handler.begin("SCRIBUSFRAGMENT", attr);
 	ScribusDoc* doc = selection.itemAt(0)->doc();

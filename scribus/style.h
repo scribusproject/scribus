@@ -69,7 +69,8 @@ public:
 	
 	// this is an abstract class, so:
 	// static const Xml_string saxxDefaultElem; 
-	static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag);
+	template<class SUBSTYLE>
+		static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag);
 	
 	void saxxAttributes(Xml_attr& attr) const;
 	//virtual void saxx(SaxHandler& handler, Xml_string elemtag) const;
@@ -148,7 +149,6 @@ public:
 		m_contextversion = -1;
 	}
 };
-
 
 
 #endif

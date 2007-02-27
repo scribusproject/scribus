@@ -7,6 +7,8 @@ ${CMAKE_SOURCE_DIR}/scribus
 SET(SCRIBUS_DESAXE_LIB_SOURCES
 saxXML.cpp
 saxiohelper.cpp
+saxfilter.cpp
+uniqueid.cpp
 digester.cpp
 digester_parse.cpp
 )

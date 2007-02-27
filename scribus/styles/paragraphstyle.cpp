@@ -15,7 +15,7 @@
 
 
 
-
+#include "styles/style.h"
 #include "paragraphstyle.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
@@ -218,7 +218,11 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 		att.insert(# attr_NAME, toXMLString(m_##attr_NAME)); 
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
+	if (!name().isEmpty())
+		att["id"] = elemtag + toXMLString((unsigned long)(this));
 	handler.begin(elemtag, att);
+	if (parentStyle() && hasParent())
+		parentStyle()->saxx(handler);
 	QValueList<ParagraphStyle::TabRecord>::const_iterator it;
 	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
 	{
@@ -304,7 +308,8 @@ void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xm
 		
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<ParagraphStyle>());
-	Style::desaxeRules(prefixPattern, ruleset, elemtag);
+	ruleset.addRule(stylePrefix, IdRef<ParagraphStyle>());
+	Style::desaxeRules<ParagraphStyle>(prefixPattern, ruleset, elemtag);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if ( strcmp(# attr_NAME, "TabValues") != 0) \
 		ruleset.addRule(stylePrefix, SetAttributeWithConversion<ParagraphStyle, attr_TYPE> ( & ParagraphStyle::set##attr_NAME,  # attr_NAME, &parse<attr_TYPE> ));
