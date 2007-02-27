@@ -923,7 +923,7 @@ QPtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
 		ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 		if (!drawID.isEmpty())
 			ite->setItemName(drawID);
-		ite = parseTextP(e, ite);
+		ite = parseTextP(n.toElement(), ite);
 		elements.append(ite);
 	}
 	return elements;
