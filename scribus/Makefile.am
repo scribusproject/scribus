@@ -171,7 +171,7 @@ scribus_SOURCES = \
 	picsearchbase.ui \
 	picsearch.cpp	\
 	picsearchoptionsbase.ui	\
-	picsearchoptionsbase.cpp	\
+	picsearchoptions.cpp	\
 	picstatusbase.ui \
 	picstatus.cpp	\
 	pluginmanager.cpp	\

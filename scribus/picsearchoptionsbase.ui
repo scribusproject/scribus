@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>413</width>
-            <height>117</height>
+            <width>411</width>
+            <height>145</height>
         </rect>
     </property>
     <property name="caption">
@@ -25,6 +25,35 @@
         <property name="spacing">
             <number>5</number>
         </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout4</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>5</number>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Search for:</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit">
+                    <property name="name">
+                        <cstring>fileEdit</cstring>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
         <widget class="QLayoutWidget">
             <property name="name">
                 <cstring>layout1</cstring>
@@ -91,6 +120,9 @@
                     <property name="text">
                         <string>Search recursivly</string>
                     </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
                 </widget>
                 <spacer>
                     <property name="name">
@@ -140,6 +172,18 @@
                             <width>250</width>
                             <height>22</height>
                         </size>
+                    </property>
+                    <property name="totalSteps">
+                        <number>100</number>
+                    </property>
+                    <property name="progress">
+                        <number>0</number>
+                    </property>
+                    <property name="centerIndicator">
+                        <bool>false</bool>
+                    </property>
+                    <property name="indicatorFollowsStyle">
+                        <bool>true</bool>
                     </property>
                     <property name="percentageVisible">
                         <bool>false</bool>

@@ -27,6 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
+#include <qprogressbar.h>
+#include <qtimer.h>
+#include <qfiledialog.h>
 #include "picsearchoptions.h"
 #include "picsearchoptions.moc"
 #include "filesearch.h"
@@ -34,8 +37,11 @@ for which a new license (GPL+exception) is in place.
 PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : PicSearchOptionsBase( parent, "PicSearchOptions", true, 0 )
 {
 	m_fileName = fileName;
+	fileEdit->setText(fileName);
 	directoryEdit->setText(searchBase);
+	progressBar1->hide();
 	connect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
+	connect(changeDirButton, SIGNAL(clicked()), this, SLOT(changeSearchDir()));
 	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
 }
 
@@ -44,25 +50,38 @@ void PicSearchOptions::setSearchButton(bool toCancel, const FileSearch* searcher
 	if (toCancel)
 	{
 		startButton->setText( tr("Cancel Search") );
+		progressBar1->reset();
+		progressBar1->show();
+		progressBar1->setTotalSteps(20);
+		progressBar1->setProgress(0);
 		disconnect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 		connect(startButton, SIGNAL(clicked()), searcher, SLOT(cancel()));
 	}
 	else
 	{
 		startButton->setText( tr("Start Search"));
+		progressBar1->reset();
+		progressBar1->hide();
 		disconnect(startButton, SIGNAL(clicked()), searcher, SLOT(cancel()));
-		connect(startButton, SIGNAL(clicked()), SLOT(SearchPic()));
+		connect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 	}
 }
 
-void PicSearchOptions::SearchPic()
+void PicSearchOptions::changeSearchDir()
 {
 	QString workDir;
 #ifndef _WIN32
 	workDir = QDir::homeDirPath();
 #endif
-	// Pictures may be located completely outside home or documents directory
-	// so ask base search directory first
+	QString searchBase;
+	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
+	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
+		return;
+	directoryEdit->setText(searchBase);
+}
+
+void PicSearchOptions::SearchPic()
+{
 	QString searchBase = directoryEdit->text();
 	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
 		return;
@@ -71,14 +90,35 @@ void PicSearchOptions::SearchPic()
 	// Note: search will be deleted when this PicStatus is, so there's no
 	// need to worry about cleanup.
 	// case sensitive note: it has no meaning on windows
-
-	FileSearch* search = new FileSearch(this, m_fileName, searchBase, -1, caseInsensitiveCheck->isChecked());
+	int recurse = -1;
+	if (recursiveSearch->isChecked())
+		recurse = -1;
+	else
+		recurse = 0;
+	FileSearch* search = new FileSearch(this, fileEdit->text(), searchBase, recurse, caseInsensitiveCheck->isChecked());
 	Q_CHECK_PTR(search);
 	connect(search, SIGNAL(searchComplete(const QStringList&, const QString&)), SLOT(SearchPicFinished(const QStringList&, const QString&)));
 	connect(search, SIGNAL(aborted(bool)), SLOT(SearchPicAborted(bool)));
 	// Set up the UI to let the user cancel the search, then start it
 	setSearchButton(true, search);
+	QTimer *timer = new QTimer( this );
+	connect( timer, SIGNAL(timeout()), this, SLOT(timerDone()) );
+	timer->start(150);
 	search->start();
+}
+
+void PicSearchOptions::timerDone()
+{
+	int pg = progressBar1->progress();
+	pg++;
+	if (pg == 21)
+	{
+		progressBar1->reset();
+		progressBar1->setTotalSteps(20);
+		progressBar1->setProgress(0);
+	}
+	else
+		progressBar1->setProgress(pg);
 }
 
 void PicSearchOptions::SearchPicAborted(bool userCancelled)
@@ -98,6 +138,6 @@ void PicSearchOptions::SearchPicAborted(bool userCancelled)
 void PicSearchOptions::SearchPicFinished(const QStringList & matches, const QString & fileName)
 {
 	m_matches = matches;
-	m_fileName = fileName;
+	m_fileName = fileEdit->text();
 	accept();
 }

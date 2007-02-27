@@ -39,7 +39,7 @@
                 <bool>false</bool>
             </property>
             <property name="maxItemWidth">
-                <number>250</number>
+                <number>130</number>
             </property>
             <property name="itemsMovable">
                 <bool>false</bool>

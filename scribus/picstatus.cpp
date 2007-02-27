@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <qtable.h>
 #include <qfileinfo.h>
-#include <qfiledialog.h>
 #include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qstringlist.h>
@@ -138,7 +137,12 @@ void PicStatus::imageSelected(QIconViewItem *ite)
 		if (!currItem->OnMasterPage.isEmpty())
 			displayPage->setText(currItem->OnMasterPage);
 		else
-			displayPage->setText(QString::number(currItem->OwnPage + 1));
+		{
+			if (currItem->OwnPage == -1)
+				displayPage->setText(  tr("Not on a Page"));
+			else
+				displayPage->setText(QString::number(currItem->OwnPage + 1));
+		}
 		displayObjekt->setText(currItem->itemName());
 		if (currItem->PicAvail)
 		{
@@ -291,23 +295,12 @@ bool PicStatus::loadPict(const QString & newFilePath)
 
 void PicStatus::SearchPic()
 {
-	QString fileName = displayName->text();
-	QString workDir;
-#ifndef _WIN32
-	workDir = QDir::homeDirPath();
-#endif
-	// Pictures may be located completely outside home or documents directory
-	// so ask base search directory first
-	QString searchBase;
-	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
-	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
-		return;
-	PicSearchOptions *dia = new PicSearchOptions(this, fileName, searchBase);
+	PicSearchOptions *dia = new PicSearchOptions(this, displayName->text(), displayPath->text());
 	if (dia->exec())
 	{
 		if (dia->m_matches.count() == 0)
 		{
-			QMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(fileName),
+			QMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->m_fileName),
 					QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 					QMessageBox::NoButton);
 		}
