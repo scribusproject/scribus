@@ -170,7 +170,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			{
 				error = AddScalableFont(pathfile, library, DocName);
 				if (error)
-					error = AddScalableFont(pathfile + "/rsrc",library, DocName);
+					error = AddScalableFont(pathfile + "/..namedfork/rsrc",library, DocName);
 			}
 #endif				
 		}
