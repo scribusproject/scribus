@@ -154,6 +154,7 @@ bool UpgradeChecker::process( QFile& dataFile )
 				{
 					if (e.attribute("platform")==platform)
 					{
+						bool newVersion = false;
 						QString verA(e.attribute("version"));
 						QString verAStripped=verA.lower();
 						bool verIsCVS=verAStripped.contains("cvs");
@@ -165,7 +166,7 @@ bool UpgradeChecker::process( QFile& dataFile )
 						uint verRevsion2=verAStripped.section('.',3,3).toInt();
 						//If we found a release whe a user is running an old CVS version
 						if (verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2 && isCVS && !verIsCVS && !updates.contains(verA))
-							updates.append(verA);
+							newVersion = true;
 						else
 						//If we found a version that is not the same as what we are running
 						if (!(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2))
@@ -177,7 +178,18 @@ bool UpgradeChecker::process( QFile& dataFile )
 								(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2>revision2))
 								&& !updates.contains(verA)
 								)
-								updates.append(verA);
+								newVersion = true;
+						}
+						if (newVersion)
+						{
+							QString ver = verA;
+							QString link = e.attribute("link", "");
+							if (!link.isEmpty())
+							{
+								QString linkStr = QString("<a href=\"%1\">%2</a>").arg(link).arg(link);
+								ver = QString("%1 : %2").arg(verA).arg(linkStr);
+							}
+							updates.append(ver);
 						}
 					}
 				}
