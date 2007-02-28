@@ -769,6 +769,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	{
 		StartObj(ObjCounter);
 		PutDoc("<<\n/Type /Font\n/Subtype /Type1\n");
+		PutDoc("/Name /FoStd"+QString::number(a)+"\n");
 		PutDoc("/BaseFont "+itStd.key()+"\n");
 		PutDoc(">>\nendobj\n");
 		Seite.FObjects["FoStd"+QString::number(a)] = ObjCounter;
