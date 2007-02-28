@@ -35,6 +35,10 @@ QValueList<double> parseDoubleList(Xml_string str);
 QValueList<int> parseIntList(Xml_string str);
 QValueStack<int> parseIntStack(Xml_string str);
 
+
+Xml_string mkXMLName(QString any);
+
+
 template<class ENUM>
 inline
 ENUM parseEnum(Xml_string str)

@@ -263,7 +263,7 @@ void CharStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	if (!name().isEmpty())
-		att["id"] = elemtag + toXMLString((unsigned long)(this));
+		att["id"] = mkXMLName(elemtag + name());
 	handler.begin(elemtag, att);
 	if (hasParent() && parentStyle())
 		parentStyle()->saxx(handler);	

@@ -10,6 +10,44 @@
 const Xml_string SaxIO::saxxDefaultElem("");
 
 
+
+Xml_string mkXMLName(QString any)
+{
+	QString result("");
+	for (unsigned int i=0; i < any.length(); ++i)
+	{
+		unsigned int ch = any[i].unicode();
+		if (ch == ':' || ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z')
+			|| (0xC0 <= ch && ch <= 0xD6) || (0xD8 <= ch && ch <= 0xF6)
+			|| (0xF8 <= ch && ch <= 0x2FF) || (0x370 <= ch && ch <= 0x37D)
+			|| (0x37F <= ch && ch <= 0x1FFF) || (0x200C <= ch && ch <= 0x200D)
+			|| (0x2070 <= ch && ch <= 0x218F) || (0x2C00 <= ch && ch <= 0x2FEF)
+			|| (0x3001 <= ch && ch <= 0xD7FF) || (0xF900 <= ch && ch <= 0xFDCF)
+			|| (0xFDF0 <= ch && ch <= 0xFFFD) || ch > 0xFFFF
+			|| (i > 0 && (ch == '-' || ch == '.' || ('0' <= ch && ch <= '9') || ch == 0xB7
+						  || (0x300 <= ch && ch <= 0x36F) || (0x203F <= ch && ch <= 0x2040) )))
+		{
+			result += ch;
+		}
+		else
+		{
+			result += '_';
+			result += ('0' + ch >> 12 & 15);
+			result += ('0' + ch >>  8 & 15);
+			result += ('0' + ch >>  4 & 15);
+			result += ('0' + ch       & 15);
+		}
+	}
+	return result;
+}
+
+/*
+ NameStartChar ::= ":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] 
+ | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
+ NameChar	   ::=   	NameStartChar | "-" | "." | [0-9] | #xB7 | [#x0300-#x036F] | [#x203F-#x2040]
+*/
+
+
 // FIXME: this is too Qt dependent
 Xml_string toXMLString(unsigned int val)
 {

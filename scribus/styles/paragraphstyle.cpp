@@ -219,7 +219,7 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	if (!name().isEmpty())
-		att["id"] = elemtag + toXMLString((unsigned long)(this));
+		att["id"] = mkXMLName(elemtag + name());
 	handler.begin(elemtag, att);
 	if (parentStyle() && hasParent())
 		parentStyle()->saxx(handler);

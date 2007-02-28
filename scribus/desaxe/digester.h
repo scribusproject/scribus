@@ -30,7 +30,8 @@ namespace desaxe {
 class Action;
 class RuleState;
 
-namespace {  // ANON
+
+namespace PRIVATE {
 	
 	class VarPtr
 	{
@@ -85,7 +86,7 @@ public:
 };
 
 
-} // namespace ANON	
+} // namespace PRIVATE	
 
 
 
@@ -156,16 +157,16 @@ private:
 	RuleState* 
 		state;
 	
-	std::vector<VarPtr> 
+	std::vector<PRIVATE::VarPtr> 
 		objects;
 	
-	std::map<Xml_string, VarPtr> 
+	std::map<Xml_string, PRIVATE::VarPtr> 
 		storage;
 
-	std::map<Xml_string, Patch*>
+	std::map<Xml_string, PRIVATE::Patch*>
 		patches;
 	
-	VarPtr 
+	PRIVATE::VarPtr 
 		result_;
 	
 	std::vector<Xml_string> 
@@ -183,7 +184,7 @@ ObjType*  Digester::top(unsigned int offset)
 #endif
 	unsigned int count = objects.size();
 	assert (offset < count); 
-	chkcell<ObjType>(objects[count - offset - 1], &objects);
+	PRIVATE::chkcell<ObjType>(objects[count - offset - 1], &objects);
 #ifdef DESAXE_DEBUG
 	std::cerr << "stack-> " << static_cast<ObjType*>(objects[count - offset - 1].ptr) << "\n";
 #endif
@@ -201,7 +202,7 @@ ObjType*  Digester::bottom(unsigned int offset)
 #endif
 	unsigned int count = objects.size();
 	assert (offset < count); 
-	chkcell<ObjType> (objects[offset]);
+	PRIVATE::chkcell<ObjType> (objects[offset]);
 	return static_cast<ObjType*>(objects[offset].ptr);
 }
 
@@ -227,7 +228,7 @@ void Digester::setResult(ObjType* res)
 #ifdef DESAXE_DEBUG
 	std::cerr << res << " ->result\n";
 #endif
-	result_ = mkcell(res);
+	result_ = PRIVATE::mkcell(res);
 }
 
 
@@ -255,13 +256,13 @@ void Digester::push(ObjType* obj)
 #ifdef DESAXE_DEBUG
 	std::cerr << "stack<- " << obj << "\n";
 #endif
-	objects.push_back(mkcell(obj));
+	objects.push_back(PRIVATE::mkcell(obj));
 }
 
 
 // now lookup / store / patch business
 
-namespace {
+namespace PRIVATE {
 	
 	template <class LinkType>
 	struct Patch1 : public Patch
@@ -294,6 +295,7 @@ namespace {
 	};
 	
 	
+	inline
 	void runPatches(Patch*& list, VarPtr link)
 	{
 		while (list)
@@ -305,7 +307,7 @@ namespace {
 		}
 	}
 	
-	
+	inline
 	void deletePatches(std::map<Xml_string, Patch*>& patches)
 	{
 		std::map<Xml_string, Patch*>::iterator it;
@@ -326,7 +328,7 @@ namespace {
 //	template<> class Patch1<void>;
 //	template<> class Patch2<VarPtr,void>;
 	
-} //namespace ANON
+} //namespace PRIVATE
 
 
 
@@ -334,6 +336,8 @@ template<class ObjType>
 inline
 ObjType*  Digester::lookup(const Xml_string idref) 
 { 
+	using namespace PRIVATE;
+
 	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
 	if (cell == storage.end())
 	{
@@ -357,7 +361,8 @@ ObjType*  Digester::lookup(const Xml_string idref)
 template<class ObjType>
 inline
 void Digester::store(const Xml_string idref, ObjType* obj) 
-{ 
+{
+	using namespace PRIVATE;
 #ifdef DESAXE_DEBUG
 	std::cerr << "store[" << idref << "] <- " << obj << "\n";
 #endif
@@ -370,6 +375,8 @@ void Digester::store(const Xml_string idref, ObjType* obj)
 template<class LinkType>
 void Digester::patchCall(const Xml_string idref, void (*fun)(LinkType*) )
 {
+	using namespace PRIVATE;
+	
 	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
 	if (cell == storage.end())
 	{
@@ -385,6 +392,8 @@ void Digester::patchCall(const Xml_string idref, void (*fun)(LinkType*) )
 template<class ObjType, class LinkType>
 void Digester::patchInvoke(const Xml_string idref, ObjType* obj, void (ObjType::*fun)(LinkType*) )
 {
+	using namespace PRIVATE;
+	
 	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
 	if (cell == storage.end())
 	{

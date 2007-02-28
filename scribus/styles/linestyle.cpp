@@ -180,7 +180,7 @@ void LineStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 #include "linestyle.attrdefs.cxx"
 #undef ATTRDEF
 	if (!name().isEmpty())
-		att["id"] = elemtag + (unsigned long long)(this);
+		att["id"] = mkXMLName(elemtag + name());
 	handler.begin(elemtag, att);
 	if (parentStyle())
 		parentStyle()->saxx(handler);	
