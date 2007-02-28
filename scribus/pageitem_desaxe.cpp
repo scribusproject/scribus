@@ -35,7 +35,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("name", item->itemName());
 	const PageItem* nxt = item->nextInChain(); 
 	if (nxt)
-		result.insert("nextframe",  toXMLString(nxt->getUId())); 
+		result.insert("nextframe", "obj" + toXMLString(nxt->getUId())); 
 	result.insert("layer", toXMLString(item->LayerNr));
 	result.insert("level", toXMLString(item->ItemNr));
 	result.insert("itemtype", toXMLString(item->itemType()));
@@ -128,7 +128,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		if (item->isGroupControl)
 		{
 			if (item->groupsLastItem != 0)
-				result.insert("groupsLastItem", toXMLString(item->groupsLastItem->getUId()));
+				result.insert("groupsLastItem", "obj" + toXMLString(item->groupsLastItem->getUId()));
 		}
 	}
 	
@@ -140,13 +140,13 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		result.insert("RightLine", toXMLString(item->RightLine));
 		result.insert("BottomLine", toXMLString(item->BottomLine));
 		if (item->TopLink != 0)
-			result.insert("TopLINK", toXMLString(item->TopLink->getUId()));
+			result.insert("TopLINK", "obj" + toXMLString(item->TopLink->getUId()));
 		if (item->LeftLink != 0)
-			result.insert("LeftLINK", toXMLString(item->LeftLink->getUId()));
+			result.insert("LeftLINK", "obj" + toXMLString(item->LeftLink->getUId()));
 		if (item->RightLink != 0)
-			result.insert("RightLINK", toXMLString(item->RightLink->getUId()));
+			result.insert("RightLINK", "obj" + toXMLString(item->RightLink->getUId()));
 		if (item->BottomLink != 0)
-			result.insert("BottomLINK", toXMLString(item->BottomLink->getUId()));
+			result.insert("BottomLINK", "obj" + toXMLString(item->BottomLink->getUId()));
 	}
 	
 //	result.insert("ANNAME", !item->AutoName ? item->itemName() : QString(""));  // not used
