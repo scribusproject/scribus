@@ -349,7 +349,20 @@ void PicStatus::doImageEffects()
 	{
 		EffectsDialog* dia = new EffectsDialog(this, currItem, m_Doc);
 		if (dia->exec())
-			m_Doc->itemSelection_ApplyImageEffects(dia->effectsList);
+		{
+			currItem->effectsInUse = dia->effectsList;
+			loadPict(currItem->Pfile);
+			refreshItem(currItem);
+			QImage im2 = currItem->pixm.smoothScale(128, 128, QImage::ScaleMin);
+			QPixmap pm(128, 128);
+			QPainter p;
+			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			p.begin(&pm);
+			p.fillRect(0, 0, 128, 128, b);
+			p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
+			p.end();
+			imageViewArea->currentItem()->setPixmap(pm);
+		}
 		delete dia;
 	}
 }
@@ -360,6 +373,17 @@ void PicStatus::doImageExtProp()
 	{
 		ExtImageProps* dia = new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
 		dia->exec();
+		loadPict(currItem->Pfile);
+		refreshItem(currItem);
+		QImage im2 = currItem->pixm.smoothScale(128, 128, QImage::ScaleMin);
+		QPixmap pm(128, 128);
+		QPainter p;
+		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		p.begin(&pm);
+		p.fillRect(0, 0, 128, 128, b);
+		p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
+		p.end();
+		imageViewArea->currentItem()->setPixmap(pm);
 		delete dia;
 	}
 }
