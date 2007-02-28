@@ -478,6 +478,6 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	
 	AdjustGroupIds adjustGroupIds;
 	ruleset.addRule("/", adjustGroupIds);
-	ruleset.addRule(itemPrefix, adjustGroupIds);
+	ruleset.addRule(PageItem::saxxDefaultElem, adjustGroupIds);
 	
 }
