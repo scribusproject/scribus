@@ -4426,7 +4426,7 @@ void ScribusMainWindow::slotFileQuit()
 
 void ScribusMainWindow::slotEditCut()
 {
-	int a;
+//	int a;
 	NoFrameEdit();
 	QString BufferI = "";
 	uint docSelectionCount=doc->m_Selection->count();
@@ -4566,7 +4566,7 @@ void ScribusMainWindow::slotEditCut()
 
 void ScribusMainWindow::slotEditCopy()
 {
-	int a;
+//	int a;
 	NoFrameEdit();
 	QString BufferI = "";
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))

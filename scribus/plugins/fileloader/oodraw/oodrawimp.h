@@ -67,7 +67,7 @@ public:
 	  strokeTrans(0.0),
 	  strokeWidth(0.0),
 	  haveGradient(false),
-	  gradientType(0.0),
+	  gradientType(0),
 	  gradientAngle(0.0),
 	  gradientPointX(0.0),
 	  gradientPointY(0.0)

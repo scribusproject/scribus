@@ -2152,14 +2152,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	}
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
-	if (startArrowIndex < 0 || startArrowIndex > doc->arrowStyles.size())
+	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
 		qDebug(QString("scribus13format: invalid arrow index: %").arg(startArrowIndex));
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
-	if (endArrowIndex < 0 || endArrowIndex > doc->arrowStyles.size())
+	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
 		qDebug(QString("scribus13format: invalid arrow index: %").arg(endArrowIndex));
 		endArrowIndex = 0;

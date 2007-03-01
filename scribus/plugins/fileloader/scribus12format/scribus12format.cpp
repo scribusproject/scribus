@@ -194,7 +194,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int x, a;
-	double xf, xf2;
+//	double xf, xf2;
 	PageItem *Neu;
 	itemRemap.clear();
 	itemNext.clear();
