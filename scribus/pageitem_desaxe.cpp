@@ -32,7 +32,8 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	Xml_attr result;
 	
 	result.insert("id", "obj" + toXMLString(const_cast<PageItem*>(item)->getUId()));
-	result.insert("name", item->itemName());
+	if (!item->AutoName)
+		result.insert("name", item->itemName());
 	const PageItem* nxt = item->nextInChain(); 
 	if (nxt)
 		result.insert("nextframe", "obj" + toXMLString(nxt->getUId())); 

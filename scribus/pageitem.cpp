@@ -2135,6 +2135,9 @@ void PageItem::setItemName(const QString& newName)
 {
 	if (AnName == newName)
 		return; // nothing to do -> return
+	if (newName.isEmpty())
+		return;
+	AnName = generateUniqueCopyName(newName);
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(AnName).arg(newName));
@@ -2142,8 +2145,7 @@ void PageItem::setItemName(const QString& newName)
 		ss->set("NEW_NAME", newName);
 		undoManager->action(this, ss);
 	}
-	AnName = newName;
-	setUName(newName); // set the name for the UndoObject too
+	setUName(AnName); // set the name for the UndoObject too
 }
 
 void PageItem::setPattern(const QString &newPattern)

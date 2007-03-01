@@ -10933,7 +10933,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 		else
 		{
-			currItem->setItemName(currItem->generateUniqueCopyName(Buffer->AnName));
+//			currItem->setItemName(currItem->generateUniqueCopyName(Buffer->AnName));
+			currItem->setItemName(Buffer->AnName);
 			currItem->AutoName = false;
 		}
 	}
