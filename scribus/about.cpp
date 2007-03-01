@@ -60,8 +60,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "22";
-	QString BUILD_MONTH = CommonStrings::february;
+	QString BUILD_DAY = "1";
+	QString BUILD_MONTH = CommonStrings::march;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -231,7 +231,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Foppe Benedictus</td><td>foppe.benedictus@gmail.coml</td></tr>" +
 											"<tr><td>Erik Collou</td><td>collou@gmx.net</td></tr>" +
-											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" +
 											langmgr.getLangFromAbbrev("en_AU").local8Bit()  + "</b></td><td></td></tr>" +
@@ -343,6 +342,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("bg").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Vasko Tomanov</td><td>vasko@web.bg</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
