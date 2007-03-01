@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <qprogressbar.h>
 #include <qtimer.h>
 #include <qfiledialog.h>
+#include <qlabel.h>
 #include "picsearchoptions.h"
 #include "picsearchoptions.moc"
 #include "filesearch.h"
@@ -40,6 +41,7 @@ PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, co
 	fileEdit->setText(fileName);
 	directoryEdit->setText(searchBase);
 	progressBar1->hide();
+	searchLabel->hide();
 	connect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 	connect(changeDirButton, SIGNAL(clicked()), this, SLOT(changeSearchDir()));
 	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
@@ -54,6 +56,7 @@ void PicSearchOptions::setSearchButton(bool toCancel, const FileSearch* searcher
 		progressBar1->show();
 		progressBar1->setTotalSteps(20);
 		progressBar1->setProgress(0);
+		searchLabel->show();
 		disconnect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 		connect(startButton, SIGNAL(clicked()), searcher, SLOT(cancel()));
 	}
@@ -62,6 +65,7 @@ void PicSearchOptions::setSearchButton(bool toCancel, const FileSearch* searcher
 		startButton->setText( tr("Start Search"));
 		progressBar1->reset();
 		progressBar1->hide();
+		searchLabel->hide();
 		disconnect(startButton, SIGNAL(clicked()), searcher, SLOT(cancel()));
 		connect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 	}

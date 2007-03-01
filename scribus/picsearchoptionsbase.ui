@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>411</width>
-            <height>145</height>
+            <width>486</width>
+            <height>143</height>
         </rect>
     </property>
     <property name="caption">
@@ -27,9 +27,9 @@
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout4</cstring>
+                <cstring>layout6</cstring>
             </property>
-            <hbox>
+            <grid>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
@@ -39,49 +39,20 @@
                 <property name="spacing">
                     <number>5</number>
                 </property>
-                <widget class="QLabel">
-                    <property name="name">
-                        <cstring>textLabel1_2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Search for:</string>
-                    </property>
-                </widget>
-                <widget class="QLineEdit">
-                    <property name="name">
-                        <cstring>fileEdit</cstring>
-                    </property>
-                </widget>
-            </hbox>
-        </widget>
-        <widget class="QLayoutWidget">
-            <property name="name">
-                <cstring>layout1</cstring>
-            </property>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <property name="margin">
-                    <number>0</number>
-                </property>
-                <property name="spacing">
-                    <number>5</number>
-                </property>
-                <widget class="QLabel">
+                <widget class="QLabel" row="1" column="0">
                     <property name="name">
                         <cstring>textLabel1</cstring>
                     </property>
                     <property name="text">
-                        <string>Start Search at:</string>
+                        <string>Start at:</string>
                     </property>
                 </widget>
-                <widget class="QLineEdit">
+                <widget class="QLineEdit" row="0" column="1" rowspan="1" colspan="2">
                     <property name="name">
-                        <cstring>directoryEdit</cstring>
+                        <cstring>fileEdit</cstring>
                     </property>
                 </widget>
-                <widget class="QPushButton">
+                <widget class="QPushButton" row="1" column="2">
                     <property name="name">
                         <cstring>changeDirButton</cstring>
                     </property>
@@ -89,7 +60,26 @@
                         <string>Change...</string>
                     </property>
                 </widget>
-            </hbox>
+                <widget class="QLineEdit" row="1" column="1">
+                    <property name="name">
+                        <cstring>directoryEdit</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>300</width>
+                            <height>0</height>
+                        </size>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>textLabel1_2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Search for:</string>
+                    </property>
+                </widget>
+            </grid>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
@@ -145,7 +135,7 @@
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout4</cstring>
+                <cstring>layout5</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -157,6 +147,14 @@
                 <property name="spacing">
                     <number>5</number>
                 </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>searchLabel</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Searching</string>
+                    </property>
+                </widget>
                 <widget class="QProgressBar">
                     <property name="name">
                         <cstring>progressBar1</cstring>
@@ -201,7 +199,7 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>41</width>
+                            <width>30</width>
                             <height>20</height>
                         </size>
                     </property>
