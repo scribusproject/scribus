@@ -4506,6 +4506,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		Ryp = Myp;
 		Rxp = Mxp;
 	}
+	if (m->button() == MidButton)
+	{
+		MidButt = true;
+		DrawNew();
+		return;
+	}
 	switch (Doc->appMode)
 	{
 		case modeNormal:
@@ -4909,13 +4915,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					SeRy = Myp;
 				}
 			}
-			if (m->button() == MidButton)
+/*			if (m->button() == MidButton)
 			{
 				MidButt = true;
 				if (Doc->m_Selection->count() != 0)
 					Deselect(true);
 				DrawNew();
-			}
+			} */
 			if ((Doc->m_Selection->count() != 0) && (m->button() == RightButton))
 			{
 				m_MouseButtonPressed = true;
