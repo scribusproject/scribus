@@ -54,8 +54,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "25";
-	QString BUILD_MONTH = CommonStrings::february;
+	QString BUILD_DAY = "1";
+	QString BUILD_MONTH = CommonStrings::march;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -232,7 +232,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Foppe Benedictus</td><td>foppe.benedictus@gmail.coml</td></tr>" +
 											"<tr><td>Erik Collou</td><td>collou@gmx.net</td></tr>" +
-											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_AU").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
@@ -334,6 +333,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("bg").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Vasko Tomanov</td><td>vasko@web.bg</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -341,7 +343,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Michel Briand</td><td>michelbriand@free.fr</td></tr>" +
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
 											"<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
