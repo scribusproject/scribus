@@ -363,29 +363,20 @@ similar to text and image frames on a page and on the canvas. -->
 <!ATTLIST textframeobj idref IDREF #REQUIRED>
 
 <!-- Abstraction layer for text blocks inside a text frame. -->
-<!ELEMENT textcontent (paragraph)*>
+<!ELEMENT textcontent parstyle (p)+>
 <!ATTLIST textcontent id ID #REQUIRED>
 
 <!-- References "textcontent". -->
 <!ELEMENT textcontentobj EMPTY>
 <!ATTLIST textcontentobj idref IDREF #REQUIRED>
 
+<!ELEMENT p parstyle (span)+
 <!-- Lowest level block unit of text. Add a mathexpression later when MathML dtd is
 referenced properly. Use "id" values like par0. We need an id for the
 paragraph to make it the atomic unit for change tracking and undo for example. -->
-<!ELEMENT paragraph (text+|tab*)*>
-<!ATTLIST paragraph id ID #REQUIRED
-                    parstyle IDREF #REQUIRED
+<!ELEMENT span txtstyle (text|inlineframe|breakline|breakcolumn|breakframe|tab|pagenr)*>
 >
 
-<!-- Atomic text unit. -->
-<!ELEMENT text (#PCDATA)>
-<!-- parentpar is actually the "id" of the parental "paragraph". We need this
-relationship to make sure we can replace the paragraph contents independently
-of the physical layout changes for example. -->
-<!ATTLIST text parentpar IDREF #REQUIRED
-                    txtstyle IDREF #REQUIRED
->
 
 <!-- Use any printable character for tab alignment -->
 <!ELEMENT tab EMPTY>
