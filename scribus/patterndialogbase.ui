@@ -39,6 +39,9 @@
                     <height>0</height>
                 </size>
             </property>
+            <property name="acceptDrops">
+                <bool>false</bool>
+            </property>
             <property name="resizeMode">
                 <enum>Adjust</enum>
             </property>

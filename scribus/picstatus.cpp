@@ -58,6 +58,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : PicStatusBase( parent,
 	fillTable();
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(imageViewArea, SIGNAL(currentChanged(QIconViewItem *)), this, SLOT(imageSelected(QIconViewItem *)));
+	connect(imageViewArea, SIGNAL(clicked(QIconViewItem*)), this, SLOT(imageSelected(QIconViewItem*)));
 	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
 	connect(isVisible, SIGNAL(clicked()), this, SLOT(visiblePic()));
 	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
@@ -97,7 +98,8 @@ void PicStatus::fillTable()
 				p.drawRect(0, 0, 128, 128);
 			}
 			p.end();
-			(void) new PicItem(imageViewArea, fi.fileName(), pm, item);
+			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), pm, item);
+			ite->setDragEnabled(false);
 		}
 	}
 	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
@@ -123,7 +125,8 @@ void PicStatus::fillTable()
 				p.drawRect(0, 0, 128, 128);
 			}
 			p.end();
-			(void) new PicItem(imageViewArea, fi.fileName(), pm, item);
+			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), pm, item);
+			ite->setDragEnabled(false);
 		}
 	}
 }
@@ -238,7 +241,10 @@ void PicStatus::imageSelected(QIconViewItem *ite)
 		}
 	}
 	else
+	{
 		currItem = NULL;
+		imageViewArea->clearSelection();
+	}
 }
 
 void PicStatus::PrintPic()

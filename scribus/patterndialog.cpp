@@ -74,7 +74,8 @@ void PatternDialog::updatePatternList()
 			pm.convertFromImage(it.data().getPattern()->scaleWidth(48));
 		else
 			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
-		(void) new QIconViewItem(patternView, it.key(), pm);
+		QIconViewItem *item = new QIconViewItem(patternView, it.key(), pm);
+		item->setDragEnabled(false);
 	}
 }
 
