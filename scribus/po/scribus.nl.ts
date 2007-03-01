@@ -1744,7 +1744,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>OS/2&amp;amp;#174;/eComStation&amp;amp;#8482; Port:</translation>
     </message>
 </context>
 <context>
@@ -3654,7 +3654,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 of 13 cijfers met streepjes. Het oorspronkelijke ISBN-10 formaat accepteert 9 of 10 cijfers met streepjes, maar deze standaard is beïndigd voor publiek gebruik na 1 januari 2007. (Noot: om een oud ISBN-10 naar een nieuw ISBN-13 nummer om zetten. Zet 978 voor de eerste 9 cijfers, dus 1-56592-47907 -&gt; 978-1-56592-47907. Het uiteindelijke controle-cijfer wordt automatisch berekend.)</translation>
     </message>
 </context>
 <context>
@@ -4936,15 +4936,15 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaal links</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaal midden</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaal rechts</translation>
     </message>
     <message>
         <source>Monday</source>
@@ -6096,11 +6096,11 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik en houd ingedrukt om regelafstand modus te selecteren.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Automatisch</translation>
+        <translation>Automatisch</translation>
     </message>
 </context>
 <context>
@@ -6638,7 +6638,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Een font zoekpad kan alleen worden ingesteld als er geen document is geopend. Sluiten alle documenten, en gebruik Bestand -&gt; Voorkeuren &gt; Fonts om het font zoekpad te wijzigen.</translation>
     </message>
 </context>
 <context>
@@ -8670,7 +8670,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik en houd ingedrukt om regelafstand modus te selecteren.</translation>
     </message>
 </context>
 <context>
@@ -8749,7 +8749,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -9489,7 +9489,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Document layout</translation>
     </message>
 </context>
 <context>
@@ -12448,7 +12448,7 @@ aangeroepen functies.
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>Duits (Zwitsers)</translation>
     </message>
 </context>
 <context>
@@ -14708,7 +14708,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Table of Contents %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhoudsopgave %1</translation>
     </message>
 </context>
 <context>
@@ -15689,23 +15689,23 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>&amp;Embed All</source>
-        <translation type="unfinished"></translation>
+        <translation>All&amp;es insluiten</translation>
     </message>
     <message>
         <source>Fonts to outline:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonts om te zetten naar curven:</translation>
     </message>
     <message>
         <source>Outline &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alles naar curven</translation>
     </message>
     <message>
         <source>Document Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Document layout</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alle fonts insluiten in PDF. Insluiten van fonts zorgt dat de layout en aanzicht van het document behouden blijven. </translation>
     </message>
     <message>
         <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
@@ -15713,11 +15713,11 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Methode van compressie, te gebruiken voor afbeeldingen. Automatisch laat Scribus de beste methode kiezen. ZIP is lossless en goed voor afbeeldingen met effen kleurvlakken. JPEG is beter om kleinere PDF bestanden te verkrijgen welke veel foto&apos;s bevatten (licht kwaliteitsverlies mogelijk). Laat bij voorkeur staan op Automatisch tenzij er een speciale reden is om compressie te gebruiken.</translation>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kwaliteitsniveaus voor lossy compressie methoden. Minimum (25%). Laag (50%), Medium (75%), Hoog (85%), Maximum (95%). Het kwaliteitsniveau bepaalt niet direct de grootte van de resulterende afbeelding. Grootte en verlies van kwaliteit variëren bij elk afzonderlijk kwaliteitsniveau. Zelfs bij keuze voor het Maximum niveau is er altijd een kwaliteitsverlies bij jpeg.</translation>
     </message>
 </context>
 <context>
@@ -16766,48 +16766,49 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Poging Scribus versie update bestand op te halen</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Er wordt geen data van deze computer verzonden naar een externe locatie)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tijdslimiet overschreden tijdens poging update bestand op te halen.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout tijdens poging update bestand op te halen: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand niet gevonden op de server</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan niet openen versie bestand: %1
+Fout: %2 in regel: %3, rij: %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een fout opgetreden tijdens zoeken naar updates voor Scribus. Controleer de internet verbinding.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Er zijn geen updates beschikbaar voor deze versie van Scribus %1</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Een of meer updates voor deze versie van Scribus (%1) zijn beschikbaar:</translation>
     </message>
     <message>
         <source>This list may contain development versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze lijst kan ontwikkel versies bevatten.</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezoek www.scribus.net voor details.</translation>
     </message>
 </context>
 <context>
@@ -16969,7 +16970,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Openen</translation>
+        <translation>Openen</translation>
     </message>
 </context>
 <context>
