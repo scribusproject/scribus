@@ -99,14 +99,6 @@ May raise IndexError if the page number is out of range
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>importSVG(&quot;string&quot;)
-
-The &quot;string&quot; must be a valid filename for a SVG image. The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder, numPages) -&gt; bool
 
@@ -146,6 +138,16 @@ example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
 PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeSVG(&quot;filename&quot;, x, y)
+
+Places the SVG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
+
+If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1829,6 +1831,36 @@ May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>placeEPS(&quot;filename&quot;, x, y)
+
+Places the EPS &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
+
+If loading was successful, the selection contains the imported SVG
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeSXD(&quot;filename&quot;, x, y)
+
+Places the SXD &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SXD placed on the page
+
+If loading was successful, the selection contains the imported SXD
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeODG(&quot;filename&quot;, x, y)
+
+Places the ODG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the ODG placed on the page
+
+If loading was successful, the selection contains the imported ODG
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2112,14 +2144,6 @@ May throw IndexError for an insertion out of bounds.
     <message>
         <source>C&amp;olors...</source>
         <translation>Kle&amp;uren...</translation>
-    </message>
-    <message>
-        <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Alineastijlen...</translation>
-    </message>
-    <message>
-        <source>&amp;Line Styles...</source>
-        <translation>&amp;Lijnstijlen...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
@@ -3954,12 +3978,8 @@ May throw IndexError for an insertion out of bounds.
         <translation>Streepjescode onvolledig</translation>
     </message>
     <message>
-        <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
-For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
-If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
-        <translation>Voor ISBN-10 moet data 9 of 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>getallen correct gescheiden door een streepje (dash).
-Voor ISBN-13 moet data 12 of 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>getallen correct gescheiden door een streepje (dash)
-Als het laatste getal ontbreekt wordt het ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>controlegetal automatisch berekend.</translation>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation>12 of 13 cijfers met streepjes. Het oorspronkelijke ISBN-10 formaat accepteert 9 of 10 cijfers met streepjes, maar deze standaard is beïndigd voor publiek gebruik na 1 januari 2007. (Noot: om een oud ISBN-10 naar een nieuw ISBN-13 nummer om zetten. Zet 978 voor de eerste 9 cijfers, dus 1-56592-47907 -&gt; 978-1-56592-47907. Het uiteindelijke controle-cijfer wordt automatisch berekend.)</translation>
     </message>
 </context>
 <context>
@@ -4549,7 +4569,7 @@ kies een andere.</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Ouderlijke</translation>
+        <translation>Parent</translation>
     </message>
 </context>
 <context>
@@ -4934,6 +4954,13 @@ kies een andere.</translation>
     </message>
 </context>
 <context>
+    <name>CharStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
+    </message>
+</context>
+<context>
     <name>CharTable</name>
     <message>
         <source>Delete</source>
@@ -5184,18 +5211,20 @@ kies een andere.</translation>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation>Ducumenten (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation>Informatie</translation>
     </message>
     <message>
-        <source>The file %1 does not contain any new colors.
-If the file was an EPS try to import it with File -&gt; Import</source>
-        <translation>Het bestand %1 bevat geen nieuwe kleuren.
-Als het een EPS bestand is, probeer dan Bestand-&gt;Importeren</translation>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+        <translation>Het bestand %1 bevat geen kleuren die kunnen worden geïmporteerd.
+Als het een bestand is op PostScript basis, probeer dan Bestand -&amp;; Import.
+Niet alle bestand hebben DSC conform commentaar over de locatie van de kleurbeschrijving.
+Dit voorkomt import van kleuren bij bepaalde bestanden.
+Zie het Bewerk Kleuren deel van het document voor details.</translation>
     </message>
 </context>
 <context>
@@ -5510,6 +5539,72 @@ Als het een EPS bestand is, probeer dan Bestand-&gt;Importeren</translation>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation>Aangepast: </translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation>Ononderbroken lijn</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation>Gestreepte lijn</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation>Stippellijn</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation>Streep-stip lijn</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation>Streep-stip-stip lijn</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Left Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Word Tracking</source>
+        <translation>Min. woord tracking</translation>
+    </message>
+    <message>
+        <source>Max. Word Tracking</source>
+        <translation>Max. woord tracking</translation>
+    </message>
+    <message>
+        <source>Min. Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max. Glyph Extension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6293,7 +6388,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation>Is ouder van</translation>
+        <translation>Is Parent van</translation>
     </message>
     <message>
         <source>Is Child Of</source>
@@ -7772,20 +7867,20 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation>&amp;Diversen</translation>
     </message>
     <message>
-        <source>Delete &amp;Page Guides</source>
-        <translation>Verwijder hul&amp;plijnen</translation>
-    </message>
-    <message>
         <source>Delete all guides from the current page</source>
         <translation>Verwijder alle hulplijnen op de huidige pagina</translation>
     </message>
     <message>
-        <source>Delete &amp;Document guides</source>
-        <translation>Verwijder &amp;document hulplijnen</translation>
-    </message>
-    <message>
         <source>Delete all guides from the current document</source>
         <translation>Verwijder alle hulplijnen van het huidige document</translation>
+    </message>
+    <message>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation>Verwijder alle hulplijnen op de huidige &amp;pagina</translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
+        <translation>Verwijder hulplijnen op &amp;alle pagina&apos;s</translation>
     </message>
 </context>
 <context>
@@ -8586,10 +8681,6 @@ zet de vectordata om naar Scribus objecten.</translation>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation>&amp;Importeren</translation>
     </message>
@@ -8966,6 +9057,10 @@ zet de vectordata om naar Scribus objecten.</translation>
         <source>New Name:</source>
         <translation>Nieuwe naam:</translation>
     </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation>Kopie #%1 van %2</translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -9050,10 +9145,6 @@ zet de vectordata om naar Scribus objecten.</translation>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source> from %1</source>
@@ -9310,10 +9401,6 @@ hoeken:</translation>
         <translation>%</translation>
     </message>
     <message>
-        <source>St&amp;yle:</source>
-        <translation>Sti&amp;jl:</translation>
-    </message>
-    <message>
         <source>&amp;Free Scaling</source>
         <translation>&amp;Vrije schaal</translation>
     </message>
@@ -9544,10 +9631,6 @@ hoeken:</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Regelspatiëring</translation>
-    </message>
-    <message>
-        <source>Style of current paragraph</source>
-        <translation>Stijl van huidige alinea</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -9893,6 +9976,58 @@ hoeken:</translation>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
         <translation>Indien gekozen, kan de contour lijn worden bewerkt met het Bewerk Vorm gereedschap in het palet boven. Indien bewerkt via het Vorm palet, wordt het een tweede separate lijn gebaseerd op de vorm van het frame voor tekstomloop of tekstframes onder het object. T</translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation>Standaard</translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation>Getrapt</translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation>Schuintrekken</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Type:</translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation>Alinea st&amp;ijl:</translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation>Teken st&amp;ijl:</translation>
+    </message>
+    <message>
+        <source>Optical Margins:</source>
+        <translation>Optische marges:</translation>
+    </message>
+    <message>
+        <source>Word Tracking</source>
+        <translation>Woord tracking</translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation>Min:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation>Max:</translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation>Symboolteken extensie</translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation>Alineastijl van de huidige geselecteerde tekst of alinea</translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation>Tekenstijl van de huidige geselecteerde tekst of alinea</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -9937,36 +10072,16 @@ hoeken:</translation>
         <translation>%</translation>
     </message>
     <message>
-        <source> pt </source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>Solid Line</source>
-        <translation>Ononderbroken lijn</translation>
-    </message>
-    <message>
-        <source>Dashed Line</source>
-        <translation>Gestreepte lijn</translation>
-    </message>
-    <message>
-        <source>Dotted Line</source>
-        <translation>Stippellijn</translation>
-    </message>
-    <message>
-        <source>Dash Dot Line</source>
-        <translation>Streep-stip lijn</translation>
-    </message>
-    <message>
-        <source>Dash Dot Dot Line</source>
-        <translation>Streep-stip-stip lijn</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Naam &quot;%1&quot; is niet uniek.&lt;br/&gt;Kies een andere naam.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -10068,6 +10183,10 @@ hoeken:</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annuleren</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation>Rotatie:</translation>
     </message>
 </context>
 <context>
@@ -10416,6 +10535,10 @@ hoeken:</translation>
         <source>This file contains some unsupported features</source>
         <translation>Dit bestand bevat enkele niet ondersteunde functies</translation>
     </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation>Het bestand kan niet worden geïmporteerd</translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -10716,7 +10839,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Print Settings</source>
-        <translation type="unfinished">Printer instellingen / Instellingen afdrukken</translation>
+        <translation>Printer instellingen</translation>
     </message>
     <message>
         <source>Mirror Page(s) Horizontal</source>
@@ -10802,7 +10925,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Ouderlijke</translation>
+        <translation>Parent</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -10814,7 +10937,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Parent&apos;s Drop Cap Status</source>
-        <translation>Ouderlijke beginkapitaal status</translation>
+        <translation>Beginkapitaal status van Parent</translation>
     </message>
     <message>
         <source>Ch&amp;aracter Style</source>
@@ -10860,7 +10983,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation>Is ouder van</translation>
+        <translation>Is Parent van</translation>
     </message>
     <message>
         <source>Is Child Of</source>
@@ -10994,6 +11117,13 @@ hoeken:</translation>
     <message>
         <source>%1 of %1</source>
         <translation>%1 van %1</translation>
+    </message>
+</context>
+<context>
+    <name>ParaStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
     </message>
 </context>
 <context>
@@ -11484,6 +11614,10 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus was niet in staat om de voorkeuren te laden: &lt;br&gt;%1&lt;br&gt;Standaard instellingen worden geladen.</translation>
+    </message>
+    <message>
+        <source>PDF 1.5</source>
+        <translation>PDF 1.5</translation>
     </message>
 </context>
 <context>
@@ -12159,10 +12293,6 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>SVG-afbeeldingen (*.svg *.svgz);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>SVG-afbeeldingen (*.svg);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Comma Separated Value Files</source>
         <translation>Bestanden met kommagescheiden-waarden (CSV)</translation>
     </message>
@@ -12629,11 +12759,6 @@ Externe koppelingen
         <translation>Kan alleen tekstframes verbinden.</translation>
     </message>
     <message>
-        <source>Target frame must be empty.</source>
-        <comment>python error</comment>
-        <translation>Doel frame moet leeg zijn.</translation>
-    </message>
-    <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
         <translation>Doel frame linkt naar ander frame.</translation>
@@ -12859,11 +12984,6 @@ Externe koppelingen
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Object is een niet gekoppeld tekst frame, kan niet ontkoppelen.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation>Object is het laatste frame van een serie. Ontkoppel het eerdere frame.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
@@ -13302,7 +13422,7 @@ aangeroepen functies.
     </message>
     <message>
         <source>Old .sla format support</source>
-        <translation>Ouder .sla formaat ondersteuning</translation>
+        <translation>Oud .sla bestandsformaat ondersteuning</translation>
     </message>
     <message>
         <source>German (Trad.)</source>
@@ -13614,7 +13734,7 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>parent= %1</source>
-        <translation>ouderlijke= %1</translation>
+        <translation>parent= %1</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
@@ -13644,8 +13764,60 @@ Weergave is mogelijk niet correct</translation>
         <translation>Scribus 1.3.4 ondersteuning</translation>
     </message>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation>Scribus 1.3.0-&gt;1.3.3.2 ondersteuning</translation>
+        <source>Image</source>
+        <translation>Afbeelding</translation>
+    </message>
+    <message>
+        <source>PDF Push Button</source>
+        <translation>PDF knop</translation>
+    </message>
+    <message>
+        <source>PDF Text Field</source>
+        <translation>PDF tekstveld</translation>
+    </message>
+    <message>
+        <source>PDF Check Box</source>
+        <translation>PDF check box</translation>
+    </message>
+    <message>
+        <source>PDF Combo Box</source>
+        <translation>PDF Combo Box</translation>
+    </message>
+    <message>
+        <source>PDF List Box</source>
+        <translation>PDF List Box</translation>
+    </message>
+    <message>
+        <source>PDF Text Annotation</source>
+        <translation>PDF tekst annotatie</translation>
+    </message>
+    <message>
+        <source>PDF Link Annotation</source>
+        <translation>PDF link annotatie</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Lijn</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygoon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Polylijn</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Tekstpad</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
+        <translation>Scribus 1.3.0-&gt;1.3.3.7 ondersteuning</translation>
     </message>
 </context>
 <context>
@@ -13853,7 +14025,7 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
-        <translation>Gebruik ouderlijke stijleffecten in plaats van deze te overschrijven</translation>
+        <translation>Gebruik stijleffecten van de parent stijl in plaats van deze te overschrijven</translation>
     </message>
 </context>
 <context>
@@ -13935,7 +14107,7 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Parent style</source>
-        <translation>Ouderlijke stijl</translation>
+        <translation>Parent stijl</translation>
     </message>
     <message>
         <source>Font face</source>
@@ -13983,7 +14155,7 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Ouderlijke</translation>
+        <translation>Parent</translation>
     </message>
     <message>
         <source>Shade</source>
@@ -14022,14 +14194,14 @@ Weergave is mogelijk niet correct</translation>
     <name>SMColorCombo</name>
     <message>
         <source>Use Parent Value</source>
-        <translation>Gebruik ouderlijke waarde</translation>
+        <translation>Gebruik Parent waarde</translation>
     </message>
 </context>
 <context>
     <name>SMFontComboH</name>
     <message>
         <source>Use Parent Font</source>
-        <translation>Gebruik ouderlijk font</translation>
+        <translation>Gebruik Parent font</translation>
     </message>
 </context>
 <context>
@@ -14108,7 +14280,7 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Parent style</source>
-        <translation>Ouderlijke stijl</translation>
+        <translation>Parent stijl</translation>
     </message>
     <message>
         <source>Line spacing mode</source>
@@ -14160,7 +14332,7 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Ouderlijke</translation>
+        <translation>Parent</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -14260,14 +14432,14 @@ Weergave is mogelijk niet correct</translation>
     <name>SMScComboBox</name>
     <message>
         <source>Use Parent Value</source>
-        <translation>Gebruik ouderlijke waarde</translation>
+        <translation>Gebruik Parent waarde</translation>
     </message>
 </context>
 <context>
     <name>SMShadeButton</name>
     <message>
         <source>Use Parent Value</source>
-        <translation>Gebruik ouderlijke waarde</translation>
+        <translation>Gebruik Parent waarde</translation>
     </message>
 </context>
 <context>
@@ -14279,14 +14451,14 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Use parent style&apos;s effects instead of overriding them</source>
-        <translation>Gebruik ouderlijke stijleffecten in plaats van deze te overschrijven</translation>
+        <translation>Gebruik stijleffecten van de parentstijl in plaats van deze te overschrijven</translation>
     </message>
 </context>
 <context>
     <name>SMTabruler</name>
     <message>
         <source> Parent Tabs </source>
-        <translation>Ouderlijke tabs</translation>
+        <translation>Parent tabs</translation>
     </message>
 </context>
 <context>
@@ -14414,6 +14586,10 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG bestand bevat niet ondersteunde eigenschappen</translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation>Het bestand kan niet worden geïmporteerd</translation>
     </message>
 </context>
 <context>
@@ -14669,12 +14845,12 @@ zet de vectordata over naar Scribus objecten.</translation>
 <context>
     <name>Scribus13Format</name>
     <message>
-        <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation>Scribus 1.3.0-&gt;1.3.3.2 Document</translation>
-    </message>
-    <message>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 van</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation>Scribus 1.3.0-&gt;1.3.3.7 Document</translation>
     </message>
 </context>
 <context>
@@ -14772,19 +14948,21 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Number of copies: %1
-Horizontal shift: %2
-Vertical shift: %3</source>
-        <translation>Aantal kopieën: %1
-Horizontaal verschuiving: %2
-Verticaal verschuiving: %3</translation>
-    </message>
-    <message>
-        <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation>Aantal kopieën: %1
 Horizontale ruimte: %2
 Verticale ruimte: %3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3
+Rotation: %4</source>
+        <translation>Aantal afdrukken: %1
+Horizontale verschuiving: %2
+Verticale verschuiving: %3
+Rotatie: %4</translation>
     </message>
 </context>
 <context>
@@ -15213,10 +15391,6 @@ Gebruik Preflight Controle om te herstellen</translation>
         <translation>Documenten (*.sla *.sla.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla);;All Files (*)</source>
-        <translation>Documenten (*.sla);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Group%1</source>
         <translation>Groep%1</translation>
     </message>
@@ -15435,10 +15609,6 @@ Gebruik Preflight Controle om te herstellen</translation>
         <translation>Verbind tekstframes</translation>
     </message>
     <message>
-        <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation>Je probeert naar een reeds gevuld frame, of een frame naar zichzelf te verbinden.</translation>
-    </message>
-    <message>
         <source>Cannot Convert In-Use Item</source>
         <translation>Kan item in gebruik niet omzetten</translation>
     </message>
@@ -15515,6 +15685,18 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     <message>
         <source>Group%1</source>
         <translation>Groep %1</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation>Geen afbeelding geladen</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation>U probeert een frame aan zichzelf te koppelen.</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame which is already linked.</source>
+        <translation>U probeert een frame aan een reeds gekoppeld frame te koppelen.</translation>
     </message>
 </context>
 <context>
@@ -15918,13 +16100,6 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     </message>
 </context>
 <context>
-    <name>Spalette</name>
-    <message>
-        <source>No Style</source>
-        <translation>Geen stijl</translation>
-    </message>
-</context>
-<context>
     <name>StilFormate</name>
     <message>
         <source>Edit Styles</source>
@@ -15961,10 +16136,6 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -16295,6 +16466,14 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
         <source>More than one style selected</source>
         <translation>Meer dan 1 stijl geselecteerd</translation>
     </message>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
+    </message>
+    <message>
+        <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -16465,6 +16644,10 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     <message>
         <source>Destination Frame:</source>
         <translation>Bestemmingsframe:</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation>Inhoudsopgave %1</translation>
     </message>
 </context>
 <context>
@@ -16663,10 +16846,6 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
 <context>
     <name>TabDisplayBase</name>
     <message>
-        <source>Form2</source>
-        <translation>Form2</translation>
-    </message>
-    <message>
         <source>General</source>
         <translation>Algemeen</translation>
     </message>
@@ -16751,10 +16930,6 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
         <translation>Om weergave in te stellen sleep het lineaal hieronder met de schuifbalk.</translation>
     </message>
     <message>
-        <source>textLabel16</source>
-        <translation type="unfinished">textLabel16</translation>
-    </message>
-    <message>
         <source>Colors</source>
         <translation>Kleuren</translation>
     </message>
@@ -16805,6 +16980,14 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     <message>
         <source>Control Characters:</source>
         <translation>Opmaaktekens:</translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
+        <translation>Schaal%</translation>
     </message>
 </context>
 <context>
@@ -17082,10 +17265,6 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
 <context>
     <name>TabGeneralBase</name>
     <message>
-        <source>Form1</source>
-        <translation>Form1</translation>
-    </message>
-    <message>
         <source>User Interface</source>
         <translation>Gebruikers interface</translation>
     </message>
@@ -17184,6 +17363,10 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17331,6 +17514,10 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     <message>
         <source>Distance from the top of the page for the first baseline</source>
         <translation>Afstand tot de bovenzijde van de pagina tot de eerste basislijn</translation>
+    </message>
+    <message>
+        <source>px</source>
+        <translation>px</translation>
     </message>
 </context>
 <context>
@@ -18211,7 +18398,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation>Methode van compressie, te gebruiken voor afbeeldingen. Automatisch laat Scribus de beste methode kiezen. ZIP is lossless en goed voor afbeeldingen met effen kleurvlakken. JPEG is beter om kleinere PDF bestanden te verkrijgen welke veel foto&apos;s bevatten (licht kwaliteitsverlies mogelijk). Laat bij voorkeur staan op Automatisch tenzij er een spceiale reden is om compressie te gebruiken.</translation>
+        <translation>Methode van compressie, te gebruiken voor afbeeldingen. Automatisch laat Scribus de beste methode kiezen. ZIP is lossless en goed voor afbeeldingen met effen kleurvlakken. JPEG is beter om kleinere PDF bestanden te verkrijgen welke veel foto&apos;s bevatten (licht kwaliteitsverlies mogelijk). Laat bij voorkeur staan op Automatisch tenzij er een speciale reden is om compressie te gebruiken.</translation>
     </message>
     <message>
         <source>&amp;Embed all</source>
@@ -18295,7 +18482,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation>Kwaliteitsniveaus voor lossy compressie methoden. Minimum (25%). Laag (50%), Medium (75%), Hoog (85%), Maximum (85%). Het kwaliteitsniveau bepaalt niet direct de grootte van de resulterende afbeelding. Grootte en verlies van kwaliteit variëren bij elk afzonderlijk kwaliteitsniveau. Zelfs bij keuze voor het Maximum niveau is er altijd een kwaliteitsverlies bij jpeg.</translation>
+        <translation>Kwaliteitsniveaus voor lossy compressie methoden. Minimum (25%). Laag (50%), Medium (75%), Hoog (85%), Maximum (95%). Het kwaliteitsniveau bepaalt niet direct de grootte van de resulterende afbeelding. Grootte en verlies van kwaliteit variëren bij elk afzonderlijk kwaliteitsniveau. Zelfs bij keuze voor het Maximum niveau is er altijd een kwaliteitsverlies bij jpeg.</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
@@ -18373,10 +18560,6 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
 </context>
 <context>
     <name>TabPrinterBase</name>
-    <message>
-        <source>Form1</source>
-        <translation>Form1</translation>
-    </message>
     <message>
         <source>Print Destination</source>
         <translation>Afdrukken naar</translation>
@@ -18517,13 +18700,13 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
         <source>Right:</source>
         <translation>Rechts:</translation>
     </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
-    <message>
-        <source>Form2</source>
-        <translation>Form2</translation>
-    </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
         <translation>Stuur gekopieerde items automatisch naar kladblok</translation>
@@ -18547,6 +18730,10 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
         <translation>Het minimum aantal is 1; het maximum is 100.</translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18920,6 +19107,10 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
         <comment>tab fill</comment>
         <translation>Geen</translation>
     </message>
+    <message>
+        <source>Degrees</source>
+        <translation>Graden</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -19135,8 +19326,128 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
         <translation>Pagina </translation>
     </message>
     <message>
-        <source>Free items</source>
-        <translation>Vrije items</translation>
+        <source>Picture</source>
+        <translation>Afbeelding</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Bestand:</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation>Oorspronkelijk PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation>Werkelijk PPI:</translation>
+    </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation>Kleurruimte: </translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Onbekend</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation>RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation>CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation>Grijsttinten</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotoon</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation>Geen afbeelding geladen</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Gekoppelde tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Tekstframe</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Tekst op een pad</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Alinea&apos;s:</translation>
+    </message>
+    <message>
+        <source>Lines: </source>
+        <translation>Lijnen: </translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Woorden:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Tekens:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Afdrukken:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Ingeschakeld</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Uitgeschakeld</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation>In&amp;fo</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation>Voorbeeld instellingen</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>&amp;PDF-opties</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>In &amp;laag zetten</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation>Ni&amp;veau</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation>Omzetten naa&amp;r</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Hernoemen</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Inhoud</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Naam &quot;%1&quot; is niet uniek.&lt;br/&gt;Kies een andere naam.</translation>
     </message>
 </context>
 <context>
@@ -19669,6 +19980,22 @@ X: %4, Y: %5</translation>
     <message>
         <source>Adjust frame to the image size</source>
         <translation>Frame aanpassen aan afbeeldingsgrootte</translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
+        <translation>Stel begin en eindpijl in</translation>
+    </message>
+    <message>
+        <source>Remove all guides</source>
+        <translation>Alle hulplijnen verwijderen</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopieëren</translation>
+    </message>
+    <message>
+        <source>Copy page</source>
+        <translation>Kopieer pagina</translation>
     </message>
 </context>
 <context>
