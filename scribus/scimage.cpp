@@ -2932,7 +2932,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	return;
 }
 
-QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
+QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	QString retS = "";
 	float xres, yres;
@@ -3150,6 +3150,8 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	}
 	if (isNull())
 		return retS;
+	if ((scaleXSize != 0) && (scaleYSize != 0))
+		*this = smoothScale(scaleXSize, scaleYSize);
 	int i = 0;
 	unsigned char u;
 	int hm = height();
