@@ -341,6 +341,7 @@ class AdjustGroupIds_body : public Action_body
 				int newGroup = minGroup + item->groups()[i];
 				if (newGroup > maxGroup)
 					maxGroup = newGroup;
+				qDebug(QString("group id %1 -> %2").arg(item->groups()[i]).arg(newGroup));
 				groups.append(newGroup);
 			}
 			item->setGroups(groups);

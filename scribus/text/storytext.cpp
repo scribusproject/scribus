@@ -1164,9 +1164,13 @@ void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
 	handler.begin(elemtag, empty);
 	defaultStyle().saxx(handler, "defaultstyle");
 
-	CharStyle lastStyle;
+	CharStyle lastStyle(charStyle(0));
 	bool lastWasPar = true;
 	int lastPos = 0;
+	handler.begin("p", empty);
+	paragraphStyle(0).saxx(handler);
+	handler.begin("span", empty);
+	lastStyle.saxx(handler);
 	for (int i=0; i < length(); ++i)
 	{
 		const QChar curr(text(i));
@@ -1195,10 +1199,11 @@ void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
 		lastWasPar = (curr == SpecialChars::PARSEP);
 		if (lastWasPar)
 		{
-			handler.begin("para", empty);
-			if (paragraphStyle(i) != ParagraphStyle())
-				paragraphStyle(i).saxx(handler);
-			handler.end("para");
+			handler.end("span");
+			handler.end("p");
+			handler.begin("p", empty);
+			paragraphStyle(i).saxx(handler);
+			handler.begin("span", empty);
 		}
 		else if (curr == SpecialChars::OBJECT && object(i) != NULL)
 		{
@@ -1234,6 +1239,8 @@ void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
 		}
 		else if (lastStyle != style)
 		{
+			handler.end("span");
+			handler.begin("span", empty);
 			style.saxx(handler);
 			lastStyle = style;
 			continue;
@@ -1245,9 +1252,11 @@ void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
 	
 	if  (length() - lastPos > 0)
 		handler.chars(text(lastPos, length()-lastPos));
+	handler.end("span");
+	handler.end("p");
 	
-	if (!lastWasPar)
-		paragraphStyle(length()-1).saxx(handler);
+//	if (!lastWasPar)
+//		paragraphStyle(length()-1).saxx(handler);
 	
 	handler.end(elemtag);
 
@@ -1307,7 +1316,7 @@ public:
 struct AppendInlineFrame : public MakeAction<AppendInlineFrame_body>
 {};
 
-
+/*
 class ApplyStyle_body : public Action_body
 {
 public:
@@ -1369,6 +1378,115 @@ struct ApplyCharStyle : public MakeAction<ApplyCharStyle_body, const Xml_string&
 	ApplyCharStyle(const Xml_string& tag) : MakeAction<ApplyCharStyle_body, const Xml_string&>(tag) {}
 };
 
+*/
+
+class Paragraph_body : public Action_body
+{
+public:
+	Paragraph_body() : lastPos(0), lastStyle(NULL)
+	{}
+	
+	~Paragraph_body() 
+	{
+		if (lastStyle)
+			delete lastStyle;
+	}
+	
+	void begin(const Xml_string tag, Xml_attr attr)
+	{
+		if (tag == "p")
+		{
+			StoryText* story = this->dig->top<StoryText>();
+			lastPos = story->length();
+			if (lastPos > 0)
+				story->insertChars(-1, SpecialChars::PARSEP);
+			if (lastStyle)
+				delete lastStyle;
+			lastStyle = NULL;
+		}
+	}
+	
+	void end(const Xml_string tag) 
+	{
+		if (tag == ParagraphStyle::saxxDefaultElem)
+		{
+			if (lastStyle)
+				delete lastStyle;
+			lastStyle = this->dig->top<ParagraphStyle>(0);
+		}
+		else if (tag == "p")
+		{
+			StoryText* story = this->dig->top<StoryText>();
+			int len = story->length();
+			if (len > lastPos && lastStyle)
+			{
+				story->applyStyle(lastPos, *lastStyle);
+			}
+		}
+	}
+private:
+	int lastPos;
+	ParagraphStyle* lastStyle;
+};
+
+struct Paragraph : public MakeAction<Paragraph_body>
+{
+	Paragraph() : MakeAction<Paragraph_body>() {}
+};
+
+
+class SpanAction_body : public Action_body
+{
+public:
+	SpanAction_body() : lastPos(0), lastStyle(NULL)
+	{}
+	
+	~SpanAction_body() 
+	{
+		if (lastStyle)
+			delete lastStyle;
+	}
+	
+	void begin(const Xml_string tag, Xml_attr attr)
+	{
+		if (tag == "span")
+		{
+			StoryText* story = this->dig->top<StoryText>();
+			lastPos = story->length();
+			if (lastStyle)
+				delete lastStyle;
+			lastStyle = NULL;
+		}
+	}
+	
+	void end(const Xml_string tag) 
+	{
+		if (tag == CharStyle::saxxDefaultElem)
+		{
+			if (lastStyle)
+				delete lastStyle;
+			lastStyle = this->dig->top<CharStyle>(0);
+		}
+		else if (tag == "p")
+		{
+			StoryText* story = this->dig->top<StoryText>();
+			int len = story->length();
+			if (len > lastPos && lastStyle)
+			{
+				story->applyCharStyle(lastPos, len - lastPos, *lastStyle);
+			}
+		}
+	}
+private:
+	int lastPos;
+	CharStyle* lastStyle;
+};
+
+struct SpanAction : public MakeAction<SpanAction_body>
+{
+	SpanAction() : MakeAction<SpanAction_body>() {}
+};
+
 
 const Xml_string StoryText::saxxDefaultElem("story");
 
@@ -1380,26 +1498,28 @@ void StoryText::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_str
 	ParagraphStyle::desaxeRules(storyPrefix, ruleset, "defaultstyle");
 	ruleset.addRule(Digester::concat(storyPrefix, "defaultstyle"), SetterWithConversion<StoryText, const ParagraphStyle&, ParagraphStyle>( & StoryText::setDefaultStyle ));
 	
-	CharStyle::desaxeRules(storyPrefix, ruleset, CharStyle::saxxDefaultElem);
-	ApplyCharStyle applyCharStyle(elemtag);
-	ruleset.addRule(Digester::concat(storyPrefix, CharStyle::saxxDefaultElem), applyCharStyle );
-	ruleset.addRule(storyPrefix, applyCharStyle );
+	Paragraph paraAction;
+	Xml_string paraPrefix(Digester::concat(storyPrefix, "p"));
+	ruleset.addRule(paraPrefix, paraAction ); 
+	ParagraphStyle::desaxeRules(paraPrefix, ruleset, ParagraphStyle::saxxDefaultElem);
+	ruleset.addRule(Digester::concat(paraPrefix, ParagraphStyle::saxxDefaultElem), paraAction ); 
 	
-	ruleset.addRule(storyPrefix, AppendText());
+	SpanAction spanAction;
+	Xml_string spanPrefix(Digester::concat(paraPrefix, "span"));
+	ruleset.addRule(spanPrefix, spanAction );
+	CharStyle::desaxeRules(spanPrefix, ruleset, CharStyle::saxxDefaultElem);
+	ruleset.addRule(Digester::concat(spanPrefix, CharStyle::saxxDefaultElem), spanAction );
+		
+	ruleset.addRule(spanPrefix, AppendText());
 	
-	Xml_string paraPrefix(Digester::concat(storyPrefix, "para"));
-	ruleset.addRule(paraPrefix, AppendSpecial(SpecialChars::PARSEP) ); 
-	ParagraphStyle::desaxeRules(paraPrefix, ruleset, "style");
-	ruleset.addRule(Digester::concat(paraPrefix, "style"), ApplyStyle() );
-	
-	ruleset.addRule(Digester::concat(storyPrefix, "breakline"), AppendSpecial(SpecialChars::LINEBREAK) );
-	ruleset.addRule(Digester::concat(storyPrefix, "breakcol"), AppendSpecial(SpecialChars::COLBREAK) );
-	ruleset.addRule(Digester::concat(storyPrefix, "breakframe"), AppendSpecial(SpecialChars::FRAMEBREAK) );
-	ruleset.addRule(Digester::concat(storyPrefix, "tab"), AppendSpecial(SpecialChars::TAB) ); 
-	ruleset.addRule(Digester::concat(storyPrefix, "unicode"), AppendSpecial() ); 
-	ruleset.addRule(Digester::concat(storyPrefix, "var"), AppendSpecial(SpecialChars::PAGENUMBER) ); 
+	ruleset.addRule(Digester::concat(spanPrefix, "breakline"), AppendSpecial(SpecialChars::LINEBREAK) );
+	ruleset.addRule(Digester::concat(spanPrefix, "breakcol"), AppendSpecial(SpecialChars::COLBREAK) );
+	ruleset.addRule(Digester::concat(spanPrefix, "breakframe"), AppendSpecial(SpecialChars::FRAMEBREAK) );
+	ruleset.addRule(Digester::concat(spanPrefix, "tab"), AppendSpecial(SpecialChars::TAB) ); 
+	ruleset.addRule(Digester::concat(spanPrefix, "unicode"), AppendSpecial() ); 
+	ruleset.addRule(Digester::concat(spanPrefix, "var"), AppendSpecial(SpecialChars::PAGENUMBER) ); 
 	
 	//PageItem::desaxeRules(storyPrefix, ruleset); argh, that would be recursive!
-	ruleset.addRule(Digester::concat(storyPrefix, "item"), AppendInlineFrame() ); 
+	ruleset.addRule(Digester::concat(spanPrefix, "item"), AppendInlineFrame() ); 
 	
 }

@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
+#include "sccolor.h"
 #include "util.h"
 #include "desaxe/simple_actions.h"
 #include "desaxe/saxXML.h"
@@ -40,6 +41,13 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
 	// register desaxe rules for styles, colors and elems
 	addRule("/SCRIBUSFRAGMENT", Factory<QPtrList<PageItem> >());
+	
+	addRule("/SCRIBUSFRAGMENT/color", Factory<ScColor>());
+	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "RGB" ));
+	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "CMYK" ));
+	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setSpotColor, "Spot", &parseBool ));
+	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setRegistrationColor, "Register", &parseBool ));
+
 	PageItem::desaxeRules("", *this, "item");
 	addRule("/SCRIBUSFRAGMENT/item", SetterP<QPtrList<PageItem>,const PageItem,PageItem>( & QPtrList<PageItem>::append ));
 	addRule("/SCRIBUSFRAGMENT", Result<QPtrList<PageItem> >());	
@@ -53,12 +61,38 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	handler.beginDoc();
 	handler.begin("SCRIBUSFRAGMENT", attr);
 	ScribusDoc* doc = selection.itemAt(0)->doc();
+	
+	
+	QMap<QString,int>::Iterator itf;
+	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
+	{
+		attr["name"] = itf.key();
+		handler.beginEnd("font", attr);
+	}
+	
+	ColorList usedColors;
+	doc->getUsedColors(usedColors, false);
+	ColorList::Iterator itc;
+	for (itc = usedColors.begin(); itc != usedColors.end(); ++itc)
+	{
+		Xml_attr cattr;
+		cattr["name"] = itc.key();
+		if (doc->PageColors[itc.key()].getColorModel() == colorModelRGB)
+			cattr["RGB"] = doc->PageColors[itc.key()].nameRGB();
+		else
+			cattr["CMYK"] = doc->PageColors[itc.key()].nameCMYK();
+		cattr["Spot"] = toXMLString(doc->PageColors[itc.key()].isSpotColor());
+		cattr["Register"] = toXMLString(doc->PageColors[itc.key()].isRegistrationColor());
+		handler.beginEnd("color", cattr);
+	}
+	
 	for (uint i=0; i < doc->Items->count(); ++i)
 	{
 		int k = selection.findItem(doc->Items->at(i));
 		if (k >=0)
 			doc->Items->at(i)->saxx(handler);
 	}
+
 	handler.end("SCRIBUSFRAGMENT");
 	handler.endDoc();
 }
