@@ -101,7 +101,7 @@ public:
 	QByteArray ImageToGray();
 	QByteArray ImageToCMYK_PS(int pl, bool pre);
 	QByteArray ImageToCMYK_PDF(bool pre);
-	QByteArray getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72);
+	QByteArray getAlpha(QString fn, bool PDF, bool pdf14, int gsRes = 72, int scaleXSize = 0, int scaleYSize = 0);
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects

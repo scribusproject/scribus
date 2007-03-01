@@ -5985,9 +5985,9 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		else
 		{
 			if (Options.Version >= 14)
-				im2 = img2.getAlpha(fn, true, true, afl);
+				im2 = img2.getAlpha(fn, true, true, afl, img.width(), img.height());
 			else
-				im2 = img2.getAlpha(fn, true, false, afl);
+				im2 = img2.getAlpha(fn, true, false, afl, img.width(), img.height());
 			if (!im2.isEmpty())
 				alphaM = true;
 		}

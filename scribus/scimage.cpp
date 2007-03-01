@@ -1672,7 +1672,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 	return;
 }
 
-QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
+QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int scaleXSize, int scaleYSize)
 {
 	QByteArray retArray;
 	ScImgDataLoader* pDataLoader = NULL;
@@ -1724,6 +1724,8 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			delete pDataLoader;
 			return retArray;
 		}
+		if ((scaleXSize != 0) && (scaleYSize != 0))
+			rImage = rImage.smoothScale(scaleXSize, scaleYSize);
 		int i = 0;
 		unsigned char u;
 		int hm = rImage.height();
