@@ -2558,11 +2558,20 @@ void Mpalette::NewX()
 		{
 			if ((CurItem->asLine()) && (LMode))
 			{
+				w += doc->rulerXoffset;
+				h += doc->rulerYoffset;
+				if (doc->guidesSettings.rulerMode)
+				{
+					w += doc->currentPage()->xOffset();
+					h += doc->currentPage()->yOffset();
+				}
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				doc->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
+//				doc->MoveItem(x - CurItem->xPos(), 0, CurItem, true);
+				CurItem->setXYPos(x, CurItem->yPos(), true);
+				CurItem->setRotation(r, true);
 				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-				doc->RotateItem(r, CurItem->ItemNr);
+//				doc->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -2626,11 +2635,20 @@ void Mpalette::NewY()
 		{
 			if ((CurItem->asLine()) && (LMode))
 			{
+				w += doc->rulerXoffset;
+				h += doc->rulerYoffset;
+				if (doc->guidesSettings.rulerMode)
+				{
+					w += doc->currentPage()->xOffset();
+					h += doc->currentPage()->yOffset();
+				}
 				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				doc->MoveItem(0, y - CurItem->yPos(), CurItem, true);
+//				doc->MoveItem(0, y - CurItem->yPos(), CurItem, true);
+				CurItem->setXYPos(CurItem->xPos(), y, true);
+				CurItem->setRotation(r, true);
 				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
-				doc->RotateItem(r, CurItem->ItemNr);
+//				doc->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
