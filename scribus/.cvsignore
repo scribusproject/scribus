@@ -30,6 +30,10 @@ multiprogressdialogbase.h
 pageitemattributesbase.h
 patterndialogbase.h
 picsearchbase.h
+picsearchoptionsbase.h
+picsearchoptionsbase.cpp
+picstatusbase.h
+picstatusbase.cpp
 smcstylewbase.h
 smlinestylewbase.h
 smpstylewbase.h
