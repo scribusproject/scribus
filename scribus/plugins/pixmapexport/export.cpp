@@ -95,7 +95,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 	Q_ASSERT(target.isEmpty());
 	Q_ASSERT(!doc->masterPageMode());
 	ExportBitmap *ex = new ExportBitmap();
-	ExportForm *dia = new ExportForm(doc->scMW(), ex->pageDPI, ex->quality, ex->bitmapType, doc->pageWidth, doc->pageHeight, doc->DocPages.count());
+	ExportForm *dia = new ExportForm(doc->scMW(), doc, ex->pageDPI, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
 	QString tmp;
@@ -165,12 +165,13 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 
 	if (!doc->Pages->at(pageNr))
 		return false;
+	Page* page = doc->Pages->at(pageNr);
 
 	/* a little magic here - I need to compute the "maxGr" value...
 	* We need to know the right size of the page for landscape,
 	* portrait and user defined sizes.
 	*/
-	double pixmapSize = (doc->pageHeight > doc->pageWidth) ? doc->pageHeight : doc->pageWidth;
+	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
 	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false));
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
