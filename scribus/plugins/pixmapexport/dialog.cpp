@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qdir.h>
 #include <qfiledialog.h>
+#include "scribusdoc.h"
 #include "createrange.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -37,12 +38,9 @@ for which a new license (GPL+exception) is in place.
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, double cPageW, double cPageH, int pageCount)
-	: QDialog(parent, "ExportForm", true, 0),
-	m_PageCount(pageCount)
+ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)
+	: QDialog(parent, "ExportForm", true, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
 {
-	pw = cPageW;
-	ph = cPageH;
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
 	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout");
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
@@ -160,6 +158,8 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, dou
 void ExportForm::computeSize()
 {
 	double pixmapSize;
+	double pw = (OnePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth;
+	double ph = (OnePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
 	(ph > pw) ? pixmapSize = ph : pixmapSize = pw;
 	int maxGr = qRound(pixmapSize * EnlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
 	double sc = QMIN(maxGr / pw, maxGr / ph);
@@ -189,18 +189,21 @@ void ExportForm::IntervalPagesRadio_stateChanged(int)
 {
 	RangeVal->setEnabled(true);
 	pageNrButton->setEnabled(true);
+	computeSize();
 }
 
 void ExportForm::AllPagesRadio_stateChanged(int)
 {
 	RangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
+	computeSize();
 }
 
 void ExportForm::OnePageRadio_stateChanged(int)
 {
 	RangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
+	computeSize();
 }
 
 /*

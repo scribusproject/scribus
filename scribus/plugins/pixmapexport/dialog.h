@@ -23,13 +23,14 @@ class QPushButton;
 class QSpinBox;
 class PrefsContext;
 class MSpinBox;
+class ScribusDoc;
 
 class ExportForm : public QDialog
 {
 	Q_OBJECT
 
 public:
-	ExportForm( QWidget* parent, int size, int quality, QString type, double cPageW, double cPageH, int pageCount);
+	ExportForm( QWidget* parent, ScribusDoc* doc, int size, int quality, QString type);
 	~ExportForm();
 
 	QString bitmapType;
@@ -55,8 +56,7 @@ public:
 	QLineEdit* RangeVal;
 	QPushButton* OkButton;
 	QPushButton* CancelButton;
-	double pw;
-	double ph;
+	
 
 public slots:
 	virtual void OutputDirectoryButton_pressed();
@@ -77,8 +77,9 @@ protected:
 	QHBoxLayout *pageNumberSelectorLayout;
 	QPushButton* pageNrButton;
 	PrefsContext* prefs;
+	ScribusDoc*  m_doc;
 	int m_PageCount;
-
+	
 protected slots:
 	virtual void createPageNumberRange();
 	virtual void languageChange();
