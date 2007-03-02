@@ -329,6 +329,7 @@ class Gradient_body : public Action_body
 			item->GrStartY = parseDouble(attr["GRSTARTY"]);
 			item->GrEndX = parseDouble(attr["GRENDX"]);
 			item->GrEndY = parseDouble(attr["GRENDY"]);
+			item->fill_gradient.clearStops();
 		}
 	}
 };
