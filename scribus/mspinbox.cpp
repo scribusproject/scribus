@@ -275,7 +275,7 @@ int MSpinBox::mapTextToValue(bool *)
 		ts.replace(trStrP, strP);
 	if (trStrCM.localeAwareCompare(strCM)!=0)
 		ts.replace(trStrCM, strCM);
-	if (trStrC.localeAwareCompare(strPT)!=0)
+	if (trStrC.localeAwareCompare(strC)!=0)
 		ts.replace(trStrC, strC);
 	//Replace in our typed text all of the units strings with *unitstring
 	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
@@ -290,12 +290,12 @@ int MSpinBox::mapTextToValue(bool *)
 	//Get the index of our suffix
 	int toConvertToIndex=unitIndexFromString(su);
 	//Add in the fparser constants using our unit strings, and the conversion factors.
-	fp.AddConstant(strPT, value2value(1.0, SC_PT, toConvertToIndex));
-	fp.AddConstant(strMM, value2value(1.0, SC_MM, toConvertToIndex));
-	fp.AddConstant(strIN, value2value(1.0, SC_IN, toConvertToIndex));
-	fp.AddConstant(strP, value2value(1.0, SC_P, toConvertToIndex));
-	fp.AddConstant(strCM, value2value(1.0, SC_CM, toConvertToIndex));
-	fp.AddConstant(strC, value2value(1.0, SC_C, toConvertToIndex));
+	fp.AddConstant(strPT.local8Bit().data(), value2value(1.0, SC_PT, toConvertToIndex));
+	fp.AddConstant(strMM.local8Bit().data(), value2value(1.0, SC_MM, toConvertToIndex));
+	fp.AddConstant(strIN.local8Bit().data(), value2value(1.0, SC_IN, toConvertToIndex));
+	fp.AddConstant(strP.local8Bit().data(), value2value(1.0, SC_P, toConvertToIndex));
+	fp.AddConstant(strCM.local8Bit().data(), value2value(1.0, SC_CM, toConvertToIndex));
+	fp.AddConstant(strC.local8Bit().data(), value2value(1.0, SC_C, toConvertToIndex));
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
