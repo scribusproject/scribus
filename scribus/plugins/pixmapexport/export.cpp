@@ -165,15 +165,13 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = true)
 
 	if (!ScMW->doc->Pages->at(pageNr))
 		return false;
+	Page* page = ScMW->doc->Pages->at(pageNr);
 
 	/* a little magic here - I need to compute the "maxGr" value...
 	* We need to know the right size of the page for landscape,
 	* portrait and user defined sizes.
 	*/
-	double pixmapSize;
-	(ScMW->doc->pageHeight > ScMW->doc->pageWidth)
-			? pixmapSize = ScMW->doc->pageHeight
-			: pixmapSize = ScMW->doc->pageWidth;
+	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
 	QImage im = ScMW->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false);
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
