@@ -77,6 +77,7 @@ public:
 
 private:
 		ScribusDoc& m_Doc;
+	Selection importCollection();
 };
 
 #endif

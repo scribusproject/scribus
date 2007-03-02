@@ -12,7 +12,7 @@
 #include "pageitem_polygon.h"
 #include "pageitem_line.h"
 #include "scribusdoc.h"
-
+#include "colorutil.h"
 
 
 using namespace desaxe;
@@ -41,6 +41,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	result.insert("level", toXMLString(item->ItemNr));
 	result.insert("itemtype", toXMLString(item->itemType()));
 	
+	result.insert("is-annotation", toXMLString(item->isAnnotation()));
 	result.insert("is-bookmark", toXMLString(item->isPDFBookmark()));
 	result.insert("printable", toXMLString(item->printEnabled()));
 	result.insert("locked", toXMLString(item->locked()));
@@ -166,6 +167,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	return result;
 }	
 
+
 void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 {
 	Xml_attr att(PageItemXMLAttributes(this));
@@ -220,6 +222,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 		else
 		{
 			Xml_attr gradient;
+			gradient.insert("GRTYPE", toXMLString(GrType));
 			gradient.insert("GRSTARTX", toXMLString(GrStartX));
 			gradient.insert("GRSTARTY", toXMLString(GrStartY));
 			gradient.insert("GRENDX", toXMLString(GrEndX));
@@ -252,6 +255,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 	}
 	handler.end(elemtag);
 }
+
 
 
 class CreatePageItem_body : public Generator_body<PageItem>
@@ -301,6 +305,71 @@ class SetItemText : public MakeAction<SetItemText_body>
 {};
 
 
+
+class Gradient_body : public Action_body
+{
+	void begin (const Xml_string tagName, Xml_attr attr)
+	{
+		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
+		if (tagName=="CStop")
+		{
+			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+			PageItem* item = this->dig->top<PageItem>();
+			QString name = attr["NAME"];
+			double ramp = parseDouble(attr["RAMP"]);
+			int shade = parseInt(attr["SHADE"]);
+			double opa = parseDouble(attr["TRANS"]);
+			item->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+		if (tagName=="Gradient")
+		{
+			PageItem* item = this->dig->top<PageItem>();
+			item->GrType = parseInt(attr["GRTYPE"]);
+			item->GrStartX = parseDouble(attr["GRSTARTX"]);
+			item->GrStartY = parseDouble(attr["GRSTARTY"]);
+			item->GrEndX = parseDouble(attr["GRENDX"]);
+			item->GrEndY = parseDouble(attr["GRENDY"]);
+		}
+	}
+};
+
+class Gradient : public MakeAction<Gradient_body>
+{};
+
+
+
+class ImageEffectsAndLayers_body : public Action_body
+{
+	void begin (const Xml_string tagName, Xml_attr attr)
+	{
+		qDebug(QString("pageitem_desaxe: effects/layers %1").arg(tagName));
+		if (tagName=="ImageEffect")
+		{
+			PageItem* obj = this->dig->top<PageItem>();
+			struct ScImage::imageEffect ef;
+			ef.effectParameters = attr["Param"];
+			ef.effectCode = parseInt(attr["Code"]);
+			obj->effectsInUse.append(ef);
+		}
+		if (tagName == "PSDLayer")
+		{
+			PageItem* obj = this->dig->top<PageItem>();
+			struct ImageLoadRequest loadingInfo;
+			loadingInfo.blend = attr["Blend"];
+			loadingInfo.opacity = parseInt(attr["Opacity"]);
+			loadingInfo.visible = parseBool(attr["Visible"]);
+			loadingInfo.useMask = parseBool(attr["useMask"]);
+			obj->pixm.imgInfo.RequestProps.insert(parseInt(attr["Layer"]), loadingInfo);
+			obj->pixm.imgInfo.isRequest = true;
+		}
+	}
+};
+
+class ImageEffectsAndLayers : public MakeAction<ImageEffectsAndLayers_body>
+{};
+
+
+
 class LoadPicture_body : public Action_body
 {
 	void end (const Xml_string /*tagname*/)
@@ -313,6 +382,7 @@ class LoadPicture_body : public Action_body
 
 class LoadPicture : public MakeAction<LoadPicture_body>
 {};
+
 
 
 class AdjustGroupIds_body : public Action_body
@@ -362,6 +432,8 @@ class AdjustGroupIds : public MakeAction<AdjustGroupIds_body>
 
 const Xml_string PageItem::saxxDefaultElem("item");
 
+
+
 void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string itemPrefix(Digester::concat(prefixPattern, elemtag));
@@ -379,6 +451,7 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::??, "itemtype", &parseInt ));  // automatically in createPageItem()
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>(?, "ownpage", &parseInt);  // set to current page in constructor
 	
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsAnnotation,  "is-annotation", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsPDFBookmark,  "is-bookmark", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setPrintEnabled, "printable", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setLocked, "locked", &parseBool ));
@@ -460,9 +533,21 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasRightLine, "RightLine", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasBottomLine, "BottomLine", &parseBool ));
 	
-	// TODO: gradients & patterns
-	// TODO: image effects
-	// TODO: annotation
+	// TODO:  patterns
+	
+	Gradient gradient;
+	Xml_string gradientPrefix(Digester::concat(itemPrefix, "Gradient"));
+	ruleset.addRule(gradientPrefix, gradient);
+	ruleset.addRule(Digester::concat(gradientPrefix, "CStop"), gradient);
+		
+	ImageEffectsAndLayers effectsAndLayers;
+	ruleset.addRule(Digester::concat(itemPrefix, "ImageEffect"), effectsAndLayers);
+	ruleset.addRule(Digester::concat(itemPrefix, "PSDLayer"), effectsAndLayers);
+	
+	Annotation::desaxeRules(itemPrefix, ruleset);
+	ruleset.addRule(Digester::concat(itemPrefix, Annotation::saxxDefaultElem), 
+					SetterWithConversion<PageItem,const Annotation&,Annotation>( & PageItem::setAnnotation ));
+
 	// TODO: obj attributes
 	
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setExternalFile, "image-file" ));

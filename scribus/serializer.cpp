@@ -37,20 +37,68 @@ for which a new license (GPL+exception) is in place.
 using namespace desaxe;
 
 
+struct Collection
+{
+	QPtrList<PageItem> items;
+	ColorList colors;
+	StyleSet<ParagraphStyle> pstyles;
+	StyleSet<CharStyle> cstyles;
+	QValueList<QString> fonts;
+	QValueList<QString> patterns;
+
+	void collectItem(PageItem* p)              { items.append(p); }
+	void collectColor(QString name, ScColor c) { colors[name] = c; }
+	void collectStyle(ParagraphStyle* style)   { if (!style->name().isEmpty()) pstyles.append(style); }
+	void collectCharStyle(CharStyle* style)    { if (!style->name().isEmpty()) cstyles.append(style); }
+	void collectFont(QString name)             { fonts.append(name); }
+	void collectPattern(QString name)          { patterns.append(name); }
+};
+
+
+class CollectColor_body : public Action_body
+{
+	void begin (const Xml_string tagname, Xml_attr attr)
+	{
+		m_name = attr["name"];
+	}
+	
+	void end (const Xml_string tagname)
+	{
+		Collection* coll = this->dig->top<Collection>(1);
+		ScColor* color = this->dig->top<ScColor>();
+		coll->collectColor(m_name, *color);
+	}
+private:
+	QString m_name;
+};
+
+class CollectColor : public MakeAction<CollectColor_body>
+{};
+
+
 Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
 	// register desaxe rules for styles, colors and elems
-	addRule("/SCRIBUSFRAGMENT", Factory<QPtrList<PageItem> >());
+	addRule("/SCRIBUSFRAGMENT", Factory<Collection>());
+	addRule("/SCRIBUSFRAGMENT", Store<Collection>("<collection>"));
 	
 	addRule("/SCRIBUSFRAGMENT/color", Factory<ScColor>());
 	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "RGB" ));
 	addRule("/SCRIBUSFRAGMENT/color", SetAttribute<ScColor, QString>( &ScColor::setNamedColor, "CMYK" ));
 	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setSpotColor, "Spot", &parseBool ));
 	addRule("/SCRIBUSFRAGMENT/color", SetAttributeWithConversion<ScColor, bool>( &ScColor::setRegistrationColor, "Register", &parseBool ));
+	addRule("/SCRIBUSFRAGMENT/color", CollectColor());
+
+	CharStyle::desaxeRules("/SCRIBUSFRAGMENT/", *this);
+	addRule("/SCRIBUSFRAGMENT/charstyle", SetterP<Collection, CharStyle>( & Collection::collectCharStyle ));
+	
+	ParagraphStyle::desaxeRules("/SCRIBUSFRAGMENT/", *this);
+	addRule("/SCRIBUSFRAGMENT/style", SetterP<Collection, ParagraphStyle>( & Collection::collectStyle ));
+
+	addRule("/SCRIBUSFRAGMENT/font", SetAttribute<Collection, QString>( & Collection::collectFont, "name"));
 
 	PageItem::desaxeRules("", *this, "item");
-	addRule("/SCRIBUSFRAGMENT/item", SetterP<QPtrList<PageItem>,const PageItem,PageItem>( & QPtrList<PageItem>::append ));
-	addRule("/SCRIBUSFRAGMENT", Result<QPtrList<PageItem> >());	
+	addRule("/SCRIBUSFRAGMENT/item", SetterP<Collection,PageItem>( & Collection::collectItem ));
 }
 
 
@@ -101,31 +149,28 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 Selection Serializer::deserializeObjects(const QCString & xml)
 {
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
-//	push<QPtrList<PageItem> >(new QPtrList<PageItem>);
+
 	parseMemory(xml, xml.length());
 
-	QPtrList<PageItem>* objects = result<QPtrList<PageItem> >();
-	Selection result( &m_Doc, false);
-
-	for (uint i=0; i < objects->count(); ++i)
-	{
-//		qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
-		PageItem* currItem = objects->at(i);
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-		result.addItem(currItem);
-	}
-
-	delete objects;
-	return result;
+	return importCollection();
 }
 
 Selection Serializer::deserializeObjects(const QFile & file)
 {
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
+
 	QFileInfo fi(file);
 	parseFile(fi.filePath());
+
+	return importCollection();
+}
+
+
+Selection Serializer::importCollection()
+{	
+	Collection* coll = lookup<Collection>("<collection>");
+	QPtrList<PageItem>* objects = &(coll->items);
 	
-	QPtrList<PageItem>* objects = result<QPtrList<PageItem> >();
 	Selection result( &m_Doc, false);
 	
 	for (uint i=0; i < objects->count(); ++i)
@@ -136,7 +181,10 @@ Selection Serializer::deserializeObjects(const QFile & file)
 		result.addItem(currItem);
 	}
 	
-	delete objects;
+	m_Doc.PageColors.addColors(coll->colors, false);
+	
+	
+	delete coll;
 	return result;
 }
 

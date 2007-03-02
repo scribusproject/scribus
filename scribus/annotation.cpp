@@ -49,5 +49,56 @@ void Annotation::saxx(SaxHandler& handler, Xml_string elemtag) const
 
 const Xml_string Annotation::saxxDefaultElem("pdfannotation");
 
+
+class ParseAnnotation_body : public Action_body
+{
+public:
+	void begin(const Xml_string tagname, Xml_attr attr)
+	{
+		Annotation* ann = this->dig->top<Annotation>();
+		ann->setType(parseInt(attr["ANTYPE"]));
+		ann->setAction(attr["ANACTION"]);
+		ann->setE_act(attr["ANEACT"]);
+		ann->setX_act(attr["ANXACT"]);
+		ann->setD_act(attr["ANDACT"]);
+		ann->setFo_act(attr["ANFOACT"]);
+		ann->setBl_act(attr["ANBLACT"]);
+		ann->setK_act(attr["ANKACT"]);
+		ann->setF_act(attr["ANFACT"]);
+		ann->setV_act(attr["ANVACT"]);
+		ann->setC_act(attr["ANCACT"]);
+		ann->setExtern(attr["ANEXTERN"]);
+		ann->setZiel(parseInt(attr["ANZIEL"]));
+		ann->setActionType(parseInt(attr["ANACTYP"]));
+		ann->setToolTip(attr["ANTOOLTIP"]);
+		ann->setBwid(parseInt(attr["ANBWID"]));
+		ann->setBsty(parseInt(attr["ANBSTY"]));
+		ann->setFeed(parseInt(attr["ANFEED"]));
+		ann->setFlag(parseInt(attr["ANFLAG"]));
+		ann->setFont(parseInt(attr["ANFONT"]));
+		ann->setFormat(parseInt(attr["ANFORMAT"]));
+		ann->setRollOver(attr["ANROLL"]);
+		ann->setDown(attr["ANDOWN"]);
+		ann->setVis(parseInt(attr["ANVIS"]));
+		ann->setMaxChar(parseInt(attr["ANMC"]));
+		ann->setIsChk(parseBool(attr["ANCHK"]));
+		ann->setAAact(parseBool(attr["ANAA"]));
+		ann->setChkStil(parseInt(attr["ANCHKS"]));
+		ann->setBorderColor(attr["ANBCOL"]);
+		ann->setHTML(parseBool(attr["ANHTML"]));
+		ann->setUseIcons(parseBool(attr["ANICON"]));
+		ann->setIPlace(parseInt(attr["ANPLACE"]));
+		ann->setScaleW(parseInt(attr["ANSCALE"]));
+	}
+};
+
+class ParseAnnotation : public MakeAction<ParseAnnotation_body>
+{};
+
+
 void Annotation::desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
-{}
+{
+	Xml_string annPrefix(Digester::concat(prefixPattern, elemtag));
+	ruleset.addRule(annPrefix, Factory<Annotation>());
+	ruleset.addRule(annPrefix, ParseAnnotation());
+}

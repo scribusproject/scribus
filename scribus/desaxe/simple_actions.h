@@ -573,6 +573,31 @@ struct  SetText : public MakeAction<SetText_body<Type>, typename SetText_body<Ty
 
 
 
+template<class Obj_Type>
+class Store_body : public Action_body
+{
+public:
+	Store_body(Xml_string name) : m_name(name) {}
+	
+	void end(const Xml_string)
+	{
+		Obj_Type* obj = this->dig->template top<Obj_Type>();
+		this->dig->template store<Obj_Type>(m_name, obj);
+	}
+
+private:
+	Xml_string m_name;
+};
+
+
+template <class Type>
+struct  Store : public MakeAction<Store_body<Type>, Xml_string > 
+{
+	Store(Xml_string name) : MakeAction<Store_body<Type>, Xml_string >(name) {}
+};
+
+
+
 /** 
 *  This applies "id" and "idref" attributes to the object on top of the stack.
 *  In case of an "id" attribute, if there is no entry with this ID in
