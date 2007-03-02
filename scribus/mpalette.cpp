@@ -2696,7 +2696,7 @@ void Mpalette::NewW()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					doc->RotateItem(r, CurItem->ItemNr);
+					CurItem->setRotation(r, true);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
 				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);
@@ -2801,7 +2801,7 @@ void Mpalette::NewH()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					doc->RotateItem(r, CurItem->ItemNr);
+					CurItem->setRotation(r, true);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
 				doc->SizeItem(w, CurItem->height(), CurItem->ItemNr, true);

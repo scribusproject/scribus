@@ -8309,7 +8309,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	ma.rotate(currItem->rotation());
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
-	currItem->setWidthHeight(newX, newY);
+	currItem->setWidthHeight(newX, newY, true);
 	if ((RotMode != 0) && (fromMP) && (!isLoading()) && (appMode == modeNormal))
 	{
 		double moveX=dX, moveY=dY;

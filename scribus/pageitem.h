@@ -507,6 +507,7 @@ public:
 	double height() const { return Height; }
 	void setWidth(const double);
 	void setHeight(const double);
+	void setWidthHeight(const double, const double, bool drawingOnly);
 	void setWidthHeight(const double, const double);
 	void resizeBy(const double, const double);
 	//Rotation

@@ -533,6 +533,16 @@ void PageItem::setHeight(const double newHeight)
 	emit widthAndHeight(Width, Height);
 }
 
+void PageItem::setWidthHeight(const double newWidth, const double newHeight, bool drawingOnly)
+{
+	Width = newWidth;
+	Height = newHeight;
+	if (drawingOnly)
+		return;
+	checkChanges();
+	emit widthAndHeight(Width, Height);
+}
+
 void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 {
 	Width = newWidth;
