@@ -1449,6 +1449,7 @@ public:
 	
 	void begin(const Xml_string tag, Xml_attr attr)
 	{
+//		qDebug(QString("spanaction: begin %1").arg(tag));
 		if (tag == "span")
 		{
 			StoryText* story = this->dig->top<StoryText>();
@@ -1462,12 +1463,13 @@ public:
 	void end(const Xml_string tag) 
 	{
 		if (tag == CharStyle::saxxDefaultElem)
+//			qDebug(QString("spanaction: end %1").arg(tag));
 		{
 			if (lastStyle)
 				delete lastStyle;
 			lastStyle = this->dig->top<CharStyle>(0);
 		}
-		else if (tag == "p")
+		else if (tag == "span")
 		{
 			StoryText* story = this->dig->top<StoryText>();
 			int len = story->length();
