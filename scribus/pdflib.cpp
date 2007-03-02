@@ -2590,7 +2590,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 				PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
-				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+/*				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 				if (Seite.ImgObjects.count() != 0)
 				{
 					PutDoc("/XObject <<\n");
@@ -2648,7 +2648,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					}
 					PutDoc(">>\n");
 				}
-				PutDoc(">>\n");
+				PutDoc(">>\n"); */
 				if ((Options.Compress) && (CompAvail))
 					inh = CompressStr(&inh);
 				PutDoc("/Length "+QString::number(inh.length()+1));
@@ -2745,7 +2745,7 @@ QString PDFlib::Write_TransparencyGroup(double trans, int blend, QString &data)
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 	PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
-	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+/*	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
 	{
 		PutDoc("/XObject <<\n");
@@ -2806,7 +2806,7 @@ QString PDFlib::Write_TransparencyGroup(double trans, int blend, QString &data)
 		}
 		PutDoc(">>\n");
 	}
-	PutDoc(">>\n");
+	PutDoc(">>\n"); */
 	if ((Options.Compress) && (CompAvail))
 		data = CompressStr(&data);
 	PutDoc("/Length "+QString::number(data.length()+1));
