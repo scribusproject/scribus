@@ -41,7 +41,6 @@ public:
 	void addStyle(StyleItem *item);
 
 	QMap<QString,Keys> keyMap();
-	int getwflags() const {return getWFlags();};
 
 public slots:
 	void setDoc(ScribusDoc *doc);
