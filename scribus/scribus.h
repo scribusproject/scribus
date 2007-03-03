@@ -532,6 +532,8 @@ public slots:
 	void managePatterns();
 	//! \brief enable or disable the unicode actions and their menus
 	void enableTextActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
+	//! \brief allow SE to get the SM for edit stlyes
+	StyleManager *styleMgr() const {return styleManager;};
 
 signals:
 	void TextISize(int);

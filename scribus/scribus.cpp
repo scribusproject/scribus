@@ -8747,7 +8747,7 @@ void ScribusMainWindow::slotStoryEditor()
 		}
 		CurrStED = storyEditor;
 		connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-		connect(storyEditor, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
+// 		connect(storyEditor, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
 		storyEditor->show();
 		storyEditor->raise();
 	}

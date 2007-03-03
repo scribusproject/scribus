@@ -41,6 +41,7 @@ public:
 	void addStyle(StyleItem *item);
 
 	QMap<QString,Keys> keyMap();
+	int getwflags() const {return getWFlags();};
 
 public slots:
 	void setDoc(ScribusDoc *doc);
@@ -73,6 +74,7 @@ private:
 	int                 rcpToScrapId_;
 
 	bool                isEditMode_;
+	bool                isStoryEditMode_;
 	QPoint              editPosition_;
 	int                 height_;
 	int                 width_;
@@ -83,6 +85,8 @@ private:
 	QString             rcType_;
 	QString             exitEditModeOk_;
 	QString             enterEditModeOk_;
+	QString             doneText;
+	QString             editText;
 
 	ScribusDoc         *doc_;
 	PrefsContext       *prefs_;
@@ -113,6 +117,7 @@ private:
 	void updateActionName(const QString &oldName, const QString &newName);
 	/* QPair.first = type name and QPair.second = style name */
 	void setSelection(const QValueList<QPair<QString, QString> > &selected);
+	void setOkButtonText();
 
 private slots:
 	void slotOk();

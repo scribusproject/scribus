@@ -41,6 +41,8 @@ palettePrefs(0),
 prefsContextName(QString::null),
 visibleOnStartup(false)
 {
+	originalParent=parent;
+	tempParent=0;
 	setIcon(loadIcon("AppIcon.png"));
 	setPrefsContext(name);
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
@@ -218,4 +220,16 @@ void ScrPaletteBase::storeVisibility(bool vis)
 {
 	if (palettePrefs)
 		palettePrefs->set("visible", vis);
+}
+
+int ScrPaletteBase::exec(QWidget* newParent)
+{
+	Q_ASSERT(tempParent==0 && newParent!=0);
+	tempParent=newParent;
+	int wflags=getWFlags();
+	reparent(newParent, wflags , QPoint(0,0), false);
+	int i=QDialog::exec();
+	reparent(originalParent, wflags , QPoint(0,0), false);
+	tempParent=0;
+	return i;
 }

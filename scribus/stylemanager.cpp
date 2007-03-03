@@ -71,6 +71,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 		pname = "styleManager";
 	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
 	isEditMode_ = !prefs_->getBool("isEditMode", false);
+	isStoryEditMode_ = false;
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));
 
@@ -124,11 +125,14 @@ void StyleManager::languageChange()
 	nameLabel->setText( tr("Name:"));
 	resetButton->setText( tr("&Reset"));
 	applyButton->setText( tr("&Apply"));
-	okButton->setText(isEditMode_ ? tr("<< &Done") : tr("&Edit >>"));
+	doneText= tr("&Done");
+	editText= tr("&Edit");
+	setOkButtonText();
 	newButton->setText( tr("&New"));
 	importButton->setText( tr("&Import"));
 	cloneButton->setText( tr("&Clone"));
 	deleteButton->setText( tr("&Delete"));
+
 	if (isEditMode_)
 		QToolTip::add(okButton, exitEditModeOk_);
 	else
@@ -163,6 +167,14 @@ void StyleManager::languageChange()
 	rcpToScrapId_ = rightClickPopup_->insertItem( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
 	rightClickPopup_->insertSeparator();
 	rcpDeleteId_ = rightClickPopup_->insertItem( tr("Delete"), this, SLOT(slotDelete()));
+}
+
+void StyleManager::setOkButtonText()
+{
+	if (!isStoryEditMode_)
+		okButton->setText(isEditMode_ ? "<< " + doneText : editText + " >>");
+	else
+		okButton->setText(CommonStrings::tr_OK);
 }
 
 void StyleManager::setDoc(ScribusDoc *doc)
@@ -716,6 +728,11 @@ void StyleManager::slotOk()
 		        this, SLOT(slotApplyStyle(QListViewItem*)));
 		connect(styleView, SIGNAL(clicked(QListViewItem*)),
 				this, SLOT(slotApplyStyle(QListViewItem*)));
+		if (isStoryEditMode_)
+		{
+			isStoryEditMode_=false;
+			hide();
+		}
 	}
 	else
 	{
@@ -736,7 +753,7 @@ void StyleManager::slotOk()
 		editPosition_.setY(y());
 		prefs_->set("eX", x());
 		prefs_->set("eY", y());
-		okButton->setText(QString("<< %1").arg( tr("&Done")));
+// 		okButton->setText(QString("<< %1").arg( tr("&Done")));
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
@@ -755,6 +772,7 @@ void StyleManager::slotOk()
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 	}
+	setOkButtonText();
 	isFirst = false;
 }
 
@@ -1290,6 +1308,13 @@ void StyleManager::closeEvent(QCloseEvent *e)
 void StyleManager::showEvent(QShowEvent *e)
 {
 	static bool isFirst = true;
+	if (isModal())
+	{
+		isStoryEditMode_=true;
+		applyButton->setEnabled(false);
+		slotEdit();
+	}
+	setOkButtonText();
 	SMBase::showEvent(e);
 	if (isFirst)
 	{

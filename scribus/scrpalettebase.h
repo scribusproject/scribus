@@ -52,6 +52,7 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 	public slots:
 		virtual void setPaletteShown(bool);
 		virtual void setFontSize();
+		int exec(QWidget* newParent);
 		
 	signals:
 		/** @brief Let the action for this palette know when something changes and it hasnt caused it */
@@ -68,6 +69,8 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 		PrefsContext* palettePrefs;
 		QString prefsContextName;
 		bool visibleOnStartup;
+		QWidget* originalParent;
+		QWidget* tempParent;
 		
 	protected slots:
 		virtual void reject();
