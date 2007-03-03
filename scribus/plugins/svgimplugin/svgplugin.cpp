@@ -188,8 +188,18 @@ SVGPlug::SVGPlug( QString fName, int flags ) :
 	Conversion = 0.8;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f = "";
+	bool isCompressed = false;
+	QByteArray bb(3);
+	QFile fi(fName);
+	if (fi.open(IO_ReadOnly))
+	{
+		fi.readBlock(bb.data(), 2);
+		fi.close();
+		if ((bb[0] == QChar(0x1F)) && (bb[1] == QChar(0x8B)))
+			isCompressed = true;
+	}
 #ifdef HAVE_LIBZ
-	if(fName.right(2) == "gz")
+	if ((fName.right(2) == "gz") || (isCompressed))
 	{
 		gzFile gzDoc;
 		char buff[4097];
