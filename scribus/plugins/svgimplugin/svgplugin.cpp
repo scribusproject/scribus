@@ -213,7 +213,17 @@ bool SVGPlug::import(QString fname, int flags)
 bool SVGPlug::loadData(QString fName)
 {
 	QString f("");
-	if(fName.right(2) == "gz")
+	bool isCompressed = false;
+	QByteArray bb(3);
+	QFile fi(fName);
+	if (fi.open(IO_ReadOnly))
+	{
+		fi.readBlock(bb.data(), 2);
+		fi.close();
+		if ((bb[0] == QChar(0x1F)) && (bb[1] == QChar(0x8B)))
+			isCompressed = true;
+	}
+	if ((fName.right(2) == "gz") || (isCompressed))
 	{
 		gzFile gzDoc;
 		char buff[4097];
