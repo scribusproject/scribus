@@ -45,7 +45,7 @@ public:
 	PicStatus(QWidget* parent, ScribusDoc *docu);
 	~PicStatus() {};
 
-	QPixmap PicStatus::createImgIcon(PageItem* item);
+	QPixmap createImgIcon(PageItem* item);
 
 	/*! \brief A slot called when there is a request to re-fill the table
 	of images. It clears the table at first. Then it iterates through
