@@ -371,8 +371,7 @@ void FontPrefs::rebuildDialog()
 	}
 	fontList->sort();
 	UsedFonts.sort();
-	UpdateFliste();
-
+	FlagsRepl.clear();
 	int a = 0;
 	QMap<QString,QString>::Iterator itfsu;
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
@@ -386,4 +385,5 @@ void FontPrefs::rebuildDialog()
 		FlagsRepl.append(item);
 		a++;
 	}
+	UpdateFliste();
 }
