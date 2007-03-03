@@ -45,7 +45,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-PicItem::PicItem(QIconView* parent, QString text, QPixmap& pix, PageItem* pgItem) : QIconViewItem(parent, text, pix)
+PicItem::PicItem(QIconView* parent, QString text, QPixmap pix, PageItem* pgItem) : QIconViewItem(parent, text, pix)
 {
 	PageItemObject = pgItem;
 }
@@ -69,6 +69,38 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : PicStatusBase( parent,
 	connect(buttonEdit, SIGNAL(clicked()), this, SLOT(doEditImage()));
 }
 
+QPixmap PicStatus::createImgIcon(PageItem* item)
+{
+	QPainter p;
+	QPixmap pm(128, 128);
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	p.begin(&pm);
+	p.fillRect(0, 0, 128, 128, imageViewArea->paletteBackgroundColor());
+	p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+	p.setBrush(paletteBackgroundColor());
+	p.drawRoundRect(0, 0, 128, 128, 10, 10);
+	p.setPen(Qt::NoPen);
+	p.setBrush(b);
+	p.drawRect(12, 12, 104, 104);
+	if (item->PicAvail)
+	{
+		QImage im2 = item->pixm.smoothScale(104, 104, QImage::ScaleMin);
+		p.drawImage((104 - im2.width()) / 2 + 12, (104 - im2.height()) / 2 + 12, im2);
+	}
+	else
+	{
+		p.setBrush(Qt::NoBrush);
+		p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
+		p.drawLine(12, 12, 116, 116);
+		p.drawLine(12, 116, 116, 12);
+	}
+	p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+	p.setBrush(Qt::NoBrush);
+	p.drawRect(12, 12, 104, 104);
+	p.end();
+	return pm;
+}
+
 void PicStatus::fillTable()
 {
 	PageItem *item;
@@ -80,25 +112,7 @@ void PicStatus::fillTable()
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
 		{
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-			p.begin(&pm);
-			p.fillRect(0, 0, 128, 128, b);
-			if (item->PicAvail)
-			{
-				QImage im2 = item->pixm.smoothScale(128, 128, QImage::ScaleMin);
-				p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
-			}
-			else
-			{
-				p.setBrush(Qt::NoBrush);
-				p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
-				p.drawLine(0, 0, 128, 128);
-				p.drawLine(0, 128, 128, 0);
-				p.setPen(QPen(black, 3, SolidLine, FlatCap, MiterJoin));
-				p.drawRect(0, 0, 128, 128);
-			}
-			p.end();
-			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), pm, item);
+			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
 			ite->setDragEnabled(false);
 		}
 	}
@@ -107,25 +121,7 @@ void PicStatus::fillTable()
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
 		{
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-			p.begin(&pm);
-			p.fillRect(0, 0, 128, 128, b);
-			if (item->PicAvail)
-			{
-				QImage im2 = item->pixm.smoothScale(128, 128, QImage::ScaleMin);
-				p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
-			}
-			else
-			{
-				p.setBrush(Qt::NoBrush);
-				p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
-				p.drawLine(0, 0, 128, 128);
-				p.drawLine(0, 128, 128, 0);
-				p.setPen(QPen(black, 3, SolidLine, FlatCap, MiterJoin));
-				p.drawRect(0, 0, 128, 128);
-			}
-			p.end();
-			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), pm, item);
+			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
 			ite->setDragEnabled(false);
 		}
 	}
@@ -319,28 +315,8 @@ void PicStatus::SearchPic()
 				loadPict(dia2->currentImage);
 				refreshItem(currItem);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
-				QPixmap pm(128, 128);
-				QPainter p;
-				QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-				p.begin(&pm);
-				p.fillRect(0, 0, 128, 128, b);
-				if (currItem->PicAvail)
-				{
-					QImage im2 = currItem->pixm.smoothScale(128, 128, QImage::ScaleMin);
-					p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
-				}
-				else
-				{
-					p.setBrush(Qt::NoBrush);
-					p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
-					p.drawLine(0, 0, 128, 128);
-					p.drawLine(0, 128, 128, 0);
-					p.setPen(QPen(black, 3, SolidLine, FlatCap, MiterJoin));
-					p.drawRect(0, 0, 128, 128);
-				}
-				p.end();
 				imageViewArea->currentItem()->setText(fi.fileName());
-				imageViewArea->currentItem()->setPixmap(pm);
+				imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
 				imageSelected(imageViewArea->currentItem());
 			}
 			delete dia2;
@@ -359,15 +335,7 @@ void PicStatus::doImageEffects()
 			currItem->effectsInUse = dia->effectsList;
 			loadPict(currItem->Pfile);
 			refreshItem(currItem);
-			QImage im2 = currItem->pixm.smoothScale(128, 128, QImage::ScaleMin);
-			QPixmap pm(128, 128);
-			QPainter p;
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-			p.begin(&pm);
-			p.fillRect(0, 0, 128, 128, b);
-			p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
-			p.end();
-			imageViewArea->currentItem()->setPixmap(pm);
+			imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
 		}
 		delete dia;
 	}
@@ -381,15 +349,7 @@ void PicStatus::doImageExtProp()
 		dia->exec();
 		loadPict(currItem->Pfile);
 		refreshItem(currItem);
-		QImage im2 = currItem->pixm.smoothScale(128, 128, QImage::ScaleMin);
-		QPixmap pm(128, 128);
-		QPainter p;
-		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-		p.begin(&pm);
-		p.fillRect(0, 0, 128, 128, b);
-		p.drawImage((128 - im2.width()) / 2, (128 - im2.height()) / 2, im2);
-		p.end();
-		imageViewArea->currentItem()->setPixmap(pm);
+		imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
 		delete dia;
 	}
 }

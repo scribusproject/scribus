@@ -21,7 +21,7 @@ class QHeader;
 class SCRIBUS_API PicItem : public QIconViewItem
 {
 public:
-	PicItem(QIconView* parent, QString text, QPixmap& pix, PageItem* pgItem);
+	PicItem(QIconView* parent, QString text, QPixmap pix, PageItem* pgItem);
 	~PicItem() {};
 	PageItem *PageItemObject;
 };
@@ -44,6 +44,8 @@ public:
 	 */
 	PicStatus(QWidget* parent, ScribusDoc *docu);
 	~PicStatus() {};
+
+	QPixmap PicStatus::createImgIcon(PageItem* item);
 
 	/*! \brief A slot called when there is a request to re-fill the table
 	of images. It clears the table at first. Then it iterates through
