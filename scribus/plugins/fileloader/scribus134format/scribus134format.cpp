@@ -1604,6 +1604,9 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 	if (it->hasAttribute("EFFECTS"))
 		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("EFFECTS").toInt()));
 	
+	if (it->hasAttribute("EFFECT"))
+		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("EFFECT").toInt()));
+	
 	if (it->hasAttribute("SCOLOR"))
 		newStyle.setStrokeColor(it->attribute("SCOLOR", CommonStrings::None));
 	
@@ -1767,6 +1770,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		else {
 			obj->itemText.insertChars(pos, QString(ch));
 		}
+//		qDebug(QString("style at %1: %2 ^ %3 = %4 (%5)").arg(pos).arg((uint)newStyle.effects()).arg((uint)last->Style.effects()).arg((uint)(newStyle.effects() ^ last->Style.effects())).arg(newStyle != last->Style));
 		if (newStyle != last->Style || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
 		{  // FIXME StyleFlag operator== ignores hyphen flag
 //			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
