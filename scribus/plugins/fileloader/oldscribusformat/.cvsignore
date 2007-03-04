@@ -2,6 +2,7 @@ Makefile
 Makefile.in
 *.la
 *.lo
+*.loT
 *.moc.cpp
 *.moc
 *.o
