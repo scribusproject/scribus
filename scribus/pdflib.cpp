@@ -711,8 +711,24 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	{
 		StartObj(ObjCounter);
 		PutDoc("<<\n/Type /Font\n/Subtype /Type1\n");
-		PutDoc("/Name /FoStd"+QString::number(a));
+		PutDoc("/Name /FoStd"+QString::number(a)+"\n");
 		PutDoc("/BaseFont "+itStd.key()+"\n");
+		if (itStd.key() != "/ZapfDingbats")
+		{
+			PutDoc("/Encoding << \n");
+			PutDoc("/Differences [ \n");
+			PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
+			PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
+			PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
+			PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+			PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
+			PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
+			PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
+			PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
+			PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
+			PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
+			PutDoc("] >>\n");
+		}
 		PutDoc(">>\nendobj\n");
 		Seite.FObjects["FoStd"+QString::number(a)] = ObjCounter;
 		itStd.data() = "FoStd"+QString::number(a);
@@ -1018,6 +1034,34 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 					PutDoc(">>\nendobj\n");
 					Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(Fc)] = ObjCounter;
 					ObjCounter++;
+					if (Fc == 0)
+					{
+						StartObj(ObjCounter);
+						PutDoc("<<\n/Type /Font\n/Subtype ");
+						PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
+						PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
+						PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+						PutDoc("/Encoding << \n");
+						PutDoc("/Differences [ \n");
+						PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
+						PutDoc("39 /quotesingle 96 /grave 128 /bullet /dagger /daggerdbl /ellipsis /emdash /endash /florin /fraction /guilsinglleft /guilsinglright\n");
+						PutDoc("/minus /perthousand /quotedblbase /quotedblleft /quotedblright /quoteleft /quoteright /quotesinglbase /trademark /fi /fl /Lslash /OE /Scaron\n");
+						PutDoc("/Ydieresis /Zcaron /dotlessi /lslash /oe /scaron /zcaron 164 /currency 166 /brokenbar 168 /dieresis /copyright /ordfeminine 172 /logicalnot\n");
+						PutDoc("/.notdef /registered /macron /degree /plusminus /twosuperior /threesuperior /acute /mu 183 /periodcentered /cedilla /onesuperior /ordmasculine\n");
+						PutDoc("188 /onequarter /onehalf /threequarters 192 /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla /Egrave /Eacute /Ecircumflex\n");
+						PutDoc("/Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash\n");
+						PutDoc("/Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla\n");
+						PutDoc("/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis /eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis\n");
+						PutDoc("/divide /oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis\n");
+						PutDoc("] >>\n");
+						PutDoc("/FirstChar 0\n");
+						PutDoc("/LastChar 255\n");
+						PutDoc("/Widths "+QString::number(ObjCounter-3)+" 0 R\n");
+						PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
+						PutDoc(">>\nendobj\n");
+						Seite.FObjects["Fo"+QString::number(a)+"Form"] = ObjCounter;
+						ObjCounter++;
+					}
 				} // for(Fc)
 //			} // FT_Has_PS_Glyph_Names
 		}
@@ -4465,7 +4509,17 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			const QString x[] = {"S", "D", "U", "B", "I"};
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
-			QString cnx = "(/"+StdFonts[ind2PDFabr[ite->annotation().Font()]]+" "+FToStr(ite->fontSize() / 10.0)+" Tf";
+			QString cnx = "(";
+			if (ite->annotation().Type() == 4)
+				cnx += "/"+StdFonts["/ZapfDingbats"];
+			else
+			{
+				if (Options.Version < 14)
+					cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
+				else
+					cnx += UsedFontsP[ite->font()]+"Form";
+			}
+			cnx += " "+FToStr(ite->fontSize() / 10.0)+" Tf";
 			if (ite->TxtFill != CommonStrings::None)
 				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
 			if (ite->fillColor() != CommonStrings::None)
@@ -4735,7 +4789,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "/Tx BMC\nBT\n";
 		if (ite->TxtFill != CommonStrings::None)
 			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
-		cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
+		if (Options.Version < 14)
+			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
+		else
+			cc += UsedFontsP[ite->font()]+"Form";
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4773,7 +4830,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
-		cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
+		if (Options.Version < 14)
+			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
+		else
+			cc += UsedFontsP[ite->font()]+"Form";
 		cc += " "+FToStr(ite->fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
