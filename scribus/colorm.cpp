@@ -780,7 +780,7 @@ void ColorManager::delFarbe()
 	if (dia->exec())
 	{
 		QString replacementColor(dia->getReplacementColor());
-		if (replacementColor == CommonStrings::NoneColor)
+		if (replacementColor == CommonStrings::tr_NoneColor)
 			replacementColor = CommonStrings::None;
 		if (replaceMap.values().contains(sFarbe))
 		{
@@ -832,7 +832,7 @@ void ColorManager::updateCList()
 	colorListBox->clear();
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
 		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}

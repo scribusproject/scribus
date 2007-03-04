@@ -27,7 +27,8 @@ QString CommonStrings::tr_Apply    = "";
 QString CommonStrings::_Cancel     = "";
 QString CommonStrings::tr_Cancel   = "";
 QString CommonStrings::None        = "";
-QString CommonStrings::NoneColor   = "";
+QString CommonStrings::tr_None     = "";
+QString CommonStrings::tr_NoneColor= "";
 QString CommonStrings::_OK         = "";
 QString CommonStrings::tr_OK       = "";
 QString CommonStrings::_Save       = "";
@@ -177,8 +178,9 @@ void CommonStrings::languageChange()
 	CommonStrings::_Cancel    = "&Cancel";
 	CommonStrings::tr_Cancel  = tr( "&Cancel" );
 
-	CommonStrings::None       = "None";
-	CommonStrings::NoneColor  = tr("None", "color name");
+	CommonStrings::None        = "None";
+	CommonStrings::tr_None     = tr( "None" );
+	CommonStrings::tr_NoneColor= tr("None", "color name");
 
 	CommonStrings::_OK        = "&OK";
 	CommonStrings::tr_OK      = tr( "&OK" );

@@ -762,8 +762,8 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	strokeColor_->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	fillColor_->insertItem(CommonStrings::NoneColor);
-	strokeColor_->insertItem(CommonStrings::NoneColor);
+	fillColor_->insertItem(CommonStrings::tr_NoneColor);
+	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
@@ -825,8 +825,8 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	fillColor_->clear();
 	strokeColor_->clear();
 
-	fillColor_->insertItem(CommonStrings::NoneColor);
-	strokeColor_->insertItem(CommonStrings::NoneColor);
+	fillColor_->insertItem(CommonStrings::tr_NoneColor);
+	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
 	ColorList::Iterator itend=colors.end();
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)

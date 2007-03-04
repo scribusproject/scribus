@@ -159,7 +159,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
 	BorderC = new ColorCombo( true, GroupBox20, "BorderC" );
 	ColorList::Iterator cit;
-	BorderC->insertItem(CommonStrings::NoneColor);
+	BorderC->insertItem(CommonStrings::tr_NoneColor);
 	if (item->annotation().borderColor() == CommonStrings::None)
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
@@ -175,7 +175,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox20Layout->addWidget( TextLabel40, 1, 0 );
 	BorderW = new QComboBox( true, GroupBox20, "BorderW" );
 	// PFJ - 28/02/04 - Altered to the QString/size_t/for style
-	QString borders[] = {CommonStrings::NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};
+	QString borders[] = {CommonStrings::tr_NoneColor, tr("Thin"), tr("Normal"), tr("Wide")};
 	size_t bordersArray = sizeof(borders) / sizeof(*borders);
 	for (uint propogate = 0; propogate < bordersArray; ++propogate)
 		BorderW->insertItem(borders[propogate]);
@@ -1714,7 +1714,7 @@ void Annot::SetVals()
 	item->annotation().setIsChk(isChkd->isChecked());
 	item->annotation().setChkStil(ChkStil->currentItem());
 	item->annotation().setBorderColor(BorderC->currentText());
-	if (item->annotation().borderColor() == CommonStrings::NoneColor)
+	if (item->annotation().borderColor() == CommonStrings::tr_NoneColor)
 		item->annotation().setBorderColor(CommonStrings::None);
 	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
 	if (item->annotation().Type() == 2)

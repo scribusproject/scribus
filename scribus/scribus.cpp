@@ -6454,7 +6454,7 @@ void ScribusMainWindow::setItemShade(int id)
 
 void ScribusMainWindow::setCSMenu()
 {
-	QString la = CommonStrings::NoneColor;
+	QString la = CommonStrings::tr_NoneColor;
 	int lb = 100;
 	PageItem *currItem;
 	if (doc->m_Selection->count() != 0)
@@ -6480,7 +6480,7 @@ void ScribusMainWindow::setCSMenu()
 		}
 	}
 	if (la == CommonStrings::None)
-		la = CommonStrings::NoneColor;
+		la = CommonStrings::tr_NoneColor;
 	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
 	{
 		if (ColorMenC->text(a) == la)
@@ -9134,10 +9134,10 @@ void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
 {
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();
-	ColorMenC->insertItem(CommonStrings::NoneColor);
+	ColorMenC->insertItem(CommonStrings::tr_NoneColor);
 	if (HaveDoc)
 	{
-		if (doc->toolSettings.dBrush == CommonStrings::NoneColor)
+		if (doc->toolSettings.dBrush == CommonStrings::tr_NoneColor)
 			ColorMenC->setCurrentItem(0);
 		int a = 1;
 		ColorList::Iterator itend=doc->PageColors.end();

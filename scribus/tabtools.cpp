@@ -578,7 +578,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	ColorList::Iterator itc, endOfColorList;
 	ColorList* colorList = (docu != 0) ? (&docu->PageColors) : prefsManager->colorSetPtr();
 	colorComboText->clear();
-	colorComboText->insertItem(CommonStrings::NoneColor);
+	colorComboText->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dPenText == CommonStrings::None)
 		colorComboText->setCurrentItem(colorComboText->count()-1);
 	endOfColorList=colorList->end();
@@ -592,7 +592,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	shadingText->setValue(prefsData->dTextPenShade);
 
 	colorComboStrokeText->clear();
-	colorComboStrokeText->insertItem(CommonStrings::NoneColor);
+	colorComboStrokeText->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dStrokeText == CommonStrings::None)
 		colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 	endOfColorList=colorList->end();
@@ -605,7 +605,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	shadingTextStroke->setValue(prefsData->dTextStrokeShade);
 
 	colorComboTextBackground->clear();
-	colorComboTextBackground->insertItem(CommonStrings::NoneColor);
+	colorComboTextBackground->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dTextBackGround == CommonStrings::None)
 		colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 	endOfColorList=colorList->end();
@@ -618,7 +618,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	shadingTextBack->setValue(prefsData->dTextBackGroundShade);
 
 	colorComboTextLine->clear();
-	colorComboTextLine->insertItem(CommonStrings::NoneColor);
+	colorComboTextLine->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dTextLineColor == CommonStrings::None)
 		colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 	endOfColorList=colorList->end();
@@ -665,7 +665,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	gapText->setValue(prefsData->dGap * unitRatio);
 
 	colorComboLineShape->clear();
-	colorComboLineShape->insertItem(CommonStrings::NoneColor);
+	colorComboLineShape->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dPen == CommonStrings::None)
 		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 	endOfColorList=colorList->end();
@@ -715,7 +715,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	lineWidthShape->setValue(prefsData->dWidth);
 
 	colorComboLine->clear();
-	colorComboLine->insertItem(CommonStrings::NoneColor);
+	colorComboLine->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dPenLine == CommonStrings::None)
 		colorComboLine->setCurrentItem(colorComboLine->count()-1);
 	endOfColorList=colorList->end();
@@ -771,7 +771,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	checkRatioImage->setChecked(prefsData->aspectRatio);
 
 	comboFillImage->clear();
-	comboFillImage->insertItem(CommonStrings::NoneColor);
+	comboFillImage->insertItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dBrushPict == CommonStrings::None)
 		comboFillImage->setCurrentItem(comboFillImage->count()-1);
 	endOfColorList=colorList->end();
@@ -893,7 +893,7 @@ void TabTools::setSample()
 
 	SampleItem *si = new SampleItem(docu);
 	si->setText( tr("Woven silk pyjamas exchanged for blue quartz"));
-	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
+	if (colorComboTextBackground->currentText() != CommonStrings::tr_NoneColor)
 	{
 		if (docu != 0)
 		{
@@ -911,7 +911,7 @@ void TabTools::setSample()
 	else
 		si->setBgColor(paletteBackgroundColor());
 
-	if (colorComboText->currentText() != CommonStrings::NoneColor)
+	if (colorComboText->currentText() != CommonStrings::tr_NoneColor)
 	{
 		if (docu != 0)
 		{

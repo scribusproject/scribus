@@ -473,7 +473,7 @@ void Cpalette::updateCList()
 	disconnect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
-		colorListQLBox->insertItem(CommonStrings::NoneColor);
+		colorListQLBox->insertItem(CommonStrings::tr_NoneColor);
 	colorListQLBox->insertItems(colorList, ColorListBox::fancyPixmap);
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));

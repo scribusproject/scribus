@@ -84,7 +84,8 @@ public:
 	static QString _Cancel;
 	static QString tr_Cancel;
 	static QString None;
-	static QString NoneColor;
+	static QString tr_None;
+	static QString tr_NoneColor;
 	static QString _OK;
 	static QString tr_OK;
 	static QString _Save;

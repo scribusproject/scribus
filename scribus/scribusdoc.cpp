@@ -4807,7 +4807,7 @@ void ScribusDoc::ItemPen(QString farbe)
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
 	{
-		if (farbe == CommonStrings::NoneColor)
+		if (farbe == CommonStrings::tr_NoneColor)
 			farbe = CommonStrings::None;
 		if (selectedItemCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup,
@@ -4844,7 +4844,7 @@ void ScribusDoc::itemSelection_SetFillShade(int sha, Selection* customSelection)
 
 void ScribusDoc::itemSelection_SetStrokeColor(QString farbe, Selection* customSelection)
 {
-	if (farbe == CommonStrings::NoneColor)
+	if (farbe == CommonStrings::tr_NoneColor)
 		farbe = CommonStrings::None;
 	
 	CharStyle newStyle;
@@ -4913,7 +4913,7 @@ void ScribusDoc::itemSelection_SetOutlineWidth(int wid, Selection* customSelecti
 
 void ScribusDoc::ItemBrush(QString farbe)
 {
-	if (farbe == CommonStrings::NoneColor)
+	if (farbe == CommonStrings::tr_NoneColor)
 		farbe = CommonStrings::None;
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)

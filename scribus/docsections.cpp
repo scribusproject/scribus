@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtable.h>
 #include <qtooltip.h>
 
+#include "commonstrings.h"
 #include "pagestructs.h"
 
 
@@ -70,7 +71,7 @@ void DocSections::setup(const DocumentSectionMap docSections, int maxPageIndex)
 	localSections=docSections;
 	m_maxpageindex=maxPageIndex;
 	
-	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...");
+	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << CommonStrings::tr_None;
 	
 	updateTable();
 }
@@ -98,7 +99,10 @@ void DocSections::updateTable()
 		//Style
 		QComboTableItem *item5 = new QComboTableItem(sectionsTable, styles);
 		sectionsTable->setItem(row, i++, item5);
-		item5->setCurrentItem((*it).type);
+		if ((*it).type==Type_None)
+			item5->setCurrentItem(styles.count()-1);
+		else
+			item5->setCurrentItem((*it).type);
 		//Start Page Number
 		QTableItem *item6 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
@@ -158,8 +162,11 @@ void DocSections::tableItemChanged( int row, int col )
 			if (qcti!=NULL)
 			{
 				uint index=qcti->currentItem();
-				if (index<styles.count())
+				if (index<styles.count()-1)
 					localSections[row].type=(DocumentSectionType)index;
+				else 
+					if (index==styles.count()-1)
+					localSections[row].type=Type_None;
 			}
 		}
 		break;

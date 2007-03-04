@@ -1168,6 +1168,8 @@ const QString getStringFromSequence(DocumentSectionType type, uint position)
 			//ie, X=10, x=10000
 			retVal=arabicToRoman(position).lower();
 			break;
+		case Type_None:
+			break;
 		default:
 			break;
 	}

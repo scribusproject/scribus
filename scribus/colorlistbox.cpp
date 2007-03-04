@@ -146,7 +146,7 @@ void ColorListBox::insertSmallPixmapItems(ColorList& list)
 	ScribusDoc* doc = list.document();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
 		insertItem( new ColorSmallPixmapItem(it.data(), doc, it.key()) );
 	}
@@ -158,7 +158,7 @@ void ColorListBox::insertWidePixmapItems(ColorList& list)
 	ScribusDoc* doc = list.document();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
 		insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
 	}
@@ -170,7 +170,7 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 	ScribusDoc* doc = list.document();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
 		insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}

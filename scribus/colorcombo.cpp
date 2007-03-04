@@ -42,7 +42,7 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 	{
 		clb->clear();
 		if ( insertNone )
-			clb->insertItem(CommonStrings::NoneColor);
+			clb->insertItem(CommonStrings::tr_NoneColor);
 		if ( pixType == ColorCombo::fancyPixmaps )
 			clb->insertItems(list, ColorListBox::fancyPixmap);
 		else if ( pixType == ColorCombo::widePixmaps )

@@ -1041,7 +1041,7 @@ void CMYKChoose::setValues()
 void CMYKChoose::Verlassen()
 {
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
-	if (Farbname->text() == CommonStrings::None || Farbname->text() == CommonStrings::NoneColor)
+	if (Farbname->text() == CommonStrings::None || Farbname->text() == CommonStrings::tr_NoneColor)
 	{
 		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(Farbname->text()), 0);
 		Farbname->setFocus();
