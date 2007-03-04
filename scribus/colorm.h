@@ -56,19 +56,19 @@ private:
 	ColorListBox* colorListBox;
 	QGroupBox* ColorsGroup;
 	QGroupBox* ColsSetGroup;
-	QPushButton* LoadF;
-	QPushButton* NewF;
-	QPushButton* EditF;
-	QPushButton* DupF;
-	QPushButton* DelF;
-	QPushButton* DelU;
-	QPushButton* SaveF;
-	QPushButton* CancF;
+	QPushButton* importColorsButton;
+	QPushButton* newColorButton;
+	QPushButton* editColorButton;
+	QPushButton* duplicateColorButton;
+	QPushButton* deleteColorButton;
+	QPushButton* deleteUnusedButton;
+	QPushButton* saveButton;
+	QPushButton* cancelButton;
 	QLabel* textLabel1;
 	QPushButton* SaveColSet;
 	QPopupMenu* CSets;
-	QString sFarbe;
-	QColor tmpFarbe;
+	QString sColor;
+	QColor tmpColor;
 	QStringList DontChange;
 	DynamicTip* dynTip;
 	ScribusDoc* m_Doc;
@@ -77,14 +77,14 @@ private slots:
 	void saveDefaults();
 	void loadDefaults(int id);
 	//! \brief Just note: Farbe is German word for Color...
-	void loadFarben();
-	void delFarbe();
-	void delUnused();
-	void duplFarbe();
-	void neueFarbe();
-	void editFarbe();
-	void selFarbe(QListBoxItem*);
-	void selEditFarbe(QListBoxItem*);
+	void importColors();
+	void deleteColor();
+	void deleteUnusedColors();
+	void duplicateColor();
+	void newColor();
+	void editColor();
+	void selColor(QListBoxItem*);
+	void selEditColor(QListBoxItem*);
 	void updateCList();
 
 protected:

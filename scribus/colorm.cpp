@@ -56,24 +56,24 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	ColorsGroup->layout()->setMargin( 11 );
 	Layout1 = new QVBoxLayout( ColorsGroup->layout() );
 	Layout1->setAlignment( Qt::AlignTop );
-	LoadF = new QPushButton( tr( "&Import" ), ColorsGroup, "LoadF" );
-	Layout1->addWidget( LoadF );
-	NewF = new QPushButton( tr( "&New" ), ColorsGroup, "NewF" );
-	Layout1->addWidget( NewF );
-	EditF = new QPushButton( tr( "&Edit" ), ColorsGroup, "EditF" );
-	EditF->setEnabled( false );
-	EditF->setDefault( true );
-	Layout1->addWidget( EditF );
-	DupF = new QPushButton( tr( "D&uplicate" ), ColorsGroup, "DupF" );
-	DupF->setEnabled( false );
-	Layout1->addWidget( DupF );
-	DelF = new QPushButton( tr( "&Delete" ), ColorsGroup, "DelF" );
-	DelF->setEnabled( false );
-	Layout1->addWidget( DelF );
+	importColorsButton = new QPushButton( tr( "&Import" ), ColorsGroup, "importColorsButton" );
+	Layout1->addWidget( importColorsButton );
+	newColorButton = new QPushButton( tr( "&New" ), ColorsGroup, "newColorButton" );
+	Layout1->addWidget( newColorButton );
+	editColorButton = new QPushButton( tr( "&Edit" ), ColorsGroup, "editColorButton" );
+	editColorButton->setEnabled( false );
+	editColorButton->setDefault( true );
+	Layout1->addWidget( editColorButton );
+	duplicateColorButton = new QPushButton( tr( "D&uplicate" ), ColorsGroup, "duplicateColorButton" );
+	duplicateColorButton->setEnabled( false );
+	Layout1->addWidget( duplicateColorButton );
+	deleteColorButton = new QPushButton( tr( "&Delete" ), ColorsGroup, "deleteColorButton" );
+	deleteColorButton->setEnabled( false );
+	Layout1->addWidget( deleteColorButton );
 	if (m_Doc!=0)
 	{
-		DelU = new QPushButton( tr( "&Remove Unused" ), ColorsGroup, "DelU" );
-		Layout1->addWidget( DelU );
+		deleteUnusedButton = new QPushButton( tr( "&Remove Unused" ), ColorsGroup, "deleteUnusedButton" );
+		Layout1->addWidget( deleteUnusedButton );
 	}
 	layout3->addWidget( ColorsGroup );
 	if (m_Doc==0)
@@ -130,11 +130,11 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 		ColsSetGroupLayout->addWidget( SaveColSet );
 		layout3->addWidget( ColsSetGroup );
 	}
-	SaveF = new QPushButton( CommonStrings::tr_OK, this, "SaveF" );
-	layout3->addWidget( SaveF );
-	CancF = new QPushButton( CommonStrings::tr_Cancel, this, "CancF" );
-	CancF->setDefault( true );
-	layout3->addWidget( CancF );
+	saveButton = new QPushButton( CommonStrings::tr_OK, this, "saveButton" );
+	layout3->addWidget( saveButton );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton->setDefault( true );
+	layout3->addWidget( cancelButton );
 	layout5->addLayout( layout3 );
 	Layout2->addLayout( layout5 );
 	replaceMap.clear();
@@ -151,25 +151,25 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	}
 	else
 	{
-		connect(DelU, SIGNAL( clicked() ), this, SLOT( delUnused() ) );
-		QToolTip::add( DelU, "<qt>" + tr( "Remove unused colors from current document's color set" ) + "</qt>");
+		connect(deleteUnusedButton, SIGNAL( clicked() ), this, SLOT( deleteUnusedColors() ) );
+		QToolTip::add( deleteUnusedButton, "<qt>" + tr( "Remove unused colors from current document's color set" ) + "</qt>");
 	}
-	QToolTip::add( LoadF, "<qt>" + tr( "Import colors to the current set from an existing document" ) + "</qt>");
-	QToolTip::add( NewF, "<qt>" + tr( "Create a new color within the current set" ) + "</qt>");
-	QToolTip::add( EditF, "<qt>" + tr( "Edit the currently selected color" ) + "</qt>");
-	QToolTip::add( DupF, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
-	QToolTip::add( DelF, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
-	QToolTip::add( SaveF, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
+	QToolTip::add( importColorsButton, "<qt>" + tr( "Import colors to the current set from an existing document" ) + "</qt>");
+	QToolTip::add( newColorButton, "<qt>" + tr( "Create a new color within the current set" ) + "</qt>");
+	QToolTip::add( editColorButton, "<qt>" + tr( "Edit the currently selected color" ) + "</qt>");
+	QToolTip::add( duplicateColorButton, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
+	QToolTip::add( deleteColorButton, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
+	QToolTip::add( saveButton, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
         QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
-	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
-	connect( EditF, SIGNAL( clicked() ), this, SLOT( editFarbe() ) );
-	connect( DupF, SIGNAL( clicked() ), this, SLOT( duplFarbe() ) );
-	connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
-	connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
-	connect( colorListBox, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
-	connect( colorListBox, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFarbe(QListBoxItem*) ) );
+	connect( saveButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( newColorButton, SIGNAL( clicked() ), this, SLOT( newColor() ) );
+	connect( editColorButton, SIGNAL( clicked() ), this, SLOT( editColor() ) );
+	connect( duplicateColorButton, SIGNAL( clicked() ), this, SLOT( duplicateColor() ) );
+	connect( deleteColorButton, SIGNAL( clicked() ), this, SLOT( deleteColor() ) );
+	connect( importColorsButton, SIGNAL( clicked() ), this, SLOT( importColors() ) );
+	connect( colorListBox, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selColor(QListBoxItem*) ) );
+	connect( colorListBox, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditColor(QListBoxItem*) ) );
 }
 
 void ColorManager::saveDefaults()
@@ -408,12 +408,12 @@ void ColorManager::loadDefaults(int id)
 	updateCList();
 }
 
-void ColorManager::loadFarben()
+void ColorManager::importColors()
 {
 	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Import"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"));
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -534,7 +534,7 @@ void ColorManager::loadFarben()
 	}
 }
 
-void ColorManager::delUnused()
+void ColorManager::deleteUnusedColors()
 {
 	PageItem* ite;
 	bool found;
@@ -706,19 +706,19 @@ void ColorManager::delUnused()
 	updateCList();
 }
 
-void ColorManager::duplFarbe()
+void ColorManager::duplicateColor()
 {
-	QString nam = tr("Copy of %1").arg(sFarbe);
-	EditColors.insert(nam, EditColors[sFarbe]);
-	sFarbe = nam;
-	editFarbe();
+	QString nam = tr("Copy of %1").arg(sColor);
+	EditColors.insert(nam, EditColors[sColor]);
+	sColor = nam;
+	editColor();
 	updateCList();
 }
 
-void ColorManager::neueFarbe()
+void ColorManager::newColor()
 {
-	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
-	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, tr("New Color"), &EditColors, customColSet, true);
+	ScColor tmpColor = ScColor(0, 0, 0, 0);
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, tr("New Color"), &EditColors, customColSet, true);
 	int newItemIndex=0;
 	int colCount=0;
 	if (dia->exec())
@@ -743,12 +743,12 @@ void ColorManager::neueFarbe()
 	colorListBox->setTopItem(newItemIndex);
 }
 
-void ColorManager::editFarbe()
+void ColorManager::editColor()
 {
 	int selectedIndex=colorListBox->currentItem();
 	int topIndex=colorListBox->topItem();
-	ScColor tmpFarbe = EditColors[sFarbe];
-	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, sFarbe, &EditColors, customColSet, false);
+	ScColor tmpColor = EditColors[sColor];
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, sColor, &EditColors, customColSet, false);
 	if (dia->exec())
 	{
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
@@ -760,10 +760,10 @@ void ColorManager::editFarbe()
 				it.data().setRegistrationColor(false);
 		}
 		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
-		if (sFarbe != dia->Farbname->text())
+		if (sColor != dia->Farbname->text())
 		{
-			replaceMap.insert(sFarbe, dia->Farbname->text());
-			EditColors.remove(sFarbe);
+			replaceMap.insert(sColor, dia->Farbname->text());
+			EditColors.remove(sColor);
 		}
 		updateCList();
 	}
@@ -772,27 +772,27 @@ void ColorManager::editFarbe()
 	colorListBox->setTopItem(topIndex);
 }
 
-void ColorManager::delFarbe()
+void ColorManager::deleteColor()
 {
 	int selectedIndex=colorListBox->currentItem();
 	int topIndex=colorListBox->topItem();
-	DelColor *dia = new DelColor(this, EditColors, sFarbe, (m_Doc!=0));
+	DelColor *dia = new DelColor(this, EditColors, sColor, (m_Doc!=0));
 	if (dia->exec())
 	{
 		QString replacementColor(dia->getReplacementColor());
 		if (replacementColor == CommonStrings::tr_NoneColor)
 			replacementColor = CommonStrings::None;
-		if (replaceMap.values().contains(sFarbe))
+		if (replaceMap.values().contains(sColor))
 		{
 			QMap<QString,QString>::Iterator it;
 			for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
 			{
-				if (it.data() == sFarbe)
+				if (it.data() == sColor)
 					it.data() = replacementColor;
 			}
 		}
-		replaceMap.insert(sFarbe, replacementColor);
-		EditColors.remove(sFarbe);
+		replaceMap.insert(sColor, replacementColor);
+		EditColors.remove(sColor);
 		updateCList();
 	}
 	delete dia;
@@ -803,26 +803,26 @@ void ColorManager::delFarbe()
 		colorListBox->setTopItem(topIndex);
 }
 
-void ColorManager::selFarbe(QListBoxItem *c)
+void ColorManager::selColor(QListBoxItem *c)
 {
-	sFarbe = c->text();
-	bool enableEdit = (sFarbe != "Black" && sFarbe != "White");
-	bool enableDel  = (sFarbe != "Black" && sFarbe != "White") && (EditColors.count() > 1);
-	EditF->setEnabled(enableEdit);
-	DupF->setEnabled(true);
-	DelF->setEnabled(enableDel);
+	sColor = c->text();
+	bool enableEdit = (sColor != "Black" && sColor != "White");
+	bool enableDel  = (sColor != "Black" && sColor != "White") && (EditColors.count() > 1);
+	editColorButton->setEnabled(enableEdit);
+	duplicateColorButton->setEnabled(true);
+	deleteColorButton->setEnabled(enableDel);
 }
 
-void ColorManager::selEditFarbe(QListBoxItem *c)
+void ColorManager::selEditColor(QListBoxItem *c)
 {
-	sFarbe = c->text();
-	bool enableEdit = (sFarbe != "Black" && sFarbe != "White");
-	bool enableDel  = (sFarbe != "Black" && sFarbe != "White") && (EditColors.count() > 1);
-	EditF->setEnabled(enableEdit);
-	DupF->setEnabled(true);
-	DelF->setEnabled(enableDel);
+	sColor = c->text();
+	bool enableEdit = (sColor != "Black" && sColor != "White");
+	bool enableDel  = (sColor != "Black" && sColor != "White") && (EditColors.count() > 1);
+	editColorButton->setEnabled(enableEdit);
+	duplicateColorButton->setEnabled(true);
+	deleteColorButton->setEnabled(enableDel);
 	if(enableEdit)
-		editFarbe();
+		editColor();
 }
 
 void ColorManager::updateCList()
@@ -836,12 +836,12 @@ void ColorManager::updateCList()
 			continue;
 		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}
-	DelF->setEnabled(EditColors.count() == 1 ? false : true);
+	deleteColorButton->setEnabled(EditColors.count() == 1 ? false : true);
 	if (colorListBox->currentItem() == -1)
 	{
-		DupF->setEnabled(false);
-		EditF->setEnabled(false);
-		DelF->setEnabled(false);
+		duplicateColorButton->setEnabled(false);
+		editColorButton->setEnabled(false);
+		deleteColorButton->setEnabled(false);
 	}
 	colorListBox->setSelected(colorListBox->currentItem(), false);
 }
