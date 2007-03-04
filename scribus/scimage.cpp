@@ -4314,20 +4314,21 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	if (CMSuse && useProf && inputProf)
 	{
-		DWORD inputProfFormat = TYPE_RGBA_8;
-		DWORD prnProfFormat = TYPE_CMYK_8;
+		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
+		DWORD inputProfFormat = TYPE_BGRA_8;
+		DWORD prnProfFormat   = SC_TYPE_YMCK_8;
 		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
 		if ( inputProfColorSpace == icSigRgbData )
-			inputProfFormat = TYPE_RGBA_8;
+			inputProfFormat = TYPE_BGRA_8;
 		else if ( inputProfColorSpace == icSigCmykData )
-			inputProfFormat = TYPE_CMYK_8;
+			inputProfFormat = SC_TYPE_YMCK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
 			inputProfFormat = TYPE_GRAY_8;
 		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
 		if ( prnProfColorSpace == icSigRgbData )
-			prnProfFormat = TYPE_RGBA_8;
+			prnProfFormat = TYPE_BGRA_8;
 		else if ( prnProfColorSpace == icSigCmykData )
-			prnProfFormat = TYPE_CMYK_8;
+			prnProfFormat = SC_TYPE_YMCK_8;
 		if (SoftProofing)
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -4348,15 +4349,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			if (isCMYK) {
 				if (systemBigEndian)
 					swapByteOrder(3, 2, 1, 0);
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_BGRA_8, rend, 0);
 			}
 			break;
 		case 2: // RGB Proof
 			{
-				if (inputProfFormat==TYPE_CMYK_8)
-					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-				else if(inputProfFormat == TYPE_RGBA_8)
-					inputProfFormat=TYPE_BGRA_8;
 				if (SoftProofing)
 				{
 					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
