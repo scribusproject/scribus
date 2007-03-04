@@ -438,7 +438,7 @@ void MSpinBox::setFPConstants(FunctionParser &fp)
 	QMap<QString, double>::Iterator it=functionParserConstants.begin();
 	while(it!=itend)
 	{
-		fp.AddConstant(it.key(), it.data());
+		fp.AddConstant(it.key().local8Bit().data(), it.data());
 		++it;
 	}
 }
