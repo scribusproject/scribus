@@ -123,7 +123,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 #ifndef NLS_PROTO
-			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow))
+			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
 				itemError.insert(TextOverflow, 0);
 			for (int e = 0; e < currItem->itemText.length(); ++e)
 			{
@@ -235,7 +235,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
 #ifndef NLS_PROTO
-			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow))
+			if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
 				itemError.insert(TextOverflow, 0);
 			for (int e = 0; e < currItem->itemText.length(); ++e)
 			{
