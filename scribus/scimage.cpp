@@ -2090,7 +2090,21 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				else
 				{
 					if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
-						cmsDoTransform(xform, ptr2, ptr,width());
+					{
+						cmsDoTransform(xform, ptr2, ptr, width());
+						if (reqType == CMYKData)
+						{
+							unsigned char *s = ptr;
+							unsigned char  value;
+							for( int uci = 0; uci < width(); uci++ )
+							{
+								value = s[0];
+								s[0] = s[2];
+								s[2] = value;
+								s += 4;
+							}
+						}
+					}
 					else
 						cmsDoTransform(xform, ptr, ptr, width());
 				}
