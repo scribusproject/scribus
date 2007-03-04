@@ -4540,7 +4540,7 @@ void ScribusMainWindow::slotEditPaste()
 					cc = t.readLine();
 					QStringList wt;
 					QStringList::Iterator it;
-					wt = QStringList::split("\t", cc);
+					wt = QStringList::split("\t", cc, true);
 					it = wt.begin();
 					hg = new ScText;
 					hg->ch = (*it);
