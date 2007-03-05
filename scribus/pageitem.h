@@ -150,7 +150,8 @@ public:
 		TextFlowDisabled = 0,
 		TextFlowUsesFrameShape  = 1,
 		TextFlowUsesBoundingBox = 2,
-		TextFlowUsesContourLine = 3
+		TextFlowUsesContourLine = 3,
+		TextFlowUsesImageClipping = 4
 	};
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
@@ -828,6 +829,12 @@ public:
 	 * @sa PageItem::setTextFlowMode()
 	 */
 	bool textFlowUsesContourLine() const { return (textFlowModeVal == TextFlowUsesContourLine); }
+
+	/**
+	 * @brief If text should flow around image clipping path
+	 * @sa PageItem::setTextFlowMode()
+	 */
+	bool textFlowUsesImageClipping() const { return (textFlowModeVal == TextFlowUsesImageClipping); }
 
 	/** @brief Get the frame type
 	 *

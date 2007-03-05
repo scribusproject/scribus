@@ -199,6 +199,9 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 
 	ResetCont = new QPushButton( "&Reset Contour Line", this, "editEditButton" );
 	NodePaletteLayout->addWidget( ResetCont );
+	
+	ResetContClip = new QPushButton( "Set Contour to Image Clip", this, "editEditButton" );
+	NodePaletteLayout->addWidget( ResetContClip );
 
 	editEditButton = new QPushButton( "&End Editing", this, "editEditButton" );
 	editEditButton->setDefault(true);
@@ -239,6 +242,7 @@ void NodePalette::connectSignals()
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
+	connect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
 }
 
 void NodePalette::disconnectSignals()
@@ -272,6 +276,7 @@ void NodePalette::disconnectSignals()
 //	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 //	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
+	disconnect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
@@ -454,6 +459,23 @@ void NodePalette::ResetContour()
 	}
 }
 
+void NodePalette::ResetContourToImageClip()
+{
+	if (doc != 0)
+	{
+/*		if (UndoManager::undoEnabled())
+		{
+			ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
+			is->set("RESET_CONTOUR", "reset_contour");
+			is->setItem(doc->m_Selection->itemAt(0)->ContourLine);
+			UndoManager::instance()->action(doc->m_Selection->itemAt(0), is);
+		} */
+		doc->m_Selection->itemAt(0)->ContourLine = doc->m_Selection->itemAt(0)->imageClip.copy();
+		doc->m_Selection->itemAt(0)->ClipEdited = true;
+		view->updateContents();
+	}
+}
+
 void NodePalette::MovePoint()
 {
 	if (doc==0)
@@ -529,6 +551,7 @@ void NodePalette::ToggleConMode()
 			BezierClose->setEnabled(false);
 			PolySplit->setEnabled(false);
 			ResetCont->setEnabled(true);
+			ResetContClip->setEnabled(true);
 			XSpin->setMinValue(-3000);
 			YSpin->setMinValue(-3000);
 		}
@@ -537,6 +560,7 @@ void NodePalette::ToggleConMode()
 			BezierClose->setEnabled(false);
 			PolySplit->setEnabled(true);
 			ResetCont->setEnabled(false);
+			ResetContClip->setEnabled(false);
 			XSpin->setMinValue(0);
 			YSpin->setMinValue(0);
 		}
@@ -711,6 +735,7 @@ void NodePalette::languageChange()
 	TextLabel2->setText( tr("&Y-Pos:"));
 	EditCont->setText( tr("Edit &Contour Line"));
 	ResetCont->setText( tr("&Reset Contour Line"));
+	ResetContClip->setText( tr("Set Contour to Image Clip"));
 	editEditButton->setText( tr("&End Editing"));
 	QToolTip::add(MoveNode, tr("Move Nodes"));
 	QToolTip::add(MoveControl, tr("Move Control Points"));
@@ -739,6 +764,7 @@ void NodePalette::languageChange()
 	QToolTip::add(scaleDistance, tr("Value to Enlarge or Shrink By"));
 	QToolTip::add(EditCont, tr("Activate Contour Line Editing Mode"));
 	QToolTip::add(ResetCont, tr("Reset the Contour Line to the Original Shape of the Frame"));
+	QToolTip::add(ResetContClip, tr("Reset the Contour Line to the Clipping Path of the Image"));
 	QToolTip::add(AbsMode,  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.") + "</qt>");
 }
 

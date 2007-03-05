@@ -2611,6 +2611,8 @@ void PageItem::setTextFlowMode(TextFlowMode mode)
 			stateMessage = Um::BoundingBox;
 		else if( mode == TextFlowUsesContourLine )
 			stateMessage = Um::ContourLine;
+		else if( mode == TextFlowUsesImageClipping )
+			stateMessage = Um::ImageClip;
 		else
 			stateMessage = Um::NoTextFlow;
 		SimpleState *ss = new SimpleState(stateMessage, "", Um::IFont);

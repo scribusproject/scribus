@@ -5680,7 +5680,12 @@ void ScribusMainWindow::ToggleFrameEdit()
 			view->MarkClip(currItem, currItem->PoLine, true);
 			nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
 			nodePalette->ResetCont->setEnabled(false);
+			nodePalette->ResetContClip->setEnabled(false);
 			nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
+			if ((currItem->asImageFrame()) && (currItem->imageClip.size() != 0))
+				nodePalette->ResetContClip->show();
+			else
+				nodePalette->ResetContClip->hide();
 		}
 	}
 	scrActions["itemShapeEdit"]->setOn(doc->EditClip);

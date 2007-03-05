@@ -500,6 +500,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowUsesContourLine->setTextLabel( "&Use Contour Line" );
 	textFlowUsesContourLine->setPixmap(loadIcon("flow-contour.png"));
 	textFlowOptionsLayout->addWidget( textFlowUsesContourLine );
+	textFlowUsesImageClipping = new QToolButton( textFlowOptions, "textFlowUsesImageClipping" );
+	textFlowUsesImageClipping->setToggleButton( true );
+	textFlowUsesImageClipping->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesImageClipping->setUsesTextLabel( true );
+	textFlowUsesImageClipping->setTextLabel( "Use Image Clip Path" );
+	textFlowUsesImageClipping->setPixmap(loadIcon("flow-contour.png"));
+	textFlowOptionsLayout->addWidget( textFlowUsesImageClipping );
 	pageLayout_2->addWidget( textFlowOptions  );
 
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -1435,6 +1442,8 @@ void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 		textFlowUsesBoundingBox->setOn(true);
 	else if (mode == PageItem::TextFlowUsesContourLine)
 		textFlowUsesContourLine->setOn(true);
+	else if (mode == PageItem::TextFlowUsesImageClipping)
+		textFlowUsesImageClipping->setOn(true);
 }
 
 void Mpalette::SetCurItem(PageItem *i)
@@ -1510,6 +1519,10 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	Revert->setOn(CurItem->reversed());
 	setTextFlowMode(CurItem->textFlowMode());
+	if ((CurItem->asImageFrame()) && (CurItem->imageClip.size() != 0))
+		textFlowUsesImageClipping->setEnabled(true);
+	else
+		textFlowUsesImageClipping->setEnabled(false);
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -3553,6 +3566,8 @@ void Mpalette::DoFlow(int /*id*/)
 			mode = PageItem::TextFlowUsesBoundingBox;
 		if (textFlowUsesContourLine->isOn())
 			mode = PageItem::TextFlowUsesContourLine;
+		if (textFlowUsesImageClipping->isOn())
+			mode = PageItem::TextFlowUsesImageClipping;
 		CurItem->setTextFlowMode(mode);
 		m_ScMW->view->DrawNew();
 		emit DocChanged();
@@ -4267,6 +4282,7 @@ void Mpalette::languageChange()
 	textFlowUsesFrameShape->setTextLabel( tr("Use Frame &Shape"));
 	textFlowUsesBoundingBox->setTextLabel( tr("Use &Bounding Box"));
 	textFlowUsesContourLine->setTextLabel( tr("&Use Contour Line"));
+	textFlowUsesImageClipping->setTextLabel( tr("Use Image Clip Path"));
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
 	optMarginLabel->setText( tr("Optical Margins:"));
@@ -4422,6 +4438,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(textFlowUsesFrameShape);
 	QToolTip::remove(textFlowUsesBoundingBox);
 	QToolTip::remove(textFlowUsesContourLine);
+	QToolTip::remove(textFlowUsesImageClipping);
 
 	QToolTip::remove(Fonts);
 	QToolTip::remove(Size);
@@ -4500,6 +4517,7 @@ void Mpalette::languageChange()
 	QToolTip::add(textFlowUsesFrameShape, tr("Use the frame shape for text flow of text frames below the object."));
 	QToolTip::add(textFlowUsesBoundingBox,  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
 	QToolTip::add(textFlowUsesContourLine,  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
+	QToolTip::add(textFlowUsesImageClipping,  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
 
 	QToolTip::add(Fonts, tr("Font of selected text or object"));
 	QToolTip::add(Size, tr("Font Size"));

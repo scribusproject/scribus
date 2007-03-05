@@ -760,6 +760,7 @@ void UndoManager::languageChange()
 	UndoManager::ObjectFrame        = tr("Text flows around the frame");
 	UndoManager::BoundingBox        = tr("Text flows around bounding box");
 	UndoManager::ContourLine        = tr("Text flows around contour line");
+	UndoManager::ImageClip        = tr("Text flows around image clipping path");
 	UndoManager::NoTextFlow         = tr("No text flow");
 	UndoManager::NoObjectFrame      = tr("No object frame");
 	UndoManager::NoBoundingBox      = tr("No bounding box");
@@ -941,6 +942,7 @@ QString UndoManager::ScratchSpace       = "";
 QString UndoManager::ObjectFrame        = "";
 QString UndoManager::BoundingBox        = "";
 QString UndoManager::ContourLine        = "";
+QString UndoManager::ImageClip        = "";
 QString UndoManager::NoTextFlow         = "";
 QString UndoManager::NoObjectFrame      = "";
 QString UndoManager::NoBoundingBox      = "";

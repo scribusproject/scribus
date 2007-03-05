@@ -85,17 +85,20 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 		tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
 		res = QRegion(pp.xForm(tcli));
 	}
-	else
+	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
-		if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
-		{
-			QValueList<uint> Segs;
-			QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
-			res = QRegion(pp.xForm(Clip2));
-		}
-		else
-			res = QRegion(pp.xForm(docItem->Clip));
+		QValueList<uint> Segs;
+		QPointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
+		res = QRegion(pp.xForm(Clip2));
 	}
+	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+	{
+		QValueList<uint> Segs;
+		QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+		res = QRegion(pp.xForm(Clip2));
+	}
+	else
+		res = QRegion(pp.xForm(docItem->Clip));
 	pp.end();
 	return  res;
 }

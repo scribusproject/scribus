@@ -442,6 +442,7 @@ protected:
 	QToolButton* textFlowUsesFrameShape;
 	QToolButton* textFlowUsesBoundingBox;
 	QToolButton* textFlowUsesContourLine;
+	QToolButton* textFlowUsesImageClipping;
 	QCheckBox* Aspect;
 	QCheckBox* flippedPathText;
 	QCheckBox* showcurveCheckBox;

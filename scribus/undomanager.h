@@ -515,6 +515,7 @@ public:
 	static QString ObjectFrame;
 	static QString BoundingBox;
 	static QString ContourLine;
+	static QString ImageClip;
 	static QString NoTextFlow;
 	static QString NoObjectFrame;
 	static QString NoBoundingBox;
