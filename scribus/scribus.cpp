@@ -7089,6 +7089,7 @@ void ScribusMainWindow::slotEditColors()
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
 			propertiesPalette->updateColorList();
+			styleManager->updateColorList();
 			updateColorMenu();
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();

@@ -39,6 +39,7 @@ public:
 	~StyleManager();
 
 	void addStyle(StyleItem *item);
+	void updateColorList();
 
 	QMap<QString,Keys> keyMap();
 

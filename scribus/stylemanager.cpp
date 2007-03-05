@@ -211,6 +211,15 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	}
 }
 
+void StyleManager::updateColorList()
+{
+	for (uint i = 0; i < items_.count(); ++i)
+	{
+		items_.at(i)->currentDoc(doc_);
+		items_.at(i)->reload();
+	}
+}
+
 void StyleManager::addStyle(StyleItem *item)
 {
 	items_.append(item);
