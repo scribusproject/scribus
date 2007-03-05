@@ -222,7 +222,7 @@ public:
  	int screenToPosition(FPoint coord) const;
  	FRect  boundingBox(int pos, uint len = 1) const;
 
-	uint lines() const { return m_lines.count(); }
+	uint lines() const { return (uint) m_lines.count(); }
 	
 	LineSpec line(uint i) const { return m_lines[i]; }
 	
