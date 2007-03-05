@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "shadebutton.h"
 #include "spalette.h"
+#include "styleitem.h"
 #include "styleselect.h"
 #include "stylemanager.h"
 #include "util.h"
