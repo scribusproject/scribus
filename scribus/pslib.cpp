@@ -533,6 +533,7 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 		else
 			PutSeite("Landscape\n");
 	}
+	PutSeite("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxX))+" "+IToStr(qRound(maxBoxY)));
 	PutSeite("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs*2.0)+"\n");
 	PutSeite("save\n");
 	if (Clipping)
@@ -1699,7 +1700,17 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	}
 	else
 	{
-		PS_begin_doc(Doc, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr, over);
+		uint aa = 0;
+		uint a;
+		double maxWidth = 0.0;
+		double maxHeight = 0.0;
+		while (aa < pageNs.size())
+		{
+			a = pageNs[aa]-1;
+			maxWidth = QMAX(Doc->Pages->at(a)->width(), maxWidth);
+			maxHeight = QMAX(Doc->Pages->at(a)->height(), maxHeight);
+		}
+		PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr, over);
 	}
 	uint ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport; ++ap)
