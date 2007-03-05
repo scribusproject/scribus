@@ -53,6 +53,7 @@ protected:
 	bool parseLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
 	void putDuotone(uchar *ptr, uchar cbyte);
+	int maxChannels;
 	QMemArray<int> curveTable1;
 	QMemArray<int> curveTable2;
 	QMemArray<int> curveTable3;

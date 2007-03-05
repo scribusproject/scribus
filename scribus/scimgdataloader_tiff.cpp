@@ -74,6 +74,20 @@ void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
 		return;
 	if( !loadPicture(fn, res, false))
 		r_image.resize(0);
+	else
+	{
+		m_imageInfoRecord.valid = true;
+		if (photometric == PHOTOMETRIC_SEPARATED)
+		{
+			if (samplesperpixel == 4)
+				m_imageInfoRecord.valid = false;
+		}
+		else
+		{
+			if (samplesperpixel == 3)
+				m_imageInfoRecord.valid = false;
+		}
+	}
 }
 
 int ScImgDataLoader_TIFF::getLayers(const QString& fn)
@@ -539,7 +553,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		bool isCMYK = false;
 		unsigned int widtht, heightt, size;
 		char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
-		uint16 photometric, bitspersample, samplesperpixel, fillorder, planar;
+		uint16 bitspersample, fillorder, planar;
 
 		TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
 		TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);

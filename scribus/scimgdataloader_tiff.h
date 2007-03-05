@@ -33,6 +33,7 @@ protected:
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	int random_table[4096];
+	uint16 photometric, samplesperpixel;
 
 public:
 	ScImgDataLoader_TIFF(void);

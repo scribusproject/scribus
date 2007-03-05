@@ -115,6 +115,17 @@ void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
 		if( !LoadPSD(s, header) )
 			r_image.resize(0);
 		f.close();
+		m_imageInfoRecord.valid = true;
+		if (header.color_mode == CM_CMYK)
+		{
+			if ( maxChannels == 4)
+				m_imageInfoRecord.valid = false;
+		}
+		else
+		{
+			if ( maxChannels == 3)
+				m_imageInfoRecord.valid = false;
+		}
 	}
 }
 
@@ -244,7 +255,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 			return false;
 	}
 	r_image.fill(0);
-
+	maxChannels = header.channel_count;
 	uint tmp;
 	uint cresStart;
 	uint cdataStart;
@@ -539,6 +550,7 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 			s >> right;
 			lay.width = right - left;
 			s >> numChannels;
+			maxChannels = QMAX(maxChannels, numChannels);
 			if (numChannels > 6)	// we don't support images with more than 6 channels yet
 			{
 				m_imageInfoRecord.layerInfo.clear();

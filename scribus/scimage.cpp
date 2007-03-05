@@ -1712,10 +1712,18 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 		QImage rImage;
 		if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 		{
-			if ((pDataLoader->r_image.channels() == 5) || (pDataLoader->imageInfoRecord().colorspace == 1))
-				rImage = pDataLoader->r_image.convertToQImage(true);
+			if (pDataLoader->imageInfoRecord().valid)
+			{
+				if ((pDataLoader->r_image.channels() == 5) || (pDataLoader->imageInfoRecord().colorspace == 1))
+					rImage = pDataLoader->r_image.convertToQImage(true);
+				else
+					rImage = pDataLoader->r_image.convertToQImage(false);
+			}
 			else
-				rImage = pDataLoader->r_image.convertToQImage(false);
+			{
+				delete pDataLoader;
+				return retArray;
+			}
 		}
 		else
 			rImage = pDataLoader->image();
