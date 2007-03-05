@@ -368,11 +368,11 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutDoc("%%Pages: " + IToStr(numpage) + "\n");
 	BBox = "%%BoundingBox: " + IToStr(qRound(x)) + " " + IToStr(qRound(y)) + " " + IToStr(qRound(breite)) + " " + IToStr(qRound(hoehe)) + "\n";
 	BBoxH = "%%HiResBoundingBox: " + ToStr(x) + " " + ToStr(y) + " " + ToStr(breite) + " " + ToStr(hoehe) + "\n";
-  	if (!Art)
-	{
+ // 	if (!Art)
+//	{
 		PutDoc(BBox);
 		PutDoc(BBoxH);
-	}
+//	}
 	if (!FNamen.isEmpty())
 		PutDoc("%%DocumentCustomColors: "+FNamen);
 	if (!Farben.isEmpty())
