@@ -1966,12 +1966,14 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	}
 	if (cmSettings.useColorManagement() && useProf && inputProf)
 	{
-		DWORD inputProfFormat = TYPE_RGBA_8;
-		DWORD outputProfFormat = TYPE_CMYK_8;
+		bool  isPsdTiff = ((ext == "psd") || (ext == "tif") || (ext == "tiff"));
+		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));
+		DWORD inputProfFormat = TYPE_BGRA_8;
+		DWORD outputProfFormat = SC_TYPE_YMCK_8;
 		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
 		if ( inputProfColorSpace == icSigRgbData )
-			inputProfFormat = TYPE_RGBA_8;
-		else if (( inputProfColorSpace == icSigCmykData ) && ((ext == "psd") || (ext == "tif") || (ext == "tiff")))
+			inputProfFormat = isPsdTiff ? TYPE_RGBA_8 : TYPE_BGRA_8; // Later make tiff and psd loader use TYPE_BGRA_8
+		else if (( inputProfColorSpace == icSigCmykData ) && isPsdTiff)
 		{
 			if (pDataLoader->r_image.channels() == 5)
 				inputProfFormat = (COLORSPACE_SH(PT_CMYK)|EXTRA_SH(1)|CHANNELS_SH(4)|BYTES_SH(1));
@@ -1979,14 +1981,14 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				inputProfFormat = TYPE_CMYK_8;
 		}
 		else if ( inputProfColorSpace == icSigCmykData )
-			inputProfFormat = TYPE_CMYK_8;
+			inputProfFormat = SC_TYPE_YMCK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
 			inputProfFormat = TYPE_GRAY_8;
 		int outputProfColorSpace = static_cast<int>(cmsGetColorSpace(cmSettings.printerProfile()));
 		if ( outputProfColorSpace == icSigRgbData )
-			outputProfFormat = TYPE_RGBA_8;
+			outputProfFormat = TYPE_BGRA_8;
 		else if ( outputProfColorSpace == icSigCmykData )
-			outputProfFormat = TYPE_CMYK_8;
+			outputProfFormat = SC_TYPE_YMCK_8;
 		if (cmSettings.doSoftProofing())
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -2008,7 +2010,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), 0);
 			else
 			{
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
@@ -2020,13 +2022,6 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case RGBProof: // RGB Proof
 			{
-				if (!((ext == "psd") || (ext == "tif") || (ext == "tiff")))
-				{
-					if (inputProfFormat == TYPE_CMYK_8)
-						inputProfFormat = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-					else if(inputProfFormat == TYPE_RGBA_8)
-						inputProfFormat = TYPE_BGRA_8;
-				}
 				if (cmSettings.doSoftProofing())
 				{
 					if ((imgInfo.profileName == cmSettings.doc()->CMSSettings.DefaultImageRGBProfile) || (imgInfo.profileName == cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
@@ -2100,18 +2095,6 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 					{
 						cmsDoTransform(xform, ptr2, ptr, width());
-						if (reqType == CMYKData)
-						{
-							unsigned char *s = ptr;
-							unsigned char  value;
-							for( int uci = 0; uci < width(); uci++ )
-							{
-								value = s[0];
-								s[0] = s[2];
-								s[2] = value;
-								s += 4;
-							}
-						}
 					}
 					else
 						cmsDoTransform(xform, ptr, ptr, width());
