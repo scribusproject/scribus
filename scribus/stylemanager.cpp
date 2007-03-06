@@ -67,7 +67,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	rightClickPopup_ = new QPopupMenu(styleView, "rightClickPopup_");
 	newButton->setPopup(newPopup_);
 	QString pname(name);
-	if (pname == QString::null || pname.length() == 0 || pname.isEmpty())
+	if (pname.isEmpty())
 		pname = "styleManager";
 	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
 	isEditMode_ = !prefs_->getBool("isEditMode", false);
@@ -258,7 +258,7 @@ void StyleManager::slotDelete()
 
 	QStringList selected;
 
-	if (rcStyle_ != QString::null)
+	if (!rcStyle_.isNull())
 		selected << rcStyle_;
 	else
 	{
@@ -484,7 +484,7 @@ void StyleManager::slotEdit()
 	if (!isEditMode_)
 		slotOk(); // switch to edit mode for cloning
 
-	if (rcStyle_ != QString::null)
+	if (!rcStyle_.isNull())
 	{
 		QListViewItemIterator it(styleView);
 		while (it.current())
@@ -514,7 +514,7 @@ void StyleManager::slotClone()
 	if (!isEditMode_)
 		slotOk(); // switch to edit mode for cloning
 
-	if (rcStyle_ != QString::null)
+	if (!rcStyle_.isNull())
 	{
 		QListViewItemIterator it(styleView);
 		while (it.current())
@@ -574,9 +574,9 @@ void StyleManager::slotNewPopup(int i)
 		slotOk(); // switch to edit mode for a new style
 
 	QString typeName = rcType_;
-	if (typeName == QString::null)
+	if (typeName.isNull())
 		typeName = newPopup_->text(i);
-	else if (typeName == QString::null && i < 0)
+	else if (typeName.isNull() && i < 0)
 		return; // nothing to create
 
 	rcType_ = QString::null;
@@ -672,10 +672,10 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	loadType(typeName); // get the right style class
 	Q_ASSERT(item_);
 
-	QString newName = fromParent == QString::null ?
+	QString newName = fromParent.isNull() ?
 			item_->newStyle() : item_->newStyle(fromParent);
 
-	if (newName == QString::null)
+	if (newName.isNull())
 		return;
 
 	QListViewItem *root = 0;
@@ -811,7 +811,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 		for (uint i = 0; i < styles.count(); ++i) // set the list of styles of this type
 		{
 			StyleViewItem *sitem;
-			if (styles[i].second == QString::null)
+			if (styles[i].second.isNull())
 			{
 				sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
 				sitems[styles[i].first] = sitem;
@@ -1013,7 +1013,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	if (!sitem)
 		return;
 
-	if (shortcut != QString::null && shortcutExists(shortcut))
+	if (!shortcut.isNull() && shortcutExists(shortcut))
 	{
 		QMessageBox::information(this, CommonStrings::trWarning,
 		                         tr("This key sequence is already in use"),
@@ -1022,7 +1022,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 		return;
 	}
 
-	sitem->setText(SHORTCUT_COL, shortcut == QString::null ? "" : shortcut);
+	sitem->setText(SHORTCUT_COL, shortcut.isNull() ? "" : shortcut);
 	QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
 	if (styleActions_.contains(key))
 		styleActions_[key]->setAccel(shortcut);
@@ -1091,7 +1091,7 @@ void StyleManager::slotSetupWidget()
 	QPair<QString, QStringList> selection = namesFromSelection();
 	QString typeName = selection.first;
 
-	if (typeName == QString::null && widget_)
+	if (typeName.isNull() && widget_)
 		widget_->setEnabled(false); // nothing selected or two or more different types
 	else if (!item_ || item_->typeName() != typeName || widget_ != item_->widget())
 		loadType(typeName); // new type selected
@@ -1100,7 +1100,7 @@ void StyleManager::slotSetupWidget()
 
 	disconnect(nameEdit, SIGNAL(textChanged(const QString&)),
 	           this, SLOT(slotNameChanged(const QString&)));
-	if (typeName != QString::null)
+	if (!typeName.isNull())
 	{
 		item_->selected(selection.second);
 		if (selection.second.count() > 1)
@@ -1202,10 +1202,10 @@ void StyleManager::slotDocStylesChanged()
 // stylenames in it
 QPair<QString, QStringList> StyleManager::namesFromSelection()
 {
-	QString typeName = QString::null;
+	QString typeName(QString::null);
 	QStringList styleNames;
 
-	if (rcStyle_ == QString::null)
+	if (rcStyle_.isNull())
 	{
 		QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
 		while (it.current())
@@ -1216,9 +1216,9 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 				++it;
 				continue;
 			}
-			else if (typeName == QString::null)
+			else if (typeName.isNull())
 				typeName = item->rootName();
-			else if (typeName != QString::null && typeName != item->rootName())
+			else if (!typeName.isNull() && typeName != item->rootName())
 			{
 				typeName = QString::null;
 				break; // two different types selected returning null
