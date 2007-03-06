@@ -99,8 +99,8 @@ QValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 	{
 		if (tmpStyles_[i].hasName())
 		{
-			QString styleName = tmpStyles_[i].name();
-			QString parentName = QString::null;
+			QString styleName(tmpStyles_[i].name());
+			QString parentName(QString::null);
 
 			if (tmpStyles_[i].hasParent() )
 				parentName = tmpStyles_[i].parent();
@@ -162,7 +162,7 @@ QValueList<CharStyle> SMParagraphStyle::getCharStyles()
 
 QString SMParagraphStyle::fromSelection() const
 {
-	QString lsName = QString::null;
+	QString lsName(QString::null);
 	if (!doc_)
 		return lsName; // no doc available
 
@@ -173,11 +173,11 @@ QString SMParagraphStyle::fromSelection() const
 
 		QString tmpName = item->itemText.defaultStyle().parent();
 
-		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+		if (lsName.isNull() && !tmpName.isEmpty() && tmpName != "")
 		{
 			lsName = tmpName;
 		}
-		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+		else if (!lsName.isNull() && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
 		{
 			lsName = QString::null;
 			break;
@@ -199,7 +199,7 @@ QString SMParagraphStyle::newStyle()
 	if (!doc_)
 		return QString::null;
 
-	QString s = getUniqueName( tr("New Style"));
+	QString s(getUniqueName( tr("New Style")));
 	ParagraphStyle p;
 	p.setName(s);
 	tmpStyles_.create(p);
@@ -212,12 +212,11 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 	if (!tmpStyles_.resolve(fromStyle))
 		return QString::null;
 
-	QString s = getUniqueName( tr("Clone of %1").arg(fromStyle));
+	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
 	ParagraphStyle p(tmpStyles_[fromStyle]);
 	p.setName(s);
 	p.setShortcut(QString::null); // do not clone the sc
 	tmpStyles_.create(p);
-
 
 	return s;
 }
@@ -227,7 +226,7 @@ QString SMParagraphStyle::getUniqueName(const QString &name)
 {
 	int id = 0;
 	bool done = false;
-	QString s = name;
+	QString s(name);
 
 	while (!done)
 	{
@@ -278,7 +277,7 @@ void SMParagraphStyle::editMode(bool isOn)
 
 QString SMParagraphStyle::shortcut(const QString &stylename) const
 {
-	QString s = QString::null;
+	QString s(QString::null);
 
 	int index = tmpStyles_.find(stylename);
 	if (index > -1)
@@ -328,7 +327,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 	if (selection_.count() != 1)
 		return;
 
-	QString oldName = selection_[0]->name();
+	QString oldName(selection_[0]->name());
 	ParagraphStyle p(*selection_[0]);
 	p.setName(newName);
 	tmpStyles_.create(p);
@@ -542,15 +541,15 @@ void SMParagraphStyle::slotLineSpacingMode(int mode)
 
 void SMParagraphStyle::slotLineSpacing()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->lineSpacing_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetLineSpacing();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+
 		pwidget_->lineSpacing_->getValues(&a, &b, &c, &value);
-		
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setLineSpacing(value);
 	}
@@ -564,13 +563,14 @@ void SMParagraphStyle::slotLineSpacing()
 
 void SMParagraphStyle::slotSpaceAbove()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->spaceAbove_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetGapBefore();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+
 		pwidget_->spaceAbove_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -586,13 +586,14 @@ void SMParagraphStyle::slotSpaceAbove()
 
 void SMParagraphStyle::slotSpaceBelow()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->spaceBelow_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetGapAfter();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+		
 		pwidget_->spaceBelow_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -665,13 +666,14 @@ void SMParagraphStyle::slotDropCapLines(int lines)
 
 void SMParagraphStyle::slotDropCapOffset()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->dropCapOffset_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetDropCapOffset();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+
 		pwidget_->dropCapOffset_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -708,13 +710,14 @@ void SMParagraphStyle::slotTabRuler()
 
 void SMParagraphStyle::slotLeftIndent()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->tabList_->useParentLeftIndent())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetLeftMargin();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+
 		pwidget_->tabList_->left_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -730,13 +733,14 @@ void SMParagraphStyle::slotLeftIndent()
 
 void SMParagraphStyle::slotRightIndent()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->tabList_->useParentRightIndent())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetRightMargin();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+
 		pwidget_->tabList_->right_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -752,13 +756,14 @@ void SMParagraphStyle::slotRightIndent()
 
 void SMParagraphStyle::slotFirstLine()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->tabList_->useParentFirstLine())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetFirstIndent();
-	else {
+	else 
+	{
+		double a, b, value;
+		int c;
+		
 		pwidget_->tabList_->first_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -774,14 +779,14 @@ void SMParagraphStyle::slotFirstLine()
 
 void SMParagraphStyle::slotFontSize()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->cpage->fontSize_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetFontSize();
 	else
 	{
+		double a, b, value;
+		int c;
+		
 		pwidget_->cpage->fontSize_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -798,9 +803,6 @@ void SMParagraphStyle::slotFontSize()
 
 void SMParagraphStyle::slotEffects(int e)
 {
-	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
-	int c;
-
 	StyleFlag s = ScStyle_None;
 	if (pwidget_->cpage->effects_->useParentValue())
 	{
@@ -818,24 +820,27 @@ void SMParagraphStyle::slotEffects(int e)
 	}
 	else
 	{
+		double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
+		int c;
+		
 		s = static_cast<StyleFlag>(e);
 		pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
-		sxo = sxo * 10;
+		sxo *= 10;
 		pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
-		syo = syo * 10;
+		syo *= 10;
 
 		pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
-		olw = olw * 10;
+		olw *= 10;
 
 		pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
-		ulp = ulp * 10;
+		ulp *= 10;
 		pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
-		ulw = ulw * 10;
+		ulw *= 10;
 
 		pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
-		slp = slp * 10;
+		slp *= 10;
 		pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
-		slw = slw * 10;
+		slw *= 10;
 
 		for (uint i = 0; i < selection_.count(); ++i)
 		{
@@ -864,22 +869,22 @@ void SMParagraphStyle::slotEffectProperties()
 	int c;
 
 	pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
-	sxo = sxo * 10;
+	sxo *= 10;
 	pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
-	syo = syo * 10;
+	syo *= 10;
 
 	pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
-	olw = olw * 10;
+	olw *= 10;
 
 	pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
-	ulp = ulp * 10;
+	ulp *= 10;
 	pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
-	ulw = ulw * 10;
+	ulw *= 10;
 
 	pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
-	slp = slp * 10;
+	slp *= 10;
 	pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
-	slw = slw * 10;
+	slw *= 10;
 	
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
@@ -901,13 +906,11 @@ void SMParagraphStyle::slotEffectProperties()
 
 void SMParagraphStyle::slotFillColor()
 {
-	QString c;
-
 	if (pwidget_->cpage->fillColor_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetFillColor();
 	else {
-		c = pwidget_->cpage->fillColor_->currentText();
+		QString c( pwidget_->cpage->fillColor_->currentText());
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().setFillColor(c);
 	}
@@ -921,12 +924,11 @@ void SMParagraphStyle::slotFillColor()
 
 void SMParagraphStyle::slotFillShade()
 {
-	int fs;
 	if (pwidget_->cpage->fillShade_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetFillShade();
 	else {
-		fs = pwidget_->cpage->fillShade_->getValue();
+		int fs = pwidget_->cpage->fillShade_->getValue();
 
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().setFillShade(fs);
@@ -941,13 +943,11 @@ void SMParagraphStyle::slotFillShade()
 
 void SMParagraphStyle::slotStrokeColor()
 {
-	QString c;
-
 	if (pwidget_->cpage->strokeColor_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetStrokeColor();
 	else {
-		c = pwidget_->cpage->strokeColor_->currentText();
+		QString c(pwidget_->cpage->strokeColor_->currentText());
 
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().setStrokeColor(c);
@@ -962,12 +962,12 @@ void SMParagraphStyle::slotStrokeColor()
 
 void SMParagraphStyle::slotStrokeShade()
 {
-	int ss;
 	if (pwidget_->cpage->strokeShade_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetStrokeShade();
-	else {
-		ss = pwidget_->cpage->strokeShade_->getValue();
+	else 
+	{
+		int ss = pwidget_->cpage->strokeShade_->getValue();
 
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().setStrokeShade(ss);
@@ -1002,7 +1002,6 @@ void SMParagraphStyle::slotLanguage()
 			selection_[i]->charStyle().setLanguage(language);
 	}
 
-
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -1012,14 +1011,13 @@ void SMParagraphStyle::slotLanguage()
 
 void SMParagraphStyle::slotScaleH()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->cpage->fontHScale_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetScaleH();
 	else
 	{
+		double a, b, value;
+		int c;
 		pwidget_->cpage->fontHScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1035,14 +1033,13 @@ void SMParagraphStyle::slotScaleH()
 
 void SMParagraphStyle::slotScaleV()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->cpage->fontVScale_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetScaleV();
 	else
 	{
+		double a, b, value;
+		int c;
 		pwidget_->cpage->fontVScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1058,14 +1055,13 @@ void SMParagraphStyle::slotScaleV()
 
 void SMParagraphStyle::slotTracking()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->cpage->tracking_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetTracking();
 	else
 	{
+		double a, b, value;
+		int c;
 		pwidget_->cpage->tracking_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1081,14 +1077,13 @@ void SMParagraphStyle::slotTracking()
 
 void SMParagraphStyle::slotBaselineOffset()
 {
-	double a, b, value;
-	int c;
-
 	if (pwidget_->cpage->baselineOffset_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetBaselineOffset();
 	else
 	{
+		double a, b, value;
+		int c;	
 		pwidget_->cpage->baselineOffset_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1104,12 +1099,11 @@ void SMParagraphStyle::slotBaselineOffset()
 
 void SMParagraphStyle::slotFont(QString s)
 {
-	ScFace sf;
 	if (pwidget_->cpage->fontFace_->useParentFont())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetFont();
 	else {
-		sf = PrefsManager::instance()->appPrefs.AvailFonts[s];
+		ScFace sf = PrefsManager::instance()->appPrefs.AvailFonts[s];
 		
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().setFont(sf);
@@ -1124,7 +1118,7 @@ void SMParagraphStyle::slotFont(QString s)
 
 void SMParagraphStyle::slotParentChanged(const QString &parent)
 {
-	Q_ASSERT(parent != QString::null);
+	Q_ASSERT(!parent.isNull());
 
 	QStringList sel;
 
@@ -1246,8 +1240,8 @@ QValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 	{
 		if (tmpStyles_[i].hasName())
 		{
-			QString styleName = tmpStyles_[i].name();
-			QString parentName = QString::null;
+			QString styleName(tmpStyles_[i].name());
+			QString parentName(QString::null);
 
 			if (tmpStyles_[i].hasParent())
 				parentName = tmpStyles_[i].parent();
@@ -1290,7 +1284,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 QString SMCharacterStyle::fromSelection() const
 {
-	QString lsName = QString::null;
+	QString lsName(QString::null);
 	if (!doc_)
 		return lsName; // no doc available
 
@@ -1301,11 +1295,11 @@ QString SMCharacterStyle::fromSelection() const
 
 		QString tmpName = item->itemText.defaultStyle().charStyle().parent();
 
-		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+		if (lsName.isNull() && !tmpName.isEmpty() && tmpName != "")
 		{
 			lsName = tmpName;
 		}
-		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+		else if (!lsName.isNull() && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
 		{
 			lsName = QString::null;
 			break;
@@ -1352,7 +1346,7 @@ QString SMCharacterStyle::getUniqueName(const QString &name)
 {
 	int id = 0;
 	bool done = false;
-	QString s = name;
+	QString s(name);
 
 	while (!done)
 	{
@@ -1451,7 +1445,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 // 	for (uint i = 0; i < selection_.count(); ++i)
 // 		selection_[i]->setName(newName);
 
-	QString oldName = selection_[0]->name();
+	QString oldName(selection_[0]->name());
 	CharStyle c(*selection_[0]);
 	c.setName(newName);
 	tmpStyles_.create(c);
@@ -1591,20 +1585,19 @@ void SMCharacterStyle::removeConnections()
 
 void SMCharacterStyle::slotFontSize()
 {
-	double a, b, value;
-	int c;
-
 	if (page_->fontSize_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetFontSize();
 	else
 	{
+		double a, b, value;
+		int c;
+
 		page_->fontSize_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setFontSize(qRound(value));
 	}
-
 
 	if (!selectionIsDirty_)
 	{
@@ -1615,9 +1608,6 @@ void SMCharacterStyle::slotFontSize()
 
 void SMCharacterStyle::slotEffects(int e)
 {
-	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
-	int c;
-
 	StyleFlag s = ScStyle_None;
 	if (page_->effects_->useParentValue())
 	{
@@ -1636,23 +1626,26 @@ void SMCharacterStyle::slotEffects(int e)
 	else
 	{
 		s = static_cast<StyleFlag>(e);
+		double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
+		int c;
+
 		page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
-		sxo = sxo * 10;
+		sxo *= 10;
 		page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
-		syo = syo * 10;
+		syo *= 10;
 
 		page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
-		olw = olw * 10;
+		olw *= 10;
 
 		page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
-		ulp = ulp * 10;
+		ulp *= 10;
 		page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
-		ulw = ulw * 10;
+		ulw *= 10;
 
 		page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
-		slp = slp * 10;
+		slp *= 10;
 		page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
-		slw = slw * 10;
+		slw *= 10;
 
 		for (uint i = 0; i < selection_.count(); ++i)
 		{
@@ -1681,22 +1674,22 @@ void SMCharacterStyle::slotEffectProperties()
 	int c;
 
 	page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
-	sxo = sxo * 10;
+	sxo *= 10;
 	page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
-	syo = syo * 10;
+	syo *= 10;
 
 	page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
-	olw = olw * 10;
+	olw *= 10;
 
 	page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
-	ulp = ulp * 10;
+	ulp *= 10;
 	page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
-	ulw = ulw * 10;
+	ulw *= 10;
 
 	page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
-	slp = slp * 10;
+	slp *= 10;
 	page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
-	slw = slw * 10;
+	slw *= 10;
 	
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
@@ -1718,13 +1711,11 @@ void SMCharacterStyle::slotEffectProperties()
 
 void SMCharacterStyle::slotFillColor()
 {
-	QString col;
-
 	if (page_->fillColor_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetFillColor();
 	else {		
-		col = page_->fillColor_->currentText();
+		QString col(page_->fillColor_->currentText());
 		
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setFillColor(col);
@@ -1739,12 +1730,11 @@ void SMCharacterStyle::slotFillColor()
 
 void SMCharacterStyle::slotFillShade()
 {
-	int fs;
 	if (page_->fillShade_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetFillShade();
 	else {
-		fs = page_->fillShade_->getValue();
+		int fs = page_->fillShade_->getValue();
 
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setFillShade(fs);
@@ -1759,13 +1749,11 @@ void SMCharacterStyle::slotFillShade()
 
 void SMCharacterStyle::slotStrokeColor()
 {
-	QString c;
-
 	if (page_->strokeColor_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetStrokeColor();
 	else {
-		c = page_->strokeColor_->currentText();
+		QString c(page_->strokeColor_->currentText());
 
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setStrokeColor(c);
@@ -1780,12 +1768,11 @@ void SMCharacterStyle::slotStrokeColor()
 
 void SMCharacterStyle::slotStrokeShade()
 {
-	int ss;
 	if (page_->strokeShade_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetStrokeShade();
 	else {
-		ss = page_->strokeShade_->getValue();
+		int ss = page_->strokeShade_->getValue();
 		
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setStrokeShade(ss);
@@ -1830,14 +1817,14 @@ void SMCharacterStyle::slotLanguage()
 
 void SMCharacterStyle::slotScaleH()
 {
-	double a, b, value;
-	int c;
-
 	if (page_->fontHScale_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetScaleH();
 	else
 	{
+		double a, b, value;
+		int c;
+
 		page_->fontHScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1854,14 +1841,14 @@ void SMCharacterStyle::slotScaleH()
 
 void SMCharacterStyle::slotScaleV()
 {
-	double a, b, value;
-	int c;
-
 	if (page_->fontVScale_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetScaleV();
 	else
 	{
+		double a, b, value;
+		int c;
+
 		page_->fontVScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1878,14 +1865,14 @@ void SMCharacterStyle::slotScaleV()
 
 void SMCharacterStyle::slotTracking()
 {
-	double a, b, value;
-	int c;
-
 	if (page_->tracking_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetTracking();
 	else
 	{
+		double a, b, value;
+		int c;
+
 		page_->tracking_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1901,20 +1888,19 @@ void SMCharacterStyle::slotTracking()
 
 void SMCharacterStyle::slotBaselineOffset()
 {
-	double a, b, value;
-	int c;
-
 	if (page_->baselineOffset_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetBaselineOffset();
 	else
 	{
+		double a, b, value;
+		int c;
+		
 		page_->baselineOffset_->getValues(&a, &b, &c, &value);
 		value = value * 10;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setBaselineOffset(qRound(value));
 	}
-
 
 	if (!selectionIsDirty_)
 	{
@@ -1945,7 +1931,7 @@ void SMCharacterStyle::slotFont(QString s)
 
 void SMCharacterStyle::slotParentChanged(const QString &parent)
 {
-	Q_ASSERT(parent != QString::null);
+	Q_ASSERT(!parent.isNull());
 
 	QStringList sel;
 
