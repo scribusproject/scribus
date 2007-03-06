@@ -86,7 +86,7 @@ void gtGetText::loadImporterPlugins()
 			if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings))
 			{
 				// no plugin's "format name" marks "don't load plug"
-				if (ida.fileFormatName == QString::null)
+				if (ida.fileFormatName.isNull())
 					continue;
 				ida.soFilePath = d[dc];
 				if (ida.soFilePath.left(1) != "/")

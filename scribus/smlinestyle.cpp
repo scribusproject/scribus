@@ -297,7 +297,7 @@ void SMLineStyle::setMultiSelection(const QStringList& styles)
 
 QString SMLineStyle::fromSelection() const
 {
-	QString lsName = QString::null;
+	QString lsName(QString::null);
 	if (!doc_)
 		return lsName;
 
@@ -305,11 +305,11 @@ QString SMLineStyle::fromSelection() const
 	{
 		PageItem *item = doc_->m_Selection->itemAt(i);
 		QString tmpName = item->customLineStyle();
-		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+		if (lsName.isNull() && !tmpName.isEmpty() && tmpName != "")
 		{
 			lsName = item->customLineStyle();
 		}
-		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+		else if (!lsName.isNull() && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
 		{
 			lsName = QString::null;
 			break;
@@ -325,7 +325,7 @@ void SMLineStyle::toSelection(const QString &styleName) const
 
 	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
-		if (styleName == QString::null)
+		if (styleName.isNull())
 			doc_->m_Selection->itemAt(i)->setCustomLineStyle("");
 		else
 			doc_->m_Selection->itemAt(i)->setCustomLineStyle(styleName);

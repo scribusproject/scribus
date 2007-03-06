@@ -643,7 +643,7 @@ bool SMColorCombo::useParentValue()
 		{
 			removeItem(count() - 1);
 			setFont(false);
-			if (pText_ != QString::null)
+			if (!pText_.isNull())
 				setCurrentText(pText_, true);
 			else
 				setCurrentItem(pItem_, true);

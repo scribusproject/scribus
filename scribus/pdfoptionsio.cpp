@@ -27,8 +27,8 @@ PDFOptionsIO::PDFOptionsIO(PDFOptions& opts) :
 bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 {
 	m_includePasswords = includePasswords;
-	QString xml = buildXMLString();
-	if (xml == QString::null)
+	QString xml(buildXMLString());
+	if (xml.isNull())
 		return false;
 	QFile f(outFileName);
 	if (!f.open(IO_WriteOnly|IO_Truncate))
@@ -54,7 +54,7 @@ bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 		return false;
 	}
 	QString xml = buildXMLString();
-	if (xml == QString::null)
+	if (xml.isNull())
 		return false;
 	QTextStream ts(&outDevice);
 	ts.setEncoding(QTextStream::UnicodeUTF8);
@@ -559,7 +559,7 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
 	if (elem.isNull())
 		return false;
 	QString result = elem.attribute("value");
-	bool ok = result != QString::null;
+	bool ok = !result.isNull();
 	if (ok)
 		(*value) = result;
 	return ok;
@@ -653,8 +653,8 @@ bool PDFOptionsIO::readLPISettings()
 		QDomElement elem = getValueElement(basenode, "lpiSettingsEntry", false);
 		if (elem.isNull())
 			return false;
-		QString name = elem.attribute("name");
-		if (name == QString::null)
+		QString name (elem.attribute("name"));
+		if (name.isNull())
 		{
 			m_error = QObject::tr("Unable to read settings XML:")
 				.arg(QObject::tr("element <lpiSettingsEntry> lacks `name' attribute", "Load PDF settings")
