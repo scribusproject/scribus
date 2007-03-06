@@ -1843,6 +1843,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
 	int cmsFlags = 0;
+	int cmsProofFlags = 0;
 	auto_ptr<ScImgDataLoader> pDataLoader;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -1991,10 +1992,10 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			outputProfFormat = SC_TYPE_YMCK_8;
 		if (cmSettings.doSoftProofing())
 		{
-			cmsFlags |= cmsFLAGS_SOFTPROOFING;
+			cmsProofFlags |= cmsFLAGS_SOFTPROOFING;
 			if (cmSettings.doGamutCheck())
 			{
-				cmsFlags |= cmsFLAGS_GAMUTCHECK;
+				cmsProofFlags |= cmsFLAGS_GAMUTCHECK;
 			}
 		}
 		if (cmSettings.useBlackPoint())
@@ -2003,14 +2004,14 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		{
 		case CMYKData: // CMYK
 //			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), outputProfFormat, cmSettings.imageRenderingIntent(), 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
 			if (outputProfColorSpace != icSigCmykData )
 				*realCMYK = isCMYK = false;
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			else
 			{
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
@@ -2036,7 +2037,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					else
 						xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
 					                     cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
-					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
+					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags | cmsProofFlags);
 				}
 				else
 					xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), 
