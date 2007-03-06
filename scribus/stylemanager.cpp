@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
-StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true)
+StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), doc_(0), currentType_(QString::null), isEditMode_(true)
 {
 	splitter->setMinimumWidth(0);
 	splitter->setResizeMode(leftFrame, QSplitter::KeepSize);
