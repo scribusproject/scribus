@@ -24,3 +24,4 @@ cmake_install.cmake
 cmake_uninstall.cmake
 CPackConfig.cmake
 CPackSourceConfig.cmake
+progress.make

@@ -10,6 +10,7 @@
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
+#include "resourcecollection.h"
 
 #include "styles/style.h"
 #include "charstyle.h"
@@ -206,9 +207,33 @@ void CharStyle::setStyle(const CharStyle& other)
 #undef ATTRDEF
 }
 
+void CharStyle::getNamedResources(ResourceCollection& lists) const
+{
+	lists.collectColor(fillColor());
+	lists.collectColor(strokeColor());
+	lists.collectCharStyle(parent());
+	lists.collectFont(font().scName());
+}
 
 
-/*
+void CharStyle::replaceNamedResources(ResourceCollection& newNames)
+{
+	QMap<QString,QString>::Iterator it;
+	
+	if (!inh_FillColor && (it = newNames.colors.find(fillColor())) != newNames.colors.end())
+		setFillColor(it.data()); 
+								  
+	if (!inh_StrokeColor && (it = newNames.colors.find(strokeColor())) != newNames.colors.end())
+		setStrokeColor(it.data());
+
+	if (hasParent() && (it = newNames.cstyles.find(parent())) != newNames.cstyles.end())
+		setParent(it.data());
+	
+	if (!inh_Font && (it = newNames.fonts.find(font().scName())) != newNames.fonts.end())
+		setFont(font()); // FIXME
+}
+								
+								  /*
 bool CharStyle::definesAll() const
 {
 	return definesLineSpacing() && 
@@ -265,8 +290,8 @@ void CharStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 	if (!name().isEmpty())
 		att["id"] = mkXMLName(elemtag + name());
 	handler.begin(elemtag, att);
-	if (hasParent() && parentStyle())
-		parentStyle()->saxx(handler);	
+//	if (hasParent() && parentStyle())
+//		parentStyle()->saxx(handler);	
 	handler.end(elemtag);
 }
 

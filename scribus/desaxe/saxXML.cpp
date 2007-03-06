@@ -23,7 +23,7 @@ SaxXML::~SaxXML() { m_stream.flush(); m_file.close(); }
 
 void SaxXML::beginDoc()
 {
-	//m_stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+	m_stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 }
 
 
@@ -113,6 +113,10 @@ void SaxXML::end(Xml_string tag)
 void SaxXML::chars(Xml_string text)
 {
 	finalizePendingEmptyTag();
-	m_stream << text;
+	QString txt(text);
+	txt.replace("&", "&amp;");
+	txt.replace("<", "&lt;");
+	txt.replace(">", "&gt;");
+	m_stream << txt.utf8();
 }
 

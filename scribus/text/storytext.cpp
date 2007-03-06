@@ -33,6 +33,7 @@ pageitem.cpp  -  description
 #include "storytext.moc"
 #include "scribus.h"
 #include "util.h"
+#include "resourcecollection.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/digester.h"
 #include "desaxe/simple_actions.h"
@@ -636,48 +637,59 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 }
 
 
+
+void StoryText::getNamedResources(ResourceCollection& lists) const
+{
+	defaultStyle().getNamedResources(lists);
+	for (int i=0; i < length(); ++i)
+	{
+		if (text(i) == SpecialChars::PARSEP)
+			paragraphStyle(i).getNamedResources(lists);
+		else if (text(i) == SpecialChars::OBJECT)
+			object(i)->getNamedResources(lists);
+		else
+			charStyle(i).getNamedResources(lists);
+	}
+}
+
+
 void StoryText::replaceStyles(QMap<QString,QString> newNameForOld)
 {
+	ResourceCollection newnames;
+	newnames.pstyles = newNameForOld;
+	replaceNamedResources(newnames);
+}
+
+void StoryText::replaceNamedResources(ResourceCollection& newNames)
+{
 	int len = length();
+
+	d->defaultStyle.replaceNamedResources(newNames);
+	d->trailingStyle.replaceNamedResources(newNames);
+	
 	if (len == 0)
 		return;
 	
 	d->at(0);
 	for (int i=0; i < len; ++i) {
-		if (d->current()->parstyle && newNameForOld.contains(d->current()->parstyle->parent()))
-			d->current()->parstyle->setParent(newNameForOld[d->current()->parstyle->parent()]);
+		if (d->current()->parstyle)
+			d->current()->parstyle->replaceNamedResources(newNames);
+		else
+			d->current()->replaceNamedResources(newNames);
 		d->next();
 	}
-	if (newNameForOld.contains(d->defaultStyle.parent()))
-		d->defaultStyle.setParent(newNameForOld[d->defaultStyle.parent()]);
-	if (newNameForOld.contains(d->trailingStyle.parent()))
-		d->trailingStyle.setParent(newNameForOld[d->trailingStyle.parent()]);
 	
 	invalidate(0, len);	
 }
 
+
 void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 {
-	int len = length();
-	if (len == 0)
-		return;
-	
-	d->at(0);
-	for (int i=0; i < len; ++i) {
-		if (newNameForOld.contains(d->current()->parent()))
-			d->current()->setParent(newNameForOld[d->current()->parent()]);
-		
-		if (d->current()->parstyle && newNameForOld.contains(d->current()->parstyle->charStyle().parent()))
-			d->current()->parstyle->charStyle().setParent(newNameForOld[d->current()->parstyle->charStyle().parent()]);
-		d->next();
-	}
-	if (newNameForOld.contains(d->defaultStyle.charStyle().parent()))
-		d->defaultStyle.charStyle().setParent(newNameForOld[d->defaultStyle.charStyle().parent()]);
-	if (newNameForOld.contains(d->trailingStyle.charStyle().parent()))
-		d->trailingStyle.charStyle().setParent(newNameForOld[d->trailingStyle.charStyle().parent()]);
-	
-	invalidate(0, len);	
+	ResourceCollection newnames;
+	newnames.cstyles = newNameForOld;
+	replaceNamedResources(newnames);
 }
+
 
 uint StoryText::nrOfParagraphs() const
 {
@@ -1397,9 +1409,12 @@ public:
 		if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
+			qDebug(QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle));
 			lastPos = story->length();
-			if (lastPos > 0)
+			if (lastPos > 0) {
 				story->insertChars(-1, SpecialChars::PARSEP);
+				++lastPos;
+			}
 			if (lastStyle)
 				delete lastStyle;
 			lastStyle = NULL;
@@ -1413,11 +1428,13 @@ public:
 			if (lastStyle)
 				delete lastStyle;
 			lastStyle = this->dig->top<ParagraphStyle>(0);
+			qDebug(QString("endstyle: %1 %2 %3").arg("?").arg(lastPos).arg((ulong)lastStyle));
 		}
 		else if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
 			int len = story->length();
+			qDebug(QString("endpar: %1 %2 %3 %4").arg(len).arg(lastPos).arg((ulong)lastStyle).arg(lastStyle? lastStyle->parent() : QString()));
 			if (len > lastPos && lastStyle)
 			{
 				story->applyStyle(lastPos, *lastStyle);

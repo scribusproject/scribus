@@ -54,7 +54,7 @@ class PageItem;
 //class ScScriptItem;
 class ScribusDoc;
 class ScText_Shared;
-
+class ResourceCollection;
  
 
 struct LineSpec 
@@ -140,6 +140,9 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
  	void eraseStyle(int pos, const ParagraphStyle& style);
 	void replaceStyles(QMap<QString,QString> newNameForOld);
 	void replaceCharStyles(QMap<QString,QString> newNameForOld);
+	
+	void getNamedResources(ResourceCollection& lists) const;
+	void replaceNamedResources(ResourceCollection& newNames);
 	
  	uint nrOfParagraphs() const;
  	int startOfParagraph(uint index) const;

@@ -4473,7 +4473,8 @@ void ScribusMainWindow::slotEditCut()
 			xmlStream.beginDoc();
 			itemText.saxx(xmlStream, "SCRIBUSTEXT");
 			xmlStream.endDoc();
-			Buffer2 = QString(xmlString.str());
+			std::string xml(xmlString.str());
+			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
 			
 			/*			PageItem *nextItem = currItem;
 			while (nextItem != 0)
@@ -4547,7 +4548,8 @@ void ScribusMainWindow::slotEditCut()
 			SaxXML xmlStream(xmlString);
 			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
-			BufferI = QString(xmlString.str());			
+			std::string xml(xmlString.str());
+			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
 			
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
@@ -4590,7 +4592,8 @@ void ScribusMainWindow::slotEditCopy()
 			xmlStream.beginDoc();
 			itemText.saxx(xmlStream, "SCRIBUSTEXT");
 			xmlStream.endDoc();
-			Buffer2 = QString(xmlString.str());
+			std::string xml(xmlString.str());
+			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
 			qDebug(Buffer2);
 			
 /*			PageItem *nextItem = currItem;
@@ -4661,8 +4664,10 @@ void ScribusMainWindow::slotEditCopy()
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
-			BufferI = QString(xmlString.str());
+			std::string xml(xmlString.str());
+			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
 			
+#ifdef DESAXE_DEBUG
 			// debug:
 			SaxXML tmpfile1("tmp-scribus1.xml", true);
 			Serializer::serializeObjects(*doc->m_Selection, tmpfile1);
@@ -4672,6 +4677,7 @@ void ScribusMainWindow::slotEditCopy()
 			SaxXML tmpfile2("tmp-scribus2.xml", true);
 			Serializer::serializeObjects(objects, tmpfile2);
 			doc->itemSelection_DeleteItem(&objects);
+#endif
 			
 			if (prefsManager->appPrefs.doCopyToScrapbook)
 			{
@@ -4823,6 +4829,12 @@ void ScribusMainWindow::slotEditPaste()
 					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				else 
 					Serializer(*doc).deserializeObjects(Buffer2.utf8());
+
+				// update style lists:
+				styleManager->setDoc(doc);
+				propertiesPalette->unsetDoc();
+				propertiesPalette->setDoc(doc);
+				
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				//int tempList=doc->m_Selection->backupToTempList(0);

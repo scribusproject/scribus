@@ -17,6 +17,7 @@
 
 #include "styles/style.h"
 #include "paragraphstyle.h"
+#include "resourcecollection.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
 
@@ -198,6 +199,26 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 }
 
 
+void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
+{
+	lists.collectStyle(parent());
+	charStyle().getNamedResources(lists);
+}
+
+
+void ParagraphStyle::replaceNamedResources(ResourceCollection& newNames)
+{
+	QMap<QString,QString>::Iterator it;
+	
+	if (!hasParent() && (it = newNames.pstyles.find(parent())) != newNames.pstyles.end())
+	{
+		setParent(it.data());
+		repairImplicitCharStyleInheritance();
+	}
+	cstyle.replaceNamedResources(newNames);
+}
+
+
 static QString toXMLString(ParagraphStyle::AlignmentType val)
 {
 	return QString::number(static_cast<int>(val));
@@ -221,8 +242,8 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 	if (!name().isEmpty())
 		att["id"] = mkXMLName(elemtag + name());
 	handler.begin(elemtag, att);
-	if (parentStyle() && hasParent())
-		parentStyle()->saxx(handler);
+//	if (parentStyle() && hasParent())
+//		parentStyle()->saxx(handler);
 	QValueList<ParagraphStyle::TabRecord>::const_iterator it;
 	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
 	{

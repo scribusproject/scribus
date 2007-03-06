@@ -19,6 +19,8 @@
 
 #include "style.h"
 
+class ResourceCollection;
+
 enum StyleFlagValue {
 	ScStyle_Default       = 0,
     ScStyle_Superscript   = 1,
@@ -102,6 +104,10 @@ public:
 	virtual void saxx(SaxHandler& handler, const Xml_string elemtag) const;
 	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
 	
+
+	void getNamedResources(ResourceCollection& lists) const;
+	void replaceNamedResources(ResourceCollection& newNames);
+
 	QString displayName() const;
 
 	void update(const StyleContext * b);

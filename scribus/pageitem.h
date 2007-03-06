@@ -47,6 +47,7 @@ class ScPainter;
 class ScribusDoc;
 class UndoManager;
 class UndoState;
+class ResourceCollection;
 
 class PageItem_ImageFrame;
 class PageItem_Line;
@@ -877,6 +878,9 @@ public:
 	/*@}*/
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo);
+
+	void getNamedResources(ResourceCollection& lists) const;
+	void replaceNamedResources(ResourceCollection& newNames);
 
 	/**
 	 * @brief Return a variant of `originalName' that is guaranteed to be unique

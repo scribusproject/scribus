@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "guidemanager.h"
 #include "sccolorengine.h"
+#include "resourcecollection.h"
 
 #include "util.h"
 #include "scpattern.h"
@@ -3512,6 +3513,22 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 void PageItem::setTagged(bool tag)
 {
 	tagged=tag;
+}
+
+
+void PageItem::getNamedResources(ResourceCollection& lists) const
+{
+	lists.collectColor(fillColor());
+	lists.collectColor(lineColor());
+	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+	{
+		lists.collectColor(cstops.at(cst)->name);
+	}
+	lists.collectPattern(pattern());
+	lists.collectLineStyle(customLineStyle());
+	if (prevInChain() == NULL)
+		itemText.getNamedResources(lists);
 }
 
 void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)

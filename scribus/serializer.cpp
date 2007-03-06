@@ -29,6 +29,8 @@ for which a new license (GPL+exception) is in place.
 #include <qtextcodec.h>
 #include "sccolor.h"
 #include "util.h"
+#include "resourcecollection.h"
+
 #include "desaxe/simple_actions.h"
 #include "desaxe/saxXML.h"
 #include "desaxe/uniqueid.h"
@@ -48,8 +50,8 @@ struct Collection
 
 	void collectItem(PageItem* p)              { items.append(p); }
 	void collectColor(QString name, ScColor c) { colors[name] = c; }
-	void collectStyle(ParagraphStyle* style)   { if (!style->name().isEmpty()) pstyles.append(style); }
-	void collectCharStyle(CharStyle* style)    { if (!style->name().isEmpty()) cstyles.append(style); }
+	void collectStyle(ParagraphStyle* style)   { qDebug(QString("collect Style %1").arg((ulong)style));   if (style && !style->name().isEmpty()) pstyles.append(style); }
+	void collectCharStyle(CharStyle* style)    { qDebug(QString("collect CharStyle %1").arg((ulong)style));   if (style && !style->name().isEmpty()) cstyles.append(style); }
 	void collectFont(QString name)             { fonts.append(name); }
 	void collectPattern(QString name)          { patterns.append(name); }
 };
@@ -64,6 +66,7 @@ class CollectColor_body : public Action_body
 	
 	void end (const Xml_string tagname)
 	{
+		qDebug(QString("collect %1").arg(tagname));
 		Collection* coll = this->dig->top<Collection>(1);
 		ScColor* color = this->dig->top<ScColor>();
 		coll->collectColor(m_name, *color);
@@ -134,6 +137,47 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 		handler.beginEnd("color", cattr);
 	}
 	
+	ResourceCollection lists;
+	for (uint i=0; i < doc->Items->count(); ++i)
+		doc->Items->at(i)->getNamedResources(lists);
+	
+	QValueList<QString>::Iterator it;
+	QValueList<QString> names = lists.styleNames();
+	for (it = names.begin(); it != names.end(); ++it)
+		doc->paragraphStyles()[*it].saxx(handler);
+
+	names = lists.charStyleNames();
+	for (it = names.begin(); it != names.end(); ++it)
+		doc->charStyles()[*it].saxx(handler);
+	
+	names = lists.lineStyleNames();
+	for (it = names.begin(); it != names.end(); ++it)
+	{
+		Xml_attr multiattr;
+		multiattr["Name"] = *it;
+		handler.begin("MultiLine", multiattr);		
+		multiLine ml = doc->MLineStyles[*it];
+		
+		QValueVector<SingleLine>::Iterator itMU2;
+		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
+		{
+			Xml_attr lineattr;
+			lineattr["Color"] = (*itMU2).Color;
+			lineattr["Shade"] = (*itMU2).Shade;
+			lineattr["Dash"] = (*itMU2).Dash;
+			lineattr["LineEnd"] = (*itMU2).LineEnd;
+			lineattr["LineJoin"] = (*itMU2).LineJoin;
+			lineattr["Width"] = (*itMU2).Width;
+			handler.beginEnd("SubLine", lineattr);
+		}
+		handler.end("MultiLine");
+	}
+
+	/*	names = lists.patterns();
+	for (it = names.begin(); it != names.end(); ++it)
+		doc->patterns[*it].saxx(handler);
+*/
+	
 	for (uint i=0; i < doc->Items->count(); ++i)
 	{
 		int k = selection.findItem(doc->Items->at(i));
@@ -169,22 +213,60 @@ Selection Serializer::deserializeObjects(const QFile & file)
 Selection Serializer::importCollection()
 {	
 	Collection* coll = lookup<Collection>("<collection>");
-	QPtrList<PageItem>* objects = &(coll->items);
-	
 	Selection result( &m_Doc, false);
-	
-	for (uint i=0; i < objects->count(); ++i)
+//	qDebug(QString("deserialize: collection %1 doc %2").arg((ulong)coll).arg((ulong)&m_Doc));
+	if (coll == NULL)
+		qDebug("deserialize: no objects collected");
+	else
 	{
-//		qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
-		PageItem* currItem = objects->at(i);
-		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-		result.addItem(currItem);
+		QMap<QString,QString> newNames;
+		for (uint i = 0; i < coll->pstyles.count(); ++i)  // FIXME:  QValueList<QString> StyleSet::names()
+		{
+			QString oldName = coll->pstyles[i].name();
+			QString newName = oldName;
+			int counter = 0;
+			while (m_Doc.paragraphStyles().find(newName) >= 0)
+				newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
+			newNames[oldName] = newName;
+		}
+		//ResourceCollection::makeUnique(newNames, mDoc->paragraphStyles().names());
+		coll->pstyles.rename(newNames);
+		m_Doc.redefineStyles(coll->pstyles, false);
+		
+		newNames.clear();
+		for (uint i = 0; i < coll->cstyles.count(); ++i)  
+		{
+			QString oldName = coll->cstyles[i].name();
+			QString newName = oldName;
+			int counter = 0;
+			while (m_Doc.charStyles().find(newName) >= 0)
+				newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
+			newNames[oldName] = newName;
+		}
+		coll->cstyles.rename(newNames);
+		m_Doc.redefineCharStyles(coll->cstyles, false);
+		
+		//TODO: patterns
+		//TODO: fonts
+		//TODO: linestyles
+		
+		QPtrList<PageItem>* objects = &(coll->items);
+		
+//		qDebug(QString("deserialize: objects %1").arg((ulong)objects));
+		
+		for (uint i=0; i < objects->count(); ++i)
+		{
+//			qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
+			PageItem* currItem = objects->at(i);
+			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+			result.addItem(currItem);
+		}
+//		qDebug(QString("deserialize: %1 objects, colors %2 %3").arg(objects->count()).arg((ulong)&(m_Doc.PageColors)).arg((ulong)&(coll->colors)));		
+		m_Doc.PageColors.addColors(coll->colors, false);
+//		qDebug(QString("deserialize: delete collection... %1").arg(result.count()));
+		delete coll;
 	}
-	
-	m_Doc.PageColors.addColors(coll->colors, false);
-	
-	
-	delete coll;
+//	qDebug(QString("deserialize done: %1 items").arg(result.count()));
 	return result;
 }
 

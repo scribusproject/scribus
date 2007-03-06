@@ -68,6 +68,7 @@ class Hyphenator;
 class Selection;
 class ScribusView;
 class ScribusMainWindow;
+class ResourceCollection;
 
 class QProgressBar;
 
@@ -387,6 +388,10 @@ public:
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return docCharStyles.isDefault(c); }
 // 	bool isDefaultStyle( LineStyle& l ) const { return MLineStyles......; }
+
+	void getNamedResources(ResourceCollection& lists) const;
+	void replaceNamedResources(ResourceCollection& newNames);	
+	
 	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
@@ -720,6 +725,8 @@ public:
 	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
 	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection=0);
 	void itemSelection_SetCharStyle(const CharStyle & newstyle, Selection* customSelection=0);
+	void itemSelection_EraseParagraphStyle(Selection* customSelection=0);
+	void itemSelection_EraseCharStyle(Selection* customSelection=0);
 
 	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection=0);
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection=0);

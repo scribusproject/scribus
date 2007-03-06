@@ -32,10 +32,10 @@ Xml_string mkXMLName(QString any)
 		else
 		{
 			result += '_';
-			result += ('0' + ch >> 12 & 15);
-			result += ('0' + ch >>  8 & 15);
-			result += ('0' + ch >>  4 & 15);
-			result += ('0' + ch       & 15);
+			result += "0123456789ABCDEF"[(ch >> 12) & 15];
+			result += "0123456789ABCDEF"[(ch >>  8) & 15];
+			result += "0123456789ABCDEF"[(ch >>  4) & 15];
+			result += "0123456789ABCDEF"[(ch      ) & 15];
 		}
 	}
 	return result;

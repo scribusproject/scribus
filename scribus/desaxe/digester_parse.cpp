@@ -63,9 +63,8 @@ void Digester::parseFile(const Xml_string filename)
 void Digester::parseMemory(const char* data, unsigned int length)
 {
 	DigesterParser* handler = new DigesterParser(this);
-	QCString xml( data, length );
 	QXmlInputSource source;
-	source.setData(xml);
+	source.setData(QString::fromUtf8(data, length));
 	QXmlSimpleReader reader;
 	reader.setContentHandler( handler );
 	reader.parse( source );

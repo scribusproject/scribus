@@ -42,6 +42,8 @@ public:
 	
 	inline void redefine(const StyleSet<STYLE>& defs, bool removeUnused=false);
 	
+	inline void rename(const QMap<QString,QString>& newNames);
+	
 	STYLE* create(const STYLE& proto) { 
 		return append(new STYLE(proto)); 
 	}
@@ -162,6 +164,24 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 	invalidate();
 }
 
+template<class STYLE>
+inline void StyleSet<STYLE>::rename(const QMap<QString,QString>& newNames)
+{
+	for (uint i=0; i < styles.count(); ++i)
+	{ 
+		QMap<QString,QString>::ConstIterator it;
+		
+		it = newNames.find(styles[i]->name());
+		if (it != newNames.end())
+			styles[i]->setName(it.data());
+	
+		it = newNames.find(styles[i]->parent());
+		if (it != newNames.end())
+			styles[i]->setParent(it.data());
+	}
+	invalidate();
+}
+	
 #endif
 
 

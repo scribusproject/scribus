@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "resourcecollection.h"
 #include "scmessagebox.h"
 #include "scpainter.h"
 #include "scraction.h"
@@ -780,7 +781,52 @@ void ScribusDoc::enableCMS(bool enable)
 }
 
 
+void ScribusDoc::getNamedResources(ResourceCollection& lists) const
+{
+	const QPtrList<PageItem> * itemlist = & MasterItems;
+	while (itemlist != NULL)
+	{
+		for (uint i=0; i < itemlist->count(); ++i)
+		{
+			const PageItem_TextFrame * currItem = const_cast<QPtrList<PageItem>*>(itemlist)->at(i)->asTextFrame();
+			if (currItem)
+				currItem->itemText.getNamedResources(lists);
+		}
+		if (itemlist == &MasterItems)
+			itemlist = &DocItems;
+		else if (itemlist == &DocItems)
+			itemlist = &FrameItems;
+		else
+			itemlist = NULL;
+	}
+	for (uint i = 0; i < docParagraphStyles.count(); ++i)
+		docParagraphStyles[i].getNamedResources(lists);
+	for (uint i = 0; i < docCharStyles.count(); ++i)
+		docCharStyles[i].getNamedResources(lists);
+//	for (uint i = 0; i < docLineStyles.count(); ++i)
+//		docLineStyles[i].getNamedResources(lists);
+	
+	QMap<QString,ScPattern>::ConstIterator it;
+	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	{
+		ScPattern pa = *it;
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			pa.items.at(o)->getNamedResources(lists);
+		}
+	}	
+}
+
+
 void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
+{
+	ResourceCollection newNames;
+	newNames.pstyles = newNameForOld;
+	replaceNamedResources(newNames);
+}
+
+
+void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 {
 	// replace names in items
 	QPtrList<PageItem> * itemlist = & MasterItems;
@@ -790,7 +836,7 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 		{
 			PageItem_TextFrame * currItem = itemlist->at(i)->asTextFrame();
 			if (currItem)
-				currItem->itemText.replaceStyles(newNameForOld);
+				currItem->itemText.replaceNamedResources(newNames);
 		}
 		if (itemlist == &MasterItems)
 			itemlist = &DocItems;
@@ -799,24 +845,36 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 		else
 			itemlist = NULL;
 	}
+	
 	// replace names in styles...
 	for (int i=docParagraphStyles.count()-1; i >= 0; --i)
 	{
-		// ... as parent
-		const QString& parent(docParagraphStyles[i].parent());
-		if (newNameForOld.contains(parent)) {
-			docParagraphStyles[i].setParent(newNameForOld[parent]);
-			docParagraphStyles[i].repairImplicitCharStyleInheritance();
-		}
-		// ... as name
-		if (newNameForOld.contains(docParagraphStyles[i].name()))
-			docParagraphStyles.remove(i);
+		docParagraphStyles[i].replaceNamedResources(newNames);
 	}
+	for (int i=docCharStyles.count()-1; i >= 0; --i)
+	{
+		docCharStyles[i].replaceNamedResources(newNames);
+	}
+
+	QMap<QString,ScPattern>::Iterator it;
+	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
+	{
+		ScPattern pa = *it;
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			pa.items.at(o)->replaceNamedResources(newNames);
+		}
+	}	
 }
 
 
 void ScribusDoc::replaceCharStyles(const QMap<QString,QString>& newNameForOld)
 {
+	ResourceCollection newNames;
+	newNames.cstyles = newNameForOld;
+	replaceNamedResources(newNames);
+	
+	/*
 	// replace style in items
 	QPtrList<PageItem> * itemlist = & MasterItems;
 	while (itemlist != NULL)
@@ -852,6 +910,7 @@ void ScribusDoc::replaceCharStyles(const QMap<QString,QString>& newNameForOld)
 		if (newNameForOld.contains(docCharStyles[i].name()))
 			docCharStyles.remove(i);
 	}
+	*/
 }
 
 void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused)
@@ -910,6 +969,7 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
  * including plugins.
  * - 2004-09-14 Craig Ringer
  */
+// dont like this here. could as well be a static method for reading this stuff into temp., then always use redefineXY() - av
 void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *tempStyles,
                                                       StyleSet<CharStyle> *tempCharStyles,
                                                       QMap<QString, multiLine> *tempLineStyles)
@@ -5240,7 +5300,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 }
 
 
-/*
+
 void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -5287,7 +5347,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	changed();
 	emit updateContents();
 }
-*/
+
 
 
 void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
@@ -5452,7 +5512,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	emit updateContents();
 }
 
-/*
+
 void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -5517,7 +5577,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 	changed();
 	emit updateContents();
 }
-*/
+
 
 /*
 template<typename Arg, void (PageItem::*Fun)(Arg)>
