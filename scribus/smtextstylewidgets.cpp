@@ -133,6 +133,16 @@ void SMPStyleWidget::languageChange()
 	tabWidget->setTabLabel(tabWidget->page(1), tr("Character Style"));
 }
 
+void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
+{
+    spaceAbove_->setNewUnit(oldRatio, newRatio, unitIndex);
+	spaceBelow_->setNewUnit(oldRatio, newRatio, unitIndex);
+	dropCapOffset_->setNewUnit(oldRatio, newRatio, unitIndex);
+	tabList_->left_->setNewUnit(oldRatio, newRatio, unitIndex);
+	tabList_->right_->setNewUnit(oldRatio, newRatio, unitIndex);
+	tabList_->first_->setNewUnit(oldRatio, newRatio, unitIndex);
+}
+
 void SMPStyleWidget::setupDropCaps()
 {
 	dropCapsBox->setCheckable( true );
@@ -182,6 +192,7 @@ void SMPStyleWidget::setupCharStyle()
 
 void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentCombo->setEnabled(true);
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	hasParent_ = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
@@ -199,11 +210,11 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 		lineSpacing_->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
 
-		spaceAbove_->setValue(pstyle->gapBefore(), pstyle->isInhGapBefore());
-		spaceAbove_->setParentValue(parent->gapBefore());
+		spaceAbove_->setValue(pstyle->gapBefore() * unitRatio, pstyle->isInhGapBefore());
+		spaceAbove_->setParentValue(parent->gapBefore() * unitRatio);
 
-		spaceBelow_->setValue(pstyle->gapAfter(), pstyle->isInhGapAfter());
-		spaceBelow_->setParentValue(parent->gapAfter());
+		spaceBelow_->setValue(pstyle->gapAfter() * unitRatio, pstyle->isInhGapAfter());
+		spaceBelow_->setParentValue(parent->gapAfter() * unitRatio);
 
 		dropCapsBox->setChecked(pstyle->hasDropCap());;
 		parentDropCap_ = parent->hasDropCap();
@@ -217,8 +228,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 		dropCapLines_->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
 		dropCapLines_->setParentValue(parent->dropCapLines());
 
-		dropCapOffset_->setValue(pstyle->dropCapOffset(), pstyle->isInhDropCapOffset());
-		dropCapOffset_->setParentValue(parent->dropCapOffset());
+		dropCapOffset_->setValue(pstyle->dropCapOffset() * unitRatio, pstyle->isInhDropCapOffset());
+		dropCapOffset_->setParentValue(parent->dropCapOffset() * unitRatio);
 
 		alignement_->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
 		alignement_->setParentItem(parent->alignment());
@@ -233,32 +244,32 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 		tabList_->setTabs(tabs, unitIndex, hasParentTabs);
 		tabList_->setParentTabs(parent->tabValues());
 
-		tabList_->setLeftIndentValue(pstyle->leftMargin(),pstyle->isInhLeftMargin());
-		tabList_->setParentLeftIndent(parent->leftMargin());
+		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio,pstyle->isInhLeftMargin());
+		tabList_->setParentLeftIndent(parent->leftMargin() * unitRatio);
 
-		tabList_->setFirstLineValue(pstyle->firstIndent(), pstyle->isInhFirstIndent());
-		tabList_->setParentFirstLine(parent->firstIndent());
+		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio, pstyle->isInhFirstIndent());
+		tabList_->setParentFirstLine(parent->firstIndent() * unitRatio);
 
-		tabList_->setRightIndentValue(pstyle->rightMargin(), pstyle->isInhRightMargin());
-		tabList_->setParentRightIndent(parent->rightMargin());
+		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio, pstyle->isInhRightMargin());
+		tabList_->setParentRightIndent(parent->rightMargin() * unitRatio);
 	}
 	else
 	{
 		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode());
 		lineSpacing_->setValue(pstyle->lineSpacing());
-		spaceAbove_->setValue(pstyle->gapBefore());
-		spaceBelow_->setValue(pstyle->gapAfter());
+		spaceAbove_->setValue(pstyle->gapBefore() * unitRatio);
+		spaceBelow_->setValue(pstyle->gapAfter() * unitRatio);
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		parentDropCapButton->hide();
 		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
 		dropCapLines_->setValue(pstyle->dropCapLines());
-		dropCapOffset_->setValue(pstyle->dropCapOffset());
+		dropCapOffset_->setValue(pstyle->dropCapOffset() * unitRatio);
 		parentDropCapButton->hide();
 		alignement_->setStyle(pstyle->alignment());
 		tabList_->setTabs(pstyle->tabValues(), unitIndex);
-		tabList_->setLeftIndentValue(pstyle->leftMargin());
-		tabList_->setFirstLineValue(pstyle->firstIndent());
-		tabList_->setRightIndentValue(pstyle->rightMargin());
+		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
+		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio);
+		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio);
 	}
 
 	lineSpacing_->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
@@ -270,7 +281,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 	parentDropCapButton->setFont(f);
 
 	cpage->parentLabel->setText( tr("Based On:"));
-	cpage->show(&pstyle->charStyle(), cstyles, defLang);
+	cpage->show(&pstyle->charStyle(), cstyles, defLang, unitIndex);
 
 	parentCombo->clear();
 	parentCombo->insertItem("");
@@ -307,11 +318,11 @@ void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<Parag
 	else if (pstyles.count() > 1)
 	{
 		showLineSpacing(pstyles);
-		showSpaceAB(pstyles);
-		showDropCap(pstyles);
+		showSpaceAB(pstyles, unitIndex);
+		showDropCap(pstyles, unitIndex);
 		showAlignment(pstyles);
 		showTabs(pstyles, unitIndex);
-		showCStyle(pstyles, cstyles, defLang);
+		showCStyle(pstyles, cstyles, defLang, unitIndex);
 		showParent(pstyles);
 	}
 }
@@ -362,8 +373,9 @@ void SMPStyleWidget::showLineSpacing(QValueList<ParagraphStyle*> &pstyles)
 		lineSpacing_->setValue(tmpLS);
 }
 
-void SMPStyleWidget::showSpaceAB(QValueList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showSpaceAB(QValueList<ParagraphStyle*> &pstyles, int unitIndex)
 {
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	double tmpA = -1.2;
 	for (uint i = 0; i < pstyles.count(); ++i)
 	{
@@ -379,7 +391,7 @@ void SMPStyleWidget::showSpaceAB(QValueList<ParagraphStyle*> &pstyles)
 	if (tmpA < 0)
 		spaceAbove_->clear();
 	else
-		spaceAbove_->setValue(tmpA);
+		spaceAbove_->setValue(tmpA * unitRatio);
 
 	tmpA = -1.2;
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -394,11 +406,12 @@ void SMPStyleWidget::showSpaceAB(QValueList<ParagraphStyle*> &pstyles)
 	if (tmpA < 0)
 		spaceBelow_->clear();
 	else
-		spaceBelow_->setValue(tmpA);
+		spaceBelow_->setValue(tmpA * unitRatio);
 }
 
-void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles, int unitIndex)
 {
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentDropCapButton->hide();
 	disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
 
@@ -444,7 +457,7 @@ void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles)
 	if (dco < -3800.0)
 		dropCapOffset_->clear();
 	else
-		dropCapOffset_->setValue(dco);
+		dropCapOffset_->setValue(dco * unitRatio);
 
 	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	dropCapsBox->setEnabled(true);
@@ -473,6 +486,7 @@ void SMPStyleWidget::showAlignment(QValueList<ParagraphStyle*> &pstyles)
 
 void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitIndex)
 {
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	QValueList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
 	for (uint i = 0; i < pstyles.count(); ++i)
 	{
@@ -498,10 +512,10 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 	if (l < -3800.0)
 	{
 		tabList_->setLeftIndentValue(0.0);
-		tabList_->left_->clear();	
+		tabList_->left_->clear();
 	}
 	else
-		tabList_->setLeftIndentValue(l);
+		tabList_->setLeftIndentValue(l * unitRatio);
 
 	l = -4000.0;
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -520,7 +534,7 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 		tabList_->first_->clear();
 	}
 	else
-		tabList_->setFirstLineValue(l);
+		tabList_->setFirstLineValue(l * unitRatio);
 
 	l = -4000.0;
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -539,11 +553,11 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 		tabList_->right_->clear();
 	}
 	else
-		tabList_->setRightIndentValue(l);
+		tabList_->setRightIndentValue(l * unitRatio);
 
 }
 
-void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang)
+void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
 {
 	cpage->parentLabel->setText( tr("Based On:"));
 
@@ -551,7 +565,7 @@ void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList
 	for (uint i = 0; i < pstyles.count(); ++i)
 		cstyle << &pstyles[i]->charStyle();
 
-	cpage->show(cstyle, cstyles, defLang);
+	cpage->show(cstyle, cstyles, defLang, unitIndex);
 }
 
 void SMPStyleWidget::showParent(QValueList<ParagraphStyle*> &pstyles)
@@ -838,7 +852,7 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
 }
 
-void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang)
+void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	parentCombo->setEnabled(true);
@@ -969,10 +983,13 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
-void SMCStylePage::show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll, const QString &defLang)
+void SMCStylePage::show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
 {
+// 	int decimals = unitGetDecimalsFromIndex(unitIndex);
+// 	QString suffix = unitGetSuffixFromIndex(unitIndex);
+
 	if (cstyles.count() == 1)
-		show(cstyles[0], cstylesAll, defLang);
+		show(cstyles[0], cstylesAll, defLang, unitIndex);
 	else if (cstyles.count() > 1)
 	{
 		showSizeAndPosition(cstyles);

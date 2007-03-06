@@ -7868,6 +7868,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	nodePalette->unitChange();
 	alignDistributePalette->unitChange();
 	guidePalette->setupPage();
+	styleManager->unitChange();
 	if (draw)
 		view->DrawNew();
 }

@@ -69,6 +69,7 @@ public:
 	void nameChanged(const QString &newName);
 	QString getUniqueName(const QString &name);
 	void languageChange();
+	void unitChange();
 
 signals:
 	void deleteDone();

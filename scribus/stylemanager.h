@@ -46,6 +46,7 @@ public:
 public slots:
 	void setDoc(ScribusDoc *doc);
 	void languageChange();
+	void unitChange();
 
 signals:
 	void closed();

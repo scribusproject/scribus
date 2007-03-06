@@ -170,6 +170,9 @@ public:
 	/** @brief reload all the gui strings whenever this method is called */
 	virtual void languageChange() = 0;
 
+	/** @brief document unit has been changed, upgrade widgets  */
+	virtual void unitChange() = 0;
+
 	// do not implement this in derived classes
 	QString typeName() { return typeNamePlural(); };
 

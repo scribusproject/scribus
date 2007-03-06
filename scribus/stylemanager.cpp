@@ -169,6 +169,17 @@ void StyleManager::languageChange()
 	rcpDeleteId_ = rightClickPopup_->insertItem( tr("Delete"), this, SLOT(slotDelete()));
 }
 
+void StyleManager::unitChange()
+{
+	if (doc_)
+	{
+		for (uint i = 0; i < items_.count(); ++i)
+			items_.at(i)->unitChange();
+
+		slotSetupWidget();
+	}
+}
+
 void StyleManager::setOkButtonText()
 {
 	if (!isStoryEditMode_)
@@ -208,6 +219,8 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	{
 		items_.at(i)->currentDoc(doc);
 		addNewType(items_.at(i)); // forces a reload
+		if (doc_)
+			items_.at(i)->unitChange();
 	}
 }
 

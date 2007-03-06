@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtabwidget.h>
 
 SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
-pwidget_(0), doc_(0), selectionIsDirty_(false), cstyles_(cstyles)
+pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyles_(cstyles)
 {
 	Q_ASSERT(cstyles_);
 	pwidget_ = new SMPStyleWidget();
@@ -64,6 +64,8 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 			pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl);
 			pwidget_->cpage->fillColorCombo(doc_->PageColors);
 			pwidget_->cpage->fontFace_->RebuildList(doc_);
+			if (unitRatio_ != doc_->unitRatio())
+				unitChange();
 		}
 	}
 	else
@@ -377,6 +379,13 @@ void SMParagraphStyle::languageChange()
 	}
 }
 
+void SMParagraphStyle::unitChange()
+{
+	double oldRatio = unitRatio_;
+	unitRatio_ = doc_->unitRatio();
+	pwidget_->unitChange(oldRatio, unitRatio_, doc_->unitIndex());
+}
+
 void SMParagraphStyle::reloadTmpStyles()
 {
 	if (!doc_)
@@ -563,7 +572,7 @@ void SMParagraphStyle::slotSpaceAbove()
 			selection_[i]->resetGapBefore();
 	else {
 		pwidget_->spaceAbove_->getValues(&a, &b, &c, &value);
-		
+		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setGapBefore(value);
 	}
@@ -585,7 +594,7 @@ void SMParagraphStyle::slotSpaceBelow()
 			selection_[i]->resetGapAfter();
 	else {
 		pwidget_->spaceBelow_->getValues(&a, &b, &c, &value);
-
+		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setGapAfter(value);
 	}
@@ -664,7 +673,7 @@ void SMParagraphStyle::slotDropCapOffset()
 			selection_[i]->resetDropCapOffset();
 	else {
 		pwidget_->dropCapOffset_->getValues(&a, &b, &c, &value);
-
+		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setDropCapOffset(value);
 	}
@@ -707,7 +716,7 @@ void SMParagraphStyle::slotLeftIndent()
 			selection_[i]->resetLeftMargin();
 	else {
 		pwidget_->tabList_->left_->getValues(&a, &b, &c, &value);
-
+		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setLeftMargin(value);
 	}
@@ -729,7 +738,7 @@ void SMParagraphStyle::slotRightIndent()
 			selection_[i]->resetRightMargin();
 	else {
 		pwidget_->tabList_->right_->getValues(&a, &b, &c, &value);
-
+		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setRightMargin(value);
 	}
@@ -751,7 +760,7 @@ void SMParagraphStyle::slotFirstLine()
 			selection_[i]->resetFirstIndent();
 	else {
 		pwidget_->tabList_->first_->getValues(&a, &b, &c, &value);
-
+		value = value / unitRatio_;
 		for (uint i = 0; i < selection_.count(); ++i)
 			selection_[i]->setFirstIndent(value);
 	}
@@ -1275,7 +1284,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 	}
 
-	page_->show(selection_, cstyles, doc_->paragraphStyle("").charStyle().language());
+	page_->show(selection_, cstyles, doc_->paragraphStyle("").charStyle().language(), doc_->unitIndex());
 	setupConnections();
 }
 
@@ -1491,6 +1500,11 @@ void SMCharacterStyle::languageChange()
 		widget_->setTabLabel(page_, tr("Properties"));
 		page_->languageChange();
 	}
+}
+
+void SMCharacterStyle::unitChange()
+{
+
 }
 
 void SMCharacterStyle::reloadTmpStyles()

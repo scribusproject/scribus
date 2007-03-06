@@ -493,6 +493,11 @@ void SMLineStyle::languageChange()
 	
 }
 
+void SMLineStyle::unitChange()
+{
+
+}
+
 void SMLineStyle::setupConnections()
 {
 	connect(widget_->addButton, SIGNAL(clicked()), this, SLOT(slotAddLine()));

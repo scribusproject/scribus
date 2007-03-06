@@ -43,6 +43,7 @@ public:
 	void nameChanged(const QString &newName);
 	QString getUniqueName(const QString &name);
 	void languageChange();
+	void unitChange();
 	StyleSet<ParagraphStyle>* tmpStyles(); // butt ugly
 
 signals:
@@ -52,6 +53,7 @@ private:
 	SMPStyleWidget *pwidget_;
 	ScribusDoc *doc_;
 	bool selectionIsDirty_;
+	double unitRatio_;
 	StyleSet<ParagraphStyle> tmpStyles_;
 	StyleSet<CharStyle> *cstyles_;
 	QValueList<ParagraphStyle*> selection_;
@@ -122,6 +124,7 @@ public:
 	void nameChanged(const QString &newName);
 	QString getUniqueName(const QString &name);
 	void languageChange();
+	void unitChange();
 	StyleSet<CharStyle>* tmpStyles();
 
 signals:

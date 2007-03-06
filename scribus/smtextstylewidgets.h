@@ -50,6 +50,8 @@ public:
 
 	void languageChange();
 
+	void unitChange(double oldRatio, double newRatio, int unitIndex);
+
 private:
 	QGridLayout *distancesBoxLayout;
 	QGridLayout *dropCapsBoxLayout;
@@ -84,11 +86,11 @@ private:
 	void setupCharStyle();
 
 	void showLineSpacing(QValueList<ParagraphStyle*> &pstyles);
-	void showSpaceAB(QValueList<ParagraphStyle*> &pstyles);
-	void showDropCap(QValueList<ParagraphStyle*> &pstyles);
+	void showSpaceAB(QValueList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showDropCap(QValueList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showAlignment(QValueList<ParagraphStyle*> &pstyles);
 	void showTabs(QValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang);
+	void showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
 	void showParent(QValueList<ParagraphStyle*> &pstyles);
 
 	friend class SMParagraphStyle;
@@ -109,8 +111,8 @@ public:
 	SMCStylePage(QWidget *parent = 0);
 	~SMCStylePage();
 
-	void show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang);
-	void show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll, const QString &defLang);
+	void show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
+	void show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
 	void fillLangCombo(QMap<QString,QString> langMap);
 	void fillColorCombo(ColorList &colors);
 	void languageChange();
