@@ -2188,6 +2188,7 @@ void ScribusMainWindow::SwitchWin()
 	updateColorMenu();
 	buildFontMenu();
 #ifdef HAVE_CMS
+	BlackPoint = doc->BlackPoint;
 	SoftProofing = doc->SoftProofing;
 	Gamut = doc->Gamut;
 	IntentPrinter = doc->IntentPrinter;
@@ -3292,6 +3293,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		w->setUpdatesEnabled(false);
 		view->setUpdatesEnabled(false);
 #ifdef HAVE_CMS
+		doc->BlackPoint = false;
 		doc->SoftProofing = false;
 		doc->Gamut = false;
 		bool cmsu = CMSuse;
@@ -3440,11 +3442,13 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			}
 #ifdef HAVE_CMS
+			doc->BlackPoint = doc->CMSSettings.BlackPoint;
 			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
 			doc->Gamut = doc->CMSSettings.GamutCheck;
 			CMSuse = doc->CMSSettings.CMSinUse;
 			doc->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
+			BlackPoint = doc->BlackPoint;
 			SoftProofing = doc->CMSSettings.SoftProofOn;
 			Gamut = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
@@ -3998,6 +4002,7 @@ bool ScribusMainWindow::DoFileClose()
 	{
 #ifdef HAVE_CMS
 		CMSuse = false;
+		BlackPoint   = prefsManager->appPrefs.DCMSset.BlackPoint;
 		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
 		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
 		IntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
@@ -8171,6 +8176,7 @@ void ScribusMainWindow::initCMS()
 			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
 		}
 #ifdef HAVE_CMS
+		BlackPoint   = prefsManager->appPrefs.DCMSset.BlackPoint;
 		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
 		CMSuse = false;
 		IntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;

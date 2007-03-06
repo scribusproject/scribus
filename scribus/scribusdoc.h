@@ -726,6 +726,7 @@ public: // Public attributes
 	cmsHTRANSFORM stdProofCMYKGC;
 	cmsHTRANSFORM stdTransImg;
 	cmsHTRANSFORM stdProofImg;
+	bool BlackPoint;
 	bool SoftProofing;
 	bool Gamut;
 	int IntentMonitor;

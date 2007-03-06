@@ -3491,6 +3491,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	cmsHPROFILE inputProf = 0;
 	cmsHPROFILE tiffProf = 0;
 	int cmsFlags = 0;
+	int cmsProofFlags = 0;
 #endif
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -4331,9 +4332,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			prnProfFormat = SC_TYPE_YMCK_8;
 		if (SoftProofing)
 		{
-			cmsFlags |= cmsFLAGS_SOFTPROOFING;
+			cmsProofFlags |= cmsFLAGS_SOFTPROOFING;
 			if (Gamut)
-				cmsFlags |= cmsFLAGS_GAMUTCHECK;
+				cmsProofFlags |= cmsFLAGS_GAMUTCHECK;
 		}
 		if (BlackPoint)
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
@@ -4343,13 +4344,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, cmsFlags);
 			break;
 		case 1: // RGB
 			if (isCMYK) {
 				if (systemBigEndian)
 					swapByteOrder(3, 2, 1, 0);
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_BGRA_8, rend, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
 		case 2: // RGB Proof
@@ -4358,7 +4359,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				{
 					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
 					                       CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-					                       IntentPrinter, rend, cmsFlags);
+					                       IntentPrinter, rend, cmsFlags | cmsProofFlags);
 				}
 				else
 					xform = scCmsCreateTransform(inputProf, inputProfFormat,

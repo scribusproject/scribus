@@ -971,6 +971,7 @@ void ReformDoc::updateDocumentSettings()
 			ScMW->mainWindowProgressBar->setTotalSteps(cc);
 #ifdef HAVE_CMS
 			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
+			currDoc->BlackPoint = currDoc->CMSSettings.BlackPoint;
 			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
 			currDoc->IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;

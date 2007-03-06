@@ -363,6 +363,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PDF_Options.Intent = CMSSettings.DefaultIntentMonitor;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
 #ifdef HAVE_CMS
+	BlackPoint = CMSSettings.BlackPoint;
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut = CMSSettings.GamutCheck;
 	IntentPrinter = CMSSettings.DefaultIntentPrinter;
