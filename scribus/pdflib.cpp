@@ -532,6 +532,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	Bvie = vi;
 	BookMinUse = false;
 	UsedFontsP.clear();
+	UsedFontsF.clear();
 	if ((Options.Version == 15) && (Options.useLayers))
 		ObjCounter = 10;
 	else
@@ -755,6 +756,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					if (pgit->annotation().Type() == 4)
 						StdFonts.insert("/ZapfDingbats", "");
 					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+					ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 				}
 				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 				{
@@ -1179,7 +1181,20 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StartObj(ObjCounter);
 				PutDoc("<<\n/Type /Font\n/Subtype ");
 				PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
-				PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
+//				if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
+//				{
+//					PutDoc("/TrueType\n");
+					PutDoc("/Name /Fo"+QString::number(a)+"Form"+"\n");
+					Seite.FObjects["Fo"+QString::number(a)+"Form"] = ObjCounter;
+					UsedFontsF.insert(it.key(), "/Fo"+QString::number(a)+"Form");
+/*				}
+				else
+				{
+					PutDoc("/Type1\n");
+					PutDoc("/Name /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+					Seite.FObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )] = ObjCounter;
+					UsedFontsF.insert(it.key(), "/"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+				} */
 				PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 				PutDoc("/Encoding << \n");
 				PutDoc("/Differences [ \n");
@@ -1199,7 +1214,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				PutDoc("/Widths "+QString::number(ObjCounter-1)+" 0 R\n");
 				PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R\n");
 				PutDoc(">>\nendobj\n");
-				Seite.FObjects["Fo"+QString::number(a)+"Form"] = ObjCounter;
 				ObjCounter++;
 //			} // FT_Has_PS_Glyph_Names
 		}
@@ -5278,7 +5292,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 				if (Options.Version < 14)
 					cnx += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 				else
-					cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
+					cnx += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+//					cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 			}
 			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
 			if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
@@ -5555,7 +5570,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
+			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+//			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -5596,7 +5612,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
+			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()];
+//			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"Form";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)

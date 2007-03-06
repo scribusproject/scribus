@@ -98,7 +98,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		if (! fon.usable() )
 			continue;
 		ScFace::FontType type = fon.type();
-		if ((forAnnotation) && ((type == ScFace::OTF) || (fon.subset())))
+		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || fon.subset()))
 			continue;
 		if (type == ScFace::OTF)
 			insertItem(otfFont, it2.data());
@@ -246,7 +246,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		if ( !fon.usable() || fon.isReplacement() )
 			continue;
 		ScFace::FontType type = fon.type();
-		if ((forAnnotation) && ((type == ScFace::OTF) || (fon.subset())))
+		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
 			continue;
 		if (type == ScFace::OTF)
 			fontFamily->insertItem(otfFont, it2a.data());

@@ -221,6 +221,7 @@ private:
 	QString Datum;
 	int NDnum;
 	QMap<QString, QString> UsedFontsP;
+	QMap<QString, QString> UsedFontsF;
 	bool CompAvail;
 	QByteArray KeyGen;
 	QByteArray OwnerKey;
