@@ -3515,6 +3515,7 @@ void PageItem::setTagged(bool tag)
 	tagged=tag;
 }
 
+void PageItem::replaceNamedResources(ResourceCollection& lists) {} //FIXME
 
 void PageItem::getNamedResources(ResourceCollection& lists) const
 {
