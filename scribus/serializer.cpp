@@ -50,8 +50,8 @@ struct Collection
 
 	void collectItem(PageItem* p)              { items.append(p); }
 	void collectColor(QString name, ScColor c) { colors[name] = c; }
-	void collectStyle(ParagraphStyle* style)   { qDebug(QString("collect Style %1").arg((ulong)style));   if (style && !style->name().isEmpty()) pstyles.append(style); }
-	void collectCharStyle(CharStyle* style)    { qDebug(QString("collect CharStyle %1").arg((ulong)style));   if (style && !style->name().isEmpty()) cstyles.append(style); }
+	void collectStyle(ParagraphStyle* style)   { if (style && !style->name().isEmpty()) pstyles.append(style); }
+	void collectCharStyle(CharStyle* style)    { if (style && !style->name().isEmpty()) cstyles.append(style); }
 	void collectFont(QString name)             { fonts.append(name); }
 	void collectPattern(QString name)          { patterns.append(name); }
 };
@@ -66,7 +66,7 @@ class CollectColor_body : public Action_body
 	
 	void end (const Xml_string tagname)
 	{
-		qDebug(QString("collect %1").arg(tagname));
+//		qDebug(QString("collect %1").arg(tagname));
 		Collection* coll = this->dig->top<Collection>(1);
 		ScColor* color = this->dig->top<ScColor>();
 		coll->collectColor(m_name, *color);
