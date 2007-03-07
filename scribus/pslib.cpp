@@ -1700,11 +1700,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	}
 	else
 	{
-		uint aa = 0;
 		uint a;
 		double maxWidth = 0.0;
 		double maxHeight = 0.0;
-		while (aa < pageNs.size())
+		for (uint aa = 0; aa < pageNs.size(); ++aa)
 		{
 			a = pageNs[aa]-1;
 			maxWidth = QMAX(Doc->Pages->at(a)->width(), maxWidth);
