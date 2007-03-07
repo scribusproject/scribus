@@ -3515,7 +3515,38 @@ void PageItem::setTagged(bool tag)
 	tagged=tag;
 }
 
-void PageItem::replaceNamedResources(ResourceCollection& lists) {} //FIXME
+void PageItem::replaceNamedResources(ResourceCollection& newNames) 
+{
+	QMap<QString,QString>::Iterator it;
+
+	it = newNames.colors.find(fillColor());
+	if (it != newNames.colors.end())
+		setFillColor(*it);
+
+	it = newNames.colors.find(lineColor());
+	if (it != newNames.colors.end())
+		setFillColor(*it);
+
+	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
+	{
+		it = newNames.colors.find(cstops.at(cst)->name);
+		if (it != newNames.colors.end())
+			cstops.at(cst)->name = *it;
+	}
+	
+	it = newNames.patterns.find(pattern());
+	if (it != newNames.patterns.end())
+		setPattern(*it);
+
+	it = newNames.linestyles.find(customLineStyle());
+	if (it != newNames.linestyles.end())
+		setCustomLineStyle(*it);
+
+	if (prevInChain() == NULL)
+		itemText.replaceNamedResources(newNames);
+}
+
 
 void PageItem::getNamedResources(ResourceCollection& lists) const
 {
