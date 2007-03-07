@@ -1003,6 +1003,26 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
 	if (mdoc != 0 && exporting)
 	{
+//	Build a list of all Fonts used in Annotations;
+		PageItem *pgit;
+		for (uint c = 0; c < doc->FrameItems.count(); ++c)
+		{
+			pgit = doc->FrameItems.at(c);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+		}
+		for (uint c = 0; c < doc->MasterItems.count(); ++c)
+		{
+			pgit = doc->MasterItems.at(c);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+		}
+		for (uint c = 0; c < doc->DocItems.count(); ++c)
+		{
+			pgit = doc->DocItems.at(c);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+		}
 		QMap<QString,int>::const_iterator it;
 		AvailFlist->clear();
 		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
@@ -1019,10 +1039,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		ToOutline->setEnabled(false);
 		FromOutline->setEnabled(false);
 		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
-		{
-//			EmbedFonts->setChecked(true);
 			EmbedAll();
-		}
 		else
 		{
 			EmbedList->clear();
@@ -1042,8 +1059,21 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 					FontsToOutline.append(Opts.SubsetList[fe]);
 				}
 			}
-//			if (DocFonts.count() == FontsToEmbed.count() + FontsToOutline.count())
-//				EmbedFonts->setChecked(true);
+			QMap<QString, QString>::Iterator itAnn;
+			for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
+			{
+				if (FontsToEmbed.contains(itAnn.key()) == 0)
+				{
+					EmbedList->insertItem(itAnn.key());
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
+					FontsToEmbed.append(itAnn.key());
+				}
+				if (FontsToOutline.contains(itAnn.key()) != 0)
+				{
+					FontsToOutline.remove(itAnn.key());
+					OutlineList->removeItem(OutlineList->index(OutlineList->findItem(itAnn.key())));
+				}
+			}
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
 		QString tmp;
@@ -1701,6 +1731,14 @@ void TabPDFOptions::RemoveEmbed()
 		FromEmbed->setEnabled(false);
 		ToOutline->setEnabled(false);
 	}
+	else
+	{
+		if (!EmbedList->item(EmbedList->currentItem())->isSelectable())
+		{
+			FromEmbed->setEnabled(false);
+			ToOutline->setEnabled(false);
+		}
+	}
 }
 
 void TabPDFOptions::PutToEmbed()
@@ -1713,6 +1751,8 @@ void TabPDFOptions::PutToEmbed()
 			{
 				FontsToEmbed.append(AvailFlist->currentText());
 				EmbedList->insertItem(AvailFlist->currentText());
+				if (AnnotationFonts.contains(AvailFlist->currentText()))
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
 			}
 		}
 		else
@@ -1738,6 +1778,8 @@ void TabPDFOptions::PutToEmbed()
 		{
 			FontsToEmbed.append(AvailFlist->currentText());
 			EmbedList->insertItem(AvailFlist->currentText());
+			if (AnnotationFonts.contains(AvailFlist->currentText()))
+				EmbedList->item(EmbedList->count()-1)->setSelectable(false);
 		}
 		else
 		{
@@ -1795,6 +1837,14 @@ void TabPDFOptions::PutToOutline()
 		FromEmbed->setEnabled(false);
 		ToOutline->setEnabled(false);
 	}
+	else
+	{
+		if (!EmbedList->item(EmbedList->currentItem())->isSelectable())
+		{
+			FromEmbed->setEnabled(false);
+			ToOutline->setEnabled(false);
+		}
+	}
 }
 
 void TabPDFOptions::SelAFont(QListBoxItem *c)
@@ -1815,12 +1865,13 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 {
 	if (c != NULL)
 	{
-		if (PDFVersionCombo->currentItem() != 3)
+		if ((PDFVersionCombo->currentItem() != 3) && (c->isSelectable()))
 			FromEmbed->setEnabled(true);
 		else
 			FromEmbed->setEnabled(false);
 		ToEmbed->setEnabled(false);
-		ToOutline->setEnabled(true);
+		if (c->isSelectable())
+			ToOutline->setEnabled(true);
 		FromOutline->setEnabled(false);
 		AvailFlist->clearSelection();
 		OutlineList->clearSelection();
@@ -1866,11 +1917,22 @@ void TabPDFOptions::EmbedAll()
 			{
 				FontsToEmbed.append(AvailFlist->item(a)->text());
 				EmbedList->insertItem(AvailFlist->item(a)->text());
+				if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
 			}
 			else
 			{
-				FontsToOutline.append(AvailFlist->item(a)->text());
-				OutlineList->insertItem(AvailFlist->item(a)->text());
+				if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
+				{
+					FontsToEmbed.append(AvailFlist->item(a)->text());
+					EmbedList->insertItem(AvailFlist->item(a)->text());
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
+				}
+				else
+				{
+					FontsToOutline.append(AvailFlist->item(a)->text());
+					OutlineList->insertItem(AvailFlist->item(a)->text());
+				}
 			}
 		}
 	}
@@ -1890,8 +1952,17 @@ void TabPDFOptions::OutlineAll()
 	{
 		if (AvailFlist->item(a)->isSelectable())
 		{
-			FontsToOutline.append(AvailFlist->item(a)->text());
-			OutlineList->insertItem(AvailFlist->item(a)->text());
+			if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
+			{
+				FontsToEmbed.append(AvailFlist->item(a)->text());
+				EmbedList->insertItem(AvailFlist->item(a)->text());
+				EmbedList->item(EmbedList->count()-1)->setSelectable(false);
+			}
+			else
+			{
+				FontsToOutline.append(AvailFlist->item(a)->text());
+				OutlineList->insertItem(AvailFlist->item(a)->text());
+			}
 		}
 	}
 }
