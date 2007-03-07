@@ -4921,6 +4921,12 @@ void ScribusMainWindow::slotEditPaste()
 						}
 					*/
 				}
+
+				// update style lists:
+				styleManager->setDoc(doc);
+				propertiesPalette->unsetDoc();
+				propertiesPalette->setDoc(doc);
+								
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				for (uint as = ac; as < doc->Items->count(); ++as)
