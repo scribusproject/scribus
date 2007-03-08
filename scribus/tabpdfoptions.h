@@ -267,6 +267,7 @@ private:
 	QCheckBox *docBleeds;
 	QButtonGroup* RangeGroup;
 	QVBoxLayout* RangeGroupLayout;
+	QHBoxLayout* RotationLayout;
 	QPushButton* OutlineFonts;
 	QListBox* OutlineList;
 	QWidget* tabColor;

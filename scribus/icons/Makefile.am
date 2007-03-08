@@ -123,6 +123,10 @@ ellipsis.png \
 22/go-bottom.png \
 16/go-down.png \
 22/go-down.png \
+16/go-next.png \
+22/go-next.png \
+16/go-previous.png \
+22/go-previous.png \
 16/go-top.png \
 22/go-top.png \
 16/go-up.png \
@@ -466,6 +470,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/go-bottom.png $(prefix)/share/scribus/icons/22/go-bottom.png
 	$(INSTALL_DATA) $(srcdir)/16/go-down.png $(prefix)/share/scribus/icons/16/go-down.png
 	$(INSTALL_DATA) $(srcdir)/22/go-down.png $(prefix)/share/scribus/icons/22/go-down.png
+	$(INSTALL_DATA) $(srcdir)/16/go-next.png $(prefix)/share/scribus/icons/16/go-next.png
+	$(INSTALL_DATA) $(srcdir)/22/go-next.png $(prefix)/share/scribus/icons/22/go-next.png
+	$(INSTALL_DATA) $(srcdir)/16/go-previous.png $(prefix)/share/scribus/icons/16/go-previous.png
+	$(INSTALL_DATA) $(srcdir)/22/go-previous.png $(prefix)/share/scribus/icons/22/go-previous.png
 	$(INSTALL_DATA) $(srcdir)/16/go-top.png $(prefix)/share/scribus/icons/16/go-top.png
 	$(INSTALL_DATA) $(srcdir)/22/go-top.png $(prefix)/share/scribus/icons/22/go-top.png
 	$(INSTALL_DATA) $(srcdir)/16/go-up.png $(prefix)/share/scribus/icons/16/go-up.png
@@ -920,6 +928,10 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/go-bottom.png
 	-rm -f $(prefix)/share/scribus/icons/16/go-down.png
 	-rm -f $(prefix)/share/scribus/icons/22/go-down.png
+	-rm -f $(prefix)/share/scribus/icons/16/go-next.png
+	-rm -f $(prefix)/share/scribus/icons/22/go-next.png
+	-rm -f $(prefix)/share/scribus/icons/16/go-previous.png
+	-rm -f $(prefix)/share/scribus/icons/22/go-previous.png
 	-rm -f $(prefix)/share/scribus/icons/16/go-top.png
 	-rm -f $(prefix)/share/scribus/icons/22/go-top.png
 	-rm -f $(prefix)/share/scribus/icons/16/go-up.png

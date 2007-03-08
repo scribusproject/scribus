@@ -385,6 +385,8 @@ INSTALL(FILES
 16/flip-object-vertical.png
 16/go-bottom.png
 16/go-down.png
+16/go-next.png
+16/go-previous.png
 16/go-top.png
 16/go-up.png
 16/insert-image.png
@@ -477,6 +479,8 @@ INSTALL(FILES
 22/edit-undo.png
 22/go-bottom.png
 22/go-down.png
+22/go-next.png
+22/go-previous.png
 22/go-top.png
 22/go-up.png
 22/insert-button.png
