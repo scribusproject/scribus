@@ -802,64 +802,194 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		ScFace::FontFormat fformat = AllFonts[it.key()].format();
 		if ((!AllFonts[it.key()].hasNames()) || (Options.SubsetList.contains(it.key())))
 		{
-			QString fon("");
-			QMap<uint,FPointArray>& RealGlyphs(it.data());
-			QMap<uint,FPointArray>::Iterator ig;
-			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
+			if (AllFonts[it.key()].hasNames())
 			{
-				FPoint np, np1, np2;
-				bool nPath = true;
-				fon = "";
-				if (ig.data().size() > 3)
+				UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
+				uint SubFonts = 0;
+				uint glyphCount = 0;
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				QValueList<uint> glyphWidths;
+				QStringList charProcs;
+				QString encoding = "<< /Type /Encoding\n/Differences [ 0\n";
+				QString fon("");
+				QMap<uint, uint> glyphMapping;
+				QMap<uint,std::pair<QChar,QString> > gl;
+				AllFonts[it.key()].glyphNames(gl);
+				QMap<uint,FPointArray>& RealGlyphs(it.data());
+				QMap<uint,FPointArray>::Iterator ig;
+				for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 				{
-					FPointArray gly = ig.data();
-					QWMatrix mat;
-					mat.scale(0.1, 0.1);
-					gly.map(mat);
-					for (uint poi = 0; poi < gly.size()-3; poi += 4)
+					FPoint np, np1, np2;
+					bool nPath = true;
+					fon = "";
+					if (ig.data().size() > 3)
 					{
-						if (gly.point(poi).x() > 900000)
+						FPointArray gly = ig.data();
+						QWMatrix mat;
+						mat.scale(100.0, -100.0);
+						gly.map(mat);
+						gly.translate(0, 1000);
+						for (uint poi = 0; poi < gly.size()-3; poi += 4)
 						{
-							fon += "h\n";
-							nPath = true;
-							continue;
+							if (gly.point(poi).x() > 900000)
+							{
+								fon += "h\n";
+								nPath = true;
+								continue;
+							}
+							if (nPath)
+							{
+								np = gly.point(poi);
+								fon += FToStr(np.x())+" "+FToStr(np.y())+" m\n";
+								nPath = false;
+							}
+							np = gly.point(poi+1);
+							np1 = gly.point(poi+3);
+							np2 = gly.point(poi+2);
+							fon += FToStr(np.x()) + " " + FToStr(np.y()) + " " + FToStr(np1.x()) + " " + FToStr(np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(np2.y()) + " c\n";
 						}
-						if (nPath)
-						{
-							np = gly.point(poi);
-							fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
-							nPath = false;
-						}
-						np = gly.point(poi+1);
-						np1 = gly.point(poi+3);
-						np2 = gly.point(poi+2);
-						fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
-							 FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
-							 FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
+						fon += "h f*\n";
+						np = getMinClipF(&gly);
+						np1 = getMaxClipF(&gly);
 					}
-					fon += "h f*\n";
-					np = getMinClipF(&gly);
-					np1 = getMaxClipF(&gly);
+					else
+					{
+						fon = "h";
+						np = FPoint(0, 0);
+						np1 = FPoint(0, 0);
+					}
+					fon.prepend(QString::number(qRound(np1.x())) + " 0 "+QString::number(qRound(np.x()))+" "+QString::number(qRound(np.y()))+" "+QString::number(qRound(np1.x()))+ " "+QString::number(qRound(np1.y()))+" d1\n");
+					minx = QMIN(minx, np.x());
+					miny = QMIN(miny, np.y());
+					maxx = QMAX(maxx, np1.x());
+					maxy = QMAX(maxy, np1.y());
+					glyphWidths.append(qRound(np1.x()));
+					charProcs.append("/"+gl[ig.key()].second+" "+QString::number(ObjCounter)+" 0 R\n");
+					encoding += "/"+gl[ig.key()].second+" ";
+					glyphMapping.insert(ig.key(), glyphCount + SubFonts * 256);
+					StartObj(ObjCounter);
+					ObjCounter++;
+					if ((Options.Compress) && (CompAvail))
+						fon = CompressStr(&fon);
+					PutDoc("<< /Length "+QString::number(fon.length()+1));
+					if ((Options.Compress) && (CompAvail))
+						PutDoc("\n/Filter /FlateDecode");
+					PutDoc("\n>>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
+					glyphCount++;
+					if ((glyphCount > 256) || (glyphCount == RealGlyphs.count()))
+					{
+						StartObj(ObjCounter);
+						ObjCounter++;
+						PutDoc("[ ");
+						for (uint ww = 0; ww < glyphWidths.count(); ++ww)
+						{
+							PutDoc(QString::number(qRound(glyphWidths[ww]))+" ");
+						}
+						PutDoc("]\nendobj\n");
+						StartObj(ObjCounter);
+						ObjCounter++;
+						PutDoc("<<\n");
+						for (uint ww = 0; ww < charProcs.count(); ++ww)
+						{
+							PutDoc(charProcs[ww]);
+						}
+						PutDoc(">>\nendobj\n");
+						StartObj(ObjCounter);
+						ObjCounter++;
+						PutDoc(encoding);
+						PutDoc("]\n");
+						PutDoc(">>\nendobj\n");
+						StartObj(ObjCounter);
+						PutDoc("<<\n/Type /Font\n/Subtype /Type3\n");
+						PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(SubFonts)+"\n");
+						PutDoc("/FirstChar 0\n");
+						PutDoc("/LastChar "+QString::number(glyphCount-1)+"\n");
+						PutDoc("/Widths "+QString::number(ObjCounter-3)+" 0 R\n");
+						PutDoc("/CharProcs "+QString::number(ObjCounter-2)+" 0 R\n");
+						PutDoc("/FontBBox ["+QString::number(qRound(minx))+" "+QString::number(qRound(miny))+" "+QString::number(qRound(maxx))+ " "+QString::number(qRound(maxy))+"]\n");
+						PutDoc("/FontMatrix [0.001 0 0 0.001 0 0]\n");
+						PutDoc("/Encoding "+QString::number(ObjCounter-1)+" 0 R\n");
+						PutDoc(">>\nendobj\n");
+						Seite.FObjects["Fo"+QString::number(a)+"S"+QString::number(SubFonts)] = ObjCounter;
+						ObjCounter++;
+						charProcs.clear();
+						glyphWidths.clear();
+//						glyphMapping.clear();
+						glyphCount = 0;
+						SubFonts = 0;
+						minx = 99999.9;
+						miny = 99999.9;
+						maxx = -99999.9;
+						maxy = -99999.9;
+						encoding = "<< /Type /Encoding\n/Differences [ 0\n";
+					}
 				}
-				else
+				Type3Fonts.insert("/Fo"+QString::number(a), glyphMapping);
+			}
+			else
+			{
+				QString fon("");
+				QMap<uint,FPointArray>& RealGlyphs(it.data());
+				QMap<uint,FPointArray>::Iterator ig;
+				for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 				{
-					fon = "h";
-					np = FPoint(0, 0);
-					np1 = FPoint(0, 0);
+					FPoint np, np1, np2;
+					bool nPath = true;
+					fon = "";
+					if (ig.data().size() > 3)
+					{
+						FPointArray gly = ig.data();
+						QWMatrix mat;
+						mat.scale(0.1, 0.1);
+						gly.map(mat);
+						for (uint poi = 0; poi < gly.size()-3; poi += 4)
+						{
+							if (gly.point(poi).x() > 900000)
+							{
+								fon += "h\n";
+								nPath = true;
+								continue;
+							}
+							if (nPath)
+							{
+								np = gly.point(poi);
+								fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+								nPath = false;
+							}
+							np = gly.point(poi+1);
+							np1 = gly.point(poi+3);
+							np2 = gly.point(poi+2);
+							fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " +
+								FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " +
+								FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
+						}
+						fon += "h f*\n";
+						np = getMinClipF(&gly);
+						np1 = getMaxClipF(&gly);
+					}
+					else
+					{
+						fon = "h";
+						np = FPoint(0, 0);
+						np1 = FPoint(0, 0);
+					}
+					StartObj(ObjCounter);
+					ObjCounter++;
+					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
+					PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+					PutDoc(">>\n");
+					if ((Options.Compress) && (CompAvail))
+						fon = CompressStr(&fon);
+					PutDoc("/Length "+QString::number(fon.length()+1));
+					if ((Options.Compress) && (CompAvail))
+						PutDoc("\n/Filter /FlateDecode");
+					PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
+					Seite.XObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
 				}
-				StartObj(ObjCounter);
-				ObjCounter++;
-				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+ " "+FToStr(-np1.y())+" ]\n");
-				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-				PutDoc(">>\n");
-				if ((Options.Compress) && (CompAvail))
-					fon = CompressStr(&fon);
-				PutDoc("/Length "+QString::number(fon.length()+1));
-				if ((Options.Compress) && (CompAvail))
-					PutDoc("\n/Filter /FlateDecode");
-				PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
-				Seite.XObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
 			}
 		}
 		else
@@ -4148,7 +4278,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			}
 			tmp2 += "S\n";
 		}
-		if ((!style.font().hasNames()) || (Options.SubsetList.contains(style.font().replacementName())))
+		if (!style.font().hasNames())
 		{
 			if (glyph != style.font().char2CMap(QChar(' ')))
 			{
@@ -4236,42 +4366,52 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		}
 		else
 		{
-			uint idx = hl->glyph.glyph;
-			uint idx1 = idx / 224;
-			tmp += UsedFontsP[style.font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 			if (style.strokeColor() != CommonStrings::None)
 			{
-			tmp += StrokeColor;
 				if ((style.effects() & ScStyle_Underline) || (style.effects() & ScStyle_Strikethrough))
 					tmp2 += StrokeColor;
 			}
 			if (style.fillColor() != CommonStrings::None)
 			{
-				tmp += FillColor;
 				if ((style.effects() & ScStyle_Underline) || (style.effects() & ScStyle_Strikethrough))
 					tmp2 += FillColor;
 			}
-			if (style.effects() & 4)
-				tmp += FToStr(tsz * style.outlineWidth() / 10000.0) + (style.fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
-			else
-				tmp += "0 Tr\n";
-			if (!ite->asPathText())
+			if (glyph != style.font().char2CMap(QChar(' ')))
 			{
-				if (ite->reversed())
+				uint idx = hl->glyph.glyph;
+				uint idx1;
+				if (Options.SubsetList.contains(style.font().replacementName()))
+					idx1 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] / 255;
+				else
+					idx1 = idx / 224;
+				tmp += UsedFontsP[style.font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+				if (style.strokeColor() != CommonStrings::None)
+					tmp += StrokeColor;
+				if (style.fillColor() != CommonStrings::None)
+					tmp += FillColor;
+				if (style.effects() & 4)
+					tmp += FToStr(tsz * style.outlineWidth() / 10000.0) + (style.fillColor() != CommonStrings::None ? " w 2 Tr\n" : " w 1 Tr\n");
+				else
+					tmp += "0 Tr\n";
+				if (!ite->asPathText())
 				{
-					//				int chs = style.fontSize();
-					double wtr = hl->glyph.xadvance;
-					tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
-					//				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
+					if (ite->reversed())
+					{
+						double wtr = hl->glyph.xadvance;
+						tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
+					}
+					else
+						tmp +=  FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
 				}
 				else
-					tmp +=  FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
+					tmp += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
+				uchar idx2;
+				if (Options.SubsetList.contains(style.font().replacementName()))
+					idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 255;
+				else
+					idx2 = idx % 224 + 32;
+				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 			}
-			else
-				tmp += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
-//			uchar idx2 = idx % 224 + 32 - hl->font().char2CMap(QChar(' '));
-			uchar idx2 = idx % 224 + 32;
-			tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 		}
 		if ((style.effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
 		{

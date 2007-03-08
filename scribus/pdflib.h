@@ -245,6 +245,7 @@ private:
 	bool usingGUI;
 	double bleedDisplacementX;
 	double bleedDisplacementY;
+	QMap<QString, QMap<uint, uint> > Type3Fonts;
 	
 protected slots:
 	void cancelRequested();
