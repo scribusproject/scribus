@@ -70,13 +70,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Inhalt = new QToolButton(this, "t1");
 	Inhalt->setPixmap(loadIcon("16/color-stroke.png"));
 	Inhalt->setToggleButton(true);
-	Inhalt->setAutoRaise(true);
+// 	Inhalt->setAutoRaise(true);
 	Inhalt->setBackgroundMode(PaletteBackground);
 	Layout1->addWidget(Inhalt);
 	Innen = new QToolButton(this, "t2");
 	Innen->setPixmap(loadIcon("16/color-fill.png"));
 	Innen->setToggleButton(true);
-	Innen->setAutoRaise(true);
+// 	Innen->setAutoRaise(true);
 	Innen->setBackgroundMode(PaletteBackground);
 	Innen->setOn(true);
 	Layout1->addWidget(Innen);
