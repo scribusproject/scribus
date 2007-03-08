@@ -2215,39 +2215,42 @@ void PDFlib::PDF_End_Page()
 				PutPage(FToStr(startX+bl*14.0)+" "+FToStr(startY)+" 14 14 re B\n");
 				col -= 0.1;
 			}
-			startX = maxBoxX-bleedRight-markOffs-20.0;
-			PutPage("0 0 0 0.5 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0 0 0.5 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0 0.5 0 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0.5 0 0 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("1 1 0 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("1 0 1 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0 1 1 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0 0 0 1 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0 0 1 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("0 1 0 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
-			startX -= 14.0;
-			PutPage("1 0 0 0 k\n");
-			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			if (!Options.isGrayscale)
+			{
+				startX = maxBoxX-bleedRight-markOffs-20.0;
+				PutPage("0 0 0 0.5 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0 0 0.5 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0 0.5 0 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0.5 0 0 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("1 1 0 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("1 0 1 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0 1 1 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0 0 0 1 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0 0 1 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("0 1 0 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+				startX -= 14.0;
+				PutPage("1 0 0 0 k\n");
+				PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			}
 		}
 		if (Options.docInfoMarks)
 		{
