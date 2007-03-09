@@ -1799,6 +1799,8 @@ void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)
 			}
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
+				if (it->isAnnotation())
+					Really->insert(it->font(), UsedFonts[it->font()]);
 				for (int e = 0; e < it->itemText.length(); ++e)
 				{
 					Really->insert(it->itemText.charStyle(e).cfont->scName(), UsedFonts[it->itemText.charStyle(e).cfont->scName()]);

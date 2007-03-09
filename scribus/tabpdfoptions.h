@@ -296,6 +296,7 @@ private:
 	double pageH;
 	double pageB;
 	bool cms;
+	QMap<QString, QString> AnnotationFonts;
 
 };
 #endif

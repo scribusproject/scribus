@@ -320,7 +320,8 @@ typedef enum {
 	ImageDPITooLow=5,
 	Transparency=6,
 	PDFAnnotField=7,
-	PlacedPDF=8
+	PlacedPDF=8,
+	WrongFontInAnnotation=9
 } PreflightError;
 
 typedef QMap<PreflightError, int> errorCodes;

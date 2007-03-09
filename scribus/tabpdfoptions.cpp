@@ -404,6 +404,26 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	insertTab( tabGeneral, tr( "&General" ) );
 	if (vie != 0)
 	{
+//	Build a list of all Fonts used in Annotations;
+		PageItem *pgit;
+		for (uint c = 0; c < view->Doc->FrameItems.count(); ++c)
+		{
+			pgit = view->Doc->FrameItems.at(c);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				AnnotationFonts.insert(pgit->font(), "");
+		}
+		for (uint c = 0; c < view->Doc->MasterItems.count(); ++c)
+		{
+			pgit = view->Doc->MasterItems.at(c);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				AnnotationFonts.insert(pgit->font(), "");
+		}
+		for (uint c = 0; c < view->Doc->DocItems.count(); ++c)
+		{
+			pgit = view->Doc->DocItems.at(c);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+				AnnotationFonts.insert(pgit->font(), "");
+		}
 		tabFonts = new QWidget( this, "tabFonts" );
 		tabLayout_3 = new QVBoxLayout( tabFonts );
 		tabLayout_3->setSpacing( 5 );
@@ -501,6 +521,21 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 			{
 				SubsetList->insertItem(Opts.SubsetList[fe]);
 				FontsToSubset.append(Opts.SubsetList[fe]);
+			}
+		}
+		QMap<QString, QString>::Iterator itAnn;
+		for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
+		{
+			if (FontsToEmbed.contains(itAnn.key()) == 0)
+			{
+				EmbedList->insertItem(itAnn.key());
+				EmbedList->item(EmbedList->count()-1)->setSelectable(false);
+				FontsToEmbed.append(itAnn.key());
+			}
+			if (FontsToSubset.contains(itAnn.key()) != 0)
+			{
+				FontsToSubset.remove(itAnn.key());
+				SubsetList->removeItem(SubsetList->index(SubsetList->findItem(itAnn.key())));
 			}
 		}
 		GroupFontLayout->addLayout( Layout6 );
@@ -1631,6 +1666,14 @@ void TabPDFOptions::RemoveEmbed()
 		FromEmbed->setEnabled(false);
 		ToSubset->setEnabled(false);
 	}
+	else
+	{
+		if (!EmbedList->item(EmbedList->currentItem())->isSelectable())
+		{
+			FromEmbed->setEnabled(false);
+			ToSubset->setEnabled(false);
+		}
+	}
 }
 
 void TabPDFOptions::PutToEmbed()
@@ -1643,6 +1686,8 @@ void TabPDFOptions::PutToEmbed()
 			{
 				FontsToEmbed.append(AvailFlist->currentText());
 				EmbedList->insertItem(AvailFlist->currentText());
+				if (AnnotationFonts.contains(AvailFlist->currentText()))
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
 			}
 		}
 		else
@@ -1668,6 +1713,8 @@ void TabPDFOptions::PutToEmbed()
 		{
 			FontsToEmbed.append(AvailFlist->currentText());
 			EmbedList->insertItem(AvailFlist->currentText());
+			if (AnnotationFonts.contains(AvailFlist->currentText()))
+				EmbedList->item(EmbedList->count()-1)->setSelectable(false);
 		}
 		else
 		{
@@ -1725,6 +1772,14 @@ void TabPDFOptions::PutToSubset()
 		FromEmbed->setEnabled(false);
 		ToSubset->setEnabled(false);
 	}
+	else
+	{
+		if (!EmbedList->item(EmbedList->currentItem())->isSelectable())
+		{
+			FromEmbed->setEnabled(false);
+			ToSubset->setEnabled(false);
+		}
+	}
 }
 
 void TabPDFOptions::SelAFont(QListBoxItem *c)
@@ -1745,12 +1800,13 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 {
 	if (c != NULL)
 	{
-		if (isTabEnabled(tabPDFX))
+		if ((isTabEnabled(tabPDFX)) && (c->isSelectable()))
 			FromEmbed->setEnabled(false);
 		else
 			FromEmbed->setEnabled(true);
 		ToEmbed->setEnabled(false);
-		ToSubset->setEnabled(true);
+		if (c->isSelectable())
+			ToSubset->setEnabled(true);
 		FromSubset->setEnabled(false);
 		AvailFlist->clearSelection();
 		SubsetList->clearSelection();
@@ -1796,11 +1852,22 @@ void TabPDFOptions::EmbedAll()
 			{
 				FontsToEmbed.append(AvailFlist->item(a)->text());
 				EmbedList->insertItem(AvailFlist->item(a)->text());
+				if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
 			}
 			else
 			{
-				FontsToSubset.append(AvailFlist->item(a)->text());
-				SubsetList->insertItem(AvailFlist->item(a)->text());
+				if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
+				{
+					FontsToEmbed.append(AvailFlist->item(a)->text());
+					EmbedList->insertItem(AvailFlist->item(a)->text());
+					EmbedList->item(EmbedList->count()-1)->setSelectable(false);
+				}
+				else
+				{
+					FontsToSubset.append(AvailFlist->item(a)->text());
+					SubsetList->insertItem(AvailFlist->item(a)->text());
+				}
 			}
 		}
 	}
@@ -1820,8 +1887,17 @@ void TabPDFOptions::SubsetAll()
 	{
 		if (AvailFlist->item(a)->isSelectable())
 		{
-			FontsToSubset.append(AvailFlist->item(a)->text());
-			SubsetList->insertItem(AvailFlist->item(a)->text());
+			if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
+			{
+				FontsToEmbed.append(AvailFlist->item(a)->text());
+				EmbedList->insertItem(AvailFlist->item(a)->text());
+				EmbedList->item(EmbedList->count()-1)->setSelectable(false);
+			}
+			else
+			{
+				FontsToSubset.append(AvailFlist->item(a)->text());
+				SubsetList->insertItem(AvailFlist->item(a)->text());
+			}
 		}
 	}
 }
