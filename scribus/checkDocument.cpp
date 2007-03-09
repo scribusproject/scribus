@@ -371,6 +371,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, isGIF);
 							//QToolTip::add(object, isGIFtoolTip);
 							break;
+						case WrongFontInAnnotation:
+							object->setText(1, WrongFont);
+							hasGraveError = true;
+							pageGraveError = true;
+							itemError = true;
+							break;
 						default:
 							break;
 						}
@@ -435,6 +441,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setText(1, isGIF);
 								errorText->setPixmap(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
+								break;
+							case WrongFontInAnnotation:
+								errorText->setText(1, WrongFont);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
 								break;
 							default:
 								break;
@@ -528,6 +541,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, isGIF);
 							//QToolTip::add(object, isGIFtoolTip);
 							break;
+						case WrongFontInAnnotation:
+							object->setText(1, WrongFont);
+							hasGraveError = true;
+							pageGraveError = true;
+							itemError = true;
+							break;
 						default:
 							break;
 						}
@@ -592,6 +611,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setText(1, isGIF);
 								errorText->setPixmap(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
+								break;
+							case WrongFontInAnnotation:
+								errorText->setText(1, WrongFont);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
 								break;
 							default:
 								break;
@@ -688,6 +714,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, isGIF);
 							//QToolTip::add(object, isGIFtoolTip);
 							break;
+						case WrongFontInAnnotation:
+							object->setText(1, WrongFont);
+							hasGraveError = true;
+							pageGraveError = true;
+							break;
 						default:
 							break;
 						}
@@ -750,6 +781,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setPixmap(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
+							case WrongFontInAnnotation:
+								errorText->setText(1, WrongFont);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								break;
 							default:
 								break;
 							}
@@ -810,6 +847,7 @@ void CheckDocument::languageChange()
 	annot = tr("Object is a PDF Annotation or Field");
 	rasterPDF = tr("Object is a placed PDF");
 	isGIF = tr("Image is GIF");
+	WrongFont = tr("Annotation uses a non TrueType font");
 	//isGIFtoolTip = "<qt>" + tr("GIF images are not reccomended for print. See the online docs for more info") + "</qt>";
 }
 

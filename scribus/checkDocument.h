@@ -120,6 +120,7 @@ private:
 	QString rasterPDF;
 	QString isGIF;
 	QString isGIFtoolTip;
+	QString WrongFont;
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
