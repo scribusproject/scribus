@@ -2268,7 +2268,7 @@ void PDFlib::PDF_End_Page()
 			PutPage("1 0 0 1 "+FToStr(startX)+" 6 cm\n");
 			PutPage("BT\n");
 			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-			PutPage(EncStringUTF16("("+docTitle+")",ObjCounter)+" Tj\nET\n");
+			PutPage(EncString("("+docTitle+")",ObjCounter)+" Tj\nET\n");
 			PutPage("Q\n");
 			PutPage("q\n");
 			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 + 20.0)+" 6 cm\n");
