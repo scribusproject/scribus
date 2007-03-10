@@ -186,7 +186,7 @@ LineStyleWidget::~LineStyleWidget()
 /*************************************************************************/
 /*************************************************************************/
 
-SMLineStyle::SMLineStyle() : StyleItem(), doc_(0), twidget_(0), selectionIsDirty_(false)
+SMLineStyle::SMLineStyle() : StyleItem(), doc_(0), widget_(0), twidget_(0), selectionIsDirty_(false)
 {
 	
 }
