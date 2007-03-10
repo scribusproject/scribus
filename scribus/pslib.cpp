@@ -1081,6 +1081,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 			a = pageNs[aa]-1;
 			maxWidth = QMAX(Doc->Pages->at(a)->width(), maxWidth);
 			maxHeight = QMAX(Doc->Pages->at(a)->height(), maxHeight);
+			aa++;
 		}
 		PS_begin_doc(Doc->PageOri, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep);
 	}
