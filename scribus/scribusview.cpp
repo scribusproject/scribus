@@ -10265,6 +10265,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		double cy = Doc->minCanvasCoordinate.y();
 		Doc->minCanvasCoordinate = FPoint(0, 0);
 		Page* act = Doc->currentPage();
+		bool mMode = Doc->masterPageMode();
+		Doc->setMasterPageMode(true);
 		Doc->setCurrentPage(Doc->MasterPages.at(Nr));
 		bool ctrls = Doc->guidesSettings.showControls;
 		Doc->guidesSettings.showControls = false;
@@ -10273,7 +10275,11 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		previewMode = true;
 		forceRedraw = true;
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
+#ifdef HAVE_CAIRO
+		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height(), 1.0, 0);
+#else
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
+#endif
 		painter->clear(white);
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
@@ -10283,15 +10289,13 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
-		//Hmm do we need master page mode before this? Seiten.cpp uses this function.
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-		Doc->guidesSettings.framesShown = frs;
-		Doc->guidesSettings.showControls = ctrls;
-		setScale(sca);
-		Doc->setCurrentPage(act);
+#ifdef HAVE_CAIRO
+		painter->endLayer();
+#endif
 		painter->end();
-		double sx = im.width() / static_cast<double>(maxGr);
-		double sy = im.height() / static_cast<double>(maxGr);
+		double sx = pm.width() / static_cast<double>(maxGr);
+		double sy = pm.height() / static_cast<double>(maxGr);
 		if (sy < sx)
 			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
 		else
@@ -10300,6 +10304,11 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		painter=NULL;
 		previewMode = false;
 		forceRedraw = false;
+		Doc->guidesSettings.framesShown = frs;
+		Doc->guidesSettings.showControls = ctrls;
+		setScale(sca);
+		Doc->setMasterPageMode(mMode);
+		Doc->setCurrentPage(act);
 		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
@@ -10307,7 +10316,6 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 
 QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 {
-//	QImage pm;
 	QImage im;
 	double sx = maxGr / Doc->Pages->at(Nr)->width();
 	double sy = maxGr / Doc->Pages->at(Nr)->height();
@@ -10332,7 +10340,11 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		Page* act = Doc->currentPage();
 		Doc->setCurrentPage(Doc->Pages->at(Nr));
 		im = QImage(clipw, cliph, 32, QImage::BigEndian);
+#ifdef HAVE_CAIRO
+		ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
+#else
 		ScPainter *painter = new ScPainter(&im, im.width(), im.height());
+#endif
 		painter->clear(Doc->papColor);
 		painter->translate(-clipx, -clipy);
 		painter->setFillMode(ScPainter::Solid);
@@ -10342,19 +10354,17 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
+		painter->setZoomFactor(Scale);
 		DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
+		painter->endLayer();
+#endif
 		painter->end();
 		Doc->guidesSettings.framesShown = frs;
 		Doc->guidesSettings.showControls = ctrls;
 		Scale = sca;
 		Doc->setCurrentPage(act);
-/*		double sx = pm.width() / static_cast<double>(maxGr);
-		double sy = pm.height() / static_cast<double>(maxGr);
-		if (sy < sx)
-			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
-		else
-			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy)); */
 		delete painter;
 		painter=NULL;
 		previewMode = false;
