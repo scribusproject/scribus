@@ -119,12 +119,15 @@ public:
 	void clearAll();
 
 private:
-	QVBoxLayout *characterBoxLayout;
+	QVBoxLayout *basicBoxLayout;
+	QVBoxLayout *advBoxLayout;
+	QVBoxLayout *colorBoxLayout;
 	QHBoxLayout *layout8;
 	QHBoxLayout *layout9a;
 	QHBoxLayout *layout5;
 	QHBoxLayout *layout6;
 	QGridLayout *spinBoxLayout_;
+	QGridLayout *spinBoxLayoutBasic_;
 
 	SMFontComboH  *fontFace_;
 	SMStyleSelect *effects_;
@@ -149,9 +152,11 @@ private:
 	QLabel      *pixmapLabel3_19;
 	QLabel      *trackingLabel_;
 	QLabel      *baselineOffsetLabel_;
+	QLabel      *languageLabel_;
 
 	QSpacerItem *spacer1;
 	QSpacerItem *spacer2;
+	QSpacerItem *spacer3;
 	QSpacerItem *spacer4;
 
 	QMap<QString, QString> langMap_;
