@@ -1898,9 +1898,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	layout();
 	if (invalid)
 		return;
-	
-	ScribusView* view = m_Doc->view();
-	QPainter pf2;
+	QWMatrix pf2;
 	QPoint pt1, pt2;
 	QRegion cm;
 	double wide, lineCorr;
@@ -1920,7 +1918,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	double desc, asce, tabDist;
 //	tTabValues.clear();
 	p->save();
-	pf2.begin(view->viewport());
 	QRect e2;
 	if (isEmbedded)
 		e2 = e;
@@ -1944,12 +1941,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		lineCorr = 0;
 	if ((isAnnotation()) && (annotation().Type() == 2) && (!Pfile.isEmpty()) && (PicAvail) && (PicArt) && (annotation().UseIcons()))
 	{
+		p->save();
 		p->setupPolygon(&PoLine);
 		p->setClipPath();
-		p->save();
 		p->scale(LocalScX, LocalScY);
 		p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
-		if (pixm.width() > 0 && pixm.height() > 0) {
+		if (pixm.width() > 0 && pixm.height() > 0)
+		{
 			QImage img(pixm.qImage());
 			p->drawImage(&img);
 		}
@@ -1957,7 +1955,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	}
 	if (itemText.length() != 0)
 	{
-//		qDebug("drawing textframe: len=%d", itemText.count());
+//		qDebug("drawing textframe: len=%d", itemText.length());
 		if (imageFlippedH())
 		{
 			p->translate(Width * sc, 0);
@@ -2035,7 +2033,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						wide = hl->glyph.xadvance;
 						p->setFillMode(1);
-						//							p->setBrush(darkBlue);
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::Highlight));
 						p->setLineWidth(0);
 //						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
@@ -2046,7 +2043,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						if (!m_Doc->RePos)
 							p->drawRect(xcoZli, qRound(ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), wide+1, qRound((asce+desc) * (hl->glyph.scaleV)));
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
-						//							p->setBrush(white);
 					}
 					actStroke = charStyle.strokeColor();
 					actStrokeShade = charStyle.strokeShade();
@@ -2064,7 +2060,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
 					}
 					// paint glyphs
-					if (e2.intersects(pf2.xForm(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
+					if (e2.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
 					{
 						p->save();
 #ifdef HAVE_CAIRO
@@ -2072,22 +2068,20 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 #else
 						p->translate(CurX * p->zoomFactor(), ls.y * p->zoomFactor());
 #endif
-						if (hl->ch[0] == SpecialChars::OBJECT) 
-						{
+						if (hl->ch[0] == SpecialChars::OBJECT)
 							DrawObj_Embedded(p, e, charStyle, hl->embedded.getItem());
-#ifdef HAVE_CAIRO
-							CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
-#else
-							CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) *  p->zoomFactor();
-#endif
-						}
 						else
-						{
 							drawGlyphs(p, charStyle, hl->glyph);
-							CurX += hl->glyph.wide();
-						}
 						p->restore();
-					}		
+					}
+					if (hl->ch[0] == SpecialChars::OBJECT)
+#ifdef HAVE_CAIRO
+						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+#else
+						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) *  p->zoomFactor();
+#endif
+					else
+						CurX += hl->glyph.wide();
 				}
 				tabDist = CurX;
 			}
@@ -2097,7 +2091,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //		qDebug("skipping textframe: len=%d", itemText.count());
 	}
 
-	pf2.end();
+//	pf2.end();
 	p->restore();
 }
 
