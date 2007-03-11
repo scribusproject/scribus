@@ -191,8 +191,8 @@ void Annota::SetPg(int v)
 	}
 	else
 	{
-		Pg->SetSeite(v-1, 100);
-		SpinBox1->setValue(v);
+		Pg->SetSeite(QMIN(v-1, MaxSeite-1), 100);
+		SpinBox1->setValue(QMIN(v, MaxSeite));
 		Breite = OriBreite;
 		Hoehe = OriHoehe;
 	}
