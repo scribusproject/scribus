@@ -1916,6 +1916,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "stroke-opacity", e.attribute( "stroke-opacity" ) );
 	/*	if( !e.attribute( "stroke-miterlimit" ).isEmpty() )
 			parsePA( obj, "stroke-miterlimit", e.attribute( "stroke-miterlimit" ) );   */
+	if( !e.attribute( "fill-rule" ).isEmpty() )
+		parsePA( obj, "fill-rule", e.attribute( "fill-rule" ) );
 	if( !e.attribute( "fill-opacity" ).isEmpty() )
 		parsePA( obj, "fill-opacity", e.attribute( "fill-opacity" ) );
 	if( !e.attribute( "opacity" ).isEmpty() )
