@@ -22,7 +22,7 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent, "ShadeButton")
 	setPopupDelay(1);
 	setText("100 %");
 	FillSh->setItemChecked(FillSh->idAt(11), true);
-	setAutoRaise(true);
+// 	setAutoRaise(true);
 	connect( FillSh, SIGNAL(activated(int)), this, SLOT(setShade(int)));
 }
 
