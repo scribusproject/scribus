@@ -905,7 +905,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->CharWidth[13] = 0;
 			t->CharWidth[28] = 0;
 			t->CharWidth[9] = 1;
-			if (face->num_glyphs > 512)
+			if (face->num_glyphs > 2048)
 				t->Subset = true;
 			t->PrivateFont = DocName;
 			//setBestEncoding(face); //AV
