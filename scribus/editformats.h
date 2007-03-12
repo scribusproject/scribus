@@ -8,13 +8,17 @@ for which a new license (GPL+exception) is in place.
 #define STILFORMATE_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
-#include <qlistview.h>
+#include <q3listbox.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qmap.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "styles/styleset.h"
@@ -39,9 +43,9 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	ScComboBox* replacementStyleData;
-	QVBoxLayout* dialogLayout;
-	QGridLayout* delStyleLayout;
-	QHBoxLayout* okCancelLayout;
+	Q3VBoxLayout* dialogLayout;
+	Q3GridLayout* delStyleLayout;
+	Q3HBoxLayout* okCancelLayout;
 
 	QString replacementStyle;
 
@@ -58,14 +62,14 @@ public:
 	ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld );
 	~ChooseStyles() {};
 
-	QListView* StyleView;
+	Q3ListView* StyleView;
 	QPushButton* OkButton;
 	QPushButton* CancelButton;
-	QMap<QCheckListItem*, int> storedStyles;
+	QMap<Q3CheckListItem*, int> storedStyles;
 
 protected:
-	QVBoxLayout* ChooseStylesLayout;
-	QHBoxLayout* layout2;
+	Q3VBoxLayout* ChooseStylesLayout;
+	Q3HBoxLayout* layout2;
 
 };
 
@@ -78,7 +82,7 @@ public:
 	StilFormate( QWidget* parent, ScribusDoc *doc);
 	//~StilFormate() {};
 
-	QListBox* ListBox1;
+	Q3ListBox* ListBox1;
 	QPushButton* LoadS;
 	QPushButton* NewB;
 	QPushButton* EditB;
@@ -95,8 +99,8 @@ public:
 
 public slots:
 	void saveIt();
-	void selFormat(QListBoxItem *c);
-	void selEditFormat(QListBoxItem *c);
+	void selFormat(Q3ListBoxItem *c);
+	void selEditFormat(Q3ListBoxItem *c);
 	void editFormat();
 	void neuesFormat();
 	void dupFormat();
@@ -107,8 +111,8 @@ signals:
 	void saveStyle(StilFormate *);
 
 protected:
-	QHBoxLayout* StilFormateLayout;
-	QVBoxLayout* Layout15;
+	Q3HBoxLayout* StilFormateLayout;
+	Q3VBoxLayout* Layout15;
 };
 
 #endif // STILFORMATE_H

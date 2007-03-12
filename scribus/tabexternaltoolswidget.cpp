@@ -73,7 +73,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 void TabExternalToolsWidget::changePostScriptTool()
 {
 	QFileInfo fi(psToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
+	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
 	if (!s.isEmpty())
 		psToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -81,7 +81,7 @@ void TabExternalToolsWidget::changePostScriptTool()
 void TabExternalToolsWidget::changeImageTool()
 {
 	QFileInfo fi(imageToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
+	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
 	if (!s.isEmpty())
 		imageToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -89,7 +89,7 @@ void TabExternalToolsWidget::changeImageTool()
 void TabExternalToolsWidget::changeExtBrowserTool()
 {
 	QFileInfo fi(extBrowserToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
+	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
 	if (!s.isEmpty())
 		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
 }

@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #define BOOKPALETTE_H
 
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "bookmwin.h"
@@ -60,7 +62,7 @@ signals:
 	//void Schliessen();
 
 protected:
-	QVBoxLayout* PaletteLayout;
+	Q3VBoxLayout* PaletteLayout;
 
 protected slots:
 	//virtual void reject();

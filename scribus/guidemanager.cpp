@@ -25,12 +25,12 @@ for which a new license (GPL+exception) is in place.
 #include <qradiobutton.h>
 #include <qlayout.h>
 #include <qcursor.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qdialog.h>
-#include <qvaluelist.h>
-#include <qgroupbox.h>
+#include <q3valuelist.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
 #include <qcheckbox.h>
 #include <qtooltip.h>
@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 
 
-int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
+int GuideListItem::compare(Q3ListViewItem *i, int col, bool asc) const
 {
 	if (col == 0)
 	{
@@ -61,7 +61,7 @@ int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
 		return -1;
 	}
 	else
-		return QListViewItem::compare(i, col, asc);
+		return Q3ListViewItem::compare(i, col, asc);
 }
 
 
@@ -182,12 +182,12 @@ void GuideManager::unitChange()
 	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
 }
 
-bool GuideManager::deleteValueFormList(QListView *list)
+bool GuideManager::deleteValueFormList(Q3ListView *list)
 {
 	/* previous item pointer to ensure that ++it
 	runs before item goes deleted */
-	QListViewItem *itemToDelete;
-	QListViewItemIterator it(list, QListViewItemIterator::Selected);
+	Q3ListViewItem *itemToDelete;
+	Q3ListViewItemIterator it(list, Q3ListViewItemIterator::Selected);
 	QString value;
 	while (it.current())
 	{
@@ -218,7 +218,7 @@ void GuideManager::delVerButton_clicked()
 	deleteValueFormList(verticalList);
 }
 
-bool GuideManager::editValueToList(QListView *list)
+bool GuideManager::editValueToList(Q3ListView *list)
 {
 	bool ok;
 	QString original = list->currentItem()->text(0);
@@ -246,7 +246,7 @@ bool GuideManager::editValueToList(QListView *list)
 	return true;
 }
 
-bool GuideManager::addValueToList(QListView *list)
+bool GuideManager::addValueToList(Q3ListView *list)
 {
 	bool ok;
 	double newGuide = ScInputDialog::getDouble( tr("New Guide"),
@@ -296,7 +296,7 @@ void GuideManager::addVerButton_clicked()
 	addValueToList(verticalList);
 }
 
-void GuideManager::setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guides)
+void GuideManager::setGuidesFromList(Q3ListView *w, GuideGUIMap *map, Guides guides)
 {
 	QString tmp;
 	//w->clear(); // clearing is moved into the setupPage()
@@ -319,7 +319,7 @@ void GuideManager::lockCheck_stateChanged( int )
 
 void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 {
-	QPtrListIterator<Page> it(*m_Doc->Pages);
+	Q3PtrListIterator<Page> it(*m_Doc->Pages);
 	Page *tmpPage;
 	while ((tmpPage = it.current()) != 0 )
 	{
@@ -427,22 +427,22 @@ void GuideManager::tabWidget_currentChanged(QWidget *)
 	}
 }
 
-void GuideManager::horizontalList_doubleClicked( QListViewItem * )
+void GuideManager::horizontalList_doubleClicked( Q3ListViewItem * )
 {
 	editValueToList(horizontalList);
 }
 
-void GuideManager::horizontalList_returnPressed( QListViewItem * )
+void GuideManager::horizontalList_returnPressed( Q3ListViewItem * )
 {
 	editValueToList(horizontalList);
 }
 
-void GuideManager::verticalList_returnPressed( QListViewItem * )
+void GuideManager::verticalList_returnPressed( Q3ListViewItem * )
 {
 	editValueToList(verticalList);
 }
 
-void GuideManager::verticalList_doubleClicked( QListViewItem * )
+void GuideManager::verticalList_doubleClicked( Q3ListViewItem * )
 {
 	editValueToList(verticalList);
 }
@@ -450,7 +450,7 @@ void GuideManager::verticalList_doubleClicked( QListViewItem * )
 Guides GuideManager::selectedHorizontals()
 {
 	Guides retval;
-	QListViewItemIterator it(horizontalList);
+	Q3ListViewItemIterator it(horizontalList);
 	while (it.current())
 	{
 		if (it.current()->isSelected())
@@ -463,7 +463,7 @@ Guides GuideManager::selectedHorizontals()
 Guides GuideManager::selectedVerticals()
 {
 	Guides retval;
-	QListViewItemIterator it(verticalList);
+	Q3ListViewItemIterator it(verticalList);
 	while (it.current())
 	{
 		if (it.current()->isSelected())

@@ -13,13 +13,18 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
-#include <qtable.h>
-#include <qlistbox.h>
+#include <q3table.h>
+#include <q3listbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qheader.h>
+#include <q3whatsthis.h>
+#include <q3header.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 
 #include "pageitem.h"
 #include "sccombobox.h"
@@ -32,7 +37,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Extended Image Properties" ) );
-	ExtImagePropsLayout = new QVBoxLayout( this, 1, 2, "ExtImagePropsLayout");
+	ExtImagePropsLayout = new Q3VBoxLayout( this, 1, 2, "ExtImagePropsLayout");
 	viewWidget = view;
 	currentItem = item;
 	currentLayer = 0;
@@ -77,8 +82,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	if (info->layerInfo.count() != 0)
 	{
 		tab = new QWidget( propsTab, "tab" );
-		tabLayout = new QVBoxLayout( tab, 4, 4, "tabLayout");
-		layout1 = new QHBoxLayout( 0, 0, 4, "layout1");
+		tabLayout = new Q3VBoxLayout( tab, 4, 4, "tabLayout");
+		layout1 = new Q3HBoxLayout( 0, 0, 4, "layout1");
 		textLabel1 = new QLabel( tab, "textLabel1" );
 		textLabel1->setText( tr( "Blend Mode:" ) );
 		layout1->addWidget( textLabel1 );
@@ -112,10 +117,10 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		opacitySpinBox->setSuffix( tr(" %"));
 		layout1->addWidget( opacitySpinBox );
 		tabLayout->addLayout( layout1 );
-		layerTable = new QTable( tab, "layerTable" );
+		layerTable = new Q3Table( tab, "layerTable" );
 		layerTable->setNumRows( 0 );
 		layerTable->setNumCols( 3 );
-		QHeader *header = layerTable->horizontalHeader();
+		Q3Header *header = layerTable->horizontalHeader();
 		header->setLabel(0, loadIcon("16/show-object.png"), "");
 		header->setLabel(1, "");
 		header->setLabel(2, tr("Name"));
@@ -130,9 +135,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->setColumnStretchable(2, true);
 		layerTable->setRowMovingEnabled(false);
 		layerTable->setSorting(false);
-		layerTable->setSelectionMode( QTable::SingleRow );
-		layerTable->setFocusStyle( QTable::FollowStyle );
-		QHeader *Header = layerTable->verticalHeader();
+		layerTable->setSelectionMode( Q3Table::SingleRow );
+		layerTable->setFocusStyle( Q3Table::FollowStyle );
+		Q3Header *Header = layerTable->verticalHeader();
 		Header->setMovingEnabled(false);
 		Header->setResizeEnabled(false);
 		layerTable->setLeftMargin(0);
@@ -153,7 +158,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			opacitySpinBox->setEnabled(true);
 			blendMode->setEnabled(true);
 			QString tmp;
-			QValueList<PSDLayer>::iterator it2;
+			Q3ValueList<PSDLayer>::iterator it2;
 			layerTable->setNumRows(info->layerInfo.count());
 			uint counter = 0;
 			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
@@ -200,8 +205,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		propsTab->insertTab( tab,  tr( "Layers" ) );
 	}
 	tab_2 = new QWidget( propsTab, "tab_2" );
-	tabLayout_2 = new QVBoxLayout( tab_2, 4, 4, "tabLayout_2");
-	pathList = new QListBox( tab_2, "pathList" );
+	tabLayout_2 = new Q3VBoxLayout( tab_2, 4, 4, "tabLayout_2");
+	pathList = new Q3ListBox( tab_2, "pathList" );
 	pathList->clear();
 	QMap<QString, FPointArray>::Iterator it;
 	if (info->PDSpathData.count() != 0)
@@ -225,7 +230,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			FPoint min = getMinClipF(&Path);
 			Path.translate(-min.x(), -min.y());
 			FPoint max = Path.WidthHeight();
-			QWMatrix mm;
+			QMatrix mm;
 			mm.scale(34.0 / QMAX(max.x(), max.y()), 34.0 / QMAX(max.x(), max.y()));
 			Path.map(mm);
 			p->setupPolygon(&Path);
@@ -248,7 +253,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
 	clearWState( WState_Polished );
-	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
 	if (info->layerInfo.count() != 0)
 	{
@@ -313,19 +318,19 @@ void ExtImageProps::selLayer(int layer)
 
 void ExtImageProps::noPath()
 {
-	disconnect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	disconnect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 	currentItem->imageClip.resize(0);
 	currentItem->pixm.imgInfo.usedPath = "";
 	pathList->clearSelection();
 	viewWidget->updateContents();
-	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
+	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 }
 
-void ExtImageProps::selPath(QListBoxItem *c)
+void ExtImageProps::selPath(Q3ListBoxItem *c)
 {
 	currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
 	currentItem->pixm.imgInfo.usedPath = c->text();
-	QWMatrix cl;
+	QMatrix cl;
 	cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
 	cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 	currentItem->imageClip.map(cl);

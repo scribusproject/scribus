@@ -5,8 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "pageitem.h"
@@ -80,9 +82,9 @@ PageItem* InlineFrame::getItem()
 	return d->item;
 }
 
-QPtrList<PageItem> InlineFrame::getGroupedItems()
+Q3PtrList<PageItem> InlineFrame::getGroupedItems()
 {
-	QPtrList<PageItem> result;
+	Q3PtrList<PageItem> result;
 	result.setAutoDelete(false);
 	if (hasItem())
 	{

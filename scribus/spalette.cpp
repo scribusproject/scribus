@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include "scribusdoc.h"
 #include "spalette.h"
 #include "spalette.moc"

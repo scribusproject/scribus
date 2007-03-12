@@ -7,16 +7,16 @@ for which a new license (GPL+exception) is in place.
 #include "createrange.h"
 #include "createrange.moc"
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qtabwidget.h>
 
-CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const char* name, WFlags fl )
+CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const char* name, Qt::WFlags fl )
 	: CreateRangeBase(parent, name, fl),
 	m_PageCount(pageCount),
 	m_RangeType(0),
@@ -171,7 +171,7 @@ void CreateRange::basicMoveUp()
 	if (index==-1 || index==0)
 		return;
 	basicRangeListBox->clearSelection();
-	QListBoxItem* clbi=basicRangeListBox->item(index);
+	Q3ListBoxItem* clbi=basicRangeListBox->item(index);
 	basicRangeListBox->takeItem(clbi);
 	basicRangeListBox->insertItem(clbi, QMAX(0, index-1));
 	basicRangeListBox->setCurrentItem(clbi);
@@ -183,7 +183,7 @@ void CreateRange::basicMoveDown()
 	if (index==-1 || index==static_cast<int>(basicRangeListBox->count())-1)
 		return;
 	basicRangeListBox->clearSelection();
-	QListBoxItem* clbi=basicRangeListBox->item(index);
+	Q3ListBoxItem* clbi=basicRangeListBox->item(index);
 	basicRangeListBox->takeItem(clbi);
 	basicRangeListBox->insertItem(clbi, index+1);
 	basicRangeListBox->setCurrentItem(clbi);

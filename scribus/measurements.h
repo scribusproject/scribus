@@ -9,10 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QLabel;
 class QVariant;
 
@@ -33,7 +38,7 @@ public slots:
 	void languageChange();
 
 protected:
-	QGridLayout* measurementsLayout;
+	Q3GridLayout* measurementsLayout;
 	QLabel* x1Label;
 	QLabel* y1Label;
 	QLabel* x2Label;

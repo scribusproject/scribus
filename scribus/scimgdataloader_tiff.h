@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <tiffio.h>
 #include "scimgdataloader.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class ScImgDataLoader_TIFF : public ScImgDataLoader
 {
@@ -30,8 +32,8 @@ protected:
 	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
 	void blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask);
 	QString getLayerString(QDataStream & s);
-	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
-	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
+	bool loadChannel( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
+	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	int random_table[4096];
 	uint16 photometric, samplesperpixel;
 

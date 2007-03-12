@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <qdatetime.h> 
 #include <qpainter.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <QPixmap>
 // #include <algorithm>
 // #include <cstdlib>
 // #include <cmath>
@@ -130,7 +132,7 @@ QColor getOldColorShade(const QColor& color, int shade)
 QColor SCRIBUS_API getOldColorShade(uchar red, uchar green, uchar blue, int shade)
 {
 	int h, s, v, snew;
-	QColor color(red, green, blue);
+	QColor color(Qt::red, Qt::green, Qt::blue);
 	color.hsv(&h, &s, &v);
 	if (red == green && green == blue)
 	{

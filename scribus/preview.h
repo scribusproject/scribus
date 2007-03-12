@@ -10,13 +10,16 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qlabel.h>
 #include <qpixmap.h>
-#include <qscrollview.h>
+#include <q3scrollview.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "scribusapi.h"
 
 class PageSelector;
@@ -28,7 +31,7 @@ class QSpinBox;
 class PrefsManager;
 
 class QImage;
-class QTable;
+class Q3Table;
 
 
 //! \brief Print Preview dialog
@@ -84,10 +87,10 @@ public:
 	QCheckBox* spotColors;
 	QCheckBox* useGray;
 	QCheckBox* UseICC;
-	QScrollView* Anzeige;
+	Q3ScrollView* Anzeige;
 	QLabel* Anz;
-	QGroupBox* devTitle;
-	QGroupBox* jobTitle;
+	Q3GroupBox* devTitle;
+	Q3GroupBox* jobTitle;
 	QPushButton *closeButton;
 	QPushButton *printButton;
 	/*! scaling GUI */
@@ -116,7 +119,7 @@ public:
 	bool postscriptPreview;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
-	QTable* Table;
+	Q3Table* Table;
 
 public slots:
 	/*!
@@ -154,12 +157,12 @@ signals:
 protected:
 	/*! \brief Percentage value of the scaling widget */
 	double scaleFactor;
-	QVBoxLayout* PLayout;
-	QVBoxLayout* Layout1;
-	QVBoxLayout* Layout2;
-	QHBoxLayout* Layout5;
-	QHBoxLayout* Layout6;
-	QVBoxLayout* settingsBarLayout;
+	Q3VBoxLayout* PLayout;
+	Q3VBoxLayout* Layout1;
+	Q3VBoxLayout* Layout2;
+	Q3HBoxLayout* Layout5;
+	Q3HBoxLayout* Layout6;
+	Q3VBoxLayout* settingsBarLayout;
 	PrefsManager *prefsManager;
 
 	void setValues();

@@ -11,8 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 #include <cmath>
 #include "units.h"
 
@@ -21,7 +23,7 @@ using namespace std;
 
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	measurementsLayout = new QGridLayout( this, 1, 1, 10, 6, "measurementsLayout");
+	measurementsLayout = new Q3GridLayout( this, 1, 1, 10, 6, "measurementsLayout");
 	x1Label = new QLabel( this, "x1Label" );
 	y1Label = new QLabel( this, "y1Label" );
 	x2Label = new QLabel( this, "x2Label" );

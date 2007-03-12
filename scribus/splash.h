@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpixmap.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include "scribusapi.h"
 
 

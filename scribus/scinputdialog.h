@@ -11,10 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
-class QHBoxLayout;
-class QVBoxLayout;
-class QGridLayout;
+class Q3HBoxLayout;
+class Q3VBoxLayout;
+class Q3GridLayout;
 class MSpinBox;
 class QLabel;
 class QPushButton;
@@ -28,7 +33,7 @@ class ScInputDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ScInputDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	ScInputDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~ScInputDialog(){};
 
 	QLabel* entryLabel;
@@ -42,10 +47,10 @@ public:
 							 QWidget *parent = 0, const char *name = 0 );
 
 protected:
-	QGridLayout* ScInputDialogLayout;
-	QVBoxLayout* mainLayout;
-	QHBoxLayout* labelEntryLayout;
-	QHBoxLayout* buttonLayout;
+	Q3GridLayout* ScInputDialogLayout;
+	Q3VBoxLayout* mainLayout;
+	Q3HBoxLayout* labelEntryLayout;
+	Q3HBoxLayout* buttonLayout;
 
 protected slots:
 	virtual void languageChange();

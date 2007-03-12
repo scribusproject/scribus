@@ -10,12 +10,21 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QEvent>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QMouseEvent>
+#include <QLabel>
+#include <QKeyEvent>
+#include <QPaintEvent>
 #include "fpointarray.h"
 #include "scribusapi.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
 class QPushButton;
 class QToolButton;
@@ -86,8 +95,8 @@ private slots:
 	void doSave();
 
 protected:
-	QHBoxLayout* CurveWidgetLayout;
-	QVBoxLayout* layout1;
+	Q3HBoxLayout* CurveWidgetLayout;
+	Q3VBoxLayout* layout1;
 	QSpacerItem* spacer1;
 
 protected slots:

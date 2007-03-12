@@ -26,13 +26,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "multiprogressdialog.h"
 #include "multiprogressdialog.moc"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QLabel>
 
-MultiProgressDialog::MultiProgressDialog(QWidget* parent, const char*name, bool modal, WFlags f)
+MultiProgressDialog::MultiProgressDialog(QWidget* parent, const char*name, bool modal, Qt::WFlags f)
 : MultiProgressDialogBase(parent, name, modal, f)
 {
 }
 
-MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, const char*name, bool modal, WFlags f)
+MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, const char*name, bool modal, Qt::WFlags f)
 : MultiProgressDialogBase(parent, name, modal, f)
 {
 	setCaption(titleText);
@@ -49,7 +52,7 @@ void MultiProgressDialog::removeExtraProgressBars()
 	progressLabels.clear();
 }
 
-bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QValueList<bool>& barsNumerical)
+bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const Q3ValueList<bool>& barsNumerical)
 {
 	uint barCount=barsList.count();
 	if (barCount==0)

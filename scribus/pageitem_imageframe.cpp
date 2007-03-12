@@ -33,6 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 #include <cmath>
 #include <cassert>
 
@@ -94,7 +96,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			{
 				if ((Frame) && (m_Doc->guidesSettings.framesShown))
 				{
-					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 				}
@@ -106,7 +108,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				{
 					if ((Frame) && (m_Doc->guidesSettings.framesShown))
 					{
-						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+						p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 					}
@@ -258,7 +260,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (imageClip.size() != 0)
 			{
 				imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
-				QWMatrix cl;
+				QMatrix cl;
 				cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
 				cl.scale(imageXScale(), imageYScale());
 				imageClip.map(cl);

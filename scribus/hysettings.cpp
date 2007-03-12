@@ -8,12 +8,15 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.moc"
 #include "sccombobox.h"
 #include "scribusdoc.h"
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QLabel>
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
 	langsMap = *langs;
 
-	layout3 = new QGridLayout( this, 1, 1, 0, 5, "Layout3");
+	layout3 = new Q3GridLayout( this, 1, 1, 0, 5, "Layout3");
 	layout3->setAlignment( Qt::AlignTop );
 	verbose = new QCheckBox( tr("&Hyphenation Suggestions"), this, "Verbose");
 	layout3->addMultiCellWidget(verbose, 0, 0, 0, 1);

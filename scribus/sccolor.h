@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qcolor.h>
 #include <qmap.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 class ScribusDoc;
 #include "scribusapi.h"
@@ -137,7 +137,7 @@ private:
 class SCRIBUS_API ColorList : public QMap<QString,ScColor>
 {
 protected:
-	QGuardedPtr<ScribusDoc> m_doc;
+	QPointer<ScribusDoc> m_doc;
 	bool m_retainDoc;
 public:
 	ColorList(ScribusDoc* doc = NULL, bool retainDoc = false);

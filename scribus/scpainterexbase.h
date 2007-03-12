@@ -29,9 +29,9 @@ for which a new license (GPL+exception) is in place.
 #define __SCPAINTEREXBASE_H__
 
 #include <qglobal.h>
-#include <qwmatrix.h>
-#include <qvaluelist.h>
-#include <qvaluestack.h>
+#include <qmatrix.h>
+#include <q3valuelist.h>
+#include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
@@ -69,8 +69,8 @@ public:
 	virtual void clear( ScColorShade& ) = 0;
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QWMatrix & ) = 0;
-	virtual const QWMatrix worldMatrix() = 0;
+	virtual void setWorldMatrix( const QMatrix & ) = 0;
+	virtual const QMatrix worldMatrix() = 0;
 	virtual void translate( double, double ) = 0;
 	virtual void rotate( double ) = 0;
 	virtual void scale( double, double ) = 0;
@@ -89,7 +89,7 @@ public:
 	virtual void setFillMode( int fill ) = 0;
 	virtual int  fillMode() = 0;
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0) ) = 0;
-	virtual void setPattern ( ScPattern* pattern, QWMatrix& patternTransform ) = 0;
+	virtual void setPattern ( ScPattern* pattern, QMatrix& patternTransform ) = 0;
 	virtual void setClipPath() = 0;
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
@@ -107,7 +107,7 @@ public:
 	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo ) = 0;
 	virtual void setPenOpacity( double op ) = 0;
 	virtual void setLineWidth( double w) = 0;
-	virtual void setDash(const QValueList<double>& array, double ofs) = 0;
+	virtual void setDash(const Q3ValueList<double>& array, double ofs) = 0;
 	virtual void setBrush( const ScColorShade & ) = 0;
 	virtual void setBrushOpacity( double op ) = 0;
 	virtual void setOpacity( double op ) = 0;
@@ -123,7 +123,7 @@ public:
 	VGradientEx m_fillGradient;
 	VGradientEx m_strokeGradient;
 	ScPattern*  m_pattern;
-	QWMatrix    m_patternTransform;
+	QMatrix    m_patternTransform;
 };
 
 #endif

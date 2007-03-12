@@ -8,7 +8,13 @@ for which a new license (GPL+exception) is in place.
 #include "editformats.moc"
 #include "edit1format.h"
 #include <qmessagebox.h>
-#include <qheader.h>
+#include <q3header.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -29,8 +35,8 @@ DelStyle::DelStyle(QWidget* parent, StyleSet<ParagraphStyle>& sty, QString style
 	setName( "DelStyle" );
 	setCaption( tr( "Delete Style" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new QVBoxLayout( this, 10, 5 );
-	delStyleLayout = new QGridLayout;
+	dialogLayout = new Q3VBoxLayout( this, 10, 5 );
+	delStyleLayout = new Q3GridLayout;
 	delStyleLayout->setSpacing( 5 );
 	delStyleLayout->setMargin( 5 );
 	deleteLabel = new QLabel( tr( "Delete Style:" ), this, "deleteLabel" );
@@ -55,7 +61,7 @@ DelStyle::DelStyle(QWidget* parent, StyleSet<ParagraphStyle>& sty, QString style
 	delStyleLayout->addWidget( replacementStyleData, 1, 1 );
 	replacementStyle = replacementStyleData->text(0);
 	dialogLayout->addLayout( delStyleLayout );
-	okCancelLayout = new QHBoxLayout;
+	okCancelLayout = new Q3HBoxLayout;
 	okCancelLayout->setSpacing( 6 );
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -88,8 +94,8 @@ ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList
 {
 	setCaption( tr( "Choose Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	ChooseStylesLayout = new QVBoxLayout( this, 10, 5, "ChooseStylesLayout");
-	StyleView = new QListView( this, "StyleView" );
+	ChooseStylesLayout = new Q3VBoxLayout( this, 10, 5, "ChooseStylesLayout");
+	StyleView = new Q3ListView( this, "StyleView" );
 	StyleView->clear();
 	StyleView->addColumn( tr( "Available Styles" ) );
 	StyleView->header()->setClickEnabled( false, StyleView->header()->count() - 1 );
@@ -106,7 +112,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList
 		{
 			if (vg2)
 				vg.setName("Copy of "+vg2->name());
-			QCheckListItem *item = new QCheckListItem (StyleView, vg.name(), QCheckListItem::CheckBox);
+			Q3CheckListItem *item = new Q3CheckListItem (StyleView, vg.name(), Q3CheckListItem::CheckBox);
 			item->setOn(true);
 			storedStyles.insert(item, counter);
 		}
@@ -115,7 +121,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList
 	}
 	StyleView->setSorting(0);
 	ChooseStylesLayout->addWidget( StyleView );
-	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
+	layout2 = new Q3HBoxLayout( 0, 0, 5, "layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer1 );
 	OkButton = new QPushButton( CommonStrings::tr_OK, this, "OkButton" );
@@ -136,15 +142,15 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	setIcon(loadIcon("AppIcon.png"));
 	Docu = doc;
 	ReplaceList.clear();
-	StilFormateLayout = new QHBoxLayout( this );
+	StilFormateLayout = new Q3HBoxLayout( this );
 	StilFormateLayout->setSpacing( 5 );
 	StilFormateLayout->setMargin( 10 );
 
-	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1 = new Q3ListBox( this, "ListBox1" );
 	ListBox1->setMinimumSize( QSize( 200, 240 ) );
 	StilFormateLayout->addWidget( ListBox1 );
 
-	Layout15 = new QVBoxLayout;
+	Layout15 = new Q3VBoxLayout;
 	Layout15->setSpacing( 6 );
 	Layout15->setMargin( 0 );
 
@@ -188,8 +194,8 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	connect(LoadS, SIGNAL(clicked()), this, SLOT(loadStyles()));
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selEditFormat(QListBoxItem*)));
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect(ListBox1, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selEditFormat(Q3ListBoxItem*)));
 	TempVorl.clear();
 	TempVorl.redefine(doc->paragraphStyles());
 	UpdateFList();
@@ -200,7 +206,7 @@ void StilFormate::saveIt()
 	emit saveStyle(this);
 }
 
-void StilFormate::selFormat(QListBoxItem *c)
+void StilFormate::selFormat(Q3ListBoxItem *c)
 {
 	for (uint x = 0; x < TempVorl.count(); ++x)
 	{
@@ -215,7 +221,7 @@ void StilFormate::selFormat(QListBoxItem *c)
 	DeleteB->setEnabled(true);
 }
 
-void StilFormate::selEditFormat(QListBoxItem *c)
+void StilFormate::selEditFormat(Q3ListBoxItem *c)
 {
 	for (uint x = 0; x < TempVorl.count(); ++x)
 	{
@@ -364,7 +370,7 @@ void StilFormate::loadStyles()
 		{
 			QStringList neededColors;
 			neededColors.clear();
-			QMap<QCheckListItem*, int>::Iterator it;
+			QMap<Q3CheckListItem*, int>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
 				const ParagraphStyle& sty(TempVorl2[it.data()]);

@@ -8,16 +8,19 @@ for which a new license (GPL+exception) is in place.
 #define LINEFORMATE_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 #include "multiline.h"
 #include "scribusstructs.h"
 #include "sclistboxpixmap.h"
 
-class QListBox;
+class Q3ListBox;
 class QPushButton;
-class QVBoxLayout;
-class QHBoxLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
 class ScribusDoc;
 
 class SCRIBUS_API LineFormate : public QDialog
@@ -28,7 +31,7 @@ public:
 	LineFormate( QWidget* parent, ScribusDoc *doc);
 	~LineFormate() {};
 
-	QListBox* ListBox1;
+	Q3ListBox* ListBox1;
 	QPushButton* LoadLS;
 	QPushButton* NewB;
 	QPushButton* EditB;
@@ -45,8 +48,8 @@ public:
 
 public slots:
 	void saveIt();
-	void selFormat(QListBoxItem *c);
-	void selEditFormat(QListBoxItem *c);
+	void selFormat(Q3ListBoxItem *c);
+	void selEditFormat(Q3ListBoxItem *c);
 	void editFormat();
 	void neuesFormat();
 	void dupFormat();
@@ -57,8 +60,8 @@ signals:
 	void saveStyle(LineFormate *);
 	
 protected:
-	QHBoxLayout* StilFormateLayout;
-	QVBoxLayout* Layout15;
+	Q3HBoxLayout* StilFormateLayout;
+	Q3VBoxLayout* Layout15;
 };
 
 class SCRIBUS_API LineFormateItem : public ScListBoxPixmap<37, 37>

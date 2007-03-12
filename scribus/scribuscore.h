@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #define SCRIBUSCORE_H
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 #include "scribus.h"
 #include "scribusapi.h"
 
@@ -113,7 +115,7 @@ public:
 protected:
 	void initCMS();
 	
-	QPtrList<ScribusMainWindow> ScMWList;
+	Q3PtrList<ScribusMainWindow> ScMWList;
 	uint m_currScMW;
 	
 	SplashScreen *m_SplashScreen;

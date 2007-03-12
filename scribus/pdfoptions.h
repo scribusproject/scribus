@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "qstring.h"
 #include "qmap.h"
-#include "qvaluelist.h"
+#include "q3valuelist.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -94,14 +94,14 @@ public:
 	PDFVersion Version;
 	int Resolution;
 	int Binding;
-	QValueList<QString> EmbedList;
-	QValueList<QString> SubsetList;
+	Q3ValueList<QString> EmbedList;
+	Q3ValueList<QString> SubsetList;
 	bool MirrorH;
 	bool MirrorV;
 	bool doClip;
 	int RotateDeg;
 	bool PresentMode;
-	QValueList<PDFPresentationData> PresentVals;
+	Q3ValueList<PDFPresentationData> PresentVals;
 	QString Datei;
 	bool isGrayscale;
 	bool UseRGB;

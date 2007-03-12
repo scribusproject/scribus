@@ -3,9 +3,9 @@
 
 #include <qobject.h>
 #include <qstring.h>
-#include <qvaluevector.h>
-#include <qptrvector.h>
-#include <qptrlist.h>
+#include <q3valuevector.h>
+#include <q3ptrvector.h>
+#include <q3ptrlist.h>
 #include <cassert>
 
 //#include "text/paragraphlayout.h"
@@ -16,7 +16,7 @@
 #include "styles/stylecontextproxy.h"
 
 
-class SCRIBUS_API ScText_Shared : public QPtrList<ScText>
+class SCRIBUS_API ScText_Shared : public Q3PtrList<ScText>
 {
 public:
 	ParagraphStyle defaultStyle;

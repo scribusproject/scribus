@@ -29,6 +29,8 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_XML
 
 #include <scribusstructs.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 ContentReader* ContentReader::creader = NULL;
 
@@ -262,9 +264,9 @@ void ContentReader::parse(QString fileName)
 	sreader->parse(fileName);
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(fileName);
-	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+	Q3CString fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
 #else
-	QCString fn(fileName.local8Bit());
+	Q3CString fn(fileName.local8Bit());
 #endif
 	xmlSAXParseFile(cSAXHandler, fn.data(), 1);
 }

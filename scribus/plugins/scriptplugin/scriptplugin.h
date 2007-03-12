@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "cmdvar.h"
 #include "scplugin.h"
 #include "pluginapi.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 class QString;
 class QPixmap;

@@ -8,16 +8,21 @@ for which a new license (GPL+exception) is in place.
 #define TABDOCUMENT_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 #include "scribusapi.h"
 
 class MSpinBox;
 class PageLayouts;
 class MarginWidget;
-class QHBoxLayout;
+class Q3HBoxLayout;
 class QLabel;
-class QButtonGroup;
-class QVBoxLayout;
+class Q3ButtonGroup;
+class Q3VBoxLayout;
 class QCheckBox;
 class ScribusDoc;
 
@@ -41,7 +46,7 @@ public:
 	MSpinBox* pageHeight;
 	PageLayouts* docLayout;
 	MarginWidget* marginGroup;
-	QButtonGroup* GroupSize;
+	Q3ButtonGroup* GroupSize;
 	QComboBox* pageSizeComboBox;
 	QComboBox* pageOrientationComboBox;
 	int choosenLayout;
@@ -49,9 +54,9 @@ public:
 	double pageH;
 	QString prefsPageSizeName;
 	QComboBox* unitCombo;
-	QGroupBox* GroupAS;
+	Q3GroupBox* GroupAS;
 	QSpinBox* ASTime;
-	QGroupBox* urGroup;
+	Q3GroupBox* urGroup;
 	QSpinBox* urSpinBox;
 	// reform widgets
 	QCheckBox* sizeAllPages;
@@ -95,15 +100,15 @@ protected:
 	QLabel* ASText;
 	QLabel* urLabel;
 	QLabel* sizePages;
-	QHBoxLayout* sizePagesLayout;
-	QHBoxLayout* tabLayout_7;
-	QVBoxLayout* Layout21;
-	QHBoxLayout* dsLayout4p;
-	QVBoxLayout* dsLayout4pv;
-	QVBoxLayout* GroupSizeLayout;
-	QGridLayout* Layout6;
-	QHBoxLayout* Layout5_2;
-	QHBoxLayout* GroupASLayout;
+	Q3HBoxLayout* sizePagesLayout;
+	Q3HBoxLayout* tabLayout_7;
+	Q3VBoxLayout* Layout21;
+	Q3HBoxLayout* dsLayout4p;
+	Q3VBoxLayout* dsLayout4pv;
+	Q3VBoxLayout* GroupSizeLayout;
+	Q3GridLayout* Layout6;
+	Q3HBoxLayout* Layout5_2;
+	Q3HBoxLayout* GroupASLayout;
 };
 
 #endif

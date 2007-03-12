@@ -10,12 +10,18 @@ for which a new license (GPL+exception) is in place.
 
 #include "smreplacediabase.h"
 #include "styleitem.h"
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <QLabel>
+#include <Q3ValueList>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 class QString;
 class QStringList;
 class QLabel;
 class QComboBox;
-class QHBoxLayout;
+class Q3HBoxLayout;
 
 class SMRowWidget : public QWidget
 {
@@ -28,7 +34,7 @@ public:
 	QString replaceWith();
 
 private:
-	QHBoxLayout *layout;
+	Q3HBoxLayout *layout;
 	QLabel      *deleteLabel;
 	QComboBox   *optionsCombo;
 };
@@ -39,14 +45,14 @@ public:
 	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions);
 	~SMReplaceDia();
 
-	QValueList<RemoveItem> items();
+	Q3ValueList<RemoveItem> items();
 
 private:
-	QVBoxLayout *layout;
-	QHBoxLayout *headerLayout;
+	Q3VBoxLayout *layout;
+	Q3HBoxLayout *headerLayout;
 	QLabel      *deleteHeader;
 	QLabel      *optionsHeader;
-	QPtrList<SMRowWidget>  rowWidgets;
+	Q3PtrList<SMRowWidget>  rowWidgets;
 };
 
 #endif

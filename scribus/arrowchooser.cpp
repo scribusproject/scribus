@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #include "arrowchooser.moc"
 #include "fpointarray.h"
 #include <qpixmap.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "scpainter.h"
 #include <qimage.h>
 #include "util.h"
@@ -22,7 +24,7 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 	arrowDirection = direction;
 }
 
-void ArrowChooser::rebuildList(QValueList<ArrowDesc> *arrowStyles)
+void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 {
 	clear();
 	FPointArray Path;
@@ -41,8 +43,8 @@ void ArrowChooser::rebuildList(QValueList<ArrowDesc> *arrowStyles)
 		FPoint min = getMinClipF(&Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();
-		QWMatrix mm;
-		QWMatrix mm2;
+		QMatrix mm;
+		QMatrix mm2;
 		if (arrowDirection)
 		{
 			mm2.scale(-1, 1);

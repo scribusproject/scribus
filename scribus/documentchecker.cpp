@@ -88,7 +88,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(Transparency, 0);
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
-			QPtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				if (colorStops[offset]->opacity != 1.0)
@@ -204,7 +204,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 			itemError.insert(Transparency, 0);
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
-			QPtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> colorStops = currItem->fill_gradient.colorStops();
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				if (colorStops[offset]->opacity != 1.0)

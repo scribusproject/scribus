@@ -8,17 +8,23 @@ for which a new license (GPL+exception) is in place.
 #define ONECLICK_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3Frame>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 class QLayout;
 class QLabel;
 class QPushButton;
-class QButtonGroup;
-class QGroupBox;
+class Q3ButtonGroup;
+class Q3GroupBox;
 class QRadioButton;
-class QFrame;
+class Q3Frame;
 class QString;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QCheckBox;
 class MSpinBox;
 class LinkButton;
@@ -36,7 +42,7 @@ public:
 	MSpinBox *spinHeight;
 	LinkButton* linkSize;
 	QCheckBox* checkRemember;
-	QButtonGroup* RotationGroup;
+	Q3ButtonGroup* RotationGroup;
 
 public slots:
 	void ToggleKette();
@@ -44,12 +50,12 @@ public slots:
 	void changeSizesW();
 
 private:
-	QVBoxLayout* queryLayout;
-	QGridLayout* editLayout;
-	QGridLayout* Layout12a;
-	QGridLayout* Layout12;
-	QGridLayout* SizeGroupLayout;
-	QHBoxLayout* okCancelLayout;
+	Q3VBoxLayout* queryLayout;
+	Q3GridLayout* editLayout;
+	Q3GridLayout* Layout12a;
+	Q3GridLayout* Layout12;
+	Q3GridLayout* SizeGroupLayout;
+	Q3HBoxLayout* okCancelLayout;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* questionLabel;
@@ -59,11 +65,11 @@ private:
 	QRadioButton* Center;
 	QRadioButton* BottomLeft;
 	QRadioButton* BottomRight;
-	QFrame* Line1;
-	QFrame* Line2;
-	QFrame* Line4;
-	QFrame* Line5;
-	QGroupBox* SizeGroup;
+	Q3Frame* Line1;
+	Q3Frame* Line2;
+	Q3Frame* Line4;
+	Q3Frame* Line5;
+	Q3GroupBox* SizeGroup;
 };
 
 #endif

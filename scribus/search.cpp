@@ -11,14 +11,19 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 
 #include "colorlistbox.h"
 #include "commonstrings.h"
@@ -50,14 +55,14 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	Doc = doc;
 	NotFound = false;
 	SMode = mode;
-	SearchReplaceLayout = new QVBoxLayout( this, 10, 5, "SearchReplaceLayout");
-	SelLayout = new QHBoxLayout( 0, 0, 6, "SelLayout");
-	Search = new QGroupBox( this, "Search" );
+	SearchReplaceLayout = new Q3VBoxLayout( this, 10, 5, "SearchReplaceLayout");
+	SelLayout = new Q3HBoxLayout( 0, 0, 6, "SelLayout");
+	Search = new Q3GroupBox( this, "Search" );
 	Search->setTitle( tr( "Search for:" ) );
 	Search->setColumnLayout(0, Qt::Vertical );
 	Search->layout()->setSpacing( 2 );
 	Search->layout()->setMargin( 5 );
-	SearchLayout = new QGridLayout( Search->layout() );
+	SearchLayout = new Q3GridLayout( Search->layout() );
 	SearchLayout->setAlignment( Qt::AlignTop );
 	SText = new QCheckBox( Search, "SText" );
 	SText->setText( tr( "Text" ) );
@@ -142,12 +147,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SStrokeSVal, 8, 1, Qt::AlignLeft );
 	SelLayout->addWidget( Search );
 
-	Replace = new QGroupBox( this, "Replace" );
+	Replace = new Q3GroupBox( this, "Replace" );
 	Replace->setTitle( tr( "Replace with:" ) );
 	Replace->setColumnLayout(0, Qt::Vertical );
 	Replace->layout()->setSpacing( 2 );
 	Replace->layout()->setMargin( 5 );
-	ReplaceLayout = new QGridLayout( Replace->layout() );
+	ReplaceLayout = new Q3GridLayout( Replace->layout() );
 	ReplaceLayout->setAlignment( Qt::AlignTop );
 	RText = new QCheckBox( Replace, "RText" );
 	RText->setText( tr( "Text" ) );
@@ -231,7 +236,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SelLayout->addWidget( Replace );
 	SearchReplaceLayout->addLayout( SelLayout );
 
-	OptsLayout = new QHBoxLayout( 0, 0, 6, "OptsLayout");
+	OptsLayout = new Q3HBoxLayout( 0, 0, 6, "OptsLayout");
 	Word = new QCheckBox( tr( "&Whole Word" ), this, "Word" );
 	if (mode)
 		Word->setEnabled(false);
@@ -242,7 +247,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	OptsLayout->addWidget( CaseIgnore );
 	SearchReplaceLayout->addLayout( OptsLayout );
 
-	ButtonsLayout = new QHBoxLayout( 0, 0, 4, "ButtonsLayout");
+	ButtonsLayout = new Q3HBoxLayout( 0, 0, 4, "ButtonsLayout");
 	DoSearch = new QPushButton( tr( "&Search" ), this, "DoSearch" );
 	DoSearch->setDefault( true );
 	ButtonsLayout->addWidget( DoSearch );

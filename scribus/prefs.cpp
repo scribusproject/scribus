@@ -49,6 +49,10 @@ for which a new license (GPL+exception) is in place.
 #include "tabmiscellaneous.h"
 #include "tabscrapbook.h"
 #include "tabprinter.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
+#include <Q3CString>
 
 using namespace std;
 
@@ -243,10 +247,10 @@ void Preferences::addPlugins()
 	QPixmap panelIcon;
 
 	PluginManager& pluginManager = PluginManager::instance();
-	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
-	QValueList<QCString>::Iterator itEnd(pluginNames.end());
+	Q3ValueList<Q3CString> pluginNames(pluginManager.pluginNames(true));
+	Q3ValueList<Q3CString>::Iterator itEnd(pluginNames.end());
 
-	for (QValueList<QCString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
+	for (Q3ValueList<Q3CString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
 	{
 		// Ask the plugin manager for a plugin (skipping disabled plugins).
 		plugin = pluginManager.getPlugin(*it, false);

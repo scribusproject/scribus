@@ -31,6 +31,11 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "sccombobox.h"
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 #include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -39,20 +44,20 @@ extern QString DocDir;
 /********* Class gtFileDialog ************************************************************************/
 
 gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir) : 
-               QFileDialog(QString::null, filters, 0, 0, true)
+               Q3FileDialog(QString::null, filters, 0, 0, true)
 {
 // 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr("Open"));
 	dir = QDir(wdir);
 	setDir(dir);
-	setMode(QFileDialog::ExistingFile);
+	setMode(Q3FileDialog::ExistingFile);
 	createWidgets(importers);
 }
 
 void gtFileDialog::createWidgets(const QStringList& importers)
 {
-	importerFrame = new QFrame(this);
-	importerLayout = new QHBoxLayout(importerFrame);
+	importerFrame = new Q3Frame(this);
+	importerLayout = new Q3HBoxLayout(importerFrame);
 	importerLayout->setSpacing(10);
 	importerLayout->setMargin(0);
 
@@ -74,8 +79,8 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 
 	addWidgets(new QLabel( tr("Importer:"), this), importerFrame, 0);
 
-	encodingFrame = new QFrame(this);
-	encodingLayout = new QHBoxLayout(encodingFrame);
+	encodingFrame = new Q3Frame(this);
+	encodingLayout = new Q3HBoxLayout(encodingFrame);
 	encodingLayout->setSpacing(10);
 	encodingLayout->setMargin(0);
 
@@ -137,14 +142,14 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	setCaption( tr("Choose the importer to use"));
 	setIcon(loadIcon("AppIcon.png"));
 
-	QBoxLayout* layout = new QVBoxLayout(this);
+	Q3BoxLayout* layout = new Q3VBoxLayout(this);
 
-	QBoxLayout* llayout = new QHBoxLayout(0, 5, 5, "llayout");
+	Q3BoxLayout* llayout = new Q3HBoxLayout(0, 5, 5, "llayout");
 	QLabel* label = new QLabel( tr("Choose the importer to use"), this, "label");
 	llayout->addWidget(label);
 	layout->addLayout(llayout);
 
-	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
+	Q3BoxLayout* ilayout = new Q3HBoxLayout(0, 5, 5, "dlayout2");
 	importerCombo = new ScComboBox(0, this, "importerCombo2");
 	importerCombo->setMinimumSize(QSize(150, 0));
 	QToolTip::add(importerCombo, tr("Choose the importer to use"));
@@ -156,7 +161,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	ilayout->addWidget(importerCombo);
 	layout->addLayout(ilayout);
 
-	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
+	Q3BoxLayout* dlayout = new Q3HBoxLayout(0, 5, 5, "dlayout2");
 	rememberCheck = new QCheckBox( tr("Remember association"), this, "rememberCheck");
 	rememberCheck->setChecked(false);
 	QToolTip::add(rememberCheck, "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
@@ -164,7 +169,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	dlayout->addWidget(rememberCheck);
 	layout->addLayout(dlayout);
 
-	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout2");
+	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout2");
 	blayout->addStretch(10);
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton2");
 	blayout->addWidget(okButton);

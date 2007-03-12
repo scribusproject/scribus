@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include "smwidgets.moc"
 #include <qtooltip.h>
 #include <qlineedit.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "units.h"
 
 /***********************************************************************/
@@ -769,7 +771,7 @@ void SMFontComboH::checkStyle()
 /***********************************************************************/
 
 SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
-					   QValueList<ParagraphStyle::TabRecord> Tabs, double wid)
+					   Q3ValueList<ParagraphStyle::TabRecord> Tabs, double wid)
 : Tabruler(parent, haveFirst, dEin, Tabs, wid)
 {
 	parentButton_ = new QToolButton(this, "parentButton_");
@@ -815,7 +817,7 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
 }
 
-void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void SMTabruler::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
@@ -837,7 +839,7 @@ void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
 	tabData->setSuffix(ein);
 }
 
-void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue)
+void SMTabruler::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
@@ -866,7 +868,7 @@ void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin, b
 	connect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
 }
 
-void SMTabruler::setParentTabs(QValueList<ParagraphStyle::TabRecord> Tabs)
+void SMTabruler::setParentTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs)
 {
 	hasParent_ = true;
 	pTabs_ = Tabs;

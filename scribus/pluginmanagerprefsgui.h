@@ -9,15 +9,20 @@ for which a new license (GPL+exception) is in place.
 
 #include "qwidget.h"
 #include "qmap.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3CString>
+#include <QLabel>
 #include "prefspanel.h"
 #include "qpixmap.h"
 
-class QVBoxLayout;
-class QGroupBox;
-class QGridLayout;
-class QListView;
+class Q3VBoxLayout;
+class Q3GroupBox;
+class Q3GridLayout;
+class Q3ListView;
 class QLabel;
-class QListViewItem;
+class Q3ListViewItem;
 
 class PluginManagerPrefsGui : public PrefsPanel
 {
@@ -33,7 +38,7 @@ class PluginManagerPrefsGui : public PrefsPanel
 		\param item atual item
 		\param column id of the column clicked 0=1st
 		*/
-		void updateSettings(QListViewItem *item, const QPoint &, int column);
+		void updateSettings(Q3ListViewItem *item, const QPoint &, int column);
 
 		//! \brief Apply changes to each plugin's PluginSettings
 		void apply();
@@ -43,11 +48,11 @@ class PluginManagerPrefsGui : public PrefsPanel
 		QPixmap checkOff;
 
 	protected:
-		QVBoxLayout* pluginMainLayout;
-		QGroupBox* plugGroupBox;
-		QGridLayout* plugGroupBoxLayout;
-		QVBoxLayout* plugLayout1;
-		QListView* pluginsList;
+		Q3VBoxLayout* pluginMainLayout;
+		Q3GroupBox* plugGroupBox;
+		Q3GridLayout* plugGroupBoxLayout;
+		Q3VBoxLayout* plugLayout1;
+		Q3ListView* pluginsList;
 		QLabel* pluginWarning;
 
 		/*! \brief Stores current settings for each plugin
@@ -59,7 +64,7 @@ class PluginManagerPrefsGui : public PrefsPanel
 		};
 
 		//! \brief Store current settings about each plug-in
-		QMap<QCString,PluginSettings> pluginSettings;
+		QMap<Q3CString,PluginSettings> pluginSettings;
 };
 
 #endif

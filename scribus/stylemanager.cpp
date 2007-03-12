@@ -22,15 +22,15 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "fileloader.h"
 #include "smstyleimport.h"
-#include <qheader.h>
+#include <q3header.h>
 #include <qlabel.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qtabwidget.h>
 #include <qtoolbutton.h>
 #include <qevent.h>
 #include <qlineedit.h>
 #include <qlayout.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qpushbutton.h>
 #include <qsplitter.h>
@@ -40,6 +40,17 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qpair.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QKeyEvent>
+#include <Q3ValueList>
+#include <Q3GridLayout>
+#include <QHideEvent>
+#include <Q3PopupMenu>
+#include <QMouseEvent>
+#include <Q3VBoxLayout>
+#include <QShowEvent>
+#include <QCloseEvent>
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
@@ -50,21 +61,21 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
 	uniqueLabel->hide();
 	rightFrame->hide();
-	svLayout = new QHBoxLayout(styleViewFrame);
+	svLayout = new Q3HBoxLayout(styleViewFrame);
 	styleView = new StyleView(styleViewFrame);
 	svLayout->addWidget(styleView);
 	styleView->addColumn( tr("Name"));
 	styleView->addColumn( tr("Shortcut"));
-	styleView->setColumnWidthMode(NAME_COL, QListView::Maximum);
-	styleView->setColumnWidthMode(SHORTCUT_COL, QListView::Maximum);
+	styleView->setColumnWidthMode(NAME_COL, Q3ListView::Maximum);
+	styleView->setColumnWidthMode(SHORTCUT_COL, Q3ListView::Maximum);
 	styleView->setColumnWidth(NAME_COL, 0);
 	styleView->setColumnWidth(SHORTCUT_COL, 0);
 	styleView->header()->hide();
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
-	layout_ = new QGridLayout(mainFrame);
-	newPopup_ = new QPopupMenu(newButton, "newPopup_");
-	rightClickPopup_ = new QPopupMenu(styleView, "rightClickPopup_");
+	layout_ = new Q3GridLayout(mainFrame);
+	newPopup_ = new Q3PopupMenu(newButton, "newPopup_");
+	rightClickPopup_ = new Q3PopupMenu(styleView, "rightClickPopup_");
 	newButton->setPopup(newPopup_);
 	QString pname(name);
 	if (pname.isEmpty())
@@ -89,10 +100,10 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(cloneButton, SIGNAL(clicked()), this, SLOT(slotClone()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
-	connect(styleView, SIGNAL(rightButtonClicked(QListViewItem*, const QPoint&, int)),
-			this, SLOT(slotRightClick(QListViewItem*, const QPoint&, int)));
-	connect(styleView, SIGNAL(doubleClicked(QListViewItem*, const QPoint&, int)),
-			this, SLOT(slotDoubleClick(QListViewItem*, const QPoint&, int)));
+	connect(styleView, SIGNAL(rightButtonClicked(Q3ListViewItem*, const QPoint&, int)),
+			this, SLOT(slotRightClick(Q3ListViewItem*, const QPoint&, int)));
+	connect(styleView, SIGNAL(doubleClicked(Q3ListViewItem*, const QPoint&, int)),
+			this, SLOT(slotDoubleClick(Q3ListViewItem*, const QPoint&, int)));
 
 	languageChange();
 	slotOk();
@@ -262,7 +273,7 @@ void StyleManager::slotDelete()
 		selected << rcStyle_;
 	else
 	{
-		QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+		Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
 		while (it.current()) {
 			selected << it.current()->text(0);
 			++it;
@@ -272,7 +283,7 @@ void StyleManager::slotDelete()
 		return; // nothing to delete
 
 	QStringList tmp;
-	QValueList<StyleName> styles = item_->styles(false); // get list from cache
+	Q3ValueList<StyleName> styles = item_->styles(false); // get list from cache
 	for (uint i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
 	SMReplaceDia *dia = new SMReplaceDia(selected, tmp);
@@ -338,14 +349,14 @@ void StyleManager::slotImport()
 		ImportDialog *dia2 = new ImportDialog(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 // end hack
 
-		QValueList<QPair<QString, QString> > selected;
+		Q3ValueList<QPair<QString, QString> > selected;
 		if (dia2->exec())
 		{
 			if (!isEditMode_)
 				slotOk();
 			QStringList neededColors;
 			neededColors.clear();
-			QMap<QCheckListItem*, QString>::Iterator it;
+			QMap<Q3CheckListItem*, QString>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
 				ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(it.data())]);
@@ -451,11 +462,11 @@ void StyleManager::slotImport()
 		return;
 }
 
-void StyleManager::setSelection(const QValueList<QPair<QString, QString> > &selected)
+void StyleManager::setSelection(const Q3ValueList<QPair<QString, QString> > &selected)
 {
 	styleView->clearSelection();
 	
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selectable);
+	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selectable);
 	StyleViewItem *item;
 
 	while (it.current())
@@ -486,7 +497,7 @@ void StyleManager::slotEdit()
 
 	if (!rcStyle_.isNull())
 	{
-		QListViewItemIterator it(styleView);
+		Q3ListViewItemIterator it(styleView);
 		while (it.current())
 		{
 			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
@@ -516,7 +527,7 @@ void StyleManager::slotClone()
 
 	if (!rcStyle_.isNull())
 	{
-		QListViewItemIterator it(styleView);
+		Q3ListViewItemIterator it(styleView);
 		while (it.current())
 		{
 			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
@@ -537,8 +548,8 @@ void StyleManager::slotClone()
 		rcType_ = QString::null;
 	}
 
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
-	QValueList<QPair<QString, QString> > names;
+	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
+	Q3ValueList<QPair<QString, QString> > names;
 
 	while (it.current())
 	{ // can't create styles here cause createNewStyle() alters the selection
@@ -585,7 +596,7 @@ void StyleManager::slotNewPopup(int i)
 	createNewStyle(typeName);
 }
 
-void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int col)
+void StyleManager::slotRightClick(Q3ListViewItem *item, const QPoint &point, int col)
 {
 	rcStyle_ = QString::null;
 	rcType_ = QString::null;
@@ -637,7 +648,7 @@ void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int 
 	rightClickPopup_->exec(point);
 }
 
-void StyleManager::slotDoubleClick(QListViewItem *item, const QPoint &point, int col)
+void StyleManager::slotDoubleClick(Q3ListViewItem *item, const QPoint &point, int col)
 {
 	rcStyle_ = QString::null;
 	rcType_ = QString::null;
@@ -678,8 +689,8 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	if (newName.isNull())
 		return;
 
-	QListViewItem *root = 0;
-	QListViewItemIterator it(styleView, QListViewItemIterator::NotSelectable);
+	Q3ListViewItem *root = 0;
+	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::NotSelectable);
 	while (it.current())
 	{
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
@@ -719,13 +730,13 @@ void StyleManager::slotOk()
 		prefs_->set("WidthEM", widthEm_);
 		height_ = height();
 		prefs_->set("Height", height_);
-		QValueList<int> l = splitter->sizes();
+		Q3ValueList<int> l = splitter->sizes();
 		widthLeft_ = l[0];
 		widthRight_ = l[1];
 		prefs_->set("WidthLeft", widthLeft_);
 		prefs_->set("WidthRight", widthRight_);
 		slotApply();
-		styleView->setSelectionMode(QListView::Multi);
+		styleView->setSelectionMode(Q3ListView::Multi);
 		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
@@ -746,10 +757,10 @@ void StyleManager::slotOk()
 		if (!isFirst)
 			move(editPosition_);
 		prefs_->set("isEditMode", isEditMode_);
-		connect(styleView, SIGNAL(selectionChanged(QListViewItem*)),
-		        this, SLOT(slotApplyStyle(QListViewItem*)));
-		connect(styleView, SIGNAL(clicked(QListViewItem*)),
-				this, SLOT(slotApplyStyle(QListViewItem*)));
+		connect(styleView, SIGNAL(selectionChanged(Q3ListViewItem*)),
+		        this, SLOT(slotApplyStyle(Q3ListViewItem*)));
+		connect(styleView, SIGNAL(clicked(Q3ListViewItem*)),
+				this, SLOT(slotApplyStyle(Q3ListViewItem*)));
 		if (isStoryEditMode_)
 		{
 			isStoryEditMode_=false;
@@ -758,10 +769,10 @@ void StyleManager::slotOk()
 	}
 	else
 	{
-		disconnect(styleView, SIGNAL(selectionChanged(QListViewItem*)),
-		           this, SLOT(slotApplyStyle(QListViewItem*)));
-		disconnect(styleView, SIGNAL(clicked(QListViewItem*)),
-				this, SLOT(slotApplyStyle(QListViewItem*)));
+		disconnect(styleView, SIGNAL(selectionChanged(Q3ListViewItem*)),
+		           this, SLOT(slotApplyStyle(Q3ListViewItem*)));
+		disconnect(styleView, SIGNAL(clicked(Q3ListViewItem*)),
+				this, SLOT(slotApplyStyle(Q3ListViewItem*)));
 		if (!isFirst)
 		{
 			width_ = width();
@@ -770,7 +781,7 @@ void StyleManager::slotOk()
 		height_ = height();
 		prefs_->set("Height", height_);
 		slotSetupWidget();
-		styleView->setSelectionMode(QListView::Extended);
+		styleView->setSelectionMode(Q3ListView::Extended);
 		editPosition_.setX(x());
 		editPosition_.setY(y());
 		prefs_->set("eX", x());
@@ -787,7 +798,7 @@ void StyleManager::slotOk()
 		QToolTip::add(okButton, exitEditModeOk_);
 		slotClean();
 		adjustSize();
-		QValueList<int> l;
+		Q3ValueList<int> l;
 		l << widthLeft_ << widthRight_;
 		splitter->setSizes(l);
 		resize(widthEm_, height_);
@@ -803,7 +814,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 	if (item) {
 		item_ = item;
 
-		QValueList<StyleName> styles = item_->styles(loadFromDoc);
+		Q3ValueList<StyleName> styles = item_->styles(loadFromDoc);
 		StyleViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
 		rootItem->setOpen(true);
 		QMap<QString, StyleViewItem*> sitems;
@@ -839,7 +850,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				continue;
 
 			styleActions_[key] =
-				new ScrAction(ScrAction::DataQString, QIconSet(), "",
+				new ScrAction(ScrAction::DataQString, QIcon(), "",
 							sitem->text(SHORTCUT_COL), doc_->view(), key, 0, 0.0, key);
 			connect(styleActions_[key], SIGNAL(activatedData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
@@ -849,7 +860,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 
 void StyleManager::slotDirty()
 {
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
 
 	while (it.current()) {
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
@@ -868,7 +879,7 @@ void StyleManager::slotDirty()
 
 void StyleManager::slotClean()
 {
-	QListViewItemIterator it(styleView);
+	Q3ListViewItemIterator it(styleView);
 
 	while (it.current()) {
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
@@ -899,8 +910,8 @@ void StyleManager::slotClean()
 
 void StyleManager::reloadStyleView(bool loadFromDoc)
 {
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
-	QValueList<QPair<QString, QString> > selected;
+	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
+	Q3ValueList<QPair<QString, QString> > selected;
 
 	while (it.current())
 	{
@@ -917,7 +928,7 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 	for (uint i = 0; i < items_.count(); ++i)
 		addNewType(items_.at(i), false);
 
-	QListViewItemIterator it2(styleView, QListViewItemIterator::Selectable);
+	Q3ListViewItemIterator it2(styleView, Q3ListViewItemIterator::Selectable);
 
 	while (it2.current())
 	{
@@ -995,7 +1006,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 	{
 		ScrAction *a = styleActions_[oldKey];
 		disconnect(a, SIGNAL(activatedData(QString)), this, SLOT(slotApplyStyle(QString)));
-		ScrAction *b = new ScrAction(ScrAction::DataQString, QIconSet(), "",
+		ScrAction *b = new ScrAction(ScrAction::DataQString, QIcon(), "",
 			               a->accel(), doc_->view(), newKey, 0, 0.0, newKey);
 		styleActions_.remove(oldKey);
 		delete a;
@@ -1029,7 +1040,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	else
 	{
 		styleActions_[key] =
-			new ScrAction(ScrAction::DataQString, QIconSet(), "",
+			new ScrAction(ScrAction::DataQString, QIcon(), "",
 			              shortcut, doc_->view(), key, 0, 0.0, key);
 		connect(styleActions_[key], SIGNAL(activatedData(QString)),
 		        this, SLOT(slotApplyStyle(QString)));
@@ -1043,7 +1054,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 {
 	QKeySequence key(keys);
 
-	QMap<QString, QGuardedPtr<ScrAction> >::iterator it;
+	QMap<QString, QPointer<ScrAction> >::iterator it;
 	for (it = styleActions_.begin(); it != styleActions_.end(); ++it)
 	{
 		if ((*it)->accel() == key)
@@ -1076,7 +1087,7 @@ void StyleManager::slotApplyStyle(QString keyString)
 
 bool StyleManager::nameIsUnique(const QString &name)
 {
-	QValueList<StyleName> names = item_->styles(false);
+	Q3ValueList<StyleName> names = item_->styles(false);
 	for (uint i = 0; i < names.count(); ++i)
 	{
 		if (names[i].first == name)
@@ -1129,7 +1140,7 @@ void StyleManager::slotSetupWidget()
 
 }
 
-void StyleManager::slotApplyStyle(QListViewItem *item)
+void StyleManager::slotApplyStyle(Q3ListViewItem *item)
 {
 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
 
@@ -1153,17 +1164,17 @@ void StyleManager::slotDocSelectionChanged()
 	if (isEditMode_)
 		return; // don't track changes when in edit mode
 
-	disconnect(styleView, SIGNAL(currentChanged(QListViewItem*)),
-	           this, SLOT(slotApplyStyle(QListViewItem*)));
+	disconnect(styleView, SIGNAL(currentChanged(Q3ListViewItem*)),
+	           this, SLOT(slotApplyStyle(Q3ListViewItem*)));
 
 	styleView->clearSelection();
 
-	QValueList<QPair<QString, QString> > selected;
+	Q3ValueList<QPair<QString, QString> > selected;
 
 	for (uint i = 0; i < items_.count(); ++i)
 		selected << QPair<QString, QString>(items_.at(i)->typeName(), items_.at(i)->fromSelection());
 	
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selectable);
+	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selectable);
 	StyleViewItem *item;
 
 	while (it.current())
@@ -1186,8 +1197,8 @@ void StyleManager::slotDocSelectionChanged()
 
 	styleView->triggerUpdate();
 
-	connect(styleView, SIGNAL(currentChanged(QListViewItem*)),
-	        this, SLOT(slotApplyStyle(QListViewItem*)));
+	connect(styleView, SIGNAL(currentChanged(Q3ListViewItem*)),
+	        this, SLOT(slotApplyStyle(Q3ListViewItem*)));
 }
 
 void StyleManager::slotDocStylesChanged()
@@ -1207,7 +1218,7 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 
 	if (rcStyle_.isNull())
 	{
-		QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+		Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
 		while (it.current())
 		{
 			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
@@ -1273,7 +1284,7 @@ void StyleManager::hideEvent(QHideEvent *e)
 {
 	if (isEditMode_)
 	{
-		QValueList<int> l = splitter->sizes();
+		Q3ValueList<int> l = splitter->sizes();
 		widthLeft_ = l[0];
 		widthRight_ = l[1];
 		widthEm_ = width();
@@ -1302,7 +1313,7 @@ void StyleManager::closeEvent(QCloseEvent *e)
 {
 	if (isEditMode_)
 	{
-		QValueList<int> l = splitter->sizes();
+		Q3ValueList<int> l = splitter->sizes();
 		widthLeft_ = l[0];
 		widthRight_ = l[1];
 		widthEm_ = width();
@@ -1350,7 +1361,7 @@ StyleManager::~StyleManager()
 {
 	if (isEditMode_)
 	{
-		QValueList<int> l = splitter->sizes();
+		Q3ValueList<int> l = splitter->sizes();
 		widthLeft_ = l[0];
 		widthRight_ = l[1];
 		widthEm_ = width();
@@ -1377,7 +1388,7 @@ StyleManager::~StyleManager()
 
 /*** StyleViewItem *******************************************************************/
 
-StyleView::StyleView(QWidget *parent) : QListView(parent, "StyleView")
+StyleView::StyleView(QWidget *parent) : Q3ListView(parent, "StyleView")
 {
 
 }
@@ -1392,7 +1403,7 @@ void StyleView::contentsMousePressEvent(QMouseEvent *e)
 	if (e->button() == Qt::RightButton)
 		emit rightButtonClicked(itemAt(e->pos()), e->globalPos(), 0);
 	else
-		QListView::contentsMousePressEvent(e);
+		Q3ListView::contentsMousePressEvent(e);
 }
 
 void StyleView::contentsMouseDoubleClickEvent(QMouseEvent *e)
@@ -1400,19 +1411,19 @@ void StyleView::contentsMouseDoubleClickEvent(QMouseEvent *e)
 	if (e->button() == Qt::LeftButton)
 		emit doubleClicked(itemAt(e->pos()), e->globalPos(), 0);
 	else
-		QListView::contentsMouseDoubleClickEvent(e);
+		Q3ListView::contentsMouseDoubleClickEvent(e);
 }
 
 /*** StyleViewItem *******************************************************************/
 
-StyleViewItem::StyleViewItem(QListView *view, const QString &text) : QListViewItem(view, text),
+StyleViewItem::StyleViewItem(Q3ListView *view, const QString &text) : Q3ListViewItem(view, text),
 isRoot_(true), isDirty_(false), parentName_(QString::null), rootName_(QString::null)
 {
 	setSelectable(false);
 }
 
-StyleViewItem::StyleViewItem(QListViewItem *parent, const QString &text, const QString &rootName)
-: QListViewItem(parent, text),
+StyleViewItem::StyleViewItem(Q3ListViewItem *parent, const QString &text, const QString &rootName)
+: Q3ListViewItem(parent, text),
   isRoot_(false), isDirty_(false), parentName_(parent->text(0)), rootName_(rootName)
 {
 
@@ -1427,7 +1438,7 @@ void StyleViewItem::paintCell(QPainter *p, const QColorGroup &cg, int column, in
 		p->setFont(f);
 	}
 
-	QListViewItem::paintCell(p, cg, column, width, align);
+	Q3ListViewItem::paintCell(p, cg, column, width, align);
 }
 
 void StyleViewItem::setDirty(bool isDirty)
@@ -1469,15 +1480,15 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	Part2 = "";
 	Part3 = "";
 	keyCode = 0;
-	keyManagerLayout = new QVBoxLayout( this, 0, 6); 
+	keyManagerLayout = new Q3VBoxLayout( this, 0, 6); 
 	keyManagerLayout->setAlignment( Qt::AlignHCenter );
 
-	keyGroup = new QButtonGroup( this, "keyGroup" );
+	keyGroup = new Q3ButtonGroup( this, "keyGroup" );
 	keyGroup->setFrameStyle(0);
 	keyGroup->setColumnLayout(0, Qt::Vertical );
 	keyGroup->layout()->setSpacing( 0 );
 	keyGroup->layout()->setMargin( 0 );
-	keyGroupLayout = new QGridLayout( keyGroup->layout() );
+	keyGroupLayout = new Q3GridLayout( keyGroup->layout() );
 	keyGroupLayout->setAlignment( Qt::AlignTop );
 	keyGroupLayout->setSpacing( 6 );
 	keyGroupLayout->setMargin( 11 );

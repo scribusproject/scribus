@@ -7,12 +7,21 @@ for which a new license (GPL+exception) is in place.
 #include "cmykfw.h"
 #include "cmykfw.moc"
 #include <qpainter.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qcursor.h>
 #include <qmessagebox.h>
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3GridLayout>
+#include <Q3CString>
+#include <QPixmap>
+#include <Q3Frame>
+#include <QMouseEvent>
+#include <Q3VBoxLayout>
 #include <cstdlib>
 
 #include "commonstrings.h"
@@ -68,10 +77,10 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	resize( 498, 306 );
 	setCaption( tr( "Edit Color" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	CMYKFarbenLayout = new QHBoxLayout( this );
+	CMYKFarbenLayout = new Q3HBoxLayout( this );
 	CMYKFarbenLayout->setSpacing( 6 );
 	CMYKFarbenLayout->setMargin( 11 );
-	Layout23 = new QVBoxLayout;
+	Layout23 = new Q3VBoxLayout;
 	Layout23->setSpacing( 7 );
 	Layout23->setMargin( 0 );
 
@@ -111,7 +120,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
 
-	Layout2 = new QGridLayout;
+	Layout2 = new Q3GridLayout;
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 
@@ -150,7 +159,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout2->addWidget( NewC, 1, 1 );
 	Layout23->addLayout( Layout2 );
 
-	Layout21 = new QHBoxLayout;
+	Layout21 = new Q3HBoxLayout;
 	Layout21->setSpacing( 20 );
 	Layout21->setMargin( 10 );
 
@@ -162,10 +171,10 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout23->addLayout( Layout21 );
 	CMYKFarbenLayout->addLayout( Layout23 );
 
-	Frame4 = new QFrame( this, "Frame4" );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Raised );
-	Frame4Layout = new QVBoxLayout( Frame4 );
+	Frame4 = new Q3Frame( this, "Frame4" );
+	Frame4->setFrameShape( Q3Frame::NoFrame );
+	Frame4->setFrameShadow( Q3Frame::Raised );
+	Frame4Layout = new Q3VBoxLayout( Frame4 );
 	Frame4Layout->setSpacing( 6 );
 	Frame4Layout->setMargin( 0 );
 
@@ -205,21 +214,21 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	}
 	Frame4Layout->addWidget( Swatches );
 
-	TabStack = new QWidgetStack( Frame4, "TabStack" );
-	TabStack->setFrameShape( QWidgetStack::NoFrame );
+	TabStack = new Q3WidgetStack( Frame4, "TabStack" );
+	TabStack->setFrameShape( Q3WidgetStack::NoFrame );
 
-	Frame5a = new QFrame( TabStack, "Frame4" );
-	Frame5a->setFrameShape( QFrame::NoFrame );
-	Frame5a->setFrameShadow( QFrame::Raised );
-	Frame5aLayout = new QHBoxLayout( Frame5a );
+	Frame5a = new Q3Frame( TabStack, "Frame4" );
+	Frame5a->setFrameShape( Q3Frame::NoFrame );
+	Frame5a->setFrameShadow( Q3Frame::Raised );
+	Frame5aLayout = new Q3HBoxLayout( Frame5a );
 	Frame5aLayout->setSpacing( 0 );
 	Frame5aLayout->setMargin( 0 );
-	Frame5 = new QFrame(Frame5a);
+	Frame5 = new Q3Frame(Frame5a);
 	Frame5->setFrameShape( QLabel::WinPanel );
 	Frame5->setFrameShadow( QLabel::Sunken );
 	Frame5->setMinimumSize( QSize( 182, 130 ) );
 	Frame5->setMaximumSize( QSize( 182, 130 ) );
-	Frame5Layout = new QHBoxLayout( Frame5 );
+	Frame5Layout = new Q3HBoxLayout( Frame5 );
 	Frame5Layout->setSpacing( 0 );
 	Frame5Layout->setMargin( 0 );
 	ColorMap = new ColorChart( Frame5, doc);
@@ -234,14 +243,14 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 
 	Frame4Layout->addWidget( TabStack );
 
-	Layout2x = new QGridLayout;
+	Layout2x = new Q3GridLayout;
 	Layout2x->setSpacing( 6 );
 	Layout2x->setMargin( 0 );
 
 	CyanT = new QLabel( tr( "C:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(CyanT, 0, 0);
 
-	Layout1_2 = new QVBoxLayout;
+	Layout1_2 = new Q3VBoxLayout;
 	Layout1_2->setSpacing( 0 );
 	Layout1_2->setMargin( 0 );
 
@@ -271,7 +280,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	MagentaT = new QLabel( tr( "M:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(MagentaT, 1, 0);
 
-	Layout1_2_2 = new QVBoxLayout;
+	Layout1_2_2 = new Q3VBoxLayout;
 	Layout1_2_2->setSpacing( 0 );
 	Layout1_2_2->setMargin( 0 );
 
@@ -301,7 +310,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	YellowT = new QLabel( tr( "Y:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(YellowT, 2, 0);
 
-	Layout1_2_3 = new QVBoxLayout;
+	Layout1_2_3 = new Q3VBoxLayout;
 	Layout1_2_3->setSpacing( 0 );
 	Layout1_2_3->setMargin( 0 );
 
@@ -331,7 +340,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	BlackT = new QLabel( tr( "K:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(BlackT, 3, 0);
 
-	Layout1_2_4 = new QVBoxLayout;
+	Layout1_2_4 = new Q3VBoxLayout;
 	Layout1_2_4->setSpacing( 0 );
 	Layout1_2_4->setMargin( 0 );
 
@@ -403,7 +412,7 @@ void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 {
 	if (m->button() == RightButton)
 	{
-		QPopupMenu *pmen = new QPopupMenu();
+		Q3PopupMenu *pmen = new Q3PopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		int px = pmen->insertItem( tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
 		int py = pmen->insertItem( tr("Static Color Bars"), this, SLOT(ToggleSL()));
@@ -609,15 +618,15 @@ void CMYKChoose::SelSwatch(int n)
 		if (n != 0)
 		{
 			QFile fiC(pfadC2);
-			if (fiC.open(IO_ReadOnly))
+			if (fiC.open(QIODevice::ReadOnly))
 			{
 				QString ColorEn, Cname;
 				int Rval, Gval, Bval, Kval;
-				QTextStream tsC(&fiC);
+				Q3TextStream tsC(&fiC);
 				ColorEn = tsC.readLine();
 				if (ColorEn.startsWith("<?xml version="))
 				{
-					QCString docBytes("");
+					Q3CString docBytes("");
 					loadRawText(pfadC2, docBytes);
 					QString docText("");
 					docText = QString::fromUtf8(docBytes);
@@ -656,7 +665,7 @@ void CMYKChoose::SelSwatch(int n)
 						ColorEn = tsC.readLine();
 						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 							continue;
-						QTextStream CoE(&ColorEn, IO_ReadOnly);
+						Q3TextStream CoE(&ColorEn, QIODevice::ReadOnly);
 						CoE >> Rval;
 						CoE >> Gval;
 						CoE >> Bval;

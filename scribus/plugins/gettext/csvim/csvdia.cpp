@@ -8,6 +8,11 @@ for which a new license (GPL+exception) is in place.
 #include "csvdia.moc"
 
 #include "scribusapi.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -16,9 +21,9 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	setCaption( tr("CSV Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
-	QBoxLayout* layout = new QVBoxLayout(this);
+	Q3BoxLayout* layout = new Q3VBoxLayout(this);
 
-	QBoxLayout* flayout = new QHBoxLayout(0, 5, 5, "flayout");
+	Q3BoxLayout* flayout = new Q3HBoxLayout(0, 5, 5, "flayout");
 	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this, "fdlabel", 0);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
@@ -31,7 +36,7 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	flayout->addWidget(fdelimCombo,5);
 	layout->addLayout(flayout);
 
-	QBoxLayout* vlayout = new QHBoxLayout(0, 5, 5, "vlayout");
+	Q3BoxLayout* vlayout = new Q3HBoxLayout(0, 5, 5, "vlayout");
 	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this, "fdlabel", 0);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
@@ -43,12 +48,12 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	vlayout->addWidget(vdelimCombo,5);
 	layout->addLayout(vlayout);
 
-	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
+	Q3BoxLayout* hlayout = new Q3HBoxLayout(0, 5, 5, "hlayout");
 	headerCheck = new QCheckBox( tr("First row is a header"), this, "headerCheck");
 	hlayout->addWidget(headerCheck);
 	layout->addLayout(hlayout);
 
-	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout");
+	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout");
 	blayout->addStretch(10);
 	okButton = new QPushButton( tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);

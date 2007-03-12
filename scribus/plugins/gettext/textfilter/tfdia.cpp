@@ -11,8 +11,12 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qtooltip.h>
 #include <qlabel.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qrect.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QResizeEvent>
+#include <Q3VBoxLayout>
 #include <prefstable.h>
 #include <qsizepolicy.h>
 
@@ -39,9 +43,9 @@ void tfDia::createLayout()
 	currentFilter = "tf_lastUsed";
 	currentIndex = 0;
 	
-	layout = new QVBoxLayout(this);
+	layout = new Q3VBoxLayout(this);
 
-	QBoxLayout* layout1 = new QHBoxLayout(0, 5, 5, "layout1");
+	Q3BoxLayout* layout1 = new Q3HBoxLayout(0, 5, 5, "layout1");
 	clearButton = new QPushButton( tr("C&lear"), this, "clearButton");
 	layout1->addWidget(clearButton);
 	layout1->addStretch(10);
@@ -64,34 +68,34 @@ void tfDia::createLayout()
 	layout1->addWidget(filtersCombo);
 	layout->addLayout(layout1);
 
-	QBoxLayout* flayout = new QHBoxLayout(0,0,0, "flayout");
-	QFrame* f = new QFrame(this, "f");
-	f->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+	Q3BoxLayout* flayout = new Q3HBoxLayout(0,0,0, "flayout");
+	Q3Frame* f = new Q3Frame(this, "f");
+	f->setFrameStyle(Q3Frame::HLine | Q3Frame::Sunken);
 	flayout->addWidget(f);
 	layout->addLayout(flayout);
 
 	
-	qsv = new QScrollView(this, "qsv");
-	QVBoxLayout *a1layout = new QVBoxLayout(0, 5, 12, "a1layout");
-	vbox = new QFrame(this);
+	qsv = new Q3ScrollView(this, "qsv");
+	Q3VBoxLayout *a1layout = new Q3VBoxLayout(0, 5, 12, "a1layout");
+	vbox = new Q3Frame(this);
 	vbox->setFixedWidth(qsv->viewport()->width());
 	qsv->viewport()->resize(width() - 12, vbox->height());
 	a1layout->addWidget(qsv);
 	qsv->addChild(vbox);
 	layout->addLayout(a1layout);
 	
-	alayout = new QVBoxLayout(vbox, 5,12, "alayout");
+	alayout = new Q3VBoxLayout(vbox, 5,12, "alayout");
 	
 	createFilter(prefs->getTable("tf_lastUsed"));
 	filters[0]->setRemovable((filters.size() >= 2));
 	
-	QBoxLayout* flayout2 = new QHBoxLayout(0,0,0, "flayout2");
-	QFrame* f2 = new QFrame(this, "f2");
-	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
+	Q3BoxLayout* flayout2 = new Q3HBoxLayout(0,0,0, "flayout2");
+	Q3Frame* f2 = new Q3Frame(this, "f2");
+	f2->setFrameStyle(Q3Frame::HLine | Q3Frame::Sunken);
 	flayout2->addWidget(f2);
 	layout->addLayout(flayout2);
 
-	QBoxLayout* layout2 = new QHBoxLayout(0, 5, 5, "layout2");
+	Q3BoxLayout* layout2 = new Q3HBoxLayout(0, 5, 5, "layout2");
 	saveEdit = new QLineEdit(this, "saveEdit");
 	QToolTip::add(saveEdit, tr("Give a name to this filter for saving"));
 	layout2->addWidget(saveEdit, 10);

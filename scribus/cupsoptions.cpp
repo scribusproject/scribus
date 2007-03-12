@@ -31,6 +31,10 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
@@ -44,13 +48,13 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	setIcon(loadIcon("AppIcon.png"));
 	prefs = PrefsManager::instance()->prefsFile->getContext("cups_options");
 	setSizeGripEnabled(true);
-	CupsOptionsLayout = new QVBoxLayout( this );
+	CupsOptionsLayout = new Q3VBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
 	CupsOptionsLayout->setMargin( 10 );
-	Table = new QTable( this, "Table1" );
+	Table = new Q3Table( this, "Table1" );
 	Table->setNumCols( 2 );
 	Table->setSorting(false);
-	Table->setSelectionMode(QTable::NoSelection);
+	Table->setSelectionMode(Q3Table::NoSelection);
 	Table->setLeftMargin(0);
 	Table->verticalHeader()->hide();
 	Table->setMinimumSize(300, 100);
@@ -195,7 +199,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Header->setLabel(1, tr("Value"));
 	CupsOptionsLayout->addWidget( Table );
 
-	Layout2 = new QHBoxLayout;
+	Layout2 = new Q3HBoxLayout;
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

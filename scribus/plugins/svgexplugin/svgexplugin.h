@@ -131,7 +131,7 @@ private:
 		\param Item PageItem *
 		\retval QString Stroke settings
 		*/
-		QString GetMultiStroke(struct SingleLine *sl, PageItem *Item);
+		QString GetMultiStroke(struct Qt::TextSingleLine *sl, PageItem *Item);
 		int GradCount;
 		int ClipCount;
 #endif

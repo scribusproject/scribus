@@ -10,18 +10,18 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include <memory>
 #include <qapplication.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 using namespace std;
 
 template<unsigned int pixWidth, unsigned int pixHeight>
-class ScListBoxPixmap : public QListBoxItem
+class ScListBoxPixmap : public Q3ListBoxItem
 {
 public:
 	ScListBoxPixmap(void);
-	virtual int	width(const QListBox *)  const;
-	virtual int	height(const QListBox *) const;
+	virtual int	width(const Q3ListBox *)  const;
+	virtual int	height(const Q3ListBox *) const;
 	virtual void paint(QPainter *);
 protected:
 	static  auto_ptr<QPixmap> pmap;
@@ -33,7 +33,7 @@ template<unsigned int pixWidth, unsigned int pixHeight>
 auto_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
 
 template<unsigned int pixWidth, unsigned int pixHeight>
-ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QListBoxItem()
+ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : Q3ListBoxItem()
 {
 	if (!pmap.get())
 	{
@@ -42,7 +42,7 @@ ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QListBoxItem()
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight>
-int	ScListBoxPixmap<pixWidth, pixHeight>::width(const QListBox* lb)  const
+int	ScListBoxPixmap<pixWidth, pixHeight>::width(const Q3ListBox* lb)  const
 {
 	if ( text().isEmpty() )
 		return QMAX( pmap->width() + 6, QApplication::globalStrut().width() );
@@ -50,7 +50,7 @@ int	ScListBoxPixmap<pixWidth, pixHeight>::width(const QListBox* lb)  const
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight>
-int	ScListBoxPixmap<pixWidth, pixHeight>::height(const QListBox* lb) const
+int	ScListBoxPixmap<pixWidth, pixHeight>::height(const Q3ListBox* lb) const
 {
 	int h;
 	if ( text().isEmpty() )

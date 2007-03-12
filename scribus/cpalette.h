@@ -25,25 +25,33 @@ for which a new license (GPL+exception) is in place.
 #define CPALETTE_H
 
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3Frame>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3PopupMenu>
+#include <Q3VBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "gradienteditor.h"
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 class ScribusDoc;
 class PageItem;
-class QListBox;
-class QListBoxItem;
-class QIconView;
-class QIconViewItem;
+class Q3ListBox;
+class Q3ListBoxItem;
+class Q3IconView;
+class Q3IconViewItem;
 class QPixmap;
 class QRect;
-class QPopupMenu;
+class Q3PopupMenu;
 class QFont;
 class QLayout;
 class QToolButton;
-class QButtonGroup;
-class QGroupBox;
+class Q3ButtonGroup;
+class Q3GroupBox;
 class QComboBox;
 class QLabel;
 class QSpacerItem;
@@ -79,14 +87,14 @@ public slots:
 	void SetColors(ColorList newColorList);
 	void updateCList();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
-	void selectPattern(QIconViewItem *c);
+	void selectPattern(Q3IconViewItem *c);
 	void changePatternProps();
 	void ToggleKette();
 	void HChange();
 	void VChange();
 	void updatePatternList();
 	void updateBoxS(QString Farbe);
-	void selectColor(QListBoxItem *c);
+	void selectColor(Q3ListBoxItem *c);
 	QColor setColor(QString farbe, int shad);
 	void slotGrad(int nr);
 	void slotColor(QString n, int s);
@@ -123,11 +131,11 @@ signals:
 	void editGradient();
 
 protected:
-	QVBoxLayout* Form1Layout;
-	QHBoxLayout* Layout1;
-	QGridLayout* Layout1t;
-	QVBoxLayout* GradLayout;
-	QGridLayout* freeGradientLayout;
+	Q3VBoxLayout* Form1Layout;
+	Q3HBoxLayout* Layout1;
+	Q3GridLayout* Layout1t;
+	Q3VBoxLayout* GradLayout;
+	Q3GridLayout* freeGradientLayout;
 	QPixmap alertIcon;
 	QPixmap cmykIcon;
 	QPixmap rgbIcon;
@@ -136,33 +144,33 @@ protected:
 	DynamicTip* dynTip;
 
 	ColorListBox *colorListQLBox;
-	QFrame* patternFrame;
-	QIconView *patternBox;
-	QGroupBox* groupOffset;
+	Q3Frame* patternFrame;
+	Q3IconView *patternBox;
+	Q3GroupBox* groupOffset;
 	QLabel* textLabel1;
 	MSpinBox* spinXoffset;
 	QLabel* textLabel2;
 	MSpinBox* spinYoffset;
-	QGroupBox* groupScale;
+	Q3GroupBox* groupScale;
 	QLabel* textLabel5;
 	MSpinBox* spinXscaling;
 	QLabel* textLabel6;
 	MSpinBox* spinYscaling;
 	LinkButton* keepScaleRatio;
-	QGroupBox* groupRotation;
+	Q3GroupBox* groupRotation;
 	QLabel* textLabel7;
 	MSpinBox* spinAngle;
-	QVBoxLayout* frame3Layout;
-	QHBoxLayout* groupOffsetLayout;
-	QGridLayout* groupScaleLayout;
-	QHBoxLayout* groupRotationLayout;
+	Q3VBoxLayout* frame3Layout;
+	Q3HBoxLayout* groupOffsetLayout;
+	Q3GridLayout* groupScaleLayout;
+	Q3HBoxLayout* groupRotationLayout;
 
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;
 	QComboBox* gradientQCombo;
 	GradientEditor* gradEdit;
-	QFrame* freeGradientQFrame;
+	Q3Frame* freeGradientQFrame;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
 	QLabel* GTextX2;
@@ -175,9 +183,9 @@ protected:
 	QLabel* TransTxt;
 	QLabel* TransTxt2;
 	QLabel* ShadeTxt;
-	QGroupBox* TransGroup;
+	Q3GroupBox* TransGroup;
 	QSpinBox* TransSpin;
-	QGuardedPtr<ScribusDoc> currentDoc;
+	QPointer<ScribusDoc> currentDoc;
 	PageItem* currentItem;
 	ScComboBox* blendMode;
 	int Mode;

@@ -13,6 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "units.h"
 #include "commonstrings.h"
 
@@ -23,10 +28,10 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 {
 	setCaption( tr( "Multiple Duplicate" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	MdupLayout = new QVBoxLayout( this );
+	MdupLayout = new Q3VBoxLayout( this );
 	MdupLayout->setSpacing( 5 );
 	MdupLayout->setMargin( 10 );
-	Layout4 = new QGridLayout;
+	Layout4 = new Q3GridLayout;
 	Layout4->setSpacing( 6 );
 	Layout4->setMargin( 0 );
 	Ncopies = new QSpinBox( this, "Ncopies" );
@@ -50,7 +55,7 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	TextLabel1_2_2 = new QLabel( ShiftV, tr( "&Vertical Shift:" ), this, "TextLabel1_2_2" );
 	Layout4->addWidget( TextLabel1_2_2, 2, 0 );
 	MdupLayout->addLayout( Layout4 );
-	Layout3 = new QHBoxLayout;
+	Layout3 = new Q3HBoxLayout;
 	Layout3->setSpacing( 6 );
 	Layout3->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

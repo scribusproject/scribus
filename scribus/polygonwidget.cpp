@@ -7,10 +7,15 @@ for which a new license (GPL+exception) is in place.
 #include "polygonwidget.h"
 #include "polygonwidget.moc"
 #include "scconfig.h"
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qpainter.h>
 #include <qrect.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 #include <cmath>
 #include "util.h"
 
@@ -21,10 +26,10 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Pre = new QPixmap(101, 101);
 	Pre->fill(white);
 	PFactor = polyF;
-	PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout");
-	Layout11 = new QHBoxLayout( 0, 0, 5, "Layout11");
-	Layout10 = new QVBoxLayout( 0, 0, 5, "Layout10");
-	Layout2 = new QHBoxLayout( 0, 0, 5, "Layout2");
+	PolygonPropsLayout = new Q3VBoxLayout( this, 10, 5, "PolygonPropsLayout");
+	Layout11 = new Q3HBoxLayout( 0, 0, 5, "Layout11");
+	Layout10 = new Q3VBoxLayout( 0, 0, 5, "Layout10");
+	Layout2 = new Q3HBoxLayout( 0, 0, 5, "Layout2");
 	Ecken = new QSpinBox( this, "Ecken" );
 	Ecken->setMaxValue( 999 );
 	Ecken->setMinValue( 3 );
@@ -34,9 +39,9 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Layout2->addWidget( Ecken );
 	Layout10->addLayout( Layout2 );
 
-	Layout9_2 = new QHBoxLayout( 0, 0, 5, "Layout9_2");
-	Layout8_2 = new QVBoxLayout( 0, 0, 5, "Layout8_2");
-	Layout7_2 = new QHBoxLayout( 0, 0, 5, "Layout7_2");
+	Layout9_2 = new Q3HBoxLayout( 0, 0, 5, "Layout9_2");
+	Layout8_2 = new Q3VBoxLayout( 0, 0, 5, "Layout8_2");
+	Layout7_2 = new Q3HBoxLayout( 0, 0, 5, "Layout7_2");
 	Faktor2 = new QSpinBox( this, "Faktor_2" );
 	Faktor2->setSuffix(" ");
 	Faktor2->setMaxValue( 180 );
@@ -60,11 +65,11 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Konvex->setText( tr( "Apply &Factor" ) );
 	Konvex->setChecked(polyS);
 	Layout10->addWidget( Konvex );
-	Layout9 = new QHBoxLayout( 0, 0, 5, "Layout9");
+	Layout9 = new Q3HBoxLayout( 0, 0, 5, "Layout9");
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout9->addItem( spacer );
-	Layout8 = new QVBoxLayout( 0, 0, 5, "Layout8");
-	Layout7 = new QHBoxLayout( 0, 0, 5, "Layout7");
+	Layout8 = new Q3VBoxLayout( 0, 0, 5, "Layout8");
+	Layout7 = new Q3HBoxLayout( 0, 0, 5, "Layout7");
 	Faktor = new QSpinBox( this, "Faktor" );
 	Faktor->setSuffix( tr( " %" ) );
 	Faktor->setMaxValue( 100 );
@@ -171,7 +176,7 @@ void PolygonWidget::UpdatePreView()
 	p.begin(Pre);
 	p.setBrush(NoBrush);
 	p.setPen(black);
-	QPointArray pp = RegularPolygon(100, 100, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value());
+	Q3PointArray pp = RegularPolygon(100, 100, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value());
 	QRect br = pp.boundingRect();
 	if (br.x() < 0)
 		pp.translate(-br.x(), 0);
@@ -180,7 +185,7 @@ void PolygonWidget::UpdatePreView()
 	br = pp.boundingRect();
 	if ((br.height() > 100) || (br.width() > 100))
 	{
-		QWMatrix ma;
+		QMatrix ma;
 		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = ma * pp;

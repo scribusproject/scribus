@@ -187,9 +187,9 @@ rgb1a (XImage *image, unsigned char *pixels, int rowstride, xlib_colormap *color
 			| colormap->colors[xx].red;
 #else
 		remap[xx] = 0xff
-			| colormap->colors[xx].red << 24
-			| colormap->colors[xx].green << 16
-			| colormap->colors[xx].blue << 8;
+			| colormap->colors[xx].Qt::red << 24
+			| colormap->colors[xx].Qt::green << 16
+			| colormap->colors[xx].Qt::blue << 8;
 #endif
 	}
 
@@ -277,9 +277,9 @@ rgb8a (XImage *image, unsigned char *pixels, int rowstride, xlib_colormap *color
 			| colormap->colors[xx].red;
 #else
 		remap[xx] = 0xff
-			| colormap->colors[xx].red << 24
-			| colormap->colors[xx].green << 16
-			| colormap->colors[xx].blue << 8;
+			| colormap->colors[xx].Qt::red << 24
+			| colormap->colors[xx].Qt::green << 16
+			| colormap->colors[xx].Qt::blue << 8;
 #endif
 	}
 

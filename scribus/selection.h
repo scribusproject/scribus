@@ -20,15 +20,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef SELECTION_H
 #define SELECTION_H
 
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qobject.h>
 #include <qmap.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "pageitem.h"
 #include "scribusapi.h"
 
-typedef QValueList< QGuardedPtr<PageItem> > SelectionList;
+typedef Q3ValueList< QPointer<PageItem> > SelectionList;
 
 class SCRIBUS_API Selection : public QObject
 {

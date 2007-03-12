@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qmessagebox.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qtooltip.h>
 
 #include "commonstrings.h"
@@ -84,27 +84,27 @@ void DocSections::updateTable()
 	{
 		uint i=0;
 		//Name
-		QTableItem *item1 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, (*it).name);
+		Q3TableItem *item1 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, (*it).name);
 		sectionsTable->setItem(row, i++, item1);
 		//Active
-		QCheckTableItem *item2 = new QCheckTableItem(sectionsTable,"");
+		Q3CheckTableItem *item2 = new Q3CheckTableItem(sectionsTable,"");
 		item2->setChecked((*it).active);
 		sectionsTable->setItem(row, i++, item2);
 		//FromIndex
-		QTableItem *item3 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).fromindex+1));
+		Q3TableItem *item3 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, QString::number((*it).fromindex+1));
 		sectionsTable->setItem(row, i++, item3);
 		//ToIndex
-		QTableItem *item4 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).toindex+1));
+		Q3TableItem *item4 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, QString::number((*it).toindex+1));
 		sectionsTable->setItem(row, i++, item4);
 		//Style
-		QComboTableItem *item5 = new QComboTableItem(sectionsTable, styles);
+		Q3ComboTableItem *item5 = new Q3ComboTableItem(sectionsTable, styles);
 		sectionsTable->setItem(row, i++, item5);
 		if ((*it).type==Type_None)
 			item5->setCurrentItem(styles.count()-1);
 		else
 			item5->setCurrentItem((*it).type);
 		//Start Page Number
-		QTableItem *item6 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex));
+		Q3TableItem *item6 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, QString::number((*it).sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
 		//End Page Number
 		/*
@@ -131,7 +131,7 @@ void DocSections::tableItemChanged( int row, int col )
 		localSections[row].name=sectionsTable->text(row, col);
 		break;
 	case 1:
-		localSections[row].active=static_cast<QCheckTableItem*>(sectionsTable->item(row, col))->isChecked();
+		localSections[row].active=static_cast<Q3CheckTableItem*>(sectionsTable->item(row, col))->isChecked();
 		break;
 	case 2:
 	case 3:
@@ -158,7 +158,7 @@ void DocSections::tableItemChanged( int row, int col )
 		break;
 	case 4:
 		{
-			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(sectionsTable->item(row,col));
+			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(sectionsTable->item(row,col));
 			if (qcti!=NULL)
 			{
 				uint index=qcti->currentItem();

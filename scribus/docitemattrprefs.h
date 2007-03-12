@@ -13,7 +13,7 @@ class DocumentItemAttributes : public DocumentItemAttributesBase
 {
 	Q_OBJECT
 	public:
-		DocumentItemAttributes( QWidget* parent = 0, const char* name = 0, WFlags fl = 0 );
+		DocumentItemAttributes( QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
 		~DocumentItemAttributes();
 		virtual QStringList getDocAttributesNames();
 		virtual ObjAttrVector* getNewAttributes();

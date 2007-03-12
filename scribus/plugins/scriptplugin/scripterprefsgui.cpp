@@ -14,19 +14,23 @@ for which a new license (GPL+exception) is in place.
 #include <qlineedit.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include <prefspanel.h>
 #include <qtabwidget.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qcolordialog.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 
 
 ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	: PrefsPanel(parent, "ScripterPrefsGui")
 {
-	ScripterPrefsGuiBaseLayout = new QGridLayout(this, 1, 1, 10, 5, "ScripterPrefsGuiBaseLayout");
+	ScripterPrefsGuiBaseLayout = new Q3GridLayout(this, 1, 1, 10, 5, "ScripterPrefsGuiBaseLayout");
 
 	tabWidget = new QTabWidget(this, "tabWidget");
 	//tabWidget->setGeometry(QRect(70, 50, 380, 230));
@@ -36,12 +40,12 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	consoleTab = new QWidget(tabWidget, "consoleTab");
 	tabWidget->insertTab(consoleTab, tr("Console"));
 
-	extLayout = new QVBoxLayout(startupTab, 10, 5, "extLayout");
+	extLayout = new Q3VBoxLayout(startupTab, 10, 5, "extLayout");
 	extLayout->setAlignment(Qt::AlignTop);
 	extensionScriptsChk = new QCheckBox(startupTab, "extensionScriptsChk");
 	extLayout->addWidget(extensionScriptsChk);
 
-	startupScriptLayout = new QHBoxLayout(0, 10, 5, "startupScriptLayout");
+	startupScriptLayout = new Q3HBoxLayout(0, 10, 5, "startupScriptLayout");
 
 	startupScriptEditLabel = new QLabel(startupTab, "startupScriptEditLabel");
 	startupScriptEdit = new QLineEdit(startupTab, "startupScriptEdit");
@@ -57,7 +61,7 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	extLayout->addItem(extScriptSpacer);
 
 	// colors
-	colorLayout = new QGridLayout(consoleTab, 1, 1, 10, 5);
+	colorLayout = new Q3GridLayout(consoleTab, 1, 1, 10, 5);
 
 	errorLabel = new QLabel(consoleTab);
 	commentLabel = new QLabel(consoleTab);
@@ -186,7 +190,7 @@ void ScripterPrefsGui::changeStartupScript()
 	if (!fi.exists())
 		currentScript = QDir::homeDirPath();
 
-	QString s = QFileDialog::getOpenFileName(currentScript, "Python Scripts (*.py *.PY)", this, "d", tr("Locate Startup Script"));
+	QString s = Q3FileDialog::getOpenFileName(currentScript, "Python Scripts (*.py *.PY)", this, "d", tr("Locate Startup Script"));
 	if (!s.isEmpty())
 		startupScriptEdit->setText(s);
 }

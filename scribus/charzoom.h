@@ -2,6 +2,9 @@
 #define CHARZOOM_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QPaintEvent>
 
 #include "scribusapi.h"
 #include "fonts/scface.h"

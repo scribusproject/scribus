@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 
 class gtWriter;
-class QProcess;
+class Q3Process;
 
 extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
@@ -39,7 +39,7 @@ private:
 	QString text;
 	QString error;
 	gtWriter *writer;
-	QProcess *proc;
+	Q3Process *proc;
 	bool failed;
 	bool textOnly;
 	void toUnicode();

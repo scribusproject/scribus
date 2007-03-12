@@ -10,10 +10,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QLabel>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -26,7 +31,7 @@ class ValueDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ValueDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	ValueDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~ValueDialog();
 
 	QLabel* dialogLabel;
@@ -37,10 +42,10 @@ public slots:
 	virtual void okButton_pressed();
 
 protected:
-	QGridLayout* ScripterValueLayout;
-	QVBoxLayout* layout3;
-	QVBoxLayout* layout2;
-	QHBoxLayout* layout1;
+	Q3GridLayout* ScripterValueLayout;
+	Q3VBoxLayout* layout3;
+	Q3VBoxLayout* layout2;
+	Q3HBoxLayout* layout1;
 
 protected slots:
 	virtual void languageChange();

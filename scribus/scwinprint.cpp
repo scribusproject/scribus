@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include <memory>
 #include <valarray>
 #include <windows.h>
+//Added by qt3to4:
+#include <Q3CString>
 using namespace ::std;
 
 #include "scconfig.h"
@@ -94,8 +96,8 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	bool success;
 	HDC printerDC;
 	QString diaSelection, docDir, prefsDocDir;
-	QCString printerName = options.printer;
-	QCString fileName;
+	Q3CString printerName = options.printer;
+	Q3CString fileName;
 
 	if( !doc || options.toFile )	
 		return false;
@@ -250,7 +252,7 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	painter = new ScPainterEx_GDI( dc, drawRect, doc, !options.useColor );
 	
 	// Set the world transformation matrix
-	QWMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter->setWorldMatrix( matrix );
 
 	painter->clear();
@@ -281,7 +283,7 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	return success;
 }
 
-bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, QCString& fileName, bool forceGDI )
+bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, Q3CString& fileName, bool forceGDI )
 {
  int  jobId;
  bool psPrint;
@@ -362,8 +364,8 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	bool success = true;
 	ScPainterEx_GDI *painter;
 	ScPageOutput *pageOutput;
-	QCString inputProfile;
-	QCString printerProfile;
+	Q3CString inputProfile;
+	Q3CString printerProfile;
 	HCOLORSPACE hColorSpace = NULL;
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
@@ -479,7 +481,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	painter = new ScPainterEx_GDI( printerDC, drawRect, doc, !options.useColor );
 	painter->clear();
 	
-	QWMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
+	QMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
 	painter->setWorldMatrix( matrix );
 
 	pageOutput->DrawPage(page, painter); 
@@ -611,7 +613,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
 		return false;
 
-	if ( !file.open( IO_ReadOnly ) )
+	if ( !file.open( QIODevice::ReadOnly ) )
 		return false;
 	fileSize = file.size();
 	bw = 0; // bytes written
@@ -642,7 +644,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODE* devMode )
 {
 	HANDLE handle;
-	QCString printer = options.printer.local8Bit();
+	Q3CString printer = options.printer.local8Bit();
 	DWORD devFlags = devMode->dmFields;
 
 	short nCopies = options.copies;
@@ -766,7 +768,7 @@ bool ScWinPrint::printerUseFilePort( QString& printerName )
 {
  bool done;
  bool toFile = false;
- QCString printer = printerName.local8Bit();
+ Q3CString printer = printerName.local8Bit();
  HANDLE prnHandle;
  DWORD size = 0;
 

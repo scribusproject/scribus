@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "csvdia.h"
 #include <gtwriter.h>
 #include <gtparagraphstyle.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qstring.h>

@@ -480,9 +480,9 @@ double GuideManagerCore::closestHorAbove(double y)// const
 			closest = horizontalAutoG[i];
 	}
 
-	if (m_page->Margins.Top < y && m_page->Margins.Top > closest)
+	if (m_page->Margins.Qt::DockTop < y && m_page->Margins.Qt::DockTop > closest)
 		closest = m_page->Margins.Top;
-	if (m_page->height() - m_page->Margins.Bottom < y && m_page->height() - m_page->Margins.Bottom > closest)
+	if (m_page->height() - m_page->Margins.Qt::DockBottom < y && m_page->height() - m_page->Margins.Qt::DockBottom > closest)
 		closest = m_page->height() - m_page->Margins.Bottom;
 
 	return closest;
@@ -526,9 +526,9 @@ double GuideManagerCore::closestVertLeft(double x)// const
 			closest = verticalAutoG[i];
 	}
 
-	if (m_page->Margins.Left < x && m_page->Margins.Left > closest)
+	if (m_page->Margins.Qt::DockLeft < x && m_page->Margins.Qt::DockLeft > closest)
 		closest = m_page->Margins.Left;
-	if (m_page->width() - m_page->Margins.Right < x && m_page->width() - m_page->Margins.Right > closest)
+	if (m_page->width() - m_page->Margins.Qt::DockRight < x && m_page->width() - m_page->Margins.Qt::DockRight > closest)
 		closest = m_page->width() - m_page->Margins.Right;
 
 	return closest;

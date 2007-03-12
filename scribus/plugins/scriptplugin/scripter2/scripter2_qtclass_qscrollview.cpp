@@ -6,13 +6,15 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdvar.h"
 
-#include <qscrollview.h>
+#include <q3scrollview.h>
+//Added by qt3to4:
+#include <Q3Frame>
 
 void export_QScrollView()
 {
 	using namespace boost::python;
 
-	class_<QScrollView,bases<QFrame>,boost::noncopyable>(
+	class_<Q3ScrollView,bases<Q3Frame>,boost::noncopyable>(
 			"QScrollView",
 			"A generic Qt scroll view widget");
 }

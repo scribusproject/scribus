@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 // Pulls in <Python.h> first
 #include "cmdvar.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 /** Other Commands */
 

@@ -9,6 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QPixmap>
 
 class QString;
 class ScColor;
@@ -25,7 +28,7 @@ public:
 	void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mode, int Siz);
 	QMap<QString,ScColor> Farben;
 	QMap<QString,multiLine> MLineStyles;
-	QValueList<uint> Segments;
+	Q3ValueList<uint> Segments;
 protected:
 	PrefsManager* prefsManager;
 };

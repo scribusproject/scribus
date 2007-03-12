@@ -30,14 +30,28 @@ for which a new license (GPL+exception) is in place.
 #include <qfont.h>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qstringlist.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qimage.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfileinfo.h>
 #include <qfile.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <Q3PtrList>
+#include <QPaintEvent>
+#include <QDragMoveEvent>
+#include <QDragLeaveEvent>
+#include <Q3StrList>
+#include <QLabel>
+#include <QDropEvent>
+#include <Q3PopupMenu>
+#include <QDragEnterEvent>
+#include <Q3ValueList>
+#include <QMouseEvent>
+#include <Q3GridLayout>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -46,16 +60,16 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
-#include <qurl.h>
+#include <q3url.h>
 #include <qdir.h>
 #include <qevent.h>
 #include <qsizegrip.h>
 #if QT_VERSION  > 0x030102
-	#define SPLITVC SplitHCursor
-	#define SPLITHC SplitVCursor
+	#define SPLITVC Qt::SplitHCursor
+	#define SPLITHC Qt::SplitVCursor
 #else
-	#define SPLITVC SplitVCursor
-	#define SPLITHC SplitHCursor
+	#define SPLITVC Qt::SplitVCursor
+	#define SPLITHC Qt::SplitHCursor
 #endif
 #include "scribus.h"
 //#include "tree.h"
@@ -107,7 +121,7 @@ using namespace std;
 
 
 ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
-	QScrollView(win, "s", WRepaintNoErase | WNorthWestGravity),
+	Q3ScrollView(win, "s", Qt::WNoAutoErase | Qt::WStaticContents),
 	Doc(doc),
 	Prefs(&(PrefsManager::instance()->appPrefs)),
 	undoManager(UndoManager::instance()),
@@ -152,8 +166,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_cursorVisible(false),
 	m_ScMW(mw)
 {
-	setHScrollBarMode(QScrollView::AlwaysOn);
-	setVScrollBarMode(QScrollView::AlwaysOn);
+	setHScrollBarMode(Q3ScrollView::AlwaysOn);
+	setVScrollBarMode(Q3ScrollView::AlwaysOn);
 	setMargins(m_vhRulerHW, m_vhRulerHW, 0, 0);
 	setResizePolicy(Manual);
 	viewport()->setBackgroundMode(PaletteBackground);
@@ -183,40 +197,40 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	cmsToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	cmsToolbarButton->setToggleButton(true);
-	QIconSet ic2;
-	ic2.setPixmap(loadIcon("cmsOff.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-	ic2.setPixmap(loadIcon("cmsOn.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	QIcon ic2;
+	ic2.setPixmap(loadIcon("cmsOff.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
+	ic2.setPixmap(loadIcon("cmsOn.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
 	cmsToolbarButton->setIconSet(ic2);
 	previewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	previewToolbarButton->setToggleButton(true);
-	QIconSet ic;
-	ic.setPixmap(loadIcon("previewOff.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-	ic.setPixmap(loadIcon("previewOn.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	QIcon ic;
+	ic.setPixmap(loadIcon("previewOff.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
+	ic.setPixmap(loadIcon("previewOn.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
 	previewToolbarButton->setIconSet(ic);
 #else
 	zoomDefaultToolbarButton = new QPushButton(this);
-	zoomDefaultToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	zoomDefaultToolbarButton->setFocusPolicy(Qt::NoFocus);
 	zoomDefaultToolbarButton->setDefault( false );
 	zoomDefaultToolbarButton->setAutoDefault( false );
 	zoomDefaultToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton = new QPushButton(this);
-	zoomOutToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	zoomOutToolbarButton->setFocusPolicy(Qt::NoFocus);
 	zoomOutToolbarButton->setDefault( false );
 	zoomOutToolbarButton->setAutoDefault( false );
 	zoomOutToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton = new QPushButton(this);
-	zoomInToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	zoomInToolbarButton->setFocusPolicy(Qt::NoFocus);
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 	previewToolbarButton = new QPushButton(this);
-	cmsToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	cmsToolbarButton->setFocusPolicy(Qt::NoFocus);
 	cmsToolbarButton->setDefault( false );
 	cmsToolbarButton->setAutoDefault( false );
 	cmsToolbarButton->setFlat(OPTION_FLAT_BUTTON);
 	cmsToolbarButton->setPixmap(loadIcon("cmsOn.png"));
 	previewToolbarButton = new QPushButton(this);
-	previewToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	previewToolbarButton->setFocusPolicy(Qt::NoFocus);
 	previewToolbarButton->setDefault( false );
 	previewToolbarButton->setAutoDefault( false );
 	previewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
@@ -353,7 +367,7 @@ void ScribusView::viewportPaintEvent ( QPaintEvent * p )
 	if (p->spontaneous())
 		evSpon = true;
 	#endif
-	QScrollView::viewportPaintEvent(p);
+	Q3ScrollView::viewportPaintEvent(p);
 }
 
 void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cliph)
@@ -409,7 +423,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #ifdef HAVE_CAIRO
 				painter->setAntialiasing(false);
 				painter->beginLayer(1.0, 0);
-				painter->setPen(black, 1.0 / Scale, SolidLine, FlatCap, MiterJoin);
+				painter->setPen(Qt::black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #else
 				painter->setPen(black, 0.5 / Scale, SolidLine, FlatCap, MiterJoin);
 #endif
@@ -458,7 +472,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						{
 							painter->setFillMode(ScPainter::None);
 #ifdef HAVE_CAIRO
-							painter->setPen(black, 1.0 / Scale, SolidLine, FlatCap, MiterJoin);
+							painter->setPen(Qt::black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							painter->drawRect(blx2, bly2 - 1 / Scale, blw2 + 1 / Scale, blh2 + 2 / Scale);
 #else
 							painter->setPen(black, 0.5 / Scale, SolidLine, FlatCap, MiterJoin);
@@ -620,18 +634,18 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #ifdef HAVE_CAIRO
 				painter->beginLayer(1.0, 0);
 				painter->setAntialiasing(false);
-				painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
-				if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
+				painter->setPen(Qt::black, 1 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				if (((Doc->bleeds.Qt::DockBottom != 0.0) || (Doc->bleeds.Qt::DockTop != 0.0) || (Doc->bleeds.Qt::DockLeft != 0.0) || (Doc->bleeds.Qt::DockRight != 0.0)) && (Doc->guidesSettings.showBleed))
 				{
-					painter->drawRect(Doc->scratch.Left - bleedLeft+5 / Scale, Doc->scratch.Top - bleedTop+5 / Scale, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
+					painter->drawRect(Doc->scratch.Qt::DockLeft - bleedLeft+5 / Scale, Doc->scratch.Qt::DockTop - bleedTop+5 / Scale, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
 					painter->setBrush(Doc->papColor);
-					painter->drawRect(Doc->scratch.Left - bleedLeft, Doc->scratch.Top - bleedTop, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
+					painter->drawRect(Doc->scratch.Qt::DockLeft - bleedLeft, Doc->scratch.Qt::DockTop - bleedTop, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
 				}
 				else
 				{
-					painter->drawRect(Doc->scratch.Left+5 / Scale, Doc->scratch.Top+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
+					painter->drawRect(Doc->scratch.Qt::DockLeft+5 / Scale, Doc->scratch.Qt::DockTop+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
 					painter->setBrush(Doc->papColor);
-					painter->drawRect(Doc->scratch.Left, Doc->scratch.Top, Doc->currentPage()->width(), Doc->currentPage()->height());
+					painter->drawRect(Doc->scratch.Qt::DockLeft, Doc->scratch.Qt::DockTop, Doc->currentPage()->width(), Doc->currentPage()->height());
 				}
 				painter->setAntialiasing(true);
 #else
@@ -843,8 +857,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	QRect oldR;
-	QPtrStack<PageItem> groupStack;
-	QPtrStack<PageItem> groupStack2;
+	Q3PtrStack<PageItem> groupStack;
+	Q3PtrStack<PageItem> groupStack2;
 #ifndef HAVE_CAIRO
 	double z = painter->zoomFactor();
 #endif
@@ -907,7 +921,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 								currItem->DrawObj(painter, clip);
 #ifdef HAVE_CAIRO
 							FPointArray cl = currItem->PoLine.copy();
-							QWMatrix mm;
+							QMatrix mm;
 							mm.translate(currItem->xPos(), currItem->yPos());
 							mm.rotate(currItem->rotation());
 							cl.map( mm );
@@ -1060,8 +1074,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	double z = painter->zoomFactor();
 #endif
 	QRect oldR;
-	QPtrStack<PageItem> groupStack;
-	QPtrStack<PageItem> groupStack2;
+	Q3PtrStack<PageItem> groupStack;
+	Q3PtrStack<PageItem> groupStack2;
 	if (Doc->Items->count() != 0)
 	{
 		int Lnr=0;
@@ -1085,7 +1099,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 				if ((layerCount > 1) || (ll.transparency != 1.0))
 					painter->beginLayer(ll.transparency, ll.blendMode);
 #endif
-				QPtrListIterator<PageItem> docItem(*Doc->Items);
+				Q3PtrListIterator<PageItem> docItem(*Doc->Items);
 				while ( (currItem = docItem.current()) != 0)
 				{
 					++docItem;
@@ -1108,7 +1122,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						painter->save();
 #ifdef HAVE_CAIRO
 						FPointArray cl = currItem->PoLine.copy();
-						QWMatrix mm;
+						QMatrix mm;
 						mm.translate(currItem->xPos(), currItem->yPos());
 						mm.rotate(currItem->rotation());
 						cl.map( mm );
@@ -1184,7 +1198,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 					}
 				}
-				QPtrListIterator<PageItem> docItem2(*Doc->Items);
+				Q3PtrListIterator<PageItem> docItem2(*Doc->Items);
 				while ( (currItem = docItem2.current()) != 0 )
 				{
 					++docItem2;
@@ -1332,7 +1346,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	if (Doc->currentPage() == page)
 	{
 #ifdef HAVE_CAIRO
-		p->setPen(Prefs->DPageBorderColor, 2 / Scale, SolidLine, FlatCap, MiterJoin);
+		p->setPen(Prefs->DPageBorderColor, 2 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #else
 		p->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
 #endif
@@ -1441,8 +1455,8 @@ void ScribusView::leaveEvent(QEvent *)
 void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 {
 	QString text;
-	e->accept(QTextDrag::canDecode(e));
-	if (QTextDrag::decode(e, text))
+	e->accept(Q3TextDrag::canDecode(e));
+	if (Q3TextDrag::decode(e, text))
 	{
 		double gx, gy, gw, gh;
 		/*<< #3524
@@ -1452,7 +1466,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		updateContents();
 		>>*/
 //		SeleItemPos(e->pos());
-		QUrl ur(text);
+		Q3Url ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (fi.exists())
@@ -1484,8 +1498,8 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 	QString text;
 //	PageItem *currItem;
 //	bool img;
-	e->accept(QTextDrag::canDecode(e));
-	if (QTextDrag::decode(e, text))
+	e->accept(Q3TextDrag::canDecode(e));
+	if (Q3TextDrag::decode(e, text))
 	{
 		if (DraggedGroup)
 		{
@@ -1554,11 +1568,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	struct ScText *hg;
 //	uint a;
 	int re = 0;
-	e->accept(QTextDrag::canDecode(e));
+	e->accept(Q3TextDrag::canDecode(e));
 	DraggedGroupFirst = false;
 	int ex = qRound(e->pos().x()/Scale + Doc->minCanvasCoordinate.x());
 	int ey = qRound(e->pos().y()/Scale + Doc->minCanvasCoordinate.y());
-	if (QTextDrag::decode(e, text))
+	if (Q3TextDrag::decode(e, text))
 	{
 		//<<#3524
 		setActiveWindow();
@@ -1566,10 +1580,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
 		//>>
-		QUrl ur(text);
+		Q3Url ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
-		QStrList imfo = QImageIO::inputFormats();
+		Q3StrList imfo = QImageIO::inputFormats();
 		if (ext == "JPG")
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
@@ -1730,7 +1744,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					if (!Doc->leaveDrag)
 					{
-						QPopupMenu *pmen = new QPopupMenu();
+						Q3PopupMenu *pmen = new Q3PopupMenu();
 						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 						pmen->insertItem( tr("Copy Here"));
 						int mov = pmen->insertItem( tr("Move Here"));
@@ -1756,7 +1770,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					if ((re == 1) || (Doc->leaveDrag))
 					{
-						QPtrList<PageItem> pasted;
+						Q3PtrList<PageItem> pasted;
 						emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
 						for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 						{
@@ -2427,7 +2441,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
 	{
-		QPopupMenu *pmen = new QPopupMenu();
+		Q3PopupMenu *pmen = new Q3PopupMenu();
 		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
 		{
 			Mxp = m->x();
@@ -2436,7 +2450,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
 			{
-				pmen3 = new QPopupMenu();
+				pmen3 = new Q3PopupMenu();
 				QMap<QString,BibView::Elem>::Iterator it;
 				it = m_ScMW->scrapbookPalette->tempBView->objectMap.end();
 				it--;
@@ -2532,27 +2546,27 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP))
 		{
-			QPopupMenu *pmen = new QPopupMenu();
-			QPopupMenu *pmen2 = new QPopupMenu();
-			pmen3 = new QPopupMenu();
+			Q3PopupMenu *pmen = new Q3PopupMenu();
+			Q3PopupMenu *pmen2 = new Q3PopupMenu();
+			pmen3 = new Q3PopupMenu();
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			QPopupMenu *pmen4 = new QPopupMenu();
-			QPopupMenu *pmenEditContents = new QPopupMenu();
-			QPopupMenu *pmenLevel = new QPopupMenu();
-			QPopupMenu *pmenPDF = new QPopupMenu();
-			pmenResolution = new QPopupMenu();
+			Q3PopupMenu *pmen4 = new Q3PopupMenu();
+			Q3PopupMenu *pmenEditContents = new Q3PopupMenu();
+			Q3PopupMenu *pmenLevel = new Q3PopupMenu();
+			Q3PopupMenu *pmenPDF = new Q3PopupMenu();
+			pmenResolution = new Q3PopupMenu();
 			setObjectUndoMode();
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
-				QButtonGroup *InfoGroup = new QButtonGroup( this, "InfoGroup" );
-				InfoGroup->setFrameShape( QButtonGroup::NoFrame );
-				InfoGroup->setFrameShadow( QButtonGroup::Plain );
+				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
+				InfoGroup->setFrameShape( Q3ButtonGroup::NoFrame );
+				InfoGroup->setFrameShadow( Q3ButtonGroup::Plain );
 				InfoGroup->setTitle("");
 				InfoGroup->setExclusive( true );
 				InfoGroup->setColumnLayout(0, Qt::Vertical );
 				InfoGroup->layout()->setSpacing( 0 );
 				InfoGroup->layout()->setMargin( 0 );
-				QGridLayout *InfoGroupLayout = new QGridLayout( InfoGroup->layout() );
+				Q3GridLayout *InfoGroupLayout = new Q3GridLayout( InfoGroup->layout() );
 				InfoGroupLayout->setAlignment( Qt::AlignTop );
 				InfoGroupLayout->setSpacing( 2 );
 				InfoGroupLayout->setMargin( 0 );
@@ -2768,7 +2782,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (Doc->layerCount() > 1)
 				{
 					QMap<int,int> layerMap;
-					for (QValueList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+					for (Q3ValueList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 						layerMap.insert((*it).Level, (*it).LNr);
 					int i=layerMap.count()-1;
 					while (i>=0)
@@ -3510,7 +3524,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								Doc->SnapGuides = sav;
 								Doc->ApplyGuides(&nx, &ny);
 								Doc->SnapGuides = false;
-								QWMatrix ma;
+								QMatrix ma;
 								ma.translate(currItem->xPos(), currItem->yPos());
 								ma.rotate(currItem->rotation());
 								double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
@@ -4012,8 +4026,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-					FPoint maxSize(gx+gw+Doc->scratch.Right, gy+gh+Doc->scratch.Bottom);
-					FPoint minSize(gx-Doc->scratch.Left, gy-Doc->scratch.Top);
+					FPoint maxSize(gx+gw+Doc->scratch.Qt::DockRight, gy+gh+Doc->scratch.Qt::DockBottom);
+					FPoint minSize(gx-Doc->scratch.Qt::DockLeft, gy-Doc->scratch.Qt::DockTop);
 					Doc->adjustCanvas(minSize, maxSize);
 				}
 				Doc->setRedrawBounding(currItem);
@@ -4228,7 +4242,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		QPainter p;
-		QPointArray Bez(4);
+		Q3PointArray Bez(4);
 		p.begin(viewport());
 		Transform(currItem, &p);
 		FPoint npf(p.xFormDev(m->pos()));
@@ -4299,7 +4313,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (!Prefs->stickyTools)
 		{
 			Doc->appMode = modeNormal;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			emit PaintingDone();
 		}
 		else
@@ -4376,7 +4390,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	FPoint npf, npf2;
 	QPainter p;
 	QRect tx;
-	QPointArray Bez(4);
+	Q3PointArray Bez(4);
 	bool erf = false;
 	double sc = Scale;
 	horizRuler->Draw(m->x());
@@ -4516,7 +4530,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				for (uint dre=0; dre<Doc->m_Selection->count(); ++dre)
 					Doc->DragElements.append(Doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, Doc->m_Selection), this);
+				Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(Doc, this, Doc->m_Selection), this);
 //				QImage drImg = currItem->DrawObj_toImage();
 //				QPixmap pm;
 //				pm.convertFromImage(drImg);
@@ -4674,7 +4688,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			if (currItem->asImageFrame())
 			{
-				QWMatrix ro;
+				QMatrix ro;
 				ro.rotate(-currItem->rotation());
 				QPoint rota = ro.map(QPoint(newX-Mxp,newY-Myp));
 				currItem->moveImageInFrame(rota.x()/currItem->imageXScale(), rota.y()/currItem->imageYScale());
@@ -4905,7 +4919,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								//Shift proportional square resize
 								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
 								{
-									QWMatrix ma;
+									QMatrix ma;
 									ma.translate(currItem->xPos(), currItem->yPos());
 									ma.rotate(currItem->rotation());
 									ma = ma.invert();
@@ -4917,7 +4931,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									//Control proportional resize
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
 									{
-										QWMatrix ma;
+										QMatrix ma;
 										ma.translate(currItem->xPos(), currItem->yPos());
 										ma.rotate(currItem->rotation());
 										ma = ma.invert();
@@ -5249,7 +5263,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					double d8 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
 					if (d8 < Doc->guidesSettings.grabRad)
 						distance.insert(d8, 8);
-					QValueList<int> result = distance.values();
+					Q3ValueList<int> result = distance.values();
 					if (result.count() != 0)
 					{
 						how = result[0];
@@ -5326,7 +5340,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				if (Doc->EditClip)
 				{
 					FPointArray Clip;
-					QPointArray cli;
+					Q3PointArray cli;
 					ClRe2 = -1;
 					SegP1 = -1;
 					SegP2 = -1;
@@ -5379,7 +5393,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						}
 					}
 				}
-				if ((QRegion(p.xForm(QPointArray(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
+				if ((QRegion(p.xForm(Q3PointArray(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
 					&& ((Doc->appMode == modeNormal) || (Doc->appMode == modeRotation) || (Doc->appMode == modeEdit)))
 				{
 					tx = p.xForm(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
@@ -5526,7 +5540,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	PaintSizeRect(&p, QRect());
 	p.end();
 	FPoint npf, npf2;
-	QPointArray Bez(4);
+	Q3PointArray Bez(4);
 	QRect tx;
 	m_MouseButtonPressed = true;
 	operItemMoving = false;
@@ -5881,7 +5895,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						double d8 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
 						if (d8 < Doc->guidesSettings.grabRad)
 							distance.insert(d8, 8);
-						QValueList<int> result = distance.values();
+						Q3ValueList<int> result = distance.values();
 						if (result.count() != 0)
 						{
 							frameResizeHandle = result[0];
@@ -6266,7 +6280,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					RCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
 //					if (!currItem->asLine())
 //					{
-						if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
+						if (QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
 						{
 							if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
 							{
@@ -6830,8 +6844,8 @@ void ScribusView::PaintSizeRect(QPainter *p, QRect newRect)
 	static QRect oldRect;
 	if (!newRect.isNull())
 	{
-		QWMatrix ma(p->worldMatrix());
-		ma.setTransformationMode ( QWMatrix::Areas );
+		QMatrix ma(p->worldMatrix());
+		ma.setTransformationMode ( QMatrix::Areas );
 		p->setWorldMatrix(ma);
 		p->setRasterOp(XorROP);
 		p->setBrush(NoBrush);
@@ -6850,7 +6864,7 @@ void ScribusView::ToView(QPainter *p)
 	p->translate(out.x(), out.y());
 }
 
-void ScribusView::ToView(QWMatrix& m)
+void ScribusView::ToView(QMatrix& m)
 {
 	QPoint out(contentsToViewport(QPoint(0, 0)));
 	m.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
@@ -6864,7 +6878,7 @@ void ScribusView::RefreshItem(PageItem *currItem)
 
 void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 {
-	QWMatrix matrix;
+	QMatrix matrix;
 	QRect rect = currItem->getRedrawBounding(Scale);
 	Transform(currItem, matrix);
 	FPointArray fpNew;
@@ -6926,7 +6940,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 {
 	double x, y;
 	QPainter p;
-	QPointArray Bez(4);
+	Q3PointArray Bez(4);
 	p.begin(viewport());
 	ToView(&p);
 	Transform(currItem, &p);
@@ -7045,12 +7059,12 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 	{
 		if (once)
 		{
-			p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+			p.setPen(QPen(Qt::red, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 //		else
 //			p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
 			cli.point(ClRe, &x, &y);
 			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
-			QValueList<int>::Iterator itm;
+			Q3ValueList<int>::Iterator itm;
 			for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
 			{
 				cli.point((*itm), &x, &y);
@@ -7118,7 +7132,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 {
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	currItem->ClipEdited = true;
-	QWMatrix ma;
+	QMatrix ma;
 	if (EditContour)
 	{
 		FPoint tp2(getMinClipF(&currItem->ContourLine));
@@ -7248,7 +7262,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	currItem->PoLine.map(ma);
 	currItem->PoLine.translate(offsX, offsY);
 	Doc->AdjustItemSize(currItem);
-	QWMatrix ma2;
+	QMatrix ma2;
 	ma2.translate(oldPos.x(), oldPos.y());
 	ma2.scale(1, 1);
 	ma2.translate(offsX, offsY);
@@ -7894,7 +7908,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
 							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
-							le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 						}
 						if (le != FlatCap)
 							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
@@ -7940,7 +7954,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
 							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
-							le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 						}
 						if (le != FlatCap)
 							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
@@ -8006,7 +8020,7 @@ void ScribusView::RotateGroup(double win)
 	double sc = Scale;
 	PageItem* currItem;
 	Doc->m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
-	QWMatrix ma;
+	QMatrix ma;
 	ma.translate(RCenter.x(), RCenter.y());
 	ma.scale(1, 1);
 	ma.rotate(win);
@@ -8102,17 +8116,17 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 		else
 		{
 			FPoint oldPos(bb->xPos(), bb->yPos());
-			QWMatrix ma;
+			QMatrix ma;
 			ma.rotate(bb->rotation());
 			bb->PoLine.map(ma);
-			QWMatrix ma2;
+			QMatrix ma2;
 			ma2.translate(gx-bb->xPos(), gy-bb->yPos());
 			ma2.scale(scx, scy);
 			bb->PoLine.map(ma2);
 			bb->setRotation(0.0);
 			bb->ClipEdited = true;
 			Doc->AdjustItemSize(bb);
-			QWMatrix ma3;
+			QMatrix ma3;
 			ma3.translate(gx, gy);
 			ma3.scale(scx, scy);
 			FPoint n(gx-oldPos.x(), gy-oldPos.y());
@@ -8122,7 +8136,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 			if (oldRot != 0)
 			{
 				bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
-				QWMatrix ma;
+				QMatrix ma;
 				ma.rotate(-bb->rotation());
 				bb->PoLine.map(ma);
 				Doc->AdjustItemSize(bb);
@@ -8145,7 +8159,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 		bb->setImageXYOffset(oldLocalX, oldLocalY);
 		bb->OldB2 = bb->width();
 		bb->OldH2 = bb->height();
-		QWMatrix ma4;
+		QMatrix ma4;
 		ma4.rotate(oldRot);
 		ma4.scale(scx, scy);
 		gr.map(ma4);
@@ -8350,7 +8364,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if (currItem==0)
 			return false;
 		QRect mpo(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
-		if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
+		if ((QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
 			m_cursorVisible = true;
@@ -8721,8 +8735,8 @@ void ScribusView::blinkCursor()
 void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 {
 	QPoint tx, tx2;
-	QWMatrix ma = p->worldMatrix();
-	ma.setTransformationMode ( QWMatrix::Areas );
+	QMatrix ma = p->worldMatrix();
+	ma.setTransformationMode ( QMatrix::Areas );
 	p->setWorldMatrix(ma);
 	tx = p->xForm(QPoint(static_cast<int>(currItem->width()), 0));
 	tx2 = p->xForm(QPoint(0, static_cast<int>(currItem->height())));
@@ -9019,7 +9033,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					currItem->moveBy(-Mp->xOffset() + Doc->currentPage()->xOffset(), -Mp->yOffset() + Doc->currentPage()->yOffset());
 				}
 				Transform(currItem, &p);
-				if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
+				if ((QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 						(QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 				{
 					if (!currItem->isSelected())
@@ -9150,7 +9164,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		{
 			p.begin(this);
 			Transform(currItem, &p);
-			if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
+			if ((QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 			        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 			{
 				//If the clicked on item is not tagged as selected
@@ -9372,7 +9386,7 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouse
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 8);
 	}
-	QValueList<int> result = distance.values();
+	Q3ValueList<int> result = distance.values();
 	if (result.count() != 0)
 		frameResizeHandle = result[0];
 	mpo.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
@@ -9593,7 +9607,7 @@ void ScribusView::LowerItem()
 			Doc->Items->take(d);
 		}
 		d = Doc->Items->findRef(b2);
-		QValueList<uint> Oindex = ObjOrder.values();
+		Q3ValueList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
 			Doc->Items->insert(d+1, Doc->m_Selection->itemAt(Oindex[c]));
@@ -9649,7 +9663,7 @@ void ScribusView::RaiseItem()
 			d = Doc->Items->findRef(currItem);
 			Doc->Items->take(d);
 		}
-		QValueList<uint> Oindex = ObjOrder.values();
+		Q3ValueList<uint> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
 		{
 			d = Doc->Items->findRef(b2);
@@ -9905,7 +9919,7 @@ void ScribusView::setRulerPos(int x, int y)
 	QString newStatusBarText(" ");
 	if ((verticalScrollBar()->draggingSlider()) || (horizontalScrollBar()->draggingSlider()))
 	{
-		QValueList<int> pag;
+		Q3ValueList<int> pag;
 		pag.clear();
 		uint docPageCount=Doc->Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
@@ -10615,7 +10629,7 @@ void ScribusView::Transform(PageItem *currItem, QPainter *p)
 	p->rotate(currItem->rotation());
 }
 
-void ScribusView::Transform(PageItem *currItem, QWMatrix& m)
+void ScribusView::Transform(PageItem *currItem, QMatrix& m)
 {
 	m.translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
 	m.scale(Scale, Scale);
@@ -10804,7 +10818,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 		if (!Buffer->itemText.isEmpty())
 		{
-			QTextStream t(&Buffer->itemText, IO_ReadOnly);
+			Q3TextStream t(&Buffer->itemText, QIODevice::ReadOnly);
 			QString cc;
 			while (!t.atEnd())
 			{
@@ -11246,7 +11260,7 @@ void ScribusView::TextToPath()
 				break;
 		}
 	}
-	QPtrList<PageItem> delItems,newGroupedItems;
+	Q3PtrList<PageItem> delItems,newGroupedItems;
 	newGroupedItems.clear();
 	uint selectedItemCount=Doc->m_Selection->count();
 	if (selectedItemCount != 0)
@@ -11311,12 +11325,12 @@ void ScribusView::TextToPath()
 					}
 //					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
-					QWMatrix chma, chma2, chma3, chma4, chma6;
-					QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
-					trafo *= QWMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
+					QMatrix chma, chma2, chma3, chma4, chma6;
+					QMatrix trafo = QMatrix( 1, 0, 0, -1, -hl->PRot, 0 );
+					trafo *= QMatrix( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
 					if (currItem->rotation() != 0)
 					{
-						QWMatrix sca;
+						QMatrix sca;
 						sca.translate(-currItem->xPos(), -currItem->yPos());
 						sca.rotate(currItem->rotation());
 						trafo *= sca;
@@ -11342,7 +11356,7 @@ void ScribusView::TextToPath()
 					pts.map(trafo);
 					if (currItem->rotation() != 0)
 					{
-						QWMatrix sca;
+						QMatrix sca;
 						sca.translate(currItem->xPos(), currItem->yPos());
 						pts.map(sca);
 					}
@@ -11420,7 +11434,7 @@ void ScribusView::TextToPath()
 						}
 						double csi = static_cast<double>(chs) / 100.0;
 						uint chr = chstr[0].unicode();
-						QWMatrix chma, chma2, chma3, chma4, chma6;
+						QMatrix chma, chma2, chma3, chma4, chma6;
 						uint gl = hl->font().char2CMap(chr);
 						pts = hl->font().glyphOutline(gl);
 						if (pts.size() < 4)
@@ -11489,10 +11503,10 @@ void ScribusView::TextToPath()
 							Doc->setRedrawBounding(bb);
 							newGroupedItems.append(Doc->Items->take(z));
 						}
-						chma = QWMatrix();
+						chma = QMatrix();
 						chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
 						pts.map(chma);
-						chma = QWMatrix();
+						chma = QMatrix();
 						if (currItem->imageFlippedH() && (!currItem->reversed()))
 							chma.scale(-1, 1);
 						if (currItem->imageFlippedV())
@@ -11534,7 +11548,7 @@ void ScribusView::TextToPath()
 							textY -= hl->glyph.yoffset;
 						if (charStyle.effects() & ScStyle_Superscript)
 							textY += hl->glyph.yoffset;
-						chma6 = QWMatrix();
+						chma6 = QMatrix();
 						if (charStyle.baselineOffset() != 0)
 							textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 						if (a < currItem->itemText.length()-1)
@@ -11732,7 +11746,7 @@ void ScribusView::TextToPath()
 
 void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
-	QScrollView::contentsWheelEvent(w);
+	Q3ScrollView::contentsWheelEvent(w);
 	evSpon = true;
 	if ((m_MouseButtonPressed) && (MidButt) || ( w->state() & ControlButton ))
 	{
@@ -11835,7 +11849,7 @@ void ScribusView::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &e
 	painter->setPen(black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	painter->setPenOpacity(1.0);
 	painter->drawLine(start, end);
-	QWMatrix arrowTrans;
+	QMatrix arrowTrans;
 	arrowTrans.translate(end.x(), end.y());
 	double r = atan2(end.y()-start.y(), end.x()-start.x())*(180.0/M_PI);
 	arrowTrans.rotate(r);

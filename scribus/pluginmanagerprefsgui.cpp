@@ -11,9 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 #include <qlayout.h>
-#include <qlistview.h>
-#include <qgroupbox.h>
+#include <q3listview.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3CString>
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -22,39 +28,39 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	: PrefsPanel(parent, "pluginManagerPrefsWidget")
 {
 	PluginManager& pluginManager(PluginManager::instance());
-	pluginMainLayout = new QVBoxLayout( this, 0, 5, "pluginMainLayout");
+	pluginMainLayout = new Q3VBoxLayout( this, 0, 5, "pluginMainLayout");
 	pluginMainLayout->setAlignment( Qt::AlignTop );
-	plugGroupBox = new QGroupBox( tr("Plugin Manager"), this, "plugGroupBox");
+	plugGroupBox = new Q3GroupBox( tr("Plugin Manager"), this, "plugGroupBox");
 	plugGroupBox->setColumnLayout(0, Qt::Vertical);
 	plugGroupBox->layout()->setSpacing(6);
 	plugGroupBox->layout()->setMargin(11);
-	plugGroupBoxLayout = new QGridLayout( plugGroupBox->layout() );
+	plugGroupBoxLayout = new Q3GridLayout( plugGroupBox->layout() );
 	plugGroupBoxLayout->setAlignment(Qt::AlignTop);
-	plugLayout1 = new QVBoxLayout( 0, 0, 6, "plugLayout1");
-	pluginsList = new QListView(plugGroupBox, "pluginsList");
+	plugLayout1 = new Q3VBoxLayout( 0, 0, 6, "plugLayout1");
+	pluginsList = new Q3ListView(plugGroupBox, "pluginsList");
 	pluginsList->setAllColumnsShowFocus(true);
 	pluginsList->setShowSortIndicator(true);
 	pluginsList->addColumn( tr("Plugin"));
-	pluginsList->setColumnWidthMode(0, QListView::Maximum);
+	pluginsList->setColumnWidthMode(0, Q3ListView::Maximum);
 	pluginsList->addColumn( tr("How to run"));
-	pluginsList->setColumnWidthMode(1, QListView::Maximum);
+	pluginsList->setColumnWidthMode(1, Q3ListView::Maximum);
 	pluginsList->addColumn( tr("Type"));
-	pluginsList->setColumnWidthMode(2, QListView::Maximum);
+	pluginsList->setColumnWidthMode(2, Q3ListView::Maximum);
 	pluginsList->addColumn( tr("Load it?"));
-	pluginsList->setColumnWidthMode(3, QListView::Maximum);
+	pluginsList->setColumnWidthMode(3, Q3ListView::Maximum);
 	pluginsList->addColumn( tr("Plugin ID"));
-	pluginsList->setColumnWidthMode(4, QListView::Maximum);
+	pluginsList->setColumnWidthMode(4, Q3ListView::Maximum);
 	pluginsList->addColumn( tr("File"));
-	pluginsList->setColumnWidthMode(5, QListView::Maximum);
+	pluginsList->setColumnWidthMode(5, Q3ListView::Maximum);
 
 	checkOn = getQCheckBoxPixmap(true, pluginsList->paletteBackgroundColor());
 	checkOff = getQCheckBoxPixmap(false, pluginsList->paletteBackgroundColor());
 	// Get a list of all internal plugin names, including those of disabled
 	// plugins, then loop over them and add each one to the plugin list.
-	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
-	for (QValueList<QCString>::Iterator it = pluginNames.begin(); it != pluginNames.end(); ++it)
+	Q3ValueList<Q3CString> pluginNames(pluginManager.pluginNames(true));
+	for (Q3ValueList<Q3CString>::Iterator it = pluginNames.begin(); it != pluginNames.end(); ++it)
 	{
-		QListViewItem *plugItem = new QListViewItem(pluginsList);
+		Q3ListViewItem *plugItem = new Q3ListViewItem(pluginsList);
 		// Get the plugin, even if it's loaded but disabled
 		ScPlugin* plugin = pluginManager.getPlugin(*it, true);
 		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
@@ -88,15 +94,15 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
 	pluginMainLayout->addWidget(plugGroupBox);
 
-	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
-			this, SLOT(updateSettings(QListViewItem *, const QPoint &, int)));
+	connect(pluginsList, SIGNAL(clicked(Q3ListViewItem *, const QPoint &, int)),
+			this, SLOT(updateSettings(Q3ListViewItem *, const QPoint &, int)));
 }
 
 PluginManagerPrefsGui::~PluginManagerPrefsGui()
 {
 }
 
-void PluginManagerPrefsGui::updateSettings(QListViewItem *item, const QPoint &, int column)
+void PluginManagerPrefsGui::updateSettings(Q3ListViewItem *item, const QPoint &, int column)
 {
 	if (column != 3)
 		// Only the plugin enable/disabled checkbox is editable
@@ -124,8 +130,8 @@ void PluginManagerPrefsGui::apply()
 {
 	PluginManager& pluginManager(PluginManager::instance());
 	// For each plugin:
-	QMap<QCString,PluginSettings>::Iterator itEnd(pluginSettings.end());
-	for ( QMap<QCString,PluginSettings>::Iterator it(pluginSettings.begin()) ; it != itEnd ; ++it )
+	QMap<Q3CString,PluginSettings>::Iterator itEnd(pluginSettings.end());
+	for ( QMap<Q3CString,PluginSettings>::Iterator it(pluginSettings.begin()) ; it != itEnd ; ++it )
 	{
 		// Save any changes from our working info to the plugin manager
 		pluginManager.enableOnStartup(it.key()) = it.data().enableOnStartup;

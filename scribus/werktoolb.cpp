@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <qtooltip.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qpixmap.h>
 
 #include "werktoolb.h"
@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, QDockWindow::Vertical)
+ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;
@@ -64,7 +64,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	insertShapeButtonMenu->insertItem( Rechteck );
 	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	//newShapeIcon.smoothScale(16,16);
-	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIcon(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));
 
 	m_ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
 	m_ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
@@ -107,7 +107,7 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 	//QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
 	//newShapeIcon.smoothScale(16,16);
 	//m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
-	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(s,16),Rechteck->getIconPixmap(s)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIcon(Rechteck->getIconPixmap(s,16),Rechteck->getIconPixmap(s)));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;

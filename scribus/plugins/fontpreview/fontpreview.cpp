@@ -6,14 +6,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qstring.h>
 #include <qspinbox.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QKeyEvent>
 
 #include "fontpreview.h"
 #include "fontpreview.moc"
@@ -65,7 +68,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()));
 
 	// set initial listitem
-	QListViewItem *item;
+	Q3ListViewItem *item;
 	if (!fontName.isEmpty())
 		item = fontList->findItem(fontName, 0);
 	else
@@ -131,13 +134,13 @@ void FontPreview::keyReleaseEvent(QKeyEvent *k)
 }
 
 //void FontPreview::fontList_currentChanged(QListViewItem * item)
-void FontPreview::fontList_mouseButtonClicked( int, QListViewItem *item, const QPoint &, int )
+void FontPreview::fontList_mouseButtonClicked( int, Q3ListViewItem *item, const QPoint &, int )
 {
 	if (allowSample())
 		paintSample(item);
 }
 
-void FontPreview::paintSample(QListViewItem *item)
+void FontPreview::paintSample(Q3ListViewItem *item)
 {
 	if (!item)
 		return;
@@ -167,7 +170,7 @@ void FontPreview::updateFontList(QString searchStr)
 
 		if (fontIter.current().usable())
 		{
-			QListViewItem *row = new QListViewItem(fontList);
+			Q3ListViewItem *row = new Q3ListViewItem(fontList);
 			ScFace::FontType type = fontIter.current().type();
 
 			row->setText(0, fontIter.current().scName());

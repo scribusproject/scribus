@@ -23,6 +23,11 @@ for which a new license (GPL+exception) is in place.
 #include "preview.h"
 #include "preview.moc"
 #include <qimage.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 #include <cstdlib>
 #include <qcursor.h>
 #include <qpainter.h>
@@ -30,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qfile.h>
 #include <qspinbox.h>
-#include <qtable.h>
+#include <q3table.h>
 #include "pslib.h"
 #include "checkDocument.h"
 #include "cmsettings.h"
@@ -87,23 +92,23 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	SMode = 1;
 	getNumericGSVersion(GsMajor, GsMinor);
 	setIcon(loadIcon("AppIcon.png"));
-	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
+	PLayout = new Q3VBoxLayout(this, 0, 0, "PLayout");
 	int tbWidth = 0;
-	Layout5 = new QHBoxLayout();
+	Layout5 = new Q3HBoxLayout();
 	Layout5->setSpacing(3);
 	Layout5->setMargin(0);
-	Anzeige = new QScrollView(this);
+	Anzeige = new Q3ScrollView(this);
 	Anzeige->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, Anzeige->sizePolicy().hasHeightForWidth() ) );
 	Layout5->addWidget(Anzeige);
-	settingsBarLayout = new QVBoxLayout();
+	settingsBarLayout = new Q3VBoxLayout();
 	settingsBarLayout->setSpacing(3);
 	settingsBarLayout->setMargin(0);
-	devTitle = new QGroupBox( this, "devTitle" );
+	devTitle = new Q3GroupBox( this, "devTitle" );
 	devTitle->setTitle( tr( "Display Settings" ) );
 	devTitle->setColumnLayout(0, Qt::Vertical );
 	devTitle->layout()->setSpacing( 5 );
 	devTitle->layout()->setMargin( 5 );
-	Layout2 = new QVBoxLayout( devTitle->layout() );
+	Layout2 = new Q3VBoxLayout( devTitle->layout() );
 	Layout2->setAlignment( Qt::AlignTop );
 	AntiAlias = new QCheckBox(devTitle, "AntiAlias");
 	AntiAlias->setText( tr("Enable &Antialiasing"));
@@ -148,7 +153,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		ColorList usedSpots;
 		doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
-		Table = new QTable( devTitle );
+		Table = new Q3Table( devTitle );
 		Table->setNumRows( spots.count()+4 );
 		Table->setNumCols( 2 );
 		Table->horizontalHeader()->setLabel(0, loadIcon("16/show-object.png"), "");
@@ -158,8 +163,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		Table->setColumnWidth(0, 24);
 		Table->setRowMovingEnabled(false);
 		Table->setSorting(false);
-		Table->setSelectionMode( QTable::NoSelection );
-		Table->setFocusStyle( QTable::FollowStyle );
+		Table->setSelectionMode( Q3Table::NoSelection );
+		Table->setFocusStyle( Q3Table::FollowStyle );
 		Table->setLeftMargin(0);
 		Table->verticalHeader()->hide();
 		flagsVisible.clear();
@@ -203,12 +208,12 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		tbWidth = Table->columnWidth(1);
 	}
 	settingsBarLayout->addWidget(devTitle);
-	jobTitle = new QGroupBox( this, "jobTitle" );
+	jobTitle = new Q3GroupBox( this, "jobTitle" );
 	jobTitle->setTitle( tr( "Print Settings" ) );
 	jobTitle->setColumnLayout(0, Qt::Vertical );
 	jobTitle->layout()->setSpacing( 5 );
 	jobTitle->layout()->setMargin( 5 );
-	Layout1 = new QVBoxLayout( jobTitle->layout() );
+	Layout1 = new Q3VBoxLayout( jobTitle->layout() );
 	Layout1->setAlignment( Qt::AlignTop );
 
 	MirrorHor = new QCheckBox( tr( "Mirror Page(s) Horizontal" ), jobTitle, "MirrorH" );
@@ -243,7 +248,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout5->addLayout(settingsBarLayout);
 	PLayout->addLayout(Layout5);
 
-	Layout6 = new QHBoxLayout();
+	Layout6 = new Q3HBoxLayout();
 	Layout6->setSpacing(0);
 	Layout6->setMargin(0);
 	/* scaling */
@@ -670,10 +675,10 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 
 	QFile sepInfo(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
-	if (sepInfo.open(IO_ReadOnly))
+	if (sepInfo.open(QIODevice::ReadOnly))
 	{
 		QString Sname;
-		QTextStream tsC(&sepInfo);
+		Q3TextStream tsC(&sepInfo);
 		int counter = 0;
 		while (!tsC.atEnd())
 		{
@@ -935,7 +940,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			image = QImage(w, h2, 32);
 			QByteArray imgc(w2);
 			QFile f(ScPaths::getTempFileDir()+"/sc.png");
-			if (f.open(IO_ReadOnly))
+			if (f.open(QIODevice::ReadOnly))
 			{
 				if (doc->HasCMS)
 				{

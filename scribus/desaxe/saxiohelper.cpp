@@ -3,6 +3,8 @@
 #include "saxio.h"
 #include "scfonts.h"
 #include "fpointarray.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 
 
@@ -135,50 +137,50 @@ Xml_string toXMLString(const Xml_string& val)
 }
 
 
-Xml_string toXMLString(const QValueList<double>& doublelist)
+Xml_string toXMLString(const Q3ValueList<double>& doublelist)
 {
 	QString result = "";
-	QValueList<double>::const_iterator dax;
+	Q3ValueList<double>::const_iterator dax;
 	for (dax = doublelist.begin(); dax != doublelist.end(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
 
 
-QValueList<double> parseDoubleList(Xml_string str)
+Q3ValueList<double> parseDoubleList(Xml_string str)
 {
 	QStringList strlist = QStringList::split(' ', str);
-	QValueList<double> result;
+	Q3ValueList<double> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseDouble(*it));
 	return result;
 }
 
 
-Xml_string toXMLString(const QValueList<int>& intlist)
+Xml_string toXMLString(const Q3ValueList<int>& intlist)
 {
 	QString result = "";
-	QValueList<int>::const_iterator dax;
+	Q3ValueList<int>::const_iterator dax;
 	for (dax = intlist.begin(); dax != intlist.end(); ++dax)
 		result += toXMLString(*dax) + " ";
 	return result;
 }
 
 
-QValueList<int> parseIntList(Xml_string str)
+Q3ValueList<int> parseIntList(Xml_string str)
 {
 	QStringList strlist = QStringList::split(' ', str);
-	QValueList<int> result;
+	Q3ValueList<int> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseInt(*it));
 	return result;
 }
 
 
-QValueStack<int> parseIntStack(Xml_string str)
+Q3ValueStack<int> parseIntStack(Xml_string str)
 {
 	QStringList strlist = QStringList::split(' ', str);
-	QValueStack<int> result;
+	Q3ValueStack<int> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseInt(*it));
 	return result;

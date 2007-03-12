@@ -24,25 +24,37 @@ for which a new license (GPL+exception) is in place.
 #ifndef STORY_H
 #define STORY_H
 
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qvariant.h>
-#include <qmainwindow.h>
-#include <qptrlist.h>
-#include <qtable.h>
-#include <qtextedit.h>
-#include <qpopupmenu.h>
+#include <q3mainwindow.h>
+#include <q3ptrlist.h>
+#include <q3table.h>
+#include <q3textedit.h>
+#include <q3popupmenu.h>
 #include <qmap.h>
 #include <qmenubar.h>
 #include <qstatusbar.h>
 #include <qlabel.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qspinbox.h>
 #include <qstringlist.h>
 #include <qtoolbutton.h>
-#include <qtoolbar.h>
+#include <q3toolbar.h>
 #include <qlayout.h>
 #include <qsplitter.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QKeyEvent>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <QHideEvent>
+#include <QFocusEvent>
+#include <QMouseEvent>
+#include <QEvent>
+#include <QShowEvent>
+#include <QPaintEvent>
+#include <QCloseEvent>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -63,7 +75,7 @@ class ColorCombo;
 class CharSelect;
 
 
-class SCRIBUS_API SEditor : public QTextEdit
+class SCRIBUS_API SEditor : public Q3TextEdit
 {
 	Q_OBJECT
 
@@ -87,7 +99,7 @@ public:
 	void copyStyledText();
 
 	StoryText StyledText;
-	QPtrList<PageItem> FrameItems;
+	Q3PtrList<PageItem> FrameItems;
 	ScribusDoc* doc;
 	bool unicodeTextEditMode;
 	bool wasMod;
@@ -129,7 +141,7 @@ protected:
 	void imEndEvent(QIMEvent *e);
 	void focusOutEvent(QFocusEvent *e);
 	void focusInEvent(QFocusEvent *e);
-	QPopupMenu* createPopupMenu(const QPoint & pos);
+	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 
 public slots:
@@ -156,7 +168,7 @@ public:
 	int offs;
 	int CurrentPar;
 	SEditor *editor;
-	QPopupMenu *pmen;
+	Q3PopupMenu *pmen;
 	bool noUpdt;
 	bool inRep;
 
@@ -178,12 +190,12 @@ public slots:
 	void editStyles();
 };
 
-class SCRIBUS_API SToolBColorF : public QToolBar
+class SCRIBUS_API SToolBColorF : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
+	SToolBColorF(Q3MainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* FillIcon;
@@ -200,12 +212,12 @@ signals:
 	void NewColor(int, int);
 };
 
-class SCRIBUS_API SToolBColorS : public QToolBar
+class SCRIBUS_API SToolBColorS : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
+	SToolBColorS(Q3MainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* StrokeIcon;
@@ -222,12 +234,12 @@ signals:
 	void NewColor(int, int);
 };
 
-class SCRIBUS_API SToolBStyle : public QToolBar
+class SCRIBUS_API SToolBStyle : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBStyle(QMainWindow* parent);
+	SToolBStyle(Q3MainWindow* parent);
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
 	QLabel* trackingLabel;
@@ -256,12 +268,12 @@ signals:
 	void newStyle(int);
 };
 
-class SCRIBUS_API SToolBAlign : public QToolBar
+class SCRIBUS_API SToolBAlign : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBAlign(QMainWindow* parent);
+	SToolBAlign(Q3MainWindow* parent);
 	~SToolBAlign() {};
 	AlignSelect* GroupAlign;
 	ParaStyleComboBox *paraStyleCombo;
@@ -276,12 +288,12 @@ signals:
 	void newParaStyle(int);
 };
 
-class SCRIBUS_API SToolBFont : public QToolBar
+class SCRIBUS_API SToolBFont : public Q3ToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBFont(QMainWindow* parent);
+	SToolBFont(Q3MainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;
 	MSpinBox* ChScale;
@@ -309,7 +321,7 @@ private slots:
 	void languageChange();
 };
 
-class SCRIBUS_API StoryEditor : public QMainWindow
+class SCRIBUS_API StoryEditor : public Q3MainWindow
 {
 	Q_OBJECT
 	friend class SEditor;
@@ -436,19 +448,19 @@ protected:
 	void keyPressEvent (QKeyEvent * e);
 	bool eventFilter( QObject* ob, QEvent* ev );
 
-    QHBoxLayout* StoryEd2Layout;
-	QGridLayout* ButtonGroup1Layout;
-	QGridLayout* ButtonGroup2Layout;
+    Q3HBoxLayout* StoryEd2Layout;
+	Q3GridLayout* ButtonGroup1Layout;
+	Q3GridLayout* ButtonGroup2Layout;
 
 	PrefsManager* prefsManager;
 	PrefsContext* prefs;
 
-	QMap<QString, QGuardedPtr<ScrAction> > seActions;
+	QMap<QString, QPointer<ScrAction> > seActions;
 	QStringList unicodeCharActionNames;
 	MenuManager* seMenuMgr;
 	QPixmap noIcon;
 
-	QToolBar* FileTools;
+	Q3ToolBar* FileTools;
 	SToolBFont* FontTools;
 	SToolBAlign* AlignTools;
 	SToolBColorF* FillTools;
@@ -456,8 +468,8 @@ protected:
 	SToolBStyle* StyleTools;
 	QSplitter* EdSplit;
 	SideBar* EditorBar;
-	QButtonGroup* ButtonGroup1;
-	QButtonGroup* ButtonGroup2;
+	Q3ButtonGroup* ButtonGroup1;
+	Q3ButtonGroup* ButtonGroup2;
 	QLabel* WordCT1;
 	QLabel* WordCT3;
 	QLabel* ParCT;

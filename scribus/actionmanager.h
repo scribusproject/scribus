@@ -27,9 +27,12 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qpair.h>
-#include <qvaluevector.h>
-#include <qguardedptr.h>
-#include <qdict.h>
+#include <q3valuevector.h>
+#include <qpointer.h>
+#include <q3dict.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ActionGroup>
 
 #include "scribusapi.h"
 #include "scraction.h"
@@ -55,8 +58,8 @@ class SCRIBUS_API ActionManager : public QObject
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		static void createDefaultMenus();
 		static void createDefaultNonMenuActions();
-		static QValueVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
-		static QValueVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
+		static Q3ValueVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
+		static Q3ValueVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -68,8 +71,8 @@ class SCRIBUS_API ActionManager : public QObject
 		void connectNewSelectionActions(ScribusView *,ScribusDoc *);
 		void saveActionShortcutsPreEditMode();
 		void restoreActionShortcutsPostEditMode();
-		void enableActionStringList(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString::null);
-		void enableUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
+		void enableActionStringList(QMap<QString, QPointer<ScrAction> > *actionMap, QStringList *list, bool enabled, bool checkingUnicode=false, const QString& fontName=QString::null);
+		void enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 		void setPDFActions(ScribusView *);
 		
 	public slots:
@@ -89,22 +92,22 @@ class SCRIBUS_API ActionManager : public QObject
 		void initWindowsMenuActions();
 		void initScriptMenuActions();
 		void initHelpMenuActions();
-		static void initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList);
+		static void initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList);
 		void initSpecialActions();
-		static void languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap);
+		static void languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap);
 	
 		QPixmap noIcon;
 		ScribusMainWindow *mainWindow;
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
-		QMap<QString, QGuardedPtr<ScrAction> > *scrActions;
-		QDict<QActionGroup> *scrActionGroups;
+		QMap<QString, QPointer<ScrAction> > *scrActions;
+		Q3Dict<Q3ActionGroup> *scrActionGroups;
 		QStringList *modeActionNames;
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
 		static QMap<QString, QKeySequence> defKeys;
-		static QValueVector< QPair<QString, QStringList> > defMenus;
-		static QValueVector< QPair<QString, QStringList> > defNonMenuActions;
+		static Q3ValueVector< QPair<QString, QStringList> > defMenus;
+		static Q3ValueVector< QPair<QString, QStringList> > defNonMenuActions;
 };
 
 #endif

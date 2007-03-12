@@ -9,15 +9,20 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QComboBox;
 class QCheckBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QSpinBox;
 class QPushButton;
@@ -46,7 +51,7 @@ public:
 	QCheckBox* rasterPDF;
 	QCheckBox* checkForGIF;
 	QCheckBox* ignoreOffLayers;
-	QGroupBox* pictResolution;
+	Q3GroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;
 	QLabel* textLabel1m;
@@ -64,9 +69,9 @@ public slots:
 	void delProf();
 
 protected:
-	QVBoxLayout* TabCheckDocLayout;
-	QGridLayout* pictResolutionLayout;
-	QHBoxLayout* layout1;
+	Q3VBoxLayout* TabCheckDocLayout;
+	Q3GridLayout* pictResolutionLayout;
+	Q3HBoxLayout* layout1;
 	QString tempNewProfileName;
 };
 

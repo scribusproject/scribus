@@ -1,3 +1,8 @@
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 /*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
@@ -7,16 +12,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-class QGroupBox;
+class Q3GroupBox;
 class QToolButton;
 class QLayout;
 class MSpinBox;
 class QLabel;
-class QPopupMenu;
+class Q3PopupMenu;
 
 #include "scribusapi.h"
 
-class SCRIBUS_API StrikeValues : public QGroupBox
+class SCRIBUS_API StrikeValues : public Q3GroupBox
 {
     Q_OBJECT
 
@@ -32,10 +37,10 @@ public slots:
 	void languageChange();
 	
 protected:
-	QGridLayout* group1Layout;
+	Q3GridLayout* group1Layout;
 };
 
-class SCRIBUS_API UnderlineValues : public QGroupBox
+class SCRIBUS_API UnderlineValues : public Q3GroupBox
 {
     Q_OBJECT
 
@@ -51,10 +56,10 @@ public slots:
 	void languageChange();
 	
 protected:
-	QGridLayout* group1Layout;
+	Q3GridLayout* group1Layout;
 };
 
-class SCRIBUS_API OutlineValues : public QGroupBox
+class SCRIBUS_API OutlineValues : public Q3GroupBox
 {
     Q_OBJECT
 
@@ -68,10 +73,10 @@ public slots:
 	void languageChange();
 	
 protected:
-	QGridLayout* group1Layout;
+	Q3GridLayout* group1Layout;
 };
 
-class SCRIBUS_API ShadowValues : public QGroupBox
+class SCRIBUS_API ShadowValues : public Q3GroupBox
 {
     Q_OBJECT
 
@@ -87,7 +92,7 @@ public slots:
 	void languageChange();
 	
 protected:
-	QGridLayout* group1Layout;
+	Q3GridLayout* group1Layout;
 };
 
 class SCRIBUS_API StyleSelect : public QWidget
@@ -115,15 +120,15 @@ signals:
 	void State(int);
 
 protected:
-	QHBoxLayout* ssLayout;
-	QHBoxLayout* buttonGroupLayout;
-	QHBoxLayout* buttonGroup2Layout;
-	QHBoxLayout* buttonGroup3Layout;
-	QHBoxLayout* buttonGroup4Layout;
-	QGroupBox* buttonGroup;
-	QGroupBox* buttonGroup2;
-	QGroupBox* buttonGroup3;
-	QGroupBox* buttonGroup4;
+	Q3HBoxLayout* ssLayout;
+	Q3HBoxLayout* buttonGroupLayout;
+	Q3HBoxLayout* buttonGroup2Layout;
+	Q3HBoxLayout* buttonGroup3Layout;
+	Q3HBoxLayout* buttonGroup4Layout;
+	Q3GroupBox* buttonGroup;
+	Q3GroupBox* buttonGroup2;
+	Q3GroupBox* buttonGroup3;
+	Q3GroupBox* buttonGroup4;
 	QToolButton* underlineButton;
 	QToolButton* underlineWordButton;
 	QToolButton* subscriptButton;
@@ -133,10 +138,10 @@ protected:
 	QToolButton* strikeoutButton;
 	QToolButton* outlineButton;
 	QToolButton* shadowButton;
-	QPopupMenu* ShadowPop;
-	QPopupMenu* OutlinePop;
-	QPopupMenu* UnderlinePop;
-	QPopupMenu* StrikePop;
+	Q3PopupMenu* ShadowPop;
+	Q3PopupMenu* OutlinePop;
+	Q3PopupMenu* UnderlinePop;
+	Q3PopupMenu* StrikePop;
 };
 
 #endif

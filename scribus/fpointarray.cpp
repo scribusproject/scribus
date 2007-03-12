@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include <cstdarg>
 #include <math.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <Q3MemArray>
 
 #include "util.h"
 
@@ -62,12 +64,12 @@ bool FPointArray::resize(uint newCount)
 		count = newCount;
 		return true;
 	}
-	else if (newCount <= 2*capacity && QMemArray<FPoint>::resize(2*capacity)) {
+	else if (newCount <= 2*capacity && Q3MemArray<FPoint>::resize(2*capacity)) {
 		capacity *= 2;
 		count = newCount;
 		return true;
 	}
-	else if (QMemArray<FPoint>::resize(newCount)) {
+	else if (Q3MemArray<FPoint>::resize(newCount)) {
 		capacity = newCount;
 		count = newCount;
 		return true;
@@ -220,7 +222,7 @@ FPoint FPointArray::WidthHeight() const
 	return FPoint(maxx - minx,maxy - miny);
 }
 
-void FPointArray::map( QWMatrix m )
+void FPointArray::map( QMatrix m )
 {
 	const double m11 = m.m11();
 	const double m12 = m.m12();
@@ -448,7 +450,7 @@ bool FPointArray::operator==(const FPointArray &rhs) const
 {
 	return count == rhs.count && 
 	       capacity == rhs.capacity &&
-	       QMemArray<FPoint>::operator==(rhs);
+	       Q3MemArray<FPoint>::operator==(rhs);
 }
 
 bool FPointArray::operator!=(const FPointArray &rhs) const
@@ -457,7 +459,7 @@ bool FPointArray::operator!=(const FPointArray &rhs) const
 		return true;
 	if (capacity != rhs.capacity)
 		return true;
-	return QMemArray<FPoint>::operator!=(rhs);
+	return Q3MemArray<FPoint>::operator!=(rhs);
 }
 
 

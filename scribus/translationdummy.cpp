@@ -9,7 +9,7 @@ QMessageBox::QMessageBox()
 tr("<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ toolkit for multiplatform GUI &amp; application development.</p><p>Qt provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;X, Linux, and all major commercial Unix variants.<br>Qt is also available for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www.trolltech.com/qt/</tt> for more information.</p>");
 }
 
-QFileDialog::QFileDialog()
+QFileDialog::Q3FileDialog()
 {
 tr("Copy or Move a File");
 tr("Read: %1");
@@ -84,7 +84,7 @@ tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
 }
-QTextEdit::QTextEdit()
+QTextEdit::Q3TextEdit()
 {
 tr("Clear");
 tr("Select All");
@@ -94,7 +94,7 @@ tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
 }
-QMainWindow::QMainWindow()
+QMainWindow::Q3MainWindow()
 {
 tr("Line up");
 tr("Customize...");

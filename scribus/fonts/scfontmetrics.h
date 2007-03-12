@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <qglobal.h>
 #include <qstring.h>
 #include <qcolor.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

@@ -26,13 +26,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef __VGRADIENTEX_H__
 #define __VGRADIENTEX_H__
 
-#include <qptrlist.h>
-#include <qptrvector.h>
+#include <q3ptrlist.h>
+#include <q3ptrvector.h>
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "fpoint.h"
 #include "sccolor.h"
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 class SCRIBUS_API VColorStopEx
 {
@@ -95,12 +95,12 @@ public:
 	    repeat  = 2
 	};
 
-	class SCRIBUS_API VColorStopExList : public QPtrList<VColorStopEx>
+	class SCRIBUS_API VColorStopExList : public Q3PtrList<VColorStopEx>
 	{
 	protected:
-		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
+		virtual int compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 );
 	public:
-		void inSort( QPtrCollection::Item d );
+		void inSort( Q3PtrCollection::Item d );
 	}; // VColorStopExList
 
 	VGradientEx( VGradientEx::Type type = linear );
@@ -115,7 +115,7 @@ public:
 	VGradientEx::RepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod( VGradientEx::RepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
 
-	const QPtrVector<VColorStopEx> colorStops() const;
+	const Q3PtrVector<VColorStopEx> colorStops() const;
 	void addStop( const VColorStopEx& colorStop );
 	void addStop( const ScColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
 	void removeStop( const VColorStopEx& colorStop );
@@ -132,7 +132,7 @@ public:
 	FPoint vector() const { return m_vector; }
 	void setVector( const FPoint &vector ) { m_vector = vector; }
 
-	void transform( const QWMatrix& m );
+	void transform( const QMatrix& m );
 
 protected:
 	VColorStopExList        m_colorStops;

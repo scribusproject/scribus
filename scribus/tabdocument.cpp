@@ -5,12 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <qlabel.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
 #include <qtooltip.h>
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 
 #include "tabdocument.h"
 #include "tabdocument.moc"
@@ -35,26 +39,26 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
 	int decimals = unitGetPrecisionFromIndex(prefsData->docUnitIndex);
 
-	tabLayout_7 = new QHBoxLayout( this, 0, 5, "tabLayout_7");
-	Layout21 = new QVBoxLayout( 0, 0, 5, "Layout21");
-	dsLayout4p = new QHBoxLayout;
+	tabLayout_7 = new Q3HBoxLayout( this, 0, 5, "tabLayout_7");
+	Layout21 = new Q3VBoxLayout( 0, 0, 5, "Layout21");
+	dsLayout4p = new Q3HBoxLayout;
 	dsLayout4p->setSpacing( 5 );
 	dsLayout4p->setMargin( 0 );
 	dsLayout4p->setAlignment( Qt::AlignLeft );
 	docLayout = new PageLayouts(this, prefsData->pageSets);
 	dsLayout4p->addWidget( docLayout );
-	dsLayout4pv = new QVBoxLayout;
+	dsLayout4pv = new Q3VBoxLayout;
 	dsLayout4pv->setSpacing( 5 );
 	dsLayout4pv->setMargin( 0 );
 
-	GroupSize = new QButtonGroup( tr( "Page Size" ), this, "GroupSize" );
+	GroupSize = new Q3ButtonGroup( tr( "Page Size" ), this, "GroupSize" );
 	GroupSize->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred));
 	GroupSize->setColumnLayout(0, Qt::Vertical );
 	GroupSize->layout()->setSpacing( 5 );
 	GroupSize->layout()->setMargin( 10 );
-	GroupSizeLayout = new QVBoxLayout( GroupSize->layout() );
+	GroupSizeLayout = new Q3VBoxLayout( GroupSize->layout() );
 	GroupSizeLayout->setAlignment( Qt::AlignTop );
-	Layout6 = new QGridLayout( 0, 1, 1, 0, 5, "Layout6");
+	Layout6 = new Q3GridLayout( 0, 1, 1, 0, 5, "Layout6");
 
 	pageSizeComboBox = new QComboBox( true, GroupSize, "pageSizeComboBox" );
 
@@ -88,7 +92,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout6->addWidget( unitCombo, 2, 1 );
 	GroupSizeLayout->addLayout( Layout6 );
 
-	Layout5_2 = new QHBoxLayout( 0, 0, 6, "Layout5_2");
+	Layout5_2 = new Q3HBoxLayout( 0, 0, 6, "Layout5_2");
 
 	pageWidth = new MSpinBox( 1, 100000, GroupSize, decimals );
 	pageWidth->setMinimumSize( QSize( 90, 20 ) );
@@ -103,7 +107,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout5_2->addWidget( pageHeight );
 	GroupSizeLayout->addLayout( Layout5_2 );
 	
-	QBoxLayout *sizePagesLayout = new QHBoxLayout( 0, 0, 5, "sizePagesLayout");
+	Q3BoxLayout *sizePagesLayout = new Q3HBoxLayout( 0, 0, 5, "sizePagesLayout");
 	sizePages = new QLabel( tr( "Apply settings to:" ), GroupSize, "sizePages" );
 	sizePagesLayout->addWidget(sizePages);
 	sizeAllPages = new QCheckBox( GroupSize, "sizeAllPages" );
@@ -127,14 +131,14 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
-	QHBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 5, "asurLayout");
+	Q3HBoxLayout *asurLayout = new Q3HBoxLayout( 0, 0, 5, "asurLayout");
 
-	GroupAS = new QGroupBox( tr( "Autosave" ), this, "GroupAS" );
+	GroupAS = new Q3GroupBox( tr( "Autosave" ), this, "GroupAS" );
 	GroupAS->setCheckable( true );
 	GroupAS->setColumnLayout(0, Qt::Vertical );
 	GroupAS->layout()->setSpacing( 5 );
 	GroupAS->layout()->setMargin( 10 );
-	GroupASLayout = new QHBoxLayout( GroupAS->layout() );
+	GroupASLayout = new Q3HBoxLayout( GroupAS->layout() );
 	GroupASLayout->setAlignment( Qt::AlignTop );
 	ASTime = new QSpinBox( GroupAS, "Time" );
 	ASTime->setMaxValue( 60 );
@@ -145,12 +149,12 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	GroupASLayout->addWidget( ASTime );
 	asurLayout->addWidget(GroupAS);
 
-	urGroup = new QGroupBox( tr("Undo/Redo"), this, "urGroup");
+	urGroup = new Q3GroupBox( tr("Undo/Redo"), this, "urGroup");
 	urGroup->setCheckable(true);
 	urGroup->setColumnLayout(0, Qt::Vertical);
 	urGroup->layout()->setSpacing(5);
 	urGroup->layout()->setMargin(10);
-	QGridLayout *urGroupLayout = new QGridLayout(urGroup->layout());
+	Q3GridLayout *urGroupLayout = new Q3GridLayout(urGroup->layout());
 	urGroupLayout->setAlignment(Qt::AlignTop);
 	urSpinBox = new QSpinBox(urGroup, "urSpinBox");
 	urSpinBox->setMinValue(0);

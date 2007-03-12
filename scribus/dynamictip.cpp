@@ -26,26 +26,26 @@ for which a new license (GPL+exception) is in place.
 #include "tree.h"
 #include "pageitem.h"
 
-DynamicTip::DynamicTip( QListBox* parent, ColorList* pale ) : QToolTip( parent )
+DynamicTip::DynamicTip( Q3ListBox* parent, ColorList* pale ) : QToolTip( parent )
 {
 	colorList = pale;
 	listB = parent;
 	kind = ColorListBox;
 }
 
-DynamicTip::DynamicTip( QTable* parent ) : QToolTip( parent->viewport() )
+DynamicTip::DynamicTip( Q3Table* parent ) : QToolTip( parent->viewport() )
 {
 	table = parent;
 	kind = Table;
 }
 
-DynamicTip::DynamicTip( QHeader *parent ) : QToolTip( parent )
+DynamicTip::DynamicTip( Q3Header *parent ) : QToolTip( parent )
 {
 	header = parent;
 	kind = TableHeader;
 }
 
-DynamicTip::DynamicTip( QListView* parent ) : QToolTip( parent->viewport() )
+DynamicTip::DynamicTip( Q3ListView* parent ) : QToolTip( parent->viewport() )
 {
 	listV = parent;
 	kind = TreeView;
@@ -55,7 +55,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 {
 	if (kind == ColorListBox)
 	{
-		QListBoxItem* it = listB->itemAt(pos);
+		Q3ListBoxItem* it = listB->itemAt(pos);
 		if (it != 0)
 		{
 			if (!colorList->contains(it->text()))
@@ -82,7 +82,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 		QPoint cp = table->viewportToContents( pos );
 		int row = table->rowAt( cp.y() );
 		int col = table->columnAt( cp.x() );
-		QTableItem* ite = table->item(row, col);
+		Q3TableItem* ite = table->item(row, col);
 		if (ite == 0)
 			return;
 		QRect cr = table->cellGeometry( row, col );
@@ -98,7 +98,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 	}
 	else if (kind == TreeView)
 	{
-		QListViewItem* it = listV->itemAt(pos);
+		Q3ListViewItem* it = listV->itemAt(pos);
 		if (it != 0)
 		{
 			TreeItem *item = (TreeItem*)it;

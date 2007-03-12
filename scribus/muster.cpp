@@ -10,12 +10,16 @@ for which a new license (GPL+exception) is in place.
 #include "mergedoc.h"
 #include <qinputdialog.h>
 #include <qlayout.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qcursor.h>
 #include <qstring.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QCloseEvent>
+#include <Q3VBoxLayout>
 #include "page.h"
 #include "pagestructs.h"
 #include "scribusdoc.h"
@@ -29,14 +33,14 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
-		: QDialog( parent, "Muster", false, WDestructiveClose)
+		: QDialog( parent, "Muster", false, Qt::WDestructiveClose)
 {
 	setCaption( tr( "Edit Master Pages" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	currentDoc = pCurrentDoc;
 	currentView = pCurrentView;
-	masterPagesLayout = new QVBoxLayout( this, 5, 5 );
-	buttonLayout = new QHBoxLayout;
+	masterPagesLayout = new Q3VBoxLayout( this, 5, 5 );
+	buttonLayout = new Q3HBoxLayout;
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
 	importButton = new QToolButton(this, "importButton" );
@@ -54,7 +58,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	QSpacerItem* spacer = new QSpacerItem( 16, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	masterPagesLayout->addLayout( buttonLayout );
-	masterPageListBox = new QListBox( this, "masterPageListBox" );
+	masterPageListBox = new Q3ListBox( this, "masterPageListBox" );
 	masterPageListBox->setMinimumSize( QSize( 100, 240 ) );
 	masterPagesLayout->addWidget( masterPageListBox );
 
@@ -77,8 +81,8 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(appendPage()));
-	connect(masterPageListBox, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectMasterPage(QListBoxItem*)));
-	connect(masterPageListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(renameMasterPage( QListBoxItem*)));
+	connect(masterPageListBox, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selectMasterPage(Q3ListBoxItem*)));
+	connect(masterPageListBox, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(renameMasterPage( Q3ListBoxItem*)));
 }
 
 void MasterPagesPalette::reject()
@@ -340,7 +344,7 @@ void MasterPagesPalette::appendPage()
 	delete dia;
 }
 
-void MasterPagesPalette::selectMasterPage(QListBoxItem *item)
+void MasterPagesPalette::selectMasterPage(Q3ListBoxItem *item)
 {
 	sMuster = item->text();
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
@@ -382,7 +386,7 @@ void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 	masterPageListBox->setSelected(masterPageListBox->index(masterPageListBox->findItem(MasterPageName)), true);
 }
 
-void MasterPagesPalette::renameMasterPage(QListBoxItem * item)
+void MasterPagesPalette::renameMasterPage(Q3ListBoxItem * item)
 {
 	QString oldName(item->text());
 	if ((oldName == CommonStrings::masterPageNormal) || (oldName == CommonStrings::trMasterPageNormal) || (oldName == CommonStrings::trMasterPageNormalLeft) || (oldName == CommonStrings::trMasterPageNormalMiddle) || (oldName == CommonStrings::trMasterPageNormalRight))

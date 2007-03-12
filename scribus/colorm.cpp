@@ -10,6 +10,12 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qbitmap.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3CString>
+#include <Q3PopupMenu>
+#include <Q3VBoxLayout>
 #include <cstdlib>
 
 #include "scconfig.h"
@@ -38,23 +44,23 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	setSizeGripEnabled(true);
 	setCaption( tr( "Colors" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	Layout2 = new QVBoxLayout( this );
+	Layout2 = new Q3VBoxLayout( this );
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 11 );
 
-	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
-	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
+	layout5 = new Q3HBoxLayout( 0, 0, 6, "layout5");
+	layout3 = new Q3VBoxLayout( 0, 0, 6, "layout3");
 	colorListBox = new ColorListBox( this, "colorListBox" );
 	colorListBox->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, colorListBox->sizePolicy().hasHeightForWidth() ) );
 	colorListBox->setMinimumSize( QSize( 164, 228 ) );
-	colorListBox->setColumnMode( QListBox::FixedNumber );
+	colorListBox->setColumnMode( Q3ListBox::FixedNumber );
 	layout5->addWidget( colorListBox );
 
-	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
+	ColorsGroup = new Q3GroupBox( this, "ColorsGroup" );
 	ColorsGroup->setColumnLayout(0, Qt::Vertical );
 	ColorsGroup->layout()->setSpacing( 6 );
 	ColorsGroup->layout()->setMargin( 11 );
-	Layout1 = new QVBoxLayout( ColorsGroup->layout() );
+	Layout1 = new Q3VBoxLayout( ColorsGroup->layout() );
 	Layout1->setAlignment( Qt::AlignTop );
 	importColorsButton = new QPushButton( tr( "&Import" ), ColorsGroup, "importColorsButton" );
 	Layout1->addWidget( importColorsButton );
@@ -78,17 +84,17 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	layout3->addWidget( ColorsGroup );
 	if (m_Doc==0)
 	{
-		ColsSetGroup = new QGroupBox( this, "ColsSetGroup" );
+		ColsSetGroup = new Q3GroupBox( this, "ColsSetGroup" );
 		ColsSetGroup->setTitle( tr( "Color Sets" ) );
 		ColsSetGroup->setColumnLayout(0, Qt::Vertical );
 		ColsSetGroup->layout()->setSpacing( 6 );
 		ColsSetGroup->layout()->setMargin( 11 );
-		ColsSetGroupLayout = new QVBoxLayout( ColsSetGroup->layout() );
+		ColsSetGroupLayout = new Q3VBoxLayout( ColsSetGroup->layout() );
 		ColsSetGroupLayout->setAlignment( Qt::AlignTop );
 		textLabel1 = new QLabel( ColsSetGroup, "textLabel1" );
 		textLabel1->setText( tr( "Current Color Set:" ) );
 		ColsSetGroupLayout->addWidget( textLabel1 );
-		CSets = new QPopupMenu();
+		CSets = new Q3PopupMenu();
 		CSets->insertItem("Scribus Small");
 /*
 		CSets->insertItem("X11 RGB-Set");
@@ -168,8 +174,8 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	connect( duplicateColorButton, SIGNAL( clicked() ), this, SLOT( duplicateColor() ) );
 	connect( deleteColorButton, SIGNAL( clicked() ), this, SLOT( deleteColor() ) );
 	connect( importColorsButton, SIGNAL( clicked() ), this, SLOT( importColors() ) );
-	connect( colorListBox, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selColor(QListBoxItem*) ) );
-	connect( colorListBox, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditColor(QListBoxItem*) ) );
+	connect( colorListBox, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selColor(Q3ListBoxItem*) ) );
+	connect( colorListBox, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditColor(Q3ListBoxItem*) ) );
 }
 
 void ColorManager::saveDefaults()
@@ -187,7 +193,7 @@ void ColorManager::saveDefaults()
 		QString Fname = Cpfad+dia->getEditText();
 		LoadColSet->setText(dia->getEditText());
 		QFile fx(Fname);
-		if (fx.open(IO_WriteOnly))
+		if (fx.open(QIODevice::WriteOnly))
 		{
 			QDomDocument docu("scribus");
 			QString st="<SCRIBUSCOLORS></SCRIBUSCOLORS>";
@@ -208,8 +214,8 @@ void ColorManager::saveDefaults()
 				elem.appendChild(co);
 			}
 			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			QCString cs = docu.toCString();
-			QTextStream s(&fx);
+			Q3CString cs = docu.toCString();
+			Q3TextStream s(&fx);
 			s.writeRawBytes(xmlpi, strlen(xmlpi));
 			s.writeRawBytes(cs, cs.length());
 /*			CMYKColor cmyk;
@@ -296,15 +302,15 @@ void ColorManager::loadDefaults(int id)
 	if (c != 0)
 	{
 		QFile fiC(pfadC2);
-		if (fiC.open(IO_ReadOnly))
+		if (fiC.open(QIODevice::ReadOnly))
 		{
 			QString ColorEn, Cname;
 			int Rval, Gval, Bval, Kval;
-			QTextStream tsC(&fiC);
+			Q3TextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
 			if (ColorEn.startsWith("<?xml version="))
 			{
-				QCString docBytes("");
+				Q3CString docBytes("");
 				loadRawText(pfadC2, docBytes);
 				QString docText("");
 				docText = QString::fromUtf8(docBytes);
@@ -345,7 +351,7 @@ void ColorManager::loadDefaults(int id)
 						continue;
 					
 					if (ColorEn[0].isNumber()) {
-						QTextStream CoE(&ColorEn, IO_ReadOnly);
+						Q3TextStream CoE(&ColorEn, QIODevice::ReadOnly);
 						CoE >> Rval;
 						CoE >> Gval;
 						CoE >> Bval;
@@ -430,9 +436,9 @@ void ColorManager::importColors()
 			double c, m, y, k;
 			ScColor cc;
 			QFile f(fileName);
-			if (f.open(IO_ReadOnly))
+			if (f.open(QIODevice::ReadOnly))
 			{
-				QTextStream ts(&f);
+				Q3TextStream ts(&f);
 				while (!ts.atEnd())
 				{
 					tmp = ts.readLine();
@@ -442,7 +448,7 @@ void ColorManager::importColors()
 							tmp = tmp.remove(0,18);
 						else if (tmp.startsWith("%%CMYKProcessColor"))
 							tmp = tmp.remove(0,19);
-						QTextStream ts2(&tmp, IO_ReadOnly);
+						Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
@@ -463,7 +469,7 @@ void ColorManager::importColors()
 								break;
 							}
 							tmp = tmp.remove(0,3);
-							QTextStream ts2(&tmp, IO_ReadOnly);
+							Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y >> k;
 							FarNam = ts2.read();
 							FarNam = FarNam.stripWhiteSpace();
@@ -485,7 +491,7 @@ void ColorManager::importColors()
 								tmp = ts.readLine();
 								if ((tmp.endsWith("Xa") || tmp.endsWith(" k")) && (tmp.length() > 4))
 								{
-									QTextStream ts2(&tmp, IO_ReadOnly);
+									Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
 									ts2 >> c >> m >> y >> k;
 									tmp = ts.readLine();
 									if (tmp.endsWith("Pc"))
@@ -557,7 +563,7 @@ void ColorManager::deleteUnusedColors()
 			for (uint c = 0; c < pa.items.count(); ++c)
 			{
 				ite = pa.items.at(c);
-				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 				{
 					if (it.key() == cstops.at(cst)->name)
@@ -593,7 +599,7 @@ void ColorManager::deleteUnusedColors()
 		for (uint c = 0; c < m_Doc->MasterItems.count(); ++c)
 		{
 			ite = m_Doc->MasterItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -627,7 +633,7 @@ void ColorManager::deleteUnusedColors()
 		for (uint c = 0; c < m_Doc->FrameItems.count(); ++c)
 		{
 			ite = m_Doc->FrameItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -661,7 +667,7 @@ void ColorManager::deleteUnusedColors()
 		for (uint c = 0; c < m_Doc->DocItems.count(); ++c)
 		{
 			ite = m_Doc->DocItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -803,7 +809,7 @@ void ColorManager::deleteColor()
 		colorListBox->setTopItem(topIndex);
 }
 
-void ColorManager::selColor(QListBoxItem *c)
+void ColorManager::selColor(Q3ListBoxItem *c)
 {
 	sColor = c->text();
 	bool enableEdit = (sColor != "Black" && sColor != "White");
@@ -813,7 +819,7 @@ void ColorManager::selColor(QListBoxItem *c)
 	deleteColorButton->setEnabled(enableDel);
 }
 
-void ColorManager::selEditColor(QListBoxItem *c)
+void ColorManager::selEditColor(Q3ListBoxItem *c)
 {
 	sColor = c->text();
 	bool enableEdit = (sColor != "Black" && sColor != "White");

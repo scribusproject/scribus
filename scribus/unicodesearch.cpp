@@ -5,10 +5,13 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <qfile.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qlineedit.h>
 #include <qlayout.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QHideEvent>
 
 #include "unicodesearch.h"
 #include "unicodesearch.moc"
@@ -34,12 +37,12 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
 	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setOn(bool)));
 	//
 	// listview user inputs
-	connect(m_searchDialog->unicodeList, SIGNAL(doubleClicked(QListViewItem *, const QPoint &, int)), this, SLOT(unicodeList_chosen(QListViewItem *)));
-	connect(m_searchDialog->unicodeList, SIGNAL(returnPressed(QListViewItem *)), this, SLOT(unicodeList_chosen(QListViewItem *)));
-	connect(m_searchDialog->unicodeList, SIGNAL(spacePressed(QListViewItem *)), this, SLOT(unicodeList_chosen(QListViewItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(doubleClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(unicodeList_chosen(Q3ListViewItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(returnPressed(Q3ListViewItem *)), this, SLOT(unicodeList_chosen(Q3ListViewItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(spacePressed(Q3ListViewItem *)), this, SLOT(unicodeList_chosen(Q3ListViewItem *)));
 }
 
-void UnicodeChooseButton::unicodeList_chosen(QListViewItem *item)
+void UnicodeChooseButton::unicodeList_chosen(Q3ListViewItem *item)
 {
 	emit chosenUnicode(item->text(0));
 	emit toggled(false);
@@ -65,7 +68,7 @@ UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
 		setName("UnicodeSearch");
 
 	connect(searchEdit, SIGNAL(returnPressed()), this, SLOT(searchEdit_returnPressed()));
-	connect(unicodeList, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)), this, SLOT(unicodeList_mouseButtonPressed(int, QListViewItem*, const QPoint&, int)));
+	connect(unicodeList, SIGNAL(mouseButtonPressed(int, Q3ListViewItem*, const QPoint&, int)), this, SLOT(unicodeList_mouseButtonPressed(int, Q3ListViewItem*, const QPoint&, int)));
 }
 
 void UnicodeSearch::checkForUpdate()
@@ -84,7 +87,7 @@ void UnicodeSearch::readUnicodeMap()
 	m_unicodeMap.clear();
 
 	QFile file(ScPaths::instance().shareDir() + "unicodenameslist.txt");
-	if (file.open( IO_ReadOnly ) )
+	if (file.open( QIODevice::ReadOnly ) )
 	{
 		QStringList list(QStringList::split('\n', file.readAll()));
 		file.close();
@@ -106,7 +109,7 @@ void UnicodeSearch::query()
 	QMap<QString,QString>::Iterator it;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
 	{
-		QListViewItem *item = new QListViewItem(unicodeList, it.key(), it.data());
+		Q3ListViewItem *item = new Q3ListViewItem(unicodeList, it.key(), it.data());
 		unicodeList->insertItem(item);
 	}
 }
@@ -123,7 +126,7 @@ void UnicodeSearch::query(QString filter)
 	{
 		if (!it.key().contains(filter, false) && !it.data().contains(filter, false))
 			continue;
-		QListViewItem *item = new QListViewItem(unicodeList, it.key(), it.data());
+		Q3ListViewItem *item = new Q3ListViewItem(unicodeList, it.key(), it.data());
 		unicodeList->insertItem(item);
 	}
 }
@@ -141,7 +144,7 @@ void UnicodeSearch::hideEvent(QHideEvent * e)
 	emit setVisibleState(false);
 }
 
-void UnicodeSearch::unicodeList_mouseButtonPressed(int button, QListViewItem* item, const QPoint& point, int)
+void UnicodeSearch::unicodeList_mouseButtonPressed(int button, Q3ListViewItem* item, const QPoint& point, int)
 {
 	if (!item)
 		return;

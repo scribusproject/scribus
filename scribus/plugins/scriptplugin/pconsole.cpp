@@ -17,18 +17,23 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qpixmap.h>
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qheader.h>
-#include <qlistview.h>
-#include <qtextedit.h>
+#include <q3header.h>
+#include <q3listview.h>
+#include <q3textedit.h>
 #include <qlayout.h>
 #include <qsplitter.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qmenubar.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qstatusbar.h>
 
-#include <qsyntaxhighlighter.h>
+#include <q3syntaxhighlighter.h>
+//Added by qt3to4:
+#include <QCloseEvent>
+#include <Q3GridLayout>
+#include <Q3PopupMenu>
+#include <Q3VBoxLayout>
 #include "scribus.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -41,34 +46,34 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
 PythonConsole::PythonConsole( QWidget* parent)
-	: QWidget( parent, "PythonConsole", WType_TopLevel )
+	: QWidget( parent, "PythonConsole", Qt::WType_TopLevel )
 {
 	setIcon(loadIcon("AppIcon.png"));
 
 	// setup the menu
 	menuBar = new QMenuBar(this, "menuBar");
-	QPopupMenu *fileMenu = new QPopupMenu(this);
+	Q3PopupMenu *fileMenu = new Q3PopupMenu(this);
 	fileMenu->insertItem(loadIcon("fileopen.png"), tr("&Open..."), this, SLOT(slot_open()), CTRL+Key_O);
 	fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slot_save()), CTRL+Key_S);
 	fileMenu->insertItem( tr("Save &As..."), this, SLOT(slot_saveAs()));
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
 	menuBar->insertItem( tr("&File"), fileMenu);
-	QPopupMenu *scriptMenu = new QPopupMenu(this);
+	Q3PopupMenu *scriptMenu = new Q3PopupMenu(this);
 	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
 	scriptMenu->insertItem( tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), CTRL+Key_F9);
 	scriptMenu->insertItem( tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem( tr("&Script"), scriptMenu);
 
-	gridLayout = new QGridLayout( this, 0, 0, 1, 6, "gridLayout");
+	gridLayout = new Q3GridLayout( this, 0, 0, 1, 6, "gridLayout");
 	gridLayout->setMenuBar(menuBar);
 
-	editorsLayout = new QVBoxLayout( 0, 0, 6, "editorsLayout");
+	editorsLayout = new Q3VBoxLayout( 0, 0, 6, "editorsLayout");
 
 	QSplitter *splitter = new QSplitter(Qt::Vertical, this, "splitter");
 	editorsLayout->addWidget(splitter);
 
-	commandEdit = new QTextEdit(splitter, "commandEdit" );
+	commandEdit = new Q3TextEdit(splitter, "commandEdit" );
 	commandEdit->setTextFormat(Qt::PlainText);
 	commandEdit->setFocus();
 	commandEdit->setTabStopWidth(commandEdit->pointSize() * 4);
@@ -81,7 +86,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	//remove that unused warning!
 	sxHigh->currentParagraph();
 
-	outputEdit = new QTextEdit(splitter, "outputEdit" );
+	outputEdit = new Q3TextEdit(splitter, "outputEdit" );
 	outputEdit->setTextFormat(Qt::PlainText);
 	outputEdit->setReadOnly(true);
 	QSizePolicy outputEditSize( outputEdit->sizePolicy() );
@@ -187,7 +192,7 @@ void PythonConsole::parsePythonString()
  */
 void PythonConsole::slot_open()
 {
-	filename = QFileDialog::getOpenFileName(".",
+	filename = Q3FileDialog::getOpenFileName(".",
 			tr("Python Scripts (*.py *.PY)"),
 			this,
 			"ofdialog",
@@ -195,9 +200,9 @@ void PythonConsole::slot_open()
 	if (filename.isNull())
 		return;
 	QFile file(filename);
-	if (file.open(IO_ReadOnly))
+	if (file.open(QIODevice::ReadOnly))
 	{
-		QTextStream stream(&file);
+		Q3TextStream stream(&file);
 		commandEdit->setText(stream.read());
 		file.close();
 	}
@@ -211,9 +216,9 @@ void PythonConsole::slot_save()
 		return;
 	}
 	QFile f(filename);
-	if (f.open(IO_WriteOnly))
+	if (f.open(QIODevice::WriteOnly))
 	{
-		QTextStream stream(&f);
+		Q3TextStream stream(&f);
 		stream << commandEdit->text();
 		f.close();
 	}
@@ -222,7 +227,7 @@ void PythonConsole::slot_save()
 void PythonConsole::slot_saveAs()
 {
 	QString oldFname = filename;
-	filename = QFileDialog::getSaveFileName(".",
+	filename = Q3FileDialog::getSaveFileName(".",
 			tr("Python Scripts (*.py *.PY)"),
 			this,
 			"sfdialog",
@@ -246,7 +251,7 @@ void PythonConsole::slot_saveAs()
 
 void PythonConsole::slot_saveOutput()
 {
-	QString fname = QFileDialog::getSaveFileName(".",
+	QString fname = Q3FileDialog::getSaveFileName(".",
 			tr("Text Files (*.txt)"),
 			this,
 			"sfdialog",
@@ -263,9 +268,9 @@ void PythonConsole::slot_saveOutput()
 			return;
 	}
 	// save
-	if (f.open(IO_WriteOnly))
+	if (f.open(QIODevice::WriteOnly))
 	{
-		QTextStream stream(&f);
+		Q3TextStream stream(&f);
 		stream << outputEdit->text();
 		f.close();
 	}
@@ -279,7 +284,7 @@ void PythonConsole::slot_quit()
 /*
  * Syntax highlighting
  */
-SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
+SyntaxHighlighter::SyntaxHighlighter(Q3TextEdit *textEdit) : Q3SyntaxHighlighter(textEdit)
 {
 	// Reserved keywords in Python 2.4
 	keywords << "and" << "assert" << "break" << "class" << "continue" << "def"

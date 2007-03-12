@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 #include "fontpreviewbase.h"
 
 class PrefsContext;
@@ -66,7 +68,7 @@ protected:
 	void keyReleaseEvent(QKeyEvent *k);
 	/*! \brief Create a pixmap sample with font preview.
 	\param item a reference to existing item (see allowSample()) */
-	void paintSample(QListViewItem *item);
+	void paintSample(Q3ListViewItem *item);
 	/*! \brief Check if is there any item in list to prevent crashes.
 	It allows not to paint the sample if there could be memory leak.
 	E.g. if (allowSample()) paintSample(fontList->currentItem());
@@ -89,7 +91,7 @@ protected slots:
 	/*! \brief Creates pixmap with font sample
 	\param item current list item */
 	//virtual void fontList_currentChanged( QListViewItem * item);
-	virtual void fontList_mouseButtonClicked(int button, QListViewItem *item, const QPoint &point, int column);
+	virtual void fontList_mouseButtonClicked(int button, Q3ListViewItem *item, const QPoint &point, int column);
 	//! \brief Setup the preview phrase instead of "blue quartz..."
 	void displayButton_clicked();
 	//! \brief Reset the sample phrase to the standard "blue quartz"

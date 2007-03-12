@@ -25,13 +25,18 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 // #include <qdatastream.h>
 // #include <qregexp.h>
 #include <qdir.h>
 #include <qdom.h>
 #include <qcheckbox.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
+#include <Q3CString>
+#include <Q3PointArray>
 
 // #include <algorithm>
 // #include <cstdlib>
@@ -103,7 +108,7 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 {
 	QStringList stdErrData;
 	QStringList stdOutData;
-	QProcess proc(args);
+	Q3Process proc(args);
 	if ( !proc.start() )
 		return 1;
 	/* start was OK */
@@ -132,10 +137,10 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	if ( !fileStdErr.isEmpty() )
 	{
 		QFile ferr(fileStdErr);
-		if ( ferr.open(IO_WriteOnly) )
+		if ( ferr.open(QIODevice::WriteOnly) )
 		{
 			pEnd = stdErrData.end();
-			QTextStream errStream(&ferr);
+			Q3TextStream errStream(&ferr);
 			for ( pIterator = stdErrData.begin(); pIterator != pEnd; pIterator++ )
 				errStream << *pIterator << endl;
 			ferr.close();
@@ -145,10 +150,10 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	if ( !fileStdOut.isEmpty() )
 	{
 		QFile fout(fileStdOut);
-		if ( fout.open(IO_WriteOnly) )
+		if ( fout.open(QIODevice::WriteOnly) )
 		{
 			pEnd = stdOutData.end();
-			QTextStream outStream(&fout);
+			Q3TextStream outStream(&fout);
 			for ( pIterator = stdOutData.begin(); pIterator != pEnd; pIterator++ )
 				outStream << *pIterator << endl;
 			fout.close();
@@ -188,9 +193,9 @@ int copyFile(QString source, QString target)
 		return -1;
 	QFile t(target);
 	QByteArray bb( 65536 );
-	if (s.open(IO_ReadOnly))
+	if (s.open(QIODevice::ReadOnly))
 	{
-		if (t.open(IO_WriteOnly))
+		if (t.open(QIODevice::WriteOnly))
 		{
 			bytesread = s.readBlock( bb.data(), bb.size() );
 			while( bytesread > 0 )
@@ -280,7 +285,7 @@ bool loadText(QString filename, QString *Buffer)
 		return false;
 	bool ret;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
@@ -304,15 +309,15 @@ bool loadText(QString filename, QString *Buffer)
 	return ret;
 }
 
-bool loadRawText(const QString & filename, QCString & buf)
+bool loadRawText(const QString & filename, Q3CString & buf)
 {
 	bool ret = false;
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QCString tempBuf(f.size() + 1);
-		if (f.open(IO_ReadOnly))
+		Q3CString tempBuf(f.size() + 1);
+		if (f.open(QIODevice::ReadOnly))
 		{
 			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
 			tempBuf[bytesRead] = '\0';
@@ -334,7 +339,7 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 	if (fi.exists())
 	{
 		QByteArray tempBuf(f.size());
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
 			ret = bytesRead == f.size();
@@ -347,7 +352,7 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 	return ret;
 }
 
-QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
+Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -356,7 +361,7 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 	int mx = 0;
 	int my = 0;
 	//QPointArray pts = QPointArray();
-	QPointArray pts(cx);
+	Q3PointArray pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -409,10 +414,10 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	return pts;
 }
 
-QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
+Q3PointArray FlattenPath(FPointArray ina, Q3ValueList<uint> &Segs)
 {
-	QPointArray Bez(4);
-	QPointArray outa, cli;
+	Q3PointArray Bez(4);
+	Q3PointArray outa, cli;
 	Segs.clear();
 	if (ina.size() > 3)
 	{
@@ -440,7 +445,7 @@ double xy2Deg(double x, double y)
 	return (atan2(y,x)*(180.0/M_PI));
 }
 
-void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
+void BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 {
 	ar->setPoint(0, n1);
 	ar->setPoint(1, n2);
@@ -953,7 +958,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->Clip.resize(obj->attribute("NUMCLIP").toUInt());
 		tmp = obj->attribute("CLIPCOOR");
-		QTextStream fc(&tmp, IO_ReadOnly);
+		Q3TextStream fc(&tmp, QIODevice::ReadOnly);
 		for (uint c=0; c<obj->attribute("NUMCLIP").toUInt(); ++c)
 		{
 			fc >> x;
@@ -968,7 +973,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -983,7 +988,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -998,7 +1003,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 		OB->TabValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -1016,7 +1021,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		QTextStream dgv(&tmp, IO_ReadOnly);
+		Q3TextStream dgv(&tmp, QIODevice::ReadOnly);
 		OB->DashValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
 		{
@@ -1123,7 +1128,7 @@ double constrainAngle(double angle, double constrain)
 	return newAngle;
 }
 
-double getRotationFromMatrix(QWMatrix& matrix, double def)
+double getRotationFromMatrix(QMatrix& matrix, double def)
 {
 	double value = def;
 	double norm = sqrt(fabs(matrix.det()));
@@ -1135,7 +1140,7 @@ double getRotationFromMatrix(QWMatrix& matrix, double def)
 		double m22 = matrix.m22() / norm;
 		if (fabs(m11) <= 1.0 && fabs(m12) <= 1.0 && fabs(m21) <= 1.0 && fabs(m22) <= 1.0)
 		{
-			QWMatrix mat(m11, m12, m21, m22, 0, 0);
+			QMatrix mat(m11, m12, m21, m22, 0, 0);
 			if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
 			{
 				double ac = acos(mat.m11());
@@ -1459,7 +1464,7 @@ QString getImageType(QString filename)
 	if (fi.exists())
 	{
 		QByteArray buf(20);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 			f.readBlock(buf.data(), 20);
 			if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))

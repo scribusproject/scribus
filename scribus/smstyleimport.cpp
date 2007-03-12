@@ -11,11 +11,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpixmap.h>
 #include <qlayout.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
-#include <qheader.h>
-#include <qbuttongroup.h>
+#include <q3header.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -26,37 +30,37 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 {
 	setCaption( tr( "Choose Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	ChooseStylesLayout = new QVBoxLayout( this, 10, 5, "ChooseStylesLayout");
-	StyleView = new QListView( this, "StyleView" );
+	ChooseStylesLayout = new Q3VBoxLayout( this, 10, 5, "ChooseStylesLayout");
+	StyleView = new Q3ListView( this, "StyleView" );
 	StyleView->clear();
 	StyleView->addColumn( tr( "Available Styles" ) );
 	StyleView->header()->setClickEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->header()->setResizeEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->setSorting(-1);
 
-	QListViewItem *croot = new QListViewItem(StyleView, tr("Character Styles"));
+	Q3ListViewItem *croot = new Q3ListViewItem(StyleView, tr("Character Styles"));
 	for (uint x = 0; x < cstyleList->count(); ++x)
 	{
 		CharStyle& vg ((*cstyleList)[x]);
-		QCheckListItem *item = new QCheckListItem (croot, vg.name(), QCheckListItem::CheckBox);
+		Q3CheckListItem *item = new Q3CheckListItem (croot, vg.name(), Q3CheckListItem::CheckBox);
 		item->setOn(true);
 		storedCharStyles.insert(item, vg.name());
 	}
 
-	QListViewItem *proot = new QListViewItem(StyleView, tr("Paragraph Styles"));
+	Q3ListViewItem *proot = new Q3ListViewItem(StyleView, tr("Paragraph Styles"));
 	for (uint x = 0; x < pstyleList->count(); ++x)
 	{
 		ParagraphStyle& vg ((*pstyleList)[x]);
-		QCheckListItem *item = new QCheckListItem (proot, vg.name(), QCheckListItem::CheckBox);
+		Q3CheckListItem *item = new Q3CheckListItem (proot, vg.name(), Q3CheckListItem::CheckBox);
 		item->setOn(true);
 		storedStyles.insert(item, vg.name());
 	}
 
-	QListViewItem *lroot = new QListViewItem(StyleView, tr("Line Styles"));
-	QValueList<QString> lkeys = lstyleList->keys();
+	Q3ListViewItem *lroot = new Q3ListViewItem(StyleView, tr("Line Styles"));
+	Q3ValueList<QString> lkeys = lstyleList->keys();
 	for (uint x = 0; x < lkeys.count(); ++x)
 	{
-		QCheckListItem *item = new QCheckListItem (lroot, lkeys[x], QCheckListItem::CheckBox);
+		Q3CheckListItem *item = new Q3CheckListItem (lroot, lkeys[x], Q3CheckListItem::CheckBox);
 		item->setOn(true);
 		storedLineStyles.insert(item, lkeys[x]);
 	}
@@ -70,13 +74,13 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 
 	ChooseStylesLayout->addWidget( StyleView );
 
-	clashBox = new QButtonGroup(2, QGroupBox::Vertical, tr("In case of a name clash"), this, "clashBox");
+	clashBox = new Q3ButtonGroup(2, Q3GroupBox::Vertical, tr("In case of a name clash"), this, "clashBox");
 	renameButton = new QRadioButton(tr("Rename imported style"), clashBox, "renameButton");
 	renameButton->setChecked(true);
 	replaceButton = new QRadioButton(tr("Replace existing style"), clashBox, "replaceButton");
 	ChooseStylesLayout->addWidget(clashBox);
 
-	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
+	layout2 = new Q3HBoxLayout( 0, 0, 5, "layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer1 );
 	OkButton = new QPushButton( CommonStrings::tr_OK, this, "OkButton" );

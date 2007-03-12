@@ -9,6 +9,9 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 
 #include "missing.h"
 #include "missing.moc"
@@ -308,8 +311,8 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc )
 	QPixmap image0( ( const char** ) image100_data );
 	setCaption( tr("Missing Font"));
 	setIcon(loadIcon("AppIcon.png"));
-	missingFontLayout = new QHBoxLayout( this, 10, 0 );
-	missingFontGridLayout = new QGridLayout;
+	missingFontLayout = new Q3HBoxLayout( this, 10, 0 );
+	missingFontGridLayout = new Q3GridLayout;
 	missingFontGridLayout->setSpacing( 12 );
 	missingFontGridLayout->setMargin( 0 );
 	notInstalledLabel = new QLabel( tr("The Font %1 is not installed.").arg(fon), this, "notInstalledLabel" );

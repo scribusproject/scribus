@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 // include files for QT
-#include <qscrollview.h>
-#include <qptrlist.h>
+#include <q3scrollview.h>
+#include <q3ptrlist.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
 #if OPTION_USE_QTOOLBUTTON
@@ -37,12 +37,22 @@ for which a new license (GPL+exception) is in place.
 #else
     #include <qpushbutton.h>
 #endif
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qspinbox.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QDragLeaveEvent>
+#include <Q3ValueList>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <QEvent>
+#include <QPaintEvent>
+#include <QWheelEvent>
 // application specific includes
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -63,7 +73,7 @@ class ScribusMainWindow;
  * This class provides an incomplete base for your application view.
  */
 
-class SCRIBUS_API ScribusView : public QScrollView
+class SCRIBUS_API ScribusView : public Q3ScrollView
 {
 	Q_OBJECT
 
@@ -158,8 +168,8 @@ public:
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
-	QPtrList<PageItem> linkedFramesToShow;
-	QValueList<int> SelNode;
+	Q3PtrList<PageItem> linkedFramesToShow;
+	Q3ValueList<int> SelNode;
 
 	
 	struct oldPageVar
@@ -195,7 +205,7 @@ public:
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
 	void ToView(QPainter *p);
-	void ToView(QWMatrix& m);
+	void ToView(QMatrix& m);
 // 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
@@ -226,7 +236,7 @@ public:
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
 	void Transform(PageItem *currItem, QPainter *p);
-	void Transform(PageItem *currItem, QWMatrix& m);
+	void Transform(PageItem *currItem, QMatrix& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();
 	void SetFrameRounded();
@@ -304,8 +314,8 @@ public slots: // Public slots
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 
 private: // Private attributes
-	QPopupMenu *pmen3;
-	QPopupMenu *pmenResolution;
+	Q3PopupMenu *pmen3;
+	Q3PopupMenu *pmenResolution;
 	QTime moveTimer;
 	bool Ready;
 	int  oldX;

@@ -9,6 +9,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpainter.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 
 #include "colorlistbox.h"
 #include "sccombobox.h"
@@ -30,7 +35,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	CurLin = 0;
 	TempStyles = Sty;
 	GivenName = nam;
-	MultiLineLayout = new QVBoxLayout( this, 5, 4, "MultiLineLayout");
+	MultiLineLayout = new Q3VBoxLayout( this, 5, 4, "MultiLineLayout");
 	SName = new QLineEdit(this, "Name");
 	SName->setText(nam);
 	MultiLineLayout->addWidget(SName);
@@ -41,7 +46,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	Preview->setScaledContents( false );
 	MultiLineLayout->addWidget( Preview );
 
-	layout2 = new QHBoxLayout( 0, 0, 4, "layout2");
+	layout2 = new Q3HBoxLayout( 0, 0, 4, "layout2");
 
 	AddStyle = new QPushButton( this, "AddStyle" );
 	AddStyle->setPixmap(loadIcon("penciladd.png"));
@@ -60,18 +65,18 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	layout2->addItem( spacer );
 	MultiLineLayout->addLayout( layout2 );
 
-	Styles = new QListBox( this, "Styles" );
+	Styles = new Q3ListBox( this, "Styles" );
 	RebuildList();
 	MultiLineLayout->addWidget( Styles );
 
-	Properties = new QGroupBox( this, "Properties" );
+	Properties = new Q3GroupBox( this, "Properties" );
 	Properties->setTitle( QString::null );
-	Properties->setFrameShape( QGroupBox::NoFrame );
-	Properties->setFrameShadow( QGroupBox::Plain );
+	Properties->setFrameShape( Q3GroupBox::NoFrame );
+	Properties->setFrameShadow( Q3GroupBox::Plain );
 	Properties->setColumnLayout(0, Qt::Vertical );
 	Properties->layout()->setSpacing( 4 );
 	Properties->layout()->setMargin( 0 );
-	PropertiesLayout = new QVBoxLayout( Properties->layout() );
+	PropertiesLayout = new Q3VBoxLayout( Properties->layout() );
 	PropertiesLayout->setAlignment( Qt::AlignTop );
 
 	Dashes = new LineCombo(Properties);
@@ -89,7 +94,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	LineJoin->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 	PropertiesLayout->addWidget( LineJoin );
 
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 6, "layout1");
 
 	WidthText = new QLabel( Properties, "WidthText" );
 	WidthText->setText( tr( "Line Width:" ) );
@@ -101,7 +106,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );
 
-	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
+	layout4 = new Q3HBoxLayout( 0, 0, 6, "layout4");
 	Color = new ScComboBox( false, Properties, "Color" );
 	ColorList::Iterator it;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
@@ -117,7 +122,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	PropertiesLayout->addLayout( layout4 );
 	MultiLineLayout->addWidget( Properties );
 
-	layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
+	layout3 = new Q3HBoxLayout( 0, 0, 6, "layout3");
 
 	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
 	OK->setAutoDefault(false);
@@ -159,9 +164,9 @@ void MultiLine::updatePreview()
 	{
 		p.setPen(QPen(calcFarbe(TempVorl[it].Color, TempVorl[it].Shade),
 		              QMAX(static_cast<int>(TempVorl[it].Width), 1),
-		              static_cast<PenStyle>(TempVorl[it].Dash),
-		              static_cast<PenCapStyle>(TempVorl[it].LineEnd),
-		              static_cast<PenJoinStyle>(TempVorl[it].LineJoin)));
+		              static_cast<Qt::PenStyle>(TempVorl[it].Dash),
+		              static_cast<Qt::PenCapStyle>(TempVorl[it].LineEnd),
+		              static_cast<Qt::PenJoinStyle>(TempVorl[it].LineJoin)));
 		p.drawLine(17, 18, 183, 18);
 	}
 	p.end();
@@ -181,7 +186,7 @@ void MultiLine::updateSList()
 	QPixmap * pm;
 	pm = getWidePixmap(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
 	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width) + " " + tr("pt") + " ";
-	tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>(TempVorl[CurLin].Dash));
+	tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(TempVorl[CurLin].Dash));
 	tmp2 += " ";
 	
 // 	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
@@ -264,7 +269,7 @@ void MultiLine::RebuildList()
 	{
 		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width) + " " + tr("pt") + " ";
-		tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>((*it).Dash));
+		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
 		tmp2 += " ";
 		Styles->insertItem(*pm2, tmp2);
 	}
@@ -438,7 +443,7 @@ void MultiLine::slotEditStyle(int i)
 		LWidth->setValue(TempVorl[i].Width);
 		Color->setCurrentText(TempVorl[i].Color);
 		Shade->setValue(TempVorl[i].Shade);
-		switch (static_cast<PenStyle>(TempVorl[i].Dash))
+		switch (static_cast<Qt::PenStyle>(TempVorl[i].Dash))
 		{
 		case SolidLine:
 			Dashes->setCurrentItem(0);
@@ -459,7 +464,7 @@ void MultiLine::slotEditStyle(int i)
 			Dashes->setCurrentItem(0);
 			break;
 		}
-		switch (static_cast<PenCapStyle>(TempVorl[i].LineEnd))
+		switch (static_cast<Qt::PenCapStyle>(TempVorl[i].LineEnd))
 		{
 		case FlatCap:
 			LineEnds->setCurrentItem(0);
@@ -474,7 +479,7 @@ void MultiLine::slotEditStyle(int i)
 			LineEnds->setCurrentItem(0);
 			break;
 		}
-		switch (static_cast<PenJoinStyle>(TempVorl[i].LineJoin))
+		switch (static_cast<Qt::PenJoinStyle>(TempVorl[i].LineJoin))
 		{
 		case MiterJoin:
 			LineJoin->setCurrentItem(0);

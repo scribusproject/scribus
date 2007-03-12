@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <qmap.h>
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class PLUGIN_API Scribus13Format : public LoadSavePlugin
 {
@@ -43,7 +43,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces);
+		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces);
 
 	private:
 		void registerFormats();
@@ -54,8 +54,8 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(QString fStr, ScribusDoc *doc);
-		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
+		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		

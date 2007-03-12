@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qpushbutton.h>
 #include <qcheckbox.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <prefstable.h>
@@ -40,9 +40,9 @@ class tfFilter : public QWidget
 	Q_OBJECT
 private:
 	QCheckBox* enableCheck;
-	QBoxLayout* alayout;
-	QBoxLayout* blayout;
-	QFrame* actionFrame;
+	Q3BoxLayout* alayout;
+	Q3BoxLayout* blayout;
+	Q3Frame* actionFrame;
 	QComboBox* firstCombo;
 	QLabel* firstLabel;
 	QComboBox* secondCombo;

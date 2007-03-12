@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <qstring.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3CString>
 #include "scribusapi.h"
 #include "selection.h"
 #include "desaxe/saxio.h"
@@ -61,7 +63,7 @@ public:
 	  Reads objects from the given QString which must represent a fragment, imports them
 	  into the document and returns a (nonGUI) selection to it.
 	*/
-	Selection deserializeObjects(const QCString & xml);
+	Selection deserializeObjects(const Q3CString & xml);
 	/**
 	  Reads objects from the given QFile which must represent a fragment, imports them
 	  into the document and returns a (nonGUI) selection to it.

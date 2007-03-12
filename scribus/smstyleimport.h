@@ -9,19 +9,22 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 #include "styles/styleset.h"
 #include "scribusstructs.h"
 
 class QWidget;
-class QListView;
+class Q3ListView;
 class QPushButton;
-class QCheckListItem;
-class QVBoxLayout;
-class QHBoxLayout;
+class Q3CheckListItem;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
 class ParagraphStyle;
-class QButtonGroup;
+class Q3ButtonGroup;
 class QRadioButton;
 
 class SCRIBUS_API ImportDialog : public QDialog
@@ -35,20 +38,20 @@ public:
 	             QMap<QString, multiLine> *lstyleList);
 	~ImportDialog() {};
 
-	QMap<QCheckListItem*, QString> storedStyles;
-	QMap<QCheckListItem*, QString> storedCharStyles;
-	QMap<QCheckListItem*, QString> storedLineStyles;
+	QMap<Q3CheckListItem*, QString> storedStyles;
+	QMap<Q3CheckListItem*, QString> storedCharStyles;
+	QMap<Q3CheckListItem*, QString> storedLineStyles;
 
 	bool clashRename();
 
 protected:
-	QListView* StyleView;
+	Q3ListView* StyleView;
 	QPushButton* OkButton;
 	QPushButton* CancelButton;
 
-	QVBoxLayout  *ChooseStylesLayout;
-	QHBoxLayout  *layout2;
-	QButtonGroup *clashBox;
+	Q3VBoxLayout  *ChooseStylesLayout;
+	Q3HBoxLayout  *layout2;
+	Q3ButtonGroup *clashBox;
 	QRadioButton *renameButton;
 	QRadioButton *replaceButton;
 };

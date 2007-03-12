@@ -26,6 +26,10 @@ for which a new license (GPL+exception) is in place.
 #include <qapplication.h>
 #include <qlineedit.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QWheelEvent>
+#include <QKeyEvent>
+#include <QEvent>
 #include <cmath>
 #include "fparser.h"
 #include "units.h"

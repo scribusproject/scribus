@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define STYLEITEM_H
 
 #include <qobject.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class QString;
 class QStringList;
@@ -72,7 +72,7 @@ public:
 	 * StyleName::first is the style name and StyleName::second it's parent's name.
 	 * If the StyleItem has no parent StyleName::second should be set to QString::null.
 	 */
-	virtual QValueList<StyleName> styles(bool reloadFromDoc = true) = 0;
+	virtual Q3ValueList<StyleName> styles(bool reloadFromDoc = true) = 0;
 
 	/** 
 	 * @brief Reload styles and remove all cached (and possibly changed ones).
@@ -159,7 +159,7 @@ public:
 	 * the deleted style with. If no replacement was requested RemoveItem::second
 	 * has been set to QString::null.
 	 */
-	virtual void deleteStyles(const QValueList<RemoveItem> &removeList) = 0;
+	virtual void deleteStyles(const Q3ValueList<RemoveItem> &removeList) = 0;
 
 	/** @brief Called when the currently selected style's name has changed */
 	virtual void nameChanged(const QString &newName) = 0;

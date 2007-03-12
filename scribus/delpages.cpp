@@ -9,6 +9,10 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "delpages.h"
 #include "delpages.moc"
@@ -29,8 +33,8 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 {
 	setCaption( tr( "Delete Pages" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new QVBoxLayout( this, 10, 5);
-	fromToLayout = new QHBoxLayout;
+	dialogLayout = new Q3VBoxLayout( this, 10, 5);
+	fromToLayout = new Q3HBoxLayout;
 	fromToLayout->setSpacing( 6 );
 	fromToLayout->setMargin( 5 );
 	fromLabel = new QLabel( tr( "Delete From:" ), this, "fromLabel" );
@@ -46,7 +50,7 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 	fromToLayout->addWidget( toPageData );
 	dialogLayout->addLayout( fromToLayout );
 
-	okCancelLayout = new QHBoxLayout;
+	okCancelLayout = new Q3HBoxLayout;
 	okCancelLayout->setSpacing( 6 );
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

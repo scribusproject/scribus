@@ -27,16 +27,20 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qcolor.h>
 #include <qrect.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QPixmap>
+#include <QMouseEvent>
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "units.h"
 #include "prefsmanager.h"
 
 #if QT_VERSION  > 0x030102
-	#define SPLITVC SplitHCursor
+	#define SPLITVC Qt::SplitHCursor
 #else
-	#define SPLITVC SplitVCursor
+	#define SPLITVC Qt::SplitVCursor
 #endif
 
 
@@ -190,7 +194,7 @@ void Vruler::Draw(int where)
 	// erase old marker
 	int currentCoor = where - currView->contentsY();
 	repaint(0, oldMark-3, 17, 6);
-	QPointArray cr;
+	Q3PointArray cr;
 	QPainter p;
 #ifdef OPTION_SMOOTH_MARKERS
 	// draw new marker to pixmap
@@ -204,8 +208,8 @@ void Vruler::Draw(int where)
 		p.setBrush( BACKGROUND );
 		p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
 
-		p.setPen(red);
-		p.setBrush(red);
+		p.setPen(Qt::red);
+		p.setBrush(Qt::red);
 		cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
 		p.drawPolygon(cr);
 		p.end();
@@ -218,8 +222,8 @@ void Vruler::Draw(int where)
 	p.end();
 	// restore marks
 	p.begin(this);
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.setFont(font());
 	double sc = currView->getScale();
 	double cc = height() / sc;

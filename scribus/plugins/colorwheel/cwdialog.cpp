@@ -10,20 +10,23 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qcombobox.h>
-#include <qheader.h>
-#include <qlistview.h>
-#include <qlistbox.h>
+#include <q3header.h>
+#include <q3listview.h>
+#include <q3listbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qpainter.h>
 #include <qmenubar.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qslider.h>
 #include <qtabwidget.h>
-#include <qtable.h>
+#include <q3table.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QPixmap>
 
 #include "prefsmanager.h"
 #include "commonstrings.h"
@@ -35,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "sccolorengine.h"
 
-CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, WFlags fl)
+CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)
 	: CWDialogBase (parent, name, modal, fl),
 	  m_Doc(doc)
 {
@@ -107,10 +110,10 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
 			this, SLOT(colorWheel_clicked(int, const QPoint&)));
-	connect(documentColorList, SIGNAL(currentChanged(QListBoxItem *)),
-			this, SLOT(documentColorList_currentChanged(QListBoxItem *)));
-	connect(colorList, SIGNAL(currentChanged(QListBoxItem *)),
-			this, SLOT(colorList_currentChanged(QListBoxItem *)));
+	connect(documentColorList, SIGNAL(currentChanged(Q3ListBoxItem *)),
+			this, SLOT(documentColorList_currentChanged(Q3ListBoxItem *)));
+	connect(colorList, SIGNAL(currentChanged(Q3ListBoxItem *)),
+			this, SLOT(colorList_currentChanged(Q3ListBoxItem *)));
 	connectSlots(true);
 }
 
@@ -161,7 +164,7 @@ void CWDialog::connectSlots(bool conn)
 	}
 }
 
-void CWDialog::documentColorList_currentChanged(QListBoxItem *item)
+void CWDialog::documentColorList_currentChanged(Q3ListBoxItem *item)
 {
 	if (!item)
 		return;
@@ -245,7 +248,7 @@ void CWDialog::setPreview()
 {
 	int x = previewLabel->width();
 	int y = previewLabel->height();
-	QValueList<ScColor> cols = colorWheel->colorList.values();
+	Q3ValueList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
 	QPixmap pm = QPixmap(x, y);
 	QPainter *p = new QPainter(&pm);
@@ -291,7 +294,7 @@ void CWDialog::fillColorList()
 {
 	uint ix = colorList->currentItem();
 	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
-	QListBoxItem *item = colorList->findItem(colorWheel->trBaseColor);
+	Q3ListBoxItem *item = colorList->findItem(colorWheel->trBaseColor);
 	if (item->prev())
 	{
 		colorList->takeItem(item);
@@ -491,7 +494,7 @@ void CWDialog::updateNamedLabels()
 	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
 }
 
-void CWDialog::colorList_currentChanged(QListBoxItem * item)
+void CWDialog::colorList_currentChanged(Q3ListBoxItem * item)
 {
 	if (!item)
 		return;

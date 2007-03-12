@@ -7,13 +7,13 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qstringlist.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qlineedit.h>
 #include <qstylefactory.h>
 #include <qtooltip.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 
 #include "tabgeneral.h"
 #include "tabgeneral.moc"
@@ -103,28 +103,28 @@ void TabGeneral::setSelectedGUILang( const QString &newLang )
 
 void TabGeneral::changeDocs()
 {
-	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		Docs->setText( QDir::convertSeparators(s) );
 }
 
 void TabGeneral::changeProfs()
 {
-	QString s = QFileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		ProPfad->setText( QDir::convertSeparators(s) );
 }
 
 void TabGeneral::changeScripts()
 {
-	QString s = QFileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		ScriptPfad->setText( QDir::convertSeparators(s) );
 }
 
 void TabGeneral::changeDocumentTemplates()
 {
-	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = Q3FileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 		DocumentTemplateDir->setText( QDir::convertSeparators(s) );
 }

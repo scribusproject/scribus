@@ -27,6 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include <qcursor.h>
 #include <qapplication.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPixmap>
 extern QPixmap loadIcon(QString nam);
 
 RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)

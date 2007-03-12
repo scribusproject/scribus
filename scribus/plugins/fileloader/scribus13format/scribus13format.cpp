@@ -23,7 +23,10 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
@@ -86,7 +89,7 @@ void Scribus13Format::registerFormats()
 
 bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QCString docBytes("");
+	Q3CString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 		ScGzFile gzf(fileName);
@@ -109,7 +112,7 @@ bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileN
 
 QString Scribus13Format::readSLA(const QString & fileName)
 {
-	QCString docBytes("");
+	Q3CString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 		ScGzFile gzf(fileName);
@@ -135,7 +138,7 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	return docText;
 }
 
-void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces)
+void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces)
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
@@ -160,11 +163,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	QMap<int,int> TableIDM;
-	QPtrList<PageItem> TableItemsM;
+	Q3PtrList<PageItem> TableItemsM;
 	QMap<int,int> TableIDF;
-	QPtrList<PageItem> TableItemsF;
+	Q3PtrList<PageItem> TableItemsF;
 	int a;
 	PageItem *Neu;
 	Page* Apage;
@@ -305,10 +308,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		m_Doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		m_Doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
-		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
-		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
-		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->pageMargins.Qt::DockLeft=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
+		m_Doc->pageMargins.Qt::DockRight=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		m_Doc->pageMargins.Qt::DockTop=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
+		m_Doc->pageMargins.Qt::DockBottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -337,15 +340,15 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
-		m_Doc->scratch.Bottom = dc.attribute("ScratchBottom", "20").toDouble();
+		m_Doc->scratch.Qt::DockBottom = dc.attribute("ScratchBottom", "20").toDouble();
 		// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 		// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
 		if (dc.hasAttribute("ScatchLeft"))
-			m_Doc->scratch.Left = dc.attribute("ScatchLeft", "100").toDouble();
+			m_Doc->scratch.Qt::DockLeft = dc.attribute("ScatchLeft", "100").toDouble();
 		else
-			m_Doc->scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
-		m_Doc->scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
-		m_Doc->scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
+			m_Doc->scratch.Qt::DockLeft = dc.attribute("ScratchLeft", "100").toDouble();
+		m_Doc->scratch.Qt::DockRight = dc.attribute("ScratchRight", "100").toDouble();
+		m_Doc->scratch.Qt::DockTop = dc.attribute("ScratchTop", "20").toDouble();
 		m_Doc->toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
 		m_Doc->toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
 		m_Doc->toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();
@@ -563,7 +566,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct SingleLine sl;
+					struct Qt::TextSingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = MuL.attribute("Dash").toInt();
 					sl.LineEnd = MuL.attribute("LineEnd").toInt();
@@ -582,7 +585,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, IO_ReadOnly);
+				Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -633,10 +636,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
 				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
 				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.bleeds.Top = pg.attribute("BTop", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Left = pg.attribute("BLeft", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Right = pg.attribute("BRight", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Bottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockTop = pg.attribute("BTop", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockLeft = pg.attribute("BLeft", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockRight = pg.attribute("BRight", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockBottom = pg.attribute("BBottom", "0").toDouble();
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
@@ -832,12 +835,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Apage->setHeight(pg.attribute("PAGEHEIGHT").toDouble());
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
-				Apage->initialMargins.Bottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
-				Apage->initialMargins.Left = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
-				Apage->initialMargins.Right = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
-				Apage->Margins.Top = Apage->initialMargins.Top;
-				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
+				Apage->initialMargins.Qt::DockTop = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
+				Apage->initialMargins.Qt::DockBottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
+				Apage->initialMargins.Qt::DockLeft = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
+				Apage->initialMargins.Qt::DockRight = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->Margins.Qt::DockTop = Apage->initialMargins.Qt::DockTop;
+				Apage->Margins.Qt::DockBottom = Apage->initialMargins.Qt::DockBottom;
 				m_Doc->setMasterPageMode(false);
 				//m_Doc->Pages=&m_Doc->DocPages;
 				// guides reading
@@ -1347,7 +1350,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		}
 		dc.appendChild(MuL);
 	}
-	QValueList<ArrowDesc>::Iterator itar;
+	Q3ValueList<ArrowDesc>::Iterator itar;
 	for (itar = m_Doc->arrowStyles.begin(); itar != m_Doc->arrowStyles.end(); ++itar)
 	{
 		if ((*itar).userArrow)
@@ -1375,7 +1378,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		jav.setAttribute("SCRIPT",itja.data());
 		dc.appendChild(jav);
 	}
-	QValueList<ScribusDoc::BookMa>::Iterator itbm;
+	Q3ValueList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
 	{
 		QDomElement fn=docu.createElement("Bookmark");
@@ -1630,7 +1633,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.appendChild(sectionElem);
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QValueList<PageSet>::Iterator itpgset;
+	Q3ValueList<PageSet>::Iterator itpgset;
 	for(itpgset = m_Doc->pageSets.begin(); itpgset != m_Doc->pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -1669,7 +1672,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
  * 2.7.2002 C.Toepp
  * <c.toepp@gmx.de>
 */
-	QCString cs = docu.toCString(); // UTF-8 QCString
+	Q3CString cs = docu.toCString(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
 		// zipped saving
@@ -1681,9 +1684,9 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	else
 	{
 		QFile f(fileName);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		QTextStream s(&f);
+		Q3TextStream s(&f);
 		s.writeRawBytes(cs, cs.length());
 		f.close();
 	}
@@ -1929,10 +1932,10 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 //		vg.tabValues().clear();
 	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
-		QValueList<ParagraphStyle::TabRecord> tbs;
+		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 		double xf, xf2;
 		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -1948,7 +1951,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	}
 	else
 	{
-		QValueList<ParagraphStyle::TabRecord> tbs;
+		Q3ValueList<ParagraphStyle::TabRecord> tbs;
  		vg.setTabValues(tbs);
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
@@ -2044,7 +2047,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[clPath].copy();
 			currItem->pixm.imgInfo.usedPath = clPath;
-			QWMatrix cl;
+			QMatrix cl;
 			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
@@ -2207,12 +2210,12 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
 	pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()));
 	tmp = "";
-	QValueList<ParagraphStyle::TabRecord> tbValues;
+	Q3ValueList<ParagraphStyle::TabRecord> tbValues;
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
 	{
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -2358,7 +2361,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("GROUPS");
-		QTextStream fg(&tmp, IO_ReadOnly);
+		Q3TextStream fg(&tmp, QIODevice::ReadOnly);
 		currItem->Groups.clear();
 		for (int cx = 0; cx < obj->attribute("NUMGROUP", "0").toInt(); ++cx)
 		{
@@ -2372,7 +2375,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		QTextStream dgv(&tmp, IO_ReadOnly);
+		Q3TextStream dgv(&tmp, QIODevice::ReadOnly);
 		currItem->DashValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
 		{
@@ -2388,7 +2391,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		currItem->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2403,7 +2406,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		currItem->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		QTextStream fp(&tmp, IO_ReadOnly);
+		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2507,7 +2510,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ReplacedFonts.clear();
 	newReplacement = false;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int a, counter, baseobj;
 	double pageX = 0, pageY = 0;
 	bool newVersion = false;
@@ -2671,7 +2674,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, IO_ReadOnly);
+				Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -3201,7 +3204,7 @@ bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num
 	return true;
 }
 
-void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
+void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	Page *page;
@@ -3249,7 +3252,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 	}
 }
 
-void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
+void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
@@ -3303,7 +3306,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		ob.setAttribute("gHeight", item->gHeight);
 		if (item->GrType != 0)
 		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu->createElement("CSTOP");
@@ -3741,7 +3744,7 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newForm
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	QValueList<double>::Iterator dax;
+	Q3ValueList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);
@@ -3764,7 +3767,7 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newForm
 	ob->setAttribute("COCOOR", colp);
 	ob->setAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
 	QString glp = "";
-	QValueStack<int>::Iterator nx;
+	Q3ValueStack<int>::Iterator nx;
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);

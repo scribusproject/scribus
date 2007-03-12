@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "barcodegeneratorbase.h"
 #include <qmap.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QLabel>
 
 class QColor;
 class QLabel;

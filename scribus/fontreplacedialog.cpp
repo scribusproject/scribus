@@ -9,13 +9,18 @@ for which a new license (GPL+exception) is in place.
 #include "fontreplacedialog.moc"
 #include <qvariant.h>
 #include <qlabel.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QCloseEvent>
 
 #include "fontcombo.h"
 #include "commonstrings.h"
@@ -27,19 +32,19 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	setCaption( tr( "Font Substitution" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	ReplaceList = RList;
-	FontReplaceDialogLayout = new QVBoxLayout( this, 10, 5, "FontReplaceDialogLayout");
+	FontReplaceDialogLayout = new Q3VBoxLayout( this, 10, 5, "FontReplaceDialogLayout");
 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setAlignment( int( QLabel::AlignVCenter ) );
 	textLabel1->setText( "<qt>" + tr("This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.") + "</qt>" );
 	FontReplaceDialogLayout->addWidget( textLabel1 );
 
-	replacementTable = new QTable( this, "replacementTable" );
+	replacementTable = new Q3Table( this, "replacementTable" );
 	replacementTable->setNumCols( 2 );
 	replacementTable->horizontalHeader()->setLabel( 0, tr( "Original Font" ) );
 	replacementTable->horizontalHeader()->setLabel( 1, tr( "Substitution Font" ) );
 	replacementTable->setSorting(false);
-	replacementTable->setSelectionMode(QTable::NoSelection);
+	replacementTable->setSelectionMode(Q3Table::NoSelection);
 	replacementTable->setLeftMargin(0);
 	replacementTable->verticalHeader()->hide();
 	replacementTable->setNumRows(RList->count());
@@ -57,7 +62,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	replacementTable->setColumnStretchable(1, true);
 	FontReplaceDialogLayout->addWidget( replacementTable );
 
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
 	stickyReplacements = new QCheckBox( this, "stickyReplacements" );
 	stickyReplacements->setText( tr( "Make these substitutions permanent" ) );
 	layout1->addWidget( stickyReplacements );

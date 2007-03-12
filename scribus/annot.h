@@ -9,21 +9,25 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwidgetstack.h>
-#include <qframe.h>
+#include <q3widgetstack.h>
+#include <q3frame.h>
 #include <qlineedit.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qtabwidget.h>
 #include <qcheckbox.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qradiobutton.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 
 
 #include "scribusapi.h"
@@ -45,19 +49,19 @@ public:
 	void DecodeNum();
 	void DecodeVali();
 	void DecodeCalc();
-	QWidgetStack* Fram;
-	QWidgetStack* Fram2;
-	QWidgetStack* FramOp;
-	QWidgetStack* FoFram;
+	Q3WidgetStack* Fram;
+	Q3WidgetStack* Fram2;
+	Q3WidgetStack* FramOp;
+	Q3WidgetStack* FoFram;
     QLabel* TextLabel1;
     QComboBox* ComboBox1;
     QLabel* TextVa;
-    QFrame* Frame9;
+    Q3Frame* Frame9;
     QComboBox* ActionCombo;
-    QGroupBox* GroupBox2;
-    QFrame* Frame3;
-    QFrame* Frame4;
-    QGroupBox* Frame4a;
+    Q3GroupBox* GroupBox2;
+    Q3Frame* Frame3;
+    Q3Frame* Frame4;
+    Q3GroupBox* Frame4a;
     QLabel* TextLabel4a;
 	QLineEdit *Name;
     QLabel* TextLabel4b;
@@ -65,8 +69,8 @@ public:
     QLabel* AcText1;
     QLabel* AcText2;
 	QComboBox* SelAction;
-    QTextEdit* EditJava;
-    QGroupBox* GroupBox11;
+    Q3TextEdit* EditJava;
+    Q3GroupBox* GroupBox11;
     QLabel* TextLabel31;
     QLabel* TextLabel41;
     QLabel* TextLabel51;
@@ -77,19 +81,19 @@ public:
     QSpinBox* SpinBox11;
     QSpinBox* SpinBox21;
     QSpinBox* SpinBox31;
-    QGroupBox* GroupBox10;
+    Q3GroupBox* GroupBox10;
     QLabel* TextLabel20;
     QLabel* TextLabel30;
     QTabWidget* TabWidget2;
     QWidget* tab;
-    QGroupBox* GroupBox40;
+    Q3GroupBox* GroupBox40;
     QComboBox* Schrift;
     QLabel* TextLabel60;
     QLabel* CheckBox30;
     QLabel* CheckBox40;
     QLineEdit* DownT;
     QLineEdit* TextO;
-    QGroupBox* GroupBox30;
+    Q3GroupBox* GroupBox30;
     QCheckBox* ReadOnly;
 	QCheckBox* Required;
 	QCheckBox* NoExport;
@@ -97,7 +101,7 @@ public:
     QComboBox* ComboBox7_2;
     QLabel* TextLabel90;
     QComboBox* Visib;
-    QGroupBox* GroupBox20;
+    Q3GroupBox* GroupBox20;
     ColorCombo* BorderC;
     QLabel* TextLabel40a;
     QComboBox* BorderW;
@@ -107,9 +111,9 @@ public:
     QWidget* tab_2;
     QLabel* TextLabel70;
     QWidget* tab_3;
-    QGroupBox* GroupBox40a;
-    QGroupBox* GroupBox30a;
-    QGroupBox* OptTextFeld;
+    Q3GroupBox* GroupBox40a;
+    Q3GroupBox* GroupBox30a;
+    Q3GroupBox* OptTextFeld;
     QCheckBox* MultiL;
     QCheckBox* Passwd;
     QCheckBox* Limit;
@@ -117,79 +121,79 @@ public:
     QCheckBox* NoScroll;
     QCheckBox* NoSpell;
     QLabel* TextLabel2_2;
-    QGroupBox* OptCheck;
+    Q3GroupBox* OptCheck;
     QLabel* CText1;
     QComboBox* ChkStil;
     QCheckBox* isChkd;
-    QGroupBox* OptCombo;
+    Q3GroupBox* OptCombo;
     QCheckBox* CanEdit;
     QWidget* tab4;
     QLabel* TextForm1;
     QComboBox* TxFormat;
-    QGroupBox* GroupCust;
+    Q3GroupBox* GroupCust;
     QLabel* TextForm2;
     QPushButton* EditFormat;
-    QTextEdit* FormatScript;
+    Q3TextEdit* FormatScript;
     QLabel* TextForm3;
     QPushButton* EditKeystr;
-    QTextEdit* KeyScript;
-    QFrame* FoFrameNone;
-    QGroupBox* NumbGroup;
+    Q3TextEdit* KeyScript;
+    Q3Frame* FoFrameNone;
+    Q3GroupBox* NumbGroup;
     QLabel* TextNu1;
     QSpinBox* Decim;
     QCheckBox* UseCurr;
     QLineEdit* CurSym;
     QCheckBox* PreCurr;
-    QButtonGroup* NumGroup2;
+    Q3ButtonGroup* NumGroup2;
     QRadioButton* Format0;
     QRadioButton* Format1;
     QRadioButton* Format2;
     QRadioButton* Format3;
-    QGroupBox* PercGroup;
+    Q3GroupBox* PercGroup;
     QLabel* TextNu1a;
     QSpinBox* Decim2;
-    QButtonGroup* NumGroup2a;
+    Q3ButtonGroup* NumGroup2a;
     QRadioButton* Format0a;
     QRadioButton* Format1a;
     QRadioButton* Format2a;
     QRadioButton* Format3a;
-    QButtonGroup* TimeGroup;
+    Q3ButtonGroup* TimeGroup;
     QRadioButton* Format0b;
     QRadioButton* Format1b;
     QRadioButton* Format2b;
     QRadioButton* Format3b;
-    QGroupBox* DateGroup;
+    Q3GroupBox* DateGroup;
     QComboBox* Format0c;
     QLabel* TextDa1;
     QWidget* tab_4;
-    QButtonGroup* ValidateGroup;
+    Q3ButtonGroup* ValidateGroup;
     QRadioButton* NoValid;
     QRadioButton* SimpleValid;
     QLineEdit* MinValid;
     QLineEdit* MaxValid;
     QRadioButton* CustomValid;
-    QTextEdit* ValidScript;
+    Q3TextEdit* ValidScript;
     QPushButton* EditValScript;
     QWidget* tab_5;
-    QButtonGroup* CalcGroup;
+    Q3ButtonGroup* CalcGroup;
     QRadioButton* NoCalc;
     QRadioButton* SimpleCalc;
     QComboBox* CalcArt;
     QLabel* TextLabel1_2;
     QLineEdit* CalcFields;
     QRadioButton* CustomCalc;
-    QTextEdit* CalcScript;
+    Q3TextEdit* CalcScript;
     QPushButton* EditCalc;
     QPushButton* EditJ;
     QPushButton* SeField;
-    QFrame* Frame3b;
+    Q3Frame* Frame3b;
     QLabel* SubText1;
     QLineEdit* SubURL;
     QCheckBox* SubAsHtml;
-    QFrame* Frame3c;
+    Q3Frame* Frame3c;
     QLabel* SubText1a;
     QLineEdit* SubURLa;
-    QGroupBox* OptIcons;
+    Q3GroupBox* OptIcons;
     QCheckBox* UseIcons;
     QPushButton* IconN;
     QLabel* NiconPrev;
@@ -251,67 +255,67 @@ public slots:
 	void SetExternL();
 
 protected:
-    QVBoxLayout* AnnotLayout;
-    QHBoxLayout* Layout1;
-    QHBoxLayout* Layout1_2;
-    QGridLayout* GroupBox11Layout;
-    QGridLayout* GroupBox2Layout;
-    QVBoxLayout* Frame3Layout;
-    QVBoxLayout* Frame3bLayout;
-    QVBoxLayout* Frame3cLayout;
-    QHBoxLayout* Layout50;
-    QVBoxLayout* GroupBox10Layout;
-    QGridLayout* Layout60;
-    QVBoxLayout* tabLayout;
-    QHBoxLayout* Layout10;
-    QGridLayout* GroupBox40Layout;
-    QGridLayout* GroupBox30Layout;
-    QGridLayout* GroupBox20Layout;
-    QVBoxLayout* tabLayout_2;
-    QHBoxLayout* Layout20;
-    QVBoxLayout* tabLayout_3;
-    QGridLayout* GroupBox40aLayout;
-    QGridLayout* GroupBox30aLayout;
-    QGridLayout* Frame4aLayout;
-    QVBoxLayout* OptTextFeldLayout;
-    QHBoxLayout* Layout7;
-    QHBoxLayout* Layout71;
-    QHBoxLayout* Layout8;
-    QVBoxLayout* OptCheckLayout;
-    QHBoxLayout* ChkLayout;
-    QVBoxLayout* OptComboLayout;
-    QVBoxLayout* Layout;
-    QHBoxLayout* FLayout;
-    QVBoxLayout* GroupCustLayout;
-    QVBoxLayout* FLayout3;
-    QHBoxLayout* FLayout2;
-    QVBoxLayout* FLayout5;
-    QHBoxLayout* FLayout4;
-    QVBoxLayout* NumbGroupLayout;
-    QHBoxLayout* LayoutFN1;
-    QHBoxLayout* LayoutFN2;
-    QGridLayout* NumGroup2Layout;
-    QVBoxLayout* PercGroupLayout;
-    QHBoxLayout* LayoutFN1a;
-    QGridLayout* NumGroup2aLayout;
-    QVBoxLayout* TimeGroupLayout;
-    QVBoxLayout* DateGroupLayout;
-    QHBoxLayout* LayoutFN1c;
-    QVBoxLayout* tabLayout_4;
-    QVBoxLayout* ValidateGroupLayout;
-    QGridLayout* VLayout1;
-    QHBoxLayout* VLayout2;
-    QVBoxLayout* tabLayout_5;
-    QVBoxLayout* CalcGroupLayout;
-    QHBoxLayout* CLayout1;
-    QHBoxLayout* CLayout2;
-    QHBoxLayout* CLayout3;
-    QHBoxLayout* Layout18;
-    QVBoxLayout* OptIconsLayout;
-    QHBoxLayout* Layout17;
-    QGridLayout* Layout14;
-    QGridLayout* Layout15;
-    QGridLayout* Layout16;
+    Q3VBoxLayout* AnnotLayout;
+    Q3HBoxLayout* Layout1;
+    Q3HBoxLayout* Layout1_2;
+    Q3GridLayout* GroupBox11Layout;
+    Q3GridLayout* GroupBox2Layout;
+    Q3VBoxLayout* Frame3Layout;
+    Q3VBoxLayout* Frame3bLayout;
+    Q3VBoxLayout* Frame3cLayout;
+    Q3HBoxLayout* Layout50;
+    Q3VBoxLayout* GroupBox10Layout;
+    Q3GridLayout* Layout60;
+    Q3VBoxLayout* tabLayout;
+    Q3HBoxLayout* Layout10;
+    Q3GridLayout* GroupBox40Layout;
+    Q3GridLayout* GroupBox30Layout;
+    Q3GridLayout* GroupBox20Layout;
+    Q3VBoxLayout* tabLayout_2;
+    Q3HBoxLayout* Layout20;
+    Q3VBoxLayout* tabLayout_3;
+    Q3GridLayout* GroupBox40aLayout;
+    Q3GridLayout* GroupBox30aLayout;
+    Q3GridLayout* Frame4aLayout;
+    Q3VBoxLayout* OptTextFeldLayout;
+    Q3HBoxLayout* Layout7;
+    Q3HBoxLayout* Layout71;
+    Q3HBoxLayout* Layout8;
+    Q3VBoxLayout* OptCheckLayout;
+    Q3HBoxLayout* ChkLayout;
+    Q3VBoxLayout* OptComboLayout;
+    Q3VBoxLayout* Layout;
+    Q3HBoxLayout* FLayout;
+    Q3VBoxLayout* GroupCustLayout;
+    Q3VBoxLayout* FLayout3;
+    Q3HBoxLayout* FLayout2;
+    Q3VBoxLayout* FLayout5;
+    Q3HBoxLayout* FLayout4;
+    Q3VBoxLayout* NumbGroupLayout;
+    Q3HBoxLayout* LayoutFN1;
+    Q3HBoxLayout* LayoutFN2;
+    Q3GridLayout* NumGroup2Layout;
+    Q3VBoxLayout* PercGroupLayout;
+    Q3HBoxLayout* LayoutFN1a;
+    Q3GridLayout* NumGroup2aLayout;
+    Q3VBoxLayout* TimeGroupLayout;
+    Q3VBoxLayout* DateGroupLayout;
+    Q3HBoxLayout* LayoutFN1c;
+    Q3VBoxLayout* tabLayout_4;
+    Q3VBoxLayout* ValidateGroupLayout;
+    Q3GridLayout* VLayout1;
+    Q3HBoxLayout* VLayout2;
+    Q3VBoxLayout* tabLayout_5;
+    Q3VBoxLayout* CalcGroupLayout;
+    Q3HBoxLayout* CLayout1;
+    Q3HBoxLayout* CLayout2;
+    Q3HBoxLayout* CLayout3;
+    Q3HBoxLayout* Layout18;
+    Q3VBoxLayout* OptIconsLayout;
+    Q3HBoxLayout* Layout17;
+    Q3GridLayout* Layout14;
+    Q3GridLayout* Layout15;
+    Q3GridLayout* Layout16;
 	PrefsContext* dirs;
 };
 

@@ -7,6 +7,12 @@ for which a new license (GPL+exception) is in place.
 #include "imageinfodialog.h"
 #include "imageinfodialog.moc"
 #include "commonstrings.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -15,13 +21,13 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	setCaption( tr( "Image Info" ) );
 	setIcon(loadIcon("AppIcon.png"));
 
-	ImageInfoDialogLayout = new QVBoxLayout( this, 10, 5, "InsertTableLayout");
-	GenGroup = new QGroupBox(this, "GenGroup");
+	ImageInfoDialogLayout = new Q3VBoxLayout( this, 10, 5, "InsertTableLayout");
+	GenGroup = new Q3GroupBox(this, "GenGroup");
 	GenGroup->setTitle( tr("General Info"));
 	GenGroup->setColumnLayout(0, Qt::Vertical);
 	GenGroup->layout()->setSpacing(5);
 	GenGroup->layout()->setMargin(5);
-	layout3 = new QGridLayout(GenGroup->layout());
+	layout3 = new Q3GridLayout(GenGroup->layout());
 	Text0g = new QLabel( tr( "Date / Time:" ), GenGroup, "Text0g" );
 	layout3->addWidget( Text0g, 0, 0 );
 	timeInfo = new QLabel( info->exifInfo.dateTime, GenGroup, "timeInfo" );
@@ -56,12 +62,12 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 		emLayer->setText(CommonStrings::trNo);
 	ImageInfoDialogLayout->addWidget(GenGroup);
 
-	ExGroup = new QGroupBox(this, "ExGroup");
+	ExGroup = new Q3GroupBox(this, "ExGroup");
 	ExGroup->setTitle( tr("EXIF Info"));
 	ExGroup->setColumnLayout(0, Qt::Vertical);
 	ExGroup->layout()->setSpacing(5);
 	ExGroup->layout()->setMargin(5);
-	layout2 = new QGridLayout(ExGroup->layout());
+	layout2 = new Q3GridLayout(ExGroup->layout());
 	Text1 = new QLabel( "", ExGroup, "Text1" );
 	layout2->addWidget( Text1, 0, 0 );
 	Comment = new QLabel(info->exifInfo.comment, ExGroup, "Comment" );
@@ -133,7 +139,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 			ExGroup->hide();
 			break;
 	}
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );

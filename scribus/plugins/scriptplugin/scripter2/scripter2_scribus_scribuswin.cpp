@@ -12,7 +12,7 @@ void export_ScribusWin()
 {
 	using namespace boost::python;
 
-	class_<ScribusWin, bases<QMainWindow>, boost::noncopyable>("ScribusWin",
+	class_<ScribusWin, bases<Q3MainWindow>, boost::noncopyable>("ScribusWin",
 			"A Scribus document window",
 			no_init);
 }

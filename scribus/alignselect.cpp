@@ -6,18 +6,21 @@ for which a new license (GPL+exception) is in place.
 */
 #include "alignselect.h"
 #include "alignselect.moc"
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QPixmap>
 
 extern QPixmap loadIcon(QString nam);
 
-AlignSelect::AlignSelect(QWidget* parent) : QButtonGroup(parent, "AlignSelect")
+AlignSelect::AlignSelect(QWidget* parent) : Q3ButtonGroup(parent, "AlignSelect")
 {
-	setFrameShape( QButtonGroup::NoFrame );
+	setFrameShape( Q3ButtonGroup::NoFrame );
 	setTitle("");
 	setExclusive( true );
 	setColumnLayout(0, Qt::Vertical );
 	layout()->setSpacing( 0 );
 	layout()->setMargin( 0 );
-	GroupAlignLayout = new QGridLayout( layout() );
+	GroupAlignLayout = new Q3GridLayout( layout() );
 	GroupAlignLayout->setAlignment( Qt::AlignTop );
 
 	TextL = new QToolButton( this, "TextL" );

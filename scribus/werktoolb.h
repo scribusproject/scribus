@@ -26,8 +26,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "sctoolbar.h"
+//Added by qt3to4:
+#include <Q3PopupMenu>
 class QToolButton;
-class QPopupMenu;
+class Q3PopupMenu;
 class AutoformButtonGroup;
 class ScribusMainWindow;
 
@@ -54,8 +56,8 @@ public slots:
 		
 protected:
 	AutoformButtonGroup* Rechteck;
-	QPopupMenu* insertShapeButtonMenu;
-	QPopupMenu* insertPolygonButtonMenu;
+	Q3PopupMenu* insertShapeButtonMenu;
+	Q3PopupMenu* insertPolygonButtonMenu;
 	int idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
 };

@@ -13,6 +13,9 @@ for which a new license (GPL+exception) is in place.
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 class ScribusDoc;
@@ -32,10 +35,10 @@ public:
 	QComboBox* Links;
 
 protected:
-	QVBoxLayout* QueryLayout;
-	QHBoxLayout* Layout3;
-	QHBoxLayout* Layout2;
-	QHBoxLayout* Layout1;
+	Q3VBoxLayout* QueryLayout;
+	Q3HBoxLayout* Layout3;
+	Q3HBoxLayout* Layout2;
+	Q3HBoxLayout* Layout1;
 };
 
 #endif // QUERY_H

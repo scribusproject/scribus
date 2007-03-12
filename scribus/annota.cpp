@@ -14,6 +14,13 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
  
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3Frame>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 
 #include "scfonts.h"
 #include "annota.h"
@@ -52,11 +59,11 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 		tl.append("0");
 	}
 
-	AnnotLayout = new QVBoxLayout( this );
+	AnnotLayout = new Q3VBoxLayout( this );
 	AnnotLayout->setSpacing( 6 );
 	AnnotLayout->setMargin( 11 );
 
-	Layout1 = new QHBoxLayout;
+	Layout1 = new Q3HBoxLayout;
 	Layout1->setSpacing( 6 );
 	Layout1->setMargin( 0 );
 
@@ -76,15 +83,15 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	ComboBox1->setCurrentItem(item->annotation().Type()-10);
 	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
 		ComboBox1->setCurrentItem(item->annotation().ActionType() - 5);
-	Fram = new QWidgetStack(this);
+	Fram = new Q3WidgetStack(this);
 	AnnotLayout->addWidget( Fram );
 
-	GroupBox1 = new QGroupBox( this, "GroupBox1" );
+	GroupBox1 = new Q3GroupBox( this, "GroupBox1" );
 	GroupBox1->setTitle( tr( "Destination" ) );
 	GroupBox1->setColumnLayout(0, Qt::Vertical );
 	GroupBox1->layout()->setSpacing( 0 );
 	GroupBox1->layout()->setMargin( 0 );
-	GroupBox1Layout = new QGridLayout( GroupBox1->layout() );
+	GroupBox1Layout = new Q3GridLayout( GroupBox1->layout() );
 	GroupBox1Layout->setAlignment( Qt::AlignTop );
 	GroupBox1Layout->setSpacing( 6 );
 	GroupBox1Layout->setMargin( 11 );
@@ -140,12 +147,12 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
 	Fram->addWidget(GroupBox1, 1);
 
-	Frame9 = new QFrame( this, "Frame7" );
-	Frame9->setFrameShape( QFrame::NoFrame );
-	Frame9->setFrameShadow( QFrame::Plain );
+	Frame9 = new Q3Frame( this, "Frame7" );
+	Frame9->setFrameShape( Q3Frame::NoFrame );
+	Frame9->setFrameShadow( Q3Frame::Plain );
 	Fram->addWidget(Frame9, 2);
 
-	Layout1_2 = new QHBoxLayout;
+	Layout1_2 = new Q3HBoxLayout;
 	Layout1_2->setSpacing( 6 );
 	Layout1_2->setMargin( 0 );
 

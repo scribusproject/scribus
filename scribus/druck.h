@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -24,6 +24,10 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #include "mspinbox.h"
 
 class PrefsContext;
@@ -91,24 +95,24 @@ protected slots:
 	void previewButtonClicked();
 
 protected:
-	QVBoxLayout* DruckLayout;
-	QGridLayout* DruckerLayout;
-	QHBoxLayout* Layout1x;
-	QHBoxLayout* Layout1;
-	QGridLayout* rangeGroupLayout;
-	QHBoxLayout* Layout2;
-	QHBoxLayout* LayoutCC;
-	QGridLayout* tabLayout;
-	QHBoxLayout* tabLayout_2;
-	QVBoxLayout* pageOptsLayout;
-	QVBoxLayout* colorOptsLayout;
-	QHBoxLayout *pageNumberSelectorLayout;
-	QGroupBox* Drucker;
+	Q3VBoxLayout* DruckLayout;
+	Q3GridLayout* DruckerLayout;
+	Q3HBoxLayout* Layout1x;
+	Q3HBoxLayout* Layout1;
+	Q3GridLayout* rangeGroupLayout;
+	Q3HBoxLayout* Layout2;
+	Q3HBoxLayout* LayoutCC;
+	Q3GridLayout* tabLayout;
+	Q3HBoxLayout* tabLayout_2;
+	Q3VBoxLayout* pageOptsLayout;
+	Q3VBoxLayout* colorOptsLayout;
+	Q3HBoxLayout *pageNumberSelectorLayout;
+	Q3GroupBox* Drucker;
 	QComboBox* PrintDest;
 	QLabel* DateiT;
 	QLineEdit* LineEdit1;
 	QToolButton* ToolButton1;
-	QButtonGroup* rangeGroup;
+	Q3ButtonGroup* rangeGroup;
 	QRadioButton* RadioButton2;
 	QLabel* TextLabel3;
 	QSpinBox* Copies;
@@ -119,25 +123,25 @@ protected:
 	QComboBox* SepArt;
 	QComboBox* psLevel;
 	QWidget* tab_2;
-	QGroupBox* pageOpts;
+	Q3GroupBox* pageOpts;
 	QCheckBox* MirrorHor;
 	QCheckBox* MirrorVert;
 	QCheckBox* devPar;
-	QButtonGroup* colorOpts;
+	Q3ButtonGroup* colorOpts;
 	QCheckBox* ClipMarg;
 	QCheckBox* GcR;
 	QCheckBox* spotColors;
 	QCheckBox* overprintMode;
 	QCheckBox* UseICC;
 	QWidget* tab_3;
-	QGridLayout* tabLayout_3;
-	QGroupBox* MarkGroup;
-	QGridLayout* MarkGroupLayout;
+	Q3GridLayout* tabLayout_3;
+	Q3GroupBox* MarkGroup;
+	Q3GridLayout* MarkGroupLayout;
 	QLabel* MarkTxt1;
 	QWidget* tab_4;
-	QGridLayout* tabLayout_4;
-	QGroupBox* BleedGroup;
-	QGridLayout* BleedGroupLayout;
+	Q3GridLayout* tabLayout_4;
+	Q3GroupBox* BleedGroup;
+	Q3GridLayout* BleedGroupLayout;
 	QLabel* BleedTxt1;
 	QLabel* BleedTxt2;
 	QLabel* BleedTxt3;

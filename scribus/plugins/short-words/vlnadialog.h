@@ -19,11 +19,16 @@ or documentation
 #define _SHORTWORDSDIALOG_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QButtonGroup;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
+class Q3ButtonGroup;
 class QRadioButton;
 class QPushButton;
 class QLabel;
@@ -40,13 +45,13 @@ class SWDialog : public QDialog
 	Q_OBJECT
 
 public:
-	SWDialog(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
+	SWDialog(QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0);
 	~SWDialog();
 
 	//! reference on the config structure
 	SWConfig *cfg;
 
-	QButtonGroup* buttonGroup;
+	Q3ButtonGroup* buttonGroup;
 	QRadioButton* frameRadio;
 	QRadioButton* pageRadio;
 	QRadioButton* allRadio;
@@ -67,11 +72,11 @@ public slots:
 	virtual void cancelButton_pressed();
 
 protected:
-	QGridLayout* SWDialogLayout;
-	QVBoxLayout* layout4;
-	QHBoxLayout* layout3;
-	QVBoxLayout* layout2;
-	QVBoxLayout* layout1;
+	Q3GridLayout* SWDialogLayout;
+	Q3VBoxLayout* layout4;
+	Q3HBoxLayout* layout3;
+	Q3VBoxLayout* layout2;
+	Q3VBoxLayout* layout1;
 
 protected slots:
 	virtual void languageChange();

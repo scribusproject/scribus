@@ -19,7 +19,7 @@
 
 #include <qstring.h>
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 
 class ResourceCollection
@@ -32,15 +32,15 @@ public:
 	void collectCharStyle(const QString& name) { if (!name.isEmpty()) cstyles.insert(name,name); }
 	void collectLineStyle(const QString& name) { if (!name.isEmpty()) linestyles.insert(name,name); }
 	
-	QValueList<QString> fontNames() const      { return fonts.keys(); }
-	QValueList<QString> patternNames() const   { return patterns.keys(); }
-	QValueList<QString> colorNames() const     { return colors.keys(); }
-	QValueList<QString> styleNames() const     { return pstyles.keys(); }
-	QValueList<QString> charStyleNames() const { return cstyles.keys(); }
-	QValueList<QString> lineStyleNames() const { return linestyles.keys(); }
+	Q3ValueList<QString> fontNames() const      { return fonts.keys(); }
+	Q3ValueList<QString> patternNames() const   { return patterns.keys(); }
+	Q3ValueList<QString> colorNames() const     { return colors.keys(); }
+	Q3ValueList<QString> styleNames() const     { return pstyles.keys(); }
+	Q3ValueList<QString> charStyleNames() const { return cstyles.keys(); }
+	Q3ValueList<QString> lineStyleNames() const { return linestyles.keys(); }
 
 	// modifies newNames so that forall x in both newNames.key() and in existingNames, newNames[x] will map to a new unique name
-	static void makeUnique(QMap<QString,QString>& newNames, const QValueList<QString> existingNames);
+	static void makeUnique(QMap<QString,QString>& newNames, const Q3ValueList<QString> existingNames);
 
 	QMap<QString,QString> fonts;
 	QMap<QString,QString> patterns;

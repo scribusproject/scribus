@@ -32,11 +32,14 @@ for which a new license (GPL+exception) is in place.
 
 #include <qmap.h>
 #include <qpair.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qvaluevector.h>
-#include <qlistview.h>
+#include <q3valuevector.h>
+#include <q3listview.h>
+//Added by qt3to4:
+#include <QKeyEvent>
+#include <QEvent>
 
 class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase 
 {
@@ -54,11 +57,11 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 		QMap<QString,Keys> keyMap;
 		QMap<QString,Keys>::Iterator currentKeyMapRow;
 		QMap<QString, QString> keySetList;
-		QMap<QListViewItem*, QString> lviToActionMap;
-		QPtrList<QListViewItem> lviToMenuMap;
-		QValueVector< QPair<QString, QStringList> >* defMenus;
-		QValueVector< QPair<QString, QStringList> >* defNonMenuActions;
-		QListViewItem* selectedLVI;
+		QMap<Q3ListViewItem*, QString> lviToActionMap;
+		Q3PtrList<Q3ListViewItem> lviToMenuMap;
+		Q3ValueVector< QPair<QString, QStringList> >* defMenus;
+		Q3ValueVector< QPair<QString, QStringList> >* defNonMenuActions;
+		Q3ListViewItem* selectedLVI;
 		int keyCode;
 		QString Part0;
 		QString Part1;
@@ -74,7 +77,7 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 	
 	protected slots:
 		void setKeyText();
-		void dispKey(QListViewItem*);
+		void dispKey(Q3ListViewItem*);
 		void setNoKey();
 		void loadKeySetFile();
 		void importKeySetFile();

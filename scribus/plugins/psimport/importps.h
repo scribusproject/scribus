@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "qglobal.h"
 #include "qobject.h"
 #include "qstring.h"
-#include "qvaluelist.h"
-#include "qptrlist.h"
+#include "q3valuelist.h"
+#include "q3ptrlist.h"
 
 #include "pluginapi.h"
 #include "pageitem.h"
@@ -94,10 +94,10 @@ private:
 	QString parseColor(QString vals, bool eps, colorModel model = colorModelCMYK);
 	bool Image(QString vals);
 	
-	QPtrList<PageItem> Elements;
+	Q3PtrList<PageItem> Elements;
 	ColorList CustColors;
 	double LineW, Opacity, DashOffset, baseX, baseY;
-	QValueList<double> DashPattern;
+	Q3ValueList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
 	FPointArray clipCoords;

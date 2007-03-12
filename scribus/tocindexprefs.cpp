@@ -26,14 +26,14 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include "page.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 *  \brief Constructs a TOCIndexPrefs as a child of 'parent', with the
 *  name 'name' and widget flags set to 'f'.
 */
-TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, WFlags fl )
+TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, Qt::WFlags fl )
 	: TOCIndexPrefsBase( parent, name, fl )
 {
 	languageChange();

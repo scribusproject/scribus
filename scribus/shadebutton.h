@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SHADEBUTTON_H
 
 #include <qtoolbutton.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include "scribusapi.h"
 
 class SCRIBUS_API ShadeButton : public QToolButton
@@ -19,7 +19,7 @@ Q_OBJECT
 public:
 	ShadeButton(QWidget* parent);
 	~ShadeButton() {};
-	QPopupMenu *FillSh;
+	Q3PopupMenu *FillSh;
 	int getValue();
 	void setValue(int val);
 

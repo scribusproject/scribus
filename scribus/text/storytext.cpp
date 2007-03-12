@@ -23,7 +23,7 @@ pageitem.cpp  -  description
 
 
 //FIXME: this include must go to sctextstruct.h !
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
 #include "scfonts.h"
@@ -116,7 +116,7 @@ StoryText StoryText::copy() const
 	*(result.d) = *d;
 	return result;
 //	qDebug(QString("StoryText::copy:"));
-	QPtrListIterator<ScText> it( *(result.d) );
+	Q3PtrListIterator<ScText> it( *(result.d) );
 	ScText* elem;
 	while ( (elem = it.current()) != NULL ) {
 		++it;

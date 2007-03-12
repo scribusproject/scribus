@@ -18,15 +18,20 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
 #include "scribusapi.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
-class QListView;
-class QListViewItem;
+class Q3ListView;
+class Q3ListViewItem;
 class QLabel;
 class QSpinBox;
 class QCheckBox;
@@ -86,7 +91,7 @@ class SCRIBUS_API LoremManager : public QDialog
 
 	public:
 		/*! Reads all XML files in cfg directory. */
-		LoremManager(ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = true, WFlags fl = 0);
+		LoremManager(ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = true, Qt::WFlags fl = 0);
 		~LoremManager();
 
 		//! all lorems with Public Name -> filename structure
@@ -104,17 +109,17 @@ class SCRIBUS_API LoremManager : public QDialog
 
 	protected:
 		ScribusDoc* m_Doc;
-		QListView* loremList;
+		Q3ListView* loremList;
 		QLabel* paraLabel;
 		QSpinBox* paraBox;
 		QPushButton* okButton;
 		QPushButton* cancelButton;
 
-		QGridLayout* LoremManagerLayout;
-		QVBoxLayout* layout3;
-		QHBoxLayout* layout2;
+		Q3GridLayout* LoremManagerLayout;
+		Q3VBoxLayout* layout3;
+		Q3HBoxLayout* layout2;
 		QSpacerItem* paraSpacer;
-		QHBoxLayout* layout1;
+		Q3HBoxLayout* layout1;
 		QSpacerItem* buttonSpacer;
 		LanguageManager* langmgr;
 		QString standardloremtext;

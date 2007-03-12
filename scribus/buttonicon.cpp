@@ -10,6 +10,12 @@ for which a new license (GPL+exception) is in place.
 #include "buttonicon.moc"
 #include "scribusstructs.h"
 #include "pageitem.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -19,8 +25,8 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	Item = ite;
 	setCaption( tr( "Icon Placement" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	ButtonIconLayout = new QVBoxLayout( this, 11, 6, "ButtonIconLayout");
-	Layout1 = new QGridLayout( 0, 0, 6, "Layout6");
+	ButtonIconLayout = new Q3VBoxLayout( this, 11, 6, "ButtonIconLayout");
+	Layout1 = new Q3GridLayout( 0, 0, 6, "Layout6");
 	TextLabel1_2 = new QLabel( this, "TextLabel1_2" );
 	TextLabel1_2->setText( tr( "Layout:" ) );
 	Layout1->addWidget( TextLabel1_2, 0, 0 );
@@ -57,11 +63,11 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	ButtonIconLayout->addLayout( Layout1 );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ButtonIconLayout->addItem( spacer );
-	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
+	Layout5 = new Q3HBoxLayout( 0, 0, 6, "Layout5");
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout5->addItem( spacer_2 );
-	Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3");
-	GroupButton = new QGroupBox( this, "GroupButton" );
+	Layout3 = new Q3GridLayout( 0, 1, 1, 0, 6, "Layout3");
+	GroupButton = new Q3GroupBox( this, "GroupButton" );
 	GroupButton->setMinimumSize( QSize( 150, 150 ) );
 	GroupButton->setMaximumSize( QSize( 150, 150 ) );
 	GroupButton->setTitle( "" );
@@ -92,7 +98,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	ButtonIconLayout->addLayout( Layout5 );
 	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ButtonIconLayout->addItem( spacer_4 );
-	Layout4 = new QHBoxLayout( 0, 0, 6, "Layout4");
+	Layout4 = new Q3HBoxLayout( 0, 0, 6, "Layout4");
 	OK = new QPushButton( this, "OK" );
 	OK->setText( tr( "OK" ) );
 	OK->setDefault( true );

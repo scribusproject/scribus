@@ -9,14 +9,17 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qlayout.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qcolor.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "colorsetmanager.h"
 #include "scribusapi.h"
@@ -54,8 +57,8 @@ public:
 private:
 	QToolButton* LoadColSet;
 	ColorListBox* colorListBox;
-	QGroupBox* ColorsGroup;
-	QGroupBox* ColsSetGroup;
+	Q3GroupBox* ColorsGroup;
+	Q3GroupBox* ColsSetGroup;
 	QPushButton* importColorsButton;
 	QPushButton* newColorButton;
 	QPushButton* editColorButton;
@@ -66,7 +69,7 @@ private:
 	QPushButton* cancelButton;
 	QLabel* textLabel1;
 	QPushButton* SaveColSet;
-	QPopupMenu* CSets;
+	Q3PopupMenu* CSets;
 	QString sColor;
 	QColor tmpColor;
 	QStringList DontChange;
@@ -83,16 +86,16 @@ private slots:
 	void duplicateColor();
 	void newColor();
 	void editColor();
-	void selColor(QListBoxItem*);
-	void selEditColor(QListBoxItem*);
+	void selColor(Q3ListBoxItem*);
+	void selEditColor(Q3ListBoxItem*);
 	void updateCList();
 
 protected:
-	QVBoxLayout* Layout2;
-	QHBoxLayout* layout5;
-	QVBoxLayout* layout3;
-	QVBoxLayout* ColsSetGroupLayout;
-	QVBoxLayout* Layout1;
+	Q3VBoxLayout* Layout2;
+	Q3HBoxLayout* layout5;
+	Q3VBoxLayout* layout3;
+	Q3VBoxLayout* ColsSetGroupLayout;
+	Q3VBoxLayout* Layout1;
 	
 	ColorSetManager csm;	
 	int customSetStartIndex;

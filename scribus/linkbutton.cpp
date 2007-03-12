@@ -23,15 +23,17 @@ for which a new license (GPL+exception) is in place.
 
 #include "linkbutton.h"
 #include "icons6.h"
-#include <qiconset.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 
 LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
 	setBackgroundMode(PaletteBackground);
-	QIconSet a = QIconSet();
-	a.setPixmap(QPixmap(ChainC), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a.setPixmap(QPixmap(ChainO), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a = QIcon();
+	a.setPixmap(QPixmap(ChainC), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a.setPixmap(QPixmap(ChainO), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	setIconSet(a);
 }
 

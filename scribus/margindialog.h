@@ -8,10 +8,15 @@ for which a new license (GPL+exception) is in place.
 #define MARGINDIALOG_H
 
 #include "scribusapi.h"
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 class QDialog;
 class QLayout;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QPushbutton;
 class QComboBox;
@@ -87,8 +92,8 @@ public slots:
 
 private:
 	MarginWidget* GroupRand;
-	QGroupBox* dsGroupBox7;
-	QGroupBox* groupMaster;
+	Q3GroupBox* dsGroupBox7;
+	Q3GroupBox* groupMaster;
 	QLabel* masterPageLabel;
 	QComboBox* masterPageComboBox;
 	MSpinBox* widthMSpinBox;
@@ -110,10 +115,10 @@ private:
 	//! \brief Old orientation. Before it's changed via combobox.
 	int oldOri;
 	QString prefsPageSizeName;
-	QGridLayout* dsGroupBox7Layout;
-	QVBoxLayout* dialogLayout;
-	QHBoxLayout* okCancelLayout;
-	QHBoxLayout* masterLayout;
+	Q3GridLayout* dsGroupBox7Layout;
+	Q3VBoxLayout* dialogLayout;
+	Q3HBoxLayout* okCancelLayout;
+	Q3HBoxLayout* masterLayout;
 
 
 };

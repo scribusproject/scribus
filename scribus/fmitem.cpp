@@ -39,7 +39,7 @@ FmItem::FmItem(const QString& s, const ScFace&)
 void FmItem::paint(QPainter *p, const QColorGroup&, bool, bool, int x, int y, int w, int h)
 {
 	p->setFont(font);
-	p->drawText(x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
+	p->drawText(x, y, w, h, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic | Qt::TextDontClip, stringy);
 }
 
 QSize FmItem::sizeHint()

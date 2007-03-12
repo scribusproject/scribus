@@ -18,22 +18,26 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qtooltip.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scmessagebox.h"
 
 SWPrefsGui::SWPrefsGui(QWidget* parent )
 	: PrefsPanel(parent, "SWPrefsGui")
 {
-	SWPrefsGuiLayout = new QGridLayout(this, 1, 1, 11, 6, "SWPrefsGuiLayout");
+	SWPrefsGuiLayout = new Q3GridLayout(this, 1, 1, 11, 6, "SWPrefsGuiLayout");
 
-	editLayout = new QVBoxLayout(0, 0, 6, "editLayout");
+	editLayout = new Q3VBoxLayout(0, 0, 6, "editLayout");
 
 	titleLabel = new QLabel(this, "titleLabel");
 	editLayout->addWidget(titleLabel);
-	cfgEdit = new QTextEdit(this, "cfgEdit");
+	cfgEdit = new Q3TextEdit(this, "cfgEdit");
 	editLayout->addWidget(cfgEdit);
 
-	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
+	buttonLayout = new Q3HBoxLayout(0, 0, 6, "buttonLayout");
 	buttonSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(buttonSpacer);
 
@@ -111,13 +115,13 @@ void SWPrefsGui::okButton_pressed()
 			return;
 	}
 	QFile f(RC_PATH_USR);
-	if (!f.open(IO_WriteOnly))
+	if (!f.open(QIODevice::WriteOnly))
 	{
 		QMessageBox::warning(this, tr("Short Words"),
 			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>",
 			 CommonStrings::tr_OK);
 	}
-	QTextStream stream(&f);
+	Q3TextStream stream(&f);
 	stream.setCodec(QTextCodec::codecForName("utf8"));
 	stream << cfgEdit->text();
 	f.close();
@@ -144,13 +148,13 @@ void SWPrefsGui::cfgEdit_changed()
 bool SWPrefsGui::loadCfgFile(QString filename)
 {
 	QFile f(filename);
-	if (!f.open(IO_ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 	{
 		titleLabel->setText( tr("Cannot open file %1").arg(f.name()));
 		return false;
 	}
 	cfgEdit->clear();
-	QTextStream stream(&f);
+	Q3TextStream stream(&f);
 	stream.setCodec(QTextCodec::codecForName("utf8"));
 	while (!stream.atEnd())
 		cfgEdit->append(stream.readLine());
@@ -162,8 +166,8 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 /*
  * Syntax highlighting
  */
-SWSyntaxHighlighter::SWSyntaxHighlighter(QTextEdit *textEdit)
-	: QSyntaxHighlighter(textEdit)
+SWSyntaxHighlighter::SWSyntaxHighlighter(Q3TextEdit *textEdit)
+	: Q3SyntaxHighlighter(textEdit)
 {
 }
 

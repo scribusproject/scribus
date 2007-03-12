@@ -34,15 +34,15 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
-#include <qheader.h>
-#include <qtextbrowser.h>
+#include <q3header.h>
+#include <q3textbrowser.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qtoolbutton.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qfileinfo.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qtextcodec.h>
 #include <qdom.h>
 #include <qdir.h>
@@ -51,18 +51,21 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qmessagebox.h>
-#include <qaccel.h>
+#include <q3accel.h>
 #include <qinputdialog.h>
 #include <qmenubar.h>
 #include <qpixmap.h>
-#include <qprocess.h>
-#include <qpopupmenu.h>
+#include <q3process.h>
+#include <q3popupmenu.h>
 #include <qprinter.h>
 #include <qpainter.h>
-#include <qpaintdevicemetrics.h>
-#include <qsimplerichtext.h>
+#include <q3paintdevicemetrics.h>
+#include <q3simplerichtext.h>
 #include <qxml.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scpaths.h"
 #include "util.h"
@@ -122,7 +125,7 @@ The reference to QListView *view is a reference to the list view with bookmarks
 class BookmarkParser : public QXmlDefaultHandler
 {
 	public:
-		QListView* view;
+		Q3ListView* view;
 
 		bool startDocument()
 		{
@@ -133,7 +136,7 @@ class BookmarkParser : public QXmlDefaultHandler
 		{
 			if (qName == "item")
 			{
-				QListViewItem *item = new QListViewItem(view, attrs.value(0), attrs.value(1));
+				Q3ListViewItem *item = new Q3ListViewItem(view, attrs.value(0), attrs.value(1));
 				view->insertItem(item);
 			}
 			return true;
@@ -179,7 +182,7 @@ class HistoryParser : public QXmlDefaultHandler
 		}
 };
 
-int HelpListItem::compare(QListViewItem *i, int col, bool asc) const
+int HelpListItem::compare(Q3ListViewItem *i, int col, bool asc) const
 {
 	if (col == 1)
 	{
@@ -189,10 +192,10 @@ int HelpListItem::compare(QListViewItem *i, int col, bool asc) const
 		return -1;
 	}
 	else
-		return QListViewItem::compare(i, col, asc);
+		return Q3ListViewItem::compare(i, col, asc);
 }
 
-TextBrowser::TextBrowser(QWidget * parent, const char * name) : QTextBrowser(parent, name)
+TextBrowser::TextBrowser(QWidget * parent, const char * name) : Q3TextBrowser(parent, name)
 {
 	connect(this, SIGNAL(highlighted(const QString &)), this, SLOT(overLink(const QString &)));
 }
@@ -220,7 +223,7 @@ void TextBrowser::setSource(const QString &name)
 		QFileInfo fi(extBrowser);
 		if (extBrowser.isEmpty() || !fi.exists())
 		{
-			extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
+			extBrowser = Q3FileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
 			if (!QFileInfo(extBrowser).exists())
 				extBrowser="";
 			PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
@@ -230,15 +233,15 @@ void TextBrowser::setSource(const QString &name)
 			QStringList args;
 			args.append(extBrowser);
 			args.append(name);
-			QProcess webProc(args);
+			Q3Process webProc(args);
 			if (!webProc.start())
 				QMessageBox::critical(this, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
 	else
-		QTextBrowser::setSource(name);
+		Q3TextBrowser::setSource(name);
 #else
-	QTextBrowser::setSource(name);
+	Q3TextBrowser::setSource(name);
 #endif
 }
 
@@ -251,14 +254,14 @@ void TextBrowser::overLink(const QString &link)
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
-	: QWidget( parent, "Help", WType_TopLevel | WDestructiveClose | WGroupLeader )
+	: QWidget( parent, "Help", Qt::WType_TopLevel | Qt::WDestructiveClose | Qt::WGroupLeader )
 {
 	QString fileName;
 	mHistory.clear();
 	struct histd his;
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
-	helpBrowsermainLayout = new QVBoxLayout( this);
-	buttonLayout = new QHBoxLayout;
+	helpBrowsermainLayout = new Q3VBoxLayout( this);
+	buttonLayout = new Q3HBoxLayout;
 	buttonLayout->setSpacing( 6 );
 	buttonLayout->setMargin( 2 );
 
@@ -268,7 +271,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	homeButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, homeButton->sizePolicy().hasHeightForWidth() ) );
 	buttonLayout->addWidget( homeButton );
 
-	histMenu = new QPopupMenu( this );
+	histMenu = new Q3PopupMenu( this );
 	backButton = new QToolButton( this, "backButton" );
 	backButton->setPixmap(loadIcon("back.png"));
 	backButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, backButton->sizePolicy().hasHeightForWidth() ) );
@@ -284,24 +287,24 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	buttonLayout->addItem( spacer );
 	helpBrowsermainLayout->addLayout( buttonLayout );
 
-	helpBrowserLayout = new QHBoxLayout;
+	helpBrowserLayout = new Q3HBoxLayout;
 	splitter = new QSplitter(this, "splitter");
 	splitter->setChildrenCollapsible( false );
 	helpBrowserLayout->addWidget( splitter );
 
 	tabWidget = new QTabWidget( splitter, "tabWidget" );
 	tabContents = new QWidget( tabWidget, "tabContents" );
-	tabLayout = new QHBoxLayout( tabContents, 11, 6, "tabLayout");
+	tabLayout = new Q3HBoxLayout( tabContents, 11, 6, "tabLayout");
 
-	listView = new QListView( tabContents, "listView" );
+	listView = new Q3ListView( tabContents, "listView" );
 	listView->addColumn( tr( "Contents" ) );
 	listView->addColumn( tr( "Link" ) , 0 );
-	listView->setColumnWidthMode( 0, QListView::Maximum );
-	listView->setColumnWidthMode( 1, QListView::Manual );
+	listView->setColumnWidthMode( 0, Q3ListView::Maximum );
+	listView->setColumnWidthMode( 1, Q3ListView::Manual );
 	listView->setSorting(-1,true);
 	listView->setRootIsDecorated( true );
-	listView->setSelectionMode(QListView::Single);
-	listView->setDefaultRenameAction(QListView::Reject);
+	listView->setSelectionMode(Q3ListView::Single);
+	listView->setDefaultRenameAction(Q3ListView::Reject);
 	listView->clear();
 	tabLayout->addWidget( listView );
 
@@ -309,23 +312,23 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 
 	// searching
 	tabSearching = new QWidget(tabWidget, "tabSearching");
-	searchingMainLayout = new QVBoxLayout(tabSearching, 11, 6, "searchingMainLayout");
-	searchingButtonLayout = new QHBoxLayout;
+	searchingMainLayout = new Q3VBoxLayout(tabSearching, 11, 6, "searchingMainLayout");
+	searchingButtonLayout = new Q3HBoxLayout;
 	searchingEdit = new QLineEdit(tabSearching, "searchingEdit");
 	searchingButton = new QPushButton( tr("&Search"), tabSearching, "searchingButton");
 	searchingButtonLayout->addWidget(searchingEdit);
 	searchingButtonLayout->addWidget(searchingButton);
 	searchingMainLayout->addLayout(searchingButtonLayout);
-	searchingView = new QListView(tabSearching, "searchingView");
+	searchingView = new Q3ListView(tabSearching, "searchingView");
 	searchingView->addColumn( tr("Contents"));
 	searchingView->addColumn( tr("Relevance"));
 	searchingView->addColumn( tr("Link" ) ,0);
-	searchingView->setColumnWidthMode( 0, QListView::Maximum );
-	searchingView->setColumnWidthMode( 1, QListView::Manual );
+	searchingView->setColumnWidthMode( 0, Q3ListView::Maximum );
+	searchingView->setColumnWidthMode( 1, Q3ListView::Manual );
 	searchingView->setSorting(1, false);
 	searchingView->setRootIsDecorated( true );
-	searchingView->setSelectionMode(QListView::Single);
-	searchingView->setDefaultRenameAction(QListView::Reject);
+	searchingView->setSelectionMode(Q3ListView::Single);
+	searchingView->setDefaultRenameAction(Q3ListView::Reject);
 	searchingView->setAllColumnsShowFocus(true);
 	searchingView->clear();
 	searchingMainLayout->addWidget(searchingView);
@@ -333,19 +336,19 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 
 	// bookmarks
 	tabBookmarks = new QWidget(tabWidget, "tabBookmarks");
-	bookmarksMainLayout = new QVBoxLayout(tabBookmarks, 11, 6, "bookmarksMainLayout");
-	bookmarksView = new QListView(tabBookmarks, "bookmarksView");
+	bookmarksMainLayout = new Q3VBoxLayout(tabBookmarks, 11, 6, "bookmarksMainLayout");
+	bookmarksView = new Q3ListView(tabBookmarks, "bookmarksView");
 	bookmarksView->addColumn( tr( "Contents" ) );
 	bookmarksView->addColumn( tr( "Link" ) , 0 );
-	bookmarksView->setColumnWidthMode( 0, QListView::Maximum );
-	bookmarksView->setColumnWidthMode( 1, QListView::Manual );
+	bookmarksView->setColumnWidthMode( 0, Q3ListView::Maximum );
+	bookmarksView->setColumnWidthMode( 1, Q3ListView::Manual );
 	bookmarksView->setSorting(1, true);
 	bookmarksView->setRootIsDecorated( true );
-	bookmarksView->setSelectionMode(QListView::Single);
-	bookmarksView->setDefaultRenameAction(QListView::Reject);
+	bookmarksView->setSelectionMode(Q3ListView::Single);
+	bookmarksView->setDefaultRenameAction(Q3ListView::Reject);
 	bookmarksView->clear();
 	bookmarksMainLayout->addWidget(bookmarksView);
-	bookmarksButtonLayout = new QHBoxLayout;
+	bookmarksButtonLayout = new Q3HBoxLayout;
 	bookmarkButton = new QPushButton( tr("&New"), tabBookmarks, "bookmarkButton");
 	deleteBookmarkButton = new QPushButton( tr("&Delete"), tabBookmarks, "deleteBookmarkButton");
 	deleteAllBookmarkButton = new QPushButton( tr("De&lete All"), tabBookmarks, "deleteAllBookmarkButton");
@@ -357,25 +360,25 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 
 	textBrowser = new TextBrowser( splitter, "textBrowser" );
 	textBrowser->setSizePolicy( QSizePolicy( QSizePolicy::Maximum, QSizePolicy::Maximum, false ) );
-	textBrowser->setFrameShape( QTextBrowser::StyledPanel );
-	QMimeSourceFactory *textBrowserMSF=textBrowser->mimeSourceFactory();
+	textBrowser->setFrameShape( Q3TextBrowser::StyledPanel );
+	Q3MimeSourceFactory *textBrowserMSF=textBrowser->mimeSourceFactory();
 	textBrowserMSF->setExtensionType("html", "text/html;charset=UTF-8");
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
 
 	// menus
 	menuBar = new QMenuBar(this);
-	QPopupMenu *fileMenu = new QPopupMenu(this);
-	fileMenu->insertItem(loadIcon("DateiPrint.xpm"), tr("&Print..."), this, SLOT(print()), CTRL+Key_P);
+	Q3PopupMenu *fileMenu = new Q3PopupMenu(this);
+	fileMenu->insertItem(loadIcon("DateiPrint.xpm"), tr("&Print..."), this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
 	menuBar->insertItem( tr("&File"), fileMenu);
-	QPopupMenu *editMenu = new QPopupMenu(this);
-	editMenu->insertItem(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), CTRL+Key_F);
-	editMenu->insertItem( tr("Find &Next"), this, SLOT(findNext()), Key_F3);
-	editMenu->insertItem( tr("Find &Previous"), this, SLOT(findPrevious()), SHIFT+Key_F3);
+	Q3PopupMenu *editMenu = new Q3PopupMenu(this);
+	editMenu->insertItem(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), Qt::CTRL+Qt::Key_F);
+	editMenu->insertItem( tr("Find &Next"), this, SLOT(findNext()), Qt::Key_F3);
+	editMenu->insertItem( tr("Find &Previous"), this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
 	menuBar->insertItem( tr("&Edit"), editMenu);
-	QPopupMenu *bookmarkMenu = new QPopupMenu(this);
-	bookmarkMenu->insertItem( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), CTRL+Key_D);
+	Q3PopupMenu *bookmarkMenu = new Q3PopupMenu(this);
+	bookmarkMenu->insertItem( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
 	bookmarkMenu->insertItem( tr("&Delete"), this, SLOT(deleteBookmarkButton_clicked()));
 	bookmarkMenu->insertItem( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
 	helpBrowsermainLayout->setMenuBar(menuBar);
@@ -401,16 +404,16 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );
 	connect( backButton, SIGNAL( clicked() ), textBrowser, SLOT( backward() ) );
 	connect( histMenu, SIGNAL(activated(int)), this, SLOT(histChosen(int)));
-	connect( listView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSelected( QListViewItem *)));
+	connect( listView, SIGNAL(clicked( Q3ListViewItem *)), this, SLOT(itemSelected( Q3ListViewItem *)));
 	// searching
 	connect(searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
-	connect(searchingView, SIGNAL(clicked( QListViewItem *)), this, SLOT(itemSearchSelected(QListViewItem *)));
+	connect(searchingView, SIGNAL(clicked( Q3ListViewItem *)), this, SLOT(itemSearchSelected(Q3ListViewItem *)));
 	connect(searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
 	// bookmarks
 	connect(bookmarkButton, SIGNAL(clicked()), this, SLOT(bookmarkButton_clicked()));
 	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
 	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
-	connect(bookmarksView, SIGNAL(clicked(QListViewItem *)), this, SLOT(itemBookmarkSelected(QListViewItem *)));
+	connect(bookmarksView, SIGNAL(clicked(Q3ListViewItem *)), this, SLOT(itemBookmarkSelected(Q3ListViewItem *)));
 }
 
 HelpBrowser::~HelpBrowser()
@@ -418,13 +421,13 @@ HelpBrowser::~HelpBrowser()
 	// no need to delete child widgets, Qt does it all for us
 	// bookmarks
 	QFile bookFile(bookmarkFile());
-	if (bookFile.open(IO_WriteOnly))
+	if (bookFile.open(QIODevice::WriteOnly))
 	{
-		QTextStream stream(&bookFile);
-		stream.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream stream(&bookFile);
+		stream.setEncoding(Q3TextStream::UnicodeUTF8);
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<bookmarks>\n";
-		QListViewItemIterator it(bookmarksView);
+		Q3ListViewItemIterator it(bookmarksView);
 		for ( ; it.current(); ++it)
 			stream << "\t<item title=\"" << it.current()->text(0) << "\" url=\"" << it.current()->text(1) << "\" />\n";
 		stream << "</bookmarks>\n";
@@ -432,10 +435,10 @@ HelpBrowser::~HelpBrowser()
 	}
 	// history
   	QFile histFile(historyFile());
-	if (histFile.open(IO_WriteOnly))
+	if (histFile.open(QIODevice::WriteOnly))
 	{
-		QTextStream stream(&histFile);
-		stream.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream stream(&histFile);
+		stream.setEncoding(Q3TextStream::UnicodeUTF8);
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<history>\n";
 		for (QMap<int,histd>::Iterator it = mHistory.begin() ; it != mHistory.end(); ++it)
@@ -485,7 +488,7 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 		else if (jumpToSection=="scripter")
 		{
 			toLoad+="scripter1.html";
-			QListViewItemIterator it(listView);
+			Q3ListViewItemIterator it(listView);
 			while (it.current())
 			{
 				if (it.current()->text(1)=="scripter1.html")
@@ -568,7 +571,7 @@ void HelpBrowser::loadMenu()
 	{
 		QDomDocument doc( "menuentries" );
 		QFile file( toLoad );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 			return;
 		if ( !doc.setContent( &file ) )
 		{
@@ -579,8 +582,8 @@ void HelpBrowser::loadMenu()
 
 		QDomElement docElem = doc.documentElement();
 		QDomNode n = docElem.firstChild();
-		QListViewItem *qlvi=NULL, *qlvi2=NULL, *qlvi3=NULL, *qlvi4=NULL, *qlvi5=NULL, *qlvi6=NULL;
-		QListViewItem *tutorialsMenuItem=NULL;
+		Q3ListViewItem *qlvi=NULL, *qlvi2=NULL, *qlvi3=NULL, *qlvi4=NULL, *qlvi5=NULL, *qlvi6=NULL;
+		Q3ListViewItem *tutorialsMenuItem=NULL;
 		bool haveTutorials=false;
 
 		while( !n.isNull() )
@@ -593,9 +596,9 @@ void HelpBrowser::loadMenu()
 					QDomAttr textAttr = e.attributeNode( "text" );
 					QDomAttr fileAttr = e.attributeNode( "file" );
 					if (qlvi2==NULL)
-						qlvi=new QListViewItem(listView, textAttr.value(), fileAttr.value());
+						qlvi=new Q3ListViewItem(listView, textAttr.value(), fileAttr.value());
 					else
-						qlvi=new QListViewItem(listView, qlvi2, textAttr.value(), fileAttr.value());
+						qlvi=new Q3ListViewItem(listView, qlvi2, textAttr.value(), fileAttr.value());
 					if (qlvi!=NULL && e.hasAttribute( "section" ))
 					{
 						QDomAttr sectionAttr = e.attributeNode( "section" );
@@ -624,9 +627,9 @@ void HelpBrowser::loadMenu()
 								QDomAttr textAttr = ec.attributeNode( "text" );
 								QDomAttr fileAttr = ec.attributeNode( "file" );
 								if (qlvi4==NULL)
-									qlvi3=new QListViewItem(qlvi, textAttr.value(), fileAttr.value());
+									qlvi3=new Q3ListViewItem(qlvi, textAttr.value(), fileAttr.value());
 								else
-									qlvi3=new QListViewItem(qlvi, qlvi4, textAttr.value(), fileAttr.value());
+									qlvi3=new Q3ListViewItem(qlvi, qlvi4, textAttr.value(), fileAttr.value());
 								if (qlvi3!=NULL && ec.hasAttribute( "section" ))
 								{
 									QDomAttr sectionAttr = e.attributeNode( "section" );
@@ -654,9 +657,9 @@ void HelpBrowser::loadMenu()
 											QDomAttr textAttr = ecc.attributeNode( "text" );
 											QDomAttr fileAttr = ecc.attributeNode( "file" );
 											if (qlvi6==NULL)
-												qlvi5=new QListViewItem(qlvi3, textAttr.value(), fileAttr.value());
+												qlvi5=new Q3ListViewItem(qlvi3, textAttr.value(), fileAttr.value());
 											else
-												qlvi5=new QListViewItem(qlvi3, qlvi6, textAttr.value(), fileAttr.value());
+												qlvi5=new Q3ListViewItem(qlvi3, qlvi6, textAttr.value(), fileAttr.value());
 											if (qlvi5!=NULL && ecc.hasAttribute( "section" ))
 											{
 												QDomAttr sectionAttr = e.attributeNode( "section" );
@@ -697,7 +700,7 @@ void HelpBrowser::loadMenu()
 						{
 							QDomDocument docTutorial( "tutorialmenuentries" );
 							QFile fileTutorialMenu( file.filePath() );
-							if ( !fileTutorialMenu.open( IO_ReadOnly ) )
+							if ( !fileTutorialMenu.open( QIODevice::ReadOnly ) )
 								break;
 							if ( !docTutorial.setContent( &fileTutorialMenu ) )
 							{
@@ -708,7 +711,7 @@ void HelpBrowser::loadMenu()
 
 							QDomElement docElemTutorial = docTutorial.documentElement();
 							QDomNode nTutorial = docElemTutorial.firstChild();
-							QListViewItem *tutorialQLVI=NULL;
+							Q3ListViewItem *tutorialQLVI=NULL;
 
 							while( !nTutorial.isNull() )
 							{
@@ -719,10 +722,10 @@ void HelpBrowser::loadMenu()
 									{
 										QDomAttr textAttr = eTutorial.attributeNode( "text" );
 										QDomAttr fileAttr = eTutorial.attributeNode( "file" );
-										tutorialQLVI=new QListViewItem(tutorialsMenuItem, textAttr.value(), tutorialdir + fileAttr.value());
+										tutorialQLVI=new Q3ListViewItem(tutorialsMenuItem, textAttr.value(), tutorialdir + fileAttr.value());
 									}
 									QDomNodeList nl=nTutorial.childNodes();
-									QListViewItem *tutorialSubMenuItem, *tutorialSubMenuItemLast=NULL;
+									Q3ListViewItem *tutorialSubMenuItem, *tutorialSubMenuItemLast=NULL;
 									for(uint j=0 ; j<= nl.count() ; j++)
 									{
 										QDomNode child=nl.item(j);
@@ -736,9 +739,9 @@ void HelpBrowser::loadMenu()
 													QDomAttr textAttr = ec.attributeNode( "text" );
 													QDomAttr fileAttr = ec.attributeNode( "file" );
 													if (tutorialSubMenuItemLast==NULL)
-														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, textAttr.value(), tutorialdir + fileAttr.value());
+														tutorialSubMenuItem=new Q3ListViewItem(tutorialQLVI, textAttr.value(), tutorialdir + fileAttr.value());
 													else
-														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, tutorialSubMenuItemLast, textAttr.value(), tutorialdir + fileAttr.value());
+														tutorialSubMenuItem=new Q3ListViewItem(tutorialQLVI, tutorialSubMenuItemLast, textAttr.value(), tutorialdir + fileAttr.value());
 													if (tutorialSubMenuItem!=NULL)
 														tutorialSubMenuItemLast=tutorialSubMenuItem;
 												}
@@ -757,7 +760,7 @@ void HelpBrowser::loadMenu()
 	}
 }
 
-void HelpBrowser::itemSelected(QListViewItem *item)
+void HelpBrowser::itemSelected(Q3ListViewItem *item)
 {
 	if ( !item )
 		return;
@@ -768,7 +771,7 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 	}
 }
 
-void HelpBrowser::itemSearchSelected(QListViewItem *item)
+void HelpBrowser::itemSearchSelected(Q3ListViewItem *item)
 {
 	if (item && !item->text(2).isNull())
 	{
@@ -778,7 +781,7 @@ void HelpBrowser::itemSearchSelected(QListViewItem *item)
 	}
 }
 
-void HelpBrowser::itemBookmarkSelected(QListViewItem *item)
+void HelpBrowser::itemBookmarkSelected(Q3ListViewItem *item)
 {
 	if (item && !item->text(1).isNull())
 		loadHelp(item->text(1));
@@ -793,9 +796,9 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 	{
 		QString fname(aDir + (*it));
 		QFile f(fname);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
-			QTextStream stream(&f);
+			Q3TextStream stream(&f);
 			QString str = stream.read().lower();
 			int cnt = str.contains(searchingEdit->text().lower());
 			if (cnt > 0)
@@ -803,7 +806,7 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 				// the remove() hack is here for itemSelected() handling
 				QString fullname = fname;
 				QString title;
-				QListViewItem *refItem = listView->findItem(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")), 1);
+				Q3ListViewItem *refItem = listView->findItem(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")), 1);
 				title = refItem ? refItem->text(0) : fname;
 				HelpListItem *item = new HelpListItem(searchingView, QString("%2").arg(title), QString("%1").arg(cnt), fullname);
 				searchingView->insertItem(item);
@@ -866,13 +869,13 @@ void HelpBrowser::print()
 
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QPainter p(&printer);
-	QPaintDeviceMetrics metrics(p.device());
+	Q3PaintDeviceMetrics metrics(p.device());
 	int dpix = metrics.logicalDpiX();
 	int dpiy = metrics.logicalDpiY();
 	const int margin = 72; // pt
 	QRect body(margin*dpix/72, margin*dpiy/72, metrics.width()-margin*dpix/72*2, metrics.height()-margin*dpiy/72*2);
 	QFont font("Helvetica");
-	QSimpleRichText richText( textBrowser->text(), font, textBrowser->context(), textBrowser->styleSheet(), textBrowser->mimeSourceFactory(), body.height());
+	Q3SimpleRichText richText( textBrowser->text(), font, textBrowser->context(), textBrowser->styleSheet(), textBrowser->mimeSourceFactory(), body.height());
 	richText.setWidth( &p, body.width());
 	QRect view(body);
 	int page = 1;
@@ -898,7 +901,7 @@ void HelpBrowser::bookmarkButton_clicked()
 	// user cancel
 	if (title.isNull())
 		return;
-	QListViewItem *item = new QListViewItem(bookmarksView, title, fname);
+	Q3ListViewItem *item = new Q3ListViewItem(bookmarksView, title, fname);
 	bookmarksView->insertItem(item);
 }
 

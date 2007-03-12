@@ -10,7 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <qobject.h>
 #include <qstring.h>
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include "scribusapi.h"
 
@@ -69,7 +71,7 @@ public:
 	 * \param includeDisabled return true if a plugin is loaded but not enabled
 	 * \return bool
 	 */
-	bool DLLexists(QCString pluginName, bool includeDisabled = false) const;
+	bool DLLexists(Q3CString pluginName, bool includeDisabled = false) const;
 
 	/*! \brief Returns a pointer to the requested plugin, or 0 if not found.
 	 *
@@ -77,7 +79,7 @@ public:
 	 * are returned. If it is false, 0 is returned if the requested plugin
 	 * is loaded but not enabled.
 	 */
-	ScPlugin* getPlugin(const QCString & pluginName, bool includeDisabled) const;
+	ScPlugin* getPlugin(const Q3CString & pluginName, bool includeDisabled) const;
 
 	/*! \brief Shutdowns all plugins. Called at scribus quit */
 	void cleanupPlugins();
@@ -86,7 +88,7 @@ public:
 	void savePreferences();
 
 	/*! \brief Return file extension used for shared libs on this platform */
-	static QCString platformDllExtension();
+	static Q3CString platformDllExtension();
 
 	/*! \brief Return a pointer to this instance.
 	 \Note: for now, returns a reference to (*ScMW->pluginManager); should
@@ -95,14 +97,14 @@ public:
 
 	/*! \brief Return the path to the file for the named plugin.
 	An invalid plugin name is an error.*/
-	const QString & getPluginPath(const QCString pluginName) const;
+	const QString & getPluginPath(const Q3CString pluginName) const;
 
 	/*! \brief Whether the given plug-in will be enabled on start-up.
 	Usable as an lvalue. An invalid plugin name is an error. */
-	bool & enableOnStartup(const QCString pluginName);
+	bool & enableOnStartup(const Q3CString pluginName);
 
 	/*! \brief Whether the given plugin is currently enabled */
-	bool enabled(const QCString pluginName);
+	bool enabled(const Q3CString pluginName);
 
 	/** \brief Return a list of plugin names currently known.
 	 *
@@ -118,7 +120,7 @@ public:
 	 * \sa getPluginNamesT
 	 * \sa getPlugin
 	 */
-	QValueList<QCString> pluginNames(bool includeDisabled = false,
+	Q3ValueList<Q3CString> pluginNames(bool includeDisabled = false,
 									 const char* inherits = 0) const;
 
 public slots:
@@ -148,7 +150,7 @@ protected:
 	struct PluginData
 	{
 		QString pluginFile; // Datei;
-		QCString pluginName;
+		Q3CString pluginName;
 		void* pluginDLL;
 		ScPlugin* plugin;
 		bool enableOnStartup;
@@ -170,7 +172,7 @@ protected:
 	bool loadPlugin(PluginData & pluginData);
 
 	/*! \brief Determines the plugin name from the file name and returns it. */
-	static QCString getPluginName(QString fileName);
+	static Q3CString getPluginName(QString fileName);
 
 	/*! \brief Called by loadPlugin to hook the loaded plugin into the GUI,
 	call its setup routine, etc. Not responsible for creating
@@ -196,7 +198,7 @@ protected:
 	PrefsContext* prefs;
 
 	/*! \brief Mapping of plugin names to plugin info structures. */
-	typedef QMap<QCString,PluginData> PluginMap;
+	typedef QMap<Q3CString,PluginData> PluginMap;
 
 	/*! \brief Plugin mapping.
 	 * Each plugin has its record key() -> PluginData

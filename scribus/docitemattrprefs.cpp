@@ -8,10 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "docitemattrprefs.moc"
 
 #include <qstring.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qpushbutton.h>
 
-DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, WFlags fl  )
+DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, Qt::WFlags fl  )
 	: DocumentItemAttributesBase(parent, name, fl)
 {
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
@@ -47,7 +47,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 		break;
 	case 1:
 		{
-			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
 				uint index=qcti->currentItem();
@@ -64,7 +64,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 		break;
 	case 4:
 		{
-			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
 				uint index=qcti->currentItem();
@@ -78,7 +78,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 		break;
 	case 6:
 		{
-			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
 				uint index=qcti->currentItem();
@@ -112,10 +112,10 @@ void DocumentItemAttributes::updateTable()
 	{
 		uint i=0;
 		//Name
-		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).name);
+		Q3TableItem *item1 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).name);
 		attributesTable->setItem(row, i++, item1);
 		//Type
-		QComboTableItem *item2 = new QComboTableItem(attributesTable, types);
+		Q3ComboTableItem *item2 = new Q3ComboTableItem(attributesTable, types);
 		attributesTable->setItem(row, i++, item2);
 		int index=typesData.findIndex((*it).type);
 		if (index==-1)
@@ -125,13 +125,13 @@ void DocumentItemAttributes::updateTable()
 		}
 		item2->setCurrentItem(index);
 		//Default Value
-		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).value);
+		Q3TableItem *item3 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).value);
 		attributesTable->setItem(row, i++, item3);
 		//Default Parameter
-		QTableItem *item4 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).parameter);
+		Q3TableItem *item4 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).parameter);
 		attributesTable->setItem(row, i++, item4);
 		//Relationship
-		QComboTableItem *item5 = new QComboTableItem(attributesTable, relationships);
+		Q3ComboTableItem *item5 = new Q3ComboTableItem(attributesTable, relationships);
 		attributesTable->setItem(row, i++, item5);
 		index=relationshipsData.findIndex((*it).relationship);
 		if (index==-1)
@@ -141,10 +141,10 @@ void DocumentItemAttributes::updateTable()
 		}
 		item5->setCurrentItem(index);
 		//Relationship to
-		QTableItem *item6 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).relationshipto);
+		Q3TableItem *item6 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).relationshipto);
 		attributesTable->setItem(row, i++, item6);
 		//Auto Add to
-		QComboTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
+		Q3ComboTableItem *item7 = new Q3ComboTableItem(attributesTable, autoAddTo);
 		attributesTable->setItem(row, i++, item7);
 		index=autoAddToData.findIndex((*it).autoaddto);
 		if (index==-1)

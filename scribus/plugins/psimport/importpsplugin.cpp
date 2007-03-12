@@ -37,7 +37,7 @@ void importps_freePlugin(ScPlugin* plugin)
 }
 
 ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QIconSet(), "", QKeySequence(), this, "ImportPS"))
+	importAction(new ScrAction(ScrAction::DLL, QIcon(), "", QKeySequence(), this, "ImportPS"))
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.

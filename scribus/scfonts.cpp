@@ -20,11 +20,11 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qglobal.h>
-#include <qstrlist.h>
+#include <q3strlist.h>
 #include <qstring.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qfont.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qmap.h>
 #include <qdir.h>
 #include <qregexp.h>
@@ -632,10 +632,10 @@ void SCFonts::AddXFontServerPath()
 		}
 	}
 
-	if (fs.open(IO_ReadOnly))
+	if (fs.open(QIODevice::ReadOnly))
 	{
 		QString fsconfig,paths,tmp;
-		QTextStream tsx(&fs);
+		Q3TextStream tsx(&fs);
 		fsconfig = tsx.read();
 		fs.close();
 
@@ -692,11 +692,11 @@ void SCFonts::ReadCacheList(QString pf)
 	struct testCache foCache;
 	QDomDocument docu("fontcacherc");
 	QFile f(pf + "/checkfonts.xml");
-	if(!f.open(IO_ReadOnly))
+	if(!f.open(QIODevice::ReadOnly))
 		return;
 	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
-	QTextStream ts(&f);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
+	Q3TextStream ts(&f);
+	ts.setEncoding(Q3TextStream::UnicodeUTF8);
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
@@ -743,10 +743,10 @@ void SCFonts::WriteCacheList(QString pf)
 	}
 	ScCore->setSplashStatus( QObject::tr("Writing updated Font Cache") );
 	QFile f(pf + "/checkfonts.xml");
-	if(f.open(IO_WriteOnly))
+	if(f.open(QIODevice::WriteOnly))
 	{
-		QTextStream s(&f);
-		s.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream s(&f);
+		s.setEncoding(Q3TextStream::UnicodeUTF8);
 		s<<docu.toString();
 		f.close();
 	}

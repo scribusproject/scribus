@@ -11,6 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "sxwdia.moc"
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QPixmap>
+#include <Q3HBoxLayout>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -19,9 +23,9 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	setCaption( tr("OpenOffice.org Writer Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
-	QBoxLayout* layout = new QVBoxLayout(this);
+	Q3BoxLayout* layout = new Q3VBoxLayout(this);
 
-	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
+	Q3BoxLayout* hlayout = new Q3HBoxLayout(0, 5, 5, "hlayout");
 	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this,
 "updateCheck");
 	updateCheck->setChecked(update);
@@ -29,21 +33,21 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 	
-	QBoxLayout* palayout = new QHBoxLayout(0,5,5, "palayout");
+	Q3BoxLayout* palayout = new Q3HBoxLayout(0,5,5, "palayout");
 	packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this, "packCheck");
 	packCheck->setChecked(pack);
 	QToolTip::add(packCheck, "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
 	palayout->addWidget(packCheck);
 	layout->addLayout(palayout);
 
-	QBoxLayout* playout = new QHBoxLayout(0, 5, 5, "playout");
+	Q3BoxLayout* playout = new Q3HBoxLayout(0, 5, 5, "playout");
 	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
 	prefixCheck->setChecked(prefix);
 	QToolTip::add(prefixCheck, "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
-	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
+	Q3BoxLayout* dlayout = new Q3HBoxLayout(0, 5, 5, "dlayout");
 	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this,
 "doNotAskCheck");
 	doNotAskCheck->setChecked(false);
@@ -52,7 +56,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia",
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);
 
-	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout");
+	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout");
 	blayout->addStretch(10);
 	okButton = new QPushButton( tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);

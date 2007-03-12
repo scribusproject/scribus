@@ -9,9 +9,12 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qslider.h>
 #include <qtooltip.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qcolordialog.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QPixmap>
 
 #include "tabdisplay.h"
 #include "tabdisplay.moc"
@@ -50,7 +53,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 }
 
-void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
+void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, Q3ValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);

@@ -17,18 +17,23 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "page.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
 class QLabel;
 class QComboBox;
-class QButtonGroup;
+class Q3ButtonGroup;
 class QRadioButton;
 class QCheckBox;
 class QSpinBox;
@@ -39,12 +44,12 @@ class SCRIBUS_API ApplyMasterPageDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ApplyMasterPageDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	ApplyMasterPageDialog( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 	~ApplyMasterPageDialog();
 
 	QLabel* masterPageLabel;
 	QComboBox* masterPageComboBox;
-	QButtonGroup* applyToPageButtonGroup;
+	Q3ButtonGroup* applyToPageButtonGroup;
 	QRadioButton* currentPageRadioButton;
 	QRadioButton* evenPagesRadioButton;
 	QRadioButton* oddPagesRadioButton;
@@ -64,13 +69,13 @@ public:
 	virtual int getToPage();
 
 protected:
-	QVBoxLayout* ApplyMasterPageDialogLayout;
-	QHBoxLayout* templateNameLayout;
+	Q3VBoxLayout* ApplyMasterPageDialogLayout;
+	Q3HBoxLayout* templateNameLayout;
 	QSpacerItem* spacer2;
-	QVBoxLayout* applyToPageButtonGroupLayout;
-	QHBoxLayout* rangeLayout;
+	Q3VBoxLayout* applyToPageButtonGroupLayout;
+	Q3HBoxLayout* rangeLayout;
 	QSpacerItem* spacer3;
-	QHBoxLayout* layout8;
+	Q3HBoxLayout* layout8;
 	QSpacerItem* spacer1;
 
 protected slots:

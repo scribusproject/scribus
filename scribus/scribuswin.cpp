@@ -22,6 +22,10 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <qfileinfo.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QCloseEvent>
 #include "scribuswin.h"
 #include "pageselector.h"
 #include "scmessagebox.h"
@@ -34,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "", WDestructiveClose)
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : Q3MainWindow(parent, "", Qt::WDestructiveClose)
 {
 	setIcon(loadIcon("AppIcon2.png"));
 	m_Doc = doc;
@@ -53,8 +57,8 @@ void ScribusWin::setView(ScribusView* newView)
 	++m_Doc->viewCount;
 	winIndex = ++m_Doc->viewID;
 	QPoint point(0,0);
-	statusFrame = new QFrame(this, "newDocFrame");
-	statusFrameLayout = new QHBoxLayout( statusFrame, 0, 0, "statusFrame");
+	statusFrame = new Q3Frame(this, "newDocFrame");
+	statusFrameLayout = new Q3HBoxLayout( statusFrame, 0, 0, "statusFrame");
 	m_View->unitSwitcher->reparent(statusFrame, point);
 	m_View->layerMenu->reparent(statusFrame, point);
 	m_View->zoomOutToolbarButton->reparent(statusFrame, point);
@@ -146,5 +150,5 @@ void ScribusWin::windowActivationChange ( bool oldActive )
 		QDir::setCurrent( currentDir );
 	else
 		currentDir = QDir::currentDirPath();
-	QMainWindow::windowActivationChange( oldActive );
+	Q3MainWindow::windowActivationChange( oldActive );
 }

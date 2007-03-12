@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -52,7 +52,7 @@ private slots:
 	\brief When image is selected from the ListBox then the image preview may be shown and the Use button is enabled.
 	\param c QListBoxItem
 	*/
-	void foundFilesBox_clicked(QListBoxItem *c);
+	void foundFilesBox_clicked(Q3ListBoxItem *c);
 	/*!
 	\author Franz Schmid
 	\brief Generates image preview for the found Picture

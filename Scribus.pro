@@ -474,7 +474,8 @@ HEADERS += scribus/about.h \
            scribus/plugins/gettext/textfilter/tffilter.h \
            scribus/plugins/gettext/txtim/txtim.h \
            scribus/plugins/svgexplugin/svgexplugin/svgexplugin.h
-INTERFACES += scribus/aboutpluginsbase.ui \
+#The following line was changed from INTERFACES to FORMS3 by qt3to4
+FORMS3 += scribus/aboutpluginsbase.ui \
               scribus/aligndistributebase.ui \
               scribus/createrangebase.ui \
               scribus/docitemattrprefsbase.ui \
@@ -933,3 +934,8 @@ TRANSLATIONS += scribus/po/scribus.af.ts \
                 scribus/po/scribus.tr.ts \
                 scribus/po/scribus.uk.ts \
                 scribus/po/scribus.zh_CN.ts
+#The following line was inserted by qt3to4
+QT += xml  qt3support 
+#The following line was inserted by qt3to4
+CONFIG += uic3
+

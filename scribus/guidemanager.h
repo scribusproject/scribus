@@ -7,7 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef GUIDEMANAGER_H
 #define GUIDEMANAGER_H
 
-#include <qlistview.h>
+#include <q3listview.h>
+//Added by qt3to4:
+#include <QLabel>
 #include "scribusapi.h"
 #include "mspinbox.h"
 #include "guidemanagerbase.h"
@@ -17,12 +19,12 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 
 class QWidget;
-class QGroupBox;
+class Q3GroupBox;
 class QPushButton;
 class QLabel;
 class QString;
 class QCheckBox;
-class QHButtonGroup;
+class Q3HButtonGroup;
 
 class ScribusDoc;
 
@@ -42,11 +44,11 @@ real double values as they are in page.guides structures mapped into QString
 representation i this GUI palette.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API GuideListItem : public QListViewItem
+class SCRIBUS_API GuideListItem : public Q3ListViewItem
 {
 public:
 	//! \brief Only 2 columns here...
-	GuideListItem(QListView *parent, QString c1) : QListViewItem(parent, c1){};
+	GuideListItem(Q3ListView *parent, QString c1) : Q3ListViewItem(parent, c1){};
 
 	/*! \brief Reimplemented compare method to handle double values.
 	When is no double in column col parent string compare() is called.
@@ -55,7 +57,7 @@ public:
 	\param asc ascendent on true.
 	\retval int -1 for (x lt y), 1 for (x gt y). See Qt docs for more info.
 	*/
-	int compare(QListViewItem *i, int col, bool asc) const;
+	int compare(Q3ListViewItem *i, int col, bool asc) const;
 };
 
 
@@ -129,25 +131,25 @@ private:
 	\param w a widget to set the values. Horizontal or vertical guides list.
 	\param guides a list with values. E.g. the real document guide list.
 	*/
-	void setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guides);
+	void setGuidesFromList(Q3ListView *w, GuideGUIMap *map, Guides guides);
 
 	/*! \brief Add a value from spin box to the list.
 	It's called by "add" slots.
 	\param list a reference to the QListView to add a value.
 	\retval bool false on no add (duplicate etc.), true on success.
 	*/
-	bool addValueToList(QListView *list);
+	bool addValueToList(Q3ListView *list);
 	/*! \brief Edit a value taken from guides list.
 	It's called by "edit" slots.
 	\param list a reference to the QListView to edit a value.
 	\retval bool false on no edit. */
-	bool editValueToList(QListView *list);
+	bool editValueToList(Q3ListView *list);
 
 	/*! \brief Delete all selected values from list.
 	\param list a pointer to the chosen QListView
 	\retval bool false on error
 	*/
-	bool deleteValueFormList(QListView *list);
+	bool deleteValueFormList(Q3ListView *list);
 
 	/*! \brief Copy guides from currentPage to all remaining.
 	All gudes are deleted before copying.
@@ -198,10 +200,10 @@ protected slots:
 	void horizontalReferGroup_clicked( int );
 	void verticalReferGroup_clicked( int );
 	void tabWidget_currentChanged( QWidget * );
-	void horizontalList_doubleClicked( QListViewItem * );
-	void horizontalList_returnPressed( QListViewItem * );
-	void verticalList_returnPressed( QListViewItem * );
-	void verticalList_doubleClicked( QListViewItem * );
+	void horizontalList_doubleClicked( Q3ListViewItem * );
+	void horizontalList_returnPressed( Q3ListViewItem * );
+	void verticalList_returnPressed( Q3ListViewItem * );
+	void verticalList_doubleClicked( Q3ListViewItem * );
 	void horizontalList_selectionChanged();
 	void verticalList_selectionChanged();
 	void deletePageButton_clicked();

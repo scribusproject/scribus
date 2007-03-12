@@ -15,13 +15,16 @@ for which a new license (GPL+exception) is in place.
 #include "about.h"
 #include "about.moc"
 #include <qpixmap.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qtooltip.h>
 #include <qlabel.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -45,13 +48,13 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 {
 	setCaption( tr("About Scribus %1").arg(VERSION) );
 	setIcon(loadIcon("AppIcon.png"));
-	aboutLayout = new QVBoxLayout( this );
+	aboutLayout = new Q3VBoxLayout( this );
 	aboutLayout->setSpacing( 6 );
 	aboutLayout->setMargin( 10 );
 	tabWidget2 = new QTabWidget( this, "TabWidget2" );
 	tabWidget2->setMinimumSize( QSize( 438, 258 ) );
 	tab = new QWidget( tabWidget2, "tab" );
-	tabLayout1 = new QVBoxLayout( tab );
+	tabLayout1 = new Q3VBoxLayout( tab );
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
@@ -135,7 +138,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( buildID );
 	tabWidget2->insertTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );
-	tabLayout = new QHBoxLayout( tab_2 );
+	tabLayout = new Q3HBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
 	textView1 = new TextBrowser( tab_2, "TextView1" );
@@ -202,7 +205,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout->addWidget( textView1 );
 	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
 	tab_3 = new QWidget( tabWidget2, "tab_3" );
-	tabLayout_2 = new QHBoxLayout( tab_3 );
+	tabLayout_2 = new Q3HBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
 	textView2 = new TextBrowser( tab_3, "TextView1_2" );
@@ -390,7 +393,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td><b>" + tr("Mailing List").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
 		"</table>"));
-	tabLayout_4 = new QHBoxLayout( tab_4 );
+	tabLayout_4 = new Q3HBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
 	tabLayout_4->addWidget( textView4 );
@@ -398,7 +401,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	// Update tab
 	tab_5 = new QWidget( tabWidget2, "tab_5" );
 	tabWidget2->insertTab( tab_5, tr( "&Updates" ) );
-	updateLayout = new QVBoxLayout( tab_5 );
+	updateLayout = new Q3VBoxLayout( tab_5 );
 	updateLayout->setSpacing( 6 );
 	updateLayout->setMargin( 10 );
 	checkForUpdateButton = new QPushButton( tr( "Check for &Updates" ), tab_5, "checkForUpdateButton" );
@@ -408,7 +411,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 
 	aboutLayout->addWidget( tabWidget2 );
 
-	layout2 = new QHBoxLayout;
+	layout2 = new Q3HBoxLayout;
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

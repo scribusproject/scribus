@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 
 #include <qmetaobject.h>
-#include <qstrlist.h>
-#include <qobjectlist.h>
+#include <q3strlist.h>
+#include <qobject.h>
 
 QObject* getQObjectFromPyArg(PyObject* arg)
 {
@@ -92,7 +92,7 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 }
 
 
-PyObject* convert_QStrList_to_PyListObject(QStrList& origlist)
+PyObject* convert_QStrList_to_PyListObject(Q3StrList& origlist)
 {
 	QStrListIterator it (origlist);
 	char* item = NULL;
@@ -243,7 +243,7 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	assert(objmeta);
 
 	// Return the list of properties
-	QStrList propertyNames = objmeta->propertyNames(includesuper);
+	Q3StrList propertyNames = objmeta->propertyNames(includesuper);
 	return convert_QStrList_to_PyListObject(propertyNames);
 }
 

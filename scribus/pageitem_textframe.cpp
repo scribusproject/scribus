@@ -33,6 +33,10 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QKeyEvent>
+#include <Q3PointArray>
 #include <cmath>
 #include <cassert>
 
@@ -78,7 +82,7 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 	pp.rotate(docItem->rotation());
 	if (docItem->textFlowUsesBoundingBox())
 	{
-		QPointArray tcli(4);
+		Q3PointArray tcli(4);
 		tcli.setPoint(0, QPoint(0,0));
 		tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 		tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
@@ -87,14 +91,14 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
-		QValueList<uint> Segs;
-		QPointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
+		Q3ValueList<uint> Segs;
+		Q3PointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
 		res = QRegion(pp.xForm(Clip2));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{
-		QValueList<uint> Segs;
-		QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+		Q3ValueList<uint> Segs;
+		Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
 		res = QRegion(pp.xForm(Clip2));
 	}
 	else
@@ -407,7 +411,7 @@ struct LineControl {
 			pt1 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(yPos+descent));
 			pt2 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(ceil(yPos-ascent)));
 		} while 
-			(   (EndX + (legacy? lineCorr + insets.Right : 0) < colRight - morespace)
+			(   (EndX + (legacy? lineCorr + insets.Qt::DockRight : 0) < colRight - morespace)
 			  && shape.contains(pf2.xForm(pt1))
 			  && shape.contains(pf2.xForm(pt2)) 
 			  );
@@ -587,7 +591,7 @@ void PageItem_TextFrame::layout()
 	tabs.charIndex = -1;        // StartRT
 	tabs.xPos      = 0;         // RTabX
 
-	QValueList<ParagraphStyle::TabRecord> tTabValues;
+	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
 	tTabValues.clear();
 	
 	bool DropCmode = false;
@@ -1323,7 +1327,7 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("dropcapoffset: %1 -> %2").arg(current.xPos-style.dropCapOffset()).arg(current.xPos));
 				current.xPos = QMAX(current.xPos, current.colLeft);
 				maxDX = current.xPos;
-				QPointArray tcli(4);
+				Q3PointArray tcli(4);
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
 					current.yPos -= m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
@@ -1898,7 +1902,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	layout();
 	if (invalid)
 		return;
-	QWMatrix pf2;
+	QMatrix pf2;
 	QPoint pt1, pt2;
 	QRegion cm;
 	double wide, lineCorr;
@@ -2145,9 +2149,9 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					{
 						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 						p->setPen(tmp, ml[it].Width,
-								static_cast<PenStyle>(ml[it].Dash),
-								static_cast<PenCapStyle>(ml[it].LineEnd),
-								static_cast<PenJoinStyle>(ml[it].LineJoin));
+								static_cast<Qt::PenStyle>(ml[it].Dash),
+								static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+								static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 						p->strokePath();
 					}
 				}

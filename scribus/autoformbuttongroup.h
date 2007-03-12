@@ -8,15 +8,19 @@ for which a new license (GPL+exception) is in place.
 #define AUTOFORMBUTTONGROUP_H
 
 #include <qwidget.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qtoolbutton.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <Q3GridLayout>
+#include <QPixmap>
 #include "scribusapi.h"
-class QGridLayout;
-class QPopupMenu;
+class Q3GridLayout;
+class Q3PopupMenu;
 class QPixmap;
 
 
-class SCRIBUS_API AutoformButtonGroup : public QButtonGroup
+class SCRIBUS_API AutoformButtonGroup : public Q3ButtonGroup
 {
     Q_OBJECT
 
@@ -52,7 +56,7 @@ signals:
 	void FormSel(int, int, double *);
 
 protected:
-	QGridLayout* buttonGroup1Layout;
+	Q3GridLayout* buttonGroup1Layout;
 };
 
 #endif

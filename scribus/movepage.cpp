@@ -10,6 +10,11 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "movepage.h"
 #include "movepage.moc"
@@ -31,8 +36,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	move = moving;	
 	setCaption (move ? tr("Move Pages") : tr("Copy Page"));
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new QVBoxLayout( this, 10, 5 );
-	fromToLayout = new QGridLayout;
+	dialogLayout = new Q3VBoxLayout( this, 10, 5 );
+	fromToLayout = new Q3GridLayout;
 	fromToLayout->setSpacing( 6 );
 	fromToLayout->setMargin( 5 );
 	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveLabel" );
@@ -74,7 +79,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->addColSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
 	dialogLayout->addLayout( fromToLayout );
 
-	okCancelLayout = new QHBoxLayout;
+	okCancelLayout = new Q3HBoxLayout;
 	okCancelLayout->setSpacing( 6 );
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

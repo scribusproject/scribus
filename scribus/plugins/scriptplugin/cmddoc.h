@@ -167,7 +167,7 @@ PyObject *scribus_setinfo(PyObject */*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setmargins__doc__,
 QT_TR_NOOP("setMargins(lr, rr, tr, br)\n\
 \n\
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)\n\
 margins are given in the measurement units of the document - see UNIT_<type>\n\
 constants.\n\
 "));

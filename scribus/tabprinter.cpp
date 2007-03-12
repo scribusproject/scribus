@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qtooltip.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qradiobutton.h>
 

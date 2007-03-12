@@ -10,13 +10,15 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "commonstrings.h"
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qstring.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 //#include <qlabel.h>
 //#include <qtextedit.h>
-#include <qtextbrowser.h>
+#include <q3textbrowser.h>
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 
 AboutPlugins::AboutPlugins( QWidget* parent )
@@ -25,8 +27,8 @@ AboutPlugins::AboutPlugins( QWidget* parent )
 	pluginNames(PluginManager::instance().pluginNames(true))
 {
 	// Populate the list with translated human-readable plugin names
-	QValueList<QCString>::const_iterator it(pluginNames.begin());
-	QValueList<QCString>::const_iterator itEnd(pluginNames.end());
+	Q3ValueList<Q3CString>::const_iterator it(pluginNames.begin());
+	Q3ValueList<Q3CString>::const_iterator itEnd(pluginNames.end());
 	for ( ; it != itEnd; ++it )
 	{
 		ScPlugin* plugin = PluginManager::instance().getPlugin(*it, true);
@@ -51,7 +53,7 @@ void AboutPlugins::displayPlugin(int sel)
 	// Look up the list entry to get the plugin name and use
 	// it to grab the plugin instance and get its about data.
 	PluginManager& pluginManager = PluginManager::instance();
-	const QCString& name(pluginNames[sel]);
+	const Q3CString& name(pluginNames[sel]);
 	ScPlugin* plugin = pluginManager.getPlugin(name, true);
 	Q_ASSERT(plugin);
 	const ScPlugin::AboutData* about = plugin->getAboutData();

@@ -31,9 +31,9 @@ for which a new license (GPL+exception) is in place.
 // libart wrapper
 
 #include <qglobal.h>
-#include <qwmatrix.h>
-#include <qvaluelist.h>
-#include <qvaluestack.h>
+#include <qmatrix.h>
+#include <q3valuelist.h>
+#include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
@@ -81,8 +81,8 @@ public:
 	virtual void clear( ScColorShade & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QWMatrix & );
-	virtual const QWMatrix worldMatrix();
+	virtual void setWorldMatrix( const QMatrix & );
+	virtual const QMatrix worldMatrix();
 	virtual void translate( double, double );
 	virtual void rotate( double );
 	virtual void scale( double, double );
@@ -101,7 +101,7 @@ public:
 	virtual void setFillMode( int fill );
 	virtual int  fillMode() { return m_fillMode; }
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern ( ScPattern* pattern, QWMatrix& patternTransform );
+	virtual void setPattern ( ScPattern* pattern, QMatrix& patternTransform );
 	virtual void setClipPath();
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
@@ -119,7 +119,7 @@ public:
 	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QValueList<double>& array, double ofs);
+	virtual void setDash(const Q3ValueList<double>& array, double ofs);
 	virtual void setBrush( const ScColorShade & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -150,7 +150,7 @@ private:
 
 	unsigned int m_width;
 	unsigned int m_height;
-	QWMatrix m_matrix;
+	QMatrix m_matrix;
 	QFont m_font;
 /* Filling */
 	ScColorShade m_fillColor;
@@ -170,10 +170,10 @@ private:
 /* Line Join Style */
 	Qt::PenJoinStyle m_lineJoin;
 /* The Dash Array */
-	QValueList<double> m_array;
+	Q3ValueList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
-	QValueStack<QWMatrix> m_stack;
+	Q3ValueStack<QMatrix> m_stack;
 
 /* Some data to describe state of drawing */	
 	bool m_pathIsClosed;
@@ -200,7 +200,7 @@ private:
 
 #ifdef SC_USE_GDIPLUS
 /* GDI+ needed data */
-	QValueStack<int> m_gStates;
+	Q3ValueStack<int> m_gStates;
 	Gdiplus::Graphics* m_graphics;
 	Gdiplus::GraphicsPath* m_graphicsPath;
 	double m_positionX;

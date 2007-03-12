@@ -8,6 +8,11 @@ for which a new license (GPL+exception) is in place.
 #define MERGEDOC_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 #include "scribusapi.h"
 class QPushButton;
 class QLabel;
@@ -19,9 +24,9 @@ class QToolTip;
 class QComboBox;
 class QCheckBox;
 class QTooltip;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 
 
 class SCRIBUS_API MergeDoc : public QDialog
@@ -54,9 +59,9 @@ private:
 	QComboBox* masterPageNameData;
 	QComboBox* importWhereData;
 	QSpinBox* importWherePageData;
-	QVBoxLayout* dialogLayout;
-	QGridLayout* fromInfoLayout;
-	QHBoxLayout* importCancelLayout;
+	Q3VBoxLayout* dialogLayout;
+	Q3GridLayout* fromInfoLayout;
+	Q3HBoxLayout* importCancelLayout;
 	int count;
 	bool masterPages;
 

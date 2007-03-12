@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #if OPTION_USE_QTOOLBUTTON
     #include <qtoolbutton.h>
 #else
@@ -19,9 +19,11 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 #include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -62,7 +64,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 {
 	LastPG = maxPg;
 	APage = 1;
-	PageSelectorLayout = new QHBoxLayout( this, 0, 1, "PageSelectorLayout");
+	PageSelectorLayout = new Q3HBoxLayout( this, 0, 1, "PageSelectorLayout");
 
 #if OPTION_USE_QTOOLBUTTON
 	Start = new QToolButton( this, "Start" );
@@ -147,7 +149,7 @@ bool PageSelector::hasFocus()
 }
 
 
-void PageSelector::focusPolicy(QWidget::FocusPolicy policy)
+void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 {
 	PageCombo->setFocusPolicy(policy);
 }

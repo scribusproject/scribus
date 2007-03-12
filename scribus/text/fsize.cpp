@@ -173,9 +173,9 @@ void FSize::transpose()
     // t3 is (60, 72)
     \endcode
 */
-void FSize::scale( double w, double h, ScaleMode mode )
+void FSize::scale( double w, double h, Qt::AspectRatioMode mode )
 {
-    if ( mode == ScaleFree ) {
+    if ( mode == Qt::IgnoreAspectRatio ) {
 	wd = (double)w;
 	ht = (double)h;
     } else {
@@ -184,7 +184,7 @@ void FSize::scale( double w, double h, ScaleMode mode )
 	double h0 = height();
 	double rw = h * w0 / h0;
 
-	if ( mode == ScaleMin ) {
+	if ( mode == Qt::KeepAspectRatio ) {
 	    useHeight = ( rw <= w );
 	} else { // mode == ScaleMax
 	    useHeight = ( rw >= w );
@@ -205,7 +205,7 @@ void FSize::scale( double w, double h, ScaleMode mode )
 
     Equivalent to scale(\a{s}.width(), \a{s}.height(), \a mode).
 */
-void FSize::scale( const FSize &s, ScaleMode mode )
+void FSize::scale( const FSize &s, Qt::AspectRatioMode mode )
 {
     scale( s.width(), s.height(), mode );
 }

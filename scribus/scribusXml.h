@@ -16,9 +16,9 @@ for which a new license (GPL+exception) is in place.
 #define _SCRIBUS_CONFIG_
 
 #include "scribusapi.h"
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qdom.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
 
 #include "pageitem.h"
 #include "multiline.h"
@@ -54,12 +54,12 @@ public:
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
 	ColorList Farben;
 	StyleSet<ParagraphStyle> docParagraphStyles;
-	QValueList<Linked> LFrames;
+	Q3ValueList<Linked> LFrames;
 	QStringList MNames;
 	QMap<QString,QString> DoFonts;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
-	QValueList<ScFace> dummyScFaces;
+	Q3ValueList<ScFace> dummyScFaces;
 	uint VorlC;
 	bool newReplacement;
 	

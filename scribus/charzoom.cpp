@@ -1,5 +1,7 @@
 #include <qpixmap.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPaintEvent>
 
 #include "charzoom.h"
 #include "charzoom.moc"
@@ -8,9 +10,9 @@
 
 CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 #ifdef QT_MAC
-	: QDialog( parent, "CharZoom", false, WStyle_Customize | WStyle_NoBorder | WType_Popup)
+	: QDialog( parent, "CharZoom", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_Popup)
 #else
-	: QDialog( parent, "CharZoom", false, WStyle_Customize | WStyle_NoBorder)
+	: QDialog( parent, "CharZoom", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder)
 #endif
 {
 	int base = 48;
@@ -24,7 +26,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	ScPainter *p = new ScPainter(&pixm, size, size);
 	p->clear();
 	pixm.fill(white);
-	QWMatrix chma;
+	QMatrix chma;
 	chma.scale(4.8, 4.8);
 
 	uint gl = face.char2CMap(currentChar);

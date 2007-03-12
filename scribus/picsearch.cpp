@@ -33,7 +33,7 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
 	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(useButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect(previewCheckBox, SIGNAL( clicked() ), this, SLOT( previewCheckBox_clicked() ) );
-	connect(foundFilesBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(foundFilesBox_clicked(QListBoxItem*)));
+	connect(foundFilesBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(foundFilesBox_clicked(Q3ListBoxItem*)));
 }
 
 void PicSearch::previewCheckBox_clicked()
@@ -48,7 +48,7 @@ void PicSearch::previewCheckBox_clicked()
 		previewLabel->hide();
 }
 
-void PicSearch::foundFilesBox_clicked(QListBoxItem *c)
+void PicSearch::foundFilesBox_clicked(Q3ListBoxItem *c)
 {
 	if (c == NULL)
 		return;

@@ -12,6 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QKeyEvent>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 
@@ -46,8 +50,8 @@ public slots:
 	void reject();
 
 protected:
-    QVBoxLayout* HyAskLayout;
-    QHBoxLayout* Layout1;
+    Q3VBoxLayout* HyAskLayout;
+    Q3HBoxLayout* Layout1;
 };
 
 #endif // HYASK_H

@@ -22,9 +22,13 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <qstringlist.h>
 #include <qcombobox.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qfont.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <QLabel>
 
 #include "sccombobox.h"
 
@@ -35,19 +39,19 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
-FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
+FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : Q3ListBoxItem(parent->listBox())
 {
 	fontName = f;
 	iFont = fo;
 	setText(fontName);
 }
 
-const int FontListItem::width(const QListBox *listbox)
+const int FontListItem::width(const Q3ListBox *listbox)
 {
 	return listbox->fontMetrics().width(text()) + 2;
 }
 
-const int FontListItem::height(const QListBox *listbox)
+const int FontListItem::height(const Q3ListBox *listbox)
 {
 	QFontMetrics fontMetrics(listbox->fontMetrics());
 	return fontMetrics.lineSpacing() + 2;
@@ -121,7 +125,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	currDoc = 0;
-	fontComboLayout = new QGridLayout( this, 0, 0);
+	fontComboLayout = new Q3GridLayout( this, 0, 0);
 	int col=0;
 	if (showLabels)
 	{

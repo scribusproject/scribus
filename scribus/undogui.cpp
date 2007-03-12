@@ -33,6 +33,9 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
  
 #include "undogui.h"
 #include "undogui.moc"
@@ -46,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : ScrPaletteBase(parent, name, f)
+UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScrPaletteBase(parent, name, f)
 {
 
 }
@@ -246,18 +249,18 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 {
 	currentSelection = 0;
 	redoItems = 0;
-	QVBoxLayout* layout = new QVBoxLayout(this, 5, 5, "layout");
+	Q3VBoxLayout* layout = new Q3VBoxLayout(this, 5, 5, "layout");
 
 	objectBox = new QCheckBox(this, "objectBox");
 	layout->addWidget(objectBox);
 // 	objectBox->setEnabled(false);
 
-	undoList = new QListBox(this, "undoList");
+	undoList = new Q3ListBox(this, "undoList");
 	undoList->setMultiSelection(false);
-	undoList->setSelectionMode(QListBox::Single);
+	undoList->setSelectionMode(Q3ListBox::Single);
 	layout->addWidget(undoList);
 	
-	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
+	Q3HBoxLayout* buttonLayout = new Q3HBoxLayout(0, 0, 5, "buttonLayout"); 
 	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this, "undoButton");
 	buttonLayout->addWidget(undoButton);
 	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this, "redoButton");
@@ -273,7 +276,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
-	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
+	connect(undoList, SIGNAL(onItem(Q3ListBoxItem*)), this, SLOT(showToolTip(Q3ListBoxItem*)));
 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
@@ -411,7 +414,7 @@ void UndoPalette::objectCheckBoxClicked(bool on)
 	emit objectMode(on);
 }
 
-void UndoPalette::showToolTip(QListBoxItem *i)
+void UndoPalette::showToolTip(Q3ListBoxItem *i)
 {
 	UndoItem *item = dynamic_cast<UndoItem*>(i);
 	if (item)
@@ -436,7 +439,7 @@ UndoPalette::~UndoPalette()
 
 /*** UndoPalette::UndoItem ****************************************************/
 
-UndoPalette::UndoItem::UndoItem() : QListBoxItem()
+UndoPalette::UndoItem::UndoItem() : Q3ListBoxItem()
 {
 	target = "";
 	action = "";
@@ -446,7 +449,7 @@ UndoPalette::UndoItem::UndoItem() : QListBoxItem()
 	isUndoAction_ = true;
 }
 
-UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListBoxItem()
+UndoPalette::UndoItem::UndoItem(const UndoItem &another) : Q3ListBoxItem()
 {
 	target = another.target;
 	action = another.action;
@@ -462,7 +465,7 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 QPixmap *targetPixmap,
                                 QPixmap *actionPixmap,
                                 bool isUndoAction)
-: QListBoxItem(),
+: Q3ListBoxItem(),
 targetpixmap(targetPixmap),
 actionpixmap(actionPixmap),
 target(targetName),
@@ -498,7 +501,7 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 }
 
-int UndoPalette::UndoItem::height(const QListBox *lb) const
+int UndoPalette::UndoItem::height(const Q3ListBox *lb) const
 {
 	if (lb)
 	{
@@ -516,7 +519,7 @@ int UndoPalette::UndoItem::height(const QListBox *lb) const
 		return 0;
 }
 
-int UndoPalette::UndoItem::width(const QListBox *lb) const
+int UndoPalette::UndoItem::width(const Q3ListBox *lb) const
 {
 	if (lb)
 		return target.length() > action.length() ?

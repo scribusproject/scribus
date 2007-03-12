@@ -31,7 +31,7 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*res*/, bool /*th
 		return false;
 	initialize();
 	QFile f(fn);
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		QDataStream s( &f );
 		s.setByteOrder( QDataStream::BigEndian );

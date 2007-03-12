@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #define STENCILREADER_H
 
 #include <qdom.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 

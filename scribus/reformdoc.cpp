@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qspinbox.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "docsections.h"
 #include "tabtypography.h"

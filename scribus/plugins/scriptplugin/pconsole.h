@@ -17,16 +17,21 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qvariant.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qsyntaxhighlighter.h>
+#include <q3whatsthis.h>
+#include <q3syntaxhighlighter.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QCloseEvent>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
-class QListView;
-class QListViewItem;
-class QTextEdit;
+class Q3ListView;
+class Q3ListViewItem;
+class Q3TextEdit;
 class QMenuBar;
 class QStatusBar;
 
@@ -53,9 +58,9 @@ class PythonConsole : public QWidget
 		QString filename;
 
 		//! \brief Programmer's editor ;)
-		QTextEdit* commandEdit;
+		Q3TextEdit* commandEdit;
 		//! \brief Results viewer
-		QTextEdit* outputEdit;
+		Q3TextEdit* outputEdit;
 
 		//! \brief Close event for turning the action off
 		void closeEvent(QCloseEvent *);
@@ -84,8 +89,8 @@ class PythonConsole : public QWidget
 	protected:
 		//! \brief prepare Python "script" from GUI widget
 		void parsePythonString();
-		QGridLayout* gridLayout;
-		QVBoxLayout* editorsLayout;
+		Q3GridLayout* gridLayout;
+		Q3VBoxLayout* editorsLayout;
 		QMenuBar* menuBar;
 		QStatusBar* statusBar;
 		//! \brief String with the script to run (part of the all text)
@@ -125,10 +130,10 @@ TODO: colors of the higlited texts. User should set the colors in the
 \author Petr Vanek, <petr@yarpen.cz>
 \author Richard Magnor Stenbro <stenbror@hotmail.com>
 */
-class SyntaxHighlighter : public QSyntaxHighlighter
+class SyntaxHighlighter : public Q3SyntaxHighlighter
 {
 	public:
-		SyntaxHighlighter(QTextEdit *textEdit);
+		SyntaxHighlighter(Q3TextEdit *textEdit);
 
 		/*! \brief Reimplementation of the Qt highligtion for python.
 		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.

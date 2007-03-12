@@ -26,6 +26,10 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QLabel>
+#include <QPaintEvent>
 #include "colorutil.h"
 #include "scribusdoc.h"
 

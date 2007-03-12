@@ -27,10 +27,13 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qcombobox.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 
@@ -49,19 +52,19 @@ public:
 	~CupsOptions();
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
-	QHeader *Header;
-	QTable* Table;
+	Q3Header *Header;
+	Q3Table* Table;
 	struct OpData { 
 					int Cnum;
 					QString KeyW;
 				  };
-	QPtrList<QComboBox> FlagsOpt;
+	Q3PtrList<QComboBox> FlagsOpt;
 	QMap<QString,OpData> KeyToText;
 	QMap<QString,QString> KeyToDefault;
 
 protected:
-	QVBoxLayout* CupsOptionsLayout;
-	QHBoxLayout* Layout2;
+	Q3VBoxLayout* CupsOptionsLayout;
+	Q3HBoxLayout* Layout2;
 	PrefsContext* prefs;
 };
 

@@ -8,6 +8,10 @@ for which a new license (GPL+exception) is in place.
 #define CHARSELECT_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QLabel>
+#include <Q3ValueList>
 #include "scribusapi.h"
 #include "chartable.h"
 #include "scrpalettebase.h"
@@ -15,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 class QLabel;
 class QPushbutton;
 class QComboBox;
-class QGroupBox;
+class Q3GroupBox;
 class QCheckBox;
 
 class FontCombo;
@@ -64,7 +68,7 @@ private:
 	CharTable* m_userTable;
 	UnicodeChooseButton* unicodeButton;
 
-	QValueList<CharClassDef> allClasses;
+	Q3ValueList<CharClassDef> allClasses;
 	CharClassDef characters;
 	CharClassDef charactersFull;
 	CharClassDef charactersLatin1;
@@ -120,8 +124,8 @@ protected:
 	PageItem *m_Item;
 
 	// GUI
-	QGroupBox* m_bigPalette;
-	QGroupBox* m_quickPalette;
+	Q3GroupBox* m_bigPalette;
+	Q3GroupBox* m_quickPalette;
 
 	QLabel* insText;
 	QLabel* sample;

@@ -66,8 +66,8 @@ public:
     void setHeight( double h );
     void transpose();
 
-    void scale( double w, double h, ScaleMode mode );
-    void scale( const FSize &s, ScaleMode mode );
+    void scale( double w, double h, Qt::AspectRatioMode mode );
+    void scale( const FSize &s, Qt::AspectRatioMode mode );
 
     FSize expandedTo( const FSize & ) const;
     FSize boundedTo( const FSize & ) const;

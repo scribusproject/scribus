@@ -20,15 +20,17 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qtable.h>
+#include <q3table.h>
 #include <qfileinfo.h>
 #include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qstringlist.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qtooltip.h>
 #include <qcursor.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include <cstdio>
 
 #include "picstatus.h"
@@ -45,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-PicItem::PicItem(QIconView* parent, QString text, QPixmap pix, PageItem* pgItem) : QIconViewItem(parent, text, pix)
+PicItem::PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem) : Q3IconViewItem(parent, text, pix)
 {
 	PageItemObject = pgItem;
 }
@@ -57,8 +59,8 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : PicStatusBase( parent,
 	setIcon(loadIcon("AppIcon.png"));
 	fillTable();
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(imageViewArea, SIGNAL(currentChanged(QIconViewItem *)), this, SLOT(imageSelected(QIconViewItem *)));
-	connect(imageViewArea, SIGNAL(clicked(QIconViewItem*)), this, SLOT(imageSelected(QIconViewItem*)));
+	connect(imageViewArea, SIGNAL(currentChanged(Q3IconViewItem *)), this, SLOT(imageSelected(Q3IconViewItem *)));
+	connect(imageViewArea, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(imageSelected(Q3IconViewItem*)));
 	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
 	connect(isVisible, SIGNAL(clicked()), this, SLOT(visiblePic()));
 	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
@@ -127,7 +129,7 @@ void PicStatus::fillTable()
 	}
 }
 
-void PicStatus::imageSelected(QIconViewItem *ite)
+void PicStatus::imageSelected(Q3IconViewItem *ite)
 {
 	if (ite != NULL)
 	{

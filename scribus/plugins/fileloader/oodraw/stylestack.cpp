@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "stylestack.h"
 #include "oodrawimp.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 StyleStack::StyleStack()
 {
@@ -76,7 +78,7 @@ void StyleStack::push( const QDomElement& style )
 bool StyleStack::hasAttribute( const QString& name ) const
 {
     // TODO: has to be fixed for complex styles like list-styles
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -91,7 +93,7 @@ bool StyleStack::hasAttribute( const QString& name ) const
 QString StyleStack::attribute( const QString& name ) const
 {
     // TODO: has to be fixed for complex styles like list-styles
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -108,7 +110,7 @@ bool StyleStack::hasAttribute( const QString& name, const QString& detail ) cons
     QString fullName( name );
     fullName += '-';
     fullName += detail;
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -125,7 +127,7 @@ QString StyleStack::attribute( const QString& name, const QString& detail ) cons
     QString fullName( name );
     fullName += '-';
     fullName += detail;
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -146,7 +148,7 @@ double StyleStack::fontSize() const
 {
     QString name = "fo:font-size";
     double percent = 1;
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -164,7 +166,7 @@ double StyleStack::fontSize() const
 
 bool StyleStack::hasChildNode(const QString & name) const
 {
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -178,7 +180,7 @@ bool StyleStack::hasChildNode(const QString & name) const
 
 QDomNode StyleStack::childNode(const QString & name) const
 {
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -198,7 +200,7 @@ static bool isUserStyle( const QDomElement& e )
 
 QString StyleStack::userStyleName() const
 {
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;

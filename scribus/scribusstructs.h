@@ -11,12 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
-#include <qvaluestack.h>
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <q3valuestack.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 #include <qstring.h>
 #include <qaction.h>
 #include <qkeysequence.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <Q3PtrList>
 #include <vector>
 
 #include "sctextstruct.h"
@@ -121,7 +124,7 @@ struct CopyPasteBuffer
 	int IRender;
 	bool UseEmbedded;
 	QString itemText;
-	QPointArray Clip;
+	Q3PointArray Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
 	bool PoShow;
@@ -132,7 +135,7 @@ struct CopyPasteBuffer
 	int textAlignment;
 	QString IFont;
 	int ISize;
-	QValueStack<int> Groups;
+	Q3ValueStack<int> Groups;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
@@ -148,8 +151,8 @@ struct CopyPasteBuffer
 	QString guiLanguage;
 	int Cols;
 	double ColGap;
-	QValueList<ParagraphStyle::TabRecord> TabValues;
-	QValueList<double> DashValues;
+	Q3ValueList<ParagraphStyle::TabRecord> TabValues;
+	Q3ValueList<double> DashValues;
 	double DashOffset;
 	bool isTableItem;
 	bool TopLine;
@@ -184,9 +187,9 @@ struct CopyContentsBuffer
 class MarginStruct
 {
 	public:
-		MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
+		MarginStruct() : Qt::DockTop(0), Qt::DockLeft(0), Qt::DockBottom(0), Qt::DockRight(0) {}
 		MarginStruct(double top, double left, double bottom, double right) :
-			Top(top), Left(left), Bottom(bottom), Right(right) {}
+			Qt::DockTop(top), Qt::DockLeft(left), Qt::DockBottom(bottom), Qt::DockRight(right) {}
 		MarginStruct(const MarginStruct& rhs) {Top=rhs.Top;Bottom=rhs.Bottom;Left=rhs.Left;Right=rhs.Right;}
 		double Top;
 		double Left;
@@ -335,7 +338,7 @@ struct PrintOptions
 typedef QMap<QString,QString> ProfilesL;
 // typedef QValueVector<SingleLine> multiLine;
 
-struct multiLine : public QValueVector<SingleLine> {
+struct multiLine : public Q3ValueVector<Qt::TextSingleLine> {
 	QString shortcut;
 };
 
@@ -397,7 +400,7 @@ struct AlignObjs
 	double y2;
 	double width;
 	double height;
-	QPtrList<PageItem> Objects;
+	Q3PtrList<PageItem> Objects;
 };
 
 /*! \brief Human readable orientations */
@@ -409,7 +412,7 @@ enum PageOrientation
 };
 
 //! \brief Common type for guides list
-typedef QValueList<double> Guides;
+typedef Q3ValueList<double> Guides;
 
 //! \brief from ols scribusXml
 struct Linked 

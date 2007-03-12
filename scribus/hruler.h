@@ -26,6 +26,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <qwidget.h>
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3ValueList>
+#include <QPaintEvent>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -56,7 +60,7 @@ public:
 	double First;
 	double RMargin;
 	bool Revers;
-	QValueList<ParagraphStyle::TabRecord> TabValues;
+	Q3ValueList<ParagraphStyle::TabRecord> TabValues;
 	PageItem * currItem;
 	// following is used in view (only read access, see DrawPageItems(), line 822)
 	double ItemPos;

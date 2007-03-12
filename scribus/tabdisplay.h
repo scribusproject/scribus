@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABDISPLAY_H
 #define TABDISPLAY_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "tabdisplaybase.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -25,7 +25,7 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 	public:
 		TabDisplay(QWidget* parent = 0, const char* name = 0);
 		~TabDisplay(){};
-		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch);
+		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, Q3ValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch);
 		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void setDocSetupMode();

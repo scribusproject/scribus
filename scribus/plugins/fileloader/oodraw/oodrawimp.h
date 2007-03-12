@@ -8,8 +8,10 @@ for which a new license (GPL+exception) is in place.
 #define OODPLUG_H
 
 #include <qobject.h>
-#include <qdict.h>
-#include <qptrlist.h>
+#include <q3dict.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../../formatidlist.h"
@@ -77,7 +79,7 @@ public:
 	double  fillTrans;
 	double  strokeTrans;
 	double  strokeWidth;
-	QValueList<double> dashes;
+	Q3ValueList<double> dashes;
 	bool    haveGradient;
 	int     gradientType;
 	VGradient gradient;
@@ -105,17 +107,17 @@ public:
 protected:
 
 	bool convert(int flags);
-	QPtrList<PageItem> parseGroup(const QDomElement &e);
-	QPtrList<PageItem> parseElement(const QDomElement &e);
-	QPtrList<PageItem> parseRect(const QDomElement &e);
-	QPtrList<PageItem> parseEllipse(const QDomElement &e);
-	QPtrList<PageItem> parseLine(const QDomElement &e);
-	QPtrList<PageItem> parsePolygon(const QDomElement &e);
-	QPtrList<PageItem> parsePolyline(const QDomElement &e);
-	QPtrList<PageItem> parsePath(const QDomElement &e);
-	QPtrList<PageItem> parseTextBox(const QDomElement &e);
-	QPtrList<PageItem> parseFrame(const QDomElement &e);
-	QPtrList<PageItem> parseConnector(const QDomElement &e);
+	Q3PtrList<PageItem> parseGroup(const QDomElement &e);
+	Q3PtrList<PageItem> parseElement(const QDomElement &e);
+	Q3PtrList<PageItem> parseRect(const QDomElement &e);
+	Q3PtrList<PageItem> parseEllipse(const QDomElement &e);
+	Q3PtrList<PageItem> parseLine(const QDomElement &e);
+	Q3PtrList<PageItem> parsePolygon(const QDomElement &e);
+	Q3PtrList<PageItem> parsePolyline(const QDomElement &e);
+	Q3PtrList<PageItem> parsePath(const QDomElement &e);
+	Q3PtrList<PageItem> parseTextBox(const QDomElement &e);
+	Q3PtrList<PageItem> parseFrame(const QDomElement &e);
+	Q3PtrList<PageItem> parseConnector(const QDomElement &e);
 	void parseStyle(OODrawStyle& style, const QDomElement &e);
 	void parseCharStyle(CharStyle& style, const QDomElement &e);
 	void parseParagraphStyle(ParagraphStyle& style, const QDomElement &e);
@@ -144,7 +146,7 @@ protected:
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
 	QDomDocument inpMeta;
-	QDict<QDomElement> m_styles, m_draws;
+	Q3Dict<QDomElement> m_styles, m_draws;
 	StyleStack m_styleStack;
 	QString stylePath;
 	QString contentPath;

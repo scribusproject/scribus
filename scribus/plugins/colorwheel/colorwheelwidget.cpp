@@ -10,12 +10,16 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QLabel>
+#include <QMouseEvent>
 #include <math.h>
 
 #include "sccolor.h"
 #include "sccolorengine.h"
 
-ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, WNoAutoErase)
+ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, Qt::WNoAutoErase)
 {
 	currentDoc = NULL;
 	currentColorSpace = colorModelRGB;
@@ -109,7 +113,7 @@ void ColorWheel::paintWheel()
 	widthH = width / 2;
 	for (int i = 0; i < 360; ++i)
 	{
-		QWMatrix matrix;
+		QMatrix matrix;
 		matrix.translate(widthH, heightH);
 		matrix.rotate((float)i);
 		p.setWorldMatrix(matrix);

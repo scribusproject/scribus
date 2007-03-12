@@ -7,27 +7,34 @@ for which a new license (GPL+exception) is in place.
 #ifndef MPALETTE_H
 #define MPALETTE_H
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qframe.h>
-#include <qgroupbox.h>
+#include <q3frame.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qtoolbutton.h>
 #include <qwidget.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <qtoolbox.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <QCloseEvent>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QEvent>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -125,9 +132,9 @@ public:
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
-	QButtonGroup* RotationGroup;
-	QButtonGroup* textFlowOptions;
-	QButtonGroup* textFlowOptions2;
+	Q3ButtonGroup* RotationGroup;
+	Q3ButtonGroup* textFlowOptions;
+	Q3ButtonGroup* textFlowOptions2;
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
@@ -175,7 +182,7 @@ public slots:
 	void setTScaleV(int e);
 	void setTBase(int e);
 	void SetLineFormats(ScribusDoc *dd);
-	void SetSTline(QListBoxItem *c);
+	void SetSTline(Q3ListBoxItem *c);
 	void NewTFont(QString);
 	void newTxtFill();
 	void newTxtStroke();
@@ -275,52 +282,52 @@ signals:
 protected:
 	ScribusMainWindow *m_ScMW;
 	
-	QVBoxLayout* MpalLayout;
-	QVBoxLayout* pageLayout;
-	QVBoxLayout* pageLayout_2;
-	QVBoxLayout* pageLayout_2a;
-	QVBoxLayout* pageLayout_2b;
-	QVBoxLayout* pageLayout_2c;
-	QVBoxLayout* pageLayout_3;
-	QVBoxLayout* pageLayout_4;
-	QVBoxLayout* pageLayout_5;
-	QVBoxLayout* pageLayout_5a;
-	QVBoxLayout* pageLayout_5b;
-	QVBoxLayout* pageLayout_6;
-	QVBoxLayout* OverPLayout;
-	QVBoxLayout* TLineLayout;
-	QHBoxLayout* layout60;
-	QGridLayout* Layout44;
-	QHBoxLayout* Layout13;
-	QGridLayout* Layout12;
-	QHBoxLayout* layout47;
-	QVBoxLayout* layout46;
-	QGridLayout* layout41;
-	QHBoxLayout* Layout1;
-	QGridLayout* layout43;
-	QVBoxLayout* Layout24;
-	QHBoxLayout* Layout18;
-	QHBoxLayout* Layout13_2;
-	QGridLayout* Layout12_2;
-	QHBoxLayout* NameGroupLayout;
-	QGridLayout* GeoGroupLayout;
-	QGridLayout* LayerGroupLayout;
-	QHBoxLayout* RotationGroupLayout;
-	QHBoxLayout* ShapeGroupLayout;
-	QGridLayout* DistanceLayout;
-	QGridLayout* DistanceLayout2;
-	QVBoxLayout* DistanceLayout3;
-	QGridLayout* GroupBox3aLayout;
-	QVBoxLayout* GroupBoxCMLayout;
-	QVBoxLayout* textFlowOptionsLayout;
-	QVBoxLayout* textFlowOptionsLayout2;
-	QHBoxLayout* layout23;
-	QHBoxLayout* layout24;
-	QVBoxLayout* page_group_layout;
-	QHBoxLayout* ShapeGroupLayout2;
-	QGridLayout* Layout1t;
-	QHBoxLayout* wordTrackingHLayout;
-	QHBoxLayout* glyphExtensionHLayout;
+	Q3VBoxLayout* MpalLayout;
+	Q3VBoxLayout* pageLayout;
+	Q3VBoxLayout* pageLayout_2;
+	Q3VBoxLayout* pageLayout_2a;
+	Q3VBoxLayout* pageLayout_2b;
+	Q3VBoxLayout* pageLayout_2c;
+	Q3VBoxLayout* pageLayout_3;
+	Q3VBoxLayout* pageLayout_4;
+	Q3VBoxLayout* pageLayout_5;
+	Q3VBoxLayout* pageLayout_5a;
+	Q3VBoxLayout* pageLayout_5b;
+	Q3VBoxLayout* pageLayout_6;
+	Q3VBoxLayout* OverPLayout;
+	Q3VBoxLayout* TLineLayout;
+	Q3HBoxLayout* layout60;
+	Q3GridLayout* Layout44;
+	Q3HBoxLayout* Layout13;
+	Q3GridLayout* Layout12;
+	Q3HBoxLayout* layout47;
+	Q3VBoxLayout* layout46;
+	Q3GridLayout* layout41;
+	Q3HBoxLayout* Layout1;
+	Q3GridLayout* layout43;
+	Q3VBoxLayout* Layout24;
+	Q3HBoxLayout* Layout18;
+	Q3HBoxLayout* Layout13_2;
+	Q3GridLayout* Layout12_2;
+	Q3HBoxLayout* NameGroupLayout;
+	Q3GridLayout* GeoGroupLayout;
+	Q3GridLayout* LayerGroupLayout;
+	Q3HBoxLayout* RotationGroupLayout;
+	Q3HBoxLayout* ShapeGroupLayout;
+	Q3GridLayout* DistanceLayout;
+	Q3GridLayout* DistanceLayout2;
+	Q3VBoxLayout* DistanceLayout3;
+	Q3GridLayout* GroupBox3aLayout;
+	Q3VBoxLayout* GroupBoxCMLayout;
+	Q3VBoxLayout* textFlowOptionsLayout;
+	Q3VBoxLayout* textFlowOptionsLayout2;
+	Q3HBoxLayout* layout23;
+	Q3HBoxLayout* layout24;
+	Q3VBoxLayout* page_group_layout;
+	Q3HBoxLayout* ShapeGroupLayout2;
+	Q3GridLayout* Layout1t;
+	Q3HBoxLayout* wordTrackingHLayout;
+	Q3HBoxLayout* glyphExtensionHLayout;
 	
 	NameWidget* NameEdit;
 	
@@ -413,10 +420,10 @@ protected:
 	double RoVal;
 
 
-	QButtonGroup* ShapeGroup;
-	QButtonGroup* ShapeGroup2;
-	QButtonGroup* Distance3;
-	QButtonGroup* OverP;
+	Q3ButtonGroup* ShapeGroup;
+	Q3ButtonGroup* ShapeGroup2;
+	Q3ButtonGroup* Distance3;
+	Q3ButtonGroup* OverP;
 
 	QToolButton* TabsButton;
 
@@ -426,19 +433,19 @@ protected:
 	QToolButton* ZBottom;
 
 	QToolBox* TabStack;
-	QWidgetStack* TabStack2;
-	QWidgetStack* TabStack3;
+	Q3WidgetStack* TabStack2;
+	Q3WidgetStack* TabStack3;
 
 
-	QGroupBox* NameGroup;
-	QGroupBox* GeoGroup;
-	QGroupBox* LayerGroup;
-	QGroupBox* Distance;
-	QGroupBox* Distance2;
-	QGroupBox* GroupBoxCM;
-	QGroupBox* TLines;
-	QGroupBox* GroupBox3a;
-	QGroupBox* TransGroup;
+	Q3GroupBox* NameGroup;
+	Q3GroupBox* GeoGroup;
+	Q3GroupBox* LayerGroup;
+	Q3GroupBox* Distance;
+	Q3GroupBox* Distance2;
+	Q3GroupBox* GroupBoxCM;
+	Q3GroupBox* TLines;
+	Q3GroupBox* GroupBox3a;
+	Q3GroupBox* TransGroup;
 
 	QToolButton* textFlowDisabled;
 	QToolButton* textFlowUsesFrameShape;
@@ -470,7 +477,7 @@ protected:
 	ScComboBox* blendMode;
 	QComboBox *optMarginCombo;
 
-	QListBox* StyledLine;
+	Q3ListBox* StyledLine;
 
 	MSpinBox* Width;
 	MSpinBox* Xpos;
@@ -517,13 +524,13 @@ protected:
 	QRadioButton* KnockOut;
 	QRadioButton* Overprint;
 
-	QFrame* Line1;
-	QFrame* Line2;
-	QFrame* Line4;
-	QFrame* Line5;
-	QFrame* Frame4;
+	Q3Frame* Line1;
+	Q3Frame* Line2;
+	Q3Frame* Line4;
+	Q3Frame* Line5;
+	Q3Frame* Frame4;
 
-	QPopupMenu* lineSpacingPop;
+	Q3PopupMenu* lineSpacingPop;
 
 	QToolButton* linespacingButton;
 	QToolButton* DoGroup;

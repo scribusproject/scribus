@@ -1,5 +1,7 @@
 //FIXME: this include must go to sctextstruct.h !
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 #include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
 #include "scfonts.h"
@@ -9,7 +11,7 @@
 #include "scribus.h"
 #include "util.h"
 
-ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QPtrList<ScText>(), 
+ScText_Shared::ScText_Shared(const StyleContext* pstyles) : Q3PtrList<ScText>(), 
 	defaultStyle(), 
 	pstyleContext(NULL),
 	refs(1), len(0), trailingStyle()
@@ -23,7 +25,7 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) : QPtrList<ScText>(),
 }
 		
 
-ScText_Shared::ScText_Shared(const ScText_Shared& other) : QPtrList<ScText>(), 
+ScText_Shared::ScText_Shared(const ScText_Shared& other) : Q3PtrList<ScText>(), 
 	defaultStyle(other.defaultStyle), 
 	pstyleContext(other.pstyleContext),
 	refs(1), len(0), trailingStyle(other.trailingStyle)
@@ -31,7 +33,7 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) : QPtrList<ScText>(),
 	pstyleContext.setDefaultStyle( &defaultStyle );
 	trailingStyle.setContext( &pstyleContext );
 	setAutoDelete(true); 
-	QPtrListIterator<ScText> it( other );
+	Q3PtrListIterator<ScText> it( other );
 	ScText* elem;
 	while ( (elem = it.current()) != NULL ) {
 		++it;
@@ -59,7 +61,7 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 		defaultStyle.setContext( other.defaultStyle.context() );
 		trailingStyle.setContext( &pstyleContext );
 		clear();
-		QPtrListIterator<ScText> it( other );
+		Q3PtrListIterator<ScText> it( other );
 		ScText* elem;
 		while ( (elem = it.current()) != NULL ) {
 			++it;
@@ -95,7 +97,7 @@ ScText_Shared::~ScText_Shared() {
 	*/
 void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleContext* newContext)
 {
-	QPtrListIterator<ScText> it( *this );
+	Q3PtrListIterator<ScText> it( *this );
 	it += (pos-1);
 	ScText* elem;
 	while ( (elem = it.current()) != NULL ) {
@@ -105,7 +107,7 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 		--it;
 	}
 	// assert that all chars point to the following parstyle
-	QPtrListIterator<ScText> test( *this );
+	Q3PtrListIterator<ScText> test( *this );
 	const StyleContext* lastContext = NULL;
 	while ( (elem = it.current()) != NULL ) {
 		if ( elem->ch.isEmpty() ) 

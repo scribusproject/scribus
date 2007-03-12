@@ -12,6 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "prefsmanager.h"
 #include <prefsfile.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -21,12 +26,12 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	setIcon(loadIcon("AppIcon.png"));
 	readPrefs();
 	
-	QBoxLayout* blo = new QVBoxLayout(this,0,5,"blo");
+	Q3BoxLayout* blo = new Q3VBoxLayout(this,0,5,"blo");
 	QWidget* top = new QWidget(this);
 	top->setMaximumHeight(5);
 	middle = new QWidget(this);
 	middle->setMinimumWidth(250);
-	QBoxLayout* middlelo = new QHBoxLayout(middle,0,5);
+	Q3BoxLayout* middlelo = new Q3HBoxLayout(middle,0,5);
 	QWidget* left = new QWidget(middle);
 	center = new QWidget(middle);
 	QWidget* right = new QWidget(middle);
@@ -40,7 +45,7 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	blo->addWidget(middle);
 	blo->addWidget(bottom);
 	
-	QBoxLayout* mlo = new QVBoxLayout(center,0,5);
+	Q3BoxLayout* mlo = new Q3VBoxLayout(center,0,5);
 	mlo->insertSpacing(0,5);
 	nameLabel = new QLabel( tr("Name"),center);
 	mlo->addWidget(nameLabel);
@@ -67,12 +72,12 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	
 	descrLabel = new QLabel( tr("Description"),center);
 	mlo->addWidget(descrLabel);
-	descrEdit = new QTextEdit(center);
+	descrEdit = new Q3TextEdit(center);
 	mlo->addWidget(descrEdit);
 	
 	usageLabel = new QLabel( tr("Usage"),center);
 	mlo->addWidget(usageLabel);
-	usageEdit = new QTextEdit(center);
+	usageEdit = new Q3TextEdit(center);
 	mlo->addWidget(usageEdit);
 	
 	authorLabel = new QLabel( tr("Author"),center);
@@ -89,7 +94,7 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	
 	mlo->addStretch(10);
 	mlo->insertSpacing(-1,5);
-	QBoxLayout* tlo = new QHBoxLayout(bottom,0,5);
+	Q3BoxLayout* tlo = new Q3HBoxLayout(bottom,0,5);
 	detailButton = new QPushButton( tr("More Details"), bottom);
 	tlo->addWidget(detailButton);
 	tlo->addStretch(10);

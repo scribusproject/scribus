@@ -24,7 +24,9 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qstring.h>
 #include <qstylefactory.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "prefsmanager.h"
 #include "prefsmanager.moc"
@@ -484,7 +486,7 @@ void PrefsManager::initArrowStyles()
 {
 	struct ArrowDesc arrow;
 	FPointArray points;
-	QWMatrix arrowScaling;
+	QMatrix arrowScaling;
 	arrowScaling.scale(0.5, 0.5);
 	arrow.name = "Arrow1L";
 	arrow.userArrow = false;
@@ -683,11 +685,11 @@ void PrefsManager::convert12Preferences()
 {
 	// Import 1.2 font search path prefs
 	QFile fontPrefsFile12(QDir::convertSeparators(prefsLocation+"/scribusfont.rc"));
-	if (fontPrefsFile12.open(IO_ReadOnly))
+	if (fontPrefsFile12.open(QIODevice::ReadOnly))
 	{
 		PrefsContext *pc = prefsFile->getContext("Fonts");
 		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
-		QTextStream tsx(&fontPrefsFile12);
+		Q3TextStream tsx(&fontPrefsFile12);
 		QString extraPath = tsx.read();
 		fontPrefsFile12.close();
 		QStringList extraFonts = QStringList::split("\n",extraPath);
@@ -1197,7 +1199,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("BleedBottom", appPrefs.bleeds.Bottom);
 	elem.appendChild(dc76);
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QValueList<PageSet>::Iterator itpgset;
+	Q3ValueList<PageSet>::Iterator itpgset;
 	for(itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -1448,15 +1450,15 @@ bool PrefsManager::WritePref(QString ho)
 	// write file
 	bool result = false;
 	QFile f(ho);
-	if(!f.open(IO_WriteOnly))
+	if(!f.open(QIODevice::WriteOnly))
 	{
 		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
 			.arg(ho).arg(qApp->translate("QFile",f.errorString()));
 	}
 	else
 	{
-		QTextStream s(&f);
-		s.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream s(&f);
+		s.setEncoding(Q3TextStream::UnicodeUTF8);
 		s<<docu.toString();
 		if (f.status() == IO_Ok)
 			result = true;
@@ -1474,14 +1476,14 @@ bool PrefsManager::ReadPref(QString ho)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
-	if(!f.open(IO_ReadOnly))
+	if(!f.open(QIODevice::ReadOnly))
 	{
 		m_lastError = tr("Failed to open prefs file \"%1\": %2")
 			.arg(ho).arg( qApp->translate("QFile",f.errorString()) );
 		return false;
 	}
-	QTextStream ts(&f);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
+	Q3TextStream ts(&f);
+	ts.setEncoding(Q3TextStream::UnicodeUTF8);
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
 	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )

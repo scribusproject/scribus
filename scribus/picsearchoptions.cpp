@@ -27,9 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
 #include <qtimer.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qlabel.h>
 #include "picsearchoptions.h"
 #include "picsearchoptions.moc"
@@ -78,7 +78,7 @@ void PicSearchOptions::changeSearchDir()
 	workDir = QDir::homeDirPath();
 #endif
 	QString searchBase;
-	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
+	searchBase = Q3FileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
 	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
 		return;
 	directoryEdit->setText(searchBase);

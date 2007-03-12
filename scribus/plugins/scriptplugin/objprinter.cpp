@@ -148,7 +148,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 	// loadText is defined in utils.cpp
 	if (loadText("/etc/printcap", &Pcap))
 	{
-		QTextStream ts(&Pcap, IO_ReadOnly);
+		Q3TextStream ts(&Pcap, QIODevice::ReadOnly);
 		while(!ts.atEnd())
 		{
 			QStringList wt;

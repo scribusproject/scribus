@@ -9,11 +9,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmdvar.h"
 #include "qvariant.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 #include "prefspanel.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
 class QTabWidget;
 class QCheckBox;
@@ -46,10 +51,10 @@ class ScripterPrefsGui : public PrefsPanel
 		QLabel* startupScriptEditLabel;
 		QLineEdit* startupScriptEdit;
 
-		QGridLayout* ScripterPrefsGuiBaseLayout;
-		QVBoxLayout* extLayout;
+		Q3GridLayout* ScripterPrefsGuiBaseLayout;
+		Q3VBoxLayout* extLayout;
 		QSpacerItem* extScriptSpacer;
-		QHBoxLayout* startupScriptLayout;
+		Q3HBoxLayout* startupScriptLayout;
 
 		// console colors
 		QLabel* errorLabel;
@@ -67,7 +72,7 @@ class ScripterPrefsGui : public PrefsPanel
 		QPushButton* stringButton;
 		QPushButton* textButton;
 		QToolButton* startupScriptChangeButton;
-		QGridLayout* colorLayout;
+		Q3GridLayout* colorLayout;
 
 		void setupSyntaxColors();
 	protected slots:

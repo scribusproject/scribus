@@ -19,13 +19,16 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -45,14 +48,14 @@ enum {
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
+ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 		: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
 		setName( "ApplyMasterPageDialog" );
-	ApplyMasterPageDialogLayout = new QVBoxLayout( this, 11, 6, "ApplyMasterPageDialogLayout");
+	ApplyMasterPageDialogLayout = new Q3VBoxLayout( this, 11, 6, "ApplyMasterPageDialogLayout");
 
-	templateNameLayout = new QHBoxLayout( 0, 0, 6, "templateNameLayout");
+	templateNameLayout = new Q3HBoxLayout( 0, 0, 6, "templateNameLayout");
 
 	masterPageLabel = new QLabel( this, "masterPageLabel" );
 	templateNameLayout->addWidget( masterPageLabel );
@@ -63,13 +66,13 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	templateNameLayout->addWidget( masterPageComboBox );
 	ApplyMasterPageDialogLayout->addLayout( templateNameLayout );
 
-	applyToPageButtonGroup = new QButtonGroup( this, "applyToPageButtonGroup" );
+	applyToPageButtonGroup = new Q3ButtonGroup( this, "applyToPageButtonGroup" );
 	applyToPageButtonGroup->setMinimumSize( QSize( 250, 0 ) );
-	applyToPageButtonGroup->setFrameShape( QButtonGroup::GroupBoxPanel );
+	applyToPageButtonGroup->setFrameShape( Q3ButtonGroup::GroupBoxPanel );
 	applyToPageButtonGroup->setColumnLayout(0, Qt::Vertical );
 	applyToPageButtonGroup->layout()->setSpacing( 6 );
 	applyToPageButtonGroup->layout()->setMargin( 11 );
-	applyToPageButtonGroupLayout = new QVBoxLayout( applyToPageButtonGroup->layout() );
+	applyToPageButtonGroupLayout = new Q3VBoxLayout( applyToPageButtonGroup->layout() );
 	applyToPageButtonGroupLayout->setAlignment( Qt::AlignTop );
 
 	currentPageRadioButton = new QRadioButton( applyToPageButtonGroup, "currentPageRadioButton" );
@@ -85,7 +88,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	allPagesRadioButton = new QRadioButton( applyToPageButtonGroup, "allPagesRadioButton" );
 	applyToPageButtonGroupLayout->addWidget( allPagesRadioButton );
 
-	rangeLayout = new QHBoxLayout( 0, 0, 6, "rangeLayout");
+	rangeLayout = new Q3HBoxLayout( 0, 0, 6, "rangeLayout");
 
 	useRangeCheckBox = new QCheckBox( applyToPageButtonGroup, "useRangeCheckBox" );
 	useRangeCheckBox->setEnabled( false );	
@@ -108,7 +111,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	applyToPageButtonGroupLayout->addLayout( rangeLayout );
 	ApplyMasterPageDialogLayout->addWidget( applyToPageButtonGroup );
 
-	layout8 = new QHBoxLayout( 0, 0, 6, "layout8");
+	layout8 = new Q3HBoxLayout( 0, 0, 6, "layout8");
 	spacer1 = new QSpacerItem( 100, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout8->addItem( spacer1 );
 

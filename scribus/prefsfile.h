@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #define PREFSFILE_H
 
 #include <qmap.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 
 #include "scribusapi.h"
 #include "prefscontext.h"
@@ -44,7 +44,7 @@ private:
 	bool ioEnabled;
 	void load();
 	QString replaceIllegalChars(const QString& text);
-	void writeContexts(ContextMap* contextMap, QTextStream& stream);
+	void writeContexts(ContextMap* contextMap, Q3TextStream& stream);
 	void canWrite();
 public:
 	PrefsFile();

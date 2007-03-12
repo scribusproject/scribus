@@ -8,19 +8,24 @@ for which a new license (GPL+exception) is in place.
 #define CHARTABLE_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <Q3ValueList>
+#include <QKeyEvent>
 #include "scribusapi.h"
 
-class QTable;
+class Q3Table;
 class PageItem;
 class CharZoom;
 
 
 //! \brief A special type for character classes
-typedef QValueList<uint> CharClassDef;
+typedef Q3ValueList<uint> CharClassDef;
 
 
 /*! \brief A table widget containing given characters from font */
-class SCRIBUS_API CharTable : public QTable
+class SCRIBUS_API CharTable : public Q3Table
 {
     Q_OBJECT
 
@@ -94,7 +99,7 @@ protected:
 	void contentsMouseReleaseEvent(QMouseEvent *m);
 	void contentsMousePressEvent(QMouseEvent* e);
 	// d'n'd
-	QDragObject * dragObject();
+	Q3DragObject * dragObject();
 };
 
 #endif

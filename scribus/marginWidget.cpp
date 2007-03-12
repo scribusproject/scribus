@@ -9,6 +9,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <qcheckbox.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QLabel>
 
 #include "mspinbox.h"
 #include "units.h"
@@ -57,7 +61,7 @@ pageType(0)
 	lText = new QLabel( leftR, tr( "&Left:" ), marginPage, "lText" );
 
 	// layout
-	GroupLayout = new QGridLayout( marginPage );
+	GroupLayout = new Q3GridLayout( marginPage );
 	GroupLayout->setAlignment( Qt::AlignTop );
 	GroupLayout->setSpacing( 5 );
 	GroupLayout->setMargin( 10 );
@@ -73,7 +77,7 @@ pageType(0)
 	GroupLayout->addWidget( bText, 4, 0 );
 	if (showChangeAll)
 	{
-		marginsForPagesLayout = new QHBoxLayout( 0, 5, 5, "marginsForPagesLayout");
+		marginsForPagesLayout = new Q3HBoxLayout( 0, 5, 5, "marginsForPagesLayout");
 		marginsForPages = new QLabel( tr( "Apply settings to:" ), marginPage, "marginsForPages" );
 		marginsForPagesLayout->addWidget(marginsForPages);
 		marginsForAllPages = new QCheckBox( marginPage, "marginsForAllPages" );
@@ -108,7 +112,7 @@ pageType(0)
 	if (useBleeds)
 	{
 		bleedPage = new QWidget(this);
-		BleedGroupLayout = new QGridLayout( bleedPage );
+		BleedGroupLayout = new Q3GridLayout( bleedPage );
 		BleedGroupLayout->setSpacing( 5 );
 		BleedGroupLayout->setMargin( 10 );
 		BleedGroupLayout->setAlignment( Qt::AlignTop );

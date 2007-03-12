@@ -27,15 +27,15 @@ for which a new license (GPL+exception) is in place.
 #endif
 // include files for QT
 #include <qobject.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qcolor.h>
-#include <qvaluelist.h>
-#include <qvaluevector.h>
+#include <q3valuelist.h>
+#include <q3valuevector.h>
 #include <qpixmap.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qfont.h>
 #include <qmap.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qstringlist.h>
 #include <qtimer.h>
 
@@ -70,7 +70,7 @@ class ScribusView;
 class ScribusMainWindow;
 class ResourceCollection;
 
-class QProgressBar;
+class Q3ProgressBar;
 
 
 /**! \brief the Document Class
@@ -601,7 +601,7 @@ public:
 	   @param PrCMYK cmyk profile
 	   @param dia optional progress widget
 	 */
-	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
+	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, Q3ProgressBar *dia = 0);
 	/**
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */
@@ -839,18 +839,18 @@ public: // Public attributes
 	double rulerXoffset;
 	double rulerYoffset;
 	/** \brief List of Pages */
-	QPtrList<Page>* Pages;
+	Q3PtrList<Page>* Pages;
 	/** \brief List of Master Pages */
-	QPtrList<Page> MasterPages;
+	Q3PtrList<Page> MasterPages;
 	/** \brief List of Document Pages */
-	QPtrList<Page> DocPages;
+	Q3PtrList<Page> DocPages;
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */
-	QPtrList<PageItem>* Items;
-	QPtrList<PageItem> MasterItems;
-	QPtrList<PageItem> DocItems;
-	QPtrList<PageItem> FrameItems;
+	Q3PtrList<PageItem>* Items;
+	Q3PtrList<PageItem> MasterItems;
+	Q3PtrList<PageItem> DocItems;
+	Q3PtrList<PageItem> FrameItems;
 	Selection* const m_Selection;
 	/** \brief Pagewidth  */
 	double pageWidth;
@@ -860,7 +860,7 @@ public: // Public attributes
 	// int pageCount; Disabled CR no longer required
 	/** \brief Margins */
 	MarginStruct pageMargins;
-	QValueList<PageSet> pageSets;
+	Q3ValueList<PageSet> pageSets;
 	MarginStruct bleeds;
 // 	double BleedTop;
 // 	double BleedLeft;
@@ -890,7 +890,7 @@ public: // Public attributes
 	QString DocName;
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
-	QValueList<AlignObjs> AObjects;
+	Q3ValueList<AlignObjs> AObjects;
 	QColor papColor;
 	int CurrentSel;
 	ParagraphStyle currentStyle;
@@ -910,12 +910,12 @@ public: // Public attributes
 	bool leaveDrag;
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
-	QValueList<uint> DragElements;
+	Q3ValueList<uint> DragElements;
 private:
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	StyleSet<CharStyle> docCharStyles;
 public:
-	QValueList<Layer> Layers;
+	Q3ValueList<Layer> Layers;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
@@ -964,7 +964,7 @@ public:
 					int Prev;
 					int Next;
 					};
-	QValueList<BookMa> BookMarks;
+	Q3ValueList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
 	int RotMode;
@@ -972,7 +972,7 @@ public:
 	int AutoSaveTime;
 	QTimer * const autoSaveTimer;
 	QMap<QString,multiLine> MLineStyles;
-	QValueList<ArrowDesc> arrowStyles;
+	Q3ValueList<ArrowDesc> arrowStyles;
 	QMap<QString, ScPattern> docPatterns;
 	QWidget* WinHan;
 	bool DoDrawing;
@@ -982,7 +982,7 @@ public:
 		Page *page;
 		PageItem *item;
 	};
-	QValueList<OpenNodesList> OpenNodes;
+	Q3ValueList<OpenNodesList> OpenNodes;
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docLayerErrors;
 	QMap<int, errorCodes> docItemErrors;

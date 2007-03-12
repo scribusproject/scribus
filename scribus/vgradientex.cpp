@@ -33,7 +33,7 @@ bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )
 	return ( r1 < r2 ? true : false );
 }
 
-int VGradientEx::VColorStopExList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
+int VGradientEx::VColorStopExList::compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 )
 {
 	double r1 = ( (VColorStopEx*)item1 )->rampPoint;
 	double r2 = ( (VColorStopEx*)item2 )->rampPoint;
@@ -41,12 +41,12 @@ int VGradientEx::VColorStopExList::compareItems( QPtrCollection::Item item1, QPt
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradientEx::VColorStopList::compareItems
 
-void VGradientEx::VColorStopExList::inSort( QPtrCollection::Item d )
+void VGradientEx::VColorStopExList::inSort( Q3PtrCollection::Item d )
 {
 	int index = 0;
 	first();
 	register VColorStopEx *n = first();
-	while ( n && compareItems((QPtrCollection::Item) n,d) <= 0 ){ // find position in list
+	while ( n && compareItems((Q3PtrCollection::Item) n,d) <= 0 ){ // find position in list
 		n = next();
 		index++;
 	}
@@ -77,7 +77,7 @@ VGradientEx::VGradientEx( const VGradientEx& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	m_colorStops.clear();
-	QPtrVector<VColorStopEx> cs = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> cs = gradient.colorStops();
 	std::stable_sort( cs.data(), cs.data() + cs.count(), compareStopsEx);
 	for( uint i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
@@ -94,7 +94,7 @@ VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 	m_repeatMethod	= (VGradientEx::RepeatMethod) gradient.repeatMethod();
 
 	m_colorStops.clear();
-	QPtrVector<VColorStop> stops = gradient.colorStops();
+	Q3PtrVector<VColorStop> stops = gradient.colorStops();
 	std::stable_sort( stops.data(), stops.data() + stops.count(), compareStops);
 	for( uint i = 0; i < stops.count(); ++i)
 	{
@@ -123,16 +123,16 @@ VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 	m_repeatMethod	= gradient.m_repeatMethod;
 
 	m_colorStops.clear();
-	QPtrVector<VColorStopEx> cs = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> cs = gradient.colorStops();
 	std::stable_sort( cs.data(), cs.data() + cs.count(), compareStopsEx);
 	for( uint i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 	return *this;
 } // VGradientEx::operator=
 
-const QPtrVector<VColorStopEx> VGradientEx::colorStops() const
+const Q3PtrVector<VColorStopEx> VGradientEx::colorStops() const
 {
-	QPtrVector<VColorStopEx> v;
+	Q3PtrVector<VColorStopEx> v;
 	m_colorStops.toVector( &v );
 	v.setAutoDelete( false );
 	return v;
@@ -173,7 +173,7 @@ void VGradientEx::removeStop( uint n )
 	m_colorStops.remove( n );
 }
 
-void VGradientEx::transform( const QWMatrix &m )
+void VGradientEx::transform( const QMatrix &m )
 {
 	double mx, my;
 	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();

@@ -9,10 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -27,11 +30,11 @@ public:
 	~SelectFields() {};
 
 	QLabel* Text1;
-	QListBox* AvailFields;
+	Q3ListBox* AvailFields;
 	QPushButton* ToSel;
 	QPushButton* FromSel;
 	QLabel* Text2;
-	QListBox* SelFields;
+	Q3ListBox* SelFields;
 	QPushButton* OK;
 	QPushButton* Cancel;
 	QString S_Fields;
@@ -41,16 +44,16 @@ public slots:
 	void SetRetVal();
 	void RemoveSel();
 	void PutToSel();
-	void SelAField(QListBoxItem *c);
-	void SelEField(QListBoxItem *c);
+	void SelAField(Q3ListBoxItem *c);
+	void SelEField(Q3ListBoxItem *c);
 
 protected:
-	QVBoxLayout* SelectFieldsLayout;
-	QHBoxLayout* Layout5;
-	QVBoxLayout* Layout1;
-	QVBoxLayout* Layout2;
-	QVBoxLayout* Layout3;
-	QHBoxLayout* Layout4;
+	Q3VBoxLayout* SelectFieldsLayout;
+	Q3HBoxLayout* Layout5;
+	Q3VBoxLayout* Layout1;
+	Q3VBoxLayout* Layout2;
+	Q3VBoxLayout* Layout3;
+	Q3HBoxLayout* Layout4;
 };
 
 #endif // SELECTFIELDS_H

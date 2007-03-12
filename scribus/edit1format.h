@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define EDITSTYLE_H
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -18,6 +18,11 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <Q3PopupMenu>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -62,16 +67,16 @@ public:
 	MSpinBox* LineSpVal;
 	MSpinBox* fontBase;
 	MSpinBox* fontKern;
-	QPopupMenu* lineSpacingPop;
+	Q3PopupMenu* lineSpacingPop;
 	QToolButton* linespacingButton;
 	Tabruler* TabList;
 	MSpinBox* AboveV;
 	MSpinBox* BelowV;
 	StyleSelect* EffeS;
 	AlignSelect* AligS;
-	QGroupBox* GroupBox10;
-	QGroupBox* AbstandV;
-	QGroupBox* GroupFont;
+	Q3GroupBox* GroupBox10;
+	Q3GroupBox* AbstandV;
+	Q3GroupBox* GroupFont;
 	FontComboH* FontC;
 	MSpinBox* SizeC;
 	QLabel* TextF2;
@@ -81,7 +86,7 @@ public:
 	QLabel* FillIcon;
 	ColorCombo* TxFill;
 	ShadeButton *PM2;
-	QGroupBox* DropCaps;
+	Q3GroupBox* DropCaps;
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
 	QLabel* CapLabel2;
@@ -130,21 +135,21 @@ protected:
 	/*! \brief sample pixmap generator */
 	SampleItem *sampleItem;
 
-	QHBoxLayout* Layout17;
-	QHBoxLayout* layout5;
-	QHBoxLayout* layout6;
-	QHBoxLayout* layout7;
-	QVBoxLayout* layout8;
-	QHBoxLayout* layout9;
-	QHBoxLayout* layout9a;
-	QHBoxLayout* layout9b;
-	QVBoxLayout* layoutPreview;
-	QHBoxLayout* layoutPrevSet;
-	QVBoxLayout* EditStyleLayout;
-	QVBoxLayout* GroupBox10Layout;
-	QGridLayout* AbstandVLayout;
-	QGridLayout* DropCapsLayout;
-	QVBoxLayout* GroupFontLayout;
+	Q3HBoxLayout* Layout17;
+	Q3HBoxLayout* layout5;
+	Q3HBoxLayout* layout6;
+	Q3HBoxLayout* layout7;
+	Q3VBoxLayout* layout8;
+	Q3HBoxLayout* layout9;
+	Q3HBoxLayout* layout9a;
+	Q3HBoxLayout* layout9b;
+	Q3VBoxLayout* layoutPreview;
+	Q3HBoxLayout* layoutPrevSet;
+	Q3VBoxLayout* EditStyleLayout;
+	Q3VBoxLayout* GroupBox10Layout;
+	Q3GridLayout* AbstandVLayout;
+	Q3GridLayout* DropCapsLayout;
+	Q3VBoxLayout* GroupFontLayout;
 };
 
 #endif // EDITSTYLE_H

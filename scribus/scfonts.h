@@ -8,9 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define SCFONTS_H
 
 #include <qstring.h>
-#include <qstrlist.h>
+#include <q3strlist.h>
 #include <qstringlist.h>
-#include <qdict.h>
+#include <q3dict.h>
 //#include <qvector.h>
 #include <qfont.h>
 #include <qmap.h>
@@ -63,7 +63,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		void AddXFontPath();
 #endif
 #endif
-		QStrList FontPath;
+		Q3StrList FontPath;
 		QString ExtraPath;
 		struct testCache
 		{

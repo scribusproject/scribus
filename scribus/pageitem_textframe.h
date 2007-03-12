@@ -25,15 +25,17 @@ for which a new license (GPL+exception) is in place.
 #include <qevent.h>
 #include <qobject.h>
 
-#include <qpointarray.h>
-#include <qptrlist.h>
+#include <q3pointarray.h>
+#include <q3ptrlist.h>
 #include <qmap.h>
 #include <qpixmap.h>
 #include <qrect.h>
 #include <qstring.h>
-#include <qvaluestack.h>
-#include <qvaluelist.h>
+#include <q3valuestack.h>
+#include <q3valuelist.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 
 #include "scribusapi.h"
 #include "undoobject.h"

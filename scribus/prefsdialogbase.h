@@ -9,16 +9,22 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include <qiconview.h>
+#include <q3iconview.h>
 #include <qmap.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
 #include "scribusapi.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
 class QPushButton;
 class QLabel;
@@ -32,25 +38,25 @@ public:
 	~PrefsDialogBase() {};
 	int addItem(QString name, QPixmap icon, QWidget *tab);
 	void arrangeIcons();
-	QWidgetStack* prefsWidgets;
+	Q3WidgetStack* prefsWidgets;
 	QPushButton* backToDefaults;
 	//! \brief Apply changes but don't close the dialog.
 	QPushButton* applyChangesButton;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
 	QPushButton* saveButton;
-	QIconView* prefsSelection;
-	QMap<QIconViewItem*, int> itemMap;
+	Q3IconView* prefsSelection;
+	QMap<Q3IconViewItem*, int> itemMap;
 	int counter;
 
 public slots:
-	void itemSelected(QIconViewItem* ic);
+	void itemSelected(Q3IconViewItem* ic);
 
 protected:
-	QVBoxLayout* prefsLayout;
-	QHBoxLayout* layout3;
-	QHBoxLayout* layout4;
-	QVBoxLayout* layout5;
+	Q3VBoxLayout* prefsLayout;
+	Q3HBoxLayout* layout3;
+	Q3HBoxLayout* layout4;
+	Q3VBoxLayout* layout5;
 	QLabel* tabNameLabel;
 
 protected slots:

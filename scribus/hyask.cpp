@@ -8,6 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "hyask.moc"
 #include <qpixmap.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QKeyEvent>
 extern QPixmap loadIcon(QString nam);
 
 WortEdit::WortEdit(QWidget* parent) : QLineEdit(parent)
@@ -43,7 +47,7 @@ HyAsk::HyAsk( QWidget* parent, QString HWort )
     resize( 322, 73 ); 
     setCaption( tr( "Possible Hyphenation" ) );
   	setIcon(loadIcon("AppIcon.png"));
-    HyAskLayout = new QVBoxLayout( this, 11, 6, "HyAskLayout"); 
+    HyAskLayout = new Q3VBoxLayout( this, 11, 6, "HyAskLayout"); 
 
     Wort = new WortEdit( this );
     Wort->setMinimumSize( QSize( 300, 0 ) );
@@ -51,7 +55,7 @@ HyAsk::HyAsk( QWidget* parent, QString HWort )
     Wort->setText( HWort );
     HyAskLayout->addWidget( Wort );
 
-    Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1"); 
+    Layout1 = new Q3HBoxLayout( 0, 0, 6, "Layout1"); 
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer );
 

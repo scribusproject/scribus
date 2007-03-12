@@ -64,9 +64,9 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 		qDebug("Short Words config file not found");
 		return QStringList();
 	}
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
-		QTextStream t(&f);
+		Q3TextStream t(&f);
 		while (!t.eof())
 		{
 			aRow = t.readLine();
@@ -103,9 +103,9 @@ QString SWConfig::getAvailableLanguagesFromFile(QString filename)
 	QString aRow;
 
 	QFile f(filename);
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
-		QTextStream t(&f);
+		Q3TextStream t(&f);
 		while (!t.eof())
 		{
 			aRow = t.readLine();

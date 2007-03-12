@@ -13,6 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "undomanager.h"
 #include "undostate.h"
+//Added by qt3to4:
+#include <QCloseEvent>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -20,19 +26,19 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 {
 	doc=0;
 	unitRatio=1.0;
-	NodePaletteLayout = new QVBoxLayout( this );
+	NodePaletteLayout = new Q3VBoxLayout( this );
 	NodePaletteLayout->setSpacing( 2 );
 	NodePaletteLayout->setMargin( 5 );
 
-	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
-	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup1->setFrameShadow( QButtonGroup::Plain );
+	ButtonGroup1 = new Q3ButtonGroup( this, "ButtonGroup1" );
+	ButtonGroup1->setFrameShape( Q3ButtonGroup::NoFrame );
+	ButtonGroup1->setFrameShadow( Q3ButtonGroup::Plain );
 	ButtonGroup1->setTitle( "" );
 	ButtonGroup1->setExclusive( true );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 0 );
 	ButtonGroup1->layout()->setMargin( 0 );
-	ButtonGroup1Layout = new QGridLayout( ButtonGroup1->layout() );
+	ButtonGroup1Layout = new Q3GridLayout( ButtonGroup1->layout() );
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 0 );
 	ButtonGroup1Layout->setMargin( 0 );
@@ -178,7 +184,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	AbsMode->setChecked(false);
 	NodePaletteLayout->addWidget( AbsMode );
 
-	Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
+	Layout2 = new Q3GridLayout( 0, 1, 1, 0, 5, "Layout2");
 	XSpin = new MSpinBox( this, 2 );
 	XSpin->setMaxValue(30000);
 	XSpin->setEnabled(false);

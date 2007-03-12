@@ -9,7 +9,10 @@ for which a new license (GPL+exception) is in place.
 #define COLORWHEELWIDGET_H
 
 #include <qlabel.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPaintEvent>
 #include <scribusstructs.h>
 
 #include "sccolor.h"

@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef FPOINTARRAY_H
 #define FPOINTARRAY_H
 
-#include <qmemarray.h>
-#include <qwmatrix.h>
+#include <q3memarray.h>
+#include <qmatrix.h>
 #include <qpoint.h>
 #include "scribusapi.h"
 #include "fpoint.h"
@@ -36,12 +36,12 @@ for which a new license (GPL+exception) is in place.
 
 class SVGState;
 
-class SCRIBUS_API FPointArray : private QMemArray<FPoint>
+class SCRIBUS_API FPointArray : private Q3MemArray<FPoint>
 {
 public: 
 	FPointArray() : count(0), capacity(0), svgState(NULL) {};
-	FPointArray(int size) : QMemArray<FPoint>(size), count(size), capacity(size), svgState(NULL) {};
-	FPointArray(const FPointArray &a) : QMemArray<FPoint>(a), count(a.count), capacity(a.capacity), svgState(NULL) {};
+	FPointArray(int size) : Q3MemArray<FPoint>(size), count(size), capacity(size), svgState(NULL) {};
+	FPointArray(const FPointArray &a) : Q3MemArray<FPoint>(a), count(a.count), capacity(a.capacity), svgState(NULL) {};
 	uint size() const { return count; };
 	bool resize(uint newCount);
 	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
@@ -55,7 +55,7 @@ public:
 	void translate( double dx, double dy );
 	void scale( double sx, double sy );
 	FPoint WidthHeight() const;
-	void map(QWMatrix m);
+	void map(QMatrix m);
 	FPointArray &operator=( const FPointArray &a );
 	FPointArray copy() const;
 	void setMarker();

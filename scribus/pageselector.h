@@ -14,14 +14,19 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qwidget.h>
 #include <qvalidator.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 #include "scribusapi.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QComboBox;
 class QLineEdit;
-class QPopupMenu;
+class Q3PopupMenu;
 class QPushButton;
 class QToolButton;
 
@@ -33,7 +38,7 @@ public:
 	PageSelector( QWidget* parent, int maxPg );
 	~PageSelector() {};
 	bool hasFocus();
-	void focusPolicy(QWidget::FocusPolicy policy);
+	void focusPolicy(Qt::FocusPolicy policy);
 
 #if OPTION_USE_QTOOLBUTTON
 	QToolButton* Start;
@@ -67,7 +72,7 @@ private slots:
 	virtual void goFw();
 
 protected:
-	QHBoxLayout* PageSelectorLayout;
+	Q3HBoxLayout* PageSelectorLayout;
 
 signals:
 	void GotoPage(int);

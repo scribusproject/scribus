@@ -13,8 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qgroupbox.h>
+#include <q3whatsthis.h>
+#include <q3groupbox.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 #include "scimage.h"
@@ -28,10 +32,10 @@ public:
 	~ImageInfoDialog() {};
 
 protected:
-	QVBoxLayout* ImageInfoDialogLayout;
-	QHBoxLayout* layout1;
-	QGroupBox *GenGroup;
-	QGridLayout* layout3;
+	Q3VBoxLayout* ImageInfoDialogLayout;
+	Q3HBoxLayout* layout1;
+	Q3GroupBox *GenGroup;
+	Q3GridLayout* layout3;
 	QLabel* Text0g;
 	QLabel* timeInfo;
 	QLabel* Text1g;
@@ -42,8 +46,8 @@ protected:
 	QLabel* emPath;
 	QLabel* Text4g;
 	QLabel* emLayer;
-	QGroupBox *ExGroup;
-	QGridLayout* layout2;
+	Q3GroupBox *ExGroup;
+	Q3GridLayout* layout2;
 	QLabel* Text1;
 	QLabel* Text2;
 	QLabel* Text3;

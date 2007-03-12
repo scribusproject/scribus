@@ -8,11 +8,15 @@ for which a new license (GPL+exception) is in place.
 #define MUSTERPAGES_H
 
 #include <qdialog.h>
-class QListBox;
-class QListBoxItem;
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QCloseEvent>
+#include <Q3HBoxLayout>
+class Q3ListBox;
+class Q3ListBoxItem;
 class QToolButton;
-class QHBoxLayout;
-class QVBoxLayout;
+class Q3HBoxLayout;
+class Q3VBoxLayout;
 
 #include "scribusapi.h"
 class ScribusDoc;
@@ -35,7 +39,7 @@ protected slots:
 	void reject();
 
 private:
-	QListBox* masterPageListBox;
+	Q3ListBox* masterPageListBox;
 	QToolButton* importButton;
 	QToolButton* newButton;
 	QToolButton* duplicateButton;
@@ -46,16 +50,16 @@ private:
 	QString sMuster;
 
 protected:
-	QVBoxLayout* masterPagesLayout;
-	QHBoxLayout* buttonLayout;
+	Q3VBoxLayout* masterPagesLayout;
+	Q3HBoxLayout* buttonLayout;
 
 private slots:
 	void duplicateMasterPage();
 	void deleteMasterPage();
 	void newMasterPage();
-	void renameMasterPage(QListBoxItem * item);
+	void renameMasterPage(Q3ListBoxItem * item);
 	void appendPage();
-	void selectMasterPage(QListBoxItem *item);
+	void selectMasterPage(Q3ListBoxItem *item);
 
 signals:
 	void removePage(int);

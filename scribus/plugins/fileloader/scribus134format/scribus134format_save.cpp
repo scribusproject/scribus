@@ -21,7 +21,10 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 
 bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
@@ -209,7 +212,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	 * <c.toepp@gmx.de>
 	 */
 	static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	QCString cs = docu.toCString(); // UTF-8 QCString
+	Q3CString cs = docu.toCString(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
 		// zipped saving
@@ -221,9 +224,9 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	else
 	{
 		QFile f(fileName);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		QTextStream s(&f);
+		Q3TextStream s(&f);
 		s.writeRawBytes(xmlpi, strlen(xmlpi));
 		s.writeRawBytes(cs, cs.length());
 		f.close();
@@ -284,7 +287,7 @@ void Scribus134Format::writeLinestyles(QDomDocument & docu)
 		}
 		dc.appendChild(MuL);
 	}
-	QValueList<ArrowDesc>::Iterator itar;
+	Q3ValueList<ArrowDesc>::Iterator itar;
 	for (itar = m_Doc->arrowStyles.begin(); itar != m_Doc->arrowStyles.end(); ++itar)
 	{
 		if ((*itar).userArrow)
@@ -327,7 +330,7 @@ void Scribus134Format::writeBookmarks(QDomDocument & docu)
 {	
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 
-	QValueList<ScribusDoc::BookMa>::Iterator itbm;
+	Q3ValueList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
 	{
 		QDomElement fn=docu.createElement("Bookmark");
@@ -759,7 +762,7 @@ void Scribus134Format::writePageSets(QDomDocument & docu)
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	QValueList<PageSet>::Iterator itpgset;
+	Q3ValueList<PageSet>::Iterator itpgset;
 	for(itpgset = m_Doc->pageSets.begin(); itpgset != m_Doc->pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -818,7 +821,7 @@ void Scribus134Format::writeContent(QDomDocument & docu)
 	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
 }
 
-void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
+void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	Page *page;
@@ -981,7 +984,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, Q3PtrList<PageItem> *items)
 {
 	uint ObCount = maxC;
 	PageItem *item = NULL;
@@ -1052,7 +1055,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			}
 			else
 			{
-				QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+				Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
 				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 				{
 					QDomElement itcl = docu->createElement("CSTOP");
@@ -1319,7 +1322,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	QValueList<double>::Iterator dax;
+	Q3ValueList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);
@@ -1342,7 +1345,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("COCOOR", colp);
 	ob->setAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
 	QString glp = "";
-	QValueStack<int>::Iterator nx;
+	Q3ValueStack<int>::Iterator nx;
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);

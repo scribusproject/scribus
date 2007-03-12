@@ -27,7 +27,12 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qcolor.h>
 #include <qrect.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <Q3ValueList>
+#include <QPixmap>
+#include <QMouseEvent>
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribus.h"
@@ -36,9 +41,9 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 #if QT_VERSION  > 0x030102
-	#define SPLITHC SplitVCursor
+	#define SPLITHC Qt::SplitVCursor
 #else
-	#define SPLITHC SplitHCursor
+	#define SPLITHC Qt::SplitHCursor
 #endif
 
 extern QPixmap loadIcon(QString nam);
@@ -230,7 +235,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (RulerCode == rc_tab)
 			{
-				QValueList<ParagraphStyle::TabRecord>::Iterator it;
+				Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
 				it = TabValues.at(ActTab);
 				TabValues.remove(it);
 				ActTab = 0;
@@ -611,13 +616,13 @@ void Hruler::paintEvent(QPaintEvent *e)
 			{
 				p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 				double fpos = Pos+First+Indent;
-				QPointArray cr;
+				Q3PointArray cr;
 				cr.setPoints(3, qRound(fpos*sc), 9, qRound((fpos+3/sc)*sc), topline, qRound((fpos-3/sc)*sc), topline);
 				p.drawPolygon(cr);
-				QPointArray cr2;
+				Q3PointArray cr2;
 				cr2.setPoints(3, qRound((Pos+Indent)*sc), 9, qRound((Pos+Indent+3/sc)*sc), 15, qRound((Pos+Indent-3/sc)*sc), 15);
 				p.drawPolygon(cr2);
-				QPointArray cr3;
+				Q3PointArray cr3;
 				cr3.setPoints(3, qRound((Pos+RMargin)*sc), topline, qRound((Pos+RMargin)*sc), 15, qRound((Pos+RMargin-3/sc)*sc), 9);
 				p.drawPolygon(cr3);
 			}
@@ -729,7 +734,7 @@ void Hruler::Draw(int where)
 	// erase old marker
 	int currentCoor = where - currView->contentsX();
 	repaint(oldMark-3, 0, 7, 17);
-	QPointArray cr;
+	Q3PointArray cr;
 	QPainter p;
 #ifdef OPTION_SMOOTH_MARKERS
 	// draw new marker to pixmap
@@ -743,8 +748,8 @@ void Hruler::Draw(int where)
 		p.setBrush( BACKGROUND );
 		p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
 
-		p.setPen(red);
-		p.setBrush(red);
+		p.setPen(Qt::red);
+		p.setBrush(Qt::red);
 		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
 		p.drawPolygon(cr);
 		p.end();
@@ -757,8 +762,8 @@ void Hruler::Draw(int where)
 	p.end();
 	// restore marks
 	p.begin(this);
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.setFont(font());
 	double sc = currView->getScale();
 	double cc = width() / sc;
@@ -800,7 +805,7 @@ void Hruler::UpdateTabList()
 	tb.tabPosition = TabValues[ActTab].tabPosition;
 	tb.tabType = TabValues[ActTab].tabType;
 	tb.tabFillChar =  TabValues[ActTab].tabFillChar;
-	QValueList<ParagraphStyle::TabRecord>::Iterator it;
+	Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
 	int gg = static_cast<int>(TabValues.count());
 	int g = gg;
 	it = TabValues.at(ActTab);

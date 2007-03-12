@@ -14,7 +14,7 @@ nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory)
 {
 	tmplXml = tmplXmlFile;
 	templateCategory = tmplCategory;
-	isWritable = tmplXml->open(IO_WriteOnly | IO_ReadOnly);
+	isWritable = tmplXml->open(QIODevice::WriteOnly | QIODevice::ReadOnly);
 	tmplXml->close();
 	isDeleted = false;
 }
@@ -26,8 +26,8 @@ void nfttemplate::remove()
 		QString newTmplXml = "";
 		QString tmp;
 		bool collect = false;
-		tmplXml->open(IO_ReadOnly);
-		QTextStream stream(tmplXml);
+		tmplXml->open(QIODevice::ReadOnly);
+		Q3TextStream stream(tmplXml);
 		QString line = stream.readLine();
 		while (line != NULL)
 		{
@@ -69,9 +69,9 @@ void nfttemplate::remove()
 			line = stream.readLine();
 		}
 		tmplXml->close();
-		tmplXml->open(IO_WriteOnly);
-		QTextStream instream(tmplXml);
-		instream.setEncoding(QTextStream::UnicodeUTF8);
+		tmplXml->open(QIODevice::WriteOnly);
+		Q3TextStream instream(tmplXml);
+		instream.setEncoding(Q3TextStream::UnicodeUTF8);
 		instream << newTmplXml;
 		tmplXml->close();
 	}

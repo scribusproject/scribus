@@ -25,8 +25,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "pageitem.h"
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3ValueList>
+#include <Q3PtrList>
 #include "sccolor.h"
 #include "util.h"
 #include "resourcecollection.h"
@@ -41,12 +45,12 @@ using namespace desaxe;
 
 struct Collection
 {
-	QPtrList<PageItem> items;
+	Q3PtrList<PageItem> items;
 	ColorList colors;
 	StyleSet<ParagraphStyle> pstyles;
 	StyleSet<CharStyle> cstyles;
-	QValueList<QString> fonts;
-	QValueList<QString> patterns;
+	Q3ValueList<QString> fonts;
+	Q3ValueList<QString> patterns;
 
 	void collectItem(PageItem* p)              { items.append(p); }
 	void collectColor(QString name, ScColor c) { colors[name] = c; }
@@ -141,8 +145,8 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	for (uint i=0; i < doc->Items->count(); ++i)
 		doc->Items->at(i)->getNamedResources(lists);
 	
-	QValueList<QString>::Iterator it;
-	QValueList<QString> names = lists.styleNames();
+	Q3ValueList<QString>::Iterator it;
+	Q3ValueList<QString> names = lists.styleNames();
 	for (it = names.begin(); it != names.end(); ++it)
 		doc->paragraphStyles()[*it].saxx(handler);
 
@@ -158,7 +162,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 		handler.begin("MultiLine", multiattr);		
 		multiLine ml = doc->MLineStyles[*it];
 		
-		QValueVector<SingleLine>::Iterator itMU2;
+		Q3ValueVector<Qt::TextSingleLine>::Iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
 			Xml_attr lineattr;
@@ -190,7 +194,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 }
 
 
-Selection Serializer::deserializeObjects(const QCString & xml)
+Selection Serializer::deserializeObjects(const Q3CString & xml)
 {
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
 
@@ -250,7 +254,7 @@ Selection Serializer::importCollection()
 		//TODO: fonts
 		//TODO: linestyles
 		
-		QPtrList<PageItem>* objects = &(coll->items);
+		Q3PtrList<PageItem>* objects = &(coll->items);
 		
 //		qDebug(QString("deserialize: objects %1").arg((ulong)objects));
 		
@@ -279,9 +283,9 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);
-	QCString dec = codec->fromUnicode( txt );
+	Q3CString dec = codec->fromUnicode( txt );
 	QFile f(filename);
-	if (f.open(IO_WriteOnly))
+	if (f.open(QIODevice::WriteOnly))
 	{
 		f.writeBlock(dec, dec.length());
 		f.close();
@@ -294,7 +298,7 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 bool Serializer::readWithEncoding(const QString& filename, const QString& encoding, 
 								  QString &txt)
 {
-	QCString file;
+	Q3CString file;
 	QTextCodec *codec;
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();

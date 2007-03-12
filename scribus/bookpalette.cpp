@@ -23,11 +23,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookpalette.h"
 #include "bookpalette.moc"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3VBoxLayout>
 extern QPixmap loadIcon(QString nam);
 
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
-	PaletteLayout = new QVBoxLayout( this, 0, 0, "PaletteLayout");
+	PaletteLayout = new Q3VBoxLayout( this, 0, 0, "PaletteLayout");
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));
 	PaletteLayout->addWidget( BView );

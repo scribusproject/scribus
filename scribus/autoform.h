@@ -9,9 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <qwidget.h>
 #include <qtoolbutton.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3PopupMenu>
 #include "scribusapi.h"
-class QGridLayout;
-class QPopupMenu;
+class Q3GridLayout;
+class Q3PopupMenu;
 class QPixmap;
 class AutoformButtonGroup;
 
@@ -24,7 +28,7 @@ public:
 	Autoforms( QWidget* parent );
 	~Autoforms() {};
 	QPixmap getIconPixmap(int nr);
-	QPopupMenu* Men;
+	Q3PopupMenu* Men;
 
 public slots:
 	void selForm(int a);
@@ -33,7 +37,7 @@ signals:
 	void FormSel(int, int, double *);
 
 protected:
-	QGridLayout* buttonGroup1Layout;
+	Q3GridLayout* buttonGroup1Layout;
 	AutoformButtonGroup* buttonGroup1;
 };
 

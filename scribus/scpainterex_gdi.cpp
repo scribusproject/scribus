@@ -36,6 +36,8 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef SC_USE_GDIPLUS
 #include <gdiplus.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 using namespace Gdiplus;
 #endif
 
@@ -45,7 +47,7 @@ using namespace Gdiplus;
 
 #include <qpaintdevice.h>
 #include <qpixmap.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qimage.h>
 
 #include <iostream>
@@ -76,7 +78,7 @@ ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect,  ScribusDoc* doc, bool g
 	m_lineJoin = Qt::RoundJoin;
 	m_fillGradient = VGradientEx(VGradientEx::linear);
 	m_strokeGradient = VGradientEx(VGradientEx::linear);
-	m_matrix = QWMatrix();
+	m_matrix = QMatrix();
 	// Grayscale conversion parameter
 	m_convertToGray = gray;
 	// Initialization of Windows GDI data
@@ -214,12 +216,12 @@ void ScPainterEx_GDI::clear( ScColorShade &c )
 #endif
 }
 
-const QWMatrix ScPainterEx_GDI::worldMatrix()
+const QMatrix ScPainterEx_GDI::worldMatrix()
 {
 	return m_matrix;
 }
 
-void ScPainterEx_GDI::setWorldMatrix( const QWMatrix &mat )
+void ScPainterEx_GDI::setWorldMatrix( const QMatrix &mat )
 {
 	m_matrix = mat;
 }
@@ -345,7 +347,7 @@ void ScPainterEx_GDI::setGradient(VGradientEx::Type mode, FPoint orig, FPoint ve
 	m_fillGradient.setFocalPoint(foc);
 }
 
-void ScPainterEx_GDI::setPattern( ScPattern* pattern, QWMatrix& patternTransform )
+void ScPainterEx_GDI::setPattern( ScPattern* pattern, QMatrix& patternTransform )
 {
 	m_pattern = pattern;
 	m_patternTransform = patternTransform;
@@ -409,7 +411,7 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineJoin = jo;
 	double Dt = QMAX(2*w, 1);
 	double Da = QMAX(6*w, 1);
-	QValueList<double> tmp;
+	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -456,7 +458,7 @@ void ScPainterEx_GDI::setPenOpacity( double op )
 }
 
 
-void ScPainterEx_GDI::setDash(const QValueList<double>& array, double ofs)
+void ScPainterEx_GDI::setDash(const Q3ValueList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -529,7 +531,7 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		else
 		{
 			QColor fillColor = transformColor(m_fillColor, 1.0);
-			SolidBrush fill_brush( Color(m_fillTrans * 255, fillColor.red(), fillColor.green(), fillColor.blue()) );
+			SolidBrush fill_brush( Color(m_fillTrans * 255, fillColor.Qt::red(), fillColor.Qt::green(), fillColor.Qt::blue()) );
 			m_graphics->FillPath( &fill_brush, m_graphicsPath );
 		}
 	}
@@ -543,7 +545,7 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		double penScale = sqrt(norm2 / 2.0);
 		double penWidth =  m_lineWidth * penScale;
 		QColor strokeColor = transformColor( m_strokeColor, 1.0 );
-		SolidBrush stroke_brush( Color(m_strokeTrans * 255, strokeColor.red(), strokeColor.green(), strokeColor.blue()) );
+		SolidBrush stroke_brush( Color(m_strokeTrans * 255, strokeColor.Qt::red(), strokeColor.Qt::green(), strokeColor.Qt::blue()) );
 		Pen stroke_pen( &stroke_brush, penWidth );
 		REAL *dashes = NULL;
 		
@@ -899,7 +901,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QPtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
 	VColorStopEx stop( *colorStops[0] );
 	FPoint p1, p1a, p2, p2a;
 	QColor color;
@@ -939,21 +941,21 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	
 	stop = *colorStops[0];
 	color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-	colors[0] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
+	colors[0] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
 	positions[0] = 0.0;
 
 	stop = *colorStops[gradient.Stops() - 1];
 	color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-	colors[numElements - 1] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
+	colors[numElements - 1] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
 	positions[numElements - 1] = 1.0;
 
 	for( uint index = 0 ; index < gradient.Stops(); index++)
 	{
 		stop = *colorStops[index];
 		color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-		r = color.red();
-		g = color.green();
-		b = color.blue();
+		r = color.Qt::red();
+		g = color.Qt::green();
+		b = color.Qt::blue();
 		a = stop.opacity * 255;
 		colors[index + 1] = Color(a, r, g, b);
 		positions[index + 1] = ( stop.rampPoint * length + maxDim ) / ( length + 2 * maxDim );
@@ -980,7 +982,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QPtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
 	FPoint p1, p1a, p2, p2a;
@@ -1080,7 +1082,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QPtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
 	FPoint p1, p2;
@@ -1206,7 +1208,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	int numElements;
 	int r, g, b, a;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QPtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
 	VColorStopEx stop( *colorStops[0] );
 	QColor color;
 
@@ -1237,21 +1239,21 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 
 	stop = *colorStops[ 0 ];
 	color = transformColor( ScColorShade(stop.color, stop.shade), stop.opacity);
-	colors[numElements - 1] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
+	colors[numElements - 1] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
 	positions[numElements - 1] = 1.0;		
 	
 	stop = *colorStops[ gradient.Stops() - 1 ];
 	color = transformColor( ScColorShade(stop.color, stop.shade), stop.opacity);
-	colors[0] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
+	colors[0] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
 	positions[0] = 0.0;
 
 	for( uint index = 0 ; index < gradient.Stops() ; index++)
 	{
 		stop = *colorStops[index];
 		color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-		r = color.red();
-		g = color.green();
-		b = color.blue();
+		r = color.Qt::red();
+		g = color.Qt::green();
+		b = color.Qt::blue();
 		a = stop.opacity * 255;
 		colors[gradient.Stops() - index] = Color(a, r, g, b);
 		positions[gradient.Stops() - index] = 1 - 2 * (stop.rampPoint * rad) / (double) maxDim;
@@ -1277,7 +1279,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	double ramp1, ramp2;
 	double scale1, scale2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QPtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
 	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
 	QColor color;

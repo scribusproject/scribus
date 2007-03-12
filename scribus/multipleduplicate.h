@@ -14,7 +14,7 @@ class MultipleDuplicate : public MultipleDuplicateBase
 {
 	Q_OBJECT
 	public:
-		MultipleDuplicate(int unitIndex, QWidget* parent, const char* name = "" , WFlags fl=0);
+		MultipleDuplicate(int unitIndex, QWidget* parent, const char* name = "" , Qt::WFlags fl=0);
 		~MultipleDuplicate();
 		void getMultiplyData(ItemMultipleDuplicateData&);
 	protected:

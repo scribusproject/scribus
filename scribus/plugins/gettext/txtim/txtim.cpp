@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <qobject.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qstring.h>
@@ -56,7 +56,7 @@ void TxtIm::loadText()
 		return;
 	uint posi;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();

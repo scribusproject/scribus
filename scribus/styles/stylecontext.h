@@ -18,9 +18,9 @@
 #define STYLECONTEXT_H
 
 #include <cassert>
-#include <qsignal.h>
+#include <q3signal.h>
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "scribusapi.h"
 
 
@@ -75,7 +75,7 @@ public:
 	
 protected:
 	int m_version;
-	mutable QSignal m_sig;
+	mutable Q3Signal m_sig;
 	mutable int m_cnt;
 };
 

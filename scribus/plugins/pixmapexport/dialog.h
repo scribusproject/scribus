@@ -10,13 +10,18 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QButtonGroup;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
+class Q3ButtonGroup;
 class QComboBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -38,7 +43,7 @@ public:
 	QLabel* TextLabel1;
 	QLineEdit* OutputDirectory;
 	QPushButton* OutputDirectoryButton;
-	QGroupBox* groupBox1;
+	Q3GroupBox* groupBox1;
 	QLabel* TextLabel2;
 	QLabel* textLabel1;
 	QLabel* textLabel3;
@@ -49,7 +54,7 @@ public:
 	QSpinBox* QualityBox;
 	QSpinBox* DPIBox;
 	MSpinBox* EnlargementBox;
-	QButtonGroup* ButtonGroup1;
+	Q3ButtonGroup* ButtonGroup1;
 	QRadioButton* OnePageRadio;
 	QRadioButton* AllPagesRadio;
 	QRadioButton* IntervalPagesRadio;
@@ -67,14 +72,14 @@ public slots:
 	virtual void computeSize();
 
 protected:
-	QVBoxLayout* ExportFormLayout;
-	QHBoxLayout* layout1;
-	QHBoxLayout* layout3;
-	QGridLayout* groupBox1Layout;
-	QVBoxLayout* ButtonGroup1Layout;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout4;
-	QHBoxLayout *pageNumberSelectorLayout;
+	Q3VBoxLayout* ExportFormLayout;
+	Q3HBoxLayout* layout1;
+	Q3HBoxLayout* layout3;
+	Q3GridLayout* groupBox1Layout;
+	Q3VBoxLayout* ButtonGroup1Layout;
+	Q3HBoxLayout* layout2;
+	Q3HBoxLayout* layout4;
+	Q3HBoxLayout *pageNumberSelectorLayout;
 	QPushButton* pageNrButton;
 	PrefsContext* prefs;
 	ScribusDoc*  m_doc;

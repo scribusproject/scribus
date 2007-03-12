@@ -23,11 +23,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <qaction.h>
 #include <qobject.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qpoint.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
 
 class QMenuBar;
-class QPopupMenu;
+class Q3PopupMenu;
 
 #include "scribusapi.h"
 class ScrAction;
@@ -47,13 +49,13 @@ public:
 	enum MenuType {Normal, DLL};
 
 	bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
-	bool createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
+	bool createMenu(const QString &menuName, const QIcon menuIcon, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
 	bool addMenuToMenu(const QString & child, const QString &parent);
 	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
 	bool clearMenu(const QString &menuName);
 	void setMenuText(const QString &menuName, const QString &menuText);
-	void setMenuIcon(const QString &menuName, const QIconSet &menuIcon);
-	QPopupMenu *getLocalPopupMenu(const QString &menuName);
+	void setMenuIcon(const QString &menuName, const QIcon &menuIcon);
+	Q3PopupMenu *getLocalPopupMenu(const QString &menuName);
 	void setMenuEnabled(const QString &menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString &menuName);
 	bool addMenuToMenuBarAfter(const QString &, const QString &);

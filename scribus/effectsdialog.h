@@ -10,15 +10,21 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qdialog.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qmap.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QLabel>
+#include <Q3PopupMenu>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 #include "pageitem.h"
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
 class QLabel;
 class QPushButton;
@@ -26,21 +32,21 @@ class QComboBox;
 class ColorCombo;
 class ScribusDoc;
 class ShadeButton;
-class QWidgetStack;
+class Q3WidgetStack;
 class QWidget;
 class QSlider;
-class QPopupMenu;
+class Q3PopupMenu;
 class QToolButton;
 class MSpinBox;
 class CurveWidget;
 
-class SCRIBUS_API EffectListItem : public QListBoxText
+class SCRIBUS_API EffectListItem : public Q3ListBoxText
 {
 public:
-    EffectListItem(QListBox* parent, QString f);
+    EffectListItem(Q3ListBox* parent, QString f);
     virtual ~EffectListItem() {};
-    virtual const int width(const QListBox *);
-    virtual const int height(const QListBox *);
+    virtual const int width(const Q3ListBox *);
+    virtual const int height(const Q3ListBox *);
 protected:
     virtual void paint(QPainter *p);
 };
@@ -69,7 +75,7 @@ public:
 	QLabel* textLabel12;
 	QLabel* textLabel14;
 	QLabel* textLabel15;
-	QWidgetStack* optionStack;
+	Q3WidgetStack* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
 	ColorCombo* colData;
@@ -91,13 +97,13 @@ public:
 	ShadeButton *shade1;
 	CurveWidget *CurveD1;
 	QToolButton *CurveD1Button;
-	QPopupMenu *CurveD1Pop;
+	Q3PopupMenu *CurveD1Pop;
 	QLabel* textLabel2d;
 	ColorCombo* colData2;
 	ShadeButton *shade2;
 	CurveWidget *CurveD2;
 	QToolButton *CurveD2Button;
-	QPopupMenu *CurveD2Pop;
+	Q3PopupMenu *CurveD2Pop;
 
 	QWidget* WStackPage_9;
 	QLabel* textLabel1t;
@@ -105,19 +111,19 @@ public:
 	ShadeButton *shadet1;
 	CurveWidget *CurveT1;
 	QToolButton *CurveT1Button;
-	QPopupMenu *CurveT1Pop;
+	Q3PopupMenu *CurveT1Pop;
 	QLabel* textLabel2t;
 	ColorCombo* colDatat2;
 	ShadeButton *shadet2;
 	CurveWidget *CurveT2;
 	QToolButton *CurveT2Button;
-	QPopupMenu *CurveT2Pop;
+	Q3PopupMenu *CurveT2Pop;
 	QLabel* textLabel3t;
 	ColorCombo* colDatat3;
 	ShadeButton *shadet3;
 	CurveWidget *CurveT3;
 	QToolButton *CurveT3Button;
-	QPopupMenu *CurveT3Pop;
+	Q3PopupMenu *CurveT3Pop;
 
 	QWidget* WStackPage_10;
 	QLabel* textLabel1q;
@@ -125,40 +131,40 @@ public:
 	ShadeButton *shadeq1;
 	CurveWidget *CurveQ1;
 	QToolButton *CurveQ1Button;
-	QPopupMenu *CurveQ1Pop;
+	Q3PopupMenu *CurveQ1Pop;
 	QLabel* textLabel2q;
 	ColorCombo* colDataq2;
 	ShadeButton *shadeq2;
 	CurveWidget *CurveQ2;
 	QToolButton *CurveQ2Button;
-	QPopupMenu *CurveQ2Pop;
+	Q3PopupMenu *CurveQ2Pop;
 	QLabel* textLabel3q;
 	ColorCombo* colDataq3;
 	ShadeButton *shadeq3;
 	CurveWidget *CurveQ3;
 	QToolButton *CurveQ3Button;
-	QPopupMenu *CurveQ3Pop;
+	Q3PopupMenu *CurveQ3Pop;
 	QLabel* textLabel4q;
 	ColorCombo* colDataq4;
 	ShadeButton *shadeq4;
 	CurveWidget *CurveQ4;
 	QToolButton *CurveQ4Button;
-	QPopupMenu *CurveQ4Pop;
+	Q3PopupMenu *CurveQ4Pop;
 
 	QWidget* WStackPage_11;
 	CurveWidget *Kdisplay;
 
-	QListBox* usedEffects;
+	Q3ListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
 	QPushButton* toEffects;
 	QPushButton* fromEffects;
-	QListBox* availableEffects;
+	Q3ListBox* availableEffects;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	ScImageEffectList effectsList;
-	QMap<QListBoxItem*, QString> effectValMap;
-	QListBoxItem* currentOptions;
+	QMap<Q3ListBoxItem*, QString> effectValMap;
+	Q3ListBoxItem* currentOptions;
 	ScribusDoc* doc;
 	PageItem* currItem;
 	ScImage image;
@@ -176,38 +182,38 @@ public slots:
 	virtual void moveFromEffects();
 	virtual void moveEffectUp();
 	virtual void moveEffectDown();
-	virtual void selectEffect(QListBoxItem* c);
-	virtual void selectAvailEffect(QListBoxItem* c);
-	virtual void selectAvailEffectDbl(QListBoxItem* c);
+	virtual void selectEffect(Q3ListBoxItem* c);
+	virtual void selectAvailEffect(Q3ListBoxItem* c);
+	virtual void selectAvailEffectDbl(Q3ListBoxItem* c);
 
 protected:
-	QHBoxLayout* EffectsDialogLayout;
-	QVBoxLayout* WStackPageLayout;
-	QVBoxLayout* WStackPage3Layout;
-	QHBoxLayout* layout20;
-	QVBoxLayout* WStackPage4Layout;
-	QHBoxLayout* layout21;
-	QVBoxLayout* WStackPage5Layout;
-	QHBoxLayout* layout22;
-	QHBoxLayout* layout23;
-	QVBoxLayout* WStackPage6Layout;
-	QHBoxLayout* layout24;
-	QVBoxLayout* WStackPage7Layout;
-	QGridLayout* WStackPage8Layout;
-	QGridLayout* WStackPage9Layout;
-	QGridLayout* WStackPage10Layout;
-	QVBoxLayout* WStackPage11Layout;
-	QHBoxLayout* layout26;
-	QHBoxLayout* layout17;
-	QHBoxLayout* layout19;
-	QGridLayout* layout10;
-	QVBoxLayout* layout8;
-	QHBoxLayout* layout7;
-	QVBoxLayout* layout1;
-	QVBoxLayout* layout2;
-	QVBoxLayout* layout16;
-	QVBoxLayout* layout18;
-	QHBoxLayout* layout9;
+	Q3HBoxLayout* EffectsDialogLayout;
+	Q3VBoxLayout* WStackPageLayout;
+	Q3VBoxLayout* WStackPage3Layout;
+	Q3HBoxLayout* layout20;
+	Q3VBoxLayout* WStackPage4Layout;
+	Q3HBoxLayout* layout21;
+	Q3VBoxLayout* WStackPage5Layout;
+	Q3HBoxLayout* layout22;
+	Q3HBoxLayout* layout23;
+	Q3VBoxLayout* WStackPage6Layout;
+	Q3HBoxLayout* layout24;
+	Q3VBoxLayout* WStackPage7Layout;
+	Q3GridLayout* WStackPage8Layout;
+	Q3GridLayout* WStackPage9Layout;
+	Q3GridLayout* WStackPage10Layout;
+	Q3VBoxLayout* WStackPage11Layout;
+	Q3HBoxLayout* layout26;
+	Q3HBoxLayout* layout17;
+	Q3HBoxLayout* layout19;
+	Q3GridLayout* layout10;
+	Q3VBoxLayout* layout8;
+	Q3HBoxLayout* layout7;
+	Q3VBoxLayout* layout1;
+	Q3VBoxLayout* layout2;
+	Q3VBoxLayout* layout16;
+	Q3VBoxLayout* layout18;
+	Q3HBoxLayout* layout9;
 };
 
 #endif // EFFECTSDIALOG_H

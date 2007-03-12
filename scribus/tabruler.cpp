@@ -13,10 +13,19 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpainter.h>
 #include <qcursor.h>
 #include <qcolor.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <Q3PointArray>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
+#include <QPaintEvent>
 #include "commonstrings.h"
 #include "units.h"
 #include "scribusstructs.h"
@@ -24,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-RulerT::RulerT(QWidget *pa, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
+RulerT::RulerT(QWidget *pa, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	unitIndex = ein;
@@ -56,7 +65,7 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<ParagraphStyle::TabRecord> Tabs,
 	}
 }
 
-void RulerT::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void RulerT::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	unitIndex = dEin;
 	iter=unitRulerGetIter1FromIndex(unitIndex);
@@ -149,10 +158,10 @@ void RulerT::paintEvent(QPaintEvent *)
 	{
 		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 		p.setBrush(blue);
-		QPointArray cr;
+		Q3PointArray cr;
 		cr.setPoints(3, qRound(firstLine+leftIndent), 12, qRound(firstLine+leftIndent-4), 0, qRound(firstLine+leftIndent+4), 0);
 		p.drawPolygon(cr);
-		QPointArray cr2;
+		Q3PointArray cr2;
 		cr2.setPoints(3, qRound(leftIndent), 12, qRound(leftIndent+4), 24, qRound(leftIndent-4), 24);
 		p.drawPolygon(cr2);
 	}
@@ -241,7 +250,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (rulerCode == 3)
 		{
-			QValueList<ParagraphStyle::TabRecord>::Iterator it;
+			Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
 			it = tabValues.at(actTab);
 			tabValues.remove(it);
 			actTab = 0;
@@ -357,7 +366,7 @@ void RulerT::updateTabList()
 	tb.tabPosition = tabValues[actTab].tabPosition;
 	tb.tabType = tabValues[actTab].tabType;
 	tb.tabFillChar =  tabValues[actTab].tabFillChar;
-	QValueList<ParagraphStyle::TabRecord>::Iterator it;
+	Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
 	int gg = static_cast<int>(tabValues.count()-1);
 	int g = gg;
 	it = tabValues.at(actTab);
@@ -456,14 +465,14 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent )
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent )
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww;
 	ww = (wid < 0) ? 4000 : wid;
 	setName( "tabruler" );
-	tabrulerLayout = new QVBoxLayout( this, 0, 6, "tabrulerLayout");
-	layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
+	tabrulerLayout = new Q3VBoxLayout( this, 0, 6, "tabrulerLayout");
+	layout2 = new Q3HBoxLayout( 0, 0, 6, "layout2");
 
 	rulerScrollL = new QToolButton( LeftArrow, this, "rulerScrollL" );
 	rulerScrollL->setAutoRepeat( true );
@@ -475,7 +484,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	rulerScrollR->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollR );
 
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1" );
+	layout1 = new Q3HBoxLayout( 0, 0, 6, "layout1" );
 	layout1->setAlignment( Qt::AlignTop );
 	TypeCombo = new QComboBox( false, this, "TypeCombo" );
 	TypeCombo->clear();
@@ -501,9 +510,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
 
-	layout4 = new QHBoxLayout(0, 0, 6, "layout3");
+	layout4 = new Q3HBoxLayout(0, 0, 6, "layout3");
 
-	indentLayout = new QHBoxLayout(0, 0, 6, "indentLayout");
+	indentLayout = new Q3HBoxLayout(0, 0, 6, "indentLayout");
 	if (haveFirst)
 	{
 		firstLineData = new MSpinBox( -3000, ww, this, 1);
@@ -603,7 +612,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	haveF = haveFirst;
 }
 
-void Tabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void Tabruler::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	QString ein = unitGetSuffixFromIndex(dEin);
@@ -823,7 +832,7 @@ void Tabruler::setLeftIndent()
 	emit leftIndentChanged(value);
 }
 
-QValueList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
+Q3ValueList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
 {
 	return ruler->tabValues;
 }

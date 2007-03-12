@@ -13,10 +13,10 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qdir.h>
 #include <qobject.h>
-#include <qhbox.h>
+#include <q3hbox.h>
 
 /***************************************************************************************/
 /***************************************************************************************/
@@ -124,7 +124,7 @@ bool ScGTFileDialog::append() const
 
 void ScGTFileDialog::customize()
 {
-	diaExtension_ = new QHBox(this, "diaExtension_");
+	diaExtension_ = new Q3HBox(this, "diaExtension_");
 	diaExtension_->setSpacing(5);
 
 	appendBox_      = new QCheckBox( tr("Append"), diaExtension_, "appendBox_");

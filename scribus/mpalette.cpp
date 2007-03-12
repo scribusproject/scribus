@@ -11,13 +11,24 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 #include <qpoint.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qradiobutton.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 #include <qvalidator.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <QFocusEvent>
+#include <Q3VBoxLayout>
+#include <QKeyEvent>
+#include <Q3Frame>
+#include <QEvent>
+#include <QLabel>
+#include <Q3PopupMenu>
+#include <Q3HBoxLayout>
+#include <QCloseEvent>
+#include <Q3GridLayout>
 
 #include "arrowchooser.h"
 #include "autoform.h"
@@ -126,7 +137,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(mspinboxStartUserAction()));
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(mspinboxFinishUserAction()));
 
-	MpalLayout = new QVBoxLayout( this, 5, 1, "MpalLayout");
+	MpalLayout = new Q3VBoxLayout( this, 5, 1, "MpalLayout");
 	setOrientation(Qt::Vertical);
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
@@ -135,24 +146,24 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TabStack = new QToolBox( this, "TabStack" );
 
 	page = new QWidget( TabStack, "page" );
-	pageLayout = new QVBoxLayout( page, 0, 5, "pageLayout");
+	pageLayout = new Q3VBoxLayout( page, 0, 5, "pageLayout");
 
-	NameGroup = new QGroupBox( "Name", page, "NameGroup" );
+	NameGroup = new Q3GroupBox( "Name", page, "NameGroup" );
 	NameGroup->setColumnLayout(0, Qt::Vertical );
 	NameGroup->layout()->setSpacing( 4 );
 	NameGroup->layout()->setMargin( 5 );
-	NameGroupLayout = new QHBoxLayout( NameGroup->layout() );
+	NameGroupLayout = new Q3HBoxLayout( NameGroup->layout() );
 	NameGroupLayout->setAlignment( Qt::AlignTop );
 	NameEdit = new NameWidget(NameGroup);
 	NameEdit->setFocusPolicy(QWidget::ClickFocus);
 	NameGroupLayout->addWidget( NameEdit );
 	pageLayout->addWidget( NameGroup );
 
-	GeoGroup = new QGroupBox( "Geometry", page, "GeoGroup" );
+	GeoGroup = new Q3GroupBox( "Geometry", page, "GeoGroup" );
 	GeoGroup->setColumnLayout(0, Qt::Vertical );
 	GeoGroup->layout()->setSpacing( 4 );
 	GeoGroup->layout()->setMargin( 5 );
-	GeoGroupLayout = new QGridLayout( GeoGroup->layout() );
+	GeoGroupLayout = new Q3GridLayout( GeoGroup->layout() );
 	GeoGroupLayout->setAlignment( Qt::AlignTop );
 
 	Xpos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
@@ -191,57 +202,57 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
 	basepointLabel = new QLabel( "Basepoint:", GeoGroup, "basepointLabel" );
 	GeoGroupLayout->addWidget( basepointLabel, 5, 0 );
-	RotationGroup = new QButtonGroup( "", GeoGroup, "RotationGroup" );
-	RotationGroup->setFrameShape( QButtonGroup::NoFrame );
+	RotationGroup = new Q3ButtonGroup( "", GeoGroup, "RotationGroup" );
+	RotationGroup->setFrameShape( Q3ButtonGroup::NoFrame );
 	RotationGroup->setColumnLayout(0, Qt::Vertical );
 	RotationGroup->layout()->setSpacing( 0 );
 	RotationGroup->layout()->setMargin( 0 );
-	RotationGroupLayout = new QHBoxLayout( RotationGroup->layout() );
+	RotationGroupLayout = new Q3HBoxLayout( RotationGroup->layout() );
 	RotationGroupLayout->setAlignment( Qt::AlignTop );
-	Layout12 = new QGridLayout( 0, 1, 1, 0, 0, "Layout12");
+	Layout12 = new Q3GridLayout( 0, 1, 1, 0, 0, "Layout12");
 	TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
 	TopLeft->setText( "" );
 	TopLeft->setChecked( true );
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
-	Line1 = new QFrame( RotationGroup, "Line1" );
+	Line1 = new Q3Frame( RotationGroup, "Line1" );
 	Line1->setMinimumSize( QSize( 20, 4 ) );
 	Line1->setMaximumSize( QSize( 20, 4 ) );
-	Line1->setFrameShape( QFrame::HLine );
-	Line1->setFrameShadow( QFrame::Plain );
+	Line1->setFrameShape( Q3Frame::HLine );
+	Line1->setFrameShadow( Q3Frame::Plain );
 	Line1->setLineWidth( 3 );
-	Line1->setFrameShape( QFrame::HLine );
+	Line1->setFrameShape( Q3Frame::HLine );
 	Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 	TopRight = new QRadioButton( RotationGroup, "TopRight" );
 	TopRight->setText( "" );
 	Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
-	Line2 = new QFrame( RotationGroup, "Line2" );
+	Line2 = new Q3Frame( RotationGroup, "Line2" );
 	Line2->setMinimumSize( QSize( 4, 20 ) );
 	Line2->setMaximumSize( QSize( 4, 20 ) );
-	Line2->setFrameShape( QFrame::VLine );
-	Line2->setFrameShadow( QFrame::Plain );
+	Line2->setFrameShape( Q3Frame::VLine );
+	Line2->setFrameShadow( Q3Frame::Plain );
 	Line2->setLineWidth( 3 );
-	Line2->setFrameShape( QFrame::VLine );
+	Line2->setFrameShape( Q3Frame::VLine );
 	Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 	Center = new QRadioButton( RotationGroup, "Center" );
 	Center->setText( "" );
 	Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
-	Line4 = new QFrame( RotationGroup, "Line4" );
+	Line4 = new Q3Frame( RotationGroup, "Line4" );
 	Line4->setMinimumSize( QSize( 4, 20 ) );
 	Line4->setMaximumSize( QSize( 4, 20 ) );
-	Line4->setFrameShadow( QFrame::Plain );
+	Line4->setFrameShadow( Q3Frame::Plain );
 	Line4->setLineWidth( 3 );
-	Line4->setFrameShape( QFrame::VLine );
+	Line4->setFrameShape( Q3Frame::VLine );
 	Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 	BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
 	BottomLeft->setText( "" );
 	Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
-	Line5 = new QFrame( RotationGroup, "Line5" );
+	Line5 = new Q3Frame( RotationGroup, "Line5" );
 	Line5->setMinimumSize( QSize( 20, 4 ) );
 	Line5->setMaximumSize( QSize( 20, 4 ) );
-	Line5->setFrameShape( QFrame::HLine );
-	Line5->setFrameShadow( QFrame::Plain );
+	Line5->setFrameShape( Q3Frame::HLine );
+	Line5->setFrameShadow( Q3Frame::Plain );
 	Line5->setLineWidth( 3 );
-	Line5->setFrameShape( QFrame::HLine );
+	Line5->setFrameShape( Q3Frame::HLine );
 	Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 	BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
 	BottomRight->setText( "" );
@@ -252,13 +263,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GeoGroupLayout->addWidget( RotationGroup, 5, 1 );
 	pageLayout->addWidget( GeoGroup );
 
-	layout60 = new QHBoxLayout( 0, 0, 5, "layout60");
+	layout60 = new Q3HBoxLayout( 0, 0, 5, "layout60");
 
-	LayerGroup = new QGroupBox( "Level", page, "LayerGroup" );
+	LayerGroup = new Q3GroupBox( "Level", page, "LayerGroup" );
 	LayerGroup->setColumnLayout(0, Qt::Vertical );
 	LayerGroup->layout()->setSpacing( 4 );
 	LayerGroup->layout()->setMargin( 5 );
-	LayerGroupLayout = new QGridLayout( LayerGroup->layout() );
+	LayerGroupLayout = new Q3GridLayout( LayerGroup->layout() );
 	LayerGroupLayout->setAlignment( Qt::AlignTop );
 	Zup = new QToolButton( LayerGroup, "Zup" );
 	Zup->setMaximumSize( QSize( 22, 22 ) );
@@ -284,7 +295,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout60->addItem( spacer2 );
 
-	Layout44 = new QGridLayout( 0, 1, 1, 8, 4, "Layout44");
+	Layout44 = new Q3GridLayout( 0, 1, 1, 8, 4, "Layout44");
 
 	DoGroup = new QToolButton( page, "DoGroup" );
 	DoGroup->setPixmap(loadIcon("group.png"));
@@ -303,23 +314,23 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout44->addWidget( FlipV, 1, 1 );
 	Locked = new QToolButton( page, "Lock" );
 	Locked->setToggleButton( true );
-	QIconSet a = QIconSet();
-	a.setPixmap(loadIcon("16/lock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a.setPixmap(loadIcon("16/lock-unlocked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a = QIcon();
+	a.setPixmap(loadIcon("16/lock.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a.setPixmap(loadIcon("16/lock-unlocked.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	Locked->setIconSet(a);
 	Layout44->addWidget( Locked, 0, 2 );
 	NoPrint = new QToolButton( page, "NoPrint" );
 	NoPrint->setToggleButton( true );
-	QIconSet a2 = QIconSet();
-	a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a2.setPixmap(loadIcon("16/document-print.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a2 = QIcon();
+	a2.setPixmap(loadIcon("NoPrint.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a2.setPixmap(loadIcon("16/document-print.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	NoPrint->setIconSet(a2);
 	Layout44->addWidget( NoPrint, 1, 2 );
 	NoResize = new QToolButton( page, "NoResize" );
 	NoResize->setToggleButton( true );
-	QIconSet a3 = QIconSet();
-	a3.setPixmap(loadIcon("framenoresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a3.setPixmap(loadIcon("frameresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	QIcon a3 = QIcon();
+	a3.setPixmap(loadIcon("framenoresize.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	a3.setPixmap(loadIcon("frameresize.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	NoResize->setIconSet(a3);
 	Layout44->addWidget( NoResize, 0, 3 );
 	layout60->addLayout( Layout44 );
@@ -331,15 +342,15 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	idXYZItem=TabStack->addItem( page, "X, Y, &Z" );
 
 	page_2 = new QWidget( TabStack, "page_2" );
-	pageLayout_2 = new QVBoxLayout( page_2, 0, 5, "pageLayout_2");
+	pageLayout_2 = new Q3VBoxLayout( page_2, 0, 5, "pageLayout_2");
 
-	ShapeGroup = new QButtonGroup( "", page_2, "ShapeGroup" );
-	ShapeGroup->setFrameShape( QButtonGroup::NoFrame );
+	ShapeGroup = new Q3ButtonGroup( "", page_2, "ShapeGroup" );
+	ShapeGroup->setFrameShape( Q3ButtonGroup::NoFrame );
 	ShapeGroup->setExclusive( true );
 	ShapeGroup->setColumnLayout(0, Qt::Vertical );
 	ShapeGroup->layout()->setSpacing( 2 );
 	ShapeGroup->layout()->setMargin( 0 );
-	ShapeGroupLayout = new QHBoxLayout( ShapeGroup->layout() );
+	ShapeGroupLayout = new Q3HBoxLayout( ShapeGroup->layout() );
 	ShapeGroupLayout->setAlignment( Qt::AlignTop );
 	SRect = new QLabel( "Shape:", ShapeGroup, "SRect" );
 	ShapeGroupLayout->addWidget( SRect );
@@ -350,7 +361,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	EditShape = new QToolButton( page_2, "EditShape" );
 	pageLayout_2->addWidget( EditShape );
 
-	Layout13 = new QHBoxLayout( 0, 0, 2, "Layout13");
+	Layout13 = new Q3HBoxLayout( 0, 0, 2, "Layout13");
 
 	RoundRect = new MSpinBox( page_2, 1 );
 	rndcornersLabel = new QLabel( RoundRect, "R&ound\nCorners:", page_2, "rndcornersLabel" );
@@ -358,16 +369,16 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout13->addWidget( RoundRect );
 	pageLayout_2->addLayout( Layout13 );
 
-	TabStack2 = new QWidgetStack( page_2, "TabStack2" );
-	TabStack2->setFrameShape( QWidgetStack::NoFrame );
+	TabStack2 = new Q3WidgetStack( page_2, "TabStack2" );
+	TabStack2->setFrameShape( Q3WidgetStack::NoFrame );
 
 	page_2a = new QWidget( TabStack2, "page" );
-	pageLayout_2a = new QVBoxLayout( page_2a, 0, 5, "pageLayout_2");
-	Distance = new QGroupBox( "Distance of Text", page_2a, "Distance" );
+	pageLayout_2a = new Q3VBoxLayout( page_2a, 0, 5, "pageLayout_2");
+	Distance = new Q3GroupBox( "Distance of Text", page_2a, "Distance" );
 	Distance->setColumnLayout(0, Qt::Vertical );
 	Distance->layout()->setSpacing( 2 );
 	Distance->layout()->setMargin( 5 );
-	DistanceLayout = new QGridLayout( Distance->layout() );
+	DistanceLayout = new Q3GridLayout( Distance->layout() );
 	DistanceLayout->setAlignment( Qt::AlignTop );
 
 	DCol = new QSpinBox(Distance, "Cols" );
@@ -410,12 +421,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TabStack2->addWidget( page_2a, 0 );
 
 	page_2b = new QWidget( TabStack2, "page" );
-	pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
-	Distance2 = new QGroupBox( "Path Text Properties", page_2b, "Distance" );
+	pageLayout_2b = new Q3VBoxLayout( page_2b, 0, 5, "pageLayout_2");
+	Distance2 = new Q3GroupBox( "Path Text Properties", page_2b, "Distance" );
 	Distance2->setColumnLayout(0, Qt::Vertical );
 	Distance2->layout()->setSpacing( 2 );
 	Distance2->layout()->setMargin( 5 );
-	DistanceLayout2 = new QGridLayout( Distance2->layout() );
+	DistanceLayout2 = new Q3GridLayout( Distance2->layout() );
 	DistanceLayout2->setAlignment( Qt::AlignTop );
 
 	pathTextType = new ScComboBox( false, Distance2, "pathTextType" );
@@ -447,12 +458,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TabStack2->addWidget( page_2b, 1 );
 
 	page_2c = new QWidget( TabStack2, "page" );
-	pageLayout_2c = new QVBoxLayout( page_2c, 0, 5, "pageLayout_2");
-	Distance3 = new QButtonGroup( "Fill Rule", page_2c, "Distance" );
+	pageLayout_2c = new Q3VBoxLayout( page_2c, 0, 5, "pageLayout_2");
+	Distance3 = new Q3ButtonGroup( "Fill Rule", page_2c, "Distance" );
 	Distance3->setColumnLayout(0, Qt::Vertical );
 	Distance3->layout()->setSpacing( 2 );
 	Distance3->layout()->setMargin( 5 );
-	DistanceLayout3 = new QVBoxLayout( Distance3->layout() );
+	DistanceLayout3 = new Q3VBoxLayout( Distance3->layout() );
 	DistanceLayout3->setAlignment( Qt::AlignTop );
 	EvenOdd = new QRadioButton( "Even-Odd", Distance3, "EvenOdd" );
 	DistanceLayout3->addWidget( EvenOdd );
@@ -464,11 +475,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	pageLayout_2->addWidget( TabStack2 );
 
-	textFlowOptions = new QButtonGroup( page_2, "textFlowOptions" );
+	textFlowOptions = new Q3ButtonGroup( page_2, "textFlowOptions" );
 	textFlowOptions->setColumnLayout(0, Qt::Vertical );
 	textFlowOptions->layout()->setSpacing( 5 );
 	textFlowOptions->layout()->setMargin( 10 );
-	textFlowOptionsLayout = new QVBoxLayout( textFlowOptions->layout() );
+	textFlowOptionsLayout = new Q3VBoxLayout( textFlowOptions->layout() );
 	textFlowOptionsLayout->setAlignment( Qt::AlignTop );
 	textFlowOptions->setCheckable( false );
 	textFlowOptions->setExclusive( true );
@@ -514,15 +525,15 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	idShapeItem=TabStack->addItem( page_2, "&Shape" );
 
 	page_group = new QWidget(TabStack, "page_group");
-	page_group_layout = new QVBoxLayout( page_group, 0, 5, "pageLayout_2");
+	page_group_layout = new Q3VBoxLayout( page_group, 0, 5, "pageLayout_2");
 
-	ShapeGroup2 = new QButtonGroup( "", page_group, "ShapeGroup2" );
-	ShapeGroup2->setFrameShape( QButtonGroup::NoFrame );
+	ShapeGroup2 = new Q3ButtonGroup( "", page_group, "ShapeGroup2" );
+	ShapeGroup2->setFrameShape( Q3ButtonGroup::NoFrame );
 	ShapeGroup2->setExclusive( true );
 	ShapeGroup2->setColumnLayout(0, Qt::Vertical );
 	ShapeGroup2->layout()->setSpacing( 2 );
 	ShapeGroup2->layout()->setMargin( 0 );
-	ShapeGroupLayout2 = new QHBoxLayout( ShapeGroup2->layout() );
+	ShapeGroupLayout2 = new Q3HBoxLayout( ShapeGroup2->layout() );
 	ShapeGroupLayout2->setAlignment( Qt::AlignTop );
 	SRect2 = new QLabel( "Shape:", ShapeGroup2, "SRect" );
 	ShapeGroupLayout2->addWidget( SRect2 );
@@ -532,11 +543,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	EditShape2 = new QToolButton( page_group, "EditShape" );
 	page_group_layout->addWidget( EditShape2 );
 
-	textFlowOptions2 = new QButtonGroup( page_group, "textFlowOptions" );
+	textFlowOptions2 = new Q3ButtonGroup( page_group, "textFlowOptions" );
 	textFlowOptions2->setColumnLayout(0, Qt::Vertical );
 	textFlowOptions2->layout()->setSpacing( 5 );
 	textFlowOptions2->layout()->setMargin( 10 );
-	textFlowOptionsLayout2 = new QVBoxLayout( textFlowOptions2->layout() );
+	textFlowOptionsLayout2 = new Q3VBoxLayout( textFlowOptions2->layout() );
 	textFlowOptionsLayout2->setAlignment( Qt::AlignTop );
 	textFlowOptions2->setCheckable( false );
 	textFlowOptions2->setExclusive( true );
@@ -577,11 +588,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowOptionsLayout2->addWidget( textFlowUsesImageClipping2 );
 	page_group_layout->addWidget( textFlowOptions2 );
 
-	TransGroup = new QGroupBox( tr( "Transparency Settings" ), page_group, "TransGroup" );
+	TransGroup = new Q3GroupBox( tr( "Transparency Settings" ), page_group, "TransGroup" );
 	TransGroup->setColumnLayout(0, Qt::Vertical );
 	TransGroup->layout()->setSpacing( 0 );
 	TransGroup->layout()->setMargin( 0 );
-	Layout1t = new QGridLayout( TransGroup->layout() );
+	Layout1t = new Q3GridLayout( TransGroup->layout() );
 	Layout1t->setAlignment( Qt::AlignTop );
 	Layout1t->setSpacing( 5 );
 	Layout1t->setMargin( 5 );
@@ -615,14 +626,14 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	idGroupItem = TabStack->addItem(page_group, "Groups");
 
 	page_3 = new QWidget( TabStack, "page_3" );
-	pageLayout_3 = new QVBoxLayout( page_3, 0, 5, "pageLayout_3");
+	pageLayout_3 = new Q3VBoxLayout( page_3, 0, 5, "pageLayout_3");
 	pageLayout_3->setAlignment( Qt::AlignLeft );
 
-	layout47 = new QHBoxLayout( 0, 0, 5, "layout47");
+	layout47 = new Q3HBoxLayout( 0, 0, 5, "layout47");
 
-	layout46 = new QVBoxLayout( 0, 0, 5, "layout46");
+	layout46 = new Q3VBoxLayout( 0, 0, 5, "layout46");
 
-	layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
+	layout41 = new Q3GridLayout( 0, 1, 1, 0, 5, "layout41");
 	layout41->setAlignment( Qt::AlignLeft );
 
 	Fonts = new FontComboH(page_3);
@@ -643,7 +654,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout41->addWidget( ChBase, 1, 3 );
 	LineSp = new MSpinBox( page_3, 1 );
 	layout41->addWidget( LineSp, 2, 1 );
-	lineSpacingPop = new QPopupMenu();
+	lineSpacingPop = new Q3PopupMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
@@ -675,7 +686,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	layout46->addLayout( layout41 );
 
-	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
+	layout23 = new Q3HBoxLayout( 0, 0, 5, "layout23");
 	layout23->setAlignment( Qt::AlignLeft );
 	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
@@ -689,7 +700,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	PM1 = new ShadeButton(page_3);
 	layout23->addWidget( PM1 );
 	layout46->addLayout( layout23 );
-	layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
+	layout24 = new Q3HBoxLayout( 0, 0, 5, "layout24");
 	layout24->setAlignment( Qt::AlignLeft );
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
@@ -703,7 +714,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout24->addWidget( PM2 );
 	layout46->addLayout( layout24 );
 
-	Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1");
+	Layout1 = new Q3HBoxLayout( 0, 0, 0, "Layout1");
 	Layout1->setAlignment( Qt::AlignLeft );
 	SeStyle = new StyleSelect(page_3);
 	Layout1->addWidget(SeStyle);
@@ -722,7 +733,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupAlign = new AlignSelect(page_3);
 	pageLayout_3->addWidget( GroupAlign );
 
-	GroupBox3aLayout = new QGridLayout( 0, 6, 1, 0, 5, "Layout25");
+	GroupBox3aLayout = new Q3GridLayout( 0, 6, 1, 0, 5, "Layout25");
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	paraStyleCombo = new ParaStyleComboBox(page_3);
 	paraStyleLabel = new QLabel( paraStyleCombo, "Paragraph St&yle:", page_3, "parastyleLabel" );
@@ -739,7 +750,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	
 	wordTrackingLabel = new QLabel( optMarginCombo, "Word Tracking", page_3, "wordTrackingLabel" );
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
-	wordTrackingHLayout = new QHBoxLayout(0,0,5,"wordTrackingHLayout");
+	wordTrackingHLayout = new Q3HBoxLayout(0,0,5,"wordTrackingHLayout");
 	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
 	minWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
 	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
@@ -753,7 +764,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	
 	glyphExtensionLabel = new QLabel( optMarginCombo, "Glyph Extension", page_3, "glyphExtensionLabel" );
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
-	glyphExtensionHLayout = new QHBoxLayout(0,0,5,"glyphExtensionHLayout");
+	glyphExtensionHLayout = new Q3HBoxLayout(0,0,5,"glyphExtensionHLayout");
 	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
 	minGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
 	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
@@ -776,13 +787,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	idTextItem=TabStack->addItem( page_3, "&Text" );
 
 	page_4 = new QWidget( TabStack, "page_4" );
-	pageLayout_4 = new QVBoxLayout( page_4, 0, 5, "pageLayout_4");
+	pageLayout_4 = new Q3VBoxLayout( page_4, 0, 5, "pageLayout_4");
 
 	FreeScale = new QRadioButton( "&Free Scaling", page_4, "FreeScale" );
 	FreeScale->setChecked( true );
 	pageLayout_4->addWidget( FreeScale );
 
-	layout43 = new QGridLayout( 0, 1, 1, 0, 5, "layout43");
+	layout43 = new Q3GridLayout( 0, 1, 1, 0, 5, "layout43");
 	imageXOffsetSpinBox = new MSpinBox( page_4, 2 );
 	installSniffer(imageXOffsetSpinBox);
 	xposImgLabel = new QLabel( imageXOffsetSpinBox, "&X-Pos:", page_4, "xposImgLabel" );
@@ -825,19 +836,19 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout43->addMultiCellWidget( keepImageDPIRatioButton, 4, 5, 2, 2 );
 	pageLayout_4->addLayout( layout43 );
 
-	Layout24 = new QVBoxLayout( 0, 0, 3, "Layout24");
+	Layout24 = new Q3VBoxLayout( 0, 0, 3, "Layout24");
 
 	FrameScale = new QRadioButton( page_4, "FixedScale" );
 	FrameScale->setText( "Scale &To Frame Size" );
 	Layout24->addWidget( FrameScale );
 
-	Layout18 = new QHBoxLayout( 0, 0, 6, "Layout18");
+	Layout18 = new Q3HBoxLayout( 0, 0, 6, "Layout18");
 
-	Frame4 = new QFrame( page_4, "Frame4" );
+	Frame4 = new Q3Frame( page_4, "Frame4" );
 	Frame4->setMinimumSize( QSize( 15, 2 ) );
 	Frame4->setMaximumSize( QSize( 15, 10 ) );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Plain );
+	Frame4->setFrameShape( Q3Frame::NoFrame );
+	Frame4->setFrameShadow( Q3Frame::Plain );
 	Layout18->addWidget( Frame4 );
 
 	Aspect = new QCheckBox( page_4, "Aspect" );
@@ -855,13 +866,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	EditPSDProps = new QToolButton( page_4, "EditPSDProps");
 	pageLayout_4->addWidget( EditPSDProps );
 
-	GroupBoxCM = new QGroupBox( "", page_4, "GroupBoxcm" );
+	GroupBoxCM = new Q3GroupBox( "", page_4, "GroupBoxcm" );
 	GroupBoxCM->setColumnLayout(0, Qt::Vertical );
 	GroupBoxCM->layout()->setSpacing( 2 );
 	GroupBoxCM->layout()->setMargin( 5 );
-	GroupBoxCM->setFrameShape( QFrame::NoFrame );
-	GroupBoxCM->setFrameShadow( QFrame::Plain );
-	GroupBoxCMLayout = new QVBoxLayout( GroupBoxCM->layout() );
+	GroupBoxCM->setFrameShape( Q3Frame::NoFrame );
+	GroupBoxCM->setFrameShadow( Q3Frame::Plain );
+	GroupBoxCMLayout = new Q3VBoxLayout( GroupBoxCM->layout() );
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
 	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
 	GroupBoxCMLayout->addWidget( TextCms1 );
@@ -878,9 +889,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	idImageItem=TabStack->addItem( page_4, "&Image" );
 
 	page_5 = new QWidget( TabStack, "page_5" );
-	pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
+	pageLayout_5 = new Q3VBoxLayout( page_5, 0, 5, "pageLayout_5");
 
-	Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
+	Layout13_2 = new Q3HBoxLayout( 0, 0, 4, "Layout13_2");
 	LineMode = new ScComboBox( false, page_5, "LMode" );
 	LineModeT = new QLabel( LineMode, "&Basepoint:", page_5, "LModeText" );
 	Layout13_2->addWidget( LineModeT );
@@ -890,7 +901,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout13_2->addItem( spacer10 );
 	pageLayout_5->addLayout( Layout13_2 );
 
-	Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2");
+	Layout12_2 = new Q3GridLayout( 0, 1, 1, 0, 3, "Layout12_2");
 	LStyle = new LineCombo(page_5);
 	linetypeLabel = new QLabel( LStyle, "T&ype of Line:", page_5, "linetypeLabel" );
 	Layout12_2->addWidget( linetypeLabel, 0, 0 );
@@ -917,23 +928,23 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12_2->addWidget( LEndStyle, 5, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
 
-	TabStack3 = new QWidgetStack( page_5, "TabStack3" );
-	TabStack3->setFrameShape( QWidgetStack::NoFrame );
+	TabStack3 = new Q3WidgetStack( page_5, "TabStack3" );
+	TabStack3->setFrameShape( Q3WidgetStack::NoFrame );
 
 	page_5a = new QWidget( TabStack3, "page" );
-	pageLayout_5a = new QVBoxLayout( page_5a, 0, 5, "pageLayout_5a");
-	StyledLine = new QListBox(page_5a, "StyledL");
+	pageLayout_5a = new Q3VBoxLayout( page_5a, 0, 5, "pageLayout_5a");
+	StyledLine = new Q3ListBox(page_5a, "StyledL");
 	StyledLine->insertItem( "No Style", 0);
 	pageLayout_5a->addWidget(StyledLine);
 	TabStack3->addWidget( page_5a, 0 );
 
 	page_5b = new QWidget( TabStack3, "page" );
-	pageLayout_5b = new QVBoxLayout( page_5b, 0, 5, "pageLayout_5a");
-	TLines = new QGroupBox( "Cell Lines", page_5b, "Distance" );
+	pageLayout_5b = new Q3VBoxLayout( page_5b, 0, 5, "pageLayout_5a");
+	TLines = new Q3GroupBox( "Cell Lines", page_5b, "Distance" );
 	TLines->setColumnLayout(0, Qt::Vertical );
 	TLines->layout()->setSpacing( 2 );
 	TLines->layout()->setMargin( 5 );
-	TLineLayout = new QVBoxLayout( TLines->layout() );
+	TLineLayout = new Q3VBoxLayout( TLines->layout() );
 	TLineLayout->setAlignment( Qt::AlignTop );
 	TopLine = new QCheckBox( TLines, "TopLine" );
 	TopLine->setText( "Line at Top" );
@@ -953,16 +964,16 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	idLineItem=TabStack->addItem( page_5, "&Line" );
 	
 	page_6 = new QWidget( TabStack, "page_6" );
-	pageLayout_6 = new QVBoxLayout( page_6, 0, 5, "pageLayout_6");
+	pageLayout_6 = new Q3VBoxLayout( page_6, 0, 5, "pageLayout_6");
 
 	Cpal = new Cpalette(page_6);
 	pageLayout_6->addWidget( Cpal );
 
-	OverP = new QButtonGroup( "Overprinting", page_6, "Distance" );
+	OverP = new Q3ButtonGroup( "Overprinting", page_6, "Distance" );
 	OverP->setColumnLayout(0, Qt::Vertical );
 	OverP->layout()->setSpacing( 2 );
 	OverP->layout()->setMargin( 5 );
-	OverPLayout = new QVBoxLayout( OverP->layout() );
+	OverPLayout = new Q3VBoxLayout( OverP->layout() );
 	OverPLayout->setAlignment( Qt::AlignTop );
 	KnockOut = new QRadioButton( "Knockout", OverP, "KnockOut" );
 	OverPLayout->addWidget( KnockOut );
@@ -1034,7 +1045,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
@@ -1527,7 +1538,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	//FIXME: This wont work until when a canvas deselect happens, CurItem must be NULL.
 	//if (CurItem == i)
 	//	return;
-	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	disconnect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -1614,7 +1625,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -2121,7 +2132,7 @@ void Mpalette::setXY(double x, double y)
 	disconnect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
-	QWMatrix ma;
+	QMatrix ma;
 	FPoint n;
 	if (HaveItem)
 	{
@@ -2183,7 +2194,7 @@ void Mpalette::setBH(double x, double y)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	QWMatrix ma;
+	QMatrix ma;
 	QPoint dp;
 	if ((LMode) && (CurItem->asLine()))
 	{
@@ -2609,7 +2620,7 @@ void Mpalette::NewX()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double x,y,w,h, gx, gy, gh, gw, base;
-		QWMatrix ma;
+		QMatrix ma;
 		x = Xpos->value() / Umrech;
 		y = Ypos->value() / Umrech;
 		w = Width->value() / Umrech;
@@ -2686,7 +2697,7 @@ void Mpalette::NewY()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double x,y,w,h, gx, gy, gh, gw, base;
-		QWMatrix ma;
+		QMatrix ma;
 		x = Xpos->value() / Umrech;
 		y = Ypos->value() / Umrech;
 		w = Width->value() / Umrech;
@@ -3588,7 +3599,7 @@ void Mpalette::NewRotMode(int m)
 		else
 		{
 			double b, h, r;
-			QWMatrix ma;
+			QMatrix ma;
 			FPoint n;
 			b = CurItem->width();
 			h = CurItem->height();
@@ -3794,7 +3805,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	disconnect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	StyledLine->clear();
 	if (dd != 0)
 	{
@@ -3805,10 +3816,10 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
 	}
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 }
 
-void Mpalette::SetSTline(QListBoxItem *c)
+void Mpalette::SetSTline(Q3ListBoxItem *c)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4722,13 +4733,13 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 	else if (e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent*>(e);
-		if (k && !k->isAutoRepeat() && (k->key() == Key_Up || k->key() == Key_Down))
+		if (k && !k->isAutoRepeat() && (k->key() == Qt::Key_Up || k->key() == Qt::Key_Down))
 			emit actionStart();
 	}
 	else if (e->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent *k = dynamic_cast<QKeyEvent*>(e);
-		if (k && !k->isAutoRepeat() && (k->key() == Key_Up || k->key() == Key_Down))
+		if (k && !k->isAutoRepeat() && (k->key() == Qt::Key_Up || k->key() == Qt::Key_Down))
 			emit actionEnd();
 	}
 	return false;

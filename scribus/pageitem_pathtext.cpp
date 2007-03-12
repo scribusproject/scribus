@@ -134,7 +134,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 						{
 							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-							p->setPen(tmp, ml[it].Width, static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+							p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 							p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 						}
 					}
@@ -266,46 +266,46 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->PRot = dx;
 //		qDebug(QString("'%1' (%2,%3) %4+%5").arg(itemText.text(a)).arg(point.x()).arg(point.y()).arg(CurX).arg(dx));
 #ifdef HAVE_CAIRO
-		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx, 0 );
+		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx, 0 );
 		if (textPathFlipped)
-			trafo *= QWMatrix(1, 0, 0, -1, 0, 0);
+			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
 		if (textPathType == 0)
-			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
+			trafo *= QMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x(), point.y() ); // ID's Rainbow mode
 		else if (textPathType == 1)
-			trafo *= QWMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
+			trafo *= QMatrix( 1, 0, 0, -1, point.x(), point.y() ); // ID's Stair Step mode
 		else if (textPathType == 2)
 		{
 			double a = 1;
 			if (tangent.x() < 0)
 				a = -1;
 			if (fabs(tangent.x()) > 0.1)
-				trafo *= QWMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
+				trafo *= QMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x(), point.y() ); // ID's Skew mode
 			else
-				trafo *= QWMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
+				trafo *= QMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
 		}
 #else
-		QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
+		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx*sc, 0 );
 		if (textPathFlipped)
-			trafo *= QWMatrix(1, 0, 0, -1, 0, 0);
+			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
 		if (textPathType == 0)
-			trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc ); // ID's Rainbow mode
+			trafo *= QMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc ); // ID's Rainbow mode
 		else if (textPathType == 1)
-			trafo *= QWMatrix( 1, 0, 0, -1, point.x()*sc, point.y()*sc ); // ID's Stair Step mode
+			trafo *= QMatrix( 1, 0, 0, -1, point.x()*sc, point.y()*sc ); // ID's Stair Step mode
 		else if (textPathType == 2)
 		{
 			double a = 1;
 			if (tangent.x() < 0)
 				a = -1;
 			if (fabs(tangent.x()) > 0.1)
-				trafo *= QWMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x()*sc, point.y()*sc ); // ID's Skew mode
+				trafo *= QMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x()*sc, point.y()*sc ); // ID's Skew mode
 			else
-				trafo *= QWMatrix( a, 4 * a, 0, -1, point.x()*sc, point.y()*sc );
+				trafo *= QMatrix( a, 4 * a, 0, -1, point.x()*sc, point.y()*sc );
 		}
 #endif
-		QWMatrix sca = p->worldMatrix();
+		QMatrix sca = p->worldMatrix();
 		trafo *= sca;
 		p->save();
-		QWMatrix savWM = p->worldMatrix();
+		QMatrix savWM = p->worldMatrix();
 		p->setWorldMatrix(trafo);
 		if (!m_Doc->RePos)
 		{

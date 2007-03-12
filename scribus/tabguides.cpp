@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "tabguides.h"
 #include "tabguides.moc"
 #include <qlayout.h>
-#include <qgroupbox.h>
-#include <qbuttongroup.h>
+#include <q3groupbox.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qlabel.h>
 #include <qtooltip.h>
@@ -18,6 +18,10 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #include "mspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
@@ -29,22 +33,22 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QString unit = unitGetSuffixFromIndex(unitIndex);
 	int precision = unitGetPrecisionFromIndex(unitIndex);
 
-	tabGuidesLayout = new QVBoxLayout( this, 0, 5, "tabViewLayout");
+	tabGuidesLayout = new Q3VBoxLayout( this, 0, 5, "tabViewLayout");
 
-	commonBox = new QGroupBox( this, "commonBox" );
+	commonBox = new Q3GroupBox( this, "commonBox" );
 	commonBox->setTitle( tr( "Common Settings" ) );
 	commonBox->setColumnLayout(0, Qt::Vertical );
 	commonBox->layout()->setSpacing( 5 );
 	commonBox->layout()->setMargin( 10 );
-	commonBoxLayout = new QHBoxLayout( commonBox->layout() );
+	commonBoxLayout = new Q3HBoxLayout( commonBox->layout() );
 
-	buttonGroup1 = new QButtonGroup( commonBox, "buttonGroup1" );
+	buttonGroup1 = new Q3ButtonGroup( commonBox, "buttonGroup1" );
 	buttonGroup1->setExclusive( true );
 	buttonGroup1->setColumnLayout(0, Qt::Horizontal );
 	buttonGroup1->layout()->setSpacing( 5 );
 	buttonGroup1->layout()->setMargin( 10 );
 	buttonGroup1->setTitle( tr( "Placing in Documents" ) );
-	buttonGroup1Layout = new QVBoxLayout( buttonGroup1->layout() );
+	buttonGroup1Layout = new Q3VBoxLayout( buttonGroup1->layout() );
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
 	inBackground = new QRadioButton( buttonGroup1, "inBackground" );
 	inBackground->setText( tr( "In the Background" ) );
@@ -54,12 +58,12 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	buttonGroup1Layout->addWidget( inForeground );
 	commonBoxLayout->addWidget( buttonGroup1 );
 
-	snapBox = new QGroupBox( commonBox, "snapBox" );
+	snapBox = new Q3GroupBox( commonBox, "snapBox" );
 	snapBox->setTitle( tr( "Snapping" ) );
 	snapBox->setColumnLayout(0, Qt::Vertical );
 	snapBox->layout()->setSpacing( 5 );
 	snapBox->layout()->setMargin( 10 );
-	snapBoxLayout = new QGridLayout( snapBox->layout() );
+	snapBoxLayout = new Q3GridLayout( snapBox->layout() );
 	textLabel8 = new QLabel( snapBox, "textLabel8" );
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
@@ -78,14 +82,14 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	snapBoxLayout->addWidget( grabDistance, 1, 1 );
 	commonBoxLayout->addWidget( snapBox );
 	tabGuidesLayout->addWidget( commonBox );
-	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
-	guideBox = new QGroupBox( this, "guideBox" );
+	layout9 = new Q3HBoxLayout( 0, 0, 5, "layout9");
+	guideBox = new Q3GroupBox( this, "guideBox" );
 	guideBox->setTitle( tr( "Show Guides" ) );
 	guideBox->setCheckable( true );
 	guideBox->setColumnLayout(0, Qt::Vertical );
 	guideBox->layout()->setSpacing( 5 );
 	guideBox->layout()->setMargin( 10 );
-	guideBoxLayout = new QHBoxLayout( guideBox->layout() );
+	guideBoxLayout = new Q3HBoxLayout( guideBox->layout() );
 	checkGuides = new QLabel( guideBox, "checkGuides" );
 	checkGuides->setText( tr( "Color:" ) );
 	guideBoxLayout->addWidget( checkGuides );
@@ -97,13 +101,13 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideColor->setText( QString::null );
 	guideBoxLayout->addWidget( guideColor );
 	layout9->addWidget( guideBox );
-	marginBox = new QGroupBox( this, "guideBox" );
+	marginBox = new Q3GroupBox( this, "guideBox" );
 	marginBox->setCheckable( true );
 	marginBox->setTitle( tr( "Show Margins" ) );
 	marginBox->setColumnLayout(0, Qt::Vertical );
 	marginBox->layout()->setSpacing( 5 );
 	marginBox->layout()->setMargin( 10 );
-	marginBoxLayout = new QHBoxLayout( marginBox->layout() );
+	marginBoxLayout = new Q3HBoxLayout( marginBox->layout() );
 	checkMargin = new QLabel( marginBox, "checkMargin" );
 	checkMargin->setText( tr( "Color:" ) );
 	marginBoxLayout->addWidget( checkMargin );
@@ -117,20 +121,20 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	layout9->addWidget( marginBox );
 	tabGuidesLayout->addLayout( layout9 );
 
-	checkGrid = new QGroupBox( this, "checkGrid" );
+	checkGrid = new Q3GroupBox( this, "checkGrid" );
 	checkGrid->setTitle( tr( "Show Page Grid" ) );
 	checkGrid->setCheckable( true );
 	checkGrid->setColumnLayout(0, Qt::Vertical );
 	checkGrid->layout()->setSpacing( 5 );
 	checkGrid->layout()->setMargin( 10 );
-	checkGridLayout = new QGridLayout( checkGrid->layout() );
+	checkGridLayout = new Q3GridLayout( checkGrid->layout() );
 	checkGridLayout->setAlignment( Qt::AlignTop );
-	groupBox1 = new QGroupBox( checkGrid, "groupBox1" );
+	groupBox1 = new Q3GroupBox( checkGrid, "groupBox1" );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
 	groupBox1->layout()->setSpacing( 5 );
 	groupBox1->layout()->setMargin( 10 );
 	groupBox1->setTitle( tr( "Major Grid" ) );
-	groupBox1Layout = new QGridLayout( groupBox1->layout() );
+	groupBox1Layout = new Q3GridLayout( groupBox1->layout() );
 	groupBox1Layout->setAlignment( Qt::AlignTop );
 	majorGridColor = new QPushButton( groupBox1, "majorGridColor" );
 	majorGridColor->setMinimumSize( QSize( 60, 20 ) );
@@ -148,12 +152,12 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	majorSpace = new MSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, precision );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
-	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
+	groupBox2 = new Q3GroupBox( checkGrid, "groupBox2" );
 	groupBox2->setColumnLayout(0, Qt::Vertical );
 	groupBox2->layout()->setSpacing( 5 );
 	groupBox2->layout()->setMargin( 10 );
 	groupBox2->setTitle( tr( "Minor Grid" ) );
-	groupBox2Layout = new QGridLayout( groupBox2->layout() );
+	groupBox2Layout = new Q3GridLayout( groupBox2->layout() );
 	groupBox2Layout->setAlignment( Qt::AlignTop );
 	textLabel5 = new QLabel( groupBox2, "textLabel5" );
 	textLabel5->setText( tr( "Color:" ) );
@@ -173,14 +177,14 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
 	tabGuidesLayout->addWidget( checkGrid );
 
-	layout9a = new QHBoxLayout( 0, 0, 5, "layout9");
-	baselineBox = new QGroupBox( this, "baselineBox" );
+	layout9a = new Q3HBoxLayout( 0, 0, 5, "layout9");
+	baselineBox = new Q3GroupBox( this, "baselineBox" );
 	baselineBox->setTitle( tr( "Show Baseline Grid" ) );
 	baselineBox->setCheckable( true );
 	baselineBox->setColumnLayout(0, Qt::Vertical );
 	baselineBox->layout()->setSpacing( 5 );
 	baselineBox->layout()->setMargin( 10 );
-	baselineBoxLayout = new QGridLayout( baselineBox->layout() );
+	baselineBoxLayout = new Q3GridLayout( baselineBox->layout() );
 	baselineBoxLayout->setAlignment( Qt::AlignTop );
 	checkBaseline = new QLabel( baselineBox, "checkBaseline" );
 	checkBaseline->setText( tr( "Color:" ) );
@@ -194,12 +198,12 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineBoxLayout->addWidget( baselineColor, 0, 1 );
 	layout9a->addWidget( baselineBox );
 
-	baseGridBox = new QGroupBox( this, "baseGridBox" );
+	baseGridBox = new Q3GroupBox( this, "baseGridBox" );
 	baseGridBox->setTitle( tr( "Baseline Settings" ) );
 	baseGridBox->setColumnLayout(0, Qt::Vertical );
 	baseGridBox->layout()->setSpacing( 5 );
 	baseGridBox->layout()->setMargin( 10 );
-	baseGridBoxLayout = new QGridLayout( baseGridBox->layout() );
+	baseGridBoxLayout = new Q3GridLayout( baseGridBox->layout() );
 	baseGridBoxLayout->setAlignment( Qt::AlignTop );
 	baseGrid = new MSpinBox( baseGridBox, precision );
 	baseGrid->setMaxValue(1000);

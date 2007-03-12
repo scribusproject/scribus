@@ -19,12 +19,15 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "scribusXml.h"
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qcursor.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qregexp.h>
-#include <qptrstack.h>
-#include <qvaluestack.h>
+#include <q3ptrstack.h>
+#include <q3valuestack.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
 #include <cmath>
 #include <cstdlib>
 
@@ -67,7 +70,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
-		QValueList<bool> barsNumeric;
+		Q3ValueList<bool> barsNumeric;
 		barsNumeric << false;
 		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
 		progressDialog->setOverallTotalSteps(3);
@@ -91,10 +94,10 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		QString tmp, BBox, tmp2, FarNam;
 		ScColor cc;
 		QFile f(fName);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
-			QTextStream ts(&f);
+			Q3TextStream ts(&f);
 			while (!ts.atEnd())
 			{
 				tmp = ts.readLine();
@@ -115,7 +118,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
 					tmp = tmp.remove(0,18);
-					QTextStream ts2(&tmp, IO_ReadOnly);
+					Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.read();
 					FarNam = FarNam.stripWhiteSpace();
@@ -137,7 +140,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 							break;
 						}
 						tmp = tmp.remove(0,3);
-						QTextStream ts2(&tmp, IO_ReadOnly);
+						Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
@@ -160,7 +163,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				QStringList bb = QStringList::split(" ", BBox);
 				if (bb.count() == 4)
 				{
-					QTextStream ts2(&BBox, IO_ReadOnly);
+					Q3TextStream ts2(&BBox, QIODevice::ReadOnly);
 					ts2 >> x >> y >> b >> h;
 				}
 			}
@@ -330,7 +333,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				}
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel),m_Doc->view()->viewport());
+				Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel),m_Doc->view()->viewport());
 #ifndef QT_MAC
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -474,14 +477,14 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "cfile" );
 	args.append( "closefile" );
 	args.append( "quit" );
-	QCString finalCmd = args.join(" ").local8Bit();
+	Q3CString finalCmd = args.join(" ").local8Bit();
 	int ret = System(args, errFile, errFile);
 	if (ret != 0)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
 		qDebug("Ghostscript diagnostics:\n");
 		QFile diag(errFile);
-		if (diag.open(IO_ReadOnly) && !diag.atEnd() ) {
+		if (diag.open(QIODevice::ReadOnly) && !diag.atEnd() ) {
 			QString line;
 			while (diag.readLine(line, 120) > 0) {
 				qDebug("\t%s", line.ascii());
@@ -519,13 +522,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	double dcp;
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
-	QPtrStack<PageItem> groupStack;
-	QValueStack<int> gsStack;
-	QValueStack<uint> gsStackMarks;
+	Q3PtrStack<PageItem> groupStack;
+	Q3ValueStack<int> gsStack;
+	Q3ValueStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
 	pagecount = 1;
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		if (progressDialog) {
 			progressDialog->setTotalSteps("GI", (int) f.size());
@@ -539,7 +542,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		JoinStyle = MiterJoin;
 		CapStyle = FlatCap;
 		DashPattern.clear();
-		QTextStream ts(&f);
+		Q3TextStream ts(&f);
 		int line_cnt = 0;
 		while (!ts.atEnd() && !cancel)
 		{
@@ -616,7 +619,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						m_Doc->AdjustItemSize(ite);
 						if (groupStack.count() != 0)
 						{
-							QValueStack<int> groupOld = groupStack.top()->Groups;
+							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
 							for (uint gg = 0; gg < groupOld.count(); gg++)
 							{
 								ite->Groups.push(groupOld[gg]);
@@ -667,7 +670,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 						if (groupStack.count() != 0)
 						{
-							QValueStack<int> groupOld = groupStack.top()->Groups;
+							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
 							for (uint gg = 0; gg < groupOld.count(); gg++)
 							{
 								ite->Groups.push(groupOld[gg]);
@@ -703,7 +706,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					ite->Groups.push(m_Doc->GroupCounter);
 					if (groupStack.count() != 0)
 					{
-						QValueStack<int> groupOld = groupStack.top()->Groups;
+						Q3ValueStack<int> groupOld = groupStack.top()->Groups;
 						for (uint gg = 0; gg < groupOld.count(); gg++)
 						{
 							ite->Groups.push(groupOld[gg]);
@@ -740,13 +743,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "w")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> LineW;
 //				currPath += params;
 			}
 			else if (token == "ld")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> dc;
 				Lw >> DashOffset;
 				DashPattern.clear();
@@ -762,7 +765,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lc")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> lcap;
 				switch (lcap)
 				{
@@ -783,7 +786,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lj")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> ljoin;
 				switch (ljoin)
 				{
@@ -833,7 +836,7 @@ bool EPSPlug::Image(QString vals)
 	double x, y, w, h, angle;
 	int horpix, verpix;
 	QString filename, device;
-	QTextStream Code(&vals, IO_ReadOnly);
+	Q3TextStream Code(&vals, QIODevice::ReadOnly);
 	Code >> x;
 	Code >> y;
 	Code >> w;
@@ -861,14 +864,14 @@ bool EPSPlug::Image(QString vals)
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "quit" );
-	QCString finalCmd = args.join(" ").local8Bit();
+	Q3CString finalCmd = args.join(" ").local8Bit();
 	int ret = System(args);
 	if (ret != 0)
 	{
 		qDebug("PostScript image conversion failed when calling gs as: \n%s\n", finalCmd.data());
 		qDebug("Ghostscript diagnostics: %d\n", ret);
 		QFile diag(filename);
-		if (diag.open(IO_ReadOnly)) {
+		if (diag.open(QIODevice::ReadOnly)) {
 			QString line;
 			long int len;
 			bool gs_error = false;
@@ -886,7 +889,7 @@ bool EPSPlug::Image(QString vals)
 		}
 		qDebug("Failed file was:\n");
 		QFile dat(rawfile);
-		if (dat.open(IO_ReadOnly)) {
+		if (dat.open(QIODevice::ReadOnly)) {
 			QString line;
 			long int len;
 			do {
@@ -978,7 +981,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 	double c, m, y, k, r, g, b;
 	ScColor tmp;
 	ColorList::Iterator it;
-	QTextStream Code(&vals, IO_ReadOnly);
+	Q3TextStream Code(&vals, QIODevice::ReadOnly);
 	bool found = false;
 	if (model == colorModelRGB)
 	{

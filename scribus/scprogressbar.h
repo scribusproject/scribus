@@ -23,18 +23,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCPROGRESSBAR_H
 #define SCPROGRESSBAR_H
 
-#include <qprogressbar.h>
+#include <q3progressbar.h>
 
 /*!
  * @brief A Progress Bar that allows a number (X of Y) style or standard % indicator
  */
-class ScProgressBar : public QProgressBar
+class ScProgressBar : public Q3ProgressBar
 {
 	Q_OBJECT
 	
 	public:
-		ScProgressBar( bool showNumbers, QWidget *parent=0, const char *name=0, WFlags f=0 );
-		ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent=0, const char* name=0, WFlags f=0 );
+		ScProgressBar( bool showNumbers, QWidget *parent=0, const char *name=0, Qt::WFlags f=0 );
+		ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent=0, const char* name=0, Qt::WFlags f=0 );
 		virtual bool setIndicator( QString & indicator, int progress, int totalSteps );
 
 		~ScProgressBar();

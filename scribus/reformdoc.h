@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
-#include <qbuttongroup.h>
+#include <q3groupbox.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qlabel.h>
 #include <qlineedit.h>

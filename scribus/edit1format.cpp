@@ -13,6 +13,14 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qcolordialog.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3Frame>
+#include <Q3PopupMenu>
+#include <Q3VBoxLayout>
 
 #include "colorcombo.h"
 #include "commonstrings.h"
@@ -54,7 +62,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 		sampleItem->setBgColor(bg);
 	}
 
-	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
+	EditStyleLayout = new Q3VBoxLayout( this, 10, 5, "EditStyleLayout");
 
 	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
 	EditStyleLayout->addWidget( TextLabel1 );
@@ -67,18 +75,18 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	TextLabel1->setBuddy(Name);
 	EditStyleLayout->addWidget( Name );
 
-	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
+	layout9 = new Q3HBoxLayout( 0, 0, 5, "layout9");
 
-	GroupFont = new QGroupBox( tr( "Character" ), this, "GroupFont" );
+	GroupFont = new Q3GroupBox( tr( "Character" ), this, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 5 );
 	GroupFont->layout()->setMargin( 10 );
-	GroupFontLayout = new QVBoxLayout( GroupFont->layout() );
+	GroupFontLayout = new Q3VBoxLayout( GroupFont->layout() );
 	GroupFontLayout->setAlignment( Qt::AlignLeft );
 	FontC = new FontComboH(GroupFont);
 	FontC->setCurrentFont(vor->charStyle().font().scName());
 	GroupFontLayout->addWidget( FontC );
-	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
+	layout7 = new Q3HBoxLayout( 0, 0, 5, "layout7");
 	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
@@ -110,7 +118,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	layout7->addWidget( fontVScale );
 	GroupFontLayout->addLayout( layout7 );
 
-	layout9a = new QHBoxLayout( 0, 0, 0, "layout9");
+	layout9a = new Q3HBoxLayout( 0, 0, 0, "layout9");
 	EffeS = new StyleSelect(GroupFont);
 	EffeS->setStyle(vor->charStyle().effects());
 	EffeS->ShadowVal->Xoffset->setValue(vor->charStyle().shadowXOffset() / 10.0);
@@ -125,7 +133,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	layout9a->addItem( spacer1 );
 	GroupFontLayout->addLayout( layout9a, Qt::AlignLeft );
 
-	layout9b = new QHBoxLayout( 0, 0, 0, "layout9");
+	layout9b = new Q3HBoxLayout( 0, 0, 0, "layout9");
 	AligS = new AlignSelect(GroupFont);
 	AligS->setStyle(vor->alignment());
 	layout9b->addWidget( AligS );
@@ -133,7 +141,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	layout9a->addItem( spacer2 );
 	GroupFontLayout->addLayout( layout9b, Qt::AlignLeft );
 
-	layout5 = new QHBoxLayout( 0, 0, 5, "layout5");
+	layout5 = new Q3HBoxLayout( 0, 0, 5, "layout5");
 	FillIcon = new QLabel( "", GroupFont, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	layout5->addWidget( FillIcon );
@@ -150,7 +158,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	layout5->addItem( spacer3 );
 	GroupFontLayout->addLayout( layout5 );
 
-	layout6 = new QHBoxLayout( 0, 0, 5, "layout6");
+	layout6 = new Q3HBoxLayout( 0, 0, 5, "layout6");
 	StrokeIcon = new QLabel( "", GroupFont, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	layout6->addWidget( StrokeIcon );
@@ -188,16 +196,16 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 
 	layout9->addWidget( GroupFont );
 
-	layout8 = new QVBoxLayout( 0, 0, 5, "layout8");
-	AbstandV = new QGroupBox( tr("Distances"), this, "AbstandV" );
+	layout8 = new Q3VBoxLayout( 0, 0, 5, "layout8");
+	AbstandV = new Q3GroupBox( tr("Distances"), this, "AbstandV" );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
 	AbstandV->layout()->setSpacing( 0 );
 	AbstandV->layout()->setMargin( 0 );
-	AbstandVLayout = new QGridLayout( AbstandV->layout() );
+	AbstandVLayout = new Q3GridLayout( AbstandV->layout() );
 	AbstandVLayout->setAlignment( Qt::AlignTop );
 	AbstandVLayout->setSpacing( 5 );
 	AbstandVLayout->setMargin( 10 );
-	lineSpacingPop = new QPopupMenu();
+	lineSpacingPop = new Q3PopupMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
@@ -246,12 +254,12 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	AbstandVLayout->addWidget( BelowV, 1, 3 );
 	layout8->addWidget( AbstandV );
 
-	DropCaps = new QGroupBox( tr("Drop Caps"),  this, "groupCaps" );
+	DropCaps = new Q3GroupBox( tr("Drop Caps"),  this, "groupCaps" );
 	DropCaps->setCheckable( true );
 	DropCaps->setColumnLayout(0, Qt::Vertical );
 	DropCaps->layout()->setSpacing( 5 );
 	DropCaps->layout()->setMargin( 10 );
-	DropCapsLayout = new QGridLayout( DropCaps->layout() );
+	DropCapsLayout = new Q3GridLayout( DropCaps->layout() );
 	DropCapsLayout->setAlignment( Qt::AlignTop );
 	DropLines = new QSpinBox( DropCaps, "DropLines" );
 	DropLines->setMinValue( 2 );
@@ -289,11 +297,11 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 			LineSpVal->setEnabled(true);
 	}
 
-	GroupBox10 = new QGroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
+	GroupBox10 = new Q3GroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
 	GroupBox10->setColumnLayout(0, Qt::Vertical );
 	GroupBox10->layout()->setSpacing( 0 );
 	GroupBox10->layout()->setMargin( 0 );
-	GroupBox10Layout = new QVBoxLayout(GroupBox10->layout());
+	GroupBox10Layout = new Q3VBoxLayout(GroupBox10->layout());
 	GroupBox10Layout->setAlignment( Qt::AlignTop );
 	GroupBox10Layout->setSpacing( 5 );
 	GroupBox10Layout->setMargin( 10 );
@@ -306,10 +314,10 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	EditStyleLayout->addWidget( GroupBox10 );
 
 	// Label for holding "style preview" bitmap 12/30/2004 petr vanek
-	layoutPreview = new QVBoxLayout; // paragraphs and check
+	layoutPreview = new Q3VBoxLayout; // paragraphs and check
 	layoutPreview->setSpacing(6);
 	layoutPreview->setMargin(0);
-	layoutPrevSet = new QHBoxLayout; // all preview items
+	layoutPrevSet = new Q3HBoxLayout; // all preview items
 	layoutPrevSet->setSpacing(6);
 	layoutPrevSet->setMargin(0);
 
@@ -328,13 +336,13 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	previewText->setMinimumSize(640, 200);
 	previewText->setMaximumSize(640, 200);
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
-	previewText->setFrameShape(QFrame::Box);
+	previewText->setFrameShape(Q3Frame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	layoutPreview->addWidget(previewText);
 
 	EditStyleLayout->addLayout(layoutPreview);
 
-	Layout17 = new QHBoxLayout;
+	Layout17 = new Q3HBoxLayout;
 	Layout17->setSpacing( 6 );
 	Layout17->setMargin( 0 );
 	QSpacerItem* spacer2a = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

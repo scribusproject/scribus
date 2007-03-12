@@ -27,8 +27,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpaintdevice.h>
 #include <qpixmap.h>
-#include <qpointarray.h>
+#include <q3pointarray.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include "scpainter.h"
 
@@ -119,7 +121,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	stroke_gradient = VGradient(VGradient::linear);
 	m_zoomFactor = 1;
 	imageMode = false;
-	m_matrix = QWMatrix();
+	m_matrix = QMatrix();
 #ifdef HAVE_CAIRO
 	layeredMode = false;
 	svgMode = false;
@@ -194,7 +196,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned i
 	m_zoomFactor = 1;
 	imageMode = true;
 	m_image = target;
-	m_matrix = QWMatrix();
+	m_matrix = QMatrix();
 #ifdef HAVE_CAIRO
 	layeredMode = false;
 	svgMode = false;
@@ -248,7 +250,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	imageMode = true;
 	svgMode = false;
 	m_image = target;
-	m_matrix = QWMatrix();
+	m_matrix = QMatrix();
 /*
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
 	tmp_image = QImage(w, h, 32, QImage::BigEndian);
@@ -301,7 +303,7 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h,
 	layeredMode = true;
 	imageMode = false;
 	svgMode = true;
-	m_matrix = QWMatrix();
+	m_matrix = QMatrix();
 	cairo_surface_t *img = cairo_svg_surface_create(target, w, h);
 	m_cr = cairo_create(img);
 	cairo_save( m_cr );
@@ -822,12 +824,12 @@ void ScPainter::clear( const QColor &c )
 #endif
 }
 
-const QWMatrix ScPainter::worldMatrix()
+const QMatrix ScPainter::worldMatrix()
 {
 #ifdef HAVE_CAIRO
 	cairo_matrix_t matrix;
 	cairo_get_matrix(m_cr, &matrix);
-	QWMatrix mat;
+	QMatrix mat;
 	mat.setMatrix ( matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0 );
 	return mat;
 #else
@@ -835,7 +837,7 @@ const QWMatrix ScPainter::worldMatrix()
 #endif
 }
 
-void ScPainter::setWorldMatrix( const QWMatrix &mat )
+void ScPainter::setWorldMatrix( const QMatrix &mat )
 {
 #ifdef HAVE_CAIRO
 	cairo_matrix_t matrix;
@@ -1050,7 +1052,7 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	PLineJoin = jo;
 	double Dt = QMAX(2*w, 1);
 	double Da = QMAX(6*w, 1);
-	QValueList<double> tmp;
+	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -1094,7 +1096,7 @@ void ScPainter::setPenOpacity( double op )
 }
 
 
-void ScPainter::setDash(const QValueList<double>& array, double ofs)
+void ScPainter::setDash(const Q3ValueList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -1187,7 +1189,7 @@ void ScPainter::drawVPath( int mode )
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
 				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
-			QPtrVector<VColorStop> colorStops = fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
@@ -1240,7 +1242,7 @@ void ScPainter::drawVPath( int mode )
 			else
 				image3 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_matrix_t matrix;
-			QWMatrix qmatrix;
+			QMatrix qmatrix;
 //			qmatrix.scale(m_zoomFactor, m_zoomFactor);
 			qmatrix.translate(patternOffsetX, patternOffsetY);
 			qmatrix.rotate(patternRotation);
@@ -1324,7 +1326,7 @@ void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 		color = m_fill;
 		af = qRound( 255 * fill_trans );
 #ifdef WORDS_BIGENDIAN
-		fillColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
+		fillColor = ( color.Qt::red() << 24 ) | ( color.Qt::green() << 16 ) | ( color.Qt::blue() << 8 );
 #else
  		fillColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
 #endif
@@ -1348,7 +1350,7 @@ void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 		color = m_stroke;
 		as = qRound( 255 * stroke_trans );
 #ifdef WORDS_BIGENDIAN
-		strokeColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
+		strokeColor = ( color.Qt::red() << 24 ) | ( color.Qt::green() << 16 ) | ( color.Qt::blue() << 8 );
 #else
 		strokeColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
 #endif
@@ -1901,7 +1903,7 @@ void ScPainter::applyGradient( _ArtSVP *svp, bool fill )
 
 ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 {
-	QPtrVector<VColorStop> colorStops = gradient.colorStops();
+	Q3PtrVector<VColorStop> colorStops = gradient.colorStops();
 	offsets = colorStops.count();
 	ArtGradientStop *stopArray = art_new( ArtGradientStop, offsets * 2 - 1 );
 	for( int offset = 0 ; offset < offsets ; offset++ )

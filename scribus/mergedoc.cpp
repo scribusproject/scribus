@@ -15,6 +15,11 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 
 #include "scconfig.h"
 #include "mergedoc.h"
@@ -39,8 +44,8 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	setIcon(loadIcon("AppIcon.png"));
 
 	count = 0;
-	dialogLayout = new QVBoxLayout( this, 10, 10, "dialogLayout"); 
-	fromInfoLayout = new QGridLayout(1, 1, 5, "layout");
+	dialogLayout = new Q3VBoxLayout( this, 10, 10, "dialogLayout"); 
+	fromInfoLayout = new Q3GridLayout(1, 1, 5, "layout");
 	fromDocData = new QLineEdit( this, "fromDocData" );
 	fromDocLabel = new QLabel( fromDocData, tr( "&From Document:"), this, "fromDocLabel" );
 	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
@@ -87,7 +92,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	}
 
 	dialogLayout->addLayout( fromInfoLayout );
-	importCancelLayout = new QHBoxLayout( 0, 0, 2, "importCancelLayout"); 
+	importCancelLayout = new Q3HBoxLayout( 0, 0, 2, "importCancelLayout"); 
 	QSpacerItem* spacer = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	importCancelLayout->addItem( spacer );
 	importButton = new QPushButton( tr( "&Import" ), this, "importButton" );

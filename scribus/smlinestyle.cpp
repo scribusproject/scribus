@@ -18,15 +18,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "sccolorengine.h"
 #include "mpalette.h"
-#include <qheader.h>
+#include <q3header.h>
 #include <qlineedit.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qtabwidget.h>
 #include <qlayout.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -101,7 +101,7 @@ void LineStyleWidget::slotEditNewLine(int i)
 	colorCombo->setCurrentText(currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
 	
-	switch (static_cast<PenStyle>(currentStyle[i].Dash))
+	switch (static_cast<Qt::PenStyle>(currentStyle[i].Dash))
 	{
 	case SolidLine:
 		dashCombo->setCurrentItem(0);
@@ -123,7 +123,7 @@ void LineStyleWidget::slotEditNewLine(int i)
 		break;
 	}
 
-	switch (static_cast<PenCapStyle>(currentStyle[i].LineEnd))
+	switch (static_cast<Qt::PenCapStyle>(currentStyle[i].LineEnd))
 	{
 	case FlatCap:
 		endCombo->setCurrentItem(0);
@@ -139,7 +139,7 @@ void LineStyleWidget::slotEditNewLine(int i)
 		break;
 	}
 
-	switch (static_cast<PenJoinStyle>(currentStyle[i].LineJoin))
+	switch (static_cast<Qt::PenJoinStyle>(currentStyle[i].LineJoin))
 	{
 	case MiterJoin:
 		joinCombo->setCurrentItem(0);
@@ -165,7 +165,7 @@ void LineStyleWidget::updateLineList()
 	{
 		pm2 = getWidePixmap(getColor((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>((*it).Dash));
+		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
 		tmp2 += " ";
 		lineStyles->insertItem(*pm2, tmp2);
 	}
@@ -228,13 +228,13 @@ void SMLineStyle::currentDoc(ScribusDoc *doc)
 	}
 }
 
-QValueList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
+Q3ValueList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 {
 	if (doc_ && reloadFromDoc) {
 		tmpLines = doc_->MLineStyles;
 	}
 
-	QValueList<StyleName> tmp;
+	Q3ValueList<StyleName> tmp;
 	QMap<QString,multiLine>::Iterator it;
 
 	for (it = tmpLines.begin(); it != tmpLines.end(); ++it)
@@ -336,12 +336,12 @@ void SMLineStyle::toSelection(const QString &styleName) const
 
 QString SMLineStyle::newStyle()
 {
-	struct SingleLine sl;
+	struct Qt::TextSingleLine sl;
 	sl.Color = "Black";
 	sl.Shade = 100;
-	sl.Dash = SolidLine;
-	sl.LineEnd = FlatCap;
-	sl.LineJoin = MiterJoin;
+	sl.Dash = Qt::SolidLine;
+	sl.LineEnd = Qt::FlatCap;
+	sl.LineJoin = Qt::MiterJoin;
 	sl.Width = 1.0;
 	multiLine ml;
 	ml.push_back(sl);
@@ -452,7 +452,7 @@ void SMLineStyle::setShortcut(const QString &shortcut)
 	}
 }
 
-void SMLineStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
+void SMLineStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
 {
 	for (uint i = 0; i < removeList.count(); ++i)
 	{
@@ -474,7 +474,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 	tmpLines.insert(newName, newLine);
 	selection_[newName] = &tmpLines[newName];
 
-	QValueList<RemoveItem>::iterator it;
+	Q3ValueList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
 		if ((*it).second == oldName)
@@ -741,7 +741,7 @@ void SMLineStyle::rebuildList()
 	{
 		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		switch (static_cast<PenStyle>((*it).Dash))
+		switch (static_cast<Qt::PenStyle>((*it).Dash))
 		{
 			case SolidLine:
 				tmp2 += tr("Solid Line");
@@ -816,7 +816,7 @@ void SMLineStyle::updateSList()
 	
 	pm = getWidePixmap(calcFarbe((*tmpLine)[currentLine_].Color, (*tmpLine)[currentLine_].Shade));
 	tmp2 = " "+tmp.setNum((*tmpLine)[currentLine_].Width)+ tr(" pt ");
-	switch (static_cast<PenStyle>((*tmpLine)[currentLine_].Dash))
+	switch (static_cast<Qt::PenStyle>((*tmpLine)[currentLine_].Dash))
 	{
 		case SolidLine:
 			tmp2 += tr("Solid Line");
@@ -859,9 +859,9 @@ void SMLineStyle::updatePreview()
 	{
 		p.setPen(QPen(calcFarbe((*tmpLine)[it].Color, (*tmpLine)[it].Shade),
 				 QMAX(static_cast<int>((*tmpLine)[it].Width), 1),
-				 static_cast<PenStyle>((*tmpLine)[it].Dash),
-				 static_cast<PenCapStyle>((*tmpLine)[it].LineEnd),
-				 static_cast<PenJoinStyle>((*tmpLine)[it].LineJoin)));
+				 static_cast<Qt::PenStyle>((*tmpLine)[it].Dash),
+				 static_cast<Qt::PenCapStyle>((*tmpLine)[it].LineEnd),
+				 static_cast<Qt::PenJoinStyle>((*tmpLine)[it].LineJoin)));
 		p.drawLine(17, 18, 183, 18);
 	}
 	p.end();

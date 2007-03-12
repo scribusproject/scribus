@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 #include <qspinbox.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <QEvent>
 #include "scribusapi.h"
 
 class FunctionParser;

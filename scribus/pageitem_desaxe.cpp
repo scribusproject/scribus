@@ -13,6 +13,8 @@
 #include "pageitem_line.h"
 #include "scribusdoc.h"
 #include "colorutil.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 
 using namespace desaxe;
@@ -122,7 +124,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	if (item->groups().count() > 0)
 	{
 		QString grouplist = "";
-		QValueStack<int>::const_iterator it;
+		Q3ValueStack<int>::const_iterator it;
 		for (it = item->groups().begin(); it != item->groups().end(); ++it)
 			grouplist += toXMLString( *it ) + " ";	
 		result.insert("groups", toXMLString(grouplist));
@@ -228,7 +230,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 			gradient.insert("GRENDX", toXMLString(GrEndX));
 			gradient.insert("GRENDY", toXMLString(GrEndY));
 			handler.begin("Gradient", gradient);
-			QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 			for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
 			{
 				Xml_attr itcl;
@@ -407,7 +409,7 @@ class AdjustGroupIds_body : public Action_body
 		}
 		else {
 			PageItem* item = this->dig->top<PageItem>();
-			QValueStack<int> groups;
+			Q3ValueStack<int> groups;
 			for (uint i=0; i < item->groups().count(); ++i)
 			{
 				int newGroup = minGroup + item->groups()[i];
@@ -477,9 +479,9 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineTransparency, "line-transparency", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLineBlendmode, "line-blendmode", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineWidth, "line-width", &parseDouble ));  // also in createPageItem()
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PenStyle>( & PageItem::setLineStyle, "line-style", &parseEnum<PenStyle> ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PenCapStyle>( & PageItem::setLineEnd, "line-cap", &parseEnum<PenCapStyle> ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PenJoinStyle>( & PageItem::setLineJoin, "line-join", &parseEnum<PenJoinStyle> ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Qt::PenStyle>( & PageItem::setLineStyle, "line-style", &parseEnum<Qt::PenStyle> ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Qt::PenCapStyle>( & PageItem::setLineEnd, "line-cap", &parseEnum<Qt::PenCapStyle> ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Qt::PenJoinStyle>( & PageItem::setLineJoin, "line-join", &parseEnum<Qt::PenJoinStyle> ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setCustomLineStyle, "line-customstyle", dummy )); // see comment above for setItemName
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setStartArrowIndex, "line-start-arrow", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setEndArrowIndex, "line-end-arrow", &parseInt ));
@@ -522,7 +524,7 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setControlsGroup, "isGroupControl", &parseBool ));
 	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setGroupsLastItem, "groupsLastItem" ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QValueStack<int> >( & PageItem::setGroups, "groups", &parseIntStack ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Q3ValueStack<int> >( & PageItem::setGroups, "groups", &parseIntStack ));
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsTableItem, "isTableItem", &parseBool ));
 	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setTopLink, "TopLink" ));
@@ -555,7 +557,7 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconPressed, "icon-pressed-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconRollover, "icon-rollover-file" ));
 	
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QValueList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Q3ValueList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));
 
 	StoryText::desaxeRules(itemPrefix, ruleset, "text-content");

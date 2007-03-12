@@ -80,10 +80,10 @@ void PrefsFile::write()
 	if ((!ioEnabled) || ((contexts.size() == 0) && (pluginContexts.size() == 0)))
 		return; // No prefs file path set -> can't write or no prefs to write
 	QFile* prefsXML = new QFile(prefsFilePath);
-	if (prefsXML->open(IO_WriteOnly))
+	if (prefsXML->open(QIODevice::WriteOnly))
 	{
-		QTextStream stream(prefsXML);
-		stream.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream stream(prefsXML);
+		stream.setEncoding(Q3TextStream::UnicodeUTF8);
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<preferences>\n";
 		if (contexts.size() > 0)
@@ -105,7 +105,7 @@ void PrefsFile::write()
 	delete prefsXML;
 }
 
-void PrefsFile::writeContexts(ContextMap* contextMap, QTextStream& stream)
+void PrefsFile::writeContexts(ContextMap* contextMap, Q3TextStream& stream)
 {
 	ContextMap::Iterator it;
 	for (it = contextMap->begin(); it != contextMap->end(); ++it)

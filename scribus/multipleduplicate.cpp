@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "multipleduplicate.h"
 #include "multipleduplicate.moc"
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "mspinbox.h"
 #include "units.h"
 
-MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char* name, WFlags fl )
+MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char* name, Qt::WFlags fl )
 	: MultipleDuplicateBase(parent, name, fl),
 	m_unitIndex(unitIndex)
 {

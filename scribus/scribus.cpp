@@ -21,20 +21,33 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qaccel.h>
+#include <q3accel.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qcolordialog.h>
 #include <qcolor.h>
-#include <qiconset.h>
-#include <qtextstream.h>
+#include <qicon.h>
+#include <q3textstream.h>
 #include <qstylefactory.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
 #include <qcursor.h>
-#include <qvbox.h>
+#include <q3vbox.h>
 #include <qpixmap.h>
 #include <qkeysequence.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3Frame>
+#include <QDropEvent>
+#include <QCloseEvent>
+#include <Q3ValueList>
+#include <QLabel>
+#include <Q3CString>
+#include <QEvent>
+#include <QWheelEvent>
+#include <QTranslator>
+#include <QDragEnterEvent>
+#include <QKeyEvent>
 
 #include <cstdio>
 #include <cstdlib>
@@ -268,8 +281,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	SetShortCut();
 
 	resize(610, 600);
-	QVBox* vb = new QVBox( this );
-	vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+	Q3VBox* vb = new Q3VBox( this );
+	vb->setFrameStyle( Q3Frame::StyledPanel | Q3Frame::Sunken );
 	wsp = new QWorkspace( vb );
 	setCentralWidget( vb );
 	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
@@ -376,7 +389,7 @@ void ScribusMainWindow::initDefaultValues()
 
 void ScribusMainWindow::initKeyboardShortcuts()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
 	{
 		if ((ScrAction*)(it.data())!=NULL)
 		{
@@ -532,7 +545,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
-	scrMenuMgr->createMenu(recentFileMenuName, QIconSet(noIcon), tr("Open &Recent"), "File");
+	scrMenuMgr->createMenu(recentFileMenuName, QIcon(noIcon), tr("Open &Recent"), "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileClose"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileSave"], "File");
@@ -540,12 +553,12 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileRevert"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileCollect"], "File");
 	scrMenuMgr->addMenuSeparator("File");
-	scrMenuMgr->createMenu("FileImport", QIconSet(noIcon), tr("&Import"), "File");
+	scrMenuMgr->createMenu("FileImport", QIcon(noIcon), tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
 // 	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
-	scrMenuMgr->createMenu("FileExport", QIconSet(noIcon), tr("&Export"), "File");
+	scrMenuMgr->createMenu("FileExport", QIcon(noIcon), tr("&Export"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
@@ -586,7 +599,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
 	recentPasteMenuName="EditPasteRecent";
-	scrMenuMgr->createMenu(recentPasteMenuName, QIconSet(noIcon), tr("Paste Recent"), "Edit");
+	scrMenuMgr->createMenu(recentPasteMenuName, QIcon(noIcon), tr("Paste Recent"), "Edit");
 	scrMenuMgr->createMenu("EditContents", QPixmap(noIcon), tr("Contents"), "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents");
@@ -970,7 +983,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 void ScribusMainWindow::initStatusBar()
 {
 	mainWindowStatusLabel = new QLabel( "           ", statusBar(), "ft");
-	mainWindowProgressBar = new QProgressBar(statusBar(), "p");
+	mainWindowProgressBar = new Q3ProgressBar(statusBar(), "p");
 	mainWindowProgressBar->setCenterIndicator(true);
 	mainWindowProgressBar->setFixedWidth( 100 );
 	mainWindowProgressBar->reset();
@@ -2131,7 +2144,7 @@ void ScribusMainWindow::newView()
 
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), "Windows");
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
@@ -3103,7 +3116,7 @@ void ScribusMainWindow::loadRecent(QString fn)
 
 void ScribusMainWindow::rebuildRecentFileMenu()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
 
 	scrRecentFileActions.clear();
@@ -3114,7 +3127,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
 		localName=QDir::convertSeparators(RecentDocs[m]);
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QIconSet(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QIcon(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}
@@ -3122,7 +3135,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 
 void ScribusMainWindow::rebuildRecentPasteMenu()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentPasteActions.begin(); it!=scrRecentPasteActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentPasteActions.begin(); it!=scrRecentPasteActions.end(); ++it )
 		scrMenuMgr->removeMenuItem((*it), recentPasteMenuName);
 
 	scrRecentPasteActions.clear();
@@ -3137,7 +3150,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		{
 			strippedName = it.key();
 			QPixmap pm = it.data().Preview;
-			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, QIconSet(pm), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, strippedName,0,0.0,it.key()));
+			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, QIcon(pm), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, strippedName,0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], recentPasteMenuName);
 			it--;
@@ -3194,15 +3207,15 @@ void ScribusMainWindow::rebuildLayersList()
 {
 	if (HaveDoc)
 	{
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
 			scrMenuMgr->removeMenuItem((*it0), layerMenuName);
 		scrLayersActions.clear();
-		QValueList<Layer>::iterator it;
+		Q3ValueList<Layer>::iterator it;
 		if (doc->Layers.count()!= 0)
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 			{
-				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIconSet(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
+				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIcon(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
 				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
 			}
 		}
@@ -3219,7 +3232,7 @@ void ScribusMainWindow::rebuildLayersList()
 		Q_ASSERT(found);
 		scrLayersActions[QString("%1").arg((*it).LNr)]->setOn(true);
 
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
 			scrMenuMgr->addMenuItem((*it), layerMenuName);
 			connect( (*it), SIGNAL(activatedData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
@@ -3231,15 +3244,15 @@ void ScribusMainWindow::updateItemLayerList()
 {
 	if (HaveDoc)
 	{
-		QMap<QString, QGuardedPtr<ScrAction> >::Iterator itend=scrLayersActions.end();
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 		{
 			disconnect( (*it), SIGNAL(activatedData(int)), 0, 0 );
 			(*it)->setOn(false);
 		}
 		if (doc->m_Selection->count()>0 && doc->m_Selection->itemAt(0))
 			scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerNr)]->setOn(true);
-		for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(activatedData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
 }
@@ -4721,7 +4734,7 @@ void ScribusMainWindow::slotEditPaste()
 				StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
 				dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
 
-				QCString xml( Buffer2.utf8() );
+				Q3CString xml( Buffer2.utf8() );
 				dig.parseMemory(xml, xml.length());
 				
 				StoryText* story = dig.result<StoryText>();
@@ -6581,7 +6594,7 @@ void ScribusMainWindow::setCSMenu()
 //CB still called from SE
 void ScribusMainWindow::saveStyles(StilFormate *dia)
 {
-	QValueList<uint> ers;
+	Q3ValueList<uint> ers;
 	QString nn;
 // 	PageItem* ite = 0;
 	bool ff;
@@ -6989,7 +7002,7 @@ void ScribusMainWindow::slotEditColors()
 							ite->setFillColor(it.data());
 						if (it.key() == ite->lineColor())
 							ite->setLineColor(it.data());
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
@@ -7025,7 +7038,7 @@ void ScribusMainWindow::slotEditColors()
 							ite->setFillColor(it.data());
 						if (it.key() == ite->lineColor())
 							ite->setLineColor(it.data());
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
@@ -7061,7 +7074,7 @@ void ScribusMainWindow::slotEditColors()
 							ite->setFillColor(it.data());
 						if (it.key() == ite->lineColor())
 							ite->setLineColor(it.data());
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
@@ -7101,7 +7114,7 @@ void ScribusMainWindow::slotEditColors()
 								ite->setFillColor(it.data());
 							if (it.key() == ite->lineColor())
 								ite->setLineColor(it.data());
-							QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+							Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 							for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 							{
 								if (it.key() == cstops.at(cst)->name)
@@ -7661,8 +7674,8 @@ void ScribusMainWindow::doSaveAsPDF()
 	QMap<QString, int> ReallyUsed = doc->UsedFonts;
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
-		QValueList<QString> tmpEm;
-		QValueList<QString>::Iterator itef;
+		Q3ValueList<QString> tmpEm;
+		Q3ValueList<QString>::Iterator itef;
 		for (itef = doc->PDF_Options.EmbedList.begin(); itef != doc->PDF_Options.EmbedList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
@@ -7672,8 +7685,8 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 	if (doc->PDF_Options.SubsetList.count() != 0)
 	{
-		QValueList<QString> tmpEm;
-		QValueList<QString>::Iterator itef;
+		Q3ValueList<QString> tmpEm;
+		Q3ValueList<QString>::Iterator itef;
 		for (itef = doc->PDF_Options.SubsetList.begin(); itef != doc->PDF_Options.SubsetList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
@@ -7774,7 +7787,7 @@ void ScribusMainWindow::BookMarkTxT(PageItem *ite)
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::RestoreBookMarks()
 {
-	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
+	Q3ValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -7796,7 +7809,7 @@ void ScribusMainWindow::RestoreBookMarks()
 		}
 		else
 		{
-			QListViewItemIterator it3(bookmarkPalette->BView);
+			Q3ListViewItemIterator it3(bookmarkPalette->BView);
 			for ( ; it3.current(); ++it3)
 			{
 				ip = (BookMItem*)it3.current();
@@ -7813,7 +7826,7 @@ void ScribusMainWindow::RestoreBookMarks()
 			}
 			else
 			{
-				QListViewItemIterator it4(bookmarkPalette->BView);
+				Q3ListViewItemIterator it4(bookmarkPalette->BView);
 				for ( ; it4.current(); ++it4)
 				{
 					ip = (BookMItem*)it4.current();
@@ -7836,7 +7849,7 @@ void ScribusMainWindow::StoreBookmarks()
 {
 	doc->BookMarks.clear();
 	BookMItem* ip;
-	QListViewItemIterator it(bookmarkPalette->BView);
+	Q3ListViewItemIterator it(bookmarkPalette->BView);
 	struct ScribusDoc::BookMa Boma;
 	for ( ; it.current(); ++it)
 	{
@@ -8168,7 +8181,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			int d = doc->Items->findRef(currItem);
 			doc->Items->take(d);
 		}
-		QValueList<uint> Oindex = ObjOrder.values();
+		Q3ValueList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
 			doc->Items->insert(lowestItem+1, doc->m_Selection->itemAt(Oindex[c]));
@@ -8486,7 +8499,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 
 
 
-void ScribusMainWindow::recalcColors(QProgressBar *dia)
+void ScribusMainWindow::recalcColors(Q3ProgressBar *dia)
 {
 	if (HaveDoc)
 	{
@@ -8878,7 +8891,7 @@ void ScribusMainWindow::callImageEditor()
 		{
 			int index;
 			QString imEditor;
-			ExternalApp = new QProcess(NULL);
+			ExternalApp = new Q3Process(NULL);
 			QStringList cmd;
 		#if defined(_WIN32)
 			index = imageEditorExecutable.find( ".exe" );
@@ -9038,7 +9051,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 				} while (!nameFound && ok);
 				if ( ok && !colorName.isEmpty() )
 				{
-					ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
+					ScColor newColor(selectedColor.Qt::red(), selectedColor.Qt::green(), selectedColor.Qt::blue());
 					doc->PageColors[colorName]=newColor;
 					propertiesPalette->updateColorList();
 				}
@@ -9069,7 +9082,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	if (sendToSuper)
-		QMainWindow::mouseReleaseEvent(m);
+		Q3MainWindow::mouseReleaseEvent(m);
 
 }
 
@@ -9159,7 +9172,7 @@ void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString 
 	*command=PDef.Command;
 }
 
-void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
+void ScribusMainWindow::updateColorMenu(Q3ProgressBar* progressBar)
 {
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();
@@ -9204,11 +9217,11 @@ void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
 void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 {
 	bool accepted = false;
-	if ( e->provides("text/uri-list") && QUriDrag::canDecode(e) )
+	if ( e->provides("text/uri-list") && Q3UriDrag::canDecode(e) )
 	{
 		QString fileUrl;
 		QStringList fileUrls;
-		QUriDrag::decodeLocalFiles(e, fileUrls);
+		Q3UriDrag::decodeLocalFiles(e, fileUrls);
 		for( uint i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].lower();
@@ -9225,17 +9238,17 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 void ScribusMainWindow::dropEvent ( QDropEvent * e)
 {
 	bool accepted = false;
-	if ( e->provides("text/uri-list") && QUriDrag::canDecode(e) )
+	if ( e->provides("text/uri-list") && Q3UriDrag::canDecode(e) )
 	{
 		QString fileUrl;
 		QStringList fileUrls;
-		QUriDrag::decodeLocalFiles(e, fileUrls);
+		Q3UriDrag::decodeLocalFiles(e, fileUrls);
 		for( uint i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].lower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
-				QUrl url( fileUrls[i] );
+				Q3Url url( fileUrls[i] );
 				QFileInfo fi(url.path());
 				if ( fi.exists() )
 				{
@@ -9386,7 +9399,7 @@ void ScribusMainWindow::managePatterns()
 	}
 }
 
-void ScribusMainWindow::enableTextActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName)
+void ScribusMainWindow::enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName)
 {
 	actionManager->enableUnicodeActions(actionMap, enabled, fontName);
 	scrMenuMgr->setMenuEnabled("InsertChar", enabled);

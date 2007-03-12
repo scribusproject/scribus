@@ -7,26 +7,31 @@ for which a new license (GPL+exception) is in place.
 #ifndef BIBLIO_H
 #define BIBLIO_H
 
-#include <qiconview.h>
-#include <qframe.h>
+#include <q3iconview.h>
+#include <q3frame.h>
 #include <qtabwidget.h>
 // #include <qpopupmenu.h>
 #include <qmenubar.h>
 
 #include <qtooltip.h>
 #include <qpixmap.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QKeyEvent>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
 
-class QHBoxLayout;
+class Q3HBoxLayout;
 class QToolButton;
-class QVBoxLayout;
+class Q3VBoxLayout;
 class QToolBox;
 
-class SCRIBUS_API BibView : public QIconView
+class SCRIBUS_API BibView : public Q3IconView
 {
 	Q_OBJECT
 
@@ -55,7 +60,7 @@ signals:
 	void CloseTpal();
 
 protected:
-	virtual QDragObject *dragObject();
+	virtual Q3DragObject *dragObject();
 };
 
 class SCRIBUS_API Biblio : public ScrPaletteBase
@@ -84,11 +89,11 @@ public slots:
 	void languageChange();
 
 private slots:
-	void HandleMouse(int button, QIconViewItem *ite);
+	void HandleMouse(int button, Q3IconViewItem *ite);
 	bool copyObj(int id);
 	void moveObj(int id);
-	void DeleteObj(QString name, QIconViewItem *ite);
-	void ItemRenamed(QIconViewItem *ite);
+	void DeleteObj(QString name, Q3IconViewItem *ite);
+	void ItemRenamed(Q3IconViewItem *ite);
 	void DropOn(QDropEvent *e);
 	void NewLib();
 	void Load();
@@ -108,7 +113,7 @@ protected:
 // 	QMenuBar* menuBar;
 //	QTabWidget* Frame3;
 	QToolBox* Frame3;
-	QVBoxLayout* BiblioLayout;
+	Q3VBoxLayout* BiblioLayout;
 	BibView* activeBView;
 	int tempCount;
 	QString OldName;
@@ -120,7 +125,7 @@ protected:
 // 	int fSaveAs;
 // 	int fClose;
 // 	int fImport;
-	QHBoxLayout* buttonLayout;
+	Q3HBoxLayout* buttonLayout;
 	QToolButton* newButton;
 	QToolButton* loadButton;
 	QToolButton* saveAsButton;

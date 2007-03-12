@@ -18,9 +18,9 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qdict.h>
+#include <q3dict.h>
 #include <qmenubar.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include "scribus.h"
 #include "menumanager.h"
 #include "menumanager.moc"
@@ -54,7 +54,7 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 }
 
 
-bool MenuManager::createMenu(const QString &menuName, const QIconSet menuIcon, const QString &menuText, const QString parent, bool checkable)
+bool MenuManager::createMenu(const QString &menuName, const QIcon menuIcon, const QString &menuText, const QString parent, bool checkable)
 {
 	bool retVal=false;
 	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, NULL, menuName, menuIcon, menuText, parent, checkable);
@@ -107,13 +107,13 @@ void MenuManager::setMenuText(const QString &menuName, const QString &menuText)
 		
 		int id=menuList[menuName]->getMenuBarID();
 		if (id!=-1) {
-			QIconSet menuIcon = menuList[menuName]->getMenuIcon();
+			QIcon menuIcon = menuList[menuName]->getMenuIcon();
 			scribusMenuBar->changeItem(id, menuIcon, menuText);
 		}
 	}
 }
 
-void MenuManager::setMenuIcon(const QString &menuName, const QIconSet &menuIcon)
+void MenuManager::setMenuIcon(const QString &menuName, const QIcon &menuIcon)
 {
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
@@ -130,7 +130,7 @@ void MenuManager::setMenuIcon(const QString &menuName, const QIconSet &menuIcon)
 	}
 }
 
-QPopupMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
+Q3PopupMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 		return menuList[menuName]->getLocalPopupMenu();
@@ -290,7 +290,7 @@ void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 {
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{	
-		QPopupMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
+		Q3PopupMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)
 			popupmenu->exec(position);
 	}

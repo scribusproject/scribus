@@ -24,8 +24,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDFLIB_H
 #define PDFLIB_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include <string>
 #include <vector>
 
@@ -76,7 +78,7 @@ private:
 	void CalcOwnerKey(const QString & Owner, const QString & User);
 	void CalcUserKey(const QString & User, int Permission);
 	QString FitKey(const QString & pass);
-	QString setStrokeMulti(struct SingleLine *sl);
+	QString setStrokeMulti(struct Qt::TextSingleLine *sl);
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPathImage(PageItem *ite);
 	QString SetClipPath(PageItem *ite, bool poly = true);
@@ -105,7 +107,7 @@ private:
 	QByteArray ComputeMD5(const QString& in);
 	void PDF_Bookmark(PageItem *currItem, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors, QStringList colorNames, QValueList<int> colorShades);
+	QString PDF_DoLinGradient(PageItem *currItem, Q3ValueList<double> Stops, Q3ValueList<double> Trans, const QStringList& Colors, QStringList colorNames, Q3ValueList<int> colorShades);
 	QString PDF_TransparenzFill(PageItem *currItem);
 	QString PDF_TransparenzStroke(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
@@ -137,7 +139,7 @@ private:
 	Catalog;
 	struct PagT
 	{
-		QValueList<int> Kids;
+		Q3ValueList<int> Kids;
 		int Count;
 	}
 	PageTree;
@@ -148,8 +150,8 @@ private:
 		QMap<QString,int> XObjects;
 		QMap<QString,int> ImgObjects;
 		QMap<QString,int> FObjects;
-		QValueList<int> AObjects;
-		QValueList<int> FormObjects;
+		Q3ValueList<int> AObjects;
+		Q3ValueList<int> FormObjects;
 	}
 	Seite;
 	struct OutL
@@ -204,11 +206,11 @@ private:
 		QString data;
 	};
 	QMap<QString,ShIm> SharedImages;
-	QValueList<uint> XRef;
-	QValueList<Dest> NamedDest;
-	QValueList<int> Threads;
-	QValueList<Bead> Beads;
-	QValueList<int> CalcFields;
+	Q3ValueList<uint> XRef;
+	Q3ValueList<Dest> NamedDest;
+	Q3ValueList<int> Threads;
+	Q3ValueList<Bead> Beads;
+	Q3ValueList<int> CalcFields;
 	QMap<QString,int> Patterns;
 	QMap<QString,int> Shadings;
 	QMap<QString,int> Transpar;
@@ -238,7 +240,7 @@ private:
 	QString spotNam;
 	int spotCount;
 	int inPattern;
-	QTextStream outStream;
+	Q3TextStream outStream;
 	QMap<QString, QString> StdFonts;
 	MultiProgressDialog* progressDialog;
 	bool abortExport;

@@ -9,6 +9,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
 #include "scribusapi.h"
 #include "scribuscore.h"
 #include "prefsmanager.h"
@@ -91,7 +97,7 @@ void tfFilter::createWidget()
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");
 
-	QHBoxLayout *layout = new QHBoxLayout(this);
+	Q3HBoxLayout *layout = new Q3HBoxLayout(this);
 	layout->setMargin(0);
 
 	enableCheck = new QCheckBox(this, "enableCheck");
@@ -101,15 +107,15 @@ void tfFilter::createWidget()
 	QToolTip::add(enableCheck, tr("Disable or enable this filter row"));
 	layout->addWidget(enableCheck);
 
-	actionFrame = new QFrame(this, "actionFrame");
+	actionFrame = new Q3Frame(this, "actionFrame");
 	layout->addWidget(actionFrame);
 
-	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
-	alayout = new QHBoxLayout();
+	Q3BoxLayout* layout2 = new Q3VBoxLayout(actionFrame);
+	alayout = new Q3HBoxLayout();
 	alayout->setMargin(0);
 	layout2->addLayout(alayout);
 	layout2->addSpacing(4);
-	blayout = new QHBoxLayout();
+	blayout = new Q3HBoxLayout();
 	blayout->setMargin(0);
 	layout2->addLayout(blayout);
 

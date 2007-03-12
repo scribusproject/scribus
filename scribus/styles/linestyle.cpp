@@ -6,7 +6,7 @@
  */
 
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
@@ -162,7 +162,7 @@ bool LineStyle::inheritsAll() const
 }
 */
 
-typedef QValueList<LineStyle> Sublist;
+typedef Q3ValueList<LineStyle> Sublist;
 
 static QString toXMLString(const Sublist & )
 {

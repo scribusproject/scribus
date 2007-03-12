@@ -26,8 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <utility>
 
-#include "qvaluelist.h"
-#include "qptrlist.h"
+#include "q3valuelist.h"
+#include "q3ptrlist.h"
 
 #include "scribusapi.h"
 #include "undoobject.h"
@@ -87,7 +87,7 @@ public:
 	implementation, but in this case it at least lets us guarantee the rest
 	of the object is unchanged in (eg) pdflib. This should be replaced with
 	proper access methods later. */
-	mutable QPtrList<PageItem> FromMaster;
+	mutable Q3PtrList<PageItem> FromMaster;
 	//! \brief Guides lists and basic operations
 	GuideManagerCore guides;
 

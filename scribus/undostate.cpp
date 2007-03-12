@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "undostate.h"
 #include "undoobject.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 UndoState::UndoState(const QString& name, const QString& description, QPixmap* pixmap) :
 actionName_(name),

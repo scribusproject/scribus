@@ -15,9 +15,13 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qmap.h>
-#include <qvaluelist.h>
-#include <qgroupbox.h>
+#include <q3valuelist.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -45,7 +49,7 @@ public:
 	PDFExportDialog( QWidget* parent, const QString & docFileName,
 					 const QMap<QString, int > & DocFonts,
 					 ScribusView * currView, PDFOptions & pdfOptions,
-					 const QValueList<PDFPresentationData> & Eff,
+					 const Q3ValueList<PDFPresentationData> & Eff,
 					 const ProfilesL & PDFXProfiles, const SCFonts & AllFonts,
 					 double unitRatio, const ProfilesL & printerProfiles);
 	~PDFExportDialog() {};
@@ -64,10 +68,10 @@ protected slots:
 
 protected:
 	// Widgets
-	QVBoxLayout* PDFExportLayout;
-	QGridLayout* NameLayout;
-	QHBoxLayout* Layout7;
-	QGroupBox* Name;
+	Q3VBoxLayout* PDFExportLayout;
+	Q3GridLayout* NameLayout;
+	Q3HBoxLayout* Layout7;
+	Q3GroupBox* Name;
 	QCheckBox* multiFile;
 	QToolButton* FileC;
 	QPushButton* OK;
@@ -77,7 +81,7 @@ protected:
 
 	// Other members
 	ScribusDoc* doc;
-	QValueList<PDFPresentationData> EffVal;
+	Q3ValueList<PDFPresentationData> EffVal;
 	PDFOptions & Opts;
 	double docUnitRatio;
 	QString cmsDescriptorName;

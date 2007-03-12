@@ -195,10 +195,10 @@ void sat::createTmplXml()
 	xml += "<templates>\n";
 	xml += getTemplateTag();
 	xml += "</templates>\n";
-	if ( tmplXml.open( IO_WriteOnly ) )
+	if ( tmplXml.open( QIODevice::WriteOnly ) )
 	{
-		QTextStream stream(&tmplXml);
-		stream.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream stream(&tmplXml);
+		stream.setEncoding(Q3TextStream::UnicodeUTF8);
 		stream << xml;
 		tmplXml.close();
 	}
@@ -231,9 +231,9 @@ void sat::createImages()
 void sat::appendTmplXml()
 {
 	QFile tmplXml(tmplXmlFile);
-	if (tmplXml.open(IO_ReadOnly))
+	if (tmplXml.open(QIODevice::ReadOnly))
 	{
-		QTextStream stream(&tmplXml);
+		Q3TextStream stream(&tmplXml);
 		QString tmp = stream.readLine();
 		QString file = "";
 		while (tmp != NULL)
@@ -244,10 +244,10 @@ void sat::appendTmplXml()
 				file += getTemplateTag();
 		}
 		tmplXml.close();
-		if ( tmplXml.open( IO_WriteOnly ) )
+		if ( tmplXml.open( QIODevice::WriteOnly ) )
 		{
-			QTextStream stream2(&tmplXml);
-			stream2.setEncoding(QTextStream::UnicodeUTF8);
+			Q3TextStream stream2(&tmplXml);
+			stream2.setEncoding(Q3TextStream::UnicodeUTF8);
 			stream2 << file;
 			tmplXml.close();
 		}

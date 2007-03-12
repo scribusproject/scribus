@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define SCGZFILE_H
 
 #include <qstring.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 
 #include "scribusapi.h"
 

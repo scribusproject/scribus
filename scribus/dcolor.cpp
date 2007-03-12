@@ -10,7 +10,11 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
-#include <qiconset.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -30,8 +34,8 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	setName( "DelColor" );
     setCaption( tr( "Delete Color" ) );
   	setIcon(loadIcon("AppIcon.png"));
-    dialogLayout = new QVBoxLayout( this, 10, 5 );
-    delColorLayout = new QGridLayout;
+    dialogLayout = new Q3VBoxLayout( this, 10, 5 );
+    delColorLayout = new Q3GridLayout;
     delColorLayout->setSpacing( 6 );
     delColorLayout->setMargin( 5 );
     deleteLabel = new QLabel( tr( "Delete Color:" ), this, "deleteLabel" );
@@ -55,7 +59,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	}
     dialogLayout->addLayout( delColorLayout );
 
-    okCancelLayout = new QHBoxLayout;
+    okCancelLayout = new Q3HBoxLayout;
     okCancelLayout->setSpacing( 6 );
     okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

@@ -16,6 +16,12 @@ for which a new license (GPL+exception) is in place.
 #include "pdfopts.moc"
 
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <Q3GridLayout>
+#include <Q3CString>
+#include <Q3VBoxLayout>
 
 #include "scconfig.h"
 #include "customfdialog.h"
@@ -31,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
 								  ScribusView *currView, PDFOptions & pdfOptions,
-								  const QValueList<PDFPresentationData> & Eff,
+								  const Q3ValueList<PDFPresentationData> & Eff,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
 								  double unitRatio, const ProfilesL & printerProfiles)
 	: QDialog( parent, "pdf", true, 0 ),
@@ -45,15 +51,15 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 {
 	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	PDFExportLayout = new QVBoxLayout( this );
+	PDFExportLayout = new Q3VBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
 	PDFExportLayout->setMargin( 10 );
-	Name = new QGroupBox( this, "GroupBox" );
+	Name = new Q3GroupBox( this, "GroupBox" );
 	Name->setTitle( tr( "O&utput to File:" ) );
 	Name->setColumnLayout(0, Qt::Vertical );
 	Name->layout()->setSpacing( 5 );
 	Name->layout()->setMargin( 10 );
-	NameLayout = new QGridLayout( Name->layout() );
+	NameLayout = new Q3GridLayout( Name->layout() );
 	NameLayout->setAlignment( Qt::AlignTop );
 	fileNameLineEdit = new QLineEdit( Name, "fileNameLineEdit" );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
@@ -90,7 +96,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
 								currView->Doc->pageWidth, currView->Doc, true );
 	PDFExportLayout->addWidget( Options );
-	Layout7 = new QHBoxLayout;
+	Layout7 = new Q3HBoxLayout;
 	Layout7->setSpacing( 5 );
 	Layout7->setMargin( 0 );
 	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -336,7 +342,7 @@ void PDFExportDialog::updateDocOptions()
 				if (Opts.Version == PDFOptions::PDFVersion_X3)
 				{
 					cmsHPROFILE hIn;
-					QCString profilePath( appPrinterProfiles[Opts.PrintProf].local8Bit() );
+					Q3CString profilePath( appPrinterProfiles[Opts.PrintProf].local8Bit() );
 					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 					const char *Descriptor = cmsTakeProductDesc(hIn);
 					cmsDescriptorName = QString(Descriptor);

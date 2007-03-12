@@ -18,13 +18,16 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qcheckbox.h>
-#include <qheader.h>
-#include <qvaluelist.h>
+#include <q3header.h>
+#include <q3valuelist.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qlabel.h>
 #include <qcolordialog.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "dynamictip.h"
 #include "scmessagebox.h"
@@ -39,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-LayerLabel::LayerLabel(QTable *parent) : QTableItem (parent, QTableItem::OnTyping)
+LayerLabel::LayerLabel(Q3Table *parent) : Q3TableItem (parent, Q3TableItem::OnTyping)
 {
 }
 
@@ -77,20 +80,20 @@ void LayerLabel::paint(QPainter * p, const QColorGroup &cg, const QRect &cr, boo
 	p->drawText( x + 2, 0, w - x - 4, h, alignment(), elided );
 }
 
-LayerTable::LayerTable(QWidget* parent) : QTable(parent)
+LayerTable::LayerTable(QWidget* parent) : Q3Table(parent)
 {
 }
 
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
-	QTable::EditMode ed = editMode();
+	Q3Table::EditMode ed = editMode();
 	if ((row < 0) || (col < 0))
 	{
-		QTable::endEdit(row, col, accept, replace);
+		Q3Table::endEdit(row, col, accept, replace);
 		return;
 	}
 	QString oldCont = text(row, col);
-	QTable::endEdit(row, col, accept, replace);
+	Q3Table::endEdit(row, col, accept, replace);
 	QString newCont = item(row, col)->text();
 	bool realAccept = true;
 	int b = numRows();
@@ -106,7 +109,7 @@ void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 		realAccept = false;
 	if (realAccept)
 	{
-		if (ed != QTable::NotEditing)
+		if (ed != Q3Table::NotEditing)
 			emit updtName(row);
 	}
 	else
@@ -120,9 +123,9 @@ LayerPalette::LayerPalette(QWidget* parent)
 		: ScrPaletteBase( parent, "Layers", false, 0 ),
 		m_Doc(0)
 {
-	LayerPaletteLayout = new QVBoxLayout( this, 1, 2, "LayerPaletteLayout");
+	LayerPaletteLayout = new Q3VBoxLayout( this, 1, 2, "LayerPaletteLayout");
 
-	layout1 = new QHBoxLayout( 0, 0, 2, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 2, "layout1");
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
 	blendMode = new ScComboBox( false, this, "blendMode" );
@@ -159,7 +162,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
 	Table->setNumCols( 7 );
-	QHeader *header = Table->horizontalHeader();
+	Q3Header *header = Table->horizontalHeader();
 	header->setLabel(0, "");
 	header->setLabel(1, loadIcon("16/show-object.png"), "");
 	header->setLabel(2, loadIcon("16/document-print.png"), "");
@@ -188,8 +191,8 @@ LayerPalette::LayerPalette(QWidget* parent)
 	dynTip = new DynamicTip(header);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
-	Table->setSelectionMode( QTable::SingleRow );
-	Table->setFocusStyle( QTable::FollowStyle );
+	Table->setSelectionMode( Q3Table::SingleRow );
+	Table->setFocusStyle( Q3Table::FollowStyle );
 	Header = Table->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
@@ -197,7 +200,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Header->hide();
 	LayerPaletteLayout->addWidget( Table );
 
-	Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1");
+	Layout1 = new Q3HBoxLayout( 0, 0, 0, "Layout1");
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 
@@ -317,7 +320,7 @@ void LayerPalette::rebuildList()
 	flagsOutline.clear();
 	flagsMarker.clear();
 	QString tmp;
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator it;
 	int layerCount=m_Doc->layerCount();
 	Table->setNumRows(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)
@@ -331,9 +334,9 @@ void LayerPalette::rebuildList()
 		pb->setText( "" );
 		QPixmap pm(20,15);
 		pm.fill(m_Doc->layerMarker(layerNumber));
-		QIconSet ic;
-		ic.setPixmap(pm, QIconSet::Small, QIconSet::Normal);
-		ic.setPixmap(pm, QIconSet::Small, QIconSet::Active);
+		QIcon ic;
+		ic.setPixmap(pm, QIcon::Small, QIcon::Normal);
+		ic.setPixmap(pm, QIcon::Small, QIcon::Active);
 		pb->setIconSet(ic);
 		Table->setCellWidget(row, 0, pb);
 		flagsMarker.append(pb);
@@ -543,9 +546,9 @@ void LayerPalette::markLayer()
 		neu = QColorDialog::getColor(m_Doc->layerMarker(layerNumber), this);
 		QPixmap pm(20,15);
 		pm.fill(neu);
-		QIconSet ic;
-		ic.setPixmap(pm, QIconSet::Small, QIconSet::Normal);
-		ic.setPixmap(pm, QIconSet::Small, QIconSet::Active);
+		QIcon ic;
+		ic.setPixmap(pm, QIcon::Small, QIcon::Normal);
+		ic.setPixmap(pm, QIcon::Small, QIcon::Active);
 		((QToolButton*)(senderBox))->setIconSet(ic);
 		m_Doc->setLayerMarker(layerNumber,neu);
 		emit LayerChanged();

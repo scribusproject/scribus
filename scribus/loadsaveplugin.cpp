@@ -6,8 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include "loadsaveplugin.h"
 #include "loadsaveplugin.moc"
+//Added by qt3to4:
+#include <Q3ValueList>
 
-QValueList<FileFormat> LoadSavePlugin::formats;
+Q3ValueList<FileFormat> LoadSavePlugin::formats;
 
 LoadSavePlugin::LoadSavePlugin()
 	: ScPlugin(),
@@ -24,14 +26,14 @@ LoadSavePlugin::~LoadSavePlugin()
 }
 
 // STATIC method - return a list of all existing formats
-const QValueList<FileFormat> & LoadSavePlugin::supportedFormats()
+const Q3ValueList<FileFormat> & LoadSavePlugin::supportedFormats()
 {
 	return formats;
 }
 
 const FileFormat * LoadSavePlugin::getFormatById(const int id)
 {
-	QValueList<FileFormat>::iterator it(findFormat(id));
+	Q3ValueList<FileFormat>::iterator it(findFormat(id));
 	if (it == formats.end())
 		return 0;
 	else
@@ -50,8 +52,8 @@ const QStringList LoadSavePlugin::fileDialogSaveFilter()
 
 const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 {
-	QValueList<FileFormat>::const_iterator it(formats.constBegin());
-	QValueList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	Q3ValueList<FileFormat>::const_iterator it(formats.constBegin());
+	Q3ValueList<FileFormat>::const_iterator itEnd(formats.constEnd());
 	QStringList filterList;
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
@@ -111,8 +113,8 @@ void LoadSavePlugin::registerFormat(const FileFormat & fmt)
 	//     - Equal ID and lesser or equal priority; or
 	//     - Greater ID
 	// If we don't find one, we insert before the end iterator, ie append.
-	QValueList<FileFormat>::iterator it(formats.begin());
-	QValueList<FileFormat>::iterator itEnd(formats.end());
+	Q3ValueList<FileFormat>::iterator it(formats.begin());
+	Q3ValueList<FileFormat>::iterator itEnd(formats.end());
 	while (it != itEnd)
 	{
 		if ( ( ((*it).formatId == fmt.formatId) && ((*it).priority <= fmt.priority) ) ||
@@ -128,8 +130,8 @@ void LoadSavePlugin::registerFormat(const FileFormat & fmt)
 void LoadSavePlugin::printFormatList()
 {
 	qDebug("Current format list:");
-	QValueList<FileFormat>::const_iterator it(formats.constBegin());
-	QValueList<FileFormat>::const_iterator itEnd(formats.constEnd());
+	Q3ValueList<FileFormat>::const_iterator it(formats.constBegin());
+	Q3ValueList<FileFormat>::const_iterator itEnd(formats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
 		qDebug("    Format: Id: %3u, Prio: %3hu, Name: %s",
@@ -140,15 +142,15 @@ void LoadSavePlugin::printFormatList()
 
 void LoadSavePlugin::unregisterFormat(unsigned int id)
 {
-	QValueList<FileFormat>::iterator it(findFormat(id, this));
+	Q3ValueList<FileFormat>::iterator it(findFormat(id, this));
 	Q_ASSERT(it != formats.end());
 	formats.remove(it);
 }
 
 void LoadSavePlugin::unregisterAll()
 {
-	QValueList<FileFormat>::iterator it(formats.begin());
-	QValueList<FileFormat>::iterator itEnd(formats.end());
+	Q3ValueList<FileFormat>::iterator it(formats.begin());
+	Q3ValueList<FileFormat>::iterator itEnd(formats.end());
 	while (it != itEnd)
 	{
 		if ((*it).plug == this)
@@ -158,12 +160,12 @@ void LoadSavePlugin::unregisterAll()
 	}
 }
 
-QValueList<FileFormat>::iterator
+Q3ValueList<FileFormat>::iterator
 LoadSavePlugin::findFormat(unsigned int id,
 						   LoadSavePlugin* plug,
-						   QValueList<FileFormat>::iterator it)
+						   Q3ValueList<FileFormat>::iterator it)
 {
-	QValueList<FileFormat>::iterator itEnd(formats.end());
+	Q3ValueList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
 		if (
@@ -175,12 +177,12 @@ LoadSavePlugin::findFormat(unsigned int id,
 	return itEnd;
 }
 
-QValueList<FileFormat>::iterator
+Q3ValueList<FileFormat>::iterator
 LoadSavePlugin::findFormat(const QString& extension,
 						   LoadSavePlugin* plug,
-						   QValueList<FileFormat>::iterator it)
+						   Q3ValueList<FileFormat>::iterator it)
 {
-	QValueList<FileFormat>::iterator itEnd(formats.end());
+	Q3ValueList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
 		if (
@@ -193,7 +195,7 @@ LoadSavePlugin::findFormat(const QString& extension,
 }
 
 
-void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts)
+void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, Q3ProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts)
 {
 	m_Doc=targetDoc;
 	m_View=targetView;
@@ -202,7 +204,7 @@ void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView
 	m_AvailableFonts=targetAvailableFonts;
 }
 
-void LoadSavePlugin::getReplacedFontData(bool & /*getNewReplacement*/, QMap<QString,QString> &/*getReplacedFonts*/, QValueList<ScFace> &/*getDummyScFaces*/)
+void LoadSavePlugin::getReplacedFontData(bool & /*getNewReplacement*/, QMap<QString,QString> &/*getReplacedFonts*/, Q3ValueList<ScFace> &/*getDummyScFaces*/)
 {
 }
 
@@ -246,13 +248,13 @@ bool FileFormat::saveFile(const QString & fileName) const
 	return (plug && save) ? plug->saveFile(fileName, *this) : false;
 }
 
-void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const
+void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, Q3ProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const
 {
 	if (plug)
 		plug->setupTargets(targetDoc, targetView, targetMW, targetMWPRogressBar, targetAvailableFonts);
 }
 
-void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces) const
+void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces) const
 {
 	if (plug)
 		plug->getReplacedFontData(getNewReplacement, getReplacedFonts, getDummyScFaces);

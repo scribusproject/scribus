@@ -10,10 +10,14 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -31,7 +35,7 @@ public:
 	void updateDocSettings(ScribusDoc* doc);
 
 	QCheckBox* checkBox1;
-	QGroupBox* sysProfiles;
+	Q3GroupBox* sysProfiles;
 	QLabel* text2;
 	QLabel* text1;
 	QLabel* text1CMYK;
@@ -44,7 +48,7 @@ public:
 	QComboBox* inputPCMYK;
 	QComboBox* monitorP;
 	QComboBox* printerP;
-	QGroupBox* render;
+	Q3GroupBox* render;
 	QLabel* text22;
 	QComboBox* imagesI;
 	QComboBox* colorsI;
@@ -65,11 +69,11 @@ signals:
 	void cmsOn(bool);
 
 protected:
-	QVBoxLayout* cmsPrefsLayout;
-	QGridLayout* sysProfilesLayout;
-	QGridLayout* renderLayout;
-	QHBoxLayout* convertLayout;
-	QHBoxLayout* gamutLayout;
+	Q3VBoxLayout* cmsPrefsLayout;
+	Q3GridLayout* sysProfilesLayout;
+	Q3GridLayout* renderLayout;
+	Q3HBoxLayout* convertLayout;
+	Q3HBoxLayout* gamutLayout;
 };
 
 #endif // CMSPREFS_H

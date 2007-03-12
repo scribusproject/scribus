@@ -13,29 +13,33 @@ for which a new license (GPL+exception) is in place.
 #include <qlineedit.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 #include "commonstrings.h"
 
-ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
+ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 	: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
 		setName( "ValueDialog" );
 	setModal( true );
-	ScripterValueLayout = new QGridLayout( this, 1, 1, 11, 6, "ScripterValueLayout");
+	ScripterValueLayout = new Q3GridLayout( this, 1, 1, 11, 6, "ScripterValueLayout");
 
-	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
+	layout3 = new Q3VBoxLayout( 0, 0, 6, "layout3");
 
 	dialogLabel = new QLabel( this, "dialogLabel" );
 	dialogLabel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)5, 0, 0, dialogLabel->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( dialogLabel );
 
-	layout2 = new QVBoxLayout( 0, 0, 6, "layout2");
+	layout2 = new Q3VBoxLayout( 0, 0, 6, "layout2");
 
 	valueEdit = new QLineEdit( this, "valueEdit" );
 	layout2->addWidget( valueEdit );
 
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 6, "layout1");
 	QSpacerItem* spacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 

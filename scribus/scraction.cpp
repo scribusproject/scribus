@@ -18,8 +18,8 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qpopupmenu.h>
-#include <qiconset.h>
+#include <q3popupmenu.h>
+#include <qicon.h>
 #include "scraction.h"
 #include "scraction.moc"
 #include "scribus.h"
@@ -35,7 +35,7 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( ActionType aType, const QIcon & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
@@ -80,7 +80,7 @@ ScrAction::ScrAction( ActionType aType, const QIconSet & icon, const QString & m
 	}
 }
 
-ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( const QIcon & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
@@ -103,11 +103,11 @@ ScrAction::~ScrAction()
 
 void ScrAction::setIconSizes()
 {
-	QIconSet iconset=iconSet();
+	QIcon iconset=iconSet();
 	if (!iconset.isNull())
 	{
-		iconset.setIconSize(QIconSet::Small, QSize(16,16));
-		iconset.setIconSize(QIconSet::Large, QSize(22,22));
+		iconset.setIconSize(QIcon::Small, QSize(16,16));
+		iconset.setIconSize(QIcon::Large, QSize(22,22));
 	}
 }
 
@@ -163,7 +163,7 @@ void ScrAction::toggledToToggledData(bool ison)
 	}
 }
 
-void ScrAction::addedTo ( int index, QPopupMenu * menu )
+void ScrAction::addedTo ( int index, Q3PopupMenu * menu )
 {
 	if (menuIndex==-1) // Add the first time, not for secondary popups.
 	{

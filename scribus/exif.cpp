@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "exif.h"
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 
 static unsigned char * LastExifRefd;
@@ -899,7 +899,7 @@ bool ExifData::scan(const QString & path)
     int ret;
 
     QFile f(path);
-    if ( !f.open(IO_ReadOnly) )
+    if ( !f.open(QIODevice::ReadOnly) )
         return false;
 
 //    try {
@@ -958,8 +958,8 @@ QImage ExifData::getThumbnail() {
   if (!Orientation || Orientation == 1) return Thumbnail;
 
   // now fix orientation
-  QWMatrix M;
-  QWMatrix flip= QWMatrix(-1,0,0,1,0,0);
+  QMatrix M;
+  QMatrix flip= QMatrix(-1,0,0,1,0,0);
   switch (Orientation) {  // notice intentional fallthroughs
     case 2: M = flip; break;
     case 4: M = flip;

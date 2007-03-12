@@ -4,12 +4,16 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 #include "mspinbox.h"
 
 #include "styleselect.h"
@@ -17,14 +21,14 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-StrikeValues::StrikeValues( QWidget* parent ) : QGroupBox( parent, "StrikeValues" )
+StrikeValues::StrikeValues( QWidget* parent ) : Q3GroupBox( parent, "StrikeValues" )
 {
-	this->setFrameShape( QGroupBox::NoFrame );
+	this->setFrameShape( Q3GroupBox::NoFrame );
 	this->setTitle("");
 	this->setColumnLayout(0, Qt::Vertical );
 	this->layout()->setSpacing( 0 );
 	this->layout()->setMargin( 0 );
-	group1Layout = new QGridLayout( this->layout() );
+	group1Layout = new Q3GridLayout( this->layout() );
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
@@ -55,14 +59,14 @@ void StrikeValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-UnderlineValues::UnderlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
+UnderlineValues::UnderlineValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValues" )
 {
-	this->setFrameShape( QGroupBox::NoFrame );
+	this->setFrameShape( Q3GroupBox::NoFrame );
 	this->setTitle("");
 	this->setColumnLayout(0, Qt::Vertical );
 	this->layout()->setSpacing( 0 );
 	this->layout()->setMargin( 0 );
-	group1Layout = new QGridLayout( this->layout() );
+	group1Layout = new Q3GridLayout( this->layout() );
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
@@ -93,14 +97,14 @@ void UnderlineValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-OutlineValues::OutlineValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
+OutlineValues::OutlineValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValues" )
 {
-	this->setFrameShape( QGroupBox::NoFrame );
+	this->setFrameShape( Q3GroupBox::NoFrame );
 	this->setTitle("");
 	this->setColumnLayout(0, Qt::Vertical );
 	this->layout()->setSpacing( 0 );
 	this->layout()->setMargin( 0 );
-	group1Layout = new QGridLayout( this->layout() );
+	group1Layout = new Q3GridLayout( this->layout() );
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
@@ -119,14 +123,14 @@ void OutlineValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-ShadowValues::ShadowValues( QWidget* parent ) : QGroupBox( parent, "ShadowValues" )
+ShadowValues::ShadowValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValues" )
 {
-	this->setFrameShape( QGroupBox::NoFrame );
+	this->setFrameShape( Q3GroupBox::NoFrame );
 	this->setTitle("");
 	this->setColumnLayout(0, Qt::Vertical );
 	this->layout()->setSpacing( 0 );
 	this->layout()->setMargin( 0 );
-	group1Layout = new QGridLayout( this->layout() );
+	group1Layout = new Q3GridLayout( this->layout() );
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
@@ -155,18 +159,18 @@ void ShadowValues::languageChange()
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 {
-	ssLayout = new QHBoxLayout( this, 0, 0, "ssLayout");
+	ssLayout = new Q3HBoxLayout( this, 0, 0, "ssLayout");
 
-	buttonGroup3 = new QGroupBox( this, "buttonGroup" );
-	buttonGroup3->setFrameShape( QGroupBox::NoFrame );
+	buttonGroup3 = new Q3GroupBox( this, "buttonGroup" );
+	buttonGroup3->setFrameShape( Q3GroupBox::NoFrame );
 	buttonGroup3->setTitle("");
 	buttonGroup3->setColumnLayout(0, Qt::Vertical );
 	buttonGroup3->layout()->setSpacing( 0 );
 	buttonGroup3->layout()->setMargin( 0 );
-	buttonGroup3Layout = new QHBoxLayout( buttonGroup3->layout() );
+	buttonGroup3Layout = new Q3HBoxLayout( buttonGroup3->layout() );
 	buttonGroup3Layout->setAlignment( Qt::AlignTop );
 	UnderlineVal = new UnderlineValues( NULL );
-	UnderlinePop = new QPopupMenu();
+	UnderlinePop = new Q3PopupMenu();
 	UnderlinePop->insertItem(UnderlineVal);
 	underlineButton = new QToolButton( buttonGroup3, "underlineButton" );
 	underlineButton->setText( "" );
@@ -186,13 +190,13 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup3Layout->addWidget( underlineWordButton );
 	ssLayout->addWidget( buttonGroup3 );
 
-	buttonGroup = new QGroupBox( this, "buttonGroup" );
-	buttonGroup->setFrameShape( QGroupBox::NoFrame );
+	buttonGroup = new Q3GroupBox( this, "buttonGroup" );
+	buttonGroup->setFrameShape( Q3GroupBox::NoFrame );
 	buttonGroup->setTitle("");
 	buttonGroup->setColumnLayout(0, Qt::Vertical );
 	buttonGroup->layout()->setSpacing( 0 );
 	buttonGroup->layout()->setMargin( 0 );
-	buttonGroupLayout = new QHBoxLayout( buttonGroup->layout() );
+	buttonGroupLayout = new Q3HBoxLayout( buttonGroup->layout() );
 	buttonGroupLayout->setAlignment( Qt::AlignTop );
 	subscriptButton = new QToolButton( buttonGroup, "subscriptButton" );
 	subscriptButton->setText( "" );
@@ -208,13 +212,13 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroupLayout->addWidget( superscriptButton );
 	ssLayout->addWidget( buttonGroup );
 
-	buttonGroup2 = new QGroupBox( this, "buttonGroup" );
-	buttonGroup2->setFrameShape( QGroupBox::NoFrame );
+	buttonGroup2 = new Q3GroupBox( this, "buttonGroup" );
+	buttonGroup2->setFrameShape( Q3GroupBox::NoFrame );
 	buttonGroup2->setTitle("");
 	buttonGroup2->setColumnLayout(0, Qt::Vertical );
 	buttonGroup2->layout()->setSpacing( 0 );
 	buttonGroup2->layout()->setMargin( 0 );
-	buttonGroup2Layout = new QHBoxLayout( buttonGroup2->layout() );
+	buttonGroup2Layout = new Q3HBoxLayout( buttonGroup2->layout() );
 	buttonGroup2Layout->setAlignment( Qt::AlignTop );
 	allcapsButton = new QToolButton( buttonGroup2, "allcapsButton" );
 	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
@@ -230,16 +234,16 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup2Layout->addWidget( smallcapsButton );
 	ssLayout->addWidget( buttonGroup2 );
 
-	buttonGroup4 = new QGroupBox( this, "buttonGroup" );
-	buttonGroup4->setFrameShape( QGroupBox::NoFrame );
+	buttonGroup4 = new Q3GroupBox( this, "buttonGroup" );
+	buttonGroup4->setFrameShape( Q3GroupBox::NoFrame );
 	buttonGroup4->setTitle("");
 	buttonGroup4->setColumnLayout(0, Qt::Vertical );
 	buttonGroup4->layout()->setSpacing( 0 );
 	buttonGroup4->layout()->setMargin( 0 );
-	buttonGroup4Layout = new QHBoxLayout( buttonGroup4->layout() );
+	buttonGroup4Layout = new Q3HBoxLayout( buttonGroup4->layout() );
 	buttonGroup4Layout->setAlignment( Qt::AlignTop );
 	StrikeVal = new StrikeValues( NULL );
-	StrikePop = new QPopupMenu();
+	StrikePop = new Q3PopupMenu();
 	StrikePop->insertItem(StrikeVal);
 	strikeoutButton = new QToolButton( buttonGroup4, "strikeoutButton" );
 	strikeoutButton->setText( "" );
@@ -251,7 +255,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup4Layout->addWidget( strikeoutButton );
 
 	OutlineVal = new OutlineValues( NULL );
-	OutlinePop = new QPopupMenu();
+	OutlinePop = new Q3PopupMenu();
 	OutlinePop->insertItem(OutlineVal);
 	outlineButton = new QToolButton( buttonGroup4, "outlineButton" );
 	outlineButton->setText( "" );
@@ -263,7 +267,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup4Layout->addWidget( outlineButton );
 
 	ShadowVal = new ShadowValues( NULL );
-	ShadowPop = new QPopupMenu();
+	ShadowPop = new Q3PopupMenu();
 	ShadowPop->insertItem(ShadowVal);
 	shadowButton = new QToolButton( buttonGroup4, "shadowButton" );
 	shadowButton->setText( "" );

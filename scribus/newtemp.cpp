@@ -7,6 +7,11 @@ for which a new license (GPL+exception) is in place.
 #include "newtemp.h"
 #include "newtemp.moc"
 #include "page.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -19,10 +24,10 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 {
 	setCaption( titel );
 	setIcon(loadIcon("AppIcon.png"));
-	QueryLayout = new QVBoxLayout( this );
+	QueryLayout = new Q3VBoxLayout( this );
 	QueryLayout->setSpacing( 5 );
 	QueryLayout->setMargin( 5 );
-	Layout2 = new QHBoxLayout;
+	Layout2 = new Q3HBoxLayout;
 	Layout2->setSpacing( 5 );
 	Layout2->setMargin( 0 );
 	Answer = new QLineEdit( this, "Answer" );
@@ -35,7 +40,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 	QueryLayout->addLayout( Layout2 );
 	if (doc->currentPageLayout != singlePage)
 	{
-		Layout3 = new QHBoxLayout;
+		Layout3 = new Q3HBoxLayout;
 		Layout3->setSpacing( 5 );
 		Layout3->setMargin( 0 );
 		Links = new QComboBox( true, this, "links" );
@@ -55,7 +60,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 		Layout3->addWidget( Links );
 		QueryLayout->addLayout( Layout3 );
 	}
-	Layout1 = new QHBoxLayout;
+	Layout1 = new Q3HBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

@@ -8,6 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "polyprops.moc"
 #include "polygonwidget.h"
 #include "commonstrings.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QPixmap>
+#include <Q3HBoxLayout>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -15,10 +19,10 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF,
 {
 	setCaption( tr( "Polygon Properties" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout");
+	PolygonPropsLayout = new Q3VBoxLayout( this, 10, 5, "PolygonPropsLayout");
 	polyWidget = new PolygonWidget(this, polyC, polyFd, polyF, polyS, polyR);
 	PolygonPropsLayout->addWidget( polyWidget );
-	Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1_2");
+	Layout1 = new Q3HBoxLayout( 0, 0, 6, "Layout1_2");
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_2 );
 	okButton = new QPushButton( this, "PushButton1" );

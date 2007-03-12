@@ -34,7 +34,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <qfile.h>
 #include <qpainter.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
+#include <Q3ValueList>
+#include <QPixmap>
 
 #include "fileloader.h"
 #include "filewatcher.h"
@@ -100,7 +105,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 // 	ScratchTop(prefsData.ScratchTop),
 // 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
+	maxCanvasCoordinate(FPoint(scratch.Qt::DockLeft + scratch.Qt::DockRight, scratch.Qt::DockTop + scratch.Qt::DockBottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -203,7 +208,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 // 	ScratchTop(prefsData.ScratchTop),
 // 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
+	maxCanvasCoordinate(FPoint(scratch.Qt::DockLeft + scratch.Qt::DockRight, scratch.Qt::DockTop + scratch.Qt::DockBottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -615,17 +620,17 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		return false;
 	}
 	cmsSetErrorHandler(&cmsErrorHandler);
-	const QCString rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].local8Bit());
+	const Q3CString rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].local8Bit());
 	DocInputRGBProf = cmsOpenProfileFromFile(rgbInputProfilePath.data(), "r");
-	const QCString cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].local8Bit());
+	const Q3CString cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].local8Bit());
 	DocInputCMYKProf = cmsOpenProfileFromFile(cmykInputProfilePath.data(), "r");
-	const QCString monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
+	const Q3CString monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
 	DocOutputProf = cmsOpenProfileFromFile(monitorProfilePath.data(), "r");
-	const QCString printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
+	const Q3CString printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
 	DocPrinterProf = cmsOpenProfileFromFile(printerProfilePath, "r");
-	const QCString rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].local8Bit());
+	const Q3CString rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].local8Bit());
 	DocInputImageRGBProf = cmsOpenProfileFromFile(rgbInputImgProfilePath.data(), "r");
-	const QCString cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].local8Bit());
+	const Q3CString cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].local8Bit());
 	DocInputImageCMYKProf = cmsOpenProfileFromFile(cmykInputImgProfilePath.data(), "r");
 	if ((DocInputRGBProf == NULL) || (DocInputCMYKProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL) || (DocInputImageCMYKProf == NULL) || (DocInputImageRGBProf == NULL))
 	{
@@ -783,12 +788,12 @@ void ScribusDoc::enableCMS(bool enable)
 
 void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 {
-	const QPtrList<PageItem> * itemlist = & MasterItems;
+	const Q3PtrList<PageItem> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
 		for (uint i=0; i < itemlist->count(); ++i)
 		{
-			const PageItem_TextFrame * currItem = const_cast<QPtrList<PageItem>*>(itemlist)->at(i)->asTextFrame();
+			const PageItem_TextFrame * currItem = const_cast<Q3PtrList<PageItem>*>(itemlist)->at(i)->asTextFrame();
 			if (currItem)
 				currItem->itemText.getNamedResources(lists);
 		}
@@ -829,7 +834,7 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 {
 	// replace names in items
-	QPtrList<PageItem> * itemlist = & MasterItems;
+	Q3PtrList<PageItem> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
 		for (uint i=0; i < itemlist->count(); ++i)
@@ -1340,15 +1345,15 @@ void ScribusDoc::addSymbols()
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	Q_ASSERT(masterPageMode()==false);
-	Page* addedPage = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
+	Page* addedPage = new Page(scratch.Qt::DockLeft, DocPages.count()*(pageHeight+scratch.Qt::DockBottom+scratch.Qt::DockTop)+scratch.Qt::DockTop, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->setDocument(this);
-	addedPage->Margins.Top = pageMargins.Top;
-	addedPage->Margins.Bottom = pageMargins.Bottom;
-	addedPage->initialMargins.Top = pageMargins.Top;
-	addedPage->initialMargins.Bottom = pageMargins.Bottom;
-	addedPage->initialMargins.Left = pageMargins.Left;
-	addedPage->initialMargins.Right = pageMargins.Right;
+	addedPage->Margins.Qt::DockTop = pageMargins.Qt::DockTop;
+	addedPage->Margins.Qt::DockBottom = pageMargins.Qt::DockBottom;
+	addedPage->initialMargins.Qt::DockTop = pageMargins.Qt::DockTop;
+	addedPage->initialMargins.Qt::DockBottom = pageMargins.Qt::DockBottom;
+	addedPage->initialMargins.Qt::DockLeft = pageMargins.Qt::DockLeft;
+	addedPage->initialMargins.Qt::DockRight = pageMargins.Qt::DockRight;
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
@@ -1459,7 +1464,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 
 void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
 {
-	QPtrList<Page> Buf;
+	Q3PtrList<Page> Buf;
 	int zz = ziel;
 	Buf.clear();
 	for (int a = from; a < to; ++a)
@@ -1580,7 +1585,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 {
 	int GrMax = GroupCounter;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	TableID.clear();
 	TableItems.clear();
 	uint oldItems = Items->count();
@@ -1598,8 +1603,8 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 			if (itemToCopy->Groups.count() != 0)
 			{
 				Buffer.Groups.clear();
-				QValueStack<int>::Iterator nx;
-				QValueStack<int> tmpGroup;
+				Q3ValueStack<int>::Iterator nx;
+				Q3ValueStack<int> tmpGroup;
 				for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
 				{
 					tmpGroup.push((*nx)+GroupCounter);
@@ -1677,8 +1682,8 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 {
 	if (Layers.count() < 2)
 		return false;
-	QValueList<Layer>::iterator it2;
-	QValueList<Layer>::iterator it2end=Layers.end();
+	Q3ValueList<Layer>::iterator it2;
+	Q3ValueList<Layer>::iterator it2end=Layers.end();
 	bool found=false;
 	int layerLevel = -1;
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
@@ -1743,8 +1748,8 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 
 	QString name = (*it2).Name;
 	Layers.remove(it2);
-	QValueList<Layer>::iterator it;
-	QValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).Level > layerLevel)
@@ -1773,8 +1778,8 @@ int ScribusDoc::activeLayer()
 
 const QString& ScribusDoc::activeLayerName()
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1827,8 +1832,8 @@ bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 
 bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1857,8 +1862,8 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 
 bool ScribusDoc::layerPrintable(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1869,8 +1874,8 @@ bool ScribusDoc::layerPrintable(const int layerNumber)
 
 bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1888,8 +1893,8 @@ bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 
 bool ScribusDoc::layerVisible(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1900,8 +1905,8 @@ bool ScribusDoc::layerVisible(const int layerNumber)
 
 bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1919,8 +1924,8 @@ bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 
 bool ScribusDoc::layerLocked(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1931,8 +1936,8 @@ bool ScribusDoc::layerLocked(const int layerNumber)
 
 bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1950,8 +1955,8 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 
 bool ScribusDoc::layerFlow(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1962,8 +1967,8 @@ bool ScribusDoc::layerFlow(const int layerNumber)
 
 bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1981,8 +1986,8 @@ bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 
 double ScribusDoc::layerTransparency(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1993,8 +1998,8 @@ double ScribusDoc::layerTransparency(const int layerNumber)
 
 bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2012,8 +2017,8 @@ bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 
 int ScribusDoc::layerBlendMode(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2024,8 +2029,8 @@ int ScribusDoc::layerBlendMode(const int layerNumber)
 
 bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2043,8 +2048,8 @@ bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 
 bool ScribusDoc::layerOutline(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2055,8 +2060,8 @@ bool ScribusDoc::layerOutline(const int layerNumber)
 
 bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2074,8 +2079,8 @@ bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 
 QColor ScribusDoc::layerMarker(const int layerNumber)
 {
-	QValueList<Layer>::iterator itend=Layers.end();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2128,15 +2133,15 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 
-	QValueList<Layer>::iterator it;
-	QValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).Level == layerLevel-1)
 			break;
 	}
-	QValueList<Layer>::iterator it2;
-	QValueList<Layer>::iterator it2end=Layers.end();
+	Q3ValueList<Layer>::iterator it2;
+	Q3ValueList<Layer>::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
 		if ((*it2).Level == layerLevel)
@@ -2164,15 +2169,15 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 
-	QValueList<Layer>::iterator it;
-	QValueList<Layer>::iterator itend=Layers.end();
+	Q3ValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).Level == layerLevel+1)
 			break;
 	}
-	QValueList<Layer>::iterator it2;
-	QValueList<Layer>::iterator it2end=Layers.end();
+	Q3ValueList<Layer>::iterator it2;
+	Q3ValueList<Layer>::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
 		if ((*it2).Level == layerLevel)
@@ -2251,8 +2256,8 @@ void ScribusDoc::orderedLayerList(QStringList* list)
 	{
 		for (uint i=0; i < layerCount; ++i)
 		{
-			QValueList<Layer>::iterator itend=Layers.end();
-			for (QValueList<Layer>::iterator it = Layers.begin(); it != itend; ++it)
+			Q3ValueList<Layer>::iterator itend=Layers.end();
+			for (Q3ValueList<Layer>::iterator it = Layers.begin(); it != itend; ++it)
 			{
 				if (layerCount-(*it).Level-1 == i)
 					list->append((*it).Name);
@@ -2330,7 +2335,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 		for (uint c = 0; c < MasterItems.count(); ++c)
 		{
 			ite = MasterItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -2371,7 +2376,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 		for (uint c = 0; c < DocItems.count(); ++c)
 		{
 			ite = DocItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -2411,7 +2416,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 		for (uint c = 0; c < FrameItems.count(); ++c)
 		{
 			ite = FrameItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				if (it.key() == cstops.at(cst)->name)
@@ -2455,7 +2460,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			for (uint o = 0; o < pa.items.count(); o++)
 			{
 				ite = pa.items.at(o);
-				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 				{
 					if (it.key() == cstops.at(cst)->name)
@@ -3040,7 +3045,7 @@ bool ScribusDoc::save(const QString& fileName)
 {
 	QFileInfo fi(fileName);
 	QDir::setCurrent(fi.dirPath(true));
-	QProgressBar* mainWindowProgressBar=NULL;
+	Q3ProgressBar* mainWindowProgressBar=NULL;
 	if (ScCore->usingGUI())
 	{
 		mainWindowProgressBar=m_ScMW->mainWindowProgressBar;
@@ -3097,7 +3102,7 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<itemsCount; ++c)
 	{
 		PageItem *ite = Items->at(c);
-		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
@@ -3109,7 +3114,7 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<masterItemsCount; ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
-		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
@@ -3121,7 +3126,7 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<frameItemsCount; ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
-		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
@@ -3136,7 +3141,7 @@ void ScribusDoc::recalculateColors()
 		for (uint o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
@@ -3192,7 +3197,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	uint end = DocItems.count();
 	uint end2 = MasterItems.count();
 	m_Selection->clear();
-	QValueList<Layer>::iterator it;
+	Q3ValueList<Layer>::iterator it;
 	if (Layers.count()!= 0)
 	{
 		int currActiveLayer = activeLayer();
@@ -3749,7 +3754,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 void ScribusDoc::GroupOnPage(PageItem* currItem)
 {
-	QPtrList<PageItem> Objects;
+	Q3PtrList<PageItem> Objects;
 	PageItem* item;
 	if (currItem->Groups.count() == 0)
 		return;
@@ -3912,7 +3917,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	{
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+scratch.Right), QMAX(maxYPos, maxPoint.y()+scratch.Bottom));
+		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+scratch.Qt::DockRight), QMAX(maxYPos, maxPoint.y()+scratch.Qt::DockBottom));
 		adjustCanvas(FPoint(QMIN(0, minPoint.x()-scratch.Left),QMIN(0, minPoint.y()-scratch.Top)), maxSize, true);
 		changed();
 	}
@@ -3939,29 +3944,29 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 
 void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
 {
-	*bleedBottom = bleeds.Bottom;
-	*bleedTop = bleeds.Top;
+	*bleedBottom = bleeds.Qt::DockBottom;
+	*bleedTop = bleeds.Qt::DockTop;
 	if (pageSets[currentPageLayout].Columns == 1)
 	{
-		*bleedRight = bleeds.Right;
-		*bleedLeft = bleeds.Left;
+		*bleedRight = bleeds.Qt::DockRight;
+		*bleedLeft = bleeds.Qt::DockLeft;
 	}
 	else
 	{
 		if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
 		{
-			*bleedRight = bleeds.Left;
-			*bleedLeft = bleeds.Right;
+			*bleedRight = bleeds.Qt::DockLeft;
+			*bleedLeft = bleeds.Qt::DockRight;
 		}
 		else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
 		{
-			*bleedRight = bleeds.Right;
-			*bleedLeft = bleeds.Left;
+			*bleedRight = bleeds.Qt::DockRight;
+			*bleedLeft = bleeds.Qt::DockLeft;
 		}
 		else
 		{
-			*bleedRight = bleeds.Left;
-			*bleedLeft = bleeds.Left;
+			*bleedRight = bleeds.Qt::DockLeft;
+			*bleedLeft = bleeds.Qt::DockLeft;
 		}
 	}
 }
@@ -4473,7 +4478,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		m_Selection->clear();
 		if (oldItems>0)
 		{
-			QValueList<Layer>::iterator it;
+			Q3ValueList<Layer>::iterator it;
 			if (Layers.count()!= 0)
 			{
 				int currActiveLayer = activeLayer();
@@ -4516,8 +4521,8 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	if (setcol==1)
 	{
 		Page* pageToAdjust=DocPages.at(pageIndex);
-		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
-		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
+		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockLeft;
+		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockRight;
 		return;
 	}
 
@@ -4525,18 +4530,18 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	PageLocation pageLoc=locationOfPage(pageIndex);
 	if (pageLoc==LeftPage) //Left hand page
 	{
-		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Right;
-		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockRight;
+		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockLeft;
 	}
 	else if (pageLoc==RightPage) // Right hand page
 	{
-		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
-		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockRight;
+		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockLeft;
 	}
 	else //Middle pages
 	{
-		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
-		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockLeft;
+		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockLeft;
 	}
 	/* Can also calc the X pos of the frame too, and Y pos, but thats not done yet
 	int myRow=(pageIndex+pageSets[currentPageLayout].FirstPage)/setcol;
@@ -4645,7 +4650,7 @@ void ScribusDoc::updateAllItemQColors()
 }
 
 //CB Moved from view
-void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
+void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, Q3ProgressBar *dia)
 {
 	uint docItemCount=Items->count();
 	if ( docItemCount!= 0)
@@ -4708,7 +4713,7 @@ bool ScribusDoc::sendItemSelectionToBack()
 			int d = Items->findRef(currItem);
 			Items->take(d);
 		}
-		QValueList<uint> Oindex = ObjOrder.values();
+		Q3ValueList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
 			Items->prepend(m_Selection->itemAt(Oindex[c]));
@@ -4735,7 +4740,7 @@ bool ScribusDoc::bringItemSelectionToFront()
 			int d = Items->findRef(currItem);
 			Items->take(d);
 		}
-		QValueList<uint> Oindex = ObjOrder.values();
+		Q3ValueList<uint> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
 		{
 			Items->append(m_Selection->itemAt(Oindex[c]));
@@ -5649,7 +5654,7 @@ void ScribusDoc::FlipImageV()
 void ScribusDoc::MirrorPolyH(PageItem* currItem)
 {
 	currItem->ClipEdited = true;
-	QWMatrix ma;
+	QMatrix ma;
 	if (view()->EditContour)
 	{
 		if (UndoManager::undoEnabled())
@@ -5696,7 +5701,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 void ScribusDoc::MirrorPolyV(PageItem* currItem)
 {
 	currItem->ClipEdited = true;
-	QWMatrix ma;
+	QMatrix ma;
 	if (view()->EditContour)
 	{
 		if (UndoManager::undoEnabled())
@@ -5742,8 +5747,8 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
-	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+scratch.Right, currItem->BoundingY+currItem->BoundingH+scratch.Bottom);
-	FPoint minSize(currItem->BoundingX-scratch.Left, currItem->BoundingY-scratch.Top);
+	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+scratch.Qt::DockRight, currItem->BoundingY+currItem->BoundingH+scratch.Qt::DockBottom);
+	FPoint minSize(currItem->BoundingX-scratch.Qt::DockLeft, currItem->BoundingY-scratch.Qt::DockTop);
 	adjustCanvas(minSize, maxSize);
 }
 
@@ -6400,7 +6405,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	QPtrList<PageItem> delItems;
+	Q3PtrList<PageItem> delItems;
 	PageItem *currItem;
 	uint offs = 0;
 	QString tooltip = Um::ItemsInvolved + "\n";
@@ -6679,7 +6684,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 			if (currItem->imageClip.size() != 0)
 			{
 				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-				QWMatrix cl;
+				QMatrix cl;
 				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
@@ -6714,7 +6719,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 			if (currItem->imageClip.size() != 0)
 			{
 				currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-				QWMatrix cl;
+				QMatrix cl;
 				cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 				cl.scale(currItem->imageXScale(), currItem->imageYScale());
 				currItem->imageClip.map(cl);
@@ -6753,7 +6758,7 @@ void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, doub
 		if (currItem->imageClip.size() != 0)
 		{
 			currItem->imageClip = currItem->pixm.imgInfo.PDSpathData[currItem->pixm.imgInfo.usedPath].copy();
-			QWMatrix cl;
+			QMatrix cl;
 			cl.translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
@@ -7858,7 +7863,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			m_ScMW->slotEditPaste();
-			QWMatrix ma;
+			QMatrix ma;
 			ma.translate(m_View->RCenter.x(), m_View->RCenter.y());
 			ma.scale(1, 1);
 			ma.rotate(dR2);
@@ -8136,7 +8141,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		currItem->setYPos(yout+page->yOffset());
 	if (currItem->asLine())
 	{
-		QWMatrix ma;
+		QMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 //		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
@@ -8156,7 +8161,7 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		currItem->setXPos(xout+page->xOffset());
 	if (currItem->asLine())
 	{
-		QWMatrix ma;
+		QMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
@@ -8284,7 +8289,7 @@ void ScribusDoc::RotateItem(double win, PageItem *currItem)
 //	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
 	if (RotMode != 0)
 	{
-		QWMatrix ma;
+		QMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.scale(1, 1);
 		ma.rotate(currItem->rotation());
@@ -8332,7 +8337,7 @@ void ScribusDoc::RotateItem(double win, PageItem *currItem)
 //CB-->Doc
 void ScribusDoc::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
 {
-	QWMatrix ma;
+	QMatrix ma;
 	ma.translate(currItem->xPos(), currItem->yPos());
 	ma.rotate(currItem->rotation());
 	double mxc = currItem->xPos() - (ma.m11() * npv.x() + ma.m21() * npv.y() + ma.dx());
@@ -8365,7 +8370,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	}
 	*/
 	int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
-	QWMatrix ma;
+	QMatrix ma;
 	ma.rotate(currItem->rotation());
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
 	double dY = ma.m22() * (currItem->height() - newY) + ma.m12() * (currItem->width() - newX) + ma.dy();
@@ -8500,7 +8505,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 	QRect oldR(currItem->getRedrawBounding(viewScale));
 	if (currItem->asLine())
 	{
-		QWMatrix ma;
+		QMatrix ma;
 		ma.translate(currItem->xPos(), currItem->yPos());
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
@@ -8526,7 +8531,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 		if (currItem->rotation() != 0)
 		{
 			FPoint npv(newX.x(), newX.y());
-			QWMatrix ma3;
+			QMatrix ma3;
 			ma3.translate(currItem->xPos(), currItem->yPos());
 			ma3.rotate(currItem->rotation());
 			double mxc3 = currItem->xPos() - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
@@ -8585,7 +8590,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 {
 	PageItem *currItem;
 	PageItem *bb;
-	QValueList<int> toDel;
+	Q3ValueList<int> toDel;
 	toDel.clear();
 	uint docSelectionCount = m_Selection->count();
 	if (docSelectionCount > 1)
@@ -8600,11 +8605,11 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		{
 			bb = m_Selection->itemAt(a);
 			toDel.append(bb->ItemNr);
-			QWMatrix ma;
+			QMatrix ma;
 			ma.translate(bb->xPos(), bb->yPos());
 			ma.rotate(bb->rotation());
 			bb->PoLine.map(ma);
-			QWMatrix ma2;
+			QMatrix ma2;
 			ma2.translate(currItem->xPos(), currItem->yPos());
 			ma2.rotate(currItem->rotation());
 			ma2 = ma2.invert();

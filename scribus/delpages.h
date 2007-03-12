@@ -8,6 +8,10 @@ for which a new license (GPL+exception) is in place.
 #define DELPAGES_H
 
 #include "scribusapi.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
 class QDialog;
 class QLabel;
@@ -27,9 +31,9 @@ public:
 	const int getToPage();
 
 private:
-    QVBoxLayout* dialogLayout;
-    QHBoxLayout* fromToLayout;
-    QHBoxLayout* okCancelLayout;
+    Q3VBoxLayout* dialogLayout;
+    Q3HBoxLayout* fromToLayout;
+    Q3HBoxLayout* okCancelLayout;
 
     QPushButton* cancelButton;
     QPushButton* okButton;

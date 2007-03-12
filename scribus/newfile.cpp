@@ -9,9 +9,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdir.h>
 #include <qtooltip.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 #include <qpoint.h>
-#include <qiconview.h>
+#include <q3iconview.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3Frame>
+#include <Q3VBoxLayout>
 
 #include "fileloader.h"
 #include "prefsfile.h"
@@ -44,7 +51,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	TabbedNewDocLayout = new QVBoxLayout( this, 10, 5, "Form1Layout");
+	TabbedNewDocLayout = new Q3VBoxLayout( this, 10, 5, "Form1Layout");
 	if (startUp)
 		tabWidget = new QTabWidget( this, "tabWidget2" );
 	createNewDocPage();
@@ -61,7 +68,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	else
 		TabbedNewDocLayout->addWidget(newDocFrame);
 
-	Layout1 = new QHBoxLayout;
+	Layout1 = new Q3HBoxLayout;
 	Layout1->setSpacing( 6 );
 	Layout1->setMargin( 0 );
 	if (startUp)
@@ -98,7 +105,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
-	connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	if (startUp)
 		connect(recentDocListBox, SIGNAL(selected(int)), this, SLOT(recentDocListBox_doubleClicked(int)));
 
@@ -110,52 +117,52 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 
 void NewDoc::createNewDocPage()
 {
-	newDocFrame = new QFrame(this, "newDocFrame");
+	newDocFrame = new Q3Frame(this, "newDocFrame");
 
-	pageSizeGroupBox = new QGroupBox(newDocFrame, "pageSizeGroupBox" );
+	pageSizeGroupBox = new Q3GroupBox(newDocFrame, "pageSizeGroupBox" );
 	pageSizeGroupBox->setTitle( tr( "Document Layout" ) );
 	pageSizeGroupBox->setColumnLayout(0, Qt::Vertical );
 	pageSizeGroupBox->layout()->setSpacing( 5 );
 	pageSizeGroupBox->layout()->setMargin( 10 );
-	pageSizeGroupBoxLayout = new QGridLayout( pageSizeGroupBox->layout() );
+	pageSizeGroupBoxLayout = new Q3GridLayout( pageSizeGroupBox->layout() );
 	pageSizeGroupBoxLayout->setAlignment( Qt::AlignTop );
 
-	layoutsView = new QIconView( pageSizeGroupBox, "layoutsView" );
-	layoutsView->setHScrollBarMode( QIconView::Auto );
-	layoutsView->setVScrollBarMode( QIconView::Auto );
-	layoutsView->setArrangement(QIconView::LeftToRight);
+	layoutsView = new Q3IconView( pageSizeGroupBox, "layoutsView" );
+	layoutsView->setHScrollBarMode( Q3IconView::Auto );
+	layoutsView->setVScrollBarMode( Q3IconView::Auto );
+	layoutsView->setArrangement(Q3IconView::LeftToRight);
 	layoutsView->setItemsMovable(false);
 	layoutsView->setSorting( false );
 	layoutsView->setFocusPolicy(QWidget::NoFocus);
-	layoutsView->setSelectionMode(QIconView::Single);
+	layoutsView->setSelectionMode(Q3IconView::Single);
 	layoutsView->clear();
 	for (uint pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
 	{
-		QIconViewItem *ic;
+		Q3IconViewItem *ic;
 		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
 		if (pg == 0)
 		{
-			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
 			ic->setDragEnabled(false);
 		}
 		else if (pg == 1)
 		{
-			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
 			ic->setDragEnabled(false);
 		}
 		else if (pg == 2)
 		{
-			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
 			ic->setDragEnabled(false);
 		}
 		else if (pg == 3)
 		{
-			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
 			ic->setDragEnabled(false);
 		}
 		else
 		{
-			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
 			ic->setDragEnabled(false);
 		}
 	}
@@ -222,12 +229,12 @@ void NewDoc::createNewDocPage()
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
 
-	optionsGroupBox = new QGroupBox( newDocFrame, "optionsGroupBox" );
+	optionsGroupBox = new Q3GroupBox( newDocFrame, "optionsGroupBox" );
 	optionsGroupBox->setTitle( tr( "Options" ) );
 	optionsGroupBox->setColumnLayout(0, Qt::Vertical );
 	optionsGroupBox->layout()->setSpacing( 5 );
 	optionsGroupBox->layout()->setMargin( 10 );
-	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox->layout() );
+	optionsGroupBoxLayout = new Q3GridLayout( optionsGroupBox->layout() );
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
 
@@ -276,7 +283,7 @@ void NewDoc::createNewDocPage()
 	startDocSetup->setChecked(false);
 	optionsGroupBoxLayout->addMultiCellWidget( startDocSetup, 5, 5, 0, 1 );
 
-	NewDocLayout = new QGridLayout( newDocFrame, 2, 2, 10, 5, "NewDocLayout");
+	NewDocLayout = new Q3GridLayout( newDocFrame, 2, 2, 10, 5, "NewDocLayout");
 	NewDocLayout->addWidget( marginGroup, 1, 0 );
 	NewDocLayout->addWidget( optionsGroupBox, 1, 1 );
 	NewDocLayout->addMultiCellWidget( pageSizeGroupBox, 0, 0, 0, 1);
@@ -292,8 +299,8 @@ void NewDoc::createOpenDocPage()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	openDocFrame = new QFrame(this, "openDocFrame");
-	QVBoxLayout* openDocLayout = new QVBoxLayout(openDocFrame, 5,5, "openDocLayout");
+	openDocFrame = new Q3Frame(this, "openDocFrame");
+	Q3VBoxLayout* openDocLayout = new Q3VBoxLayout(openDocFrame, 5,5, "openDocLayout");
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
@@ -319,9 +326,9 @@ void NewDoc::openFile(const QString &)
 
 void NewDoc::createRecentDocPage()
 {
-	recentDocFrame = new QFrame(this, "recentDocFrame");
-	recentDocLayout = new QVBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
-	recentDocListBox = new QListBox(recentDocFrame, "recentDocListBox");
+	recentDocFrame = new Q3Frame(this, "recentDocFrame");
+	recentDocLayout = new Q3VBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
+	recentDocListBox = new Q3ListBox(recentDocFrame, "recentDocListBox");
 	recentDocLayout->addWidget(recentDocListBox);
 	uint max = QMIN(prefsManager->appPrefs.RecentDCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
@@ -348,9 +355,9 @@ void NewDoc::setHeight(int)
 
 void NewDoc::selectItem(uint nr)
 {
-	QIconViewItem* ic=0;
+	Q3IconViewItem* ic=0;
 	uint cce;
-	disconnect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+	disconnect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	ic = layoutsView->firstItem();
 	cce = layoutsView->count();
 	for (uint cc = 0; cc < cce; ++cc)
@@ -378,10 +385,10 @@ void NewDoc::selectItem(uint nr)
 		}
 		ic = ic->nextItem();
 	}
-	connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 }
 
-void NewDoc::itemSelected(QIconViewItem* ic)
+void NewDoc::itemSelected(Q3IconViewItem* ic)
 {
 	if (ic == 0)
 		return;

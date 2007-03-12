@@ -24,13 +24,13 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "scpaths.h"
 
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
-#include <qtextedit.h>
-#include <qwidgetstack.h>
+#include <q3textedit.h>
+#include <q3widgetstack.h>
 
 InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	InsertAFrameBase(parent),

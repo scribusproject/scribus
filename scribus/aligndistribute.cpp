@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qlineedit.h>
@@ -48,7 +48,7 @@ extern QPixmap loadIcon(QString nam);
 
 //TODO Distribute with 
 
-AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool /*modal*/, WFlags /*fl*/ )
+AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool /*modal*/, Qt::WFlags /*fl*/ )
 	: AlignDistributeBase( parent, name )
 {
 	if ( !name )
@@ -158,34 +158,34 @@ void AlignDistributePalette::init()
 {
 	undoManager = UndoManager::instance();
 
-	alignLeftOutToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-left-out.png"), QIconSet::Small));
-	alignLeftInToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-left.png"), QIconSet::Small));
-	alignCenterHorToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-center.png"), QIconSet::Small));
-	alignRightInToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-right.png"), QIconSet::Small));
-	alignRightOutToolButton->setIconSet(QIconSet(loadIcon("22/align-horizontal-right-out.png"), QIconSet::Small));
+	alignLeftOutToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-left-out.png"), QIcon::Small));
+	alignLeftInToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-left.png"), QIcon::Small));
+	alignCenterHorToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-center.png"), QIcon::Small));
+	alignRightInToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-right.png"), QIcon::Small));
+	alignRightOutToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-right-out.png"), QIcon::Small));
 	
-	alignTopOutToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-top-out.png"), QIconSet::Small));
-	alignTopInToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-top.png"), QIconSet::Small));
-	alignCenterVerToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-center.png"), QIconSet::Small));
-	alignBottomInToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-bottom.png"), QIconSet::Small));
-	alignBottomOutToolButton->setIconSet(QIconSet(loadIcon("22/align-vertical-bottom-out.png"), QIconSet::Small));
+	alignTopOutToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-top-out.png"), QIcon::Small));
+	alignTopInToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-top.png"), QIcon::Small));
+	alignCenterVerToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-center.png"), QIcon::Small));
+	alignBottomInToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-bottom.png"), QIcon::Small));
+	alignBottomOutToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-bottom-out.png"), QIcon::Small));
 	
-	distributeLeftToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-left.png"), QIconSet::Small));
-	distributeCenterHToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-center.png"), QIconSet::Small));
-	distributeRightToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-right.png"), QIconSet::Small));
-	distributeDistHToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-equal.png"), QIconSet::Small));
+	distributeLeftToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-left.png"), QIcon::Small));
+	distributeCenterHToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-center.png"), QIcon::Small));
+	distributeRightToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-right.png"), QIcon::Small));
+	distributeDistHToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-equal.png"), QIcon::Small));
 	
-	distributeBottomToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-bottom.png"), QIconSet::Small));
-	distributeCenterVToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-center.png"), QIconSet::Small));
-	distributeTopToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-top.png"), QIconSet::Small));
-	distributeDistVToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-equal.png"), QIconSet::Small));
+	distributeBottomToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-bottom.png"), QIcon::Small));
+	distributeCenterVToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-center.png"), QIcon::Small));
+	distributeTopToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-top.png"), QIcon::Small));
+	distributeDistVToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-equal.png"), QIcon::Small));
 	
-	distributeAcrossPageToolButton->setIconSet(QIconSet(loadIcon("distribute_acrosspage.png"), QIconSet::Small));
-	distributeDownPageToolButton->setIconSet(QIconSet(loadIcon("distribute_downpage.png"), QIconSet::Small));
-	distributeAcrossMarginsToolButton->setIconSet(QIconSet(loadIcon("distribute_acrossmargins.png"), QIconSet::Small));
-	distributeDownMarginsToolButton->setIconSet(QIconSet(loadIcon("distribute_downmargins.png"), QIconSet::Small));
-	distributeDistValueHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist_val.png"), QIconSet::Small));
-	distributeDistValueVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist_val.png"), QIconSet::Small));
+	distributeAcrossPageToolButton->setIconSet(QIcon(loadIcon("distribute_acrosspage.png"), QIcon::Small));
+	distributeDownPageToolButton->setIconSet(QIcon(loadIcon("distribute_downpage.png"), QIcon::Small));
+	distributeAcrossMarginsToolButton->setIconSet(QIcon(loadIcon("distribute_acrossmargins.png"), QIcon::Small));
+	distributeDownMarginsToolButton->setIconSet(QIcon(loadIcon("distribute_downmargins.png"), QIcon::Small));
+	distributeDistValueHToolButton->setIconSet(QIcon(loadIcon("distribute_hdist_val.png"), QIcon::Small));
+	distributeDistValueVToolButton->setIconSet(QIcon(loadIcon("distribute_vdist_val.png"), QIcon::Small));
 	
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));

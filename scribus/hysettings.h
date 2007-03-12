@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
@@ -40,7 +42,7 @@ public:
 
 protected:
 	QMap<QString,QString> langsMap;
-	QGridLayout* layout3;
+	Q3GridLayout* layout3;
 };
 
 #endif // HYSETTINGS_H

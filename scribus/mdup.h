@@ -12,6 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "mspinbox.h"
 
 class Mdup : public QDialog
@@ -32,9 +36,9 @@ public:
     QPushButton* PushButton13;
 
 protected:
-    QVBoxLayout* MdupLayout;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout3;
+    Q3VBoxLayout* MdupLayout;
+    Q3GridLayout* Layout4;
+    Q3HBoxLayout* Layout3;
 
 };
 

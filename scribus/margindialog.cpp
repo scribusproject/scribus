@@ -7,10 +7,15 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 
 #include "margindialog.h"
 #include "margindialog.moc"
@@ -30,14 +35,14 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	setCaption( tr( "Manage Page Properties" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	unitRatio = doc->unitRatio();
-	dialogLayout = new QVBoxLayout( this, 10, 5);
+	dialogLayout = new Q3VBoxLayout( this, 10, 5);
 	
-	dsGroupBox7 = new QGroupBox( this, "GroupBox7" );
+	dsGroupBox7 = new Q3GroupBox( this, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
 	dsGroupBox7->layout()->setSpacing( 0 );
 	dsGroupBox7->layout()->setMargin( 0 );
-	dsGroupBox7Layout = new QGridLayout( dsGroupBox7->layout() );
+	dsGroupBox7Layout = new Q3GridLayout( dsGroupBox7->layout() );
 	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
 	dsGroupBox7Layout->setSpacing( 5 );
 	dsGroupBox7Layout->setMargin( 10 );
@@ -112,12 +117,12 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
 	dialogLayout->addWidget( GroupRand );
 
-	groupMaster = new QGroupBox( this, "groupMaster" );
+	groupMaster = new Q3GroupBox( this, "groupMaster" );
 	groupMaster->setTitle( tr( "Other Settings" ) );
 	groupMaster->setColumnLayout(0, Qt::Vertical );
 	groupMaster->layout()->setSpacing( 0 );
 	groupMaster->layout()->setMargin( 0 );
-	masterLayout = new QHBoxLayout( groupMaster->layout() );
+	masterLayout = new Q3HBoxLayout( groupMaster->layout() );
 	masterLayout->setAlignment( Qt::AlignTop );
 	masterLayout->setSpacing( 5 );
 	masterLayout->setMargin( 10 );
@@ -141,7 +146,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	if (doc->masterPageMode())
 		groupMaster->hide();
 
-	okCancelLayout = new QHBoxLayout;
+	okCancelLayout = new Q3HBoxLayout;
 	okCancelLayout->setSpacing( 6 );
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

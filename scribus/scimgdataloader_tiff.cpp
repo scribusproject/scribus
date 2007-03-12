@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "scconfig.h"
 #include "scimgdataloader_tiff.h"
 #include "colorutil.h"
@@ -521,7 +523,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		return false;
 	QByteArray byteOrder(2);
 	QFile fo(fn);
-	if (fo.open(IO_ReadOnly))
+	if (fo.open(QIODevice::ReadOnly))
 	{
 		fo.readBlock(byteOrder.data(), 1);
 		fo.close();
@@ -608,7 +610,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			{
 				QByteArray arrayPhot(PhotoshopLen);
 				arrayPhot.duplicate((const char*)PhotoshopBuffer,PhotoshopLen);
-				QDataStream strPhot(arrayPhot,IO_ReadOnly);
+				QDataStream strPhot(arrayPhot,QIODevice::ReadOnly);
 				strPhot.setByteOrder( QDataStream::BigEndian );
 				PSDHeader fakeHeader;
 				fakeHeader.width = widtht;
@@ -682,7 +684,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				m_imageInfoRecord.layerInfo.clear();
 				QByteArray arrayPhot;
 				arrayPhot.setRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
-				QDataStream s(arrayPhot,IO_ReadOnly);
+				QDataStream s(arrayPhot,QIODevice::ReadOnly);
 				if (byteOrder[0] == QChar('M'))
 					s.setByteOrder( QDataStream::BigEndian );
 				else
@@ -998,7 +1000,7 @@ QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
 	return ret;
 }
 
-bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
+bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
 	uint base = s.device()->at();
 	uchar cbyte;
@@ -1092,7 +1094,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 	return true;
 }
 
-bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
+bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
 {
 	// Find out if the data is compressed.
 	// Known values:

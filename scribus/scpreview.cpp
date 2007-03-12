@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scpreview.h"
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qdom.h>
 #include <qmap.h>
 #include <qpainter.h>
@@ -16,6 +16,11 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qbitmap.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PointArray>
+#include <Q3PtrList>
+#include <QPixmap>
 #include <cmath>
 #include <cstdlib>
 
@@ -47,7 +52,7 @@ QPixmap ScPreview::createPreview(QString data)
 	struct CopyPasteBuffer OB;
 	ScText *hg;
 	ScText *hl;
-	QPtrList<ScText> Ptexti;
+	Q3PtrList<ScText> Ptexti;
 	ScColor lf = ScColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
@@ -57,13 +62,13 @@ QPixmap ScPreview::createPreview(QString data)
 	double xf, yf, asce;
 	FPoint gv;
 	int chs, currItem, fillBlendmode, strokeBlendmode;
-	QPointArray cl;
+	Q3PointArray cl;
 	QColor tmpfa;
 	QString chstr;
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
-	QValueList<ArrowDesc> arrowStyles;
-	QValueStack<int> groupStack;
+	Q3ValueList<ArrowDesc> arrowStyles;
+	Q3ValueStack<int> groupStack;
 	arrowStyles = prefsManager->appPrefs.arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
@@ -99,7 +104,7 @@ QPixmap ScPreview::createPreview(QString data)
 			double xa, ya;
 			arrow.name = pg.attribute("Name");
 			QString tmp = pg.attribute("Points");
-			QTextStream fp(&tmp, IO_ReadOnly);
+			Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 			for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 			{
 				fp >> xa;
@@ -297,7 +302,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
 				tmpx = pg.attribute("CLIPCOOR");
-				QTextStream f(&tmpx, IO_ReadOnly);
+				Q3TextStream f(&tmpx, QIODevice::ReadOnly);
 				for (uint c=0; c<pg.attribute("NUMCLIP").toUInt(); ++c)
 				{
 					f >> x;
@@ -311,7 +316,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.PoLine.resize(pg.attribute("NUMPO").toUInt());
 				tmpx = pg.attribute("POCOOR");
-				QTextStream fp(&tmpx, IO_ReadOnly);
+				Q3TextStream fp(&tmpx, QIODevice::ReadOnly);
 				for (uint cx=0; cx<pg.attribute("NUMPO").toUInt(); ++cx)
 				{
 					fp >> xf;
@@ -363,7 +368,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.itemText = tmpx;
 			if (!OB.itemText.isEmpty())
 			{
-				QTextStream t(&OB.itemText, IO_ReadOnly);
+				Q3TextStream t(&OB.itemText, QIODevice::ReadOnly);
 				QString cc;
 #ifndef NLS_PROTO
 				while (!t.atEnd())
@@ -420,7 +425,7 @@ QPixmap ScPreview::createPreview(QString data)
 #endif
 			}
 			tmpx = GetAttr(&pg, "TEXTCOOR","0 0");
-			QTextStream ft(&tmpx, IO_ReadOnly);
+			Q3TextStream ft(&tmpx, QIODevice::ReadOnly);
 			for (uint ct=0; ct<GetAttr(&pg, "NUMTEXT","0").toUInt(); ct++)
 			{
 #ifndef NLS_PROTO
@@ -444,7 +449,7 @@ QPixmap ScPreview::createPreview(QString data)
 				pS->save();
 #ifdef HAVE_CAIRO
 				FPointArray cl = OB.PoLine.copy();
-				QWMatrix mm;
+				QMatrix mm;
 				mm.translate(OB.Xpos, OB.Ypos);
 				mm.rotate(static_cast<double>(OB.Rot));
 				cl.map( mm );
@@ -498,7 +503,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				else
 					pS->fill_gradient = OB.fill_gradient;
-				QWMatrix grm;
+				QMatrix grm;
 				grm.rotate(OB.Rot);
 				FPointArray gra;
 				switch (OB.GrType)
@@ -672,7 +677,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.startArrowIndex != 0)
 				{
-					QWMatrix arrowTrans;
+					QMatrix arrowTrans;
 					FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 					arrowTrans.translate(0, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -686,7 +691,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				if (OB.endArrowIndex != 0)
 				{
-					QWMatrix arrowTrans;
+					QMatrix arrowTrans;
 					FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 					arrowTrans.translate(OB.Width, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -773,7 +778,7 @@ QPixmap ScPreview::createPreview(QString data)
 						if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 						{
 							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-							QWMatrix arrowTrans;
+							QMatrix arrowTrans;
 							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
@@ -797,7 +802,7 @@ QPixmap ScPreview::createPreview(QString data)
 						if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 						{
 							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-							QWMatrix arrowTrans;
+							QMatrix arrowTrans;
 							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
@@ -1001,21 +1006,21 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	if (prefsManager->appPrefs.AvailFonts[ZFo].canRender(ccx[0]))
 	{
 		wide = prefsManager->appPrefs.AvailFonts[ZFo].charWidth(ccx[0])*(Siz / 10.0);
-		QWMatrix chma;
+		QMatrix chma;
 		chma.scale(csi, csi);
 		uint gl = prefsManager->appPrefs.AvailFonts[ZFo].char2CMap(ccx[0]);
 		FPointArray gly = prefsManager->appPrefs.AvailFonts[ZFo].glyphOutline(gl);
 		if (gly.size() < 4)
 			return;
 		gly.map(chma);
-		chma = QWMatrix();
+		chma = QMatrix();
 		p->setFillMode(1);
 		if (Reverse)
 		{
 			chma.scale(-1, 1);
 			chma.translate(-wide, 0);
 			gly.map(chma);
-			chma = QWMatrix();
+			chma = QMatrix();
 			chma.translate(xco, yco-(Siz / 10.0));
 		}
 		else

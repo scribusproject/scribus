@@ -7,13 +7,15 @@ for which a new license (GPL+exception) is in place.
 #include "shadebutton.h"
 #include "shadebutton.moc"
 #include "query.h"
+//Added by qt3to4:
+#include <Q3PopupMenu>
 
 
 ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent, "ShadeButton")
 {
 	QString tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
-	FillSh = new QPopupMenu();
+	FillSh = new Q3PopupMenu();
 	FillSh->insertItem( tr("Other..."));
 	for (uint a = 0; a < array; ++a)
 		FillSh->insertItem(tmp[a]);

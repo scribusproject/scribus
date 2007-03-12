@@ -5,9 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <qtable.h>
+#include <q3table.h>
 //#include <qtimer.h>
-#include <qdragobject.h>
+#include <q3dragobject.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <Q3PopupMenu>
+#include <QKeyEvent>
 
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -19,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 
 CharTable::CharTable(QWidget* parent, int cols, ScribusDoc* doc, QString font)
-	: QTable(parent),
+	: Q3Table(parent),
 	mPressed(false),
 	zoom(0),
 // 	m_Item(pi),
@@ -37,7 +43,7 @@ CharTable::CharTable(QWidget* parent, int cols, ScribusDoc* doc, QString font)
 	setTopMargin(0);
 	horizontalHeader()->hide();
 	setSorting(false);
-	setSelectionMode(QTable::NoSelection);
+	setSelectionMode(Q3Table::NoSelection);
 	setColumnMovingEnabled(false);
 	setRowMovingEnabled(false);
 	setReadOnly(true);
@@ -82,8 +88,8 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 
 	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height());
 	p->clear();
-	pixm.fill(white);
-	QWMatrix chma;
+	pixm.fill(Qt::white);
+	QMatrix chma;
 	chma.scale(1.6, 1.6);
 	qp->eraseRect(0, 0, cr.width(), cr.height());
 	QFont fo = qp->font();
@@ -98,7 +104,7 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 		gly.map(chma);
 		double ww = sz.width() - face.glyphWidth(gl)*numCols();
 		p->translate(ww / 2, 1);
-		p->setBrush(black);
+		p->setBrush(Qt::black);
 		p->setFillMode(1);
 		p->setupPolygon(&gly);
 		p->fillPath();
@@ -107,10 +113,10 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 		qp->drawPixmap(x, 1, pixm);
 		QString tmp;
 		tmp.sprintf("%04X", m_characters[row*numCols()+col]);
-		qp->setPen(black);
+		qp->setPen(Qt::black);
 		qp->drawText(QRect(2, cr.height()-10, cr.width()-4, 9),Qt::AlignCenter, tmp);
 	}
-	qp->setPen(gray);
+	qp->setPen(Qt::gray);
 	qp->drawRect(0, 0, cr.width(), cr.height());
 	delete p;
 }
@@ -120,16 +126,16 @@ void CharTable::keyPressEvent(QKeyEvent *k)
 {
 	switch (k->key())
 	{
-		case Key_Backspace:
-		case Key_Delete:
+		case Qt::Key_Backspace:
+		case Qt::Key_Delete:
 			emit delChar();
 			break;
-		case Key_Insert:
+		case Qt::Key_Insert:
 			//emit selectChar(currentRow(), currentColumn());
 			emit selectChar(m_characters[currentRow() * numCols() + currentColumn()]);
 			break;
 	}
-	QTable::keyPressEvent(k);
+	Q3Table::keyPressEvent(k);
 }
 
 void CharTable::contentsMousePressEvent(QMouseEvent* e)
@@ -158,7 +164,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 		else
 		{
 			// delete popup menu when it accepts drops
-			QPopupMenu *pmen = new QPopupMenu();
+			Q3PopupMenu *pmen = new Q3PopupMenu();
 			int pid = pmen->insertItem( tr("Delete"), this, SLOT(deleteOwnCharacter(int)));
 			pmen->setItemParameter(pid, index);
 			pmen->exec(QCursor::pos());
@@ -171,7 +177,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 		cCol = c;
 		cRow = r;
 	}
-	QTable::contentsMousePressEvent(e);
+	Q3Table::contentsMousePressEvent(e);
 }
 
 void CharTable::deleteOwnCharacter(int index)
@@ -208,7 +214,7 @@ void CharTable::contentsMouseReleaseEvent(QMouseEvent* e)
 	}
 	mPressed = false;
 // 	alternate = false;
-	QTable::contentsMouseReleaseEvent(e);
+	Q3Table::contentsMouseReleaseEvent(e);
 }
 
 void CharTable::showAlternate()
@@ -272,11 +278,11 @@ void CharTable::enableDrops(bool e)
 	viewport()->setAcceptDrops(e);
 }
 
-QDragObject * CharTable::dragObject()
+Q3DragObject * CharTable::dragObject()
 {
 	QString s("%1");
 	uint val = cRow * numCols() + cCol;
-	return new QTextDrag(s.arg(m_characters[val]), this);
+	return new Q3TextDrag(s.arg(m_characters[val]), this);
 }
 
 void CharTable::slotDropped(QDropEvent *evt)
@@ -285,7 +291,7 @@ void CharTable::slotDropped(QDropEvent *evt)
 		return;
 
 	QString label;
-	if ( QTextDrag::decode(evt, label))
+	if ( Q3TextDrag::decode(evt, label))
 		appendUnicode(label, 10);
 }
 

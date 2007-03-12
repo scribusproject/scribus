@@ -6,9 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qimage.h>
 #include <qlayout.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qpixmap.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 
 #include "autoform.h"
 #include "autoform.moc"
@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 {
-	Men = new QPopupMenu();
+	Men = new Q3PopupMenu();
 	buttonGroup1 = new AutoformButtonGroup(Men);
 	Men->insertItem(buttonGroup1);
 	setPopup(Men);

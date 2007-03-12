@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qstringlist.h>
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 
 class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
@@ -47,7 +47,7 @@ class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 	Q_OBJECT
 
 	public:
-		MultiProgressDialog(QWidget* parent=0, const char*name=0, bool modal=false, WFlags f=0);
+		MultiProgressDialog(QWidget* parent=0, const char*name=0, bool modal=false, Qt::WFlags f=0);
 		/**
 		 * Create a multi progress bar dialog for long operations with multiple steps. The dialog includes
 		 * one standard progress bar, typically for the overall progress and others may be added easily.
@@ -59,7 +59,7 @@ class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 		 * @param f 
 		 * @return 
 		 */
-		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0, const char*name=0, bool modal=true, WFlags f=0);
+		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0, const char*name=0, bool modal=true, Qt::WFlags f=0);
 		~MultiProgressDialog();
 		
 		/**
@@ -77,7 +77,7 @@ class SCRIBUS_API MultiProgressDialog : public MultiProgressDialogBase
 		 * @param barsNumerical
 		 * @return Success
 		 */
-		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QValueList<bool>& barsNumerical);
+		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const Q3ValueList<bool>& barsNumerical);
 		/**
 		 * Set a new label for a user defined progress bar
 		 * @param barName Progress bar name

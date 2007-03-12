@@ -370,7 +370,7 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 
 /*! \brief Format an arguments line for printing
 Helper procedure */
-static void printArgLine(QTextStream & ts, const char * smallArg,
+static void printArgLine(Q3TextStream & ts, const char * smallArg,
 						  const char* fullArg, const QString desc)
 {
 	const char* lineformat = "  %1, %2 %3";
@@ -387,8 +387,8 @@ static void printArgLine(QTextStream & ts, const char * smallArg,
 void ScribusQApp::showUsage()
 {
 	QFile f;
-	f.open(IO_WriteOnly, stderr);
-	QTextStream ts(&f);
+	f.open(QIODevice::WriteOnly, stderr);
+	Q3TextStream ts(&f);
 	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
 	ts << tr("Options:") ; endl(ts);
 	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
@@ -418,8 +418,8 @@ void ScribusQApp::showUsage()
 void ScribusQApp::showAvailLangs()
 {
 	QFile f;
-	f.open(IO_WriteOnly, stderr);
-	QTextStream ts(&f);
+	f.open(QIODevice::WriteOnly, stderr);
+	Q3TextStream ts(&f);
 	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
 	endl(ts);
 
@@ -440,8 +440,8 @@ void ScribusQApp::showVersion()
 void ScribusQApp::showHeader()
 {
 	QFile f;
-	f.open(IO_WriteOnly, stderr);
-	QTextStream ts(&f);
+	f.open(QIODevice::WriteOnly, stderr);
+	Q3TextStream ts(&f);
 	endl(ts);
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
 	// Build a separator of ----s the same width as the heading
@@ -469,7 +469,7 @@ void ScribusQApp::neverSplash(bool splashOff)
 			QDir prefsDirectory(prefsDir);
 			if (!QFileInfo(prefsDir).exists())
 				prefsDirectory.mkdir(prefsDir);
-			if (!ns.exists() && ns.open(IO_WriteOnly))
+			if (!ns.exists() && ns.open(QIODevice::WriteOnly))
 				ns.close();
 		}
 	}

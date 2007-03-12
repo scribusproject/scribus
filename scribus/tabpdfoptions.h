@@ -11,11 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qmap.h>
-#include <qvaluelist.h>
-#include <qbuttongroup.h>
-#include <qgroupbox.h>
+#include <q3valuelist.h>
+#include <q3buttongroup.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qradiobutton.h>
@@ -26,6 +26,10 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qlineedit.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 #include "bookmwin.h"
@@ -44,7 +48,7 @@ public:
 	                const SCFonts &AllFonts,
 	                const ProfilesL & PDFXProfiles,
 	                const QMap<QString, int> & DocFonts,
-	                const QValueList<PDFPresentationData> & Eff,
+	                const Q3ValueList<PDFPresentationData> & Eff,
 	                int unitIndex, double PageH, double PageB,
 	                ScribusDoc *mdoc = 0, bool exporting = false);
 	~TabPDFOptions() {};
@@ -52,7 +56,7 @@ public:
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
 						 const QMap<QString, int> & DocFonts,
-						 const QValueList<PDFPresentationData> & Eff,
+						 const Q3ValueList<PDFPresentationData> & Eff,
 						 int unitIndex, double PageH, double PageB,
 						 ScribusDoc *mdoc, bool exporting);
 
@@ -91,7 +95,7 @@ public:
 	QCheckBox* ModifySec;
 	QCheckBox* NoEmbedded;
 	QComboBox* OutCombo;
-	QListBox* Pages;
+	Q3ListBox* Pages;
 	QLineEdit* PassOwner;
 	QLineEdit* PassUser;
 	QComboBox* PDFVersionCombo;
@@ -125,9 +129,9 @@ public slots:
 	void PutToEmbed();
 	void RemoveOutline();
 	void PutToOutline();
-	void SelAFont(QListBoxItem*);
-	void SelEFont(QListBoxItem*);
-	void SelSFont(QListBoxItem*);
+	void SelAFont(Q3ListBoxItem*);
+	void SelEFont(Q3ListBoxItem*);
+	void SelSFont(Q3ListBoxItem*);
 	void EmbedAll();
 	void OutlineAll();
 	void PagePr();
@@ -160,10 +164,10 @@ protected:
 	// be added to a very thin dialog class instead.
 	friend class PDFExportDialog;
 	int PgSel;
-	QValueList<PDFPresentationData> EffVal;
+	Q3ValueList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
-	QValueList<QString> FontsToEmbed;
-	QValueList<QString> FontsToOutline;
+	Q3ValueList<QString> FontsToEmbed;
+	Q3ValueList<QString> FontsToOutline;
 
 	// PDFExportDialog needs access to these GUI members
 	// but they don't need to be exposed to the rest of Scribus.
@@ -192,69 +196,69 @@ private:
 	// PDFExportDialog please move it to the protected section.
 
 	QLabel* actionLabel;
-	QListBox* AvailFlist;
-	QGroupBox* BleedGroup;
-	QGridLayout* BleedGroupLayout;
-	QGroupBox* MarkGroup;
-	QGridLayout* MarkGroupLayout;
+	Q3ListBox* AvailFlist;
+	Q3GroupBox* BleedGroup;
+	Q3GridLayout* BleedGroupLayout;
+	Q3GroupBox* MarkGroup;
+	Q3GridLayout* MarkGroupLayout;
 	QCheckBox* cropMarks;
 	QCheckBox* bleedMarks;
 	QCheckBox* registrationMarks;
 	QCheckBox* colorMarks;
 	QCheckBox* docInfoMarks;
 	MSpinBox* markOffset;
-	QGroupBox* CBox;
-	QGridLayout* CBoxLayout;
-	QGroupBox* ColorGroup;
-	QHBoxLayout* ColorGroupLayout;
+	Q3GroupBox* CBox;
+	Q3GridLayout* CBoxLayout;
+	Q3GroupBox* ColorGroup;
+	Q3HBoxLayout* ColorGroupLayout;
 	QLabel* ColorText1;
-	QGroupBox* Effects;
-	QGridLayout* EffectsLayout;
+	Q3GroupBox* Effects;
+	Q3GridLayout* EffectsLayout;
 	QPushButton* EmbedFonts;
-	QListBox* EmbedList;
+	Q3ListBox* EmbedList;
 	QPushButton* EonAllPg;
 	QPushButton* FromEmbed;
 	QPushButton* FromOutline;
-	QGroupBox* GroupBox1;
-	QGridLayout* GroupBox1Layout;
-	QGridLayout* GroupBox2Layout;
-	QGroupBox* GroupBox9;
-	QGridLayout* GroupBox9Layout;
-	QGroupBox* groupDisplay;
-	QVBoxLayout* groupDisplayLayout;
-	QGroupBox* GroupFont;
-	QHBoxLayout* GroupFontLayout;
-	QGroupBox* groupJava;
-	QHBoxLayout* groupJavaLayout;
-	QButtonGroup* groupNavigation;
-	QVBoxLayout* groupNavigationLayout;
-	QGroupBox* GroupPass;
-	QGridLayout* GroupPassLayout;
-	QGroupBox* GroupSecSet;
-	QVBoxLayout* GroupSecSetLayout;
-	QGridLayout* Layout11;
-	QHBoxLayout *pageNumberSelectorLayout;
-	QGridLayout* Layout11a;
-	QHBoxLayout* Layout13;
-	QHBoxLayout* Layout2;
-	QVBoxLayout* Layout3;
-	QVBoxLayout* Layout4_2;
-	QVBoxLayout* Layout5_2;
-	QHBoxLayout* Layout5_2a;
-	QVBoxLayout* Layout6;
-	QHBoxLayout* LayoutSpecial;
+	Q3GroupBox* GroupBox1;
+	Q3GridLayout* GroupBox1Layout;
+	Q3GridLayout* GroupBox2Layout;
+	Q3GroupBox* GroupBox9;
+	Q3GridLayout* GroupBox9Layout;
+	Q3GroupBox* groupDisplay;
+	Q3VBoxLayout* groupDisplayLayout;
+	Q3GroupBox* GroupFont;
+	Q3HBoxLayout* GroupFontLayout;
+	Q3GroupBox* groupJava;
+	Q3HBoxLayout* groupJavaLayout;
+	Q3ButtonGroup* groupNavigation;
+	Q3VBoxLayout* groupNavigationLayout;
+	Q3GroupBox* GroupPass;
+	Q3GridLayout* GroupPassLayout;
+	Q3GroupBox* GroupSecSet;
+	Q3VBoxLayout* GroupSecSetLayout;
+	Q3GridLayout* Layout11;
+	Q3HBoxLayout *pageNumberSelectorLayout;
+	Q3GridLayout* Layout11a;
+	Q3HBoxLayout* Layout13;
+	Q3HBoxLayout* Layout2;
+	Q3VBoxLayout* Layout3;
+	Q3VBoxLayout* Layout4_2;
+	Q3VBoxLayout* Layout5_2;
+	Q3HBoxLayout* Layout5_2a;
+	Q3VBoxLayout* Layout6;
+	Q3HBoxLayout* LayoutSpecial;
 	QComboBox* LPIcolor;
-	QGroupBox* LPIgroup;
-	QGridLayout* LPIgroupLayout;
+	Q3GroupBox* LPIgroup;
+	Q3GridLayout* LPIgroupLayout;
 	QRadioButton* OnlySome;
-	QButtonGroup* pageLayout;
-	QVBoxLayout* pageLayoutLayout;
+	Q3ButtonGroup* pageLayout;
+	Q3VBoxLayout* pageLayoutLayout;
 	QCheckBox* PagePrev;
 	QLabel* PDFX1;
 	QLabel* PDFX2;
 	QCheckBox* PrintSec2;
-	QGroupBox* ProfsGroup;
-	QGridLayout* ProfsGroupLayout;
+	Q3GroupBox* ProfsGroup;
+	Q3GridLayout* ProfsGroupLayout;
 	QLabel* ProfsTxt1;
 	QLabel* ProfsTxt2;
 	QLabel* ProfsTxt3;
@@ -265,26 +269,26 @@ private:
 	QLabel* BleedTxt4;
 	QLabel* MarkTxt1;
 	QCheckBox *docBleeds;
-	QButtonGroup* RangeGroup;
-	QVBoxLayout* RangeGroupLayout;
-	QHBoxLayout* RotationLayout;
+	Q3ButtonGroup* RangeGroup;
+	Q3VBoxLayout* RangeGroupLayout;
+	Q3HBoxLayout* RotationLayout;
 	QPushButton* OutlineFonts;
-	QListBox* OutlineList;
+	Q3ListBox* OutlineList;
 	QWidget* tabColor;
-	QVBoxLayout* tabColorLayout;
+	Q3VBoxLayout* tabColorLayout;
 	QWidget* tabFonts;
 	QWidget* tabGeneral;
-	QVBoxLayout* tabLayout;
-	QVBoxLayout* tabLayout_3;
-	QGridLayout* tabLayout_5;
-	QGridLayout* tabOptionsGridLayout;
+	Q3VBoxLayout* tabLayout;
+	Q3VBoxLayout* tabLayout_3;
+	Q3GridLayout* tabLayout_5;
+	Q3GridLayout* tabOptionsGridLayout;
 	QWidget* tabPDFX;
-	QVBoxLayout* tabPDFXLayout;
+	Q3VBoxLayout* tabPDFXLayout;
 	QWidget* tabPresentation;
 	QWidget* tabSecurity;
-	QVBoxLayout* tabSecurityLayout;
+	Q3VBoxLayout* tabSecurityLayout;
 	QWidget* tabSpecial;
-	QVBoxLayout* tabSpecialLayout;
+	Q3VBoxLayout* tabSpecialLayout;
 	QLabel* TextCom1;
 	QLabel* TextCom2;
 	QLabel* TextFont1;
@@ -309,8 +313,8 @@ private:
 	QPushButton* ToEmbed;
 	QPushButton* ToOutline;
 	QRadioButton* useViewDefault;
-	QGroupBox* X3Group;
-	QGridLayout* X3GroupLayout;
+	Q3GroupBox* X3Group;
+	Q3GridLayout* X3GroupLayout;
 	// end protected GUI member pointers
 
 	// Non-GUI protected members

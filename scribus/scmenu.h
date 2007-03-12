@@ -22,10 +22,13 @@ for which a new license (GPL+exception) is in place.
 #define SCMENU_H
 
 #include <qaction.h>
-#include <qiconset.h>
-#include <qguardedptr.h>
+#include <qicon.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PopupMenu>
 
-class QPopupMenu;
+class Q3PopupMenu;
 class ScrAction;
 
 #include "scribusapi.h"
@@ -35,19 +38,19 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 	Q_OBJECT
 	public:
 		ScrPopupMenu ( QWidget * parent = 0, const char * name = 0, const QString pMenuName = QString::null, const QString pMenuText = QString::null, const QString parentName = QString::null, bool checkable = false);
-		ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QIconSet pMenuIcon, const QString pMenuText, const QString parentName = QString::null, bool checkable = false);
+		ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QIcon pMenuIcon, const QString pMenuText, const QString parentName = QString::null, bool checkable = false);
 		~ScrPopupMenu ();
 		
 		const QString getMenuName();
 		const QString getParentMenuName();
 		const QString getMenuText();
 		void setMenuText(const QString pMenuText);
-		const QIconSet getMenuIcon();
-		void setMenuIcon(const QIconSet pMenuIcon);
+		const QIcon getMenuIcon();
+		void setMenuIcon(const QIcon pMenuIcon);
 		void setMenuBarID(int id);
 		int getMenuBarID();
 		void setEnabled(bool menuEnabled);
-		QPopupMenu *getLocalPopupMenu();
+		Q3PopupMenu *getLocalPopupMenu();
 		bool repopulateLocalMenu();
 		bool clear();
 		
@@ -69,13 +72,13 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		void setParentMenuName(const QString& newParentMenuName);
 		
 	protected:
-		QPopupMenu *localPopupMenu;
-		QValueList< QGuardedPtr<QObject> > menuItemList;
+		Q3PopupMenu *localPopupMenu;
+		Q3ValueList< QPointer<QObject> > menuItemList;
 		QString menuName;
 		QString parentMenuName;
 		int parentMenuID;
 		QString menuText;
-		QIconSet menuIcon;
+		QIcon menuIcon;
 		int menuBarID;
 		bool enabled;
 		bool checkable;

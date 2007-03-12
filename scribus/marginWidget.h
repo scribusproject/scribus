@@ -11,11 +11,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 #include "linkbutton.h"
 class QCheckBox;
 
@@ -193,9 +196,9 @@ protected slots:
 	virtual void setMarginsToPrinterMargins();
 
 protected:
-	QGridLayout* GroupLayout;
-	QHBoxLayout* marginsForPagesLayout;
-	QGridLayout* BleedGroupLayout;
+	Q3GridLayout* GroupLayout;
+	Q3HBoxLayout* marginsForPagesLayout;
+	Q3GridLayout* BleedGroupLayout;
 	QString m_pageSize;
 	QString m_suffix;
 	double m_unitRatio;

@@ -25,6 +25,11 @@ for which a new license (GPL+exception) is in place.
 #include "navigator.moc"
 
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QLabel>
+#include <QPaintEvent>
 #include "scribusview.h"
 #include "gsutil.h"
 

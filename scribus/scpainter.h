@@ -30,9 +30,9 @@ for which a new license (GPL+exception) is in place.
 // libart wrapper
 
 #include <qglobal.h>
-#include <qwmatrix.h>
-#include <qvaluelist.h>
-#include <qvaluestack.h>
+#include <qmatrix.h>
+#include <q3valuelist.h>
+#include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
@@ -92,8 +92,8 @@ public:
 	virtual void clear( const QColor & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QWMatrix & );
-	virtual const QWMatrix worldMatrix();
+	virtual void setWorldMatrix( const QMatrix & );
+	virtual const QMatrix worldMatrix();
 	virtual void setZoomFactor( double );
 	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate( double, double );
@@ -135,7 +135,7 @@ public:
 	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QValueList<double>& array, double ofs);
+	virtual void setDash(const Q3ValueList<double>& array, double ofs);
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -186,7 +186,7 @@ private:
 	unsigned int m_height;
 	unsigned int m_x;
 	unsigned int m_y;
-	QWMatrix m_matrix;
+	QMatrix m_matrix;
 	QFont m_font;
 	bool mf_underline;
 	bool mf_strikeout;
@@ -213,10 +213,10 @@ private:
   /*! \brief Line Join Style */
   Qt::PenJoinStyle PLineJoin;
   /*! \brief The Dash Array */
-	QValueList<double> m_array;
+	Q3ValueList<double> m_array;
 	double m_offset;
 	/*! \brief Transformation Stack */
-	QValueStack<QWMatrix> MStack;
+	Q3ValueStack<QMatrix> MStack;
 	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;
 	bool imageMode;
@@ -232,7 +232,7 @@ private:
 		FPointArray groupClip;
 		bool pushed;
 	};
-	QValueStack<layerProp> Layers;
+	Q3ValueStack<layerProp> Layers;
 #elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	GC gc;
 #elif defined(_WIN32) && defined(SC_USE_GDI)

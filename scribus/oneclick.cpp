@@ -6,6 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 #include "oneclick.h"
 #include "oneclick.moc"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -14,10 +19,10 @@ extern QPixmap loadIcon(QString nam);
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
-#include <qbuttongroup.h>
-#include <qgroupbox.h>
+#include <q3buttongroup.h>
+#include <q3groupbox.h>
 #include <qradiobutton.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include "mspinbox.h"
 #include "linkbutton.h"
 #include "units.h"
@@ -30,21 +35,21 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	int decimals = unitGetDecimalsFromIndex(unitIndex);
 	setCaption( titel );
 	setIcon(loadIcon("AppIcon.png"));
-	queryLayout = new QVBoxLayout( this, 10, 5 );
-	editLayout = new QGridLayout;
+	queryLayout = new Q3VBoxLayout( this, 10, 5 );
+	editLayout = new Q3GridLayout;
 	editLayout->setSpacing( 5 );
 	editLayout->setMargin( 0 );
-	RotationGroup = new QButtonGroup( tr("Origin"), this, "RotationGroup" );
+	RotationGroup = new Q3ButtonGroup( tr("Origin"), this, "RotationGroup" );
 	RotationGroup->setColumnLayout(0, Qt::Vertical );
 	RotationGroup->layout()->setSpacing( 0 );
 	RotationGroup->layout()->setMargin( 10 );
-	Layout12a = new QGridLayout( RotationGroup->layout() );
+	Layout12a = new Q3GridLayout( RotationGroup->layout() );
 	Layout12a->setAlignment( Qt::AlignTop );
 	QSpacerItem* spacerT = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout12a->addItem( spacerT, 0, 1 );
 	QSpacerItem* spacerL = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout12a->addItem( spacerL, 1, 0 );
-	Layout12 = new QGridLayout;
+	Layout12 = new Q3GridLayout;
 	Layout12->setSpacing( 0 );
 	Layout12->setMargin( 0 );
 	TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
@@ -53,41 +58,41 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
 	if (mode == 0)
 	{
-		Line1 = new QFrame( RotationGroup, "Line1" );
+		Line1 = new Q3Frame( RotationGroup, "Line1" );
 		Line1->setMinimumSize( QSize( 20, 4 ) );
 		Line1->setMaximumSize( QSize( 20, 4 ) );
-		Line1->setFrameShape( QFrame::HLine );
-		Line1->setFrameShadow( QFrame::Plain );
+		Line1->setFrameShape( Q3Frame::HLine );
+		Line1->setFrameShadow( Q3Frame::Plain );
 		Line1->setLineWidth( 3 );
 		Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 		TopRight = new QRadioButton( RotationGroup, "TopRight" );
 		TopRight->setText( "" );
 		Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
-		Line2 = new QFrame( RotationGroup, "Line2" );
+		Line2 = new Q3Frame( RotationGroup, "Line2" );
 		Line2->setMinimumSize( QSize( 4, 20 ) );
 		Line2->setMaximumSize( QSize( 4, 20 ) );
-		Line2->setFrameShape( QFrame::VLine );
-		Line2->setFrameShadow( QFrame::Plain );
+		Line2->setFrameShape( Q3Frame::VLine );
+		Line2->setFrameShadow( Q3Frame::Plain );
 		Line2->setLineWidth( 3 );
 		Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 		Center = new QRadioButton( RotationGroup, "Center" );
 		Center->setText( "" );
 		Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
-		Line4 = new QFrame( RotationGroup, "Line4" );
+		Line4 = new Q3Frame( RotationGroup, "Line4" );
 		Line4->setMinimumSize( QSize( 4, 20 ) );
 		Line4->setMaximumSize( QSize( 4, 20 ) );
-		Line4->setFrameShadow( QFrame::Plain );
+		Line4->setFrameShadow( Q3Frame::Plain );
 		Line4->setLineWidth( 3 );
-		Line4->setFrameShape( QFrame::VLine );
+		Line4->setFrameShape( Q3Frame::VLine );
 		Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 		BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
 		BottomLeft->setText( "" );
 		Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
-		Line5 = new QFrame( RotationGroup, "Line5" );
+		Line5 = new Q3Frame( RotationGroup, "Line5" );
 		Line5->setMinimumSize( QSize( 20, 4 ) );
 		Line5->setMaximumSize( QSize( 20, 4 ) );
-		Line5->setFrameShape( QFrame::HLine );
-		Line5->setFrameShadow( QFrame::Plain );
+		Line5->setFrameShape( Q3Frame::HLine );
+		Line5->setFrameShadow( Q3Frame::Plain );
 		Line5->setLineWidth( 3 );
 		Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 		BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
@@ -96,21 +101,21 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	}
 	else
 	{
-		Line1 = new QFrame( RotationGroup, "Line1" );
+		Line1 = new Q3Frame( RotationGroup, "Line1" );
 		Line1->setMinimumSize( QSize( 10, 4 ) );
 		Line1->setMaximumSize( QSize( 10, 4 ) );
-		Line1->setFrameShape( QFrame::HLine );
-		Line1->setFrameShadow( QFrame::Plain );
+		Line1->setFrameShape( Q3Frame::HLine );
+		Line1->setFrameShadow( Q3Frame::Plain );
 		Line1->setLineWidth( 3 );
 		Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 		Center = new QRadioButton( RotationGroup, "Center" );
 		Center->setText( "" );
 		Layout12->addWidget( Center, 0, 2, Qt::AlignCenter );
-		Line2 = new QFrame( RotationGroup, "Line1" );
+		Line2 = new Q3Frame( RotationGroup, "Line1" );
 		Line2->setMinimumSize( QSize( 10, 4 ) );
 		Line2->setMaximumSize( QSize( 10, 4 ) );
-		Line2->setFrameShape( QFrame::HLine );
-		Line2->setFrameShadow( QFrame::Plain );
+		Line2->setFrameShape( Q3Frame::HLine );
+		Line2->setFrameShadow( Q3Frame::Plain );
 		Line2->setLineWidth( 3 );
 		Layout12->addWidget( Line2, 0, 3, Qt::AlignCenter );
 		TopRight = new QRadioButton( RotationGroup, "TopRight" );
@@ -124,11 +129,11 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	Layout12a->addItem( spacerB, 2, 1 );
 	editLayout->addWidget( RotationGroup, 0, 0 );
 	RotationGroup->setButton(origin);
-	SizeGroup = new QGroupBox( tr("Size"), this, "SizeGroup" );
+	SizeGroup = new Q3GroupBox( tr("Size"), this, "SizeGroup" );
 	SizeGroup->setColumnLayout(0, Qt::Vertical );
 	SizeGroup->layout()->setSpacing( 5 );
 	SizeGroup->layout()->setMargin( 10 );
-	SizeGroupLayout = new QGridLayout( SizeGroup->layout() );
+	SizeGroupLayout = new Q3GridLayout( SizeGroup->layout() );
 	SizeGroupLayout->setAlignment( Qt::AlignTop );
 	questionLabel = new QLabel( tr("Width:"), SizeGroup, "questionLabel" );
 	if (mode == 1)
@@ -175,7 +180,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	editLayout->addMultiCellWidget( checkRemember, 1, 1, 0, 1 );
 
 	queryLayout->addLayout( editLayout );
-	okCancelLayout = new QHBoxLayout;
+	okCancelLayout = new Q3HBoxLayout;
 	okCancelLayout->setSpacing( 5 );
 	okCancelLayout->setMargin( 0 );
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );

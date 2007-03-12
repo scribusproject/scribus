@@ -18,9 +18,9 @@
 #define STYLE_H
 
 #include <cassert>
-#include <qsignal.h>
+#include <q3signal.h>
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "sccolor.h"

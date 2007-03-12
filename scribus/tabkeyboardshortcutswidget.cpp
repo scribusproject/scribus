@@ -31,16 +31,20 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qinputdialog.h>
 #include <qkeysequence.h>
 #include <qlabel.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qstring.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QKeyEvent>
+#include <Q3PtrList>
+#include <QEvent>
 
 #include "actionmanager.h"
 #include "commonstrings.h"
@@ -79,7 +83,7 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 
 	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
 	// signals and slots connections
-	connect( keyTable, SIGNAL(clicked(QListViewItem*)), this, SLOT(dispKey(QListViewItem*)));
+	connect( keyTable, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(dispKey(Q3ListViewItem*)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 	connect( loadSetButton, SIGNAL(clicked()), this, SLOT(loadKeySetFile()));
@@ -127,7 +131,7 @@ void TabKeyboardShortcutsWidget::importKeySetFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ".");
-	QString s = QFileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
+	QString s = Q3FileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
 	if (!s.isEmpty())
 		importKeySet(s);
 }
@@ -135,7 +139,7 @@ void TabKeyboardShortcutsWidget::exportKeySetFile()
 {   
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
-	QString s = QFileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
+	QString s = Q3FileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
 	if (!s.isEmpty())
 		exportKeySet(s);
 }
@@ -149,10 +153,10 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 		//import the file into qdomdoc
 		QDomDocument doc( "keymapentries" );
 		QFile file( filename );
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 			return;
-		QTextStream ts(&file);
-		ts.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream ts(&file);
+		ts.setEncoding(Q3TextStream::UnicodeUTF8);
 		QString errorMsg;
 		int eline;
 		int ecol;
@@ -225,10 +229,10 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 			keySetElement.appendChild(function_shortcut);
 		}
 		QFile f(filename);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		QTextStream s(&f);
-		s.setEncoding(QTextStream::UnicodeUTF8);
+		Q3TextStream s(&f);
+		s.setEncoding(Q3TextStream::UnicodeUTF8);
 		QString xmltag("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		s.writeRawBytes(xmltag, xmltag.length());
 		QString xmldoc = doc.toString(4);
@@ -260,7 +264,7 @@ QStringList TabKeyboardShortcutsWidget::scanForSets()
 			
 			QDomDocument doc( "keymapentries" );
 			QFile file( filename );
-			if ( !file.open( IO_ReadOnly ) )
+			if ( !file.open( QIODevice::ReadOnly ) )
 				continue;
 			QString errorMsg;
 			int eline;
@@ -327,19 +331,19 @@ void TabKeyboardShortcutsWidget::insertActions()
 	lviToMenuMap.clear();
 	keyTable->clear();
 	bool first, firstMenu=true;
-	QListViewItem *currLVI = NULL;
-	QListViewItem *currMenuLVI = NULL;
-	QListViewItem *prevLVI = NULL;
-	QListViewItem *prevMenuLVI = NULL;
-	for (QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
+	Q3ListViewItem *currLVI = NULL;
+	Q3ListViewItem *currMenuLVI = NULL;
+	Q3ListViewItem *prevLVI = NULL;
+	Q3ListViewItem *prevMenuLVI = NULL;
+	for (Q3ValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
 	{
 		if (firstMenu)
 		{
-			currMenuLVI=new QListViewItem(keyTable);
+			currMenuLVI=new Q3ListViewItem(keyTable);
 			firstMenu=false;
 		}
 		else
-			currMenuLVI=new QListViewItem(keyTable, prevMenuLVI);
+			currMenuLVI=new Q3ListViewItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
@@ -352,11 +356,11 @@ void TabKeyboardShortcutsWidget::insertActions()
 		{
 			if (first)
 			{
-				currLVI=new QListViewItem(currMenuLVI);
+				currLVI=new Q3ListViewItem(currMenuLVI);
 				first=false;
 			}
 			else
-				currLVI=new QListViewItem(currMenuLVI, prevLVI);
+				currLVI=new Q3ListViewItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
@@ -365,15 +369,15 @@ void TabKeyboardShortcutsWidget::insertActions()
 		}
 	}
 	//Non menu actions
-	for (QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defNonMenuActions->begin(); itmenu != defNonMenuActions->end(); ++itmenu )
+	for (Q3ValueVector< QPair<QString, QStringList> >::Iterator itmenu = defNonMenuActions->begin(); itmenu != defNonMenuActions->end(); ++itmenu )
 	{
 		if (firstMenu)
 		{
-			currMenuLVI=new QListViewItem(keyTable);
+			currMenuLVI=new Q3ListViewItem(keyTable);
 			firstMenu=false;
 		}
 		else
-			currMenuLVI=new QListViewItem(keyTable, prevMenuLVI);
+			currMenuLVI=new Q3ListViewItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
@@ -386,11 +390,11 @@ void TabKeyboardShortcutsWidget::insertActions()
 		{
 			if (first)
 			{
-				currLVI=new QListViewItem(currMenuLVI);
+				currLVI=new Q3ListViewItem(currMenuLVI);
 				first=false;
 			}
 			else
-				currLVI=new QListViewItem(currMenuLVI, prevLVI);
+				currLVI=new Q3ListViewItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
@@ -403,33 +407,33 @@ void TabKeyboardShortcutsWidget::insertActions()
 void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
 {
 	//Must run this as if newss is not empty and we go to the next for loop, the set visible doesnt work
-	for (QPtrList<QListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+	for (Q3PtrList<Q3ListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
 		(*it)->setVisible(true);
 	if (newss.isEmpty())
 	{			
-		for (QMap<QListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+		for (QMap<Q3ListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
 			it.key()->setVisible(true);
 		return;
 	}
 	//Seem to need to do this.. isOpen doesnt seem to do what it says
-	for (QMap<QListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+	for (QMap<Q3ListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
 	{
 		if (it.key()->text(0).contains(newss, false))
 			it.key()->setVisible(true);
 		else
 			it.key()->setVisible(false);
 	}
-	for (QPtrList<QListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+	for (Q3PtrList<Q3ListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
 	{
 		bool toBeVisible=false;
-		QListViewItem* fc=(*it)->firstChild();
+		Q3ListViewItem* fc=(*it)->firstChild();
 		if (fc!=0)
 		{
 			if (fc->isVisible())
 				toBeVisible=true;
 			else
 			{
-				QListViewItem* sibling=fc->nextSibling();
+				Q3ListViewItem* sibling=fc->nextSibling();
 				while (sibling!=0)
 				{
 					if (sibling->isVisible())
@@ -445,7 +449,7 @@ void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
 	}
 }
 
-void TabKeyboardShortcutsWidget::dispKey(QListViewItem* qlvi)
+void TabKeyboardShortcutsWidget::dispKey(Q3ListViewItem* qlvi)
 {
 	if (qlvi!=0 && lviToActionMap.contains(qlvi))
 	{

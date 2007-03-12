@@ -6,10 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qimage.h>
 #include <qlayout.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qbitmap.h>
 #include <qpixmap.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 
 #include "autoformbuttongroup.h"
 #include "autoformbuttongroup.moc"
@@ -17,13 +19,13 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "util.h"
 
-AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QButtonGroup( parent, "autoformbuttongroup" )
+AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : Q3ButtonGroup( parent, "autoformbuttongroup" )
 {
 	this->setExclusive( true );
 	this->setColumnLayout(0, Qt::Vertical );
 	this->layout()->setSpacing( 0 );
 	this->layout()->setMargin( 0 );
-	buttonGroup1Layout = new QGridLayout( this->layout() );
+	buttonGroup1Layout = new Q3GridLayout( this->layout() );
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
 	toolButton1 = new QToolButton( this, "toolButton1" );
 	toolButton1->setToggleButton( true );

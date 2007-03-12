@@ -31,11 +31,11 @@ for which a new license (GPL+exception) is in place.
 
 // include files for QT
 #include <qapplication.h>
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
 #include <qaction.h>
 #include <qmenubar.h>
-#include <qpopupmenu.h>
-#include <qtoolbar.h>
+#include <q3popupmenu.h>
+#include <q3toolbar.h>
 #include <qtoolbutton.h>
 #include <qstatusbar.h>
 #include <qtooltip.h>
@@ -44,17 +44,27 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qmap.h>
-#include <qdict.h>
-#include <qguardedptr.h>
+#include <q3dict.h>
+#include <qpointer.h>
 #include <qfont.h>
 #include <qtimer.h>
-#include <qintdict.h>
-#include <qprogressdialog.h>
-#include <qprogressbar.h>
+#include <q3intdict.h>
+#include <q3progressdialog.h>
+#include <q3progressbar.h>
 #include <qworkspace.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qclipboard.h>
-#include <qprocess.h>
+#include <q3process.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QWheelEvent>
+#include <QMouseEvent>
+#include <QCloseEvent>
+#include <QDragEnterEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QDropEvent>
+#include <Q3ActionGroup>
 
 // application specific includes
 #include "scribusapi.h"
@@ -113,7 +123,7 @@ extern SCRIBUS_API ScribusQApp* ScQApp;
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
   */
-class SCRIBUS_API ScribusMainWindow : public QMainWindow, public UndoObject
+class SCRIBUS_API ScribusMainWindow : public Q3MainWindow, public UndoObject
 {
 	Q_OBJECT
 
@@ -154,7 +164,7 @@ public:
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
-	void recalcColors(QProgressBar *dia = 0);
+	void recalcColors(Q3ProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
 	void ReorgFonts();
@@ -195,7 +205,7 @@ public:
 	ScribusDoc *doc;
 
 
-	QProgressBar* mainWindowProgressBar;
+	Q3ProgressBar* mainWindowProgressBar;
 	QLabel* mainWindowXPosLabel;
 	QLabel* mainWindowXPosDataLabel;
 	QLabel* mainWindowYPosLabel;
@@ -227,14 +237,14 @@ public:
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 
-	QProcess *ExternalApp;
+	Q3Process *ExternalApp;
 
-	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrLayersActions;
-	QMap<QString, QGuardedPtr<ScrAction> > scrRecentPasteActions;
-	QDict<QActionGroup> scrActionGroups;
+	QMap<QString, QPointer<ScrAction> > scrActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
+	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
+	QMap<QString, QPointer<ScrAction> > scrLayersActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
+	Q3Dict<Q3ActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	QStringList RecentDocs;
@@ -531,7 +541,7 @@ public slots:
 	//! \brief manages the documents patterns
 	void managePatterns();
 	//! \brief enable or disable the unicode actions and their menus
-	void enableTextActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
+	void enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 	//! \brief allow SE to get the SM for edit stlyes
 	StyleManager *styleMgr() const {return styleManager;};
 
@@ -571,7 +581,7 @@ private:
 	void initPalettes();
 	void initScrapbook();
 
-	void updateColorMenu(QProgressBar* progressBar=NULL);
+	void updateColorMenu(Q3ProgressBar* progressBar=NULL);
 
 	QLabel* mainWindowStatusLabel;
 	QString recentFileMenuName;
@@ -580,9 +590,9 @@ private:
 	QPixmap noIcon;
 	ColorCombo *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
-	QPopupMenu *ShapeMenu;
+	Q3PopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
-	QPopupMenu *FontMenu;
+	Q3PopupMenu *FontMenu;
 	FontCombo* FontSub;
 	ScToolBar *fileToolBar;
 	ScToolBar *editToolBar;

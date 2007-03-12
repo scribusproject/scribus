@@ -7,13 +7,18 @@ for which a new license (GPL+exception) is in place.
 #include "cmsprefs.h"
 #include "cmsprefs.moc"
 #include "scribusdoc.h"
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )
 {
 	prefs = Vor;
 	changed = false;
-	cmsPrefsLayout = new QVBoxLayout( this ); 
+	cmsPrefsLayout = new Q3VBoxLayout( this ); 
 	cmsPrefsLayout->setAlignment( Qt::AlignTop );
 	cmsPrefsLayout->setSpacing( 5 );
 	cmsPrefsLayout->setMargin( 0 );
@@ -22,13 +27,13 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 // 	checkBox1->setChecked(prefs->CMSinUse);
 	cmsPrefsLayout->addWidget( checkBox1 );
 
-	sysProfiles = new QGroupBox( tr( "System Profiles" ), this, "SysProfiles" );
+	sysProfiles = new Q3GroupBox( tr( "System Profiles" ), this, "SysProfiles" );
 // 	if (!checkBox1->isChecked())
 // 		sysProfiles->setEnabled( false );
 	sysProfiles->setColumnLayout(0, Qt::Vertical );
 	sysProfiles->layout()->setSpacing( 0 );
 	sysProfiles->layout()->setMargin( 0 );
-	sysProfilesLayout = new QGridLayout( sysProfiles->layout() );
+	sysProfilesLayout = new Q3GridLayout( sysProfiles->layout() );
 	sysProfilesLayout->setAlignment( Qt::AlignTop );
 	sysProfilesLayout->setSpacing( 5 );
 	sysProfilesLayout->setMargin( 10 );
@@ -114,13 +119,13 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	sysProfilesLayout->addWidget( printerP, 5, 1 );
 	cmsPrefsLayout->addWidget( sysProfiles );
 
-	render = new QGroupBox( tr( "Rendering Intents" ), this, "Render" );
+	render = new Q3GroupBox( tr( "Rendering Intents" ), this, "Render" );
 /*	if (!checkBox1->isChecked())
 		render->setEnabled( false );*/
 	render->setColumnLayout(0, Qt::Vertical );
 	render->layout()->setSpacing( 0 );
 	render->layout()->setMargin( 0 );
-	renderLayout = new QGridLayout( render->layout() );
+	renderLayout = new Q3GridLayout( render->layout() );
 	renderLayout->setAlignment( Qt::AlignTop );
 	renderLayout->setSpacing( 5 );
 	renderLayout->setMargin( 10 );
@@ -155,7 +160,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 // 	simulate->setChecked(prefs->SoftProofOn);
 	cmsPrefsLayout->addWidget( simulate );
 
-	convertLayout = new QHBoxLayout( cmsPrefsLayout );
+	convertLayout = new Q3HBoxLayout( cmsPrefsLayout );
 	convertLayout->setAlignment( Qt::AlignTop );
 	convertLayout->setMargin( 0 );
 	convertLayout->addSpacing( 30 );
@@ -164,7 +169,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 // 	convertAll->setChecked(prefs->SoftProofFullOn);
 	convertLayout->addWidget( convertAll );
 
-	gamutLayout = new QHBoxLayout( cmsPrefsLayout );
+	gamutLayout = new Q3HBoxLayout( cmsPrefsLayout );
 	gamutLayout->setAlignment( Qt::AlignTop );
 	gamutLayout->setMargin( 0 );
 	gamutLayout->addSpacing( 30 );

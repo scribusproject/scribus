@@ -11,6 +11,8 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include "digester.h"
 #include "actions.h"
@@ -110,15 +112,15 @@ void dummyDoc(desaxe::Digester& dig)
 				dig.end("doc");
 }				
 
-bool loadRawText(const QString & filename, QCString & buf)
+bool loadRawText(const QString & filename, Q3CString & buf)
 {
 	bool ret = false;
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QCString tempBuf(f.size() + 1);
-		if (f.open(IO_ReadOnly))
+		Q3CString tempBuf(f.size() + 1);
+		if (f.open(QIODevice::ReadOnly))
 		{
 			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
 			tempBuf[bytesRead] = '\0';
@@ -162,7 +164,7 @@ int main(int argc, char** argv)
 				break;
 			case 2:
 			{
-				QCString docBytes("");
+				Q3CString docBytes("");
 				loadRawText(file, docBytes);
 				QDomDocument docu("scridoc");
 				return docu.setContent(QString(docBytes));

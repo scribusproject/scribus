@@ -9,11 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qpushbutton.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qmenubar.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 
@@ -27,9 +29,9 @@ class SCRIBUS_API Editor : public QDialog
 public:
     Editor( QWidget* parent, QString daten, ScribusView* vie = 0);
     ~Editor() {};
-    QTextEdit* EditTex;
-    QPopupMenu* fmenu;
-    QPopupMenu* emenu;
+    Q3TextEdit* EditTex;
+    Q3PopupMenu* fmenu;
+    Q3PopupMenu* emenu;
     QMenuBar* menuBar;
     ScribusView* view;
 
@@ -39,7 +41,7 @@ private slots:
 	void GetFieldN();
 
 protected:
-    QVBoxLayout* EditorLayout;
+    Q3VBoxLayout* EditorLayout;
 	PrefsContext* dirs;
 };
 

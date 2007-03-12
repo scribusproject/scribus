@@ -78,7 +78,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 					{
 						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-						p->setPen(tmp, ml[it].Width, static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+						p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 						p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 					}
 				}
@@ -86,7 +86,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 		}
 		if (m_startArrowIndex != 0)
 		{
-			QWMatrix arrowTrans;
+			QMatrix arrowTrans;
 			FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
 			arrowTrans.translate(0, 0);
 			arrowTrans.scale(m_lineWidth, m_lineWidth);
@@ -106,7 +106,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 		}
 		if (m_endArrowIndex != 0)
 		{
-			QWMatrix arrowTrans;
+			QMatrix arrowTrans;
 			FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
 			arrowTrans.translate(Width, 0);
 			arrowTrans.scale(m_lineWidth, m_lineWidth);

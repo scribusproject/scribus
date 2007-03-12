@@ -28,7 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qpainter.h>
-#include <qprocess.h>
+#include <q3process.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "scconfig.h"
 
@@ -204,8 +206,8 @@ QString getGSVersion()
 	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
 	args.append(gsExe.local8Bit());
 	args.append(QString("--version").local8Bit());
-	QProcess proc(args);
-	proc.setCommunication(QProcess::Stdout);
+	Q3Process proc(args);
+	proc.setCommunication(Q3Process::Stdout);
 	proc.start();
 	while(proc.isRunning())
 	{

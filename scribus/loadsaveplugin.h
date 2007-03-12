@@ -12,8 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qregexp.h>
 #include <qiodevice.h>
-#include <qprogressbar.h>
-#include <qvaluelist.h>
+#include <q3progressbar.h>
+#include <q3valuelist.h>
 #include <qstringlist.h>
 
 class FileFormat;
@@ -82,10 +82,10 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// Return a list of all formats supported by all currently loaded and
 		// active plugins. This list is sorted in a very specific order:
 		// First, by descending order of `id', then descending order of priority.
-		static const QValueList<FileFormat> & supportedFormats();
+		static const Q3ValueList<FileFormat> & supportedFormats();
 		
-		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces);
+		virtual void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, Q3ProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts);
+		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces);
 		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
 		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
@@ -110,7 +110,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		ScribusDoc* m_Doc;
 		ScribusView* m_View; //For 1.2.x loader at the moment
 		ScribusMainWindow* m_ScMW; //For plugins when required
-		QProgressBar* m_mwProgressBar;
+		Q3ProgressBar* m_mwProgressBar;
 		SCFonts* m_AvailableFonts;
 
 	private:
@@ -118,7 +118,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// using the protected `registerFormat(...)', `unregisterFormat(...)'
 		// and `unregisterAll(...)' methods. This is sorted in a very specific
 		// order - ascending ID, then descending priority.
-		static QValueList<FileFormat> formats;
+		static Q3ValueList<FileFormat> formats;
 
 		// Return an iterator referencing the first format structure named `name'.
 		// If specified, only return formats implmented by `plug'.
@@ -129,13 +129,13 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		// iterator returned by this method will always be to the highest
 		// priority format of the required ID, and each subsequent call will
 		// return the next lowest priority format.
-		static QValueList<FileFormat>::iterator findFormat(unsigned int id,
+		static Q3ValueList<FileFormat>::iterator findFormat(unsigned int id,
 				LoadSavePlugin* plug = 0,
-				QValueList<FileFormat>::iterator it = formats.begin());
+				Q3ValueList<FileFormat>::iterator it = formats.begin());
 				
-		static QValueList<FileFormat>::iterator findFormat(const QString& extension,
+		static Q3ValueList<FileFormat>::iterator findFormat(const QString& extension,
 				LoadSavePlugin* plug = 0,
-				QValueList<FileFormat>::iterator it = formats.begin());
+				Q3ValueList<FileFormat>::iterator it = formats.begin());
 
 		// Print out a format list for debugging purposes
 		static void printFormatList();
@@ -169,8 +169,8 @@ class SCRIBUS_API FileFormat
 		bool saveFile(const QString & fileName) const;
 		
 		
-		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, QProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
-		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces) const;
+		void setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, ScribusMainWindow* targetMW, Q3ProgressBar* targetMWPRogressBar, SCFonts* targetAvailableFonts) const;
+		void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces) const;
 		bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null) const;
 		bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const;
 		bool readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles) const;

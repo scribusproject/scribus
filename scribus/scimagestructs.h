@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCIMAGESTRUCTS_H
 
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qimage.h>
 #include <qmap.h>
 #include "fpointarray.h"
@@ -36,8 +36,8 @@ struct PSDHeader
 
 struct PSDLayer
 {
-	QValueList<uint> channelLen;
-	QValueList<int> channelType;
+	Q3ValueList<uint> channelLen;
+	Q3ValueList<int> channelType;
 	int xpos;
 	int ypos;
 	int width;
@@ -107,8 +107,8 @@ public:
 	QString clipPath;
 	QString usedPath;
 	QString profileName;
-	QValueList<PSDLayer> layerInfo;
-	QValueList<PSDDuotone_Color> duotoneColors;
+	Q3ValueList<PSDLayer> layerInfo;
+	Q3ValueList<PSDDuotone_Color> duotoneColors;
 	ExifValues exifInfo;
 };
 

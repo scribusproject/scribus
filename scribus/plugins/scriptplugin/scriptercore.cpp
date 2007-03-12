@@ -13,9 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qdom.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <QPixmap>
 #include <cstdlib>
-#include <qtextedit.h>
+#include <q3textedit.h>
 
 #include "runscriptdialog.h"
 #include "helpbrowser.h"
@@ -93,7 +96,7 @@ void ScripterCore::buildScribusScriptsMenu()
 		{
 			QFileInfo fs(ds[dc]);
 			QString strippedName=fs.baseName(false);
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), strippedName, QKeySequence(), this, strippedName));
+			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), strippedName, QKeySequence(), this, strippedName));
 			connect( scrScripterActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(StdScript(QString)) );
 			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
 		}
@@ -104,7 +107,7 @@ void ScripterCore::buildScribusScriptsMenu()
 
 void ScripterCore::rebuildRecentScriptsMenu()
 {
-	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
 		menuMgr->removeMenuItem((*it), "RecentScripts");
 
 	scrRecentScriptActions.clear();
@@ -113,7 +116,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	{
 		QString strippedName=RecentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), RecentScripts[m], QKeySequence(), this, strippedName));
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), RecentScripts[m], QKeySequence(), this, strippedName));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 	}
@@ -133,7 +136,7 @@ void ScripterCore::buildRecentScriptsMenu()
 			{
 				QString strippedName=SavedRecentScripts[m];
 				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIconSet(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
+				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
 				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 			}
@@ -262,7 +265,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	PyThreadState *stateo = NULL;
 	PyThreadState *state = NULL;
 	QFileInfo fi(fileName);
-	QCString na = fi.fileName().latin1();
+	Q3CString na = fi.fileName().latin1();
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
@@ -324,7 +327,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
-		QCString cmd = cm.latin1();
+		Q3CString cmd = cm.latin1();
 		// Now run the script in the interpreter's global scope. It'll run in a
 		// sub-interpreter if we created and switched to one earlier, otherwise
 		// it'll run in the main interpreter.
@@ -503,9 +506,9 @@ void ScripterCore::aboutScript()
 	QString html("<html><body>");
 	QFileInfo fi = QFileInfo(fname);
 	QFile input(fname);
-	if(!input.open(IO_ReadOnly))
+	if(!input.open(QIODevice::ReadOnly))
 		return;
-	QTextStream intputstream(&input);
+	Q3TextStream intputstream(&input);
 	QString content = intputstream.read();
 	QString docstring = content.section("\"\"\"", 1, 1);
 	if (!docstring.isEmpty())
@@ -570,7 +573,7 @@ bool ScripterCore::setupMainInterpreter()
 		).arg(ScPaths::instance().scriptDir());
 	if (m_importAllNames)
 		cm += "from scribus import *\n";
-	QCString cmd = cm.utf8();
+	Q3CString cmd = cm.utf8();
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();

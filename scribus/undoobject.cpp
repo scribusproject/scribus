@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "undoobject.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 ulong UndoObject::nextId_ = 1;
 

@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3CString>
 #include "htmlreader.h"
 
 #ifdef HAVE_XML
@@ -538,9 +540,9 @@ void HTMLReader::parse(QString filename)
 {
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(filename);
-	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+	Q3CString fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
 #else
-	QCString fn(filename.local8Bit());
+	Q3CString fn(filename.local8Bit());
 #endif
 	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
 }

@@ -25,10 +25,10 @@ for which a new license (GPL+exception) is in place.
 #define DYNAMICTIP_H
 
 #include <qtooltip.h>
-#include <qlistbox.h>
-#include <qtable.h>
+#include <q3listbox.h>
+#include <q3table.h>
 #include <qstringlist.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -43,21 +43,21 @@ public:
 		TreeView
 	};
 
-	DynamicTip( QListBox* parent, ColorList* pale );
-	DynamicTip( QTable* parent );
-	DynamicTip( QHeader *parent );
-	DynamicTip( QListView *parent );
+	DynamicTip( Q3ListBox* parent, ColorList* pale );
+	DynamicTip( Q3Table* parent );
+	DynamicTip( Q3Header *parent );
+	DynamicTip( Q3ListView *parent );
 	virtual ~DynamicTip() {};
 	void addHeaderTip(QString tip);
 	void clearHeaderTips();
 protected:
 	void maybeTip( const QPoint & );
 	ColorList* colorList;
-	QListBox* listB;
-	QTable* table;
-	QHeader *header;
+	Q3ListBox* listB;
+	Q3Table* table;
+	Q3Header *header;
 	QStringList headerTips;
-	QListView *listV;
+	Q3ListView *listV;
 	TipType kind;
 };
 

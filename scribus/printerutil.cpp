@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3CString>
 #include "util.h"
 #include "scribus.h"
 #include "scribuscore.h"
@@ -54,7 +56,7 @@ QStringList PrinterUtil::getPrinterNames()
 	QStringList wt;
 	if (loadText("/etc/printcap", &Pcap))
 	{
-		QTextStream ts(&Pcap, IO_ReadOnly);
+		Q3TextStream ts(&Pcap, QIODevice::ReadOnly);
 		while(!ts.atEnd())
 		{
 			tmp = ts.readLine();
@@ -79,9 +81,9 @@ bool PrinterUtil::getDefaultSettings( QString printerName, QByteArray& devModeA 
 {
 	bool done;
 	uint size;
-	QCString printer;
+	Q3CString printer;
 	LONG result = IDOK+1;
-	HANDLE handle = NULL;
+	Qt::HANDLE handle = NULL;
 	printer = printerName.local8Bit();
 	// Get the printer handle
 	done = OpenPrinter( printer.data(), &handle, NULL );
@@ -104,9 +106,9 @@ bool PrinterUtil::initDeviceSettings( QString printerName, QByteArray& devModeA 
 {
 	bool done;
 	uint size;
-	QCString printer;
+	Q3CString printer;
 	LONG result = IDOK+1;
-	HANDLE handle = NULL;
+	Qt::HANDLE handle = NULL;
 	printer = printerName.local8Bit();
 	// Get the printer handle
 	done = OpenPrinter( printer.data(), &handle, NULL );
@@ -162,7 +164,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 #elif defined(_WIN32)
 	DWORD nPaper;
 	DWORD nPaperNames;
-	QCString printer;
+	Q3CString printer;
 	typedef char char64[64];
 	printer = printerName.local8Bit();
 	nPaper = DeviceCapabilities( printerName.data(), NULL, DC_PAPERS, NULL, NULL );
@@ -184,7 +186,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 		}
 		if ( paperIndex >= 0 )
 		{
-			HANDLE handle = NULL;
+			Qt::HANDLE handle = NULL;
 			if( OpenPrinter( printer.data(), &handle, NULL ) )
 			{
 				// Retrieve DEVMODE structure for selected device
@@ -224,7 +226,7 @@ bool PrinterUtil::isPostscriptPrinter( QString printerName)
 	HDC dc;
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
-	QCString printer = printerName.local8Bit();
+	Q3CString printer = printerName.local8Bit();
 	
 	// Create the default device context
 	dc = CreateDC( NULL, printer.data(), NULL, NULL );

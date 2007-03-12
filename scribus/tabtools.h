@@ -12,15 +12,19 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtoolbutton.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qradiobutton.h>
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 
-class QGroupBox;
+class Q3GroupBox;
 class LinkButton;
 class QSpinBox;
 class FontCombo;
@@ -55,7 +59,7 @@ public:
 
 	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 
-	QButtonGroup* buttonGroupTools;
+	Q3ButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;
 	QToolButton* toolPoly;
 	QToolButton* toolImage;
@@ -63,7 +67,7 @@ public:
 	QToolButton* toolLine;
 	QToolButton* toolZoom;
 	QToolButton* toolMisc;
-	QWidgetStack* subStackTools;
+	Q3WidgetStack* subStackTools;
 	QWidget* subTabText;
 	QLabel* textHeadLine;
 	QLabel* textLabel3b;
@@ -125,16 +129,16 @@ public:
 	QLabel* textLabel19b;
 	QSpinBox* shadingFillImage;
 	QLabel* textLabel20b;
-	QButtonGroup* buttonGroup3;
+	Q3ButtonGroup* buttonGroup3;
 	QLabel* textLabel17b;
 	QLabel* textLabel18b;
 	QSpinBox* scalingHorizontal;
 	QSpinBox* scalingVertical;
 	LinkButton* chainButton;
-	QButtonGroup* buttonGroup5;
+	Q3ButtonGroup* buttonGroup5;
 	QCheckBox* checkRatioImage;
 	QCheckBox* embeddedPath;
-	QButtonGroup* buttonGroupRes;
+	Q3ButtonGroup* buttonGroupRes;
 	QRadioButton* checkFullRes;
 	QRadioButton* checkNormalRes;
 	QRadioButton* checkHalfRes;
@@ -156,12 +160,12 @@ public:
 	QLabel* arrowText;
 	QWidget* subTabGeneral;
 	QLabel* generalHeadLine;
-	QGroupBox* genDispBox;
+	Q3GroupBox* genDispBox;
 	QLabel* genText1;
 	QLabel* genText2;
 	MSpinBox* genDispX;
 	MSpinBox* genDispY;
-	QGroupBox* genRotBox;
+	Q3GroupBox* genRotBox;
 	QLabel* genText3;
 	QLabel* genText4;
 	MSpinBox* genRot;
@@ -198,20 +202,20 @@ protected slots:
 	virtual void setCustomFillChar(const QString &txt);
 
 protected:
-	QHBoxLayout* tabToolsLayout;
-	QVBoxLayout* buttonGroupToolsLayout;
-	QGridLayout* subTabTextLayout;
-	QGridLayout* subTabShapeLayout;
-	QGridLayout* subTabLineLayout;
-	QGridLayout* subTabImageLayout;
-	QGridLayout* buttonGroup3Layout;
-	QHBoxLayout* buttonGroup5Layout;
-	QVBoxLayout* buttonGroupResLayout;
-	QGridLayout* subTabPolygonLayout;
-	QGridLayout* subTabZoomLayout;
-	QGridLayout* subTabGeneralLayout;
-	QGridLayout* subTabGeneralLayout2;
-	QGridLayout* subTabGeneralLayout3;
+	Q3HBoxLayout* tabToolsLayout;
+	Q3VBoxLayout* buttonGroupToolsLayout;
+	Q3GridLayout* subTabTextLayout;
+	Q3GridLayout* subTabShapeLayout;
+	Q3GridLayout* subTabLineLayout;
+	Q3GridLayout* subTabImageLayout;
+	Q3GridLayout* buttonGroup3Layout;
+	Q3HBoxLayout* buttonGroup5Layout;
+	Q3VBoxLayout* buttonGroupResLayout;
+	Q3GridLayout* subTabPolygonLayout;
+	Q3GridLayout* subTabZoomLayout;
+	Q3GridLayout* subTabGeneralLayout;
+	Q3GridLayout* subTabGeneralLayout2;
+	Q3GridLayout* subTabGeneralLayout3;
 	ScribusDoc* docu;
 	double unitRatio;
 	QString unit;

@@ -22,7 +22,11 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
+#include <Q3PtrList>
 
 #include "svgexplugin.h"
 
@@ -215,12 +219,12 @@ bool SVGExPlug::doExport( QString fName )
 	else
 	{
 		QFile f(fName);
-		if(!f.open(IO_WriteOnly))
+		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		QTextStream s(&f);
+		Q3TextStream s(&f);
 		QString wr = vo;
 		wr += docu.toString();
-		QCString utf8wr = wr.utf8();
+		Q3CString utf8wr = wr.utf8();
 		s.writeRawBytes(utf8wr.data(), utf8wr.length());
 		f.close();
 	}
@@ -243,7 +247,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	PageItem *Item;
 	gradi = "Grad";
 	Clipi = "Clip";
-	QPtrList<PageItem> Items;
+	Q3PtrList<PageItem> Items;
 	Page* SavedAct = m_Doc->currentPage();
 	m_Doc->setCurrentPage(Seite);
 	if (Seite->pageName().isEmpty())
@@ -325,7 +329,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("cy", FToStr(Item->GrStartY));
 								break;
 						}
-						QPtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
+						Q3PtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
 						for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 						{
 							QDomElement itcl = docu->createElement("stop");
@@ -394,7 +398,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				strokeDA = "stroke-dasharray:";
 				if (Item->DashValues.count() != 0)
 				{
-					QValueList<double>::iterator it;
+					Q3ValueList<double>::iterator it;
 					for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
 					{
 						strokeDA += IToStr(static_cast<int>(*it))+" ";
@@ -776,7 +780,7 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad)
 	return ScColorEngine::getShadeColorProof(col, m_Doc, shad).name();
 }
 
-QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
+QString SVGExPlug::GetMultiStroke(struct Qt::TextSingleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade)+"; ";
@@ -784,7 +788,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
 	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
 	tmp += "stroke-linecap:";
-	switch (static_cast<PenCapStyle>(sl->LineEnd))
+	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
 		{
 		case Qt::FlatCap:
 			tmp += "butt;";
@@ -800,7 +804,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 			break;
 		}
 	tmp += " stroke-linejoin:";
-	switch (static_cast<PenJoinStyle>(sl->LineJoin))
+	switch (static_cast<Qt::PenJoinStyle>(sl->LineJoin))
 		{
 		case Qt::MiterJoin:
 			tmp += "miter;";
@@ -818,7 +822,7 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 	tmp += " stroke-dasharray:";
 	QString Dt = FToStr(QMAX(2*sl->Width, 1));
 	QString Da = FToStr(QMAX(6*sl->Width, 1));
-	switch (static_cast<PenStyle>(sl->Dash))
+	switch (static_cast<Qt::PenStyle>(sl->Dash))
 		{
 		case Qt::SolidLine:
 			tmp += "none;";

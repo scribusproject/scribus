@@ -12,14 +12,18 @@ for which a new license (GPL+exception) is in place.
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
-#include <qbuttongroup.h>
-#include <qgroupbox.h>
+#include <q3buttongroup.h>
+#include <q3groupbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qdir.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #include "scribusdoc.h"
 #include "createrange.h"
 #include "prefsmanager.h"
@@ -42,8 +46,8 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	: QDialog(parent, "ExportForm", true, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
-	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout");
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	ExportFormLayout = new Q3VBoxLayout( this, 10, 5, "ExportFormLayout");
+	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
 	TextLabel1 = new QLabel( this, "TextLabel1" );
 	layout1->addWidget( TextLabel1 );
 	OutputDirectory = new QLineEdit( this, "OutputDirectory" );
@@ -54,12 +58,12 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	layout1->addWidget( OutputDirectoryButton );
 	ExportFormLayout->addLayout( layout1 );
 
-	layout3 = new QHBoxLayout( 0, 0, 5, "layout3");
-	groupBox1 = new QGroupBox( this, "groupBox1" );
+	layout3 = new Q3HBoxLayout( 0, 0, 5, "layout3");
+	groupBox1 = new Q3GroupBox( this, "groupBox1" );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
 	groupBox1->layout()->setSpacing( 5 );
 	groupBox1->layout()->setMargin( 10 );
-	groupBox1Layout = new QGridLayout( groupBox1->layout() );
+	groupBox1Layout = new Q3GridLayout( groupBox1->layout() );
 	groupBox1Layout->setAlignment( Qt::AlignTop );
 	TextLabel2 = new QLabel( groupBox1, "TextLabel2" );
 	groupBox1Layout->addWidget( TextLabel2, 0, 0 );
@@ -96,18 +100,18 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	groupBox1Layout->addMultiCellWidget( textLabel6, 5, 5, 0, 2 );
 	layout3->addWidget( groupBox1 );
 
-	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
+	ButtonGroup1 = new Q3ButtonGroup( this, "ButtonGroup1" );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 5 );
 	ButtonGroup1->layout()->setMargin( 10 );
-	ButtonGroup1Layout = new QVBoxLayout( ButtonGroup1->layout() );
+	ButtonGroup1Layout = new Q3VBoxLayout( ButtonGroup1->layout() );
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	OnePageRadio = new QRadioButton( ButtonGroup1, "OnePageRadio" );
 	OnePageRadio->setChecked( true );
 	ButtonGroup1Layout->addWidget( OnePageRadio );
 	AllPagesRadio = new QRadioButton( ButtonGroup1, "AllPagesRadio" );
 	ButtonGroup1Layout->addWidget( AllPagesRadio );
-	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
+	layout2 = new Q3HBoxLayout( 0, 0, 5, "layout2");
 	IntervalPagesRadio = new QRadioButton( ButtonGroup1, "IntervalPagesRadio" );
 	layout2->addWidget( IntervalPagesRadio );
 
@@ -125,7 +129,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	layout3->addWidget( ButtonGroup1 );
 	ExportFormLayout->addLayout( layout3 );
 
-	layout4 = new QHBoxLayout( 0, 0, 5, "layout4");
+	layout4 = new Q3HBoxLayout( 0, 0, 5, "layout4");
 	QSpacerItem* spacer = new QSpacerItem( 111, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
 	OkButton = new QPushButton( this, "OkButton" );
@@ -169,7 +173,7 @@ void ExportForm::computeSize()
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString lastDir = prefs->get("wdir", ".");
-	QString d = QFileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
+	QString d = Q3FileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
 	if (d.length()>0)
 	{
 		d = QDir::convertSeparators(d);

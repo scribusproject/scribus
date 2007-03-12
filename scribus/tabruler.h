@@ -9,13 +9,22 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPaintEvent>
+#include <Q3GridLayout>
+#include <Q3ValueList>
+#include <QLabel>
+#include <QMouseEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 #include "sctextstruct.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QComboBox;
 class QLabel;
 class QPushButton;
@@ -27,12 +36,12 @@ class SCRIBUS_API RulerT : public QWidget
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
-	void setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
 	void updateTabList();
 	bool mousePressed;
-	QValueList<ParagraphStyle::TabRecord> tabValues;
+	Q3ValueList<ParagraphStyle::TabRecord> tabValues;
 	bool haveInd;
 	int unitIndex;
 	int offset;
@@ -84,13 +93,13 @@ public:
 	Tabruler( QWidget* parent,
 	          bool haveFirst = true,
 	          int dEin = 1,
-	          QValueList<ParagraphStyle::TabRecord> Tabs = QValueList<ParagraphStyle::TabRecord>(),
+	          Q3ValueList<ParagraphStyle::TabRecord> Tabs = Q3ValueList<ParagraphStyle::TabRecord>(),
 	          double wid = -1);
 	~Tabruler() {};
 
-	virtual void setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	virtual void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
 
-	QValueList<ParagraphStyle::TabRecord> getTabVals();
+	Q3ValueList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();
@@ -132,12 +141,12 @@ signals:
 	void mouseReleased();
 
 protected:
-	QVBoxLayout* tabrulerLayout;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout1;
-	QHBoxLayout* indentLayout;
-	QVBoxLayout* layout3;
-	QHBoxLayout *layout4;
+	Q3VBoxLayout* tabrulerLayout;
+	Q3HBoxLayout* layout2;
+	Q3HBoxLayout* layout1;
+	Q3HBoxLayout* indentLayout;
+	Q3VBoxLayout* layout3;
+	Q3HBoxLayout *layout4;
 	QComboBox* TypeCombo;
 	QComboBox* tabFillCombo;
 	QLabel* tabFillComboT;

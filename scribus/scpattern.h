@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 class QString;
 class ScribusDoc;
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qimage.h>
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -43,7 +43,7 @@ public:
 	double scaleY;
 	double height;
 	double width;
-	QPtrList<PageItem> items;
+	Q3PtrList<PageItem> items;
 	ScribusDoc *m_doc;
 	QImage pattern;
 };

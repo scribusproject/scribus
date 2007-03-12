@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scplugin.h"
 #include "qwidget.h"
+//Added by qt3to4:
+#include <QPixmap>
 #include "deferredtask.h"
 #include "scribus.h"
 #include "scribusapp.h"

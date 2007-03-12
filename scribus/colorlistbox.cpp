@@ -117,8 +117,8 @@ void ColorFancyPixmapItem::redraw(void)
 	}
 }
 
-ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
-	: QListBox(parent, name, f)
+ColorListBox::ColorListBox(QWidget * parent, const char * name, Qt::WFlags f)
+	: Q3ListBox(parent, name, f)
 {
 	if (name == "")
 		setName("ColorListBox");

@@ -11,24 +11,38 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "stylemanagerbase.h"
 #include "scribusstructs.h"
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qmap.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QCloseEvent>
+#include <QShowEvent>
+#include <Q3GridLayout>
+#include <Q3ValueList>
+#include <QLabel>
+#include <QMouseEvent>
+#include <Q3PtrList>
+#include <Q3PopupMenu>
+#include <QHideEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
 
 class StyleItem;
 class ScribusDoc;
 class QHideEvent;
-class QGridLayout;
+class Q3GridLayout;
 class QTabWidget;
-class QVBoxLayout;
-class QHBoxLayout;
-class QButtonGroup;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3ButtonGroup;
 class QRadioButton;
 class QLabel;
 class QPushButton;
 class QSize;
 class ShortcutWidget;
-class QPopupMenu;
+class Q3PopupMenu;
 class PrefsContext;
 class StyleView;
 
@@ -57,16 +71,16 @@ protected:
 	void showEvent(QShowEvent *e);
 
 private:
-	QPtrList<StyleItem> items_;
+	Q3PtrList<StyleItem> items_;
 	StyleItem          *item_;
-	QGridLayout        *layout_;
+	Q3GridLayout        *layout_;
 	QTabWidget         *widget_;
 	ShortcutWidget     *shortcutWidget_;
 	QString             currentType_;
-	QPopupMenu         *newPopup_;
-	QPopupMenu         *rightClickPopup_;
+	Q3PopupMenu         *newPopup_;
+	Q3PopupMenu         *rightClickPopup_;
 	StyleView          *styleView;
-	QHBoxLayout        *svLayout;
+	Q3HBoxLayout        *svLayout;
 
 	int                 rcpNewId_;
 	int                 rcpDeleteId_;
@@ -92,7 +106,7 @@ private:
 	ScribusDoc         *doc_;
 	PrefsContext       *prefs_;
 
-	QMap<QString, QGuardedPtr<ScrAction> > styleActions_;
+	QMap<QString, QPointer<ScrAction> > styleActions_;
 
 	static const int     NAME_COL     = 0;
 	static const int     SHORTCUT_COL = 1;
@@ -117,7 +131,7 @@ private:
 	bool shortcutExists(const QString &keys);
 	void updateActionName(const QString &oldName, const QString &newName);
 	/* QPair.first = type name and QPair.second = style name */
-	void setSelection(const QValueList<QPair<QString, QString> > &selected);
+	void setSelection(const Q3ValueList<QPair<QString, QString> > &selected);
 	void setOkButtonText();
 
 private slots:
@@ -130,13 +144,13 @@ private slots:
 	void slotNew();
 	void slotNewPopup(int);
 	void slotScrap();
-	void slotRightClick(QListViewItem *item, const QPoint &point, int col);
-	void slotDoubleClick(QListViewItem *item, const QPoint &point, int col);
+	void slotRightClick(Q3ListViewItem *item, const QPoint &point, int col);
+	void slotDoubleClick(Q3ListViewItem *item, const QPoint &point, int col);
 
 	void slotNameChanged(const QString& name);
 	void slotShortcutChanged(const QString& shortcut);
 	void slotSetupWidget();
-	void slotApplyStyle(QListViewItem *item);
+	void slotApplyStyle(Q3ListViewItem *item);
 	void slotDocSelectionChanged();
 	void slotDocStylesChanged();
 
@@ -146,7 +160,7 @@ private slots:
 	void slotApplyStyle(QString keyString); // keyString == styleClass$$$$styleName
 };
 
-class StyleView : public QListView
+class StyleView : public Q3ListView
 {
 	Q_OBJECT
 public:
@@ -157,11 +171,11 @@ protected:
 	void contentsMouseDoubleClickEvent(QMouseEvent *e);
 };
 
-class StyleViewItem : public QListViewItem
+class StyleViewItem : public Q3ListViewItem
 {
 public:
-	StyleViewItem(QListView *view, const QString &text);
-	StyleViewItem(QListViewItem *parent, const QString &text, const QString &rootName);
+	StyleViewItem(Q3ListView *view, const QString &text);
+	StyleViewItem(Q3ListViewItem *parent, const QString &text, const QString &rootName);
 	~StyleViewItem();
 
 	void paintCell(QPainter *p, const QColorGroup &cg, int column, int width, int align);
@@ -210,11 +224,11 @@ signals:
 	void newKey(const QString&);
 
 protected:
-	QVBoxLayout* keyManagerLayout;
-	QGridLayout* keyGroupLayout;
-	QHBoxLayout* okCancelLayout;
+	Q3VBoxLayout* keyManagerLayout;
+	Q3GridLayout* keyGroupLayout;
+	Q3HBoxLayout* okCancelLayout;
 
-	QButtonGroup* keyGroup;
+	Q3ButtonGroup* keyGroup;
 	QRadioButton* noKey;
 	QRadioButton* userDef;
 	QLabel* keyDisplay;

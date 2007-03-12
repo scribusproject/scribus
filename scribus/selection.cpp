@@ -103,7 +103,7 @@ bool Selection::connectItemToGUI()
 		return ret;
 	if (m_hasGroupSelection==false)
 	{
-		QGuardedPtr<PageItem> pi=m_SelList.first();
+		QPointer<PageItem> pi=m_SelList.first();
 		//Quick check to see if the pointer is NULL, if its NULL, we should remove it from the list now
 		if (pi.isNull())
 		{
@@ -199,7 +199,7 @@ PageItem *Selection::itemAt_(int index)
 {
 	if (!m_SelList.isEmpty() && static_cast<uint>(index)<m_SelList.count())
 	{
-		QGuardedPtr<PageItem> pi=m_SelList[index];
+		QPointer<PageItem> pi=m_SelList[index];
 		//If not NULL return it, otherwise remove from the list and return NULL
 		if (!pi.isNull())
 			return pi;

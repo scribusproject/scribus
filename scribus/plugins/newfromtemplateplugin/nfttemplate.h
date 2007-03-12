@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qstring.h>
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 
 class nfttemplate {
 public:

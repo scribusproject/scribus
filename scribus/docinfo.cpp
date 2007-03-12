@@ -7,7 +7,10 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qlineedit.h>
-#include <qmultilineedit.h>
+#include <q3multilineedit.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
 
 #include "docinfo.h"
 #include "docinfo.moc"
@@ -32,7 +35,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	setIcon(loadIcon("AppIcon.png"));
 
 	page1 = new QWidget( this );
-	layout1 = new QGridLayout(page1);
+	layout1 = new Q3GridLayout(page1);
 	layout1->setSpacing( 6 );
 	layout1->setMargin( 5 );
 
@@ -48,14 +51,14 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout1->addWidget( authorLabel, 1, 0 );
 	layout1->addWidget( authorEdit, 1, 1 );
 
-	keywordsEdit = new QMultiLineEdit( page1, "keywordsEdit" );
+	keywordsEdit = new Q3MultiLineEdit( page1, "keywordsEdit" );
 	keywordsLabel = new QLabel( keywordsEdit, tr("&Keywords:"), page1, "keywordsLabel" );
 	keywordsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
 	keywordsEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( keywordsLabel, 2, 0 );
 	layout1->addWidget( keywordsEdit, 2, 1 );
 
-	descriptionEdit = new QMultiLineEdit( page1, "descriptionEdit" );
+	descriptionEdit = new Q3MultiLineEdit( page1, "descriptionEdit" );
 	descriptionLabel = new QLabel( descriptionEdit, tr("Descri&ption:"), page1, "descriptionLabel" );
 	descriptionLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
 	descriptionEdit->setMinimumSize(QSize(200, 105));
@@ -63,7 +66,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout1->addWidget( descriptionEdit, 3, 1 );
 
 	page2 = new QWidget( this );
-	layout2 = new QGridLayout(page2);
+	layout2 = new Q3GridLayout(page2);
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 5 );
 
@@ -73,7 +76,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout2->addWidget( publisherLabel, 0, 0 );
 	layout2->addWidget( publisherEdit, 0, 1 );
 
-	contributorsEdit = new QMultiLineEdit( page2, "contributorsEdit" );
+	contributorsEdit = new Q3MultiLineEdit( page2, "contributorsEdit" );
 	contributorsLabel = new QLabel( contributorsEdit, tr("&Contributors:"), page2, "contributorsLabel" );
 	contributorsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
 	contributorsEdit->setMinimumSize(QSize(200, 105));

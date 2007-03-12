@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *
  */
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include "colorcombo.h"
 #include "colorcombo.moc"
 #include "commonstrings.h"
@@ -24,7 +24,7 @@ ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, p
 #ifdef QT_MAC
 	setStyle( new ColorCombo::ScMacStyle() );
 #endif
-	setListBox( new ColorListBox( this, "in-combo", WType_Popup ) );
+	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );
 }
 
 ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : QComboBox(rw, parent, name)

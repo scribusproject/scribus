@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdir.h>
 #include <qdom.h>
-#include <qhttp.h>
-#include <qnetwork.h>
+#include <q3http.h>
+#include <q3network.h>
 #include <qwidget.h>
 #include <iostream>
 #include <cstdlib>
@@ -73,7 +73,7 @@ bool UpgradeChecker::fetch()
 	QFile file(tempFile);
 	if (getter)
 		delete getter;
-	getter=new QHttp();
+	getter=new Q3Http();
 	connect (getter, SIGNAL(done(bool)), this, SLOT(fileFinished(bool)));
 	connect (getter, SIGNAL(requestStarted(int)), this, SLOT(reqStarted(int)));
 	connect (getter, SIGNAL(requestFinished(int, bool)), this, SLOT(reqFinished(int, bool)));
@@ -83,7 +83,7 @@ bool UpgradeChecker::fetch()
 		return true;
 	outputText("<b>"+ tr("Attempting to get the Scribus version update file")+"</b>");
 	outputText( tr("(No data on your computer will be sent to an external location)"));
-	if(!file.open(IO_ReadWrite))
+	if(!file.open(QIODevice::ReadWrite))
 		return true;
 	getterID=getter->get("/downloads/"+filename, &file);
 	
@@ -105,7 +105,7 @@ bool UpgradeChecker::fetch()
 		outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
 		errorOccurred=true;
 	}
-	if (retrieveError || getter->error()!=QHttp::NoError)
+	if (retrieveError || getter->error()!=Q3Http::NoError)
 	{
 		outputText("<b>"+ tr("Error when attempting to get update file: %1").arg(getter->errorString())+"</b>");
 		errorOccurred=true;
@@ -127,8 +127,8 @@ bool UpgradeChecker::fetch()
 bool UpgradeChecker::process( QFile& dataFile )
 {
 	
-	QTextStream ts(&dataFile);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
+	Q3TextStream ts(&dataFile);
+	ts.setEncoding(Q3TextStream::UnicodeUTF8);
 	QString errorMsg;
 	int eline;
 	int ecol;

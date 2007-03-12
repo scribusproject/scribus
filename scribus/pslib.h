@@ -24,10 +24,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef PSLIB_H
 #define PSLIB_H
 #include <qstring.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qpen.h>
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include <vector>
 #include <utility>
 class ScribusDoc;
@@ -75,7 +77,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_setcmykcolor_stroke(double c, double m, double y, double k);
 		virtual void PS_setlinewidth(double w);
 		virtual void PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
-		virtual void PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash);
+		virtual void PS_setdash(Qt::PenStyle st, double offset, Q3ValueList<double> dash);
 		virtual void PS_selectfont(QString f, double s);
 		virtual void PS_fill();
 		virtual void PS_fillspot(QString color, int shade);
@@ -83,8 +85,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_strokespot(QString color, int shade);
 		virtual void PS_fill_stroke();
 		virtual void PS_newpath();
-		virtual void PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors, QStringList colorNames, QValueList<int> colorShades);
-		virtual void PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors, QStringList colorNames, QValueList<int> colorShades);
+		virtual void PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades);
+		virtual void PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades);
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 		virtual void PS_show_xyG(QString font, uint gl, double x, double y, bool stop);
@@ -145,7 +147,7 @@ class SCRIBUS_API PSLib : public QObject
 		QMap<QString, GListe> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
-		QTextStream spoolStream;
+		Q3TextStream spoolStream;
 		bool CompAvail;
 		int Plate;
 		bool DoSep;

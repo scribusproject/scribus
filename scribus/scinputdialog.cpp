@@ -12,19 +12,23 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "mspinbox.h"
 
 
-ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, WFlags fl )
+ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 	: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
 		setName( "ScInputDialog" );
 	setSizeGripEnabled( TRUE );
-	ScInputDialogLayout = new QGridLayout( this, 1, 1, 11, 6, "ScInputDialogLayout");
+	ScInputDialogLayout = new Q3GridLayout( this, 1, 1, 11, 6, "ScInputDialogLayout");
 
-	labelEntryLayout = new QHBoxLayout( 0, 0, 6, "labelEntryLayout");
+	labelEntryLayout = new Q3HBoxLayout( 0, 0, 6, "labelEntryLayout");
 
 	entryLabel = new QLabel( this, "entryLabel" );
 	labelEntryLayout->addWidget( entryLabel );
@@ -33,7 +37,7 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, WFl
 	entrySpin->setMinimumSize( QSize( 0, 10 ) );
 	labelEntryLayout->addWidget( entrySpin );
 
-	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
+	buttonLayout = new Q3HBoxLayout(0, 0, 6, "buttonLayout");
 	QSpacerItem* hspacing = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(hspacing);
 
@@ -46,7 +50,7 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, WFl
 	buttonCancel->setAutoDefault( TRUE );
 	buttonLayout->addWidget( buttonCancel );
 
-	mainLayout = new QVBoxLayout(0, 0, 6, "mainLayout");
+	mainLayout = new Q3VBoxLayout(0, 0, 6, "mainLayout");
 	mainLayout->addLayout(labelEntryLayout);
 	mainLayout->addLayout(buttonLayout);
 

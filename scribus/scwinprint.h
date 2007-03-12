@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #define __SCWINPRINT_H__
 
 #include "qimage.h"
+//Added by qt3to4:
+#include <Q3CString>
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
@@ -35,7 +37,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, QCString& fileName, bool forceGDI = false );
+	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, Q3CString& fileName, bool forceGDI = false );
 	/*! \brief Print a page to a gdi printer
 	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
 	\param doc the document whose page is to be printer

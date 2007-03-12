@@ -27,12 +27,15 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qimage.h>
 #include <qcolor.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfontinfo.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 #include <cstdlib>
 #include <qregexp.h>
 #include <qbuffer.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -353,7 +356,7 @@ void PSLib::PS_set_Info(QString art, QString was)
 bool PSLib::PS_set_file(QString fn)
 {
 	Spool.setName(fn);
-	bool ret = Spool.open(IO_WriteOnly);
+	bool ret = Spool.open(QIODevice::WriteOnly);
 	spoolStream.setDevice(&Spool);
 	return ret;
 }
@@ -417,9 +420,9 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		QIODevice *spStream = spoolStream.device();
 		QByteArray buf;
 		QBuffer b(buf);
-		b.open( IO_WriteOnly );
+		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
-		QPtrStack<PageItem> groupStack;
+		Q3PtrStack<PageItem> groupStack;
 		for (uint em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
@@ -427,7 +430,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 			{
 				PS_save();
 				FPointArray cl = item->PoLine.copy();
-				QWMatrix mm;
+				QMatrix mm;
 				mm.translate(item->gXpos, item->gYpos);
 				mm.rotate(item->rotation());
 				cl.map( mm );
@@ -826,14 +829,14 @@ void PSLib::PS_setlinewidth(double w)
 	LineW = w;
 }
 
-void PSLib::PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash)
+void PSLib::PS_setdash(Qt::PenStyle st, double offset, Q3ValueList<double> dash)
 {
 	QString Dt = ToStr(QMAX(2*LineW, 1));
 	QString Da = ToStr(QMAX(6*LineW, 1));
 	if (dash.count() != 0)
 	{
 		PutSeite("[ ");
-		QValueList<double>::iterator it;
+		Q3ValueList<double>::iterator it;
 		for ( it = dash.begin(); it != dash.end(); ++it )
 		{
 			PutSeite(IToStr(static_cast<int>(*it))+" ");
@@ -944,7 +947,7 @@ void PSLib::PS_newpath()
 	PutSeite("newpath\n");
 }
 
-void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors, QStringList colorNames, QValueList<int> colorShades)
+void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades)
 {
 	bool first = true;
 	bool oneSpot1 = false;
@@ -1094,7 +1097,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 	PutSeite("cliprestore\n");
 }
 
-void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors, QStringList colorNames, QValueList<int> colorShades)
+void PSLib::PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades)
 {
 	bool first = true;
 	bool oneSpot1 = false;
@@ -1270,7 +1273,7 @@ void PSLib::PS_showSub(uint chr, QString font, double size, bool stroke)
 void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
 {
 	bool dummy;
-	QCString tmp;
+	Q3CString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext.isEmpty())
@@ -1339,7 +1342,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
 	bool dummy;
-	QCString tmp;
+	Q3CString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext.isEmpty())
@@ -1602,7 +1605,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
 	bool over = options.doOverprint;
-	QPtrStack<PageItem> groupStack;
+	Q3PtrStack<PageItem> groupStack;
 	int sepac;
 	int pagemult;
 	doOverprint = over;
@@ -1610,7 +1613,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		pagemult = spots.count();
 	else
 		pagemult = 1;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	double gx = 0.0;
 	double gy = 0.0;
 	double gw = 0.0;
@@ -1638,7 +1641,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			QStringList barNames, barTexts;
 			barNames << "EMP" << "EP";
 			barTexts << tr("Processing Master Page:") << tr("Exporting Page:");
-			QValueList<bool> barsNumeric;
+			Q3ValueList<bool> barsNumeric;
 			barsNumeric << true << true;
 			progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
 			progressDialog->setOverallTotalSteps(pageNs.size()+Doc->MasterPages.count());
@@ -1818,7 +1821,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		if (!Doc->Pages->at(a)->MPageNam.isEmpty())
 		{
 			int h, s, v, k;
-			QCString chstrc;
+			Q3CString chstrc;
 			QString chstr;
 			int Lnr = 0;
 			struct Layer ll;
@@ -1842,7 +1845,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							{
 								PS_save();
 								FPointArray cl = ite->PoLine.copy();
-								QWMatrix mm;
+								QMatrix mm;
 								mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - Doc->Pages->at(a)->height());
 								mm.rotate(ite->rotation());
 								cl.map( mm );
@@ -2117,7 +2120,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	int h, s, v, k, tsz;
 	int d;
 	ScText *hl;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	dum.clear();
 	QString tmps, chstr;
 	if (c->printEnabled())
@@ -2334,7 +2337,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->startArrowIndex() != 0)
 			{
-				QWMatrix arrowTrans;
+				QMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(c->lineWidth(), c->lineWidth());
@@ -2349,7 +2352,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			if (c->endArrowIndex() != 0)
 			{
-				QWMatrix arrowTrans;
+				QMatrix arrowTrans;
 				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
 				arrowTrans.translate(c->width(), 0);
 				arrowTrans.scale(c->lineWidth(), c->lineWidth());
@@ -2452,7 +2455,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
+						QMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
@@ -2477,7 +2480,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-						QWMatrix arrowTrans;
+						QMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
@@ -2593,8 +2596,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PS_translate(0, -c->BaseOffs);
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
-					QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
-					QPtrStack<PageItem> groupStack;
+					Q3PtrList<PageItem> emG = hl->embedded.getGroupedItems();
+					Q3PtrStack<PageItem> groupStack;
 					for (uint em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
@@ -2602,7 +2605,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						{
 							PS_save();
 							FPointArray cl = embedded->PoLine.copy();
-							QWMatrix mm;
+							QMatrix mm;
 							mm.translate(embedded->gXpos * (style.scaleH() / 1000.0), ((embedded->gHeight * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)) * -1);
 							if (style.baselineOffset() != 0)
 								mm.translate(0, embedded->gHeight * (style.baselineOffset() / 1000.0));
@@ -2753,7 +2756,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						{
 							uint gl = style.font().char2CMap(chstr[0]);
 							FPointArray gly = style.font().glyphOutline(gl);
-							QWMatrix chma;
+							QMatrix chma;
 							chma.scale(tsz / 100.0, tsz / 100.0);
 							gly.map(chma);
 							PS_save();
@@ -2783,11 +2786,11 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 {
 	uint b;
 	int h, s, v, k;
-	QCString chstrc;
+	Q3CString chstrc;
 	QString chstr, chglyph, tmp;
 	PageItem *c;
-	QPtrList<PageItem> PItems;
-	QPtrStack<PageItem> groupStack;
+	Q3PtrList<PageItem> PItems;
+	Q3PtrStack<PageItem> groupStack;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -2832,7 +2835,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				{
 					PS_save();
 					FPointArray cl = c->PoLine.copy();
-					QWMatrix mm;
+					QMatrix mm;
 					mm.translate(c->xPos() - a->xOffset(), (c->yPos() - a->yOffset()) - a->height());
 					mm.rotate(c->rotation());
 					cl.map( mm );
@@ -2942,9 +2945,9 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	double EndX = 0;
 	double EndY =0;
 	ScPattern *pat;
-	QWMatrix patternMatrix;
+	QMatrix patternMatrix;
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
 /*		case 1:
@@ -3012,10 +3015,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			return;
 			break;
 	}
-	QValueList<double> StopVec;
+	Q3ValueList<double> StopVec;
 	QStringList Gcolors;
 	QStringList colorNames;
-	QValueList<int> colorShades;
+	Q3ValueList<int> colorShades;
 	QString hs,ss,vs,ks;
 	if ((c->GrType == 5) || (c->GrType == 7))
 	{
@@ -3114,7 +3117,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 #ifndef NLS_PROTO
 	ScText *hl;
 	uint tabCc = 0;
-	QValueList<ParagraphStyle::TabRecord> tTabValues;
+	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
@@ -3217,7 +3220,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	QString chstr;
 	int h, s, v, k, tsz;
 	double wideR;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	dum.clear();
 	chstr = hl->ch;
 	tsz = hl->fontSize();
@@ -3238,7 +3241,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	if ((hl->ch == QChar(25)) && (hl->embedded.hasItem()))
 	{
-		QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
+		Q3PtrList<PageItem> emG = hl->embedded.getGroupedItems();
 
 		for (uint em = 0; em < emG.count(); ++em)
 		{
@@ -3414,7 +3417,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		{
 			uint gl = hl->font().char2CMap(chstr[0]);
 			FPointArray gly = hl->font().glyphOutline(gl);
-			QWMatrix chma, chma2, chma3;
+			QMatrix chma, chma2, chma3;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			chma2.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
 			if (hl->baselineOffset() != 0)
@@ -3422,7 +3425,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			gly.map(chma * chma2 * chma3);
 			if (ite->reversed())
 			{
-				chma = QWMatrix();
+				chma = QMatrix();
 				chma.scale(-1, 1);
 				chma.translate(wideR, 0);
 				gly.map(chma);
@@ -3533,10 +3536,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		{
 			uint gl = hl->font().char2CMap(chstr[0]);
 			FPointArray gly = hl->font().glyphOutline(gl);
-			QWMatrix chma;
+			QMatrix chma;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);
-			chma = QWMatrix();
+			chma = QMatrix();
 			chma.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
 			gly.map(chma);
 			if (hl->fillColor() != CommonStrings::None)
@@ -3560,7 +3563,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 
 	int h, s, v, k, tsz;
 	double wideR = 0.0;
-	QValueList<double> dum;
+	Q3ValueList<double> dum;
 	dum.clear();
 
 	QString chstr = hl->ch;
@@ -3586,8 +3589,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	*/
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 	{
-		QPtrList<PageItem> emG = hl->embedded.getGroupedItems();
-		QPtrStack<PageItem> groupStack;
+		Q3PtrList<PageItem> emG = hl->embedded.getGroupedItems();
+		Q3PtrStack<PageItem> groupStack;
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
@@ -3595,7 +3598,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			{
 				PS_save();
 				FPointArray cl = embedded->PoLine.copy();
-				QWMatrix mm;
+				QMatrix mm;
 				mm.translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)));
 				if (cstyle.baselineOffset() != 0)
 					mm.translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
@@ -3765,7 +3768,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 //		if (cstyle.font().canRender(chstr[0]))
 			{
 				FPointArray gly = cstyle.font().glyphOutline(glyph);
-				QWMatrix chma, chma2, chma3;
+				QMatrix chma, chma2, chma3;
 				chma.scale(tsz / 100.0, tsz / 100.0);
 				chma2.scale(glyphs.scaleH, glyphs.scaleV);
 				if (cstyle.baselineOffset() != 0)
@@ -3773,7 +3776,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				gly.map(chma * chma2 * chma3);
 				if (ite->reversed())
 				{
-					chma = QWMatrix();
+					chma = QMatrix();
 					chma.scale(-1, 1);
 					chma.translate(wideR, 0);
 					gly.map(chma);

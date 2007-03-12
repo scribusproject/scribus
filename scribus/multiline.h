@@ -11,15 +11,18 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
-#include <qlistbox.h>
-#include <qgroupbox.h>
+#include <q3listbox.h>
+#include <q3groupbox.h>
 #include <qcombobox.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpixmap.h>
 #include <qlineedit.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -46,8 +49,8 @@ public:
 	QLabel* Preview;
 	QPushButton* AddStyle;
 	QPushButton* RemoveStyle;
-	QListBox* Styles;
-	QGroupBox* Properties;
+	Q3ListBox* Styles;
+	Q3GroupBox* Properties;
 	LineCombo* Dashes;
 	QComboBox* LineEnds;
 	QComboBox* LineJoin;
@@ -76,12 +79,12 @@ public slots:
 	void slotEditStyle( int i);
 
 protected:
-	QVBoxLayout* MultiLineLayout;
-	QHBoxLayout* layout2;
-	QVBoxLayout* PropertiesLayout;
-	QHBoxLayout* layout1;
-	QHBoxLayout* layout3;
-	QHBoxLayout* layout4;
+	Q3VBoxLayout* MultiLineLayout;
+	Q3HBoxLayout* layout2;
+	Q3VBoxLayout* PropertiesLayout;
+	Q3HBoxLayout* layout1;
+	Q3HBoxLayout* layout3;
+	Q3HBoxLayout* layout4;
 };
 
 #endif // MULTILINE_H

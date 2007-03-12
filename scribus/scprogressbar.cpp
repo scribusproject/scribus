@@ -24,14 +24,14 @@ for which a new license (GPL+exception) is in place.
 #include "scprogressbar.h"
 #include "scprogressbar.moc"
 
-ScProgressBar::ScProgressBar( bool showNumbers, QWidget *parent, const char *name, WFlags f ) :
-	QProgressBar( parent, name, f ),
+ScProgressBar::ScProgressBar( bool showNumbers, QWidget *parent, const char *name, Qt::WFlags f ) :
+	Q3ProgressBar( parent, name, f ),
 	m_useNumeric(showNumbers)
 {
 }
 
-ScProgressBar::ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent, const char* name, WFlags f ) :
-	QProgressBar( totalSteps, parent, name, f ),
+ScProgressBar::ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent, const char* name, Qt::WFlags f ) :
+	Q3ProgressBar( totalSteps, parent, name, f ),
 	m_useNumeric(showNumbers)
 {
 }
@@ -50,7 +50,7 @@ bool ScProgressBar::setIndicator( QString & indicator, int progress, int totalSt
 		return TRUE;
 	} else {
 		if (!m_useNumeric)
-			return QProgressBar::setIndicator(indicator, progress, totalSteps);
+			return Q3ProgressBar::setIndicator(indicator, progress, totalSteps);
 		else
 		{
 			indicator = tr("%1 of %2").arg(progress).arg(totalSteps);

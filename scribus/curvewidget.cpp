@@ -13,11 +13,19 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpainter.h>
 #include <qapplication.h>
 #include <qcursor.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPaintEvent>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
 #include "colorutil.h"
 #include "customfdialog.h"
 #include "util.h"
@@ -338,9 +346,9 @@ void KCurve::leaveEvent( QEvent * )
 
 CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 {
-	CurveWidgetLayout = new QHBoxLayout( this, 5, 5, "CurveWidgetLayout");
+	CurveWidgetLayout = new Q3HBoxLayout( this, 5, 5, "CurveWidgetLayout");
 
-	layout1 = new QVBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new Q3VBoxLayout( 0, 0, 5, "layout1");
 
 	invertButton = new QPushButton( this, "invertButton" );
 	invertButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, invertButton->sizePolicy().hasHeightForWidth() ) );
@@ -352,9 +360,9 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	resetButton->setPixmap( loadIcon("reload.png") );
 	layout1->addWidget( resetButton );
 	linearButton = new QToolButton( this, "linearButton" );
-	QIconSet ic;
-	ic.setPixmap(loadIcon("curvebezier.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-	ic.setPixmap(loadIcon("curvelinear.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	QIcon ic;
+	ic.setPixmap(loadIcon("curvebezier.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
+	ic.setPixmap(loadIcon("curvelinear.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
 	linearButton->setIconSet(ic);
 	linearButton->setToggleButton( true );
 	linearButton->setOn(false);
@@ -426,9 +434,9 @@ void CurveWidget::doLoad()
 	{
 		dirs->set("curves", fileName.left(fileName.findRev("/")));
 		QFile f(fileName);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
-			QTextStream fp(&f);
+			Q3TextStream fp(&f);
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
@@ -479,9 +487,9 @@ void CurveWidget::doSave()
 			else
 				efval += " 0";
 			QFile fx(fileName);
-			if (fx.open(IO_WriteOnly))
+			if (fx.open(QIODevice::WriteOnly))
 			{
-				QTextStream tsx(&fx);
+				Q3TextStream tsx(&fx);
 				tsx << efval;
 				fx.close();
 			}

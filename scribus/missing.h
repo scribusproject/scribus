@@ -8,9 +8,13 @@ for which a new license (GPL+exception) is in place.
 #define MISSINGFONT_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QLabel>
+#include <Q3HBoxLayout>
 class QLabel;
-class QHBoxLayout;
-class QGridLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QPushButton;
 class FontCombo;
 class ScribusDoc;
@@ -31,8 +35,8 @@ public slots:
     virtual void newFont(const QString& replacement);
 
 protected:
-    QHBoxLayout* missingFontLayout;
-    QGridLayout* missingFontGridLayout;
+    Q3HBoxLayout* missingFontLayout;
+    Q3GridLayout* missingFontGridLayout;
     QPushButton* okButton;
     QLabel* insteadLabel;
     QLabel* pixmapLabel;

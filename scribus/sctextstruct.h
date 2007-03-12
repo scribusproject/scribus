@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 #include "scfonts.h"
 #include "style.h"
@@ -104,7 +106,7 @@ public:
 	bool hasItem();
 	bool isShared();
 	PageItem* getItem();
-	QPtrList<PageItem> getGroupedItems();
+	Q3PtrList<PageItem> getGroupedItems();
 private:
 	InlineFrameData* d;
 };

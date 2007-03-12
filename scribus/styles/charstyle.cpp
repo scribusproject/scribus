@@ -6,7 +6,7 @@
  */
 
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"

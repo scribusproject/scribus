@@ -18,12 +18,12 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 //#include <valarray>
-#include <qmemarray.h>
+#include <q3memarray.h>
 #include <qimage.h>
 #include <qstring.h>
 #include <qdatastream.h>
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qfile.h>
 #include <qdir.h>
 #include <qstringlist.h>
@@ -90,7 +90,7 @@ public:
 
 	const QImage& qImage();
 	QImage* qImagePtr();
-	QImage smoothScale(int h, int w, QImage::ScaleMode mode = ScaleFree) const;
+	QImage smoothScale(int h, int w, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio) const;
 	
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }
@@ -105,7 +105,7 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
-	void applyEffect(QValueList<imageEffect> effectsList, ColorList& colors, bool cmyk);
+	void applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& colors, bool cmyk);
 
 	// Generate a low res image for user preview
 	void createLowRes(double scale);
@@ -150,12 +150,12 @@ private:
 	char* iccbuf;
 	uint icclen;
 	//std::valarray<int> curveTable;
-	QMemArray<int> curveTable;
-	QValueList<unsigned int> colorTable;
+	Q3MemArray<int> curveTable;
+	Q3ValueList<unsigned int> colorTable;
 	int random_table[4096];
 	
 };
 
-typedef QValueList<ScImage::imageEffect> ScImageEffectList;
+typedef Q3ValueList<ScImage::imageEffect> ScImageEffectList;
 
 #endif

@@ -22,7 +22,10 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
@@ -107,7 +110,7 @@ void Scribus12Format::registerFormats()
 
 bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	QCString docBytes("");
+	Q3CString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 		ScGzFile gzf(fileName);
@@ -130,7 +133,7 @@ bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileN
 
 QString Scribus12Format::readSLA(const QString & fileName)
 {
-	QCString docBytes("");
+	Q3CString docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 		ScGzFile gzf(fileName);
@@ -157,7 +160,7 @@ QString Scribus12Format::readSLA(const QString & fileName)
 }
 
 
-void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces)
+void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces)
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
@@ -192,7 +195,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	bool newVersion = false;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int x, a;
 //	double xf, xf2;
 	PageItem *Neu;
@@ -238,10 +241,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		m_Doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		m_Doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
-		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
-		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
-		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->pageMargins.Qt::DockLeft=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
+		m_Doc->pageMargins.Qt::DockRight=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		m_Doc->pageMargins.Qt::DockTop=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
+		m_Doc->pageMargins.Qt::DockBottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
 		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
@@ -424,9 +427,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 				{
 					tmp = pg.attribute("TABS");
-					QTextStream tgv(&tmp, IO_ReadOnly);
+					Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 //					vg.tabValues().clear();
-					QValueList<ParagraphStyle::TabRecord> tbs;
+					Q3ValueList<ParagraphStyle::TabRecord> tbs;
 					ParagraphStyle::TabRecord tb;
 					for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 					{
@@ -497,7 +500,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct SingleLine sl;
+					struct Qt::TextSingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = MuL.attribute("Dash").toInt();
 					sl.LineEnd = MuL.attribute("LineEnd").toInt();
@@ -607,7 +610,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						QTextStream fg(&tmp, IO_ReadOnly);
+						Q3TextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
@@ -753,10 +756,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
 				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
 				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.bleeds.Top = pg.attribute("BTop", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Left = pg.attribute("BLeft", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Right = pg.attribute("BRight", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Bottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockTop = pg.attribute("BTop", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockLeft = pg.attribute("BLeft", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockRight = pg.attribute("BRight", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Qt::DockBottom = pg.attribute("BBottom", "0").toDouble();
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
@@ -1030,7 +1033,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	nextPg.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	int x, a, counter, baseobj;
 	bool newVersion = false;
 	bool VorLFound = false;
@@ -1268,7 +1271,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						QTextStream fg(&tmp, IO_ReadOnly);
+						Q3TextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
@@ -1483,10 +1486,10 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 //	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{
-		QValueList<ParagraphStyle::TabRecord> tbs;
+		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -1501,7 +1504,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	else
 	{
-		QValueList<ParagraphStyle::TabRecord> tbs;
+		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg->firstChild();
 		while(!IT.isNull())
 		{

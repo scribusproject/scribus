@@ -9,19 +9,21 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "picstatusbase.h"
-#include <qiconview.h>
+#include <q3iconview.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 class ScribusDoc;
 class PageItem;
 class QCheckBox;
-class QTable;
+class Q3Table;
 class QPushButton;
-class QHeader;
+class Q3Header;
 
-class SCRIBUS_API PicItem : public QIconViewItem
+class SCRIBUS_API PicItem : public Q3IconViewItem
 {
 public:
-	PicItem(QIconView* parent, QString text, QPixmap pix, PageItem* pgItem);
+	PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem);
 	~PicItem() {};
 	PageItem *PageItemObject;
 };
@@ -53,7 +55,7 @@ public:
 	void fillTable();
 
 private slots:
-	void imageSelected(QIconViewItem *ite);
+	void imageSelected(Q3IconViewItem *ite);
 	/*!
 	\author Franz Schmid
 	\brief Enables or disables printing of the selected Image.

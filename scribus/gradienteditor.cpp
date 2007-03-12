@@ -26,14 +26,23 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3PointArray>
+#include <QPaintEvent>
+#include <Q3Frame>
+#include <QLabel>
+#include <QMouseEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
 #include "scpainter.h"
 #include "fpoint.h"
 extern QPixmap loadIcon(QString nam);
 
 GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 {
-	setFrameShape( QFrame::Panel );
-	setFrameShadow( QFrame::Sunken );
+	setFrameShape( Q3Frame::Panel );
+	setFrameShadow( Q3Frame::Sunken );
 	setLineWidth( 2 );
 	setEraseColor(QColor(255,255,255));
 	setMinimumSize(QSize(200, 60));
@@ -51,7 +60,7 @@ GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 	color = QColor(0,0,0);
 	fill_gradient.addStop( color, 1.0, 0.5, 1.0 );
 
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	StopM.clear();
 	ActStop = 0;
 	for (uint a = 0; a < fill_gradient.Stops(); ++a)
@@ -63,7 +72,7 @@ GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 
 void GradientPreview::paintEvent(QPaintEvent *e)
 {
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	StopM.clear();
 	for (uint a = 0; a < fill_gradient.Stops(); ++a)
 	{
@@ -91,7 +100,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 			pw.setBrush(red);
 		else
 			pw.setBrush(blue);
-		QPointArray cr;
+		Q3PointArray cr;
 		cr.setPoints(3, qRound(center), 43, qRound(center-4), 56, qRound(center+4), 56);
 		pw.drawPolygon(cr);
 	}
@@ -104,7 +113,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 	QRect fpo;
 	Mpressed = true;
 	ActStop = -1;
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 	{
 		fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
@@ -130,14 +139,14 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 		fill_gradient.removeStop(ActStop);
 		ActStop = 0;
 		repaint();
-		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
 		emit currTrans(cstops.at(ActStop)->opacity);
 		emit currStep(cstops.at(ActStop)->rampPoint);
 	}
 	if ((m->y() < height()) && (m->y() > 43) && (m->x() > 0) && (m->x() < width()) && (ActStop == -1))
 	{
-		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
 		fill_gradient.addStop(cstops.at(0)->color, newStop, 0.5, 1.0, cstops.at(0)->name, cstops.at(0)->shade);
 		repaint();
@@ -194,7 +203,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 				return;
 		}
 		StopM[ActStop] = m->x();
-		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		cstops.at(ActStop)->rampPoint = newStop;
 		emit currStep(cstops.at(ActStop)->rampPoint);
 		cstops.sort();
@@ -225,7 +234,7 @@ void GradientPreview::updateDisplay()
 	ActStop = 0;
 	if (!fill_gradient.colorStops().isEmpty())
 	{
-		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+		Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
 		emit currTrans(cstops.at(ActStop)->opacity);
 		emit currStep(cstops.at(ActStop)->rampPoint);
@@ -236,7 +245,7 @@ void GradientPreview::setActColor(QColor c, QString n, int s)
 {
 	if (ActStop == -1)
 		return;
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	cstops.at(ActStop)->color = c;
 	cstops.at(ActStop)->name = n;
 	cstops.at(ActStop)->shade = s;
@@ -247,7 +256,7 @@ void GradientPreview::setActTrans(double t)
 {
 	if (ActStop == -1)
 		return;
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	cstops.at(ActStop)->opacity = t;
 	repaint();
 }
@@ -256,17 +265,17 @@ void GradientPreview::setActStep(double t)
 {
 	if (ActStop == -1)
 		return;
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	cstops.at(ActStop)->rampPoint = t;
 	repaint();
 }
 
 GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 {
-	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
+	Form1Layout = new Q3VBoxLayout( this, 0, 0, "Form1Layout");
 	Preview = new GradientPreview(this);
 	Form1Layout->addWidget(Preview);
-	Layout1 = new QHBoxLayout(0,0,0,"Layout1");
+	Layout1 = new Q3HBoxLayout(0,0,0,"Layout1");
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
 	Position = new QSpinBox( this, "shspin" );

@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *
  */
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include "sccombobox.h"
 
 #ifdef QT_MAC
@@ -36,7 +36,7 @@ ScComboBox::ScComboBox( QWidget* parent, const char* name ) : QComboBox(false, p
 #ifdef QT_MAC
 	setStyle( new ScMacStyle );
 #endif
-	setListBox( new QListBox( this, "in-combo", WType_Popup ) );
+	setListBox( new Q3ListBox( this, "in-combo", Qt::WType_Popup ) );
 }
 
 ScComboBox::ScComboBox( bool rw, QWidget* parent, const char* name ) :QComboBox(rw, parent, name)
@@ -44,5 +44,5 @@ ScComboBox::ScComboBox( bool rw, QWidget* parent, const char* name ) :QComboBox(
 #ifdef QT_MAC
 	setStyle( new ScMacStyle );
 #endif
-	setListBox( new QListBox( this, "in-combo", WType_Popup ) );
+	setListBox( new Q3ListBox( this, "in-combo", WType_Popup ) );
 }

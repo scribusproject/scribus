@@ -15,13 +15,17 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "scribusXml.moc"
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qapplication.h>
-#include <qtl.h>
+#include <q3tl.h>
 #include <qcursor.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
+#include <Q3PtrList>
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
@@ -381,7 +385,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	QValueList<double>::Iterator dax;
+	Q3ValueList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);
@@ -404,7 +408,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("COCOOR", colp);
 	ob->setAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
 	QString glp = "";
-	QValueStack<int>::Iterator nx;
+	Q3ValueStack<int>::Iterator nx;
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);
@@ -461,10 +465,10 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 //	vg.tabValues().clear();
 	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
-		QValueList<ParagraphStyle::TabRecord> tbs;
+		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
-		QTextStream tgv(&tmp, IO_ReadOnly);
+		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 		tbs.clear();
 		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -480,7 +484,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	}
 	else
 	{
-		QValueList<ParagraphStyle::TabRecord> tbs;
+		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
@@ -558,7 +562,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	QDomDocument docu("scridoc");
 	if (isFile)
 	{
-		QCString f;
+		Q3CString f;
 		if (!loadRawText(file, f))
 			return false;
 		if (f.left(16) == "<SCRIBUSELEMUTF8")
@@ -598,7 +602,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QMap<int,int> TableID;
 	QMap<int,int> arrowID;
 	QMap<PageItem*, int> groupID;
-	QPtrList<PageItem> TableItems;
+	Q3PtrList<PageItem> TableItems;
 	bool VorLFound = false;
 	bool newVersion = false;
 	int x;
@@ -608,7 +612,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QDomDocument docu("scridoc");
 	if (Fi)
 	{
-		QCString f;
+		Q3CString f;
 		if (!loadRawText(fileName, f))
 			return false;
 		if (f.left(16) == "<SCRIBUSELEMUTF8")
@@ -665,7 +669,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				arrow.name = pg.attribute("Name");
 				arrow.userArrow = true;
 				QString tmp = pg.attribute("Points");
-				QTextStream fp(&tmp, IO_ReadOnly);
+				Q3TextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -778,7 +782,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				if ((pite.hasAttribute("GROUPS")) && (pite.attribute("NUMGROUP", "0").toInt() != 0))
 				{
 					tmp = pite.attribute("GROUPS");
-					QTextStream fg(&tmp, IO_ReadOnly);
+					Q3TextStream fg(&tmp, QIODevice::ReadOnly);
 					OB.Groups.clear();
 					for (int cx = 0; cx < pite.attribute("NUMGROUP", "0").toInt(); ++cx)
 					{
@@ -940,7 +944,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			if ((pg.hasAttribute("GROUPS")) && (pg.attribute("NUMGROUP", "0").toInt() != 0))
 			{
 				tmp = pg.attribute("GROUPS");
-				QTextStream fg(&tmp, IO_ReadOnly);
+				Q3TextStream fg(&tmp, QIODevice::ReadOnly);
 				OB.Groups.clear();
 				for (int cx = 0; cx < pg.attribute("NUMGROUP", "0").toInt(); ++cx)
 				{
@@ -1101,10 +1105,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
 	item = selection->itemAt(0);
-	QValueList<uint> ELL;
+	Q3ValueList<uint> ELL;
 	for (uint cor=0; cor<selection->count(); ++cor)
 		ELL.append(selection->itemAt(cor)->ItemNr);
-	qHeapSort(ELL);
+	qSort(ELL);
 	if (selection->isMultipleSelection())
 	{
 		double gx, gy, gw, gh;
@@ -1427,7 +1431,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		}
 		else
 		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu.createElement("CSTOP");

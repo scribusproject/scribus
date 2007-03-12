@@ -8,20 +8,24 @@ for which a new license (GPL+exception) is in place.
 #include "tabcheckdoc.moc"
 #include <qvariant.h>
 #include <qcheckbox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qcombobox.h>
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 
 #include "prefsstructs.h"
 
 TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
 {
-	TabCheckDocLayout = new QVBoxLayout( this, 0, 5, "TabCheckDocLayout");
+	TabCheckDocLayout = new Q3VBoxLayout( this, 0, 5, "TabCheckDocLayout");
 	TabCheckDocLayout->setAlignment( Qt::AlignTop );
 	curCheckProfile = new QComboBox( true, this, "Profiles" );
 	curCheckProfile->setEditable(true);
@@ -49,13 +53,13 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	missingPictures = new QCheckBox( this, "missingPictures" );
 	missingPictures->setText( tr( "Check for missing images" ) );
 	TabCheckDocLayout->addWidget( missingPictures );
-	pictResolution = new QGroupBox( this, "pictResolution" );
+	pictResolution = new Q3GroupBox( this, "pictResolution" );
 	pictResolution->setTitle( tr( "Check image resolution" ) );
 	pictResolution->setCheckable( true );
 	pictResolution->setColumnLayout(0, Qt::Vertical );
 	pictResolution->layout()->setSpacing( 5 );
 	pictResolution->layout()->setMargin( 10 );
-	pictResolutionLayout = new QGridLayout( pictResolution->layout() );
+	pictResolutionLayout = new Q3GridLayout( pictResolution->layout() );
 	pictResolutionLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( pictResolution, "textLabel1" );
 	textLabel1->setText( tr( "Lowest allowed resolution" ) );
@@ -86,7 +90,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	ignoreOffLayers = new QCheckBox( this, "ignoreOffLayers" );
 	ignoreOffLayers->setText( tr( "Ignore non-printable Layers" ) );
 	TabCheckDocLayout->addWidget( ignoreOffLayers );
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 	addProfile = new QPushButton( tr( "Add Profile" ), this, "addProfile" );

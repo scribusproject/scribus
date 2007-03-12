@@ -24,24 +24,26 @@ for which a new license (GPL+exception) is in place.
 #ifndef CUSTOMFDIALOG_H
 #define CUSTOMFDIALOG_H
 
-#include <qfiledialog.h>
-#include <qurl.h>
+#include <q3filedialog.h>
+#include <q3url.h>
 #include <qlabel.h>
 #include <qdir.h>
 #include <qpixmap.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
-class SCRIBUS_API ImIconProvider : public QFileIconProvider
+class SCRIBUS_API ImIconProvider : public Q3FileIconProvider
 {
     Q_OBJECT
     QStringList fmts;
@@ -60,7 +62,7 @@ public:
     const QPixmap * pixmap(const QFileInfo &fi);
 };
 
-class SCRIBUS_API FDialogPreview : public QLabel, public QFilePreview
+class SCRIBUS_API FDialogPreview : public QLabel, public Q3FilePreview
 {
     Q_OBJECT
 protected:
@@ -70,7 +72,7 @@ public:
 	~FDialogPreview() {};
 	void updtPix();
 	void GenPreview(QString name);
-	virtual void previewUrl(const QUrl &url);
+	virtual void previewUrl(const Q3Url &url);
 };
 
 typedef enum {
@@ -86,7 +88,7 @@ typedef enum {
 Used almost everywhere. You can see extension handling
 in e.g. bool SVGExportPlugin::run(QString filename).
 */
-class SCRIBUS_API CustomFDialog : public QFileDialog
+class SCRIBUS_API CustomFDialog : public Q3FileDialog
 {
     Q_OBJECT
 public:
@@ -120,9 +122,9 @@ public:
 	QCheckBox* SaveZip;
 	QCheckBox* WithFonts;
 	QCheckBox* WithProfiles;
-	QFrame* Layout;
+	Q3Frame* Layout;
 	QToolButton* HomeB;
-	QFrame* LayoutC;
+	Q3Frame* LayoutC;
 	QComboBox *TxCodeM;
 	QLabel *TxCodeT;
 private slots:
@@ -132,8 +134,8 @@ public slots:
 	//! \brief Switch the filename extensions by compress checkbox state.
 	void handleCompress();
 protected:
-	QHBoxLayout* Layout1;
-	QHBoxLayout* Layout1C;
+	Q3HBoxLayout* Layout1;
+	Q3HBoxLayout* Layout1C;
 	//! \brief Property with default extension
 	QString ext;
 	//! \brief Property with default compress extension

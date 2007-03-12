@@ -8,9 +8,9 @@
 #define SCFACE_PS_H
 
 #include <qstring.h>
-#include <qstrlist.h>
+#include <q3strlist.h>
 #include <qstringlist.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qfont.h>
 #include <qmap.h>
 

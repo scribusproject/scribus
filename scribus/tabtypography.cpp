@@ -7,23 +7,25 @@ for which a new license (GPL+exception) is in place.
 #include "tabtypography.h"
 #include "tabtypography.moc"
 #include <qlayout.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qtooltip.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 #include "mspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 
 TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWidget( parent, "tabtypo", 0 )
 {
-	tabTypoLayout = new QGridLayout( this, 1, 1, 0, 6, "tabTypoLayout");
-	groupBox1a = new QGroupBox( this, "groupBox1a" );
+	tabTypoLayout = new Q3GridLayout( this, 1, 1, 0, 6, "tabTypoLayout");
+	groupBox1a = new Q3GroupBox( this, "groupBox1a" );
 	groupBox1a->setColumnLayout(0, Qt::Vertical );
 	groupBox1a->layout()->setSpacing( 6 );
 	groupBox1a->layout()->setMargin( 11 );
 	groupBox1a->setTitle( tr( "Subscript" ) );
-	groupBox1aLayout = new QGridLayout( groupBox1a->layout() );
+	groupBox1aLayout = new Q3GridLayout( groupBox1a->layout() );
 	groupBox1aLayout->setAlignment( Qt::AlignTop );
 	subDisplacement = new QSpinBox( groupBox1a, "subDisplacement" );
 	subDisplacement->setMaxValue( 100 );
@@ -39,12 +41,12 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
 	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
 	tabTypoLayout->addMultiCellWidget( groupBox1a, 0, 0, 0, 1 );
-	groupBox2a = new QGroupBox( this, "groupBox2a" );
+	groupBox2a = new Q3GroupBox( this, "groupBox2a" );
 	groupBox2a->setColumnLayout(0, Qt::Vertical );
 	groupBox2a->layout()->setSpacing( 6 );
 	groupBox2a->layout()->setMargin( 11 );
 	groupBox2a->setTitle( tr( "Superscript" ) );
-	groupBox2aLayout = new QGridLayout( groupBox2a->layout() );
+	groupBox2aLayout = new Q3GridLayout( groupBox2a->layout() );
 	groupBox2aLayout->setAlignment( Qt::AlignTop );
 	superDisplacement = new QSpinBox( groupBox2a, "superDisplacement" );
 	superDisplacement->setMaxValue( 100 );
@@ -61,12 +63,12 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
 	tabTypoLayout->addMultiCellWidget( groupBox2a, 1, 1, 0, 1 );
 
-	underlineGroup = new QGroupBox( this, "underlineGroup" );
+	underlineGroup = new Q3GroupBox( this, "underlineGroup" );
 	underlineGroup->setTitle( tr( "Underline" ) );
 	underlineGroup->setColumnLayout(0, Qt::Vertical );
 	underlineGroup->layout()->setSpacing( 6 );
 	underlineGroup->layout()->setMargin( 11 );
-	underlineGroupLayout = new QGridLayout( underlineGroup->layout() );
+	underlineGroupLayout = new Q3GridLayout( underlineGroup->layout() );
 	underlineGroupLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( underlineGroup, "textLabel1" );
 	textLabel1->setText( tr( "Displacement:" ) );
@@ -86,12 +88,12 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	underlineGroupLayout->addWidget( underlineWidth, 0, 3 );
 	tabTypoLayout->addMultiCellWidget( underlineGroup, 2, 2, 0, 1 );
 
-	strikethruGroup = new QGroupBox( this, "strikethruGroup" );
+	strikethruGroup = new Q3GroupBox( this, "strikethruGroup" );
 	strikethruGroup->setTitle( tr( "Strikethru" ) );
 	strikethruGroup->setColumnLayout(0, Qt::Vertical );
 	strikethruGroup->layout()->setSpacing( 6 );
 	strikethruGroup->layout()->setMargin( 11 );
-	strikethruGroupLayout = new QGridLayout( strikethruGroup->layout() );
+	strikethruGroupLayout = new Q3GridLayout( strikethruGroup->layout() );
 	strikethruGroupLayout->setAlignment( Qt::AlignTop );
 	textLabel1_2 = new QLabel( strikethruGroup, "textLabel1" );
 	textLabel1_2->setText( tr( "Displacement:" ) );
@@ -111,12 +113,12 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	strikethruGroupLayout->addWidget( strikethruWidth, 0, 3 );
 	tabTypoLayout->addMultiCellWidget( strikethruGroup, 3, 3, 0, 1 );
 
-	groupBox3a = new QGroupBox( this, "groupBox3a" );
+	groupBox3a = new Q3GroupBox( this, "groupBox3a" );
 	groupBox3a->setColumnLayout(0, Qt::Vertical );
 	groupBox3a->layout()->setSpacing( 6 );
 	groupBox3a->layout()->setMargin( 11 );
 	groupBox3a->setTitle( tr( "Small Caps" ) );
-	groupBox3aLayout = new QGridLayout( groupBox3a->layout() );
+	groupBox3aLayout = new Q3GridLayout( groupBox3a->layout() );
 	groupBox3aLayout->setAlignment( Qt::AlignTop );
 	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
 	capsScaling->setMaxValue( 100 );
@@ -127,12 +129,12 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
 	tabTypoLayout->addWidget( groupBox3a, 4, 0 );
 
-	groupBox4a = new QGroupBox( this, "groupBox3a" );
+	groupBox4a = new Q3GroupBox( this, "groupBox3a" );
 	groupBox4a->setColumnLayout(0, Qt::Vertical );
 	groupBox4a->layout()->setSpacing( 6 );
 	groupBox4a->layout()->setMargin( 11 );
 	groupBox4a->setTitle( tr( "Automatic &Line Spacing" ) );
-	groupBox4aLayout = new QGridLayout( groupBox4a->layout() );
+	groupBox4aLayout = new Q3GridLayout( groupBox4a->layout() );
 	groupBox4aLayout->setAlignment( Qt::AlignTop );
 	autoLine = new QSpinBox( groupBox4a, "autoLine" );
 	autoLine->setMaxValue( 100 );

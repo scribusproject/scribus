@@ -9,12 +9,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdialog.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qslider.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 
@@ -34,7 +38,7 @@ public:
     QComboBox* ScaleW;
     QLabel* TextLabel2;
     QComboBox* ScaleH;
-    QGroupBox* GroupButton;
+    Q3GroupBox* GroupButton;
     QLabel* TextLabel3;
     QSlider* SliderX;
     QSlider* SliderY;
@@ -55,11 +59,11 @@ private slots:
 	void SetScaleHow(int s);
 
 protected:
-    QVBoxLayout* ButtonIconLayout;
-    QGridLayout* Layout1;
-    QHBoxLayout* Layout5;
-    QGridLayout* Layout3;
-    QHBoxLayout* Layout4;
+    Q3VBoxLayout* ButtonIconLayout;
+    Q3GridLayout* Layout1;
+    Q3HBoxLayout* Layout5;
+    Q3GridLayout* Layout3;
+    Q3HBoxLayout* Layout4;
 };
 
 #endif // BUTTONICON_H

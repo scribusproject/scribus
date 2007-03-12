@@ -7,6 +7,10 @@ for which a new license (GPL+exception) is in place.
 #include "javadocs.h"
 #include "javadocs.moc"
 #include "query.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "editor.h"
 #include "scmessagebox.h"
 #include "scribusdoc.h"
@@ -23,16 +27,16 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	setIcon(loadIcon("AppIcon.png"));
 	Doc = doc;
 	View = vie;
-	JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout");
+	JavaDocsLayout = new Q3HBoxLayout( this, 11, 6, "JavaDocsLayout");
 
-	Scripts = new QListBox( this, "Scripts" );
+	Scripts = new Q3ListBox( this, "Scripts" );
 	Scripts->setMinimumSize( QSize( 150, 200 ) );
 	QMap<QString,QString>::Iterator it;
 	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
 		Scripts->insertItem(it.key());
 	JavaDocsLayout->addWidget( Scripts );
 
-	Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1");
+	Layout1 = new Q3VBoxLayout( 0, 0, 6, "Layout1");
 
 	EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
 	Layout1->addWidget( EditScript );
@@ -60,7 +64,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
 	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
-	connect( Scripts, SIGNAL( selected(QListBoxItem*) ), this, SLOT( slotEdit() ) );
+	connect( Scripts, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( slotEdit() ) );
 	QToolTip::add( AddScript, "<qt>" + tr( "Adds a new Script, predefines a function with the same name. If you want to use this script as an \"Open Action\" script be sure not to change the name of the function." ) + "</qt>" );
 }
 

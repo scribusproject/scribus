@@ -10,21 +10,25 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "cwdialogbase.h"
 #include "colorwheelwidget.h"
 #include "scribus.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
 class QComboBox;
-class QListBox;
-class QListView;
+class Q3ListBox;
+class Q3ListView;
 class QPushButton;
 class QSpinBox;
-class QGroupBox;
+class Q3GroupBox;
 class QSlider;
 class ColorListBox;
 class ScribusDoc;
@@ -40,7 +44,7 @@ class CWDialog : public CWDialogBase
 {
 	Q_OBJECT
 	public:
-		CWDialog( QWidget* parent = 0, ScribusDoc* doc = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+		CWDialog( QWidget* parent = 0, ScribusDoc* doc = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
 		~CWDialog();
 	private:
 		/** \brief Configuration structure */
@@ -109,12 +113,12 @@ class CWDialog : public CWDialogBase
 		void angleSpin_valueChanged(int);
 		void colorWheel_clicked(int, const QPoint &);
 		void typeCombo_activated(int);
-		void documentColorList_currentChanged(QListBoxItem *);
+		void documentColorList_currentChanged(Q3ListBoxItem *);
 		void defectCombo_activated(int);
 		void addButton_clicked();
 		void replaceButton_clicked();
 		void cancelButton_clicked();
-		void colorList_currentChanged(QListBoxItem *);
+		void colorList_currentChanged(Q3ListBoxItem *);
 
 		void cSpin_valueChanged( int );
 		void mSpin_valueChanged( int );

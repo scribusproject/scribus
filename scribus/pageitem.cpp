@@ -33,7 +33,13 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3PointArray>
+#include <QKeyEvent>
+#include <Q3ValueList>
+#include <QPixmap>
 #include <cmath>
 #include <cassert>
 
@@ -984,7 +990,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				{
 					p->setFillMode(ScPainter::Gradient);
 					p->fill_gradient = fill_gradient;
-					QWMatrix grm;
+					QMatrix grm;
 					grm.rotate(Rot);
 					FPointArray gra;
 					switch (GrType)
@@ -1118,7 +1124,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 							if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
 							{
 								SetFarbe(&tmp, sl.Color, sl.Shade);
-								p->setPen(tmp, sl.Width, static_cast<PenStyle>(sl.Dash), static_cast<PenCapStyle>(sl.LineEnd), static_cast<PenJoinStyle>(sl.LineJoin));
+								p->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash), static_cast<Qt::PenCapStyle>(sl.LineEnd), static_cast<Qt::PenJoinStyle>(sl.LineJoin));
 								p->strokePath();
 							}
 						}
@@ -1203,8 +1209,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		return;
 	if (!m_Doc->DoDrawing)
 		return;
-	QPtrList<PageItem> emG;
-	QPtrStack<PageItem> groupStack;
+	Q3PtrList<PageItem> emG;
+	Q3PtrStack<PageItem> groupStack;
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
@@ -1252,7 +1258,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 			p->save();
 #ifdef HAVE_CAIRO
 			FPointArray cl = embedded->PoLine.copy();
-			QWMatrix mm;
+			QMatrix mm;
 			mm.translate(embedded->Xpos-Xpos, embedded->Ypos-Ypos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
@@ -1375,7 +1381,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
 						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
-						le = static_cast<PenCapStyle>(ml[ml.size()-1].LineEnd);
+						le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 					}
 					if (asLine())
 					{
@@ -1458,7 +1464,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 
 QImage PageItem::DrawObj_toImage()
 {
-	QPtrList<PageItem> emG;
+	Q3PtrList<PageItem> emG;
 	emG.clear();
 	double minx = 99999.9;
 	double miny = 99999.9;
@@ -1544,14 +1550,14 @@ QImage PageItem::DrawObj_toImage()
 	return DrawObj_toImage(emG);
 }
 
-QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
+QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
 {
 	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
 	retImg.fill( qRgba(255, 255, 255, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1.0, 0);
 	painter->setZoomFactor(1.0);
-	QPtrStack<PageItem> groupStack;
-	QPtrStack<PageItem> groupClips;
+	Q3PtrStack<PageItem> groupStack;
+	Q3PtrStack<PageItem> groupClips;
 	for (uint em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
@@ -1559,7 +1565,7 @@ QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
 		{
 #ifdef HAVE_CAIRO
 			FPointArray cl = embedded->PoLine.copy();
-			QWMatrix mm;
+			QMatrix mm;
 			mm.translate(embedded->gXpos, embedded->gYpos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
@@ -1763,7 +1769,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			glyph -= ScFace::CONTROL_GLYPHS;
 		else
 			glyph = 32;
-		QWMatrix chma, chma4, chma5;
+		QMatrix chma, chma4, chma5;
 		FPointArray points;
 		if (glyph == SpecialChars::TAB.unicode())
 		{
@@ -1927,7 +1933,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			double glySc = glyphs.scaleV * style.fontSize() / 100.0;
 			p->scale(glxSc, glySc);
 #else
-			QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
+			QMatrix chma, chma2, chma3, chma4, chma5, chma6;
 			chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
 			chma5.scale(p->zoomFactor(), p->zoomFactor());
 			if (Reverse)
@@ -2076,15 +2082,15 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	}
 }
 
-void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
+void PageItem::DrawPolyL(QPainter *p, Q3PointArray pts)
 {
 	QColor tmp;
 	ScribusView* view = m_Doc->view();
 	if (Segments.count() != 0)
 	{
-		QValueList<uint>::Iterator it2end=Segments.end();
+		Q3ValueList<uint>::Iterator it2end=Segments.end();
 		uint FirstVal = 0;
-		for (QValueList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
+		for (Q3ValueList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
 			if (NamedLStyle.isEmpty())
 				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
@@ -2096,9 +2102,9 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
 									 QMAX(static_cast<int>(ml[it].Width* view->scale()), 1),
-									 static_cast<PenStyle>(ml[it].Dash),
-									 static_cast<PenCapStyle>(ml[it].LineEnd),
-									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+									 static_cast<Qt::PenStyle>(ml[it].Dash),
+									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
 					p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
 				}
 			}
@@ -2114,9 +2120,9 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
 								 QMAX(static_cast<int>(ml[it].Width* view->scale()), 1),
-								 static_cast<PenStyle>(ml[it].Dash),
-								 static_cast<PenCapStyle>(ml[it].LineEnd),
-								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+								 static_cast<Qt::PenStyle>(ml[it].Dash),
+								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
 				p->drawPolyline(pts, FirstVal);
 			}
 		}
@@ -2133,9 +2139,9 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
 								 QMAX(static_cast<int>(ml[it].Width*view->scale()), 1),
-								 static_cast<PenStyle>(ml[it].Dash),
-								 static_cast<PenCapStyle>(ml[it].LineEnd),
-								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+								 static_cast<Qt::PenStyle>(ml[it].Dash),
+								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
 				p->drawPolyline(pts);
 			}
 		}
@@ -2360,7 +2366,7 @@ void PageItem::setLineBlendmode(int newBlendmode)
 	lineBlendmodeVal = newBlendmode;
 }
 
-void PageItem::setLineStyle(PenStyle newStyle)
+void PageItem::setLineStyle(Qt::PenStyle newStyle)
 {
 	if (PLineArt == newStyle)
 		return; // nothing to do -> return
@@ -2392,7 +2398,7 @@ void PageItem::setLineWidth(double newWidth)
 	m_lineWidth = newWidth;
 }
 
-void PageItem::setLineEnd(PenCapStyle newStyle)
+void PageItem::setLineEnd(Qt::PenCapStyle newStyle)
 {
 	if (PLineEnd == newStyle)
 		return; // nothing to do -> return
@@ -2407,7 +2413,7 @@ void PageItem::setLineEnd(PenCapStyle newStyle)
 	PLineEnd = newStyle;
 }
 
-void PageItem::setLineJoin(PenJoinStyle newStyle)
+void PageItem::setLineJoin(Qt::PenJoinStyle newStyle)
 {
 	if (PLineJoin == newStyle)
 		return; // nothing to do -> return
@@ -3159,27 +3165,27 @@ void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
 
 void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 {
-	PenStyle ps = static_cast<PenStyle>(state->getInt("OLD_STYLE"));
+	PenStyle ps = static_cast<Qt::PenStyle>(state->getInt("OLD_STYLE"));
 	if (!isUndo)
-		ps = static_cast<PenStyle>(state->getInt("NEW_STYLE"));
+		ps = static_cast<Qt::PenStyle>(state->getInt("NEW_STYLE"));
 	select();
 	m_Doc->ChLineArt(ps);
 }
 
 void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 {
-	PenCapStyle pcs = static_cast<PenCapStyle>(state->getInt("OLD_STYLE"));
+	PenCapStyle pcs = static_cast<Qt::PenCapStyle>(state->getInt("OLD_STYLE"));
 	if (!isUndo)
-		pcs = static_cast<PenCapStyle>(state->getInt("NEW_STYLE"));
+		pcs = static_cast<Qt::PenCapStyle>(state->getInt("NEW_STYLE"));
 	select();
 	m_Doc->ChLineEnd(pcs);
 }
 
 void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 {
-	PenJoinStyle pjs = static_cast<PenJoinStyle>(state->getInt("OLD_STYLE"));
+	PenJoinStyle pjs = static_cast<Qt::PenJoinStyle>(state->getInt("OLD_STYLE"));
 	if (!isUndo)
-		pjs = static_cast<PenJoinStyle>(state->getInt("NEW_STYLE"));
+		pjs = static_cast<Qt::PenJoinStyle>(state->getInt("NEW_STYLE"));
 	select();
 	m_Doc->ChLineJoin(pjs);
 }
@@ -3527,7 +3533,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	if (it != newNames.colors.end())
 		setFillColor(*it);
 
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
 		it = newNames.colors.find(cstops.at(cst)->name);
@@ -3552,7 +3558,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 {
 	lists.collectColor(fillColor());
 	lists.collectColor(lineColor());
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
 		lists.collectColor(cstops.at(cst)->name);
@@ -3908,7 +3914,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				{
 					imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
 					pixm.imgInfo.usedPath = clPath;
-					QWMatrix cl;
+					QMatrix cl;
 					cl.translate(LocalX*LocalScX, LocalY*LocalScY);
 					cl.scale(LocalScX, LocalScY);
 					imageClip.map(cl);
@@ -3921,7 +3927,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		{
 			imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
 			pixm.imgInfo.usedPath = clPath;
-			QWMatrix cl;
+			QMatrix cl;
 			cl.translate(LocalX*LocalScX, LocalY*LocalScY);
 			cl.scale(LocalScX, LocalScY);
 			imageClip.map(cl);
@@ -4164,7 +4170,7 @@ void PageItem::AdjustPictScale()
 	if (imageClip.size() != 0)
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
-		QWMatrix cl;
+		QMatrix cl;
 		cl.translate(LocalX*LocalScX, LocalY*LocalScY);
 		cl.scale(LocalScX, LocalScY);
 		imageClip.map(cl);
@@ -4264,12 +4270,12 @@ void PageItem::setPolyClip(int up, int down)
 		downval *= -1;
 	}
 	QPoint np, np2;
-	QPointArray cl, cl1, cl2;
+	Q3PointArray cl, cl1, cl2;
 	cl = FlattenPath(PoLine, Segments);
 	for (uint a = 0; a < cl.size()-1; ++a)
 	{
 		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
-		QWMatrix ma;
+		QMatrix ma;
 		ma.rotate(rot);
 		np = ma*QPoint(0, -upval);
 		np2 = ma*QPoint(0, -downval);
@@ -4474,7 +4480,7 @@ void PageItem::moveImageInFrame(double newX, double newY)
 	if (imageClip.size() != 0)
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
-		QWMatrix cl;
+		QMatrix cl;
 		cl.translate(imageXOffset()*imageXScale(), imageYOffset()*imageYScale());
 		cl.scale(imageXScale(), imageYScale());
 		imageClip.map(cl);
@@ -4545,7 +4551,7 @@ void PageItem::updateClip()
 			{
 				double scx = width() / OldB2;
 				double scy = height() / OldH2;
-				QWMatrix ma;
+				QMatrix ma;
 				ma.scale(scx, scy);
 				FPointArray gr;
 				gr.addPoint(GrStartX, GrStartY);
@@ -4597,7 +4603,7 @@ void PageItem::updateClip()
 				return;
 			double scx = width() / OldB2;
 			double scy = height() / OldH2;
-			QWMatrix ma;
+			QMatrix ma;
 			ma.scale(scx, scy);
 			FPointArray gr;
 			gr.addPoint(GrStartX, GrStartY);

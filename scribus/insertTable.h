@@ -14,7 +14,11 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 
@@ -30,9 +34,9 @@ public:
 	QSpinBox* Rows;
 
 protected:
-	QVBoxLayout* InsertTableLayout;
-	QGridLayout* layout2;
-	QHBoxLayout* layout1;
+	Q3VBoxLayout* InsertTableLayout;
+	Q3GridLayout* layout2;
+	Q3HBoxLayout* layout1;
 	QLabel* Text1;
 	QLabel* Text2;
 	QPushButton* okButton;

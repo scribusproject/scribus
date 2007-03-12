@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qdir.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qcursor.h>
@@ -59,7 +59,7 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	connect(buttonLoadDir, SIGNAL(clicked()), this, SLOT(loadPatternDir()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removePattern()));
 	connect(buttonRemoveAll, SIGNAL(clicked()), this, SLOT(removeAllPatterns()));
-	connect(patternView, SIGNAL(clicked(QIconViewItem*)), this, SLOT(patternSelected(QIconViewItem*)));
+	connect(patternView, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(patternSelected(Q3IconViewItem*)));
 }
 
 void PatternDialog::updatePatternList()
@@ -74,7 +74,7 @@ void PatternDialog::updatePatternList()
 			pm.convertFromImage(it.data().getPattern()->scaleWidth(48));
 		else
 			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
-		QIconViewItem *item = new QIconViewItem(patternView, it.key(), pm);
+		Q3IconViewItem *item = new Q3IconViewItem(patternView, it.key(), pm);
 		item->setDragEnabled(false);
 	}
 }
@@ -83,7 +83,7 @@ void PatternDialog::loadPatternDir()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
-	QString fileName = QFileDialog::getExistingDirectory(wdir, this, "d", tr("Choose a Directory"), true);
+	QString fileName = Q3FileDialog::getExistingDirectory(wdir, this, "d", tr("Choose a Directory"), true);
 	if (!fileName.isEmpty())
 	{
 		QStringList formats;
@@ -288,7 +288,7 @@ void PatternDialog::loadVectors(QString data)
 	}
 }
 
-void PatternDialog::patternSelected(QIconViewItem* it)
+void PatternDialog::patternSelected(Q3IconViewItem* it)
 {
 	if (it)
 		buttonRemove->setEnabled(true);
@@ -307,7 +307,7 @@ void PatternDialog::removeAllPatterns()
 
 void PatternDialog::removePattern()
 {
-	QIconViewItem *it = patternView->currentItem();
+	Q3IconViewItem *it = patternView->currentItem();
 	if (it)
 	{
 		QStringList patterns2Del;

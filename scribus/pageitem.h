@@ -26,11 +26,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <qobject.h>
 #include <qwidget.h>
-#include <qpointarray.h>
-#include <qptrlist.h>
+#include <q3pointarray.h>
+#include <q3ptrlist.h>
 #include <qpixmap.h>
-#include <qvaluestack.h>
-#include <qvaluelist.h>
+#include <q3valuestack.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 
 #include "scribusapi.h"
 #include "annotation.h"
@@ -233,7 +235,7 @@ public:
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc) = 0;
 	QImage DrawObj_toImage();
-	QImage DrawObj_toImage(QPtrList<PageItem> &emG);
+	QImage DrawObj_toImage(Q3PtrList<PageItem> &emG);
 protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
 	//void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
@@ -296,7 +298,7 @@ public:
 	double layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
-	void DrawPolyL(QPainter *p, QPointArray pts);
+	void DrawPolyL(QPainter *p, Q3PointArray pts);
 	QString ExpandToken(uint base);
 	
 	bool AutoName;	
@@ -320,7 +322,7 @@ public:
 	Qt::PenJoinStyle PLineJoin;
 	QString NamedLStyle;
   /** Defines clipping region of the elements; */
-	QPointArray Clip;
+	Q3PointArray Clip;
 	
 	FPointArray PoLine;
 	const FPointArray shape() const { return PoLine; }
@@ -331,7 +333,7 @@ public:
 	void setContour(FPointArray val) { ContourLine = val; }
 	
 	FPointArray imageClip;
-	QValueList<uint> Segments;
+	Q3ValueList<uint> Segments;
 	ScImageEffectList effectsInUse;
 	bool PoShow;
 	double BaseOffs;
@@ -443,19 +445,19 @@ public:
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	QValueStack<int> Groups;
-	const QValueStack<int>& groups() const { return Groups; }
-	QValueStack<int>& groups() { return Groups; }
-	void setGroups( QValueStack<int> val) { Groups = val; }
+	Q3ValueStack<int> Groups;
+	const Q3ValueStack<int>& groups() const { return Groups; }
+	Q3ValueStack<int>& groups() { return Groups; }
+	void setGroups( Q3ValueStack<int> val) { Groups = val; }
 	
 	bool controlsGroup() const { return isGroupControl; }
 	void setControlsGroup(bool val) { isGroupControl = val; }
 	
-	QValueList<double> DashValues;
+	Q3ValueList<double> DashValues;
 	double DashOffset;
-	const QValueList<double>& dashes() const { return DashValues; }
-	QValueList<double>& dashes() { return DashValues; }
-	void setDashes(QValueList<double> val) { DashValues = val; }
+	const Q3ValueList<double>& dashes() const { return DashValues; }
+	Q3ValueList<double>& dashes() { return DashValues; }
+	void setDashes(Q3ValueList<double> val) { DashValues = val; }
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
 	VGradient fill_gradient;

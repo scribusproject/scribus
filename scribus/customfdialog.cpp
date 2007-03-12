@@ -29,6 +29,10 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QLabel>
 
 #include "cmsettings.h"
 #include "sccombobox.h"
@@ -38,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QString DocDir;
 
-ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
+ImIconProvider::ImIconProvider(QWidget *pa) : Q3FileIconProvider(pa)
 {
 	fmts.clear();
 	QString tmp[] = {"eps", "epsi", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd", "pat"};
@@ -79,7 +83,7 @@ const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
 			return &oosxwpm;
 		if (ext.endsWith("svg") || ext.endsWith("svgz"))
 			return &vectorpm;
-		return QFileIconProvider::pixmap(fi);
+		return Q3FileIconProvider::pixmap(fi);
 	}
 }
 
@@ -231,7 +235,7 @@ void FDialogPreview::GenPreview(QString name)
 	}
 }
 
-void FDialogPreview::previewUrl( const QUrl &url )
+void FDialogPreview::previewUrl( const Q3Url &url )
 {
 	if (url.isLocalFile())
 	{
@@ -245,7 +249,7 @@ void FDialogPreview::previewUrl( const QUrl &url )
 }
 
 CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QString filter, int flags)
-			: QFileDialog(QString::null, filter, parent, 0, true), optionFlags(flags)
+			: Q3FileDialog(QString::null, filter, parent, 0, true), optionFlags(flags)
 {
  	setIcon(loadIcon("AppIcon.png"));
  	setCaption(caption);
@@ -255,8 +259,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	FDialogPreview *pw;
 	if (flags & fdDirectoriesOnly)
 	{
-		Layout = new QFrame(this);
-		Layout1 = new QHBoxLayout(Layout);
+		Layout = new Q3Frame(this);
+		Layout1 = new Q3HBoxLayout(Layout);
 		Layout1->setSpacing( 0 );
 		Layout1->setMargin( 0 );
 		SaveZip = new QCheckBox( tr( "&Compress File" ), Layout, "test");
@@ -264,8 +268,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1->addItem( spacer );
 		addWidgets(0, Layout, 0);
-		LayoutC = new QFrame(this);
-		Layout1C = new QHBoxLayout(LayoutC);
+		LayoutC = new Q3Frame(this);
+		Layout1C = new Q3HBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 0 );
 		WithFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC, "WithFonts");
@@ -275,7 +279,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
 		addWidgets(0, LayoutC, 0);
-		setMode(QFileDialog::DirectoryOnly);
+		setMode(Q3FileDialog::DirectoryOnly);
 	}
 	else
 	{
@@ -284,8 +288,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		setContentsPreview( pw, pw );
 		if (flags & fdCompressFile)
 		{
-			Layout = new QFrame(this);
-			Layout1 = new QHBoxLayout(Layout);
+			Layout = new Q3Frame(this);
+			Layout1 = new Q3HBoxLayout(Layout);
 			Layout1->setSpacing( 6 );
 			Layout1->setMargin( 0 );
 			SaveZip = new QCheckBox( tr( "&Compress File" ), Layout, "test");
@@ -294,17 +298,17 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			Layout1->addItem( spacer );
 		}
 		if (flags & fdExistingFiles)
-			setMode(QFileDialog::ExistingFile);
+			setMode(Q3FileDialog::ExistingFile);
 		else
 		{
-			setMode(QFileDialog::AnyFile);
+			setMode(Q3FileDialog::AnyFile);
 			if (flags & fdCompressFile)
 				addWidgets(0, Layout, 0);
 		}
 		if (flags & fdShowCodecs)
 		{
-			LayoutC = new QFrame(this);
-			Layout1C = new QHBoxLayout(LayoutC);
+			LayoutC = new Q3Frame(this);
+			Layout1C = new Q3HBoxLayout(LayoutC);
 			Layout1C->setSpacing( 0 );
 			Layout1C->setMargin( 4 );
 			TxCodeT = new QLabel(this);
@@ -346,8 +350,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			Layout1C->addItem( spacer2 );
 			addWidgets(TxCodeT, LayoutC, 0);
 		}
-		setPreviewMode((flags & fdShowPreview) ? QFileDialog::Contents : QFileDialog::NoPreview );
-		setViewMode( QFileDialog::List );
+		setPreviewMode((flags & fdShowPreview) ? Q3FileDialog::Contents : Q3FileDialog::NoPreview );
+		setViewMode( Q3FileDialog::List );
 		if (flags & fdCompressFile)
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}

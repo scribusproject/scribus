@@ -8,14 +8,19 @@ for which a new license (GPL+exception) is in place.
 #define QUERY_H
 
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 class QLayout;
 class QLabel;
 class QLineEdit;
 class QPushButton;
 class QString;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 
 #include "scribusapi.h"
 
@@ -24,7 +29,7 @@ class SCRIBUS_API Query : public QDialog
 	Q_OBJECT
 
 public:
-	Query( QWidget* parent=0, const char* name=0, bool modal = FALSE, WFlags fl=0, QString text=0,
+	Query( QWidget* parent=0, const char* name=0, bool modal = FALSE, Qt::WFlags fl=0, QString text=0,
 	       QString titel=0 );
 	~Query() {};
 
@@ -35,9 +40,9 @@ public slots:
 	void Leave();
 
 private:
-	QVBoxLayout* queryLayout;
-	QHBoxLayout* editLayout;
-	QHBoxLayout* okCancelLayout;
+	Q3VBoxLayout* queryLayout;
+	Q3HBoxLayout* editLayout;
+	Q3HBoxLayout* okCancelLayout;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLineEdit* answerEdit;

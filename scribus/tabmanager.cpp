@@ -10,7 +10,12 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
+#include <QPixmap>
+#include <Q3HBoxLayout>
 #include "tabruler.h"
 #include "units.h"
 #include "scribusstructs.h"
@@ -18,16 +23,16 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-TabManager::TabManager( QWidget* parent, int dEin, QValueList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
+TabManager::TabManager( QWidget* parent, int dEin, Q3ValueList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
 {
 	setCaption( tr( "Manage Tabulators" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	tmpTab = inTab;
-	TabManagerLayout = new QVBoxLayout( this, 5, 5, "TabManagerLayout");
+	TabManagerLayout = new Q3VBoxLayout( this, 5, 5, "TabManagerLayout");
 	TabList = new Tabruler(this, false, dEin, inTab, -1);
 	TabManagerLayout->addWidget( TabList );
-	layout10 = new QHBoxLayout;
+	layout10 = new Q3HBoxLayout;
 	layout10->setSpacing( 6 );
 	layout10->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

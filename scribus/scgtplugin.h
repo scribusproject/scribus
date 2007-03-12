@@ -11,12 +11,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scplugin.h"
 #include "customfdialog.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 class QString;
 class QCheckBox;
 class QStringList;
 class QDir;
-class QHBox;
+class Q3HBox;
 
 /**
   @brief Super class for all text importer plugins.
@@ -96,7 +98,7 @@ public:
 private:
 	static ScGTPluginManager *instance_;
 
-	QPtrList<ScGTPlugin> plugins_;
+	Q3PtrList<ScGTPlugin> plugins_;
 
 	ScGTPluginManager();
 	~ScGTPluginManager();
@@ -122,7 +124,7 @@ public:
 	bool append() const;
 
 private:
-	QHBox *diaExtension_;
+	Q3HBox *diaExtension_;
 	QCheckBox *showOptionsBox_;
 	QCheckBox *appendBox_;
 	void customize();

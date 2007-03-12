@@ -9,9 +9,14 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 #include "scribusdoc.h"
 
 #include "inspage.h"
@@ -30,8 +35,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	masterPageCombos.clear();
 	setCaption( tr( "Insert Page" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new QVBoxLayout( this, 5, 5 );
-	whereLayout = new QGridLayout;
+	dialogLayout = new Q3VBoxLayout( this, 5, 5 );
+	whereLayout = new Q3GridLayout;
 	whereLayout->setSpacing( 5 );
 	whereLayout->setMargin( 5 );
 	insCountData = new QSpinBox( 1, 999, 1, this, "insCountData" );
@@ -58,12 +63,12 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	whereLayout->addColSpacing(0, insCountLabel->fontMetrics().width( tr( "&Insert" )));
 	dialogLayout->addLayout( whereLayout );
 	
-	masterPageGroup = new QGroupBox( this, "masterPageGroup" );
+	masterPageGroup = new Q3GroupBox( this, "masterPageGroup" );
 	masterPageGroup->setTitle( tr( "Master Pages" ) );
 	masterPageGroup->setColumnLayout(0, Qt::Vertical );
 	masterPageGroup->layout()->setSpacing( 0 );
 	masterPageGroup->layout()->setMargin( 0 );
-	masterPageLayout = new QGridLayout( masterPageGroup->layout() );
+	masterPageLayout = new Q3GridLayout( masterPageGroup->layout() );
 	masterPageLayout->setAlignment( Qt::AlignTop );
 	masterPageLayout->setSpacing( 5 );
 	masterPageLayout->setMargin( 5 );
@@ -197,12 +202,12 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	}
 	dialogLayout->addWidget(masterPageGroup);
 
-	dsGroupBox7 = new QGroupBox( this, "GroupBox7" );
+	dsGroupBox7 = new Q3GroupBox( this, "GroupBox7" );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
 	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
 	dsGroupBox7->layout()->setSpacing( 0 );
 	dsGroupBox7->layout()->setMargin( 0 );
-	dsGroupBox7Layout = new QGridLayout( dsGroupBox7->layout() );
+	dsGroupBox7Layout = new Q3GridLayout( dsGroupBox7->layout() );
 	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
 	dsGroupBox7Layout->setSpacing( 5 );
 	dsGroupBox7Layout->setMargin( 5 );
@@ -261,7 +266,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	}
 	delete ps;
 
-	okCancelLayout = new QHBoxLayout;
+	okCancelLayout = new Q3HBoxLayout;
 	okCancelLayout->setSpacing( 5 );
 	okCancelLayout->setMargin( 5 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

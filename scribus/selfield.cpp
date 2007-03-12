@@ -9,6 +9,11 @@ for which a new license (GPL+exception) is in place.
 #include "selfield.h"
 #include "selfield.moc"
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 #include "commonstrings.h"
 
@@ -20,13 +25,13 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 	setCaption( tr( "Select Fields" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	FTyp = Art;
-	SelectFieldsLayout = new QVBoxLayout( this, 11, 6, "SelectFieldsLayout");
-	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
-	Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1");
+	SelectFieldsLayout = new Q3VBoxLayout( this, 11, 6, "SelectFieldsLayout");
+	Layout5 = new Q3HBoxLayout( 0, 0, 6, "Layout5");
+	Layout1 = new Q3VBoxLayout( 0, 0, 6, "Layout1");
 
 	Text1 = new QLabel( tr( "Available Fields" ), this, "Text1" );
 	Layout1->addWidget( Text1 );
-	AvailFields = new QListBox( this, "AvailFields" );
+	AvailFields = new Q3ListBox( this, "AvailFields" );
 	AvailFields->setMinimumSize( QSize( 130, 180 ) );
 	for (uint se = 0; se < Doc->Items->count(); ++se)
 	{
@@ -47,7 +52,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 
 	if (Art > 1)
 	{
-		Layout2 = new QVBoxLayout( 0, 0, 6, "Layout2");
+		Layout2 = new Q3VBoxLayout( 0, 0, 6, "Layout2");
 		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer );
 		ToSel = new QPushButton( tr( "&>>" ), this, "ToSel" );
@@ -57,10 +62,10 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer_2 );
 		Layout5->addLayout( Layout2 );
-		Layout3 = new QVBoxLayout( 0, 0, 6, "Layout3");
+		Layout3 = new Q3VBoxLayout( 0, 0, 6, "Layout3");
 		Text2 = new QLabel( tr( "Selected Fields" ), this, "Text2" );
 		Layout3->addWidget( Text2 );
-		SelFields = new QListBox( this, "SelFields" );
+		SelFields = new Q3ListBox( this, "SelFields" );
 		SelFields->setMinimumSize( QSize( 130, 180 ) );
 		QStringList pfol;
 		pfol = pfol.split(",", Felder);
@@ -73,13 +78,13 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		ToSel->setEnabled(false);
 		Layout3->addWidget( SelFields );
 		Layout5->addLayout( Layout3 );
-		connect(SelFields, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelEField(QListBoxItem*)));
+		connect(SelFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelEField(Q3ListBoxItem*)));
 		connect(ToSel, SIGNAL(clicked()), this, SLOT(PutToSel()));
 		connect(FromSel, SIGNAL(clicked()), this, SLOT(RemoveSel()));
 	}
 	SelectFieldsLayout->addLayout( Layout5 );
 	S_Fields = "";
-	Layout4 = new QHBoxLayout( 0, 0, 6, "Layout4");
+	Layout4 = new Q3HBoxLayout( 0, 0, 6, "Layout4");
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_3 );
 	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
@@ -92,7 +97,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 	SelectFieldsLayout->addLayout( Layout4 );
 	connect(OK, SIGNAL(clicked()), this, SLOT(SetRetVal()));
 	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(AvailFields, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelAField(QListBoxItem*)));
+	connect(AvailFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelAField(Q3ListBoxItem*)));
 }
 
 void SelectFields::SetRetVal()
@@ -129,7 +134,7 @@ void SelectFields::PutToSel()
 		SelFields->insertItem(AvailFields->currentText());
 }
 
-void SelectFields::SelAField(QListBoxItem *c)
+void SelectFields::SelAField(Q3ListBoxItem *c)
 {
 	if ((c != NULL) && (FTyp > 1))
 	{
@@ -139,7 +144,7 @@ void SelectFields::SelAField(QListBoxItem *c)
 	}
 }
 
-void SelectFields::SelEField(QListBoxItem *c)
+void SelectFields::SelEField(Q3ListBoxItem *c)
 {
 	if (c != NULL)
 	{

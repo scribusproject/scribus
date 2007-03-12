@@ -8,8 +8,11 @@ for which a new license (GPL+exception) is in place.
 #define SVGPLUG_H
 
 #include <qdom.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
 #include <qsize.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../formatidlist.h"
@@ -88,7 +91,7 @@ public:
 	bool cspaceValid;
 	VGradient gradient;
 	bool gradientValid;
-	QWMatrix matrix;
+	QMatrix matrix;
 	bool matrixValid;
 	QString reference;
 	int Type;
@@ -139,7 +142,7 @@ public:
 	bool Display;
 	bool CSpace;
 	QString CurCol;
-	QValueList<double> dashArray;
+	Q3ValueList<double> dashArray;
 	double dashOffset;
 	QString Family;
 	QString FillCol;
@@ -155,8 +158,8 @@ public:
 	double GY2;
 	bool InherCol;
 	double LWidth;
-	QWMatrix matrix;
-	QWMatrix matrixg;
+	QMatrix matrix;
+	QMatrix matrixg;
 	Qt::PenStyle PLineArt;
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
@@ -194,23 +197,23 @@ public:
 	void parseDefs(const QDomElement &e);
 	void parseClipPath(const QDomElement &e);
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
-	QPtrList<PageItem> parseGroup(const QDomElement &e);
-	QPtrList<PageItem> parseElement(const QDomElement &e);
-	QPtrList<PageItem> parseCircle(const QDomElement &e);
-	QPtrList<PageItem> parseEllipse(const QDomElement &e);
-	QPtrList<PageItem> parseImage(const QDomElement &e);
-	QPtrList<PageItem> parseLine(const QDomElement &e);
-	QPtrList<PageItem> parsePath(const QDomElement &e);
-	QPtrList<PageItem> parsePolyline(const QDomElement &e);
-	QPtrList<PageItem> parseRect(const QDomElement &e);
-	QPtrList<PageItem> parseText(const QDomElement &e);
-	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
-	QPtrList<PageItem> parseSwitch(const QDomElement &e);
-	QPtrList<PageItem> parseUse(const QDomElement &e);
+	Q3PtrList<PageItem> parseGroup(const QDomElement &e);
+	Q3PtrList<PageItem> parseElement(const QDomElement &e);
+	Q3PtrList<PageItem> parseCircle(const QDomElement &e);
+	Q3PtrList<PageItem> parseEllipse(const QDomElement &e);
+	Q3PtrList<PageItem> parseImage(const QDomElement &e);
+	Q3PtrList<PageItem> parseLine(const QDomElement &e);
+	Q3PtrList<PageItem> parsePath(const QDomElement &e);
+	Q3PtrList<PageItem> parsePolyline(const QDomElement &e);
+	Q3PtrList<PageItem> parseRect(const QDomElement &e);
+	Q3PtrList<PageItem> parseText(const QDomElement &e);
+	Q3PtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
+	Q3PtrList<PageItem> parseSwitch(const QDomElement &e);
+	Q3PtrList<PageItem> parseUse(const QDomElement &e);
 	QDomElement getNodeFromUseElement(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
-	QWMatrix parseTransform(const QString &transform);
+	QMatrix parseTransform(const QString &transform);
 	const char * getCoord( const char *ptr, double &number );
 	bool parseSVG( const QString &s, FPointArray *ite );
 	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
@@ -230,7 +233,7 @@ public:
 	QString docDesc;
 	QString docTitle;
 	int groupLevel;
-	QPtrStack<SvgStyle>	m_gc;
+	Q3PtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;
 	QMap<QString, FPointArray>		m_clipPaths;

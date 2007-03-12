@@ -13,9 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qpixmap.h>
 #include <qstringlist.h>
-#include <qpointarray.h>
-#include <qvaluelist.h>
+#include <q3pointarray.h>
+#include <q3valuelist.h>
 #include <qpoint.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -56,10 +58,10 @@ QString SCRIBUS_API CompressStr(QString *in);
 QByteArray SCRIBUS_API CompressArray(QByteArray *in);
 void SCRIBUS_API Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
 //int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
-void SCRIBUS_API BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
+void SCRIBUS_API BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double SCRIBUS_API xy2Deg(double x, double y);
-QPointArray SCRIBUS_API FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-QPointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
+Q3PointArray SCRIBUS_API FlattenPath(FPointArray ina, Q3ValueList<uint> &Segs);
+Q3PointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
@@ -70,7 +72,7 @@ The QCString is filled with the contents of the specified file. The return
 byte string is of unknown encoding; the caller must handle encoding issues.
 There is no need to preallocate the buffer, and the new data replaces any
 old contents. */
-bool SCRIBUS_API loadRawText(const QString & filename, QCString & buf);
+bool SCRIBUS_API loadRawText(const QString & filename, Q3CString & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
 /**
@@ -131,7 +133,7 @@ double SCRIBUS_API constrainAngle(double angle, double constrain);
    \param def the value that should be return if matrix is not a rotation matrix
    \retval double the rotation angle
  */
-double SCRIBUS_API getRotationFromMatrix(QWMatrix& matrix, double def);
+double SCRIBUS_API getRotationFromMatrix(QMatrix& matrix, double def);
 const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);

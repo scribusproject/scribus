@@ -9,15 +9,19 @@ for which a new license (GPL+exception) is in place.
 
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qcheckbox.h>
-#include <qheader.h>
-#include <qptrlist.h>
+#include <q3header.h>
+#include <q3ptrlist.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
 #include <qcombobox.h>
-#include <qlistbox.h>
-#include <qlistview.h>
+#include <q3listbox.h>
+#include <q3listview.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "prefsmanager.h"
@@ -44,17 +48,17 @@ public:
 	};
 	QMap<QString, fontSet> fontFlags;
 	QMap<QString,QString> RList;
-	QPtrList<QComboBox> FlagsRepl;
+	Q3PtrList<QComboBox> FlagsRepl;
 
 private:
 	QWidget* tab1;
 	QWidget* tab;
 	QWidget* tab3;
-	QListBox* PathList;
-	QListView* fontList;
-	QTable* Table3;
-	QHeader *Header;
-	QHeader *Header2;
+	Q3ListBox* PathList;
+	Q3ListView* fontList;
+	Q3Table* Table3;
+	Q3Header *Header;
+	Q3Header *Header2;
 	QPushButton* DelB;
 	QPushButton* ChangeB;
 	QPushButton* AddB;
@@ -74,11 +78,11 @@ private:
 	QPixmap checkOff;
 
 public slots:
-	void slotClick(QListViewItem* ite, const QPoint &, int col);
+	void slotClick(Q3ListViewItem* ite, const QPoint &, int col);
 	void ReplaceSel(int r, int c);
 	void UpdateFliste();
 	void DelEntry();
-	void SelectPath(QListBoxItem *c);
+	void SelectPath(Q3ListBoxItem *c);
 	void AddPath();
 	void ChangePath();
 	void DelPath();
@@ -88,11 +92,11 @@ protected:
 	void writePaths();
 	void rebuildDialog();
 
-	QVBoxLayout* tab1Layout;
-	QVBoxLayout* tabLayout;
-	QHBoxLayout* Layout2a;
-	QHBoxLayout* tab3Layout;
-	QVBoxLayout* LayoutR;
+	Q3VBoxLayout* tab1Layout;
+	Q3VBoxLayout* tabLayout;
+	Q3HBoxLayout* Layout2a;
+	Q3HBoxLayout* tab3Layout;
+	Q3VBoxLayout* LayoutR;
 };
 
 #endif // FONTPREFS_H

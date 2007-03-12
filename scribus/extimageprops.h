@@ -9,17 +9,22 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3PtrList>
+#include <Q3HBoxLayout>
+#include <QLabel>
 
-class QVBoxLayout;
-class QHBoxLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
 class QTabWidget;
 class QWidget;
 class QLabel;
 class QComboBox;
 class QSpinBox;
-class QTable;
-class QListBox;
-class QListBoxItem;
+class Q3Table;
+class Q3ListBox;
+class Q3ListBoxItem;
 class QCheckBox;
 class QPushButton;
 
@@ -42,12 +47,12 @@ public:
 	QComboBox* blendMode;
 	QLabel* textLabel2;
 	QSpinBox* opacitySpinBox;
-	QTable* layerTable;
+	Q3Table* layerTable;
 	QWidget* tab_2;
-	QListBox* pathList;
+	Q3ListBox* pathList;
 	QPushButton* resetPath;
-	QPtrList<QCheckBox> FlagsSicht;
-	QPtrList<QCheckBox> FlagsMask;
+	Q3PtrList<QCheckBox> FlagsSicht;
+	Q3PtrList<QCheckBox> FlagsMask;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
 	int currentLayer;
@@ -57,14 +62,14 @@ public:
 public slots:
 	void changedLayer();
 	void selLayer(int layer);
-	void selPath(QListBoxItem *c);
+	void selPath(Q3ListBoxItem *c);
 	void noPath();
 
 protected:
-	QVBoxLayout* ExtImagePropsLayout;
-	QVBoxLayout* tabLayout;
-	QHBoxLayout* layout1;
-	QVBoxLayout* tabLayout_2;
+	Q3VBoxLayout* ExtImagePropsLayout;
+	Q3VBoxLayout* tabLayout;
+	Q3HBoxLayout* layout1;
+	Q3VBoxLayout* tabLayout_2;
 
 };
 

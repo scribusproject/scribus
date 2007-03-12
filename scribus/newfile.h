@@ -8,10 +8,10 @@ for which a new license (GPL+exception) is in place.
 #define NEWDOC_H
 
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
@@ -20,8 +20,12 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qtabwidget.h>
-#include <qframe.h>
-#include <qlistbox.h>
+#include <q3frame.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -34,8 +38,8 @@ class PageLayouts;
 class MSpinBox;
 class CustomFDialog;
 class ScComboBox;
-class QIconView;
-class QIconViewItem;
+class Q3IconView;
+class Q3IconViewItem;
 
 
 class SCRIBUS_API NewDoc : public QDialog
@@ -51,13 +55,13 @@ public:
 	void setSize(QString gr);
 
 	QTabWidget* tabWidget;
-	QFrame* newDocFrame;
-	QIconView* layoutsView;
+	Q3Frame* newDocFrame;
+	Q3IconView* layoutsView;
 	QLabel* layoutLabel1;
 	ScComboBox* firstPage;
-	QGroupBox* pageSizeGroupBox;
+	Q3GroupBox* pageSizeGroupBox;
 	MarginWidget* marginGroup;
-	QGroupBox* optionsGroupBox;
+	Q3GroupBox* optionsGroupBox;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	QLabel* TextLabel3;
@@ -78,10 +82,10 @@ public:
 	QSpinBox* pageCountSpinBox;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
-	QFrame* openDocFrame;
+	Q3Frame* openDocFrame;
 	CustomFDialog *fileDialog;
-	QFrame* recentDocFrame;
-	QListBox* recentDocListBox;
+	Q3Frame* recentDocFrame;
+	Q3ListBox* recentDocListBox;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
 	double unitRatio;
@@ -104,7 +108,7 @@ public slots:
 	void setHeight(int v);
 	void setWidth(int v);
 	void selectItem(uint nr);
-	void itemSelected(QIconViewItem* ic);
+	void itemSelected(Q3IconViewItem* ic);
 	void handleAutoFrame();
 	void setDist(int v);
 	void setUnit(int u);
@@ -120,16 +124,16 @@ public slots:
 	void openFile(const QString &);
 
 protected:
-	QVBoxLayout* TabbedNewDocLayout;
-	QGridLayout* Layout4;
-	QGridLayout* NewDocLayout;
-	QHBoxLayout* Layout9;
-	QGridLayout* pageSizeGroupBoxLayout;
-	QHBoxLayout* Layout5;
-	QHBoxLayout* Layout10;
-	QGridLayout* optionsGroupBoxLayout;
-	QHBoxLayout* Layout1;
-	QVBoxLayout* recentDocLayout;
+	Q3VBoxLayout* TabbedNewDocLayout;
+	Q3GridLayout* Layout4;
+	Q3GridLayout* NewDocLayout;
+	Q3HBoxLayout* Layout9;
+	Q3GridLayout* pageSizeGroupBoxLayout;
+	Q3HBoxLayout* Layout5;
+	Q3HBoxLayout* Layout10;
+	Q3GridLayout* optionsGroupBoxLayout;
+	Q3HBoxLayout* Layout1;
+	Q3VBoxLayout* recentDocLayout;
 	PrefsManager* prefsManager;
 	QStringList recentDocList;
 };

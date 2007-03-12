@@ -11,16 +11,21 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QSpacerItem;
-class QListView;
-class QListViewItem;
+class Q3ListView;
+class Q3ListViewItem;
 class QComboBox;
 class QLabel;
 class QPushButton;
@@ -60,7 +65,7 @@ public:
 public slots:
 	/*! \brief Called when is selected a new item in error list.
 	\param ite and item */
-	void slotSelect(QListViewItem* ite);
+	void slotSelect(Q3ListViewItem* ite);
 	/*!\brief Do a manual rechecking. */
 	void doReScan();
 	/*! \brief Process error checking itself.
@@ -82,22 +87,22 @@ signals:
 	void ignoreAllErrors();
 
 protected:
-	QVBoxLayout* checkDocumentLayout;
-	QHBoxLayout* layout1;
-	QHBoxLayout* layout2;
+	Q3VBoxLayout* checkDocumentLayout;
+	Q3HBoxLayout* layout1;
+	Q3HBoxLayout* layout2;
 
 protected slots:
 	virtual void languageChange();
 
 private:
 	//! \brief Mappping Page Item - item nr.
-	QMap<QListViewItem*, int> itemMap;
+	QMap<Q3ListViewItem*, int> itemMap;
 	//! \brief Mappping Page - page nr.
-	QMap<QListViewItem*, int> pageMap;
+	QMap<Q3ListViewItem*, int> pageMap;
 	//! \brief Mappping Master Page - MP nr.
-	QMap<QListViewItem*, QString> masterPageMap;
+	QMap<Q3ListViewItem*, QString> masterPageMap;
 	//! \brief Mappping MP Item - MP item nr.
-	QMap<QListViewItem*, int> masterPageItemMap;
+	QMap<Q3ListViewItem*, int> masterPageItemMap;
 
 	//! \brief a reference to the current document
 	ScribusDoc* m_Doc;
@@ -126,7 +131,7 @@ private:
 	bool noButton;
 	QComboBox* curCheckProfile;
 	QLabel* textLabel1;
-	QListView* reportDisplay;
+	Q3ListView* reportDisplay;
 	QPushButton* ignoreErrors;
 	QPushButton* reScan;
 };

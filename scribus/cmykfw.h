@@ -12,15 +12,20 @@ for which a new license (GPL+exception) is in place.
 #include <qcolor.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qslider.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qlineedit.h>
-#include <qwidgetstack.h>
-#include <qlistbox.h>
+#include <q3widgetstack.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QMouseEvent>
 
 class ScColor;
 class ScribusDoc;
@@ -52,10 +57,10 @@ public:
 	QLabel* NewC;
 	QPushButton* Cancel;
 	QPushButton* Cancel_2;
-	QFrame* Frame4;
-	QWidgetStack* TabStack;
-	QFrame* Frame5;
-	QFrame* Frame5a;
+	Q3Frame* Frame4;
+	Q3WidgetStack* TabStack;
+	Q3Frame* Frame5;
+	Q3Frame* Frame5a;
 	ColorListBox* ColorSwatch;
 	ColorChart* ColorMap;
 	QLabel* CyanP;
@@ -104,18 +109,18 @@ public slots:
 	void Verlassen();
 
 protected:
-	QHBoxLayout* CMYKFarbenLayout;
-	QVBoxLayout* Layout23;
-	QGridLayout* Layout2;
-	QGridLayout* Layout2x;
-	QHBoxLayout* Layout21;
-	QVBoxLayout* Frame4Layout;
-	QHBoxLayout* Frame5Layout;
-	QHBoxLayout* Frame5aLayout;
-	QVBoxLayout* Layout1_2;
-	QVBoxLayout* Layout1_2_2;
-	QVBoxLayout* Layout1_2_3;
-	QVBoxLayout* Layout1_2_4;
+	Q3HBoxLayout* CMYKFarbenLayout;
+	Q3VBoxLayout* Layout23;
+	Q3GridLayout* Layout2;
+	Q3GridLayout* Layout2x;
+	Q3HBoxLayout* Layout21;
+	Q3VBoxLayout* Frame4Layout;
+	Q3HBoxLayout* Frame5Layout;
+	Q3HBoxLayout* Frame5aLayout;
+	Q3VBoxLayout* Layout1_2;
+	Q3VBoxLayout* Layout1_2_2;
+	Q3VBoxLayout* Layout1_2_3;
+	Q3VBoxLayout* Layout1_2_4;
 	
 	ColorSetManager csm;
 	int customSetStartIndex;

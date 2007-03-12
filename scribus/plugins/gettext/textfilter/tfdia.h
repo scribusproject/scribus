@@ -13,9 +13,12 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qlayout.h>
-#include <qscrollview.h>
-#include <qvbox.h>
+#include <q3scrollview.h>
+#include <q3vbox.h>
 #include <qevent.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <Q3Frame>
 #include <prefscontext.h>
 #include "tffilter.h"
 
@@ -24,8 +27,8 @@ class tfDia : public QDialog
 	Q_OBJECT
 private:
 	PrefsContext* prefs;
-	QBoxLayout* layout;
-	QBoxLayout* alayout;
+	Q3BoxLayout* layout;
+	Q3BoxLayout* alayout;
 	QComboBox* filtersCombo;
 	QLineEdit* saveEdit;
 	QPushButton* clearButton;
@@ -33,8 +36,8 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QString currentFilter;
-	QScrollView* qsv;
-	QFrame* vbox;
+	Q3ScrollView* qsv;
+	Q3Frame* vbox;
 	int currentIndex;
 	void clear();
 	void createLayout();

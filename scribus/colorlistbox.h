@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORLISTBOX_H
 #define COLORLISTBOX_H
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qcolor.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 #include "colorsetmanager.h"
 #include "scribusapi.h"
@@ -68,7 +68,7 @@ and ColorWheel too. You can see it in Extras/Color Wheel or in
 Edit/Colors dialogs in action.
 \author Petr Vanek <petr@yarpen.cz>
 */
-class SCRIBUS_API ColorListBox : public QListBox
+class SCRIBUS_API ColorListBox : public Q3ListBox
 {
 	Q_OBJECT
 
@@ -83,7 +83,7 @@ class SCRIBUS_API ColorListBox : public QListBox
 
 		/*! \brief Standard QListBox like constructor.
 		Just there are initialized pixmaps for icon drawing. */
-		ColorListBox(QWidget * parent = 0, const char * name = 0, WFlags f = 0);
+		ColorListBox(QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
 
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with

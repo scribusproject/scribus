@@ -28,11 +28,26 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qcombobox.h>
 #include <qregexp.h>
-#include <qhbox.h>
+#include <q3hbox.h>
 #include <qcolordialog.h>
 #include <qfontdialog.h>
 #include <qcursor.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QFocusEvent>
+#include <QMouseEvent>
+#include <QCloseEvent>
+#include <Q3GridLayout>
+#include <QShowEvent>
+#include <Q3ValueList>
+#include <QKeyEvent>
+#include <Q3HBoxLayout>
+#include <QEvent>
+#include <QHideEvent>
+#include <QPaintEvent>
+#include <Q3PopupMenu>
+#include <Q3PtrList>
 
 #include "actionmanager.h"
 #include "alignselect.h"
@@ -82,7 +97,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	int p=0, i=0;
 	editor->getCursorPosition(&p, &i);
 	int pos = editor->StyledText.startOfParagraph(p) + i;
-	pmen = new QPopupMenu();
+	pmen = new Q3PopupMenu();
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
 	paraStyleCombo->setDoc(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
@@ -162,7 +177,7 @@ void SideBar::setRepaint(bool r)
 	noUpdt = r;
 }
 
-SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
+SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : Q3TextEdit(parent)
 {
 	setCurrentDocument(docc);
 	parentStoryEditor=parentSE;
@@ -194,7 +209,7 @@ void SEditor::imEndEvent(QIMEvent *e)
 	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 	{
 		insChars(e->text());
-		QTextEdit::imEndEvent(e);
+		Q3TextEdit::imEndEvent(e);
 		emit SideBarUp(true);
 		emit SideBarUpdate();
 	}
@@ -224,23 +239,23 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			switch (k->key())
 			{
 				case Key_Delete:
-					moveCursor(QTextEdit::MoveWordForward, true);
+					moveCursor(Q3TextEdit::MoveWordForward, true);
 					deleteSel();
 					break;
 				case Key_Backspace:
-					moveCursor(QTextEdit::MoveWordBackward, true);
+					moveCursor(Q3TextEdit::MoveWordBackward, true);
 					deleteSel();
 					break;
 				case Key_K:
-					moveCursor(QTextEdit::MoveLineEnd, true);
+					moveCursor(Q3TextEdit::MoveLineEnd, true);
 					deleteSel();
 					break;
 				case Key_D:
-					moveCursor(QTextEdit::MoveForward, true);
+					moveCursor(Q3TextEdit::MoveForward, true);
 					deleteSel();
 					break;
 				case Key_H:
-					moveCursor(QTextEdit::MoveBackward, true);
+					moveCursor(Q3TextEdit::MoveBackward, true);
 					deleteSel();
 					break;
 				case Key_X:
@@ -251,8 +266,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					paste();
 					return;
 					break;
-				case Key_Y:
-				case Key_Z:
+				case Qt::Key_Y:
+				case Qt::Key_Z:
 					emit SideBarUp(true);
 					return;
 					break;
@@ -361,7 +376,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 					{
 						insChars(k->text());
-						QTextEdit::keyPressEvent(k);
+						Q3TextEdit::keyPressEvent(k);
 						emit SideBarUp(true);
 						emit SideBarUpdate();
 					}
@@ -372,7 +387,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		default:
 			break;
 	}
-	QTextEdit::keyPressEvent(k);
+	Q3TextEdit::keyPressEvent(k);
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
@@ -391,7 +406,7 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 		getCursorPosition(&SelParaStart, &SelCharStart);
 		StoredSel = false;
 	}
-	QTextEdit::focusOutEvent(e);
+	Q3TextEdit::focusOutEvent(e);
 }
 
 void SEditor::focusInEvent(QFocusEvent *e)
@@ -409,7 +424,7 @@ void SEditor::focusInEvent(QFocusEvent *e)
 		StoredSel = false;
 	}
 		
-	QTextEdit::focusInEvent(e);
+	Q3TextEdit::focusInEvent(e);
 }
 
 void SEditor::insChars(QString t)
@@ -824,7 +839,7 @@ void SEditor::paste()
 	setCursorPosition(currentPara, currentCharPos);
 	for (int a = 0; a < advanceLen; ++a)
 	{
-		moveCursor(QTextEdit::MoveForward, false);
+		moveCursor(Q3TextEdit::MoveForward, false);
 	}
 	setUpdatesEnabled(true);
 //	if (inserted)
@@ -835,9 +850,9 @@ void SEditor::paste()
 	emit SideBarUpdate();
 }
 
-QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
+Q3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 {
-	QPopupMenu *p = QTextEdit::createPopupMenu(pos);
+	Q3PopupMenu *p = Q3TextEdit::createPopupMenu(pos);
 	p->removeItemAt(0);
 	p->removeItemAt(0);
 	p->removeItemAt(0);
@@ -858,7 +873,7 @@ void SEditor::ClipChange()
 }
 
 /* Toolbar for Fill Colour */
-SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Fill Color Settings"), parent)
+SToolBColorF::SToolBColorF(Q3MainWindow* parent, ScribusDoc *doc) : Q3ToolBar( tr("Fill Color Settings"), parent)
 {
 	FillIcon = new QLabel( "", this, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
@@ -913,7 +928,7 @@ void SToolBColorF::newShadeHandler()
 }
 
 /* Toolbar for Stroke Colour */
-SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
+SToolBColorS::SToolBColorS(Q3MainWindow* parent, ScribusDoc *doc) : Q3ToolBar( tr("Stroke Color Settings"), parent)
 {
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
@@ -965,7 +980,7 @@ void SToolBColorS::newShadeHandler()
 }
 
 /* Toolbar for Character Style Settings */
-SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings"), parent)
+SToolBStyle::SToolBStyle(Q3MainWindow* parent) : Q3ToolBar( tr("Character Settings"), parent)
 {
 	SeStyle = new StyleSelect(this);
 	trackingLabel = new QLabel( this, "trackingLabel" );
@@ -1078,7 +1093,7 @@ void SToolBStyle::SetKern(int k)
 }
 
 /* Toolbar for alignment of Paragraphs */
-SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), parent)
+SToolBAlign::SToolBAlign(Q3MainWindow* parent) : Q3ToolBar( tr("Style Settings"), parent)
 {
 	GroupAlign = new AlignSelect(this);
 	paraStyleCombo = new ParaStyleComboBox(this);
@@ -1111,7 +1126,7 @@ void SToolBAlign::SetParaStyle(int s)
 
 
 /* Toolbar for Font related Settings */
-SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), parent)
+SToolBFont::SToolBFont(Q3MainWindow* parent) : Q3ToolBar( tr("Font Settings"), parent)
 {
 	Fonts = new FontCombo(this);
 	Fonts->setMaximumSize(190, 30);
@@ -1212,7 +1227,7 @@ void SToolBFont::newSizeHandler()
 // }
 
 /* Main Story Editor Class, no current document */
-StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel), // WType_Dialog) //WShowModal |
+StoryEditor::StoryEditor(QWidget* parent) : Q3MainWindow(parent, "StoryEditor", Qt::WType_TopLevel), // WType_Dialog) //WShowModal |
 	activFromApp(true),
 	currDoc(NULL),
 	currItem(NULL),
@@ -1278,7 +1293,7 @@ void StoryEditor::savePrefs()
 	prefs->set("top", geo.top());
 	prefs->set("width", width());
 	prefs->set("height", height());
-	QValueList<int> splitted = EdSplit->sizes();
+	Q3ValueList<int> splitted = EdSplit->sizes();
 	prefs->set("side", splitted[0]);
 	prefs->set("main", splitted[1]);
 }
@@ -1310,7 +1325,7 @@ void StoryEditor::loadPrefs()
 	int txtarea = prefs->getInt("main", -1);
 	if ((side != -1) && (txtarea != -1))
 	{
-		QValueList<int> splitted;
+		Q3ValueList<int> splitted;
 		splitted.append(side);
 		splitted.append(txtarea);
 		EdSplit->setSizes(splitted);
@@ -1320,13 +1335,13 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
-	seActions.insert("fileRevert", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
-	seActions.insert("fileSaveToFile", new ScrAction(QIconSet(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", QKeySequence(), this, "fileSaveToFile"));
-	seActions.insert("fileLoadFromFile", new ScrAction(QIconSet(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png")), "", QKeySequence(), this, "fileLoadFromFile"));
+	seActions.insert("fileNew", new ScrAction(QIcon(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
+	seActions.insert("fileRevert", new ScrAction(QIcon(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
+	seActions.insert("fileSaveToFile", new ScrAction(QIcon(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", QKeySequence(), this, "fileSaveToFile"));
+	seActions.insert("fileLoadFromFile", new ScrAction(QIcon(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png")), "", QKeySequence(), this, "fileLoadFromFile"));
 	seActions.insert("fileSaveDocument", new ScrAction("", CTRL+Key_S, this, "fileSaveDocument"));
-	seActions.insert("fileUpdateAndExit", new ScrAction(QIconSet(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W,  this, "fileUpdateAndExit"));
-	seActions.insert("fileExit", new ScrAction(QIconSet(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
+	seActions.insert("fileUpdateAndExit", new ScrAction(QIcon(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W,  this, "fileUpdateAndExit"));
+	seActions.insert("fileExit", new ScrAction(QIcon(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
 
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
@@ -1337,15 +1352,15 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, this, "editSelectAll"));
-	seActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png")), "", CTRL+Key_X, this, "editCut"));
-	seActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png")), "", CTRL+Key_C, this, "editCopy"));
-	seActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png")), "", CTRL+Key_V, this, "editPaste"));
-	seActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editdelete.png")), "", Key_Delete, this, "editClear"));
-	seActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png")), "", QKeySequence(), this, "editSearchReplace"));
-	seActions.insert("editEditStyle", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editEditStyle"));
-	seActions.insert("editFontPreview", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editFontPreview"));
-	seActions.insert("editUpdateFrame", new ScrAction(QIconSet(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", CTRL+Key_U, this, "editUpdateFrame"));
+	seActions.insert("editSelectAll", new ScrAction(QIcon(noIcon), "", CTRL+Key_A, this, "editSelectAll"));
+	seActions.insert("editCut", new ScrAction(QIcon(loadIcon("editcut.png")), "", CTRL+Key_X, this, "editCut"));
+	seActions.insert("editCopy", new ScrAction(QIcon(loadIcon("editcopy.png")), "", CTRL+Key_C, this, "editCopy"));
+	seActions.insert("editPaste", new ScrAction(QIcon(loadIcon("editpaste.png")), "", CTRL+Key_V, this, "editPaste"));
+	seActions.insert("editClear", new ScrAction(QIcon(loadIcon("editdelete.png")), "", Key_Delete, this, "editClear"));
+	seActions.insert("editSearchReplace", new ScrAction(QIcon(loadIcon("find16.png")), "", QKeySequence(), this, "editSearchReplace"));
+	seActions.insert("editEditStyle", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "editEditStyle"));
+	seActions.insert("editFontPreview", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "editFontPreview"));
+	seActions.insert("editUpdateFrame", new ScrAction(QIcon(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", CTRL+Key_U, this, "editUpdateFrame"));
 
 	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );
@@ -1358,13 +1373,13 @@ void StoryEditor::initActions()
 	connect( seActions["editUpdateFrame"], SIGNAL(activated()), this, SLOT(updateTextFrame()) );
 
 	//Insert Menu
-	seActions.insert("insertGlyph", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "insertGlyph"));
+	seActions.insert("insertGlyph", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "insertGlyph"));
 	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
 
 	//Settings Menu
-	seActions.insert("settingsBackground", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsBackground"));
-	seActions.insert("settingsDisplayFont", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
-	seActions.insert("settingsSmartTextSelection", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "settingsSmartTextSelection"));
+	seActions.insert("settingsBackground", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "settingsBackground"));
+	seActions.insert("settingsDisplayFont", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
+	seActions.insert("settingsSmartTextSelection", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "settingsSmartTextSelection"));
 	smartSelection = false;
 	seActions["settingsSmartTextSelection"]->setOn(false);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
@@ -1491,11 +1506,11 @@ void StoryEditor::buildGUI()
 	buildMenus();
 
 	setIcon(loadIcon("AppIcon.png"));
-	QHBox* vb = new QHBox( this );
-	StoryEd2Layout = new QHBoxLayout( 0, 5, 5, "StoryEd2Layout");
+	Q3HBox* vb = new Q3HBox( this );
+	StoryEd2Layout = new Q3HBoxLayout( 0, 5, 5, "StoryEd2Layout");
 
 /* Setting up Toolbars */
-	FileTools = new QToolBar(this);
+	FileTools = new Q3ToolBar(this);
 	seActions["fileNew"]->addTo(FileTools);
 	seActions["fileLoadFromFile"]->addTo(FileTools);
 	seActions["fileSaveToFile"]->addTo(FileTools);
@@ -1540,15 +1555,15 @@ void StoryEditor::buildGUI()
 	StoryEd2Layout->addWidget( EdSplit );
 
 /* Setting up Status Bar */
-	ButtonGroup1 = new QButtonGroup( statusBar(), "ButtonGroup1" );
-	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup1->setFrameShadow( QButtonGroup::Plain );
+	ButtonGroup1 = new Q3ButtonGroup( statusBar(), "ButtonGroup1" );
+	ButtonGroup1->setFrameShape( Q3ButtonGroup::NoFrame );
+	ButtonGroup1->setFrameShadow( Q3ButtonGroup::Plain );
 	ButtonGroup1->setTitle("");
 	ButtonGroup1->setExclusive( true );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 0 );
 	ButtonGroup1->layout()->setMargin( 0 );
-	ButtonGroup1Layout = new QGridLayout( ButtonGroup1->layout() );
+	ButtonGroup1Layout = new Q3GridLayout( ButtonGroup1->layout() );
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 2 );
 	ButtonGroup1Layout->setMargin( 0 );
@@ -1563,15 +1578,15 @@ void StoryEditor::buildGUI()
 	CharC = new QLabel(ButtonGroup1, "cc");
 	ButtonGroup1Layout->addWidget( CharC, 1, 3 );
 	statusBar()->addWidget(ButtonGroup1, 1, true);
-	ButtonGroup2 = new QButtonGroup( statusBar(), "ButtonGroup2" );
-	ButtonGroup2->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup2->setFrameShadow( QButtonGroup::Plain );
+	ButtonGroup2 = new Q3ButtonGroup( statusBar(), "ButtonGroup2" );
+	ButtonGroup2->setFrameShape( Q3ButtonGroup::NoFrame );
+	ButtonGroup2->setFrameShadow( Q3ButtonGroup::Plain );
 	ButtonGroup2->setTitle("");
 	ButtonGroup2->setExclusive( true );
 	ButtonGroup2->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup2->layout()->setSpacing( 0 );
 	ButtonGroup2->layout()->setMargin( 0 );
-	ButtonGroup2Layout = new QGridLayout( ButtonGroup2->layout() );
+	ButtonGroup2Layout = new Q3GridLayout( ButtonGroup2->layout() );
 	ButtonGroup2Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup2Layout->setSpacing( 2 );
 	ButtonGroup2Layout->setMargin( 0 );
@@ -1804,7 +1819,7 @@ void StoryEditor::keyPressEvent (QKeyEvent * e)
 	else
 	{
 		activFromApp = false;
-		return QMainWindow::keyReleaseEvent(e);
+		return Q3MainWindow::keyReleaseEvent(e);
 	}
 }
 
@@ -1847,7 +1862,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			}
 		}
 	}
-	return QMainWindow::eventFilter(ob, ev);
+	return Q3MainWindow::eventFilter(ob, ev);
 }
 
 void StoryEditor::setBackPref()
@@ -2494,7 +2509,7 @@ void StoryEditor::updateTextFrame()
 		{
 			if ((nb2->itemText.text(j) == SpecialChars::OBJECT) && (nb2->itemText.item(j)->cembedded != 0))
 			{
-				QPtrList<PageItem> emG;
+				Q3PtrList<PageItem> emG;
 				emG.clear();
 				emG.append(nb2->itemText.item(j)->cembedded);
 				if (nb2->itemText.item(j)->cembedded->Groups.count() != 0)
@@ -2529,7 +2544,7 @@ void StoryEditor::updateTextFrame()
 #endif
 	Editor->saveItemText(nextItem);
 #if 0
-	QPtrList<PageItem> FrameItemsDel;
+	Q3PtrList<PageItem> FrameItemsDel;
 	FrameItemsDel.setAutoDelete(true);
 	for (uint a = 0; a < Editor->FrameItems.count(); ++a)
 	{

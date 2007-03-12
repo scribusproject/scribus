@@ -4,10 +4,17 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qtable.h>
-#include <qgroupbox.h>
+#include <q3table.h>
+#include <q3groupbox.h>
 #include <qlayout.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3Frame>
+#include <QEvent>
 
 #include "scconfig.h"
 #include "scribuscore.h"
@@ -37,18 +44,18 @@ CharSelect::CharSelect(QWidget* parent)
 	setCaption( tr("Character Palette"));
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	QHBoxLayout* mainLayout = new QHBoxLayout(this);
+	Q3HBoxLayout* mainLayout = new Q3HBoxLayout(this);
 	mainLayout->setSpacing(6);
 	mainLayout->setMargin(11);
 
 	// big table related
-	m_bigPalette = new QGroupBox(0, Qt::Vertical, tr("Enhanced Palette"), this, "m_bigPalette");
+	m_bigPalette = new Q3GroupBox(0, Qt::Vertical, tr("Enhanced Palette"), this, "m_bigPalette");
 	m_bigPalette->layout()->setSpacing(5);
 	m_bigPalette->layout()->setMargin(10);
-	QGridLayout* bigLayout = new QGridLayout(m_bigPalette->layout());
+	Q3GridLayout* bigLayout = new Q3GridLayout(m_bigPalette->layout());
 
 	// combos
-	QHBoxLayout* combosLayout = new QHBoxLayout();
+	Q3HBoxLayout* combosLayout = new Q3HBoxLayout();
 	fontLabel = new QLabel(m_bigPalette, "fontLabel");
 	fontLabel->setText( tr("Font:"));
 
@@ -74,7 +81,7 @@ CharSelect::CharSelect(QWidget* parent)
 	bigLayout->addWidget(m_charTable, 1, 0);
 
 	sample = new QLabel(m_bigPalette, "sample");
-	sample->setFrameShape(QFrame::Box);
+	sample->setFrameShape(Q3Frame::Box);
 	sample->setPaletteBackgroundColor(paletteBackgroundColor());
 	sample->setMinimumHeight(48);
 	sample->setMinimumWidth(460);
@@ -84,7 +91,7 @@ CharSelect::CharSelect(QWidget* parent)
 	insertButton = new QPushButton( tr("&Insert"), m_bigPalette, "insertButton");
 	deleteButton = new QPushButton( tr("C&lear"), m_bigPalette, "deleteButton");
 
-	QHBoxLayout* buttonLayout = new QHBoxLayout();
+	Q3HBoxLayout* buttonLayout = new Q3HBoxLayout();
 	QSpacerItem* buttonSpacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(buttonSpacer);
 	buttonLayout->addWidget(insertButton);
@@ -93,10 +100,10 @@ CharSelect::CharSelect(QWidget* parent)
 	bigLayout->addLayout(buttonLayout, 3, 0);
 
 	// quick table
-	m_quickPalette = new QGroupBox(0, Qt::Vertical, tr("Quick Palette"), this, "m_quickPalette");
+	m_quickPalette = new Q3GroupBox(0, Qt::Vertical, tr("Quick Palette"), this, "m_quickPalette");
 	m_quickPalette->layout()->setSpacing(5);
 	m_quickPalette->layout()->setMargin(10);
-	QGridLayout* quickLayout = new QGridLayout(m_quickPalette->layout());
+	Q3GridLayout* quickLayout = new Q3GridLayout(m_quickPalette->layout());
 
 	hideCheck = new QCheckBox( tr("Hide Enhanced"), m_quickPalette, "hideCheck");
 	quickLayout->addWidget(hideCheck, 0, 0);
@@ -111,7 +118,7 @@ CharSelect::CharSelect(QWidget* parent)
 	uniSaveButton->setPixmap(loadIcon("22/document-save.png"));
 	uniClearButton = new QPushButton(m_quickPalette, "uniClearButton");
 	uniClearButton->setPixmap(loadIcon("22/document-new.png"));
-	QHBoxLayout *fileLayout = new QHBoxLayout();
+	Q3HBoxLayout *fileLayout = new Q3HBoxLayout();
 	fileLayout->addWidget(uniLoadButton);
 	fileLayout->addWidget(uniSaveButton);
 	fileLayout->addWidget(uniClearButton);
@@ -645,7 +652,7 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 
 void CharSelect::uniLoadButton_clicked()
 {
-	QString f = QFileDialog::getOpenFileName(
+	QString f = Q3FileDialog::getOpenFileName(
                     QDir::currentDirPath(),
                     paletteFileMask,
                     this,
@@ -661,9 +668,9 @@ void CharSelect::loadUserContent(QString f)
 	QFile file(f);
 	if (!file.exists())
 		return;
-	if (file.open(IO_ReadOnly))
+	if (file.open(QIODevice::ReadOnly))
 	{
-		QTextStream stream(&file);
+		Q3TextStream stream(&file);
 		QString line;
 		while (!stream.atEnd())
 		{
@@ -691,7 +698,7 @@ void CharSelect::uniSaveButton_clicked()
 {
 	if (m_userTable->characters().count() == 0)
 		return;
-	QString f = QFileDialog::getSaveFileName(
+	QString f = Q3FileDialog::getSaveFileName(
                     QDir::currentDirPath(),
                     paletteFileMask,
                     this,
@@ -705,9 +712,9 @@ void CharSelect::uniSaveButton_clicked()
 void CharSelect::saveUserContent(QString f)
 {
 	QFile file(f);
-	if (file.open(IO_WriteOnly))
+	if (file.open(QIODevice::WriteOnly))
 	{
-		QTextStream stream(&file);
+		Q3TextStream stream(&file);
 		CharClassDef chars = m_userTable->characters();
 		stream << "# This is a character palette file for Scribus\n";
 		for (CharClassDef::Iterator it = chars.begin(); it != chars.end(); ++it)

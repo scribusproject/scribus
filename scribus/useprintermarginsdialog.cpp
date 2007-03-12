@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "useprintermarginsdialog.moc"
 
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 

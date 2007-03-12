@@ -95,7 +95,7 @@ void CsvIm::loadFile()
 		return;
 	uint posi;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
