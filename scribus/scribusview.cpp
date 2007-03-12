@@ -10338,6 +10338,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		previewMode = true;
 		forceRedraw = true;
 		Page* act = Doc->currentPage();
+		Doc->setLoading(true);
 		Doc->setCurrentPage(Doc->Pages->at(Nr));
 		im = QImage(clipw, cliph, 32, QImage::BigEndian);
 #ifdef HAVE_CAIRO
@@ -10365,6 +10366,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		Doc->guidesSettings.showControls = ctrls;
 		Scale = sca;
 		Doc->setCurrentPage(act);
+		Doc->setLoading(false);
 		delete painter;
 		painter=NULL;
 		previewMode = false;
