@@ -1169,12 +1169,12 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					p->setupPolygon(&PoLine);
 				p->strokePath();
 			}
-			if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-			{
-				p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
-				p->setupPolygon(&ContourLine);
-				p->strokePath();
-			}
+		}
+		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
 		}
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && ((isGroupControl) || (Groups.count() == 0)))
 		{

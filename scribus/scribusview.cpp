@@ -1178,7 +1178,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							painter->restore();
 							PageItem *cite = groupStack2.pop();
 							oldR = cite->getRedrawBounding(Scale);
-							if ((clip.intersects(oldR)) && (Doc->guidesSettings.layerMarkersShown) && (Doc->layerCount() > 1))
+							if ((clip.intersects(oldR)) && (((Doc->guidesSettings.layerMarkersShown) && (Doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
 								cite->DrawObj(painter, clip);
 							groupStack.pop();
 						}

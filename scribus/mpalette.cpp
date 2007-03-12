@@ -531,6 +531,52 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	page_group_layout->addWidget( ShapeGroup2 );
 	EditShape2 = new QToolButton( page_group, "EditShape" );
 	page_group_layout->addWidget( EditShape2 );
+
+	textFlowOptions2 = new QButtonGroup( page_group, "textFlowOptions" );
+	textFlowOptions2->setColumnLayout(0, Qt::Vertical );
+	textFlowOptions2->layout()->setSpacing( 5 );
+	textFlowOptions2->layout()->setMargin( 10 );
+	textFlowOptionsLayout2 = new QVBoxLayout( textFlowOptions2->layout() );
+	textFlowOptionsLayout2->setAlignment( Qt::AlignTop );
+	textFlowOptions2->setCheckable( false );
+	textFlowOptions2->setExclusive( true );
+	textFlowDisabled2 = new QToolButton( textFlowOptions2, "textFlowDisabled" );
+	textFlowDisabled2->setToggleButton( true );
+	textFlowDisabled2->setTextPosition( QToolButton::BesideIcon );
+	textFlowDisabled2->setUsesTextLabel( true );
+	textFlowDisabled2->setTextLabel( "Disabled" );
+	textFlowDisabled2->setPixmap(loadIcon("flow-none.png"));
+	textFlowOptionsLayout2->addWidget( textFlowDisabled2 );
+	textFlowUsesFrameShape2  = new QToolButton( textFlowOptions2, "textFlowUsesObjectFrame" );
+	textFlowUsesFrameShape2->setToggleButton( true );
+	textFlowUsesFrameShape2->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesFrameShape2->setUsesTextLabel( true );
+	textFlowUsesFrameShape2->setTextLabel( "Use &Frame Shape" );
+	textFlowUsesFrameShape2->setPixmap(loadIcon("flow-frame.png"));
+	textFlowOptionsLayout2->addWidget( textFlowUsesFrameShape2 );
+	textFlowUsesBoundingBox2 = new QToolButton( textFlowOptions2, "textFlowUsesBoundingBox" );
+	textFlowUsesBoundingBox2->setToggleButton( true );
+	textFlowUsesBoundingBox2->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesBoundingBox2->setUsesTextLabel( true );
+	textFlowUsesBoundingBox2->setTextLabel( "Use &Bounding Box" );
+	textFlowUsesBoundingBox2->setPixmap(loadIcon("flow-bounding.png"));
+	textFlowOptionsLayout2->addWidget( textFlowUsesBoundingBox2 );
+	textFlowUsesContourLine2 = new QToolButton( textFlowOptions2, "textFlowUsesContourLine" );
+	textFlowUsesContourLine2->setToggleButton( true );
+	textFlowUsesContourLine2->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesContourLine2->setUsesTextLabel( true );
+	textFlowUsesContourLine2->setTextLabel( "&Use Contour Line" );
+	textFlowUsesContourLine2->setPixmap(loadIcon("flow-contour.png"));
+	textFlowOptionsLayout2->addWidget( textFlowUsesContourLine2 );
+	textFlowUsesImageClipping2 = new QToolButton( textFlowOptions2, "textFlowUsesImageClipping" );
+	textFlowUsesImageClipping2->setToggleButton( true );
+	textFlowUsesImageClipping2->setTextPosition( QToolButton::BesideIcon );
+	textFlowUsesImageClipping2->setUsesTextLabel( true );
+	textFlowUsesImageClipping2->setTextLabel( "Use Image Clip Path" );
+	textFlowUsesImageClipping2->setPixmap(loadIcon("flow-contour.png"));
+	textFlowOptionsLayout2->addWidget( textFlowUsesImageClipping2 );
+	page_group_layout->addWidget( textFlowOptions2 );
+
 	TransGroup = new QGroupBox( tr( "Transparency Settings" ), page_group, "TransGroup" );
 	TransGroup->setColumnLayout(0, Qt::Vertical );
 	TransGroup->layout()->setSpacing( 0 );
@@ -975,6 +1021,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
 	connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
 	connect(textFlowOptions, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
+	connect(textFlowOptions2, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
 
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
@@ -1434,16 +1481,40 @@ void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if (mode == PageItem::TextFlowDisabled)
-		textFlowDisabled->setOn(true);
-	else if (mode == PageItem::TextFlowUsesFrameShape)
-		textFlowUsesFrameShape->setOn(true);
-	else if (mode == PageItem::TextFlowUsesBoundingBox)
-		textFlowUsesBoundingBox->setOn(true);
-	else if (mode == PageItem::TextFlowUsesContourLine)
-		textFlowUsesContourLine->setOn(true);
-	else if (mode == PageItem::TextFlowUsesImageClipping)
-		textFlowUsesImageClipping->setOn(true);
+	if (CurItem->isGroupControl)
+	{
+		if (mode == PageItem::TextFlowDisabled)
+			textFlowDisabled2->setOn(true);
+		else if (mode == PageItem::TextFlowUsesFrameShape)
+			textFlowUsesFrameShape2->setOn(true);
+		else if (mode == PageItem::TextFlowUsesBoundingBox)
+			textFlowUsesBoundingBox2->setOn(true);
+		else if (mode == PageItem::TextFlowUsesContourLine)
+			textFlowUsesContourLine2->setOn(true);
+		else if (mode == PageItem::TextFlowUsesImageClipping)
+			textFlowUsesImageClipping2->setOn(true);
+		if ((CurItem->asImageFrame()) && (CurItem->imageClip.size() != 0))
+			textFlowUsesImageClipping2->setEnabled(true);
+		else
+			textFlowUsesImageClipping2->setEnabled(false);
+	}
+	else
+	{
+		if (mode == PageItem::TextFlowDisabled)
+			textFlowDisabled->setOn(true);
+		else if (mode == PageItem::TextFlowUsesFrameShape)
+			textFlowUsesFrameShape->setOn(true);
+		else if (mode == PageItem::TextFlowUsesBoundingBox)
+			textFlowUsesBoundingBox->setOn(true);
+		else if (mode == PageItem::TextFlowUsesContourLine)
+			textFlowUsesContourLine->setOn(true);
+		else if (mode == PageItem::TextFlowUsesImageClipping)
+			textFlowUsesImageClipping->setOn(true);
+		if ((CurItem->asImageFrame()) && (CurItem->imageClip.size() != 0))
+			textFlowUsesImageClipping->setEnabled(true);
+		else
+			textFlowUsesImageClipping->setEnabled(false);
+	}
 }
 
 void Mpalette::SetCurItem(PageItem *i)
@@ -1519,10 +1590,6 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	Revert->setOn(CurItem->reversed());
 	setTextFlowMode(CurItem->textFlowMode());
-	if ((CurItem->asImageFrame()) && (CurItem->imageClip.size() != 0))
-		textFlowUsesImageClipping->setEnabled(true);
-	else
-		textFlowUsesImageClipping->setEnabled(false);
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1577,9 +1644,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	if (CurItem->isGroupControl)
 	{
+		TabStack->setItemEnabled(idXYZItem, true);
+		TabStack->setItemEnabled(idShapeItem, false);
 		TabStack->setItemEnabled(idGroupItem, true);
 		TabStack->setItemEnabled(idLineItem, false);
 		TabStack->setItemEnabled(idColorsItem, false);
+		TabStack->setItemEnabled(idTextItem, false);
+		TabStack->setItemEnabled(idImageItem, false);
 		if (CurItem->FrameType == 0)
 			SCustom2->setPixmap(SCustom2->getIconPixmap(0));
 		if (CurItem->FrameType == 1)
@@ -3558,16 +3629,32 @@ void Mpalette::DoFlow(int /*id*/)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (textFlowDisabled->isOn())
-			mode = PageItem::TextFlowDisabled;
-		if (textFlowUsesFrameShape->isOn())
-			mode = PageItem::TextFlowUsesFrameShape;
-		if (textFlowUsesBoundingBox->isOn())
-			mode = PageItem::TextFlowUsesBoundingBox;
-		if (textFlowUsesContourLine->isOn())
-			mode = PageItem::TextFlowUsesContourLine;
-		if (textFlowUsesImageClipping->isOn())
-			mode = PageItem::TextFlowUsesImageClipping;
+		if (CurItem->isGroupControl)
+		{
+			if (textFlowDisabled2->isOn())
+				mode = PageItem::TextFlowDisabled;
+			if (textFlowUsesFrameShape2->isOn())
+				mode = PageItem::TextFlowUsesFrameShape;
+			if (textFlowUsesBoundingBox2->isOn())
+				mode = PageItem::TextFlowUsesBoundingBox;
+			if (textFlowUsesContourLine2->isOn())
+				mode = PageItem::TextFlowUsesContourLine;
+			if (textFlowUsesImageClipping2->isOn())
+				mode = PageItem::TextFlowUsesImageClipping;
+		}
+		else
+		{
+			if (textFlowDisabled->isOn())
+				mode = PageItem::TextFlowDisabled;
+			if (textFlowUsesFrameShape->isOn())
+				mode = PageItem::TextFlowUsesFrameShape;
+			if (textFlowUsesBoundingBox->isOn())
+				mode = PageItem::TextFlowUsesBoundingBox;
+			if (textFlowUsesContourLine->isOn())
+				mode = PageItem::TextFlowUsesContourLine;
+			if (textFlowUsesImageClipping->isOn())
+				mode = PageItem::TextFlowUsesImageClipping;
+		}
 		CurItem->setTextFlowMode(mode);
 		m_ScMW->view->DrawNew();
 		emit DocChanged();
@@ -4283,6 +4370,12 @@ void Mpalette::languageChange()
 	textFlowUsesBoundingBox->setTextLabel( tr("Use &Bounding Box"));
 	textFlowUsesContourLine->setTextLabel( tr("&Use Contour Line"));
 	textFlowUsesImageClipping->setTextLabel( tr("Use Image Clip Path"));
+	textFlowOptions2->setTitle( tr("Text &Flow Around Frame"));
+	textFlowDisabled2->setTextLabel( tr("Disabled"));
+	textFlowUsesFrameShape2->setTextLabel( tr("Use Frame &Shape"));
+	textFlowUsesBoundingBox2->setTextLabel( tr("Use &Bounding Box"));
+	textFlowUsesContourLine2->setTextLabel( tr("&Use Contour Line"));
+	textFlowUsesImageClipping2->setTextLabel( tr("Use Image Clip Path"));
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
 	optMarginLabel->setText( tr("Optical Margins:"));
@@ -4439,6 +4532,12 @@ void Mpalette::languageChange()
 	QToolTip::remove(textFlowUsesBoundingBox);
 	QToolTip::remove(textFlowUsesContourLine);
 	QToolTip::remove(textFlowUsesImageClipping);
+	QToolTip::remove(textFlowOptions2);
+	QToolTip::remove(textFlowDisabled2);
+	QToolTip::remove(textFlowUsesFrameShape2);
+	QToolTip::remove(textFlowUsesBoundingBox2);
+	QToolTip::remove(textFlowUsesContourLine2);
+	QToolTip::remove(textFlowUsesImageClipping2);
 
 	QToolTip::remove(Fonts);
 	QToolTip::remove(Size);
@@ -4518,6 +4617,11 @@ void Mpalette::languageChange()
 	QToolTip::add(textFlowUsesBoundingBox,  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
 	QToolTip::add(textFlowUsesContourLine,  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
 	QToolTip::add(textFlowUsesImageClipping,  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
+	QToolTip::add(textFlowDisabled2, tr("Disable text flow from lower frames around object"));
+	QToolTip::add(textFlowUsesFrameShape2, tr("Use the frame shape for text flow of text frames below the object."));
+	QToolTip::add(textFlowUsesBoundingBox2,  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
+	QToolTip::add(textFlowUsesContourLine2,  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
+	QToolTip::add(textFlowUsesImageClipping2,  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
 
 	QToolTip::add(Fonts, tr("Font of selected text or object"));
 	QToolTip::add(Size, tr("Font Size"));
@@ -4738,6 +4842,7 @@ void Mpalette::doGrouping()
 		m_ScMW->view->RCenter = FPoint(gx, gy + gh);
 	if (BottomRight->isChecked())
 		m_ScMW->view->RCenter = FPoint(gx + gw, gy + gh);
+	TabStack->setItemEnabled(idShapeItem, false);
 }
 
 void Mpalette::EditSh2()

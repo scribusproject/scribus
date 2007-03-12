@@ -126,7 +126,8 @@ public:
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
 	QButtonGroup* RotationGroup;
-	QButtonGroup* textFlowOptions;	
+	QButtonGroup* textFlowOptions;
+	QButtonGroup* textFlowOptions2;
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
@@ -312,6 +313,7 @@ protected:
 	QGridLayout* GroupBox3aLayout;
 	QVBoxLayout* GroupBoxCMLayout;
 	QVBoxLayout* textFlowOptionsLayout;
+	QVBoxLayout* textFlowOptionsLayout2;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
 	QVBoxLayout* page_group_layout;
@@ -443,6 +445,11 @@ protected:
 	QToolButton* textFlowUsesBoundingBox;
 	QToolButton* textFlowUsesContourLine;
 	QToolButton* textFlowUsesImageClipping;
+	QToolButton* textFlowDisabled2;
+	QToolButton* textFlowUsesFrameShape2;
+	QToolButton* textFlowUsesBoundingBox2;
+	QToolButton* textFlowUsesContourLine2;
+	QToolButton* textFlowUsesImageClipping2;
 	QCheckBox* Aspect;
 	QCheckBox* flippedPathText;
 	QCheckBox* showcurveCheckBox;
