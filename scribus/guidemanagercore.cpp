@@ -480,7 +480,7 @@ double GuideManagerCore::closestHorAbove(double y)// const
 			closest = horizontalAutoG[i];
 	}
 
-	if (m_page->Margins.Qt::DockTop < y && m_page->Margins.Qt::DockTop > closest)
+	if (m_page->Margins.Top < y && m_page->Margins.Top > closest)
 		closest = m_page->Margins.Top;
 	if (m_page->height() - m_page->Margins.Qt::DockBottom < y && m_page->height() - m_page->Margins.Qt::DockBottom > closest)
 		closest = m_page->height() - m_page->Margins.Bottom;

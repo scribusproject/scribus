@@ -105,7 +105,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 // 	ScratchTop(prefsData.ScratchTop),
 // 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(scratch.Qt::DockLeft + scratch.Qt::DockRight, scratch.Qt::DockTop + scratch.Qt::DockBottom)),
+	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -208,7 +208,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 // 	ScratchTop(prefsData.ScratchTop),
 // 	ScratchBottom(prefsData.ScratchBottom),
 	minCanvasCoordinate(FPoint(0, 0)),
-	maxCanvasCoordinate(FPoint(scratch.Qt::DockLeft + scratch.Qt::DockRight, scratch.Qt::DockTop + scratch.Qt::DockBottom)),
+	maxCanvasCoordinate(FPoint(scratch.Left + scratch.Right, scratch.Top + scratch.Bottom)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
@@ -1345,15 +1345,15 @@ void ScribusDoc::addSymbols()
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
 	Q_ASSERT(masterPageMode()==false);
-	Page* addedPage = new Page(scratch.Qt::DockLeft, DocPages.count()*(pageHeight+scratch.Qt::DockBottom+scratch.Qt::DockTop)+scratch.Qt::DockTop, pageWidth, pageHeight);
+	Page* addedPage = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
 	Q_ASSERT(addedPage!=NULL);
 	addedPage->setDocument(this);
-	addedPage->Margins.Qt::DockTop = pageMargins.Qt::DockTop;
-	addedPage->Margins.Qt::DockBottom = pageMargins.Qt::DockBottom;
-	addedPage->initialMargins.Qt::DockTop = pageMargins.Qt::DockTop;
-	addedPage->initialMargins.Qt::DockBottom = pageMargins.Qt::DockBottom;
-	addedPage->initialMargins.Qt::DockLeft = pageMargins.Qt::DockLeft;
-	addedPage->initialMargins.Qt::DockRight = pageMargins.Qt::DockRight;
+	addedPage->Margins.Top = pageMargins.Top;
+	addedPage->Margins.Bottom = pageMargins.Bottom;
+	addedPage->initialMargins.Top = pageMargins.Top;
+	addedPage->initialMargins.Bottom = pageMargins.Bottom;
+	addedPage->initialMargins.Left = pageMargins.Left;
+	addedPage->initialMargins.Right = pageMargins.Right;
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
@@ -3917,7 +3917,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	{
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+scratch.Qt::DockRight), QMAX(maxYPos, maxPoint.y()+scratch.Qt::DockBottom));
+		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+scratch.Right), QMAX(maxYPos, maxPoint.y()+scratch.Bottom));
 		adjustCanvas(FPoint(QMIN(0, minPoint.x()-scratch.Left),QMIN(0, minPoint.y()-scratch.Top)), maxSize, true);
 		changed();
 	}
@@ -3944,29 +3944,29 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 
 void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
 {
-	*bleedBottom = bleeds.Qt::DockBottom;
-	*bleedTop = bleeds.Qt::DockTop;
+	*bleedBottom = bleeds.Bottom;
+	*bleedTop = bleeds.Top;
 	if (pageSets[currentPageLayout].Columns == 1)
 	{
-		*bleedRight = bleeds.Qt::DockRight;
-		*bleedLeft = bleeds.Qt::DockLeft;
+		*bleedRight = bleeds.Right;
+		*bleedLeft = bleeds.Left;
 	}
 	else
 	{
 		if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
 		{
-			*bleedRight = bleeds.Qt::DockLeft;
-			*bleedLeft = bleeds.Qt::DockRight;
+			*bleedRight = bleeds.Left;
+			*bleedLeft = bleeds.Right;
 		}
 		else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
 		{
-			*bleedRight = bleeds.Qt::DockRight;
-			*bleedLeft = bleeds.Qt::DockLeft;
+			*bleedRight = bleeds.Right;
+			*bleedLeft = bleeds.Left;
 		}
 		else
 		{
-			*bleedRight = bleeds.Qt::DockLeft;
-			*bleedLeft = bleeds.Qt::DockLeft;
+			*bleedRight = bleeds.Left;
+			*bleedLeft = bleeds.Left;
 		}
 	}
 }
@@ -4521,8 +4521,8 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	if (setcol==1)
 	{
 		Page* pageToAdjust=DocPages.at(pageIndex);
-		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockLeft;
-		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockRight;
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
 		return;
 	}
 
@@ -4530,18 +4530,18 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	PageLocation pageLoc=locationOfPage(pageIndex);
 	if (pageLoc==LeftPage) //Left hand page
 	{
-		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockRight;
-		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockLeft;
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Right;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
 	}
 	else if (pageLoc==RightPage) // Right hand page
 	{
-		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockRight;
-		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockLeft;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Right;
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
 	}
 	else //Middle pages
 	{
-		pageToAdjust->Margins.Qt::DockLeft = pageToAdjust->initialMargins.Qt::DockLeft;
-		pageToAdjust->Margins.Qt::DockRight = pageToAdjust->initialMargins.Qt::DockLeft;
+		pageToAdjust->Margins.Left = pageToAdjust->initialMargins.Left;
+		pageToAdjust->Margins.Right = pageToAdjust->initialMargins.Left;
 	}
 	/* Can also calc the X pos of the frame too, and Y pos, but thats not done yet
 	int myRow=(pageIndex+pageSets[currentPageLayout].FirstPage)/setcol;
@@ -5747,8 +5747,8 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
-	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+scratch.Qt::DockRight, currItem->BoundingY+currItem->BoundingH+scratch.Qt::DockBottom);
-	FPoint minSize(currItem->BoundingX-scratch.Qt::DockLeft, currItem->BoundingY-scratch.Qt::DockTop);
+	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+scratch.Right, currItem->BoundingY+currItem->BoundingH+scratch.Bottom);
+	FPoint minSize(currItem->BoundingX-scratch.Left, currItem->BoundingY-scratch.Top);
 	adjustCanvas(minSize, maxSize);
 }
 

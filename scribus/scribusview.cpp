@@ -635,17 +635,17 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				painter->beginLayer(1.0, 0);
 				painter->setAntialiasing(false);
 				painter->setPen(Qt::black, 1 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-				if (((Doc->bleeds.Qt::DockBottom != 0.0) || (Doc->bleeds.Qt::DockTop != 0.0) || (Doc->bleeds.Qt::DockLeft != 0.0) || (Doc->bleeds.Qt::DockRight != 0.0)) && (Doc->guidesSettings.showBleed))
+				if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
 				{
-					painter->drawRect(Doc->scratch.Qt::DockLeft - bleedLeft+5 / Scale, Doc->scratch.Qt::DockTop - bleedTop+5 / Scale, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
+					painter->drawRect(Doc->scratch.Left - bleedLeft+5 / Scale, Doc->scratch.Top - bleedTop+5 / Scale, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
 					painter->setBrush(Doc->papColor);
-					painter->drawRect(Doc->scratch.Qt::DockLeft - bleedLeft, Doc->scratch.Qt::DockTop - bleedTop, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
+					painter->drawRect(Doc->scratch.Left - bleedLeft, Doc->scratch.Top - bleedTop, Doc->currentPage()->width() + bleedLeft + bleedRight, Doc->currentPage()->height() + bleedBottom + bleedTop);
 				}
 				else
 				{
-					painter->drawRect(Doc->scratch.Qt::DockLeft+5 / Scale, Doc->scratch.Qt::DockTop+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
+					painter->drawRect(Doc->scratch.Left+5 / Scale, Doc->scratch.Top+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
 					painter->setBrush(Doc->papColor);
-					painter->drawRect(Doc->scratch.Qt::DockLeft, Doc->scratch.Qt::DockTop, Doc->currentPage()->width(), Doc->currentPage()->height());
+					painter->drawRect(Doc->scratch.Left, Doc->scratch.Top, Doc->currentPage()->width(), Doc->currentPage()->height());
 				}
 				painter->setAntialiasing(true);
 #else
@@ -4026,8 +4026,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-					FPoint maxSize(gx+gw+Doc->scratch.Qt::DockRight, gy+gh+Doc->scratch.Qt::DockBottom);
-					FPoint minSize(gx-Doc->scratch.Qt::DockLeft, gy-Doc->scratch.Qt::DockTop);
+					FPoint maxSize(gx+gw+Doc->scratch.Right, gy+gh+Doc->scratch.Bottom);
+					FPoint minSize(gx-Doc->scratch.Left, gy-Doc->scratch.Top);
 					Doc->adjustCanvas(minSize, maxSize);
 				}
 				Doc->setRedrawBounding(currItem);
