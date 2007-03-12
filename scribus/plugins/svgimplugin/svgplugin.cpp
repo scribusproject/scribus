@@ -716,7 +716,9 @@ void SVGPlug::parseDefs(const QDomElement &e)
 		if ( !svgStyle.Display) 
 			continue;
 		QString STag2 = b.tagName();
-		if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
+		if ( STag2 == "g" )
+			parseDefs(b);
+		else if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
 			parseGradient( b );
 		else if (STag2 == "clipPath")
 			parseClipPath(b);
@@ -901,11 +903,13 @@ Q3PtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		GElements = parseGroup( e );
 		return GElements;
 	}
-	if( e.tagName() == "defs" )
+	if( STag == "defs" )
 		parseDefs(e);
-	else if( e.tagName() == "switch" )
+	else if( STag == "switch" )
 		GElements = parseSwitch(e);
-	else if( e.tagName() == "use" )
+	else if( STag == "symbol" )
+		GElements = parseSymbol(e);
+	else if( STag == "use" )
 		GElements = parseUse(e);
 	else if( STag == "linearGradient" || STag == "radialGradient" )
 		parseGradient( e );
@@ -1415,6 +1419,15 @@ Q3PtrList<PageItem> SVGPlug::parseSwitch(const QDomElement &e)
 	return SElements;
 }
 
+Q3PtrList<PageItem> SVGPlug::parseSymbol(const QDomElement &e)
+{
+	Q3PtrList<PageItem> SElements;
+	QString id = e.attribute(id);
+	if( !id.isEmpty() )
+		m_nodeMap.insert(id, e);
+	return SElements;
+}
+
 Q3PtrList<PageItem> SVGPlug::parseUse(const QDomElement &e)
 {
 	Q3PtrList<PageItem> UElements;
@@ -1432,26 +1445,27 @@ QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
 	it = m_nodeMap.find(href);
 	if (it != m_nodeMap.end())
 	{
-		QString attrName;
-		QDomNode clone = it.data().cloneNode();
-		QDomNamedNodeMap attributes = e.attributes();
-		ret = clone.toElement();
-		for (uint i = 0; i < attributes.count(); ++i)
+		// Transform use element to group
+		ret = e.cloneNode().toElement();
+		ret.setTagName("g");
+		if( ret.hasAttribute("x") || ret.hasAttribute("y") )
 		{
-			QDomAttr attr = attributes.item(i).toAttr();
-			attrName = attr.name();
-			if (attrName == "transform")
-			{
-				QString trans = attr.value();
-				if (ret.hasAttribute("transform"))
-					trans += QString(" %1").arg(ret.attribute("transform"));
-				ret.setAttribute(attr.name(), trans);
-			}
-			else if (attrName == "xlink:href")
-				continue;
-			else
-				ret.setAttribute(attr.name(), attr.value());
+			QString xAtt  = ret.attribute("x", "0.0");
+			QString yAtt  = ret.attribute("y", "0.0");
+			QString trans = ret.attribute("transform", "");
+			trans += QString(" translate(%1, %2)").arg(xAtt).arg(yAtt);
+			ret.setAttribute("transform", trans);
 		}
+		ret.removeAttribute("x");
+		ret.removeAttribute("y");
+		ret.removeAttribute("width");
+		ret.removeAttribute("height");
+		ret.removeAttribute("xlink:href");
+		QDomNode clone = it.data().cloneNode();
+		QDomElement cloneElm = clone.toElement();
+		if( cloneElm.tagName() == "symbol" )
+			cloneElm.setTagName("g"); // later fix to be svg
+		ret.appendChild(cloneElm);
 	}
 	return ret;
 }
