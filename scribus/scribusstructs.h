@@ -187,9 +187,9 @@ struct CopyContentsBuffer
 class MarginStruct
 {
 	public:
-		MarginStruct() : Qt::DockTop(0), Qt::DockLeft(0), Qt::DockBottom(0), Qt::DockRight(0) {}
+		MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
 		MarginStruct(double top, double left, double bottom, double right) :
-			Qt::DockTop(top), Qt::DockLeft(left), Qt::DockBottom(bottom), Qt::DockRight(right) {}
+			Top(top), Left(left), Bottom(bottom), Right(right) {}
 		MarginStruct(const MarginStruct& rhs) {Top=rhs.Top;Bottom=rhs.Bottom;Left=rhs.Left;Right=rhs.Right;}
 		double Top;
 		double Left;
@@ -338,7 +338,7 @@ struct PrintOptions
 typedef QMap<QString,QString> ProfilesL;
 // typedef QValueVector<SingleLine> multiLine;
 
-struct multiLine : public Q3ValueVector<Qt::TextSingleLine> {
+struct multiLine : public Q3ValueVector<SingleLine> {
 	QString shortcut;
 };
 
