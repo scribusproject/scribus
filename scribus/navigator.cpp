@@ -92,6 +92,8 @@ void Navigator::drawMark(int x, int y)
 	p.drawLine(x+2, y+2, x+6, y+6);
 	p.drawLine(x+2, y-2, x+6, y-6);
 	p.end();
+	Xp = x;
+	Yp = y;
 }
 
 bool Navigator::SetSeite(int Seite, int Size, QString fn)

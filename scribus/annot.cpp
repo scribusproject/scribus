@@ -662,6 +662,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 			Breite = Pg1->Breite;
 			Hoehe = Pg1->Hoehe;
 		}
+		else
+		{
+			Destfile->setEnabled(false);
+			ChFile->setEnabled(false);
+			LExtern->setChecked(false);
+		}
 	}
 
 	tab4 = new QWidget( TabWidget2, "privateWidget" );
