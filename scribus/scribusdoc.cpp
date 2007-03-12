@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "scribusdoc.moc"
+//#include "scribusdoc.moc"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"

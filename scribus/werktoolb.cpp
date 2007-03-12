@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 
 #include "werktoolb.h"
-#include "werktoolb.moc"
+//#include "werktoolb.moc"
 
 #include "autoformbuttongroup.h"
 #include "menumanager.h"

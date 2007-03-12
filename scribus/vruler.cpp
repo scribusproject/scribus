@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "vruler.h"
-#include "vruler.moc"
+//#include "vruler.moc"
 #include "page.h"
 #include <qcursor.h>
 #include <qcolor.h>
@@ -75,7 +75,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 		currView->DrVX = -1;
 		currView->SetXGuide(m, -1);
 	}
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	Mpressed = false;
 	currView->updateContents();
 }
@@ -100,8 +100,8 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	p.setClipRect(e->rect());
 	p.drawLine(16, 0, 16, height());
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.setFont(font());
 	double cc = height() / sc;
 	double firstMark = ceil(offs / iter) * iter - offs;
@@ -238,8 +238,8 @@ void Vruler::Draw(int where)
 	// draw slim marker
 	p.begin(this);
 	p.translate(0, -currView->contentsY());
-	p.setPen(red);
-	p.setBrush(red);
+	p.setPen(Qt::red);
+	p.setBrush(Qt::red);
 	cr.setPoints(5,  5, where, 16, where, 5, where, 0, where+2, 0, where-2);
 	p.drawPolygon(cr);
 	p.end();

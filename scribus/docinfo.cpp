@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 
 #include "docinfo.h"
-#include "docinfo.moc"
+//#include "docinfo.moc"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -53,14 +53,14 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 
 	keywordsEdit = new Q3MultiLineEdit( page1, "keywordsEdit" );
 	keywordsLabel = new QLabel( keywordsEdit, tr("&Keywords:"), page1, "keywordsLabel" );
-	keywordsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	keywordsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	keywordsEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( keywordsLabel, 2, 0 );
 	layout1->addWidget( keywordsEdit, 2, 1 );
 
 	descriptionEdit = new Q3MultiLineEdit( page1, "descriptionEdit" );
 	descriptionLabel = new QLabel( descriptionEdit, tr("Descri&ption:"), page1, "descriptionLabel" );
-	descriptionLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	descriptionLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	descriptionEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( descriptionLabel, 3, 0 );
 	layout1->addWidget( descriptionEdit, 3, 1 );
@@ -78,7 +78,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 
 	contributorsEdit = new Q3MultiLineEdit( page2, "contributorsEdit" );
 	contributorsLabel = new QLabel( contributorsEdit, tr("&Contributors:"), page2, "contributorsLabel" );
-	contributorsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	contributorsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	contributorsEdit->setMinimumSize(QSize(200, 105));
 	layout2->addWidget( contributorsLabel, 1, 0 );
 	layout2->addWidget( contributorsEdit, 1, 1 );

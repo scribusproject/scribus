@@ -72,7 +72,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
-#include "scribus.moc"
+//#include "scribus.moc"
 #include "newfile.h"
 #include "page.h"
 #include "query.h"

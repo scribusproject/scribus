@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3CString>
 
 #include "scribuscore.h"
-#include "scribuscore.moc"
+//#include "scribuscore.moc"
 
 #include "util.h"
 #include "commonstrings.h"

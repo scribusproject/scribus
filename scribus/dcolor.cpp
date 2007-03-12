@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 #include "dcolor.h"
-#include "dcolor.moc"
+//#include "dcolor.moc"
 
 
 extern QPixmap loadIcon(QString nam);

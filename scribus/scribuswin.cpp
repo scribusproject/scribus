@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "pageselector.h"
 #include "scmessagebox.h"
-#include "scribuswin.moc"
+//#include "scribuswin.moc"
 #include "fileloader.h"
 #include "scribus.h"
 #include "story.h"

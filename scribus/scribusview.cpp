@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "scribusview.h"
-#include "scribusview.moc"
+//#include "scribusview.moc"
 
 #include "scconfig.h"
 

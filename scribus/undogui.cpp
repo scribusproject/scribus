@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
  
 #include "undogui.h"
-#include "undogui.moc"
+//#include "undogui.moc"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"

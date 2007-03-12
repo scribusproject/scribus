@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfonts.h"
 #include "selfield.h"
-#include "selfield.moc"
+//#include "selfield.moc"
 #include <qstringlist.h>
 //Added by qt3to4:
 #include <QPixmap>

@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "hyask.h"
-#include "hyask.moc"
+//#include "hyask.moc"
 #include <qpixmap.h>
 #include <qregexp.h>
 //Added by qt3to4:
@@ -22,22 +22,22 @@ void WortEdit::keyPressEvent(QKeyEvent *k)
 {
 	int p = cursorPosition();
 	QChar cc = text()[p];
-	if ((k->key() == Key_Left) || (k->key() == Key_Right))
+	if ((k->key() == Qt::Key_Left) || (k->key() == Qt::Key_Right))
 		QLineEdit::keyPressEvent(k);
-	if (k->key() == Key_Delete)
+	if (k->key() == Qt::Key_Delete)
 	{
 		if (cc == "-")
 			QLineEdit::keyPressEvent(k);
 		setCursorPosition(p);
 	}
-	if ((k->key() == Key_Backspace) && (p != 0))
+	if ((k->key() == Qt::Key_Backspace) && (p != 0))
 	{
 		cc = text()[p-1];
 		if (cc == "-")
 			QLineEdit::keyPressEvent(k);
 		setCursorPosition(p-1);
 	}
-	if (k->key() == Key_Minus)
+	if (k->key() == Qt::Key_Minus)
 		QLineEdit::keyPressEvent(k);
 }
 

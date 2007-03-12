@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabtools.h"
-#include "tabtools.moc"
+//#include "tabtools.moc"
 #include <qtooltip.h>
 #include <qspinbox.h>
 #include <q3groupbox.h>
