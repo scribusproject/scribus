@@ -206,6 +206,7 @@ public:
 	QPtrList<PageItem> parseText(const QDomElement &e);
 	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 	QPtrList<PageItem> parseSwitch(const QDomElement &e);
+	QPtrList<PageItem> parseSymbol(const QDomElement &e);
 	QPtrList<PageItem> parseUse(const QDomElement &e);
 	QDomElement getNodeFromUseElement(const QDomElement &e);
 	double fromPercentage( const QString &s );
