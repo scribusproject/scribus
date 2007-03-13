@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 
 #include "oodrawimp.h"
-#include "oodrawimp.moc"
+//#include "oodrawimp.moc"
 
 #include "scconfig.h"
 

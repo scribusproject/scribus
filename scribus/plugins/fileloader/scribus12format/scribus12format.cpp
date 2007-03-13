@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus12format.h"
-#include "scribus12format.moc"
+//#include "scribus12format.moc"
 #include "scribus12formatimpl.h"
 
 #include "../../formatidlist.h"
@@ -241,10 +241,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		m_Doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		m_Doc->pageMargins.Qt::DockLeft=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
-		m_Doc->pageMargins.Qt::DockRight=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
-		m_Doc->pageMargins.Qt::DockTop=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
-		m_Doc->pageMargins.Qt::DockBottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
+		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
+		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
 		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
@@ -756,10 +756,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
 				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
 				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.bleeds.Qt::DockTop = pg.attribute("BTop", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Qt::DockLeft = pg.attribute("BLeft", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Qt::DockRight = pg.attribute("BRight", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Qt::DockBottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Top = pg.attribute("BTop", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Left = pg.attribute("BLeft", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Right = pg.attribute("BRight", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Bottom = pg.attribute("BBottom", "0").toDouble();
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");

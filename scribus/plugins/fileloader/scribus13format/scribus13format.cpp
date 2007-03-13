@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus13format.h"
-#include "scribus13format.moc"
+//#include "scribus13format.moc"
 #include "scribus13formatimpl.h"
 
 #include "../../formatidlist.h"
@@ -308,10 +308,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		m_Doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		m_Doc->pageMargins.Qt::DockLeft=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
-		m_Doc->pageMargins.Qt::DockRight=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
-		m_Doc->pageMargins.Qt::DockTop=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
-		m_Doc->pageMargins.Qt::DockBottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
+		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
+		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -340,15 +340,15 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 		m_Doc->AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 		m_Doc->AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
-		m_Doc->scratch.Qt::DockBottom = dc.attribute("ScratchBottom", "20").toDouble();
+		m_Doc->scratch.Bottom = dc.attribute("ScratchBottom", "20").toDouble();
 		// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
 		// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
 		if (dc.hasAttribute("ScatchLeft"))
-			m_Doc->scratch.Qt::DockLeft = dc.attribute("ScatchLeft", "100").toDouble();
+			m_Doc->scratch.Left = dc.attribute("ScatchLeft", "100").toDouble();
 		else
-			m_Doc->scratch.Qt::DockLeft = dc.attribute("ScratchLeft", "100").toDouble();
-		m_Doc->scratch.Qt::DockRight = dc.attribute("ScratchRight", "100").toDouble();
-		m_Doc->scratch.Qt::DockTop = dc.attribute("ScratchTop", "20").toDouble();
+			m_Doc->scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
+		m_Doc->scratch.Right = dc.attribute("ScratchRight", "100").toDouble();
+		m_Doc->scratch.Top = dc.attribute("ScratchTop", "20").toDouble();
 		m_Doc->toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
 		m_Doc->toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
 		m_Doc->toolSettings.scaleX = dc.attribute("PICTSCX", "1").toDouble();
@@ -636,10 +636,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
 				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
 				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.bleeds.Qt::DockTop = pg.attribute("BTop", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Qt::DockLeft = pg.attribute("BLeft", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Qt::DockRight = pg.attribute("BRight", "0").toDouble();
-				m_Doc->PDF_Options.bleeds.Qt::DockBottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Top = pg.attribute("BTop", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Left = pg.attribute("BLeft", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Right = pg.attribute("BRight", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Bottom = pg.attribute("BBottom", "0").toDouble();
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
@@ -835,12 +835,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Apage->setHeight(pg.attribute("PAGEHEIGHT").toDouble());
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Qt::DockTop = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
-				Apage->initialMargins.Qt::DockBottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
-				Apage->initialMargins.Qt::DockLeft = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
-				Apage->initialMargins.Qt::DockRight = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
-				Apage->Margins.Qt::DockTop = Apage->initialMargins.Qt::DockTop;
-				Apage->Margins.Qt::DockBottom = Apage->initialMargins.Qt::DockBottom;
+				Apage->initialMargins.Top = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
+				Apage->initialMargins.Bottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
+				Apage->initialMargins.Left = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
+				Apage->initialMargins.Right = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->Margins.Top = Apage->initialMargins.Top;
+				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				m_Doc->setMasterPageMode(false);
 				//m_Doc->Pages=&m_Doc->DocPages;
 				// guides reading
