@@ -202,7 +202,7 @@ Xml_string Digester::concat(const Xml_string pattern1, const Xml_string pattern2
 	else if ( (pattern1[pattern1.length()-1]=='/') || (pattern2[0]=='/') )
 		return pattern1 + pattern2;
 	else // cut off one "/"
-		return pattern1 + std::string(static_cast<const std::string&>(pattern2), 1, std::string::npos);
+		return pattern1 + QString::fromStdString(std::string(static_cast<const std::string&>(pattern2.toStdString()), 1, std::string::npos));
 }
 
 
@@ -245,11 +245,11 @@ void RuleState::dump()
 {
 	std::cout << "Rules:\n";
 	for (unsigned int r=0; r<rules.size(); ++r) {
-		std::cout << r << ":\t\"" << rules[r].first << "\" accepted in  (" << accepting[r] << ")\n";
+		std::cout << r << ":\t\"" << rules[r].first.toStdString() << "\" accepted in  (" << accepting[r] << ")\n";
 	}
 	std::cout << "\nTokens:\n";
 	for (std::map<Xml_string, token_t>::iterator it=tokens.begin(); it!=tokens.end(); ++it) {
-		std::cout << it->first << ":\t--> " << it->second << "\n";
+		std::cout << it->first.toStdString() << ":\t--> " << it->second << "\n";
 	}
 	std::cout << "\nAutomaton:\n";
 	const std::set<dfa_state_t>& states(dfa->states());
@@ -270,7 +270,7 @@ void RuleState::dump()
 				std::cout << "--";
 		}
 		for (std::vector<rule_t>::iterator rs=(*s)->rules.begin(); rs!=(*s)->rules.end(); ++rs)
-			std::cout << "\t\"" << rs->first << "\"";
+			std::cout << "\t\"" << rs->first.toStdString() << "\"";
 		std::cout << "\n";
 	}
 }
@@ -379,7 +379,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 				pos2 = len;
 			
 			std::string diff(currPattern.substr(pos, pos2-pos));
-			token_t tok = createToken(diff);
+			token_t tok = createToken(QString::fromStdString(diff));
 //			std::cerr << pos << "-" << pos2 << "\t: " << diff << " = " << tok << "\n";
 
 			// create loop if REPEAT token

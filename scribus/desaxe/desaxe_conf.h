@@ -20,8 +20,8 @@
 
 #ifdef DESAXE_QT
 
-#include <qstring.h>
-#include <qmap.h>
+#include <QString>
+#include <QMap>
 
 typedef QString Xml_string;
 typedef QMap<Xml_string, Xml_string> Xml_attr;
