@@ -8,15 +8,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef BARCODEGENERATOR_H
 #define BARCODEGENERATOR_H
 
-#include "barcodegeneratorbase.h"
+#include "ui_barcodegenerator.h"
 #include <qmap.h>
 #include <qstring.h>
 //Added by qt3to4:
 #include <QLabel>
+#include <Q3TextStream>
 
 class QColor;
 class QLabel;
-
 
 /*! \brief One Barcode Entity.
 \author Petr Vanek <petr@yarpen.cz>
@@ -59,7 +59,7 @@ by uic from designer. Don't change anything in BarcodeGeneratorBase
 manually! It will be overwritten automatically by uic.
 \author Petr Vanek <petr@yarpen.cz>
 */
-class BarcodeGenerator : public BarcodeGeneratorBase
+class BarcodeGenerator : public QDialog
 {
 	Q_OBJECT
 
@@ -72,6 +72,9 @@ class BarcodeGenerator : public BarcodeGeneratorBase
 		~BarcodeGenerator();
 
 	protected:
+		//! GUI namespace content. See designer.
+		Ui::BarcodeGeneratorBase ui;
+
 		//! \brief BC/BC type mapping. QMap keys are used as BC names.
 		BarcodeMap map;
 		//! \brief Color of the BC lines.

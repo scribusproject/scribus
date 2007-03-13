@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "barcode.h"
-#include "barcode.moc"
+//#include "barcode.moc"
 #include "barcodegenerator.h"
 
 Barcode::Barcode() : ScActionPlugin()

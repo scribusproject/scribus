@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "barcodegenerator.h"
-#include "barcodegenerator.moc"
+//#include "barcodegenerator.moc"
 #include "gsutil.h"
 #include "util.h"
 #include "scribus.h"
@@ -43,8 +43,10 @@ BarcodeType::BarcodeType(QString cmd, QString exa,
 }
 
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
-	: BarcodeGeneratorBase(parent, name, true)
+	: QDialog(parent, name, true)
 {
+	ui.setupUi(this);
+
 	map["EAN-13"] = BarcodeType("ean13", "9781860742712", tr("12 or 13 digits"),
 								"[0-9]{12,13}");
 	map["EAN-8"] = BarcodeType("ean8", "12345678", tr("8 digits"),
@@ -108,17 +110,17 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	//    "Symbol"] = "symbol"
 
 	useSamples = true;
-	guiColor = codeEdit->paletteBackgroundColor();
-	bcCombo->insertStringList(map.keys());
-	okButton->setText(CommonStrings::tr_OK);
-	cancelButton->setText(CommonStrings::tr_Cancel);
-	resetButton->setPixmap(loadIcon("u_undo16.png"));
+	guiColor = ui.codeEdit->paletteBackgroundColor();
+	ui.bcCombo->insertStringList(map.keys());
+	ui.okButton->setText(CommonStrings::tr_OK);
+	ui.cancelButton->setText(CommonStrings::tr_Cancel);
+	ui.resetButton->setPixmap(loadIcon("u_undo16.png"));
 	lnColor = Qt::black;
 	txtColor = Qt::black;
 	bgColor = Qt::white;
-	paintColorSample(linesLabel, lnColor);
-	paintColorSample(txtLabel, txtColor);
-	paintColorSample(bgLabel, bgColor);
+	paintColorSample(ui.linesLabel, lnColor);
+	paintColorSample(ui.txtLabel, txtColor);
+	paintColorSample(ui.bgLabel, bgColor);
 
 	tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "bcode.png");
 	psFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "bcode.ps");
@@ -145,30 +147,30 @@ BarcodeGenerator::~BarcodeGenerator()
 
 void BarcodeGenerator::bcComboChanged()
 {
-	QString s = bcCombo->currentText();
-	commentEdit->setText(map[s].comment);
+	QString s = ui.bcCombo->currentText();
+	ui.commentEdit->setText(map[s].comment);
 	if (useSamples)
 	{
-		disconnect(codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
-		codeEdit->setText(map[s].example);
-		connect(codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
+		disconnect(ui.codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
+		ui.codeEdit->setText(map[s].example);
+		connect(ui.codeEdit, SIGNAL(textChanged(const QString&)), this, SLOT(codeEdit_textChanged(const QString&)));
 	}
 
-	includeCheck->setEnabled(map[s].includeCheck ? true : false);
-	if (textCheck->isChecked())
-		includeCheckInText->setEnabled(map[s].includeCheckInText ? true : false);
+	ui.includeCheck->setEnabled(map[s].includeCheck ? true : false);
+	if (ui.textCheck->isChecked())
+		ui.includeCheckInText->setEnabled(map[s].includeCheckInText ? true : false);
 	else
-		includeCheckInText->setEnabled(false);
+		ui.includeCheckInText->setEnabled(false);
 
-	codeEdit_check(codeEdit->text());
+	codeEdit_check(ui.codeEdit->text());
 	paintBarcode();
 }
 
 void BarcodeGenerator::textCheck_changed()
 {
-	bool s = textCheck->state();
-	txtColorButton->setEnabled(s);
-	includeCheckInText->setEnabled(s);
+	bool s = ui.textCheck->state();
+	ui.txtColorButton->setEnabled(s);
+	ui.includeCheckInText->setEnabled(s);
 	paintBarcode();
 }
 
@@ -199,7 +201,7 @@ void BarcodeGenerator::bgColorButton_pressed()
 	bgColor = QColorDialog::getColor(bgColor, this);
 	if (bgColor.isValid())
 	{
-		paintColorSample(bgLabel, bgColor);
+		paintColorSample(ui.bgLabel, bgColor);
 		paintBarcode();
 	}
 }
@@ -209,7 +211,7 @@ void BarcodeGenerator::lnColorButton_pressed()
 	lnColor = QColorDialog::getColor(lnColor, this);
 	if (lnColor.isValid())
 	{
-		paintColorSample(linesLabel, lnColor);
+		paintColorSample(ui.linesLabel, lnColor);
 		paintBarcode();
 	}
 }
@@ -219,7 +221,7 @@ void BarcodeGenerator::txtColorButton_pressed()
 	txtColor = QColorDialog::getColor(txtColor, this);
 	if (txtColor.isValid())
 	{
-		paintColorSample(txtLabel, txtColor);
+		paintColorSample(ui.txtLabel, txtColor);
 		paintBarcode();
 	}
 }
@@ -246,15 +248,15 @@ bool BarcodeGenerator::codeEdit_check(const QString& )//s)
 	QRegExp rx(map[bcCombo->currentText()].regularExp);
 	if (!rx.exactMatch(s))
 	{
-		codeEdit->setPaletteBackgroundColor(QColor(255, 0, 0));
-		sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
-		okButton->setEnabled(false);
+		ui.codeEdit->setPaletteBackgroundColor(QColor(255, 0, 0));
+		ui.sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
+		ui.okButton->setEnabled(false);
 		return false;
 	}
 	else
 	{
-		codeEdit->setPaletteBackgroundColor(guiColor);
-		okButton->setEnabled(true);
+		ui.codeEdit->setPaletteBackgroundColor(guiColor);
+		ui.okButton->setEnabled(true);
 		paintBarcode();
 		return true;
 	} */
@@ -276,21 +278,21 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	opts = opts.arg(lnColor.name().replace('#', "")) \
 			.arg(bgColor.name().replace('#', "")) \
 			.arg(txtColor.name().replace('#', ""));
-	if (textCheck->isChecked())
+	if (ui.textCheck->isChecked())
 		opts += " includetext";
-	if (guardCheck->isChecked())
+	if (ui.guardCheck->isChecked())
 		opts += " guardwhitespace";
-	if (includeCheckInText->isChecked() & includeCheckInText->isEnabled())
+	if (ui.includeCheckInText->isChecked() & ui.includeCheckInText->isEnabled())
 		opts += " includecheckintext";
-	if (includeCheck->isChecked() & includeCheck->isEnabled())
+	if (ui.includeCheck->isChecked() & ui.includeCheck->isEnabled())
 		opts += " includecheck";
 	QString comm("15 10 moveto (%1) (%2) %3 barcode");
-	comm = comm.arg(codeEdit->text()).arg(opts).arg(map[bcCombo->currentText()].command);
+	comm = comm.arg(ui.codeEdit->text()).arg(opts).arg(map[ui.bcCombo->currentText()].command);
 	comm = psCommand + comm;
 	QFile f(psFile);
 	if (!f.open(QIODevice::WriteOnly))
 	{
-		sampleLabel->setText("<qt>" + tr("Error opening file: %1").arg(psFile) + "</qt>");
+		ui.sampleLabel->setText("<qt>" + tr("Error opening file: %1").arg(psFile) + "</qt>");
 		return false;
 	}
 	Q3TextStream ts(&f);
@@ -316,13 +318,13 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 		return retval;
     if (gs == 0)
 	{
-		sampleLabel->setPixmap(QPixmap(fileName));
-		okButton->setEnabled(true);
+		ui.sampleLabel->setPixmap(QPixmap(fileName));
+		ui.okButton->setEnabled(true);
 	}
 	else
 	{
-		sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
-		okButton->setEnabled(false);
+		ui.sampleLabel->setText("<qt>" + tr("Barcode incomplete") + "</qt>");
+		ui.okButton->setEnabled(false);
 	}
 	return retval;
 }
