@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 
 #include "fontpreview.h"
-#include "fontpreview.moc"
+//#include "fontpreview.moc"
 #include "scribus.h"
 #include "prefsfile.h"
 #include "commonstrings.h"
