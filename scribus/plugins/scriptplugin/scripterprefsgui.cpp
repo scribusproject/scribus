@@ -195,4 +195,4 @@ void ScripterPrefsGui::changeStartupScript()
 		startupScriptEdit->setText(s);
 }
 
-#include "scripterprefsgui.moc"
+//#include "scripterprefsgui.moc"

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smwidgets.h"
-#include "smwidgets.moc"
+//#include "smwidgets.moc"
 #include <qtooltip.h>
 #include <qlineedit.h>
 //Added by qt3to4:

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smreplacedia.h"
-#include "smreplacedia.moc"
+//#include "smreplacedia.moc"
 
 #include <qstring.h>
 #include <qstringlist.h>

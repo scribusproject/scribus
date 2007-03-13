@@ -183,4 +183,4 @@ int SWSyntaxHighlighter::highlightParagraph(const QString &text, int)
 	return 0;
 }
 
-#include "swprefsgui.moc"
+//#include "swprefsgui.moc"

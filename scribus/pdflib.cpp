@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pdflib.h"
-#include "pdflib.moc"
+//#include "pdflib.moc"
 
 #include "scconfig.h"
 

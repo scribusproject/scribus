@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "preview.h"
-#include "preview.moc"
+//#include "preview.moc"
 #include <qimage.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>

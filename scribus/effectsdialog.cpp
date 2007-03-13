@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "effectsdialog.h"
-#include "effectsdialog.moc"
+//#include "effectsdialog.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>

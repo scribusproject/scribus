@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "pdfopts.h"
-#include "pdfopts.moc"
+//#include "pdfopts.moc"
 
 #include <qmessagebox.h>
 //Added by qt3to4:

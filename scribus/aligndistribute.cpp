@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "aligndistribute.h"
-#include "aligndistribute.moc"
+//#include "aligndistribute.moc"
 
 #include <qvariant.h>
 #include <qpushbutton.h>

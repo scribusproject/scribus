@@ -144,8 +144,8 @@ public:
 
 	ColorList& operator= (const ColorList& list);
 
-	/** \brief Get the document the list is related */
-	ScribusDoc* document(void) { return m_doc; }
+	/** \brief Get the document the list is related , return in cpp due to scribusdoc class delcaration */
+	ScribusDoc* document(void);
 
 	/** \brief Assign the doc to which the list belong to.*/
 	void setDocument(ScribusDoc* doc);

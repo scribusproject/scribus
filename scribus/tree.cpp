@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tree.h"
-#include "tree.moc"
+//#include "tree.moc"
 #include <q3header.h>
 #include <qlayout.h>
 #include <qvariant.h>

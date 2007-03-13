@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "mpalette.h"
-#include "mpalette.moc"
+//y#include "mpalette.moc"
 
 #include <cmath>
 #include <qpoint.h>

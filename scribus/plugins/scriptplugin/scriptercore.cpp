@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "prefsmanager.h"
 
-#include "scriptercore.moc"
+//#include "scriptercore.moc"
 
 ScripterCore::ScripterCore(QWidget* parent)
 {

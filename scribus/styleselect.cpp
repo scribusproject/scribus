@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "mspinbox.h"
 
 #include "styleselect.h"
-#include "styleselect.moc"
+//#include "styleselect.moc"
 
 extern QPixmap loadIcon(QString nam);
 

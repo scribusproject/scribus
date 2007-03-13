@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "customfdialog.h"
-#include "customfdialog.moc"
+//#include "customfdialog.moc"
 #include <qpixmap.h>
 #include <qpainter.h>
 #include <qfileinfo.h>

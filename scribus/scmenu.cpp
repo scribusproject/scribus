@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3ValueList>
 #include "scmenu.h"
-#include "scmenu.moc"
+//#include "scmenu.moc"
 #include "scraction.h"
 #include "util.h"
 

@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gtdialogs.h"
-#include "gtdialogs.moc"
+//#include "gtdialogs.moc"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

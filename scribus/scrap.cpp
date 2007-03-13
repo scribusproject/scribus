@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 **
 ****************************************************************************/
 #include "scrap.h"
-#include "scrap.moc"
+//#include "scrap.moc"
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <q3url.h>

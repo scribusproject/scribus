@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3filedialog.h>
 #include <qlabel.h>
 #include "picsearchoptions.h"
-#include "picsearchoptions.moc"
+//#include "picsearchoptions.moc"
 #include "filesearch.h"
 
 PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : PicSearchOptionsBase( parent, "PicSearchOptions", true, 0 )

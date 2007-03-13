@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fileloader.h"
-#include "fileloader.moc"
+//#include "fileloader.moc"
 #include "fontreplacedialog.h"
 #include "hyphenator.h"
 #include "missing.h"

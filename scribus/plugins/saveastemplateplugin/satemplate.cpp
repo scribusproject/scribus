@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satemplate.h"
-#include "satemplate.moc"
+//#include "satemplate.moc"
 #include "satdialog.h"
 
 #include "scpaths.h"

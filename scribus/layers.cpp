@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 
 #include "layers.h"
-#include "layers.moc"
+//#include "layers.moc"
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #endif

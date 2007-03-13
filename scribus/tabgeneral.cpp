@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3filedialog.h>
 
 #include "tabgeneral.h"
-#include "tabgeneral.moc"
+//#include "tabgeneral.moc"
 
 #include "prefsmanager.h"
 #include "scribusapp.h"

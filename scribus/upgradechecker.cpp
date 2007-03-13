@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "helpbrowser.h"
 #include "scpaths.h"
 #include "upgradechecker.h"
-#include "upgradechecker.moc"
+//#include "upgradechecker.moc"
 #include "prefsmanager.h"
 #include "scribuscore.h"
 

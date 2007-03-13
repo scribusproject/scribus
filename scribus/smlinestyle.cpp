@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smlinestyle.h"
-#include "smlinestyle.moc"
+//#include "smlinestyle.moc"
 #include "scribusdoc.h"
 #include "linecombo.h"
 #include "mspinbox.h"

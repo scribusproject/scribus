@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "rulermover.h"
-#include "rulermover.moc"
+//#include "rulermover.moc"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include <qcursor.h>

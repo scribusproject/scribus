@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 
 #include "scrpalettebase.h"
-#include "scrpalettebase.moc"
+//#include "scrpalettebase.moc"
 #include "scribus.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribuscore.h"
 #include "nftemplate.h"
-#include "nftemplate.moc"
+//#include "nftemplate.moc"
 #include "nftdialog.h"
 #include "scraction.h"
 #include "menumanager.h"

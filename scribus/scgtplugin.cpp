@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "scgtplugin.h"
-#include "scgtplugin.moc"
+//#include "scgtplugin.moc"
 
 #include <qcheckbox.h>
 #include <qstring.h>

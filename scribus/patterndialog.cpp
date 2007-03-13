@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "patterndialog.h"
-#include "patterndialog.moc"
+//#include "patterndialog.moc"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"

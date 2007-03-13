@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gradienteditor.h"
-#include "gradienteditor.moc"
+//#include "gradienteditor.moc"
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qcursor.h>

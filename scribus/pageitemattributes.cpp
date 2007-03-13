@@ -236,4 +236,4 @@ void PageItemAttributes::languageChange()
 {
 }
 
-#include "pageitemattributes.moc"
+//#include "pageitemattributes.moc"

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <q3listbox.h>
 #include "colorcombo.h"
-#include "colorcombo.moc"
+//#include "colorcombo.moc"
 #include "commonstrings.h"
 
 

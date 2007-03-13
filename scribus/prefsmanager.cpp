@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ValueList>
 
 #include "prefsmanager.h"
-#include "prefsmanager.moc"
+//#include "prefsmanager.moc"
 
 #include "actionmanager.h"
 #include "colorsetmanager.h"

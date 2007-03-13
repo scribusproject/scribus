@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3popupmenu.h>
 #include "scribus.h"
 #include "menumanager.h"
-#include "menumanager.moc"
+//#include "menumanager.moc"
 #include "scmenu.h"
 #include "scraction.h"
 

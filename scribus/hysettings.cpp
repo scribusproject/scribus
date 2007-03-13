@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "hysettings.h"
-#include "hysettings.moc"
+//#include "hysettings.moc"
 #include "sccombobox.h"
 #include "scribusdoc.h"
 //Added by qt3to4:

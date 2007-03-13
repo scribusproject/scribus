@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 
 #include "tabdisplay.h"
-#include "tabdisplay.moc"
+//#include "tabdisplay.moc"
 #include "mspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"

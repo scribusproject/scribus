@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "about.h"
-#include "about.moc"
+//#include "about.moc"
 #include <qpixmap.h>
 #include <q3textstream.h>
 #include <qtooltip.h>

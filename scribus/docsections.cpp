@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "docsections.h"
-#include "docsections.moc"
+//#include "docsections.moc"
 
 // This class implements only the non-GUI parts of the
 // Document Sections dialog. Please use Qt Designer on

@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3buttongroup.h>
 
 #include "autoform.h"
-#include "autoform.moc"
+//#include "autoform.moc"
 #include "autoformbuttongroup.h"
 #include "fpointarray.h"
 #include "scpainter.h"

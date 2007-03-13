@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 
 #include "inspage.h"
-#include "inspage.moc"
+//#include "inspage.moc"
 #include "page.h"
 #include "units.h"
 #include "mspinbox.h"

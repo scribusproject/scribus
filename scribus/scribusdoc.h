@@ -383,7 +383,7 @@ public:
 	 */
 	void enableCMS(bool enable);
 	
-	const ParagraphStyle& paragraphStyle(QString name) { return docParagraphStyles[name]; }
+	const ParagraphStyle& paragraphStyle(QString name) { return docParagraphStyles.get(name); }
 	const StyleSet<ParagraphStyle>& paragraphStyles()   { return docParagraphStyles; }
 	bool isDefaultStyle( const ParagraphStyle& p ) const { return docParagraphStyles.isDefault(p); }
 	bool isDefaultStyle( const CharStyle& c ) const { return docCharStyles.isDefault(c); }
@@ -403,7 +403,7 @@ public:
 	                                          StyleSet<CharStyle> *tempCharStyles = NULL,
 	                                          QMap<QString, multiLine> *tempLineStyles = NULL);
 
-	const CharStyle& charStyle(QString name) { return docCharStyles[name]; }
+	const CharStyle& charStyle(QString name) { return docCharStyles.get(name); }
 	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }
 	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false);
 	/**

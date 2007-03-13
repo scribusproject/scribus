@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "hyphenator.h"
-#include "hyphenator.moc"
+//#include "hyphenator.moc"
 #include "hyask.h"
 
 #include "scconfig.h"

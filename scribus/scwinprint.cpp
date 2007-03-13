@@ -33,7 +33,7 @@ using namespace Gdiplus;
 #include "util.h"
 #include "gsutil.h"
 #include "scwinprint.h"
-#include "scwinprint.moc"
+//#include "scwinprint.moc"
 #include "scpainterex_gdi.h"
 #include "scpageoutput.h"
 #include "scribusview.h"

@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem_imageframe.h"
-#include "pageitem_imageframe.moc"
+//#include "pageitem_imageframe.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>

@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabruler.h"
-#include "tabruler.moc"
+//#include "tabruler.moc"
 #include <qvariant.h>
 #include <qcombobox.h>
 #include <qlabel.h>

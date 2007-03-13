@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3popupmenu.h>
 #include <qicon.h>
 #include "scraction.h"
-#include "scraction.moc"
+//#include "scraction.moc"
 #include "scribus.h"
 #include "scribusdoc.h"
 

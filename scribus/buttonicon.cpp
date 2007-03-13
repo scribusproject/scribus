@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfonts.h"
 #include "buttonicon.h"
-#include "buttonicon.moc"
+//#include "buttonicon.moc"
 #include "scribusstructs.h"
 #include "pageitem.h"
 //Added by qt3to4:

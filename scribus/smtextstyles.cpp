@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smtextstyles.h"
-#include "smtextstyles.moc"
+//#include "smtextstyles.moc"
 #include "smtextstylewidgets.h"
 #include "util.h"
 #include "mspinbox.h"

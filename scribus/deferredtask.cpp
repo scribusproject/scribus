@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "deferredtask.h"
 #include "qtimer.h"
 
-#include "deferredtask.moc"
+//#include "deferredtask.moc"
 
 enum FileSearchStatus
 {

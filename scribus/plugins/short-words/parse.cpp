@@ -20,7 +20,7 @@ or documentation
 
 #include "shortwords.h"
 #include "parse.h"
-#include "parse.moc"
+//#include "parse.moc"
 #include "version.h"
 #include "configuration.h"
 

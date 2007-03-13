@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 #include "tabkeyboardshortcutswidget.h"
-#include "tabkeyboardshortcutswidget.moc"
+//#include "tabkeyboardshortcutswidget.moc"
 
 #include <qcombobox.h>
 #include <qdir.h>

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scfonts.h"
 #include "annot.h"
-#include "annot.moc"
+//#include "annot.moc"
 #include "annotation.h"
 #include "cmsettings.h"
 #include "editor.h"

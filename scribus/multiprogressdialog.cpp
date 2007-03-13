@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "multiprogressdialog.h"
-#include "multiprogressdialog.moc"
+//#include "multiprogressdialog.moc"
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <QLabel>

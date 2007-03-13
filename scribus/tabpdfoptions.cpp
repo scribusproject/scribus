@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "tabpdfoptions.h"
-#include "tabpdfoptions.moc"
+//#include "tabpdfoptions.moc"
 
 #include <qpainter.h>
 //Added by qt3to4:

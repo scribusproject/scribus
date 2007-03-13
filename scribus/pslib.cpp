@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pslib.h"
-#include "pslib.moc"
+//#include "pslib.moc"
 
 #include <qfileinfo.h>
 #include <qimage.h>

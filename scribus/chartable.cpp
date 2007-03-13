@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 
 #include "chartable.h"
-#include "chartable.moc"
+//#include "chartable.moc"
 #include "charzoom.h"
 
 

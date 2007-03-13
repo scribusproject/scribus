@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "docim.h"
-#include "docim.moc"
+//#include "docim.moc"
 #include "gtwriter.h"
 #include "scpaths.h"
 #include "scribusstructs.h"

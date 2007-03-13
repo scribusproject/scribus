@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_XML
 
-#include "odtdia.moc"
+//#include "odtdia.moc"
 #include <qtooltip.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>

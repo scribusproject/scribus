@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "collect4output.h"
-#include "collect4output.moc"
+//#include "collect4output.moc"
 
 #include "scribusdoc.h"
 #include "scribuscore.h"

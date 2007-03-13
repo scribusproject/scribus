@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 
 #include "delpages.h"
-#include "delpages.moc"
+//#include "delpages.moc"
 
 #include "commonstrings.h"
 

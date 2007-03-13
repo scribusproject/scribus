@@ -20,7 +20,7 @@ or documentation
 
 #include "scconfig.h"
 #include "configuration.h"
-#include "configuration.moc"
+//#include "configuration.moc"
 #include "scpaths.h"
 #include "version.h"
 

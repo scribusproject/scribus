@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "navigator.h"
-#include "navigator.moc"
+//#include "navigator.moc"
 
 #include <qpainter.h>
 //Added by qt3to4:

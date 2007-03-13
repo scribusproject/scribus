@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 
 #include "movepage.h"
-#include "movepage.moc"
+//#include "movepage.moc"
 
 #include "commonstrings.h"
 

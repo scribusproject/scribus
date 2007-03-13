@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "undomanager.h"
-#include "undomanager.moc"
+//#include "undomanager.moc"
 #include "undogui.h"
 #include "scconfig.h"
 #include "prefsmanager.h"

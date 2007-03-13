@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "mspinbox.h"
-#include "mspinbox.moc"
+//#include "mspinbox.moc"
 #include <qapplication.h>
 #include <qlineedit.h>
 #include <qregexp.h>

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "actionmanager.h"
-#include "actionmanager.moc"
+//#include "actionmanager.moc"
 
 #include "scribus.h"
 #include "scribusdoc.h"

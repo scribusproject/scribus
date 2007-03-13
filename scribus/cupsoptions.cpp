@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "cupsoptions.h"
-#include "cupsoptions.moc"
+//#include "cupsoptions.moc"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"

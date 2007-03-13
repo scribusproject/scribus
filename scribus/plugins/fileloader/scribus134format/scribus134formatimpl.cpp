@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus134formatimpl.h"
-#include "scribus134formatimpl.moc"
+//#include "scribus134formatimpl.moc"
 #include "scribuscore.h"
 
 #include <qstring.h>

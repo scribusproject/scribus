@@ -4,7 +4,7 @@
 #include <QPaintEvent>
 
 #include "charzoom.h"
-#include "charzoom.moc"
+//#include "charzoom.moc"
 #include "scpainter.h"
 
 

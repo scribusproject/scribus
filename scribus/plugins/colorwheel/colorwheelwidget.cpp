@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "colorwheelwidget.h"
-#include "colorwheelwidget.moc"
+//#include "colorwheelwidget.moc"
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qimage.h>

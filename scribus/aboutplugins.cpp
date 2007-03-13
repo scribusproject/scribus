@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "aboutplugins.h"
-#include "aboutplugins.moc"
+//#include "aboutplugins.moc"
 #include "pluginmanager.h"
 #include "scplugin.h"
 #include "commonstrings.h"

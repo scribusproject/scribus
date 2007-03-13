@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "applytemplatedialog.h"
-#include "applytemplatedialog.moc"
+//#include "applytemplatedialog.moc"
 
 #include <qvariant.h>
 #include <qpushbutton.h>

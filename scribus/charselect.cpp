@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 #include "charselect.h"
-#include "charselect.moc"
+//#include "charselect.moc"
 
 
 CharSelect::CharSelect(QWidget* parent)

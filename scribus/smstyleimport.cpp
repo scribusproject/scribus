@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smstyleimport.h"
-#include "smstyleimport.moc"
+//#include "smstyleimport.moc"
 #include "commonstrings.h"
 
 #include <qpixmap.h>

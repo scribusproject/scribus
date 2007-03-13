@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 
 #include "tabdocument.h"
-#include "tabdocument.moc"
+//#include "tabdocument.moc"
 
 #include "commonstrings.h"
 #include "prefsmanager.h"

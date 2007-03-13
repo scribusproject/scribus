@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "colorchart.h"
-#include "colorchart.moc"
+//#include "colorchart.moc"
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qpainter.h>

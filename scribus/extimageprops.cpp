@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "extimageprops.h"
-#include "extimageprops.moc"
+//#include "extimageprops.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>

@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "prefspanel.h"
 
-#include "scplugin.moc"
+//#include "scplugin.moc"
 
 //=====================================================//
 //                        ScPlugin                     //

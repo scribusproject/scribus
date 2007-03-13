@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem_line.h"
-#include "pageitem_line.moc"
+//#include "pageitem_line.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>

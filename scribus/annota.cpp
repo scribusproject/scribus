@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scfonts.h"
 #include "annota.h"
-#include "annota.moc"
+//#include "annota.moc"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"

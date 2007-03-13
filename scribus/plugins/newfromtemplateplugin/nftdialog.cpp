@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "nftdialog.h"
-#include "nftdialog.moc"
+//#include "nftdialog.moc"
 #include "scconfig.h"
 #include "scribusapi.h"
 #include "commonstrings.h"

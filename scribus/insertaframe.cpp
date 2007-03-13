@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 //
 
 #include "insertaframe.h"
-#include "insertaframe.moc"
+//#include "insertaframe.moc"
 
 #include "createrange.h"
 #include "customfdialog.h"

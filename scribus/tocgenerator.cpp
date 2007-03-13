@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "tocgenerator.h"
-#include "tocgenerator.moc"
+//#include "tocgenerator.moc"
 
 #include <qmap.h>
 #include <qstring.h>

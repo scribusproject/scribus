@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 
 #include "autoformbuttongroup.h"
-#include "autoformbuttongroup.moc"
+//#include "autoformbuttongroup.moc"
 #include "fpointarray.h"
 #include "scpainter.h"
 #include "util.h"

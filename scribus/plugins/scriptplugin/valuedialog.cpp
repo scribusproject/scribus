@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "valuedialog.h"
-#include "valuedialog.moc"
+//#include "valuedialog.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>

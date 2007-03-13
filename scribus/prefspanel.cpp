@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "prefspanel.h"
-#include "prefspanel.moc"
+//#include "prefspanel.moc"
 
 PrefsPanel::PrefsPanel(QWidget* parent, const char* name) : QWidget(parent, name, 0)
 {}

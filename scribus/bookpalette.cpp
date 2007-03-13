@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "bookpalette.h"
-#include "bookpalette.moc"
+//#include "bookpalette.moc"
 //Added by qt3to4:
 #include <QPixmap>
 #include <Q3VBoxLayout>

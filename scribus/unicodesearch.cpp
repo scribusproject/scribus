@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHideEvent>
 
 #include "unicodesearch.h"
-#include "unicodesearch.moc"
+//#include "unicodesearch.moc"
 #include "scpaths.h"
 // #include "fonts/scfontmetrics.h"
 #include "charzoom.h"

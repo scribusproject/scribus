@@ -26,7 +26,7 @@ or documentation
 #include <QPixmap>
 
 #include "shortwords.h"
-#include "shortwords.moc"
+//#include "shortwords.moc"
 #include "version.h"
 #include "vlnadialog.h"
 #include "configuration.h"

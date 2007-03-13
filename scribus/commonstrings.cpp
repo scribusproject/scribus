@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "commonstrings.h"
-#include "commonstrings.moc"
+//#include "commonstrings.moc"
 
 QString CommonStrings::_Apply      = "";
 QString CommonStrings::tr_Apply    = "";

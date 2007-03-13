@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satdialog.h"
-#include "satdialog.moc"
+//#include "satdialog.moc"
 #include "scribusapi.h"
 #include "prefsmanager.h"
 #include <prefsfile.h>

@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 #include "selection.h"
-#include "selection.moc"
+//#include "selection.moc"
 
 #include "scribusdoc.h"
 

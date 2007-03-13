@@ -138,4 +138,4 @@ void PluginManagerPrefsGui::apply()
 	}
 }
 
-#include "pluginmanagerprefsgui.moc"
+//#include "pluginmanagerprefsgui.moc"

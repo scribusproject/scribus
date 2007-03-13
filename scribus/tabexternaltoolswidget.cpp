@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "tabexternaltoolswidget.h"
-#include "tabexternaltoolswidget.moc"
+//#include "tabexternaltoolswidget.moc"
 #include "gsutil.h"
 #include "scpaths.h"
 

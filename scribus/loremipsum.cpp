@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 
 #include "loremipsum.h"
-#include "loremipsum.moc"
+//#include "loremipsum.moc"
 
 #include "langmgr.h"
 #include "pageitem.h"

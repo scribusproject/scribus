@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "helpbrowser.h"
-#include "helpbrowser.moc"
+//#include "helpbrowser.moc"
 
 #include <qvariant.h>
 #include <qstring.h>

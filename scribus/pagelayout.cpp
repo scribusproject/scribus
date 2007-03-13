@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "pagelayout.h"
-#include "pagelayout.moc"
+//#include "pagelayout.moc"
 
 #include <qvariant.h>
 #include <q3groupbox.h>

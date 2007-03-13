@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtabwidget.h>
 
 #include "guidemanager.h"
-#include "guidemanager.moc"
+//#include "guidemanager.moc"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "page.h"

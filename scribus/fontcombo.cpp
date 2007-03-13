@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusdoc.h"
 #include "fontcombo.h"
-#include "fontcombo.moc"
+//#include "fontcombo.moc"
 #include "page.h"
 #include "prefsmanager.h"
 extern QPixmap SCRIBUS_API loadIcon(QString nam);

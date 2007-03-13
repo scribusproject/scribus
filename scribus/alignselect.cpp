@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "alignselect.h"
-#include "alignselect.moc"
+//#include "alignselect.moc"
 //Added by qt3to4:
 #include <Q3GridLayout>
 #include <QPixmap>

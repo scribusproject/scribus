@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 
 #include "missing.h"
-#include "missing.moc"
+//#include "missing.moc"
 
 #include "fontcombo.h"
 #include "scribusdoc.h"

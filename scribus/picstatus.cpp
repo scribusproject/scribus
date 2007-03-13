@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdio>
 
 #include "picstatus.h"
-#include "picstatus.moc"
+//#include "picstatus.moc"
 #include "picsearch.h"
 #include "picsearchoptions.h"
 #include "scribusdoc.h"

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "fontreplacedialog.h"
 
-#include "fontreplacedialog.moc"
+//#include "fontreplacedialog.moc"
 #include <qvariant.h>
 #include <qlabel.h>
 #include <q3table.h>

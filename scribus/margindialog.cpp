@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 
 #include "margindialog.h"
-#include "margindialog.moc"
+//#include "margindialog.moc"
 #include "marginWidget.h"
 #include "pagestructs.h"
 #include "page.h"

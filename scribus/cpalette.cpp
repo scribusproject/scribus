@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "cpalette.h"
-#include "cpalette.moc"
+//#include "cpalette.moc"
 
 #include <qtooltip.h>
 #include <q3listbox.h>

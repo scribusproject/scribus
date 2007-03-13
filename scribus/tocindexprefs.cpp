@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "tocindexprefs.h"
-#include "tocindexprefs.moc"
+//#include "tocindexprefs.moc"
 
 #include <qvariant.h>
 #include <qstringlist.h>

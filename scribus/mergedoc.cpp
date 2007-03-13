@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "mergedoc.h"
-#include "mergedoc.moc"
+//#include "mergedoc.moc"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "fileloader.h"

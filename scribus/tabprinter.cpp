@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qradiobutton.h>
 
 #include "tabprinter.h"
-#include "tabprinter.moc"
+//#include "tabprinter.moc"
 #include "mspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"

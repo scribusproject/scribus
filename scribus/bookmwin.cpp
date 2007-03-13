@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "bookmwin.h"
-#include "bookmwin.moc"
+//#include "bookmwin.moc"
 #include <qpixmap.h>
 #include <q3dragobject.h>
 #include <q3popupmenu.h>

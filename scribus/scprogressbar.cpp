@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
  
 #include "scprogressbar.h"
-#include "scprogressbar.moc"
+//#include "scprogressbar.moc"
 
 ScProgressBar::ScProgressBar( bool showNumbers, QWidget *parent, const char *name, Qt::WFlags f ) :
 	Q3ProgressBar( parent, name, f ),

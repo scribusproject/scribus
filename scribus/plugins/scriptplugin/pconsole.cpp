@@ -12,7 +12,7 @@ the Free Software Foundation; either version 2 of the License, or
 */
 
 #include "pconsole.h"
-#include "pconsole.moc"
+//#include "pconsole.moc"
 
 #include <qpixmap.h>
 #include <qvariant.h>

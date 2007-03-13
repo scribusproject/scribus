@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "scmessagebox.h"
-#include "scmessagebox.moc"
+//#include "scmessagebox.moc"
 #include "scribuscore.h"
 
 extern ScribusQApp* ScQApp;

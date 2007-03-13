@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 
 #include "tabmiscellaneous.h"
-#include "tabmiscellaneous.moc"
+//#include "tabmiscellaneous.moc"
 #include "scribusapp.h"
 extern ScribusQApp* ScQApp;
 

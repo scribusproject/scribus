@@ -851,4 +851,4 @@ SVGExPlug::~SVGExPlug()
 {
 }
 
-#include "svgexplugin.moc"
+//#include "svgexplugin.moc"

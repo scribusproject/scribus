@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem_pathtext.h"
-#include "pageitem_pathtext.moc"
+//#include "pageitem_pathtext.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>
