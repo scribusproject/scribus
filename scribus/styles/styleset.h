@@ -17,7 +17,7 @@ public:
 		return * styles[index]; 
 	}
 	
-	const STYLE& operator[] (const QString& name) const { 
+	const STYLE& get(const QString& name) const { 
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
 	}
 	
