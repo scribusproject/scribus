@@ -288,7 +288,7 @@ const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
 		return trPenStyle_DashDotLine;
 	if (ps == Qt::DashDotDotLine)
 		return trPenStyle_DashDotDotLine;
-	//Return SolidLine as default or if SolidLine
+	//Return Qt::SolidLine as default or if SolidLine
 	//if (ps == Qt::SolidLine)
 	return trPenStyle_SolidLine;
 }

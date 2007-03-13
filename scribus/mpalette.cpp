@@ -2438,19 +2438,19 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 	HaveItem = false;
 	switch (p)
 	{
-	case SolidLine:
+	case Qt::SolidLine:
 		LStyle->setCurrentItem(0);
 		break;
-	case DashLine:
+	case Qt::DashLine:
 		LStyle->setCurrentItem(1);
 		break;
-	case DotLine:
+	case Qt::DotLine:
 		LStyle->setCurrentItem(2);
 		break;
-	case DashDotLine:
+	case Qt::DashDotLine:
 		LStyle->setCurrentItem(3);
 		break;
-	case DashDotDotLine:
+	case Qt::DashDotDotLine:
 		LStyle->setCurrentItem(4);
 		break;
 	default:
@@ -2459,13 +2459,13 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 	}
 	switch (pc)
 	{
-	case FlatCap:
+	case Qt::FlatCap:
 		LEndStyle->setCurrentItem(0);
 		break;
 	case SquareCap:
 		LEndStyle->setCurrentItem(1);
 		break;
-	case RoundCap:
+	case Qt::RoundCap:
 		LEndStyle->setCurrentItem(2);
 		break;
 	default:
@@ -2474,13 +2474,13 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 	}
 	switch (pj)
 	{
-	case MiterJoin:
+	case Qt::MiterJoin:
 		LJoinStyle->setCurrentItem(0);
 		break;
-	case BevelJoin:
+	case Qt::BevelJoin:
 		LJoinStyle->setCurrentItem(1);
 		break;
-	case RoundJoin:
+	case Qt::RoundJoin:
 		LJoinStyle->setCurrentItem(2);
 		break;
 	default:
@@ -3201,23 +3201,23 @@ void Mpalette::NewLSty()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	PenStyle c = SolidLine;
+	PenStyle c = Qt::SolidLine;
 	switch (LStyle->currentItem())
 	{
 	case 0:
-		c = SolidLine;
+		c = Qt::SolidLine;
 		break;
 	case 1:
-		c = DashLine;
+		c = Qt::DashLine;
 		break;
 	case 2:
-		c = DotLine;
+		c = Qt::DotLine;
 		break;
 	case 3:
-		c = DashDotLine;
+		c = Qt::DashDotLine;
 		break;
 	case 4:
-		c = DashDotDotLine;
+		c = Qt::DashDotDotLine;
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
@@ -3261,17 +3261,17 @@ void Mpalette::NewLJoin()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	PenJoinStyle c = MiterJoin;
+	PenJoinStyle c = Qt::MiterJoin;
 	switch (LJoinStyle->currentItem())
 	{
 	case 0:
-		c = MiterJoin;
+		c = Qt::MiterJoin;
 		break;
 	case 1:
-		c = BevelJoin;
+		c = Qt::BevelJoin;
 		break;
 	case 2:
-		c = RoundJoin;
+		c = Qt::RoundJoin;
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))
@@ -3285,17 +3285,17 @@ void Mpalette::NewLEnd()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	PenCapStyle c = FlatCap;
+	PenCapStyle c = Qt::FlatCap;
 	switch (LEndStyle->currentItem())
 	{
 	case 0:
-		c = FlatCap;
+		c = Qt::FlatCap;
 		break;
 	case 1:
 		c = SquareCap;
 		break;
 	case 2:
-		c = RoundCap;
+		c = Qt::RoundCap;
 		break;
 	}
 	if ((HaveDoc) && (HaveItem))

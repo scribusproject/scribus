@@ -831,7 +831,7 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 		p.setBrush(white);
 		p.setBackgroundColor(white);
 		p.setBackgroundMode(QPainter::OpaqueMode);
-		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		//QString tmp = tmp.setNum(nr+1);
 		QString tmp(currView->Doc->getSectionPageNumberForPageIndex(nr));

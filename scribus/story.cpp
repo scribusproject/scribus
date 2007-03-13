@@ -760,9 +760,9 @@ void SEditor::setFarbe(bool marker)
 {
 	QColor tmp;
 	if (marker)
-		tmp = QColor(red);
+		tmp = QColor(Qt::red);
 	else
-		tmp = QColor(black);
+		tmp = QColor(Qt::black);
 	setColor(tmp);
 }
 

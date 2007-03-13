@@ -297,8 +297,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
 	PLineArt = PenStyle(m_Doc->toolSettings.dLineArt);
-	PLineEnd = FlatCap;
-	PLineJoin = MiterJoin;
+	PLineEnd = Qt::FlatCap;
+	PLineJoin = Qt::MiterJoin;
 	Select = false;
 	ClipEdited = false;
 	FrameType = 0;
@@ -932,7 +932,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	p->rotate(Rot);
 	if (m_Doc->layerOutline(LayerNr))
 	{
-		p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerNr), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -1060,7 +1060,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		{
 			if (itemType()!=Line)
 			{
-				p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
+				p->setPen(m_Doc->layerMarker(LayerNr), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(ScPainter::None);
 				p->setBrushOpacity(1.0);
 				p->setPenOpacity(1.0);
@@ -1144,13 +1144,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		{
 			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, DotLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, DotLine, FlatCap, MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((BackBox != 0) || (NextBox != 0))
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, SolidLine, FlatCap, MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if (m_Locked)
-					p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, SolidLine, FlatCap, MiterJoin);
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(0);
 				if (itemType()==PathText)
 				{
@@ -1178,13 +1178,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setPen(lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && ((isGroupControl) || (Groups.count() == 0)))
 		{
-			p->setPen(black, 0.5/ m_Doc->view()->scale(), SolidLine, FlatCap, MiterJoin);
+			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerNr));
 			p->setBrushOpacity(1.0);
@@ -1344,7 +1344,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	{
 		p.setRasterOp(XorROP);
 		p.setBrush(NoBrush);
-		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawRect(0, 0, static_cast<int>(OldB), static_cast<int>(OldH));
 		p.drawRect(0, 0, static_cast<int>(Width), static_cast<int>(Height));
 		OldB = Width;
@@ -1363,13 +1363,13 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.translate(out.x(), out.y());
 					pr.rotate(Rot);
 					if (m_Locked)
-						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1, SolidLine, FlatCap, MiterJoin));
+						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 					else
-						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, DotLine, FlatCap, MiterJoin));
+						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 					pr.setBrush(NoBrush);
 					int lw2 = 1;
 					int lw = 1;
-					PenCapStyle le = FlatCap;
+					PenCapStyle le = Qt::FlatCap;
 					if (NamedLStyle.isEmpty())
 					{
 						lw2 = qRound(m_lineWidth * sc  / 2.0);
@@ -1385,14 +1385,14 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					}
 					if (asLine())
 					{
-						if (le != FlatCap)
+						if (le != Qt::FlatCap)
 							pr.drawRect(-lw2, -lw2, qRound(Width*sc)+lw, lw);
 						else
 							pr.drawRect(-1, -lw2, qRound(Width*sc), lw);
 					}
 					else
 						pr.drawRect(-1, -1, qRound(Width*sc)+2, qRound(Height*sc)+2);
-					pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, SolidLine, FlatCap, MiterJoin));
+					pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 					pr.setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
 					if ((!m_Locked) && (!m_SizeLocked))
 					{
@@ -1423,7 +1423,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				}
 				else
 				{
-					p.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, DotLine, FlatCap, MiterJoin));
+					p.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
 					if (m_Doc->m_Selection->count() == 1)
@@ -1432,7 +1432,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						pr.begin(view->viewport());
 						pr.translate(out.x(), out.y());
 						pr.rotate(Rot);
-						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, SolidLine, FlatCap, MiterJoin));
+						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 						pr.setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
 						pr.drawRect(-1, -1, 6, 6);
 						pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
@@ -1836,10 +1836,10 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		if (stroke)
 		{
 			QColor tmp = p->pen();
-			p->setPen(p->brush(), 1, SolidLine, FlatCap, MiterJoin);
+			p->setPen(p->brush(), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setLineWidth(style.fontSize() * glyphs.scaleV / 200.0);
 			p->strokePath();
-			p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+			p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		}
 		else
 		{
@@ -1960,7 +1960,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			if (m_Doc->layerOutline(LayerNr))
 			{
 				p->save();
-				p->setPen(m_Doc->layerMarker(LayerNr), 0.5, SolidLine, FlatCap, MiterJoin);
+				p->setPen(m_Doc->layerMarker(LayerNr), 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setFillMode(ScPainter::None);
 				p->setBrushOpacity(1.0);
 				p->setPenOpacity(1.0);
@@ -1983,14 +1983,14 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			}
 			if (glyph == 0)
 			{
-				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 1, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DControlCharColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
 				p->strokePath();
 			}
 			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
-				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+				p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
 				p->strokePath();
 			}
@@ -4130,7 +4130,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	double bw= 4*scp1;
 	double bh= 2*scp1;
 	ScribusView* view = m_Doc->view();
-	p->setPen(Qt::black, 0.5 / view->scale(), SolidLine, FlatCap, MiterJoin);
+	p->setPen(Qt::black, 0.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -4138,7 +4138,7 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	p->drawRect(ofx, ofy, ofwh, ofwh);
 	p->setBrush(Qt::black);
 	p->drawRect(bx1, by1, bw, bh);
-	p->setPen(Qt::black, 1.5 / view->scale(), SolidLine, FlatCap, RoundJoin);
+	p->setPen(Qt::black, 1.5 / view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::RoundJoin);
 	if (m_Locked)
 		p->drawLine(FPoint(bx1+scp1/2, ofy+scp1), FPoint(bx1+scp1/2, by1));
 	p->drawLine(FPoint(bx1+scp1*3.5, ofy+scp1), FPoint(bx1+scp1*3.5, by1));

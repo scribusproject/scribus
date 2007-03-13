@@ -81,9 +81,9 @@ void RulerT::paintEvent(QPaintEvent *)
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);
 	p.translate(-offset, 0);
-	p.setBrush(black);
+	p.setBrush(Qt::black);
 	p.setFont(font());
-	p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	for (xl = 0; xl < width()+offset; xl += iter)
 	{
 		if (xl < offset)
@@ -126,9 +126,9 @@ void RulerT::paintEvent(QPaintEvent *)
 		for (int yg = 0; yg < static_cast<int>(tabValues.count()); yg++)
 		{
 			if (yg == actTab)
-				p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			else
-				p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			switch (static_cast<int>(tabValues[yg].tabType))
 			{
 				case 0:
@@ -156,7 +156,7 @@ void RulerT::paintEvent(QPaintEvent *)
 	}
 	if (haveInd)
 	{
-		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setBrush(blue);
 		Q3PointArray cr;
 		cr.setPoints(3, qRound(firstLine+leftIndent), 12, qRound(firstLine+leftIndent-4), 0, qRound(firstLine+leftIndent+4), 0);

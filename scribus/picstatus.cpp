@@ -78,7 +78,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 	p.begin(&pm);
 	p.fillRect(0, 0, 128, 128, imageViewArea->paletteBackgroundColor());
-	p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.setBrush(paletteBackgroundColor());
 	p.drawRoundRect(0, 0, 128, 128, 10, 10);
 	p.setPen(Qt::NoPen);
@@ -92,11 +92,11 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	else
 	{
 		p.setBrush(Qt::NoBrush);
-		p.setPen(QPen(red, 2, SolidLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawLine(12, 12, 116, 116);
 		p.drawLine(12, 116, 116, 12);
 	}
-	p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.setBrush(Qt::NoBrush);
 	p.drawRect(12, 12, 104, 104);
 	p.end();

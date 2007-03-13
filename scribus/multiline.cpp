@@ -191,19 +191,19 @@ void MultiLine::updateSList()
 	
 // 	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
 // 	{
-// 	case SolidLine:
+// 	case Qt::SolidLine:
 // 		tmp2 += tr("Solid Line");
 // 		break;
-// 	case DashLine:
+// 	case Qt::DashLine:
 // 		tmp2 += tr("Dashed Line");
 // 		break;
-// 	case DotLine:
+// 	case Qt::DotLine:
 // 		tmp2 += tr("Dotted Line");
 // 		break;
-// 	case DashDotLine:
+// 	case Qt::DashDotLine:
 // 		tmp2 += tr("Dash Dot Line");
 // 		break;
-// 	case DashDotDotLine:
+// 	case Qt::DashDotDotLine:
 // 		tmp2 += tr("Dash Dot Dot Line");
 // 		break;
 // 	default:
@@ -342,17 +342,17 @@ void MultiLine::DelSubLine()
 
 void MultiLine::NewLJoin()
 {
-	PenJoinStyle c = MiterJoin;
+	PenJoinStyle c = Qt::MiterJoin;
 	switch (LineJoin->currentItem())
 	{
 	case 0:
-		c = MiterJoin;
+		c = Qt::MiterJoin;
 		break;
 	case 1:
-		c = BevelJoin;
+		c = Qt::BevelJoin;
 		break;
 	case 2:
-		c = RoundJoin;
+		c = Qt::RoundJoin;
 		break;
 	}
 	TempVorl[CurLin].LineJoin = static_cast<int>(c);
@@ -361,17 +361,17 @@ void MultiLine::NewLJoin()
 
 void MultiLine::NewLEnd()
 {
-	PenCapStyle c = FlatCap;
+	PenCapStyle c = Qt::FlatCap;
 	switch (LineEnds->currentItem())
 	{
 	case 0:
-		c = FlatCap;
+		c = Qt::FlatCap;
 		break;
 	case 1:
 		c = SquareCap;
 		break;
 	case 2:
-		c = RoundCap;
+		c = Qt::RoundCap;
 		break;
 	}
 	TempVorl[CurLin].LineEnd = static_cast<int>(c);
@@ -381,23 +381,23 @@ void MultiLine::NewLEnd()
 
 void MultiLine::NewLSty()
 {
-	PenStyle c = SolidLine;
+	PenStyle c = Qt::SolidLine;
 	switch (Dashes->currentItem())
 	{
 	case 0:
-		c = SolidLine;
+		c = Qt::SolidLine;
 		break;
 	case 1:
-		c = DashLine;
+		c = Qt::DashLine;
 		break;
 	case 2:
-		c = DotLine;
+		c = Qt::DotLine;
 		break;
 	case 3:
-		c = DashDotLine;
+		c = Qt::DashDotLine;
 		break;
 	case 4:
-		c = DashDotDotLine;
+		c = Qt::DashDotDotLine;
 		break;
 	}
 	TempVorl[CurLin].Dash = static_cast<int>(c);
@@ -445,19 +445,19 @@ void MultiLine::slotEditStyle(int i)
 		Shade->setValue(TempVorl[i].Shade);
 		switch (static_cast<Qt::PenStyle>(TempVorl[i].Dash))
 		{
-		case SolidLine:
+		case Qt::SolidLine:
 			Dashes->setCurrentItem(0);
 			break;
-		case DashLine:
+		case Qt::DashLine:
 			Dashes->setCurrentItem(1);
 			break;
-		case DotLine:
+		case Qt::DotLine:
 			Dashes->setCurrentItem(2);
 			break;
-		case DashDotLine:
+		case Qt::DashDotLine:
 			Dashes->setCurrentItem(3);
 			break;
-		case DashDotDotLine:
+		case Qt::DashDotDotLine:
 			Dashes->setCurrentItem(4);
 			break;
 		default:
@@ -466,13 +466,13 @@ void MultiLine::slotEditStyle(int i)
 		}
 		switch (static_cast<Qt::PenCapStyle>(TempVorl[i].LineEnd))
 		{
-		case FlatCap:
+		case Qt::FlatCap:
 			LineEnds->setCurrentItem(0);
 			break;
 		case SquareCap:
 			LineEnds->setCurrentItem(1);
 			break;
-		case RoundCap:
+		case Qt::RoundCap:
 			LineEnds->setCurrentItem(2);
 			break;
 		default:
@@ -481,13 +481,13 @@ void MultiLine::slotEditStyle(int i)
 		}
 		switch (static_cast<Qt::PenJoinStyle>(TempVorl[i].LineJoin))
 		{
-		case MiterJoin:
+		case Qt::MiterJoin:
 			LineJoin->setCurrentItem(0);
 			break;
-		case BevelJoin:
+		case Qt::BevelJoin:
 			LineJoin->setCurrentItem(1);
 			break;
-		case RoundJoin:
+		case Qt::RoundJoin:
 			LineJoin->setCurrentItem(2);
 			break;
 		default:

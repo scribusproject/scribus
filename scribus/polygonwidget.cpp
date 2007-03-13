@@ -175,7 +175,7 @@ void PolygonWidget::UpdatePreView()
 	QPainter p;
 	p.begin(Pre);
 	p.setBrush(NoBrush);
-	p.setPen(black);
+	p.setPen(Qt::black);
 	Q3PointArray pp = RegularPolygon(100, 100, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value());
 	QRect br = pp.boundingRect();
 	if (br.x() < 0)

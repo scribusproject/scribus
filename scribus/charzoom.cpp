@@ -25,7 +25,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	pixm.resize(size, size);
 	ScPainter *p = new ScPainter(&pixm, size, size);
 	p->clear();
-	pixm.fill(white);
+	pixm.fill(Qt::white);
 	QMatrix chma;
 	chma.scale(4.8, 4.8);
 
@@ -36,7 +36,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	{
 		gly.map(chma);
 		p->translate(ww / 2, 1);
-		p->setBrush(black);
+		p->setBrush(Qt::black);
 		p->setFillMode(1);
 		p->setupPolygon(&gly);
 		p->fillPath();
@@ -53,8 +53,8 @@ void CharZoom::paintEvent(QPaintEvent *)
 {
 	QPainter p;
 	p.begin(this);
-	p.setPen(black);
-	p.setBrush(NoBrush);
+	p.setPen(Qt::black);
+	p.setBrush(Qt::NoBrush);
 	p.drawRect(0, 0, width(), height());
 	p.drawPixmap(1, 1, pixm);
 	p.drawText(5, height()-3, valu);

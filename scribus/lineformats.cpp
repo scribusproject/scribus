@@ -139,9 +139,9 @@ void LineFormate::neuesFormat()
 	struct SingleLine sl;
 	sl.Color = "Black";
 	sl.Shade = 100;
-	sl.Dash = SolidLine;
-	sl.LineEnd = FlatCap;
-	sl.LineJoin = MiterJoin;
+	sl.Dash = Qt::SolidLine;
+	sl.LineEnd = Qt::FlatCap;
+	sl.LineJoin = Qt::MiterJoin;
 	sl.Width = 1.0;
 	multiLine ml;
 	ml.push_back(sl);

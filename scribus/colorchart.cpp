@@ -76,7 +76,7 @@ void ColorChart::drawMark(int x, int y)
 	QPainter p;
 	p.begin(this);
 	p.setRasterOp(XorROP);
-	p.setPen(QPen(QColor(white), 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(QColor(white), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
 	p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
 	p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);

@@ -331,13 +331,13 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
 				{
 					SetFarbe(&tmp, actStroke, actStrokeShade);
-					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+					p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					cachedStrokeQ = tmp;
 					cachedStroke = actStroke;
 					cachedStrokeShade = actStrokeShade;
 				}
 				else
-					p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
+					p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			}
 			if (hl->ch[0] == SpecialChars::OBJECT)
 			{

@@ -498,19 +498,19 @@ void Preferences::updatePreferences()
 	switch (tabTools->comboStyleShape->currentItem())
 	{
 		case 0:
-			prefsManager->appPrefs.toolSettings.dLineArt = SolidLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::SolidLine;
 			break;
 		case 1:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashLine;
 			break;
 		case 2:
-			prefsManager->appPrefs.toolSettings.dLineArt = DotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DotLine;
 			break;
 		case 3:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashDotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashDotLine;
 			break;
 		case 4:
-			prefsManager->appPrefs.toolSettings.dLineArt = DashDotDotLine;
+			prefsManager->appPrefs.toolSettings.dLineArt = Qt::DashDotDotLine;
 			break;
 	}
 	prefsManager->appPrefs.toolSettings.dWidth = tabTools->lineWidthShape->value();
@@ -521,19 +521,19 @@ void Preferences::updatePreferences()
 	switch (tabTools->comboStyleLine->currentItem())
 	{
 	case 0:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = SolidLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
 		break;
 	case 1:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DashLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashLine;
 		break;
 	case 2:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DotLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DotLine;
 		break;
 	case 3:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashDotLine;
 		break;
 	case 4:
-		prefsManager->appPrefs.toolSettings.dLstyleLine = DashDotDotLine;
+		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::DashDotDotLine;
 		break;
 	}
 	prefsManager->appPrefs.toolSettings.dWidthLine = tabTools->lineWidthLine->value();

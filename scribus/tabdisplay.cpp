@@ -237,8 +237,8 @@ void TabDisplay::drawRuler()
 	QPainter p;
 	p.begin(&pm);
 	p.drawLine(0, 19, width(), 19);
-	p.setBrush(black);
-	p.setPen(black);
+	p.setBrush(Qt::black);
+	p.setPen(Qt::black);
 	p.scale(DisScale, 1.0);
 	for (xl = 0; xl < maxi; xl += iter)
 		p.drawLine(static_cast<int>(xl), 13, static_cast<int>(xl), 19);

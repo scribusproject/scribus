@@ -2055,13 +2055,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						if ((cachedStrokeShade != actStrokeShade) || (cachedStroke != actStroke))
 						{
 							SetFarbe(&tmp, actStroke, actStrokeShade);
-							p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+							p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							cachedStrokeQ = tmp;
 							cachedStroke = actStroke;
 							cachedStrokeShade = actStrokeShade;
 						}
 						else
-							p->setPen(cachedStrokeQ, 1, SolidLine, FlatCap, MiterJoin);
+							p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					}
 					// paint glyphs
 					if (e2.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
@@ -2105,7 +2105,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	ScribusView* view = m_Doc->view();
 	if (m_Doc->layerOutline(LayerNr))
 	{
-		p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerNr), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -2169,13 +2169,13 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (QMAX(view->scale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, DotLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if (m_Locked)
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 			p->setFillMode(0);
 			if (itemType()==PathText)
@@ -2203,7 +2203,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setPen(lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
@@ -2218,7 +2218,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			drawColumnBorders(p);
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
 		{
-			p->setPen(black, 0.5/ m_Doc->view()->scale(), SolidLine, FlatCap, MiterJoin);
+			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerNr));
 			p->setBrushOpacity(1.0);
@@ -2933,7 +2933,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	double scpheight16 = Height - scp16;
 	double scm_lineWidth3 = Width - scp3;
 	double scpheight3 = Height - scp3;
-	p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
+	p->setPen(Qt::black, scp1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setBrush(white);
 	p->drawRect(scm_lineWidth16, scpheight16, scp14, scp14);
 	p->drawLine(FPoint(scm_lineWidth16, scpheight16), FPoint(scm_lineWidth3, scpheight3));
@@ -2952,7 +2952,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	double ly1= ofy;
 	double lx2= ofx+ofwh;
 	double ly2= ofy+ofwh;
-	p->setPen(black, 0.5/ view->scale(), SolidLine, FlatCap, MiterJoin);
+	p->setPen(Qt::black, 0.5/ view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -2965,7 +2965,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 {
 	ScribusView* view = m_Doc->view();
-	p->setPen(black, 0.5/ view->scale(), SolidLine, FlatCap, MiterJoin);
+	p->setPen(Qt::black, 0.5/ view->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);

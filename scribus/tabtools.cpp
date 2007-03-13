@@ -698,19 +698,19 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	shadingFillShape->setValue(prefsData->dShade);
 	switch (prefsData->dLineArt)
 	{
-		case SolidLine:
+		case Qt::SolidLine:
 			comboStyleShape->setCurrentItem(0);
 			break;
-		case DashLine:
+		case Qt::DashLine:
 			comboStyleShape->setCurrentItem(1);
 			break;
-		case DotLine:
+		case Qt::DotLine:
 			comboStyleShape->setCurrentItem(2);
 			break;
-		case DashDotLine:
+		case Qt::DashDotLine:
 			comboStyleShape->setCurrentItem(3);
 			break;
-		case DashDotDotLine:
+		case Qt::DashDotDotLine:
 			comboStyleShape->setCurrentItem(4);
 			break;
 		default:
@@ -736,19 +736,19 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 
 	switch (prefsData->dLstyleLine)
 	{
-		case SolidLine:
+		case Qt::SolidLine:
 			comboStyleLine->setCurrentItem(0);
 			break;
-		case DashLine:
+		case Qt::DashLine:
 			comboStyleLine->setCurrentItem(1);
 			break;
-		case DotLine:
+		case Qt::DotLine:
 			comboStyleLine->setCurrentItem(2);
 			break;
-		case DashDotLine:
+		case Qt::DashDotLine:
 			comboStyleLine->setCurrentItem(3);
 			break;
-		case DashDotDotLine:
+		case Qt::DashDotDotLine:
 			comboStyleLine->setCurrentItem(4);
 			break;
 		default:

@@ -164,7 +164,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
 			{
 				QCheckBox *cp = new QCheckBox(this, (*it2).layerName);
-				cp->setPaletteBackgroundColor(white);
+				cp->setPaletteBackgroundColor(Qt::white);
 				if ((info->isRequest) && (info->RequestProps.contains(counter)))
 					cp->setChecked(info->RequestProps[counter].visible);
 				else
@@ -178,7 +178,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				if (!(*it2).thumb_mask.isNull())
 				{
 					QCheckBox *cp2 = new QCheckBox(this, (*it2).layerName);
-					cp2->setPaletteBackgroundColor(white);
+					cp2->setPaletteBackgroundColor(Qt::white);
 					if ((info->isRequest) && (info->RequestProps.contains(counter)))
 						cp2->setChecked(info->RequestProps[counter].useMask);
 					else
@@ -219,11 +219,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			p->translate(3.0, 3.0);
 			if (it.key() == info->clipPath)
 			{
-				pixm.fill(green);
-				p->clear(green);
+				pixm.fill(Qt::green);
+				p->clear(Qt::green);
 			}
 			else
-				pixm.fill(white);
+				pixm.fill(Qt::white);
 			FPointArray Path;
 			Path.resize(0);
 			Path = info->PDSpathData[it.key()].copy();
@@ -234,8 +234,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			mm.scale(34.0 / QMAX(max.x(), max.y()), 34.0 / QMAX(max.x(), max.y()));
 			Path.map(mm);
 			p->setupPolygon(&Path);
-			p->setPen(black);
-			p->setBrush(white);
+			p->setPen(Qt::black);
+			p->setBrush(Qt::white);
 			p->setFillMode(0);
 			p->setLineWidth(1.0);
 			p->strokePath();

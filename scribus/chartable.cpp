@@ -151,7 +151,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 	if (index < m_characters.count())
 		currentChar = m_characters[index];
 
-	if (e->button() == RightButton && currentChar > -1)
+	if (e->button() == Qt::RightButton && currentChar > -1)
 	{
 		//watchTimer->stop();
 		// Only non-dropable tables show "magnifier glass"
@@ -171,7 +171,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 			delete pmen;
 		}
 	}
-	if (e->button() == LeftButton)
+	if (e->button() == Qt::LeftButton)
 	{
 		selectCells(r, c, r, c);
 		cCol = c;
@@ -196,7 +196,7 @@ void CharTable::contentsMouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
 	//watchTimer->stop();
-	if ((e->button() == RightButton) && (mPressed))
+	if ((e->button() == Qt::RightButton) && (mPressed))
 	{
 		if (zoom)
 		{
@@ -205,8 +205,8 @@ void CharTable::contentsMouseReleaseEvent(QMouseEvent* e)
 			zoom = 0;
 		}
 	}
-	//if ((e->button() == LeftButton) && (!alternate))
-	if (e->button() == LeftButton)
+	//if ((e->button() == Qt::LeftButton) && (!alternate))
+	if (e->button() == Qt::LeftButton)
 	{
 		int index = rowAt(e->pos().y()) * numCols() + columnAt(e->pos().x());
 		if (index >= 0)

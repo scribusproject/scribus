@@ -8424,7 +8424,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 		p.rotate(currItem->rotation());
 		p.setRasterOp(XorROP);
 		p.setBrush(NoBrush);
-		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.save();
 		if (currItem->OldB2 < 0.0)
 		{

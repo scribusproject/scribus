@@ -81,14 +81,14 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	SliderX = new QSlider( this, "SliderX" );
 	SliderX->setMaxValue( 1000 );
 	SliderX->setValue( 500 );
-	SliderX->setOrientation( QSlider::Horizontal );
+	SliderX->setOrientation( Qt::Horizontal );
 	SliderX->setTickmarks( QSlider::Left );
 	SliderX->setTickInterval( 100 );
 	Layout3->addWidget( SliderX, 1, 0 );
 	SliderY = new QSlider( this, "SliderY" );
 	SliderY->setMaxValue( 1000 );
 	SliderY->setValue( 500 );
-	SliderY->setOrientation( QSlider::Vertical );
+	SliderY->setOrientation( Qt::Vertical );
 	SliderY->setTickmarks( QSlider::Left );
 	SliderY->setTickInterval( 100 );
 	Layout3->addWidget( SliderY, 0, 1 );

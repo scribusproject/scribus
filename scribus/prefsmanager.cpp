@@ -232,7 +232,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dBrush = "Black";
 	appPrefs.toolSettings.dShade = 100;
 	appPrefs.toolSettings.dShade2 = 100;
-	appPrefs.toolSettings.dLineArt = SolidLine;
+	appPrefs.toolSettings.dLineArt = Qt::SolidLine;
 	appPrefs.toolSettings.dWidth = 1;
 	appPrefs.toolSettings.dPenLine = "Black";
 	appPrefs.toolSettings.dPenText = "Black";
@@ -260,7 +260,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dCols = 1;
 	appPrefs.toolSettings.dGap = 0.0;
 	appPrefs.toolSettings.dShadeLine = 100;
-	appPrefs.toolSettings.dLstyleLine = SolidLine;
+	appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
 	appPrefs.toolSettings.dWidthLine = 1;
 	appPrefs.toolSettings.dStartArrow = 0;
 	appPrefs.toolSettings.dEndArrow = 0;

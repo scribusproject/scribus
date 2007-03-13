@@ -103,19 +103,19 @@ void LineStyleWidget::slotEditNewLine(int i)
 	
 	switch (static_cast<Qt::PenStyle>(currentStyle[i].Dash))
 	{
-	case SolidLine:
+	case Qt::SolidLine:
 		dashCombo->setCurrentItem(0);
 		break;
-	case DashLine:
+	case Qt::DashLine:
 		dashCombo->setCurrentItem(1);
 		break;
-	case DotLine:
+	case Qt::DotLine:
 		dashCombo->setCurrentItem(2);
 		break;
-	case DashDotLine:
+	case Qt::DashDotLine:
 		dashCombo->setCurrentItem(3);
 		break;
-	case DashDotDotLine:
+	case Qt::DashDotDotLine:
 		dashCombo->setCurrentItem(4);
 		break;
 	default:
@@ -125,13 +125,13 @@ void LineStyleWidget::slotEditNewLine(int i)
 
 	switch (static_cast<Qt::PenCapStyle>(currentStyle[i].LineEnd))
 	{
-	case FlatCap:
+	case Qt::FlatCap:
 		endCombo->setCurrentItem(0);
 		break;
 	case SquareCap:
 		endCombo->setCurrentItem(1);
 		break;
-	case RoundCap:
+	case Qt::RoundCap:
 		endCombo->setCurrentItem(2);
 		break;
 	default:
@@ -141,13 +141,13 @@ void LineStyleWidget::slotEditNewLine(int i)
 
 	switch (static_cast<Qt::PenJoinStyle>(currentStyle[i].LineJoin))
 	{
-	case MiterJoin:
+	case Qt::MiterJoin:
 		joinCombo->setCurrentItem(0);
 		break;
-	case BevelJoin:
+	case Qt::BevelJoin:
 		joinCombo->setCurrentItem(1);
 		break;
-	case RoundJoin:
+	case Qt::RoundJoin:
 		joinCombo->setCurrentItem(2);
 		break;
 	default:
@@ -524,23 +524,23 @@ void SMLineStyle::removeConnections()
 
 void SMLineStyle::slotLineStyle(int i)
 {
-	PenStyle c = SolidLine;
+	PenStyle c = Qt::SolidLine;
 	switch (i)
 	{
 		case 0:
-			c = SolidLine;
+			c = Qt::SolidLine;
 			break;
 		case 1:
-			c = DashLine;
+			c = Qt::DashLine;
 			break;
 		case 2:
-			c = DotLine;
+			c = Qt::DotLine;
 			break;
 		case 3:
-			c = DashDotLine;
+			c = Qt::DashDotLine;
 			break;
 		case 4:
-			c = DashDotDotLine;
+			c = Qt::DashDotDotLine;
 			break;
 	}
 
@@ -567,17 +567,17 @@ void SMLineStyle::slotLineStyle(int i)
 
 void SMLineStyle::slotSetEnd(int i)
 {
-	PenCapStyle c = FlatCap;
+	PenCapStyle c = Qt::FlatCap;
 	switch (i)
 	{
 		case 0:
-			c = FlatCap;
+			c = Qt::FlatCap;
 			break;
 		case 1:
 			c = SquareCap;
 			break;
 		case 2:
-			c = RoundCap;
+			c = Qt::RoundCap;
 			break;
 	}
 
@@ -604,17 +604,17 @@ void SMLineStyle::slotSetJoin(int i)
 	if (currentLine_ < 0)
 		return;
 
-	PenJoinStyle c = MiterJoin;
+	PenJoinStyle c = Qt::MiterJoin;
 	switch (i)
 	{
 		case 0:
-			c = MiterJoin;
+			c = Qt::MiterJoin;
 			break;
 		case 1:
-			c = BevelJoin;
+			c = Qt::BevelJoin;
 			break;
 		case 2:
-			c = RoundJoin;
+			c = Qt::RoundJoin;
 			break;
 	}
 
@@ -743,19 +743,19 @@ void SMLineStyle::rebuildList()
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
 		switch (static_cast<Qt::PenStyle>((*it).Dash))
 		{
-			case SolidLine:
+			case Qt::SolidLine:
 				tmp2 += tr("Solid Line");
 				break;
-			case DashLine:
+			case Qt::DashLine:
 				tmp2 += tr("Dashed Line");
 				break;
-			case DotLine:
+			case Qt::DotLine:
 				tmp2 += tr("Dotted Line");
 				break;
-			case DashDotLine:
+			case Qt::DashDotLine:
 				tmp2 += tr("Dash Dot Line");
 				break;
-			case DashDotDotLine:
+			case Qt::DashDotDotLine:
 				tmp2 += tr("Dash Dot Dot Line");
 				break;
 			default:
@@ -818,19 +818,19 @@ void SMLineStyle::updateSList()
 	tmp2 = " "+tmp.setNum((*tmpLine)[currentLine_].Width)+ tr(" pt ");
 	switch (static_cast<Qt::PenStyle>((*tmpLine)[currentLine_].Dash))
 	{
-		case SolidLine:
+		case Qt::SolidLine:
 			tmp2 += tr("Solid Line");
 			break;
-		case DashLine:
+		case Qt::DashLine:
 			tmp2 += tr("Dashed Line");
 			break;
-		case DotLine:
+		case Qt::DotLine:
 			tmp2 += tr("Dotted Line");
 			break;
-		case DashDotLine:
+		case Qt::DashDotLine:
 			tmp2 += tr("Dash Dot Line");
 			break;
-		case DashDotDotLine:
+		case Qt::DashDotDotLine:
 			tmp2 += tr("Dash Dot Dot Line");
 			break;
 		default:

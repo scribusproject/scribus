@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <q3http.h>
 #include <q3network.h>
+#include <q3textstream.h>
 #include <qwidget.h>
 #include <iostream>
 #include <cstdlib>

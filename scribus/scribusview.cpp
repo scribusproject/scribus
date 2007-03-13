@@ -425,7 +425,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				painter->beginLayer(1.0, 0);
 				painter->setPen(Qt::black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #else
-				painter->setPen(black, 0.5 / Scale, SolidLine, FlatCap, MiterJoin);
+				painter->setPen(Qt::black, 0.5 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #endif
 				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 				{
@@ -475,7 +475,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 							painter->setPen(Qt::black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							painter->drawRect(blx2, bly2 - 1 / Scale, blw2 + 1 / Scale, blh2 + 2 / Scale);
 #else
-							painter->setPen(black, 0.5 / Scale, SolidLine, FlatCap, MiterJoin);
+							painter->setPen(Qt::black, 0.5 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							painter->drawRect(blx2, bly2 - 1, blw2 + 1, blh2 + 2);
 #endif
 						}
@@ -520,7 +520,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
 					painter->setFillMode(ScPainter::Solid);
-					painter->setPen(black, 0, SolidLine, FlatCap, MiterJoin);
+					painter->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #ifdef HAVE_CAIRO
 					painter->setAntialiasing(false);
 					painter->beginLayer(1.0, 0);
@@ -656,7 +656,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					w = qRound((Doc->currentPage()->width() + bleedLeft + bleedRight) * Scale);
 					h = qRound((Doc->currentPage()->height() + bleedBottom + bleedTop) * Scale);
 				}
-				painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+				painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				painter->drawRect(x+5, y+5, w, h);
 				painter->setBrush(Doc->papColor);
 				painter->drawRect(x, y, w, h);
@@ -841,10 +841,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		p.begin(viewport());
 		ToView(&p);
 		Transform(currItem, &p);
-		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setBrush(NoBrush);
 		p.drawLine(QPoint(qRound(currItem->GrStartX), qRound(currItem->GrStartY)), QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)));
-		p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+		p.setPen(QPen(Qt::magenta, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		p.drawLine(QPoint(qRound(currItem->GrStartX), qRound(currItem->GrStartY)), QPoint(qRound(currItem->GrStartX), qRound(currItem->GrStartY)));
 		p.drawLine(QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)), QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)));
 		p.end();
@@ -1271,7 +1271,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	double pageHeight=page->height();
 	double pageWidth=page->width();
 	p->setFillMode(ScPainter::None);
-	p->setPen(black, lineWidth, SolidLine, FlatCap, MiterJoin);
+	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->drawRect(0, 0, pageWidth, pageHeight);
 	//Draw the margins
 	if (Doc->guidesSettings.marginsShown)
@@ -1296,7 +1296,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	//Draw the baseline grid
 	if (Doc->guidesSettings.baseShown)
 	{
-		p->setPen(Doc->guidesSettings.baseColor, lineWidth, SolidLine, FlatCap, MiterJoin);
+		p->setPen(Doc->guidesSettings.baseColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		for (double yg = Doc->typographicSettings.offsetBaseGrid; yg < pageHeight; yg += Doc->typographicSettings.valueBaseGrid)
 			p->drawLine(FPoint(0, yg), FPoint(pageWidth, yg));
 	}
@@ -1311,7 +1311,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		{
 			double i,start;
 			i = Doc->guidesSettings.majorGrid;
-			p->setPen(Doc->guidesSettings.majorColor, lineWidth, SolidLine, FlatCap, MiterJoin);
+			p->setPen(Doc->guidesSettings.majorColor, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			start=floor(lowerBy/i);
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
@@ -1325,7 +1325,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 				p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
 			}
 			i = Doc->guidesSettings.minorGrid;
-			p->setPen(Doc->guidesSettings.minorColor, lineWidth, DotLine, FlatCap, MiterJoin);
+			p->setPen(Doc->guidesSettings.minorColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			start=floor(lowerBy/i);
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
@@ -1348,7 +1348,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 #ifdef HAVE_CAIRO
 		p->setPen(Prefs->DPageBorderColor, 2 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #else
-		p->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
+		p->setPen(Prefs->DPageBorderColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #endif
 		p->drawRect(0, 0, pageWidth, pageHeight);
 	}
@@ -2099,7 +2099,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		QPoint out = contentsToViewport(QPoint(0, 0));
 		p.translate(out.x(), out.y());
 		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.end();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -2124,7 +2124,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			ToView(&p);
 			p.scale(Scale, Scale);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			normalizeSelectionRect();
 			HaveSelRect = false;
 			double Tx, Ty, Tw, Th;
@@ -2284,7 +2284,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ToView(&p);
 		p.scale(Scale, Scale);
 		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 		p.end();
 		normalizeSelectionRect();
@@ -4057,7 +4057,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			ToView(&p);
 			p.scale(Scale, Scale);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 			p.end();
 			normalizeSelectionRect();
@@ -4198,7 +4198,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			ToView(&p);
 			p.scale(Scale, Scale);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 			p.end();
 			normalizeSelectionRect();
@@ -4463,7 +4463,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		QPoint out = contentsToViewport(QPoint(0, 0));
 		p.translate(out.x(), out.y());
 		p.setRasterOp(XorROP);
-		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.drawLine(Dxp, Dyp, newX, newY);
 		p.end();
@@ -4583,7 +4583,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			ToView(&p);
 			p.scale(Scale, Scale);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
 			{
 				newX = static_cast<int>(qRound(newX / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
@@ -4629,7 +4629,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (m->state() & ShiftButton)
 			{
 				mop = QPoint(m->x(), static_cast<int>((currItem->yPos() + (newX - currItem->xPos())) * sc));
@@ -4655,7 +4655,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (Doc->useRaster)
 			{
 				newX = static_cast<int>(qRound(newX / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
@@ -4733,7 +4733,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					ToView(&p);
 					p.scale(Scale, Scale);
 					p.setRasterOp(XorROP);
-					p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+					p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 					p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 					p.drawRect(Mxp, Myp, newX-Mxp, newY-Myp);
 					p.end();
@@ -4996,7 +4996,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										p.begin(viewport());
 										currItem->Sizing = true;
 										p.setRasterOp(XorROP);
-										p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+										p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 										p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc),
 												static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
 										p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc),
@@ -5474,7 +5474,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			ToView(&p);
 			p.scale(Scale, Scale);
 			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (!((SeRx - Mxp == 0) && (SeRy - Myp == 0)))
 				p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 			p.drawRect(Mxp, Myp, newX-Mxp, newY-Myp);
@@ -6820,13 +6820,13 @@ void ScribusView::paintGroupRect(bool norm)
 	getGroupRectScreen(&x, &y, &w, &h);
 	QPainter pgc;
 	pgc.begin(viewport());
-	pgc.setPen(QPen((norm ? red : black), 1, DotLine, FlatCap, MiterJoin));
+	pgc.setPen(QPen((norm ? red : black), 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 	pgc.setBrush(NoBrush);
 	pgc.drawRect(static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h));
 	pgc.setBrush(red);
 	if (norm)
 	{
-		pgc.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
+		pgc.setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		pgc.drawRect(qRound(x+w-6), qRound(y+h-6), 6, 6);
 		pgc.drawRect(qRound(x+w/2 - 3), qRound(y+h-6), 6, 6);
 		pgc.drawRect(qRound(x+w/2 - 3), qRound(y), 6, 6);
@@ -6849,7 +6849,7 @@ void ScribusView::PaintSizeRect(QPainter *p, QRect newRect)
 		p->setWorldMatrix(ma);
 		p->setRasterOp(XorROP);
 		p->setBrush(NoBrush);
-		p->setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p->setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		if (!oldRect.isNull())
 			p->drawRect(oldRect);
 		p->drawRect(newRect);
@@ -6946,11 +6946,11 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 	Transform(currItem, &p);
 	p.scale(0.1, 0.1);
 	if (once)
-		p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	else
 	{
 		p.setRasterOp(XorROP);
-		p.setPen(QPen(yellow, 1, SolidLine, FlatCap, MiterJoin));
+		p.setPen(QPen(Qt::yellow, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	}
 	p.setBrush(NoBrush);
 	if ((EditContour) && (currItem->ContourLine.size() != 0))
@@ -6964,18 +6964,18 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 			if (cli.point(poi).x() > 900000)
 				continue;
 			if (once)
-				p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			else
-				p.setPen(QPen(yellow, 1, SolidLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::yellow, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			BezierPoints(&Bez,	QPoint(qRound(cli.point(poi).x()*10), qRound(cli.point(poi).y()*10)),
 												QPoint(qRound(cli.point(poi+1).x()*10), qRound(cli.point(poi+1).y()*10)),
 												QPoint(qRound(cli.point(poi+3).x()*10), qRound(cli.point(poi+3).y()*10)),
 												QPoint(qRound(cli.point(poi+2).x()*10), qRound(cli.point(poi+2).y()*10)));
 			p.drawCubicBezier(Bez);
 			if (once)
-				p.setPen(QPen(blue, 1, DotLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::blue, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			else
-				p.setPen(QPen(yellow, 1, DotLine, FlatCap, MiterJoin));
+				p.setPen(QPen(Qt::yellow, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawLine(Bez.point(0), Bez.point(1));
 			p.drawLine(Bez.point(2), Bez.point(3));
 		}
@@ -6989,32 +6989,32 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 			if (ClRe == static_cast<int>(a+1))
 			{
 				if (once)
-					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::red, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::cyan, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			else
 			{
 				if (once)
-					p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::magenta, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::green, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			cli.point(a+1, &x, &y);
 			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			if (ClRe == static_cast<int>(a))
 			{
 				if (once)
-					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::red, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::cyan, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			else
 			{
 				if (once)
-					p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::blue, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::yellow, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			cli.point(a, &x, &y);
 			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
@@ -7024,32 +7024,32 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 			if (ClRe == static_cast<int>(a))
 			{
 				if (once)
-					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::red, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::cyan, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			else
 			{
 				if (once)
-					p.setPen(QPen(blue, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::blue, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(yellow, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::yellow, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			cli.point(a, &x, &y);
 			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			if (ClRe == static_cast<int>(a+1))
 			{
 				if (once)
-					p.setPen(QPen(red, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::red, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::cyan, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			else
 			{
 				if (once)
-					p.setPen(QPen(magenta, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::magenta, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 				else
-					p.setPen(QPen(green, 8, SolidLine, RoundCap, MiterJoin));
+					p.setPen(QPen(Qt::green, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			}
 			cli.point(a+1, &x, &y);
 			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
@@ -7061,7 +7061,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 		{
 			p.setPen(QPen(Qt::red, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 //		else
-//			p.setPen(QPen(cyan, 8, SolidLine, RoundCap, MiterJoin));
+//			p.setPen(QPen(Qt::cyan, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 			cli.point(ClRe, &x, &y);
 			p.drawLine(qRound(x*10), qRound(y*10), qRound(x*10), qRound(y*10));
 			Q3ValueList<int>::Iterator itm;
@@ -7718,7 +7718,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 // 		p.rotate(currItem->rotation());
 // 		p.setRasterOp(XorROP);
 // 		p.setBrush(NoBrush);
-// 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+// 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 // 		p.save();
 // 		if (currItem->OldB2 < 0.0)
 // 		{
@@ -7885,7 +7885,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 			p.rotate(currItem->rotation());
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (selectedItemCount < moveWithFullOutlinesThreshold)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
@@ -7896,7 +7896,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 					{
 						int lw2 = 1;
 						int lw = 1;
-						PenCapStyle le = FlatCap;
+						PenCapStyle le = Qt::FlatCap;
 						if (currItem->NamedLStyle.isEmpty())
 						{
 							lw2 = qRound(currItem->lineWidth()  / 2.0);
@@ -7910,7 +7910,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
 							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 						}
-						if (le != FlatCap)
+						if (le != Qt::FlatCap)
 							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
 						else
 							p.drawRect(-1, -lw2, qRound(currItem->width()), lw);
@@ -7931,7 +7931,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 			p.rotate(currItem->rotation());
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (itemSelection->count() < moveWithFullOutlinesThreshold)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
@@ -7942,7 +7942,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 					{
 						int lw2 = 1;
 						int lw = 1;
-						PenCapStyle le = FlatCap;
+						PenCapStyle le = Qt::FlatCap;
 						if (currItem->NamedLStyle.isEmpty())
 						{
 							lw2 = qRound(QMAX(currItem->lineWidth()  / 2.0, 1.0));
@@ -7956,7 +7956,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
 							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 						}
-						if (le != FlatCap)
+						if (le != Qt::FlatCap)
 							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
 						else
 							p.drawRect(-1, -lw2, qRound(currItem->width()), lw);
@@ -8700,7 +8700,7 @@ void ScribusView::slotDoCurs(bool draw)
 #endif
 			if (x < 1)
 				x = 1;
-			p.setPen(QPen(white, 2, SolidLine, FlatCap, MiterJoin));
+			p.setPen(QPen(Qt::white, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p.setRasterOp(XorROP);
 			if (draw)
 			{
@@ -10298,7 +10298,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
 		if (drawFrame)
-			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+			painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		else
 			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
@@ -10364,7 +10364,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		painter->translate(-clipx, -clipy);
 		painter->setFillMode(ScPainter::Solid);
 		if (drawFrame)
-			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+			painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		else
 			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
@@ -10402,7 +10402,7 @@ void ScribusView::rulerMove(QMouseEvent *m)
 	QPainter p;
 	p.begin(viewport());
 	p.setRasterOp(XorROP);
-	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(0, DrHY, viewport()->width(), DrHY);
 	p.drawLine(0, newY, viewport()->width(), newY);
 	p.drawLine(DrVX, 0, DrVX, viewport()->height());
@@ -10450,7 +10450,7 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	QPainter p;
 	p.begin(viewport());
 	p.setRasterOp(XorROP);
-	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(0, DrHY, viewport()->width(), DrHY);
 	p.drawLine(0, newY, viewport()->width(), newY);
 	p.end();
@@ -10478,7 +10478,7 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	QPainter p;
 	p.begin(viewport());
 	p.setRasterOp(XorROP);
-	p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(DrVX, 0, DrVX, viewport()->height());
 	p.drawLine(newY, 0, newY, viewport()->height());
 	p.end();
@@ -11846,7 +11846,7 @@ void ScribusView::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &e
 {
 //CB FIXME Add some checking that the painter is setup?
 	Q_ASSERT(painter!=NULL);
-	painter->setPen(black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	painter->setPen(Qt::black, 1.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	painter->setPenOpacity(1.0);
 	painter->drawLine(start, end);
 	QMatrix arrowTrans;

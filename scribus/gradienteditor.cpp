@@ -81,7 +81,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	}
 	QPixmap pixm(width()-20, 37);
 	ScPainter *p = new ScPainter(&pixm, width()-20, 37);
-	p->setPen(black);
+	p->setPen(Qt::black);
 	p->setLineWidth(1);
 	p->setFillMode(2);
 	p->fill_gradient = fill_gradient;
@@ -95,7 +95,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	for (uint a = 0; a < fill_gradient.Stops(); ++a)
 	{
 		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
-		pw.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+		pw.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		if (StopM[QMAX(ActStop,0)] == center)
 			pw.setBrush(red);
 		else
