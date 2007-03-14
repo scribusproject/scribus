@@ -35,6 +35,8 @@ for which a new license (GPL+exception) is in place.
 #include "gtmeasure.h"
 
 HTMLReader* HTMLReader::hreader = NULL;
+bool HTMLReader::elemJustStarted = false;
+bool HTMLReader::elemJustFinished = false;
 
 extern htmlSAXHandlerPtr mySAXHandler;
 
@@ -116,6 +118,8 @@ void HTMLReader::initPStyles()
 
 void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
 {
+	elemJustStarted = true;
+	elemJustFinished = false;
 	QString* name = new QString((const char*) fullname);
 	name = new QString(name->lower());
 	QXmlAttributes* attrs = new QXmlAttributes();
@@ -230,18 +234,27 @@ bool HTMLReader::characters(const QString &ch)
 {
 	if (inBody)
 	{
-		QString tmp = "";
-/*		bool add = true; */
-		bool fcis = ch.left(1) == " ";
-		bool lcis = ch.right(1) == " ";
+		QString tmp = ch;
+		// FIXME : According to html spec, new lines placed just after or just before an element
+		// must be ignored, not exactly that, but better than nothing
+		if (elemJustStarted  || elemJustFinished)
+		{
+			while( !tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n') )
+				tmp = tmp.right(tmp.length() - 1);
+			elemJustStarted = elemJustFinished = false;
+			if (tmp.isEmpty())
+				return true;
+		}
+		QString chl = tmp.left(1), chr = tmp.right(1);
+		bool fcis = (chl.length() > 0 && chl[0].isSpace());
+		bool lcis = (chr.length() > 0 && chr[0].isSpace());
 		if (inPre)
 		{
-			tmp = ch;
 			if (tmp.left(1) == "\n")
 				tmp = tmp.right(tmp.length() - 2);
 		}
 		else
-			tmp = ch.simplifyWhiteSpace();
+			tmp = tmp.simplifyWhiteSpace();
 
 		if (!lastCharWasSpace)
 			if (fcis)
@@ -292,6 +305,8 @@ bool HTMLReader::characters(const QString &ch)
 
 void HTMLReader::endElement(void*, const xmlChar * name)
 {
+	elemJustStarted = false;
+	elemJustFinished = true;
 	QString *nname = new QString((const char*) name);
 	nname = new QString(nname->lower());
 	hreader->endElement(NULL, NULL, *nname);
@@ -544,6 +559,7 @@ void HTMLReader::parse(QString filename)
 #else
 	Q3CString fn(filename.local8Bit());
 #endif
+	elemJustStarted = elemJustFinished = false;
 	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
 }
 

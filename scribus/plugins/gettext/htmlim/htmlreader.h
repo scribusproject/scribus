@@ -86,6 +86,8 @@ private:
 	bool inBody;
 	bool inPre;
 	bool inP;
+	static bool elemJustStarted;
+	static bool elemJustFinished;
 	bool lastCharWasSpace;
 	bool noFormatting;
 	void initPStyles();
