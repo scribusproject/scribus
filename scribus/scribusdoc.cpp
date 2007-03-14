@@ -752,7 +752,7 @@ void ScribusDoc::enableCMS(bool enable)
 	Gamut = CMSSettings.GamutCheck;
 	IntentColors = CMSSettings.DefaultIntentColors;
 	IntentImages = CMSSettings.DefaultIntentImages;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	bool oldCM = CMSSettings.CMSinUse;
 	bool newCM = enable;
 	CloseCMSProfiles();
@@ -6487,7 +6487,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	emit updateContents();
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	//CB FIXME remove this and tree.h too
 //	m_ScMW->outlinePalette->BuildTree();
 

@@ -192,7 +192,7 @@ struct ApplicationPrefs
 	int numScrapbookCopies;
 	bool doCopyToScrapbook;
 	bool persistentScrapbook;
-	uint RecentDCount;
+	int RecentDCount;
 	CMSData DCMSset;
 	QMap<QString,Keys> KeyActions;
 	QString PrinterName;

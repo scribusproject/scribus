@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRACTION_H
 
 #include <qaction.h>
+#include <QPixmap>
 //Added by qt3to4:
 #include <Q3PopupMenu>
 #include "scribusapi.h"
@@ -71,7 +72,7 @@ public:
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction( ActionType mType, const QIcon & icon, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
@@ -82,7 +83,7 @@ public:
 		\param parent Parent of this action
 		\param name Name of the action
 	*/
-	ScrAction( const QIcon & icon, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
+	ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
 	~ScrAction();
 	
 	/*!

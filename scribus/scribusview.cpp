@@ -170,7 +170,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setVScrollBarMode(Q3ScrollView::AlwaysOn);
 	setMargins(m_vhRulerHW, m_vhRulerHW, 0, 0);
 	setResizePolicy(Manual);
-	viewport()->setBackgroundMode(PaletteBackground);
+	viewport()->setBackgroundMode(Qt::PaletteBackground);
 	QFont fo = QFont(font());
 	int posi = fo.pointSize()-2;
 	fo.setPointSize(posi);
@@ -1386,7 +1386,7 @@ void ScribusView::enterEvent(QEvent *)
 				break;
 			case modeDrawLine:
 			case modeDrawBezierLine:
-				qApp->setOverrideCursor(QCursor(crossCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 				break;
 			case modeDrawFreehandLine:
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
@@ -1409,10 +1409,10 @@ void ScribusView::enterEvent(QEvent *)
 			case modeInsertPDFListbox:
 			case modeInsertPDFTextAnnotation:
 			case modeInsertPDFLinkAnnotation:
-				qApp->setOverrideCursor(QCursor(CrossCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 				break;
 			default:
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			break;
 		}
 	}
@@ -1423,7 +1423,7 @@ void ScribusView::leaveEvent(QEvent *)
 /*	if (BlockLeave)
 		return; */
 	if (!m_MouseButtonPressed)
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 /*	else
 	{
 		if ((SelItem.count() != 0) && (m_MouseButtonPressed) && (!doku->DragP) && (doku->appMode == 1))
@@ -1745,7 +1745,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (!Doc->leaveDrag)
 					{
 						Q3PopupMenu *pmen = new Q3PopupMenu();
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 						pmen->insertItem( tr("Copy Here"));
 						int mov = pmen->insertItem( tr("Move Here"));
 						pmen->insertItem( tr("Cancel"));
@@ -2064,7 +2064,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			foundGuide = true;
 		if ((foundGuide) && (m->button() == RightButton) && (!GetItem(&currItem)))
 		{
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			MoveGY = false;
 			MoveGX = false;
 			return;
@@ -2073,7 +2073,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			SetYGuide(m, GyM);
 			MoveGY = false;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			updateContents();
 			GyM = -1;
 			return;
@@ -2082,7 +2082,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			SetXGuide(m, GxM);
 			MoveGX = false;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			updateContents();
 			GxM = -1;
 			return;
@@ -2102,7 +2102,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.end();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		//emit PaintingDone();
 		return;
 	}
@@ -2549,7 +2549,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			Q3PopupMenu *pmen = new Q3PopupMenu();
 			Q3PopupMenu *pmen2 = new Q3PopupMenu();
 			pmen3 = new Q3PopupMenu();
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			Q3PopupMenu *pmen4 = new Q3PopupMenu();
 			Q3PopupMenu *pmenEditContents = new Q3PopupMenu();
 			Q3PopupMenu *pmenLevel = new Q3PopupMenu();
@@ -2938,7 +2938,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				Doc->appMode = modeNormal;
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				emit PaintingDone();
 				return;
 			}
@@ -3143,7 +3143,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				MidButt = false;
 				shiftSelItems = false;
 				m_SnapCounter = 0;
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			}
 		}
 		if ((Doc->appMode == modeDrawLine) && (inItemCreation))
@@ -4128,7 +4128,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (!Prefs->stickyTools)
 			{
 				Doc->appMode = modeNormal;
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				emit PaintingDone();
 			}
 			else
@@ -4209,7 +4209,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (sc == Scale)
 			{
 				HaveSelRect = false;
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				Doc->appMode = modeNormal;
 				emit PaintingDone();
 			}
@@ -4223,7 +4223,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (sc == Scale)
 			{
 				HaveSelRect = false;
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				Doc->appMode = modeNormal;
 				emit PaintingDone();
 			}
@@ -5279,11 +5279,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								break;
 							case 5:
 							case 8:
-								qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+								qApp->setOverrideCursor(QCursor(Qt::SizeVerCursor), true);
 								break;
 							case 6:
 							case 7:
-								qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+								qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 								break;
 							default:
 								qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
@@ -5316,13 +5316,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							break;
 						case modeDrawLine:
 						case modeDrawBezierLine:
-							qApp->setOverrideCursor(QCursor(crossCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 							break;
 						case modeDrawFreehandLine:
 							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
 							break;
 						default:
-							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 						break;
 					}
 				}
@@ -5436,13 +5436,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							break;
 						case modeDrawLine:
 						case modeDrawBezierLine:
-							qApp->setOverrideCursor(QCursor(crossCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 							break;
 						case modeDrawFreehandLine:
 							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
 							break;
 						default:
-							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 						break;
 					}
 				}
@@ -5496,13 +5496,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					if ((m_MouseButtonPressed) && (GyM != -1))
 						MoveGY = true;
 					if (((m->x()/sc) < Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()) || ((m->x()/sc) >= Doc->currentPage()->width()-1+Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()))
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 					else
 						qApp->setOverrideCursor(QCursor(SPLITHC), true);
 					return;
 				}
 			}
-//			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+//			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			tmpGuides = Doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
 			{
@@ -5512,13 +5512,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					if ((m_MouseButtonPressed) && (GxM != -1))
 						MoveGX = true;
 					if (((m->y()/sc) < Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.x()) || ((m->y()/sc) >= Doc->currentPage()->height()-1+Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y()))
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 					else
 						qApp->setOverrideCursor(QCursor(SPLITVC), true);
 					return;
 				}
 			}
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		}
 	}
 }
@@ -5911,11 +5911,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 									break;
 								case 5:
 								case 8:
-									qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+									qApp->setOverrideCursor(QCursor(Qt::SizeVerCursor), true);
 									break;
 								case 6:
 								case 7:
-									qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+									qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 									break;
 							}
 						}
@@ -6175,13 +6175,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						else
 						{
 							emit PaintingDone();
-							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 						}
 					}
 					else
 					{
 						emit PaintingDone();
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 					}
 				}
 				else
@@ -6221,13 +6221,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							else
 							{
 								emit PaintingDone();
-								qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+								qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 							}
 						}
 						else
 						{
 							emit PaintingDone();
-							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+							qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 						}
 					}
 				}
@@ -6427,7 +6427,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem = Doc->Items->at(z);
 				Doc->m_Selection->clear();
 				Doc->m_Selection->addItem(currItem);
-				qApp->setOverrideCursor(QCursor(crossCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 			}
 			currItem = Doc->m_Selection->itemAt(0);
 			p.begin(viewport());
@@ -6534,7 +6534,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (m->button() != LeftButton)
 				break;
 			m_MouseButtonPressed = true;
-			qApp->setOverrideCursor(QCursor(CrossCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 			Dxp = m->x();
 			Dyp = m->y();
 			Mxp = m->x();
@@ -8759,9 +8759,9 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 	{
 		double rr = fabs(currItem->rotation());
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >= 315.0) && (rr <= 360.0)))
-			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::SizeVerCursor), true);
 	}
 	tx = p->xForm(QPoint(static_cast<int>(currItem->width())/2, 0));
 	tx2 = p->xForm(QPoint(static_cast<int>(currItem->width())/2, static_cast<int>(currItem->height())));
@@ -8769,9 +8769,9 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 	{
 		double rr = fabs(currItem->rotation());
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >= 315.0) && (rr <= 360.0)))
-			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::SizeVerCursor), true);
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
-			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 	}
 	tx = p->xForm(QPoint(static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 	tx2 = p->xForm(QPoint(0, 0));
@@ -8790,7 +8790,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 		}
 	}
 	if (Doc->EditClip)
-		qApp->setOverrideCursor(QCursor(crossCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
 }
 
 void ScribusView::SelectItemNr(uint nr, bool draw, bool single)

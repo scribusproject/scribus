@@ -138,7 +138,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	opacitySpinBox->setMaxValue(100);
 	opacitySpinBox->setLineStep(10);
 	opacitySpinBox->setSuffix( tr(" %"));
-	opacitySpinBox->setFocusPolicy(QWidget::ClickFocus);
+	opacitySpinBox->setFocusPolicy(Qt::ClickFocus);
 	layout1->addWidget( opacitySpinBox );
 	LayerPaletteLayout->addLayout( layout1 );
 #ifndef HAVE_CAIRO

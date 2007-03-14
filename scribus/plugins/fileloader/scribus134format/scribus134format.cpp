@@ -3229,7 +3229,7 @@ QString Scribus134Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *d
 			dia->exec();
 			tmpf = dia->getReplacementFont();
 			delete dia;
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			prefsManager->appPrefs.GFontSub[fStr] = tmpf;
 		}
 		else

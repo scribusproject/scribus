@@ -479,7 +479,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
 			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
 			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			bool newCM = currDoc->CMSSettings.CMSinUse;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();

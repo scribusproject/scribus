@@ -567,7 +567,7 @@ void TabKeyboardShortcutsWidget::keyReleaseEvent(QKeyEvent *k)
 		if (k->key() == Qt::Key_Alt)
 		{
 			Part2 = "";
-			keyCode &= ~ALT;
+			keyCode &= ~Qt::ALT;
 		}
 		if (k->key() == Qt::Key_Control)
 		{
@@ -584,7 +584,7 @@ bool TabKeyboardShortcutsWidget::checkKey(int code)
 	QKeySequence key = QKeySequence(code);
 	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 	{
-		if (key.matches(it.data().keySequence) != Qt::NoMatch)
+		if (key.matches(it.data().keySequence) != QKeySequence::NoMatch)
 		{
 			ret = true;
 			break;

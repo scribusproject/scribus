@@ -102,8 +102,8 @@ private:
 	FPointArray Coords;
 	FPointArray clipCoords;
 	bool FirstM, WasM, ClosedPath;
-	PenCapStyle CapStyle;
-	PenJoinStyle JoinStyle;
+	Qt::PenCapStyle CapStyle;
+	Qt::PenJoinStyle JoinStyle;
 	bool interactive;
 	MultiProgressDialog * progressDialog;
 	bool cancel;

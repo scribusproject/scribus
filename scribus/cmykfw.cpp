@@ -413,7 +413,7 @@ void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 	if (m->button() == RightButton)
 	{
 		Q3PopupMenu *pmen = new Q3PopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		int px = pmen->insertItem( tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
 		int py = pmen->insertItem( tr("Static Color Bars"), this, SLOT(ToggleSL()));
 		pmen->setItemChecked((dynamic ? px : py) , true);

@@ -84,7 +84,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	if (m->button() == RightButton)
 	{
 		Q3PopupMenu *pmen = new Q3PopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)
 			pmen->setItemChecked(px, true);
@@ -156,7 +156,7 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 /*	if (e->button() == RightButton)
 	{
 		QPopupMenu *pmen = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		int px = pmen->insertItem( tr("Show Master Page Names"), this, SLOT(ToggleNam()));
 		if (Namen)
 			pmen->setItemChecked(px, true);

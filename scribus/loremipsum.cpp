@@ -149,7 +149,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	LoremManagerLayout->addLayout( layout3, 0, 0 );
 	languageChange();
 	resize( QSize(439, 364).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	//qt4 clearWState( WState_Polished );
 
 	// reading lorems
 	QDir d(getLoremLocation(QString::null), "*.xml");

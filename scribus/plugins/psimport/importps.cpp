@@ -216,7 +216,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
@@ -539,8 +539,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		LineW = 0;
 		Opacity = 1;
 		CurrColor = CommonStrings::None;
-		JoinStyle = MiterJoin;
-		CapStyle = FlatCap;
+		JoinStyle = Qt::MiterJoin;
+		CapStyle = Qt::FlatCap;
 		DashPattern.clear();
 		Q3TextStream ts(&f);
 		int line_cnt = 0;

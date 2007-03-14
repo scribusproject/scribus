@@ -224,7 +224,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 		emit typeChanged(tabValues[actTab].tabType);
 		emit tabMoved(tabValues[actTab].tabPosition);
 		emit fillCharChanged(tabValues[actTab].tabFillChar);
-		qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 	}
 	mouseX = m->x();
 }
@@ -263,7 +263,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 			else
 				emit noTabs();
 			repaint();
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		}
 	}
 	rulerCode = 0;
@@ -276,7 +276,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	QRect fpo;
 	if ((mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
 	{
-		qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 		switch (rulerCode)
 		{
 			case 1:
@@ -324,13 +324,13 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 			fpo = QRect(static_cast<int>(firstLine+leftIndent-offset)-4, 0, 8, 12);
 			if (fpo.contains(m->pos()))
 			{
-				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 				return;
 			}
 			fpo = QRect(static_cast<int>(leftIndent-offset)-4, 12, 8, 12);
 			if (fpo.contains(m->pos()))
 			{
-				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 				return;
 			}
 		}
@@ -341,7 +341,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				fpo = QRect(static_cast<int>(tabValues[yg].tabPosition-offset)-3, 15, 8, 8);
 				if (fpo.contains(m->pos()))
 				{
-					qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+					qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 					return;
 				}
 			}
@@ -357,7 +357,7 @@ void RulerT::leaveEvent(QEvent*)
 		return;
 	}
 	else
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 }
 
 void RulerT::updateTabList()

@@ -79,7 +79,7 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 
 	static QPixmap pixm;
 
-	uint cc = row * numCols() + col;
+	int cc = row * numCols() + col;
 	if (cc >= m_characters.count())
 		return;
 
@@ -146,7 +146,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 
 	mPressed = true;
 	m_mousePosition = QCursor::pos();
-	uint index = r * numCols() + c;
+	int index = r * numCols() + c;
 	int currentChar = -1;
 	if (index < m_characters.count())
 		currentChar = m_characters[index];

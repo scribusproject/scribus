@@ -1461,7 +1461,7 @@ QString StencilReader::createObjects(QString datain)
 	co2.setAttribute("Register","0");
 	group.appendChild(co2);
 	QDomNodeList listStrokes = elem.elementsByTagName("KivioLineStyle");
-	for (uint st = 0; st < listStrokes.count(); st++)
+	for (int st = 0; st < listStrokes.count(); st++)
 	{
 		QDomElement str = listStrokes.item(st).toElement();
 		QString colnam = str.attribute("color","#ffffff");
@@ -1503,7 +1503,7 @@ QString StencilReader::createObjects(QString datain)
 		}
 	}
 	QDomNodeList listFills = elem.elementsByTagName("KivioFillStyle");
-	for (uint st = 0; st < listFills.count(); st++)
+	for (int st = 0; st < listFills.count(); st++)
 	{
 		QDomElement fil = listFills.item(st).toElement();
 		QString colnam = fil.attribute("color","#ffffff");

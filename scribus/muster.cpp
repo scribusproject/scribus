@@ -302,7 +302,7 @@ void MasterPagesPalette::appendPage()
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		int nr = currentDoc->Pages->count();
 		//currentDoc->pageCount = 0;
 		//atf = currentDoc->usesAutomaticTextFrames();

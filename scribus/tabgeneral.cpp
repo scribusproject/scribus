@@ -39,7 +39,7 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 	// qt styles
 	QStringList STtest;
 	STtest = QStyleFactory::keys();
-	for (uint stt = 0; stt < STtest.count(); ++stt)
+	for (int stt = 0; stt < STtest.count(); ++stt)
 		GUICombo->insertItem(STtest[stt]);
 	//GUICombo->setEditable(false);
 

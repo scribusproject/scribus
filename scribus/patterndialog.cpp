@@ -115,7 +115,7 @@ void PatternDialog::loadPatternDir()
 			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
 			mainWin->mainWindowProgressBar->reset();
 			mainWin->mainWindowProgressBar->setTotalSteps(d.count() * 2);
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{

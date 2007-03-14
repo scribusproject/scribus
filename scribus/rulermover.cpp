@@ -63,7 +63,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		currView->DrHY = -1;
 		currView->setNewRulerOrigin(m);
 	}
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	Mpressed = false;
 }
 

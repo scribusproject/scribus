@@ -174,7 +174,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 {
 	QRect fpo;
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	if ((!Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9))
 	{
 		qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1), true);
@@ -183,14 +183,14 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 			fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
 			if (fpo.contains(m->pos()))
 			{
-				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 				return;
 			}
 		}
 	}
 	if ((Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9) && (ActStop != -1))
 	{
-		qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
 		double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);
 		if (ActStop > 1)
 		{
@@ -219,7 +219,7 @@ void GradientPreview::leaveEvent(QEvent*)
 	if ((Mpressed) && (ActStop != 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (ActStop != -1))
 		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1), true);
 	else
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	outside = true;
 }
 

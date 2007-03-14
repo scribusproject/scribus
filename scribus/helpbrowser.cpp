@@ -248,7 +248,7 @@ void TextBrowser::setSource(const QString &name)
 void TextBrowser::overLink(const QString &link)
 {
 	if ((link.isNull()) || (link.isEmpty()))
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	else
 		qApp->setOverrideCursor(QCursor(PointingHandCursor), true);
 }

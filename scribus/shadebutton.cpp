@@ -19,7 +19,7 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent, "ShadeButton")
 	FillSh->insertItem( tr("Other..."));
 	for (uint a = 0; a < array; ++a)
 		FillSh->insertItem(tmp[a]);
-	setBackgroundMode(PaletteBackground);
+	setBackgroundMode(Qt::PaletteBackground);
 	setPopup(FillSh);
 	setPopupDelay(1);
 	setText("100 %");

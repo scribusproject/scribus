@@ -70,7 +70,7 @@ protected slots:
 private:
 	QString m_name;
 	PrefsContext *m_prefs;
-	Q3DockWindow::Orientation floatOrientation;
+	Qt::Orientation floatOrientation;
 	QToolButton *prefsButton;
 	Q3PopupMenu  *popup;
 	Q3PopupMenu  *dockMenu;

@@ -138,7 +138,7 @@ void MergeDoc::changeFile()
 		if (!fn.isEmpty())
 		{
 			dirs->set("merge", fn.left(fn.findRev("/")));
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 			FileLoader fl(fn);
 			if (fl.TestFile() == -1)
 			//TODO put in nice user warning

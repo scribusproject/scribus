@@ -560,7 +560,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ScrEdited = 0;
 	SelAction->setCurrentItem(0);
 	EditJava->setReadOnly(true);
-	EditJava->setBackgroundMode(PaletteBackground);
+	EditJava->setBackgroundMode(Qt::PaletteBackground);
 	EditJava->setPaper(EditJava->paletteBackgroundColor());
 	Layout71->addWidget( EditJava );
 	EditJ = new QPushButton( Frame3, "EditJ" );
@@ -871,7 +871,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	if (item->annotation().Format() == 5)
 		FormatScript->setText( item->annotation().F_act() );
 	FormatScript->setReadOnly(true);
-	FormatScript->setBackgroundMode(PaletteBackground);
+	FormatScript->setBackgroundMode(Qt::PaletteBackground);
 	FormatScript->setPaper(FormatScript->paletteBackgroundColor());
 	FormatScript->setMaximumSize(QSize(32000,50));
 	FLayout3->addWidget( FormatScript );
@@ -892,7 +892,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	if (item->annotation().Format() == 5)
 		KeyScript->setText( item->annotation().K_act() );
 	KeyScript->setReadOnly(true);
-	KeyScript->setBackgroundMode(PaletteBackground);
+	KeyScript->setBackgroundMode(Qt::PaletteBackground);
 	KeyScript->setPaper(KeyScript->paletteBackgroundColor());
 	KeyScript->setMaximumSize(QSize(32000,50));
 	FLayout5->addWidget( KeyScript );
@@ -949,7 +949,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ValidScript = new Q3TextEdit( ValidateGroup, "ValidScript" );
 	ValidScript->setMinimumSize( QSize( 0, 50 ) );
 	ValidScript->setReadOnly( true );
-	ValidScript->setBackgroundMode(PaletteBackground);
+	ValidScript->setBackgroundMode(Qt::PaletteBackground);
 	ValidScript->setPaper(ValidScript->paletteBackgroundColor());
 	VLayout2->addWidget( ValidScript );
 
@@ -1016,7 +1016,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	CalcScript->setMinimumSize( QSize( 0, 50 ) );
 	CalcScript->setReadOnly( true );
 	CLayout2->addWidget( CalcScript );
-	CalcScript->setBackgroundMode(PaletteBackground);
+	CalcScript->setBackgroundMode(Qt::PaletteBackground);
 	CalcScript->setPaper(CalcScript->paletteBackgroundColor());
 
 	EditCalc = new QPushButton( CalcGroup, "EditCalc" );

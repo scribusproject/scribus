@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
+#include <QDesktopWidget>
 #include <qcolor.h>
 #include <qdir.h>
 #include <qdom.h>
@@ -204,11 +205,11 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.guideRad = 10;
 	appPrefs.guidesSettings.minorGrid = 20;
 	appPrefs.guidesSettings.majorGrid = 100;
-	appPrefs.guidesSettings.minorColor = QColor(green);
-	appPrefs.guidesSettings.majorColor = QColor(green);
-	appPrefs.guidesSettings.margColor = QColor(blue);
-	appPrefs.guidesSettings.guideColor = QColor(darkBlue);
-	appPrefs.guidesSettings.baseColor = QColor(lightGray);
+	appPrefs.guidesSettings.minorColor = QColor(Qt::green);
+	appPrefs.guidesSettings.majorColor = QColor(Qt::green);
+	appPrefs.guidesSettings.margColor = QColor(Qt::blue);
+	appPrefs.guidesSettings.guideColor = QColor(Qt::darkBlue);
+	appPrefs.guidesSettings.baseColor = QColor(Qt::lightGray);
 	appPrefs.typographicSettings.valueSuperScript = 33;
 	appPrefs.typographicSettings.scalingSuperScript = 100;
 	appPrefs.typographicSettings.valueSubScript = 33;
@@ -248,15 +249,15 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dispX = 10.0;
 	appPrefs.toolSettings.dispY = 10.0;
 	appPrefs.toolSettings.constrain = 15.0;
-	appPrefs.DpapColor = QColor(white);
-	appPrefs.DFrameColor = QColor(red);
-	appPrefs.DFrameNormColor = QColor(black);
-	appPrefs.DFrameGroupColor = QColor(darkCyan);
-	appPrefs.DFrameLockColor = QColor(darkRed);
-	appPrefs.DFrameLinkColor = QColor(red);
-	appPrefs.DFrameAnnotationColor = QColor(blue);
-	appPrefs.DPageBorderColor = QColor(red);
-	appPrefs.DControlCharColor = QColor(darkRed);
+	appPrefs.DpapColor = QColor(Qt::white);
+	appPrefs.DFrameColor = QColor(Qt::red);
+	appPrefs.DFrameNormColor = QColor(Qt::black);
+	appPrefs.DFrameGroupColor = QColor(Qt::darkCyan);
+	appPrefs.DFrameLockColor = QColor(Qt::darkRed);
+	appPrefs.DFrameLinkColor = QColor(Qt::red);
+	appPrefs.DFrameAnnotationColor = QColor(Qt::blue);
+	appPrefs.DPageBorderColor = QColor(Qt::red);
+	appPrefs.DControlCharColor = QColor(Qt::darkRed);
 	appPrefs.toolSettings.dCols = 1;
 	appPrefs.toolSettings.dGap = 0.0;
 	appPrefs.toolSettings.dShadeLine = 100;
@@ -333,7 +334,7 @@ void PrefsManager::initDefaults()
 	appPrefs.gs_AntiAliasText = true;
 	appPrefs.gs_exe = getGSDefaultExeName();
 	appPrefs.gs_Resolution = 72;
-	appPrefs.STEcolor = QColor(white);
+	appPrefs.STEcolor = QColor(Qt::white);
 	appPrefs.DCMSset.DefaultMonitorProfile = "";
 	appPrefs.DCMSset.DefaultPrinterProfile = "";
 	appPrefs.DCMSset.DefaultImageRGBProfile = "";
@@ -693,7 +694,7 @@ void PrefsManager::convert12Preferences()
 		QString extraPath = tsx.read();
 		fontPrefsFile12.close();
 		QStringList extraFonts = QStringList::split("\n",extraPath);
-		for (uint i = 0; i < extraFonts.count(); ++i)
+		for (int i = 0; i < extraFonts.count(); ++i)
 			fontPrefs->set(i, 0, extraFonts[i]);
 	}
 }
@@ -1170,7 +1171,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc73.setAttribute("CopyToScrapbook",static_cast<int>(appPrefs.doCopyToScrapbook));
 	dc73.setAttribute("persistentScrapbook",static_cast<int>(appPrefs.persistentScrapbook));
 	dc73.setAttribute("numScrapbookCopies",appPrefs.numScrapbookCopies);
-	for (uint rd=0; rd<appPrefs.RecentScrapbooks.count(); ++rd)
+	for (int rd=0; rd<appPrefs.RecentScrapbooks.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
 		rde.setAttribute("NAME",appPrefs.RecentScrapbooks[rd]);
@@ -1318,7 +1319,7 @@ bool PrefsManager::WritePref(QString ho)
 		fn.setAttribute("SUBSET", static_cast<int>(itf.current().subset()));
 		elem.appendChild(fn);
 	}
-	for (uint rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
+	for (int rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
 		rde.setAttribute("NAME",appPrefs.RecentDocs[rd]);
@@ -1341,7 +1342,7 @@ bool PrefsManager::WritePref(QString ho)
 		fosu.setAttribute("Replace",itfsu.data());
 		elem.appendChild(fosu);
 	}
-	for (uint ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
+	for (int ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
 	{
 		QDomElement cos=docu.createElement("COLORSET");
 		cos.setAttribute("NAME",appPrefs.CustomColorSets[ccs]);
@@ -1460,7 +1461,8 @@ bool PrefsManager::WritePref(QString ho)
 		Q3TextStream s(&f);
 		s.setEncoding(Q3TextStream::UnicodeUTF8);
 		s<<docu.toString();
-		if (f.status() == IO_Ok)
+		//Qt4 if (f.status() == IO_Ok)
+		if (f.error()==QFile::NoError)
 			result = true;
 		else
 			m_lastError = tr("Writing to preferences file \"%1\" failed: "
@@ -2028,7 +2030,7 @@ bool PrefsManager::ReadPref(QString ho)
 					tocsetup.name=tocElem.attribute("Name");
 					tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 					tocsetup.frameName=tocElem.attribute("FrameName");
-					tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
+					tocsetup.listNonPrintingFrames=static_cast<bool>(tocElem.attribute("ListNonPrinting").toInt());
 					tocsetup.textStyle=tocElem.attribute("Style");
 					QString numberPlacement=tocElem.attribute("NumberPlacement");
 					if (numberPlacement=="Beginning")

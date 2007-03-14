@@ -71,12 +71,12 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, Q3MainWindow 
 	if (m_prefs->contains("FloatOrientation")) // set float orientation
 	{
 		floatOrientation = m_prefs->getInt("FloatOrientation", 1) == Hor ?
-		                   Q3DockWindow::Horizontal : Q3DockWindow::Vertical;
+		                   Qt::Horizontal : Qt::Vertical;
 	}
 	else
 	{
 		floatOrientation = o;
-		m_prefs->set("FloatOrientation", o == Q3DockWindow::Horizontal ? Hor : Vert);
+		m_prefs->set("FloatOrientation", o == Qt::Horizontal ? Hor : Vert);
 	}
 
 	if (!m_prefs->contains("PosIndex"))

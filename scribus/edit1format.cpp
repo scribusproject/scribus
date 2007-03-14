@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<ParagraphStyle>& v, bool neu, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0), allV(v)
 {
-	qApp->setOverrideCursor(QCursor(waitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	parentDoc = doc;
 	setCaption( tr( "Edit Style" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -588,7 +588,7 @@ void EditStyle::updatePreview()
 {
 	if (!previewCaption->isChecked())
 		return;
-	qApp->setOverrideCursor(QCursor(waitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 
 	ParagraphStyle tmpStyle;
 	copyStyleSettings(tmpStyle);

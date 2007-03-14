@@ -162,7 +162,7 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 			Q3PopupMenu *pmen = new Q3PopupMenu();
 			Q3PopupMenu *pmen2 = new Q3PopupMenu();
 			Q3PopupMenu *pmen3 = new Q3PopupMenu();
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			Q3PopupMenu *pmen4 = new Q3PopupMenu();
 			Q3PopupMenu *pmenEditContents = new Q3PopupMenu();
 			Q3PopupMenu *pmenLevel = new Q3PopupMenu();

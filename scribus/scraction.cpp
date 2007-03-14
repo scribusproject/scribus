@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include <q3popupmenu.h>
-#include <qicon.h>
+#include <QIcon>
 #include "scraction.h"
 //#include "scraction.moc"
 #include "scribus.h"
@@ -35,7 +35,7 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QIcon & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
@@ -80,7 +80,7 @@ ScrAction::ScrAction( ActionType aType, const QIcon & icon, const QString & menu
 	}
 }
 
-ScrAction::ScrAction( const QIcon & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
+ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( QIcon(icon16), menuText, accel, parent, name )
 {
 	initScrAction();
 	setIconSizes();
@@ -103,12 +103,15 @@ ScrAction::~ScrAction()
 
 void ScrAction::setIconSizes()
 {
+//qt4 fixme
+/*
 	QIcon iconset=iconSet();
 	if (!iconset.isNull())
 	{
 		iconset.setIconSize(QIcon::Small, QSize(16,16));
 		iconset.setIconSize(QIcon::Large, QSize(22,22));
 	}
+*/
 }
 
 void ScrAction::activatedToActivatedData()
