@@ -178,16 +178,16 @@ void PageItem_ImageFrame::clearContents()
 void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	double moveBy=1.0;
-	ButtonState buttonState = k->state();
+	Qt::ButtonState buttonState = k->state();
 	bool resizingImage=false;
-	bool controlDown=(buttonState & ControlButton);
-	if ((buttonState & ShiftButton) && !controlDown)
+	bool controlDown=(buttonState & Qt::ControlButton);
+	if ((buttonState & Qt::ShiftButton) && !controlDown)
 		moveBy=10.0;
-	else if ((buttonState & ShiftButton) && controlDown && !(buttonState & AltButton))
+	else if ((buttonState & Qt::ShiftButton) && controlDown && !(buttonState & Qt::AltButton))
 		moveBy=0.1;
-	else if ((buttonState & ShiftButton) && controlDown && (buttonState & AltButton))
+	else if ((buttonState & Qt::ShiftButton) && controlDown && (buttonState & Qt::AltButton))
 		moveBy=0.01;
-	else if (!(buttonState & ShiftButton) && (buttonState & AltButton))
+	else if (!(buttonState & Qt::ShiftButton) && (buttonState & Qt::AltButton))
 		resizingImage=true;
 	double dX=0.0,dY=0.0;
 	int kk = k->key();
@@ -196,16 +196,16 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		moveBy/=m_Doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 		switch (kk)
 		{
-			case Key_Left:
+			case Qt::Key_Left:
 				dX=-moveBy;
 				break;
-			case Key_Right:
+			case Qt::Key_Right:
 				dX=moveBy;
 				break;
-			case Key_Up:
+			case Qt::Key_Up:
 				dY=-moveBy;
 				break;
-			case Key_Down:
+			case Qt::Key_Down:
 				dY=moveBy;
 				break;
 		}
@@ -220,16 +220,16 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	{
 		switch (kk)
 		{
-			case Key_Left:
+			case Qt::Key_Left:
 				dX=-moveBy+100;
 				break;
-			case Key_Right:
+			case Qt::Key_Right:
 				dX=moveBy+100;
 				break;
-			case Key_Up:
+			case Qt::Key_Up:
 				dY=-moveBy+100;
 				break;
-			case Key_Down:
+			case Qt::Key_Down:
 				dY=moveBy+100;
 				break;
 			default:

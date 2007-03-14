@@ -121,7 +121,7 @@ inline const Style* StyleSet<STYLE>::resolve(const QString& name) const
 {
 	if (name.isEmpty())
 		return m_default;
-	for (uint i=0; i < styles.count(); ++i)
+	for (int i=0; i < styles.count(); ++i)
 	{
 		if (styles[i]->name() == name)
 			return styles[i];

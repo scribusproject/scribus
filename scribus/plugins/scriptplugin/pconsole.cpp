@@ -53,15 +53,15 @@ PythonConsole::PythonConsole( QWidget* parent)
 	// setup the menu
 	menuBar = new QMenuBar(this, "menuBar");
 	Q3PopupMenu *fileMenu = new Q3PopupMenu(this);
-	fileMenu->insertItem(loadIcon("fileopen.png"), tr("&Open..."), this, SLOT(slot_open()), CTRL+Key_O);
-	fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slot_save()), CTRL+Key_S);
+	fileMenu->insertItem(loadIcon("fileopen.png"), tr("&Open..."), this, SLOT(slot_open()), Qt::CTRL+Qt::Key_O);
+	fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slot_save()), Qt::CTRL+Qt::Key_S);
 	fileMenu->insertItem( tr("Save &As..."), this, SLOT(slot_saveAs()));
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
 	menuBar->insertItem( tr("&File"), fileMenu);
 	Q3PopupMenu *scriptMenu = new Q3PopupMenu(this);
-	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
-	scriptMenu->insertItem( tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), CTRL+Key_F9);
+	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Qt::Key_F9);
+	scriptMenu->insertItem( tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Qt::CTRL+Qt::Key_F9);
 	scriptMenu->insertItem( tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem( tr("&Script"), scriptMenu);
 

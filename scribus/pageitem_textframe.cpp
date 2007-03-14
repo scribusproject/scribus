@@ -2267,17 +2267,17 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	int len, pos;
 	int KeyMod;
 	ScribusView* view = m_Doc->view();
-	ButtonState buttonState = k->state();
+	Qt::ButtonState buttonState = k->state();
 	switch (buttonState)
 	{
-	case ShiftButton:
-		KeyMod = SHIFT;
+	case Qt::ShiftButton:
+		KeyMod = Qt::SHIFT;
 		break;
-	case AltButton:
-		KeyMod = ALT;
+	case Qt::AltButton:
+		KeyMod = Qt::ALT;
 		break;
-	case ControlButton:
-		KeyMod = CTRL;
+	case Qt::ControlButton:
+		KeyMod = Qt::CTRL;
 		break;
 	default:
 		KeyMod = 0;
@@ -2287,19 +2287,19 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	view->slotDoCurs(false);
 	switch (kk)
 	{
-	case Key_Prior:
-	case Key_Next:
-	case Key_End:
-	case Key_Home:
-	case Key_Right:
-	case Key_Left:
-	case Key_Up:
-	case Key_Down:
-		if ( (buttonState & ShiftButton) == 0 )
+	case Qt::Key_Prior:
+	case Qt::Key_Next:
+	case Qt::Key_End:
+	case Qt::Key_Home:
+	case Qt::Key_Right:
+	case Qt::Key_Left:
+	case Qt::Key_Up:
+	case Qt::Key_Down:
+		if ( (buttonState & Qt::ShiftButton) == 0 )
 			deselectAll();
 	}
 	//<< ISO 14755
-	//if ((buttonState & ControlButton) && (buttonState & ShiftButton))
+	//if ((buttonState & Qt::ControlButton) && (buttonState & Qt::ShiftButton))
 	//{
 	//	if (!unicodeTextEditMode)
 	//	{
@@ -2354,21 +2354,21 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	}
 	switch (kk)
 	{
-	case Key_F12:
+	case Qt::Key_F12:
 		unicodeTextEditMode = true;
 		unicodeInputCount = 0;
 		unicodeInputString = "";
 		keyRepeat = false;
 		return;
 		break;
-	case Key_Home:
+	case Qt::Key_Home:
 		// go to begin of line
 		if ( (pos = CPos) == firstInFrame() )
 			break; // at begin of frame
 		len = lastInFrame();
 		if ( pos >= len )
 			pos = len-1;
-		if ( (buttonState & ControlButton) == 0 )
+		if ( (buttonState & Qt::ControlButton) == 0 )
 		{
 			pos = itemText.startOfLine(pos);
 		}
@@ -2378,18 +2378,18 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			pos = itemText.startOfFrame(pos);
 		}
 		CPos = pos;
-		if ( buttonState & ShiftButton )
+		if ( buttonState & Qt::ShiftButton )
 			ExpandSel(-1, oldPos);
 		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_End:
+	case Qt::Key_End:
 		// go to end of line
 		len = lastInFrame();
 		if ( CPos >= len )
 			break; // at end of frame
-		if ( (buttonState & ControlButton) == 0 )
+		if ( (buttonState & Qt::ControlButton) == 0 )
 		{
 			CPos = itemText.endOfLine(CPos);
 		}
@@ -2398,19 +2398,19 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			//Control End for end of frame text
 			CPos = itemText.endOfFrame(CPos);
 		}
-		if ( buttonState & ShiftButton )
+		if ( buttonState & Qt::ShiftButton )
 			ExpandSel(1, oldPos);
 		if ( this->itemText.lengthOfSelection() > 0 )
 			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Down:
-		if (buttonState & ControlButton)
+	case Qt::Key_Down:
+		if (buttonState & Qt::ControlButton)
 		{
 			// go to end of paragraph
 			len = itemText.length();
 			CPos = itemText.nextParagraph(CPos);
-			if ( buttonState & ShiftButton )
+			if ( buttonState & Qt::ShiftButton )
 				ExpandSel(1, oldPos);
 		}
 		else
@@ -2418,9 +2418,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (CPos <= lastInFrame())
 			{
 				CPos = itemText.nextLine(CPos);
-				if ( buttonState & ShiftButton )
+				if ( buttonState & Qt::ShiftButton )
 				{
-					if ( buttonState & AltButton )
+					if ( buttonState & Qt::AltButton )
 						CPos = lastInFrame()+1;
 					ExpandSel(1, oldPos);
 				}
@@ -2452,14 +2452,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Up:
-		if (buttonState & ControlButton)
+	case Qt::Key_Up:
+		if (buttonState & Qt::ControlButton)
 		{
 			if ( (pos = CPos) == firstInFrame() )
 				break; // at begin of frame
 			len = itemText.length();
 			CPos = itemText.prevParagraph(CPos);
-			if ( buttonState & ShiftButton )
+			if ( buttonState & Qt::ShiftButton )
 				ExpandSel(-1, oldPos);
 		}
 		else
@@ -2469,9 +2469,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				if (CPos > lastInFrame() || CPos >= itemText.length())
 					CPos = lastInFrame();
 				CPos = itemText.prevLine(CPos);
-				if ( buttonState & ShiftButton )
+				if ( buttonState & Qt::ShiftButton )
 				{
-					if ( buttonState & AltButton )
+					if ( buttonState & Qt::AltButton )
 						CPos = firstInFrame();
 					ExpandSel(-1, oldPos);
 				}
@@ -2498,26 +2498,26 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Prior:
+	case Qt::Key_Prior:
 		CPos = itemText.startOfFrame(CPos);
-		if ( buttonState & ShiftButton )
+		if ( buttonState & Qt::ShiftButton )
 			ExpandSel(-1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Next:
+	case Qt::Key_Next:
 		CPos = itemText.endOfFrame(CPos);
-		if ( buttonState & ShiftButton )
+		if ( buttonState & Qt::ShiftButton )
 			ExpandSel(1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Left:
-		if ( buttonState & ControlButton )
+	case Qt::Key_Left:
+		if ( buttonState & Qt::ControlButton )
 		{
 			setNewPos(oldPos, itemText.length(), -1);
-			if ( buttonState & ShiftButton )
+			if ( buttonState & Qt::ShiftButton )
 				ExpandSel(-1, oldPos);
 		}
-		else if ( buttonState & ShiftButton )
+		else if ( buttonState & Qt::ShiftButton )
 		{
 			--CPos;
 			if ( CPos < 0 )
@@ -2567,14 +2567,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Right:
-		if ( buttonState & ControlButton )
+	case Qt::Key_Right:
+		if ( buttonState & Qt::ControlButton )
 		{
 			setNewPos(oldPos, itemText.length(), 1);
-			if ( buttonState & ShiftButton )
+			if ( buttonState & Qt::ShiftButton )
 				ExpandSel(1, oldPos);
 		}
-		else if ( buttonState & ShiftButton )
+		else if ( buttonState & Qt::ShiftButton )
 		{
 			++CPos;
 			if ( CPos > itemText.length() )
@@ -2605,7 +2605,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Key_Delete:
+	case Qt::Key_Delete:
 		if (CPos == itemText.length())
 		{
 			if (itemText.lengthOfSelection() > 0)
@@ -2635,7 +2635,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		m_Doc->scMW()->setTBvals(this);
 		view->RefreshItem(this);
 		break;
-	case Key_Backspace:
+	case Qt::Key_Backspace:
 		if (CPos == 0)
 		{
 			if (itemText.lengthOfSelection() > 0)
@@ -2667,8 +2667,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	default:
 		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000))
 			deleteSelectedTextFromFrame();
-		//if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
-		if (kk == Key_Tab)
+		//if ((kk == Qt::Key_Tab) || ((kk == Qt::Key_Return) && (buttonState & Qt::ShiftButton)))
+		if (kk == Qt::Key_Tab)
 		{
 			itemText.insertChars(CPos, QString(SpecialChars::TAB));
 			CPos += 1;
@@ -2705,7 +2705,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		break;
 	}
 	view->slotDoCurs(true);
-	if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
+	if ((kk == Qt::Key_Left) || (kk == Qt::Key_Right) || (kk == Qt::Key_Up) || (kk == Qt::Key_Down))
 	{
 		keyRepeat = false;
 		return;

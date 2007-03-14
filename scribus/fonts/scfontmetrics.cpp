@@ -254,7 +254,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 		FT_UInt gindex;
 		gindex = 0;
 		charcode = FT_Get_First_Char(face, &gindex );
-		for (uint n = 0; n < ts.length(); ++n)
+		for (int n = 0; n < ts.length(); ++n)
 		{
 			gly = traceChar(face, charcode, s, &x, &y, &error);
 			if (error)
@@ -275,7 +275,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	}
 	else
 	{
-		for (uint n = 0; n < ts.length(); ++n)
+		for (int n = 0; n < ts.length(); ++n)
 		{
 			dv = ts[n].unicode();
 			error = false;

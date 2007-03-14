@@ -1060,7 +1060,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 	if (HaveDoc)
 	{
 		int wheelVal=prefsManager->mouseWheelValue();
-		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
+		if ((w->orientation() != Qt::Vertical) || ( w->state() & Qt::ShiftButton ))
 		{
 			if (w->delta() < 0)
 				view->scrollBy(wheelVal, 0);
@@ -1131,12 +1131,12 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
-		if (k->state() & ShiftButton)
-			keyMod |= SHIFT;
-		if (k->state() & ControlButton)
-			keyMod |= CTRL;
-		if (k->state() & AltButton)
-			keyMod |= ALT;
+		if (k->state() & Qt::ShiftButton)
+			keyMod |= Qt::SHIFT;
+		if (k->state() & Qt::ControlButton)
+			keyMod |= Qt::CTRL;
+		if (k->state() & Qt::AltButton)
+			keyMod |= Qt::ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		if (QString(currKeySeq).isNull())
@@ -1211,7 +1211,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	QString cr, Tcha, Twort;
 	if (HaveDoc)
 	{
-		if ((doc->appMode == modeMagnifier) && (kk == Key_Shift))
+		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 		{
 			qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
 			return;
@@ -1223,21 +1223,21 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	int KeyMod;
 	switch (k->state())
 	{
-	case ShiftButton:
-		KeyMod = SHIFT;
+	case Qt::ShiftButton:
+		KeyMod = Qt::SHIFT;
 		break;
-	case AltButton:
-		KeyMod = ALT;
+	case Qt::AltButton:
+		KeyMod = Qt::ALT;
 		break;
-	case ControlButton:
-		KeyMod = CTRL;
+	case Qt::ControlButton:
+		KeyMod = Qt::CTRL;
 		break;
 	default:
 		KeyMod = 0;
 		break;
 	}
 	//User presses escape and we have a doc open, and we have an item selected
-	if ((kk == Key_Escape) && (HaveDoc))
+	if ((kk == Qt::Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
 		PageItem *currItem;
@@ -1303,7 +1303,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		slotSelect();
 		return;
 	}
-	ButtonState buttonState = k->state();
+	Qt::ButtonState buttonState = k->state();
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 	{
@@ -1320,7 +1320,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			int pg;
 			switch (kk)
 			{
-			case Key_Space:
+			case Qt::Key_Space:
 				keyrep = false;
 				if (doc->appMode == modePanning)
 					setAppMode(modeNormal);
@@ -1328,13 +1328,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					setAppMode(modePanning);
 				return;
 				break;
-			case Key_Prior:
+			case Qt::Key_Prior:
 				if (doc->masterPageMode())
 					view->scrollBy(0, -prefsManager->mouseWheelValue());
 				else
 				{
 					pg = doc->currentPageNumber();
-					if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+					if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 						pg--;
 					else
 						pg -= doc->pageSets[doc->currentPageLayout].Columns;
@@ -1344,13 +1344,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				keyrep = false;
 				return;
 				break;
-			case Key_Next:
+			case Qt::Key_Next:
 				if (doc->masterPageMode())
 					view->scrollBy(0, prefsManager->mouseWheelValue());
 				else
 				{
 					pg = doc->currentPageNumber();
-					if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+					if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 						pg++;
 					else
 						pg += doc->pageSets[doc->currentPageLayout].Columns;
@@ -1360,7 +1360,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				keyrep = false;
 				return;
 				break;
-			case Key_Tab:
+			case Qt::Key_Tab:
 				keyrep = false;
 				windows = wsp->windowList();
 				if (windows.count() > 1)
@@ -1418,30 +1418,30 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			double moveBy=1.0;
 			if (doc->unitIndex()!=SC_INCHES)
 			{
-				if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+				if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 					moveBy=0.1;
-				else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+				else if (!(buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 					moveBy=10.0;
-				else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+				else if ((buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 					moveBy=0.01;
 
 				moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			}
 			else
 			{
-				if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+				if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 					moveBy=0.1/doc->unitRatio();
-				else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+				else if (!(buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 					moveBy=1.0/doc->unitRatio();
-				else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+				else if ((buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
 					moveBy=0.01/doc->unitRatio();
 			}
-			bool resizing=((buttonState & AltButton) && !(buttonState & ControlButton));
-			bool resizingsmaller=(resizing && (buttonState & ShiftButton));
+			bool resizing=((buttonState & Qt::AltButton) && !(buttonState & Qt::ControlButton));
+			bool resizingsmaller=(resizing && (buttonState & Qt::ShiftButton));
 			double resizeBy=1.0;
 			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
 			//resizeby 10 units unless we move to supporting modifier keys that most people dont have.
-			//if (buttonState & ControlButton)
+			//if (buttonState & Qt::ControlButton)
 			//	resizeBy*=10.0;
 			resizeBy/=doc->unitRatio();
 			if (resizingsmaller)
@@ -1454,23 +1454,23 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			case modeNormal:
 				switch (kk)
 				{
-				case Key_Backspace:
-				case Key_Delete:
+				case Qt::Key_Backspace:
+				case Qt::Key_Delete:
 					doc->itemSelection_DeleteItem();
 					break;
-				case Key_Prior:
+				case Qt::Key_Prior:
 					if (!currItem->locked())
 					{
 						view->RaiseItem();
 					}
 					break;
-				case Key_Next:
+				case Qt::Key_Next:
 					if (!currItem->locked())
 					{
 						view->LowerItem();
 					}
 					break;
-				case Key_Left:
+				case Qt::Key_Left:
 					if (!currItem->locked())
 					{
 						if (!resizing)
@@ -1523,7 +1523,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					break;
-				case Key_Right:
+				case Qt::Key_Right:
 					if (!currItem->locked())
 					{
 						if (!resizing)
@@ -1576,7 +1576,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					break;
-				case Key_Up:
+				case Qt::Key_Up:
 					if (!currItem->locked())
 					{
 						if (!resizing)
@@ -1629,7 +1629,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						slotDocCh();
 					}
 					break;
-				case Key_Down:
+				case Qt::Key_Down:
 					if (!currItem->locked())
 					{
 						if (!resizing)
@@ -1694,16 +1694,16 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					double dX=0.0,dY=0.0;
 					switch (kk)
 					{
-						case Key_Left:
+						case Qt::Key_Left:
 							dX=-moveBy;
 							break;
-						case Key_Right:
+						case Qt::Key_Right:
 							dX=moveBy;
 							break;
-						case Key_Up:
+						case Qt::Key_Up:
 							dY=-moveBy;
 							break;
-						case Key_Down:
+						case Qt::Key_Down:
 							dY=moveBy;
 							break;
 					}
@@ -1727,10 +1727,10 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	}
 	switch(kk)
 	{
-		case Key_Left:
-		case Key_Right:
-		case Key_Up:
-		case Key_Down:
+		case Qt::Key_Left:
+		case Qt::Key_Right:
+		case Qt::Key_Up:
+		case Qt::Key_Down:
 			_arrowKeyDown = true;
 	}
 	keyrep = false;
@@ -1738,7 +1738,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
-	if (HaveDoc && (k->state() & ControlButton))
+	if (HaveDoc && (k->state() & Qt::ControlButton))
 	{
 		if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
 			setAppMode(modeNormal);
@@ -1752,10 +1752,10 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 		return;
 	switch(k->key())
 	{
-		case Key_Left:
-		case Key_Right:
-		case Key_Up:
-		case Key_Down:
+		case Qt::Key_Left:
+		case Qt::Key_Right:
+		case Qt::Key_Up:
+		case Qt::Key_Down:
 			_arrowKeyDown = false;
 			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 			{

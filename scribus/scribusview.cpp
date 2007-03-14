@@ -2994,7 +2994,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				bool doRemember = sizes->getBool("Remember", true);
 				bool doCreate = false;
-				if (m->state() & (ShiftButton | ControlButton))
+				if (m->state() & (ShiftButton | Qt::ControlButton))
 					doCreate = true;
 				else
 				{
@@ -3158,7 +3158,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			np = Doc->ApplyGrid(np);
 			double newRot=xy2Deg(np.x(), np.y());
 			//Constrain rotation angle, when the mouse is released from drawing a line
-			if (m->state() & ControlButton)
+			if (m->state() & Qt::ControlButton)
 				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
 			currItem->setRotation(newRot);
 			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
@@ -3222,7 +3222,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					QPoint np2;
 					double newXF = translateToDoc(m->x(), m->y()).x();
 					double newYF = translateToDoc(m->x(), m->y()).y();
-					if (m->state() & ControlButton)
+					if (m->state() & Qt::ControlButton)
 						np2 = QPoint(qRound(newXF), qRound(gy+(gh * ((newXF-gx) / gw))));
 					else
 						np2 = QPoint(qRound(newXF), qRound(newYF));
@@ -3272,7 +3272,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					RotMode = Doc->RotMode;
 					Doc->RotMode = 0;
 					//CB #3012 only scale text in a group if alt is pressed
-					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & AltButton))
+					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & Qt::AltButton))
 						scaleGroup(scx, scy, true);
 					else
 						scaleGroup(scx, scy, false);
@@ -3891,9 +3891,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					//alt resize, free resize with text scaling
 					//shift alt, square resize with text scaling
 					//control alt, proportional resize with text scaling
-					//if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & ShiftButton) && (m->state() & ControlButton))
+					//if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & Qt::ShiftButton) && (m->state() & Qt::ControlButton))
 					//NOTE: this does not cover groups, strangely enough. Thats done in scaleGroup()
-					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & AltButton))
+					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & Qt::AltButton))
 					{
 						double scx = currItem->width() / currItem->OldB2;
 						double scy = currItem->height() / currItem->OldH2;
@@ -4229,7 +4229,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 			{
-				if (m->state() & ShiftButton)
+				if (m->state() & Qt::ShiftButton)
 					qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
 				else
 					qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
@@ -4557,7 +4557,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		if (moveTimerElapsed() && m_MouseButtonPressed && (Doc->appMode == modeRotation))
 		{
 			double newW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
-			if (m->state() & ControlButton)
+			if (m->state() & Qt::ControlButton)
 			{
 				newW=constrainAngle(newW, Doc->toolSettings.constrain);
 				oldW=constrainAngle(oldW, Doc->toolSettings.constrain);
@@ -4630,7 +4630,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			ToView(&p);
 			p.setRasterOp(XorROP);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			if (m->state() & ShiftButton)
+			if (m->state() & Qt::ShiftButton)
 			{
 				mop = QPoint(m->x(), static_cast<int>((currItem->yPos() + (newX - currItem->xPos())) * sc));
 				QCursor::setPos(mapToGlobal(mop));
@@ -4663,7 +4663,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			}
 			double newRot=xy2Deg(newX - currItem->xPos(), newY - currItem->yPos());
 			//Constrain rotation angle, when the mouse is being dragged around for a new line
-			if (m->state() & ControlButton)
+			if (m->state() & Qt::ControlButton)
 			{
 				//Flip our angles around here
 				if (newRot<0.0)
@@ -4864,7 +4864,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					switch (frameResizeHandle)
 					{
 					case 1:
-						if (m->state() & ControlButton)
+						if (m->state() & Qt::ControlButton)
 							np2 = QPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
 						else
 							np2 = QPoint(qRound(newX), qRound(newY));
@@ -4917,7 +4917,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								Transform(currItem, &p);
 								p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
 								//Shift proportional square resize
-								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
+								if ((m->state() & Qt::ShiftButton) && (!(m->state() & Qt::ControlButton)))
 								{
 									QMatrix ma;
 									ma.translate(currItem->xPos(), currItem->yPos());
@@ -4929,7 +4929,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								else
 								{
 									//Control proportional resize
-									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
+									if ((m->state() & Qt::ControlButton) && (!(m->state() & Qt::ShiftButton)))
 									{
 										QMatrix ma;
 										ma.translate(currItem->xPos(), currItem->yPos());
@@ -4964,7 +4964,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										nx -= currItem->xPos();
 										ny -= currItem->yPos();
 									}
-									if ((m->state() & ControlButton) || ((m->state() & ShiftButton)))
+									if ((m->state() & Qt::ControlButton) || ((m->state() & Qt::ShiftButton)))
 										erf = Doc->SizeItem(nx, nh, currItem->ItemNr);
 									else
 									erf = Doc->SizeItem(nx, ny, currItem->ItemNr);
@@ -4980,7 +4980,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									p.end();
 									double sizeItemX=np.x(), sizeItemY=np.y();
 									//Constrain rotation angle, when the mouse is moving the non-origin point of a line
-									if (m->state() & ControlButton)
+									if (m->state() & Qt::ControlButton)
 									{
 										double newRot=xy2Deg(np.x(), np.y());
 										rba=constrainAngle(newRot, Doc->toolSettings.constrain);
@@ -5011,7 +5011,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									double sav = Doc->SnapGuides;
 									npf2 = FPoint(newX-Mxp, newY-Myp);
 									//Constrain rotation on left point move, disabled for now in movesizeitem
-									erf = Doc->MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->state() & ControlButton));
+									erf = Doc->MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->state() & Qt::ControlButton));
 									Doc->SnapGuides = sav;
 									if (sav)
 										currItem->Sizing = true;
@@ -5100,7 +5100,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					erf=true;
 					currItem = Doc->m_Selection->itemAt(0);
 					//Control Alt drag image in frame without being in edit mode
-					if ((currItem->asImageFrame()) && (m->state() & ControlButton) && (m->state() & AltButton))
+					if ((currItem->asImageFrame()) && (m->state() & Qt::ControlButton) && (m->state() & Qt::AltButton))
 					{
 						currItem->moveImageInFrame(dX/currItem->imageXScale(),dY/currItem->imageYScale());
 						updateContents(currItem->getRedrawBounding(Scale));
@@ -5109,7 +5109,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					else
 					{
 						//Dragging orthogonally - Ctrl Drag
-						if ((m->state() & ControlButton) && !(m->state() & ShiftButton) && !(m->state() & AltButton))
+						if ((m->state() & Qt::ControlButton) && !(m->state() & Qt::ShiftButton) && !(m->state() & Qt::AltButton))
 						{
 							if (abs(dX)>abs(dY))
 								dY=0;
@@ -5169,7 +5169,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					int dX=newX-Mxp, dY=newY-Myp;
 					erf = true;
-					if (m->state() & ControlButton)
+					if (m->state() & Qt::ControlButton)
 					{
 						if (abs(dX)>abs(dY))
 							dY=0;
@@ -5625,7 +5625,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						ClRe = a;
 						if ((EdPoints) && (SelNode.contains(a) == 0))
 						{
-							if (m->state() == ShiftButton)
+							if (m->state() == Qt::ShiftButton)
 								SelNode.append(a);
 							else
 							{
@@ -5865,7 +5865,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					mpo = QRect(qRound(m->x() / Scale) - Doc->guidesSettings.grabRad, qRound(m->y() / Scale) - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 					mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
-					      && (m->state() != (ControlButton | AltButton)) && (m->state() != ShiftButton))
+					      && (m->state() != (ControlButton | Qt::AltButton)) && (m->state() != Qt::ShiftButton))
 					{
 						frameResizeHandle = 0;
 						QMap<double,int> distance;
@@ -5929,7 +5929,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					}
 					else
 						shiftSel = SeleItem(m);
-					if (((Doc->m_Selection->count() == 0) || (!shiftSel)) && (m->state() == ShiftButton))
+					if (((Doc->m_Selection->count() == 0) || (!shiftSel)) && (m->state() == Qt::ShiftButton))
 					{
 						shiftSelItems = true;
 						Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
@@ -6003,7 +6003,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			switch (Doc->SubMode)
 			{
 			case 0:
-				if (m->state() == ShiftButton)
+				if (m->state() == Qt::ShiftButton)
 				{
 					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 					Doc->Items->at(z)->FrameType = 0;
@@ -6018,7 +6018,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				break;
 			case 1:
-				if (m->state() == ShiftButton)
+				if (m->state() == Qt::ShiftButton)
 				{
 					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 					Doc->Items->at(z)->FrameType = 1;
@@ -6033,7 +6033,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				break;
 			default:
-				if (m->state() == ShiftButton)
+				if (m->state() == Qt::ShiftButton)
 				{
 					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 					Doc->Items->at(z)->SetFrameShape(Doc->ValCount, Doc->ShapeValues);
@@ -6057,7 +6057,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (m->button() != LeftButton)
 				break;
 			selectPage(m);
-			if (m->state() == ShiftButton)
+			if (m->state() == Qt::ShiftButton)
 			{
 				z = Doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
 				SetupDrawNoResize(z);
@@ -6073,7 +6073,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (m->button() != LeftButton)
 				break;
 			selectPage(m);
-			if (m->state() == ShiftButton)
+			if (m->state() == Qt::ShiftButton)
 			{
 				z = Doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenText, !m_MouseButtonPressed);
 				SetupDrawNoResize(z);
@@ -6087,7 +6087,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeMagnifier:
 			m_MouseButtonPressed = true;
-			if ((m->state() == ShiftButton) || (m->button() == RightButton))
+			if ((m->state() == Qt::ShiftButton) || (m->button() == RightButton))
 			{
 				Magnify = false;
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
@@ -6379,7 +6379,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				if (m->button() != LeftButton)
 					break;
 				selectPage(m);
-				if (m->state() == ShiftButton)
+				if (m->state() == Qt::ShiftButton)
 					z = Doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen, !m_MouseButtonPressed);
 				else
 				{
@@ -6405,7 +6405,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->m_Selection->addItem(currItem);
 				currItem->paintObj();
 				inItemCreation = true;
-				if (m->state() == ShiftButton)
+				if (m->state() == Qt::ShiftButton)
 				{
 					Doc->appMode = modeNormal;
 					emit DocChanged();
@@ -8956,7 +8956,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	ClRe = -1;
-	if ((Doc->m_Selection->count() != 0) && (m->state() == ControlButton))
+	if ((Doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
 		currItem = Doc->m_Selection->itemAt(0);
 	else
 		currItem = Doc->Items->last();
@@ -9014,10 +9014,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 		setRulerPos(contentsX(), contentsY());
 	}
-	if (m->state() == (ControlButton | AltButton))
+	if (m->state() == (ControlButton | Qt::AltButton))
 		Deselect(false);
 
-	if ((m->state() == (ShiftButton | AltButton)) && (!Doc->masterPageMode()) && (Doc->currentPage()->FromMaster.count() != 0))
+	if ((m->state() == (ShiftButton | Qt::AltButton)) && (!Doc->masterPageMode()) && (Doc->currentPage()->FromMaster.count() != 0))
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[Doc->currentPage()->MPageNam]);
 		currItem = Doc->currentPage()->FromMaster.last();
@@ -9038,7 +9038,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				{
 					if (!currItem->isSelected())
 					{
-						if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
+						if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 							Deselect(false);
 						if (currItem->Groups.count() != 0)
 						{
@@ -9049,7 +9049,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							}
 							else
 								Doc->m_Selection->addItem(currItem, true);
-							if (m->state() != (ControlButton | AltButton))
+							if (m->state() != (ControlButton | Qt::AltButton))
 							{
 								for (uint ga=0; ga<Doc->Items->count(); ++ga)
 								{
@@ -9129,7 +9129,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->currentPage()->FromMaster.prev();
 		}
 	}
-	if ((m->state() == (ControlButton | ShiftButton)) && (Doc->m_Selection->count() != 0))
+	if ((m->state() == (ControlButton | Qt::ShiftButton)) && (Doc->m_Selection->count() != 0))
 	{
 		for (a = 0; a < Doc->Items->count(); ++a)
 		{
@@ -9170,7 +9170,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				//If the clicked on item is not tagged as selected
 				if (!currItem->isSelected())
 				{
-					if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
+					if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 						Deselect(false);
 					//If we are selecting an item that is part of a group...
 					if (currItem->Groups.count() != 0)
@@ -9183,7 +9183,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						else
 							Doc->m_Selection->addItem(currItem, true);
 						//CB This is where we add the items of an unselected group
-						if (m->state() != (ControlButton | AltButton))
+						if (m->state() != (ControlButton | Qt::AltButton))
 						{
 							for (uint ga=0; ga<Doc->Items->count(); ++ga)
 							{
@@ -9323,7 +9323,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			}
 		}
 	}
-	if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
+	if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 		Deselect(true);
 	return false;
 }
@@ -11748,7 +11748,7 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
 	Q3ScrollView::contentsWheelEvent(w);
 	evSpon = true;
-	if ((m_MouseButtonPressed) && (MidButt) || ( w->state() & ControlButton ))
+	if ((m_MouseButtonPressed) && (MidButt) || ( w->state() & Qt::ControlButton ))
 	{
 		w->delta() > 0 ? slotZoomIn() : slotZoomOut();
 	}
@@ -11756,7 +11756,7 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 	{
 		int dX=0,dY=0;
 		int moveBy=(w->delta() < 0) ? Prefs->Wheelval : -Prefs->Wheelval;
-		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
+		if ((w->orientation() != Qt::Vertical) || ( w->state() & Qt::ShiftButton ))
 			dX = moveBy;
 		else
 			dY = moveBy;

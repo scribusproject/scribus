@@ -95,14 +95,14 @@ void ScrPaletteBase::keyPressEvent(QKeyEvent *keyEvent)
 	int keyMod;
 	switch (keyEvent->state())
 	{
-		case ShiftButton:
-			keyMod = SHIFT;
+		case Qt::ShiftButton:
+			keyMod = Qt::SHIFT;
 			break;
-		case AltButton:
-			keyMod = ALT;
+		case Qt::AltButton:
+			keyMod = Qt::ALT;
 			break;
-		case ControlButton:
-			keyMod = CTRL;
+		case Qt::ControlButton:
+			keyMod = Qt::CTRL;
 			break;
 		default:
 			keyMod = 0;

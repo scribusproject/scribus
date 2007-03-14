@@ -102,7 +102,7 @@ ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect,  ScribusDoc* doc, bool g
 	m_graphicsPath = NULL;
 #else
 	SetGraphicsMode( m_dc, GM_ADVANCED );
-	SetPolyFillMode(m_dc, ALTERNATE);
+	SetPolyFillMode(m_dc, Qt::ALTERNATE);
 	loadMsImg32();
 #endif
 	clear();
@@ -595,7 +595,7 @@ void ScPainterEx_GDI::drawVPath( int mode )
 	if (mode == 0)
 	{
 		if( m_fillRule )
-			SetPolyFillMode(m_dc, ALTERNATE);
+			SetPolyFillMode(m_dc, Qt::ALTERNATE);
 		else
 			SetPolyFillMode(m_dc, WINDING);
 		if (m_fillMode == ScPainterExBase::Gradient)

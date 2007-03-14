@@ -14,18 +14,18 @@ for which a new license (GPL+exception) is in place.
 
 VisionDefectColor::VisionDefectColor(int r, int g, int b)
 {
-	Qt::red = (double)r;
-	Qt::green = (double)g;
-	Qt::blue = (double)b;
+	red = (double)r;
+	green = (double)g;
+	blue = (double)b;
 	originalColor = QColor(r, g, b);
 	init();
 }
 
 VisionDefectColor::VisionDefectColor(QColor c)
 {
-	Qt::red = (double)c.Qt::red();
-	Qt::green = (double)c.Qt::green();
-	Qt::blue = (double)c.Qt::blue();
+	red = (double)c.red();
+	green = (double)c.green();
+	blue = (double)c.blue();
 	originalColor = c;
 	init();
 }
@@ -75,17 +75,17 @@ void VisionDefectColor::convertDefect()
 	double tmp;
 
 	/* Remove gamma to linearize RGB intensities */
-	Qt::red   = pow(Qt::red, 1.0 / gammaRGB[0]);
-	Qt::green = pow(Qt::green, 1.0 / gammaRGB[1]);
-	Qt::blue  = pow(Qt::blue, 1.0 / gammaRGB[2]);
+	red   = pow(red, 1.0 / gammaRGB[0]);
+	green = pow(green, 1.0 / gammaRGB[1]);
+	blue  = pow(blue, 1.0 / gammaRGB[2]);
 
 	/* Convert to LMS (dot product with transform matrix) */
-	double redOld   = Qt::red;
-	double greenOld = Qt::green;
+	double redOld   = red;
+	double greenOld = green;
 
-	Qt::red   = redOld * rgb2lms[0] + greenOld * rgb2lms[1] + Qt::blue * rgb2lms[2];
-	Qt::green = redOld * rgb2lms[3] + greenOld * rgb2lms[4] + Qt::blue * rgb2lms[5];
-	Qt::blue  = redOld * rgb2lms[6] + greenOld * rgb2lms[7] + Qt::blue * rgb2lms[8];
+	red   = redOld * rgb2lms[0] + greenOld * rgb2lms[1] + blue * rgb2lms[2];
+	green = redOld * rgb2lms[3] + greenOld * rgb2lms[4] + blue * rgb2lms[5];
+	blue  = redOld * rgb2lms[6] + greenOld * rgb2lms[7] + blue * rgb2lms[8];
 
 	switch (deficiency)
 	{
@@ -93,39 +93,39 @@ void VisionDefectColor::convertDefect()
 			break;
 		case deuteranopeVision:
 			setupDefect();
-			tmp = Qt::blue / Qt::red;
+			tmp = blue / red;
 			/* See which side of the inflection line we fall... */
 			if (tmp < inflection)
-				Qt::green = -(a1 * Qt::red + c1 * Qt::blue) / b1;
+				green = -(a1 * red + c1 * blue) / b1;
 			else
-				Qt::green = -(a2 * Qt::red + c2 * Qt::blue) / b2;
+				green = -(a2 * red + c2 * blue) / b2;
 			break;
 		case protanopeVision:
 			setupDefect();
-			tmp = Qt::blue / Qt::green;
+			tmp = blue / green;
 			/* See which side of the inflection line we fall... */
 			if (tmp < inflection)
-				Qt::red = -(b1 * Qt::green + c1 * Qt::blue) / a1;
+				red = -(b1 * green + c1 * blue) / a1;
 			else
-				Qt::red = -(b2 * Qt::green + c2 * Qt::blue) / a2;
+				red = -(b2 * green + c2 * blue) / a2;
 			break;
 		case tritanopeVision:
 			setupDefect();
-			tmp = Qt::green / Qt::red;
+			tmp = green / red;
 			/* See which side of the inflection line we fall... */
 			if (tmp < inflection)
-				Qt::blue = -(a1 * Qt::red + b1 * Qt::green) / c1;
+				blue = -(a1 * red + b1 * green) / c1;
 			else
-				Qt::blue = -(a2 * Qt::red + b2 * Qt::green) / c2;
+				blue = -(a2 * red + b2 * green) / c2;
 			break;
 		case colorBlindnessVision:
 		{
-			double Qt::gray = clamp(0.3 * originalColor.Qt::red()
-						+ 0.59 * originalColor.Qt::green()
-						+ 0.11 * originalColor.Qt::blue(), 0, 255);
-			Qt::red = Qt::gray;
-			Qt::green = Qt::gray;
-			Qt::blue = Qt::gray;
+			double gray = clamp(0.3 * originalColor.red()
+						+ 0.59 * originalColor.green()
+						+ 0.11 * originalColor.blue(), 0, 255);
+			red = gray;
+			green = gray;
+			blue = gray;
 			return; // no other transformations!
 		}
 		default:
@@ -133,23 +133,23 @@ void VisionDefectColor::convertDefect()
 	}
 
 	/* Convert back to RGB (cross product with transform matrix) */
-	redOld   = Qt::red;
-	greenOld = Qt::green;
+	redOld   = red;
+	greenOld = green;
 
-	Qt::red   = redOld * lms2rgb[0] + greenOld * lms2rgb[1] + Qt::blue * lms2rgb[2];
-	Qt::green = redOld * lms2rgb[3] + greenOld * lms2rgb[4] + Qt::blue * lms2rgb[5];
-	Qt::blue  = redOld * lms2rgb[6] + greenOld * lms2rgb[7] + Qt::blue * lms2rgb[8];
+	red   = redOld * lms2rgb[0] + greenOld * lms2rgb[1] + blue * lms2rgb[2];
+	green = redOld * lms2rgb[3] + greenOld * lms2rgb[4] + blue * lms2rgb[5];
+	blue  = redOld * lms2rgb[6] + greenOld * lms2rgb[7] + blue * lms2rgb[8];
 
 	/* Apply gamma to go back to non-linear intensities */
-	Qt::red   = pow(Qt::red, gammaRGB[0]);
-	Qt::green = pow(Qt::green, gammaRGB[1]);
-	Qt::blue  = pow(Qt::blue, gammaRGB[2]);
+	red   = pow(red, gammaRGB[0]);
+	green = pow(green, gammaRGB[1]);
+	blue  = pow(blue, gammaRGB[2]);
 
 	/* Ensure that we stay within the RGB gamut */
 	/* *** FIX THIS: it would be better to desaturate than blindly clip. */
-	Qt::red   = clamp(Qt::red, 0.0, 255.0);
-	Qt::green = clamp(Qt::green, 0.0, 255.0);
-	Qt::blue  = clamp(Qt::blue, 0.0, 255.0);
+	red   = clamp(red, 0.0, 255.0);
+	green = clamp(green, 0.0, 255.0);
+	blue  = clamp(blue, 0.0, 255.0);
 }
 
 QColor VisionDefectColor::convertDefect(QColor c, int d)

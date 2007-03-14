@@ -1563,21 +1563,21 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 			Part4 = "";
 		switch (k->key())
 		{
-			case Key_Meta:
+			case Qt::Key_Meta:
 				Part0 = tr("Meta+");
 				keyCode |= META;
 				break;
-			case Key_Shift:
+			case Qt::Key_Shift:
 				Part3 = tr("Shift+");
-				keyCode |= SHIFT;
+				keyCode |= Qt::SHIFT;
 				break;
-			case Key_Alt:
+			case Qt::Key_Alt:
 				Part2 = tr("Alt+");
-				keyCode |= ALT;
+				keyCode |= Qt::ALT;
 				break;
-			case Key_Control:
+			case Qt::Key_Control:
 				Part1 = tr("Ctrl+");
-				keyCode |= CTRL;
+				keyCode |= Qt::CTRL;
 				break;
 			default:
 				keyCode |= k->key();
@@ -1628,22 +1628,22 @@ void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
 		}
 		else
 			Part4 = "";
-		if (k->key() == Key_Meta)
+		if (k->key() == Qt::Key_Meta)
 		{
 			Part0 = "";
 			keyCode &= ~META;
 		}
-		if (k->key() == Key_Shift)
+		if (k->key() == Qt::Key_Shift)
 		{
 			Part3 = "";
 			keyCode &= ~SHIFT;
 		}
-		if (k->key() == Key_Alt)
+		if (k->key() == Qt::Key_Alt)
 		{
 			Part2 = "";
 			keyCode &= ~ALT;
 		}
-		if (k->key() == Key_Control)
+		if (k->key() == Qt::Key_Control)
 		{
 			Part1 = "";
 			keyCode &= ~CTRL;

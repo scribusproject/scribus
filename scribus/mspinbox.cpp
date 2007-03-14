@@ -112,30 +112,30 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if ( ev->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		bool shiftB=k->state() & ShiftButton;
-		bool controlB=k->state() & ControlButton;
-		if (k->key() == Key_Shift && !controlB)
+		bool shiftB=k->state() & Qt::ShiftButton;
+		bool controlB=k->state() & Qt::ControlButton;
+		if (k->key() == Qt::Key_Shift && !controlB)
 		{
 			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if (k->key() == Key_Control && !shiftB)
+		else if (k->key() == Qt::Key_Control && !shiftB)
 		{
 			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if ((k->key() == Key_Control && shiftB) || (k->key() == Key_Shift && controlB))
+		else if ((k->key() == Qt::Key_Control && shiftB) || (k->key() == Qt::Key_Shift && controlB))
 		{
 			QSpinBox::setLineStep(QMAX(currLineStep / 100, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if ((k->key() == Key_Return) || (k->key() == Key_Enter) || (k->key() == Key_Tab))
+		else if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter) || (k->key() == Qt::Key_Tab))
 		{
 			if (!m_tabAdvance)
 			{
@@ -147,23 +147,23 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if (ev->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		bool shiftB=k->stateAfter() & ShiftButton;
-		bool controlB=k->stateAfter() & ControlButton;
-		if ((k->key() == Key_Shift && !controlB) || (k->key() == Key_Control && !shiftB))
+		bool shiftB=k->stateAfter() & Qt::ShiftButton;
+		bool controlB=k->stateAfter() & Qt::ControlButton;
+		if ((k->key() == Qt::Key_Shift && !controlB) || (k->key() == Qt::Key_Control && !shiftB))
 		{
 			QSpinBox::setLineStep(currLineStep);
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if (k->key() == Key_Shift && controlB)
+		else if (k->key() == Qt::Key_Shift && controlB)
 		{
 			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if (k->key() == Key_Control && shiftB)
+		else if (k->key() == Qt::Key_Control && shiftB)
 		{
 			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
 			retval = true;
@@ -177,8 +177,8 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		if (readOnly)
 			return false;
 		QWheelEvent* k = (QWheelEvent*)ev;
-		bool shiftB=k->state() & ShiftButton;
-		bool controlB=k->state() & ControlButton;
+		bool shiftB=k->state() & Qt::ShiftButton;
+		bool controlB=k->state() & Qt::ControlButton;
 		if (shiftB && !controlB)
 		{
 			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));

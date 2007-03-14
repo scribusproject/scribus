@@ -497,19 +497,19 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 			Part4 = "";
 		switch (k->key())
 		{
-			case Key_Meta:
+			case Qt::Key_Meta:
 				Part0 = tr("Meta+");
 				keyCode |= Qt::META;
 				break;
-			case Key_Shift:
+			case Qt::Key_Shift:
 				Part3 = tr("Shift+");
 				keyCode |= Qt::SHIFT;
 				break;
-			case Key_Alt:
+			case Qt::Key_Alt:
 				Part2 = tr("Alt+");
 				keyCode |= Qt::ALT;
 				break;
-			case Key_Control:
+			case Qt::Key_Control:
 				Part1 = tr("Ctrl+");
 				keyCode |= Qt::CTRL;
 				break;

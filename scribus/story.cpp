@@ -222,47 +222,47 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	getCursorPosition(&p, &i);
 	int pos = StyledText.startOfParagraph(p) + i;
 	int keyMod=0;
-	if (k->state() & ShiftButton)
-		keyMod |= SHIFT;
-	if (k->state() & ControlButton)
-		keyMod |= CTRL;
-	if (k->state() & AltButton)
-		keyMod |= ALT;
+	if (k->state() & Qt::ShiftButton)
+		keyMod |= Qt::SHIFT;
+	if (k->state() & Qt::ControlButton)
+		keyMod |= Qt::CTRL;
+	if (k->state() & Qt::AltButton)
+		keyMod |= Qt::ALT;
 
 	QString uc = k->text();
 	switch (k->state())
 	{
-		case ControlButton:
-		case ControlButton|ShiftButton:
-		case ControlButton|Keypad:
-		case ControlButton|ShiftButton|Keypad:
+		case Qt::ControlButton:
+		case Qt::ControlButton|ShiftButton:
+		case Qt::ControlButton|Keypad:
+		case Qt::ControlButton|ShiftButton|Keypad:
 			switch (k->key())
 			{
-				case Key_Delete:
+				case Qt::Key_Delete:
 					moveCursor(Q3TextEdit::MoveWordForward, true);
 					deleteSel();
 					break;
-				case Key_Backspace:
+				case Qt::Key_Backspace:
 					moveCursor(Q3TextEdit::MoveWordBackward, true);
 					deleteSel();
 					break;
-				case Key_K:
+				case Qt::Key_K:
 					moveCursor(Q3TextEdit::MoveLineEnd, true);
 					deleteSel();
 					break;
-				case Key_D:
+				case Qt::Key_D:
 					moveCursor(Q3TextEdit::MoveForward, true);
 					deleteSel();
 					break;
-				case Key_H:
+				case Qt::Key_H:
 					moveCursor(Q3TextEdit::MoveBackward, true);
 					deleteSel();
 					break;
-				case Key_X:
+				case Qt::Key_X:
 					cut();
 					return;
 					break;
-				case Key_V:
+				case Qt::Key_V:
 					paste();
 					return;
 					break;
@@ -271,16 +271,16 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					emit SideBarUp(true);
 					return;
 					break;
-				case Key_C:
+				case Qt::Key_C:
 					copyStyledText();
 					break;
 			}
 			break;
 		case NoButton:
 		case Keypad:
-		case ShiftButton:
-		case ControlButton|AltButton:
-		case ControlButton|AltButton|ShiftButton: // Shift + AltGr on Windows for polish characters
+		case Qt::ShiftButton:
+		case Qt::ControlButton|AltButton:
+		case Qt::ControlButton|AltButton|ShiftButton: // Shift + AltGr on Windows for polish characters
 			if (unicodeTextEditMode)
 			{
 				int conv = 0;
@@ -321,21 +321,21 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			wasMod = false;
 			switch (k->key())
 			{
-				case Key_Escape:
+				case Qt::Key_Escape:
 					k->ignore();
 					break;
-				case Key_Shift:
-				case Key_Control:
-				case Key_Alt:
+				case Qt::Key_Shift:
+				case Qt::Key_Control:
+				case Qt::Key_Alt:
 					wasMod = true;
 					break;
-				case Key_F12:
+				case Qt::Key_F12:
 					unicodeTextEditMode = true;
 					unicodeInputCount = 0;
 					unicodeInputString = "";
 					return;
 					break;
-				case Key_Delete:
+				case Qt::Key_Delete:
 					if (!hasSelectedText())
 					{
 						if (pos < StyledText.length())
@@ -344,7 +344,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					else
 						deleteSel();
 					break;
-				case Key_Backspace:
+				case Qt::Key_Backspace:
 					if (!hasSelectedText())
 					{
 						if (pos > 0)
@@ -353,8 +353,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					else
 						deleteSel();
 					break;
-				case Key_Return:
-				case Key_Enter:
+				case Qt::Key_Return:
+				case Qt::Key_Enter:
 					{
 						if (hasSelectedText()) {
 							pos = StyledText.startOfSelection();
@@ -363,14 +363,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						StyledText.insertChars(pos, SpecialChars::PARSEP);
 					}
 					break;
-				case Key_Left:
-				case Key_Right:
-				case Key_Prior:
-				case Key_Next:
-				case Key_Up:
-				case Key_Down:
-				case Key_Home:
-				case Key_End:
+				case Qt::Key_Left:
+				case Qt::Key_Right:
+				case Qt::Key_Prior:
+				case Qt::Key_Next:
+				case Qt::Key_Up:
+				case Qt::Key_Down:
+				case Qt::Key_Home:
+				case Qt::Key_End:
 					break;
 				default:
 					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
@@ -1335,12 +1335,12 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction(QIcon(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
+	seActions.insert("fileNew", new ScrAction(QIcon(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", Qt::CTRL+Qt::Key_N, this, "fileNew"));
 	seActions.insert("fileRevert", new ScrAction(QIcon(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
 	seActions.insert("fileSaveToFile", new ScrAction(QIcon(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", QKeySequence(), this, "fileSaveToFile"));
 	seActions.insert("fileLoadFromFile", new ScrAction(QIcon(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png")), "", QKeySequence(), this, "fileLoadFromFile"));
-	seActions.insert("fileSaveDocument", new ScrAction("", CTRL+Key_S, this, "fileSaveDocument"));
-	seActions.insert("fileUpdateAndExit", new ScrAction(QIcon(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W,  this, "fileUpdateAndExit"));
+	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this, "fileSaveDocument"));
+	seActions.insert("fileUpdateAndExit", new ScrAction(QIcon(loadIcon("ok.png"), loadIcon("ok22.png")), "", Qt::CTRL+Qt::Key_W,  this, "fileUpdateAndExit"));
 	seActions.insert("fileExit", new ScrAction(QIcon(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
 
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
@@ -1352,15 +1352,15 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editSelectAll", new ScrAction(QIcon(noIcon), "", CTRL+Key_A, this, "editSelectAll"));
-	seActions.insert("editCut", new ScrAction(QIcon(loadIcon("editcut.png")), "", CTRL+Key_X, this, "editCut"));
-	seActions.insert("editCopy", new ScrAction(QIcon(loadIcon("editcopy.png")), "", CTRL+Key_C, this, "editCopy"));
-	seActions.insert("editPaste", new ScrAction(QIcon(loadIcon("editpaste.png")), "", CTRL+Key_V, this, "editPaste"));
-	seActions.insert("editClear", new ScrAction(QIcon(loadIcon("editdelete.png")), "", Key_Delete, this, "editClear"));
+	seActions.insert("editSelectAll", new ScrAction(QIcon(noIcon), "", Qt::CTRL+Qt::Key_A, this, "editSelectAll"));
+	seActions.insert("editCut", new ScrAction(QIcon(loadIcon("editcut.png")), "", Qt::CTRL+Qt::Key_X, this, "editCut"));
+	seActions.insert("editCopy", new ScrAction(QIcon(loadIcon("editcopy.png")), "", Qt::CTRL+Qt::Key_C, this, "editCopy"));
+	seActions.insert("editPaste", new ScrAction(QIcon(loadIcon("editpaste.png")), "", Qt::CTRL+Qt::Key_V, this, "editPaste"));
+	seActions.insert("editClear", new ScrAction(QIcon(loadIcon("editdelete.png")), "", Qt::Key_Delete, this, "editClear"));
 	seActions.insert("editSearchReplace", new ScrAction(QIcon(loadIcon("find16.png")), "", QKeySequence(), this, "editSearchReplace"));
 	seActions.insert("editEditStyle", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "editEditStyle"));
 	seActions.insert("editFontPreview", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "editFontPreview"));
-	seActions.insert("editUpdateFrame", new ScrAction(QIcon(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", CTRL+Key_U, this, "editUpdateFrame"));
+	seActions.insert("editUpdateFrame", new ScrAction(QIcon(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", Qt::CTRL+Qt::Key_U, this, "editUpdateFrame"));
 
 	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );

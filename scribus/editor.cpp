@@ -32,20 +32,20 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	EditTex = new Q3TextEdit( this, "EditTex" );
 
 	fmenu = new Q3PopupMenu();
-	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), CTRL+Key_N);
+	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), Qt::CTRL+Qt::Key_N);
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(OpenScript()));
 	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
 	fmenu->insertSeparator();
 	fmenu->insertItem( tr("&Save and Exit"), this, SLOT(accept()));
 	fmenu->insertItem( tr("&Exit without Saving"), this, SLOT(reject()));
 	emenu = new Q3PopupMenu();
-	emenu->insertItem( tr("&Undo"), EditTex, SLOT(undo()), CTRL+Key_Z);
+	emenu->insertItem( tr("&Undo"), EditTex, SLOT(undo()), Qt::CTRL+Qt::Key_Z);
 	emenu->insertItem( tr("&Redo"), EditTex, SLOT(redo()));
 	emenu->insertSeparator();
-	emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), EditTex, SLOT(cut()), CTRL+Key_X);
-	emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), EditTex, SLOT(copy()), CTRL+Key_C);
-	emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), EditTex, SLOT(paste()), CTRL+Key_V);
-	emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), EditTex, SLOT(del()), CTRL+Key_V);
+	emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), EditTex, SLOT(cut()), Qt::CTRL+Qt::Key_X);
+	emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), EditTex, SLOT(copy()), Qt::CTRL+Qt::Key_C);
+	emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), EditTex, SLOT(paste()), Qt::CTRL+Qt::Key_V);
+	emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), EditTex, SLOT(del()), Qt::CTRL+Qt::Key_V);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Get Field Names"), this, SLOT(GetFieldN()));
 	menuBar = new QMenuBar(this);
