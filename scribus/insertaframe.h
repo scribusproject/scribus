@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #define INSERTAFRAME_H
 
 #include "usertaskstructs.h"
-#include "insertaframebase.h"
+#include "ui_insertaframe.h"
 #include "scribusapi.h"
 #include "pageitem.h"
 
@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
-class SCRIBUS_API InsertAFrame : public InsertAFrameBase
+class SCRIBUS_API InsertAFrame : public QDialog, Ui::InsertAFrame
 {
     Q_OBJECT
 

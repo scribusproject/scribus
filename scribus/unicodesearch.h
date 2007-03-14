@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QHideEvent>
 
-#include "unicodesearchbase.h"
+#include "ui_unicodesearch.h"
 #include "scribusapi.h"
 #include "fonts/scface.h"
 
@@ -25,7 +25,7 @@ description and in the hex representation (as string) too.
 See directory ./unicodemap/ for more info
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API UnicodeSearch : public UnicodeSearchBase
+class SCRIBUS_API UnicodeSearch : public QDialog, Ui::UnicodeSearch
 {
 	Q_OBJECT
 

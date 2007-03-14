@@ -32,8 +32,9 @@ extern QPixmap loadIcon(QString nam);
 
 /*** LineStyleWidget *******************************************************/
 
-LineStyleWidget::LineStyleWidget() : LineStyleWBase()
+LineStyleWidget::LineStyleWidget() : QWidget()
 {
+	setupUi(this);
 	addButton->setPixmap(loadIcon("penciladd.png"));
 	removeButton->setPixmap(loadIcon("pencilsub.png"));
 

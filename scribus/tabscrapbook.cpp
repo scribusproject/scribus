@@ -11,8 +11,9 @@ for which a new license (GPL+exception) is in place.
 //#include "tabscrapbook.moc"
 
 TabScrapbook::TabScrapbook(QWidget* parent, const char* name)
-	: TabScrapbookBase(parent, name, 0)
+	: QWidget(parent, name, 0)
 {
+	setupUi(this);
 }
 
 void TabScrapbook::restoreDefaults(struct ApplicationPrefs *prefsData)

@@ -12,8 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 
 DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, Qt::WFlags fl  )
-	: DocumentItemAttributesBase(parent, name, fl)
+	: QWidget(parent, name, fl)
 {
+	setupUi(this);
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
 	autoAddTo << tr("None", "auto add") << tr("Text Frames") << tr("Image Frames");

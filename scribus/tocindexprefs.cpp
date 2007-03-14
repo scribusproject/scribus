@@ -43,15 +43,16 @@ for which a new license (GPL+exception) is in place.
 *  name 'name' and widget flags set to 'f'.
 */
 TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, Qt::WFlags fl )
-	: TOCIndexPrefsBase( parent, name, fl )
+	: QWidget( parent, name, fl )
 {
+	setupUi(this);
 	languageChange();
 	itemDestFrameComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemAttrComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemNumberPlacementComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemParagraphStyleComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	resize( QSize(444, 234).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+// 	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );

@@ -47,13 +47,16 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-PicItem::PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem) : Q3IconViewItem(parent, text, pix)
+PicItem::PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem)
+	: Q3IconViewItem(parent, text, pix)
 {
 	PageItemObject = pgItem;
 }
 
-PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : PicStatusBase( parent, "PicStatus", true, 0 )
+PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu)
+	: QDialog( parent, "PicStatus", true, 0 )
 {
+	setupUi(this);
 	m_Doc = docu;
 	currItem = NULL;
 	setIcon(loadIcon("AppIcon.png"));

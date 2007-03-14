@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABSCRAPBOOK_H
 #define TABSCRAPBOOK_H
 
-#include "tabscrapbookbase.h"
+#include "ui_tabscrapbook.h"
 #include "scribusapi.h"
 #include "prefsstructs.h"
 
@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabScrapbook : public TabScrapbookBase
+class SCRIBUS_API TabScrapbook : public QWidget, Ui::TabScrapbook
 {
 	Q_OBJECT
 

@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include "scribusapi.h"
 #include "mspinbox.h"
-#include "guidemanagerbase.h"
+#include "ui_guidemanager.h"
 #include "guidemanagercore.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
@@ -70,7 +70,7 @@ as base class instead of QDialog. It should provide correct header file too.
 \author Alessandro Rimoldi
 \author Franz Schmid
 */
-class SCRIBUS_API GuideManager : public GuideManagerBase//, public ScrPaletteBase
+class SCRIBUS_API GuideManager : public ScrPaletteBase, Ui::GuideManager
 {
     Q_OBJECT
 

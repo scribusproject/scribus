@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMREPLACEDIA_H
 #define SMREPLACEDIA_H
 
-#include "smreplacediabase.h"
+#include "ui_smreplacedia.h"
 #include "styleitem.h"
 //Added by qt3to4:
 #include <Q3PtrList>
@@ -39,7 +39,7 @@ private:
 	QComboBox   *optionsCombo;
 };
 
-class SMReplaceDia : public SMReplaceDiaBase {
+class SMReplaceDia : public QDialog, Ui::SMReplaceDia {
 	Q_OBJECT
 public:
 	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions);

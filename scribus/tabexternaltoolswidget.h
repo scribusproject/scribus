@@ -35,11 +35,11 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 
 #include "scpaths.h"
-#include "tabexternaltoolswidgetbase.h"
+#include "ui_tabexternaltoolswidget.h"
 #include "prefsstructs.h"
 #include "scribusapi.h"
 
-class SCRIBUS_API TabExternalToolsWidget : public TabExternalToolsWidgetBase
+class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsWidget
 {
 	Q_OBJECT
 

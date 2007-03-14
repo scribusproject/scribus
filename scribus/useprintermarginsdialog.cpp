@@ -29,8 +29,9 @@ for which a new license (GPL+exception) is in place.
 // widget properties, etc.
 
 UsePrinterMarginsDialog::UsePrinterMarginsDialog( QWidget* parent, const QString& pageSize, double unitRatio, const QString& suffix )
-	: UsePrinterMarginsDialogBase( parent, "UsePrinterMarginsDialog" )
+	: QDialog( parent, "UsePrinterMarginsDialog" )
 {
+	setupUi(this);
 	m_ptsTopMargin=m_ptsBottomMargin=m_ptsLeftMargin=m_ptsRightMargin=0.0;
 	m_pageSize=pageSize;
 	m_unitRatio=unitRatio;

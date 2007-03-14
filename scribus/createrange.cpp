@@ -17,11 +17,12 @@ for which a new license (GPL+exception) is in place.
 #include <qtabwidget.h>
 
 CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const char* name, Qt::WFlags fl )
-	: CreateRangeBase(parent, name, fl),
+	: QDialog(parent, name, fl),
 	m_PageCount(pageCount),
 	m_RangeType(0),
 	m_BasicRangeType(0)
 {
+	setupUi(this);
 	pageCountValueLabel->setText(QString("%1").arg(pageCount));
 	basicConsecutiveFromSpinBox->setMinValue(1);
 	basicConsecutiveToSpinBox->setMinValue(1);

@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUS_DOCITEMATTRPREFS
 #define SCRIBUS_DOCITEMATTRPREFS
 
-#include "docitemattrprefsbase.h"
+#include "ui_docitemattrprefs.h"
 
-class DocumentItemAttributes : public DocumentItemAttributesBase
+class DocumentItemAttributes : public QWidget, Ui::DocumentItemAttributes
 {
 	Q_OBJECT
 	public:
@@ -26,6 +26,14 @@ class DocumentItemAttributes : public DocumentItemAttributesBase
 		virtual void deleteEntry();
 		virtual void clearEntries();
 		virtual void copyEntry();
+	private:
+		QStringList relationships;
+		QStringList relationshipsData;
+		QStringList autoAddTo;
+		QStringList autoAddToData;
+		QStringList types;
+		QStringList typesData;
+
 };
 
 #endif

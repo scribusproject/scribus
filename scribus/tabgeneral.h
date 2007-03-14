@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABGENERAL_H
 #define TABGENERAL_H
 
-#include "tabgeneralbase.h"
+#include "ui_tabgeneral.h"
 #include "scribusapi.h"
 #include "langmgr.h"
 
@@ -18,7 +18,7 @@ class QString;
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabGeneral : public TabGeneralBase
+class SCRIBUS_API TabGeneral : public QWidget, Ui::TabGeneral
 {
 	Q_OBJECT
 

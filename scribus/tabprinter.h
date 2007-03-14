@@ -7,12 +7,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABPRINTER_H
 #define TABPRINTER_H
 
-#include "tabprinterbase.h"
+#include "ui_tabprinter.h"
 #include "scribusapi.h"
 
 class PrefsContext;
 
-class SCRIBUS_API TabPrinter : public TabPrinterBase
+class SCRIBUS_API TabPrinter : public QWidget, Ui::TabPrinter
 {
 	Q_OBJECT
 

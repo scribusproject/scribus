@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABMISCELLANEOUS_H
 #define TABMISCELLANEOUS_H
 
-#include "tabmiscellaneousbase.h"
+#include "ui_tabmiscellaneous.h"
 #include "scribusapi.h"
 #include "prefsstructs.h"
 
@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabMiscellaneous : public TabMiscellaneousBase
+class SCRIBUS_API TabMiscellaneous : public QWidget, Ui::TabMiscellaneous
 {
 	Q_OBJECT
 

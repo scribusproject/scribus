@@ -33,12 +33,12 @@ for which a new license (GPL+exception) is in place.
 #include <q3iconview.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
-#include "patterndialogbase.h"
+#include "ui_patterndialog.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 
-class SCRIBUS_API PatternDialog : public patternDialogBase
+class SCRIBUS_API PatternDialog : public QDialog, Ui::PatternDialog
 {
 	Q_OBJECT
 

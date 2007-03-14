@@ -18,10 +18,10 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char* name, Qt::WFlags fl )
-	: MultipleDuplicateBase(parent, name, fl),
+	: QDialog(parent, name, fl),
 	m_unitIndex(unitIndex)
 {
-
+	setupUi(this);
 	//set tab order
 	QWidget::setTabOrder(createGapRadioButton, horizShiftMSpinBox);
 	QWidget::setTabOrder(horizShiftMSpinBox, vertShiftMSpinBox);

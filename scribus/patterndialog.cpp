@@ -40,8 +40,9 @@ for which a new license (GPL+exception) is in place.
 #include <qeventloop.h>
 #include <qcursor.h>
 
-PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : patternDialogBase(parent)
+PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
+	setupUi(this);
 	m_doc = doc;
 	mainWin = scMW;
 	patternView->clear();

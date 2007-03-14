@@ -33,9 +33,10 @@ for which a new license (GPL+exception) is in place.
 #include <q3widgetstack.h>
 
 InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
-	InsertAFrameBase(parent),
+	QDialog(parent),
 	m_Doc(doc)
 {
+	setupUi(this);
 	//Hide some unused items for now
 	radioButtonTable->setShown(false);
 	radioButtonShape->setShown(false);

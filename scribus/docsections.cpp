@@ -42,8 +42,9 @@ for which a new license (GPL+exception) is in place.
 
 
 DocSections::DocSections( QWidget* parent )
-	: DocSectionsBase( parent, "DocSections" )
+	: QWidget( parent, "DocSections" )
 {
+	setupUi(this);
 	languageChange();
 	connect( sectionsTable, SIGNAL(valueChanged(int, int)), this, SLOT(tableItemChanged(int, int)));
 	connect( addButton, SIGNAL(clicked()), this, SLOT(addEntry()));

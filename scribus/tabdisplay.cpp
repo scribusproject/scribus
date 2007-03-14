@@ -24,8 +24,9 @@ for which a new license (GPL+exception) is in place.
 
 
 TabDisplay::TabDisplay(QWidget* parent, const char* name)
-	: TabDisplayBase(parent, name, 0)
+	: QWidget(parent, name, 0)
 {
+	setupUi(this);
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>");
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");

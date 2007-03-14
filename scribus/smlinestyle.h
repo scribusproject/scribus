@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusstructs.h"
 #include "styleitem.h"
-#include "smlinestylewbase.h"
+#include "ui_smlinestylew.h"
 
 #include <qobject.h>
 #include <qcolor.h>
@@ -21,7 +21,7 @@ class ScribusDoc;
 class LineCombo;
 class MSpinBox;
 
-class LineStyleWidget : public LineStyleWBase // .ui implementation
+class LineStyleWidget : public QWidget, Ui::LineStyleW
 {
 	Q_OBJECT
 public:

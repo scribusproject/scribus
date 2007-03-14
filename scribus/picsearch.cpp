@@ -18,9 +18,10 @@ extern QPixmap loadIcon(QString nam);
 
 
 PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles)
-	: PicSearchBase( parent, "PicSearch", true, 0 ),
+	: QDialog( parent, "PicSearch", true, 0 ),
 	currentImage(QString())
 {
+	setupUi(this);
 	setIcon(loadIcon("AppIcon.png"));
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	previewLabel->hide();

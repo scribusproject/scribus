@@ -26,8 +26,9 @@ extern ScribusQApp* ScQApp;
 
 
 TabGeneral::TabGeneral(QWidget* parent, const char* name)
-	: TabGeneralBase(parent, name, 0)
+	: QWidget(parent, name, 0)
 {
+	setupUi(this);
 	// languages
 	langMgr.init();
 	QStringList languageList;

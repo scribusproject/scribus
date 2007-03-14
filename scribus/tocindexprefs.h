@@ -23,12 +23,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <qstringlist.h>
 
-#include "tocindexprefsbase.h"
+#include "ui_tocindexprefs.h"
 #include "page.h"
 #include "pagestructs.h"
 #include "scribusdoc.h"
 
-class TOCIndexPrefs : public TOCIndexPrefsBase
+class TOCIndexPrefs : public QWidget, Ui::TOCIndexPrefs
 {
     Q_OBJECT
 

@@ -29,11 +29,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <qmap.h>
 #include <qstringlist.h>
-#include "docsectionsbase.h"
+#include "ui_docsections.h"
 #include "pagestructs.h"
 
 
-class DocSections : public DocSectionsBase
+class DocSections : public QWidget, Ui::DocSections
 {
 	Q_OBJECT
 

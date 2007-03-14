@@ -51,8 +51,9 @@ SMRowWidget::~SMRowWidget()
 /*************************************************************************/
 /*************************************************************************/
 
-SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions) : SMReplaceDiaBase()
+SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions) : QDialog()
 {
+	setupUi(this);
 	rowWidgets.setAutoDelete(true);
 
 	QStringList options;

@@ -56,8 +56,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKeyMap, QWidget *parent, const char *name)
-    :TabKeyboardShortcutsWidgetBase(parent, name)
+    :QWidget(parent, name)
 {
+	setupUi(this);
 	ActionManager::createDefaultMenus();
 	ActionManager::createDefaultNonMenuActions();
 	defMenus=ActionManager::defaultMenus();

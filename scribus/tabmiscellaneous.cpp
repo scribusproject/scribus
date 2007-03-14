@@ -16,9 +16,9 @@ for which a new license (GPL+exception) is in place.
 extern ScribusQApp* ScQApp;
 
 TabMiscellaneous::TabMiscellaneous(QWidget* parent, const char* name)
-	: TabMiscellaneousBase(parent, name, 0)
+	: QWidget(parent, name, 0)
 {
-
+	setupUi(this);
 }
 
 

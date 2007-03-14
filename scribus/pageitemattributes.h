@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUS_PAGEITEMATTRIBUTES_H
 #define SCRIBUS_PAGEITEMATTRIBUTES_H
 
-#include "pageitemattributesbase.h"
+#include "ui_pageitemattributes.h"
 
-class PageItemAttributes : public PageItemAttributesBase
+class PageItemAttributes : public QDialog, Ui::PageItemAttributes
 {
     Q_OBJECT
 	public:

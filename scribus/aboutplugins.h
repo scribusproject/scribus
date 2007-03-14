@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef ABOUTPLUGINS_H
 #define ABOUTPLUGINS_H
 
-#include "aboutpluginsbase.h"
+#include "ui_aboutplugins.h"
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3ValueList>
@@ -18,7 +18,7 @@ About Plug-ins dialog. Please use Qt Designer on
 aboutpluginsbase.ui if you need to modify the layout,
 widget properties, etc.
 */
-class AboutPlugins : public AboutPluginsBase
+class AboutPlugins : public QDialog, Ui::AboutPlugins
 {
 	Q_OBJECT
 

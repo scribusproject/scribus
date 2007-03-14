@@ -22,10 +22,11 @@ for which a new license (GPL+exception) is in place.
 
 
 AboutPlugins::AboutPlugins( QWidget* parent )
-	: AboutPluginsBase( parent, "AboutPlugins" ),
+	: QDialog( parent, "AboutPlugins" ),
 	// Get a list of plugins, enabled or not
 	pluginNames(PluginManager::instance().pluginNames(true))
 {
+	setupUi(this);
 	// Populate the list with translated human-readable plugin names
 	Q3ValueList<Q3CString>::const_iterator it(pluginNames.begin());
 	Q3ValueList<Q3CString>::const_iterator itEnd(pluginNames.end());

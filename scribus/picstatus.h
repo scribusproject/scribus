@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define PICSTATUS_H
 
 #include "scribusapi.h"
-#include "picstatusbase.h"
+#include "ui_picstatus.h"
 #include <q3iconview.h>
 //Added by qt3to4:
 #include <QPixmap>
@@ -31,7 +31,7 @@ public:
 
 /*! \brief Constructs a Dialog, which list all Images in the current Document.
 In this Dialog it is possible to search for missing Images. */
-class SCRIBUS_API PicStatus : public PicStatusBase
+class SCRIBUS_API PicStatus : public QDialog, Ui::PicStatus
 { 
 	Q_OBJECT
 

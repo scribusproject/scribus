@@ -8,11 +8,11 @@ for which a new license (GPL+exception) is in place.
 #define PICSEARCHOPTIONS_H
 
 #include "scribusapi.h"
-#include "picsearchoptionsbase.h"
+#include "ui_picsearchoptions.h"
 
 class FileSearch;
 
-class SCRIBUS_API PicSearchOptions : public PicSearchOptionsBase
+class SCRIBUS_API PicSearchOptions : public QDialog, Ui::PicSearchOptions
 { 
 	Q_OBJECT
 

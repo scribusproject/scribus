@@ -30,8 +30,9 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)
-: TabExternalToolsWidgetBase(parent, name)
+: QWidget(parent, name)
 {
+	setupUi(this);
 	// switched off as it's called in main prefs classes - PV
 	//restoreDefaults(prefsData);
 	

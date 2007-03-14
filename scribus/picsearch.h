@@ -17,13 +17,13 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 
 #include "scribusapi.h"
-#include "picsearchbase.h"
+#include "ui_picsearch.h"
 
 
 /*! \brief Dialog for selecting one of all images founded.
 It's called after image search Extras/Manage Pictures/ Click [Search] button for chosen
 image frame item. */
-class SCRIBUS_API PicSearch : public PicSearchBase
+class SCRIBUS_API PicSearch : public QDialog, Ui::PicSearch
 { 
 	Q_OBJECT
 

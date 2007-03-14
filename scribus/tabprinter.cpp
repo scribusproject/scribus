@@ -22,8 +22,10 @@ for which a new license (GPL+exception) is in place.
 #include "printerutil.h"
 
 
-TabPrinter::TabPrinter(QWidget* parent, const char* name) : TabPrinterBase(parent, name, 0)
+TabPrinter::TabPrinter(QWidget* parent, const char* name)
+	: QWidget(parent, name, 0)
 {
+	setupUi(this);
 	QToolTip::add( bleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 	QToolTip::add( bleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 	QToolTip::add( bleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );

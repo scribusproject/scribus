@@ -8,13 +8,13 @@ for which a new license (GPL+exception) is in place.
 #define CREATERANGE
 
 #include "scribusapi.h"
-#include "createrangebase.h"
+#include "ui_createrange.h"
 #include "usertaskstructs.h"
 
 #include <qstring.h>
 #include <qwidget.h>
 
-class SCRIBUS_API CreateRange : public CreateRangeBase
+class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 {
 	Q_OBJECT
 	public:

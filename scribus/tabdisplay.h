@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define TABDISPLAY_H
 
 #include <q3valuelist.h>
-#include "tabdisplaybase.h"
+#include "ui_tabdisplay.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -18,7 +18,7 @@ class ScribusDoc;
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabDisplay : public TabDisplayBase
+class SCRIBUS_API TabDisplay : public QWidget, Ui::TabDisplay
 {
 	Q_OBJECT
 

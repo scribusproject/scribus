@@ -14,11 +14,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef USEPRINTERMARGINSDIALOG_H
 #define USEPRINTERMARGINSDIALOG_H
 
-#include "useprintermarginsdialogbase.h"
+#include "ui_useprintermarginsdialog.h"
 
 #include "scribusapi.h"
 
-class SCRIBUS_API UsePrinterMarginsDialog : public UsePrinterMarginsDialogBase
+class SCRIBUS_API UsePrinterMarginsDialog : public QDialog, Ui::UsePrinterMarginsDialog
 {
 	Q_OBJECT
 

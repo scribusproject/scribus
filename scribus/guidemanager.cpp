@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qcheckbox.h>
 #include <qtooltip.h>
-#include <qhbuttongroup.h>
+#include <qbuttongroup.h>
 #include <qtabwidget.h>
 
 #include "guidemanager.h"
@@ -66,11 +66,12 @@ int GuideListItem::compare(Q3ListViewItem *i, int col, bool asc) const
 
 
 GuideManager::GuideManager(QWidget* parent) :
-		GuideManagerBase(parent, "GuideManager"),
+		ScrPaletteBase(parent, "GuideManager"),
 		m_Doc(0),
 		currentPage(0),
 		m_drawGuides(false)
 {
+	setupUi(this);
 	tabWidget->setEnabled(false);
 	horizontalAutoGapSpin->setMinValue(0.0);
 	horizontalAutoGapSpin->setMaxValue(100.0);

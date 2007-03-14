@@ -22,37 +22,36 @@ ADD_SUBDIRECTORY(fonts)
 ADD_SUBDIRECTORY(desaxe)
 ADD_SUBDIRECTORY(unicodemap)
 
-
 SET(SCRIBUS_UI_SRC
-aboutpluginsbase.ui
-aligndistributebase.ui
-createrangebase.ui
-docitemattrprefsbase.ui
-docsectionsbase.ui
-guidemanagerbase.ui
-insertaframebase.ui
-multipleduplicatebase.ui
-multiprogressdialogbase.ui
-pageitemattributesbase.ui
-patterndialogbase.ui
-picsearchbase.ui
-picsearchoptionsbase.ui
-picstatusbase.ui
-smlinestylewbase.ui
-smreplacediabase.ui
-smpstylewbase.ui
-smcstylewbase.ui
-stylemanagerbase.ui
-tabexternaltoolswidgetbase.ui
-tabkeyboardshortcutswidgetbase.ui
-tocindexprefsbase.ui
-useprintermarginsdialogbase.ui
-tabdisplaybase.ui
-tabgeneralbase.ui
-tabmiscellaneousbase.ui
-tabprinterbase.ui
-tabscrapbookbase.ui
-unicodesearchbase.ui
+aboutplugins.ui
+aligndistribute.ui
+createrange.ui
+docitemattrprefs.ui
+docsections.ui
+guidemanager.ui
+insertaframe.ui
+multipleduplicate.ui
+multiprogressdialog.ui
+pageitemattributes.ui
+patterndialog.ui
+picsearch.ui
+picsearchoptions.ui
+picstatus.ui
+smlinestylew.ui
+smreplacedia.ui
+smpstylew.ui
+smcstylew.ui
+stylemanager.ui
+tabexternaltoolswidget.ui
+tabkeyboardshortcutswidget.ui
+tocindexprefs.ui
+useprintermarginsdialog.ui
+tabdisplay.ui
+tabgeneral.ui
+tabmiscellaneous.ui
+tabprinter.ui
+tabscrapbook.ui
+unicodesearch.ui
 )
 
 SET(SCRIBUS_MOC_CLASSES
@@ -493,10 +492,10 @@ vruler.cpp
 werktoolb.cpp
 )
 
-IF(QT4_WRAP_UI)
+# IF(QT4_WRAP_UI)
 #  QT4_WRAP_UI(scribus SCRIBUS_UI_H SCRIBUS_UI_CPP ${SCRIBUS_UI_SRC} )
   QT4_WRAP_UI(SCRIBUS_UI_SOURCES ${SCRIBUS_UI_SRC} )
-ENDIF(QT4_WRAP_UI)
+# ENDIF(QT4_WRAP_UI)
 
 IF(QT4_WRAP_CPP)
   QT4_WRAP_CPP(SCRIBUS_MOC_SOURCES ${SCRIBUS_MOC_CLASSES})

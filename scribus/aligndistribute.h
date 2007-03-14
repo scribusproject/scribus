@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef ALIGNDISTRIBUTEPALETTE_H
 #define ALIGNDISTRIBUTEPALETTE_H
 
-#include "aligndistributebase.h"
+#include "ui_aligndistribute.h"
 
 #include <qvariant.h>
 #include <qpixmap.h>
@@ -54,7 +54,7 @@ class ScribusMainWindow;
 class ScribusDoc;
 class UndoManager;
 
-class SCRIBUS_API AlignDistributePalette : public AlignDistributeBase
+class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase, Ui::AlignDistribute
 {
 	Q_OBJECT
 

@@ -31,13 +31,15 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 
 MultiProgressDialog::MultiProgressDialog(QWidget* parent, const char*name, bool modal, Qt::WFlags f)
-: MultiProgressDialogBase(parent, name, modal, f)
+: QDialog(parent, name, modal, f)
 {
+	setupUi(this);
 }
 
 MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, const char*name, bool modal, Qt::WFlags f)
-: MultiProgressDialogBase(parent, name, modal, f)
+: QDialog(parent, name, modal, f)
 {
+	setupUi(this);
 	setCaption(titleText);
 	buttonCancel->setText(cancelButtonText);
 }

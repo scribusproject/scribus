@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABKEYBOARDSHORTCUTSWIDGET_H
 #define TABKEYBOARDSHORTCUTSWIDGET_H
 
-#include "tabkeyboardshortcutswidgetbase.h"
+#include "ui_tabkeyboardshortcutswidget.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QEvent>
 
-class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase 
+class TabKeyboardShortcutsWidget: public QWidget, Ui::TabKeyboardShortcutsWidget
 {
 	Q_OBJECT
 	public:

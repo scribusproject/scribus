@@ -12,8 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 
 PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
-	: PageItemAttributesBase(parent, name, modal, fl)
+	: QDialog(parent, name, modal, fl)
 {
+	setupUi(this);
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
 }

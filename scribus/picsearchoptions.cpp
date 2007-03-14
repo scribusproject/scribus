@@ -35,8 +35,9 @@ for which a new license (GPL+exception) is in place.
 //#include "picsearchoptions.moc"
 #include "filesearch.h"
 
-PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : PicSearchOptionsBase( parent, "PicSearchOptions", true, 0 )
+PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : QDialog( parent, "PicSearchOptions", true, 0 )
 {
+	setupUi(this);
 	m_fileName = fileName;
 	fileEdit->setText(fileName);
 	directoryEdit->setText(searchBase);

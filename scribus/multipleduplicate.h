@@ -7,10 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef MULTIPLEDUPLICATE
 #define MULTIPLEDUPLICATE
 
-#include "multipleduplicatebase.h"
+#include "ui_multipleduplicate.h"
 #include "usertaskstructs.h"
 
-class MultipleDuplicate : public MultipleDuplicateBase
+class MultipleDuplicate : public QDialog, Ui::MultipleDuplicate
 {
 	Q_OBJECT
 	public:

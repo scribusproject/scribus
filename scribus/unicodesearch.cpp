@@ -61,9 +61,10 @@ void UnicodeChooseButton::self_toggled(bool state)
 }
 
 UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
-	: UnicodeSearchBase( parent, name, modal), // WStyle_Customize | WStyle_NoBorder),
+	: QDialog( parent, name, modal), // WStyle_Customize | WStyle_NoBorder),
 	m_zoom(0)
 {
+	setupUi(this);
 	if (!name)
 		setName("UnicodeSearch");
 
