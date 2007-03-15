@@ -585,7 +585,7 @@ void FileLoader::informReplacementFonts()
 {
 	if (ReplacedFonts.count() != 0)
 	{
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 		QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
 		QMap<QString,QString>::Iterator it;
 		for (it = ReplacedFonts.begin(); it != ReplacedFonts.end(); ++it)

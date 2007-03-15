@@ -134,27 +134,40 @@ void FileSearch::pushStack()
 
 void FileSearch::addCurrentDirFiles()
 {
-	const QFileInfoList *filist = m_dir.entryInfoList(m_caseSensitive ? m_fileName : "*", QDir::Files);
-	QFileInfoListIterator it( *filist );
-	QFileInfo *fi;
+	QFileInfoList filist = m_dir.entryInfoList(m_caseSensitive ? m_fileName : "*", QDir::Files);
+	QListIterator<QFileInfo> it( filist );
+	QFileInfo fi;
 	// Search files in this dir
 	if (m_caseSensitive)
 	{
-		while ( ( fi = it.current() ) != 0 )
+		while (it.hasNext())
+		{
+			fi = it.next();
+			m_matchingFiles.push_back(fi.absFilePath());
+		}
+// Qt4
+/*		while ( ( fi = it.current() ) != 0 )
 		{
 			++it;
 			m_matchingFiles.push_back(fi->absFilePath());
-		}
+		}*/
 	}
 	else
 	{
 		// unix only, resp. no meaning in windows
 		QRegExp r(m_fileName, false, true);
-		while ( ( fi = it.current() ) != 0 )
+		while (it.hasNext())
 		{
-			++it;
-			if (r.exactMatch(fi->fileName()))
-				m_matchingFiles.push_back(fi->absFilePath());
+			fi = it.next();
+			if (r.exactMatch(fi.fileName()))
+				m_matchingFiles.push_back(fi.absFilePath());
 		}
+// Qt4
+// 		while ( ( fi = it.current() ) != 0 )
+// 		{
+// 			++it;
+// 			if (r.exactMatch(fi->fileName()))
+// 				m_matchingFiles.push_back(fi->absFilePath());
+// 		}
 	}
 }
