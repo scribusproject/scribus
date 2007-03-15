@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 
-#include "cwdialogbase.h"
+#include "ui_cwdialog.h"
 #include "colorwheelwidget.h"
 #include "scribus.h"
 
@@ -40,7 +40,7 @@ Quite everything in this class is self explanatory (except few things ;)).
 \author Petr Vanek <petr@scribus.info>
 \date April 2005
  */
-class CWDialog : public CWDialogBase
+class CWDialog : public QDialog, Ui::CWDialog
 {
 	Q_OBJECT
 	public:

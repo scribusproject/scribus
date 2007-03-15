@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 //Added by qt3to4:
 #include <QKeyEvent>
-#include "fontpreviewbase.h"
+#include "ui_fontpreview.h"
 
 class PrefsContext;
 class SampleItem;
@@ -24,7 +24,7 @@ name 'name' and widget flags set to 'f'.
 The dialog will by default be modeless, unless you set 'modal' to
 true to construct a modal dialog.
 */
-class FontPreview : public FontPreviewBase
+class FontPreview : public QDialog, Ui::FontPreview
 {
 	Q_OBJECT
 

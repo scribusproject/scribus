@@ -39,9 +39,10 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)
-	: CWDialogBase (parent, name, modal, fl),
+	: QDialog (parent, name, modal, fl),
 	  m_Doc(doc)
 {
+	setupUi(this);
 	int h, s, v;
 	ScColor color;
 	QString colorName;

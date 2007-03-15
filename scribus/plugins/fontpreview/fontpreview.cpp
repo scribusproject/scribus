@@ -32,8 +32,9 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
 FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
-	: FontPreviewBase(parent, "FontPreview", true, 0)
+	: QDialog(parent, "FontPreview", true, 0)
 {
+	setupUi(this);
 	setIcon(loadIcon("AppIcon.png"));
 	m_Doc=doc;
 
