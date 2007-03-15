@@ -31,7 +31,7 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	MdupLayout = new Q3VBoxLayout( this );
 	MdupLayout->setSpacing( 5 );
 	MdupLayout->setMargin( 10 );
-	Layout4 = new Q3GridLayout;
+	Layout4 = new Q3GridLayout(this);
 	Layout4->setSpacing( 6 );
 	Layout4->setMargin( 0 );
 	Ncopies = new QSpinBox( this, "Ncopies" );

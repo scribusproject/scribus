@@ -36,7 +36,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	setCaption( titel );
 	setIcon(loadIcon("AppIcon.png"));
 	queryLayout = new Q3VBoxLayout( this, 10, 5 );
-	editLayout = new Q3GridLayout;
+	editLayout = new Q3GridLayout(this);
 	editLayout->setSpacing( 5 );
 	editLayout->setMargin( 0 );
 	RotationGroup = new Q3ButtonGroup( tr("Origin"), this, "RotationGroup" );
@@ -49,7 +49,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	Layout12a->addItem( spacerT, 0, 1 );
 	QSpacerItem* spacerL = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout12a->addItem( spacerL, 1, 0 );
-	Layout12 = new Q3GridLayout;
+	Layout12 = new Q3GridLayout(this);
 	Layout12->setSpacing( 0 );
 	Layout12->setMargin( 0 );
 	TopLeft = new QRadioButton( RotationGroup, "TopLeft" );

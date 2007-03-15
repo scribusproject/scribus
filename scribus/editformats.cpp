@@ -36,7 +36,7 @@ DelStyle::DelStyle(QWidget* parent, StyleSet<ParagraphStyle>& sty, QString style
 	setCaption( tr( "Delete Style" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	dialogLayout = new Q3VBoxLayout( this, 10, 5 );
-	delStyleLayout = new Q3GridLayout;
+	delStyleLayout = new Q3GridLayout(this);
 	delStyleLayout->setSpacing( 5 );
 	delStyleLayout->setMargin( 5 );
 	deleteLabel = new QLabel( tr( "Delete Style:" ), this, "deleteLabel" );

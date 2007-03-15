@@ -35,7 +35,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
     setCaption( tr( "Delete Color" ) );
   	setIcon(loadIcon("AppIcon.png"));
     dialogLayout = new Q3VBoxLayout( this, 10, 5 );
-    delColorLayout = new Q3GridLayout;
+    delColorLayout = new Q3GridLayout(this);
     delColorLayout->setSpacing( 6 );
     delColorLayout->setMargin( 5 );
     deleteLabel = new QLabel( tr( "Delete Color:" ), this, "deleteLabel" );
@@ -59,7 +59,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	}
     dialogLayout->addLayout( delColorLayout );
 
-    okCancelLayout = new Q3HBoxLayout;
+    okCancelLayout = new Q3HBoxLayout(this);
     okCancelLayout->setSpacing( 6 );
     okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

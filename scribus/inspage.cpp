@@ -36,7 +36,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	setCaption( tr( "Insert Page" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	dialogLayout = new Q3VBoxLayout( this, 5, 5 );
-	whereLayout = new Q3GridLayout;
+	whereLayout = new Q3GridLayout(this);
 	whereLayout->setSpacing( 5 );
 	whereLayout->setMargin( 5 );
 	insCountData = new QSpinBox( 1, 999, 1, this, "insCountData" );

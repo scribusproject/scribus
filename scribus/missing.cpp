@@ -312,7 +312,7 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc )
 	setCaption( tr("Missing Font"));
 	setIcon(loadIcon("AppIcon.png"));
 	missingFontLayout = new Q3HBoxLayout( this, 10, 0 );
-	missingFontGridLayout = new Q3GridLayout;
+	missingFontGridLayout = new Q3GridLayout(this);
 	missingFontGridLayout->setSpacing( 12 );
 	missingFontGridLayout->setMargin( 0 );
 	notInstalledLabel = new QLabel( tr("The Font %1 is not installed.").arg(fon), this, "notInstalledLabel" );
