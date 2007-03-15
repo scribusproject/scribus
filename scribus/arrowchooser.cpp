@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include "util.h"
 
-ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
+ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : Q3ComboBox(true, pa)
 {
 	setEditable(false);
 	clear();
