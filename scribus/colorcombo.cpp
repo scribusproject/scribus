@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 
-ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, parent, name)
+ColorCombo::ColorCombo( QWidget* parent, const char* name ) : Q3ComboBox(false, parent, name)
 {
 #ifdef QT_MAC
 	setStyle( new ColorCombo::ScMacStyle() );
@@ -27,12 +27,12 @@ ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, p
 	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );
 }
 
-ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : QComboBox(rw, parent, name)
+ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : Q3ComboBox(rw, parent, name)
 {
 #ifdef QT_MAC
 	setStyle( new ColorCombo::ScMacStyle() );
 #endif
-	setListBox( new ColorListBox( this, "in-combo", WType_Popup ) );
+	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );
 }
 
 void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , bool insertNone)
