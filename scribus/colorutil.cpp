@@ -294,7 +294,7 @@ void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 	// there is no alpha mask in the beginning
 	if (useMask)
 	{
-		if (target.mask()==0)
+		if (target.mask().isNull())
 			target.setMask(QBitmap(target.width(), target.height(), useMask));
 	}
 	QPainter p;
@@ -302,14 +302,15 @@ void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 	p.drawPixmap(x, y, toPaint);
 	if (useMask)
 	{
-		QPainter alpha; // transparency handling
-		alpha.begin(target.mask());
-		alpha.setBrush(Qt::color1);
-		alpha.setPen(Qt::color1);
-		alpha.drawRect(x, y, 15, 15);
-		if (toPaint.mask() != 0)
-			alpha.drawPixmap(x, y, *toPaint.mask());
-		alpha.end();
+// Qt4 FIXME: Qt4 can use better alpha setting. see colorlistbox.cpp
+// 		QPainter alpha; // transparency handling
+// 		alpha.begin(target.mask());
+// 		alpha.setBrush(Qt::color1);
+// 		alpha.setPen(Qt::color1);
+// 		alpha.drawRect(x, y, 15, 15);
+// 		if (!toPaint.mask().isNull())
+// 			alpha.drawPixmap(x, y, toPaint.mask());
+// 		alpha.end();
 	}
 	p.end();
 }

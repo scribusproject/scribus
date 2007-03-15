@@ -105,7 +105,7 @@ void ColorFancyPixmapItem::redraw(void)
 		paintAlert(regIcon, *pPixmap, 46, 0);
 	if (!pPixmap->mask().isNull() && ((!m_color.isSpotColor() && !m_color.isRegistrationColor()) || !isOutOfGamut))
 	{
-// Qt4 FIXME: Qt4 can use better alpha setting
+// Qt4 FIXME: Qt4 can use better alpha setting. see colorutil.cpp
 // 		QPainter alpha; // transparency handling
 // 		alpha.begin(pPixmap->mask()));
 // 		alpha.setBrush(Qt::color0);

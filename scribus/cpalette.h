@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QLabel>
 #include <Q3PopupMenu>
-#include <Q3ComboBox>
 #include <Q3VBoxLayout>
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -169,7 +168,7 @@ protected:
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;
-	Q3ComboBox* gradientQCombo;
+	QComboBox* gradientQCombo;
 	GradientEditor* gradEdit;
 	Q3Frame* freeGradientQFrame;
 	QLabel* GTextX1;

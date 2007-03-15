@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "commonstrings.h"
 #include <qdom.h>
+#include <QTextStream>
 //Added by qt3to4:
 #include <Q3CString>
 
@@ -48,7 +49,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 		{
 			QString ColorEn, Cname;
 			int Rval, Gval, Bval;
-			Q3TextStream tsC(&fiC);
+			QTextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
 			if (ColorEn.startsWith("<?xml version="))
 			{
@@ -88,7 +89,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 				while (!tsC.atEnd())
 				{
 					ColorEn = tsC.readLine();
-					Q3TextStream CoE(&ColorEn, QIODevice::ReadOnly);
+					QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 					CoE >> Rval;
 					CoE >> Gval;
 					CoE >> Bval;

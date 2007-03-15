@@ -48,7 +48,7 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 	m_points.resize(0);
 	m_points.addPoint(0.0, 0.0);
 	m_points.addPoint(1.0, 1.0);
-	setFocusPolicy(QWidget::StrongFocus);
+	setFocusPolicy(Qt::StrongFocus);
 }
 
 KCurve::~KCurve()
