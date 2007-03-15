@@ -670,7 +670,7 @@ void CharSelect::loadUserContent(QString f)
 		return;
 	if (file.open(QIODevice::ReadOnly))
 	{
-		Q3TextStream stream(&file);
+		QTextStream stream(&file);
 		QString line;
 		while (!stream.atEnd())
 		{
@@ -714,7 +714,7 @@ void CharSelect::saveUserContent(QString f)
 	QFile file(f);
 	if (file.open(QIODevice::WriteOnly))
 	{
-		Q3TextStream stream(&file);
+		QTextStream stream(&file);
 		CharClassDef chars = m_userTable->characters();
 		stream << "# This is a character palette file for Scribus\n";
 		for (CharClassDef::Iterator it = chars.begin(); it != chars.end(); ++it)
