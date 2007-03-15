@@ -288,7 +288,7 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
                 if (ReadMode & READ_IMAGE){
                     unsigned long size;
 
-                    size = QMAX( 0ul, infile.size()-infile.at() );
+                    size = qMax( 0ll, infile.size()-infile.at() );
                     Data = (uchar *)malloc(size);
                     if (Data == NULL){
                 return false;
@@ -954,7 +954,7 @@ bool ExifData::isThumbnailSane() {
 // only if it seems sane
 //--------------------------------------------------------------------------
 QImage ExifData::getThumbnail() {
-  if (!isThumbnailSane()) return NULL;
+  if (!isThumbnailSane()) return QImage(); // Qt4 NULL->QImage() is it sane?
   if (!Orientation || Orientation == 1) return Thumbnail;
 
   // now fix orientation
