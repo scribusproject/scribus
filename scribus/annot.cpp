@@ -250,7 +250,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	FramOp = new Q3WidgetStack(tab_3);
 	Frame4a = new Q3GroupBox( tab_3, "GroupBox1" );
 	Frame4a->setTitle("");
-	Frame4a->setFrameShape( Q3Frame::NoFrame );
+	Frame4a->setFrameShape( Q3GroupBox::NoFrame );
 	Frame4a->setColumnLayout(0, Qt::Vertical );
 	Frame4a->layout()->setSpacing( 0 );
 	Frame4a->layout()->setMargin( 0 );
