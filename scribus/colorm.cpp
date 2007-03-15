@@ -214,7 +214,7 @@ void ColorManager::saveDefaults()
 				elem.appendChild(co);
 			}
 			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			Q3CString cs = docu.toCString();
+			Q3CString cs = docu.toString().toUtf8();
 			Q3TextStream s(&fx);
 			s.writeRawBytes(xmlpi, strlen(xmlpi));
 			s.writeRawBytes(cs, cs.length());

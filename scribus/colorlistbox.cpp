@@ -103,17 +103,18 @@ void ColorFancyPixmapItem::redraw(void)
 		paintAlert(spotIcon, *pPixmap, 45, 0);
 	if (m_color.isRegistrationColor())
 		paintAlert(regIcon, *pPixmap, 46, 0);
-	if (pPixmap->mask() && ((!m_color.isSpotColor() && !m_color.isRegistrationColor()) || !isOutOfGamut))
+	if (!pPixmap->mask().isNull() && ((!m_color.isSpotColor() && !m_color.isRegistrationColor()) || !isOutOfGamut))
 	{
-		QPainter alpha; // transparency handling
-		alpha.begin(pPixmap->mask());
-		alpha.setBrush(Qt::color0);
-		alpha.setPen(Qt::color0);
-		if (!m_color.isSpotColor() && !m_color.isRegistrationColor())
-			alpha.drawRect(45, 0, 15, 15);
-		if (!isOutOfGamut)
-			alpha.drawRect(15, 0, 15, 15);
-		alpha.end();
+// Qt4 FIXME: Qt4 can use better alpha setting
+// 		QPainter alpha; // transparency handling
+// 		alpha.begin(pPixmap->mask()));
+// 		alpha.setBrush(Qt::color0);
+// 		alpha.setPen(Qt::color0);
+// 		if (!m_color.isSpotColor() && !m_color.isRegistrationColor())
+// 			alpha.drawRect(45, 0, 15, 15);
+// 		if (!isOutOfGamut)
+// 			alpha.drawRect(15, 0, 15, 15);
+// 		alpha.end();
 	}
 }
 
