@@ -125,7 +125,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	ToolButton1->setText( tr( "C&hange..." ) );
 	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
 	ToolButton1->setEnabled(false);
-	ToolButton1->setFocusPolicy( QToolButton::TabFocus );
+	ToolButton1->setFocusPolicy( Qt::TabFocus );
 	Layout1->addWidget( ToolButton1 );
 	DruckerLayout->addLayout( Layout1, 1, 0 );
 

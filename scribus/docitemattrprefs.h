@@ -27,6 +27,7 @@ class DocumentItemAttributes : public QWidget, Ui::DocumentItemAttributes
 		virtual void clearEntries();
 		virtual void copyEntry();
 	private:
+		ObjAttrVector localAttributes;
 		QStringList relationships;
 		QStringList relationshipsData;
 		QStringList autoAddTo;
