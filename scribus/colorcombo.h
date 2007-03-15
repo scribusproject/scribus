@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORCOMBO_H
 #define COLORCOMBO_H
 
-#include <qcombobox.h>
+#include <Q3ComboBox>
 #include "colorlistbox.h"
 
 #ifdef QT_MAC
@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
     \class ColorCombo colorcombo.h
     \brief The ColorCombo widget is a combo box for displaying list of colors.
 */
-class ColorCombo : public QComboBox 
+class ColorCombo : public Q3ComboBox 
 {
 	Q_OBJECT
 

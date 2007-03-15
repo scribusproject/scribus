@@ -16,14 +16,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOMBOBOX_H
 #define SCCOMBOBOX_H
 
-#include <qcombobox.h>
+#include <Q3ComboBox>
 
 /*!
     \class ScComboBox sccombobox.h
     \brief The ScComboBox widget always uses a listbox instead of a popup, 
            independent of any QStyle.
 */
-class ScComboBox : public QComboBox {
+class ScComboBox : public Q3ComboBox {
 
 public: 
 	ScComboBox( QWidget* parent=0, const char* name=0 );
