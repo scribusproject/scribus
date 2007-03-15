@@ -12,7 +12,7 @@
 template<class STYLE>
 class StyleSet : public StyleContext {
 public:
-	STYLE& operator[] (uint index) { 
+	STYLE& operator[] (int index) { 
 		assert(index < styles.count()); 
 		return * styles[index]; 
 	}
@@ -21,7 +21,7 @@ public:
 		return * dynamic_cast<const STYLE*>(resolve(name)); 
 	}
 	
-	const STYLE& operator[] (uint index) const { 
+	const STYLE& operator[] (int index) const { 
 		assert(index < styles.count()); 
 		return * styles[index]; 
 	}
@@ -110,7 +110,7 @@ inline void StyleSet<STYLE>::remove(uint index)
 template<class STYLE>
 inline int StyleSet<STYLE>::find(const QString& name) const
 {
-	for (uint i=0; i < styles.count(); ++i)
+	for (int i=0; i < styles.count(); ++i)
 		if (styles[i]->name() == name)
 			return i;
 	return -1;

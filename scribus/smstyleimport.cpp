@@ -74,7 +74,7 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 
 	ChooseStylesLayout->addWidget( StyleView );
 
-	clashBox = new Q3ButtonGroup(2, Q3GroupBox::Vertical, tr("In case of a name clash"), this, "clashBox");
+	clashBox = new Q3ButtonGroup(2, Qt::Vertical, tr("In case of a name clash"), this, "clashBox");
 	renameButton = new QRadioButton(tr("Rename imported style"), clashBox, "renameButton");
 	renameButton->setChecked(true);
 	replaceButton = new QRadioButton(tr("Replace existing style"), clashBox, "replaceButton");

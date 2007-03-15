@@ -192,7 +192,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	previewText->setMinimumSize(QSize(400, 170));
 	previewText->setMaximumSize(QSize(400, 170));
 	previewText->setFrameShape(Q3Frame::Box);
-	previewText->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	previewText->setAlignment( Qt::AlignTop | Qt::AlignLeft ) );
 	subTabTextLayout->addMultiCellWidget( previewText, 9, 9, 0, 3 );
 	subStackTools->addWidget( subTabText, 0 );
 

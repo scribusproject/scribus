@@ -667,7 +667,7 @@ void SearchReplace::slotDoReplace()
 	if (SMode)
 	{
 		QString repl, sear;
-		uint cs, cx;
+		int cs, cx;
 // 		ScText *hg;
 		if (RText->isChecked())
 		{

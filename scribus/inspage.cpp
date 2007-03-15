@@ -85,7 +85,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	else
 	{
 		int row = 0;
-		for (uint mp = 0; mp < currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count(); ++mp)
+		for (int mp = 0; mp < currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count(); ++mp)
 		{
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
 //			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)

@@ -312,7 +312,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
 	//	assert( !style.font().isNone() );
 	
-	for (uint i = 0; i < txt.length(); ++i) {
+	for (int i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
 		item->ch= txt.mid(i, 1);
 		item->setContext(cStyleContext);
@@ -819,7 +819,7 @@ int StoryText::prevParagraph(int pos)
 
 int StoryText::startOfLine(int pos)
 {
-	for (uint i=0; i < m_lines.count(); ++i) {
+	for (int i=0; i < m_lines.count(); ++i) {
 		const LineSpec & ls(m_lines.at(i));
 		if (ls.firstItem <= pos && pos <= ls.lastItem)
 			return ls.firstItem;
@@ -828,7 +828,7 @@ int StoryText::startOfLine(int pos)
 }
 int StoryText::endOfLine(int pos)
 {
-	for (uint i=0; i < m_lines.count(); ++i) {
+	for (int i=0; i < m_lines.count(); ++i) {
 		const LineSpec & ls(m_lines.at(i));
 		if (ls.firstItem <= pos && pos <= ls.lastItem)
 			return text(ls.lastItem) == SpecialChars::PARSEP ? ls.lastItem : 
@@ -838,7 +838,7 @@ int StoryText::endOfLine(int pos)
 }
 int StoryText::prevLine(int pos)
 {
-	for (uint i=0; i < m_lines.count(); ++i) 
+	for (int i=0; i < m_lines.count(); ++i) 
 	{
 		// find line for pos
 		const LineSpec & ls(m_lines.at(i));
@@ -872,7 +872,7 @@ int StoryText::prevLine(int pos)
 
 int StoryText::nextLine(int pos)
 {
-	for (uint i=0; i < m_lines.count(); ++i) 
+	for (int i=0; i < m_lines.count(); ++i) 
 	{
 		// find line for pos
 		const LineSpec & ls(m_lines.at(i));

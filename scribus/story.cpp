@@ -1357,10 +1357,10 @@ void StoryEditor::initActions()
 	seActions.insert("editCopy", new ScrAction(QIcon(loadIcon("editcopy.png")), "", Qt::CTRL+Qt::Key_C, this, "editCopy"));
 	seActions.insert("editPaste", new ScrAction(QIcon(loadIcon("editpaste.png")), "", Qt::CTRL+Qt::Key_V, this, "editPaste"));
 	seActions.insert("editClear", new ScrAction(QIcon(loadIcon("editdelete.png")), "", Qt::Key_Delete, this, "editClear"));
-	seActions.insert("editSearchReplace", new ScrAction(QIcon(loadIcon("find16.png")), "", QKeySequence(), this, "editSearchReplace"));
-	seActions.insert("editEditStyle", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "editEditStyle"));
-	seActions.insert("editFontPreview", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "editFontPreview"));
-	seActions.insert("editUpdateFrame", new ScrAction(QIcon(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", Qt::CTRL+Qt::Key_U, this, "editUpdateFrame"));
+	seActions.insert("editSearchReplace", new ScrAction(loadIcon("find16.png"), QPixmap(), "", QKeySequence(), this, "editSearchReplace"));
+	seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this, "editEditStyle"));
+	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this, "editFontPreview"));
+	seActions.insert("editUpdateFrame", new ScrAction(loadIcon("compfile16.png"),loadIcon("compfile.png"), "", Qt::CTRL+Qt::Key_U, this, "editUpdateFrame"));
 
 	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );

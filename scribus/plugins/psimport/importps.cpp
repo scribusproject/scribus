@@ -360,7 +360,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				{
 					if (importedColors.count() != 0)
 					{
-						for (uint cd = 0; cd < importedColors.count(); cd++)
+						for (int cd = 0; cd < importedColors.count(); cd++)
 						{
 							m_Doc->PageColors.remove(importedColors[cd]);
 						}
@@ -620,7 +620,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						if (groupStack.count() != 0)
 						{
 							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
-							for (uint gg = 0; gg < groupOld.count(); gg++)
+							for (int gg = 0; gg < groupOld.count(); gg++)
 							{
 								ite->Groups.push(groupOld[gg]);
 							}
@@ -671,7 +671,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						if (groupStack.count() != 0)
 						{
 							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
-							for (uint gg = 0; gg < groupOld.count(); gg++)
+							for (int gg = 0; gg < groupOld.count(); gg++)
 							{
 								ite->Groups.push(groupOld[gg]);
 							}
@@ -707,7 +707,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					if (groupStack.count() != 0)
 					{
 						Q3ValueStack<int> groupOld = groupStack.top()->Groups;
-						for (uint gg = 0; gg < groupOld.count(); gg++)
+						for (int gg = 0; gg < groupOld.count(); gg++)
 						{
 							ite->Groups.push(groupOld[gg]);
 						}
@@ -733,7 +733,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				gsStack.pop();
 				if (groupStack.count() != 0)
 				{
-					if (gsStack.count() < gsStackMarks.top())
+					if (gsStack.count() < static_cast<int>(gsStackMarks.top()))
 					{
 						PageItem *ite = groupStack.pop();
 						ite->groupsLastItem = Elements.at(Elements.count()-1);

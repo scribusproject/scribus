@@ -230,7 +230,7 @@ QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStri
 	QDomElement node;
 	QDomNodeList childNodes;
 	childNodes = element.childNodes();
-	for ( uint i = 0; i < childNodes.count(); i++ )
+	for ( int i = 0; i < childNodes.count(); i++ )
 	{
 		QDomNode n = childNodes.item(i);
 		if ( n.isElement() )
@@ -251,7 +251,7 @@ QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStri
 	QDomElement node;
 	QDomNodeList childNodes;
 	childNodes = element.childNodes();
-	for ( uint i = 0; i < childNodes.count(); i++ )
+	for ( int i = 0; i < childNodes.count(); i++ )
 	{
 		QDomNode n = childNodes.item(i);
 		if ( n.isElement() )

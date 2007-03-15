@@ -500,7 +500,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct Qt::TextSingleLine sl;
+					struct SingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = MuL.attribute("Dash").toInt();
 					sl.LineEnd = MuL.attribute("LineEnd").toInt();
@@ -908,7 +908,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
 		bool isThere = false;
-		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
+		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
 			if ((*dummyScFaces.at(dl)).scName() == tmpf)
 			{
@@ -964,7 +964,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle style;
 		QChar ch = tmp2.at(cxx);
@@ -1591,7 +1591,7 @@ QString Scribus12Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *do
 	{
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();

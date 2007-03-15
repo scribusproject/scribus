@@ -291,7 +291,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &p
 	parentCombo->clear();
 	parentCombo->insertItem("");
 
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
 			parentCombo->insertItem(pstyles[i].name());
@@ -340,7 +340,7 @@ void SMPStyleWidget::showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles)
 	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
 
 	int tmpLP = -1;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (tmpLP != -1 && pstyles[i]->lineSpacingMode() != tmpLP)
 		{
@@ -361,7 +361,7 @@ void SMPStyleWidget::showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles)
 		lineSpacingMode_->setCurrentItem(tmpLP);
 
 	double tmpLS = -1.0;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (tmpLS > 0 && !isEqual(pstyles[i]->lineSpacing(), tmpLS))
 		{
@@ -382,7 +382,7 @@ void SMPStyleWidget::showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	double tmpA = -1.2;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (tmpA > -1.0 && !isEqual(pstyles[i]->gapBefore(), tmpA))
 		{
@@ -399,7 +399,7 @@ void SMPStyleWidget::showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 		spaceAbove_->setValue(tmpA * unitRatio);
 
 	tmpA = -1.2;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (tmpA > -1.0 && !isEqual(pstyles[i]->gapAfter(), tmpA))
 		{
@@ -421,7 +421,7 @@ void SMPStyleWidget::showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 	disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
 
 	bool dc = pstyles[0]->hasDropCap();
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (dc != pstyles[i]->hasDropCap())
 		{
@@ -432,7 +432,7 @@ void SMPStyleWidget::showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 	dropCapsBox->setChecked(dc);
 
 	int lines = -1;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (lines > -1 && pstyles[i]->dropCapLines() != lines)
 		{
@@ -448,7 +448,7 @@ void SMPStyleWidget::showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 		dropCapLines_->setValue(lines);
 
 	double dco = -4000.0;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (dco > -3980.0 && !isEqual(pstyles[i]->dropCapOffset(), dco))
 		{
@@ -473,7 +473,7 @@ void SMPStyleWidget::showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 void SMPStyleWidget::showAlignment(Q3ValueList<ParagraphStyle*> &pstyles)
 {
 	ParagraphStyle::AlignmentType a = pstyles[0]->alignment();
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (a != pstyles[i]->alignment())
 		{
@@ -493,7 +493,7 @@ void SMPStyleWidget::showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitInd
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	Q3ValueList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (t != pstyles[i]->tabValues())
 		{
@@ -504,7 +504,7 @@ void SMPStyleWidget::showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitInd
 	tabList_->setTabs(t, unitIndex);
 
 	double l = -4000.0;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (l > -3800.0 && !isEqual(pstyles[i]->leftMargin(), l))
 		{
@@ -523,7 +523,7 @@ void SMPStyleWidget::showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitInd
 		tabList_->setLeftIndentValue(l * unitRatio);
 
 	l = -4000.0;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (l > -3800.0 && !isEqual(pstyles[i]->firstIndent(), l))
 		{
@@ -542,7 +542,7 @@ void SMPStyleWidget::showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitInd
 		tabList_->setFirstLineValue(l * unitRatio);
 
 	l = -4000.0;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (l > -3800.0 && !isEqual(pstyles[i]->rightMargin(), l))
 		{
@@ -567,7 +567,7 @@ void SMPStyleWidget::showCStyle(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueLi
 	cpage->parentLabel->setText( tr("Based On:"));
 
 	Q3ValueList<CharStyle*> cstyle;
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (int i = 0; i < pstyles.count(); ++i)
 		cstyle << &pstyles[i]->charStyle();
 
 	cpage->show(cstyle, cstyles, defLang, unitIndex);
@@ -944,7 +944,7 @@ void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, cons
 
 	parentCombo->clear();
 	parentCombo->insertItem("");
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (cstyles[i].name() != cstyle->name())
 			parentCombo->insertItem(cstyles[i].name());
@@ -1028,7 +1028,7 @@ void SMCStylePage::show(Q3ValueList<CharStyle*> &cstyles, Q3ValueList<CharStyle>
 void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 {
 	int d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->fontSize() != d)
 		{
@@ -1044,7 +1044,7 @@ void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 		fontSize_->setValue(d / 10.0);
 
 	d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->scaleH() != d)
 		{
@@ -1060,7 +1060,7 @@ void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 		fontHScale_->setValue(d / 10.0);
 
 	d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->scaleV() != d)
 		{
@@ -1076,7 +1076,7 @@ void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 		fontVScale_->setValue(d / 10.0);
 
 	d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->baselineOffset() != d)
 		{
@@ -1092,7 +1092,7 @@ void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 		baselineOffset_->setValue(d / 10.0);
 
 	d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->tracking() != d)
 		{
@@ -1111,7 +1111,7 @@ void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 void SMCStylePage::showEffects(const Q3ValueList<CharStyle*> &cstyles)
 {
 	int d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && static_cast<int>(cstyles[i]->effects()) != d)
 		{
@@ -1142,7 +1142,7 @@ void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
 	strokeColor_->setEnabled(true);
 
 	int d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->fillShade() != d)
 		{
@@ -1158,7 +1158,7 @@ void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
 		fillShade_->setValue(d);
 
 	d = -30000;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->strokeShade() != d)
 		{
@@ -1177,7 +1177,7 @@ void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
 		strokeShade_->setValue(d);
 
 	QString s(QString::null);
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (!s.isNull() && s != cstyles[i]->fillColor())
 		{
@@ -1197,7 +1197,7 @@ void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
 		fillColor_->setCurrentText(s);
 
 	s = QString::null;
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (!s.isNull() && s != cstyles[i]->strokeColor())
 		{
@@ -1220,7 +1220,7 @@ void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
 void SMCStylePage::showLanguage(const Q3ValueList<CharStyle*> &cstyles, const QString &defLang)
 {
 	QString s(cstyles[0]->language());
-	for (uint i = 0; i < cstyles.count(); ++i)
+	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (s != cstyles[i]->language())
 		{

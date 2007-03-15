@@ -155,7 +155,7 @@ void UnicodeSearch::unicodeList_mouseButtonPressed(int button, Q3ListViewItem* i
 		delete m_zoom;
 		m_zoom = 0;
 	}
-	if (button == RightButton && !m_zoom)
+	if (button == Qt::RightButton && !m_zoom)
 	{
 		bool ok;
 		int val = item->text(0).toInt(&ok, 16);

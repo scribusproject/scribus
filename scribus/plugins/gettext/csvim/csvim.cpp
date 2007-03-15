@@ -93,13 +93,12 @@ void CsvIm::loadFile()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	uint posi;
 	QByteArray bb(f.size());
 	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
+		for (int posi = 0; posi < bb.size(); ++posi)
 			text += QChar(bb[posi]);
 	}
 	text = toUnicode(text);
@@ -116,7 +115,7 @@ void CsvIm::loadFile()
 	}
 	else
 		i = 0;
-	for (uint i2 = i; i2 < lines.size(); ++i2)
+	for (int i2 = i; i2 < lines.size(); ++i2)
 	{
 		colIndex = 0;
 		parseLine(lines[i2], false);
@@ -132,7 +131,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 	if ((line.find(valueDelimiter) < 0) || (!useVDelim))
 	{
 		QStringList l = QStringList::split(fieldDelimiter, line);
-		for (uint i = 0; i < l.size(); ++i)
+		for (int i = 0; i < l.size(); ++i)
 		{
 			++colIndex;
 			QString tmp = l[i].stripWhiteSpace();

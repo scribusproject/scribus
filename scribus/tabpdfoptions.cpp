@@ -300,7 +300,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	GroupBox1Layout->setSpacing( 5 );
 	GroupBox1Layout->setMargin( 10 );
 	TextLabel1 = new QLabel( tr( "Compatibilit&y:" ), GroupBox1, "TextLabel1" );
-	TextLabel1->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel1->setAlignment( Qt::AlignVCenter | Qt::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel1, 0, 0 );
 	PDFVersionCombo = new QComboBox( true, GroupBox1, "PDFVersionCombo" );
 	PDFVersionCombo->setEditable(false);
@@ -313,7 +313,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		PDFVersionCombo->insertItem("PDF/X-3");
 	GroupBox1Layout->addMultiCellWidget( PDFVersionCombo, 0, 0, 1, 2 );
 	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1, "TextLabel1" );
-	TextLabel1x->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel1x->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
 	GroupBox1Layout->addWidget( TextLabel1x, 1, 0 );
 	ComboBind = new QComboBox( true, GroupBox1, "ComboBind" );
 	ComboBind->insertItem( tr("Left Margin"));
@@ -334,7 +334,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Resolution->setMinValue( 35 );
 	Resolution->setSuffix( tr( " dpi" ) );
 	TextLabel2 = new QLabel( Resolution, tr( "&Resolution for EPS Graphics:" ), GroupBox1, "TextLabel2" );
-	TextLabel2->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel2->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
 	GroupBox1Layout->addWidget( Resolution, 6, 1, AlignLeft );
 	Layout13->addWidget( GroupBox1 );
@@ -1055,7 +1055,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		{
 			EmbedList->clear();
 			FontsToEmbed.clear();
-			for (uint fe = 0; fe < Opts.EmbedList.count(); ++fe)
+			for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
 			{
 				EmbedList->insertItem(Opts.EmbedList[fe]);
 				FontsToEmbed.append(Opts.EmbedList[fe]);
@@ -1064,7 +1064,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			{
 				OutlineList->clear();
 				FontsToOutline.clear();
-				for (uint fe = 0; fe < Opts.SubsetList.count(); ++fe)
+				for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
 				{
 					OutlineList->insertItem(Opts.SubsetList[fe]);
 					FontsToOutline.append(Opts.SubsetList[fe]);
@@ -1093,7 +1093,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EffVal.clear();
 		if (EffVal.count() != 0)
 		{
-			for (uint pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
+			for (int pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)

@@ -745,7 +745,7 @@ void Tree::reopenTree()
 	while ( it.current() )
 	{
 		item = (TreeItem*)it.current();
-		for (uint olc = 0; olc < currDoc->OpenNodes.count(); olc++)
+		for (int olc = 0; olc < currDoc->OpenNodes.count(); olc++)
 		{
 			if (item->type == currDoc->OpenNodes[olc].type)
 			{

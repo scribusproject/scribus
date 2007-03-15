@@ -289,7 +289,7 @@ bool loadText(QString filename, QString *Buffer)
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (uint posi = 0; posi < bb.size(); ++posi)
+		for (int posi = 0; posi < bb.size(); ++posi)
 			*Buffer += QChar(bb[posi]);
 		/*
 		int len = bb.size();
@@ -490,7 +490,7 @@ QString CompressStr(QString *in)
 {
 	QString out = "";
 	QByteArray bb(in->length());
-	for (uint ax = 0; ax < in->length(); ++ax)
+	for (int ax = 0; ax < in->length(); ++ax)
 		bb[ax] = uchar(QChar(in->at(ax)));
 	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
 	QByteArray bc(exlen);
@@ -546,8 +546,8 @@ char *toHex( uchar u )
 QString String2Hex(QString *in, bool lang)
 {
 	int i = 0;
-	QString out = "";
-	for( uint xi = 0; xi < in->length(); ++xi )
+	QString out("");
+	for( int xi = 0; xi < in->length(); ++xi )
 	{
 		out += toHex(uchar(QChar(in->at(xi))));
 		++i;
@@ -574,8 +574,8 @@ QString Path2Relative(QString Path)
 	QFileInfo Bfi = QFileInfo(Path);
 	QStringList Bdir;
 	bool end = true;
-	uint dcoun = 0;
-	uint dcoun2 = 0;
+	int dcoun = 0;
+	int dcoun2 = 0;
 
 #ifndef _WIN32
 	Pdir = QStringList::split("/", QDir::currentDirPath());
@@ -609,9 +609,9 @@ QString Path2Relative(QString Path)
 	Bdir = QStringList::split("/", Bfi.dirPath(true));
 #endif
 
-	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
+	for (int ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
 		Ndir += "../";
-	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
+	for (int ddx = dcoun2; ddx < Bdir.count(); ddx++)
 		Ndir += Bdir[ddx]+"/";
 	Ndir += Bfi.fileName();
 	return Ndir;

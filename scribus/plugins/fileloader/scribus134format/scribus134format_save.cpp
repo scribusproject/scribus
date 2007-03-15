@@ -559,7 +559,7 @@ void Scribus134Format::writePrintOptions(QDomDocument & docu)
 	pri.setAttribute("filename", m_Doc->Print_Options.filename);
 	pri.setAttribute("separationName", m_Doc->Print_Options.separationName);
 	pri.setAttribute("printerCommand", m_Doc->Print_Options.printerCommand);
-	for (uint p = 0; p < m_Doc->Print_Options.allSeparations.count(); ++p)
+	for (int p = 0; p < m_Doc->Print_Options.allSeparations.count(); ++p)
 	{
 		QDomElement pri2 = docu.createElement("Separation");
 		pri2.setAttribute("Name", m_Doc->Print_Options.allSeparations[p]);
@@ -630,19 +630,19 @@ void Scribus134Format::writePdfOptions(QDomDocument & docu)
 	pdf.setAttribute("fitWindow", static_cast<int>(m_Doc->PDF_Options.fitWindow));
 	pdf.setAttribute("PageLayout", m_Doc->PDF_Options.PageLayout);
 	pdf.setAttribute("openAction", m_Doc->PDF_Options.openAction);
-	for (uint pdoF = 0; pdoF < m_Doc->PDF_Options.EmbedList.count(); ++pdoF)
+	for (int pdoF = 0; pdoF < m_Doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");
 		pdf2.setAttribute("Name", m_Doc->PDF_Options.EmbedList[pdoF]);
 		pdf.appendChild(pdf2);
 	}
-	for (uint pdoS = 0; pdoS < m_Doc->PDF_Options.SubsetList.count(); ++pdoS)
+	for (int pdoS = 0; pdoS < m_Doc->PDF_Options.SubsetList.count(); ++pdoS)
 	{
 		QDomElement pdf4 = docu.createElement("Subset");
 		pdf4.setAttribute("Name", m_Doc->PDF_Options.SubsetList[pdoS]);
 		pdf.appendChild(pdf4);
 	}
-	for (uint pdoE = 0; pdoE < m_Doc->PDF_Options.PresentVals.count(); ++pdoE)
+	for (int pdoE = 0; pdoE < m_Doc->PDF_Options.PresentVals.count(); ++pdoE)
 	{
 		QDomElement pdf3 = docu.createElement("Effekte");
 		pdf3.setAttribute("pageEffectDuration", m_Doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);

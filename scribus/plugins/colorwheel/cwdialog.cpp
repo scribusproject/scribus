@@ -259,7 +259,7 @@ void CWDialog::setPreview()
 	p->setPen(Qt::white);
 	p->drawRect(0, 0, x, y);
 	QColor c;
-	for (uint i = 0; i < cols.count(); ++i)
+	for (int i = 0; i < cols.count(); ++i)
 	{
 		//c = computeDefect(cols[i].getRGBColor());
 		c = computeDefect( ScColorEngine::getDisplayColor(cols[i], m_Doc) );
