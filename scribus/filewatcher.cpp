@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ValueList>
 #endif
 
+#include <QStringList>
+
 FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {
 	m_timeOut=10000;
@@ -120,6 +122,7 @@ void FileWatcher::checkFiles()
 	stopped = true;
 	QDateTime time;
 	QStringList toRemove;
+	
 	QMap<QString, fileMod>::Iterator it;
 	for ( it = watchedFiles.begin(); it != watchedFiles.end(); ++it )
 	{
