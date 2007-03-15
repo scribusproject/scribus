@@ -240,7 +240,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 		case Standard:
 			if (undoManager->undoEnabled())
 			{
-				for (uint i = 0; i < horizontalStdG.count(); ++i)
+				for (int i = 0; i < horizontalStdG.count(); ++i)
 				{
 					SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
 					ss->set("REMOVE_H", horizontalStdG[i]);
@@ -267,7 +267,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 		case Standard:
 			if (undoManager->undoEnabled())
 			{
-				for (uint i = 0; i < verticalStdG.count(); ++i)
+				for (int i = 0; i < verticalStdG.count(); ++i)
 				{
 					SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
 					ss->set("REMOVE_V", verticalStdG[i]);
@@ -468,13 +468,13 @@ QPair<double, double> GuideManagerCore::bottomRight(double x, double y)// const
 double GuideManagerCore::closestHorAbove(double y)// const
 {
 	double closest = 0.0;
-	for (uint i = 0; i < horizontalStdG.size(); ++i)
+	for (int i = 0; i < horizontalStdG.size(); ++i)
 	{
 		if (horizontalStdG[i] < y && horizontalStdG[i] > closest)
 			closest = horizontalStdG[i];
 	}
 
-	for (uint i = 0; i < horizontalAutoG.size(); ++i)
+	for (int i = 0; i < horizontalAutoG.size(); ++i)
 	{
 		if (horizontalAutoG[i] < y && horizontalAutoG[i] > closest)
 			closest = horizontalAutoG[i];
@@ -482,7 +482,7 @@ double GuideManagerCore::closestHorAbove(double y)// const
 
 	if (m_page->Margins.Top < y && m_page->Margins.Top > closest)
 		closest = m_page->Margins.Top;
-	if (m_page->height() - m_page->Margins.Qt::DockBottom < y && m_page->height() - m_page->Margins.Qt::DockBottom > closest)
+	if (m_page->height() - m_page->Margins.Bottom < y && m_page->height() - m_page->Margins.Bottom > closest)
 		closest = m_page->height() - m_page->Margins.Bottom;
 
 	return closest;
@@ -491,13 +491,13 @@ double GuideManagerCore::closestHorAbove(double y)// const
 double GuideManagerCore::closestHorBelow(double y)// const
 {
 	double closest = m_page->height();
-	for (uint i = 0; i < horizontalStdG.size(); ++i)
+	for (int i = 0; i < horizontalStdG.size(); ++i)
 	{
 		if (horizontalStdG[i] > y && horizontalStdG[i] < closest)
 			closest = horizontalStdG[i];
 	}
 
-	for (uint i = 0; i < horizontalAutoG.size(); ++i)
+	for (int i = 0; i < horizontalAutoG.size(); ++i)
 	{
 		if (horizontalAutoG[i] > y && horizontalAutoG[i] < closest)
 			closest = horizontalAutoG[i];
@@ -514,21 +514,21 @@ double GuideManagerCore::closestHorBelow(double y)// const
 double GuideManagerCore::closestVertLeft(double x)// const
 {
 	double closest = 0.0;
-	for (uint i = 0; i < verticalStdG.size(); ++i)
+	for (int i = 0; i < verticalStdG.size(); ++i)
 	{
 		if (verticalStdG[i] < x && verticalStdG[i] > closest)
 			closest = verticalStdG[i];
 	}
 
-	for (uint i = 0; i < verticalAutoG.size(); ++i)
+	for (int i = 0; i < verticalAutoG.size(); ++i)
 	{
 		if (verticalAutoG[i] < x && verticalAutoG[i] > closest)
 			closest = verticalAutoG[i];
 	}
 
-	if (m_page->Margins.Qt::DockLeft < x && m_page->Margins.Qt::DockLeft > closest)
+	if (m_page->Margins.kLeft < x && m_page->Margins.Left > closest)
 		closest = m_page->Margins.Left;
-	if (m_page->width() - m_page->Margins.Qt::DockRight < x && m_page->width() - m_page->Margins.Qt::DockRight > closest)
+	if (m_page->width() - m_page->Margins.Right < x && m_page->width() - m_page->Margins.Right > closest)
 		closest = m_page->width() - m_page->Margins.Right;
 
 	return closest;
@@ -537,13 +537,13 @@ double GuideManagerCore::closestVertLeft(double x)// const
 double GuideManagerCore::closestVertRight(double x)// const
 {
 	double closest = m_page->width();
-	for (uint i = 0; i < verticalStdG.size(); ++i)
+	for (int i = 0; i < verticalStdG.size(); ++i)
 	{
 		if (verticalStdG[i] > x && verticalStdG[i] < closest)
 			closest = verticalStdG[i];
 	}
 
-	for (uint i = 0; i < verticalAutoG.size(); ++i)
+	for (int i = 0; i < verticalAutoG.size(); ++i)
 	{
 		if (verticalAutoG[i] > x && verticalAutoG[i] < closest)
 			closest = verticalAutoG[i];

@@ -42,7 +42,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	Preview = new QLabel( this, "Preview" );
 	Preview->setFrameShape( QLabel::Panel );
 	Preview->setFrameShadow( QLabel::Sunken );
-	Preview->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignHCenter ) );
+	Preview->setAlignment( Qt::AlignVCenter | Qt::AlignHCenter );
 	Preview->setScaledContents( false );
 	MultiLineLayout->addWidget( Preview );
 
@@ -98,7 +98,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 
 	WidthText = new QLabel( Properties, "WidthText" );
 	WidthText->setText( tr( "Line Width:" ) );
-	WidthText->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	WidthText->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	layout1->addWidget( WidthText );
 
 	LWidth = new MSpinBox( 0, 300, Properties, 1 );
@@ -156,7 +156,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 void MultiLine::updatePreview()
 {
 	QPixmap pm = QPixmap(200, 37);
-	pm.fill(white);
+	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	for (int it = TempVorl.size()-1; it > -1; it--)
@@ -341,7 +341,7 @@ void MultiLine::DelSubLine()
 
 void MultiLine::NewLJoin()
 {
-	PenJoinStyle c = Qt::MiterJoin;
+	Qt::PenJoinStyle c = Qt::MiterJoin;
 	switch (LineJoin->currentItem())
 	{
 	case 0:
@@ -360,7 +360,7 @@ void MultiLine::NewLJoin()
 
 void MultiLine::NewLEnd()
 {
-	PenCapStyle c = Qt::FlatCap;
+	Qt::PenCapStyle c = Qt::FlatCap;
 	switch (LineEnds->currentItem())
 	{
 	case 0:
@@ -380,7 +380,7 @@ void MultiLine::NewLEnd()
 
 void MultiLine::NewLSty()
 {
-	PenStyle c = Qt::SolidLine;
+	Qt::PenStyle c = Qt::SolidLine;
 	switch (Dashes->currentItem())
 	{
 	case 0:
@@ -468,7 +468,7 @@ void MultiLine::slotEditStyle(int i)
 		case Qt::FlatCap:
 			LineEnds->setCurrentItem(0);
 			break;
-		case SquareCap:
+		case Qt::SquareCap:
 			LineEnds->setCurrentItem(1);
 			break;
 		case Qt::RoundCap:

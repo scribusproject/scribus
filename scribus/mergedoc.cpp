@@ -149,7 +149,7 @@ void MergeDoc::changeFile()
 				ret = fl.ReadPageCount(fn, &dummy, &count, masterPageNames);
 			else
 				ret = fl.ReadPageCount(fn, &count, &dummy, masterPageNames);
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			if ((ret) && (count != 0))
 			{
 				fromDocData->setText( QDir::convertSeparators(fn) );

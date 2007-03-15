@@ -61,7 +61,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	angleData->setMinimumSize(textWidth, 12);
 	lengthData->setMinimumSize(textWidth, 12);
 
-	int labelAlignment=int( QLabel::AlignVCenter | QLabel::AlignRight );
+	Qt::Alignment labelAlignment=Qt::AlignVCenter | Qt::AlignRight;
 	x1Data->setAlignment( labelAlignment );
 	y1Data->setAlignment( labelAlignment );
 	x2Data->setAlignment( labelAlignment );

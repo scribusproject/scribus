@@ -244,7 +244,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				break;
 			if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
 			{
-	  			uint i = 0;
+	  			int i = 0;
   				buffer[strlen(word)] = '\0';
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)

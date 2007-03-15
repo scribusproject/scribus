@@ -613,7 +613,7 @@ void HelpBrowser::loadMenu()
 				}
 
 				QDomNodeList nl=n.childNodes();
-				for(uint i=0 ; i<= nl.count() ; i++)
+				for(int i=0 ; i<= nl.count() ; i++)
 				{
 					QDomNode child=nl.item(i);
 					if (child.isElement())
@@ -643,7 +643,7 @@ void HelpBrowser::loadMenu()
 							}
 							//3rd level
 							QDomNodeList nl2=child.childNodes();
-							for(uint i=0 ; i<= nl2.count() ; i++)
+							for(int i=0 ; i<= nl2.count() ; i++)
 							{
 								QDomNode childchild=nl2.item(i);
 								if (childchild.isElement())
@@ -725,7 +725,7 @@ void HelpBrowser::loadMenu()
 									}
 									QDomNodeList nl=nTutorial.childNodes();
 									Q3ListViewItem *tutorialSubMenuItem, *tutorialSubMenuItemLast=NULL;
-									for(uint j=0 ; j<= nl.count() ; j++)
+									for(int j=0 ; j<= nl.count() ; j++)
 									{
 										QDomNode child=nl.item(j);
 										if (child.isElement())

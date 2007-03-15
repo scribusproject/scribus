@@ -411,7 +411,7 @@ struct LineControl {
 			pt1 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(yPos+descent));
 			pt2 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(ceil(yPos-ascent)));
 		} while 
-			(   (EndX + (legacy? lineCorr + insets.Qt::DockRight : 0) < colRight - morespace)
+			(   (EndX + (legacy? lineCorr + insets.Right : 0) < colRight - morespace)
 			  && shape.contains(pf2.xForm(pt1))
 			  && shape.contains(pf2.xForm(pt2)) 
 			  );
@@ -2166,7 +2166,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(view->scale(), 1));
+		double scpInv = 1.0 / (QMAX(view->scale(), 1.0));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2187,7 +2187,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					tclip.resize(2);
 					tclip.setPoint(0, np);
 					tclip.setPoint(1, np);
-					for (uint a = 1; a < Clip.size(); ++a)
+					for (int a = 1; a < Clip.size(); ++a)
 					{
 						np = FPoint(Clip.point(a));
 						tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
@@ -2203,7 +2203,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}

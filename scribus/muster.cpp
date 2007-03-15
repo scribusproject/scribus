@@ -338,7 +338,7 @@ void MasterPagesPalette::appendPage()
 		updateMasterPageList(MasterPageName2);
 		//currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		//currentDoc->MasterPages = currentDoc->Pages;
 	}
 	delete dia;

@@ -97,9 +97,9 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
 		pw.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		if (StopM[QMAX(ActStop,0)] == center)
-			pw.setBrush(red);
+			pw.setBrush(Qt::red);
 		else
-			pw.setBrush(blue);
+			pw.setBrush(Qt::blue);
 		Q3PointArray cr;
 		cr.setPoints(3, qRound(center), 43, qRound(center-4), 56, qRound(center+4), 56);
 		pw.drawPolygon(cr);

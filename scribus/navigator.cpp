@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {
 	setScaledContents(false);
-	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
+	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	if (!fn.isEmpty())
 	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);

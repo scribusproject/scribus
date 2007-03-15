@@ -43,7 +43,7 @@ PageLayouts::PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode
 		layoutsView->setItemsMovable(false);
 		layoutsView->setAutoArrange( false );
 		layoutsView->setSorting( false );
-		layoutsView->setFocusPolicy(QWidget::NoFocus);
+		layoutsView->setFocusPolicy(Qt::NoFocus);
 		layoutsView->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Ignored, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
 		layoutsView->setSelectionMode(Q3IconView::Single);
 		layoutGroupLayout->addWidget( layoutsView );
@@ -72,7 +72,7 @@ void PageLayouts::updateLayoutSelector(Q3ValueList<PageSet> pSets)
 	disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	pageSets = pSets;
 	layoutsCombo->clear();
-	for (uint pg = 0; pg < pageSets.count(); ++pg)
+	for (int pg = 0; pg < pageSets.count(); ++pg)
 	{
 		QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
@@ -193,7 +193,7 @@ void PageLayouts::languageChange()
 	if (modus)
 	{
 		layoutsView->clear();
-		for (uint pg = 0; pg < pageSets.count(); ++pg)
+		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
@@ -233,7 +233,7 @@ void PageLayouts::languageChange()
 		disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 		int currIndex=layoutsCombo->currentItem();
 		layoutsCombo->clear();
-		for (uint pg = 0; pg < pageSets.count(); ++pg)
+		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)

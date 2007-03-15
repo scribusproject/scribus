@@ -94,11 +94,11 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	Last->setFlat(OPTION_FLAT_BUTTON);
 #endif
 	Start->setPixmap( loadIcon("start.png") );
-	Start->setFocusPolicy(QWidget::NoFocus);
+	Start->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Start );
 
 	Back->setPixmap( loadIcon("back.png") );
-	Back->setFocusPolicy(QWidget::NoFocus);
+	Back->setFocusPolicy(Qt::NoFocus);
 	Back->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Back );
 
@@ -113,16 +113,16 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	}
 	PageCombo->setValidator(v);
 	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
-	PageCombo->setFocusPolicy(QWidget::ClickFocus);
+	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 	
 	Forward->setPixmap( loadIcon("forward.png") );
-	Forward->setFocusPolicy(QWidget::NoFocus);
+	Forward->setFocusPolicy(Qt::NoFocus);
 	Forward->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Forward );
 
 	Last->setPixmap( loadIcon("finish.png") );
-	Last->setFocusPolicy(QWidget::NoFocus);
+	Last->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Last );
 	Forward->setEnabled(true);
 	Last->setEnabled(true);

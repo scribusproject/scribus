@@ -143,7 +143,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	brightnessSlider->setMinValue(-255);
 	brightnessSlider->setMaxValue(255);
 	brightnessSlider->setValue(0);
-	brightnessSlider->setOrientation( QSlider::Horizontal );
+	brightnessSlider->setOrientation( Qt::Horizontal );
 	brightnessSlider->setTickmarks( QSlider::Below );
 	WStackPage3Layout->addWidget( brightnessSlider );
 	optionStack->addWidget( WStackPage_3, 2 );
@@ -161,7 +161,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	contrastSlider->setMinValue(-127);
 	contrastSlider->setMaxValue(127);
 	contrastSlider->setValue(0);
-	contrastSlider->setOrientation( QSlider::Horizontal );
+	contrastSlider->setOrientation( QSt::Horizontal );
 	contrastSlider->setTickmarks( QSlider::Below );
 	WStackPage4Layout->addWidget( contrastSlider );
 	optionStack->addWidget( WStackPage_4, 3 );
@@ -210,7 +210,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	solarizeSlider->setMinValue(1);
 	solarizeSlider->setMaxValue(255);
 	solarizeSlider->setValue(255);
-	solarizeSlider->setOrientation( QSlider::Horizontal );
+	solarizeSlider->setOrientation( Qt::Horizontal );
 	solarizeSlider->setTickmarks( QSlider::Below );
 	WStackPage7Layout->addWidget( solarizeSlider );
 	optionStack->addWidget( WStackPage_7, 6 );
