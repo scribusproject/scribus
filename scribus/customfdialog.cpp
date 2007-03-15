@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
+#include <QImageReader>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3Frame>
@@ -89,11 +90,11 @@ const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
 
 FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)
 {
-	setAlignment(AlignLeft | AlignTop);
+	setAlignment(Qt::AlignLeft | Qt::AlignTop);
 	setMinimumSize( QSize( 100, 100 ) );
 	setMaximumSize( QSize( 300, 300 ) );
 	setScaledContents( false );
-	setEraseColor( white );
+	setEraseColor( Qt::white );
 	setFrameShape( QLabel::WinPanel );
 	setFrameShadow( QLabel::Sunken );
 	updtPix();
@@ -104,7 +105,7 @@ void FDialogPreview::updtPix()
 	QPixmap pm;
 	QRect inside = contentsRect();
 	pm = QPixmap(inside.width(), inside.height());
-	pm.fill(white);
+	pm.fill(Qt::white);
 	setPixmap(pm);
 }
 
@@ -120,8 +121,7 @@ void FDialogPreview::GenPreview(QString name)
 	int h = pixmap()->height();
 	bool mode = false;
 	QString ext = fi.extension(false).lower();
-	QStringList formats;
-	formats = QStringList::fromStrList(QImageIO::inputFormats());
+	QList<QByteArray> formats(QImageReader::supportedImageFormats());
 	formats.append("jpg");
 	formats.append("tif");
 	formats.append("tiff");
@@ -131,13 +131,13 @@ void FDialogPreview::GenPreview(QString name)
 	formats.append("pdf");
 	formats.append("ps");
 	formats.append("pat");
-	QString allFormats = formats.join( " " );
-	formats.clear();
-	allFormats = allFormats.lower();
-	formats = QStringList::split( " ", allFormats );
+// 	QString allFormats = formats.join( " " );
+// 	formats.clear();
+// 	allFormats = allFormats.lower();
+// 	formats = QStringList::split( " ", allFormats );
 	if (ext.isEmpty())
 		ext = getImageType(name);
-	if (formats.contains(ext))
+	if (formats.contains(ext.toUtf8()))
 	{
 		ScImage im;
 		//No doc to send data anyway, so no doc to get into scimage.
@@ -171,7 +171,8 @@ void FDialogPreview::GenPreview(QString name)
 				im2 = im.qImage(); // no need to copy
 			QPainter p;
 			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-			p.begin(pixmap());
+			// Qt4 FIXME imho should be better
+			p.begin(new QPixmap(*pixmap()));
 			p.fillRect(0, 0, w, h-44, b);
 			p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
 			p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
