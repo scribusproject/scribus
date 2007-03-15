@@ -145,7 +145,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 				if (chr == 9)
 				{
-					for (uint t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
+					for (int t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
 					{
 						if (currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
 							continue;
@@ -159,7 +159,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
-					for (uint t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
+					for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
 					{
 						if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 							continue;
@@ -177,7 +177,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 				if (chr == 30)
 				{
-					for (uint numco = 0x30; numco < 0x3A; ++numco)
+					for (int numco = 0x30; numco < 0x3A; ++numco)
 					{
 						if ((!currItem->itemText.charStyle(e).font().canRender(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
@@ -263,7 +263,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				}
 				if (chr == 9)
 				{
-					for (uint t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
+					for (int t1 = 0; t1 < currItem->itemText.paragraphStyle(e).tabValues().count(); t1++)
 					{
 						if (currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
 							continue;
@@ -277,7 +277,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
 							itemError.insert(MissingGlyph, 0);
 					}
-					for (uint t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
+					for (int t1 = 0; t1 < currItem->itemText.defaultStyle().tabValues().count(); t1++)
 					{
 						if (currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 							continue;

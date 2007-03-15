@@ -44,7 +44,7 @@ void FmItem::paint(QPainter *p, const QColorGroup&, bool, bool, int x, int y, in
 
 QSize FmItem::sizeHint()
 {
-	return QFontMetrics(font).size(AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
+	return QFontMetrics(font).size(Qt::AlignLeft | Qt::AlignVCenter | Qt::ShowPrefix | Qt::DontClip, stringy);
 }
 
 QString FmItem::Ctext()

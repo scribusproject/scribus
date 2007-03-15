@@ -74,7 +74,7 @@ QString ScGTPluginManager::fileFilter()
 		{
 			filters += plugins_.at(i)->fileFormatName() + " (";
 			QStringList fileExtensions = plugins_.at(i)->fileExtensions();
-			for (uint j = 0; j < fileExtensions.count(); ++j)
+			for (int j = 0; j < fileExtensions.count(); ++j)
 			{
 				filters += "*." + fileExtensions[j] + " ";
 				allSupported += "*." + fileExtensions[j] + " ";

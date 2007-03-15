@@ -115,7 +115,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 		{
 			QStringList realEx;
 			realEx.clear();
-			for (uint m = 0; m < custColSet.count(); ++m)
+			for (int m = 0; m < custColSet.count(); ++m)
 			{
 				QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + custColSet[m]);
 				QFileInfo cfi(Cpfad);
@@ -426,7 +426,7 @@ void ColorManager::importColors()
 		return;
 	if (!fileName.isEmpty())
 	{
-		uint oldCount = EditColors.count();
+		int oldCount = EditColors.count();
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.extension(false).lower();
@@ -557,7 +557,7 @@ void ColorManager::deleteUnusedColors()
 			continue;
 		}
 		QStringList patterns = m_Doc->getUsedPatterns();
-		for (uint c = 0; c < patterns.count(); ++c)
+		for (int c = 0; c < patterns.count(); ++c)
 		{
 			ScPattern pa = m_Doc->docPatterns[patterns[c]];
 			for (uint c = 0; c < pa.items.count(); ++c)

@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QLabel(parent), m_doc(doc)
 {
 	setScaledContents( true );
-	setAlignment( static_cast<int>( Qt::AlignCenter ) );
+	setAlignment(Qt::AlignCenter);
 	Xp = 0;
 	Yp = 0;
 	setBackgroundMode(Qt::NoBackground);

@@ -173,7 +173,7 @@ bool CollectForOutput::collectItems()
 		}
 	}
 	QStringList patterns = m_Doc->getUsedPatterns();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)

@@ -124,7 +124,7 @@ void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& color
 	ScribusDoc* doc = colors.document();
 	if (effectsList.count() != 0)
 	{
-		for (uint a = 0; a < effectsList.count(); ++a)
+		for (int a = 0; a < effectsList.count(); ++a)
 		{
 			if ((*effectsList.at(a)).effectCode == EF_INVERT)
 				invert(cmyk);

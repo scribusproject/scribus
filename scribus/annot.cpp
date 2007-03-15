@@ -1404,7 +1404,7 @@ void Annot::DecodeCalc()
 	{
 		tm2 = pfol[0].stripWhiteSpace();
 		tm += tm2.mid(1, tm2.length()-2);
-		for (uint cfx = 1; cfx < pfol.count(); ++cfx)
+		for (int cfx = 1; cfx < pfol.count(); ++cfx)
 		{
 			tm2 = pfol[cfx].stripWhiteSpace();
 			tm += ", "+tm2.mid(1, tm2.length()-2);
@@ -1799,7 +1799,7 @@ void Annot::SetVals()
 			if (pfol.count() > 1)
 			{
 				tmpCact += "\""+pfol[0].stripWhiteSpace()+"\"";
-				for (uint cfx = 1; cfx < pfol.count(); cfx++)
+				for (int cfx = 1; cfx < pfol.count(); cfx++)
 				{
 					tmpCact += ", \""+pfol[cfx].stripWhiteSpace()+"\"";
 				}

@@ -546,7 +546,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 		}
 		Q3ValueList<QString> tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe < currDoc->PDF_Options.EmbedList.count(); ++fe)
+		for (int fe = 0; fe < currDoc->PDF_Options.EmbedList.count(); ++fe)
 		{
 			if (ReplacedFonts.contains(currDoc->PDF_Options.EmbedList[fe]))
 				tmpList.append(ReplacedFonts[currDoc->PDF_Options.EmbedList[fe]]);
@@ -555,7 +555,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 		}
 		currDoc->PDF_Options.EmbedList = tmpList;
 		tmpList.clear();
-		for (uint fe = 0; fe < currDoc->PDF_Options.SubsetList.count(); ++fe)
+		for (int fe = 0; fe < currDoc->PDF_Options.SubsetList.count(); ++fe)
 		{
 			if (ReplacedFonts.contains(currDoc->PDF_Options.SubsetList[fe]))
 				tmpList.append(ReplacedFonts[currDoc->PDF_Options.SubsetList[fe]]);

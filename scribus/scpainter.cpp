@@ -1269,7 +1269,7 @@ void ScPainter::drawVPath( int mode )
 		if( m_array.count() > 0 )
 		{
 			dashes = new double[ m_array.count() ];
-			for( uint i = 0; i < m_array.count();++ i )
+			for( int i = 0; i < m_array.count();++ i )
 			{
 				dashes[i] = static_cast<double>(m_array[i]);
 			}

@@ -64,14 +64,13 @@ void TextFilter::loadText()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	uint posi;
 //	bool ret;
 	QByteArray bb(f.size());
 	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
+		for (int posi = 0; posi < bb.size(); ++posi)
 			text += QChar(bb[posi]);
 	}
 }
@@ -133,10 +132,10 @@ void TextFilter::write()
 		gtParagraphStyle *useStyle = NULL;
 		for (int i = 0; i < static_cast<int>(list.size()); ++i)
 		{
-			QString tmpText = list[i];
-			QString tmpText2 = tmpText;
+			QString tmpText(list[i]);
+			QString tmpText2(tmpText);
 			tmpText2.simplifyWhiteSpace();
-			int numberOfWords = tmpText2.contains(" ");
+			int numberOfWords = tmpText2.count(" ");
 			++numberOfWords;
 			useStyle = NULL;
 			for (int j = 0; j < static_cast<int>(filters->size()); ++j)

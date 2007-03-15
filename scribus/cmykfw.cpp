@@ -201,7 +201,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	{
 		QStringList realEx;
 		realEx.clear();
-		for (uint m = 0; m < Cust.count(); ++m)
+		for (int m = 0; m < Cust.count(); ++m)
 		{
 			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() +Cust[m]);
 			QFileInfo cfi(Cpfad);

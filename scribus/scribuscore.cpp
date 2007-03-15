@@ -343,7 +343,7 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 	profDirs = ScPaths::getSystemProfilesDirs();
 	profDirs.prepend( prefsManager->appPrefs.ProfileDir );
 	profDirs.prepend( pfad );
-	for(unsigned int i = 0; i < profDirs.count(); i++)
+	for(int i = 0; i < profDirs.count(); i++)
 	{
 		profDir = profDirs[i];
 		if(!profDir.isEmpty())

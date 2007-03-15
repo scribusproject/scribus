@@ -583,7 +583,7 @@ void CharSelect::slot_insertSpecialChar()
 	if (m_Item->HasSel)
 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
-	for (uint a=0; a<chToIns.length(); ++a)
+	for (int a=0; a<chToIns.length(); ++a)
 	{
 		QChar ch = chToIns.at(a);
 		if (ch == QChar(10))

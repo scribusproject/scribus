@@ -388,7 +388,7 @@ void CustomFDialog::handleCompress()
 	QString e(tmp.extension());
 	QStringList ex = QStringList::split(".", e);
 	QString baseExt = "";
-	for (uint a = 0; a < ex.count(); a++)
+	for (int a = 0; a < ex.count(); a++)
 	{
 		if ((ex[a] != "sla") && (ex[a] != "SLA") && (ex[a] != "gz") && (ex[a] != "GZ"))
 			baseExt += "."+ex[a];
