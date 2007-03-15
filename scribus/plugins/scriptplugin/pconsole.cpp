@@ -296,7 +296,7 @@ SyntaxHighlighter::SyntaxHighlighter(Q3TextEdit *textEdit) : Q3SyntaxHighlighter
 int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLastPara)
 {
 	// position in the text
-	unsigned int i = 0;
+	int i = 0;
 
 	/* ! ! signals error message, which we want in red */
 	if (text.length() >= 3 && text[0] == '!' && text[1] == ' ' && text[2] == '!')

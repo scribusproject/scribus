@@ -236,7 +236,7 @@ void sat::appendTmplXml()
 		Q3TextStream stream(&tmplXml);
 		QString tmp = stream.readLine();
 		QString file = "";
-		while (tmp != NULL)
+		while (!tmp.isNull())
 		{
 			file += tmp + "\n";
 			tmp = stream.readLine();

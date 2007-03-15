@@ -305,7 +305,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->setLoading(false);
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -386,7 +386,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->view()->updatesOn(true);
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	if (interactive)
 		m_Doc->setLoading(false);

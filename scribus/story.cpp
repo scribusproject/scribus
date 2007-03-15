@@ -233,9 +233,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	switch (k->state())
 	{
 		case Qt::ControlButton:
-		case Qt::ControlButton|ShiftButton:
-		case Qt::ControlButton|Keypad:
-		case Qt::ControlButton|ShiftButton|Keypad:
+		case Qt::ControlButton|Qt::ShiftButton:
+		case Qt::ControlButton|Qt::Keypad:
+		case Qt::ControlButton|Qt::ShiftButton|Qt::Keypad:
 			switch (k->key())
 			{
 				case Qt::Key_Delete:
@@ -276,11 +276,11 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					break;
 			}
 			break;
-		case NoButton:
-		case Keypad:
+		case Qt::NoButton:
+		case Qt::Keypad:
 		case Qt::ShiftButton:
-		case Qt::ControlButton|AltButton:
-		case Qt::ControlButton|AltButton|ShiftButton: // Shift + AltGr on Windows for polish characters
+		case Qt::ControlButton|Qt::AltButton:
+		case Qt::ControlButton|Qt::AltButton|Qt::ShiftButton: // Shift + AltGr on Windows for polish characters
 			if (unicodeTextEditMode)
 			{
 				int conv = 0;
@@ -1335,13 +1335,13 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction(QIcon(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", Qt::CTRL+Qt::Key_N, this, "fileNew"));
-	seActions.insert("fileRevert", new ScrAction(QIcon(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
-	seActions.insert("fileSaveToFile", new ScrAction(QIcon(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", QKeySequence(), this, "fileSaveToFile"));
-	seActions.insert("fileLoadFromFile", new ScrAction(QIcon(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png")), "", QKeySequence(), this, "fileLoadFromFile"));
+	seActions.insert("fileNew", new ScrAction(loadIcon("editdelete.png"), loadIcon("editdelete.png"), "", Qt::CTRL+Qt::Key_N, this, "fileNew"));
+	seActions.insert("fileRevert", new ScrAction(loadIcon("reload16.png"), loadIcon("reload.png"), "", QKeySequence(), this, "fileRevert"));
+	seActions.insert("fileSaveToFile", new ScrAction(loadIcon("16/document-save.png"), loadIcon("22/document-save.png"), "", QKeySequence(), this, "fileSaveToFile"));
+	seActions.insert("fileLoadFromFile", new ScrAction(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png"), "", QKeySequence(), this, "fileLoadFromFile"));
 	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this, "fileSaveDocument"));
-	seActions.insert("fileUpdateAndExit", new ScrAction(QIcon(loadIcon("ok.png"), loadIcon("ok22.png")), "", Qt::CTRL+Qt::Key_W,  this, "fileUpdateAndExit"));
-	seActions.insert("fileExit", new ScrAction(QIcon(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
+	seActions.insert("fileUpdateAndExit", new ScrAction(loadIcon("ok.png"), loadIcon("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this, "fileUpdateAndExit"));
+	seActions.insert("fileExit", new ScrAction(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
 
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
@@ -1352,11 +1352,11 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editSelectAll", new ScrAction(QIcon(noIcon), "", Qt::CTRL+Qt::Key_A, this, "editSelectAll"));
-	seActions.insert("editCut", new ScrAction(QIcon(loadIcon("editcut.png")), "", Qt::CTRL+Qt::Key_X, this, "editCut"));
-	seActions.insert("editCopy", new ScrAction(QIcon(loadIcon("editcopy.png")), "", Qt::CTRL+Qt::Key_C, this, "editCopy"));
-	seActions.insert("editPaste", new ScrAction(QIcon(loadIcon("editpaste.png")), "", Qt::CTRL+Qt::Key_V, this, "editPaste"));
-	seActions.insert("editClear", new ScrAction(QIcon(loadIcon("editdelete.png")), "", Qt::Key_Delete, this, "editClear"));
+	seActions.insert("editSelectAll", new ScrAction("", Qt::CTRL+Qt::Key_A, this, "editSelectAll"));
+	seActions.insert("editCut", new ScrAction(loadIcon("editcut.png"), QPixmap(), "", Qt::CTRL+Qt::Key_X, this, "editCut"));
+	seActions.insert("editCopy", new ScrAction(loadIcon("editcopy.png"), QPixmap(), "", Qt::CTRL+Qt::Key_C, this, "editCopy"));
+	seActions.insert("editPaste", new ScrAction(loadIcon("editpaste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this, "editPaste"));
+	seActions.insert("editClear", new ScrAction(loadIcon("editdelete.png"), QPixmap(), "", Qt::Key_Delete, this, "editClear"));
 	seActions.insert("editSearchReplace", new ScrAction(loadIcon("find16.png"), QPixmap(), "", QKeySequence(), this, "editSearchReplace"));
 	seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this, "editEditStyle"));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this, "editFontPreview"));
@@ -1377,9 +1377,9 @@ void StoryEditor::initActions()
 	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
 
 	//Settings Menu
-	seActions.insert("settingsBackground", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "settingsBackground"));
-	seActions.insert("settingsDisplayFont", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "settingsDisplayFont"));
-	seActions.insert("settingsSmartTextSelection", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "settingsSmartTextSelection"));
+	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this, "settingsBackground"));
+	seActions.insert("settingsDisplayFont", new ScrAction("", QKeySequence(), this, "settingsDisplayFont"));
+	seActions.insert("settingsSmartTextSelection", new ScrAction("", QKeySequence(), this, "settingsSmartTextSelection"));
 	smartSelection = false;
 	seActions["settingsSmartTextSelection"]->setOn(false);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
@@ -1520,32 +1520,32 @@ void StoryEditor::buildGUI()
 	seActions["editUpdateFrame"]->addTo(FileTools);
 	seActions["editSearchReplace"]->addTo(FileTools);
 
-	setDockEnabled(FileTools, DockLeft, false);
-	setDockEnabled(FileTools, DockRight, false);
-	setDockEnabled(FileTools, DockBottom, false);
+	setDockEnabled(FileTools, Qt::DockLeft, false);
+	setDockEnabled(FileTools, Qt::DockRight, false);
+	setDockEnabled(FileTools, Qt::DockBottom, false);
 	FontTools = new SToolBFont(this);
-	setDockEnabled(FontTools, DockLeft, false);
-	setDockEnabled(FontTools, DockRight, false);
-	setDockEnabled(FontTools, DockBottom, false);
+	setDockEnabled(FontTools, Qt::DockLeft, false);
+	setDockEnabled(FontTools, Qt::DockRight, false);
+	setDockEnabled(FontTools, Qt::DockBottom, false);
 	AlignTools = new SToolBAlign(this);
-	setDockEnabled(AlignTools, DockLeft, false);
-	setDockEnabled(AlignTools, DockRight, false);
-	setDockEnabled(AlignTools, DockBottom, false);
+	setDockEnabled(AlignTools, Qt::DockLeft, false);
+	setDockEnabled(AlignTools, Qt::DockRight, false);
+	setDockEnabled(AlignTools, Qt::DockBottom, false);
 	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StyleTools = new SToolBStyle(this);
-	setDockEnabled(StyleTools, DockLeft, false);
-	setDockEnabled(StyleTools, DockRight, false);
-	setDockEnabled(StyleTools, DockBottom, false);
+	setDockEnabled(StyleTools, Qt::DockLeft, false);
+	setDockEnabled(StyleTools, Qt::DockRight, false);
+	setDockEnabled(StyleTools, Qt::DockBottom, false);
 	StrokeTools = new SToolBColorS(this, currDoc);
-	setDockEnabled(StrokeTools, DockLeft, false);
-	setDockEnabled(StrokeTools, DockRight, false);
-	setDockEnabled(StrokeTools, DockBottom, false);
+	setDockEnabled(StrokeTools, Qt::DockLeft, false);
+	setDockEnabled(StrokeTools, Qt::DockRight, false);
+	setDockEnabled(StrokeTools, Qt::DockBottom, false);
 	StrokeTools->TxStroke->setEnabled(false);
 	StrokeTools->PM1->setEnabled(false);
 	FillTools = new SToolBColorF(this, currDoc);
-	setDockEnabled(FillTools, DockLeft, false);
-	setDockEnabled(FillTools, DockRight, false);
-	setDockEnabled(FillTools, DockBottom, false);
+	setDockEnabled(FillTools, Qt::DockLeft, false);
+	setDockEnabled(FillTools, Qt::DockRight, false);
+	setDockEnabled(FillTools, Qt::DockBottom, false);
 
 	EdSplit = new QSplitter(vb);
 /* SideBar Widget */
@@ -2635,20 +2635,20 @@ void StoryEditor::changeStyleSB(int pa, int st)
 	else
 	{
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().font().scName();
-		Editor->CurrFontSize = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fontSize();
-		Editor->CurrentStyle = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().effects();
-		Editor->CurrTextFill = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillColor();
-		Editor->CurrTextFillSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillShade();
-		Editor->CurrTextStroke = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeColor();
-		Editor->CurrTextStrokeSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeShade();
-		Editor->CurrTextShadowX = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowXOffset();
-		Editor->CurrTextShadowY = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowYOffset();
-		Editor->CurrTextOutline = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().outlineWidth();
-		Editor->CurrTextUnderPos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineOffset();
-		Editor->CurrTextUnderWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineWidth();
-		Editor->CurrTextStrikePos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruOffset();
-		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruWidth();
+		Editor->CurrFont = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().font().scName();
+		Editor->CurrFontSize = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
+		Editor->CurrentStyle = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
+		Editor->CurrTextFill = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
+		Editor->CurrTextFillSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillShade();
+		Editor->CurrTextStroke = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeShade();
+		Editor->CurrTextShadowX = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowYOffset();
+		Editor->CurrTextOutline = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruWidth();
 
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & ScStyle_Outline)
@@ -2721,20 +2721,20 @@ void StoryEditor::changeStyle(int )
 	else
 	{
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().font().scName();
-		Editor->CurrFontSize = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fontSize();
-		Editor->CurrentStyle = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().effects();
-		Editor->CurrTextFill = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillColor();
-		Editor->CurrTextFillSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillShade();
-		Editor->CurrTextStroke = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeColor();
-		Editor->CurrTextStrokeSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeShade();
-		Editor->CurrTextShadowX = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowXOffset();
-		Editor->CurrTextShadowY = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowYOffset();
-		Editor->CurrTextOutline = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().outlineWidth();
-		Editor->CurrTextUnderPos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineOffset();
-		Editor->CurrTextUnderWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineWidth();
-		Editor->CurrTextStrikePos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruOffset();
-		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruWidth();
+		Editor->CurrFont = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().font().scName();
+		Editor->CurrFontSize = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fontSize();
+		Editor->CurrentStyle = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().effects();
+		Editor->CurrTextFill = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillColor();
+		Editor->CurrTextFillSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().fillShade();
+		Editor->CurrTextStroke = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strokeShade();
+		Editor->CurrTextShadowX = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().shadowYOffset();
+		Editor->CurrTextOutline = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles().get(Editor->currentParaStyle).charStyle().strikethruWidth();
 
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & ScStyle_Outline)

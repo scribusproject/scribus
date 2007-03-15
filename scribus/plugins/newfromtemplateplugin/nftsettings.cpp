@@ -55,7 +55,7 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 	{
 		tmpldir.setFilter(QDir::Dirs);
 		QStringList dirs = tmpldir.entryList();
-		for (uint i = 0; i < dirs.size(); ++i)
+		for (int i = 0; i < dirs.size(); ++i)
 		{
 			if ((dirs[i] != ".") && (dirs[i] != "..")) {
 				tmplFile = findTemplateXml(dir + "/" + dirs[i]);

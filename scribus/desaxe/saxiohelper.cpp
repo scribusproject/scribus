@@ -1,4 +1,4 @@
-
+$
 #include "saxiohelper.h"
 #include "saxio.h"
 #include "scfonts.h"
@@ -16,7 +16,7 @@ const Xml_string SaxIO::saxxDefaultElem("");
 Xml_string mkXMLName(QString any)
 {
 	QString result("");
-	for (unsigned int i=0; i < any.length(); ++i)
+	for (int i=0; i < any.length(); ++i)
 	{
 		unsigned int ch = any[i].unicode();
 		if (ch == ':' || ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z')

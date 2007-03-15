@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qcheckbox.h>
 #include <q3frame.h>
+#include <q3boxlayout.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include <prefstable.h>

@@ -29,7 +29,7 @@ void nfttemplate::remove()
 		tmplXml->open(QIODevice::ReadOnly);
 		Q3TextStream stream(tmplXml);
 		QString line = stream.readLine();
-		while (line != NULL)
+		while (!line.isNull())
 		{
 			if ((line.find(enCategory) != -1) || collect)
 			{

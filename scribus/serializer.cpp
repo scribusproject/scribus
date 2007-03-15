@@ -162,7 +162,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 		handler.begin("MultiLine", multiattr);		
 		multiLine ml = doc->MLineStyles[*it];
 		
-		Q3ValueVector<Qt::TextSingleLine>::Iterator itMU2;
+		Q3ValueVector<SingleLine>::Iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
 			Xml_attr lineattr;

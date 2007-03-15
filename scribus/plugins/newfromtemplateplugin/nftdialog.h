@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <qcursor.h>
 #include <qdialog.h>
+#include <q3boxlayout.h>
 #include <q3frame.h>
 #include <q3iconview.h> 
 #include <qicon.h>

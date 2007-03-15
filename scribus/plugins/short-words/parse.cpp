@@ -69,7 +69,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		;
 	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
 		content += aFrame->itemText.text(i,1);
-	changes = content.contains(UNBREAKABLE_SPACE);
+	changes = content.count(UNBREAKABLE_SPACE);
 
 	// for every config string, replace its spaces by nbsp's.
 	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
@@ -110,7 +110,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		;
 	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
 		aFrame->itemText.replaceChar(i, content.at(i));
-	if (content.contains(UNBREAKABLE_SPACE) > changes)
+	if (content.count(UNBREAKABLE_SPACE) > changes)
 		++modify;
 
 	delete(cfg);

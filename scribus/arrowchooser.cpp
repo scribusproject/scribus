@@ -30,7 +30,7 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 	FPointArray Path;
 	Path.resize(0);
 	insertItem( tr("None"));
-	for (uint a = 0; a < arrowStyles->count(); ++a)
+	for (int a = 0; a < arrowStyles->count(); ++a)
 	{
 		QPixmap Ico(22, 22);
 		ScPainter *painter = new ScPainter(&Ico, 22, 22);

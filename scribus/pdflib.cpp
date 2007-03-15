@@ -3857,7 +3857,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 	return tmp;
 }
 
-QString PDFlib::setStrokeMulti(struct Qt::TextSingleLine *sl)
+QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 {
 	QString tmp(
 			putColor(sl->Color, sl->Shade, false) +

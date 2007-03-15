@@ -51,7 +51,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
-				uint index=qcti->currentItem();
+				int index=qcti->currentItem();
 				if (index<typesData.count())
 					localAttributes[row].type=typesData[index];
 			}
@@ -68,7 +68,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
-				uint index=qcti->currentItem();
+				int index=qcti->currentItem();
 				if (index<relationshipsData.count())
 					localAttributes[row].relationship=relationshipsData[index];
 			}
@@ -82,7 +82,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
-				uint index=qcti->currentItem();
+				int index=qcti->currentItem();
 				if (index<autoAddToData.count())
 					localAttributes[row].autoaddto=autoAddToData[index];
 			}

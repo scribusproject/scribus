@@ -337,7 +337,7 @@ void SMLineStyle::toSelection(const QString &styleName) const
 
 QString SMLineStyle::newStyle()
 {
-	struct Qt::TextSingleLine sl;
+	struct SingleLine sl;
 	sl.Color = "Black";
 	sl.Shade = 100;
 	sl.Dash = Qt::SolidLine;
