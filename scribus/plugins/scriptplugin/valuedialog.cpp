@@ -50,8 +50,6 @@ ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, Qt::WFl
 
 	ScripterValueLayout->addLayout( layout3, 0, 0 );
 	languageChange();
-	//resize( QSize(315, 101).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_pressed() ) );

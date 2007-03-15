@@ -135,7 +135,6 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	layout3->addWidget( Cancel );
 	MultiLineLayout->addLayout( layout3 );
 	resize( QSize(222, 349).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect(Styles, SIGNAL(highlighted(int)), this, SLOT(slotEditStyle(int)));

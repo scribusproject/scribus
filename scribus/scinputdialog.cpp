@@ -56,8 +56,6 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt:
 
 	ScInputDialogLayout->addLayout( mainLayout, 0, 0 );
 	languageChange();
-	//resize( QSize(283, 60).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );

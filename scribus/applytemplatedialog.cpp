@@ -123,7 +123,6 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent, const char* name,
 	ApplyMasterPageDialogLayout->addLayout( layout8 );
 	languageChange();
 	resize( QSize(272, 230).expandedTo(minimumSizeHint()) );
-	//qt4 clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( useRangeCheckBox, SIGNAL( toggled(bool) ), this, SLOT( enableRange(bool) ) );

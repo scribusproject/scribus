@@ -580,7 +580,6 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	createPreview();
 	availableEffects->repaintContents();
 	resize( minimumSizeHint() );
-	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );

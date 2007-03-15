@@ -103,7 +103,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
 	resize( QSize(350, 134).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+
 	connect( importButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( changeButton, SIGNAL( clicked() ), this, SLOT( changeFile() ) );

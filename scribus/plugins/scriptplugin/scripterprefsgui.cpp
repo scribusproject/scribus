@@ -97,7 +97,6 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	languageChange();
 	setupSyntaxColors();
 	resize(minimumSizeHint());
-	clearWState(WState_Polished);
 
 	// Set the state of the ext script enable checkbox
 	extensionScriptsChk->setChecked(scripterCore->extensionsEnabled());

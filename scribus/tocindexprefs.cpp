@@ -52,7 +52,6 @@ TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, Qt::WFlags fl )
 	itemNumberPlacementComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemParagraphStyleComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	resize( QSize(444, 234).expandedTo(minimumSizeHint()) );
-// 	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );

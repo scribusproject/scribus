@@ -154,7 +154,6 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	arrangeIcons();
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
-	clearWState( WState_Polished );
 }
 
 void Preferences::enableSignals(bool on)

@@ -398,7 +398,6 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	int xsize = prefs->getUInt("xsize", 640);
 	int ysize = prefs->getUInt("ysize", 480);
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );

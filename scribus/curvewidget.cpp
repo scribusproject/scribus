@@ -385,7 +385,7 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	cDisplay->setMinimumSize( QSize( 150, 150 ) );
 	CurveWidgetLayout->addWidget( cDisplay );
 	languageChange();
-	clearWState( WState_Polished );
+
 	connect(invertButton, SIGNAL(clicked()), this, SLOT(doInvert()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(doReset()));
 	connect(linearButton, SIGNAL(clicked()), this, SLOT(doLinear()));

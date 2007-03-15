@@ -252,7 +252,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	propsTab->insertTab( tab_2, tr( "Paths" ) );
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
-	clearWState( WState_Polished );
+
 	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
 	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
 	if (info->layerInfo.count() != 0)

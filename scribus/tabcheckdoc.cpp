@@ -124,7 +124,6 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	
 	connect(removeProfile, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfile, SIGNAL(clicked()), this, SLOT(addProf()));
-	//Qt4 clearWState( WState_Polished );
 }
 
 void TabCheckDoc::restoreDefaults(CheckerPrefsList *prefsData, QString prefProfile)

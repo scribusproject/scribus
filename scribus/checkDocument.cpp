@@ -164,7 +164,7 @@ m_Doc(0)
 	masterPageMap.clear();
 	masterPageItemMap.clear();
 	resize( QSize(320, 260).expandedTo(minimumSizeHint()) );
-	//qt4 clearWState( WState_Polished );
+
 	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));

@@ -112,7 +112,6 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	setMinimumSize(minimumSizeHint());
  	setMaximumSize(minimumSizeHint());
 	resize(minimumSizeHint());
-	clearWState( WState_Polished );
 }
 
 void NewDoc::createNewDocPage()

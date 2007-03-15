@@ -130,7 +130,7 @@ ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList
 	layout2->addWidget( CancelButton );
 	ChooseStylesLayout->addLayout( layout2 );
 	resize(230, 280);
-	clearWState( WState_Polished );
+
 	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(accept()));
 }

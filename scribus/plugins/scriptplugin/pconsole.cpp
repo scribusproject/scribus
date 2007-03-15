@@ -102,7 +102,6 @@ PythonConsole::PythonConsole( QWidget* parent)
 	gridLayout->addLayout( editorsLayout, 0, 0 );
 	languageChange();
 	resize(QSize(640, 480).expandedTo(minimumSizeHint()));
-	clearWState( WState_Polished );
 
 	// welcome note
 	QString welcomeText("\"\"\"");

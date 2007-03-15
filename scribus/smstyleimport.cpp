@@ -90,7 +90,7 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 	ChooseStylesLayout->addLayout( layout2 );
 
 	resize(230, 400);
-	clearWState( WState_Polished );
+
 	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(accept()));
 }

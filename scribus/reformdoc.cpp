@@ -134,7 +134,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	arrangeIcons();
 	resize( minimumSizeHint() );
-	clearWState( WState_Polished );
+
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
 	restoreDefaults();

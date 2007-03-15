@@ -69,9 +69,6 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	distributeDistLabel->setBuddy( distributeDistMSpinBox );
 	
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
-// GUI3-4 compile PV
-// 	clearWState( WState_Polished );
-	
 	init();
 	languageChange();
 	setDoc(NULL);

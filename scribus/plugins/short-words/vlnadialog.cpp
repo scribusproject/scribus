@@ -105,7 +105,6 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
 
 	languageChange();
 	resize(QSize(306, 193).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
 
 	selectAction(cfg->action);
 

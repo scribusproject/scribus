@@ -51,7 +51,6 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 	SWPrefsGuiLayout->addLayout(editLayout, 0, 0);
 	languageChange();
 	resize(QSize(362, 359).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
 
 	// defaults
 	if (QFile::exists(RC_PATH_USR))

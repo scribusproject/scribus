@@ -58,8 +58,8 @@ PageLayouts::PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode
 	firstPage = new ScComboBox( false, this, "firstPage" );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
- 	setMaximumWidth(minimumSizeHint().width());
-	clearWState( WState_Polished );
+	setMaximumWidth(minimumSizeHint().width());
+
 	if (modus)
 		connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	else
