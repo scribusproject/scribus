@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qdom.h>
+#include <QTextStream>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <QLabel>
@@ -120,7 +121,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
 
-	Layout2 = new Q3GridLayout;
+	Layout2 = new Q3GridLayout(this);
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 
@@ -136,7 +137,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	OldC->setFrameShape( QLabel::WinPanel );
 	OldC->setFrameShadow( QLabel::Sunken );
 	OldC->setScaledContents( true );
-	OldC->setAlignment( int( QLabel::AlignCenter ) );
+	OldC->setAlignment(Qt::AlignCenter);
 	OldC->setPixmap( imageA );
 
 	Layout2->addWidget( OldC, 1, 0 );
@@ -153,7 +154,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	NewC->setFrameShape( QLabel::WinPanel );
 	NewC->setFrameShadow( QLabel::Sunken );
 	NewC->setScaledContents( true );
-	NewC->setAlignment( int( QLabel::AlignCenter ) );
+	NewC->setAlignment(Qt::AlignCenter);
 	NewC->setPixmap( imageN );
 
 	Layout2->addWidget( NewC, 1, 1 );
@@ -235,7 +236,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	ColorMap->setMinimumSize( QSize( 180, 128 ) );
 	ColorMap->setMaximumSize( QSize( 180, 128 ) );
 	Frame5Layout->addWidget( ColorMap );
-	Frame5aLayout->addWidget( Frame5, 0, AlignCenter);
+	Frame5aLayout->addWidget( Frame5, 0, Qt::AlignCenter);
 	TabStack->addWidget( Frame5a, 0 );
 
 	ColorSwatch = new ColorListBox(TabStack, "StyledL");
@@ -243,7 +244,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 
 	Frame4Layout->addWidget( TabStack );
 
-	Layout2x = new Q3GridLayout;
+	Layout2x = new Q3GridLayout(this);
 	Layout2x->setSpacing( 6 );
 	Layout2x->setMargin( 0 );
 
@@ -265,7 +266,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	CyanSL = new QSlider( Frame4, "CyanSL" );
 	CyanSL->setMinimumSize( QSize( 200, 16 ) );
 	CyanSL->setMaxValue( 100 );
-	CyanSL->setOrientation( QSlider::Horizontal );
+	CyanSL->setOrientation( Qt::Horizontal );
 	CyanSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2->addWidget( CyanSL );
 	Layout2x->addLayout(Layout1_2, 0, 1);
@@ -295,7 +296,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	MagentaSL = new QSlider( Frame4, "MagentaSL" );
 	MagentaSL->setMinimumSize( QSize( 200, 16 ) );
 	MagentaSL->setMaxValue( 100 );
-	MagentaSL->setOrientation( QSlider::Horizontal );
+	MagentaSL->setOrientation( Qt::Horizontal );
 	MagentaSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_2->addWidget( MagentaSL );
 	Layout2x->addLayout(Layout1_2_2, 1, 1);
@@ -325,7 +326,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	YellowSL = new QSlider( Frame4, "YellowSL" );
 	YellowSL->setMinimumSize( QSize( 200, 16 ) );
 	YellowSL->setMaxValue( 100 );
-	YellowSL->setOrientation( QSlider::Horizontal );
+	YellowSL->setOrientation( Qt::Horizontal );
 	YellowSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_3->addWidget( YellowSL );
 	Layout2x->addLayout(Layout1_2_3, 2, 1);
@@ -355,7 +356,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	BlackSL = new QSlider( Frame4, "BlackSL" );
 	BlackSL->setMinimumSize( QSize( 200, 16 ) );
 	BlackSL->setMaxValue( 100 );
-	BlackSL->setOrientation( QSlider::Horizontal );
+	BlackSL->setOrientation( Qt::Horizontal );
 	BlackSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_4->addWidget( BlackSL );
 	Layout2x->addLayout(Layout1_2_4, 3, 1);
@@ -410,7 +411,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 
 void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (m->button() == RightButton)
+	if (m->button() == Qt::RightButton)
 	{
 		Q3PopupMenu *pmen = new Q3PopupMenu();
 		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
@@ -460,7 +461,7 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 	QPixmap image0 = QPixmap(255,10);
 	QPainter p;
 	p.begin(&image0);
-	p.setPen(NoPen);
+	p.setPen(Qt::NoPen);
 	int r, g, b, c, m, y, k;
 	QColor tmp;
 	for (int x = 0; x < 255; x += 5)
@@ -551,7 +552,7 @@ QPixmap CMYKChoose::SliderBlack()
 	QPainter p;
 	int val = 255;
 	p.begin(&image0);
-	p.setPen(NoPen);
+	p.setPen(Qt::NoPen);
 	int c, m, y, k;
 	CMYKColor cmyk;
 	ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
@@ -622,7 +623,7 @@ void CMYKChoose::SelSwatch(int n)
 			{
 				QString ColorEn, Cname;
 				int Rval, Gval, Bval, Kval;
-				Q3TextStream tsC(&fiC);
+				QTextStream tsC(&fiC);
 				ColorEn = tsC.readLine();
 				if (ColorEn.startsWith("<?xml version="))
 				{
@@ -665,7 +666,7 @@ void CMYKChoose::SelSwatch(int n)
 						ColorEn = tsC.readLine();
 						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 							continue;
-						Q3TextStream CoE(&ColorEn, QIODevice::ReadOnly);
+						QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 						CoE >> Rval;
 						CoE >> Gval;
 						CoE >> Bval;
