@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qcolor.h>
 //Added by qt3to4:
+#include <QApplication>
 #include <Q3HBoxLayout>
 #include <Q3ValueList>
 #include <Q3PointArray>
@@ -157,7 +158,7 @@ void RulerT::paintEvent(QPaintEvent *)
 	if (haveInd)
 	{
 		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		p.setBrush(blue);
+		p.setBrush(Qt::blue);
 		Q3PointArray cr;
 		cr.setPoints(3, qRound(firstLine+leftIndent), 12, qRound(firstLine+leftIndent-4), 0, qRound(firstLine+leftIndent+4), 0);
 		p.drawPolygon(cr);
@@ -209,7 +210,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((rulerCode == 0) && (m->button() == LeftButton))
+	if ((rulerCode == 0) && (m->button() == Qt::LeftButton))
 	{
 		ParagraphStyle::TabRecord tb;
 		tb.tabPosition = static_cast<double>(m->x() + offset);
@@ -236,7 +237,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (rulerCode == 3)
 		{
-			if (m->button() == RightButton)
+			if (m->button() == Qt::RightButton)
 			{
 				tabValues[actTab].tabType += 1;
 				if (tabValues[actTab].tabType > 4)
@@ -474,13 +475,13 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<Parag
 	tabrulerLayout = new Q3VBoxLayout( this, 0, 6, "tabrulerLayout");
 	layout2 = new Q3HBoxLayout( 0, 0, 6, "layout2");
 
-	rulerScrollL = new QToolButton( LeftArrow, this, "rulerScrollL" );
+	rulerScrollL = new QToolButton( Qt::LeftArrow, this, "rulerScrollL" );
 	rulerScrollL->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollL );
 	ruler = new RulerT( this, dEin, Tabs, haveFirst, wid );
 	ruler->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)5, 0, 0, ruler->sizePolicy().hasHeightForWidth() ) );
 	layout2->addWidget( ruler );
-	rulerScrollR = new QToolButton( RightArrow, this, "RulserScrollR" );
+	rulerScrollR = new QToolButton( Qt::RightArrow, this, "RulserScrollR" );
 	rulerScrollR->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollR );
 
@@ -722,17 +723,17 @@ void Tabruler::setTabFillChar(QChar t)
 		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(0);
 	}
-	else if (t == ".")
+	else if (t == '.')
 	{
 		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(1);
 	}
-	else if (t == "-")
+	else if (t == '-')
 	{
 		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(2);
 	}
-	else if (t == "_")
+	else if (t == '_')
 	{
 		tabFillCombo->setEditable(false);
 		tabFillCombo->setCurrentItem(3);
