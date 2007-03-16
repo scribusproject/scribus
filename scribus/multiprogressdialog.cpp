@@ -34,7 +34,7 @@ MultiProgressDialog::MultiProgressDialog(QWidget* parent, const char*name, bool 
 : QDialog(parent, name, modal, f)
 {
 	setupUi(this);
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(emitCancel()));
+	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(emitCancel()));
 }
 
 MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, const char*name, bool modal, Qt::WFlags f)
@@ -43,7 +43,7 @@ MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString
 	setupUi(this);
 	setCaption(titleText);
 	buttonCancel->setText(cancelButtonText);
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(emitCancel()));
+	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(emitCancel()));
 }
 
 MultiProgressDialog::~MultiProgressDialog()
