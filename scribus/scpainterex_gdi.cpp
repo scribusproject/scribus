@@ -409,8 +409,8 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineWidth = w;
 	m_lineEnd = ca;
 	m_lineJoin = jo;
-	double Dt = qMax(2*w, 1);
-	double Da = qMax(6*w, 1);
+	double Dt = qMax(2*w, 1.0);
+	double Da = qMax(6*w, 1.0);
 	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
@@ -531,7 +531,7 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		else
 		{
 			QColor fillColor = transformColor(m_fillColor, 1.0);
-			SolidBrush fill_brush( Color(m_fillTrans * 255, fillColor.Qt::red(), fillColor.Qt::green(), fillColor.Qt::blue()) );
+			SolidBrush fill_brush( Color(m_fillTrans * 255, fillColor.red(), fillColor.green(), fillColor.blue()) );
 			m_graphics->FillPath( &fill_brush, m_graphicsPath );
 		}
 	}
@@ -545,14 +545,14 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		double penScale = sqrt(norm2 / 2.0);
 		double penWidth =  m_lineWidth * penScale;
 		QColor strokeColor = transformColor( m_strokeColor, 1.0 );
-		SolidBrush stroke_brush( Color(m_strokeTrans * 255, strokeColor.Qt::red(), strokeColor.Qt::green(), strokeColor.Qt::blue()) );
+		SolidBrush stroke_brush( Color(m_strokeTrans * 255, strokeColor.red(), strokeColor.green(), strokeColor.blue()) );
 		Pen stroke_pen( &stroke_brush, penWidth );
 		REAL *dashes = NULL;
 		
 		if( m_array.count() > 0 )
 		{
 			dashes = new REAL[ m_array.count() ];
-			for( uint i = 0; i < m_array.count();++ i )
+			for( int i = 0; i < m_array.count();++ i )
 			{
 				dashes[i] = (REAL) ( m_array[i] / (double) m_lineWidth );
 				// The following lines are needed so that gdi+ rendering matches the libart one
@@ -700,7 +700,7 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 	}
 	ImageAttributes imageAtt;
 	imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault, ColorAdjustTypeBitmap);
-	Bitmap bitmap( image->width(), image->height(), 4 * image->width(), PixelFormat32bppARGB, image->qImage().bits() );
+	Bitmap bitmap( image->width(), image->height(), 4 * image->width(), PixelFormat32bppARGB, (uchar*) image->qImage().bits() );
 	m_graphics->DrawImage( &bitmap, destinationPoint, 3, 0, 0, image->width(), image->height(), UnitPixel, &imageAtt );
 #else
 	save();
@@ -941,21 +941,21 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	
 	stop = *colorStops[0];
 	color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-	colors[0] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
+	colors[0] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
 	positions[0] = 0.0;
 
 	stop = *colorStops[gradient.Stops() - 1];
 	color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-	colors[numElements - 1] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
+	colors[numElements - 1] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
 	positions[numElements - 1] = 1.0;
 
 	for( uint index = 0 ; index < gradient.Stops(); index++)
 	{
 		stop = *colorStops[index];
 		color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-		r = color.Qt::red();
-		g = color.Qt::green();
-		b = color.Qt::blue();
+		r = color.red();
+		g = color.green();
+		b = color.blue();
 		a = stop.opacity * 255;
 		colors[index + 1] = Color(a, r, g, b);
 		positions[index + 1] = ( stop.rampPoint * length + maxDim ) / ( length + 2 * maxDim );
@@ -1239,21 +1239,21 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 
 	stop = *colorStops[ 0 ];
 	color = transformColor( ScColorShade(stop.color, stop.shade), stop.opacity);
-	colors[numElements - 1] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
+	colors[numElements - 1] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
 	positions[numElements - 1] = 1.0;		
 	
 	stop = *colorStops[ gradient.Stops() - 1 ];
 	color = transformColor( ScColorShade(stop.color, stop.shade), stop.opacity);
-	colors[0] = Color(stop.opacity * 255, color.Qt::red(), color.Qt::green(), color.Qt::blue());
+	colors[0] = Color(stop.opacity * 255, color.red(), color.green(), color.blue());
 	positions[0] = 0.0;
 
 	for( uint index = 0 ; index < gradient.Stops() ; index++)
 	{
 		stop = *colorStops[index];
 		color = transformColor( ScColorShade(stop.color, stop.shade), 1.0 );
-		r = color.Qt::red();
-		g = color.Qt::green();
-		b = color.Qt::blue();
+		r = color.red();
+		g = color.green();
+		b = color.blue();
 		a = stop.opacity * 255;
 		colors[gradient.Stops() - index] = Color(a, r, g, b);
 		positions[gradient.Stops() - index] = 1 - 2 * (stop.rampPoint * rad) / (double) maxDim;

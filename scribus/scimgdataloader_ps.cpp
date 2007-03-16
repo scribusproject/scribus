@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 //Added by qt3to4:
 #include <Q3CString>
+#include <Q3TextStream>
 #include "gsutil.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -66,7 +67,7 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn)
 				while (!ts.atEnd())
 				{
 					tmp = ts.readLine();
-					for (uint a = 2; a < tmp.length(); a += 2)
+					for (int a = 2; a < tmp.length(); a += 2)
 					{
 						bool ok;
 						ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
@@ -345,7 +346,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 							tmp = ts.readLine();
 							if (tmp.startsWith("%EndPhotoshop"))
 							{
-								QDataStream strPhot(psdata,QIODevice::ReadOnly);
+								QDataStream strPhot( &psdata, QIODevice::ReadOnly);
 								strPhot.setByteOrder( QDataStream::BigEndian );
 								PSDHeader fakeHeader;
 								Q3TextStream ts2(&BBox, QIODevice::ReadOnly);
@@ -357,7 +358,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								isPhotoshop = true;
 								break;
 							}
-							for (uint a = 2; a < tmp.length(); a += 2)
+							for (int a = 2; a < tmp.length(); a += 2)
 							{
 								bool ok;
 								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
@@ -374,7 +375,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						while (!ts.atEnd())
 						{
 							tmp = ts.readLine();
-							for (uint a = 2; a < tmp.length(); a += 2)
+							for (int a = 2; a < tmp.length(); a += 2)
 							{
 								bool ok;
 								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
@@ -449,7 +450,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 		{
 			bool missing = false;
 			QString missingF = "";
-			for (uint fo = 0; fo < FontListe.count(); fo++)
+			for (int fo = 0; fo < FontListe.count(); fo++)
 			{
 				if (!PrefsManager::instance()->appPrefs.AvailFonts.contains(FontListe[fo]))
 				{
@@ -747,9 +748,9 @@ void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, QString tmp)
 	ushort data;
 	unsigned long sum = 0;
     int quintet = 0;
-	for (uint c = 0; c < tmp.length(); c++)
+	for (int c = 0; c < tmp.length(); c++)
 	{
-		byte = uchar(QChar(tmp.at(c)));
+		byte = QChar(tmp.at(c)).cell();
 		if (byte >= '!' && byte <= 'u')
 		{
 			sum = sum * 85 + ((unsigned long)byte - '!');
@@ -1102,7 +1103,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 							break;
 						if (psDataType == 2)
 						{
-							for (uint a = 0; a < tmp.length(); a += 2)
+							for (int a = 0; a < tmp.length(); a += 2)
 							{
 								bool ok;
 								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
@@ -1232,7 +1233,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 							break;
 						if (psDataType == 2)
 						{
-							for (uint a = 0; a < tmp.length(); a += 2)
+							for (int a = 0; a < tmp.length(); a += 2)
 							{
 								bool ok;
 								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);

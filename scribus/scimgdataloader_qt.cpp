@@ -6,6 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qfile.h>
 #include <qfileinfo.h>
+#include <QByteArray>
+#include <QImageReader>
+#include <QList>
 #include "scimgdataloader_qt.h"
 
 ScImgDataLoader_QT::ScImgDataLoader_QT(void) : ScImgDataLoader()
@@ -16,8 +19,8 @@ ScImgDataLoader_QT::ScImgDataLoader_QT(void) : ScImgDataLoader()
 void ScImgDataLoader_QT::initSupportedFormatList(void)
 {
 	m_supportedFormats.clear();
-	QStringList fmtList = QImage::inputFormatList();
-	for (uint i = 0; i < fmtList.count(); i++)
+	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
+	for (int i = 0; i < fmtList.count(); i++)
 		m_supportedFormats.append( fmtList[i].lower() );
 }
 
