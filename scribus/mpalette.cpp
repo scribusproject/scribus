@@ -155,7 +155,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	NameGroupLayout = new Q3HBoxLayout( NameGroup->layout() );
 	NameGroupLayout->setAlignment( Qt::AlignTop );
 	NameEdit = new NameWidget(NameGroup);
-	NameEdit->setFocusPolicy(QWidget::ClickFocus);
+	NameEdit->setFocusPolicy(Qt::ClickFocus);
 	NameGroupLayout->addWidget( NameEdit );
 	pageLayout->addWidget( NameGroup );
 
@@ -870,8 +870,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBoxCM->setColumnLayout(0, Qt::Vertical );
 	GroupBoxCM->layout()->setSpacing( 2 );
 	GroupBoxCM->layout()->setMargin( 5 );
-	GroupBoxCM->setFrameShape( Q3Frame::NoFrame );
-	GroupBoxCM->setFrameShadow( Q3Frame::Plain );
+	GroupBoxCM->setFrameShape( Q3GroupBox::NoFrame );
+	GroupBoxCM->setFrameShadow( Q3GroupBox::Plain );
 	GroupBoxCMLayout = new Q3VBoxLayout( GroupBoxCM->layout() );
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
 	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
@@ -1127,8 +1127,10 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 	m_ScMW=mw;
 	QPoint p1 = mapToGlobal(pos());
 	QPoint p2 = m_ScMW->mapFromGlobal(p1);
-	reparent(m_ScMW, this->getWFlags(), p2);
-	
+	//Qt4 reparent(m_ScMW, this->getWFlags(), p2);
+	setParent(m_ScMW);
+	move(p2);
+
 	connect(this, SIGNAL(DocChanged()), m_ScMW, SLOT(slotDocCh()));
 	connect(this, SIGNAL(NewParStyle(int)), m_ScMW, SLOT(setNewParStyle(int)));
 	connect(this, SIGNAL(NewAlignment(int)), m_ScMW, SLOT(setNewAlignment(int)));
@@ -1579,19 +1581,19 @@ void Mpalette::SetCurItem(PageItem *i)
 	PageItem_TextFrame *i2=CurItem->asTextFrame();
 	if (i2!=0)
 	{
-		DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
+		DCol->setMaxValue(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 		DCol->setMinValue(1);
 		DCol->setValue(i2->Cols);
 		dGap->setMinValue(0);
 //		if (colgapLabel->getState())
 		if (colgapLabel->currentItem() == 0)
 		{
-			dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
+			dGap->setMaxValue(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0.0));
 			dGap->setValue(i2->ColGap*Umrech);
 		}
 		else
 		{
-			dGap->setMaxValue(QMAX((i2->width() / i2->Cols)*Umrech, 0));
+			dGap->setMaxValue(qMax((i2->width() / i2->Cols)*Umrech, 0.0));
 			dGap->setValue(i2->columnWidth()*Umrech);
 		}
 		DLeft->setValue(i2->textToFrameDistLeft()*Umrech);
@@ -2200,7 +2202,8 @@ void Mpalette::setBH(double x, double y)
 	{
 		ma.translate(static_cast<double>(Xpos->value()) / Umrech, static_cast<double>(Ypos->value()) / Umrech);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
-		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
+		// Qt4 dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
+		dp = QPoint(static_cast<int>(x), static_cast<int>(y)) * ma;
 		Width->setValue(dp.x()*Umrech);
 		Height->setValue(dp.y()*Umrech);
 	}
@@ -2250,16 +2253,16 @@ void Mpalette::setCols(int r, double g)
 		PageItem_TextFrame *i2=CurItem->asTextFrame();
 		if (i2!=0)
 		{
-			DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
+			DCol->setMaxValue(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 //			if (colgapLabel->getState())
 			if (colgapLabel->currentItem() == 0)
 			{
-				dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
+				dGap->setMaxValue(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0.0));
 				dGap->setValue(i2->ColGap*Umrech);
 			}
 			else
 			{
-				dGap->setMaxValue(QMAX((i2->width() / i2->Cols)*Umrech, 0));
+				dGap->setMaxValue(qMax((i2->width() / i2->Cols)*Umrech, 0.0));
 				dGap->setValue(i2->columnWidth()*Umrech);
 			}
 		}
@@ -2462,7 +2465,7 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 	case Qt::FlatCap:
 		LEndStyle->setCurrentItem(0);
 		break;
-	case SquareCap:
+	case Qt::SquareCap:
 		LEndStyle->setCurrentItem(1);
 		break;
 	case Qt::RoundCap:
@@ -3070,7 +3073,7 @@ void Mpalette::NewGap()
 			else
 				lineCorr = 0;
 			double newWidth = dGap->value() / Umrech;
-			double newGap = QMAX(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
+			double newGap = qMax(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0.0);
 			CurItem->ColGap = newGap;
 		}
 		m_ScMW->view->RefreshItem(CurItem);
@@ -3201,7 +3204,7 @@ void Mpalette::NewLSty()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	PenStyle c = Qt::SolidLine;
+	Qt::PenStyle c = Qt::SolidLine;
 	switch (LStyle->currentItem())
 	{
 	case 0:
@@ -3261,7 +3264,7 @@ void Mpalette::NewLJoin()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	PenJoinStyle c = Qt::MiterJoin;
+	Qt::PenJoinStyle c = Qt::MiterJoin;
 	switch (LJoinStyle->currentItem())
 	{
 	case 0:
@@ -3285,14 +3288,14 @@ void Mpalette::NewLEnd()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	PenCapStyle c = Qt::FlatCap;
+	Qt::PenCapStyle c = Qt::FlatCap;
 	switch (LEndStyle->currentItem())
 	{
 	case 0:
 		c = Qt::FlatCap;
 		break;
 	case 1:
-		c = SquareCap;
+		c = Qt::SquareCap;
 		break;
 	case 2:
 		c = Qt::RoundCap;
@@ -4268,14 +4271,14 @@ void Mpalette::HandleTLines()
 
 void Mpalette::installSniffer(MSpinBox *spinBox)
 {
-	const QObjectList* list = spinBox->children();
-	if (list)
+	const QList<QObject*> list = spinBox->children();
+	if (!list.isEmpty())
 	{
-		QObjectListIterator it(*list);
+		QListIterator<QObject*> it(list);
 		QObject *obj;
-		while ((obj = it.current()) != 0)
+		while (it.hasNext())
 		{
-			++it;
+			obj = it.next();
 			obj->installEventFilter(userActionSniffer);
 		}
 	}
