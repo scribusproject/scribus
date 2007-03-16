@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qcursor.h>
+#include <QApplication>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3PointArray>

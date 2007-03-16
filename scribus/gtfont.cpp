@@ -712,7 +712,7 @@ int gtFont::find(const QString& where, const QString& what)
 	if (index != -1)
 	{
 		if (index + realWhat.length() != where.length())
-			if (where[index + realWhat.length() + 1] != " ")
+			if (where[index + realWhat.length() + 1] != ' ')
 				index = -1;
 	}
 	return index;
