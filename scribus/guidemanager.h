@@ -104,6 +104,8 @@ public:
 	\retval uint page no */
 	uint pageNr() const { return currentPage->pageNr(); }
 
+	int currentPageIndex() { return tabWidget->currentPageIndex(); };
+
 private:
 	ScribusDoc* m_Doc;
 	//! \brief a reference to the current pages

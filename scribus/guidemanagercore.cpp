@@ -371,7 +371,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		if ((*it) >= 0 && (*it) <= m_page->height())
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	// highlight selected standards
-	if (ScCore->primaryMainWindow()->guidePalette->tabWidget->currentPageIndex() == 0
+	if (ScCore->primaryMainWindow()->guidePalette->currentPageIndex() == 0
 		   && m_page->pageNr() == ScCore->primaryMainWindow()->guidePalette->pageNr())
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
@@ -385,7 +385,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	}
 	// all auto
-	if (ScCore->primaryMainWindow()->guidePalette->tabWidget->currentPageIndex() == 1)
+	if (ScCore->primaryMainWindow()->guidePalette->currentPageIndex() == 1)
 		color = Qt::red;
 	else
 		color = doc->guidesSettings.guideColor;
@@ -526,7 +526,7 @@ double GuideManagerCore::closestVertLeft(double x)// const
 			closest = verticalAutoG[i];
 	}
 
-	if (m_page->Margins.kLeft < x && m_page->Margins.Left > closest)
+	if (m_page->Margins.Left < x && m_page->Margins.Left > closest)
 		closest = m_page->Margins.Left;
 	if (m_page->width() - m_page->Margins.Right < x && m_page->width() - m_page->Margins.Right > closest)
 		closest = m_page->width() - m_page->Margins.Right;
