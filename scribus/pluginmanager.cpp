@@ -10,9 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 
 #include <qdir.h>
-//Added by qt3to4:
-#include <Q3CString>
-#include <Q3ValueList>
 
 #include "scconfig.h"
 
@@ -121,7 +118,7 @@ void PluginManager::savePreferences()
 		prefs->set(it.data().pluginName, it.data().enableOnStartup);
 }
 
-Q3CString PluginManager::getPluginName(QString fileName)
+QString PluginManager::getPluginName(QString fileName)
 {
 	// Must return plug-in name. Note that this may be platform dependent;
 	// it's likely to need some adjustment for platform naming schemes.
@@ -139,7 +136,7 @@ Q3CString PluginManager::getPluginName(QString fileName)
 		{
 			qDebug("Invalid character in plugin name for %s; skipping",
 					fileName.local8Bit().data());
-			return Q3CString();
+			return QString();
 		}
 	return baseName.latin1();
 }
@@ -329,7 +326,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	return true;
 }
 
-bool PluginManager::DLLexists(Q3CString name, bool includeDisabled) const
+bool PluginManager::DLLexists(QString name, bool includeDisabled) const
 {
 	// the plugin name must be known
 	if (pluginMap.contains(name))
@@ -450,7 +447,7 @@ void PluginManager::disablePlugin(PluginData & pda)
 	pda.enabled = false;
 }
 
-Q3CString PluginManager::platformDllExtension()
+QString PluginManager::platformDllExtension()
 {
 #ifdef __hpux
 	// HP/UX
@@ -496,7 +493,7 @@ void PluginManager::languageChange()
 	}
 }
 
-ScPlugin* PluginManager::getPlugin(const Q3CString & pluginName, bool includeDisabled) const
+ScPlugin* PluginManager::getPlugin(const QString & pluginName, bool includeDisabled) const
 {
 	if (DLLexists(pluginName, includeDisabled))
 		return pluginMap[pluginName].plugin;
@@ -508,7 +505,7 @@ PluginManager & PluginManager::instance()
 	return (*ScCore->pluginManager);
 }
 
-const QString & PluginManager::getPluginPath(const Q3CString pluginName) const
+const QString & PluginManager::getPluginPath(const QString & pluginName) const
 {
 	// It is not legal to call this function without a valid
 	// plug in name.
@@ -516,7 +513,7 @@ const QString & PluginManager::getPluginPath(const Q3CString pluginName) const
 	return pluginMap[pluginName].pluginFile;
 }
 
-bool & PluginManager::enableOnStartup(const Q3CString pluginName)
+bool & PluginManager::enableOnStartup(const QString & pluginName)
 {
 	// It is not legal to call this function without a valid
 	// plug in name.
@@ -524,7 +521,7 @@ bool & PluginManager::enableOnStartup(const Q3CString pluginName)
 	return pluginMap[pluginName].enableOnStartup;
 }
 
-bool PluginManager::enabled(const Q3CString pluginName)
+bool PluginManager::enabled(const QString & pluginName)
 {
 	// It is not legal to call this function without a valid
 	// plug in name.
@@ -532,11 +529,11 @@ bool PluginManager::enabled(const Q3CString pluginName)
 	return pluginMap[pluginName].enabled;
 }
 
-Q3ValueList<Q3CString> PluginManager::pluginNames(
+QStringList PluginManager::pluginNames(
 		bool includeDisabled, const char* inherits) const
 {
 	// Scan the plugin map for plugins...
-	Q3ValueList<Q3CString> names;
+	QStringList names;
 	for (PluginMap::ConstIterator it = pluginMap.constBegin(); it != pluginMap.constEnd(); ++it)
 		if (includeDisabled || it.data().enabled)
 			// Only including plugins that inherit a named parent (if

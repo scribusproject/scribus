@@ -102,7 +102,7 @@ double gtWriter::getPreferredLineSpacing(double fontSize)
 
 void gtWriter::append(const QString& text)
 {
-	if (text == NULL)
+	if (text.isNull())
 		return;
 	if (text.length() == 0)
 		return;

@@ -8,9 +8,6 @@ for which a new license (GPL+exception) is in place.
 #define ABOUTPLUGINS_H
 
 #include "ui_aboutplugins.h"
-//Added by qt3to4:
-#include <Q3CString>
-#include <Q3ValueList>
 
 /*! \brief Displays info about pligins.
 This class implements only the non-GUI parts of the
@@ -32,7 +29,7 @@ class AboutPlugins : public QDialog, Ui::AboutPlugins
 
 	private:
 		//! \brief Map list entry IDs to plugin names
-		Q3ValueList<Q3CString> pluginNames;
+		QStringList pluginNames;
 		/*! \brief Convert string into its HTML safe representation
 		\param s string to process
 		\retval QString a string with changed lt/gt
