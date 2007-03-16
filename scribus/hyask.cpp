@@ -26,14 +26,14 @@ void WortEdit::keyPressEvent(QKeyEvent *k)
 		QLineEdit::keyPressEvent(k);
 	if (k->key() == Qt::Key_Delete)
 	{
-		if (cc == "-")
+		if (cc == '-')
 			QLineEdit::keyPressEvent(k);
 		setCursorPosition(p);
 	}
 	if ((k->key() == Qt::Key_Backspace) && (p != 0))
 	{
 		cc = text()[p-1];
-		if (cc == "-")
+		if (cc == '-')
 			QLineEdit::keyPressEvent(k);
 		setCursorPosition(p-1);
 	}

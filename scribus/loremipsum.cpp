@@ -153,27 +153,24 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	// reading lorems
 	QDir d(getLoremLocation(QString::null), "*.xml");
 
-	const QFileInfoList *list = d.entryInfoList();
-	QFileInfoListIterator it(*list);
-	QFileInfo *fi=0;
+	QFileInfoList list = d.entryInfoList();
+	QListIterator<QFileInfo> it(list);
+	QFileInfo fi;
 	langmgr=new LanguageManager();
 	langmgr->init(false);
-	
-	while ( (fi = it.current()) != 0 )
+
+	while (it.hasNext())
 	{
-		if (langmgr->getLangFromAbbrev(fi->baseName(), false).isEmpty())
-		{
-			++it;
+		fi = it.next();
+		if (langmgr->getLangFromAbbrev(fi.baseName(), false).isEmpty())
 			continue;
-		}
-		LoremParser *parser = new LoremParser(fi->fileName());
+		LoremParser *parser = new LoremParser(fi.fileName());
 		if (!parser->correct)
 		{
 			delete parser;
-			++it;
 			continue;
 		}
-		availableLorems[parser->name] = fi->fileName();
+		availableLorems[parser->name] = fi.fileName();
 		Q3ListViewItem *item = new Q3ListViewItem(loremList);
 		if (parser->name=="la")
 			item->setText(0,standardloremtext);
@@ -181,9 +178,8 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 			item->setText(0, langmgr->getLangFromAbbrev(parser->name, true));
 		new Q3ListViewItem(item, tr("Author:") + " " + parser->author);
 		new Q3ListViewItem(item, tr("Get More:") + " " + parser->url);
-		new Q3ListViewItem(item, tr("XML File:") + " " + fi->fileName());
+		new Q3ListViewItem(item, tr("XML File:") + " " + fi.fileName());
 		loremList->insertItem(item);
-		++it;
 		delete parser;
 	}
 

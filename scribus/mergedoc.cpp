@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <Q3VBoxLayout>
 
+#include <QApplication>
 #include "scconfig.h"
 #include "mergedoc.h"
 //#include "mergedoc.moc"

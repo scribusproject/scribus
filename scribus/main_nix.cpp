@@ -118,9 +118,9 @@ void defaultCrashHandler(int sig)
 		QString sigHdr=QObject::tr("Scribus Crash");
 		QString sigLine="-------------";
 		QString sigMsg=QObject::tr("Scribus crashes due to Signal #%1").arg(sig);
-		std::cout << sigHdr << std::endl;
-		std::cout << sigLine << std::endl;
-		std::cout << sigMsg << std::endl;
+		std::cout << sigHdr.toStdString() << std::endl;
+		std::cout << sigLine.toStdString() << std::endl;
+		std::cout << sigMsg.toStdString() << std::endl;
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();

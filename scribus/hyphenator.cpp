@@ -305,7 +305,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						for (i = 1; i < outs.length()-1; ++i)
 						{
 							QChar cht = outs[i];
-							if (cht == "-") 
+							if (cht == '-')
 								buffer[ii] = 1;
 							else
 								ii++;
