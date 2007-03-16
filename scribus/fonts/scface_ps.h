@@ -140,14 +140,14 @@ class ScFace_pfb : public ScFace_postscript
 			{
 				QString tmp3="";
 				QString tmp4 = "";
-				uint posi,cxxc=0;
+				int posi,cxxc=0;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
 					if ((bb[posi] == char(0x80)) && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
 						break;
 					str += bb[posi];
 				}
-				uint ulen;
+				int ulen;
 				if (posi+6 < bb.size()) 
 				{
 					ulen = bb[posi+2] & 0xff;
@@ -159,7 +159,7 @@ class ScFace_pfb : public ScFace_postscript
 						ulen = bb.size() - posi - 1;
 					char linebuf[80];
 					cxxc=0;
-					for (uint j = 0; j < ulen; ++j)
+					for (int j = 0; j < ulen; ++j)
 					{
 						unsigned char u=bb[posi];
 						linebuf[cxxc]=((u >> 4) & 15) + '0';
@@ -182,7 +182,7 @@ class ScFace_pfb : public ScFace_postscript
 					str += "\n";
 				}
 				posi += 6;
-				for (uint j = posi; j < bb.size(); ++j)
+				for (int j = posi; j < bb.size(); ++j)
 				{
 					if ((bb[j] == static_cast<char>(0x80)) && (j+1 < bb.size()) && (static_cast<int>(bb[j+1]) == 3))
 						break;
