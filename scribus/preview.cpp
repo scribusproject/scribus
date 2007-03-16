@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 //#include "preview.moc"
 #include <qimage.h>
 //Added by qt3to4:
+#include <QApplication>
+#include <QDesktopWidget>
 #include <Q3HBoxLayout>
 #include <QLabel>
 #include <QPixmap>
@@ -193,7 +195,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(3, 0, cp);
 		flagsVisible.insert("Black", cp);
-		for (uint sp = 0; sp < spots.count(); ++sp)
+		for (int sp = 0; sp < spots.count(); ++sp)
 		{
 			Table->setText(sp+4, 1, spots[sp]);
 			cp = new QCheckBox(this, "");
@@ -255,7 +257,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleLabel = new QLabel( tr("Scaling:"), this, "scaleLabel");
 	scaleBox = new QComboBox( true, this, "unitSwitcher" );
 	scaleBox->setEditable(false);
-	scaleBox->setFocusPolicy(QWidget::NoFocus);
+	scaleBox->setFocusPolicy(Qt::NoFocus);
 	scaleBox->insertItem("50%");
 	scaleBox->insertItem("100%");
 	scaleBox->insertItem("150%");
@@ -662,7 +664,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	args3.append( "-c" );
 	cmd = "<< /SeparationColorNames ";
 	QString allSeps ="[ /Cyan /Magenta /Yellow /Black ";
-	for (uint sp = 0; sp < spots.count(); ++sp)
+	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		allSeps += "("+spots[sp]+") ";
 	}
@@ -691,7 +693,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	sepInfo.close();
 	QString currSeps = "";
 	uint spc = 0;
-	for (uint sp = 0; sp < spots.count(); ++sp)
+	for (int sp = 0; sp < spots.count(); ++sp)
 	{
 		currSeps += "("+spots[sp]+") ";
 		spc++;
@@ -1064,7 +1066,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	}
 	else
 		Bild.convertFromImage(image);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 	getUserSelection(Seite);
 	return Bild;
 }
@@ -1107,6 +1109,6 @@ void PPreview::getUserSelection(int page)
 void PPreview::imageLoadError(QPixmap &Bild, int page)
 {
 	Bild.resize(1,1);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 	getUserSelection(page);
 }
