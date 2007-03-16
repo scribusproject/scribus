@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <math.h>
 #include <qregexp.h>
 //Added by qt3to4:
-#include <Q3MemArray>
+#include <QVector>
 
 #include "util.h"
 
@@ -35,8 +35,8 @@ using namespace std;
 
 FPointArray FPointArray::copy() const
 { 
-	FPointArray tmp; 
-	tmp.duplicate(*this);
+	FPointArray tmp;
+	tmp << *this;
 	tmp.count = count;
 	tmp.capacity = capacity;
 	return tmp; 
@@ -45,7 +45,7 @@ FPointArray FPointArray::copy() const
 
 FPointArray & FPointArray::operator=( const FPointArray &a )
 { 
-	assign( a );
+	QVector<FPoint>::operator=(a);
 	count = a.count; 
 	capacity = a.capacity;
 	svgState = NULL;
@@ -64,20 +64,26 @@ bool FPointArray::resize(uint newCount)
 		count = newCount;
 		return true;
 	}
-	else if (newCount <= 2*capacity && Q3MemArray<FPoint>::resize(2*capacity)) {
-		capacity *= 2;
-		count = newCount;
-		return true;
-	}
-	else if (Q3MemArray<FPoint>::resize(newCount)) {
-		capacity = newCount;
-		count = newCount;
-		return true;
+	else if (newCount <= 2*capacity) {
+		QVector<FPoint>::resize(2*capacity);
+		if( size() == 2*capacity )
+		{
+			capacity *= 2;
+			count = newCount;
+			return true;
+		}
 	}
 	else {
-		sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
-		return false;
+		QVector<FPoint>::resize(newCount);
+		if( size() == newCount )
+		{
+			capacity = newCount;
+			count = newCount;
+			return true;
+		}
 	}
+	sDebug(QString("Failed resize(): count=%1 capacity=%2 newCount=%3").arg(count).arg(capacity).arg(newCount));
+	return false;
 }
 
 
@@ -450,7 +456,7 @@ bool FPointArray::operator==(const FPointArray &rhs) const
 {
 	return count == rhs.count && 
 	       capacity == rhs.capacity &&
-	       Q3MemArray<FPoint>::operator==(rhs);
+	       QVector<FPoint>::operator==(rhs);
 }
 
 bool FPointArray::operator!=(const FPointArray &rhs) const
@@ -459,7 +465,7 @@ bool FPointArray::operator!=(const FPointArray &rhs) const
 		return true;
 	if (capacity != rhs.capacity)
 		return true;
-	return Q3MemArray<FPoint>::operator!=(rhs);
+	return QVector<FPoint>::operator!=(rhs);
 }
 
 
