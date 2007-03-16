@@ -63,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3simplerichtext.h>
 #include <qxml.h>
 #include <qcursor.h>
+#include <QApplication>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
@@ -250,7 +251,7 @@ void TextBrowser::overLink(const QString &link)
 	if ((link.isNull()) || (link.isEmpty()))
 		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	else
-		qApp->setOverrideCursor(QCursor(PointingHandCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::PointingHandCursor), true);
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
@@ -798,8 +799,8 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 		if (f.open(QIODevice::ReadOnly))
 		{
 			Q3TextStream stream(&f);
-			QString str = stream.read().lower();
-			int cnt = str.contains(searchingEdit->text().lower());
+			QString str = stream.read();
+			int cnt = str.count(searchingEdit->text(), Qt::CaseInsensitive);
 			if (cnt > 0)
 			{
 				// the remove() hack is here for itemSelected() handling
