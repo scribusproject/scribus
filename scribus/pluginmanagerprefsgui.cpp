@@ -57,8 +57,8 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 	checkOff = getQCheckBoxPixmap(false, pluginsList->paletteBackgroundColor());
 	// Get a list of all internal plugin names, including those of disabled
 	// plugins, then loop over them and add each one to the plugin list.
-	Q3ValueList<Q3CString> pluginNames(pluginManager.pluginNames(true));
-	for (Q3ValueList<Q3CString>::Iterator it = pluginNames.begin(); it != pluginNames.end(); ++it)
+	QStringList pluginNames(pluginManager.pluginNames(true));
+	for (QStringList::Iterator it = pluginNames.begin(); it != pluginNames.end(); ++it)
 	{
 		Q3ListViewItem *plugItem = new Q3ListViewItem(pluginsList);
 		// Get the plugin, even if it's loaded but disabled

@@ -552,7 +552,7 @@
           </widget>
          </item>
          <item row="1" column="0" >
-          <widget class="QCheckBox" name="isVisible" >
+          <widget class="QCheckBox" name="isVisibleCheck" >
            <property name="text" >
             <string>Image Visible</string>
            </property>
@@ -643,15 +643,15 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>Q3IconView</class>
-   <extends>Q3Frame</extends>
-   <header>q3iconview.h</header>
-  </customwidget>
-  <customwidget>
    <class>Q3GroupBox</class>
    <extends>QGroupBox</extends>
    <header>Qt3Support/Q3GroupBox</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3IconView</class>
+   <extends>Q3Frame</extends>
+   <header>q3iconview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

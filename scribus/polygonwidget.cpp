@@ -24,7 +24,7 @@ using namespace std;
 PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QWidget( parent )
 {
 	Pre = new QPixmap(101, 101);
-	Pre->fill(white);
+	Pre->fill(Qt::white);
 	PFactor = polyF;
 	PolygonPropsLayout = new Q3VBoxLayout( this, 10, 5, "PolygonPropsLayout");
 	Layout11 = new Q3HBoxLayout( 0, 0, 5, "Layout11");
@@ -55,8 +55,8 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Slider2->setMinValue( -180 );
 	Slider2->setMaxValue( 180 );
 	Slider2->setValue(static_cast<int>(polyR));
-	Slider2->setOrientation( QSlider::Horizontal );
-	Slider2->setTickmarks( QSlider::Right );
+	Slider2->setOrientation( Qt::Horizontal );
+	Slider2->setTickmarks( QSlider::TicksRight );
 	Layout8_2->addWidget( Slider2 );
 	Layout9_2->addLayout( Layout8_2 );
 	Layout10->addLayout( Layout9_2 );
@@ -82,8 +82,8 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Slider1 = new QSlider( this, "Slider1" );
 	Slider1->setMinValue( -100 );
 	Slider1->setMaxValue( 100 );
-	Slider1->setOrientation( QSlider::Horizontal );
-	Slider1->setTickmarks( QSlider::Right );
+	Slider1->setOrientation( Qt::Horizontal );
+	Slider1->setTickmarks(QSlider::TicksRight);
 	Slider1->setValue(polyFd);
 	if (polyFd == 0)
 		Konvex->setChecked(false);
@@ -97,7 +97,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Preview->setFrameShape( QLabel::Panel );
 	Preview->setFrameShadow( QLabel::Sunken );
 	Preview->setLineWidth(2);
-	Preview->setAlignment(AlignCenter);
+	Preview->setAlignment(Qt::AlignCenter);
 	Preview->setPixmap(*Pre);
 	Layout11->addWidget( Preview );
 	PolygonPropsLayout->addLayout( Layout11 );
@@ -171,10 +171,10 @@ void PolygonWidget::UpdatePreView()
 		Slider1->setEnabled(false);
 		Faktor->setEnabled(false);
 	}
-	Pre->fill(white);
+	Pre->fill(Qt::white);
 	QPainter p;
 	p.begin(Pre);
-	p.setBrush(NoBrush);
+	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
 	Q3PointArray pp = RegularPolygon(100, 100, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value());
 	QRect br = pp.boundingRect();
@@ -188,7 +188,7 @@ void PolygonWidget::UpdatePreView()
 		QMatrix ma;
 		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
 		ma.scale(sca, sca);
-		pp = ma * pp;
+		pp = pp * ma;
 	}
 	p.drawPolygon(pp);
 	p.end();

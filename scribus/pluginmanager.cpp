@@ -170,7 +170,7 @@ void PluginManager::initPlugs()
 	Q_ASSERT(!pluginMap.count());
 	QString libPattern = QString("*.%1*").arg(platformDllExtension());
 	QMap<QString,int> allPlugs;
-	uint loaded = 0;
+	int loaded = 0;
 	uint changes = 1;
 	QStringList failedPlugs; // output string for warn dialog
 

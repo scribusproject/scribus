@@ -64,7 +64,7 @@ class PluginManagerPrefsGui : public PrefsPanel
 		};
 
 		//! \brief Store current settings about each plug-in
-		QMap<Q3CString,PluginSettings> pluginSettings;
+		QMap<QString,PluginSettings> pluginSettings;
 };
 
 #endif

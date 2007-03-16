@@ -65,7 +65,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu)
 	connect(imageViewArea, SIGNAL(currentChanged(Q3IconViewItem *)), this, SLOT(imageSelected(Q3IconViewItem *)));
 	connect(imageViewArea, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(imageSelected(Q3IconViewItem*)));
 	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
-	connect(isVisible, SIGNAL(clicked()), this, SLOT(visiblePic()));
+	connect(isVisibleCheck, SIGNAL(clicked()), this, SLOT(visiblePic()));
 	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
 	connect(selectButton, SIGNAL(clicked()), this, SLOT(SelectPic()));
 	connect(searchButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
@@ -89,7 +89,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.drawRect(12, 12, 104, 104);
 	if (item->PicAvail)
 	{
-		QImage im2 = item->pixm.smoothScale(104, 104, QImage::ScaleMin);
+		QImage im2 = item->pixm.smoothScale(104, 104, Qt::ScaleMin);
 		p.drawImage((104 - im2.width()) / 2 + 12, (104 - im2.height()) / 2 + 12, im2);
 	}
 	else
@@ -211,7 +211,7 @@ void PicStatus::imageSelected(Q3IconViewItem *ite)
 			displayScale->setText(QString("%1 x %2 %").arg(currItem->imageXScale() * 100 / 72.0 * currItem->pixm.imgInfo.xres, 5, 'f', 1).arg(currItem->imageYScale() * 100 / 72.0 * currItem->pixm.imgInfo.yres, 5, 'f', 1));
 			displayPrintSize->setText(QString("%1 x %2%3").arg(currItem->OrigW * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(currItem->OrigH * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(unitGetSuffixFromIndex(m_Doc->unitIndex())));
 			isPrinting->setChecked(currItem->printEnabled());
-			isVisible->setChecked(currItem->imageShown());
+			isVisibleCheck->setChecked(currItem->imageShown());
 			buttonEdit->setEnabled(true);
 			effectsButton->setEnabled(true);
 			buttonLayers->setEnabled(true);
@@ -258,7 +258,7 @@ void PicStatus::visiblePic()
 {
 	if (currItem != NULL)
 	{
-		currItem->setImageShown(isVisible->isChecked());
+		currItem->setImageShown(isVisibleCheck->isChecked());
 		emit refreshItem(currItem);
 	}
 }

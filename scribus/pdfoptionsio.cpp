@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include "qapplication.h"
+#include <QTextStream>
 //Added by qt3to4:
 #include <Q3ValueList>
 
@@ -39,8 +40,8 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 			.arg(qApp->translate("QFile",f.errorString()));
 		return false;
 	}
-	Q3TextStream ts(&f);
-	ts.setEncoding(Q3TextStream::UnicodeUTF8);
+	QTextStream ts(&f);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error = QString::null;
@@ -58,8 +59,8 @@ bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 	QString xml = buildXMLString();
 	if (xml.isNull())
 		return false;
-	Q3TextStream ts(&outDevice);
-	ts.setEncoding(Q3TextStream::UnicodeUTF8);
+	QTextStream ts(&outDevice);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error = QString::null;
