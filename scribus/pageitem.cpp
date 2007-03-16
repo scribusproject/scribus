@@ -296,7 +296,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	patternRotation = 0;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
-	PLineArt = PenStyle(m_Doc->toolSettings.dLineArt);
+	PLineArt = Qt::PenStyle(m_Doc->toolSettings.dLineArt);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
 	Select = false;
@@ -1121,7 +1121,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						for (int it = ml.size()-1; it > -1; it--)
 						{
 							struct SingleLine& sl = ml[it];
-							if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
+							// Qt4 if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
+							if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 							{
 								SetFarbe(&tmp, sl.Color, sl.Shade);
 								p->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash), static_cast<Qt::PenCapStyle>(sl.LineEnd), static_cast<Qt::PenJoinStyle>(sl.LineJoin));
@@ -1139,7 +1140,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(view->scale(), 1));
+		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
 		if (!isGroupControl)
 		{
 			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
@@ -1161,7 +1162,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						tclip.resize(2);
 						tclip.setPoint(0, np);
 						tclip.setPoint(1, np);
-						for (uint a = 1; a < Clip.size(); ++a)
+						for (int a = 1; a < Clip.size(); ++a)
 						{
 							np = FPoint(Clip.point(a));
 							tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
@@ -1178,7 +1179,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::lightGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setupPolygon(&ContourLine);
 			p->strokePath();
 		}
@@ -1342,8 +1343,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	p.rotate(Rot);
 	if (Sizing)
 	{
-		p.setRasterOp(XorROP);
-		p.setBrush(NoBrush);
+// Qt4		p.setRasterOp(XorROP);
+		p.setBrush(Qt::NoBrush);
 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawRect(0, 0, static_cast<int>(OldB), static_cast<int>(OldH));
 		p.drawRect(0, 0, static_cast<int>(Width), static_cast<int>(Height));
@@ -1366,10 +1367,10 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 					else
 						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					pr.setBrush(NoBrush);
+					pr.setBrush(Qt::NoBrush);
 					int lw2 = 1;
 					int lw = 1;
-					PenCapStyle le = Qt::FlatCap;
+					Qt::PenCapStyle le = Qt::FlatCap;
 					if (NamedLStyle.isEmpty())
 					{
 						lw2 = qRound(m_lineWidth * sc  / 2.0);
@@ -1424,7 +1425,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				else
 				{
 					p.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					p.setBrush(NoBrush);
+					p.setBrush(Qt::NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
 					if (m_Doc->m_Selection->count() == 1)
 					{
@@ -1554,7 +1555,7 @@ QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
 {
 	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
 	retImg.fill( qRgba(255, 255, 255, 0) );
-	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1.0, 0);
+	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(1.0);
 	Q3PtrStack<PageItem> groupStack;
 	Q3PtrStack<PageItem> groupClips;
@@ -1895,12 +1896,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if (style.underlineWidth() != -1)
 					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -2048,12 +2049,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if (style.strikethruWidth() != -1)
 					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -3165,7 +3166,7 @@ void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
 
 void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 {
-	PenStyle ps = static_cast<Qt::PenStyle>(state->getInt("OLD_STYLE"));
+	Qt::PenStyle ps = static_cast<Qt::PenStyle>(state->getInt("OLD_STYLE"));
 	if (!isUndo)
 		ps = static_cast<Qt::PenStyle>(state->getInt("NEW_STYLE"));
 	select();
@@ -3174,7 +3175,7 @@ void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
 
 void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 {
-	PenCapStyle pcs = static_cast<Qt::PenCapStyle>(state->getInt("OLD_STYLE"));
+	Qt::PenCapStyle pcs = static_cast<Qt::PenCapStyle>(state->getInt("OLD_STYLE"));
 	if (!isUndo)
 		pcs = static_cast<Qt::PenCapStyle>(state->getInt("NEW_STYLE"));
 	select();
@@ -3183,7 +3184,7 @@ void PageItem::restoreLineEnd(SimpleState *state, bool isUndo)
 
 void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 {
-	PenJoinStyle pjs = static_cast<Qt::PenJoinStyle>(state->getInt("OLD_STYLE"));
+	Qt::PenJoinStyle pjs = static_cast<Qt::PenJoinStyle>(state->getInt("OLD_STYLE"));
 	if (!isUndo)
 		pjs = static_cast<Qt::PenJoinStyle>(state->getInt("NEW_STYLE"));
 	select();
@@ -3952,7 +3953,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		if ((pixm.imgInfo.colorspace == 3) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
 		{
 			QString efVal = "";
-			for (uint cc = 0; cc < pixm.imgInfo.duotoneColors.count(); cc++)
+			for (int cc = 0; cc < pixm.imgInfo.duotoneColors.count(); cc++)
 			{
 				if (!m_Doc->PageColors.contains(pixm.imgInfo.duotoneColors[cc].Name))
 					m_Doc->PageColors.insert(pixm.imgInfo.duotoneColors[cc].Name, pixm.imgInfo.duotoneColors[cc].Color);
@@ -4197,7 +4198,7 @@ void PageItem::setRedrawBounding()
 	BoundingW = bw - BoundingX;
 	BoundingH = bh - BoundingY;
 	if (asLine())
-		BoundingH = QMAX(BoundingH, 1);
+		BoundingH = qMax(BoundingH, 1.0);
 }
 
 void PageItem::updateGradientVectors()
@@ -4272,13 +4273,13 @@ void PageItem::setPolyClip(int up, int down)
 	QPoint np, np2;
 	Q3PointArray cl, cl1, cl2;
 	cl = FlattenPath(PoLine, Segments);
-	for (uint a = 0; a < cl.size()-1; ++a)
+	for (int a = 0; a < cl.size()-1; ++a)
 	{
 		rot = xy2Deg(cl.point(a+1).x()-cl.point(a).x(),cl.point(a+1).y()-cl.point(a).y());
 		QMatrix ma;
 		ma.rotate(rot);
-		np = ma*QPoint(0, -upval);
-		np2 = ma*QPoint(0, -downval);
+		np = QPoint(0, -upval) * ma;
+		np2 = QPoint(0, -downval) * ma;
 		cl1.resize(cl1.size()+1);
 		cl1.setPoint(cl1.size()-1, np+cl.point(a));
 		cl1.resize(cl1.size()+1);
@@ -4497,7 +4498,7 @@ void PageItem::convertClip()
 		PoLine.resize(2);
 		PoLine.setPoint(0, np);
 		PoLine.setPoint(1, np);
-		for (uint a = 1; a < Clip.size(); ++a)
+		for (int a = 1; a < Clip.size(); ++a)
 		{
 			np = FPoint(Clip.point(a));
 			PoLine.putPoints(PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());

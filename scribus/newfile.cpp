@@ -132,10 +132,10 @@ void NewDoc::createNewDocPage()
 	layoutsView->setArrangement(Q3IconView::LeftToRight);
 	layoutsView->setItemsMovable(false);
 	layoutsView->setSorting( false );
-	layoutsView->setFocusPolicy(QWidget::NoFocus);
+	layoutsView->setFocusPolicy(Qt::NoFocus);
 	layoutsView->setSelectionMode(Q3IconView::Single);
 	layoutsView->clear();
-	for (uint pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
+	for (int pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
 	{
 		Q3IconViewItem *ic;
 		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
@@ -303,15 +303,15 @@ void NewDoc::createOpenDocPage()
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
-	QObjectList *l = fileDialog->queryList("QPushButton");
-	QObjectListIt it(*l);
+	QList<QObject*> l = fileDialog->queryList("QPushButton");
+	QListIterator<QObject*> it(l);
 	QObject *obj;
-	while ((obj = it.current()) != 0)
+	while (it.hasNext())
 	{
-		++it;
+		obj = it.next();
 		((QPushButton*)obj)->hide();
 	}
-	delete l;
+
 	QPoint point = QPoint(0,0);
 	fileDialog->reparent(openDocFrame, point);
 	openDocLayout->addWidget(fileDialog);

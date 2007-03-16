@@ -780,7 +780,7 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad)
 	return ScColorEngine::getShadeColorProof(col, m_Doc, shad).name();
 }
 
-QString SVGExPlug::GetMultiStroke(struct Qt::TextSingleLine *sl, PageItem *Item)
+QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade)+"; ";

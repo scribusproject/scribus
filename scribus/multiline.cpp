@@ -367,7 +367,7 @@ void MultiLine::NewLEnd()
 		c = Qt::FlatCap;
 		break;
 	case 1:
-		c = SquareCap;
+		c = Qt::SquareCap;
 		break;
 	case 2:
 		c = Qt::RoundCap;

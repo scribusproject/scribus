@@ -591,7 +591,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				while(!MuLn.isNull())
 				{
 					QDomElement MuL = MuLn.toElement();
-					struct Qt::TextSingleLine sl;
+					struct SingleLine sl;
 					sl.Color = MuL.attribute("Color");
 					sl.Dash = MuL.attribute("Dash").toInt();
 					sl.LineEnd = MuL.attribute("LineEnd").toInt();
