@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <Q3HBoxLayout>
+#include <QDialog>
 #include <QLabel>
 
-class QDialog;
 class QLabel;
 class QLayout;
 class QPushbutton;

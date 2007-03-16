@@ -12,13 +12,12 @@ for which a new license (GPL+exception) is in place.
 #include <QDropEvent>
 #include <QMouseEvent>
 #include <Q3ValueList>
+#include <Q3Table>
 #include <QKeyEvent>
 #include "scribusapi.h"
 
-class Q3Table;
 class PageItem;
 class CharZoom;
-
 
 //! \brief A special type for character classes
 typedef Q3ValueList<uint> CharClassDef;

@@ -2,6 +2,7 @@
 #include <Q3VBoxLayout>
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
+#include <QDialog>
 #include <QLabel>
 /*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
@@ -12,12 +13,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef DELCOLOR_H
 #define DELCOLOR_H
 
-class QDialog;
 class QLayout;
 class QLabel;
 class QPushbutton;
 class ColorCombo;
 
+#include <QDialog>
 #include "scribusapi.h"
 
 class SCRIBUS_API DelColor : public QDialog
