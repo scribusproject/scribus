@@ -1,4 +1,3 @@
-$
 #include "saxiohelper.h"
 #include "saxio.h"
 #include "scfonts.h"
