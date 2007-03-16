@@ -63,7 +63,7 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
 			if (qcti!=NULL)
 			{
-				uint index=qcti->currentItem();
+				int index=qcti->currentItem();
 				if (index<relationshipsData.count())
 					localAttributes[row].relationship=relationshipsData[index];
 			}

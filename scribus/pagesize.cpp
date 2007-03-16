@@ -222,6 +222,6 @@ void PageSize::printSizeList()
 {
 	PageSizeInfoMap::Iterator it;
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
-		std::cout << it.key().leftJustify(6) << ": " << it.data().width << " x " << it.data().height << ",  " << it.data().width*unitGetRatioFromIndex(it.data().pageUnitIndex) << " x " << it.data().height*unitGetRatioFromIndex(it.data().pageUnitIndex) << ",  " << it.data().trSizeName << std::endl;
+		std::cout << it.key().leftJustify(6).toStdString() << ": " << it.data().width << " x " << it.data().height << ",  " << it.data().width*unitGetRatioFromIndex(it.data().pageUnitIndex) << " x " << it.data().height*unitGetRatioFromIndex(it.data().pageUnitIndex) << ",  " << it.data().trSizeName.toStdString() << std::endl;
 }
 

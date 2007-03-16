@@ -32,6 +32,13 @@ class PageItemAttributes : public QDialog, Ui::PageItemAttributes
 		virtual void clearEntries();
 		virtual void copyEntry();
 		virtual void okClicked();
+
+	private:
+		ObjAttrVector localAttributes;
+		ObjAttrVector localDocAttributes;
+		QStringList relationships;
+		QStringList relationshipsData;
+		QStringList nameList;
 };
 
 #endif
