@@ -1303,10 +1303,10 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	//Draw the grid lines
 	if (Doc->guidesSettings.gridShown)
 	{
-		double lowerBx = QMAX(clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset(), 0);
-		double lowerBy = QMAX(clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset(), 0);
-		double highBx = QMIN(lowerBx + clip.width() / Scale, pageWidth);
-		double highBy = QMIN(lowerBy + clip.height() / Scale, pageHeight);
+		double lowerBx = qMax(clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset(), 0);
+		double lowerBy = qMax(clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset(), 0);
+		double highBx = qMin(lowerBx + clip.width() / Scale, pageWidth);
+		double highBy = qMin(lowerBy + clip.height() / Scale, pageHeight);
 		if (Scale > 0.49)
 		{
 			double i,start;
@@ -1316,13 +1316,13 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
 			{
-				p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+				p->drawLine(FPoint(qMax(lowerBx, 0), b), FPoint(qMin(pageWidth, highBx), b));
 			}
 			start=floor(lowerBx/i);
 			start*=i;
 			for (double b = start; b <= highBx; b+=i)
 			{
-				p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+				p->drawLine(FPoint(b, qMax(lowerBy, 0)), FPoint(b, qMin(pageHeight, highBy)));
 			}
 			i = Doc->guidesSettings.minorGrid;
 			p->setPen(Doc->guidesSettings.minorColor, lineWidth, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1330,13 +1330,13 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 			start*=i;
 			for (double b = start; b <= highBy; b+=i)
 			{
-				p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+				p->drawLine(FPoint(qMax(lowerBx, 0), b), FPoint(qMin(pageWidth, highBx), b));
 			}
 			start=floor(lowerBx/i);
 			start*=i;
 			for (double b = start; b <= highBx; b+=i)
 			{
-				p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+				p->drawLine(FPoint(b, qMax(lowerBy, 0)), FPoint(b, qMin(pageHeight, highBy)));
 			}
 		}
 	}
@@ -3900,9 +3900,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						scx = scx != scy ? scx / scy : 1.0;
 						if (currItem->itemText.length() != 0)
 						{
-//							currItem->setFontSize(QMAX(qRound(currItem->fontSize() * scy), 1));
+//							currItem->setFontSize(qMax(qRound(currItem->fontSize() * scy), 1));
 //							currItem->setLineSpacing(((currItem->fontSize() / 10.0)* static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0));
-//							currItem->TxtScale = QMIN(QMAX(qRound(currItem->TxtScale * scx), 25), 400);
+//							currItem->TxtScale = qMin(qMax(qRound(currItem->TxtScale * scx), 25), 400);
 /*							Doc->currTextScale = currItem->TxtScale;
 							Doc->CurrFontSize = currItem->fontSize();
 							Doc->CurrTextBase = currItem->TxtBase;
@@ -3927,8 +3927,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 #ifndef NLS_PROTO
 							for (int aa = 0; aa < currItem->itemText.length(); ++aa)
 							{
-								currItem->itemText.item(aa)->setFontSize(QMAX(qRound(currItem->itemText.item(aa)->fontSize()*scy), 1));
-								currItem->itemText.item(aa)->setScaleH(QMAX(QMIN(qRound(currItem->itemText.item(aa)->scaleH()*scx), 4000), 100));
+								currItem->itemText.item(aa)->setFontSize(qMax(qRound(currItem->itemText.item(aa)->fontSize()*scy), 1));
+								currItem->itemText.item(aa)->setScaleH(qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH()*scx), 4000), 100));
 							}
 #endif
 						}
@@ -4203,7 +4203,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.end();
 			normalizeSelectionRect();
 			FPoint nx = translateToDoc(Mxp*sc, Myp*sc);
-			setScale(visibleWidth() / static_cast<double>(QMAX(abs(SeRx-Mxp), 1)));
+			setScale(visibleWidth() / static_cast<double>(qMax(abs(SeRx-Mxp), 1)));
 			slotDoZoom();
 			SetCPo(nx.x(), nx.y());
 			if (sc == Scale)
@@ -4281,7 +4281,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		else
 		{
 		Doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
-//		currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+//		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
 		Doc->AdjustItemSize(currItem);
 		currItem->Sizing = ssiz;
 		currItem->ContourLine = currItem->PoLine.copy();
@@ -4305,7 +4305,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				Doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-//				currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
+//				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
 				Doc->AdjustItemSize(currItem);
 				currItem->ContourLine = currItem->PoLine.copy();
 			}
@@ -5754,7 +5754,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								currItem->ClipEdited = true;
 								edited = true;
 								Doc->EditClipMode = 0;
-								currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
+								currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
 								emit PolyOpen();
 							}
 						}
@@ -6449,7 +6449,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->MoveItem(0, npf2.y(), currItem);
 			}
 			Doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
-			currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+			currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
 			currItem->paintObj();
 			break;
 		case modeInsertPDFButton:
@@ -6760,18 +6760,18 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 // 			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
 // 			for (uint pc = 0; pc < 4; ++pc)
 // 			{
-// 				minx = QMIN(minx, pb.point(pc).x());
-// 				miny = QMIN(miny, pb.point(pc).y());
-// 				maxx = QMAX(maxx, pb.point(pc).x());
-// 				maxy = QMAX(maxy, pb.point(pc).y());
+// 				minx = qMin(minx, pb.point(pc).x());
+// 				miny = qMin(miny, pb.point(pc).y());
+// 				maxx = qMax(maxx, pb.point(pc).x());
+// 				maxy = qMax(maxy, pb.point(pc).y());
 // 			}
 // 		}
 // 		else
 // 		{
-// 			minx = QMIN(minx, currItem->xPos());
-// 			miny = QMIN(miny, currItem->yPos());
-// 			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
-// 			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+// 			minx = qMin(minx, currItem->xPos());
+// 			miny = qMin(miny, currItem->yPos());
+// 			maxx = qMax(maxx, currItem->xPos() + currItem->width());
+// 			maxy = qMax(maxy, currItem->yPos() + currItem->height());
 // 		}
 // 	}
 // 	GroupX = minx;
@@ -6886,10 +6886,10 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 	fpNew.map(matrix);
 	if (dx < 8.0) dx = 8.0;
 	if (dy < 8.0) dy = 8.0;
-	int grl = (int) floor( QMIN(fpNew.point(0).x(), fpNew.point(1).x()) - dx );
-	int grr = (int) ceil ( QMAX(fpNew.point(0).x(), fpNew.point(1).x()) + dx );
-	int grb = (int) ceil ( QMAX(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
-	int grt = (int) floor( QMIN(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
+	int grl = (int) floor( qMin(fpNew.point(0).x(), fpNew.point(1).x()) - dx );
+	int grr = (int) ceil ( qMax(fpNew.point(0).x(), fpNew.point(1).x()) + dx );
+	int grb = (int) ceil ( qMax(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
+	int grt = (int) floor( qMin(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
 	rect |= QRect(grl, grt, grr-grl, grb-grt);
 	updateContents(rect);
 }
@@ -7660,11 +7660,11 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 // 	/*
 // 	if (!currItem->asLine())
 // 	{
-// 		newX = QMAX(newX, 1);
-// 		newY = QMAX(newY, 1);
+// 		newX = qMax(newX, 1);
+// 		newY = qMax(newY, 1);
 // 	}
 // 	*/
-// 	int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
+// 	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 // 	QWMatrix ma;
 // 	ma.rotate(currItem->rotation());
 // 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
@@ -7684,7 +7684,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 // 			moveY=0.0;
 // 		Doc->MoveItem(moveX, moveY, currItem);
 // 	}
-// 	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
+// 	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(),currItem->height())/2));
 // 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!Doc->EditClip))
 // 	{
 // 		currItem->AdjustPictScale();
@@ -7900,14 +7900,14 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 						if (currItem->NamedLStyle.isEmpty())
 						{
 							lw2 = qRound(currItem->lineWidth()  / 2.0);
-							lw = qRound(QMAX(currItem->lineWidth(), 1.0));
+							lw = qRound(qMax(currItem->lineWidth(), 1.0));
 							le = currItem->PLineEnd;
 						}
 						else
 						{
 							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
 							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
+							lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 						}
 						if (le != Qt::FlatCap)
@@ -7945,15 +7945,15 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 						PenCapStyle le = Qt::FlatCap;
 						if (currItem->NamedLStyle.isEmpty())
 						{
-							lw2 = qRound(QMAX(currItem->lineWidth()  / 2.0, 1.0));
-							lw = qRound(QMAX(currItem->lineWidth(), 1.0));
+							lw2 = qRound(qMax(currItem->lineWidth()  / 2.0, 1.0));
+							lw = qRound(qMax(currItem->lineWidth(), 1.0));
 							le = currItem->PLineEnd;
 						}
 						else
 						{
 							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
 							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-							lw = qRound(QMAX(ml[ml.size()-1].Width, 1.0));
+							lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 						}
 						if (le != Qt::FlatCap)
@@ -8106,7 +8106,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 		h -= g;
 		FPoint h1(h.x(), h.y(), 0, 0, 0, scx, scy);
 		if (bb->Groups.count() != 0)				// change the LineWidth only when the item is within a real Group
-			bb->setLineWidth(QMAX(bb->lineWidth()*((scx+scy)/2), 0.01));
+			bb->setLineWidth(qMax(bb->lineWidth()*((scx+scy)/2), 0.01));
 		if (bb->itemType() == PageItem::Line)
 		{
 			bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
@@ -8145,12 +8145,12 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 		if (scaleText)
 		{
 #ifndef NLS_PROTO
-//			bb->setFontSize(QMAX(qRound(bb->fontSize()*((scx+scy)/2)), 1));
+//			bb->setFontSize(qMax(qRound(bb->fontSize()*((scx+scy)/2)), 1));
 			if ((bb->itemText.length() != 0) && (!bb->isTableItem))
 			{
 //				bb->setLineSpacing(((bb->fontSize() / 10.0) * static_cast<double>(Doc->typographicSettings.autoLineSpacing) / 100) + (bb->fontSize() / 10.0));
 				for (aa = 0; aa < bb->itemText.length(); ++aa)
-					bb->itemText.item(aa)->setFontSize(QMAX(qRound(bb->itemText.item(aa)->fontSize()*((scx+scy)/2)), 1));
+					bb->itemText.item(aa)->setFontSize(qMax(qRound(bb->itemText.item(aa)->fontSize()*((scx+scy)/2)), 1));
 				if (bb->asPathText())
 					bb->updatePolyClip();
 			}
@@ -8299,7 +8299,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* 
 // 	currItem->ClipEdited = true;
 // 	currItem->PoLine = Clip.copy();
 // 	if (currItem->asPolyLine())
-// 		currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+// 		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
 // 	else
 // 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 // 	currItem->Sizing = siz;
@@ -8624,7 +8624,7 @@ void ScribusView::slotDoCurs(bool draw)
 		if (currItem->invalid)
 			return;
 		
-		//              textframe->lastTextItem = QMIN(textframe->lastTextItem, 
+		//              textframe->lastTextItem = qMin(textframe->lastTextItem, 
 		//                                             signed(textframe->itemText.nrOfItems()) - 1);
 		
 		if (textframe->firstInFrame() >= 0 
@@ -8679,8 +8679,8 @@ void ScribusView::slotDoCurs(bool draw)
 			else if (textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
 					 || textframe->CPos >= textframe->itemText.length())
 			{
-				FRect bbox = textframe->itemText.boundingBox(QMAX(0,QMIN(textframe->lastInFrame(), textframe->itemText.length()-1)));
-				x = static_cast<int>(bbox.x() + textframe->itemText.item(QMAX(0,QMIN(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
+				FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
+				x = static_cast<int>(bbox.x() + textframe->itemText.item(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
 				y = static_cast<int>(bbox.y());
 				if (bbox.height() <= 2)
 					y1 = static_cast<int>(bbox.y() + textframe->itemText.defaultStyle().charStyle().fontSize() / 30);
@@ -8704,8 +8704,8 @@ void ScribusView::slotDoCurs(bool draw)
 			p.setRasterOp(XorROP);
 			if (draw)
 			{
-				p.drawLine(x, QMIN(QMAX(y,0),static_cast<int>(currItem->height())), 
-						   x, QMIN(QMAX(y1,0),static_cast<int>(currItem->height())));
+				p.drawLine(x, qMin(qMax(y,0),static_cast<int>(currItem->height())), 
+						   x, qMin(qMax(y1,0),static_cast<int>(currItem->height())));
 				m_cursorVisible = !m_cursorVisible;
 				if (Doc->CurTimer != 0)
 				{
@@ -8718,8 +8718,8 @@ void ScribusView::slotDoCurs(bool draw)
 				if (Doc->CurTimer != 0)
 					Doc->CurTimer->stop();
 				if (m_cursorVisible)
-					p.drawLine(x, QMIN(QMAX(y,0),static_cast<int>(currItem->height())), 
-							   x, QMIN(QMAX(y1,0),static_cast<int>(currItem->height())));
+					p.drawLine(x, qMin(qMax(y,0),static_cast<int>(currItem->height())), 
+							   x, qMin(qMax(y1,0),static_cast<int>(currItem->height())));
 				m_cursorVisible = false;
 			}
 			p.end();
@@ -9584,8 +9584,8 @@ void ScribusView::LowerItem()
 			currItem = Doc->m_Selection->itemAt(c);
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
-			low = QMIN(currItem->ItemNr, low);
-			high = QMAX(currItem->ItemNr, high);
+			low = qMin(currItem->ItemNr, low);
+			high = qMax(currItem->ItemNr, high);
 		}
 		if (low == 0)
 			return;
@@ -9641,8 +9641,8 @@ void ScribusView::RaiseItem()
 			currItem = Doc->m_Selection->itemAt(c);
 			if (currItem->isTableItem && currItem->isSingleSel)
 				return;
-			low = QMIN(currItem->ItemNr, low);
-			high = QMAX(currItem->ItemNr, high);
+			low = qMin(currItem->ItemNr, low);
+			high = qMax(currItem->ItemNr, high);
 		}
 		if (high == Doc->Items->count()-1)
 			return;
@@ -9996,9 +9996,9 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 		disconnect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 		int oldDX = contentsX();
 		int oldDY = contentsY();
-		int nw = QMAX(qRound(width * Scale), contentsWidth() + qRound(dX * Scale) * 2);
-		int nh = QMAX(qRound(height * Scale), contentsHeight() + qRound(dY * Scale) * 2);
-		resizeContents(QMAX(nw, visibleWidth() + qRound(dX * Scale) * 2), QMAX(nh, visibleHeight() + qRound(dY * Scale) * 2));
+		int nw = qMax(qRound(width * Scale), contentsWidth() + qRound(dX * Scale) * 2);
+		int nh = qMax(qRound(height * Scale), contentsHeight() + qRound(dY * Scale) * 2);
+		resizeContents(qMax(nw, visibleWidth() + qRound(dX * Scale) * 2), qMax(nh, visibleHeight() + qRound(dY * Scale) * 2));
 		setContentsPos(oldDX + qRound(dX * Scale), oldDY + qRound(dY * Scale));
 		setRulerPos(contentsX(), contentsY());
 		connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
@@ -10028,8 +10028,8 @@ void ScribusView::slotDoZoom()
 		return;
 	}
 	updatesOn(false);
-	int nw = QMAX(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), visibleWidth());
-	int nh = QMAX(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale), visibleHeight());
+	int nw = qMax(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), visibleWidth());
+	int nh = qMax(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale), visibleHeight());
 	resizeContents(nw, nh);
 	if (Doc->m_Selection->count() != 0)
 	{
@@ -10045,10 +10045,10 @@ void ScribusView::slotDoZoom()
 
 void ScribusView::setZoom()
 {
-	int x = qRound(QMAX(contentsX() / Scale, 0));
-	int y = qRound(QMAX(contentsY() / Scale, 0));
-	int w = qRound(QMIN(visibleWidth() / Scale, Doc->currentPage()->width()));
-	int h = qRound(QMIN(visibleHeight() / Scale, Doc->currentPage()->height()));
+	int x = qRound(qMax(contentsX() / Scale, 0));
+	int y = qRound(qMax(contentsY() / Scale, 0));
+	int w = qRound(qMin(visibleWidth() / Scale, Doc->currentPage()->width()));
+	int h = qRound(qMin(visibleHeight() / Scale, Doc->currentPage()->height()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
 	slotDoZoom();
@@ -10057,10 +10057,10 @@ void ScribusView::setZoom()
 
 void ScribusView::slotZoom100()
 {
-	int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
-	int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
-	int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
-	int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
+	int x = qRound(qMax(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
+	int y = qRound(qMax(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
+	int w = qRound(qMin(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
+	int h = qRound(qMin(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	setScale(Prefs->DisScale);
 	reformPages(false);
@@ -10071,10 +10071,10 @@ void ScribusView::slotZoomIn(int mx,int my)
 {
 	if ((mx == 0) && (my == 0))
 	{
-		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
-		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
-		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
-		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
+		int x = qRound(qMax(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
+		int y = qRound(qMax(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
+		int w = qRound(qMin(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
+		int h = qRound(qMin(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 		rememberOldZoomLocation(w/2+x, h/2+y);
 	}
 	else
@@ -10088,10 +10088,10 @@ void ScribusView::slotZoomOut(int mx,int my)
 {
 	if ((mx == 0) && (my == 0))
 	{
-		int x = qRound(QMAX(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
-		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
-		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
-		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
+		int x = qRound(qMax(contentsX() / Scale, Doc->minCanvasCoordinate.x()));
+		int y = qRound(qMax(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
+		int w = qRound(qMin(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
+		int h = qRound(qMin(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 		rememberOldZoomLocation(w/2+x, h/2+y);
 	}
 	else
@@ -10333,7 +10333,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 	QImage im;
 	double sx = maxGr / Doc->Pages->at(Nr)->width();
 	double sy = maxGr / Doc->Pages->at(Nr)->height();
-	double sc = QMIN(sx, sy);
+	double sc = qMin(sx, sy);
 	int clipx = static_cast<int>(Doc->Pages->at(Nr)->xOffset() * sc);
 	int clipy = static_cast<int>(Doc->Pages->at(Nr)->yOffset() * sc);
 	int clipw = qRound(Doc->Pages->at(Nr)->width() * sc);
@@ -10857,12 +10857,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				if (it == NULL)
 					nstyle.setScaleH(1000);
 				else
-					nstyle.setScaleH(QMIN(QMAX((*it).toInt(), 100), 4000));
+					nstyle.setScaleH(qMin(qMax((*it).toInt(), 100), 4000));
 				it++;
 				if (it == NULL)
 					nstyle.setScaleV(1000);
 				else
-					nstyle.setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
+					nstyle.setScaleV(qMin(qMax((*it).toInt(), 100), 4000));
 				it++;
 				nstyle.setBaselineOffset(it == NULL ? 0 : (*it).toInt());
 				it++;
@@ -11033,7 +11033,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	}
 	else
 	{
-		int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
+		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
 		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
@@ -11319,7 +11319,7 @@ void ScribusView::TextToPath()
 					{
 						if (chstr.upper() != chstr)
 						{
-							chs = QMAX(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
+							chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
 							chstr = chstr.upper();
 						}
 					}
@@ -11428,7 +11428,7 @@ void ScribusView::TextToPath()
 						{
 							if (chstr.upper() != chstr)
 							{
-								chs = QMAX(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
+								chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
 								chstr = chstr.upper();
 							}
 						}
@@ -11454,12 +11454,12 @@ void ScribusView::TextToPath()
 								if (charStyle.underlineWidth() != -1)
 									lw = (charStyle.underlineWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
 								else
-									lw = QMAX(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
+									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
 							}
 							else
 							{
 								st = charStyle.font().underlinePos(charStyle.fontSize() / 10.0);
-								lw = QMAX(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
+								lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
 							}
 							if (charStyle.baselineOffset() != 0)
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
@@ -11577,12 +11577,12 @@ void ScribusView::TextToPath()
 								if (charStyle.strikethruWidth() != -1)
 									lw = (charStyle.strikethruWidth() / 1000.0) * (charStyle.fontSize() / 10.0);
 								else
-									lw = QMAX(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
+									lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
 							}
 							else
 							{
 								st = charStyle.font().strikeoutPos(charStyle.fontSize() / 10.0);
-								lw = QMAX(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
+								lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1);
 							}
 							if (charStyle.baselineOffset() != 0)
 								st += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
@@ -11636,7 +11636,7 @@ void ScribusView::TextToPath()
 				bb->ClipEdited = true;
 				bb->FrameType = 3;
 				bb->setRotation(currItem->rotation());
-//				bb->setPolyClip(qRound(QMAX(bb->lineWidth() / 2, 1)));
+//				bb->setPolyClip(qRound(qMax(bb->lineWidth() / 2, 1)));
 				Doc->AdjustItemSize(bb);
 				newGroupedItems.append(Doc->Items->take(z));
 			}

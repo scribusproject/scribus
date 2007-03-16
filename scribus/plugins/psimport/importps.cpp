@@ -254,8 +254,8 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				{
 					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
 					PageItem* currItem = Elements.at(a);
-					lowestItem = QMIN(lowestItem, currItem->ItemNr);
-					highestItem = QMAX(highestItem, currItem->ItemNr);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
 					double lw = currItem->lineWidth() / 2.0;
 					if (currItem->rotation() != 0)
 					{
@@ -267,18 +267,18 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 						pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 						for (uint pc = 0; pc < 4; ++pc)
 						{
-							minx = QMIN(minx, pb.point(pc).x());
-							miny = QMIN(miny, pb.point(pc).y());
-							maxx = QMAX(maxx, pb.point(pc).x());
-							maxy = QMAX(maxy, pb.point(pc).y());
+							minx = qMin(minx, pb.point(pc).x());
+							miny = qMin(miny, pb.point(pc).y());
+							maxx = qMax(maxx, pb.point(pc).x());
+							maxy = qMax(maxy, pb.point(pc).y());
 						}
 					}
 					else
 					{
-						minx = QMIN(minx, currItem->xPos()-lw);
-						miny = QMIN(miny, currItem->yPos()-lw);
-						maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-						maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+						minx = qMin(minx, currItem->xPos()-lw);
+						miny = qMin(miny, currItem->yPos()-lw);
+						maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+						maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 					}
 				}
 				double gx = minx;
@@ -635,7 +635,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			{
 				if (Coords.size() != 0)
 				{
-					LineW = QMAX(LineW, 0.1); // Set Linewidth to be a least 0.1 pts, a Stroke without a Linewidth makes no sense
+					LineW = qMax(LineW, 0.1); // Set Linewidth to be a least 0.1 pts, a Stroke without a Linewidth makes no sense
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
 						ite = Elements.at(Elements.count()-1);

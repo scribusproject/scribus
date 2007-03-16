@@ -135,7 +135,7 @@ public:
 			m_glyphOutline.clear();
 			m_cMap.clear();
 
-			status = QMAX(cachedStatus, ScFace::LOADED);
+			status = qMax(cachedStatus, ScFace::LOADED);
 		}
 		
 		virtual void unload()           const 
@@ -322,7 +322,7 @@ public:
 	double glyphWidth(uint gl, double sz=1.0) const { return gl < CONTROL_GLYPHS ? m->glyphWidth(gl, sz) : 0; }
 
 	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
-	double glyphKerning(uint gl1, uint gl2, double sz=1.0) const { return QMAX(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
+	double glyphKerning(uint gl1, uint gl2, double sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
 
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
 	GlyphMetrics glyphBBox(uint gl, double sz=1.0) const { return m->glyphBBox(gl < CONTROL_GLYPHS? gl : 0, sz); }

@@ -97,7 +97,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	{
 		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
 		pw.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		if (StopM[QMAX(ActStop,0)] == center)
+		if (StopM[qMax(ActStop,0)] == center)
 			pw.setBrush(Qt::red);
 		else
 			pw.setBrush(Qt::blue);

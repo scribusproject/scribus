@@ -409,8 +409,8 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineWidth = w;
 	m_lineEnd = ca;
 	m_lineJoin = jo;
-	double Dt = QMAX(2*w, 1);
-	double Da = QMAX(6*w, 1);
+	double Dt = qMax(2*w, 1);
+	double Da = qMax(6*w, 1);
 	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;

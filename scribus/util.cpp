@@ -662,7 +662,7 @@ void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, i
 	}
 	while (nextItem != 0)
 	{
-		for (int a = QMAX(nextItem->firstInFrame(),0); a <= nextItem->lastInFrame() && a < nextItem->itemText.length(); ++a)
+		for (int a = qMax(nextItem->firstInFrame(),0); a <= nextItem->lastInFrame() && a < nextItem->itemText.length(); ++a)
 		{
 			QChar b = nextItem->itemText.text(a);
 			if (b == SpecialChars::PARSEP)

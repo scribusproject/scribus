@@ -265,7 +265,7 @@ void LineFormateItem::redraw(void)
 		const ScColor& col = doc->PageColors[mLine[its].Color];
 		tmpf = ScColorEngine::getDisplayColor(col, doc, mLine[its].Shade);
 		p.setPen(QPen(tmpf,
-						QMAX(static_cast<int>(mLine[its].Width), 1),
+						qMax(static_cast<int>(mLine[its].Width), 1),
 						static_cast<Qt::PenStyle>(mLine[its].Dash),
 						static_cast<Qt::PenCapStyle>(mLine[its].LineEnd),
 						static_cast<Qt::PenJoinStyle>(mLine[its].LineJoin)));

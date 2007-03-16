@@ -111,7 +111,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 		menuMgr->removeMenuItem((*it), "RecentScripts");
 
 	scrRecentScriptActions.clear();
-	uint max = QMIN(PrefsManager::instance()->appPrefs.RecentDCount, RecentScripts.count());
+	uint max = qMin(PrefsManager::instance()->appPrefs.RecentDCount, RecentScripts.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QString strippedName=RecentScripts[m];
@@ -128,7 +128,7 @@ void ScripterCore::buildRecentScriptsMenu()
 	scrRecentScriptActions.clear();
 	if (SavedRecentScripts.count() != 0)
 	{
-		uint max = QMIN(PrefsManager::instance()->appPrefs.RecentDCount, SavedRecentScripts.count());
+		uint max = qMin(PrefsManager::instance()->appPrefs.RecentDCount, SavedRecentScripts.count());
 		for (uint m = 0; m < max; ++m)
 		{
 			QFileInfo fd(SavedRecentScripts[m]);

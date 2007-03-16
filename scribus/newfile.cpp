@@ -329,7 +329,7 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout = new Q3VBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
 	recentDocListBox = new Q3ListBox(recentDocFrame, "recentDocListBox");
 	recentDocLayout->addWidget(recentDocListBox);
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, recentDocList.count());
+	uint max = qMin(prefsManager->appPrefs.RecentDCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
 		recentDocListBox->insertItem( QDir::convertSeparators(recentDocList[m]) );
 }

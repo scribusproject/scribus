@@ -213,7 +213,7 @@ void PageLayouts::languageChange()
 		for (uint cc = 0; cc < layoutsView->count(); ++cc)
 		{
 			int w = ic->width();
-			maxWidth = QMAX(w, maxWidth);
+			maxWidth = qMax(w, maxWidth);
 			ic = ic->nextItem();
 		}
 		ic = layoutsView->firstItem();

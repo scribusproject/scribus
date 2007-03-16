@@ -493,15 +493,15 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 10)
 									{
-										src_r = src_r == 255 ? QMIN(255, dst_r * 256) : QMIN(255, ((dst_r * 256) / (255-src_r)));
-										src_g = src_g == 255 ? QMIN(255, dst_g * 256) : QMIN(255, ((dst_g * 256) / (255-src_g)));
-										src_b = src_b == 255 ? QMIN(255, dst_b * 256) : QMIN(255, ((dst_b * 256) / (255-src_b)));
+										src_r = src_r == 255 ? qMin(255, dst_r * 256) : qMin(255, ((dst_r * 256) / (255-src_r)));
+										src_g = src_g == 255 ? qMin(255, dst_g * 256) : qMin(255, ((dst_g * 256) / (255-src_g)));
+										src_b = src_b == 255 ? qMin(255, dst_b * 256) : qMin(255, ((dst_b * 256) / (255-src_b)));
 									}
 									else if (m_blendMode == 11)
 									{
-										src_r = QMAX(1, src_r);
-										src_g = QMAX(1, src_g);
-										src_b = QMAX(1, src_b);
+										src_r = qMax(1, src_r);
+										src_g = qMax(1, src_g);
+										src_b = qMax(1, src_b);
 										src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
 										src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
 										src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
@@ -511,15 +511,15 @@ void ScPainter::endLayer()
 			/*						This code is a blendmode that simulates the effect of overprinting
 									Works by converting source and destination colour to CMYK and adding them together
 									Finally the result is converted back to RGB */
-	/*								int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
-									int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
-									int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
-									int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
-									int Y = QMIN(QMIN(255 - src_b - K1, 255) + QMIN(255 - dst_b - K2, 255), 255) ;
-									int K = QMIN(K1 + K2, 255);
-									src_r = 255 - QMIN(255, C + K);
-									src_g = 255 - QMIN(255, M + K);
-									src_b = 255 - QMIN(255, Y+ K);
+	/*								int K1 = qMin(qMin(255 - src_r, 255 - src_g), 255 - src_b);
+									int K2 = qMin(qMin(255 - dst_r, 255 - dst_g), 255 - dst_b);
+									int C = qMin(qMin(255 - src_r - K1, 255) + qMin(255 - dst_r - K2, 255), 255);
+									int M = qMin(qMin(255 - src_g - K1, 255) + qMin(255 - dst_g - K2, 255), 255) ;
+									int Y = qMin(qMin(255 - src_b - K1, 255) + qMin(255 - dst_b - K2, 255), 255) ;
+									int K = qMin(K1 + K2, 255);
+									src_r = 255 - qMin(255, C + K);
+									src_g = 255 - qMin(255, M + K);
+									src_b = 255 - qMin(255, Y+ K);
 								} */
 									else if (m_blendMode == 12)
 									{
@@ -1050,8 +1050,8 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	LineWidth = w;
 	PLineEnd = ca;
 	PLineJoin = jo;
-	double Dt = QMAX(2*w, 1);
-	double Da = QMAX(6*w, 1);
+	double Dt = qMax(2*w, 1);
+	double Da = qMax(6*w, 1);
 	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
@@ -1786,14 +1786,14 @@ void ScPainter::resize( unsigned int w, unsigned int h )
 
 void ScPainter::clampToViewport( int &x0, int &y0, int &x1, int &y1 )
 {
-	x0 = QMAX( x0, 0 );
-	x0 = QMIN( x0, static_cast<int>( m_width ) );
-	y0 = QMAX( y0, 0 );
-	y0 = QMIN( y0, static_cast<int>( m_height ) );
-	x1 = QMAX( x1, 0 );
-	x1 = QMIN( x1, static_cast<int>( m_width ) );
-	y1 = QMAX( y1, 0 );
-	y1 = QMIN( y1, static_cast<int>( m_height ) );
+	x0 = qMax( x0, 0 );
+	x0 = qMin( x0, static_cast<int>( m_width ) );
+	y0 = qMax( y0, 0 );
+	y0 = qMin( y0, static_cast<int>( m_height ) );
+	x1 = qMax( x1, 0 );
+	x1 = qMin( x1, static_cast<int>( m_width ) );
+	y1 = qMax( y1, 0 );
+	y1 = qMin( y1, static_cast<int>( m_height ) );
 }
 
 void ScPainter::clampToViewport( const _ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 )
@@ -1801,17 +1801,17 @@ void ScPainter::clampToViewport( const _ArtSVP &svp, int &x0, int &y0, int &x1, 
 	ArtDRect bbox;
 	art_drect_svp( &bbox, &svp );
 	x0 = static_cast<int>( bbox.x0 );
-	x0 = QMAX( x0, 0 );
-	x0 = QMIN( x0, static_cast<int>( m_width ) );
+	x0 = qMax( x0, 0 );
+	x0 = qMin( x0, static_cast<int>( m_width ) );
 	y0 = static_cast<int>( bbox.y0 );
-	y0 = QMAX( y0, 0 );
-	y0 = QMIN( y0, static_cast<int>( m_height ) );
+	y0 = qMax( y0, 0 );
+	y0 = qMin( y0, static_cast<int>( m_height ) );
 	x1 = static_cast<int>( bbox.x1 ) + 1;
-	x1 = QMAX( x1, 0 );
-	x1 = QMIN( x1, static_cast<int>( m_width ) );
+	x1 = qMax( x1, 0 );
+	x1 = qMin( x1, static_cast<int>( m_width ) );
 	y1 = static_cast<int>( bbox.y1 ) + 1;
-	y1 = QMAX( y1, 0 );
-	y1 = QMIN( y1, static_cast<int>( m_height ) );
+	y1 = qMax( y1, 0 );
+	y1 = qMin( y1, static_cast<int>( m_height ) );
 }
 
 void ScPainter::applyGradient( _ArtSVP *svp, bool fill )

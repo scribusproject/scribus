@@ -231,7 +231,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			Path.translate(-min.x(), -min.y());
 			FPoint max = Path.WidthHeight();
 			QMatrix mm;
-			mm.scale(34.0 / QMAX(max.x(), max.y()), 34.0 / QMAX(max.x(), max.y()));
+			mm.scale(34.0 / qMax(max.x(), max.y()), 34.0 / qMax(max.x(), max.y()));
 			Path.map(mm);
 			p->setupPolygon(&Path);
 			p->setPen(Qt::black);

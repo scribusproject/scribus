@@ -59,9 +59,9 @@ RulerT::RulerT(QWidget *pa, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs
 	else
 	{
 		Width = wid;
-		setMinimumSize(QSize(QMIN(static_cast<int>(Width), 400),25));
+		setMinimumSize(QSize(qMin(static_cast<int>(Width), 400),25));
 		setMaximumSize(QSize(4000,25));
-		resize(QMIN(static_cast<int>(wid), 400), 25);
+		resize(qMin(static_cast<int>(wid), 400), 25);
 	}
 }
 

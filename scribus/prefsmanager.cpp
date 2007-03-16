@@ -721,7 +721,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 {
 	mw->setDefaultPrinter(appPrefs.PrinterName, appPrefs.PrinterFile, appPrefs.PrinterCommand);
 
-	uint max = QMIN(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
+	uint max = qMin(appPrefs.RecentDCount, appPrefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		QFileInfo fd(appPrefs.RecentDocs[m]);
@@ -772,7 +772,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	appPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
 
 	appPrefs.RecentDocs.clear();
-	uint max = QMIN(appPrefs.RecentDCount, ScCore->primaryMainWindow()->RecentDocs.count());
+	uint max = qMin(appPrefs.RecentDCount, ScCore->primaryMainWindow()->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
 		appPrefs.RecentDocs.append(ScCore->primaryMainWindow()->RecentDocs[m]);

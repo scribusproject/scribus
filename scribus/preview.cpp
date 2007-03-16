@@ -286,7 +286,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Anz->setPixmap(CreatePreview(0, 72));
 	Anzeige->addChild(Anz, 0, 0);
 	int w = Anz->width() + tbWidth + 50;
-	resize(QMIN(QApplication::desktop()->width()-30,w), 500);
+	resize(qMin(QApplication::desktop()->width()-30,w), 500);
 	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
 	{
 		if (HaveTiffSep != 0)
@@ -437,7 +437,7 @@ void PPreview::scaleBox_valueChanged(int value)
 			scaleFactor = Anzeige->viewport()->height() / doc->Pages->at(APage)->height();
 			break;
 		case 6:
-			scaleFactor = QMIN(Anzeige->viewport()->height() / doc->Pages->at(APage)->height(), Anzeige->viewport()->width() / doc->Pages->at(APage)->width());
+			scaleFactor = qMin(Anzeige->viewport()->height() / doc->Pages->at(APage)->height(), Anzeige->viewport()->width() / doc->Pages->at(APage)->width());
 			break;
 		default:
 			scaleFactor = 1.0;
@@ -726,8 +726,8 @@ void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 	
 	//FIXME: if source and target have different sizesomething went wrong.
 	// eg. loadPicture() failed and returned a 1x1 image
-	int h = QMIN(target.height(),source.height());
-	int w = QMIN(target.width(),source.width());
+	int h = qMin(target.height(),source.height());
+	int w = qMin(target.width(),source.width());
 	int cyan, c, m, yc, k, cc, mm, yy, kk;
 	col.getCMYK(&c, &m, &yc, &k);
 	for (int y=0; y < h; ++y )
@@ -739,10 +739,10 @@ void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 			cyan = 255 - qRed(*pq);
 			if (cyan != 0)
 			{
-				(c == 0) ? cc = qRed(*p) : cc = QMIN(c * cyan / 255 + qRed(*p), 255);
-				(m == 0) ? mm = qGreen(*p) : mm = QMIN(m * cyan / 255 + qGreen(*p), 255);
-				(yc == 0) ? yy = qBlue(*p) : yy = QMIN(yc * cyan / 255 + qBlue(*p), 255);
-				(k == 0) ? kk = qAlpha(*p) : kk = QMIN(k * cyan / 255 + qAlpha(*p), 255);
+				(c == 0) ? cc = qRed(*p) : cc = qMin(c * cyan / 255 + qRed(*p), 255);
+				(m == 0) ? mm = qGreen(*p) : mm = qMin(m * cyan / 255 + qGreen(*p), 255);
+				(yc == 0) ? yy = qBlue(*p) : yy = qMin(yc * cyan / 255 + qBlue(*p), 255);
+				(k == 0) ? kk = qAlpha(*p) : kk = qMin(k * cyan / 255 + qAlpha(*p), 255);
 				*p = qRgba(cc, mm, yy, kk);
 			}
 			p++;
@@ -921,7 +921,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						yellow = qBlue(*q);
 						black = qAlpha(*q);
 						if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-							*q = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
+							*q = qRgba(255-qMin(255, cyan+black), 255-qMin(255,magenta+black), 255-qMin(255,yellow+black), 255);
 						else
 						{
 							if (!AliasTr->isChecked())
@@ -1013,7 +1013,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 								alpha = 0;
 							else
 								alpha = 255;
-							*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
+							*p = qRgba(255-qMin(255, cyan+black), 255-qMin(255,magenta+black), 255-qMin(255,yellow+black), alpha);
 							p++;
 						}
 					}

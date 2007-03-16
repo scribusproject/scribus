@@ -198,8 +198,8 @@ void Annota::SetPg(int v)
 	}
 	else
 	{
-		Pg->SetSeite(QMIN(v-1, MaxSeite-1), 100);
-		SpinBox1->setValue(QMIN(v, MaxSeite));
+		Pg->SetSeite(qMin(v-1, MaxSeite-1), 100);
+		SpinBox1->setValue(qMin(v, MaxSeite));
 		Breite = OriBreite;
 		Hoehe = OriHoehe;
 	}
@@ -273,7 +273,7 @@ void Annota::SetZiel(int it)
 		Destfile->hide();
 		ChFile->hide();
 		item->annotation().setActionType(2);
-		SetPg(QMIN(SpinBox1->value(), MaxSeite));
+		SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	case 2:
 		Fram->raiseWidget(1);
@@ -295,7 +295,7 @@ void Annota::SetZiel(int it)
 		}
 		else
 			item->annotation().setActionType(7);
-		SetPg(QMIN(SpinBox1->value(), MaxSeite));
+		SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	case 3:
 		Fram->raiseWidget(1);
@@ -333,7 +333,7 @@ void Annota::SetZiel(int it)
 			SpinBox3->hide();
 		}
 		if (Pg->isVisible())
-			SetPg(QMIN(SpinBox1->value(), MaxSeite));
+			SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	default:
 		Fram->raiseWidget(2);

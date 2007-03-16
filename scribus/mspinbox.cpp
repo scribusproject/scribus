@@ -116,21 +116,21 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		bool controlB=k->state() & Qt::ControlButton;
 		if (k->key() == Qt::Key_Shift && !controlB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
+			QSpinBox::setLineStep(qMax(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (k->key() == Qt::Key_Control && !shiftB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
+			QSpinBox::setLineStep(qMax(currLineStep * 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if ((k->key() == Qt::Key_Control && shiftB) || (k->key() == Qt::Key_Shift && controlB))
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep / 100, 1));
+			QSpinBox::setLineStep(qMax(currLineStep / 100, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
@@ -158,14 +158,14 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		}
 		else if (k->key() == Qt::Key_Shift && controlB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
+			QSpinBox::setLineStep(qMax(currLineStep * 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (k->key() == Qt::Key_Control && shiftB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
+			QSpinBox::setLineStep(qMax(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
@@ -181,21 +181,21 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		bool controlB=k->state() & Qt::ControlButton;
 		if (shiftB && !controlB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep / 10, 1));
+			QSpinBox::setLineStep(qMax(currLineStep / 10, 1));
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
 		} 
 		else if (!shiftB && controlB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep * 10, 1));
+			QSpinBox::setLineStep(qMax(currLineStep * 10, 1));
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
 		}
 		else if (shiftB && controlB)
 		{
-			QSpinBox::setLineStep(QMAX(currLineStep / 100, 1));
+			QSpinBox::setLineStep(qMax(currLineStep / 100, 1));
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;

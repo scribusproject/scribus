@@ -222,12 +222,12 @@ inline const FSize operator/( const FSize &s, double c )
 
 inline FSize FSize::expandedTo( const FSize & otherSize ) const
 {
-    return FSize( QMAX(wd,otherSize.wd), QMAX(ht,otherSize.ht) );
+    return FSize( qMax(wd,otherSize.wd), qMax(ht,otherSize.ht) );
 }
 
 inline FSize FSize::boundedTo( const FSize & otherSize ) const
 {
-    return FSize( QMIN(wd,otherSize.wd), QMIN(ht,otherSize.ht) );
+    return FSize( qMin(wd,otherSize.wd), qMin(ht,otherSize.ht) );
 }
 
 

@@ -1378,7 +1378,7 @@ void TabPDFOptions::enableCMS(bool enable)
 	if (enable)
 		PDFVersionCombo->insertItem("PDF/X-3");
 	else
-		a = QMIN(a, 3);
+		a = qMin(a, 3);
 	PDFVersionCombo->setCurrentItem(a);
 	EnablePr(1);
 	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));

@@ -628,12 +628,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	SpinBox11 = new QSpinBox( GroupBox11, "SpinBox1" );
 	SpinBox11->setMinValue(1);
 	SpinBox11->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
-	SpinBox11->setValue(QMIN(item->annotation().Ziel()+1, Seite));
+	SpinBox11->setValue(qMin(item->annotation().Ziel()+1, Seite));
 	GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
 	if (item->annotation().ActionType() == 7)
 		Pg1 = new Navigator( GroupBox11, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
-		Pg1 = new Navigator( GroupBox11, 100, QMIN(item->annotation().Ziel(), Seite-1), view);
+		Pg1 = new Navigator( GroupBox11, 100, qMin(item->annotation().Ziel(), Seite-1), view);
 	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
 	GroupBox11Layout->addMultiCellWidget(Pg1, 1, 3, 2, 2);
 	TextLabel41 = new QLabel( GroupBox11, "TextLabel4" );
@@ -1102,7 +1102,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	QToolTip::add(NoScroll, tr( "Flag is ignored for PDF 1.3" ) );
 	QToolTip::add(CalcFields, tr( "Enter a comma separated list of fields here" ) );
 	QToolTip::add(IconNR, tr("You need at least the Icon for Normal to use Icons for Buttons"));
-	SetPg(QMIN(SpinBox11->value(), MaxSeite));
+	SetPg(qMin(SpinBox11->value(), MaxSeite));
 	SetCross();
 }
 
@@ -1142,7 +1142,7 @@ void Annot::IPlace()
 		int h = item->pixm.height();
 		double sw = item->width() / w;
 		double sh = item->height() / h;
-		double sc = QMIN(sw, sh);
+		double sc = qMin(sw, sh);
 		if (dia->IcScaleH == 3)
 		{
 			item->setImageXYScale(1.0, 1.0);
@@ -1230,7 +1230,7 @@ void Annot::GetNIcon()
 		int h = item->pixm.height();
 		double sw = item->width() / w;
 		double sh = item->height() / h;
-		double sc = QMIN(sw,sh);
+		double sc = qMin(sw,sh);
 		item->setImageXYScale(sc, sc);
 		item->setImageXYOffset(((item->width()-(w*sc))/2)/sc, ((item->height()-(h*sc))/2)/sc);
 		IconNR->setEnabled(true);
@@ -1682,8 +1682,8 @@ void Annot::SetPg(int v)
 	}
 	else
 	{
-		Pg1->SetSeite(QMIN(v-1, MaxSeite-1), 100);
-		SpinBox11->setValue(QMIN(v, MaxSeite));
+		Pg1->SetSeite(qMin(v-1, MaxSeite-1), 100);
+		SpinBox11->setValue(qMin(v, MaxSeite));
 		Breite = OriBreite;
 		Hoehe = OriHoehe;
 		//		SetCo(0,0);
@@ -1975,7 +1975,7 @@ void Annot::SetZiel(int it)
 			/* PFJ - 28/02/04 - Altered from uint to int and varname */
 			for (uint prop = 0; prop < array_act; ++prop)
 				ActionCombo->insertItem(tmp_actcom[prop]);
-			ActionCombo->setCurrentItem(QMIN(tmpac,5));
+			ActionCombo->setCurrentItem(qMin(tmpac,5));
 			setter = item->annotation().ActionType() != 7 ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
@@ -2008,7 +2008,7 @@ void Annot::SetZiel(int it)
 		ActionCombo->clear();
 		ActionCombo->insertItem( tr( "None" ) );
 		ActionCombo->insertItem( tr( "JavaScript" ) );
-		ActionCombo->setCurrentItem(QMIN(tmpac, 1));
+		ActionCombo->setCurrentItem(qMin(tmpac, 1));
 		SetActTyp(tmpac);
 		break;
 	default:
@@ -2045,7 +2045,7 @@ void Annot::SetExternL()
 		enable = false;
 		//		Destfile->setEnabled(false);
 		//		ChFile->setEnabled(false);
-		SetPg(QMIN(SpinBox11->value(), MaxSeite));
+		SetPg(qMin(SpinBox11->value(), MaxSeite));
 	}
 	else
 	{
@@ -2065,7 +2065,7 @@ void Annot::SetExternL()
 				LExtern->setChecked(false);
 			}
 		}
-		SetPg(QMIN(SpinBox11->value(), MaxSeite));
+		SetPg(qMin(SpinBox11->value(), MaxSeite));
 	}
 	Destfile->setEnabled(enable);
 	ChFile->setEnabled(enable);
@@ -2091,7 +2091,7 @@ void Annot::SetActTyp(int it)
 		setter = item->annotation().ActionType() != 7 ? true : false;
 		Destfile->setEnabled(setter);
 		ChFile->setEnabled(setter);
-		SetPg(QMIN(SpinBox11->value(), MaxSeite));
+		SetPg(qMin(SpinBox11->value(), MaxSeite));
 		break;
 	case 1:
 		Fram2->raiseWidget(2);

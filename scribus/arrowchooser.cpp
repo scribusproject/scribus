@@ -50,7 +50,7 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 			mm2.scale(-1, 1);
 			mm2.translate(-max.x(), 0);
 		}
-		mm.scale(16.0 / QMAX(max.x(), max.y()), 16.0 / QMAX(max.x(), max.y()));
+		mm.scale(16.0 / qMax(max.x(), max.y()), 16.0 / qMax(max.x(), max.y()));
 		Path.map(mm2 * mm);
 		painter->setupPolygon(&Path);
 		painter->setLineWidth(1.0);

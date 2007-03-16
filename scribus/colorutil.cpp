@@ -332,13 +332,13 @@ void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
 	b = blue;
 	if ( r > g )
 	{
-		max = QMAX( r, b );
-		min = QMIN( g, b );
+		max = qMax( r, b );
+		min = qMin( g, b );
 	}
 	else
 	{
-		max = QMAX( g, b );
-		min = QMIN( r, b );
+		max = qMax( g, b );
+		min = qMin( r, b );
 	}
 	v = max;
 	if ( max != 0 )
@@ -427,8 +427,8 @@ void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
 	double var_R = ( red / 255.0 );
 	double var_G = ( green / 255.0 );
 	double var_B = ( blue / 255.0 );
-	double var_Min = QMIN( var_R, QMIN(var_G, var_B) );    //Min. value of RGB
-	double var_Max = QMAX( var_R, QMAX(var_G, var_B) );    //Max. value of RGB
+	double var_Min = qMin( var_R, qMin(var_G, var_B) );    //Min. value of RGB
+	double var_Max = qMax( var_R, qMax(var_G, var_B) );    //Max. value of RGB
 	double del_Max = var_Max - var_Min;             //Delta RGB value
 	double L = ( var_Max + var_Min ) / 2.0;
 	double H = 0;
@@ -595,8 +595,8 @@ void setLum(uchar& red, uchar& green, uchar& blue, double lum)
 void clipColor(double& red, double& green, double& blue)
 {
 	double l = LumD(red, green, blue);
-	double n = QMIN(red, QMIN(green, blue));
-	double x = QMAX(red, QMAX(green, blue));
+	double n = qMin(red, qMin(green, blue));
+	double x = qMax(red, qMax(green, blue));
 	if (n < 0.0)
 	{
 		red = l + (((red - l) * l) / (l - n));

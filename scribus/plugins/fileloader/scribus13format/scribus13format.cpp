@@ -308,10 +308,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		m_Doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		m_Doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
-		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
-		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
-		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->pageMargins.Left=qMax(0.0, dc.attribute("BORDERLEFT").toDouble());
+		m_Doc->pageMargins.Right=qMax(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		m_Doc->pageMargins.Top=qMax(0.0, dc.attribute("BORDERTOP").toDouble());
+		m_Doc->pageMargins.Bottom=qMax(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -835,10 +835,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Apage->setHeight(pg.attribute("PAGEHEIGHT").toDouble());
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
-				Apage->initialMargins.Bottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
-				Apage->initialMargins.Left = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
-				Apage->initialMargins.Right = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->initialMargins.Top = qMax(0.0, pg.attribute("BORDERTOP").toDouble());
+				Apage->initialMargins.Bottom = qMax(0.0, pg.attribute("BORDERBOTTOM").toDouble());
+				Apage->initialMargins.Left = qMax(0.0, pg.attribute("BORDERLEFT").toDouble());
+				Apage->initialMargins.Right = qMax(0.0, pg.attribute("BORDERRIGHT").toDouble());
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				m_Doc->setMasterPageMode(false);
@@ -1805,10 +1805,10 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	newStyle.setStrokeShade(sShade);
 	
 	if (it->hasAttribute("CSCALE"))
-		newStyle.setScaleH(QMIN(QMAX(qRound(it->attribute("CSCALE", "100").toDouble() * 10), 100), 4000));
+		newStyle.setScaleH(qMin(qMax(qRound(it->attribute("CSCALE", "100").toDouble() * 10), 100), 4000));
 	
 	if (it->hasAttribute("CSCALEV"))
-		newStyle.setScaleV(QMIN(QMAX(qRound(it->attribute("CSCALEV", "100").toDouble() * 10), 100), 4000));
+		newStyle.setScaleV(qMin(qMax(qRound(it->attribute("CSCALEV", "100").toDouble() * 10), 100), 4000));
 	
 	if (it->hasAttribute("CBASE"))
 		newStyle.setBaselineOffset(qRound(it->attribute("CBASE", "0").toDouble() * 10));
@@ -2420,7 +2420,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	else
 	{
-		int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
+		int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 		currItem->Segments.clear();
 		currItem->PoLine.resize(0);
 		currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
@@ -2522,8 +2522,8 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	uint layerCount=m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
-		maxLayer = QMAX(m_Doc->Layers[la2].LNr, maxLayer);
-		maxLevel = QMAX(m_Doc->Layers[la2].Level, maxLevel);
+		maxLayer = qMax(m_Doc->Layers[la2].LNr, maxLayer);
+		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 	DoVorl.clear();
 	DoVorl[0] = "";
@@ -2712,10 +2712,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				Apage->setHeight(pg.attribute("PAGEHEIGHT").toDouble());
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top = QMAX(0.0, pg.attribute("BORDERTOP").toDouble());
-				Apage->initialMargins.Bottom = QMAX(0.0, pg.attribute("BORDERBOTTOM").toDouble());
-				Apage->initialMargins.Left = QMAX(0.0, pg.attribute("BORDERLEFT").toDouble());
-				Apage->initialMargins.Right = QMAX(0.0, pg.attribute("BORDERRIGHT").toDouble());
+				Apage->initialMargins.Top = qMax(0.0, pg.attribute("BORDERTOP").toDouble());
+				Apage->initialMargins.Bottom = qMax(0.0, pg.attribute("BORDERBOTTOM").toDouble());
+				Apage->initialMargins.Left = qMax(0.0, pg.attribute("BORDERLEFT").toDouble());
+				Apage->initialMargins.Right = qMax(0.0, pg.attribute("BORDERRIGHT").toDouble());
 				Apage->Margins.Top = Apage->initialMargins.Top;
 				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
 				pageX = pg.attribute("PAGEXPOS").toDouble();

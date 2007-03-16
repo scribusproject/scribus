@@ -166,7 +166,7 @@ void ExportForm::computeSize()
 	double ph = (OnePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
 	(ph > pw) ? pixmapSize = ph : pixmapSize = pw;
 	int maxGr = qRound(pixmapSize * EnlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
-	double sc = QMIN(maxGr / pw, maxGr / ph);
+	double sc = qMin(maxGr / pw, maxGr / ph);
 	textLabel6->setText(QString("%1 x %2 px").arg(qRound(pw * sc)).arg(qRound(ph * sc)));
 }
 

@@ -106,7 +106,7 @@ void PrefsDialogBase::arrangeIcons()
 	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
 	{
 		int w = ic->width();
-		maxWidth = QMAX(w, maxWidth);
+		maxWidth = qMax(w, maxWidth);
 		ic = ic->nextItem();
 	}
 	ic = prefsSelection->firstItem();

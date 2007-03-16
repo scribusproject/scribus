@@ -263,7 +263,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 			{
 				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
-				ymax = QMAX(ymax, gp.y());
+				ymax = qMax(ymax, gp.y());
 				p->setupPolygon(&gly);
 				p->fillPath();
 			}
@@ -284,7 +284,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 			{
 				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
-				ymax = QMAX(ymax, gp.y());
+				ymax = qMax(ymax, gp.y());
 				p->setupPolygon(&gly);
 				p->fillPath();
 			}
@@ -292,7 +292,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 		}
 	}
 	p->end();
-	pm.resize(QMIN(qRound(gp.x()), w), QMIN(qRound(ymax), h));
+	pm.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
 	delete p;
 	FT_Done_FreeType( library );
 	return pm;
@@ -504,7 +504,7 @@ double RealCWidth(ScribusDoc *, ScFace* scFace, QString ch, int Size)
 			double uniEM = static_cast<double>(face->units_per_EM);
 			w = (face->glyph->metrics.width + fabs((double)face->glyph->metrics.horiBearingX)) / uniEM * (Size / 10.0);
 			ww = face->glyph->metrics.horiAdvance / uniEM * (Size / 10.0);
-			return QMAX(ww, w);
+			return qMax(ww, w);
 		}
 		else
 			sDebug(QString("internal error: missing glyph: %1 (char %2) error=%3").arg(c1).arg(ch).arg(error));

@@ -819,10 +819,10 @@ FRect FRect::operator|(const FRect &r) const
     if ( isValid() ) {
 	if ( r.isValid() ) {
 	    FRect tmp;
-	    tmp.setLeft(   QMIN( x1, r.x1 ) );
-	    tmp.setRight(  QMAX( x2, r.x2 ) );
-	    tmp.setTop(	   QMIN( y1, r.y1 ) );
-	    tmp.setBottom( QMAX( y2, r.y2 ) );
+	    tmp.setLeft(   qMin( x1, r.x1 ) );
+	    tmp.setRight(  qMax( x2, r.x2 ) );
+	    tmp.setTop(	   qMin( y1, r.y1 ) );
+	    tmp.setBottom( qMax( y2, r.y2 ) );
 	    return tmp;
 	} else {
 	    return *this;
@@ -853,10 +853,10 @@ FRect FRect::unite( const FRect &r ) const
 FRect FRect::operator&( const FRect &r ) const
 {
     FRect tmp;
-    tmp.x1 = QMAX( x1, r.x1 );
-    tmp.x2 = QMIN( x2, r.x2 );
-    tmp.y1 = QMAX( y1, r.y1 );
-    tmp.y2 = QMIN( y2, r.y2 );
+    tmp.x1 = qMax( x1, r.x1 );
+    tmp.x2 = qMin( x2, r.x2 );
+    tmp.y1 = qMax( y1, r.y1 );
+    tmp.y2 = qMin( y2, r.y2 );
     return tmp;
 }
 
@@ -879,8 +879,8 @@ FRect FRect::intersect( const FRect &r ) const
 
 bool FRect::intersects( const FRect &r ) const
 {
-    return ( QMAX( x1, r.x1 ) <= QMIN( x2, r.x2 ) &&
-	     QMAX( y1, r.y1 ) <= QMIN( y2, r.y2 ) );
+    return ( qMax( x1, r.x1 ) <= qMin( x2, r.x2 ) &&
+	     qMax( y1, r.y1 ) <= qMin( y2, r.y2 ) );
 }
 
 

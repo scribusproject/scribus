@@ -88,7 +88,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			image.createLowRes(sx);
 		else
 			image.createLowRes(sy);
-		imageScale = QMIN(sx, sy);
+		imageScale = qMin(sx, sy);
 	}
 	layout16 = new Q3VBoxLayout( 0, 0, 5, "layout16");
 	pixmapLabel1 = new QLabel( this, "pixmapLabel1" );

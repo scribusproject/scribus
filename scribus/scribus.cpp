@@ -1031,7 +1031,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 {
 	if (currItem->itemText.length() != 0)
 	{
-//		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
+//		int ChPos = qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
 		const ParagraphStyle& currPStyle(currItem->currentStyle());
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currPStyle.parent());
@@ -1108,9 +1108,9 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 						if (currItem->CPos-1>0)
 						{
 #if 0
-							StyleFlag fl = currItem->itemText.item(QMAX(currItem->CPos-1,0))->effects();
+							StyleFlag fl = currItem->itemText.item(qMax(currItem->CPos-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
-							currItem->itemText.item(QMAX(currItem->CPos-1,0))->setEffects(fl);
+							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
 #else
 							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
 							currItem->CPos += 1;
@@ -1275,7 +1275,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					else
 					{
 						doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-						currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2.0, 1)));
+						currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
 						doc->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
@@ -1964,7 +1964,7 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
 	doc->setMasterPageMode(false);
 	doc->addMasterPage(0, CommonStrings::masterPageNormal);
-	int createCount=QMAX(pageCount,1);
+	int createCount=qMax(pageCount,1);
 	for (int i = 0; i < createCount; ++i)
 		doc->addPage(i, CommonStrings::masterPageNormal, true);
 	doc->addSection();
@@ -2592,7 +2592,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			for (uint a=0; a<doc->m_Selection->count(); ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
-				lowestItem = QMIN(lowestItem, currItem->ItemNr);
+				lowestItem = qMin(lowestItem, currItem->ItemNr);
 			}
 			currItem = doc->Items->at(lowestItem);
 //			doc->m_Selection->removeItem(currItem);
@@ -3120,7 +3120,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
 
 	scrRecentFileActions.clear();
-	uint max = QMIN(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
+	uint max = qMin(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
 	QString strippedName, localName;
 	for (uint m = 0; m < max; ++m)
 	{
@@ -3139,7 +3139,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		scrMenuMgr->removeMenuItem((*it), recentPasteMenuName);
 
 	scrRecentPasteActions.clear();
-	uint max = QMIN(static_cast<uint>(prefsManager->appPrefs.numScrapbookCopies), scrapbookPalette->tempBView->objectMap.count());
+	uint max = qMin(static_cast<uint>(prefsManager->appPrefs.numScrapbookCopies), scrapbookPalette->tempBView->objectMap.count());
 	if (max > 0)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
@@ -4799,7 +4799,7 @@ void ScribusMainWindow::slotEditPaste()
 					if (it == NULL)
 						nstyle.setScaleV(1000);
 					else
-						nstyle.setScaleV(QMIN(QMAX((*it).toInt(), 100), 4000));
+						nstyle.setScaleV(qMin(qMax((*it).toInt(), 100), 4000));
 					it++;
 					nstyle.setBaselineOffset(it == NULL ? 0 : (*it).toInt());
 					it++;
@@ -5327,10 +5327,10 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
 	if (finalZoomFactor == view->scale())
 		return;
-	int x = qRound(QMAX(view->contentsX() / view->scale(), 0));
-	int y = qRound(QMAX(view->contentsY() / view->scale(), 0));
-	int w = qRound(QMIN(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
-	int h = qRound(QMIN(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
+	int x = qRound(qMax(view->contentsX() / view->scale(), 0));
+	int y = qRound(qMax(view->contentsY() / view->scale(), 0));
+	int w = qRound(qMin(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
+	int h = qRound(qMin(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
 	if (zoomFactor==-200.0)
 		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
 	else
@@ -6179,7 +6179,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	undoManager->setUndoEnabled(false); // ugly hack to prevent object moving when undoing page deletion
 	view->reformPages();
 	undoManager->setUndoEnabled(true); // ugly hack continues
-	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
+	view->GotoPage(qMin(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
@@ -6261,7 +6261,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPages();
 	undoManager->setUndoEnabled(true); // ugly hack continues
-	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
+	view->GotoPage(qMin(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
@@ -6504,8 +6504,8 @@ void ScribusMainWindow::setCSMenu()
 		{
 			if ((doc->appMode == modeEdit) && (currItem->itemText.length() != 0))
 			{
-				la = currItem->itemText.charStyle(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillColor();
-				lb = currItem->itemText.charStyle(QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillShade();
+				la = currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillColor();
+				lb = currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillShade();
 			}
 			else
 			{
@@ -7263,11 +7263,11 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			double mx = currItem->xPos() + ((x1 + x2)/2.0);
 			double my = currItem->yPos() + ((y1 + y2)/2.0);
 			double viewScale=view->scale();
-			if ((qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
-				(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale),
+			if ((qRound((currItem->xPos() + qMax(x1, x2)) * viewScale) > view->contentsWidth()) ||
+				(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale) > view->contentsHeight()))
+				view->resizeContents(qMax(qRound((currItem->xPos() + qMax(x1, x2)) * viewScale),
 									view->contentsWidth()),
-									QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
+									qMax(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(mx, my);
 		}
 		else
@@ -7276,8 +7276,8 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			if ((qRound((currItem->xPos() + currItem->width()) * viewScale) > view->contentsWidth()) ||
 				(qRound((currItem->yPos() + currItem->height()) * viewScale) > view->contentsHeight())
 				)
-				view->resizeContents(QMAX(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
-									 QMAX(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
+				view->resizeContents(qMax(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
+									 qMax(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
 			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
 		}
 	}
@@ -8123,8 +8123,8 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			currItem->gYpos = currItem->yPos() - y;
 			currItem->gWidth = w;
 			currItem->gHeight = h;
-			lowestItem = QMIN(lowestItem, currItem->ItemNr);
-			highestItem = QMAX(highestItem, currItem->ItemNr);
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
+			highestItem = qMax(highestItem, currItem->ItemNr);
 		}
 		double minx = 99999.9;
 		double miny = 99999.9;
@@ -8144,18 +8144,18 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 				for (uint pc = 0; pc < 4; ++pc)
 				{
-					minx = QMIN(minx, pb.point(pc).x());
-					miny = QMIN(miny, pb.point(pc).y());
-					maxx = QMAX(maxx, pb.point(pc).x());
-					maxy = QMAX(maxy, pb.point(pc).y());
+					minx = qMin(minx, pb.point(pc).x());
+					miny = qMin(miny, pb.point(pc).y());
+					maxx = qMax(maxx, pb.point(pc).x());
+					maxy = qMax(maxy, pb.point(pc).y());
 				}
 			}
 			else
 			{
-				minx = QMIN(minx, currItem->xPos()-lw);
-				miny = QMIN(miny, currItem->yPos()-lw);
-				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+				minx = qMin(minx, currItem->xPos()-lw);
+				miny = qMin(miny, currItem->yPos()-lw);
+				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 			}
 		}
 		double gx = minx;
@@ -8224,7 +8224,7 @@ void ScribusMainWindow::UnGroupObj()
 			{
 				currItem = doc->m_Selection->itemAt(a);
 				currItem->Groups.pop();
-				lowestItem = QMIN(lowestItem, currItem->ItemNr);
+				lowestItem = qMin(lowestItem, currItem->ItemNr);
 			}
 			if (doc->Items->at(lowestItem)->isGroupControl)
 			{
@@ -8385,7 +8385,7 @@ void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
-			lowestItem = QMIN(lowestItem, currItem->ItemNr);
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
 		}
 		if ((lowestItem > 0) && (doc->Items->at(lowestItem-1)->Groups.count() != 0))
 		{
@@ -8424,7 +8424,7 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
-			lowestItem = QMIN(lowestItem, currItem->ItemNr);
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
 		}
 		if ((lowestItem > 0) && (doc->Items->at(lowestItem-1)->Groups.count() != 0))
 		{

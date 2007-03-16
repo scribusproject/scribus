@@ -471,10 +471,10 @@ void SearchReplace::slotDoSearch()
 						Item->itemText.select(a, 1, false);
 					}
 					if ( Word->isChecked()  &&  inde == sText.length()  &&
-						! Item->itemText.text(QMIN(a+1, maxChar)).isSpace() )
+						! Item->itemText.text(qMin(a+1, maxChar)).isSpace() )
 					{
 						for (int xx = ReplStart; xx < a+1; ++xx)
-							Item->itemText.select(QMIN(xx, maxChar), 1, false);
+							Item->itemText.select(qMin(xx, maxChar), 1, false);
 						Item->HasSel = false;
 						inde = 0;
 						found = false;
@@ -493,7 +493,7 @@ void SearchReplace::slotDoSearch()
 				if (SText->isChecked())
 				{
 					for (int xx = ReplStart; xx < a+1; ++xx)
-						Item->itemText.select(QMIN(xx, maxChar), 1, false);
+						Item->itemText.select(qMin(xx, maxChar), 1, false);
 					Item->HasSel = false;
 				}
 				inde = 0;

@@ -859,7 +859,7 @@ void SMLineStyle::updatePreview()
 	for (int it = (*tmpLine).size()-1; it > -1; it--)
 	{
 		p.setPen(QPen(calcFarbe((*tmpLine)[it].Color, (*tmpLine)[it].Shade),
-				 QMAX(static_cast<int>((*tmpLine)[it].Width), 1),
+				 qMax(static_cast<int>((*tmpLine)[it].Width), 1),
 				 static_cast<Qt::PenStyle>((*tmpLine)[it].Dash),
 				 static_cast<Qt::PenCapStyle>((*tmpLine)[it].LineEnd),
 				 static_cast<Qt::PenJoinStyle>((*tmpLine)[it].LineJoin)));

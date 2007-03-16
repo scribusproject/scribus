@@ -154,11 +154,11 @@ void
 VGradientEx::addStop( const ScColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
 {
 	// Clamping between 0.0 and 1.0
-	rampPoint = QMAX( 0.0, rampPoint );
-	rampPoint = QMIN( 1.0, rampPoint );
+	rampPoint = qMax( 0.0, rampPoint );
+	rampPoint = qMin( 1.0, rampPoint );
 	// Clamping between 0.0 and 1.0
-	midPoint = QMAX( 0.0, midPoint );
-	midPoint = QMIN( 1.0, midPoint );
+	midPoint = qMax( 0.0, midPoint );
+	midPoint = qMin( 1.0, midPoint );
 
 	m_colorStops.inSort( new VColorStopEx( rampPoint, midPoint, color, opa, name, shade ) );
 }

@@ -53,7 +53,7 @@ void ShadeButton::setShade(int id)
     	{
 			c = dia->getEditText().toInt(&ok);
 			if (ok)
-				b = QMAX(QMIN(c, 100),0);
+				b = qMax(qMin(c, 100),0);
 			else
 				b = 100;
 			delete dia;

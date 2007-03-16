@@ -554,7 +554,7 @@ void EditStyle::copyStyleSettings(ParagraphStyle& parstyle)
 		}
 	}
 	parstyle.setLineSpacing(LineSpVal->value());
-	parstyle.setLeftMargin(QMAX(TabList->getLeftIndent(), 0.0));
+	parstyle.setLeftMargin(qMax(TabList->getLeftIndent(), 0.0));
 	parstyle.setFirstIndent(TabList->getFirstLine());
 	parstyle.setGapBefore(AboveV->value() / parentDoc->unitRatio());
 	parstyle.setGapAfter(BelowV->value() / parentDoc->unitRatio());

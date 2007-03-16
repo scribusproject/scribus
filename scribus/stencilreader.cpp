@@ -78,7 +78,7 @@ QString StencilReader::createShape(QString datain)
 	parseGroupProperties(data, group, DOC, groupElemCounter, minXCoor, minYCoor, maxXCoor, maxYCoor, firstCheck);
 	GrW = maxXCoor - minXCoor;
 	GrH = maxYCoor - minYCoor;
-	Conversion = 100.0 / QMAX(GrW, GrH);
+	Conversion = 100.0 / qMax(GrW, GrH);
 	GrW *= Conversion;
 	GrH *= Conversion;
 	Dx = minXCoor * Conversion;
@@ -652,10 +652,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		}
 		else
 		{
-			minXCoor = QMIN(minXCoor, tp2.x());
-			minYCoor = QMIN(minYCoor, tp2.y());
-			maxXCoor = QMAX(maxXCoor, tp2.x() + wh.x());
-			maxYCoor = QMAX(maxYCoor, tp2.y() + wh.y());
+			minXCoor = qMin(minXCoor, tp2.x());
+			minYCoor = qMin(minYCoor, tp2.y());
+			maxXCoor = qMax(maxXCoor, tp2.x() + wh.x());
+			maxYCoor = qMax(maxYCoor, tp2.y() + wh.y());
 		}
 		DOC = DOC.nextSibling();
 	}
@@ -1100,7 +1100,7 @@ QPixmap StencilReader::createPreview(QString data)
 	QDomElement dims = list.item(0).toElement();
 	GrW = dims.attribute("w","50").toDouble()+10;
 	GrH = dims.attribute("h","50").toDouble()+10;
-	pmmax = 60 / QMAX(GrW, GrH);
+	pmmax = 60 / qMax(GrW, GrH);
 	tmp = QPixmap(static_cast<int>(GrW), static_cast<int>(GrH));
 	pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->translate(5, 5);

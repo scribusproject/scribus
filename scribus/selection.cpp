@@ -356,18 +356,18 @@ void Selection::setGroupRect()
 			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
 			for (uint pc = 0; pc < 4; ++pc)
 			{
-				minx = QMIN(minx, pb.point(pc).x());
-				miny = QMIN(miny, pb.point(pc).y());
-				maxx = QMAX(maxx, pb.point(pc).x());
-				maxy = QMAX(maxy, pb.point(pc).y());
+				minx = qMin(minx, pb.point(pc).x());
+				miny = qMin(miny, pb.point(pc).y());
+				maxx = qMax(maxx, pb.point(pc).x());
+				maxy = qMax(maxy, pb.point(pc).y());
 			}
 		}
 		else
 		{
-			minx = QMIN(minx, currItem->xPos());
-			miny = QMIN(miny, currItem->yPos());
-			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
-			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+			minx = qMin(minx, currItem->xPos());
+			miny = qMin(miny, currItem->yPos());
+			maxx = qMax(maxx, currItem->xPos() + currItem->width());
+			maxy = qMax(maxy, currItem->yPos() + currItem->height());
 		}
 	}
 	groupX = minx;

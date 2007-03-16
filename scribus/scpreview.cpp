@@ -82,7 +82,7 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrY = elem.attribute("YP").toDouble();
 	double GrW = elem.attribute("W").toDouble();
 	double GrH = elem.attribute("H").toDouble();
-	double pmmax = 60 / QMAX(GrW+50, GrH+50);
+	double pmmax = 60 / qMax(GrW+50, GrH+50);
 #ifdef HAVE_CAIRO
 	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, 32);
 	tmp.fill( qRgba(255, 255, 255, 0) );
@@ -668,7 +668,7 @@ QPixmap ScPreview::createPreview(QString data)
 					{
 						SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
 						pS->setPen(tmpfa,
-						           QMAX(static_cast<int>(ml[it].Width), 1),
+						           qMax(static_cast<int>(ml[it].Width), 1),
 						           static_cast<Qt::PenStyle>(ml[it].Dash),
 						           static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 						           static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
@@ -1038,13 +1038,13 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 		if (Style & 16)
 		{
 			double st = prefsManager->appPrefs.AvailFonts[ZFo].strikeoutPos() * (Siz / 10.0);
-			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1));
+			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 		if (Style & 8)
 		{
 			double st = prefsManager->appPrefs.AvailFonts[ZFo].underlinePos() * (Siz / 10.0);
-			p->setLineWidth(QMAX(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1));
+			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 	}

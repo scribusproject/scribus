@@ -831,8 +831,8 @@ void PSLib::PS_setlinewidth(double w)
 
 void PSLib::PS_setdash(Qt::PenStyle st, double offset, Q3ValueList<double> dash)
 {
-	QString Dt = ToStr(QMAX(2*LineW, 1));
-	QString Da = ToStr(QMAX(6*LineW, 1));
+	QString Dt = ToStr(qMax(2*LineW, 1));
+	QString Da = ToStr(qMax(6*LineW, 1));
 	if (dash.count() != 0)
 	{
 		PutSeite("[ ");
@@ -1678,18 +1678,18 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 				for (uint pc = 0; pc < 4; ++pc)
 				{
-					minx = QMIN(minx, pb.point(pc).x());
-					miny = QMIN(miny, pb.point(pc).y());
-					maxx = QMAX(maxx, pb.point(pc).x());
-					maxy = QMAX(maxy, pb.point(pc).y());
+					minx = qMin(minx, pb.point(pc).x());
+					miny = qMin(miny, pb.point(pc).y());
+					maxx = qMax(maxx, pb.point(pc).x());
+					maxy = qMax(maxy, pb.point(pc).y());
 				}
 			}
 			else
 			{
-				minx = QMIN(minx, currItem->xPos()-lw);
-				miny = QMIN(miny, currItem->yPos()-lw);
-				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+				minx = qMin(minx, currItem->xPos()-lw);
+				miny = qMin(miny, currItem->yPos()-lw);
+				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 			}
 		}
 		gx = minx;
@@ -1709,8 +1709,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		for (uint aa = 0; aa < pageNs.size(); ++aa)
 		{
 			a = pageNs[aa]-1;
-			maxWidth = QMAX(Doc->Pages->at(a)->width(), maxWidth);
-			maxHeight = QMAX(Doc->Pages->at(a)->height(), maxHeight);
+			maxWidth = qMax(Doc->Pages->at(a)->width(), maxWidth);
+			maxHeight = qMax(Doc->Pages->at(a)->height(), maxHeight);
 		}
 		PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr, over);
 	}
@@ -1757,7 +1757,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						double y2 = it->BoundingY - ilw / 2.0;
 						double w2 = it->BoundingW + ilw;
 						double h2 = it->BoundingH + ilw;
-						if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+						if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
@@ -2242,7 +2242,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					if ((c->itemText.text(d) == QChar(13)) || (c->itemText.text(d) == QChar(10)) || (c->itemText.text(d) == QChar(28)))
 						break;
-					bm += "\\"+cc.setNum(QMAX(c->itemText.text(d).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), 32), 8);
 				}
 				PDF_Bookmark(bm, a->pageNr()+1);
 			}
@@ -2252,7 +2252,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QString cc;
 				for (int d = 0; d < c->itemText.length(); ++d)
 				{
-					bm += "\\"+cc.setNum(QMAX(c->itemText.text(d).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), 32), 8);
 				}
 				PDF_Annotation(bm, 0, 0, c->width(), -c->height());
 				break;
@@ -2825,7 +2825,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				double y2 = c->BoundingY - ilw / 2.0;
 				double w2 = c->BoundingW + ilw;
 				double h2 = c->BoundingH + ilw;
-				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 					continue;
 				if (c->ChangedMasterItem)
 					continue;
@@ -2874,7 +2874,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 			double y2 = c->BoundingY - ilw / 2.0;
 			double w2 = c->BoundingW + ilw;
 			double h2 = c->BoundingH + ilw;
-			if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+			if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 				continue;
 			if (c->ChangedMasterItem)
 				continue;
@@ -3029,7 +3029,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
 			QString GCol;
 			if (GraySc)
-				GCol = hs.setNum((255.0 - QMIN(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.prepend(GCol);
@@ -3050,7 +3050,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
 			QString GCol;
 			if (GraySc)
-				GCol = hs.setNum((255.0 - QMIN(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+				GCol = hs.setNum((255.0 - qMin(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
 			else
 				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.append(GCol);
@@ -3465,12 +3465,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			if (hl->strikethruWidth() != -1)
 				lw = (hl->strikethruWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+				lw = qMax(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
 			Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
-			lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+			lw = qMax(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		if (hl->baselineOffset() != 0)
 			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
@@ -3503,12 +3503,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			if (hl->underlineWidth() != -1)
 				lw = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+				lw = qMax(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
 			Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
-			lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+			lw = qMax(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		if (hl->baselineOffset() != 0)
 			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
@@ -3669,12 +3669,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				if (cstyle.underlineWidth() != -1)
 					lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
 				else
-					lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
 			}
 			else
 			{
 				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-				lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
 			}
 			if (cstyle.baselineOffset() != 0)
 				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
@@ -3816,12 +3816,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				if (cstyle.strikethruWidth() != -1)
 					lw = (cstyle.strikethruWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
 				else
-					lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
 			}
 			else
 			{
 				Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-				lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
 			}
 			if (cstyle.baselineOffset() != 0)
 				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);

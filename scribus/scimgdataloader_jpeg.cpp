@@ -157,7 +157,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 						cc = 255 - qRed(*s);
 						cm = 255 - qGreen(*s);
 						cy = 255 - qBlue(*s);
-						ck = QMIN(QMIN(cc, cm), cy);
+						ck = qMin(qMin(cc, cm), cy);
 						*s = qRgba(cc-ck,cm-ck,cy-ck,ck);
 						s++;
 					}
@@ -330,7 +330,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 							cc = 255 - qRed(*s);
 							cm = 255 - qGreen(*s);
 							cy = 255 - qBlue(*s);
-							ck = QMIN(QMIN(cc, cm), cy);
+							ck = qMin(qMin(cc, cm), cy);
 							*d = qRgba(cc-ck,cm-ck,cy-ck,ck);
 							s++;
 							d++;

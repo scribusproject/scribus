@@ -81,9 +81,9 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 	}
 	else if (model == colorModelCMYK)
 	{
-		rgb.r = 255 - QMIN(255, color.CR + color.K);
-		rgb.g = 255 - QMIN(255, color.MG + color.K);
-		rgb.b = 255 - QMIN(255, color.YB + color.K);
+		rgb.r = 255 - qMin(255, color.CR + color.K);
+		rgb.g = 255 - qMin(255, color.MG + color.K);
+		rgb.b = 255 - qMin(255, color.YB + color.K);
 	}
 	else
 	{
@@ -131,7 +131,7 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 	}
 	else if (model == colorModelRGB)
 	{
-		cmyk.k = QMIN(QMIN(255 - color.CR, 255 - color.MG), 255 - color.YB);
+		cmyk.k = qMin(qMin(255 - color.CR, 255 - color.MG), 255 - color.YB);
 		cmyk.c = 255 - color.CR - cmyk.k;
 		cmyk.m = 255 - color.MG - cmyk.k;
 		cmyk.y = 255 - color.YB - cmyk.k;
@@ -386,9 +386,9 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 	}
 	else
 	{
-		r = 255 - QMIN(255, cmyk.c + cmyk.k);
-		g = 255 - QMIN(255, cmyk.m + cmyk.k);
-		b = 255 - QMIN(255, cmyk.y + cmyk.k);
+		r = 255 - qMin(255, cmyk.c + cmyk.k);
+		g = 255 - qMin(255, cmyk.m + cmyk.k);
+		b = 255 - qMin(255, cmyk.y + cmyk.k);
 	}
 	return QColor(r, g, b);
 }
@@ -435,9 +435,9 @@ QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bo
 	}
 	else
 	{
-		r = 255 - QMIN(255, cmyk.c + cmyk.k);
-		g = 255 - QMIN(255, cmyk.m + cmyk.k);
-		b = 255 - QMIN(255, cmyk.y + cmyk.k);
+		r = 255 - qMin(255, cmyk.c + cmyk.k);
+		g = 255 - qMin(255, cmyk.m + cmyk.k);
+		b = 255 - qMin(255, cmyk.y + cmyk.k);
 	}
 	return QColor(r, g, b);
 }
@@ -496,10 +496,10 @@ void ScColorEngine::applyGCR(ScColor& color, const ScribusDoc* doc)
 	{
 		CMYKColor cmyk;
 		getCMYKValues(color, doc, cmyk);
-		int k = QMIN(QMIN(cmyk.c, cmyk.m), cmyk.y);
+		int k = qMin(qMin(cmyk.c, cmyk.m), cmyk.y);
 		color.CR = cmyk.c - k;
 		color.MG = cmyk.m - k;
 		color.YB = cmyk.y - k;
-		color.K = QMIN((cmyk.k + k), 255);
+		color.K = qMin((cmyk.k + k), 255);
 	}
 }

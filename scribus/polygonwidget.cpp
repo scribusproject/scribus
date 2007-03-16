@@ -186,7 +186,7 @@ void PolygonWidget::UpdatePreView()
 	if ((br.height() > 100) || (br.width() > 100))
 	{
 		QMatrix ma;
-		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
+		double sca = 100.0 / static_cast<double>(qMax(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = pp * ma;
 	}

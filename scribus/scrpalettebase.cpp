@@ -137,22 +137,22 @@ void ScrPaletteBase::show()
 		if (palettePrefs->contains("left"))
 		{
 			// all palettes should have enough room for 3x3 min widgets
-			int vwidth  = QMIN(QMAX(3*gStrut.width(), palettePrefs->getInt("width")),
+			int vwidth  = qMin(qMax(3*gStrut.width(), palettePrefs->getInt("width")),
 			                   d->width());
-			int vheight = QMIN(QMAX(3*gStrut.height(), palettePrefs->getInt("height")),
+			int vheight = qMin(qMax(3*gStrut.height(), palettePrefs->getInt("height")),
 			                   d->height());
 			// palettes should not use too much screen space
 			if (vwidth > d->width()/3 && vheight > d->height()/3)
 				vwidth = d->width()/3;
 			// and should be partly visible
-			int vleft   = QMIN(QMAX(-vwidth + gStrut.width(), palettePrefs->getInt("left")),
+			int vleft   = qMin(qMax(-vwidth + gStrut.width(), palettePrefs->getInt("left")),
 			                   d->width() - gStrut.width());
-			int vtop = QMIN(palettePrefs->getInt("top"), d->height() - gStrut.height());
+			int vtop = qMin(palettePrefs->getInt("top"), d->height() - gStrut.height());
 #if defined(QT_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
-			vtop    = QMAX(64, vtop);
+			vtop    = qMax(64, vtop);
 #else
-			vtop    = QMAX(-vheight + gStrut.height(), vtop);
+			vtop    = qMax(-vheight + gStrut.height(), vtop);
 #endif
 			// Check values against current screen size
 			QRect scr = QApplication::desktop()->screen()->geometry();
@@ -161,9 +161,9 @@ void ScrPaletteBase::show()
 			if ( vtop >= scr.height() )
 				vtop = 64;
 			if ( vwidth >= scr.width() )
-				vwidth = QMAX( gStrut.width(), scr.width() - vleft );
+				vwidth = qMax( gStrut.width(), scr.width() - vleft );
 			if ( vheight >= scr.height() )
-				vheight = QMAX( gStrut.height(), scr.height() - vtop );
+				vheight = qMax( gStrut.height(), scr.height() - vtop );
 //			qDebug(QString("root %1x%2 %7 palette %3x%4 @ (%5,%6)").arg(d->width()).arg(d->height())
 //				.arg(vwidth).arg(vheight).arg(vleft).arg(vtop).arg(name()));
 //			setGeometry(vleft, vtop, vwidth, vheight);

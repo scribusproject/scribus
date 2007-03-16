@@ -241,8 +241,8 @@ public:
 			lastFrameItem = ls.lastItem;
 		}
 		else {
-			firstFrameItem = QMIN(firstFrameItem, ls.firstItem);
-			lastFrameItem = QMAX(lastFrameItem, ls.lastItem);
+			firstFrameItem = qMin(firstFrameItem, ls.firstItem);
+			lastFrameItem = qMax(lastFrameItem, ls.lastItem);
 		}
 	}
 	

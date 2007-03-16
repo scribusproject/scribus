@@ -67,7 +67,7 @@ QRect CharTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 	if (!m_doc || m_fontInUse.isEmpty())
 		return QRect(0, 0, 1, 1);
 
-	int widthHeight = QMAX(18 + qRound(-(*m_doc->AllFonts)[m_fontInUse].descent() * 18) + 5, 18);
+	int widthHeight = qMax(18 + qRound(-(*m_doc->AllFonts)[m_fontInUse].descent() * 18) + 5, 18);
 	return QRect(0, 0, widthHeight, widthHeight+20);
 }
 
@@ -109,7 +109,7 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 		p->setupPolygon(&gly);
 		p->fillPath();
 		p->end();
-		int x = QMAX(0, (cr.width() - sz.width()) / 2);
+		int x = qMax(0, (cr.width() - sz.width()) / 2);
 		qp->drawPixmap(x, 1, pixm);
 		QString tmp;
 		tmp.sprintf("%04X", m_characters[row*numCols()+col]);

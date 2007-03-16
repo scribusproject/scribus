@@ -118,9 +118,9 @@ void ScColor::getRawRGBColor(int *r, int *g, int *b) const
 	}
 	else
 	{
-		*r = 255-QMIN(255, CR + K);
-		*g = 255-QMIN(255, MG + K);
-		*b = 255-QMIN(255, YB + K);
+		*r = 255-qMin(255, CR + K);
+		*g = 255-qMin(255, MG + K);
+		*b = 255-qMin(255, YB + K);
 	}
 }
 
@@ -128,7 +128,7 @@ QColor ScColor::getRawRGBColor() const
 {
 	if (Model == colorModelRGB)
 		return QColor(CR, MG, YB);
-	return QColor(255-QMIN(255, CR + K), 255-QMIN(255, MG + K), 255 - QMIN(255, YB + K));
+	return QColor(255-qMin(255, CR + K), 255-qMin(255, MG + K), 255 - qMin(255, YB + K));
 }
 
 void ScColor::getRGB(int *r, int *g, int *b) const

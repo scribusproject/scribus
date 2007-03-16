@@ -1322,19 +1322,19 @@ void Mpalette::setCurrentItem(PageItem *i)
 	PageItem_TextFrame* i2=i->asTextFrame();
 	if (i2!=0)
 	{
-		DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
+		DCol->setMaxValue(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 		DCol->setMinValue(1);
 		DCol->setValue(i2->Cols);
 		dGap->setMinValue(0);
 //		if (colgapLabel->getState())
 		if (colgapLabel->currentItem() == 0)
 		{
-			dGap->setMaxValue(QMAX((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
+			dGap->setMaxValue(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
 			dGap->setValue(i2->ColGap*Umrech);
 		}
 		else
 		{
-			dGap->setMaxValue(QMAX((i2->width() / i2->Cols)*Umrech, 0));
+			dGap->setMaxValue(qMax((i2->width() / i2->Cols)*Umrech, 0));
 			dGap->setValue(i2->columnWidth()*Umrech);
 		}
 	}
@@ -2028,7 +2028,7 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 		for (uint a=0; a<doc->m_Selection->count(); ++a)
 		{
 			i = doc->m_Selection->itemAt(a);
-			lowestItem = QMIN(lowestItem, i->ItemNr);
+			lowestItem = qMin(lowestItem, i->ItemNr);
 		}
 		i = doc->Items->at(lowestItem);
 		SetCurItem(i);
@@ -2209,8 +2209,8 @@ void Mpalette::setBH(double x, double y)
 	}
 	else
 	{
-		RoundRect->setMaxValue(QMIN(x, y)/2*Umrech);
-		RoundRect->setMinValue(-QMIN(x, y)/2*Umrech);
+		RoundRect->setMaxValue(qMin(x, y)/2*Umrech);
+		RoundRect->setMinValue(-qMin(x, y)/2*Umrech);
 		Width->setValue(x*Umrech);
 		Height->setValue(y*Umrech);
 	}

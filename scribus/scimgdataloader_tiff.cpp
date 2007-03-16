@@ -651,7 +651,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 									cc = 255 - qRed(*s);
 									cm = 255 - qGreen(*s);
 									cy = 255 - qBlue(*s);
-									ck = QMIN(QMIN(cc, cm), cy);
+									ck = qMin(qMin(cc, cm), cy);
 									d[0] = cc-ck;
 									d[1] = cm-ck;
 									d[2] = cy-ck;
@@ -1110,12 +1110,12 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	bool createOk = false;
 	if (header.color_mode == CM_CMYK)
 	{
-		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, QMAX(channel_num, 5));
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, 5));
 		r2_image.fill(0);
 	}
 	else
 	{
-		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, QMAX(channel_num, 4));
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, 4));
 		r2_image.fill(0);
 	}
 	if( !createOk )
@@ -1127,7 +1127,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		s.device()->at( base2 );
 		return false;
 	}
-	channel_num = QMIN(channel_num, 39);
+	channel_num = qMin(channel_num, 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
@@ -1286,13 +1286,13 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		}
 		if (*firstLayer)
 		{
-			for( int yi=static_cast<int>(startSrcY); yi < QMIN(r2_image.height(),  r_image.height()); ++yi )
+			for( int yi=static_cast<int>(startSrcY); yi < qMin(r2_image.height(),  r_image.height()); ++yi )
 			{
 				unsigned char *s = r2_image.scanLine( yi );
-				unsigned char *d = r_image.scanLine( QMIN(static_cast<int>(startDstY),  r_image.height()-1) );
-				d += QMIN(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
-				s += QMIN(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
-				for(int xi=static_cast<int>(startSrcX); xi < QMIN(r2_image.width(),  r_image.width()); ++xi )
+				unsigned char *d = r_image.scanLine( qMin(static_cast<int>(startDstY),  r_image.height()-1) );
+				d += qMin(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
+				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
+				for(int xi=static_cast<int>(startSrcX); xi < qMin(r2_image.width(),  r_image.width()); ++xi )
 				{
 					d[0] = s[0];
 					d[1] = s[1];
@@ -1322,21 +1322,21 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		{
 			for (int i = static_cast<int>(startSrcY); i < layerInfo[layer].height; i++)
 			{
-				unsigned char *d = r_image.scanLine(QMIN(static_cast<int>(startDstY),  r_image.height()-1));
-				unsigned char *s = r2_image.scanLine(QMIN(i, r2_image.height()-1));
-				d += QMIN(static_cast<int>(startDstX),  r_image.width()-1) * r_image.channels();
-				s += QMIN(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
+				unsigned char *d = r_image.scanLine(qMin(static_cast<int>(startDstY),  r_image.height()-1));
+				unsigned char *s = r2_image.scanLine(qMin(i, r2_image.height()-1));
+				d += qMin(static_cast<int>(startDstX),  r_image.width()-1) * r_image.channels();
+				s += qMin(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
 				unsigned char *sm = 0;
 				if (hasMask)
 				{
-					sm = mask.scanLine(QMIN(i, mask.height()-1));
-					sm += QMIN(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
+					sm = mask.scanLine(qMin(i, mask.height()-1));
+					sm += qMin(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
 				}
 				startDstY++;
 				unsigned char r, g, b, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
 				unsigned char a = 0;
 				unsigned int maxDestX = r_image.width() - startDstX + startSrcX - 1;
-				for (unsigned int j = startSrcX; j < QMIN(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
+				for (unsigned int j = startSrcX; j < qMin(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
 				{
 					src_r = s[0];
 					src_g = s[1];

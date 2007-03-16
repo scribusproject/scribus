@@ -672,7 +672,7 @@ int PageItem::firstInFrame() const
 int PageItem::lastInFrame() const
 {
 #ifndef NLS_PROTO
-	return QMIN(signed(MaxChars), itemText.length()) - 1;
+	return qMin(signed(MaxChars), itemText.length()) - 1;
 #else
 	return itemText.length() - 1;
 #endif
@@ -871,7 +871,7 @@ void PageItem::setGridOffset(double) { } // FIXME
 void PageItem::setGridDistance(double) { } // FIXME
 void PageItem::setColumns(int n) 
 {
-	Cols = QMAX(1, n); //FIXME: undo
+	Cols = qMax(1, n); //FIXME: undo
 }
 void PageItem::setColumnGap(double gap)
 {
@@ -1283,13 +1283,13 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 				break;
 			case Line:
 			case PolyLine:
-				embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+				embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 				embedded->DrawObj_Item(p, e, sc);
 				break;
 			default:
 				break;
 		}
-		embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		embedded->DrawObj_Post(p);
 		p->restore();
 		if (groupStack.count() != 0)
@@ -1374,14 +1374,14 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					if (NamedLStyle.isEmpty())
 					{
 						lw2 = qRound(m_lineWidth * sc  / 2.0);
-						lw = qRound(QMAX(m_lineWidth * sc, 1.0));
+						lw = qRound(qMax(m_lineWidth * sc, 1.0));
 						le = PLineEnd;
 					}
 					else
 					{
 						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
 						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
-						lw = qRound(QMAX(ml[ml.size()-1].Width * sc, 1.0));
+						lw = qRound(qMax(ml[ml.size()-1].Width * sc, 1.0));
 						le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 					}
 					if (asLine())
@@ -1492,18 +1492,18 @@ QImage PageItem::DrawObj_toImage()
 							pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
 							for (uint pc = 0; pc < 4; ++pc)
 							{
-								minx = QMIN(minx, pb.point(pc).x());
-								miny = QMIN(miny, pb.point(pc).y());
-								maxx = QMAX(maxx, pb.point(pc).x());
-								maxy = QMAX(maxy, pb.point(pc).y());
+								minx = qMin(minx, pb.point(pc).x());
+								miny = qMin(miny, pb.point(pc).y());
+								maxx = qMax(maxx, pb.point(pc).x());
+								maxy = qMax(maxy, pb.point(pc).y());
 							}
 						}
 						else
 						{
-							minx = QMIN(minx, currItem->xPos());
-							miny = QMIN(miny, currItem->yPos());
-							maxx = QMAX(maxx, currItem->xPos() + currItem->width());
-							maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+							minx = qMin(minx, currItem->xPos());
+							miny = qMin(miny, currItem->yPos());
+							maxx = qMax(maxx, currItem->xPos() + currItem->width());
+							maxy = qMax(maxy, currItem->yPos() + currItem->height());
 						}
 					}
 				}
@@ -1529,18 +1529,18 @@ QImage PageItem::DrawObj_toImage()
 			pb.setPoint(3, FPoint(0.0, height(), xPos(), yPos(), rotation(), 1.0, 1.0));
 			for (uint pc = 0; pc < 4; ++pc)
 			{
-				minx = QMIN(minx, pb.point(pc).x());
-				miny = QMIN(miny, pb.point(pc).y());
-				maxx = QMAX(maxx, pb.point(pc).x());
-				maxy = QMAX(maxy, pb.point(pc).y());
+				minx = qMin(minx, pb.point(pc).x());
+				miny = qMin(miny, pb.point(pc).y());
+				maxx = qMax(maxx, pb.point(pc).x());
+				maxy = qMax(maxy, pb.point(pc).y());
 			}
 		}
 		else
 		{
-			minx = QMIN(minx, xPos());
-			miny = QMIN(miny, yPos());
-			maxx = QMAX(maxx, xPos() + width());
-			maxy = QMAX(maxy, yPos() + height());
+			minx = qMin(minx, xPos());
+			miny = qMin(miny, yPos());
+			maxx = qMax(maxx, xPos() + width());
+			maxy = qMax(maxy, yPos() + height());
 		}
 		gXpos = xPos() - minx;
 		gYpos = yPos() - miny;
@@ -1691,13 +1691,13 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		{
 			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100.0;
 			layout.yoffset -= asce * m_Doc->typographicSettings.valueSuperScript / 100.0;
-			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSuperScript / 100.0, 10.0 / style.fontSize());
+			layout.scaleV = layout.scaleH = qMax(m_Doc->typographicSettings.scalingSuperScript / 100.0, 10.0 / style.fontSize());
 		}
 		else if (chst & ScStyle_Subscript)
 		{
 			retval += asce * m_Doc->typographicSettings.valueSubScript / 100.0;
 			layout.yoffset += asce * m_Doc->typographicSettings.valueSubScript / 100.0;
-			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSubScript / 100.0, 10.0 / style.fontSize());
+			layout.scaleV = layout.scaleH = qMax(m_Doc->typographicSettings.scalingSubScript / 100.0, 10.0 / style.fontSize());
 		}
 		else {
 			layout.scaleV = layout.scaleH = 1.0;
@@ -2102,7 +2102,7 @@ void PageItem::DrawPolyL(QPainter *p, Q3PointArray pts)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width* view->scale()), 1),
+									 qMax(static_cast<int>(ml[it].Width* view->scale()), 1),
 									 static_cast<Qt::PenStyle>(ml[it].Dash),
 									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -2120,7 +2120,7 @@ void PageItem::DrawPolyL(QPainter *p, Q3PointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width* view->scale()), 1),
+								 qMax(static_cast<int>(ml[it].Width* view->scale()), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -2139,7 +2139,7 @@ void PageItem::DrawPolyL(QPainter *p, Q3PointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*view->scale()), 1),
+								 qMax(static_cast<int>(ml[it].Width*view->scale()), 1),
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
@@ -3767,7 +3767,7 @@ void PageItem::SetOvalFrame()
 
 void PageItem::SetFrameRound()
 {
-	setCornerRadius(QMIN(RadRect, QMIN(Width,Height)/2));
+	setCornerRadius(qMin(RadRect, qMin(Width,Height)/2));
 	PoLine.resize(0);
 	double rr = fabs(RadRect);
 	double bezierFactor=0.552284749; //Bezier Control Point Factor: 8/3*(sin(45)-0.5)
@@ -3817,10 +3817,10 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		pb.addPoint(FPoint(  0.0, Height, Xpos, Ypos, Rot, 1.0, 1.0));
 		for (uint pc = 0; pc < 4; ++pc)
 		{
-			minx = QMIN(minx, pb.point(pc).x());
-			miny = QMIN(miny, pb.point(pc).y());
-			maxx = QMAX(maxx, pb.point(pc).x());
-			maxy = QMAX(maxy, pb.point(pc).y());
+			minx = qMin(minx, pb.point(pc).x());
+			miny = qMin(miny, pb.point(pc).y());
+			maxx = qMax(maxx, pb.point(pc).x());
+			maxy = qMax(maxy, pb.point(pc).y());
 		}
 		*x1 = minx;
 		*y1 = miny;
@@ -4160,8 +4160,8 @@ void PageItem::AdjustPictScale()
 	double ys = Height / static_cast<double>(OrigH);
 	if (AspectRatio)
 	{
-		LocalScX = QMIN(xs, ys);
-		LocalScY = QMIN(xs, ys);
+		LocalScX = qMin(xs, ys);
+		LocalScY = qMin(xs, ys);
 	}
 	else
 	{
@@ -4311,8 +4311,8 @@ void PageItem::updatePolyClip()
 		const CharStyle& hl (itemText.charStyle(a));
 		int des = static_cast<int>(hl.font().descent(hl.fontSize() / 10.0));
 		int asc = static_cast<int>(hl.font().ascent(hl.fontSize() / 10.0));
-		asce = QMAX(asce, asc);
-		desc = QMAX(desc, des);
+		asce = qMax(asce, asc);
+		desc = qMax(desc, des);
 	}
 	setPolyClip(static_cast<int>(asce-BaseOffs), static_cast<int>(desc-BaseOffs));
 }
@@ -4518,7 +4518,7 @@ void PageItem::updateClip()
 {
 	if (m_Doc->appMode == modeDrawBezierLine)
 		return;
-	int ph = static_cast<int>(QMAX(1.0, lineWidth() / 2.0));
+	int ph = static_cast<int>(qMax(1.0, lineWidth() / 2.0));
 	switch (itemType())
 	{
 	case PageItem::Line:

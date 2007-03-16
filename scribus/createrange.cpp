@@ -174,7 +174,7 @@ void CreateRange::basicMoveUp()
 	basicRangeListBox->clearSelection();
 	Q3ListBoxItem* clbi=basicRangeListBox->item(index);
 	basicRangeListBox->takeItem(clbi);
-	basicRangeListBox->insertItem(clbi, QMAX(0, index-1));
+	basicRangeListBox->insertItem(clbi, qMax(0, index-1));
 	basicRangeListBox->setCurrentItem(clbi);
 }
 

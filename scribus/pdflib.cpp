@@ -291,7 +291,7 @@ QString PDFlib::EncStream(const QString & in, int ObjNum)
 	data[dlen++] = 0;
 	QByteArray step1(16);
 	step1 = ComputeMD5Sum(&data);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
 	for (int cl = 0; cl < tmp.length(); ++cl)
@@ -323,7 +323,7 @@ QByteArray PDFlib::EncStreamArray(const QByteArray & in, int ObjNum)
 	data[dlen++] = 0;
 	QByteArray step1(16);
 	step1 = ComputeMD5Sum(&data);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(in.data()), reinterpret_cast<uchar*>(out.data()), in.size());
 	return out;
 }
@@ -357,7 +357,7 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 	data[dlen++] = 0;
 	QByteArray step1(16);
 	step1 = ComputeMD5Sum(&data);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
 	for (int cl = 0; cl < tmp.length(); ++cl)
@@ -400,7 +400,7 @@ QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
 	data[dlen++] = 0;
 	QByteArray step1(16);
 	step1 = ComputeMD5Sum(&data);
-	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
 	QString uk = "";
 	for (int cl = 0; cl < ou.size(); ++cl)
@@ -867,10 +867,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						np1 = FPoint(0, 0);
 					}
 					fon.prepend(QString::number(qRound(np1.x())) + " 0 "+QString::number(qRound(np.x()))+" "+QString::number(qRound(np.y()))+" "+QString::number(qRound(np1.x()))+ " "+QString::number(qRound(np1.y()))+" d1\n");
-					minx = QMIN(minx, np.x());
-					miny = QMIN(miny, np.y());
-					maxx = QMAX(maxx, np1.x());
-					maxy = QMAX(maxy, np1.y());
+					minx = qMin(minx, np.x());
+					miny = qMin(miny, np.y());
+					maxx = qMax(maxx, np1.x());
+					maxy = qMax(maxy, np1.y());
 					glyphWidths.append(qRound(np1.x()));
 					charProcs.append("/"+gl[ig.key()].second+" "+QString::number(ObjCounter)+" 0 R\n");
 					encoding += "/"+gl[ig.key()].second+" ";
@@ -1543,7 +1543,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				double y2 = ite->BoundingY - ilw / 2.0;
 				double w2 = ite->BoundingW + ilw;
 				double h2 = ite->BoundingH + ilw;
-				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
@@ -2681,7 +2681,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				double y2 = ite->BoundingY - ilw / 2.0;
 				double w2 = ite->BoundingW + ilw;
 				double h2 = ite->BoundingH + ilw;
-				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 					continue;
 				if (ite->ChangedMasterItem)
 					continue;
@@ -3141,7 +3141,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	{
 //		qDebug(QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem));
 //		qDebug(QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw));
-		if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			return tmp;
 //		qDebug("bb test done");
 		if (ite->ChangedMasterItem)
@@ -4332,7 +4332,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				}
 				if (hl->glyph.scaleV != 1.0)
 					tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->glyph.scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
-				tmp2 += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 cm\n";
+				tmp2 += FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" 0 0 cm\n";
 				if (style.fillColor() != CommonStrings::None)
 					tmp2 += "/"+style.font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
 				if (style.effects() & ScStyle_Outline)
@@ -4406,13 +4406,13 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 					if (ite->reversed())
 					{
 						double wtr = hl->glyph.xadvance;
-						tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
+						tmp +=  FToStr(-qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
 					}
 					else
-						tmp +=  FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
+						tmp +=  FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0))+" Tm\n";
 				}
 				else
-					tmp += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
+					tmp += FToStr(qMax(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(qMax(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
 				uchar idx2;
 				if (Options.SubsetList.contains(style.font().replacementName()))
 					idx2 = Type3Fonts[UsedFontsP[style.font().replacementName()]][idx] % 255;
@@ -5468,7 +5468,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V "+EncString("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/Q "+QString::number(QMIN(ite->itemText.defaultStyle().alignment(),2))+"\n");
+					PutDoc("/Q "+QString::number(qMin(ite->itemText.defaultStyle().alignment(),2))+"\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
 						PutDoc("/MaxLen "+QString::number(ite->annotation().MaxChar())+"\n");
@@ -5557,7 +5557,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						if ((ite->width()/ite->imageXScale() - ite->pixm.width()) != 0)
 						{
 							if (ite->annotation().ScaleW() == 3)
-								PutDoc(FToStr(QMAX(ite->imageXOffset() / (ite->width()/ite->imageXScale() - ite->pixm.width()), 0.01)));
+								PutDoc(FToStr(qMax(ite->imageXOffset() / (ite->width()/ite->imageXScale() - ite->pixm.width()), 0.01)));
 							else
 								PutDoc("0.5 ");
 						}
@@ -5566,7 +5566,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						if ((ite->height()/ite->imageYScale() - ite->pixm.height()) != 0)
 						{
 							if (ite->annotation().ScaleW() == 3)
-								PutDoc(FToStr(QMAX(ite->imageYOffset() / (ite->height()/ite->imageYScale() - ite->pixm.height()), 0.01)));
+								PutDoc(FToStr(qMax(ite->imageYOffset() / (ite->height()/ite->imageYScale() - ite->pixm.height()), 0.01)));
 							else
 								PutDoc("0.5");
 						}
@@ -5981,7 +5981,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 			if (Options.RecalcPic)
 			{
-				afl = QMIN(Options.PicRes, Options.Resolution);
+				afl = qMin(Options.PicRes, Options.Resolution);
 				aufl = afl / 72.0;
 			}
 			else
@@ -6086,9 +6086,9 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 						img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
 				}
 			}
-			if ((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
+			if ((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
 			{
-				double afl = QMIN(Options.PicRes, Options.Resolution);
+				double afl = qMin(Options.PicRes, Options.Resolution);
 				a2 = (72.0 / sx) / afl;
 				a1 = (72.0 / sy) / afl;
 				origWidth = img.width();
@@ -6203,7 +6203,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		origWidth = img.width();
 		origHeight = img.height();
 		img.applyEffect(c->effectsInUse, c->doc()->PageColors, imgE);
-		if (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
+		if (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
 		{
 			sxn = sx * (1.0 / aufl);
 			syn = sy * (1.0 / aufl);
@@ -6287,13 +6287,13 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		bool specialCMYK = false;
 		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
-			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
+			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
 				im.resize(0);
 				loadRawBytes(fn, im);
 				cm = 1;
 			}
-			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
+			else if (((!Options.UseRGB) && (!Options.isGrayscale) && (!Options.UseProfiles2)) && (cm== 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 1) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))) && (!img.imgInfo.progressive))
 			{
 				im.resize(0);
 				loadRawBytes(fn, im);

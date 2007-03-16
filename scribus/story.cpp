@@ -433,7 +433,7 @@ void SEditor::insChars(QString t)
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
-	int pos = QMIN(StyledText.startOfParagraph(p) + i, StyledText.length());
+	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
 	StyledText.insertChars(pos, t);
 }
 
@@ -445,7 +445,7 @@ void SEditor::insStyledText()
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
-	int pos = QMIN(StyledText.startOfParagraph(p) + i, StyledText.length());
+	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
 	StyledText.insert(pos, cBuffer);
 }
 
@@ -1301,14 +1301,14 @@ void StoryEditor::savePrefs()
 void StoryEditor::loadPrefs()
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("StoryEditor");
-	int vleft   = QMAX(-80, prefs->getInt("left", 10));
+	int vleft   = qMax(-80, prefs->getInt("left", 10));
 #if defined(QT_MAC) || defined(_WIN32)
-	int vtop    = QMAX(64, prefs->getInt("top", 10));
+	int vtop    = qMax(64, prefs->getInt("top", 10));
 #else
-	int vtop    = QMAX(-80, prefs->getInt("top", 10));
+	int vtop    = qMax(-80, prefs->getInt("top", 10));
 #endif
-	int vwidth  = QMAX(600, prefs->getInt("width", 600));
-	int vheight = QMAX(400, prefs->getInt("height", 400));
+	int vwidth  = qMax(600, prefs->getInt("width", 600));
+	int vheight = qMax(400, prefs->getInt("height", 400));
 	// Check values against current screen size
 	QRect scr = QApplication::desktop()->screen()->geometry();
 	QSize gStrut = QApplication::globalStrut();
@@ -1317,9 +1317,9 @@ void StoryEditor::loadPrefs()
 	if ( vtop >= scr.height() )
 		vtop = 64;
 	if ( vwidth >= scr.width() )
-		vwidth = QMAX( gStrut.width(), scr.width() - vleft );
+		vwidth = qMax( gStrut.width(), scr.width() - vleft );
 	if ( vheight >= scr.height() )
-		vheight = QMAX( gStrut.height(), scr.height() - vtop );
+		vheight = qMax( gStrut.height(), scr.height() - vtop );
 	setGeometry(vleft, vtop, vwidth, vheight);
 	int side = prefs->getInt("side", -1);
 	int txtarea = prefs->getInt("main", -1);
@@ -2162,12 +2162,12 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 			start = Editor->StyledText.startOfParagraph(PStart);
 			if (SelStart >= 0 && start + SelStart < Editor->StyledText.endOfParagraph(PStart))
-				start = QMIN(start + SelStart, Editor->StyledText.endOfParagraph(PStart)-1);
+				start = qMin(start + SelStart, Editor->StyledText.endOfParagraph(PStart)-1);
 			else
-				start = QMIN(start + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
+				start = qMin(start + qMax(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
 		}
 		else
-			start = QMIN(Editor->StyledText.startOfParagraph(p) + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
+			start = qMin(Editor->StyledText.startOfParagraph(p) + qMax(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
 		if (start >= Editor->StyledText.length())
 			start = Editor->StyledText.length() - 1;
 		if (start < 0)

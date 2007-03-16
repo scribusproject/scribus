@@ -235,7 +235,7 @@ GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
 	FT_Error error = FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 	if (!error) {
 		double w  = (face->glyph->metrics.width + QABS((double)face->glyph->metrics.horiBearingX)) / m_uniEM * sz;
-		result.width = QMAX(w, face->glyph->metrics.horiAdvance / m_uniEM * sz);
+		result.width = qMax(w, face->glyph->metrics.horiAdvance / m_uniEM * sz);
 		double height = face->glyph->metrics.height / m_uniEM * sz;
 		result.ascent = face->glyph->metrics.horiBearingY / m_uniEM * sz;
 		result.descent = height - result.ascent;
@@ -301,7 +301,7 @@ void FtFace::RawData(QByteArray & bb) const
 	{
 		qDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
 		bb.resize(0);
-		status = QMAX(status, ScFace::BROKENGLYPHS);
+		status = qMax(status, ScFace::BROKENGLYPHS);
 	}
 /*	
 //	 if (showFontInformation)

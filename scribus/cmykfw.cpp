@@ -957,7 +957,7 @@ void CMYKChoose::setColor()
 
 void CMYKChoose::setColor2(int h, int s, bool ende)
 {
-	QColor tm = QColor(QMAX(QMIN(359,h),0), QMAX(QMIN(255,255-s),0), 255-BlackComp, QColor::Hsv);
+	QColor tm = QColor(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
 	int r, g, b;
 	tm.rgb(&r, &g, &b);
 	ScColor tmp;

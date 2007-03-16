@@ -85,9 +85,9 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 					if (cmyk)
 					{
 						ck = src[3];
-						cr = 255 - QMIN(255, src[0] + ck);
-						cg = 255 - QMIN(255, src[1] + ck);
-						cb = 255 - QMIN(255, src[2] + ck);
+						cr = 255 - qMin(255, src[0] + ck);
+						cg = 255 - qMin(255, src[1] + ck);
+						cb = 255 - qMin(255, src[2] + ck);
 						if (chans > 4)
 						{
 							ca = src[4];

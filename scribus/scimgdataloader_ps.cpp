@@ -489,7 +489,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 						cc = 255 - qRed(*s);
 						cm = 255 - qGreen(*s);
 						cy = 255 - qBlue(*s);
-						ck = QMIN(QMIN(cc, cm), cy);
+						ck = qMin(qMin(cc, cm), cy);
 						*s = qRgba(cc-ck,cm-ck,cy-ck,ck);
 						s++;
 					}
@@ -1519,10 +1519,10 @@ void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
 			cyan = 255 - qRed(*pq);
 			if (cyan != 0)
 			{
-				(c == 0) ? cc = qRed(*p) : cc = QMIN(c * cyan / 255 + qRed(*p), 255);
-				(m == 0) ? mm = qGreen(*p) : mm = QMIN(m * cyan / 255 + qGreen(*p), 255);
-				(yc == 0) ? yy = qBlue(*p) : yy = QMIN(yc * cyan / 255 + qBlue(*p), 255);
-				(k == 0) ? kk = qAlpha(*p) : kk = QMIN(k * cyan / 255 + qAlpha(*p), 255);
+				(c == 0) ? cc = qRed(*p) : cc = qMin(c * cyan / 255 + qRed(*p), 255);
+				(m == 0) ? mm = qGreen(*p) : mm = qMin(m * cyan / 255 + qGreen(*p), 255);
+				(yc == 0) ? yy = qBlue(*p) : yy = qMin(yc * cyan / 255 + qBlue(*p), 255);
+				(k == 0) ? kk = qAlpha(*p) : kk = qMin(k * cyan / 255 + qAlpha(*p), 255);
 				*p = qRgba(cc, mm, yy, kk);
 			}
 			p++;

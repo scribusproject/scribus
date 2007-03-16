@@ -284,7 +284,7 @@ void DocSections::deleteEntry()
 			localSections.insert(i++, it.data());
 		}
 		int newCount=localSections.count();
-		//int preIndex=QMAX(currentIndex-1, 0);
+		//int preIndex=qMax(currentIndex-1, 0);
 		localSections[0].fromindex=0;
 		localSections[newCount-1].toindex=m_maxpageindex;
 		updateTable();

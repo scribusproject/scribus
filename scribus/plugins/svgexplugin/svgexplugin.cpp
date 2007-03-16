@@ -272,7 +272,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				double y2 = Item->BoundingY;
 				double w2 = Item->BoundingW;
 				double h2 = Item->BoundingH;
-				if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h, y2+h2 )))
+				if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
 					continue;
 				if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 				{
@@ -313,7 +313,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("y2", "0");
 								break;
 							case 5:
-								grad.setAttribute("r", FToStr(QMAX(Item->width() / 2, Item->height() / 2)));
+								grad.setAttribute("r", FToStr(qMax(Item->width() / 2, Item->height() / 2)));
 								grad.setAttribute("cx", FToStr(Item->width() / 2));
 								grad.setAttribute("cy", FToStr(Item->height() / 2));
 								break;
@@ -324,7 +324,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("y2", FToStr(Item->GrEndY));
 								break;
 							case 7:
-								grad.setAttribute("r", FToStr(QMAX(Item->width() / 2, Item->height() / 2)));
+								grad.setAttribute("r", FToStr(qMax(Item->width() / 2, Item->height() / 2)));
 								grad.setAttribute("cx", FToStr(Item->GrStartX));
 								grad.setAttribute("cy", FToStr(Item->GrStartY));
 								break;
@@ -407,8 +407,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*Item->lineWidth(), 1));
-					QString Da = FToStr(QMAX(6*Item->lineWidth(), 1));
+					QString Dt = FToStr(qMax(2*Item->lineWidth(), 1));
+					QString Da = FToStr(qMax(6*Item->lineWidth(), 1));
 					switch (Item->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -820,8 +820,8 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 			break;
 		}
 	tmp += " stroke-dasharray:";
-	QString Dt = FToStr(QMAX(2*sl->Width, 1));
-	QString Da = FToStr(QMAX(6*sl->Width, 1));
+	QString Dt = FToStr(qMax(2*sl->Width, 1));
+	QString Da = FToStr(qMax(6*sl->Width, 1));
 	switch (static_cast<Qt::PenStyle>(sl->Dash))
 		{
 		case Qt::SolidLine:

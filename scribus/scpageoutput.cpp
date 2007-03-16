@@ -535,12 +535,12 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if (style.underlineWidth() != -1)
 					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
 			else
 			{
 				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -608,12 +608,12 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if (style.strikethruWidth() != -1)
 					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
 			else
 			{
 				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -712,13 +712,13 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 					break;
 				case Line:
 				case PolyLine:
-					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+					embedded->m_lineWidth = pws * qMin(hl->scale / 1000.0, hl->scalev / 1000.0);
 					embedded->DrawObj_Item(p, e, sc);
 					break;
 				default:
 					break;
 			}
-			embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
+			embedded->m_lineWidth = pws * qMin(hl->scale / 1000.0, hl->scalev / 1000.0);
 			embedded->DrawObj_Post(p);
 */
 			p->restore();
@@ -805,10 +805,10 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, QRect&
 		double kyb = (ipb.y() - it->gYpos) / patHeight;
 		double kyc = (ipc.y() - it->gYpos) / patHeight;
 		double kyd = (ipd.y() - it->gYpos) / patHeight;
-		int kxMin = floor( QMIN(QMIN(kxa, kxb), QMIN(kxc, kxd)) );
-		int kxMax = ceil ( QMAX(QMAX(kxa, kxb), QMAX(kxc, kxd)) );
-		int kyMin = floor( QMIN(QMIN(kya, kyb), QMIN(kyc, kyd)) );
-		int kyMax = ceil ( QMAX(QMAX(kya, kyb), QMAX(kyc, kyd)) );
+		int kxMin = floor( qMin(qMin(kxa, kxb), qMin(kxc, kxd)) );
+		int kxMax = ceil ( qMax(qMax(kxa, kxb), qMax(kxc, kxd)) );
+		int kyMin = floor( qMin(qMin(kya, kyb), qMin(kyc, kyd)) );
+		int kyMax = ceil ( qMax(qMax(kya, kyb), qMax(kyc, kyd)) );
 
 		double itx = it->xPos();
 		double ity = it->yPos();

@@ -249,16 +249,16 @@ void MarginWidget::setPageWidthHeight(double width, double height)
 
 void MarginWidget::setPageWidth(double width)
 {
-	rightR->setMaxValue(QMAX(0.0, width * m_unitRatio - leftR->value()));
-	leftR->setMaxValue(QMAX(0.0,width * m_unitRatio - rightR->value()));
+	rightR->setMaxValue(qMax(0.0, width * m_unitRatio - leftR->value()));
+	leftR->setMaxValue(qMax(0.0,width * m_unitRatio - rightR->value()));
 	pageWidth = width;
 	setPreset();
 }
 
 void MarginWidget::setPageHeight(double height)
 {
-	topR->setMaxValue(QMAX(0.0, height * m_unitRatio - bottomR->value()));
-	bottomR->setMaxValue(QMAX(0.0,height * m_unitRatio - topR->value()));
+	topR->setMaxValue(qMax(0.0, height * m_unitRatio - bottomR->value()));
+	bottomR->setMaxValue(qMax(0.0,height * m_unitRatio - topR->value()));
 	pageHeight = height;
 	setPreset();
 }
@@ -266,28 +266,28 @@ void MarginWidget::setPageHeight(double height)
 void MarginWidget::setTop()
 {
 	RandT = topR->value() / m_unitRatio;
-	bottomR->setMaxValue(QMAX(0.0, pageHeight * m_unitRatio - topR->value()));
+	bottomR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
 	setPreset();
 }
 
 void MarginWidget::setBottom()
 {
 	RandB = bottomR->value() / m_unitRatio;
-	topR->setMaxValue(QMAX(0.0, pageHeight * m_unitRatio - bottomR->value()));
+	topR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
 	setPreset();
 }
 
 void MarginWidget::setLeft()
 {
 	RandL = leftR->value() / m_unitRatio;
-	rightR->setMaxValue(QMAX(0.0, pageWidth * m_unitRatio - leftR->value()));
+	rightR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
 	setPreset();
 }
 
 void MarginWidget::setRight()
 {
 	RandR = rightR->value() / m_unitRatio;
-	leftR->setMaxValue(QMAX(0.0, pageWidth * m_unitRatio - rightR->value()));
+	leftR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
 	setPreset();
 }
 
@@ -356,18 +356,18 @@ void MarginWidget::setPreset()
 	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
 	if (presetCombo->needUpdate() && facingPages)
 	{
-		leftR->setValue(QMAX(0.0, marg.Left));
-		rightR->setValue(QMAX(0.0, marg.Right));
-		topR->setValue(QMAX(0.0, marg.Top));
-		bottomR->setValue(QMAX(0.0, marg.Bottom));
+		leftR->setValue(qMax(0.0, marg.Left));
+		rightR->setValue(qMax(0.0, marg.Right));
+		topR->setValue(qMax(0.0, marg.Top));
+		bottomR->setValue(qMax(0.0, marg.Bottom));
 		RandT = topR->value() / m_unitRatio;
 		RandB = bottomR->value() / m_unitRatio;
 		RandL = leftR->value() / m_unitRatio;
 		RandR = rightR->value() / m_unitRatio;
-		bottomR->setMaxValue(QMAX(0.0, pageHeight * m_unitRatio - topR->value()));
-		topR->setMaxValue(QMAX(0.0, pageHeight * m_unitRatio - bottomR->value()));
-		rightR->setMaxValue(QMAX(0.0, pageWidth * m_unitRatio - leftR->value()));
-		leftR->setMaxValue(QMAX(0.0, pageWidth * m_unitRatio - rightR->value()));
+		bottomR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
+		topR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
+		rightR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
+		leftR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
 		rightR->setEnabled(false);
 		topR->setEnabled(false);
 		bottomR->setEnabled(false);
@@ -409,10 +409,10 @@ void MarginWidget::setMarginsToPrinterMargins()
 		RandL = l;
 		RandR = r;
 
-		bottomR->setMaxValue((QMAX(0.0, pageHeight - t) * m_unitRatio));
-		topR->setMaxValue((QMAX(0.0, pageHeight - b) * m_unitRatio));
-		rightR->setMaxValue((QMAX(0.0, pageWidth - l) * m_unitRatio));
-		leftR->setMaxValue((QMAX(0.0, pageWidth - r) * m_unitRatio));
+		bottomR->setMaxValue((qMax(0.0, pageHeight - t) * m_unitRatio));
+		topR->setMaxValue((qMax(0.0, pageHeight - b) * m_unitRatio));
+		rightR->setMaxValue((qMax(0.0, pageWidth - l) * m_unitRatio));
+		leftR->setMaxValue((qMax(0.0, pageWidth - r) * m_unitRatio));
 
 		rightR->setEnabled(true);
 		topR->setEnabled(true);

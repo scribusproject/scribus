@@ -586,7 +586,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 //		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->trailingStyle.applyStyle(style);
 	}
-	invalidate(pos, QMIN(i, length()));
+	invalidate(pos, qMin(i, length()));
 }
 
 void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
@@ -618,7 +618,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->trailingStyle.eraseStyle(style);
 	}
-	invalidate(pos, QMIN(i, length()));
+	invalidate(pos, qMin(i, length()));
 }
 
 
@@ -772,14 +772,14 @@ int StoryText::prevChar(int pos)
 int StoryText::nextWord(int pos)
 {
 	int len = length();
-	pos = QMIN(len, pos+1);
+	pos = qMin(len, pos+1);
 	while (pos < len  && wordBoundaries.find(text(pos)) < 0)
 		++pos;
 	return pos < len ? pos + 1 : pos;
 }
 int StoryText::prevWord(int pos)
 {
-	pos = QMAX(0, pos-1);
+	pos = qMax(0, pos-1);
 	while (pos > 0 && wordBoundaries.find(text(pos)) < 0)
 		--pos;
 	return wordBoundaries.find(text(pos)) < 0 ? pos + 1 : pos;
@@ -787,14 +787,14 @@ int StoryText::prevWord(int pos)
 int StoryText::nextSentence(int pos)
 {
 	int len = length();
-	pos = QMIN(len, pos+1);
+	pos = qMin(len, pos+1);
 	while (pos < len && sentenceBoundaries.find(text(pos)) < 0)
 		++pos;
 	return pos < len ? pos + 1 : pos;
 }
 int StoryText::prevSentence(int pos)
 {
-	pos = QMAX(0, pos-1);
+	pos = qMax(0, pos-1);
 	while (pos > 0 && sentenceBoundaries.find(text(pos)) < 0)
 		--pos;
 	return sentenceBoundaries.find(text(pos)) < 0 ? pos + 1 : pos;
@@ -802,14 +802,14 @@ int StoryText::prevSentence(int pos)
 int StoryText::nextParagraph(int pos)
 {
 	int len = length();
-	pos = QMIN(len, pos+1);
+	pos = qMin(len, pos+1);
 	while (pos < len && text(pos) != SpecialChars::PARSEP)
 		++pos;
 	return pos;
 }
 int StoryText::prevParagraph(int pos)
 {
-	pos = QMAX(0, pos-1);
+	pos = qMax(0, pos-1);
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
 		--pos;
 	return pos;
@@ -955,9 +955,9 @@ void StoryText::select(int pos, uint len, bool on)
 	if (on) {
 		// extend if possible
 		if (selected(pos - 1))
-			selLast = QMAX(selLast, pos + static_cast<int>(len) - 1);
+			selLast = qMax(selLast, pos + static_cast<int>(len) - 1);
 		else if (selected(pos + len))
-			selFirst = QMIN(selFirst, pos);
+			selFirst = qMin(selFirst, pos);
 		else {
 			selFirst = pos;
 			selLast = pos + len - 1;
@@ -1082,7 +1082,7 @@ int StoryText::screenToPosition(FPoint coord) const
 		else if (xpos < ls.x + 0.01 && maxx >= coord.x()) // check for empty line
 			return ls.firstItem;
 	}
-	return QMAX(lastFrameItem+1, firstFrameItem);
+	return qMax(lastFrameItem+1, firstFrameItem);
 }
 
 

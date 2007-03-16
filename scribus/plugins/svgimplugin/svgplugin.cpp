@@ -357,8 +357,8 @@ void SVGPlug::convert(int flags)
 			{
 				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
 				PageItem* currItem = Elements.at(a);
-				lowestItem = QMIN(lowestItem, currItem->ItemNr);
-				highestItem = QMAX(highestItem, currItem->ItemNr);
+				lowestItem = qMin(lowestItem, currItem->ItemNr);
+				highestItem = qMax(highestItem, currItem->ItemNr);
 				double lw = currItem->lineWidth() / 2.0;
 				if (currItem->rotation() != 0)
 				{
@@ -370,18 +370,18 @@ void SVGPlug::convert(int flags)
 					pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 					for (uint pc = 0; pc < 4; ++pc)
 					{
-						minx = QMIN(minx, pb.point(pc).x());
-						miny = QMIN(miny, pb.point(pc).y());
-						maxx = QMAX(maxx, pb.point(pc).x());
-						maxy = QMAX(maxy, pb.point(pc).y());
+						minx = qMin(minx, pb.point(pc).x());
+						miny = qMin(miny, pb.point(pc).y());
+						maxx = qMax(maxx, pb.point(pc).x());
+						maxy = qMax(maxy, pb.point(pc).y());
 					}
 				}
 				else
 				{
-					minx = QMIN(minx, currItem->xPos()-lw);
-					miny = QMIN(miny, currItem->yPos()-lw);
-					maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-					maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+					minx = qMin(minx, currItem->xPos()-lw);
+					miny = qMin(miny, currItem->yPos()-lw);
+					maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+					maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 				}
 			}
 			double gx = minx;
@@ -544,7 +544,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(), wh.y());
 //			if (item->asPolyLine())
-//				item->setPolyClip(qRound(QMAX(item->lineWidth() / 2.0, 1)));
+//				item->setPolyClip(qRound(qMax(item->lineWidth() / 2.0, 1)));
 //			else
 //				item->Clip = FlattenPath(item->PoLine, item->Segments);
 			m_Doc->AdjustItemSize(item);
@@ -835,18 +835,18 @@ Q3PtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 				for (uint pc = 0; pc < 4; ++pc)
 				{
-					minx = QMIN(minx, pb.point(pc).x());
-					miny = QMIN(miny, pb.point(pc).y());
-					maxx = QMAX(maxx, pb.point(pc).x());
-					maxy = QMAX(maxy, pb.point(pc).y());
+					minx = qMin(minx, pb.point(pc).x());
+					miny = qMin(miny, pb.point(pc).y());
+					maxx = qMax(maxx, pb.point(pc).x());
+					maxy = qMax(maxy, pb.point(pc).y());
 				}
 			}
 			else
 			{
-				minx = QMIN(minx, currItem->xPos()-lw);
-				miny = QMIN(miny, currItem->yPos()-lw);
-				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+				minx = qMin(minx, currItem->xPos()-lw);
+				miny = qMin(miny, currItem->yPos()-lw);
+				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
 			}
 		}
 		double gx = minx;
@@ -1148,7 +1148,7 @@ Q3PtrList<PageItem> SVGPlug::parseRect(const QDomElement &e)
 	PageItem* ite = m_Doc->Items->at(z);
 	if ((rx != 0) || (ry != 0))
 	{
-		ite->setCornerRadius(QMAX(rx, ry));
+		ite->setCornerRadius(qMax(rx, ry));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
@@ -1204,7 +1204,7 @@ Q3PtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElem
 	Q3PtrList<PageItem> GElements;
 //	QFont ff(m_Doc->UsedFonts[m_gc.current()->Family]);
 	QFont ff(m_gc.current()->Family);
-	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
+	ff.setPointSize(qMax(qRound(m_gc.current()->FontSize / 10.0), 1));
 	QFontMetrics fontMetrics(ff);
 	int desc = fontMetrics.descent();
 	double BaseX = m_Doc->currentPage()->xOffset();
@@ -1299,13 +1299,13 @@ Q3PtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElem
 		maxHeight = (tempH > maxHeight) ? tempH : maxHeight;
 		if (ch == SpecialChars::PARSEP)
 		{
-			ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
+			ite->setWidthHeight(qMax(ite->width(), tempW), ite->height() + lineSpacing+desc);
 			tempW = 0;
 		}
 	}
 	double xpos = ite->xPos();
 	double ypos = ite->yPos();
-	ite->setWidthHeight(QMAX(ite->width(), maxWidth), QMAX(ite->height(), maxHeight));
+	ite->setWidthHeight(qMax(ite->width(), maxWidth), qMax(ite->height(), maxHeight));
 	double xoffset = 0.0, yoffset = 0.0;
 	if( gc->textAnchor == "middle" )
 	{

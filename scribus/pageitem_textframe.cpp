@@ -403,7 +403,7 @@ struct LineControl {
 	
 	double endOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace = 0)
 	{
-		double EndX = floor(QMAX(line.x, breakXPos - 1));
+		double EndX = floor(qMax(line.x, breakXPos - 1));
 		QPoint pt1, pt2;
 		//	qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
 		do {
@@ -497,7 +497,7 @@ static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 		leftCorr -= itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0);
 //				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, chr);
 //				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
-//				leftCorr = QMIN(leftCorr, leftCorr2);
+//				leftCorr = qMin(leftCorr, leftCorr2);
 	}
 	return leftCorr;
 }
@@ -1218,11 +1218,11 @@ void PageItem_TextFrame::layout()
 			else if (tabs.active && tabs.status == TabCENTER) 	// center tab
 			{
 				current.xPos += (wide+kernVal) / 2;
-				current.xPos = QMAX(current.xPos, current.colLeft);
+				current.xPos = qMax(current.xPos, current.colLeft);
 			}
 			else // other tabs.active			
 			{
-				current.xPos = QMAX(current.xPos, current.colLeft);
+				current.xPos = qMax(current.xPos, current.colLeft);
 			}
 			
 			
@@ -1325,7 +1325,7 @@ void PageItem_TextFrame::layout()
 				current.xPos += style.dropCapOffset();
 				hl->glyph.xadvance += style.dropCapOffset();
 //				qDebug(QString("dropcapoffset: %1 -> %2").arg(current.xPos-style.dropCapOffset()).arg(current.xPos));
-				current.xPos = QMAX(current.xPos, current.colLeft);
+				current.xPos = qMax(current.xPos, current.colLeft);
 				maxDX = current.xPos;
 				Q3PointArray tcli(4);
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
@@ -1565,7 +1565,7 @@ void PageItem_TextFrame::layout()
 								break;
 							}
 							current.xPos--;
-							current.xPos = QMAX(current.xPos, current.colLeft);
+							current.xPos = qMax(current.xPos, current.colLeft);
 						}
 					}
 					else
@@ -1620,7 +1620,7 @@ void PageItem_TextFrame::layout()
 						if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
 							currasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 						else if (itemText.object(current.line.firstItem) != 0)
-							currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+							currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
 						else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
 							currasce = itemText.charStyle(current.line.firstItem).font().realCharAscent(itemText.text(current.line.firstItem), itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 						for (int zc = 0; zc < current.itemsInLine; ++zc)
@@ -1633,9 +1633,9 @@ void PageItem_TextFrame::layout()
 								|| (ch == SpecialChars::FRAMEBREAK) || (ch == SpecialChars::NBSPACE))
 								continue;
 							if (itemText.object(current.line.firstItem + zc) != 0)
-								currasce = QMAX(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0));
+								currasce = qMax(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0));
 							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								currasce = QMAX(currasce, cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0));
+								currasce = qMax(currasce, cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0));
 						}
 						double adj = firstasce - currasce;
 						current.line.ascent = currasce;
@@ -1648,7 +1648,7 @@ void PageItem_TextFrame::layout()
 						double firstasce = style.lineSpacing();
 						double currasce = 0;
 						if (itemText.object(current.line.firstItem) != 0)
-							currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+							currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
 						else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
 							currasce = itemText.charStyle(current.line.firstItem).font().height(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 						for (int zc = 0; zc < current.itemsInLine; ++zc)
@@ -1660,9 +1660,9 @@ void PageItem_TextFrame::layout()
 								|| (ch == SpecialChars::LINEBREAK) || (ch == SpecialChars::NBSPACE))
 								continue;
 							if (itemText.object(current.line.firstItem + zc) != 0)
-								currasce = QMAX(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem + zc).scaleV() / 1000.0));
+								currasce = qMax(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem + zc).scaleV() / 1000.0));
 							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem + zc).font().height(itemText.charStyle(current.line.firstItem + zc).fontSize() / 10.0));
+								currasce = qMax(currasce, itemText.charStyle(current.line.firstItem + zc).font().height(itemText.charStyle(current.line.firstItem + zc).fontSize() / 10.0));
 						}
 							
 						double adj = firstasce - currasce;
@@ -1794,7 +1794,7 @@ void PageItem_TextFrame::layout()
 				if ((itemText.text(current.line.firstItem) == SpecialChars::PARSEP) || (itemText.text(current.line.firstItem) == SpecialChars::LINEBREAK))
 					currasce = itemText.charStyle(current.line.firstItem).font().ascent(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 				else if (itemText.object(current.line.firstItem) != 0)
-					currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+					currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
 				else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
 					currasce = itemText.charStyle(current.line.firstItem).font().realCharAscent(itemText.text(current.line.firstItem), itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 				for (int zc = 0; zc < current.itemsInLine; ++zc)
@@ -1805,9 +1805,9 @@ void PageItem_TextFrame::layout()
 						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(current.line.firstItem+zc) == SpecialChars::NBSPACE))
 						continue;
 					if (itemText.object(current.line.firstItem+zc) != 0)
-						currasce = QMAX(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0);
+						currasce = qMax(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0);
 					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem+zc).font().realCharAscent(itemText.text(current.line.firstItem+zc), itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
+						currasce = qMax(currasce, itemText.charStyle(current.line.firstItem+zc).font().realCharAscent(itemText.text(current.line.firstItem+zc), itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
 				current.line.ascent = currasce;
@@ -1819,7 +1819,7 @@ void PageItem_TextFrame::layout()
 				double firstasce = style.lineSpacing();
 				double currasce = 0;
 				if (itemText.object(current.line.firstItem) != 0)
-					currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
+					currasce = qMax(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
 				else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
 					currasce = itemText.charStyle(current.line.firstItem).font().height(itemText.charStyle(current.line.firstItem).fontSize() / 10.0);
 				for (int zc = 0; zc < current.itemsInLine; ++zc)
@@ -1830,9 +1830,9 @@ void PageItem_TextFrame::layout()
 						|| (itemText.text(current.line.firstItem+zc) == SpecialChars::LINEBREAK) || (itemText.text(current.line.firstItem+zc) == SpecialChars::NBSPACE))
 						continue;
 					if (itemText.object(current.line.firstItem+zc) != 0)
-						currasce = QMAX(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0));
+						currasce = qMax(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0));
 					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
+						currasce = qMax(currasce, itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
 				current.line.ascent = currasce;
@@ -1882,7 +1882,7 @@ NoRoom:
 			if (m_Doc->appMode == modeEdit)
 			{
 				//							OwnPage->Deselect(true);
-				next->CPos = QMAX(nCP, signed(MaxChars));
+				next->CPos = qMax(nCP, signed(MaxChars));
 				//							Doc->currentPage = NextBox->OwnPage;
 				//							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 //				qDebug("textframe: len=%d, leaving relayout in editmode && Tinput", itemText.length());
@@ -2166,7 +2166,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double scpInv = 1.0 / (QMAX(view->scale(), 1.0));
+		double scpInv = 1.0 / (qMax(view->scale(), 1.0));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2629,7 +2629,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
-//			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
+//			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(CPos-1,0))));
 //			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
@@ -2648,7 +2648,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if (itemText.length() == 0)
 			break;
-		cr = itemText.text(QMAX(CPos-1,0),1);
+		cr = itemText.text(qMax(CPos-1,0),1);
 		if (itemText.lengthOfSelection() == 0)
 		{
 			--CPos;
@@ -2658,7 +2658,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
-//			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
+//			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(CPos-1,0))));
 //			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
@@ -2925,7 +2925,7 @@ double PageItem_TextFrame::columnWidth()
 void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 {
 	/*CB Old large corner indicator.
-	double scp1 = 1.0/QMAX(ScMW->view->getScale(), 1);
+	double scp1 = 1.0/qMax(ScMW->view->getScale(), 1);
 	double scp16 = 16.0*scp1;
 	double scp14 = 14.0*scp1;
 	double scp3 = 3.0*scp1;

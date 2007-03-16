@@ -185,7 +185,7 @@ bool ScFace_ttf::EmbedFont(QString &str) const
 		else {
 			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile).arg(gindex));
 			str += "\n] def\n";
-			status = QMAX(status,ScFace::BROKENGLYPHS);
+			status = qMax(status,ScFace::BROKENGLYPHS);
 			return false;
 		}
 	} while (length==65534);

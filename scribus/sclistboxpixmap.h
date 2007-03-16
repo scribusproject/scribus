@@ -45,8 +45,8 @@ template<unsigned int pixWidth, unsigned int pixHeight>
 int	ScListBoxPixmap<pixWidth, pixHeight>::width(const Q3ListBox* lb)  const
 {
 	if ( text().isEmpty() )
-		return QMAX( pmap->width() + 6, QApplication::globalStrut().width() );
-    return QMAX( pmap->width() + lb->fontMetrics().width(text()) + 6,QApplication::globalStrut().width() );
+		return qMax( pmap->width() + 6, QApplication::globalStrut().width() );
+    return qMax( pmap->width() + lb->fontMetrics().width(text()) + 6,QApplication::globalStrut().width() );
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight>
@@ -56,8 +56,8 @@ int	ScListBoxPixmap<pixWidth, pixHeight>::height(const Q3ListBox* lb) const
 	if ( text().isEmpty() )
 		h = pmap->height();
     else
-		h = QMAX( pmap->height(), lb->fontMetrics().lineSpacing() + 2 );
-    return QMAX( h, QApplication::globalStrut().height() );
+		h = qMax( pmap->height(), lb->fontMetrics().lineSpacing() + 2 );
+    return qMax( h, QApplication::globalStrut().height() );
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight>

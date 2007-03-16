@@ -241,10 +241,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->pageWidth=dc.attribute("PAGEWITH").toDouble();
 		m_Doc->pageHeight=dc.attribute("PAGEHEIGHT").toDouble();
-		m_Doc->pageMargins.Left=QMAX(0.0, dc.attribute("BORDERLEFT").toDouble());
-		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
-		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
-		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->pageMargins.Left=qMax(0.0, dc.attribute("BORDERLEFT").toDouble());
+		m_Doc->pageMargins.Right=qMax(0.0, dc.attribute("BORDERRIGHT").toDouble());
+		m_Doc->pageMargins.Top=qMax(0.0, dc.attribute("BORDERTOP").toDouble());
+		m_Doc->pageMargins.Bottom=qMax(0.0, dc.attribute("BORDERBOTTOM").toDouble());
 		m_Doc->PageOri = dc.attribute("ORIENTATION", "0").toInt();
 		m_Doc->m_pageSize = dc.attribute("PAGESIZE");
 		m_Doc->FirstPnum = dc.attribute("FIRSTNUM", "1").toInt();
@@ -983,8 +983,8 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		style.setEffects(static_cast<StyleFlag>(cstyle));
 		style.setStrokeColor(stroke);
 		style.setStrokeShade(shade2);
-		style.setScaleH(QMIN(QMAX(scale, 100), 4000));
-		style.setScaleV(QMIN(QMAX(scalev, 100), 4000));
+		style.setScaleH(qMin(qMax(scale, 100), 4000));
+		style.setScaleV(qMin(qMax(scalev, 100), 4000));
 		style.setBaselineOffset(base);
 		style.setShadowXOffset(shX);
 		style.setShadowYOffset(shY);
@@ -1044,8 +1044,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	uint layerCount=m_Doc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
-		maxLayer = QMAX(m_Doc->Layers[la2].LNr, maxLayer);
-		maxLevel = QMAX(m_Doc->Layers[la2].Level, maxLevel);
+		maxLayer = qMax(m_Doc->Layers[la2].LNr, maxLayer);
+		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 	DoVorl.clear();
 	DoFonts.clear();

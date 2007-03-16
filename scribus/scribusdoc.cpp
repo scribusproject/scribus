@@ -1608,7 +1608,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 				for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
 				{
 					tmpGroup.push((*nx)+GroupCounter);
-					GrMax = QMAX(GrMax, (*nx)+GroupCounter);
+					GrMax = qMax(GrMax, (*nx)+GroupCounter);
 				}
 				for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
 				{
@@ -3641,18 +3641,18 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 			pb.addPoint(p3);
 			for (uint pc = 0; pc < 4; ++pc)
 			{
-				minx = QMIN(minx, pb.point(pc).x());
-				miny = QMIN(miny, pb.point(pc).y());
-				maxx = QMAX(maxx, pb.point(pc).x());
-				maxy = QMAX(maxy, pb.point(pc).y());
+				minx = qMin(minx, pb.point(pc).x());
+				miny = qMin(miny, pb.point(pc).y());
+				maxx = qMax(maxx, pb.point(pc).x());
+				maxy = qMax(maxy, pb.point(pc).y());
 			}
 		}
 		else
 		{
-			minx = QMIN(minx, currItem->xPos());
-			miny = QMIN(miny, currItem->yPos());
-			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
-			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+			minx = qMin(minx, currItem->xPos());
+			miny = qMin(miny, currItem->yPos());
+			maxx = qMax(maxx, currItem->xPos() + currItem->width());
+			maxy = qMax(maxy, currItem->yPos() + currItem->height());
 		}
 	}
 	minPoint.setX(minx);
@@ -3711,7 +3711,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		double y2 = currItem->BoundingY;
 		double w2 = currItem->BoundingW;
 		double h2 = currItem->BoundingH;
-		if (( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+		if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			retw = currentPage()->pageNr();
 	}
 	else
@@ -3727,7 +3727,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			double y2 = currItem->BoundingY;
 			double w2 = currItem->BoundingW;
 			double h2 = currItem->BoundingH;
-			if (( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+			if (( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h1, y2+h2 )))
 			{
 				retw = static_cast<int>(a);
 				break;
@@ -3772,9 +3772,9 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 	for (uint a = 0; a < objectCount; ++a)
 	{
 		int res = OnPage(Objects.at(a));
-		Off_Page = QMAX(Off_Page, res);
+		Off_Page = qMax(Off_Page, res);
 		if (res != -1)
-			On_Page = QMIN(On_Page, res);
+			On_Page = qMin(On_Page, res);
 	}
 	int final = -1;
 	if (Off_Page != -1)
@@ -3837,7 +3837,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 			if (counter < pageSets[currentPageLayout].Columns-1)
 			{
 				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
-				lastYPos = QMAX(lastYPos, Seite->height());
+				lastYPos = qMax(lastYPos, Seite->height());
 				if (counter == 0)
 				{
 					Seite->Margins.Left = Seite->initialMargins.Right;
@@ -3853,10 +3853,10 @@ void ScribusDoc::reformPages(bool moveObjects)
 			{
 				currentXPos = scratch.Left;
 				if (pageSets[currentPageLayout].Columns > 1)
-					currentYPos += QMAX(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
+					currentYPos += qMax(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
 					currentYPos += Seite->height()+pageSets[currentPageLayout].GapVertical;
-//				lastYPos = QMAX(lastYPos, Seite->height());
+//				lastYPos = qMax(lastYPos, Seite->height());
 				lastYPos = 0;
 				Seite->Margins.Right = Seite->initialMargins.Right;
 				Seite->Margins.Left = Seite->initialMargins.Left;
@@ -3875,8 +3875,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 		}
 		Seite->Margins.Top = Seite->initialMargins.Top;
 		Seite->Margins.Bottom = Seite->initialMargins.Bottom;
-		maxXPos = QMAX(maxXPos, Seite->xOffset()+Seite->width()+scratch.Right);
-		maxYPos = QMAX(maxYPos, Seite->yOffset()+Seite->height()+scratch.Bottom);
+		maxXPos = qMax(maxXPos, Seite->xOffset()+Seite->width()+scratch.Right);
+		maxYPos = qMax(maxYPos, Seite->yOffset()+Seite->height()+scratch.Bottom);
 	}
 	if (!isLoading())
 	{
@@ -3917,8 +3917,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	{
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
-		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+scratch.Right), QMAX(maxYPos, maxPoint.y()+scratch.Bottom));
-		adjustCanvas(FPoint(QMIN(0, minPoint.x()-scratch.Left),QMIN(0, minPoint.y()-scratch.Top)), maxSize, true);
+		FPoint maxSize(qMax(maxXPos, maxPoint.x()+scratch.Right), qMax(maxYPos, maxPoint.y()+scratch.Bottom));
+		adjustCanvas(FPoint(qMin(0, minPoint.x()-scratch.Left),qMin(0, minPoint.y()-scratch.Top)), maxSize, true);
 		changed();
 	}
 	else
@@ -4081,7 +4081,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 				polyLineItem->ClipEdited = true;
 				polyLineItem->FrameType = 3;
 				polyLineItem->setRotation(currItem->rotation());
-//				polyLineItem->setPolyClip(qRound(QMAX(polyLineItem->lineWidth() / 2, 1)));
+//				polyLineItem->setPolyClip(qRound(qMax(polyLineItem->lineWidth() / 2, 1)));
 				AdjustItemSize(polyLineItem);
 
 				newItem->setLineColor(CommonStrings::None);
@@ -4111,7 +4111,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PolyLine:
 			newItem->convertTo(PageItem::PolyLine);
 			newItem->ClipEdited = true;
-//			newItem->setPolyClip(qRound(QMAX(newItem->lineWidth() / 2, 1)));
+//			newItem->setPolyClip(qRound(qMax(newItem->lineWidth() / 2, 1)));
 			AdjustItemSize(newItem);
 			break;
 		case PageItem::PathText:
@@ -4766,10 +4766,10 @@ void ScribusDoc::ChLineWidth(double w)
 			//currItem->Oldm_lineWidth = currItem->lineWidth();
 			currItem->setLineWidth(w);
 			if (currItem->asPolyLine())
-				currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
 			if (currItem->asLine())
 			{
-				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
+				int ph = static_cast<int>(qMax(1.0, w / 2.0));
 				currItem->Clip.setPoints(4, -ph,-ph, static_cast<int>(currItem->width()+ph),-ph,
 				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 				                  -ph,static_cast<int>(currItem->height()+ph));
@@ -5279,7 +5279,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
+					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->CPos));
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -5328,7 +5328,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
+					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->CPos));
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -5377,7 +5377,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				start = currItem->itemText.startOfSelection();
 				stop = currItem->itemText.endOfSelection();
 				if (start >= stop)
-					start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
+					start = stop = qMax(0, qMin(currItem->itemText.length(), currItem->CPos));
 			}
 			for (int pos=start; pos < stop; ++pos)
 			{
@@ -5441,11 +5441,11 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				}
 				else
 				{
-					start = QMAX(currItem->firstInFrame(), currItem->CPos);
+					start = qMax(currItem->firstInFrame(), currItem->CPos);
 					length = 1;
 				}
 			}
-			currItem->itemText.applyCharStyle(start, QMAX(0, length), newStyle);
+			currItem->itemText.applyCharStyle(start, qMax(0, length), newStyle);
 			currItem->invalid = true;
 		}
 		else
@@ -5493,7 +5493,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 				}
 				else
 				{
-					start = QMAX(currItem->firstInFrame(), currItem->CPos);
+					start = qMax(currItem->firstInFrame(), currItem->CPos);
 					length = 1;
 				}
 			}
@@ -5544,7 +5544,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				}
 				else
 				{
-					start = QMAX(currItem->firstInFrame(), currItem->CPos);
+					start = qMax(currItem->firstInFrame(), currItem->CPos);
 					length = 1;
 				}
 			}
@@ -5764,10 +5764,10 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 	}
 	else
 	{
-		newMaxX = QMAX(maxCanvasCoordinate.x(), maxPos.x());
-		newMaxY = QMAX(maxCanvasCoordinate.y(), maxPos.y());
-		newMinX = QMIN(minCanvasCoordinate.x(), minPos.x());
-		newMinY = QMIN(minCanvasCoordinate.y(), minPos.y());
+		newMaxX = qMax(maxCanvasCoordinate.x(), maxPos.x());
+		newMaxY = qMax(maxCanvasCoordinate.y(), maxPos.y());
+		newMinX = qMin(minCanvasCoordinate.x(), minPos.x());
+		newMinY = qMin(minCanvasCoordinate.y(), minPos.y());
 	}
 	if ((newMaxX != maxCanvasCoordinate.x()) || (newMaxY != maxCanvasCoordinate.y())
 	|| (newMinX != minCanvasCoordinate.x()) || (newMinY != minCanvasCoordinate.y()))
@@ -6805,10 +6805,10 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 			{
 				if (AObjects[a2].Group == ObjGroup)
 				{
-					AObjects[a2].x1 = QMIN(AObjects[a2].x1, Object.x1);
-					AObjects[a2].y1 = QMIN(AObjects[a2].y1, Object.y1);
-					AObjects[a2].x2 = QMAX(AObjects[a2].x2, Object.x2);
-					AObjects[a2].y2 = QMAX(AObjects[a2].y2, Object.y2);
+					AObjects[a2].x1 = qMin(AObjects[a2].x1, Object.x1);
+					AObjects[a2].y1 = qMin(AObjects[a2].y1, Object.y1);
+					AObjects[a2].x2 = qMax(AObjects[a2].x2, Object.x2);
+					AObjects[a2].y2 = qMax(AObjects[a2].y2, Object.y2);
 					AObjects[a2].Objects.append(currItem);
 					found = true;
 					break;
@@ -6913,7 +6913,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newX = QMIN(AObjects[a].x1, newX);
+				newX = qMin(AObjects[a].x1, newX);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -6955,7 +6955,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newX = QMIN(AObjects[a].x1, newX);
+				newX = qMin(AObjects[a].x1, newX);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -7004,8 +7004,8 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 			double minX=99999.9, maxX=-99999.9;
 			for (uint a = 0; a < alignObjectsCount; ++a)
 			{
-				minX = QMIN(AObjects[a].x1, minX);
-				maxX = QMAX(AObjects[a].x2, maxX);
+				minX = qMin(AObjects[a].x1, minX);
+				maxX = qMax(AObjects[a].x2, maxX);
 			}
 			newX = minX + (maxX-minX)/2;
 			break;
@@ -7051,7 +7051,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newX = QMAX(AObjects[a].x2, newX);
+				newX = qMax(AObjects[a].x2, newX);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -7095,7 +7095,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newX = QMAX(AObjects[a].x2, newX);
+				newX = qMax(AObjects[a].x2, newX);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -7137,7 +7137,7 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newY = QMIN(AObjects[a].y1, newY);
+				newY = qMin(AObjects[a].y1, newY);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -7179,7 +7179,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newY = QMIN(AObjects[a].y1, newY);
+				newY = qMin(AObjects[a].y1, newY);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -7229,8 +7229,8 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 			double minY=99999.9, maxY=-99999.9;
 			for (uint a = 0; a < alignObjectsCount; ++a)
 			{
-				minY = QMIN(AObjects[a].y1, minY);
-				maxY = QMAX(AObjects[a].y2, maxY);
+				minY = qMin(AObjects[a].y1, minY);
+				maxY = qMax(AObjects[a].y2, maxY);
 			}
 			newY = minY + (maxY-minY)/2;
 			break;
@@ -7277,7 +7277,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newY = QMAX(AObjects[a].y2, newY);
+				newY = qMax(AObjects[a].y2, newY);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -7321,7 +7321,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 			break;
 		case alignSelection:
 			for (uint a = 0; a < alignObjectsCount; ++a)
-				newY = QMAX(AObjects[a].y2, newY);
+				newY = qMax(AObjects[a].y2, newY);
 			break;
 	}
 	for (int i = loopStart; i <= loopEnd; ++i)
@@ -8035,7 +8035,7 @@ void ScribusDoc::createDefaultMasterPages()
 void ScribusDoc::createNewDocPages(int pageCount)
 {
 	int setcol = pageSets[currentPageLayout].Columns;
-	int createCount=QMAX(pageCount,1);
+	int createCount=qMax(pageCount,1);
 	if (setcol == 1)
 	{
 		for (int i = 0; i < createCount; ++i)
@@ -8365,11 +8365,11 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	/*
 	if (!currItem->asLine())
 	{
-		newX = QMAX(newX, 1);
-		newY = QMAX(newY, 1);
+		newX = qMax(newX, 1);
+		newY = qMax(newY, 1);
 	}
 	*/
-	int ph = static_cast<int>(QMAX(1.0, currItem->lineWidth() / 2.0));
+	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));
 	QMatrix ma;
 	ma.rotate(currItem->rotation());
 	double dX = ma.m11() * (currItem->width() - newX) + ma.m21() * (currItem->height() - newY) + ma.dx();
@@ -8389,7 +8389,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			moveY=0.0;
 		MoveItem(moveX, moveY, currItem);
 	}
-	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
+	currItem->setCornerRadius(qMin(currItem->cornerRadius(), qMin(currItem->width(),currItem->height())/2));
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!EditClip))
 	{
 		currItem->AdjustPictScale();
@@ -8578,7 +8578,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 	currItem->ClipEdited = true;
 	currItem->PoLine = Clip.copy();
 	if (currItem->asPolyLine())
-		currItem->setPolyClip(qRound(QMAX(currItem->lineWidth() / 2, 1)));
+		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
 	else if (currItem->asPathText())
 		currItem->updatePolyClip();
 	else

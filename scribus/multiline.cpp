@@ -162,7 +162,7 @@ void MultiLine::updatePreview()
 	for (int it = TempVorl.size()-1; it > -1; it--)
 	{
 		p.setPen(QPen(calcFarbe(TempVorl[it].Color, TempVorl[it].Shade),
-		              QMAX(static_cast<int>(TempVorl[it].Width), 1),
+		              qMax(static_cast<int>(TempVorl[it].Width), 1),
 		              static_cast<Qt::PenStyle>(TempVorl[it].Dash),
 		              static_cast<Qt::PenCapStyle>(TempVorl[it].LineEnd),
 		              static_cast<Qt::PenJoinStyle>(TempVorl[it].LineJoin)));

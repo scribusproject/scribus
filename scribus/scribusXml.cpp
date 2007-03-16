@@ -156,8 +156,8 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 */		
 		style.setStrokeColor(stroke);
 		style.setStrokeShade(shade2);
-		style.setScaleH(QMIN(QMAX(scale, 100), 4000));
-		style.setScaleV(QMIN(QMAX(scalev, 100), 4000));
+		style.setScaleH(qMin(qMax(scale, 100), 4000));
+		style.setScaleV(qMin(qMax(scalev, 100), 4000));
 		style.setBaselineOffset(base);
 		style.setShadowXOffset(shX);
 		style.setShadowYOffset(shY);
@@ -788,7 +788,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 					{
 						fg >> x;
 						OB.Groups.push(x+doc->GroupCounter);
-						GrMax = QMAX(GrMax, x+doc->GroupCounter);
+						GrMax = qMax(GrMax, x+doc->GroupCounter);
 					}
 					tmp = "";
 				}
@@ -950,7 +950,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				{
 					fg >> x;
 					OB.Groups.push(x+doc->GroupCounter);
-					GrMax = QMAX(GrMax, x+doc->GroupCounter);
+					GrMax = qMax(GrMax, x+doc->GroupCounter);
 				}
 				tmp = "";
 			}
@@ -1135,10 +1135,10 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			pb.setPoint(3, FPoint(0.0, item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
 			for (uint pc = 0; pc < 4; ++pc)
 			{
-				minx = QMIN(minx, pb.point(pc).x());
-				miny = QMIN(miny, pb.point(pc).y());
-				maxx = QMAX(maxx, pb.point(pc).x());
-				maxy = QMAX(maxy, pb.point(pc).y());
+				minx = qMin(minx, pb.point(pc).x());
+				miny = qMin(miny, pb.point(pc).y());
+				maxx = qMax(maxx, pb.point(pc).x());
+				maxy = qMax(maxy, pb.point(pc).y());
 			}
 			elem.setAttribute("W", maxx - minx);
 			elem.setAttribute("H", maxy - miny);

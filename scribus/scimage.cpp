@@ -379,7 +379,7 @@ void ScImage::solarize(double factor, bool cmyk)
 	int fk = qRound(255 / factor);
 	for (int i = 0; i < 256; ++i)
 	{
-		curveTable[i] = QMIN(255, static_cast<int>(i / fk) * fk);
+		curveTable[i] = qMin(255, static_cast<int>(i / fk) * fk);
 	}
 	applyCurve(cmyk);
 }
@@ -405,7 +405,7 @@ void ScImage::blur(int radius)
     int *a = new int[wh];
     int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
     QRgb p;
-    int *vmin = new int[QMAX(w,h)];
+    int *vmin = new int[qMax(w,h)];
 
     int divsum = (div+1)>>1;
     divsum *= divsum;
@@ -435,7 +435,7 @@ void ScImage::blur(int radius)
                = routsum = goutsum = boutsum = aoutsum
                = rsum = gsum = bsum = asum = 0;
         for(i =- radius; i <= radius; ++i) {
-            p = pix[yi+QMIN(wm,QMAX(i,0))];
+            p = pix[yi+qMin(wm,qMax(i,0))];
             sir = stack[i+radius];
             sir[0] = qRed(p);
             sir[1] = qGreen(p);
@@ -483,7 +483,7 @@ void ScImage::blur(int radius)
             aoutsum -= sir[3];
 
             if (y == 0) {
-                vmin[x] = QMIN(x+radius+1,wm);
+                vmin[x] = qMin(x+radius+1,wm);
             }
             p = pix[yw+vmin[x]];
 
@@ -527,7 +527,7 @@ void ScImage::blur(int radius)
         yp =- radius * w;
         
         for(i=-radius; i <= radius; ++i) {
-            yi=QMAX(0,yp)+x;
+            yi=qMax(0,yp)+x;
 
             sir = stack[i+radius];
 
@@ -580,7 +580,7 @@ void ScImage::blur(int radius)
             aoutsum -= sir[3];
 
             if (x==0){
-                vmin[y] = QMIN(y+r1,hm)*w;
+                vmin[y] = qMin(y+r1,hm)*w;
             }
             p = x+vmin[y];
 
@@ -766,7 +766,7 @@ void ScImage::contrast(int contrastValue, bool cmyk)
 	double mc = (p1.y() - p2.y()) / (double)(p1.x() - p2.x());
 	for (int i = 0; i < 256; ++i)
 	{
-		curveTable[i] = QMIN(255, QMAX(0, int(i * mc) + p1.y()));
+		curveTable[i] = qMin(255, qMax(0, int(i * mc) + p1.y()));
 	}
 	applyCurve(cmyk);
 }
@@ -779,7 +779,7 @@ void ScImage::brightness(int brightnessValue, bool cmyk)
 	double mc = (p1.y() - p2.y()) / (double)(p1.x() - p2.x());
 	for (int i = 0; i < 256; ++i)
 	{
-		curveTable[i] = QMIN(255, QMAX(0, int(i * mc) + p1.y()));
+		curveTable[i] = qMin(255, qMax(0, int(i * mc) + p1.y()));
 	}
 	applyCurve(cmyk);
 }
@@ -789,7 +789,7 @@ void ScImage::doGraduate(FPointArray curve, bool cmyk, bool linear)
 	curveTable.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve, x / 255.0, linear) * 255)));
+		curveTable[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve, x / 255.0, linear) * 255)));
 	}
 	applyCurve(cmyk);
 }
@@ -812,13 +812,13 @@ void ScImage::applyCurve(bool cmyk)
 			if (cmyk)
 			{
 				p = (unsigned char *) s;
-				rc = 255 - QMIN(255, p[0] + p[3]);
-				gc = 255 - QMIN(255, p[1] + p[3]);
-				bc = 255 - QMIN(255, p[2] + p[3]);
+				rc = 255 - qMin(255, p[0] + p[3]);
+				gc = 255 - qMin(255, p[1] + p[3]);
+				bc = 255 - qMin(255, p[2] + p[3]);
 				c = 255 - curveTable[(int)rc];
 				m = 255 - curveTable[(int)gc];
 				y = 255 - curveTable[(int)bc];
-				k = QMIN(QMIN(c, m), y);
+				k = qMin(qMin(c, m), y);
 				*s = qRgba(y - k, m - k, c - k, k );
 			}
 			else
@@ -867,12 +867,12 @@ void ScImage::colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk)
 			r = *s;
 			if (cmyk)
 			{
-				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255) / 255.0;
-				*s = qRgba(QMIN(qRound(cc*k), 255), QMIN(qRound(cm*k), 255), QMIN(qRound(cy*k), 255), QMIN(qRound(ck*k), 255));
+				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255) / 255.0;
+				*s = qRgba(qMin(qRound(cc*k), 255), qMin(qRound(cm*k), 255), qMin(qRound(cy*k), 255), qMin(qRound(ck*k), 255));
 			}
 			else
 			{
-				k2 = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				k2 = 255 - qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 				tmpR.setRgb(cc, cm, cy);
 				tmpR.hsv(&hu, &sa, &v);
 				tmpR.setHsv(hu, sa * k2 / 255, 255 - ((255 - v) * k2 / 255));
@@ -901,12 +901,12 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	curveTable1.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve1, x / 255.0, lin1) * 255)));
+		curveTable1[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve1, x / 255.0, lin1) * 255)));
 	}
 	curveTable2.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
+		curveTable2[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
 	}
 	for( int yi=0; yi < h; ++yi )
 	{
@@ -915,18 +915,18 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 		{
 			QRgb r=*s;
 			if (cmyk)
-				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+				cb = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
-				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			cn = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
-			mn = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
-			yn = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
-			kn = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
-			c1n = QMIN((c1 * curveTable1[(int)cb]) >> 8, 255);
-			m1n = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
-			y1n = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
-			k1n = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
-			ScColor col = ScColor(QMIN(cn+c1n, 255), QMIN(mn+m1n, 255), QMIN(yn+y1n, 255), QMIN(kn+k1n, 255));
+				cb = 255 - qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			cn = qMin((c * curveTable1[(int)cb]) >> 8, 255);
+			mn = qMin((m * curveTable1[(int)cb]) >> 8, 255);
+			yn = qMin((y * curveTable1[(int)cb]) >> 8, 255);
+			kn = qMin((k * curveTable1[(int)cb]) >> 8, 255);
+			c1n = qMin((c1 * curveTable1[(int)cb]) >> 8, 255);
+			m1n = qMin((m1 * curveTable2[(int)cb]) >> 8, 255);
+			y1n = qMin((y1 * curveTable2[(int)cb]) >> 8, 255);
+			k1n = qMin((k1 * curveTable2[(int)cb]) >> 8, 255);
+			ScColor col = ScColor(qMin(cn+c1n, 255), qMin(mn+m1n, 255), qMin(yn+y1n, 255), qMin(kn+k1n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);
 			else
@@ -960,17 +960,17 @@ void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	curveTable1.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve1, x / 255.0, lin1) * 255)));
+		curveTable1[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve1, x / 255.0, lin1) * 255)));
 	}
 	curveTable2.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
+		curveTable2[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
 	}
 	curveTable3.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable3[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0, lin3) * 255)));
+		curveTable3[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin3) * 255)));
 	}
 	for( int yi=0; yi < h; ++yi )
 	{
@@ -979,22 +979,22 @@ void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 		{
 			QRgb r=*s;
 			if (cmyk)
-				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+				cb = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
-				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			cn = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
-			mn = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
-			yn = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
-			kn = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
-			c1n = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
-			m1n = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
-			y1n = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
-			k1n = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
-			c2n = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
-			m2n = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
-			y2n = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
-			k2n = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
-			ScColor col = ScColor(QMIN(cn+c1n+c2n, 255), QMIN(mn+m1n+m2n, 255), QMIN(yn+y1n+y2n, 255), QMIN(kn+k1n+k2n, 255));
+				cb = 255 - qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			cn = qMin((c * curveTable1[(int)cb]) >> 8, 255);
+			mn = qMin((m * curveTable1[(int)cb]) >> 8, 255);
+			yn = qMin((y * curveTable1[(int)cb]) >> 8, 255);
+			kn = qMin((k * curveTable1[(int)cb]) >> 8, 255);
+			c1n = qMin((c1 * curveTable2[(int)cb]) >> 8, 255);
+			m1n = qMin((m1 * curveTable2[(int)cb]) >> 8, 255);
+			y1n = qMin((y1 * curveTable2[(int)cb]) >> 8, 255);
+			k1n = qMin((k1 * curveTable2[(int)cb]) >> 8, 255);
+			c2n = qMin((c2 * curveTable3[(int)cb]) >> 8, 255);
+			m2n = qMin((m2 * curveTable3[(int)cb]) >> 8, 255);
+			y2n = qMin((y2 * curveTable3[(int)cb]) >> 8, 255);
+			k2n = qMin((k2 * curveTable3[(int)cb]) >> 8, 255);
+			ScColor col = ScColor(qMin(cn+c1n+c2n, 255), qMin(mn+m1n+m2n, 255), qMin(yn+y1n+y2n, 255), qMin(kn+k1n+k2n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);
 			else
@@ -1031,22 +1031,22 @@ void ScImage::quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray 
 	curveTable1.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve1, x / 255.0, lin1) * 255)));
+		curveTable1[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve1, x / 255.0, lin1) * 255)));
 	}
 	curveTable2.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
+		curveTable2[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve2, x / 255.0, lin2) * 255)));
 	}
 	curveTable3.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable3[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve3, x / 255.0, lin3) * 255)));
+		curveTable3[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve3, x / 255.0, lin3) * 255)));
 	}
 	curveTable4.resize(256);
 	for (int x = 0 ; x < 256 ; x++)
 	{
-		curveTable4[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve4, x / 255.0, lin4) * 255)));
+		curveTable4[x] = qMin(255, qMax(0, qRound(getCurveYValue(curve4, x / 255.0, lin4) * 255)));
 	}
 	for( int yi=0; yi < h; ++yi )
 	{
@@ -1055,26 +1055,26 @@ void ScImage::quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray 
 		{
 			QRgb r=*s;
 			if (cmyk)
-				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+				cb = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
-				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			cn = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
-			mn = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
-			yn = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
-			kn = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
-			c1n = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
-			m1n = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
-			y1n = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
-			k1n = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
-			c2n = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
-			m2n = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
-			y2n = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
-			k2n = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
-			c3n = QMIN((c3 * curveTable4[(int)cb]) >> 8, 255);
-			m3n = QMIN((m3 * curveTable4[(int)cb]) >> 8, 255);
-			y3n = QMIN((y3 * curveTable4[(int)cb]) >> 8, 255);
-			k3n = QMIN((k3 * curveTable4[(int)cb]) >> 8, 255);
-			ScColor col = ScColor(QMIN(cn+c1n+c2n+c3n, 255), QMIN(mn+m1n+m2n+m3n, 255), QMIN(yn+y1n+y2n+y3n, 255), QMIN(kn+k1n+k2n+k3n, 255));
+				cb = 255 - qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			cn = qMin((c * curveTable1[(int)cb]) >> 8, 255);
+			mn = qMin((m * curveTable1[(int)cb]) >> 8, 255);
+			yn = qMin((y * curveTable1[(int)cb]) >> 8, 255);
+			kn = qMin((k * curveTable1[(int)cb]) >> 8, 255);
+			c1n = qMin((c1 * curveTable2[(int)cb]) >> 8, 255);
+			m1n = qMin((m1 * curveTable2[(int)cb]) >> 8, 255);
+			y1n = qMin((y1 * curveTable2[(int)cb]) >> 8, 255);
+			k1n = qMin((k1 * curveTable2[(int)cb]) >> 8, 255);
+			c2n = qMin((c2 * curveTable3[(int)cb]) >> 8, 255);
+			m2n = qMin((m2 * curveTable3[(int)cb]) >> 8, 255);
+			y2n = qMin((y2 * curveTable3[(int)cb]) >> 8, 255);
+			k2n = qMin((k2 * curveTable3[(int)cb]) >> 8, 255);
+			c3n = qMin((c3 * curveTable4[(int)cb]) >> 8, 255);
+			m3n = qMin((m3 * curveTable4[(int)cb]) >> 8, 255);
+			y3n = qMin((y3 * curveTable4[(int)cb]) >> 8, 255);
+			k3n = qMin((k3 * curveTable4[(int)cb]) >> 8, 255);
+			ScColor col = ScColor(qMin(cn+c1n+c2n+c3n, 255), qMin(mn+m1n+m2n+m3n, 255), qMin(yn+y1n+y2n+y3n, 255), qMin(kn+k1n+k2n+k3n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);
 			else
@@ -1103,10 +1103,10 @@ void ScImage::invert(bool cmyk)
 			if (cmyk)
 			{
 				p = (unsigned char *) s;
-				c = 255 - QMIN(255, p[0] + p[3]);
-				m = 255 - QMIN(255, p[1] + p[3]);
-				y = 255 - QMIN(255, p[2] + p[3]);
-				k = QMIN(QMIN(c, m), y);
+				c = 255 - qMin(255, p[0] + p[3]);
+				m = 255 - qMin(255, p[1] + p[3]);
+				y = 255 - qMin(255, p[2] + p[3]);
+				k = qMin(qMin(c, m), y);
 				p[0] = c - k;
 				p[1] = m - k;
 				p[2] = y - k;
@@ -1134,12 +1134,12 @@ void ScImage::toGrayscale(bool cmyk)
 			r = *s;
 			if (cmyk)
 			{
-				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 				*s = qRgba(0, 0, 0, k);
 			}
 			else
 			{
-				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+				k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 				*s = qRgba(k, k, k, qAlpha(r));
 			}
 			s++;
@@ -1324,7 +1324,7 @@ QByteArray ScImage::ImageToGray()
 		for( int xi=0; xi < w; ++xi )
 		{
 			r = *s;
-			k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			k = qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 			*s = qRgba(k, 0, 0, 0);
 			imgArray[i++] = k;
 			s++;
@@ -1369,7 +1369,7 @@ QByteArray ScImage::ImageToCMYK_PDF(bool pre)
 				c = 255 - qRed(r);
 				m = 255 - qGreen(r);
 				y = 255 - qBlue(r);
-				k = QMIN(QMIN(c, m), y);
+				k = qMin(qMin(c, m), y);
 				imgArray[i++] = static_cast<unsigned char> (c - k);
 				imgArray[i++] = static_cast<unsigned char> (m - k);
 				imgArray[i++] = static_cast<unsigned char> (y - k);
@@ -1416,7 +1416,7 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 				else
 				{
 					if (pl == -2)
-						imgArray[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						imgArray[i++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
 						imgArray[i++] = static_cast<unsigned char> (c);
 					if (pl == 2)
@@ -1440,7 +1440,7 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 				c = 255 - qRed(r);
 				m = 255 - qGreen(r);
 				y = 255 - qBlue(r);
-				k = QMIN(QMIN(c, m), y);
+				k = qMin(qMin(c, m), y);
 				if (pl == -1)
 				{
 					imgArray[i++] = static_cast<unsigned char> (c - k);
@@ -1451,7 +1451,7 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 				else
 				{
 					if (pl == -2)
-						imgArray[i++] = static_cast<unsigned char> (QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
+						imgArray[i++] = static_cast<unsigned char> (qMin(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k)));
 					if (pl == 1)
 						imgArray[i++] = static_cast<unsigned char> (c - k);
 					if (pl == 2)
@@ -2177,7 +2177,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 						cc = 255 - qRed(*ptr);
 						cm = 255 - qGreen(*ptr);
 						cy = 255 - qBlue(*ptr);
-						ck = QMIN(QMIN(cc, cm), cy);
+						ck = qMin(qMin(cc, cm), cy);
 						*ptr++ = qRgba(cc-ck,cm-ck,cy-ck,ck);
 					}
 				}
@@ -2211,9 +2211,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 						for (int j = 0; j < width(); j++)
 						{
 							ck = qAlpha(*ptr);
-							cr = 255 - QMIN(255, qRed(*ptr) + ck);
-							cg = 255 - QMIN(255, qGreen(*ptr) + ck);
-							cb = 255 - QMIN(255, qBlue(*ptr) + ck);
+							cr = 255 - qMin(255, qRed(*ptr) + ck);
+							cg = 255 - qMin(255, qGreen(*ptr) + ck);
+							cb = 255 - qMin(255, qBlue(*ptr) + ck);
 							*ptr++ = qRgba(cr,cg,cb,255);
 						}
 					}
@@ -2239,8 +2239,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	}
 	if (((reqType == CMYKData) || ((reqType == RawData) && isCMYK)) && !bilevel)
 		setAlphaBuffer(false);
-	setDotsPerMeterX (QMAX(2834, (int) (imgInfo.xres / 0.0254)));
-	setDotsPerMeterY (QMAX(2834, (int) (imgInfo.yres / 0.0254)));
+	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
+	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
 		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);

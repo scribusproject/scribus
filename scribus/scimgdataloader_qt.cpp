@@ -41,11 +41,11 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 		int resInf = m_imageInfoRecord.lowResType;
 		m_image = m_image.convertDepth(32);
 		m_image.setAlphaBuffer(true);
-		m_image.setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
-		m_image.setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
+		m_image.setDotsPerMeterX (qMax(2834, (int) (xres / 0.0254)));
+		m_image.setDotsPerMeterY (qMax(2834, (int) (yres / 0.0254)));
 		m_imageInfoRecord.colorspace = 0;
-		m_imageInfoRecord.xres = QMAX(72, qRound(xres));
-		m_imageInfoRecord.yres = QMAX(72, qRound(yres));
+		m_imageInfoRecord.xres = qMax(72, qRound(xres));
+		m_imageInfoRecord.yres = qMax(72, qRound(yres));
 		m_imageInfoRecord.lowResType = resInf;
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = m_image.height();
