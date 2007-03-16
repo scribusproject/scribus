@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qcursor.h>
+#include <QImageReader>
 
 PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
@@ -92,9 +93,9 @@ void PatternDialog::loadPatternDir()
 		formats += "epsi";
 		formats += "pdf";
 		QString form1 = "";
-		for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
+		for ( int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 		{
-			form1 = QString(QImageIO::inputFormats().at(i)).lower();
+			form1 = QString(QImageReader::supportedImageFormats().at(i)).lower();
 			if (form1 == "jpeg")
 				form1 = "jpg";
 			if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
@@ -116,11 +117,11 @@ void PatternDialog::loadPatternDir()
 			mainWin->mainWindowProgressBar->reset();
 			mainWin->mainWindowProgressBar->setTotalSteps(d.count() * 2);
 			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInput);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setProgress(dc);
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
@@ -129,7 +130,7 @@ void PatternDialog::loadPatternDir()
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setProgress(d.count() + dc);
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
@@ -150,7 +151,7 @@ void PatternDialog::loadPatternDir()
 			}
 			d.cdUp();
 			dirs->set("patterns", d.absPath());
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 			mainWin->setStatusBarInfoText("");
 			mainWin->mainWindowProgressBar->reset();
 		}
@@ -164,10 +165,10 @@ void PatternDialog::loadPattern()
 	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
 	QString form1 = "";
 	QString form2 = "";
-	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
+	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 	{
-		form1 = QString(QImageIO::inputFormats().at(i)).lower();
-		form2 = QString(QImageIO::inputFormats().at(i)).upper();
+		form1 = QString(QImageReader::supportedImageFormats().at(i)).lower();
+		form2 = QString(QImageReader::supportedImageFormats().at(i)).upper();
 		if (form1 == "jpeg")
 		{
 			form1 = "jpg";
@@ -313,7 +314,7 @@ void PatternDialog::removePattern()
 	{
 		QStringList patterns2Del;
 		QStringList mainPatterns = dialogPatterns.keys();
-		for (uint a = 0; a < mainPatterns.count(); a++)
+		for (int a = 0; a < mainPatterns.count(); a++)
 		{
 			if (mainPatterns[a] != it->text())
 			{
@@ -328,7 +329,7 @@ void PatternDialog::removePattern()
 		if (!subPatterns.isEmpty())
 			patterns2Del += subPatterns;
 		patterns2Del.append(it->text());
-		for (uint a = 0; a < patterns2Del.count(); a++)
+		for (int a = 0; a < patterns2Del.count(); a++)
 		{
 			dialogPatterns.remove(patterns2Del[a]);
 		}
@@ -348,7 +349,7 @@ QStringList PatternDialog::getUsedPatternsHelper(QString pattern, QStringList &r
 	}
 	if (!pats.isEmpty())
 	{
-		for (uint c = 0; c < pats.count(); ++c)
+		for (int c = 0; c < pats.count(); ++c)
 		{
 			getUsedPatternsHelper(pats[c], results);
 		}

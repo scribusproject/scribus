@@ -124,7 +124,7 @@ PDFlib::PDFlib(ScribusDoc & docu)
 		Q3ValueList<bool> barsNumeric;
 		barsNumeric << true << true << false;
 		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
-		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 	}
 }
 
@@ -231,7 +231,7 @@ void PDFlib::StartObj(int nr)
 QString PDFlib::PDFEncode(const QString & in)
 {
 	QString tmp("");
-	for (uint d = 0; d < in.length(); ++d)
+	for (int d = 0; d < in.length(); ++d)
 	{
 		QChar cc(in.at(d));
 		if ((cc == '(') || (cc == ')') || (cc == '\\'))
@@ -244,7 +244,7 @@ QString PDFlib::PDFEncode(const QString & in)
 QByteArray PDFlib::EncodeUTF16(const QString &in)
 {
 	QString tmp("");
-	for (uint d = 0; d < in.length(); ++d)
+	for (int d = 0; d < in.length(); ++d)
 	{
 		QChar cc(in.at(d));
 		if ((cc == '(') || (cc == ')') || (cc == '\\'))
@@ -254,7 +254,7 @@ QByteArray PDFlib::EncodeUTF16(const QString &in)
 	QTextCodec *codec = QTextCodec::codecForName("ISO-10646-UCS-2");
 	Q3CString cres = codec->fromUnicode( tmp );
 	uchar sw;
-	for(uint d = 0; d < cres.size()-1; d += 2)
+	for(int d = 0; d < cres.size()-1; d += 2)
 	{
 		sw = cres[d];
 		cres[d] = cres[d+1];
@@ -274,8 +274,8 @@ QString PDFlib::EncStream(const QString & in, int ObjNum)
 	QString tmp(in);
 	QByteArray us(tmp.length());
 	QByteArray ou(tmp.length());
-	for (uint a = 0; a < tmp.length(); ++a)
-		us[a] = uchar(QChar(tmp.at(a)));
+	for (int a = 0; a < tmp.length(); ++a)
+		us[a] = uchar(Q3Char(tmp.at(a)));
 	QByteArray data(10);
 	if (KeyLen > 5)
 		data.resize(21);
@@ -294,7 +294,7 @@ QString PDFlib::EncStream(const QString & in, int ObjNum)
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
-	for (uint cl = 0; cl < tmp.length(); ++cl)
+	for (int cl = 0; cl < tmp.length(); ++cl)
 		uk += QChar(ou[cl]);
 	return uk;
 }
@@ -340,7 +340,7 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 	tmp = in.mid(1, in.length()-2);
 	QByteArray us(tmp.length());
 	QByteArray ou(tmp.length());
-	for (uint a = 0; a < tmp.length(); ++a)
+	for (int a = 0; a < tmp.length(); ++a)
 		us[a] = static_cast<uchar>(QChar(tmp.at(a)));
 	QByteArray data(10);
 	if (KeyLen > 5)
@@ -360,7 +360,7 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
-	for (uint cl = 0; cl < tmp.length(); ++cl)
+	for (int cl = 0; cl < tmp.length(); ++cl)
 		uk += QChar(ou[cl]);
 	tmp = "<"+String2Hex(&uk, false)+">";
 	return tmp;
@@ -375,7 +375,7 @@ QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
 		QString tmp = in.mid(1, in.length()-2);
 		QByteArray us = EncodeUTF16(tmp);
 		QString uk = "";
-		for (uint cl = 0; cl < us.size(); ++cl)
+		for (int cl = 0; cl < us.size(); ++cl)
 			uk += QChar(us[cl]);
 		return "<"+String2Hex(&uk, false)+">";
 	}
@@ -403,7 +403,7 @@ QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
 	QString uk = "";
-	for (uint cl = 0; cl < ou.size(); ++cl)
+	for (int cl = 0; cl < ou.size(); ++cl)
 		uk += QChar(ou[cl]);
 	tmp = "<"+String2Hex(&uk, false)+">";
 	return tmp;
@@ -748,10 +748,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		StdFonts.insert("/Helvetica", "");
 	}
 	QStringList patterns = doc.getUsedPatterns();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc.docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			pgit = pa.items.at(o);
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -811,7 +811,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			{
 				UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
 				uint SubFonts = 0;
-				uint glyphCount = 0;
+				int glyphCount = 0;
 				double minx = 99999.9;
 				double miny = 99999.9;
 				double maxx = -99999.9;
@@ -889,7 +889,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						StartObj(ObjCounter);
 						ObjCounter++;
 						PutDoc("[ ");
-						for (uint ww = 0; ww < glyphWidths.count(); ++ww)
+						for (int ww = 0; ww < glyphWidths.count(); ++ww)
 						{
 							PutDoc(QString::number(qRound(glyphWidths[ww]))+" ");
 						}
@@ -897,7 +897,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						StartObj(ObjCounter);
 						ObjCounter++;
 						PutDoc("<<\n");
-						for (uint ww = 0; ww < charProcs.count(); ++ww)
+						for (int ww = 0; ww < charProcs.count(); ++ww)
 						{
 							PutDoc(charProcs[ww]);
 						}
@@ -1006,7 +1006,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StartObj(ObjCounter);
 				QByteArray bb;
 				AllFonts[it.key()].RawData(bb);
-				uint posi;
+				int posi;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
 					if ((bb[posi] == static_cast<char>(0x80)) && (static_cast<int>(bb[posi+1]) == 2))
@@ -1014,7 +1014,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					fon += QChar(bb[posi]);
 				}
 				int len1 = fon.length();
-				uint ulen;
+				int ulen;
 				ulen = bb[posi+2] & 0xff;
 				ulen |= (bb[posi+3] << 8) & 0xff00;
 				ulen |= (bb[posi+4] << 16) & 0xff0000;
@@ -1022,11 +1022,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				if (ulen > bb.size())
 					ulen = bb.size()-7;
 				posi += 6;
-				for (uint j = 0; j < ulen; ++j)
+				for (int j = 0; j < ulen; ++j)
 					fon += QChar(bb[posi++]);
 				posi += 6;
 				int len2 = fon.length()-len1;
-				for (uint j = posi; j < bb.size(); ++j)
+				for (int j = posi; j < bb.size(); ++j)
 				{
 					if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
 						break;
@@ -1092,7 +1092,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				QByteArray bb;
 				AllFonts[it.key()].RawData(bb);
 				//AV: += and append() dont't work because they stop at '\0' :-(
-				for (unsigned int i=0; i < bb.size(); i++)
+				for (int i=0; i < bb.size(); i++)
 					fon += QChar(bb[i]);
 				int len = fon.length();
 				if ((Options.Compress) && (CompAvail))
@@ -1275,7 +1275,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					toUnicodeMapStream += "1 begincodespacerange\n";
 					toUnicodeMapStream += "<0000> <FFFF>\n";
 					toUnicodeMapStream += "endcodespacerange\n";
-					for (uint uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
+					for (int uniC = 0; uniC < toUnicodeMaps.count(); uniC++)
 					{
 						toUnicodeMapStream += QString("%1 beginbfchar\n").arg(toUnicodeMapsCount[uniC]);
 						toUnicodeMapStream += toUnicodeMaps[uniC];
@@ -1520,7 +1520,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 	ll.LNr = 0;
 	Inhalt = "";
 	Seite.AObjects.clear();
-	for (uint la = 0; la < doc.Layers.count(); ++la)
+	for (int la = 0; la < doc.Layers.count(); ++la)
 	{
 		Level2Layer(&doc, &ll, Lnr);
 		PItems = doc.MasterItems;
@@ -1591,8 +1591,8 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
-					QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
+					QString Dt = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
+					QString Da = FToStr(qMax(6*fabs(ite->lineWidth()), 1.0));
 					switch (ite->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -2325,7 +2325,7 @@ void PDFlib::PDF_End_Page()
 	if (Seite.AObjects.count() != 0)
 	{
 		PutDoc("/Annots [ ");
-		for (uint b = 0; b < Seite.AObjects.count(); ++b)
+		for (int b = 0; b < Seite.AObjects.count(); ++b)
 			PutDoc(QString::number(Seite.AObjects[b])+" 0 R ");
 		PutDoc("]\n");
 	}
@@ -2483,7 +2483,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		{
 			if (!Options.MirrorH)
 				PutPage("1 0 0 1 0 0 cm\n");
-			for (uint lam = 0; lam < doc.Layers.count(); ++lam)
+			for (int lam = 0; lam < doc.Layers.count(); ++lam)
 			{
 				Level2Layer(&doc, &ll, Lnr);
 				Lnr++;
@@ -2574,7 +2574,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	if (usingGUI && pag->pageName().isEmpty())
 		progressDialog->setProgress("ECPI", 0, doc.DocItems.count()*2);
 	int pc_exportpagesitems=0;
-	for (uint la = 0; la < doc.Layers.count() && !abortExport; ++la)
+	for (int la = 0; la < doc.Layers.count() && !abortExport; ++la)
 	{
 		Level2Layer(&doc, &ll, Lnr);
 		if (!pag->pageName().isEmpty())
@@ -3045,8 +3045,8 @@ QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 	}
 	else
 	{
-		QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
-		QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
+		QString Dt = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
+		QString Da = FToStr(qMax(6*fabs(ite->lineWidth()), 1.0));
 		switch (ite->PLineArt)
 		{
 			case Qt::SolidLine:
@@ -3197,8 +3197,8 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	}
 	else
 	{
-		QString Dt = FToStr(QMAX(2*fabs(ite->lineWidth()), 1));
-		QString Da = FToStr(QMAX(6*fabs(ite->lineWidth()), 1));
+		QString Dt = FToStr(qMax(2*fabs(ite->lineWidth()), 1.0));
+		QString Da = FToStr(qMax(6*fabs(ite->lineWidth()), 1.0));
 		switch (ite->PLineArt)
 		{
 			case Qt::SolidLine:
@@ -3863,8 +3863,8 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 			putColor(sl->Color, sl->Shade, false) +
 			FToStr(sl->Width)+" w\n"
 			);
-	QString Dt = FToStr(QMAX(2*sl->Width, 1));
-	QString Da = FToStr(QMAX(6*sl->Width, 1));
+	QString Dt = FToStr(qMax(2*sl->Width, 1.0));
+	QString Da = FToStr(qMax(6*sl->Width, 1.0));
 	switch (static_cast<Qt::PenStyle>(sl->Dash))
 	{
 		case Qt::SolidLine:
@@ -3929,7 +3929,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	ite->OwnPage = savedOwnPage;
 	QString tmp("");
 	QString tmp2("");
-	uint tabCc = 0;
+	int tabCc = 0;
 	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
@@ -4262,12 +4262,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				if (style.underlineWidth() != -1)
 					Uwid = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				Upos = style.font().underlinePos(style.fontSize() / 10.0);
-				Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
@@ -4439,12 +4439,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				if (style.strikethruWidth() != -1)
 					Uwid = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				Upos = style.font().strikeoutPos(style.fontSize() / 10.0);
-				Uwid = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				Uwid = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				Upos += (style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0);
@@ -5075,8 +5075,8 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, Q3ValueList<double> Stops,
 	double h = -currItem->height();
 	double w2 = currItem->GrStartX;
 	double h2 = -currItem->GrStartY;
-	uint colorsCountm1=Colors.count()-1;
-	for (uint c = 0; c < colorsCountm1; ++c)
+	int colorsCountm1=Colors.count()-1;
+	for (int c = 0; c < colorsCountm1; ++c)
 	{
 		oneSpot1 = false;
 		oneSpot2 = false;
@@ -5491,7 +5491,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					cnx += ")";
 					PutDoc(EncString(cnx,ObjCounter-1)+"\n");
 					PutDoc("/Opt [ ");
-					for (uint bmc = 0; bmc < bmst.count(); ++bmc)
+					for (int bmc = 0; bmc < bmst.count(); ++bmc)
 						PutDoc(EncString("("+bmst[bmc]+")",ObjCounter-1)+"\n");
 					PutDoc("]\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
@@ -5724,7 +5724,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (bmst.count() > 1)
 		{
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
-			for (uint mz = 0; mz < bmst.count(); ++mz)
+			for (int mz = 0; mz < bmst.count(); ++mz)
 			{
 				cc += EncString("("+bmst[mz]+")",ObjCounter-1);
 				cc += " Tj\nT*\n";
@@ -6462,7 +6462,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			Bmc++;
 			Inhal += QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
 			QString encText = "";
-			for (uint telen = 0; telen < ip->Titel.length(); telen++)
+			for (int telen = 0; telen < ip->Titel.length(); telen++)
 			{
 				encText += ip->Titel.at(telen);
 			}
@@ -6569,7 +6569,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		ll.isPrintable = false;
 		ll.LNr = 0;
 		int Lnr = 0;
-		for (uint la = 0; la < doc.Layers.count(); ++la)
+		for (int la = 0; la < doc.Layers.count(); ++la)
 		{
 			Level2Layer(&doc, &ll, la);
 			PutDoc("/"+OCGEntries[ll.Name].Name+" "+QString::number(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
@@ -6590,7 +6590,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	PutDoc(">>\nendobj\n");
 	XRef[3] = bytesWritten();
 	PutDoc("4 0 obj\n<<\n/Type /Pages\n/Kids [");
-	for (uint b = 0; b < PageTree.Kids.count(); ++b)
+	for (int b = 0; b < PageTree.Kids.count(); ++b)
 		PutDoc(QString::number(PageTree.Kids[b])+" 0 R ");
 	PutDoc("]\n");
 	PutDoc("/Count "+QString::number(PageTree.Count)+"\n");
@@ -6613,14 +6613,14 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	if (Seite.FormObjects.count() != 0)
 	{
 		PutDoc("/Fields [ ");
-		for (uint fo = 0; fo < Seite.FormObjects.count(); ++fo)
+		for (int fo = 0; fo < Seite.FormObjects.count(); ++fo)
 			PutDoc(QString::number(Seite.FormObjects[fo])+" 0 R ");
 		PutDoc(" ]\n");
 	}
 	if (CalcFields.count() != 0)
 	{
 		PutDoc("/CO [ ");
-		for (uint foc = 0; foc < CalcFields.count(); ++foc)
+		for (int foc = 0; foc < CalcFields.count(); ++foc)
 			PutDoc(QString::number(CalcFields[foc])+" 0 R ");
 		PutDoc(" ]\n");
 	}
@@ -6710,7 +6710,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				tel->inPdfArticle = true;
 				Beads[0].Prev = fir + Beads.count()-1;
 				Beads[Beads.count()-1].Next = fir;
-				for (uint beac = 0; beac < Beads.count(); ++beac)
+				for (int beac = 0; beac < Beads.count(); ++beac)
 				{
 					StartObj(ObjCounter);
 					ObjCounter++;
@@ -6731,7 +6731,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	}
 	XRef[7] = bytesWritten();
 	PutDoc("8 0 obj\n[");
-	for (uint th = 0; th < Threads.count(); ++th)
+	for (int th = 0; th < Threads.count(); ++th)
 		PutDoc(QString::number(Threads[th])+" 0 R ");
 	PutDoc("]\nendobj\n");
 	if ((Options.Version == 15) && (Options.useLayers))
@@ -6745,7 +6745,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		{
 			lay.prepend(QString::number(itoc.data().ObjNum)+" 0 R ");
 		}
-		for (uint layc = 0; layc < lay.count(); ++layc)
+		for (int layc = 0; layc < lay.count(); ++layc)
 		{
 			PutDoc(lay[layc]);
 		}
@@ -6793,7 +6793,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	PutDoc("xref\n");
 	PutDoc("0 "+QString::number(ObjCounter)+"\n");
 	PutDoc("0000000000 65535 f \n");
-	for (uint a = 0; a < XRef.count(); ++a)
+	for (int a = 0; a < XRef.count(); ++a)
 	{
 		tmp.sprintf("%10d", XRef[a]);
 		tmp.replace(QRegExp(" "), "0");

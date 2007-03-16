@@ -137,11 +137,17 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param cancelButtonText 
 		 */
 		void setCancelButtonText(const QString & cancelButtonText);
-		
+
+	signals:
+		void canceled();
+
 	protected:
 		QStringList progressBarTitles;
 		QMap<QString, ScProgressBar*> progressBars;
 		QMap<QString, QLabel*> progressLabels;
+
+	private slots:
+		void emitCancel();
 };
 
 #endif

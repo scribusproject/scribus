@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <q3valuelist.h>
 #include <qfile.h>
+#include <QDataStream>
 //Added by qt3to4:
 #include <QPixmap>
 #include <string>
@@ -78,7 +79,7 @@ private:
 	void CalcOwnerKey(const QString & Owner, const QString & User);
 	void CalcUserKey(const QString & User, int Permission);
 	QString FitKey(const QString & pass);
-	QString setStrokeMulti(struct Qt::TextSingleLine *sl);
+	QString setStrokeMulti(struct SingleLine *sl);
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPathImage(PageItem *ite);
 	QString SetClipPath(PageItem *ite, bool poly = true);
@@ -95,10 +96,10 @@ private:
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
-	void PutDoc(const QString & in) { outStream.writeRawBytes(in.latin1(), in.length()); }
-	void PutDoc(const QByteArray & in) { outStream.writeRawBytes(in, in.size()); }
-	void PutDoc(const char* in) { outStream.writeRawBytes(in, strlen(in)); }
-	void PutDoc(const std::string & in) { outStream.writeRawBytes(in.c_str(), in.length()); }
+	void PutDoc(const QString & in) { outStream.writeRawData(in.latin1(), in.length()); }
+	void PutDoc(const QByteArray & in) { outStream.writeRawData(in, in.size()); }
+	void PutDoc(const char* in) { outStream.writeRawData(in, strlen(in)); }
+	void PutDoc(const std::string & in) { outStream.writeRawData(in.c_str(), in.length()); }
 
 	void PutPage(const QString & in) { Inhalt += in; }
 	void StartObj(int nr);
@@ -240,7 +241,7 @@ private:
 	QString spotNam;
 	int spotCount;
 	int inPattern;
-	Q3TextStream outStream;
+	QDataStream outStream;
 	QMap<QString, QString> StdFonts;
 	MultiProgressDialog* progressDialog;
 	bool abortExport;
