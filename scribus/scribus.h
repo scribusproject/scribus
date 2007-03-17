@@ -231,7 +231,7 @@ public:
 	QClipboard *ClipB;
 	QString LoadEnc;
 	bool ScriptRunning;
-	Autoforms* SCustom;
+	//Qt4 Autoforms* SCustom;
 	ModeToolBar* mainToolBar;
 
 	QMap<QString, QStringList> InstLang;
@@ -430,10 +430,10 @@ public slots:
 	/** Setzt die Abstufung */
 	void setItemShade(int id);
 	/** Setzt den Font */
-	void setItemFont(int id);
-	void setItemFont2(int id);
+//Qt4	void setItemFont(int id);
+//Qt4	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
-	void AdjustFontMenu(QString nf);
+//Qt4	void AdjustFontMenu(QString nf);
 	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
@@ -473,7 +473,7 @@ public slots:
 	void objectAttributes();
 	void getImageInfo();
 	void generateTableOfContents();
-	void buildFontMenu();
+//Qt4	void buildFontMenu();
 	/*! \brief Change Preferences dialog.
 	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
 	void slotPrefsOrg();
@@ -625,7 +625,7 @@ private:
 	bool objectSpecificUndo;
 
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
-	QMap<int,QString> FontID;
+//Qt4	QMap<int,QString> FontID;
 
 	void *PSDriver;
 	int DocNr;

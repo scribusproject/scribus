@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <q3accel.h>
-#include <qapplication.h>
+#include <QApplication>
 #include <qeventloop.h>
 #include <qcolordialog.h>
 #include <qcolor.h>
@@ -272,7 +272,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	actionManager->init(this);
 	initMenuBar();
 	initToolBars();
-	buildFontMenu();
+	//Qt4 buildFontMenu();
  	ScCore->pluginManager->setupPluginActions(this);
  	ScCore->pluginManager->languageChange();
 	initKeyboardShortcuts();
@@ -318,7 +318,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-	connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+	//Qt4 connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
@@ -643,6 +643,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 	scrActions["editEditWithImageEditor"]->setEnabled(false);
 
+/*Qt4
 	//Style Menu
 	scrMenuMgr->createMenu("Style", tr("St&yle"));
 	//Color menu
@@ -667,6 +668,7 @@ void ScribusMainWindow::initMenuBar()
 	//Type style menu
 	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
 	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
+*/
 
 	//Item Menu
 	scrMenuMgr->createMenu("Item", tr("&Item"));
@@ -711,10 +713,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
 	// CB TODO
 	//Shape menu
-	SCustom = new Autoforms(0);
-	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
-	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
-	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
+//Qt4	SCustom = new Autoforms(0);
+//Qt4	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
+//Qt4	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
+//Qt4	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
 	scrMenuMgr->createMenu("ItemConvertTo", QPixmap(noIcon), tr("C&onvert To"), "Item");
 	//scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"));
 	//scrMenuMgr->addMenuToMenu("ItemConvertTo", "Item");
@@ -954,7 +956,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
 
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+//Qt4	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
 void ScribusMainWindow::addDefaultWindowMenuItems()
@@ -1275,7 +1277,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					else
 					{
 						doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false);
-						currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1)));
+						currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2.0, 1.0)));
 						doc->AdjustItemSize(currItem);
 						currItem->ContourLine = currItem->PoLine.copy();
 						currItem->ClipEdited = true;
@@ -2160,7 +2162,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow=windows.at(i)->caption();
-			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, noIcon, docInWindow, QKeySequence(), this, docInWindow, i));
+			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QPixmap(), QPixmap(), docInWindow, QKeySequence(), this, docInWindow, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
 			if (windowCount>1)
@@ -2353,7 +2355,7 @@ bool ScribusMainWindow::slotDocSetup()
 void ScribusMainWindow::SwitchWin()
 {
 	updateColorMenu();
-	buildFontMenu();
+	//Qt4 buildFontMenu();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
@@ -2514,7 +2516,7 @@ void ScribusMainWindow::HaveNewDoc()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	slotChangeUnit(doc->unitIndex());
-	buildFontMenu();
+	//Qt4 buildFontMenu();
 	windowsMenuAboutToShow();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)));
@@ -2541,7 +2543,7 @@ void ScribusMainWindow::HaveNewDoc()
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
-	connect(view, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+	//Qt4 connect(view, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(view, SIGNAL(ItemTextFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 	connect(view, SIGNAL(ItemTextSize(int)), propertiesPalette, SLOT(setSize(int)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
@@ -3000,12 +3002,14 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	{
 		//propertiesPalette->SetCurItem(currItem);
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem->ItemNr);
+/*Qt4
 		if (currItem->FrameType == 0)
 			SCustom->setPixmap(SCustom->getIconPixmap(0));
 		if (currItem->FrameType == 1)
 			SCustom->setPixmap(SCustom->getIconPixmap(1));
 		if (currItem->FrameType > 3)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
+*/
 		actionManager->connectNewSelectionActions(view, doc);
 // 		propertiesPalette->NewSel(Nr);
 	}
@@ -3127,7 +3131,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
 		localName=QDir::convertSeparators(RecentDocs[m]);
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QIcon(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}
@@ -3139,18 +3143,18 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		scrMenuMgr->removeMenuItem((*it), recentPasteMenuName);
 
 	scrRecentPasteActions.clear();
-	uint max = qMin(static_cast<uint>(prefsManager->appPrefs.numScrapbookCopies), scrapbookPalette->tempBView->objectMap.count());
+	int max = qMin(prefsManager->appPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
 	if (max > 0)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
 		it = scrapbookPalette->tempBView->objectMap.end();
 		it--;
 		QString strippedName;
-		for (uint m = 0; m < max; ++m)
+		for (int m = 0; m < max; ++m)
 		{
 			strippedName = it.key();
 			QPixmap pm = it.data().Preview;
-			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, QIcon(pm), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, strippedName,0,0.0,it.key()));
+			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, strippedName,0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], recentPasteMenuName);
 			it--;
@@ -3215,7 +3219,7 @@ void ScribusMainWindow::rebuildLayersList()
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 			{
-				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QIcon(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
+				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
 				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
 			}
 		}
@@ -3644,7 +3648,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			{
 				qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
 				QString mess = tr("Some ICC profiles used by this document are not installed:")+"\n\n";
-				for (uint m = 0; m < missing.count(); ++m)
+				for (int m = 0; m < missing.count(); ++m)
 				{
 					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";
 				}
@@ -4098,7 +4102,7 @@ bool ScribusMainWindow::DoFileClose()
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 	}
 	QStringList patterns = doc->docPatterns.keys();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc->docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -5327,8 +5331,8 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
 	if (finalZoomFactor == view->scale())
 		return;
-	int x = qRound(qMax(view->contentsX() / view->scale(), 0));
-	int y = qRound(qMax(view->contentsY() / view->scale(), 0));
+	int x = qRound(qMax(view->contentsX() / view->scale(), 0.0));
+	int y = qRound(qMax(view->contentsY() / view->scale(), 0.0));
 	int w = qRound(qMin(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
 	int h = qRound(qMin(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
 	if (zoomFactor==-200.0)
@@ -5999,7 +6003,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			doc->ShapeValues = mainToolBar->ShapeVals;
 			doc->ValCount = mainToolBar->ValCount;
 			propertiesPalette->SCustom->setPixmap(propertiesPalette->SCustom->getIconPixmap(doc->SubMode));
-			SCustom->setPixmap(SCustom->getIconPixmap(doc->SubMode));
+			//Qt4 SCustom->setPixmap(SCustom->getIconPixmap(doc->SubMode));
 		}
 		else
 			doc->SubMode = -1;
@@ -6349,6 +6353,7 @@ void ScribusMainWindow::changePageMargins()
 	delete dia;
 }
 
+/*Qt4
 void ScribusMainWindow::setItemFont2(int id)
 {
 	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
@@ -6368,6 +6373,7 @@ void ScribusMainWindow::setItemFont(int id)
 	SetNewFont(nf);
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
+*/
 
 void ScribusMainWindow::SetNewFont(const QString& nf)
 {
@@ -6377,8 +6383,8 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	{
 		if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
-			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf].scName());
+//Qt4			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+//Qt4			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf].scName());
 		}
 		else
 		{//CB FIXME: to doc?
@@ -6388,16 +6394,17 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 				nf2 = currItem->currentCharStyle().font().scName();
 			}
 //			propertiesPalette->Fonts->RebuildList(doc);
-			buildFontMenu();
+//Qt4		buildFontMenu();
 		}
 	}
-	AdjustFontMenu(nf2);
+//Qt4	AdjustFontMenu(nf2);
 	doc->itemSelection_SetFont(nf2);
 //	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	view->DrawNew();
 	slotDocCh();
 }
 
+/*Qt4
 void ScribusMainWindow::AdjustFontMenu(QString nf)
 {
 	QString df;
@@ -6414,6 +6421,7 @@ void ScribusMainWindow::AdjustFontMenu(QString nf)
 		FontMenu->setItemChecked(FontMenu->idAt(a), (df == nf));
 	}
 }
+*/
 
 void ScribusMainWindow::setItemFSize(int id)
 {
@@ -6876,8 +6884,8 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 			{
 				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 				{
-					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
+//Qt4					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+//Qt4					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
 				}
 //				else
 //FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
@@ -7085,7 +7093,7 @@ void ScribusMainWindow::slotEditColors()
 				for (it = ers.begin(); it != ers.end(); ++it)
 				{
 					QStringList patterns = doc->docPatterns.keys();
-					for (uint c = 0; c < patterns.count(); ++c)
+					for (int c = 0; c < patterns.count(); ++c)
 					{
 						ScPattern pa = doc->docPatterns[patterns[c]];
 						for (uint o = 0; o < pa.items.count(); o++)
@@ -7293,6 +7301,7 @@ void ScribusMainWindow::selectPagesFromOutlines(int Page)
 	view->GotoPage(Page);
 }
 
+/* Qt4
 void ScribusMainWindow::buildFontMenu()
 {
 	FontID.clear();
@@ -7322,6 +7331,7 @@ void ScribusMainWindow::buildFontMenu()
 	}
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
+*/
 
 void ScribusMainWindow::prefsOrg(Preferences *dia)
 {
@@ -7884,7 +7894,7 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 		vie->DrawNew();
 		if (doc == docc)
 		{
-			buildFontMenu();
+			//Qt4 buildFontMenu();
 			propertiesPalette->updateColorList();
 			propertiesPalette->paraStyleCombo->updateFormatList();
 			propertiesPalette->charStyleCombo->updateFormatList();
@@ -8722,7 +8732,7 @@ QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool wit
 void ScribusMainWindow::ReorgFonts()
 {
 	doc->reorganiseFonts();
-	buildFontMenu();
+	//Qt4 buildFontMenu();
 }
 
 void ScribusMainWindow::docCheckToggle(bool visible)
@@ -9222,7 +9232,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 		QString fileUrl;
 		QStringList fileUrls;
 		Q3UriDrag::decodeLocalFiles(e, fileUrls);
-		for( uint i = 0; i < fileUrls.count(); ++i )
+		for( int i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].lower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
@@ -9243,7 +9253,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 		QString fileUrl;
 		QStringList fileUrls;
 		Q3UriDrag::decodeLocalFiles(e, fileUrls);
-		for( uint i = 0; i < fileUrls.count(); ++i )
+		for( int i = 0; i < fileUrls.count(); ++i )
 		{
 			fileUrl = fileUrls[i].lower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
