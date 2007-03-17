@@ -251,7 +251,7 @@ void PSLib::PutSeite(QByteArray& array, bool hexEnc)
 	if(hexEnc)
 	{
 		int length = 0;
-		for (uint i = 0; i < array.size(); i++)
+		for (int i = 0; i < array.size(); i++)
 		{
 			length++;
 			spoolStream << toHex(array[i]);
@@ -296,7 +296,7 @@ void PSLib::PutDoc(QByteArray& array, bool hexEnc)
 	if(hexEnc)
 	{
 		int length = 0;
-		for (uint i = 0; i < array.size(); i++)
+		for (int i = 0; i < array.size(); i++)
 		{
 			length++;
 			spoolStream << toHex(array[i]);
@@ -399,7 +399,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc("true setoverprintmode\n");
 	}
 	QStringList patterns = m_Doc->getUsedPatterns();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
 		for (uint em = 0; em < pa.items.count(); ++em)
@@ -831,8 +831,8 @@ void PSLib::PS_setlinewidth(double w)
 
 void PSLib::PS_setdash(Qt::PenStyle st, double offset, Q3ValueList<double> dash)
 {
-	QString Dt = ToStr(qMax(2*LineW, 1));
-	QString Da = ToStr(qMax(6*LineW, 1));
+	QString Dt = ToStr(qMax(2*LineW, 1.0));
+	QString Da = ToStr(qMax(6*LineW, 1.0));
 	if (dash.count() != 0)
 	{
 		PutSeite("[ ");
@@ -956,7 +956,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueL
 	int cc, mc, yc, kc;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
-	for (uint c = 0; c < Colors.count()-1; ++c)
+	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		oneSpot1 = false;
 		oneSpot2 = false;
@@ -1106,7 +1106,7 @@ void PSLib::PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, Q
 	int cc, mc, yc, kc;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
-	for (uint c = 0; c < Colors.count()-1; ++c)
+	for (int c = 0; c < Colors.count()-1; ++c)
 	{
 		oneSpot1 = false;
 		oneSpot2 = false;
@@ -1726,7 +1726,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			struct Layer ll;
 			ll.isPrintable = false;
 			ll.LNr = 0;
-			for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
+			for (int lam = 0; lam < Doc->Layers.count(); ++lam)
 			{
 				Level2Layer(Doc, &ll, Lnr);
 				if (ll.isPrintable)
@@ -1830,7 +1830,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages->at(a)->MPageNam]);
 			if (Doc->MasterItems.count() != 0)
 			{
-				for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
+				for (int lam = 0; lam < Doc->Layers.count(); ++lam)
 				{
 					Level2Layer(Doc, &ll, Lnr);
 					if (ll.isPrintable)
@@ -2242,7 +2242,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					if ((c->itemText.text(d) == QChar(13)) || (c->itemText.text(d) == QChar(10)) || (c->itemText.text(d) == QChar(28)))
 						break;
-					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), (ushort) 32), 8);
 				}
 				PDF_Bookmark(bm, a->pageNr()+1);
 			}
@@ -2252,7 +2252,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				QString cc;
 				for (int d = 0; d < c->itemText.length(); ++d)
 				{
-					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), 32), 8);
+					bm += "\\"+cc.setNum(qMax(c->itemText.text(d).unicode(), (ushort) 32), 8);
 				}
 				PDF_Annotation(bm, 0, 0, c->width(), -c->height());
 				break;
@@ -2795,7 +2795,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	struct Layer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
-	for (uint la = 0; la < Doc->Layers.count(); ++la)
+	for (int la = 0; la < Doc->Layers.count(); ++la)
 	{
 		Level2Layer(Doc, &ll, Lnr);
 		if (!a->pageName().isEmpty())
@@ -3116,7 +3116,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 	ite->OwnPage = savedOwnPage;
 #ifndef NLS_PROTO
 	ScText *hl;
-	uint tabCc = 0;
+	int tabCc = 0;
 	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
@@ -3669,12 +3669,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				if (cstyle.underlineWidth() != -1)
 					lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
 				else
-					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
 			}
 			if (cstyle.baselineOffset() != 0)
 				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
@@ -3816,12 +3816,12 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				if (cstyle.strikethruWidth() != -1)
 					lw = (cstyle.strikethruWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
 				else
-					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+					lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				Upos = cstyle.font().strikeoutPos(cstyle.fontSize() / 10.0);
-				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+				lw = qMax(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1.0);
 			}
 			if (cstyle.baselineOffset() != 0)
 				Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
