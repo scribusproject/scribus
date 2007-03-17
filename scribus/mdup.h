@@ -16,23 +16,23 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 class Mdup : public QDialog
 {
     Q_OBJECT
 
 public:
-    Mdup( QWidget* parent, double Dx, double Dy, int Ein );
+    Mdup( QWidget* parent, double Dx, double Dy, int unitIndex );
     ~Mdup() {};
 
     QLabel* TextLabel1_2;
     QLabel* TextLabel1_2_2;
     QSpinBox* Ncopies;
-    MSpinBox* ShiftV;
+    ScrSpinBox* ShiftV;
     QPushButton* PushButton12;
     QLabel* TextLabel1;
-    MSpinBox* ShiftH;
+    ScrSpinBox* ShiftH;
     QPushButton* PushButton13;
 
 protected:

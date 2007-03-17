@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
+Mdup::Mdup( QWidget* parent, double Dx, double Dy, int unitIndex )
 		: QDialog( parent, "m", true, 0 )
 {
 	setCaption( tr( "Multiple Duplicate" ) );
@@ -39,15 +39,12 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	Ncopies->setMinValue( 1 );
 	Ncopies->setValue(1);
 	Layout4->addWidget( Ncopies, 0, 1 );
-	ShiftH = new MSpinBox( -1000, 1000, this, 2 );
+	ShiftH = new ScrSpinBox( -1000, 1000, this, 2 );
 	ShiftH->setValue(Dx);
 	Layout4->addWidget( ShiftH, 1, 1 );
-	ShiftV = new MSpinBox( -1000, 1000, this, 2 );
+	ShiftV = new ScrSpinBox( -1000, 1000, this, 2 );
 	ShiftV->setValue(Dy);
 	Layout4->addWidget( ShiftV, 2, 1 );
-	QString Suffix = unitGetSuffixFromIndex(Ein);
-	ShiftH->setSuffix(Suffix);
-	ShiftV->setSuffix(Suffix);
 	TextLabel1 = new QLabel( Ncopies, tr( "&Number of Copies:" ), this, "TextLabel1" );
 	Layout4->addWidget( TextLabel1, 0, 0 );
 	TextLabel1_2 = new QLabel( ShiftH, tr( "&Horizontal Shift:" ), this, "TextLabel1_2" );
