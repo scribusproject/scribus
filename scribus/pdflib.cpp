@@ -275,7 +275,7 @@ QString PDFlib::EncStream(const QString & in, int ObjNum)
 	QByteArray us(tmp.length());
 	QByteArray ou(tmp.length());
 	for (int a = 0; a < tmp.length(); ++a)
-		us[a] = uchar(Q3Char(tmp.at(a)));
+		us[a] = QChar(tmp.at(a)).cell();
 	QByteArray data(10);
 	if (KeyLen > 5)
 		data.resize(21);
@@ -324,7 +324,7 @@ QByteArray PDFlib::EncStreamArray(const QByteArray & in, int ObjNum)
 	QByteArray step1(16);
 	step1 = ComputeMD5Sum(&data);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
-	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(in.data()), reinterpret_cast<uchar*>(out.data()), in.size());
+	rc4_encrypt(&rc4, reinterpret_cast<const uchar*>(in.constData()), reinterpret_cast<uchar*>(out.data()), in.size());
 	return out;
 }
 
@@ -341,7 +341,7 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 	QByteArray us(tmp.length());
 	QByteArray ou(tmp.length());
 	for (int a = 0; a < tmp.length(); ++a)
-		us[a] = static_cast<uchar>(QChar(tmp.at(a)));
+		us[a] = static_cast<uchar>(QChar(tmp.at(a)).cell());
 	QByteArray data(10);
 	if (KeyLen > 5)
 		data.resize(21);
@@ -440,7 +440,7 @@ void PDFlib::CalcOwnerKey(const QString & Owner, const QString & User)
 	if (KeyLen > 5)
 	{
 		for (uint a2 = 0; a2 < 32; ++a2)
-			OwnerKey[a2] = static_cast<uchar>(QChar(pw.at(a2)));
+			OwnerKey[a2] = QChar(pw.at(a2)).cell();
 		for (int rl = 0; rl < 20; rl++)
 		{
 			for (int j = 0; j < 16; j ++)
@@ -453,7 +453,7 @@ void PDFlib::CalcOwnerKey(const QString & Owner, const QString & User)
 	else
 	{
 		for (uint a = 0; a < 32; ++a)
-			us[a] = static_cast<uchar>(QChar(pw.at(a)));
+			us[a] = static_cast<uchar>(QChar(pw.at(a)).cell());
 		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
 		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()),
 					reinterpret_cast<uchar*>(OwnerKey.data()), 32);
@@ -517,7 +517,7 @@ QByteArray PDFlib::ComputeMD5(const QString& in)
 	uint inlen=in.length();
 	QByteArray TBytes(inlen);
 	for (uint a = 0; a < inlen; ++a)
-		TBytes[a] = static_cast<uchar>(QChar(in.at(a)));
+		TBytes[a] = static_cast<uchar>(QChar(in.at(a)).cell());
 	return ComputeMD5Sum(&TBytes);
 }
 
@@ -751,7 +751,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc.docPatterns[patterns[c]];
-		for (int o = 0; o < pa.items.count(); o++)
+		for (uint o = 0; o < pa.items.count(); o++)
 		{
 			pgit = pa.items.at(o);
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -5468,7 +5468,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					PutDoc("/FT /Tx\n");
 					PutDoc("/V "+EncString("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/Q "+QString::number(qMin(ite->itemText.defaultStyle().alignment(),2))+"\n");
+					PutDoc("/Q "+QString::number(qMin(ite->itemText.defaultStyle().alignment(), ParagraphStyle::Rightaligned))+"\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
 						PutDoc("/MaxLen "+QString::number(ite->annotation().MaxChar())+"\n");
