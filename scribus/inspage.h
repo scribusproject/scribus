@@ -15,7 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <QLabel>
-class QDialog;
+#include <QDialog>
+
 class QComboBox;
 class QLayout;
 class QLabel;

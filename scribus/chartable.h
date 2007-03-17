@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 class PageItem;
 class CharZoom;
+class ScribusDoc;
 
 //! \brief A special type for character classes
 typedef Q3ValueList<uint> CharClassDef;

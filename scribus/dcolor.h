@@ -20,6 +20,7 @@ class ColorCombo;
 
 #include <QDialog>
 #include "scribusapi.h"
+#include "sccolor.h"
 
 class SCRIBUS_API DelColor : public QDialog
 { 

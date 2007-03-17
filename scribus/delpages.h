@@ -12,12 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 #include <Q3HBoxLayout>
 #include <QDialog>
-#include <QLabel>
 
 class QLabel;
 class QLayout;
-class QPushbutton;
-class QSpinbox;
+class QPushButton;
+class QSpinBox;
 
 class SCRIBUS_API DelPages : public QDialog
 { 
