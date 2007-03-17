@@ -191,6 +191,7 @@ scribusview.h
 scribusXml.h
 scribuswin.h
 scrpalettebase.h
+scrspinbox.h
 sctoolbar.h
 search.h
 seiten.h
@@ -434,6 +435,7 @@ scribusview.cpp
 scribusXml.cpp
 scribuswin.cpp
 scrpalettebase.cpp
+scrspinbox.cpp
 scmenu.cpp
 scmessagebox.cpp
 sctextstruct.cpp

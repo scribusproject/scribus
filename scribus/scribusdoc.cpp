@@ -780,7 +780,7 @@ void ScribusDoc::enableCMS(bool enable)
 	else
 		HasCMS = false;
 	m_ScMW->mainWindowProgressBar->setProgress(cc);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
 }
@@ -2454,7 +2454,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			continue;
 		}
 		QStringList patterns = getUsedPatterns();
-		for (uint c = 0; c < patterns.count(); ++c)
+		for (int c = 0; c < patterns.count(); ++c)
 		{
 			ScPattern pa = docPatterns[patterns[c]];
 			for (uint o = 0; o < pa.items.count(); o++)
@@ -2561,7 +2561,7 @@ QStringList ScribusDoc::getUsedPatterns()
 		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
 			results.append(FrameItems.at(c)->pattern());
 	}
-	for (uint c = 0; c < results.count(); ++c)
+	for (int c = 0; c < results.count(); ++c)
 	{
 		QStringList pats = getUsedPatternsHelper(results[c], results);
 		if (!pats.isEmpty())
@@ -2582,7 +2582,7 @@ QStringList ScribusDoc::getUsedPatternsSelection()
 			if ((!results.contains(currItem->pattern())) && (currItem->GrType == 8))
 				results.append(currItem->pattern());
 		}
-		for (uint c = 0; c < results.count(); ++c)
+		for (int c = 0; c < results.count(); ++c)
 		{
 			QStringList pats = getUsedPatternsHelper(results[c], results);
 			if (!pats.isEmpty())
@@ -2606,7 +2606,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	}
 	if (!pats.isEmpty())
 	{
-		for (uint c = 0; c < pats.count(); ++c)
+		for (int c = 0; c < pats.count(); ++c)
 		{
 			getUsedPatternsHelper(pats[c], results);
 		}
@@ -2676,7 +2676,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				continue;
 			if (chr == 9)
 			{
-				for (uint t1 = 0; t1 < it->itemText.paragraphStyle(e).tabValues().count(); t1++)
+				for (int t1 = 0; t1 < it->itemText.paragraphStyle(e).tabValues().count(); t1++)
 				{
 					if (it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
 						continue;
@@ -2691,7 +2691,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
 					Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 				}
-				for (uint t1 = 0; t1 < it->itemText.defaultStyle().tabValues().count(); t1++)
+				for (int t1 = 0; t1 < it->itemText.defaultStyle().tabValues().count(); t1++)
 				{
 					if (it->itemText.defaultStyle().tabValues()[t1].tabFillChar.isNull())
 						continue;
@@ -2737,14 +2737,14 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 						if (DocPages.at(a)->MPageNam == it->OnMasterPage)
 						{
 							newText=getSectionPageNumberForPageIndex(a);
-							for (uint nti=0;nti<newText.length();++nti)
+							for (int nti=0;nti<newText.length();++nti)
 								if (pageNumberText.find(newText[nti])==-1)
 									pageNumberText+=newText[nti];
 						}
 					}
 				}
 				//Now scan and add any glyphs used in page numbers
-				for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
+				for (int pnti=0;pnti<pageNumberText.length(); ++pnti)
 				{
 					uint chr = pageNumberText[pnti].unicode();
 					if (it->itemText.charStyle(e).font().canRender(chr))
@@ -4637,7 +4637,7 @@ void ScribusDoc::updateAllItemQColors()
 		ite->setFillQColor();
 	}
 	QStringList patterns = docPatterns.keys();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -5845,7 +5845,7 @@ void ScribusDoc::updatePict(QString name)
 		}
 	}
 	QStringList patterns = docPatterns.keys();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -5893,7 +5893,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			cc++;
 	}
 	QStringList patterns = docPatterns.keys();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -6017,7 +6017,7 @@ void ScribusDoc::removePict(QString name)
 		}
 	}
 	QStringList patterns = docPatterns.keys();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -6801,7 +6801,7 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 		{
 			ObjGroup = currItem->Groups.top();
 			bool found = false;
-			for (uint a2 = 0; a2 < AObjects.count(); ++a2)
+			for (int a2 = 0; a2 < AObjects.count(); ++a2)
 			{
 				if (AObjects[a2].Group == ObjGroup)
 				{
@@ -6830,7 +6830,7 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 			AObjects.append(Object);
 		}
 	}
-	for (uint i = 0; i < AObjects.count(); ++i)
+	for (int i = 0; i < AObjects.count(); ++i)
 	{
 		AObjects[i].width = AObjects[i].x2 - AObjects[i].x1;
 		AObjects[i].height = AObjects[i].y2 - AObjects[i].y1;
@@ -8621,7 +8621,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		AdjustItemSize(currItem);
 		currItem->ContourLine = currItem->PoLine.copy();
 		m_View->Deselect(true);
-		for (uint c = 0; c < toDel.count(); ++c)
+		for (int c = 0; c < toDel.count(); ++c)
 			m_View->SelectItemNr(*toDel.at(c));
 		itemSelection_DeleteItem();
 		emit updateContents();

@@ -62,7 +62,7 @@ void svgimplugin_freePlugin(ScPlugin* plugin)
 }
 
 SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QIcon(), "", QKeySequence(), this, "ImportSVG"))
+	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this, "ImportSVG"))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format

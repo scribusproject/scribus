@@ -9051,7 +9051,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 				} while (!nameFound && ok);
 				if ( ok && !colorName.isEmpty() )
 				{
-					ScColor newColor(selectedColor.Qt::red(), selectedColor.Qt::green(), selectedColor.Qt::blue());
+					ScColor newColor(selectedColor.red(), selectedColor.green(), selectedColor.blue());
 					doc->PageColors[colorName]=newColor;
 					propertiesPalette->updateColorList();
 				}

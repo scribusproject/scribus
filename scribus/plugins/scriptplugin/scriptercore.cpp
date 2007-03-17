@@ -96,7 +96,7 @@ void ScripterCore::buildScribusScriptsMenu()
 		{
 			QFileInfo fs(ds[dc]);
 			QString strippedName=fs.baseName(false);
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), strippedName, QKeySequence(), this, strippedName));
+			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), strippedName, QKeySequence(), this, strippedName));
 			connect( scrScripterActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(StdScript(QString)) );
 			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
 		}
@@ -116,7 +116,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	{
 		QString strippedName=RecentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), RecentScripts[m], QKeySequence(), this, strippedName));
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), RecentScripts[m], QKeySequence(), this, strippedName));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 	}
@@ -136,7 +136,7 @@ void ScripterCore::buildRecentScriptsMenu()
 			{
 				QString strippedName=SavedRecentScripts[m];
 				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QIcon(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
+				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
 				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 			}
@@ -490,7 +490,7 @@ void ScripterCore::SavePlugPrefs()
 		qDebug("scriptplugin: Unable to get recent scripts");
 		return;
 	}
-	for (uint i = 0; i < RecentScripts.count(); i++)
+	for (int i = 0; i < RecentScripts.count(); i++)
 		prefRecentScripts->set(i, 0, RecentScripts[i]);
 	// then save more general preferences
 	prefs->set("extensionscripts", m_enableExtPython);
