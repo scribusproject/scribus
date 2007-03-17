@@ -610,7 +610,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			{
 				QByteArray arrayPhot(PhotoshopLen);
 				arrayPhot.duplicate((const char*)PhotoshopBuffer,PhotoshopLen);
-				QDataStream strPhot(arrayPhot,QIODevice::ReadOnly);
+				QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
 				strPhot.setByteOrder( QDataStream::BigEndian );
 				PSDHeader fakeHeader;
 				fakeHeader.width = widtht;
@@ -684,8 +684,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				m_imageInfoRecord.layerInfo.clear();
 				QByteArray arrayPhot;
 				arrayPhot.setRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
-				QDataStream s(arrayPhot,QIODevice::ReadOnly);
-				if (byteOrder[0] == QChar('M'))
+				QDataStream s(&arrayPhot,QIODevice::ReadOnly);
+				if (byteOrder[0] == 'M')
 					s.setByteOrder( QDataStream::BigEndian );
 				else
 					s.setByteOrder( QDataStream::LittleEndian );
@@ -747,7 +747,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 							for( int i = 0; i < 4; i++ )
 							{
 								s >> blendKey[i];
-								if (byteOrder[0] == QChar('M'))
+								if (byteOrder[0] == 'M')
 									blend.append(QChar(blendKey[i]));
 								else
 									blend.prepend(QChar(blendKey[i]));
@@ -1110,12 +1110,12 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	bool createOk = false;
 	if (header.color_mode == CM_CMYK)
 	{
-		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, 5));
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint) 5));
 		r2_image.fill(0);
 	}
 	else
 	{
-		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, 4));
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint) 4));
 		r2_image.fill(0);
 	}
 	if( !createOk )
@@ -1127,7 +1127,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		s.device()->at( base2 );
 		return false;
 	}
-	channel_num = qMin(channel_num, 39);
+	channel_num = qMin(channel_num, (uint) 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
