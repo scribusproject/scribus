@@ -16,13 +16,13 @@ for which a new license (GPL+exception) is in place.
 //#include "scribusXml.moc"
 #include <qfile.h>
 #include <q3textstream.h>
-#include <qapplication.h>
 #include <q3tl.h>
 #include <qcursor.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include <qtextcodec.h>
 //Added by qt3to4:
+#include <QApplication>
 #include <Q3ValueList>
 #include <Q3CString>
 #include <Q3PtrList>
@@ -66,7 +66,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
 		bool isThere = false;
-		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
+		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
 			if ((*dummyScFaces.at(dl)).scName() == tmpf)
 			{
@@ -120,7 +120,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
 	QString pstyleName = it->attribute("PSTYLE", "");
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle style;
 		QChar ch = tmp2.at(cxx);
@@ -189,7 +189,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	{
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
@@ -1105,7 +1105,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
 	item = selection->itemAt(0);
-	Q3ValueList<uint> ELL;
+	QList<uint> ELL;
 	for (uint cor=0; cor<selection->count(); ++cor)
 		ELL.append(selection->itemAt(cor)->ItemNr);
 	qSort(ELL);
@@ -1333,7 +1333,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		}
 	}
 	QStringList patterns = doc->getUsedPatternsSelection();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc->docPatterns[patterns[c]];
 		QDomElement pat = docu.createElement("Pattern");
@@ -1380,7 +1380,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 	ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
 	if (item->effectsInUse.count() != 0)
 	{
-		for (uint a = 0; a < item->effectsInUse.count(); ++a)
+		for (int a = 0; a < item->effectsInUse.count(); ++a)
 		{
 			QDomElement imeff = docu.createElement("ImageEffect");
 			imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
@@ -1390,7 +1390,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 	}
 	if (item->itemText.defaultStyle().tabValues().count() != 0)
 	{
-		for (uint a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
+		for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 		{
 			QDomElement tabs = docu.createElement("Tabs");
 			tabs.setAttribute("Type", (*item->itemText.defaultStyle().tabValues().at(a)).tabType);
