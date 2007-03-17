@@ -386,7 +386,8 @@ void Cpalette::InnenButton()
 	updateFromItem();
 	emit modeChanged();
 }
-
+#include <QStandardItem>
+#include <QAbstractItemView>
 void Cpalette::updatePatternList()
 {
 	disconnect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
@@ -402,9 +403,11 @@ void Cpalette::updatePatternList()
 		(void) new Q3IconViewItem(patternBox, it.key(), pm);
 	}
 	if (patternList->count() == 0)
-		gradientQCombo->listBox()->item(8)->setSelectable(false);
+		// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(false);
+		dynamic_cast<QStandardItem*>(gradientQCombo->view()->children().at(8))->setSelectable(false);
 	else
-		gradientQCombo->listBox()->item(8)->setSelectable(true);
+		// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(true);
+		dynamic_cast<QStandardItem*>(gradientQCombo->view()->children().at(8))->setSelectable(true);
 	patternBox->setSelected(patternBox->currentItem(), false);
 	connect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
 }
