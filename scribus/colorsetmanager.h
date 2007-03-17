@@ -25,7 +25,7 @@ class SCRIBUS_API ColorSetManager
 		void findPaletteLocations();
 		void findPalettes();
 		QStringList paletteNames();
-		const QString& paletteFileFromName(const QString& paletteName);
+		QString paletteFileFromName(const QString& paletteName);
 		
 	protected:
 		QStringList paletteLocations;

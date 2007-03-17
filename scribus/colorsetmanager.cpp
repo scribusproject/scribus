@@ -145,9 +145,9 @@ QStringList ColorSetManager::paletteNames( )
 	return nameList;
 }
 
-const QString& ColorSetManager::paletteFileFromName(const QString& paletteName)
+QString ColorSetManager::paletteFileFromName(const QString& paletteName)
 {
 	if (palettes.contains(paletteName))
 		return palettes[paletteName];
-	return QString::null;
+	return QString();
 }
