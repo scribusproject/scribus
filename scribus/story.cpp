@@ -75,11 +75,6 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
-SideBar::~SideBar()
-{
-	delete pmen;
-}
-
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
 	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
