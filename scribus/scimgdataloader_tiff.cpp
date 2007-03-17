@@ -917,7 +917,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
 					if (visible)
 						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
-					QImage imt = tmpImg.copy();
+					//JG Copy should not be necessary as QImage is implicitly shared in Qt4
+					QImage imt; //QImage imt = tmpImg.copy();
 					if (chans > 4)
 						imt = tmpImg.convertToQImage(true);
 					else
