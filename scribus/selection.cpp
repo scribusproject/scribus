@@ -197,7 +197,7 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 
 PageItem *Selection::itemAt_(int index)
 {
-	if (!m_SelList.isEmpty() && static_cast<uint>(index)<m_SelList.count())
+	if (!m_SelList.isEmpty() && index<m_SelList.count())
 	{
 		QPointer<PageItem> pi=m_SelList[index];
 		//If not NULL return it, otherwise remove from the list and return NULL
@@ -251,7 +251,7 @@ bool Selection::removeItem(PageItem *item)
 	return false;
 }
 
-PageItem* Selection::takeItem(uint itemIndex)
+PageItem* Selection::takeItem(int itemIndex)
 {
 	if (!m_SelList.isEmpty() && itemIndex<m_SelList.count())
 	{

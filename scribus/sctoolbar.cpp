@@ -88,10 +88,10 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, Q3MainWindow 
 	dockRight = m_prefs->getBool("DockRight", 1);
 	dockBottom = m_prefs->getBool("DockBottom", 1);
 	dockLeft = m_prefs->getBool("DockLeft", 1);
-	mainWindow()->setDockEnabled(this, DockTop, dockTop);
-	mainWindow()->setDockEnabled(this, DockRight, dockRight);
-	mainWindow()->setDockEnabled(this, DockBottom, dockBottom);
-	mainWindow()->setDockEnabled(this, DockLeft, dockLeft);
+	mainWindow()->setDockEnabled(this, Qt::DockTop, dockTop);
+	mainWindow()->setDockEnabled(this, Qt::DockRight, dockRight);
+	mainWindow()->setDockEnabled(this, Qt::DockBottom, dockBottom);
+	mainWindow()->setDockEnabled(this, Qt::DockLeft, dockLeft);
 
 	if (place() == InDock)
 		setOrientation(area()->orientation());
@@ -199,7 +199,7 @@ void ScToolBar::slotVisibilityChanged(bool visible)
 void ScToolBar::slotTop()
 {
 	dockTop = !dockTop;
-	mainWindow()->setDockEnabled(this, DockTop, dockTop);
+	mainWindow()->setDockEnabled(this, Qt::DockTop, dockTop);
 	dockMenu->setItemChecked(dockMenu->idAt(0), dockTop);
 	m_prefs->set("DockTop", dockTop);
 	if (place() == InDock && mainWindow()->topDock() == area())
@@ -209,7 +209,7 @@ void ScToolBar::slotTop()
 void ScToolBar::slotRight()
 {
 	dockRight = !dockRight;
-	mainWindow()->setDockEnabled(this, DockRight, dockRight);
+	mainWindow()->setDockEnabled(this, Qt::DockRight, dockRight);
 	dockMenu->setItemChecked(dockMenu->idAt(1), dockRight);
 	m_prefs->set("DockRight", dockRight);
 	if (place() == InDock && mainWindow()->rightDock() == area())
@@ -219,7 +219,7 @@ void ScToolBar::slotRight()
 void ScToolBar::slotBottom()
 {
 	dockBottom = !dockBottom;
-	mainWindow()->setDockEnabled(this, DockBottom, dockBottom);
+	mainWindow()->setDockEnabled(this, Qt::DockBottom, dockBottom);
 	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
 	m_prefs->set("DockBottom", dockBottom);
 	if (place() == InDock && mainWindow()->bottomDock() == area())
@@ -229,7 +229,7 @@ void ScToolBar::slotBottom()
 void ScToolBar::slotLeft()
 {
 	dockLeft = !dockLeft;
-	mainWindow()->setDockEnabled(this, DockLeft, dockLeft);
+	mainWindow()->setDockEnabled(this, Qt::DockLeft, dockLeft);
 	dockMenu->setItemChecked(dockMenu->idAt(3), dockLeft);
 	m_prefs->set("DockLeft", dockLeft);
 	if (place() == InDock && mainWindow()->leftDock() == area())

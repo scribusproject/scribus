@@ -71,7 +71,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		pfol = pfol.split(",", Felder);
 		if (pfol.count() > 0)
 		{
-			for (uint cfx = 0; cfx < pfol.count(); ++cfx)
+			for (int cfx = 0; cfx < pfol.count(); ++cfx)
 				SelFields->insertItem(pfol[cfx].stripWhiteSpace());
 		}
 		FromSel->setEnabled(false);

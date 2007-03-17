@@ -58,7 +58,7 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 
 	QStringList options;
 
-	for (uint i = 0; i < replaceOptions.count(); ++i)
+	for (int i = 0; i < replaceOptions.count(); ++i)
 	{
 		if (!toBeDeleted.contains(replaceOptions[i]))
 			options << replaceOptions[i];
@@ -71,7 +71,7 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 	headerLayout->addWidget(deleteHeader);
 	headerLayout->addWidget(optionsHeader);
 
-	for (uint i = 0; i < toBeDeleted.count(); ++i)
+	for (int i = 0; i < toBeDeleted.count(); ++i)
 	{
 		SMRowWidget *tmp = new SMRowWidget(toBeDeleted[i], options, mainFrame);
 		layout->addWidget(tmp);
@@ -84,7 +84,7 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 Q3ValueList<RemoveItem> SMReplaceDia::items()
 {
 	Q3ValueList<RemoveItem> tmp;
-	for (uint i = 0; i < rowWidgets.count(); ++i)
+	for (int i = 0; i < rowWidgets.count(); ++i)
 	{
 		QString s1 = rowWidgets.at(i)->toBeDeleted();
 		QString s2 = rowWidgets.at(i)->replaceWith();

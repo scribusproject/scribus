@@ -129,7 +129,7 @@ void LineStyleWidget::slotEditNewLine(int i)
 	case Qt::FlatCap:
 		endCombo->setCurrentItem(0);
 		break;
-	case SquareCap:
+	case Qt::SquareCap:
 		endCombo->setCurrentItem(1);
 		break;
 	case Qt::RoundCap:
@@ -286,7 +286,7 @@ void SMLineStyle::setSelection(const QString& styleName)
 void SMLineStyle::setMultiSelection(const QStringList& styles)
 {
 	selection_.clear();
-	for (uint i = 0; i < styles.count(); ++i)
+	for (int i = 0; i < styles.count(); ++i)
 	{
 		if (!tmpLines.contains(styles[i]))
 			continue;
@@ -302,7 +302,7 @@ QString SMLineStyle::fromSelection() const
 	if (!doc_)
 		return lsName;
 
-	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	for (int i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		PageItem *item = doc_->m_Selection->itemAt(i);
 		QString tmpName = item->customLineStyle();
@@ -324,7 +324,7 @@ void SMLineStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return;
 
-	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	for (int i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		if (styleName.isNull())
 			doc_->m_Selection->itemAt(i)->setCustomLineStyle("");
@@ -393,12 +393,12 @@ void SMLineStyle::apply()
 	PageItem* ite;
 	doc_->MLineStyles = tmpLines;
 	QMap<QString, QString> replacement;
-	for (uint i = 0; i < deleted_.count(); ++i)
+	for (int i = 0; i < deleted_.count(); ++i)
 		replacement[deleted_[i].first] = deleted_[i].second;
 
 	deleted_.clear();
 
-	for (uint d = 0; d < doc_->DocItems.count(); ++d)
+	for (int d = 0; d < doc_->DocItems.count(); ++d)
 	{
 		ite = doc_->DocItems.at(d);
 		if (!ite->NamedLStyle.isEmpty())
@@ -407,7 +407,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (uint d1 = 0; d1 < doc_->MasterItems.count(); ++d1)
+	for (int d1 = 0; d1 < doc_->MasterItems.count(); ++d1)
 	{
 		ite = doc_->MasterItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())
@@ -416,7 +416,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (uint d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
+	for (int d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
 	{
 		ite = doc_->FrameItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())
@@ -525,7 +525,7 @@ void SMLineStyle::removeConnections()
 
 void SMLineStyle::slotLineStyle(int i)
 {
-	PenStyle c = Qt::SolidLine;
+	Qt::PenStyle c = Qt::SolidLine;
 	switch (i)
 	{
 		case 0:
@@ -568,14 +568,14 @@ void SMLineStyle::slotLineStyle(int i)
 
 void SMLineStyle::slotSetEnd(int i)
 {
-	PenCapStyle c = Qt::FlatCap;
+	Qt::PenCapStyle c = Qt::FlatCap;
 	switch (i)
 	{
 		case 0:
 			c = Qt::FlatCap;
 			break;
 		case 1:
-			c = SquareCap;
+			c = Qt::SquareCap;
 			break;
 		case 2:
 			c = Qt::RoundCap;
@@ -605,7 +605,7 @@ void SMLineStyle::slotSetJoin(int i)
 	if (currentLine_ < 0)
 		return;
 
-	PenJoinStyle c = Qt::MiterJoin;
+	Qt::PenJoinStyle c = Qt::MiterJoin;
 	switch (i)
 	{
 		case 0:
@@ -851,7 +851,7 @@ void SMLineStyle::updateSList()
 void SMLineStyle::updatePreview()
 {
 	QPixmap pm = QPixmap(200, 37);
-	pm.fill(white);
+	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	multiLine *tmpLine = selection_.begin().data();

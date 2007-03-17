@@ -58,7 +58,7 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 
 	Q3ListViewItem *lroot = new Q3ListViewItem(StyleView, tr("Line Styles"));
 	Q3ValueList<QString> lkeys = lstyleList->keys();
-	for (uint x = 0; x < lkeys.count(); ++x)
+	for (int x = 0; x < lkeys.count(); ++x)
 	{
 		Q3CheckListItem *item = new Q3CheckListItem (lroot, lkeys[x], Q3CheckListItem::CheckBox);
 		item->setOn(true);

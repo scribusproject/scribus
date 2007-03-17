@@ -4721,7 +4721,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		//Operations run here:
 		//Item resize, esp after creating a new one
-		if (moveTimerElapsed() && m_MouseButtonPressed && (m->state() & LeftButton) && ((Doc->appMode == modeNormal) || ((Doc->appMode == modeEdit) && operItemResizeInEditMode)) && (!currItem->locked()))
+		if (moveTimerElapsed() && m_MouseButtonPressed && (m->state() & Qt::LeftButton) && ((Doc->appMode == modeNormal) || ((Doc->appMode == modeEdit) && operItemResizeInEditMode)) && (!currItem->locked()))
 		{
 			if (Doc->EditClip)
 			{
@@ -5452,7 +5452,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_MouseButtonPressed) && (m->state() & LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_MouseButtonPressed) && (m->state() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(translateToDoc(m->x(), m->y()).x());
 			if (Doc->appMode == modeMagnifier)
@@ -5997,7 +5997,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawShapes:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
 			switch (Doc->SubMode)
@@ -6054,7 +6054,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawPicture:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
 			if (m->state() == Qt::ShiftButton)
@@ -6070,7 +6070,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawText:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
 			if (m->state() == Qt::ShiftButton)
@@ -6234,7 +6234,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeDrawLine:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
 			Doc->ApplyGuides(&Rxp, &Ryp);
@@ -6248,7 +6248,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			inItemCreation = true;
 			break;
 		case modeRotation:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			if (GetItem(&currItem))
 			{
@@ -6315,7 +6315,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case modeLinkFrames:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			currItem = Doc->ElemToLink;
 			if (currItem==NULL)
@@ -6361,7 +6361,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->ElemToLink = NULL;
 			break;
 		case modeUnlinkFrames:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			SeleItem(m);
 			if (GetItem(&currItem) && (currItem->asTextFrame()))
@@ -6376,7 +6376,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawRegularPolygon:
 			{
-				if (m->button() != LeftButton)
+				if (m->button() != Qt::LeftButton)
 					break;
 				selectPage(m);
 				if (m->state() == Qt::ShiftButton)
@@ -6459,7 +6459,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeInsertPDFListbox:
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			selectPage(m);
 			Doc->ApplyGuides(&Rxp, &Ryp);
@@ -6499,7 +6499,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SetupDraw(z);
 			break;
 		case modeDrawFreehandLine:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			RecordP.resize(0);
 			Deselect(false);
@@ -6509,7 +6509,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			break;
 		case modeDrawTable:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			Deselect(false);
 //			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
@@ -6531,7 +6531,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			m_MouseButtonPressed = true;
 			qApp->setOverrideCursor(QCursor(Qt::CrossCursor), true);
@@ -6541,7 +6541,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Myp = m->y();
 			break;
 		case modeCopyProperties:
-			if (m->button() != LeftButton)
+			if (m->button() != Qt::LeftButton)
 				break;
 			SeleItem(m);
 			if (GetItem(&currItem))
