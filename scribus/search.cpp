@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "colorcombo.h"
 #include "fontcombo.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "page.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -114,10 +114,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFontVal->setCurrentText(doc->currentStyle.charStyle().font().scName());
 	SFontVal->setEnabled(false);
 	SearchLayout->addWidget( SFontVal, 2, 1 );
-	SSizeVal = new MSpinBox( Search, 1 );
-	SSizeVal->setSuffix( tr( " pt" ) );
-	SSizeVal->setMinValue( 0.5 );
-	SSizeVal->setMaxValue( 2048 );
+	SSizeVal = new ScrSpinBox( 0.5, 2048, Search, 1 );
 	SSizeVal->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
 	SSizeVal->setEnabled(false);
 	SearchLayout->addWidget( SSizeVal, 3, 1 );
@@ -202,10 +199,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFontVal->setCurrentText(doc->currentStyle.charStyle().font().scName());
 	RFontVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFontVal, 2, 1 );
-	RSizeVal = new MSpinBox( Replace, 1 );
-	RSizeVal->setSuffix( tr( " pt" ) );
-	RSizeVal->setMinValue( 0.5 );
-	RSizeVal->setMaxValue( 2048 );
+	RSizeVal = new ScrSpinBox( 0.5, 2048, Replace, 1 );
 	RSizeVal->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
 	RSizeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RSizeVal, 3, 1 );
@@ -389,7 +383,7 @@ void SearchReplace::slotDoSearch()
 		sSize = qRound(SSizeVal->value() * 10);
 	if (sText.length() > 0)
 		found = false;
-	uint inde = 0;
+	int inde = 0;
 	uint as = Item->CPos;
 	ReplStart = as;
 	int a;

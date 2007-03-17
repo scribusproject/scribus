@@ -23,7 +23,7 @@ extern QPixmap loadIcon(QString nam);
 #include <q3groupbox.h>
 #include <qradiobutton.h>
 #include <q3frame.h>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "linkbutton.h"
 #include "units.h"
 #include "commonstrings.h"
@@ -139,22 +139,23 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	if (mode == 1)
 		questionLabel->setText( tr("Length:"));
 	SizeGroupLayout->addWidget( questionLabel, 0, 0 );
-	spinWidth = new MSpinBox( 0, 1000, SizeGroup, decimals );
+	spinWidth = new ScrSpinBox( 0, 1000, SizeGroup, decimals );
 	spinWidth->setSuffix( m_suffix );
-	spinWidth->setMinValue(0.1*m_unitRatio);
-	spinWidth->setMaxValue(30000.0*m_unitRatio);
+	spinWidth->setMinimum(0.1*m_unitRatio);
+	spinWidth->setMaximum(30000.0*m_unitRatio);
 	spinWidth->setValue(defW * m_unitRatio);
 	SizeGroupLayout->addWidget( spinWidth, 0, 1 );
 	questionLabel2 = new QLabel( tr("Height:"), SizeGroup, "questionLabel2" );
 	if (mode == 1)
 		questionLabel2->setText( tr("Angle:"));
 	SizeGroupLayout->addWidget( questionLabel2, 1, 0 );
-	spinHeight = new MSpinBox( 0, 1000, SizeGroup, decimals );
+	spinHeight = new ScrSpinBox( 0, 1000, SizeGroup, unitIndex );
+	//Qt4 FIXME what are these.. 
 	if (mode == 0)
 	{
 		spinHeight->setSuffix( m_suffix );
-		spinHeight->setMinValue(0.1*m_unitRatio);
-		spinHeight->setMaxValue(30000.0*m_unitRatio);
+		spinHeight->setMinimum(0.1*m_unitRatio);
+		spinHeight->setMaximum(30000.0*m_unitRatio);
 		spinHeight->setValue(defH * m_unitRatio);
 	}
 	else

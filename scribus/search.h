@@ -25,7 +25,7 @@ class QComboBox;
 class Q3GroupBox;
 class QLineEdit;
 class QPushButton;
-class MSpinBox;
+class ScrSpinBox;
 class FontCombo;
 class StyleSelect;
 class ShadeButton;
@@ -62,7 +62,7 @@ public:
 	QLineEdit* STextVal;
 	QComboBox* SStyleVal;
 	FontCombo* SFontVal;
-	MSpinBox* SSizeVal;
+	ScrSpinBox* SSizeVal;
 	ColorCombo* SFillVal;
 	ShadeButton *SFillSVal;
 	ColorCombo* SStrokeVal;
@@ -79,7 +79,7 @@ public:
 	QLineEdit* RTextVal;
 	QComboBox* RStyleVal;
 	FontCombo* RFontVal;
-	MSpinBox* RSizeVal;
+	ScrSpinBox* RSizeVal;
 	ColorCombo* RFillVal;
 	ShadeButton *RFillSVal;
 	ColorCombo* RStrokeVal;

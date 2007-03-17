@@ -26,7 +26,7 @@ class Q3VBoxLayout;
 class Q3HBoxLayout;
 class Q3GridLayout;
 class QCheckBox;
-class MSpinBox;
+class ScrSpinBox;
 class LinkButton;
 
 #include "scribusapi.h"
@@ -38,8 +38,8 @@ class SCRIBUS_API OneClick : public QDialog
 public:
 	OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember, int origin, int mode );
 	~OneClick() {};
-	MSpinBox *spinWidth;
-	MSpinBox *spinHeight;
+	ScrSpinBox *spinWidth;
+	ScrSpinBox *spinHeight;
 	LinkButton* linkSize;
 	QCheckBox* checkRemember;
 	Q3ButtonGroup* RotationGroup;
