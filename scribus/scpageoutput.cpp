@@ -535,12 +535,12 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if (style.underlineWidth() != -1)
 					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -608,12 +608,12 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if (style.strikethruWidth() != -1)
 					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -1313,7 +1313,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			painter->translate(0, item->height());
 			painter->scale(1, -1);
 		}
-		uint tabCc = 0;
+		int tabCc = 0;
 		for (uint ll=0; ll < item->itemText.lines(); ++ll)
 		{
 			LineSpec ls = item->itemText.line(ll);

@@ -163,7 +163,7 @@ void StyleManager::languageChange()
 		styleClassesSP_[items_.at(i)->typeNameSingular()] = items_.at(i)->typeNamePlural();
 	}
 	popupStrings.sort();
-	for (uint i = 0; i < popupStrings.count(); ++i)
+	for (int i = 0; i < popupStrings.count(); ++i)
 		newPopup_->insertItem(popupStrings[i]);
 
 	styleView->clear();
@@ -285,7 +285,7 @@ void StyleManager::slotDelete()
 
 	QStringList tmp;
 	Q3ValueList<StyleName> styles = item_->styles(false); // get list from cache
-	for (uint i = 0; i < styles.count(); ++i)
+	for (int i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
 	SMReplaceDia *dia = new SMReplaceDia(selected, tmp);
 	if (dia->exec() && item_)
@@ -421,7 +421,7 @@ void StyleManager::slotImport()
 					lstyle->tmpLines[styName] = sty;
 					selected << QPair<QString, QString>(lstyle->typeName(), styName);
 					
-					for (uint i = 0; i < sty.count(); ++i)
+					for (int i = 0; i < sty.count(); ++i)
 					{
 						if ((!doc_->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
 							neededColors.append(sty[i].Color);
@@ -475,7 +475,7 @@ void StyleManager::setSelection(const Q3ValueList<QPair<QString, QString> > &sel
 		item = dynamic_cast<StyleViewItem*>(it.current());
 		if (item)
 		{
-			for (uint i = 0; i < selected.count(); ++i)
+			for (int i = 0; i < selected.count(); ++i)
 			{
 				if (item->rootName() == selected[i].first && item->text(NAME_COL) == selected[i].second)
 				{
@@ -560,7 +560,7 @@ void StyleManager::slotClone()
 		++it;
 	}
 
-	for (uint i = 0; i < names.count(); ++i)
+	for (int i = 0; i < names.count(); ++i)
 		createNewStyle(names[i].first, names[i].second);
 }
 
@@ -820,7 +820,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 		rootItem->setOpen(true);
 		QMap<QString, StyleViewItem*> sitems;
 
-		for (uint i = 0; i < styles.count(); ++i) // set the list of styles of this type
+		for (int i = 0; i < styles.count(); ++i) // set the list of styles of this type
 		{
 			StyleViewItem *sitem;
 			if (styles[i].second.isNull())
@@ -1089,7 +1089,7 @@ void StyleManager::slotApplyStyle(QString keyString)
 bool StyleManager::nameIsUnique(const QString &name)
 {
 	Q3ValueList<StyleName> names = item_->styles(false);
-	for (uint i = 0; i < names.count(); ++i)
+	for (int i = 0; i < names.count(); ++i)
 	{
 		if (names[i].first == name)
 			return false;
@@ -1183,7 +1183,7 @@ void StyleManager::slotDocSelectionChanged()
 		item = dynamic_cast<StyleViewItem*>(it.current());
 		if (item)
 		{
-			for (uint i = 0; i < selected.count(); ++i)
+			for (int i = 0; i < selected.count(); ++i)
 			{
 				if (item->rootName() == selected[i].first && item->text(NAME_COL) == selected[i].second)
 				{
@@ -1502,7 +1502,7 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	keyDisplay = new QLabel( tr( "ALT+SHIFT+T" ), keyGroup, "keyDisplay" );
 	keyDisplay->setFrameShape( QLabel::Panel );
 	keyDisplay->setFrameShadow( QLabel::Sunken );
-	keyDisplay->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	keyDisplay->setAlignment( static_cast<int>( Qt::AlignCenter ) );
 	keyDisplay->setMinimumHeight(40);
 
 	keyGroupLayout->addMultiCellWidget( keyDisplay, 3, 4, 0, 2 );
@@ -1566,7 +1566,7 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 		{
 			case Qt::Key_Meta:
 				Part0 = tr("Meta+");
-				keyCode |= META;
+				keyCode |= Qt::META;
 				break;
 			case Qt::Key_Shift:
 				Part3 = tr("Shift+");
@@ -1632,22 +1632,22 @@ void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
 		if (k->key() == Qt::Key_Meta)
 		{
 			Part0 = "";
-			keyCode &= ~META;
+			keyCode &= ~Qt::META;
 		}
 		if (k->key() == Qt::Key_Shift)
 		{
 			Part3 = "";
-			keyCode &= ~SHIFT;
+			keyCode &= ~Qt::SHIFT;
 		}
 		if (k->key() == Qt::Key_Alt)
 		{
 			Part2 = "";
-			keyCode &= ~ALT;
+			keyCode &= ~Qt::ALT;
 		}
 		if (k->key() == Qt::Key_Control)
 		{
 			Part1 = "";
-			keyCode &= ~CTRL;
+			keyCode &= ~Qt::CTRL;
 		}
 		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 	}
