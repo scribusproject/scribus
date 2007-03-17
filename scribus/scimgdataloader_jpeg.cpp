@@ -281,7 +281,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			bool savEx = m_imageInfoRecord.exifDataValid;
 			QByteArray arrayPhot(PhotoshopLen);
 			arrayPhot.setRawData((const char*)PhotoshopBuffer,PhotoshopLen);
-			QDataStream strPhot(arrayPhot,QIODevice::ReadOnly);
+			QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
 			strPhot.setByteOrder( QDataStream::BigEndian );
 			PSDHeader fakeHeader;
 			fakeHeader.width = cinfo.output_width;

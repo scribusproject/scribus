@@ -44,7 +44,7 @@ bool ScGzFile::read(uint maxBytes)
 	// as a starting point for loading. We'll expand this buffer by powers
 	// of two if we run out of space.
 	const QFileInfo fi(fname);
-	uint bufSize = qMin(4096, fi.size()*gzipExpansionFactor);
+	uint bufSize = qMin<uint>(4096, fi.size()*gzipExpansionFactor);
 	barray.resize(bufSize);
 	char* buf = barray.data();
 	uint bytesRead = 0;
