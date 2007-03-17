@@ -71,13 +71,18 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	editor = 0;
 	noUpdt = true;
 	inRep = false;
+	pmen = new QPopupMenu(this);
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
+}
+
+SideBar::~SideBar()
+{
+	delete pmen;
 }
 
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
 	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
-	pmen = new QPopupMenu();
 	Spalette* Spal = new Spalette(this);
 	Spal->setFormats(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
@@ -90,10 +95,10 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	else
 		Spal->setFormat(0);
 	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
+	pmen->clear();
 	pmen->insertItem(Spal);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
-	delete pmen;
 }
 
 void SideBar::editStyles()

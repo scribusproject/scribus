@@ -172,7 +172,7 @@ class SCRIBUS_API SideBar : public QLabel
 
 public:
 	SideBar(QWidget *pa);
-	~SideBar() {};
+	~SideBar();
 	int offs;
 	int CurrentPar;
 	SEditor *editor;
