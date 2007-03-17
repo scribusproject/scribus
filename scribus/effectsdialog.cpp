@@ -161,7 +161,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	contrastSlider->setMinValue(-127);
 	contrastSlider->setMaxValue(127);
 	contrastSlider->setValue(0);
-	contrastSlider->setOrientation( QSt::Horizontal );
+	contrastSlider->setOrientation( Qt::Horizontal );
 	contrastSlider->setTickmarks( QSlider::Below );
 	WStackPage4Layout->addWidget( contrastSlider );
 	optionStack->addWidget( WStackPage_4, 3 );
