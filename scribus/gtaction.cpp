@@ -143,7 +143,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 	QString fontName2 = validateFont(&font2).scName();
 	CharStyle lastStyle;
 	int lastStyleStart = 0;
-	for (uint a = 0; a < text.length(); ++a)
+	for (int a = 0; a < text.length(); ++a)
 	{
 		CharStyle newStyle;
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
@@ -469,7 +469,7 @@ ScFace gtAction::validateFont(gtFont* font)
 		bool found = false;
 		useFont = "";
 		QString tmpName = findFontName(font);
-		if (tmpName != NULL)
+		if (!tmpName.isNull())
 		{
 			useFont = tmpName;
 			found = true;
@@ -481,7 +481,7 @@ ScFace gtAction::validateFont(gtFont* font)
 				gtFont* tmp = new gtFont(*font);
 				tmp->setSlant(OBLIQUE);
 				tmpName = findFontName(tmp);
-				if (tmpName != NULL)
+				if (!tmpName.isNull())
 				{
 					useFont = tmpName;
 					found = true;
@@ -493,7 +493,7 @@ ScFace gtAction::validateFont(gtFont* font)
 				gtFont* tmp = new gtFont(*font);
 				tmp->setSlant(ITALIC);
 				tmpName = findFontName(tmp);
-				if (tmpName != NULL)
+				if (!tmpName.isNull())
 				{
 					useFont = tmpName;
 					found = true;
@@ -523,7 +523,7 @@ ScFace gtAction::validateFont(gtFont* font)
 
 QString gtAction::findFontName(gtFont* font)
 {
-	QString ret = NULL;
+	QString ret = QString(); 
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
