@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#define TORGB( Qt::red, Qt::green, Qt::blue ) \
+#define TORGB( red, green, blue ) \
 { \
-	r = Qt::red; \
-	b = Qt::blue; \
-	g = Qt::green; \
+	r = red; \
+	b = blue; \
+	g = green; \
 	return; \
 }
 

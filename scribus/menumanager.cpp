@@ -234,6 +234,7 @@ bool MenuManager::addMenuItem(ScrAction *menuAction, const QString &parent)
 	return retVal;
 }
 
+/* Qt4
 bool MenuManager::addMenuItem(QWidget *widget, const QString &parent)
 {
 	bool retVal=false;
@@ -241,6 +242,7 @@ bool MenuManager::addMenuItem(QWidget *widget, const QString &parent)
 		retVal=menuList[parent]->insertMenuItem(widget);
 	return retVal;
 }
+*/
 
 bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction)
 {

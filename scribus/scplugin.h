@@ -254,7 +254,8 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 			QString keySequence;
 			QString menu;
 			QString menuAfterName;
-			QIcon iconSet;
+			QPixmap icon1;
+			QPixmap icon2;
 			bool enabledOnStartup;
 		};
 

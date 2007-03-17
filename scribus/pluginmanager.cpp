@@ -290,7 +290,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
 			Q_ASSERT(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
-			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconSet, ai.text, ai.keySequence, mw, ai.name);
+			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.icon1, ai.icon2, ai.text, ai.keySequence, mw, ai.name);
 			Q_CHECK_PTR(action);
 			mw->scrActions.insert(ai.name, action);
 

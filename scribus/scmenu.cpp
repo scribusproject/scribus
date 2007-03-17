@@ -184,6 +184,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		return false;
 }
 
+/* Qt4
 bool ScrPopupMenu::insertMenuItem(QWidget *widget)
 {
 	if (widget)
@@ -196,6 +197,7 @@ bool ScrPopupMenu::insertMenuItem(QWidget *widget)
 	else 
 		return false;
 }
+*/
 
 bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afterMenuAction)
 {

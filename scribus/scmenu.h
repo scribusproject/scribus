@@ -56,7 +56,7 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		
 		bool insertSubMenu(ScrPopupMenu *newSubMenu);
 		bool insertMenuItem(ScrAction *newMenuAction);
-		bool insertMenuItem(QWidget *widget);
+		//Qt4 bool insertMenuItem(QWidget *widget);
 		bool insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afterMenuAction);
 		//bool insertMenuItemAfter(ScrAction *newMenuAction, const QString afterMenuName);
 		bool insertMenuSeparator();
