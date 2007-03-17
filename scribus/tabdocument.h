@@ -16,12 +16,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+class QComboBox;
+class QSpinBox;
 class MSpinBox;
 class PageLayouts;
 class MarginWidget;
 class Q3HBoxLayout;
 class QLabel;
 class Q3ButtonGroup;
+class Q3GroupBox;
 class Q3VBoxLayout;
 class QCheckBox;
 class ScribusDoc;

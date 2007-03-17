@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <q3valuelist.h>
 #include <qcheckbox.h>
 //Added by qt3to4:
+#include <QCheckBox>
+#include <QToolButton>
 #include <QPixmap>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
@@ -19,9 +21,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
+#include "scribusstructs.h"
 
-class QToolButton;
-class QPushButton;
 class QLayout;
 class QToolTip;
 class QPixmap;

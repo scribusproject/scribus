@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qobject.h>
 #include <q3valuelist.h>
+#include <QPair>
 
 class QString;
 class QStringList;

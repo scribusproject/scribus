@@ -1,8 +1,3 @@
-//Added by qt3to4:
-#include <Q3PopupMenu>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
 /*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
@@ -12,7 +7,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-class Q3GroupBox;
+#include <Q3PopupMenu>
+#include <Q3GridLayout>
+#include <Q3GroupBox>
+#include <Q3HBoxLayout>
+#include <QLabel>
+
 class QToolButton;
 class QLayout;
 class MSpinBox;
