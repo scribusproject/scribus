@@ -164,18 +164,17 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 #elif defined(_WIN32)
 	DWORD nPaper;
 	DWORD nPaperNames;
-	Q3CString printer;
 	typedef char char64[64];
-	printer = printerName.local8Bit();
-	nPaper = DeviceCapabilities( printerName.data(), NULL, DC_PAPERS, NULL, NULL );
-	nPaperNames = DeviceCapabilities( printerName.data(), NULL, DC_PAPERNAMES, NULL, NULL );
+	QByteArray printer = printerName.local8Bit();
+	nPaper = DeviceCapabilities( printer.data(), NULL, DC_PAPERS, NULL, NULL );
+	nPaperNames = DeviceCapabilities( printer.data(), NULL, DC_PAPERNAMES, NULL, NULL );
 	if ( (nPaper > 0) && (nPaperNames > 0) && (nPaper == nPaperNames) )
 	{
 		int paperIndex = -1;
 		DWORD *papers = new DWORD[nPaper];
 		char64 *paperNames = new char64[nPaperNames];
-		DWORD s1 = DeviceCapabilities( printerName.data(), NULL, DC_PAPERS, (LPSTR) papers, NULL );
-		DWORD s2 = DeviceCapabilities( printerName.data(), NULL, DC_PAPERNAMES, (LPSTR) paperNames, NULL );
+		DWORD s1 = DeviceCapabilities( printer.data(), NULL, DC_PAPERS, (LPSTR) papers, NULL );
+		DWORD s2 = DeviceCapabilities( printer.data(), NULL, DC_PAPERNAMES, (LPSTR) paperNames, NULL );
 		for ( uint i = 0; i < nPaperNames; i++ )
 		{
 			if ( pageSize == QString(paperNames[i]) )

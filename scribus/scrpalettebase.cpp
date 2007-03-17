@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <qapplication.h>
 #include <qpoint.h>
 //Added by qt3to4:
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QHideEvent>
 #include <QCloseEvent>
 
@@ -229,7 +231,7 @@ int ScrPaletteBase::exec(QWidget* newParent)
 {
 	Q_ASSERT(tempParent==0 && newParent!=0);
 	tempParent=newParent;
-	int wflags=getWFlags();
+	Qt::WindowFlags wflags = windowFlags();
 	reparent(newParent, wflags , QPoint(0,0), false);
 	int i=QDialog::exec();
 	reparent(originalParent, wflags , QPoint(0,0), false);

@@ -42,7 +42,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsSelection->setAutoArrange( false );
 	prefsSelection->setSorting( false );
 	prefsSelection->setWordWrapIconText(false);
-	prefsSelection->setFocusPolicy(QWidget::NoFocus);
+	prefsSelection->setFocusPolicy(Qt::NoFocus);
 	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( prefsSelection );
 	layout5 = new Q3VBoxLayout( 0, 0, 6, "layout5");
