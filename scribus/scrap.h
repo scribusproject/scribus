@@ -80,7 +80,7 @@ public:
 	void readContents(QString);
 	void readTempContents(QString);
 	void readOldContents(QString, QString);
-	void installEventFilter(const QObject *);
+	void installEventFilter(QObject *);
 	void setOpenScrapbooks(QStringList &fileNames);
 	QStringList getOpenScrapbooks();
 	BibView* tempBView;

@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbox.h>
 #include "query.h"
 //Added by qt3to4:
+#include <QApplication>
 #include <Q3HBoxLayout>
 #include <QKeyEvent>
 #include <Q3ValueList>
@@ -57,7 +58,7 @@ BibView::BibView(QWidget* parent) : Q3IconView(parent)
 void BibView::keyPressEvent(QKeyEvent *k)
 {
 	//Why doesnt this widget send Escape to the QDialog? Lets make Escape work for now anyway.
-	if (k->key()==Key_Escape && k->state() == 0)
+	if (k->key()==Qt::Key_Escape && k->state() == 0)
 	{
 		Q3Frame *f=dynamic_cast<Q3Frame *>(parent());
 		if (f)
@@ -223,7 +224,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 	if(!f.open(QIODevice::WriteOnly))
 		return ;
 	Q3TextStream s;
-	Q3CString cs = docu.toCString();
+	QByteArray cs = docu.toByteArray();
 	s.setEncoding(Q3TextStream::UnicodeUTF8);
 	s.setDevice(&f);
 	s.writeRawBytes(cs.data(), cs.length());
@@ -537,7 +538,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 	disconnect(activeBView, SIGNAL(dropped(QDropEvent *, const Q3ValueList<Q3IconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	disconnect(activeBView, SIGNAL(mouseButtonClicked(int, Q3IconViewItem*, const QPoint &)), this, SLOT(HandleMouse(int, Q3IconViewItem*)));
 	disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
-	for (uint rd = 0; rd < fileNames.count(); ++rd)
+	for (int rd = 0; rd < fileNames.count(); ++rd)
 	{
 		QString fileName = fileNames[rd];
 		if (!fileName.isEmpty())
@@ -611,7 +612,7 @@ void Biblio::readTempContents(QString fileName)
 	tempCount = tempBView->objectMap.count();
 }
 
-void Biblio::installEventFilter(const QObject *filterObj)
+void Biblio::installEventFilter(QObject *filterObj)
 {
 	ScrPaletteBase::installEventFilter(filterObj);
 	activeBView->installEventFilter(filterObj);
@@ -879,7 +880,7 @@ bool Biblio::copyObj(int id)
 	if (bv == tempBView)
 	{
 		tempCount++;
-		if (tempBView->objectMap.count() > static_cast<uint>(PrefsManager::instance()->appPrefs.numScrapbookCopies))
+		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1049,7 +1050,7 @@ void Biblio::adjustReferences(QString nam)
 		if(!fl.open(QIODevice::WriteOnly))
 			return ;
 		Q3TextStream s;
-		Q3CString cs = docu.toCString();
+		QByteArray cs = docu.toByteArray();
 		s.setEncoding(Q3TextStream::UnicodeUTF8);
 		s.setDevice(&fl);
 		s.writeRawBytes(cs.data(), cs.length());
@@ -1144,7 +1145,7 @@ void Biblio::ObjFromMenu(QString text)
 //	if (Frame3->currentPageIndex() == 1)
 	if (Frame3->currentIndex() == 1)
 	{
-		if (tempBView->objectMap.count() > static_cast<uint>(PrefsManager::instance()->appPrefs.numScrapbookCopies))
+		if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
@@ -1202,7 +1203,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
 	(void) new Q3IconViewItem(tempBView, nam, pm);
 	delete pre;
-	if (tempBView->objectMap.count() > static_cast<uint>(PrefsManager::instance()->appPrefs.numScrapbookCopies))
+	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
 		it = tempBView->objectMap.begin();
