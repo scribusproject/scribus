@@ -196,9 +196,9 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").local8Bit() << file << std::endl;
+					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << file.toLocal8Bit().data() << std::endl;
 				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(file).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -214,9 +214,9 @@ void ScribusQApp::parseCommandLine()
 			if (!QFileInfo(file).exists()) {
 				showHeader();
 				if (file.left(1) == "-" || file.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").local8Bit() << file << std::endl;
+					std::cout << tr("Invalid argument: %1").arg(file).toLocal8Bit().data() << std::endl;
 				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(file).local8Bit() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(file).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
@@ -308,7 +308,7 @@ QStringList ScribusQApp::getLang(QString lang)
 
 	// remove duplicate entries...
 	for (QStringList::Iterator it = langs.fromLast(); it != langs.begin(); --it)
-		if (langs.contains(*it) > 1)
+		if (langs.count(*it) > 1)
 			it = langs.remove(it);
 
 	return langs;
@@ -434,7 +434,7 @@ void ScribusQApp::showAvailLangs()
 
 void ScribusQApp::showVersion()
 {
-	std::cout << tr("Scribus Version").local8Bit() << " " << VERSION << std::endl;
+	std::cout << tr("Scribus Version").toLocal8Bit().data() << " " << VERSION << std::endl;
 }
 
 void ScribusQApp::showHeader()
