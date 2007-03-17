@@ -499,9 +499,9 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 11)
 									{
-										src_r = qMax(1, src_r);
-										src_g = qMax(1, src_g);
-										src_b = qMax(1, src_b);
+										src_r = qMax<uchar>(1, src_r);
+										src_g = qMax<uchar>(1, src_g);
+										src_b = qMax<uchar>(1, src_b);
 										src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
 										src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
 										src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
@@ -1050,8 +1050,8 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	LineWidth = w;
 	PLineEnd = ca;
 	PLineJoin = jo;
-	double Dt = qMax(2*w, 1);
-	double Da = qMax(6*w, 1);
+	double Dt = qMax(2*w, 1.0);
+	double Da = qMax(6*w, 1.0);
 	Q3ValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
