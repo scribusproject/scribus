@@ -33,7 +33,7 @@ extern QPixmap loadIcon(QString nam);
 SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): Q3StoredDrag("page/magic", parent, name)
 {
 	QByteArray data(secret.length());
-	for (uint a = 0; a < secret.length(); ++a)
+	for (int a = 0; a < secret.length(); ++a)
 		data[a]= QChar(secret[a]);
 	setEncodedData( data );
 }
@@ -50,7 +50,7 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 	{
 		e->accept();
 		str = "";
-		for (uint a = 0; a < payload.size(); ++a)
+		for (int a = 0; a < payload.size(); ++a)
 			str += payload[a];
 		return true;
 	}
@@ -81,7 +81,7 @@ SeList::SeList(QWidget* parent) : Q3ListBox(parent)
 void SeList::mouseReleaseEvent(QMouseEvent *m)
 {
 	Mpressed = false;
-	if (m->button() == RightButton)
+	if (m->button() == Qt::RightButton)
 	{
 		Q3PopupMenu *pmen = new Q3PopupMenu();
 		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
@@ -139,7 +139,7 @@ SeView::SeView(QWidget* parent) : Q3Table(parent)
 	setShowGrid(false);
 	Mpressed = false;
 	Namen = true;
-	setFocusPolicy(NoFocus);
+	setFocusPolicy(Qt::NoFocus);
 }
 
 void SeView::contentsMousePressEvent(QMouseEvent* e)
@@ -342,7 +342,7 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 			{
 				QPixmap pm;
 				pm = QPixmap(columnWidth(b), rowHeight(a));
-				pm.fill(darkBlue);
+				pm.fill(Qt::darkBlue);
 				setPixmap(a, 0, pm);
 			}
 		}
@@ -352,7 +352,7 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 			{
 				QPixmap pm;
 				pm = QPixmap(columnWidth(b), rowHeight(a));
-				pm.fill(darkBlue);
+				pm.fill(Qt::darkBlue);
 				setPixmap(a, b, pm);
 			}
 		}
@@ -495,7 +495,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	PagePaletteLayout->setSpacing( 5 );
 	PagePaletteLayout->setMargin( 5 );
 	Splitter1 = new QSplitter( this, "Splitter1" );
-	Splitter1->setOrientation( QSplitter::Vertical );
+	Splitter1->setOrientation( Qt::Vertical );
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
 	Layout2 = new Q3VBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
 	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
@@ -628,7 +628,7 @@ void PagePalette::GotoPage(int r, int c, int b)
 {
 	int p;
 	bool dummy;
-	if ((b == LeftButton) && (r != -1) && (c != -1))
+	if ((b == Qt::LeftButton) && (r != -1) && (c != -1))
 	{
 		p = pageView->GetPage(r, c, &dummy);
 		emit GotoSeite(p);
@@ -828,9 +828,9 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 		bitBlt( &ret, 0, 0, &pixin, 0, 0, pixin.width(), pixin.height() );
 		if( pixin.mask() )
 			ret.setMask( *pixin.mask() );
-		p.setBrush(white);
-		p.setBackgroundColor(white);
-		p.setBackgroundMode(QPainter::OpaqueMode);
+		p.setBrush(Qt::white);
+		p.setBackgroundColor(Qt::white);
+		p.setBackgroundMode(Qt::OpaqueMode);
 		p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		//QString tmp = tmp.setNum(nr+1);
