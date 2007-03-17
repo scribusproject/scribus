@@ -62,7 +62,7 @@ for which a new license (GPL+exception) is in place.
 
 /***************************************************************************/
 
-SCFonts::SCFonts() : QMap<QString,ScFace>(), FontPath(true)
+SCFonts::SCFonts() : QMap<QString,ScFace>(), FontPath()
 {
 	insert("", ScFace::none());
 	showFontInformation=false;
@@ -107,7 +107,7 @@ void SCFonts::AddPath(QString p)
 {
 	if(p.right(1) != "/")
 	  p += "/";
-	if(FontPath.find(p)==-1)
+	if(!FontPath.contains(p))
 		FontPath.insert(FontPath.count(),p);
 }
 
@@ -762,7 +762,7 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	AddUserPath(pf);
 	// Search the system paths
 	QStringList ftDirs = ScPaths::getSystemFontDirs();
-	for (unsigned int i = 0; i < ftDirs.count(); i++)
+	for (int i = 0; i < ftDirs.count(); i++)
 		AddScalableFonts( ftDirs[i] );
 	// Search Scribus font path
 	if (!ScPaths::instance().fontDir().isEmpty() && QDir(ScPaths::instance().fontDir()).exists())
@@ -770,8 +770,9 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
 	// Search fontconfig paths
-	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
-		AddScalableFonts(fpi.current());
+	QStringList::iterator fpi, fpend = FontPath.end();
+	for(fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
+		AddScalableFonts(*fpi);
 	AddFontconfigFonts();
 #else
 // on X11 look there:
@@ -780,8 +781,9 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	AddXFontServerPath();
 #endif
 // add user and X11 fonts:
-	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi) 
-		AddScalableFonts(fpi.current());
+	QStringList::iterator fpi, fpend = FontPath.end();
+	for(fpi = FontPath.begin() ; fpi != fpend; ++fpi) 
+		AddScalableFonts(*fpi);
 #endif
 	updateFontMap();
 	WriteCacheList(pf);

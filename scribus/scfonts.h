@@ -7,19 +7,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCFONTS_H
 #define SCFONTS_H
 
-#include <qstring.h>
-#include <q3strlist.h>
-#include <qstringlist.h>
-#include <q3dict.h>
+#include <QByteArray>
+#include <QString>
+#include <QStringList>
 //#include <qvector.h>
-#include <qfont.h>
-#include <qmap.h>
-#include <qdatetime.h>
+#include <QFont>
+#include <QMap>
+#include <QDateTime>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-
 
 FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
 
@@ -63,7 +61,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		void AddXFontPath();
 #endif
 #endif
-		Q3StrList FontPath;
+		QStringList FontPath;
 		QString ExtraPath;
 		struct testCache
 		{
