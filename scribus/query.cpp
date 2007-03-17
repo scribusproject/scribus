@@ -33,8 +33,8 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	editLayout->setMargin( 0 );
 	answerEdit = new QLineEdit( this, "answerEdit" );
 	questionLabel = new QLabel( answerEdit, text, this, "questionLabel" );
-	questionLabel->setFrameShape( QLabel::MShape );
-	questionLabel->setFrameShadow( QLabel::MShadow );
+//Qt4	questionLabel->setFrameShape( QLabel::MShape );
+//Qt4	questionLabel->setFrameShadow( QLabel::MShadow );
 	questionLabel->adjustSize();
 	editLayout->addWidget( questionLabel );
 	editLayout->addWidget( answerEdit );

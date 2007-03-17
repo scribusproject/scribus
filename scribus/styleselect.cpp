@@ -171,7 +171,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup3Layout->setAlignment( Qt::AlignTop );
 	UnderlineVal = new UnderlineValues( NULL );
 	UnderlinePop = new Q3PopupMenu();
-	UnderlinePop->insertItem(UnderlineVal);
+//	UnderlinePop->insertItem(UnderlineVal);
 	underlineButton = new QToolButton( buttonGroup3, "underlineButton" );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
@@ -244,7 +244,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	buttonGroup4Layout->setAlignment( Qt::AlignTop );
 	StrikeVal = new StrikeValues( NULL );
 	StrikePop = new Q3PopupMenu();
-	StrikePop->insertItem(StrikeVal);
+//Qt4	StrikePop->insertItem(StrikeVal);
 	strikeoutButton = new QToolButton( buttonGroup4, "strikeoutButton" );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
@@ -256,7 +256,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 
 	OutlineVal = new OutlineValues( NULL );
 	OutlinePop = new Q3PopupMenu();
-	OutlinePop->insertItem(OutlineVal);
+//Qt4	OutlinePop->insertItem(OutlineVal);
 	outlineButton = new QToolButton( buttonGroup4, "outlineButton" );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
@@ -268,7 +268,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 
 	ShadowVal = new ShadowValues( NULL );
 	ShadowPop = new Q3PopupMenu();
-	ShadowPop->insertItem(ShadowVal);
+//Qt4	ShadowPop->insertItem(ShadowVal);
 	shadowButton = new QToolButton( buttonGroup4, "shadowButton" );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
