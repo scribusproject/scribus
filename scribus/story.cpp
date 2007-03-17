@@ -34,6 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qtextcodec.h>
 //Added by qt3to4:
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QLabel>
 #include <QFocusEvent>
 #include <QMouseEvent>
@@ -88,6 +90,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	editor = 0;
 	noUpdt = true;
 	inRep = false;
+	pmen = new Q3PopupMenu(this);
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
@@ -97,7 +100,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	int p=0, i=0;
 	editor->getCursorPosition(&p, &i);
 	int pos = editor->StyledText.startOfParagraph(p) + i;
-	pmen = new Q3PopupMenu();
+	
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
 	paraStyleCombo->setDoc(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
@@ -111,10 +114,10 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	else
 		paraStyleCombo->setFormat("");
 	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
+	pmen->clear();
 	pmen->insertItem(paraStyleCombo);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
-	delete pmen;
 }
 
 void SideBar::editStyles()
