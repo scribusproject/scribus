@@ -212,6 +212,7 @@ public:
 	Q3PtrList<PageItem> parseSymbol(const QDomElement &e);
 	Q3PtrList<PageItem> parseUse(const QDomElement &e);
 	QDomElement getNodeFromUseElement(const QDomElement &e);
+	QDomElement getReferencedNode(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
 	QMatrix parseTransform(const QString &transform);

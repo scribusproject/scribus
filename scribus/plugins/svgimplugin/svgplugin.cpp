@@ -740,7 +740,7 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 		QDomNode n2 = e.firstChild();
 		QDomElement b2 = n2.toElement();
 		while (b2.nodeName() == "use")
-			b2 = getNodeFromUseElement(b2);
+			b2 = getReferencedNode(b2);
 		if (b2.nodeName() == "path")
 			parseSVG( b2.attribute( "d" ), &clip );
 		else if (b2.nodeName() == "rect")
@@ -1467,6 +1467,17 @@ QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
 			cloneElm.setTagName("g"); // later fix to be svg
 		ret.appendChild(cloneElm);
 	}
+	return ret;
+}
+
+QDomElement SVGPlug::getReferencedNode(const QDomElement &e)
+{
+	QDomElement ret;
+	QMap<QString, QDomElement>::Iterator it;
+	QString href = e.attribute("xlink:href").mid(1);
+	it = m_nodeMap.find(href);
+	if (it != m_nodeMap.end())
+		ret = it.data().cloneNode().toElement();
 	return ret;
 }
 
