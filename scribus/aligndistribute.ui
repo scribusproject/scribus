@@ -493,12 +493,12 @@
               <number>-1</number>
              </property>
              <property name="buddy" >
-              <cstring>distributeDistMSpinBox</cstring>
+              <cstring>distributeDistSpinBox</cstring>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="MSpinBox" native="1" name="distributeDistMSpinBox" >
+            <widget class="ScrSpinBox" native="1" name="distributeDistSpinBox" >
              <property name="minimumSize" >
               <size>
                <width>50</width>
@@ -558,15 +558,15 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MSpinBox</class>
-   <extends>QWidget</extends>
-   <header>mspinbox.h</header>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>
   <include location="local" >scrpalettebase.h</include>
   <include location="local" >scrpalettebase.h</include>
-  <include location="local" >mspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
  </includes>
  <resources/>
  <connections/>

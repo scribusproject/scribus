@@ -60,13 +60,13 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	toolButtonDummy1->hide();
 	toolButtonDummy2->hide();
 
-	//set up mspinboxes
-	distributeDistScrSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
+	//set up scrspinboxes
+	distributeDistSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
 	alignGuideLabel->setBuddy( alignGuideLineEdit );
-	distributeDistLabel->setBuddy( distributeDistScrSpinBox );
+	distributeDistLabel->setBuddy( distributeDistSpinBox );
 	
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	init();
@@ -148,7 +148,7 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
 
 	distributeDistLabel->setText( tr( "&Distance:" ) );
-	QToolTip::add( distributeDistScrSpinBox, tr( "Distribute the items with the distance specified" ) );
+	QToolTip::add( distributeDistSpinBox, tr( "Distribute the items with the distance specified" ) );
 	
 	guideInfoTextNone = tr("None Selected");
 }
@@ -225,13 +225,13 @@ void AlignDistributePalette::unitChange()
 {
 	if (currDoc!=NULL)
 	{
-		double oldValue=distributeDistScrSpinBox->value();
+		double oldValue=distributeDistSpinBox->value();
 		double oldRatio=unitRatio;
-		distributeDistScrSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->unitIndex()));
-		distributeDistScrSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
+		distributeDistSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->unitIndex()));
+		distributeDistSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
 		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
 		double ratioDivisor =  unitRatio / oldRatio;
-		distributeDistScrSpinBox->setValue(oldValue*ratioDivisor);
+		distributeDistSpinBox->setValue(oldValue*ratioDivisor);
 		enableGuideButtons();
 	}
 }
@@ -329,7 +329,7 @@ void AlignDistributePalette::distributeRight()
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistScrSpinBox->value());
+		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistSpinBox->value());
 }
 
 void AlignDistributePalette::distributeDistValH()
@@ -384,7 +384,7 @@ void AlignDistributePalette::distributeTop()
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistScrSpinBox->value());
+		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistSpinBox->value());
 }
 
 void AlignDistributePalette::distributeDistValV()
