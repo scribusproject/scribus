@@ -45,7 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "gradienteditor.h"
 #include "units.h"
 #include "page.h"
@@ -114,29 +114,17 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientLayout->addWidget( GTextX1, 0, 0 );
 	GTextY1 = new QLabel("Y1:", freeGradientQFrame, "GTextY1" );
 	freeGradientLayout->addWidget( GTextY1, 1, 0 );
-	gX1 = new MSpinBox( freeGradientQFrame, 2);
-	gX1->setDecimals(100);
-	gX1->setMinValue(-3000);
-	gX1->setMaxValue(3000);
+	gX1 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gX1, 0, 1 );
-	gY1 = new MSpinBox( freeGradientQFrame, 2 );
-	gY1->setDecimals(100);
-	gY1->setMinValue(-3000);
-	gY1->setMaxValue(3000);
+	gY1 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gY1, 1, 1 );
 	GTextX2 = new QLabel("X2:", freeGradientQFrame, "GTextX2" );
 	freeGradientLayout->addWidget( GTextX2, 0, 2 );
 	GTextY2 = new QLabel("Y2:", freeGradientQFrame, "GTextY2" );
 	freeGradientLayout->addWidget( GTextY2, 1, 2 );
-	gX2 = new MSpinBox( freeGradientQFrame, 2 );
-	gX2->setDecimals(100);
-	gX2->setMinValue(-3000);
-	gX2->setMaxValue(3000);
+	gX2 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gX2, 0, 3 );
-	gY2 = new MSpinBox( freeGradientQFrame, 2 );
-	gY2->setDecimals(100);
-	gY2->setMinValue(-3000);
-	gY2->setMaxValue(3000);
+	gY2 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
 	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
 	gradEditButton->setToggleButton(true);
@@ -167,17 +155,11 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	groupOffsetLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( groupOffset, "textLabel1" );
 	groupOffsetLayout->addWidget( textLabel1 );
-	spinXoffset = new MSpinBox( groupOffset, 2 );
-	spinXoffset->setDecimals(100);
-	spinXoffset->setMinValue(-3000);
-	spinXoffset->setMaxValue(3000);
+	spinXoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
 	groupOffsetLayout->addWidget( spinXoffset );
 	textLabel2 = new QLabel( groupOffset, "textLabel2" );
 	groupOffsetLayout->addWidget( textLabel2 );
-	spinYoffset = new MSpinBox( groupOffset, 2 );
-	spinYoffset->setDecimals(100);
-	spinYoffset->setMinValue(-3000);
-	spinYoffset->setMaxValue(3000);
+	spinYoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
 	groupOffsetLayout->addWidget( spinYoffset );
 	frame3Layout->addWidget( groupOffset );
 
@@ -189,19 +171,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	groupScaleLayout->setAlignment( Qt::AlignTop );
 	textLabel5 = new QLabel( groupScale, "textLabel5" );
 	groupScaleLayout->addWidget( textLabel5, 0, 0 );
-	spinXscaling = new MSpinBox( groupScale, 0);
-	spinXscaling->setDecimals(1);
-	spinXscaling->setMaxValue( 500 );
-	spinXscaling->setMinValue( 1 );
+	spinXscaling = new ScrSpinBox( 1, 500, groupScale, 0);
 	spinXscaling->setValue( 100 );
 	groupScaleLayout->addWidget( spinXscaling, 0, 1 );
 	textLabel6 = new QLabel( groupScale, "textLabel6" );
 	groupScaleLayout->addWidget( textLabel6, 1, 0 );
-	spinYscaling = new MSpinBox( groupScale, 0 );
-	spinYscaling->setDecimals(1);
-	spinYscaling->setMaxValue( 500 );
-	spinYscaling->setMinValue( 1 );
-	spinYscaling->setValue( 100 );
+	spinYscaling = new ScrSpinBox( 1, 500, groupScale, 0 );
 	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
 	keepScaleRatio = new LinkButton( groupScale );
 	keepScaleRatio->setToggleButton( true );
@@ -218,11 +193,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	groupRotationLayout->setAlignment( Qt::AlignTop );
 	textLabel7 = new QLabel( groupRotation, "textLabel7" );
 	groupRotationLayout->addWidget( textLabel7 );
-	spinAngle = new MSpinBox( groupRotation, 1 );
-	spinAngle->setDecimals(10);
-	spinAngle->setMaxValue( 180 );
-	spinAngle->setMinValue( -180 );
-	spinAngle->setValue( 0 );
+	spinAngle = new ScrSpinBox( -100, 180, groupRotation, 0 );
 	groupRotationLayout->addWidget( spinAngle );
 	frame3Layout->addWidget( groupRotation );
 	Form1Layout->addWidget(patternFrame);
@@ -814,12 +785,12 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	disconnect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	gX1->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
-	gY1->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
-	gX2->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
-	gY2->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
-	spinXoffset->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
-	spinYoffset->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+	gX1->setNewUnit(unitIndex);
+	gY1->setNewUnit(unitIndex);
+	gX2->setNewUnit(unitIndex);
+	gY2->setNewUnit(unitIndex);
+	spinXoffset->setNewUnit(unitIndex);
+	spinYoffset->setNewUnit(unitIndex);
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));

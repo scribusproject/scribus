@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "usertaskstructs.h"
 #include "util.h"
 
@@ -89,7 +89,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	DPIBox->setMinValue( 72 );
 	DPIBox->setValue(size);
 	groupBox1Layout->addWidget( DPIBox, 2, 1 );
-	EnlargementBox = new MSpinBox( groupBox1, 1 );
+	EnlargementBox = new ScrSpinBox( groupBox1, 1 );
 	EnlargementBox->setMaxValue( 2400 );
 	EnlargementBox->setMinValue( 1 );
 	EnlargementBox->setValue(size);

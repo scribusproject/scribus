@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class Q3GridLayout;
 class Q3GroupBox;
 class QLabel;
-class MSpinBox;
+class ScrSpinBox;
 class QSpinBox;
 
 class SCRIBUS_API TabTypograpy : public QWidget
@@ -43,14 +43,14 @@ public:
 	QSpinBox* capsScaling;
 	Q3GroupBox* underlineGroup;
 	QLabel* textLabel1;
-	MSpinBox* underlinePos;
+	ScrSpinBox* underlinePos;
 	QLabel* textLabel2;
-	MSpinBox* underlineWidth;
+	ScrSpinBox* underlineWidth;
 	Q3GroupBox* strikethruGroup;
 	QLabel* textLabel1_2;
-	MSpinBox* strikethruPos;
+	ScrSpinBox* strikethruPos;
 	QLabel* textLabel2_2;
-	MSpinBox* strikethruWidth;
+	ScrSpinBox* strikethruWidth;
 	Q3GroupBox* groupBox4a;
 	QLabel* textLabel8a;
 	QSpinBox* autoLine;

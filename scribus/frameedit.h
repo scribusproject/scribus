@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 class ScribusDoc;
 class ScribusView;
@@ -61,12 +61,12 @@ public:
 	QCheckBox* AbsMode;
 	QCheckBox* EditCont;
 	QLabel* TextLabel1;
-	MSpinBox* YSpin;
+	ScrSpinBox* YSpin;
 	QLabel* TextLabel2;
-	MSpinBox* XSpin;
+	ScrSpinBox* XSpin;
 	QSpinBox *RotVal;
 	QSpinBox *scalePercentage;
-	MSpinBox *scaleDistance;
+	ScrSpinBox *scaleDistance;
 	QPushButton* ResetCont;
 	QPushButton* ResetContClip;
 	QPushButton* editEditButton;

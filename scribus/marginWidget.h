@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "linkbutton.h"
 class QCheckBox;
 
-class MSpinBox;
+class ScrSpinBox;
 
 
 /*! \brief This is inherited QComboBox widget used in MarginWidget as "Preset List".
@@ -92,7 +92,7 @@ public:
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by height */
 	void setPageHeight(double heigth);
 	/*! \brief Setup the widgets by new options */
-	void unitChange(double newUnit, int newDecimals, QString newSuffix);
+	void setNewUnit(int newUnitIndex);
 	/*! \brief Set the page size for margin getting from cups */
 	void setPageSize(const QString& pageSize);
 	
@@ -144,14 +144,14 @@ private:
 	QWidget *marginPage;
 	QWidget* bleedPage;
 	/*! Spinboxes */
-	MSpinBox* topR;
-	MSpinBox* bottomR;
-	MSpinBox* rightR;
-	MSpinBox* leftR;
-	MSpinBox* BleedBottom;
-	MSpinBox* BleedLeft;
-	MSpinBox* BleedRight;
-	MSpinBox* BleedTop;
+	ScrSpinBox* topR;
+	ScrSpinBox* bottomR;
+	ScrSpinBox* rightR;
+	ScrSpinBox* leftR;
+	ScrSpinBox* BleedBottom;
+	ScrSpinBox* BleedLeft;
+	ScrSpinBox* BleedRight;
+	ScrSpinBox* BleedTop;
 	PresetLayout* presetCombo;
 	/*! Labels */
 	QLabel* lText;
@@ -200,9 +200,8 @@ protected:
 	Q3HBoxLayout* marginsForPagesLayout;
 	Q3GridLayout* BleedGroupLayout;
 	QString m_pageSize;
-	QString m_suffix;
+	int m_unitIndex;
 	double m_unitRatio;
-	int m_docUnitIndex;
 	//! \brief if the outer facing palette points to the facing pages item
 	bool facingPages;
 	bool useBleeds;

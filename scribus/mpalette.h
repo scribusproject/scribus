@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "pageitem.h"
 #include "page.h"
 class ScribusDoc;
@@ -479,36 +479,36 @@ protected:
 
 	Q3ListBox* StyledLine;
 
-	MSpinBox* Width;
-	MSpinBox* Xpos;
-	MSpinBox* Ypos;
-	MSpinBox* Height;
-	MSpinBox* Rot;
-	MSpinBox* RoundRect;
-	MSpinBox* dGap;
-	MSpinBox* DTop;
-	MSpinBox* DBottom;
-	MSpinBox* DLeft;
-	MSpinBox* DRight;
-	MSpinBox* Dist;
-	MSpinBox* LineW;
-	MSpinBox* Size;
-	MSpinBox* LineSp;
-	MSpinBox* Extra;
-	MSpinBox* imageYOffsetSpinBox;
-	MSpinBox* imageXOffsetSpinBox;
-	MSpinBox* imageYScaleSpinBox;
-	MSpinBox* imageXScaleSpinBox;
-	MSpinBox* imgDpiX;
-	MSpinBox* imgDpiY;
-	MSpinBox* LSize;
-	MSpinBox* ChScale;
-	MSpinBox* ChScaleV;
-	MSpinBox* ChBase;
-	MSpinBox* minWordTrackingSpinBox;
-	MSpinBox* maxWordTrackingSpinBox;
-	MSpinBox* minGlyphExtSpinBox;
-	MSpinBox* maxGlyphExtSpinBox;
+	ScrSpinBox* Width;
+	ScrSpinBox* Xpos;
+	ScrSpinBox* Ypos;
+	ScrSpinBox* Height;
+	ScrSpinBox* Rot;
+	ScrSpinBox* RoundRect;
+	ScrSpinBox* dGap;
+	ScrSpinBox* DTop;
+	ScrSpinBox* DBottom;
+	ScrSpinBox* DLeft;
+	ScrSpinBox* DRight;
+	ScrSpinBox* Dist;
+	ScrSpinBox* LineW;
+	ScrSpinBox* Size;
+	ScrSpinBox* LineSp;
+	ScrSpinBox* Extra;
+	ScrSpinBox* imageYOffsetSpinBox;
+	ScrSpinBox* imageXOffsetSpinBox;
+	ScrSpinBox* imageYScaleSpinBox;
+	ScrSpinBox* imageXScaleSpinBox;
+	ScrSpinBox* imgDpiX;
+	ScrSpinBox* imgDpiY;
+	ScrSpinBox* LSize;
+	ScrSpinBox* ChScale;
+	ScrSpinBox* ChScaleV;
+	ScrSpinBox* ChBase;
+	ScrSpinBox* minWordTrackingSpinBox;
+	ScrSpinBox* maxWordTrackingSpinBox;
+	ScrSpinBox* minGlyphExtSpinBox;
+	ScrSpinBox* maxGlyphExtSpinBox;
 	QSpinBox* DCol;
 	QSpinBox* TransSpin;
 
@@ -549,7 +549,7 @@ protected:
 	
 	bool _userActionOn;
 	UserActionSniffer *userActionSniffer;
-	void installSniffer(MSpinBox *spinBox);
+	void installSniffer(ScrSpinBox *spinBox);
 	
 	int idXYZItem;
 	int idShapeItem;

@@ -87,7 +87,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	FontC->setCurrentFont(vor->charStyle().font().scName());
 	GroupFontLayout->addWidget( FontC );
 	layout7 = new Q3HBoxLayout( 0, 0, 5, "layout7");
-	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );
+	SizeC = new ScrSpinBox( 1, 2048, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
 	SizeC->setValue(vor->charStyle().fontSize() / 10.0);
@@ -102,7 +102,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	pixmapLabel3->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
 	layout7->addWidget( pixmapLabel3 );
-	fontHScale = new MSpinBox( 10, 400, GroupFont, 1 );
+	fontHScale = new ScrSpinBox( 10, 400, GroupFont, 1 );
 	fontHScale->setValue( vor->charStyle().scaleH() / 10.0 );
 	fontHScale->setSuffix( tr( " %" ) );
 	layout7->addWidget( fontHScale );
@@ -112,7 +112,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	pixmapLabel3_2->setPixmap( loadIcon("textscalev.png") );
 	layout7->addWidget( pixmapLabel3_2 );
 
-	fontVScale = new MSpinBox( 10, 400, GroupFont, 1 );
+	fontVScale = new ScrSpinBox( 10, 400, GroupFont, 1 );
 	fontVScale->setValue( vor->charStyle().scaleV() / 10.0 );
 	fontVScale->setSuffix( tr( " %" ) );
 	layout7->addWidget( fontVScale );
@@ -216,7 +216,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	linespacingButton->setPopupDelay(400);
 	linespacingButton->setAutoRaise(true);
 	AbstandVLayout->addWidget( linespacingButton, 0, 0 );
-	LineSpVal = new MSpinBox( 1, 300, AbstandV, 1 );
+	LineSpVal = new ScrSpinBox( 1, 300, AbstandV, 1 );
 	LineSpVal->setSuffix( tr( " pt" ) );
 	LineSpVal->setValue(vor->lineSpacing());
 	AbstandVLayout->addWidget( LineSpVal, 0, 1 );
@@ -225,7 +225,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	pixmapLabel2->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
 	AbstandVLayout->addWidget( pixmapLabel2, 0, 2 );
-	fontBase = new MSpinBox( -100, 100, AbstandV, 1 );
+	fontBase = new ScrSpinBox( -100, 100, AbstandV, 1 );
 	fontBase->setValue( vor->charStyle().baselineOffset() / 10.0 );
 	fontBase->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontBase, 0, 3 );
@@ -234,7 +234,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	pixmapLabel3_3->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
 	AbstandVLayout->addWidget( pixmapLabel3_3, 0, 4 );
-	fontKern = new MSpinBox( -300, 300, AbstandV, 1 );
+	fontKern = new ScrSpinBox( -300, 300, AbstandV, 1 );
 	fontKern->setValue( vor->charStyle().tracking() / 10.0 );
 	fontKern->setSuffix( tr( " %" ) );
 	AbstandVLayout->addWidget( fontKern, 0, 5 );
@@ -242,14 +242,14 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	TextLabel1_2_2 = new QLabel( "", AbstandV, "TextLabel1_2_2" );
 	TextLabel1_2_2->setPixmap( loadIcon("above.png") );
 	AbstandVLayout->addWidget( TextLabel1_2_2, 1, 0 );
-	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );
+	AboveV = new ScrSpinBox( 0, 300, AbstandV, 1 );
 	AboveV->setSuffix( tr( " pt" ) );
 	AbstandVLayout->addWidget( AboveV, 1, 1 );
 
 	TextLabel1_2_3 = new QLabel( "", AbstandV, "TextLabel1_2_3" );
 	TextLabel1_2_3->setPixmap( loadIcon("below.png") );
 	AbstandVLayout->addWidget( TextLabel1_2_3, 1, 2 );
-	BelowV = new MSpinBox( 0, 300, AbstandV, 1 );
+	BelowV = new ScrSpinBox( 0, 300, AbstandV, 1 );
 	BelowV->setSuffix( tr( " pt" ) );
 	AbstandVLayout->addWidget( BelowV, 1, 3 );
 	layout8->addWidget( AbstandV );
@@ -268,7 +268,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	CapLabel = new QLabel( DropLines, tr("&Lines:"), DropCaps, "CapLabel" );
 	DropCapsLayout->addWidget( CapLabel, 0, 0 );
 	DropCapsLayout->addWidget( DropLines, 0, 1 );
-	DropDist = new MSpinBox( -3000, 3000, DropCaps, 1);
+	DropDist = new ScrSpinBox( -3000, 3000, DropCaps, 1);
 	DropDist->setSuffix( tr( " pt" ) );
 	DropDist->setValue(vor->dropCapOffset());
 	CapLabel2 = new QLabel( DropLines, tr("Distance from Text:"), DropCaps, "CapLabel2" );

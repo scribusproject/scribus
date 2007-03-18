@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 #include "units.h"
@@ -68,16 +68,16 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
 	snapDistance = new QSpinBox( snapBox, "snapDistance" );
-	snapDistance->setMaxValue( 1000 );
-	snapDistance->setMinValue( 1 );
+	snapDistance->setMaximum( 1000 );
+	snapDistance->setMinimum( 1 );
 	snapDistance->setLineStep( 1 );
 	snapBoxLayout->addWidget( snapDistance, 0, 1 );
 	textLabel82 = new QLabel( snapBox, "textLabel8" );
 	textLabel82->setText( tr( "Grab Radius:" ) );
 	snapBoxLayout->addWidget( textLabel82, 1, 0 );
 	grabDistance = new QSpinBox( snapBox, "grabDistance" );
-	grabDistance->setMaxValue( 1000 );
-	grabDistance->setMinValue( 1 );
+	grabDistance->setMaximum( 1000 );
+	grabDistance->setMinimum( 1 );
 	grabDistance->setLineStep( 1 );
 	snapBoxLayout->addWidget( grabDistance, 1, 1 );
 	commonBoxLayout->addWidget( snapBox );
@@ -149,7 +149,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel6 = new QLabel( groupBox1, "textLabel6" );
 	textLabel6->setText( tr( "Spacing:" ) );
 	groupBox1Layout->addWidget( textLabel6, 0, 0 );
-	majorSpace = new MSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, precision );
+	majorSpace = new ScrSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, precision );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
 	groupBox2 = new Q3GroupBox( checkGrid, "groupBox2" );
@@ -172,7 +172,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel7 = new QLabel( groupBox2, "textLabel7" );
 	textLabel7->setText( tr( "Spacing:" ) );
 	groupBox2Layout->addWidget( textLabel7, 0, 0 );
-	minorSpace = new MSpinBox( unitRatio, 1000 * unitRatio, groupBox2, precision );
+	minorSpace = new ScrSpinBox( unitRatio, 1000 * unitRatio, groupBox2, precision );
 	groupBox2Layout->addWidget( minorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
 	tabGuidesLayout->addWidget( checkGrid );
@@ -205,13 +205,13 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baseGridBox->layout()->setMargin( 10 );
 	baseGridBoxLayout = new Q3GridLayout( baseGridBox->layout() );
 	baseGridBoxLayout->setAlignment( Qt::AlignTop );
-	baseGrid = new MSpinBox( baseGridBox, precision );
+	baseGrid = new ScrSpinBox( baseGridBox, precision );
 	baseGrid->setMaxValue(1000);
 	baseGrid->setMinValue(pts2value(1.0, unitIndex));
 	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baseGridBox, "textLabel6a" );
 	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
-	baseOffset = new MSpinBox( 0, 1000, baseGridBox, precision );
+	baseOffset = new ScrSpinBox( 0, 1000, baseGridBox, precision );
 	baseGridBoxLayout->addWidget( baseOffset, 1, 1 );
 	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baseGridBox, "textLabel7a" );
 	baseGridBoxLayout->addWidget( textLabel7a, 1, 0 );

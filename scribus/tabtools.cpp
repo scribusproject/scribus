@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "colorcombo.h"
 #include "units.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "linecombo.h"
 #include "fontcombo.h"
 #include "polygonwidget.h"
@@ -171,7 +171,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( tabFillCombo, 7, 1, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
 	subTabTextLayout->addWidget( textLabel3b2t, 7, 0 );
-	gapTab = new MSpinBox( 1, 200, subTabText, precision );
+	gapTab = new ScrSpinBox( 1, 200, subTabText, precision );
 
 	subTabTextLayout->addWidget( gapTab, 7, 3, Qt::AlignLeft );
 	textLabel3b2t2 = new QLabel(gapTab, tr( "Tab Width:" ), subTabText, "textLabel3b2t2" );
@@ -183,7 +183,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( columnsText, 8, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel4b, 8, 0 );
-	gapText = new MSpinBox( 0, 200, subTabText, precision );
+	gapText = new ScrSpinBox( 0, 200, subTabText, precision );
 
 	subTabTextLayout->addWidget( gapText, 8, 3, Qt::AlignLeft );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
@@ -234,7 +234,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->addWidget( comboStyleShape, 5, 1, Qt::AlignLeft );
 	textLabel11b = new QLabel( comboStyleShape, tr( "Line Style:" ), subTabShape, "textLabel11b" );
 	subTabShapeLayout->addWidget( textLabel11b, 5, 0 );
-	lineWidthShape = new MSpinBox( 0, 36, subTabShape, 1 );
+	lineWidthShape = new ScrSpinBox( 0, 36, subTabShape, 1 );
 	lineWidthShape->setSuffix( tr( " pt" ) );
 
 	subTabShapeLayout->addWidget( lineWidthShape, 6, 1, Qt::AlignLeft );
@@ -277,7 +277,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabLineLayout->addWidget( startArrowText, 4, 1 );
 	endArrowText = new QLabel( endArrow, tr( "End:" ), subTabLine, "endArrowText" );
 	subTabLineLayout->addWidget( endArrowText, 4, 2 );
-	lineWidthLine = new MSpinBox( 1, 36, subTabLine, 1 );
+	lineWidthLine = new ScrSpinBox( 1, 36, subTabLine, 1 );
 	lineWidthLine->setSuffix( tr( " pt" ) );
 
 	subTabLineLayout->addMultiCellWidget( lineWidthLine, 6, 6, 1, 2, Qt::AlignLeft );
@@ -425,13 +425,13 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	genDispBox->layout()->setMargin( 10 );
 	subTabGeneralLayout2 = new Q3GridLayout( genDispBox->layout() );
 
-	genDispX = new MSpinBox( -1000, 1000, genDispBox, 1 );
+	genDispX = new ScrSpinBox( -1000, 1000, genDispBox, 1 );
 	genDispX->setSuffix( tr( " pt" ) );
 	subTabGeneralLayout2->addWidget( genDispX, 0, 1, Qt::AlignLeft );
 	genText1 = new QLabel( genDispX, tr( "X Displacement" ), genDispBox, "genText1" );
 	subTabGeneralLayout2->addWidget( genText1, 0, 0);
 
-	genDispY = new MSpinBox( -1000, 1000, genDispBox, 1 );
+	genDispY = new ScrSpinBox( -1000, 1000, genDispBox, 1 );
 	genDispY->setSuffix( tr( " pt" ) );
 	subTabGeneralLayout2->addWidget( genDispY, 1, 1, Qt::AlignLeft );
 	genText2 = new QLabel( genDispY, tr( "Y Displacement" ), genDispBox, "genText2" );
@@ -445,7 +445,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	genRotBox->layout()->setMargin( 10 );
 	subTabGeneralLayout3 = new Q3GridLayout( genRotBox->layout() );
 
-	genRot = new MSpinBox( 1, 90, genRotBox, 1 );
+	genRot = new ScrSpinBox( 1, 90, genRotBox, 1 );
 	subTabGeneralLayout3->addWidget( genRot, 0, 1, Qt::AlignLeft );
 	genText3 = new QLabel( genRot, tr( "Constrain to:" ), genRotBox, "genText3" );
 	subTabGeneralLayout3->addWidget( genText3, 0, 0);

@@ -60,7 +60,7 @@ for which a new license (GPL+exception) is in place.
 // #include "editformats.h"
 #include "fontcombo.h"
 #include "menumanager.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "pageitem.h"
 #include "pluginmanager.h"
 #include "prefscontext.h"
@@ -989,7 +989,7 @@ SToolBStyle::SToolBStyle(Q3MainWindow* parent) : Q3ToolBar( tr("Character Settin
 	trackingLabel = new QLabel( this, "trackingLabel" );
 	trackingLabel->setText("");
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
-	Extra = new MSpinBox( this, 1 );
+	Extra = new ScrSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 10, 0);
 	Extra->setSuffix( tr( " %" ) );
 
@@ -1133,19 +1133,19 @@ SToolBFont::SToolBFont(Q3MainWindow* parent) : Q3ToolBar( tr("Font Settings"), p
 {
 	Fonts = new FontCombo(this);
 	Fonts->setMaximumSize(190, 30);
-	Size = new MSpinBox( 0.5, 2048, this, 1 );
+	Size = new ScrSpinBox( 0.5, 2048, this, 1 );
 	PrefsManager* prefsManager = PrefsManager::instance();
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
 	Size->setValue(prefsManager->appPrefs.toolSettings.defSize / 10.0);
 	ScaleTxt = new QLabel("", this, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
-	ChScale = new MSpinBox( 10, 400,  this, 1 );
+	ChScale = new ScrSpinBox( 10, 400,  this, 1 );
 	ChScale->setValue( 100 );
 	ChScale->setSuffix( tr( " %" ) );
 	ScaleTxtV = new QLabel("", this, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
-	ChScaleV = new MSpinBox( 10, 400, this, 1 );
+	ChScaleV = new ScrSpinBox( 10, 400, this, 1 );
 	ChScaleV->setValue( 100 );
 	ChScaleV->setSuffix( tr( " %" ) );
 

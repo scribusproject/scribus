@@ -61,7 +61,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	if (insertShapeButton)
 		insertShapeButton->setPopupDelay(0);
 	Rechteck = new AutoformButtonGroup( NULL );
-	insertShapeButtonMenu->insertItem( Rechteck );
+	//Qt4 insertShapeButtonMenu->insertItem( Rechteck );
 	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	//newShapeIcon.smoothScale(16,16);
 	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIcon(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));

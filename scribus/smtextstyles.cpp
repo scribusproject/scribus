@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 //#include "smtextstyles.moc"
 #include "smtextstylewidgets.h"
 #include "util.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "alignselect.h"
 #include "tabruler.h"
 #include "fontcombo.h"

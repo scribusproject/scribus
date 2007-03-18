@@ -59,7 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scpainter.h"
 class Page;
-#include "mspinbox.h"
+#include "scrspinbox.h"
 //#include "util.h"
 class Hruler;
 class Vruler;
@@ -81,7 +81,7 @@ public:
     ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
-	MSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
+	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
 	PageSelector* pageSelector; //Page selector at bottom of view
 	RulerMover *rulerMover; //Widget between the two rulers for dragging the ruler origin
 	Hruler *horizRuler;

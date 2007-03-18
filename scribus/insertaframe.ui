@@ -390,7 +390,7 @@
                </widget>
               </item>
               <item row="1" column="1" >
-               <widget class="MSpinBox" native="1" name="yPosMSpinBox" >
+               <widget class="ScrSpinBox" native="1" name="yPosScrSpinBox" >
                 <property name="sizePolicy" >
                  <sizepolicy>
                   <hsizetype>1</hsizetype>
@@ -418,7 +418,7 @@
                </widget>
               </item>
               <item row="0" column="1" >
-               <widget class="MSpinBox" native="1" name="xPosMSpinBox" >
+               <widget class="ScrSpinBox" native="1" name="xPosScrSpinBox" >
                 <property name="sizePolicy" >
                  <sizepolicy>
                   <hsizetype>1</hsizetype>
@@ -586,7 +586,7 @@
             </widget>
            </item>
            <item row="1" column="1" >
-            <widget class="MSpinBox" native="1" name="heightMSpinBox" >
+            <widget class="ScrSpinBox" native="1" name="heightScrSpinBox" >
              <property name="sizePolicy" >
               <sizepolicy>
                <hsizetype>1</hsizetype>
@@ -604,7 +604,7 @@
             </widget>
            </item>
            <item row="0" column="1" >
-            <widget class="MSpinBox" native="1" name="widthMSpinBox" >
+            <widget class="ScrSpinBox" native="1" name="widthScrSpinBox" >
              <property name="sizePolicy" >
               <sizepolicy>
                <hsizetype>1</hsizetype>
@@ -813,7 +813,7 @@
                 <number>5</number>
                </property>
                <item row="1" column="1" >
-                <widget class="MSpinBox" native="1" name="textColumnGapMSpinBox" >
+                <widget class="ScrSpinBox" native="1" name="textColumnGapScrSpinBox" >
                  <property name="sizePolicy" >
                   <sizepolicy>
                    <hsizetype>1</hsizetype>
@@ -1027,9 +1027,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MSpinBox</class>
-   <extends>QWidget</extends>
-   <header>mspinbox.h</header>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1058,11 +1058,11 @@
   <tabstop>cancelButton</tabstop>
  </tabstops>
  <includes>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
  </includes>
  <resources/>
  <connections>

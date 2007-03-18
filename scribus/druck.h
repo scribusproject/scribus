@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 class PrefsContext;
 class ScribusDoc;
@@ -53,11 +53,11 @@ public:
 	QCheckBox* bleedMarks;
 	QCheckBox* registrationMarks;
 	QCheckBox* colorMarks;
-	MSpinBox* markOffset;
-	MSpinBox* BleedBottom;
-	MSpinBox* BleedLeft;
-	MSpinBox* BleedRight;
-	MSpinBox* BleedTop;
+	ScrSpinBox* markOffset;
+	ScrSpinBox* BleedBottom;
+	ScrSpinBox* BleedLeft;
+	ScrSpinBox* BleedRight;
+	ScrSpinBox* BleedTop;
 	bool outputToFile();
 	int numCopies();
 	bool outputSeparations();
@@ -164,8 +164,7 @@ protected:
 	bool initDeviceSettings( QString printerName );
 	*/
 	CupsOptions *cdia;
-	QString unit;
-	int precision;
+	int unit;
 	double unitRatio;
 	void getOptions();
 	void storeValues();

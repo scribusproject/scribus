@@ -24,7 +24,7 @@ class QPushButton;
 class QSpinBox;
 class Q3GroupBox;
 class QCheckBox;
-class MSpinBox;
+class ScrSpinBox;
 class ScribusDoc;
 
 class SCRIBUS_API InsPage : public QDialog
@@ -36,8 +36,8 @@ public:
 	~InsPage() {};
 	Q3GroupBox* dsGroupBox7;
 	Q3GroupBox* masterPageGroup;
-	MSpinBox* widthMSpinBox;
-	MSpinBox* heightMSpinBox;
+	ScrSpinBox* widthSpinBox;
+	ScrSpinBox* heightSpinBox;
 	QLabel*	widthQLabel;
 	QLabel*	heightQLabel;
 	QLabel* TextLabel1;

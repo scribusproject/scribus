@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 
 ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
@@ -33,7 +33,7 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt:
 	entryLabel = new QLabel( this, "entryLabel" );
 	labelEntryLayout->addWidget( entryLabel );
 
-	entrySpin = new MSpinBox( this, "entrySpin" );
+	entrySpin = new ScrSpinBox( this, "entrySpin" );
 	entrySpin->setMinimumSize( QSize( 0, 10 ) );
 	labelEntryLayout->addWidget( entrySpin );
 

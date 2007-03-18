@@ -27,7 +27,7 @@ class QLineEdit;
 class QPushButton;
 class QSpinBox;
 class PrefsContext;
-class MSpinBox;
+class ScrSpinBox;
 class ScribusDoc;
 
 class ExportForm : public QDialog
@@ -53,7 +53,7 @@ public:
 	QComboBox* BitmapType;
 	QSpinBox* QualityBox;
 	QSpinBox* DPIBox;
-	MSpinBox* EnlargementBox;
+	ScrSpinBox* EnlargementBox;
 	Q3ButtonGroup* ButtonGroup1;
 	QRadioButton* OnePageRadio;
 	QRadioButton* AllPagesRadio;

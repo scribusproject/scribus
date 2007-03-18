@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 class LineCombo;
-class MSpinBox;
+class ScrSpinBox;
 
 class LineStyleWidget : public QWidget, Ui::LineStyleW
 {
@@ -33,7 +33,7 @@ public:
 
 private:
 	LineCombo *dashCombo;
-	MSpinBox  *lineWidth;
+	ScrSpinBox  *lineWidth;
 	multiLine  currentStyle;
 	ColorList  colors;
 

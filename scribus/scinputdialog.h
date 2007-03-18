@@ -20,12 +20,12 @@ for which a new license (GPL+exception) is in place.
 class Q3HBoxLayout;
 class Q3VBoxLayout;
 class Q3GridLayout;
-class MSpinBox;
+class ScrSpinBox;
 class QLabel;
 class QPushButton;
 
 
-/*! \brief A QInputDialog clone with MSpinBox widget.
+/*! \brief A QInputDialog clone with ScrSpinBox widget.
 \author Petr Vanek <petr@scribus.info>
 */
 class ScInputDialog : public QDialog
@@ -37,7 +37,7 @@ public:
 	~ScInputDialog(){};
 
 	QLabel* entryLabel;
-	MSpinBox* entrySpin;
+	ScrSpinBox* entrySpin;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
 

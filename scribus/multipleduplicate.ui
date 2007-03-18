@@ -153,7 +153,7 @@
               <number>6</number>
              </property>
              <item row="0" column="1" >
-              <widget class="MSpinBox" native="1" name="horizShiftMSpinBox" >
+              <widget class="ScrSpinBox" native="1" name="horizShiftSpinBox" >
                <property name="minimumSize" >
                 <size>
                  <width>50</width>
@@ -173,7 +173,7 @@
               </widget>
              </item>
              <item row="1" column="1" >
-              <widget class="MSpinBox" native="1" name="vertShiftMSpinBox" >
+              <widget class="ScrSpinBox" native="1" name="vertShiftSpinBox" >
                <property name="minimumSize" >
                 <size>
                  <width>50</width>
@@ -191,7 +191,7 @@
                 <bool>false</bool>
                </property>
                <property name="buddy" >
-                <cstring>horizShiftMSpinBox</cstring>
+                <cstring>horizShiftSpinBox</cstring>
                </property>
               </widget>
              </item>
@@ -204,12 +204,12 @@
                 <bool>false</bool>
                </property>
                <property name="buddy" >
-                <cstring>vertShiftMSpinBox</cstring>
+                <cstring>vertShiftSpinBox</cstring>
                </property>
               </widget>
              </item>
              <item row="2" column="1" >
-              <widget class="MSpinBox" native="1" name="rotationMSpinBox" >
+              <widget class="ScrSpinBox" native="1" name="rotationSpinBox" >
                <property name="minimumSize" >
                 <size>
                  <width>50</width>
@@ -303,7 +303,7 @@
             </widget>
            </item>
            <item row="2" column="1" >
-            <widget class="MSpinBox" native="1" name="horizRCGapMSpinBox" >
+            <widget class="ScrSpinBox" native="1" name="horizRCGapSpinBox" >
              <property name="minimumSize" >
               <size>
                <width>50</width>
@@ -340,7 +340,7 @@
             </widget>
            </item>
            <item row="3" column="1" >
-            <widget class="MSpinBox" native="1" name="vertRCGapMSpinBox" >
+            <widget class="ScrSpinBox" native="1" name="vertRCGapSpinBox" >
              <property name="minimumSize" >
               <size>
                <width>50</width>
@@ -465,9 +465,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MSpinBox</class>
-   <extends>QWidget</extends>
-   <header>mspinbox.h</header>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -481,11 +481,11 @@
   <tabstop>buttonCancel</tabstop>
  </tabstops>
  <includes>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
  </includes>
  <resources/>
  <connections>

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMWIDGETS_H
 #define SMWIDGETS_H
 
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "sccombobox.h"
 #include "alignselect.h"
 #include "styleselect.h"
@@ -19,12 +19,12 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3ValueList>
 
-class SMSpinBox : public QSpinBox
+class SScrSpinBox : public QSpinBox
 {
 	Q_OBJECT
 public:
-	SMSpinBox(QWidget *parent, const char *name);
-	~SMSpinBox() {};
+	SScrSpinBox(QWidget *parent, const char *name);
+	~SScrSpinBox() {};
 
 	void setValue(int val);
 	void setValue(int val, bool isParentVal);
@@ -48,14 +48,14 @@ private slots:
 	void slotValueChanged();
 };
 
-class SMMSpinBox : public MSpinBox
+class SMScrSpinBox : public MSpinBox
 {
 	Q_OBJECT
 public:
-	SMMSpinBox(QWidget *pa, int s);
-	SMMSpinBox(double minValue, double maxValue, QWidget *pa, int s);
-	SMMSpinBox(QWidget *parent, const char * name = 0);
-	~SMMSpinBox() {};
+	SMScrSpinBox(QWidget *pa, int s);
+	SMScrSpinBox(double minValue, double maxValue, QWidget *pa, int s);
+	SMScrSpinBox(QWidget *parent, const char * name = 0);
+	~SMScrSpinBox() {};
 
 	void setValue(double val);
 	void setValue(double val, bool isParentVal);
@@ -271,9 +271,9 @@ public:
 	bool useParentLeftIndent();
 	bool useParentRightIndent();
 
-	SMMSpinBox *first_;
-	SMMSpinBox *left_;
-	SMMSpinBox *right_;
+	SMScrSpinBox *first_;
+	SMScrSpinBox *left_;
+	SMScrSpinBox *right_;
 
 private:
 	Q3ValueList<ParagraphStyle::TabRecord> pTabs_;

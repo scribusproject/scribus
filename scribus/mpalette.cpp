@@ -166,16 +166,16 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GeoGroupLayout = new Q3GridLayout( GeoGroup->layout() );
 	GeoGroupLayout->setAlignment( Qt::AlignTop );
 
-	Xpos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
+	Xpos = new ScrSpinBox( -3000, 3000, GeoGroup, 2 );
 	installSniffer(Xpos);
 	GeoGroupLayout->addWidget( Xpos, 0, 1 );
-	Ypos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
+	Ypos = new ScrSpinBox( -3000, 3000, GeoGroup, 2 );
 	installSniffer(Ypos);
 	GeoGroupLayout->addWidget( Ypos, 1, 1 );
-	Width = new MSpinBox( GeoGroup, 2 );
+	Width = new ScrSpinBox( GeoGroup, 2 );
 	installSniffer(Width);
 	GeoGroupLayout->addWidget( Width, 2, 1 );
-	Height = new MSpinBox( GeoGroup, 2 );
+	Height = new ScrSpinBox( GeoGroup, 2 );
 	installSniffer(Height);
 	GeoGroupLayout->addWidget( Height, 3, 1 );
 
@@ -194,7 +194,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setOn(true);
 	GeoGroupLayout->addMultiCellWidget( keepFrameWHRatioButton, 2, 3, 2, 2 );
-	Rot = new MSpinBox( GeoGroup, 2);
+	Rot = new ScrSpinBox( GeoGroup, 2);
 	Rot->setWrapping( true );
 	installSniffer(Rot);
 	rotationLabel = new QLabel( Rot, "&Rotation:", GeoGroup, "rotationLabel" );
@@ -363,7 +363,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	Layout13 = new Q3HBoxLayout( 0, 0, 2, "Layout13");
 
-	RoundRect = new MSpinBox( page_2, 1 );
+	RoundRect = new ScrSpinBox( page_2, 1 );
 	rndcornersLabel = new QLabel( RoundRect, "R&ound\nCorners:", page_2, "rndcornersLabel" );
 	Layout13->addWidget( rndcornersLabel );
 	Layout13->addWidget( RoundRect );
@@ -388,29 +388,29 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout->addWidget( columnsLabel, 0, 0 );
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
-	dGap = new MSpinBox( 0, 300, Distance, 1 );
+	dGap = new ScrSpinBox( 0, 300, Distance, 1 );
 //	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
 //	colgapLabel->setBuddy(dGap);
 	colgapLabel = new ScComboBox( false, Distance, "colgapLabel" );
 	DistanceLayout->addWidget( colgapLabel, 1, 0, Qt::AlignLeft );
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
-	DTop = new MSpinBox( 0, 300, Distance, 1 );
+	DTop = new ScrSpinBox( 0, 300, Distance, 1 );
 	topLabel = new QLabel( DTop, "To&p:", Distance, "topLabel" );
 	DistanceLayout->addWidget( topLabel, 2, 0 );
 	DistanceLayout->addWidget( DTop, 2, 1 );
 
-	DBottom = new MSpinBox( 0, 300, Distance, 1 );
+	DBottom = new ScrSpinBox( 0, 300, Distance, 1 );
 	bottomLabel = new QLabel( DBottom, "&Bottom:", Distance, "bottomLabel" );
 	DistanceLayout->addWidget( bottomLabel, 3, 0 );
 	DistanceLayout->addWidget( DBottom, 3, 1 );
 
-	DLeft = new MSpinBox( 0, 300, Distance, 1 );
+	DLeft = new ScrSpinBox( 0, 300, Distance, 1 );
 	leftLabel = new QLabel( DLeft, "&Left:", Distance, "leftLabel" );
 	DistanceLayout->addWidget( leftLabel, 4, 0 );
 	DistanceLayout->addWidget( DLeft, 4, 1 );
 
-	DRight = new MSpinBox( 0, 300, Distance, 1 );
+	DRight = new ScrSpinBox( 0, 300, Distance, 1 );
 	rightLabel = new QLabel( DRight, "&Right:", Distance, "rightLabel" );
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
@@ -436,13 +436,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	
 	startoffsetLabel = new QLabel( "Start Offset:", Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
-	Dist = new MSpinBox( 0, 30000, Distance2, 1 );
+	Dist = new ScrSpinBox( 0, 30000, Distance2, 1 );
 	Dist->setLineStepM(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
 
 	distfromcurveLabel = new QLabel( "Distance from Curve:", Distance2, "distfromcurveLabel" );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
-	LineW = new MSpinBox( -300, 300, Distance2, 1 );
+	LineW = new ScrSpinBox( -300, 300, Distance2, 1 );
 	LineW->setLineStepM(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
 
@@ -640,19 +640,19 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 //	Fonts->setMaximumSize(200, 80);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 
-	Size = new MSpinBox( 0.5, 2048, page_3, 1 );
+	Size = new ScrSpinBox( 0.5, 2048, page_3, 1 );
 	Size->setPrefix( "" );
 	fontsizeLabel = new QLabel( "", page_3, "fontsizeLabel" );
 	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
-	ChBase = new MSpinBox( -100, 100, page_3, 1 );
+	ChBase = new ScrSpinBox( -100, 100, page_3, 1 );
 	ChBase->setValue( 0 );
 	ChBaseTxt = new QLabel("", page_3, "ChBaseTxt" );
 	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
 	layout41->addWidget( ChBaseTxt, 1, 2 );
 	layout41->addWidget( ChBase, 1, 3 );
-	LineSp = new MSpinBox( page_3, 1 );
+	LineSp = new ScrSpinBox( page_3, 1 );
 	layout41->addWidget( LineSp, 2, 1 );
 	lineSpacingPop = new Q3PopupMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
@@ -665,19 +665,19 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	linespacingButton->setPopupDelay(400);
 	linespacingButton->setAutoRaise(true);
 	layout41->addWidget( linespacingButton, 2, 0 );
-	Extra = new MSpinBox( page_3, 1 );
+	Extra = new ScrSpinBox( page_3, 1 );
 	layout41->addWidget( Extra, 2, 3 );
 	trackingLabel = new QLabel( "", page_3, "trackingLabel" );
 	trackingLabel->setText("");
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
 	layout41->addWidget( trackingLabel, 2, 2 );
-	ChScale = new MSpinBox( 10, 400, page_3, 1 );
+	ChScale = new ScrSpinBox( 10, 400, page_3, 1 );
 	ChScale->setValue( 100 );
 	ScaleTxt = new QLabel("", page_3, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	layout41->addWidget( ScaleTxt, 3, 0 );
 	layout41->addWidget( ChScale, 3 , 1 );
-	ChScaleV = new MSpinBox( 10, 400, page_3, 1 );
+	ChScaleV = new ScrSpinBox( 10, 400, page_3, 1 );
 	ChScaleV->setValue( 100 );
 	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
@@ -752,11 +752,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
 	wordTrackingHLayout = new Q3HBoxLayout(0,0,5,"wordTrackingHLayout");
 	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
-	minWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	minWordTrackingSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
 	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
 	wordTrackingHLayout->add(minWordTrackingLabel);
 	wordTrackingHLayout->add(minWordTrackingSpinBox);
-	maxWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	maxWordTrackingSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
 	maxWordTrackingLabel = new QLabel( maxWordTrackingSpinBox, "Max:", page_3, "wordTrackingMaxLabel" );
 	wordTrackingHLayout->add(maxWordTrackingLabel);
 	wordTrackingHLayout->add(maxWordTrackingSpinBox);
@@ -766,11 +766,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
 	glyphExtensionHLayout = new Q3HBoxLayout(0,0,5,"glyphExtensionHLayout");
 	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
-	minGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	minGlyphExtSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
 	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
 	glyphExtensionHLayout->add(minGlyphExtensionLabel);
 	glyphExtensionHLayout->add(minGlyphExtSpinBox);
-	maxGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	maxGlyphExtSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
 	maxGlyphExtensionLabel = new QLabel( maxGlyphExtSpinBox, "Max:", page_3, "glyphExtensionMaxLabel" );
 	glyphExtensionHLayout->add(maxGlyphExtensionLabel);
 	glyphExtensionHLayout->add(maxGlyphExtSpinBox);
@@ -794,22 +794,22 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_4->addWidget( FreeScale );
 
 	layout43 = new Q3GridLayout( 0, 1, 1, 0, 5, "layout43");
-	imageXOffsetSpinBox = new MSpinBox( page_4, 2 );
+	imageXOffsetSpinBox = new ScrSpinBox( page_4, 2 );
 	installSniffer(imageXOffsetSpinBox);
 	xposImgLabel = new QLabel( imageXOffsetSpinBox, "&X-Pos:", page_4, "xposImgLabel" );
 	layout43->addWidget( xposImgLabel, 0, 0 );
 	layout43->addWidget( imageXOffsetSpinBox, 0, 1 );
-	imageYOffsetSpinBox = new MSpinBox( page_4, 2 );
+	imageYOffsetSpinBox = new ScrSpinBox( page_4, 2 );
 	installSniffer(imageYOffsetSpinBox);
 	yposImgLabel = new QLabel( imageYOffsetSpinBox, "&Y-Pos:", page_4, "yposImgLabel" );
 	layout43->addWidget( yposImgLabel, 1, 0 );
 	layout43->addWidget( imageYOffsetSpinBox, 1, 1 );
-	imageXScaleSpinBox = new MSpinBox( page_4, 1 );
+	imageXScaleSpinBox = new ScrSpinBox( page_4, 1 );
 	installSniffer(imageXScaleSpinBox);
 	xscaleLabel = new QLabel( imageXScaleSpinBox, "X-Sc&ale:", page_4, "xscaleLabel" );
 	layout43->addWidget( xscaleLabel, 2, 0 );
 	layout43->addWidget( imageXScaleSpinBox, 2, 1 );
-	imageYScaleSpinBox = new MSpinBox( page_4, 1 );
+	imageYScaleSpinBox = new ScrSpinBox( page_4, 1 );
 	installSniffer(imageYScaleSpinBox);
 	yscaleLabel = new QLabel( imageYScaleSpinBox, "Y-Scal&e:", page_4, "yscaleLabel" );
 	layout43->addWidget( yscaleLabel, 3, 0 );
@@ -819,12 +819,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	keepImageWHRatioButton->setAutoRaise( true );
 	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	layout43->addMultiCellWidget( keepImageWHRatioButton, 2, 3, 2, 2 );
-	imgDpiX = new MSpinBox( page_4, 1 );
+	imgDpiX = new ScrSpinBox( page_4, 1 );
 	installSniffer(imgDpiX);
 	imgDPIXLabel = new QLabel( imgDpiX, "Actual X-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIXLabel, 4, 0 );
 	layout43->addWidget( imgDpiX, 4, 1 );
-	imgDpiY = new MSpinBox( page_4, 1 );
+	imgDpiY = new ScrSpinBox( page_4, 1 );
 	installSniffer(imgDpiY);
 	imgDPIYLabel = new QLabel( imgDpiY, "Actual Y-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIYLabel, 5, 0 );
@@ -914,7 +914,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12_2->addWidget( startArrowText, 1, 0 );
 	endArrowText = new QLabel( endArrow, "End Arrow:", page_5, "endArrowText" );
 	Layout12_2->addWidget( endArrowText, 1, 1 );
-	LSize = new MSpinBox( page_5, 3 );
+	LSize = new ScrSpinBox( page_5, 3 );
 	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
 	Layout12_2->addWidget( linewidthLabel, 3, 0 );
 	Layout12_2->addWidget( LSize, 3, 1 );
@@ -4269,7 +4269,7 @@ void Mpalette::HandleTLines()
 	}
 }
 
-void Mpalette::installSniffer(MSpinBox *spinBox)
+void Mpalette::installSniffer(ScrSpinBox *spinBox)
 {
 	const QList<QObject*> list = spinBox->children();
 	if (!list.isEmpty())

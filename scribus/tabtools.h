@@ -30,7 +30,7 @@ class QSpinBox;
 class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
-class MSpinBox;
+class ScrSpinBox;
 class LineCombo;
 class ScribusDoc;
 class ColorCombo;
@@ -97,13 +97,13 @@ public:
 	QLabel* textLabelTSL;
 	QComboBox* tabFillCombo;
 	QLabel* textLabel5b;
-	MSpinBox* gapText;
-	MSpinBox* gapTab;
+	ScrSpinBox* gapText;
+	ScrSpinBox* gapTab;
 	QWidget* subTabShape;
 	QLabel* shapeHeadLine;
 	QLabel* textLabel9b;
 	QLabel* textLabel10b;
-	MSpinBox* lineWidthShape;
+	ScrSpinBox* lineWidthShape;
 	QLabel* textLabel12b;
 	QLabel* textLabel11b;
 	LineCombo* comboStyleShape;
@@ -115,7 +115,7 @@ public:
 	QLabel* textLabel8b;
 	QWidget* subTabLine;
 	QLabel* lineHeadLine;
-	MSpinBox* lineWidthLine;
+	ScrSpinBox* lineWidthLine;
 	QSpinBox* shadingLine;
 	ColorCombo* colorComboLine;
 	QLabel* textLabel13b;
@@ -163,12 +163,12 @@ public:
 	Q3GroupBox* genDispBox;
 	QLabel* genText1;
 	QLabel* genText2;
-	MSpinBox* genDispX;
-	MSpinBox* genDispY;
+	ScrSpinBox* genDispX;
+	ScrSpinBox* genDispY;
 	Q3GroupBox* genRotBox;
 	QLabel* genText3;
 	QLabel* genText4;
-	MSpinBox* genRot;
+	ScrSpinBox* genRot;
 
 protected slots:
 	/*!

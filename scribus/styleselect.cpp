@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 #include "styleselect.h"
 //#include "styleselect.moc"
@@ -32,14 +32,14 @@ StrikeValues::StrikeValues( QWidget* parent ) : Q3GroupBox( parent, "StrikeValue
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	LPos = new MSpinBox( -0.1, 100, this, 1 );
+	LPos = new ScrSpinBox( -0.1, 100, this, 1 );
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
 	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
-	LWidth = new MSpinBox( -0.1, 100, this, 1 );
+	LWidth = new ScrSpinBox( -0.1, 100, this, 1 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
@@ -70,14 +70,14 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : Q3GroupBox( parent, "Shado
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	LPos = new MSpinBox( -0.1, 100, this, 1 );
+	LPos = new ScrSpinBox( -0.1, 100, this, 1 );
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
 	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
-	LWidth = new MSpinBox( -0.1, 100, this, 1 );
+	LWidth = new ScrSpinBox( -0.1, 100, this, 1 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
@@ -108,7 +108,7 @@ OutlineValues::OutlineValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowVal
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	LWidth = new MSpinBox( 0, 100, this, 1 );
+	LWidth = new ScrSpinBox( 0, 100, this, 1 );
 	LWidth->setValue( 1 );
 	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
 	group1Layout->addWidget( LWidth, 0, 1 );
@@ -134,12 +134,12 @@ ShadowValues::ShadowValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValue
 	group1Layout->setAlignment( Qt::AlignTop );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	Xoffset = new MSpinBox( -100, 100, this, 1 );
+	Xoffset = new ScrSpinBox( -100, 100, this, 1 );
 	Xoffset->setValue( 5 );
 	XoffsetTxt = new QLabel( "X-Offset", this, "XoffsetTxt" );
 	group1Layout->addWidget( Xoffset, 0, 1 );
 	group1Layout->addWidget( XoffsetTxt, 0 , 0 );
-	Yoffset = new MSpinBox( -100, 100, this, 1 );
+	Yoffset = new ScrSpinBox( -100, 100, this, 1 );
 	Yoffset->setValue( 5 );
 	YoffsetTxt = new QLabel( "Y-Offset", this, "YoffsetTxt" );
 	group1Layout->addWidget( Yoffset, 1, 1 );

@@ -101,7 +101,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	WidthText->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	layout1->addWidget( WidthText );
 
-	LWidth = new MSpinBox( 0, 300, Properties, 1 );
+	LWidth = new ScrSpinBox( 0, 300, Properties, 1 );
 	LWidth->setSuffix( tr( " pt" ) );
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 //#include "inspage.moc"
 #include "page.h"
 #include "units.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "pagesize.h"
 #include "commonstrings.h"
 
@@ -236,34 +236,25 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	orientationQComboBox->setCurrentItem(currentDoc->PageOri );
 	TextLabel2->setBuddy(orientationQComboBox);
 	dsGroupBox7Layout->addMultiCellWidget( orientationQComboBox, 1, 1, 2, 3 );
-	widthMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
+	widthSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, currentDoc->unitIndex() );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
-	widthMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->unitIndex()));
-	widthMSpinBox->setValue(currentDoc->pageWidth * currentDoc->unitRatio());
-	widthQLabel->setBuddy(widthMSpinBox);
+	widthSpinBox->setValue(currentDoc->pageWidth * currentDoc->unitRatio());
+	widthQLabel->setBuddy(widthSpinBox);
 	dsGroupBox7Layout->addWidget( widthQLabel, 2, 0 );
-	dsGroupBox7Layout->addWidget( widthMSpinBox, 2, 1 );
-	heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, unitGetDecimalsFromIndex(currentDoc->unitIndex()) );
-	heightMSpinBox->setSuffix(unitGetSuffixFromIndex(currentDoc->unitIndex()));
-	heightMSpinBox->setValue(currentDoc->pageHeight * currentDoc->unitRatio());
-	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
+	dsGroupBox7Layout->addWidget( widthSpinBox, 2, 1 );
+	heightSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, currentDoc->unitIndex() );
+	heightSpinBox->setValue(currentDoc->pageHeight * currentDoc->unitRatio());
+	heightQLabel = new QLabel(heightSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
-	dsGroupBox7Layout->addWidget( heightMSpinBox, 2, 3 );
+	dsGroupBox7Layout->addWidget( heightSpinBox, 2, 3 );
 	moveObjects = new QCheckBox( dsGroupBox7, "moveObjects" );
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addMultiCellWidget( moveObjects, 3, 3, 0, 3 );
 	dialogLayout->addWidget( dsGroupBox7 );
-	if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
-	{
-		heightMSpinBox->setEnabled( true );
-		widthMSpinBox->setEnabled( true );
-	}
-	else
-	{
-		heightMSpinBox->setEnabled( false );
-		widthMSpinBox->setEnabled( false );
-	}
+	bool b=(sizeQComboBox->currentText() == CommonStrings::trCustomPageSize);
+	heightSpinBox->setEnabled( b );
+	widthSpinBox->setEnabled( b );
 	delete ps;
 
 	okCancelLayout = new Q3HBoxLayout;
@@ -292,20 +283,20 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 
 void InsPage::setSize(const QString & gr)
 {
-	widthMSpinBox->setEnabled(false);
-	heightMSpinBox->setEnabled(false);
+	widthSpinBox->setEnabled(false);
+	heightSpinBox->setEnabled(false);
 	PageSize *ps2 = new PageSize(gr);
 	prefsPageSizeName = ps2->name();
 	if (gr == CommonStrings::trCustomPageSize)
 	{
-		widthMSpinBox->setEnabled(true);
-		heightMSpinBox->setEnabled(true);
+		widthSpinBox->setEnabled(true);
+		heightSpinBox->setEnabled(true);
 		prefsPageSizeName = CommonStrings::customPageSize;
 	}
 	else
 	{
-		widthMSpinBox->setValue(ps2->width() * unitRatio);
-		heightMSpinBox->setValue(ps2->height() * unitRatio);
+		widthSpinBox->setValue(ps2->width() * unitRatio);
+		heightSpinBox->setValue(ps2->height() * unitRatio);
 	}
 	delete ps2;
 }
@@ -318,16 +309,16 @@ void InsPage::setOrien(int ori)
 	{
 		if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
 		{
-			br = widthMSpinBox->value();
-			widthMSpinBox->setValue(heightMSpinBox->value());
-			heightMSpinBox->setValue(br);
+			br = widthSpinBox->value();
+			widthSpinBox->setValue(heightSpinBox->value());
+			heightSpinBox->setValue(br);
 		}
 	}
 	else
 	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
+		br = widthSpinBox->value();
+		widthSpinBox->setValue(heightSpinBox->value());
+		heightSpinBox->setValue(br);
 	}
 }
 

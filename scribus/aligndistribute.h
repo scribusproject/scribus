@@ -48,7 +48,7 @@ class QLabel;
 class QLineEdit;
 class QComboBox;
 class QToolButton;
-class MSpinBox;
+class ScrSpinBox;
 
 class ScribusMainWindow;
 class ScribusDoc;

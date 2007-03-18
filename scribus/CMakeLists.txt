@@ -134,7 +134,7 @@ mergedoc.h
 movepage.h
 missing.h
 mpalette.h
-mspinbox.h
+#mspinbox.h
 multiline.h
 multipleduplicate.h
 multiprogressdialog.h
@@ -350,7 +350,7 @@ mergedoc.cpp
 movepage.cpp
 missing.cpp
 mpalette.cpp
-mspinbox.cpp
+#mspinbox.cpp
 multiline.cpp
 multipleduplicate.cpp
 multiprogressdialog.cpp

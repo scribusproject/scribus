@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "fontcombo.h"
 #include "colorcombo.h"
 #include "alignselect.h"
@@ -62,23 +62,23 @@ public:
 	QLabel* pixmapLabel3_20_3;
 	QLabel* pixmapLabel3_19;
 	QLineEdit* Name;
-	MSpinBox* fontHScale;
-	MSpinBox* fontVScale;
-	MSpinBox* LineSpVal;
-	MSpinBox* fontBase;
-	MSpinBox* fontKern;
+	ScrSpinBox* fontHScale;
+	ScrSpinBox* fontVScale;
+	ScrSpinBox* LineSpVal;
+	ScrSpinBox* fontBase;
+	ScrSpinBox* fontKern;
 	Q3PopupMenu* lineSpacingPop;
 	QToolButton* linespacingButton;
 	Tabruler* TabList;
-	MSpinBox* AboveV;
-	MSpinBox* BelowV;
+	ScrSpinBox* AboveV;
+	ScrSpinBox* BelowV;
 	StyleSelect* EffeS;
 	AlignSelect* AligS;
 	Q3GroupBox* GroupBox10;
 	Q3GroupBox* AbstandV;
 	Q3GroupBox* GroupFont;
 	FontComboH* FontC;
-	MSpinBox* SizeC;
+	ScrSpinBox* SizeC;
 	QLabel* TextF2;
 	QLabel* StrokeIcon;
 	ColorCombo* TxStroke;
@@ -90,7 +90,7 @@ public:
 	QLabel* CapLabel;
 	QSpinBox* DropLines;
 	QLabel* CapLabel2;
-	MSpinBox* DropDist;
+	ScrSpinBox* DropDist;
 	QPushButton* Cancel;
 	QPushButton* OkButton;
 	ParagraphStyle *werte;

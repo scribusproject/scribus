@@ -171,7 +171,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Reduce->setText( "" );
 	Reduce->setPixmap(loadIcon("crop.png"));
 	ButtonGroup1Layout->addWidget( Reduce, 6, 1 );
-	scaleDistance = new MSpinBox( 1, 30000, ButtonGroup1, 2);
+	scaleDistance = new ScrSpinBox( 1, 30000, ButtonGroup1, 0);
 	scaleDistance->setValue(10);
 	scaleDistance->setSuffix("");
 	ButtonGroup1Layout->addMultiCellWidget( scaleDistance, 6, 6, 2, 3 );
@@ -185,11 +185,9 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	NodePaletteLayout->addWidget( AbsMode );
 
 	Layout2 = new Q3GridLayout( 0, 1, 1, 0, 5, "Layout2");
-	XSpin = new MSpinBox( this, 2 );
-	XSpin->setMaxValue(30000);
+	XSpin = new ScrSpinBox( 0, 30000, this, 2 );
 	XSpin->setEnabled(false);
-	YSpin = new MSpinBox( this, 2 );
-	YSpin->setMaxValue(30000);
+	YSpin = new ScrSpinBox( 0, 30000, this, 2 );
 	YSpin->setEnabled(false);
 	TextLabel1 = new QLabel( XSpin, "&X-Pos:", this, "TextLabel1" );
 	TextLabel2 = new QLabel( YSpin, "&Y-Pos:", this, "TextLabel2" );
@@ -295,8 +293,8 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	if (doc!=0)
 	{
-		YSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
-		XSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
+		YSpin->setNewUnit(doc->unitIndex());
+		XSpin->setNewUnit(doc->unitIndex());
 	}
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
@@ -558,8 +556,8 @@ void NodePalette::ToggleConMode()
 			PolySplit->setEnabled(false);
 			ResetCont->setEnabled(true);
 			ResetContClip->setEnabled(true);
-			XSpin->setMinValue(-3000);
-			YSpin->setMinValue(-3000);
+			XSpin->setMinimum(-3000);
+			YSpin->setMinimum(-3000);
 		}
 		else
 		{
@@ -567,8 +565,8 @@ void NodePalette::ToggleConMode()
 			PolySplit->setEnabled(true);
 			ResetCont->setEnabled(false);
 			ResetContClip->setEnabled(false);
-			XSpin->setMinValue(0);
-			YSpin->setMinValue(0);
+			XSpin->setMinimum(0);
+			YSpin->setMinimum(0);
 		}
 	}
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));

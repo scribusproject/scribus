@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 class QToolButton;
 class QLayout;
-class MSpinBox;
+class ScrSpinBox;
 class QLabel;
 class Q3PopupMenu;
 
@@ -28,8 +28,8 @@ class SCRIBUS_API StrikeValues : public Q3GroupBox
 public:
 	StrikeValues( QWidget* parent );
 	~StrikeValues() {};
-	MSpinBox* LPos;
-	MSpinBox* LWidth;
+	ScrSpinBox* LPos;
+	ScrSpinBox* LWidth;
 	QLabel* LPosTxt;
 	QLabel* LWidthTxt;
 
@@ -47,8 +47,8 @@ class SCRIBUS_API UnderlineValues : public Q3GroupBox
 public:
 	UnderlineValues( QWidget* parent );
 	~UnderlineValues() {};
-	MSpinBox* LPos;
-	MSpinBox* LWidth;
+	ScrSpinBox* LPos;
+	ScrSpinBox* LWidth;
 	QLabel* LPosTxt;
 	QLabel* LWidthTxt;
 
@@ -66,7 +66,7 @@ class SCRIBUS_API OutlineValues : public Q3GroupBox
 public:
 	OutlineValues( QWidget* parent );
 	~OutlineValues() {};
-	MSpinBox* LWidth;
+	ScrSpinBox* LWidth;
 	QLabel* LWidthTxt;
 
 public slots:
@@ -83,8 +83,8 @@ class SCRIBUS_API ShadowValues : public Q3GroupBox
 public:
 	ShadowValues( QWidget* parent );
 	~ShadowValues() {};
-	MSpinBox* Xoffset;
-	MSpinBox* Yoffset;
+	ScrSpinBox* Xoffset;
+	ScrSpinBox* Yoffset;
 	QLabel* XoffsetTxt;
 	QLabel* YoffsetTxt;
 

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabprinter.h"
 //#include "tabprinter.moc"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"
 #include "prefscontext.h"

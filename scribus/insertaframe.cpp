@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "createrange.h"
 #include "customfdialog.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
@@ -45,11 +45,11 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	placementPagesRangeButton->setPixmap(loadIcon("ellipsis.png"));
 	
 	//set tab order
-	QWidget::setTabOrder(radioButtonCustomPosition, xPosMSpinBox);
-	QWidget::setTabOrder(xPosMSpinBox, yPosMSpinBox);
-	QWidget::setTabOrder(radioButtonCustomSize, widthMSpinBox);
-	QWidget::setTabOrder(widthMSpinBox, heightMSpinBox);
-	QWidget::setTabOrder(textColumnCountSpinBox, textColumnGapMSpinBox);
+	QWidget::setTabOrder(radioButtonCustomPosition, xPosScrSpinBox);
+	QWidget::setTabOrder(xPosScrSpinBox, yPosScrSpinBox);
+	QWidget::setTabOrder(radioButtonCustomSize, widthScrSpinBox);
+	QWidget::setTabOrder(widthScrSpinBox, heightScrSpinBox);
+	QWidget::setTabOrder(textColumnCountSpinBox, textColumnGapScrSpinBox);
 	
 	typeButtonGroup->setButton(0);
 	pagePlacementButtonGroup->setButton(0);
@@ -63,16 +63,16 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	int docUnitIndex = m_Doc->unitIndex();
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString unitSuffix(unitGetSuffixFromIndex(docUnitIndex));
-	xPosMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	yPosMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	widthMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	heightMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	textColumnGapMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	xPosMSpinBox->setSuffix(unitSuffix);
-	yPosMSpinBox->setSuffix(unitSuffix);
-	widthMSpinBox->setSuffix(unitSuffix);
-	heightMSpinBox->setSuffix(unitSuffix);
-	textColumnGapMSpinBox->setSuffix(unitSuffix);
+	xPosScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	yPosScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	widthScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	heightScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	textColumnGapScrSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	xPosScrSpinBox->setSuffix(unitSuffix);
+	yPosScrSpinBox->setSuffix(unitSuffix);
+	widthScrSpinBox->setSuffix(unitSuffix);
+	heightScrSpinBox->setSuffix(unitSuffix);
+	textColumnGapScrSpinBox->setSuffix(unitSuffix);
 
 	sourceDocLineEdit->setText("");
  	connect(typeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectType(int)));
@@ -130,14 +130,14 @@ void InsertAFrame::slotSelectPagePlacement( int id )
 
 void InsertAFrame::slotSelectPosition( int id )
 {
-	xPosMSpinBox->setEnabled(id==99);
-	yPosMSpinBox->setEnabled(id==99);
+	xPosScrSpinBox->setEnabled(id==99);
+	yPosScrSpinBox->setEnabled(id==99);
 }
 
 void InsertAFrame::slotSelectSize( int id )
 {
-	widthMSpinBox->setEnabled(id==99);
-	heightMSpinBox->setEnabled(id==99);
+	widthScrSpinBox->setEnabled(id==99);
+	heightScrSpinBox->setEnabled(id==99);
 }
 
 void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
@@ -159,13 +159,13 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 	iafData.pageList=placementPagesLineEdit->text();
 	iafData.positionType=framePositionButtonGroup->selectedId();
 	iafData.sizeType=sizeButtonGroup->selectedId();
-	iafData.x=xPosMSpinBox->value();
-	iafData.y=yPosMSpinBox->value();
-	iafData.width=widthMSpinBox->value();
-	iafData.height=heightMSpinBox->value();
+	iafData.x=xPosScrSpinBox->value();
+	iafData.y=yPosScrSpinBox->value();
+	iafData.width=widthScrSpinBox->value();
+	iafData.height=heightScrSpinBox->value();
 	iafData.impsetup=m_ImportSetup;
 	iafData.columnCount=textColumnCountSpinBox->value();
-	iafData.columnGap=textColumnGapMSpinBox->value();
+	iafData.columnGap=textColumnGapScrSpinBox->value();
 	iafData.linkTextFrames=checkBoxLinkCreatedTextFrames->isChecked();
 }
 

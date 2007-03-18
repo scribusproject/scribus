@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "units.h"
 #include "commonstrings.h"
 
@@ -61,12 +61,12 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	toolButtonDummy2->hide();
 
 	//set up mspinboxes
-	distributeDistMSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
+	distributeDistScrSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
 	alignGuideLabel->setBuddy( alignGuideLineEdit );
-	distributeDistLabel->setBuddy( distributeDistMSpinBox );
+	distributeDistLabel->setBuddy( distributeDistScrSpinBox );
 	
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	init();
@@ -148,7 +148,7 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
 
 	distributeDistLabel->setText( tr( "&Distance:" ) );
-	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
+	QToolTip::add( distributeDistScrSpinBox, tr( "Distribute the items with the distance specified" ) );
 	
 	guideInfoTextNone = tr("None Selected");
 }
@@ -225,13 +225,13 @@ void AlignDistributePalette::unitChange()
 {
 	if (currDoc!=NULL)
 	{
-		double oldValue=distributeDistMSpinBox->value();
+		double oldValue=distributeDistScrSpinBox->value();
 		double oldRatio=unitRatio;
-		distributeDistMSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->unitIndex()));
-		distributeDistMSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
+		distributeDistScrSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->unitIndex()));
+		distributeDistScrSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
 		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
 		double ratioDivisor =  unitRatio / oldRatio;
-		distributeDistMSpinBox->setValue(oldValue*ratioDivisor);
+		distributeDistScrSpinBox->setValue(oldValue*ratioDivisor);
 		enableGuideButtons();
 	}
 }
@@ -329,7 +329,7 @@ void AlignDistributePalette::distributeRight()
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistMSpinBox->value());
+		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistScrSpinBox->value());
 }
 
 void AlignDistributePalette::distributeDistValH()
@@ -384,7 +384,7 @@ void AlignDistributePalette::distributeTop()
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
 	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistMSpinBox->value());
+		currDoc->itemSelection_DistributeDistV(usingDistance, distributeDistScrSpinBox->value());
 }
 
 void AlignDistributePalette::distributeDistValV()

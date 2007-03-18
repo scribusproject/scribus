@@ -61,7 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/storytext.h"
 
 class MenuManager;
-class MSpinBox;
+class ScrSpinBox;
 class ParaStyleComboBox;
 class StyleSelect;
 class AlignSelect;
@@ -243,7 +243,7 @@ public:
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
 	QLabel* trackingLabel;
-	MSpinBox* Extra;
+	ScrSpinBox* Extra;
 
 public slots:
 	void newStrikeHandler();
@@ -296,8 +296,8 @@ public:
 	SToolBFont(Q3MainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;
-	MSpinBox* ChScale;
-	MSpinBox* ChScaleV;
+	ScrSpinBox* ChScale;
+	ScrSpinBox* ChScaleV;
 
 public slots:
 	void SetFont(QString f);
@@ -313,7 +313,7 @@ signals:
 	void NewScaleV(int);
 
 private:
-	MSpinBox* Size;
+	ScrSpinBox* Size;
 	QLabel* ScaleTxt;
 	QLabel* ScaleTxtV;
 

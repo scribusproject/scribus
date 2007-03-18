@@ -271,8 +271,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2->addWidget( CyanSL );
 	Layout2x->addLayout(Layout1_2, 0, 1);
 
-	CyanSp = new MSpinBox( Frame4, 0 );
-	CyanSp->setMaxValue( 100 );
+	CyanSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	CyanSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(CyanSp, 0, 2);
 	CyanSp->setValue(ccd);
@@ -301,8 +300,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2_2->addWidget( MagentaSL );
 	Layout2x->addLayout(Layout1_2_2, 1, 1);
 
-	MagentaSp = new MSpinBox( Frame4, 0 );
-	MagentaSp->setMaxValue( 100 );
+	MagentaSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	MagentaSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(MagentaSp, 1, 2);
 	MagentaSp->setValue(cmd);
@@ -331,8 +329,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2_3->addWidget( YellowSL );
 	Layout2x->addLayout(Layout1_2_3, 2, 1);
 
-	YellowSp = new MSpinBox( Frame4, 0 );
-	YellowSp->setMaxValue( 100 );
+	YellowSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	YellowSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(YellowSp, 2, 2);
 	YellowSp->setValue(cyd);
@@ -361,8 +358,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout1_2_4->addWidget( BlackSL );
 	Layout2x->addLayout(Layout1_2_4, 3, 1);
 
-	BlackSp = new MSpinBox( Frame4, 0 );
-	BlackSp->setMaxValue( 100 );
+	BlackSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	BlackSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(BlackSp, 3, 2);
 	BlackSp->setValue(ckd);
@@ -773,9 +769,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanSL->setMaxValue( 100 );
 		MagentaSL->setMaxValue( 100 );
 		YellowSL->setMaxValue( 100 );
-		CyanSp->setMaxValue( 100 );
-		MagentaSp->setMaxValue( 100);
-		YellowSp->setMaxValue( 100 );
+		CyanSp->setMaximum( 100 );
+		MagentaSp->setMaximum( 100);
+		YellowSp->setMaximum( 100 );
 		CyanSL->setLineStep(1);
 		MagentaSL->setLineStep(1);
 		YellowSL->setLineStep(1);
@@ -785,9 +781,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanSp->setDecimals(1);
 		MagentaSp->setDecimals(1);
 		YellowSp->setDecimals(1);
-		CyanSp->setLineStep(1);
-		MagentaSp->setLineStep(1);
-		YellowSp->setLineStep(1);
+		CyanSp->setSingleStep(1);
+		MagentaSp->setSingleStep(1);
+		YellowSp->setSingleStep(1);
 		CyanSp->setSuffix( tr(" %"));
 		MagentaSp->setSuffix( tr(" %"));
 		YellowSp->setSuffix( tr(" %"));
@@ -814,24 +810,21 @@ void CMYKChoose::SelModel(const QString& mod)
 	{
 		CMYKmode = false;
 		Wsave = false;
-		CyanSL->setMaxValue( 255 );
-		MagentaSL->setMaxValue( 255 );
-		YellowSL->setMaxValue( 255 );
+		CyanSL->setMaximum( 255 );
+		MagentaSL->setMaximum( 255 );
+		YellowSL->setMaximum( 255 );
 		CyanSL->setLineStep(1);
 		MagentaSL->setLineStep(1);
 		YellowSL->setLineStep(1);
 		CyanSL->setPageStep(1);
 		MagentaSL->setPageStep(1);
 		YellowSL->setPageStep(1);
-		CyanSp->setDecimals(1);
-		MagentaSp->setDecimals(1);
-		YellowSp->setDecimals(1);
-		CyanSp->setLineStep(1);
-		MagentaSp->setLineStep(1);
-		YellowSp->setLineStep(1);
-		CyanSp->setMaxValue( 255 );
-		MagentaSp->setMaxValue( 255 );
-		YellowSp->setMaxValue( 255 );
+		CyanSp->setSingleStep(1);
+		MagentaSp->setSingleStep(1);
+		YellowSp->setSingleStep(1);
+		CyanSp->setMaximum( 255 );
+		MagentaSp->setMaximum( 255 );
+		YellowSp->setMaximum( 255 );
 		CyanSp->setSuffix("");
 		MagentaSp->setSuffix("");
 		YellowSp->setSuffix("");
@@ -859,9 +852,9 @@ void CMYKChoose::SelModel(const QString& mod)
 			CyanSL->setPageStep(51);
 			MagentaSL->setPageStep(51);
 			YellowSL->setPageStep(51);
-			CyanSp->setLineStep(51);
-			MagentaSp->setLineStep(51);
-			YellowSp->setLineStep(51);
+			CyanSp->setSingleStep(51);
+			MagentaSp->setSingleStep(51);
+			YellowSp->setSingleStep(51);
 		}
 		Farbe = ScColorEngine::convertToModel(Farbe, m_doc, colorModelRGB);
 		setValues();

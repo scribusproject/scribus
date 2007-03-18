@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 //#include "smlinestyle.moc"
 #include "scribusdoc.h"
 #include "linecombo.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "colorlistbox.h"
 #include "colorutil.h"
 #include "commonstrings.h"
@@ -41,7 +41,7 @@ LineStyleWidget::LineStyleWidget() : QWidget()
 	dashCombo = new LineCombo(this);
 	lineLayout->addWidget(dashCombo, 0, 0);
 
-	lineWidth = new MSpinBox( 0, 300, this, 1 );
+	lineWidth = new ScrSpinBox( 0, 300, this, 1 );
 	lineWidth->setSuffix( tr( " pt" ) );
 	widthLayout->addWidget(lineWidth, 0, 1);
 

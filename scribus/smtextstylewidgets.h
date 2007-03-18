@@ -22,13 +22,13 @@ for which a new license (GPL+exception) is in place.
 class Q3GridLayout;
 class Q3PopupMenu;
 class QToolButton;
-class SMMSpinBox;
+class SMScrSpinBox;
 class QLabel;
 class QTabWidget;
 class QString;
 class QComboBox;
 class SMAlignSelect;
-class SMSpinBox;
+class SScrSpinBox;
 class Q3VBoxLayout;
 class SMTabruler;
 class SMFontComboH;
@@ -74,11 +74,11 @@ private:
 	QLabel      *capLabel1;
 	QLabel      *capLabel2;
 
-	SMMSpinBox  *lineSpacing_;
-	SMMSpinBox  *spaceAbove_;
-	SMMSpinBox  *spaceBelow_;
-	SMSpinBox   *dropCapLines_;
-	SMMSpinBox  *dropCapOffset_;
+	SMScrSpinBox  *lineSpacing_;
+	SMScrSpinBox  *spaceAbove_;
+	SMScrSpinBox  *spaceBelow_;
+	SScrSpinBox   *dropCapLines_;
+	SMScrSpinBox  *dropCapOffset_;
 
 	SMAlignSelect *alignement_;
 	SMTabruler    *tabList_;
@@ -144,11 +144,11 @@ private:
 	SMShadeButton *strokeShade_;
 	SMScComboBox  *language_;
 
-	SMMSpinBox  *fontSize_;
-	SMMSpinBox  *fontHScale_;
-	SMMSpinBox  *fontVScale_;
-	SMMSpinBox  *tracking_;
-	SMMSpinBox  *baselineOffset_;
+	SMScrSpinBox  *fontSize_;
+	SMScrSpinBox  *fontHScale_;
+	SMScrSpinBox  *fontVScale_;
+	SMScrSpinBox  *tracking_;
+	SMScrSpinBox  *baselineOffset_;
 
 	QLabel      *fontSizeLabel_;
 	QLabel      *hscaleLabel_;

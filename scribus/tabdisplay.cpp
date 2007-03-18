@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabdisplay.h"
 //#include "tabdisplay.moc"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"
 

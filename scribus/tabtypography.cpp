@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 //Added by qt3to4:
 #include <Q3GridLayout>
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 
@@ -73,7 +73,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel1 = new QLabel( underlineGroup, "textLabel1" );
 	textLabel1->setText( tr( "Displacement:" ) );
 	underlineGroupLayout->addWidget( textLabel1, 0, 0 );
-	underlinePos = new MSpinBox( -0.1, 100, underlineGroup, 1 );
+	underlinePos = new ScrSpinBox( -0.1, 100, underlineGroup, 1 );
 	underlinePos->setWrapping(true);
 	underlinePos->setSuffix( tr( " %" ) );
 	underlinePos->setSpecialValueText( tr( "Auto" ) );
@@ -81,7 +81,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel2 = new QLabel( underlineGroup, "textLabel2" );
 	textLabel2->setText( tr( "Line Width:" ) );
 	underlineGroupLayout->addWidget( textLabel2, 0, 2 );
-	underlineWidth = new MSpinBox( -0.1, 100, underlineGroup, 1 );
+	underlineWidth = new ScrSpinBox( -0.1, 100, underlineGroup, 1 );
 	underlineWidth->setSuffix( tr( " %" ) );
 	underlineWidth->setWrapping(true);
 	underlineWidth->setSpecialValueText( tr( "Auto" ) );
@@ -98,7 +98,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel1_2 = new QLabel( strikethruGroup, "textLabel1" );
 	textLabel1_2->setText( tr( "Displacement:" ) );
 	strikethruGroupLayout->addWidget( textLabel1_2, 0, 0 );
-	strikethruPos = new MSpinBox( -0.1, 100, strikethruGroup, 1 );
+	strikethruPos = new ScrSpinBox( -0.1, 100, strikethruGroup, 1 );
 	strikethruPos->setSuffix( tr( " %" ) );
 	strikethruPos->setSpecialValueText( tr( "Auto" ) );
 	strikethruPos->setWrapping(true);
@@ -106,7 +106,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel2_2 = new QLabel( strikethruGroup, "textLabel2" );
 	textLabel2_2->setText( tr( "Line Width:" ) );
 	strikethruGroupLayout->addWidget( textLabel2_2, 0, 2 );
-	strikethruWidth = new MSpinBox( -0.1, 100, strikethruGroup, 1 );
+	strikethruWidth = new ScrSpinBox( -0.1, 100, strikethruGroup, 1 );
 	strikethruWidth->setWrapping(true);
 	strikethruWidth->setSuffix( tr( " %" ) );
 	strikethruWidth->setSpecialValueText( tr( "Auto" ) );

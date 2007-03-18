@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "bookmwin.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 class PDFOptions;
 class PDFExportDialog;
@@ -68,10 +68,10 @@ public:
 	// list. To help out, the members are sorted alphabetically by name.
 	QCheckBox* AddSec;
 	QCheckBox* Article;
-	MSpinBox* BleedBottom;
-	MSpinBox* BleedLeft;
-	MSpinBox* BleedRight;
-	MSpinBox* BleedTop;
+	ScrSpinBox* BleedBottom;
+	ScrSpinBox* BleedLeft;
+	ScrSpinBox* BleedRight;
+	ScrSpinBox* BleedTop;
 	QCheckBox* CheckBM;
 	QCheckBox* CheckBox1;
 	QComboBox* CMethod;
@@ -206,7 +206,7 @@ private:
 	QCheckBox* registrationMarks;
 	QCheckBox* colorMarks;
 	QCheckBox* docInfoMarks;
-	MSpinBox* markOffset;
+	ScrSpinBox* markOffset;
 	Q3GroupBox* CBox;
 	Q3GridLayout* CBoxLayout;
 	Q3GroupBox* ColorGroup;

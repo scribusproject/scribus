@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "units.h"
 #include "scribusstructs.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -495,7 +495,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<Parag
 	TypeCombo->insertItem( tr( "Comma" ) );
 	TypeCombo->insertItem( tr( "Center" ) );
 	layout1->addWidget( TypeCombo );
-	tabData = new MSpinBox( 0, ww, this, 1 );
+	tabData = new ScrSpinBox( 0, ww, this, 1 );
 	tabData->setValue(0);
 	positionLabel = new QLabel( tabData, tr("&Position:"), this, "positionLabel" );
 	layout1->addWidget( positionLabel );
@@ -516,14 +516,14 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<Parag
 	indentLayout = new Q3HBoxLayout(0, 0, 6, "indentLayout");
 	if (haveFirst)
 	{
-		firstLineData = new MSpinBox( -3000, ww, this, 1);
+		firstLineData = new ScrSpinBox( -3000, ww, this, 1);
 		firstLineData->setValue(0);
 		firstLineLabel = new QLabel( "", this, "firstLineLabel" );
 		firstLineLabel->setText("");
 		firstLineLabel->setPixmap(loadIcon("firstline.png"));
 		indentLayout->addWidget( firstLineLabel );
 		indentLayout->addWidget( firstLineData );
-		leftIndentData = new MSpinBox( 0, ww, this, 1 );
+		leftIndentData = new ScrSpinBox( 0, ww, this, 1 );
 		leftIndentData->setValue(0);
 		leftIndentLabel = new QLabel( "", this, "leftIndentLabel" );
 		leftIndentLabel->setText("");
@@ -534,7 +534,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<Parag
 		rightIndentLabel = new QLabel("", this, "rightIndentLabel");
 		rightIndentLabel->setText("");
 		rightIndentLabel->setPixmap(loadIcon("rightindent.png"));
-		rightIndentData = new MSpinBox(0, ww, this, 1);
+		rightIndentData = new ScrSpinBox(0, ww, this, 1);
 		rightIndentData->setValue(0);
 		indentLayout->addWidget(rightIndentLabel);
 		indentLayout->addWidget(rightIndentData);

@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagelayout.h"
 #include "pagestructs.h"
 #include "commonstrings.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "customfdialog.h"
 #include "sccombobox.h"
 
@@ -45,9 +45,6 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	tabSelected = 0;
 	onStartup = startUp;
 	unitIndex = prefsManager->appPrefs.docUnitIndex;
-	unitSuffix = unitGetSuffixFromIndex(unitIndex);
-	unitRatio = unitGetRatioFromIndex(unitIndex);
-	precision = unitGetPrecisionFromIndex(unitIndex);
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -89,8 +86,8 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	//tooltips
 	QToolTip::add( pageSizeComboBox, tr( "Document page size, either a standard size or a custom size" ) );
 	QToolTip::add( pageOrientationComboBox, tr( "Orientation of the document's pages" ) );
-	QToolTip::add( widthMSpinBox, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( heightMSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( widthSpinBox, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( heightSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
 	QToolTip::add( pageCountSpinBox, tr( "Initial number of pages of the document" ) );
 	QToolTip::add( unitOfMeasureComboBox, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( autoTextFrame, tr( "Create text frames automatically when new pages are added" ) );
@@ -189,16 +186,16 @@ void NewDoc::createNewDocPage()
 
 	TextLabel1_2 = new QLabel( tr( "&Width:" ), pageSizeGroupBox, "TextLabel1_2" );
 	pageSizeGroupBoxLayout->addWidget(TextLabel1_2, 2, 1 );
-	widthMSpinBox = new MSpinBox( 1, 10000, pageSizeGroupBox, precision );
-	widthMSpinBox->setSuffix(unitSuffix);
-	TextLabel1_2->setBuddy(widthMSpinBox);
-	pageSizeGroupBoxLayout->addWidget(widthMSpinBox, 2, 2 );
+	widthSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
+	widthSpinBox->setSuffix(unitSuffix);
+	TextLabel1_2->setBuddy(widthSpinBox);
+	pageSizeGroupBoxLayout->addWidget(widthSpinBox, 2, 2 );
 	TextLabel2_2 = new QLabel( tr( "&Height:" ), pageSizeGroupBox, "TextLabel2_2" );
 	pageSizeGroupBoxLayout->addWidget(TextLabel2_2, 3, 1 );
-	heightMSpinBox = new MSpinBox( 1, 10000, pageSizeGroupBox, precision );
-	heightMSpinBox->setSuffix(unitSuffix);
-	TextLabel2_2->setBuddy(heightMSpinBox);
-	pageSizeGroupBoxLayout->addWidget(heightMSpinBox, 3, 2 );
+	heightSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
+	heightSpinBox->setSuffix(unitSuffix);
+	TextLabel2_2->setBuddy(heightSpinBox);
+	pageSizeGroupBoxLayout->addWidget(heightSpinBox, 3, 2 );
 	layoutLabel1 = new QLabel( pageSizeGroupBox, "layoutLabel1" );
 	layoutLabel1->setText( tr( "First Page is:" ) );
 	pageSizeGroupBoxLayout->addWidget( layoutLabel1, 4, 1 );
@@ -212,8 +209,8 @@ void NewDoc::createNewDocPage()
 	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
 	marginGroup->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
 	marginGroup->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));
-	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	QStringList pageSizes=ps.sizeList();
 	int sizeIndex=pageSizes.findIndex(ps.nameTR());
 	if (sizeIndex!=-1)
@@ -224,8 +221,8 @@ void NewDoc::createNewDocPage()
 	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
-	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
 
 	optionsGroupBox = new Q3GroupBox( newDocFrame, "optionsGroupBox" );
@@ -266,8 +263,7 @@ void NewDoc::createNewDocPage()
 
 	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox, "TextLabel4" );
 	optionsGroupBoxLayout->addWidget( TextLabel4, 4, 0 );
-	Distance = new MSpinBox( 0, 1000, optionsGroupBox, precision );
-	Distance->setSuffix( unitSuffix );
+	Distance = new ScrSpinBox( 0, 1000, optionsGroupBox, unitIndex );
 	Distance->setValue(11 * unitRatio);
 	Dist = 11;
 	optionsGroupBoxLayout->addWidget( Distance, 4, 1);
@@ -336,7 +332,7 @@ void NewDoc::createRecentDocPage()
 
 void NewDoc::setWidth(int)
 {
-	pageWidth = widthMSpinBox->value() / unitRatio;
+	pageWidth = widthSpinBox->value() / unitRatio;
 	marginGroup->setPageWidth(pageWidth);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
@@ -345,7 +341,7 @@ void NewDoc::setWidth(int)
 
 void NewDoc::setHeight(int)
 {
-	pageHeight = heightMSpinBox->value() / unitRatio;
+	pageHeight = heightSpinBox->value() / unitRatio;
 	marginGroup->setPageHeight(pageHeight);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
@@ -420,16 +416,19 @@ void NewDoc::setDist(int)
 
 void NewDoc::setUnit(int newUnitIndex)
 {
-	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
-
-	double oldUnitRatio = unitRatio;
+	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	widthSpinBox->setNewUnit(newUnitIndex);
+	heightSpinBox->setNewUnit(newUnitIndex);
+	Distance->setNewUnit(newUnitIndex);
+/*	
+double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;
 	int decimals;
-	widthMSpinBox->getValues(&oldB, &oldBM, &decimals, &val);
+	widthSpinBox->getValues(&oldB, &oldBM, &decimals, &val);
 	oldB /= oldUnitRatio;
 	oldBM /= oldUnitRatio;
-	heightMSpinBox->getValues(&oldH, &oldHM, &decimals, &val);
+	heightSpinBox->getValues(&oldH, &oldHM, &decimals, &val);
 	oldH /= oldUnitRatio;
 	oldHM /= oldUnitRatio;
 
@@ -438,31 +437,32 @@ void NewDoc::setUnit(int newUnitIndex)
 	decimals = unitGetDecimalsFromIndex(newUnitIndex);
 	if (pageOrientationComboBox->currentItem() == portraitPage)
 	{
-		widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageWidth * unitRatio);
-		heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageHeight * unitRatio);
+		widthSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageWidth * unitRatio);
+		heightSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageHeight * unitRatio);
 	}
 	else
 	{
-		widthMSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageHeight * unitRatio);
-		heightMSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageWidth * unitRatio);
+		widthSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageHeight * unitRatio);
+		heightSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageWidth * unitRatio);
 	}
 	Distance->setValue(Dist * unitRatio);
 	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
-	widthMSpinBox->setSuffix(unitSuffix);
-	heightMSpinBox->setSuffix(unitSuffix);
+	widthSpinBox->setSuffix(unitSuffix);
+	heightSpinBox->setSuffix(unitSuffix);
 	Distance->setSuffix( unitSuffix );
-	marginGroup->unitChange(unitRatio, decimals, unitSuffix);
+*/
+	marginGroup->setNewUnit(unitIndex);
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 
 }
 
 void NewDoc::ExitOK()
 {
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	pageHeight = heightMSpinBox->value() / unitRatio;
+	pageWidth = widthSpinBox->value() / unitRatio;
+	pageHeight = heightSpinBox->value() / unitRatio;
 	bleedBottom = marginGroup->bottomBleed();
 	bleedTop = marginGroup->topBleed();
 	bleedLeft = marginGroup->leftBleed();
@@ -477,19 +477,19 @@ void NewDoc::ExitOK()
 void NewDoc::setOrien(int ori)
 {
 	double br;
-	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 	if (ori != Orient)
 	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
+		br = widthSpinBox->value();
+		widthSpinBox->setValue(heightSpinBox->value());
+		heightSpinBox->setValue(br);
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == portraitPage) ? Orient = portraitPage : Orient = landscapePage;
 	if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
 	{
-		if (widthMSpinBox->value() > heightMSpinBox->value())
+		if (widthSpinBox->value() > heightSpinBox->value())
 			pageOrientationComboBox->setCurrentItem(landscapePage);
 		else
 			pageOrientationComboBox->setCurrentItem(portraitPage);
@@ -497,8 +497,8 @@ void NewDoc::setOrien(int ori)
 	// end of #869
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 }
 
 void NewDoc::setPGsize(const QString &size)
@@ -515,15 +515,15 @@ void NewDoc::setPGsize(const QString &size)
 
 void NewDoc::setSize(QString gr)
 {
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	pageHeight = heightMSpinBox->value() / unitRatio;
+	pageWidth = widthSpinBox->value() / unitRatio;
+	pageHeight = heightSpinBox->value() / unitRatio;
 
-	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 	if (gr==CommonStrings::trCustomPageSize || gr==CommonStrings::customPageSize)
 	{
-		//widthMSpinBox->setEnabled(true);
-		//heightMSpinBox->setEnabled(true);
+		//widthSpinBox->setEnabled(true);
+		//heightSpinBox->setEnabled(true);
 	}
 	else
 	{
@@ -538,12 +538,12 @@ void NewDoc::setSize(QString gr)
 		}
 		delete ps2;
 	}
-	widthMSpinBox->setValue(pageWidth * unitRatio);
-	heightMSpinBox->setValue(pageHeight * unitRatio);
+	widthSpinBox->setValue(pageWidth * unitRatio);
+	heightSpinBox->setValue(pageHeight * unitRatio);
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
+	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 }
 
 void NewDoc::setDS(int layout)

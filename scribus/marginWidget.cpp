@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <QLabel>
 
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "units.h"
 #include "useprintermarginsdialog.h"
 
@@ -29,30 +29,20 @@ pageType(0)
 	facingPages = false;
 	useBleeds = showBleeds;
 
-	m_docUnitIndex=unitIndex;
-	m_unitRatio = unitGetRatioFromIndex(unitIndex);
-	m_suffix = unitGetSuffixFromIndex(unitIndex);
-	int decimals = unitGetDecimalsFromIndex(unitIndex);
 
 	marginPage = new QWidget(this);
 
 	presetCombo = new PresetLayout(marginPage, "presetCombo");
 	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), marginPage, "presetLabel");
-
-	leftR = new MSpinBox( 0, 1000, marginPage, decimals );
-	leftR->setSuffix( m_suffix );
+	m_unitIndex=unitIndex;
+	m_unitRatio=unitGetRatioFromIndex(unitIndex);
+	leftR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
 	leftR->setValue(RandL * m_unitRatio);
-
-	rightR = new MSpinBox( 0, 1000, marginPage, decimals );
-	rightR->setSuffix( m_suffix );
+	rightR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
 	rightR->setValue(RandR * m_unitRatio);
-
-	topR = new MSpinBox( 0, 1000, marginPage, decimals );
-	topR->setSuffix( m_suffix );
+	topR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
 	topR->setValue(RandT * m_unitRatio);
-
-	bottomR = new MSpinBox( 0, 1000, marginPage, decimals );
-	bottomR->setSuffix( m_suffix );
+	bottomR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
 	bottomR->setValue(RandB * m_unitRatio);
 
 	bText = new QLabel( bottomR, tr( "&Bottom:" ), marginPage, "bText" );
@@ -118,39 +108,27 @@ pageType(0)
 		BleedGroupLayout->setAlignment( Qt::AlignTop );
 		BleedTxt3 = new QLabel( bleedPage, "BleedTxt3" );
 		BleedGroupLayout->addWidget( BleedTxt3, 0, 0 );
-		BleedLeft = new MSpinBox( bleedPage, decimals );
+		BleedLeft = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedLeft, 0, 1 );
 		BleedTxt4 = new QLabel( bleedPage, "BleedTxt4" );
 		BleedGroupLayout->addWidget( BleedTxt4, 1, 0 );
-		BleedRight = new MSpinBox( bleedPage, decimals );
+		BleedRight = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedRight, 1, 1 );
 		BleedTxt1 = new QLabel( bleedPage, "BleedTxt1" );
 		BleedTxt1->setText( tr( "Top:" ) );
 		BleedGroupLayout->addWidget( BleedTxt1, 2, 0 );
-		BleedTop = new MSpinBox( bleedPage, decimals );
+		BleedTop = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedTop, 2, 1 );
 		BleedTxt2 = new QLabel( bleedPage, "BleedTxt2" );
 		BleedTxt2->setText( tr( "Bottom:" ) );
 		BleedGroupLayout->addWidget( BleedTxt2, 3, 0 );
-		BleedBottom = new MSpinBox( bleedPage, decimals );
+		BleedBottom = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedBottom, 3, 1 );
 		linkBleeds = new LinkButton( bleedPage );
 		linkBleeds->setToggleButton( true );
 		linkBleeds->setAutoRaise( true );
 		linkBleeds->setMaximumSize( QSize( 15, 32767 ) );
 		BleedGroupLayout->addMultiCellWidget( linkBleeds, 0, 3, 2, 2 );
-		BleedTop->setSuffix( m_suffix );
-		BleedTop->setMinValue(0);
-		BleedTop->setMaxValue(3000*m_unitRatio);
-		BleedBottom->setSuffix( m_suffix );
-		BleedBottom->setMinValue(0);
-		BleedBottom->setMaxValue(3000*m_unitRatio);
-		BleedRight->setSuffix( m_suffix );
-		BleedRight->setMinValue(0);
-		BleedRight->setMaxValue(3000*m_unitRatio);
-		BleedLeft->setSuffix( m_suffix );
-		BleedLeft->setMinValue(0);
-		BleedLeft->setMaxValue(3000*m_unitRatio);
 		QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 		QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 		QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
@@ -238,27 +216,27 @@ void MarginWidget::setFacingPages(bool facing, int pagetype)
 
 void MarginWidget::setPageWidthHeight(double width, double height)
 {
-	rightR->setMaxValue(width * m_unitRatio - leftR->value());
-	leftR->setMaxValue(width * m_unitRatio - rightR->value());
+	rightR->setMaximum(width * m_unitRatio - leftR->value());
+	leftR->setMaximum(width * m_unitRatio - rightR->value());
 	pageWidth = width;
-	topR->setMaxValue(height * m_unitRatio - bottomR->value());
-	bottomR->setMaxValue(height * m_unitRatio - topR->value());
+	topR->setMaximum(height * m_unitRatio - bottomR->value());
+	bottomR->setMaximum(height * m_unitRatio - topR->value());
 	pageHeight = height;
 	setPreset();
 }
 
 void MarginWidget::setPageWidth(double width)
 {
-	rightR->setMaxValue(qMax(0.0, width * m_unitRatio - leftR->value()));
-	leftR->setMaxValue(qMax(0.0,width * m_unitRatio - rightR->value()));
+	rightR->setMaximum(qMax(0.0, width * m_unitRatio - leftR->value()));
+	leftR->setMaximum(qMax(0.0,width * m_unitRatio - rightR->value()));
 	pageWidth = width;
 	setPreset();
 }
 
 void MarginWidget::setPageHeight(double height)
 {
-	topR->setMaxValue(qMax(0.0, height * m_unitRatio - bottomR->value()));
-	bottomR->setMaxValue(qMax(0.0,height * m_unitRatio - topR->value()));
+	topR->setMaximum(qMax(0.0, height * m_unitRatio - bottomR->value()));
+	bottomR->setMaximum(qMax(0.0,height * m_unitRatio - topR->value()));
 	pageHeight = height;
 	setPreset();
 }
@@ -266,79 +244,59 @@ void MarginWidget::setPageHeight(double height)
 void MarginWidget::setTop()
 {
 	RandT = topR->value() / m_unitRatio;
-	bottomR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
+	bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
 	setPreset();
 }
 
 void MarginWidget::setBottom()
 {
 	RandB = bottomR->value() / m_unitRatio;
-	topR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
+	topR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
 	setPreset();
 }
 
 void MarginWidget::setLeft()
 {
 	RandL = leftR->value() / m_unitRatio;
-	rightR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
+	rightR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
 	setPreset();
 }
 
 void MarginWidget::setRight()
 {
 	RandR = rightR->value() / m_unitRatio;
-	leftR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
+	leftR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
 	setPreset();
 }
 
-void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix)
+void MarginWidget::setNewUnit(int newUnitIndex)
 {
 	disconnect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
-	int decimalsOld;
-	double oldUnitRatio = m_unitRatio;
-	double oldMin, oldMax, val;
-	topR->setSuffix(newSuffix);
-	bottomR->setSuffix(newSuffix);
-	leftR->setSuffix(newSuffix);
-	rightR->setSuffix(newSuffix);
-	double invUnitConversion = 1.0 / oldUnitRatio * newUnit;
-	topR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	topR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-	bottomR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bottomR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-	leftR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	leftR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-	rightR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	rightR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-
+	m_unitIndex=newUnitIndex;
+	m_unitRatio=unitGetRatioFromIndex(newUnitIndex);
+	topR->setNewUnit(newUnitIndex);
+	bottomR->setNewUnit(newUnitIndex);
+	leftR->setNewUnit(newUnitIndex);
+	rightR->setNewUnit(newUnitIndex);
+	
 	if (useBleeds)
 	{
 		disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
-		BleedBottom->setSuffix(newSuffix);
-		BleedTop->setSuffix(newSuffix);
-		BleedRight->setSuffix(newSuffix);
-		BleedLeft->setSuffix(newSuffix);
-		BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-		BleedBottom->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-		BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-		BleedTop->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-		BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-		BleedRight->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-		BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-		BleedLeft->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
+		BleedBottom->setNewUnit(newUnitIndex);
+		BleedTop->setNewUnit(newUnitIndex);
+		BleedRight->setNewUnit(newUnitIndex);
+		BleedLeft->setNewUnit(newUnitIndex);
 		connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 	}
-	m_unitRatio = newUnit;
-	m_suffix=newSuffix;
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
@@ -364,10 +322,10 @@ void MarginWidget::setPreset()
 		RandB = bottomR->value() / m_unitRatio;
 		RandL = leftR->value() / m_unitRatio;
 		RandR = rightR->value() / m_unitRatio;
-		bottomR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
-		topR->setMaxValue(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
-		rightR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
-		leftR->setMaxValue(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
+		bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
+		topR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - bottomR->value()));
+		rightR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - leftR->value()));
+		leftR->setMaximum(qMax(0.0, pageWidth * m_unitRatio - rightR->value()));
 		rightR->setEnabled(false);
 		topR->setEnabled(false);
 		bottomR->setEnabled(false);
@@ -393,7 +351,7 @@ void MarginWidget::setPageSize(const QString& pageSize)
 
 void MarginWidget::setMarginsToPrinterMargins()
 {
-	UsePrinterMarginsDialog upm(parentWidget(), m_pageSize, m_unitRatio, m_suffix);
+	UsePrinterMarginsDialog upm(parentWidget(), m_pageSize, unitGetRatioFromIndex(m_unitIndex), unitGetSuffixFromIndex(m_unitIndex));
 	if (upm.exec())
 	{
 		double t,b,l,r;
@@ -409,10 +367,10 @@ void MarginWidget::setMarginsToPrinterMargins()
 		RandL = l;
 		RandR = r;
 
-		bottomR->setMaxValue((qMax(0.0, pageHeight - t) * m_unitRatio));
-		topR->setMaxValue((qMax(0.0, pageHeight - b) * m_unitRatio));
-		rightR->setMaxValue((qMax(0.0, pageWidth - l) * m_unitRatio));
-		leftR->setMaxValue((qMax(0.0, pageWidth - r) * m_unitRatio));
+		bottomR->setMaximum((qMax(0.0, pageHeight - t) * m_unitRatio));
+		topR->setMaximum((qMax(0.0, pageHeight - b) * m_unitRatio));
+		rightR->setMaximum((qMax(0.0, pageWidth - l) * m_unitRatio));
+		leftR->setMaximum((qMax(0.0, pageWidth - r) * m_unitRatio));
 
 		rightR->setEnabled(true);
 		topR->setEnabled(true);

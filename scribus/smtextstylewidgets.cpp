@@ -69,7 +69,7 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->addMultiCellWidget(lineSpacingMode_, 0, 0, 1, 2);
 	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
-	lineSpacing_ = new SMMSpinBox(1, 300, distancesBox, 1 );
+	lineSpacing_ = new SMScrSpinBox(1, 300, distancesBox, 1 );
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	distancesBoxLayout->addWidget(lineSpacing_, 0, 3);
 
@@ -77,7 +77,7 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel3->setPixmap( loadIcon("above.png") );
 	distancesBoxLayout->addWidget( pixmapLabel3, 1, 0 );
 
-	spaceAbove_ = new SMMSpinBox( 0, 300, distancesBox, 1 );
+	spaceAbove_ = new SMScrSpinBox( 0, 300, distancesBox, 1 );
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	distancesBoxLayout->addWidget( spaceAbove_, 1, 1 );
 
@@ -85,7 +85,7 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel4->setPixmap( loadIcon("below.png") );
 	distancesBoxLayout->addWidget( pixmapLabel4, 2, 0 );
 
-	spaceBelow_ = new SMMSpinBox( 0, 300, distancesBox, 1 );
+	spaceBelow_ = new SMScrSpinBox( 0, 300, distancesBox, 1 );
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
 	distancesBoxLayout->addWidget( spaceBelow_, 2, 1 );
 
@@ -158,14 +158,14 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout = new Q3GridLayout(dropCapsBox->layout());
 	dropCapsBoxLayout->setAlignment(Qt::AlignTop);
 
-	dropCapLines_ = new SMSpinBox(dropCapsBox, "DropLines");
+	dropCapLines_ = new SScrSpinBox(dropCapsBox, "DropLines");
 	dropCapLines_->setMinValue(2);
 	dropCapLines_->setMaxValue(20);
 	capLabel1 = new QLabel(dropCapLines_, tr("&Lines:"), dropCapsBox, "CapLabel");
 	dropCapsBoxLayout->addWidget(capLabel1, 0, 0);
 	dropCapsBoxLayout->addWidget(dropCapLines_, 0, 1);
 
-	dropCapOffset_ = new SMMSpinBox(-3000, 3000, dropCapsBox, 1);
+	dropCapOffset_ = new SMScrSpinBox(-3000, 3000, dropCapsBox, 1);
 	dropCapOffset_->setSuffix(unitGetSuffixFromIndex(0));
 	capLabel2 = new QLabel(dropCapLines_, tr("Distance from Text:"), dropCapsBox, "CapLabel2");
 	dropCapsBoxLayout->addWidget(capLabel2, 1, 0);
@@ -658,7 +658,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	basicBoxLayout->addWidget( fontFace_ );
 	
 	spinBoxLayoutBasic_ = new Q3GridLayout(1, 9);
-	fontSize_ = new SMMSpinBox( 1, 2048, basicGroup, 1 );
+	fontSize_ = new SMScrSpinBox( 1, 2048, basicGroup, 1 );
 	fontSize_->setMinimumSize( QSize( 70, 22 ) );
 	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 	fontSizeLabel_ = new QLabel( "" ,basicGroup, "TextF2" );
@@ -669,7 +669,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	trackingLabel_->setMinimumSize( QSize( 22, 22 ) );
 	trackingLabel_->setMaximumSize( QSize( 22, 22 ) );
 	trackingLabel_->setPixmap( loadIcon("textkern.png") );
-	tracking_ = new SMMSpinBox( -300, 300, basicGroup, 1 );
+	tracking_ = new SMScrSpinBox( -300, 300, basicGroup, 1 );
 	tracking_->setSuffix( tr( " %" ) );
 	spinBoxLayoutBasic_->addWidget(fontSizeLabel_, 0, 0);
 	spinBoxLayoutBasic_->addMultiCellWidget(fontSize_, 0, 0, 1, 2);
@@ -702,7 +702,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	baselineOffsetLabel_->setMaximumSize( QSize( 22, 22 ) );
 	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
 
-	baselineOffset_ = new SMMSpinBox( -100, 100, advGroup, 1 );
+	baselineOffset_ = new SMScrSpinBox( -100, 100, advGroup, 1 );
 	baselineOffset_->setSuffix( tr( " %" ) );
 
 	spinBoxLayout_->addWidget(baselineOffsetLabel_, 0, 6);
@@ -713,7 +713,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	hscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
 	hscaleLabel_->setPixmap( loadIcon("textscaleh.png") );
 
-	fontHScale_ = new SMMSpinBox( 10, 400, advGroup, 1 );
+	fontHScale_ = new SMScrSpinBox( 10, 400, advGroup, 1 );
 	fontHScale_->setSuffix( tr( " %" ) );
 
 	spinBoxLayout_->addWidget(hscaleLabel_, 0, 0);
@@ -724,7 +724,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	vscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
 	vscaleLabel_->setPixmap( loadIcon("textscalev.png") );
 
-	fontVScale_ = new SMMSpinBox( 10, 400, advGroup, 1 );
+	fontVScale_ = new SMScrSpinBox( 10, 400, advGroup, 1 );
 	fontVScale_->setSuffix( tr( " %" ) );
 
 	spinBoxLayout_->addWidget(vscaleLabel_, 0, 3);

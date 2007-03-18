@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "units.h"
 #include "marginWidget.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "pagelayout.h"
 #include "pagesize.h"
 #include "undomanager.h"
@@ -94,13 +94,13 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 
 	Layout5_2 = new Q3HBoxLayout( 0, 0, 6, "Layout5_2");
 
-	pageWidth = new MSpinBox( 1, 100000, GroupSize, decimals );
+	pageWidth = new ScrSpinBox( 1, 100000, GroupSize, decimals );
 	pageWidth->setMinimumSize( QSize( 90, 20 ) );
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
-	pageHeight = new MSpinBox( 1, 100000, GroupSize, decimals );
+	pageHeight = new ScrSpinBox( 1, 100000, GroupSize, decimals );
 	pageHeight->setMinimumSize( QSize( 90, 20 ) );
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );

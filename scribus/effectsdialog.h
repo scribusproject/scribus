@@ -37,7 +37,7 @@ class QWidget;
 class QSlider;
 class Q3PopupMenu;
 class QToolButton;
-class MSpinBox;
+class ScrSpinBox;
 class CurveWidget;
 
 class SCRIBUS_API EffectListItem : public Q3ListBoxText
@@ -85,10 +85,10 @@ public:
 	QWidget* WStackPage_4;
 	QSlider* contrastSlider;
 	QWidget* WStackPage_5;
-	MSpinBox* shRadius;
-	MSpinBox* shValue;
+	ScrSpinBox* shRadius;
+	ScrSpinBox* shValue;
 	QWidget* WStackPage_6;
-	MSpinBox* blRadius;
+	ScrSpinBox* blRadius;
 	QWidget* WStackPage_7;
 	QSlider* solarizeSlider;
 	QWidget* WStackPage_8;

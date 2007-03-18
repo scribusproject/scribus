@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QLabel>
 #include "scribusapi.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "ui_guidemanager.h"
 #include "guidemanagercore.h"
 #include "scrpalettebase.h"

@@ -32,7 +32,7 @@ class ScribusDoc;
 class ColorListBox;
 #include "colorchart.h"
 #include "colorsetmanager.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -66,19 +66,19 @@ public:
 	QLabel* CyanP;
 	QLabel* CyanT;
 	QSlider* CyanSL;
-	MSpinBox* CyanSp;
+	ScrSpinBox* CyanSp;
 	QLabel* MagentaP;
 	QLabel* MagentaT;
 	QSlider* MagentaSL;
-	MSpinBox* MagentaSp;
+	ScrSpinBox* MagentaSp;
 	QLabel* YellowP;
 	QLabel* YellowT;
 	QSlider* YellowSL;
-	MSpinBox* YellowSp;
+	ScrSpinBox* YellowSp;
 	QLabel* BlackP;
 	QLabel* BlackT;
 	QSlider* BlackSL;
-	MSpinBox* BlackSp;
+	ScrSpinBox* BlackSp;
 	QPixmap imageA;
 	QPixmap imageN;
 	QPixmap alertIcon;

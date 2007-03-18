@@ -21,7 +21,7 @@ class QLabel;
 class QPushbutton;
 class QComboBox;
 class QCheckBox;
-class MSpinBox;
+class ScrSpinBox;
 class MarginWidget;
 class ScribusDoc;
 
@@ -96,8 +96,8 @@ private:
 	Q3GroupBox* groupMaster;
 	QLabel* masterPageLabel;
 	QComboBox* masterPageComboBox;
-	MSpinBox* widthMSpinBox;
-	MSpinBox* heightMSpinBox;
+	ScrSpinBox* widthSpinBox;
+	ScrSpinBox* heightSpinBox;
 	QLabel* widthQLabel;
 	QLabel* heightQLabel;
 	QLabel* TextLabel1;

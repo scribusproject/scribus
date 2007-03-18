@@ -28,7 +28,7 @@ class Q3GridLayout;
 class QComboBox;
 class QLabel;
 class QPushButton;
-class MSpinBox;
+class ScrSpinBox;
 class QToolButton;
 
 class SCRIBUS_API RulerT : public QWidget
@@ -157,10 +157,10 @@ protected:
 	QLabel* firstLineLabel;
 	QLabel* leftIndentLabel;
 	QLabel* rightIndentLabel;
-	MSpinBox* tabData;
-	MSpinBox* firstLineData;
-	MSpinBox* leftIndentData;
-	MSpinBox* rightIndentData;
+	ScrSpinBox* tabData;
+	ScrSpinBox* firstLineData;
+	ScrSpinBox* leftIndentData;
+	ScrSpinBox* rightIndentData;
 	QPushButton* clearButton;
 
 	double docUnitRatio;

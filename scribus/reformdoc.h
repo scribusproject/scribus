@@ -30,7 +30,7 @@ class ScribusMainWindow;
 class TabTypograpy;
 class HySettings;
 class CMSPrefs;
-class MSpinBox;
+class ScrSpinBox;
 class DocInfos;
 class TabGuides;
 class TabTools;

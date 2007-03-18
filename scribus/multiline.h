@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include "linecombo.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 
 class ScribusDoc;
 
@@ -55,7 +55,7 @@ public:
 	QComboBox* LineEnds;
 	QComboBox* LineJoin;
 	QLabel* WidthText;
-	MSpinBox* LWidth;
+	ScrSpinBox* LWidth;
 	QComboBox* Color;
 	QSpinBox* Shade;
 	QPushButton* OK;

@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 class PrefsManager;
 class MarginWidget;
 class PageLayouts;
-class MSpinBox;
+class ScrSpinBox;
 class CustomFDialog;
 class ScComboBox;
 class Q3IconView;
@@ -77,11 +77,11 @@ public:
 	QCheckBox* startUpDialog;
 	QCheckBox* autoTextFrame;
 	QCheckBox* startDocSetup;
-	MSpinBox* Distance;
+	ScrSpinBox* Distance;
 	QSpinBox* numberOfCols;
 	QSpinBox* pageCountSpinBox;
-	MSpinBox* widthMSpinBox;
-	MSpinBox* heightMSpinBox;
+	ScrSpinBox* widthSpinBox;
+	ScrSpinBox* heightSpinBox;
 	Q3Frame* openDocFrame;
 	CustomFDialog *fileDialog;
 	Q3Frame* recentDocFrame;

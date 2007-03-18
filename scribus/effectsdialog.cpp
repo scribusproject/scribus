@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "page.h"
 #include "colorutil.h"
 #include "curvewidget.h"
@@ -172,14 +172,14 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout22 = new Q3HBoxLayout( 0, 0, 5, "layout7");
 	textLabel10 = new QLabel( tr( "Radius:" ), WStackPage_5, "textLabel10" );
 	layout22->addWidget( textLabel10 );
-	shRadius = new MSpinBox( 0.0, 10.0, WStackPage_5, 1 );
+	shRadius = new ScrSpinBox( 0.0, 10.0, WStackPage_5, 1 );
 	shRadius->setValue(0);
 	layout22->addWidget( shRadius );
 	WStackPage5Layout->addLayout( layout22 );
 	layout23 = new Q3HBoxLayout( 0, 0, 5, "layout7");
 	textLabel11 = new QLabel( tr("Value:"), WStackPage_5, "textLabel11" );
 	layout23->addWidget( textLabel11 );
-	shValue = new MSpinBox( 0.0, 5.0, WStackPage_5, 1 );
+	shValue = new ScrSpinBox( 0.0, 5.0, WStackPage_5, 1 );
 	shValue->setValue(1.0);
 	layout23->addWidget( shValue );
 	WStackPage5Layout->addLayout( layout23 );
@@ -191,7 +191,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout24 = new Q3HBoxLayout( 0, 0, 5, "layout7");
 	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_6, "textLabel10" );
 	layout24->addWidget( textLabel12 );
-	blRadius = new MSpinBox( 0.0, 30.0, WStackPage_6, 1 );
+	blRadius = new ScrSpinBox( 0.0, 30.0, WStackPage_6, 1 );
 	blRadius->setValue(0);
 	layout24->addWidget( blRadius );
 	WStackPage6Layout->addLayout( layout24 );

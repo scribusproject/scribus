@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsprefs.h"
 #include "units.h"
 #include "mpalette.h"
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "tabpdfoptions.h"

@@ -17,13 +17,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "fparser.h"
 
-//!brief ScrSpinBox is a Qt4 replacement for our old MSpinBox using Qt3
+//!brief ScrSpinBox is a Qt4 replacement for our old ScrSpinBox using Qt3
 class ScrSpinBox : public QDoubleSpinBox
 {
 	Q_OBJECT
 	public:
-		ScrSpinBox(QWidget *parent, int unitIndex);
-		ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex);
+		ScrSpinBox(QWidget *parent, int unitIndex=0);
+		ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex=0);
 		~ScrSpinBox();
 		
 		//overridden members

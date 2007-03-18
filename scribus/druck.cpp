@@ -47,8 +47,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 {
 	cdia = 0;
 	m_doc = doc;
-	unit = unitGetSuffixFromIndex(doc->unitIndex());
-	precision = unitGetPrecisionFromIndex(doc->unitIndex());
+	unit = doc->unitIndex();
 	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = PSettings;
@@ -169,8 +168,8 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Copies = new QSpinBox( rangeGroup, "Copies" );
 	Copies->setEnabled( true );
 	Copies->setMinimumSize( QSize( 70, 22 ) );
-	Copies->setMinValue( 1 );
-	Copies->setMaxValue(1000);
+	Copies->setMinimum( 1 );
+	Copies->setMaximum(1000);
 	Copies->setValue(1);
 	rangeGroupLayout->addWidget( Copies, 0, 3 );
 	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), rangeGroup, "TextLabel3" );
@@ -277,11 +276,8 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	MarkTxt1 = new QLabel( MarkGroup, "MarkTxt1" );
 	MarkTxt1->setText( tr( "Offset:" ) );
 	MarkGroupLayout->addWidget( MarkTxt1, 1, 1 );
-	markOffset = new MSpinBox( MarkGroup, precision );
+	markOffset = new ScrSpinBox( 0, 3000*unitRatio, MarkGroup, unit );
 	MarkGroupLayout->addWidget( markOffset, 1, 2 );
-	markOffset->setSuffix( unit );
-	markOffset->setMinValue(0);
-	markOffset->setMaxValue(3000 * unitRatio);
 	tabLayout_3->addWidget( MarkGroup, 0, 0 );
 	printOptions->insertTab( tab_3, tr( "Marks" ) );
 
@@ -297,40 +293,28 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	BleedTxt1 = new QLabel( BleedGroup, "BleedTxt1" );
 	BleedTxt1->setText( tr( "Top:" ) );
 	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
-	BleedTop = new MSpinBox( BleedGroup, precision );
+	BleedTop = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
 	BleedTxt2 = new QLabel( BleedGroup, "BleedTxt2" );
 	BleedTxt2->setText( tr( "Bottom:" ) );
 	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
-	BleedBottom = new MSpinBox( BleedGroup, precision );
+	BleedBottom = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
 	BleedTxt3 = new QLabel( BleedGroup, "BleedTxt3" );
 	BleedTxt3->setText( tr( "Left:" ) );
 	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
-	BleedRight = new MSpinBox( BleedGroup, precision );
+	BleedRight = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedRight, 0, 3 );
 	BleedTxt4 = new QLabel( BleedGroup, "BleedTxt4" );
 	BleedTxt4->setText( tr( "Right:" ) );
 	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
-	BleedLeft = new MSpinBox( BleedGroup, precision );
+	BleedLeft = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
 	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup, "docBleeds" );
 	docBleeds->setChecked(false);
 	BleedGroupLayout->addMultiCellWidget( docBleeds, 2, 2, 0, 3 );
 	tabLayout_4->addWidget( BleedGroup, 0, 0 );
 	printOptions->insertTab( tab_4, tr( "Bleeds" ) );
-	BleedTop->setSuffix( unit );
-	BleedTop->setMinValue(0);
-	BleedTop->setMaxValue(3000*unitRatio);
-	BleedBottom->setSuffix( unit );
-	BleedBottom->setMinValue(0);
-	BleedBottom->setMaxValue(3000*unitRatio);
-	BleedRight->setSuffix( unit );
-	BleedRight->setMinValue(0);
-	BleedRight->setMaxValue(3000*unitRatio);
-	BleedLeft->setSuffix( unit );
-	BleedLeft->setMinValue(0);
-	BleedLeft->setMaxValue(3000*unitRatio);
 	if (m_doc->currentPageLayout != 0)
 	{
 		BleedTxt3->setText( tr( "Inside:" ) );

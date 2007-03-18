@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 #include <qtabwidget.h>
 
-#include "mspinbox.h"
+#include "scrspinbox.h"
 #include "units.h"
 
 MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char* name, Qt::WFlags fl )
@@ -23,24 +23,27 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 {
 	setupUi(this);
 	//set tab order
-	QWidget::setTabOrder(createGapRadioButton, horizShiftMSpinBox);
-	QWidget::setTabOrder(horizShiftMSpinBox, vertShiftMSpinBox);
-	QWidget::setTabOrder(gridColsSpinBox, horizRCGapMSpinBox);
-	QWidget::setTabOrder(horizRCGapMSpinBox, vertRCGapMSpinBox);
-	QWidget::setTabOrder(vertRCGapMSpinBox, rotationMSpinBox);
+	QWidget::setTabOrder(createGapRadioButton, horizShiftSpinBox);
+	QWidget::setTabOrder(horizShiftSpinBox, vertShiftSpinBox);
+	QWidget::setTabOrder(gridColsSpinBox, horizRCGapSpinBox);
+	QWidget::setTabOrder(horizRCGapSpinBox, vertRCGapSpinBox);
+	QWidget::setTabOrder(vertRCGapSpinBox, rotationSpinBox);
 	
 	//set up mspinboxes
-	int decimals = unitGetDecimalsFromIndex(unitIndex);
-	QString unitSuffix(unitGetSuffixFromIndex(unitIndex));
-	horizShiftMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
-	vertShiftMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
-	horizRCGapMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
-	vertRCGapMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
-	rotationMSpinBox->setValues(-180.0, 180.0, 10, 0.0);
-	horizShiftMSpinBox->setSuffix(unitSuffix);
-	vertShiftMSpinBox->setSuffix(unitSuffix);
-	horizRCGapMSpinBox->setSuffix(unitSuffix);
-	vertRCGapMSpinBox->setSuffix(unitSuffix);
+	horizShiftSpinBox->setNewUnit(unitIndex);
+	vertShiftSpinBox->setNewUnit(unitIndex);
+	horizRCGapSpinBox->setNewUnit(unitIndex);
+	vertRCGapSpinBox->setNewUnit(unitIndex);
+	horizShiftSpinBox->setMinimum(-1000);
+	vertShiftSpinBox->setMinimum(-1000);
+	horizRCGapSpinBox->setMinimum(-1000);
+	vertRCGapSpinBox->setMinimum(-1000);
+	horizShiftSpinBox->setMaximum(1000);
+	vertShiftSpinBox->setMaximum(1000);
+	horizRCGapSpinBox->setMaximum(1000);
+	vertRCGapSpinBox->setMaximum(1000);
+
+	rotationSpinBox->setValues(-180.0, 180.0, 10, 0.0);
 	
 	copiesCreateButtonGroup->setButton(0);
 	// signals and slots connections
@@ -70,11 +73,11 @@ void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 	mdData.type = tabWidget->currentPageIndex();
 	mdData.copyCount = numberOfCopiesSpinBox->value();
 	mdData.copyShiftOrGap = copiesCreateButtonGroup->selectedId();
-	mdData.copyShiftGapH = horizShiftMSpinBox->value();
-	mdData.copyShiftGapV = vertShiftMSpinBox->value();
-	mdData.copyRotation = rotationMSpinBox->value();
+	mdData.copyShiftGapH = horizShiftSpinBox->value();
+	mdData.copyShiftGapV = vertShiftSpinBox->value();
+	mdData.copyRotation = rotationSpinBox->value();
 	mdData.gridRows = gridRowsSpinBox->value();
 	mdData.gridCols = gridColsSpinBox->value();
-	mdData.gridGapH = horizRCGapMSpinBox->value();
-	mdData.gridGapV = vertRCGapMSpinBox->value();
+	mdData.gridGapH = horizRCGapSpinBox->value();
+	mdData.gridGapV = vertRCGapSpinBox->value();
 }

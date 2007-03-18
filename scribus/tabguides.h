@@ -23,7 +23,7 @@ class Q3GroupBox;
 class Q3ButtonGroup;
 class QRadioButton;
 class QLabel;
-class MSpinBox;
+class ScrSpinBox;
 class QSpinBox;
 class QPushButton;
 class QCheckBox;
@@ -39,8 +39,8 @@ public:
 	void restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
 	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 
-	MSpinBox* majorSpace;
-	MSpinBox* minorSpace;
+	ScrSpinBox* majorSpace;
+	ScrSpinBox* minorSpace;
 	QSpinBox* snapDistance;
 	QLabel* checkBaseline;
 	QColor colorGuides;
@@ -76,8 +76,8 @@ public:
 	QSpinBox* grabDistance;
 	QLabel* textLabel6a;
 	QLabel* textLabel7a;
-	MSpinBox* baseGrid;
-	MSpinBox* baseOffset;
+	ScrSpinBox* baseGrid;
+	ScrSpinBox* baseOffset;
 	QLabel* textLabel8a;
 
 protected slots:

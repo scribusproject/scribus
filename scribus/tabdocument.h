@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 class QComboBox;
 class QSpinBox;
-class MSpinBox;
+class ScrSpinBox;
 class PageLayouts;
 class MarginWidget;
 class Q3HBoxLayout;
@@ -45,8 +45,8 @@ public:
 	void unitChange();
 	//! \brief Hide non-needed GUI for ReformDoc
 	void hideReform();
-	MSpinBox* pageWidth;
-	MSpinBox* pageHeight;
+	ScrSpinBox* pageWidth;
+	ScrSpinBox* pageHeight;
 	PageLayouts* docLayout;
 	MarginWidget* marginGroup;
 	Q3ButtonGroup* GroupSize;
