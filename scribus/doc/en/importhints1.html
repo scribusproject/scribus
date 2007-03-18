@@ -1,14 +1,33 @@
 <qt>
-<title>Notes on Importing EPS into Scribus</title>
-<h2>Notes on Importing EPS into Scribus</h2>
+<title>Notes on Importing EPS/PS into Scribus</title>
+<h2>Notes on Importing EPS/PS into Scribus</h2>
 
-<p>To better your chances of successfully importing EPS files it helps to have three ingredients:</p>
+<p>To better your chances of successfully importing EPS/PS files it helps to have three ingredients:</p>
  <ul>
-<li>An EPS file which is conformant to the published specs. Not all applications export EPS files with the same level of fidelity, nor do all embed fonts properly.</li>
+<li>An EPS/PS file which is conformant to the published specs. Not all applications export EPS files with the same level of fidelity, nor do all embed fonts properly.</li>
 <li>The latest Ghostscript available for your platform.</li>
-<li>Where an EPS file has fonts embedded, ensuring Ghostscript's font paths are setup correctly.See: <a href="gsfont.html">Ghostscript Fonts</a> for hints.</li></ul>
-<p>There are two basic methods of importing EPS files and both have pluses and minuses. The first is simply importing the EPS file into an image frame, much like the methods used by the GIMP or Photoshop. That is <em>rasterize</em>, or turn the EPS file into a bitmap like a tiff or JPEG. The second and often preferred method is to import the EPS into Scribus as native objects. Both have trade-offs, partly because of the inherent nature of EPS files. Like PDF, most, if not all EPS are not meant to be edited, but EPS is more of an an exchange format. However, importing them as native Scribus objects can allow some editing of some of the content, as well as re-scaling them without loss of resolution.</p>
+<li>Where an EPS file has fonts embedded, ensuring Ghostscript's font paths are setup correctly. See: <a href="gsfont.html">Ghostscript Fonts</a> for hints. This is mostly for folks using Linux or Unix with X-Windows. Windows and MacOSX users will not need to worry so much about font configuration with Ghostscript.</li></ul>
+<p>There are two basic methods of importing EPS files and both have pluses and minuses. The first and most often preferred method is to import the EPS into Scribus as native objects. Both have trade-offs, partly because of the inherent nature of EPS files. Like PDF, most, if not all EPS are not meant to be edited, but EPS is more of an an exchange format. However, importing them as native Scribus objects can allow some editing of some of the content, as well as re-scaling them without loss of resolution. </p>
 
+<p>The second is simply importing the EPS file into an image frame, much like the methods used by the GIMP or Photoshop. That is <em>rasterize</em>, or turn the EPS/PS file into a bitmap like a tiff or JPEG. This method may be the only possibility if the EPS file has embedded images. </p>
+<h4>Importing Hints:</h4>
+<p>One of my preferred ways to import EPS/PS files in to Scribus is to simply create a new document via File > Open > Select EPS/PS from the drop down in the file dialog. Then directly import the EPS/PS file. This creates a new document in which the page size is automatically calculated from the EPS bounding box. Save this temporarily under a file name.</p><p> Then, re-open the target document for import. Create a new layer and then use the page import function to import your newly created document into the new layer in your existing document. This prevents any of the imported elements from disturbing existing objects and allows you to place with precision where you want the file.</p>
+<h4>Other EPS/PS Hints:</h4>
+<ul>
+   <li>Users saving from Adobe Illustrator 9.0+ are urged to "backsave" to Illustrator version 7 or less. Why ? Illustrator 9.0+ actually uses PDF as a native format and embeds quite a bit of Adobe specific info in the EPS which can cause issues when importing. (Scribus is not alone with this issue.)  </li>
+   <li>Photoshop can export EPS natively, but these are mostly raster objects within the EPS, with some Photoshop specific features with layers and blend modes. Photoshop also can export  a special type of EPS called DCS (Desktop Color Separations). These type of EPS files are best imported into an image frame, where Scribus will detect and enable extended image editing/displaying capabilities. <a href="psd.html">More hints for Photoshop files.</a></li>
+<li>You are well advised if possible to separate images from vector and import only the vector artwork as EPS. See below.</li>
+   <li>Scribus can import multipage PS files via File > Open. Scribus will create as many pages as the Postscript file contains, but for Postscript files which are purely text this is not recommended. Currently, text is converted to outlines on import. If you need the text contained within the Postscript file you can use GSview to extract the text or the command line tool ps2ascii which comes with Ghostscript. This tool works on Windows and OSX as well. </li>
+<li>If your platform supports it, GSview is recommend above all other Postscript viewers for diagnosing and previewing Postscript. While the display is not color managed, it will generally help to diagnose issues with importing in Scribus. Simply typing <strong>M</strong> will give you a window with sometimes helpful diagnostic info.</li>
+<li>When exporting EPS or Postscript files, if possible fully embed the fonts if the option is given.</li>
+ </ul>
+<h4>Importing EPS files with Embedded Raster Graphics</h4>
+<p>Scribus can import EPS files which contain embedded raster graphics (bitmaps). However, this works far better with Ghostscript 8.50+ and there are some limitations:</p>
+<ul>
+<li>Imagemask doesn't work correctly</li>
+<li>Clipping paths are ignored</li>
+<li>Importing will create one file (A Tiff) for each bitmap and there can be many within an EPS.</li>
+</ul>
 <h3>Importing EPS as an Image</h3>
 <p>When you wish to import an EPS into Scribus and it has a mix of text, images and vector, this is the only real option. Importing in this manner, provided the fonts are correctly embedded, usually works very reliably and will maintain fidelity to the CMYK colors defined in the EPS. On initial import Scribus will ignore any embedded preview tiff or pict and will generate its own low resolution preview of the EPS. If nothing displays this is a hint something is not working correctly in the import and needs closer inspection. When exporting to PDF, the EPS is rerun through Ghostscript as it is embedded into the PDF, so do not be surprised about long PDF export times or high memory usage.
 </p>
@@ -26,29 +45,9 @@
    <li>Select the EPS. if you have previews enabled in the file chooser, large complex EPS file may take some time to render. </li>
    <li>Left Click to Drop the Cursor where you want to place the file. Once dropped on the canvas, the EPS file objects are grouped. You will need to ungroup them to edit individual objects. To scale an imported EPS, select the lower right corner and Ctrl + Left Click Drag up or down as needed. This will scale your EPS proportionately.</li>
  </ul>
-<h4>Importing Hints:</h4>
-<p>One of my preferred ways to import EPS files in to Scribus is to close all open documents. Then directly import the EPS file. This creates a new document in which the page size is automatically calculated from the EPS bounding box. Save this temporarily under a file name. Then, re-open the target document for import. Create a new layer and then use the page import function to import your newly created document into the new layer in your existing document. This prevents any of the imported elements from disturbing existing objects and allows you to place with precision where you want the file.</p>
-
-<h4>Importing EPS files with Embedded Raster Graphics</h4>
-<p>Scribus can import EPS files which contain embedded raster graphics (bitmaps). However, this works far better with Ghostscript 8.50+ and there are some limitations:</p>
-<ul>
-<li>Imagemask doesn't work correctly</li>
-<li>Clipping paths are ignored</li>
-<li>Importing will create one file (A Tiff) for each bitmap and there can be many within an EPS.</li>
-</ul>
-
-<h4>Specialized EPS Formats from Photoshop &#174; and others.</h4>
-<p>Scribus can detect and will import using native code some special types of EPS files which can be created from Photoshop and Quark X-press &#174;, among others.  </p>
-<ul>
-   <li>Scribus 1.3.4+ can import <strong>DCS 1.x and 2.0</strong> files complete with ICC profile support and support for clipping paths.  </li>
-   <li>Exporting EPS from Photoshop 6.0+ is <strong>not</strong> recommended in most cases as you will gain the best results with a native PSD file. See: <a href="psd.html">Importing Photoshop &#174; Files.</a></li>
-   <li>DCS 2.0 files from Quark are generally not recommend as they do not have conformant DSC (Document Structuring Comments) which makes parsing the EPS difficult. </li>
-   <li><a href="http://www.npes.org/standards/Tools/DCS20Spec.pdf">PDF of DCS 2.0 Specifications</a>  </li>
- </ul>
-
 
 
 <h4>Troubleshooting EPS Import </h4>
-<p>As mentioned above, EPS export quality from other applications can vary widely. Some applications like to add their own ingredients to the sauce - unfortunately. The first step for testing a failed import is open the file in <a href="toolbox6.html">GSview</a>, then press <strong>M</strong> to watch the messages from Ghostscript as it attempts to open the file. When you have a failure in GSview, the messages can be sometime cryptic, but they are a helpful pointer to see what is the problem. </p>
+<p>As mentioned above, EPS export quality from other applications can vary widely. Some applications like to add their own ingredients to the sauce - unfortunately. The first step for testing a failed import is open the file in <a href="toolbox6.html">GSview</a>, then press <strong>M</strong> to watch the messages from Ghostscript as it attempts to open the file. When you have a failure in GSview, the messages can be sometime cryptic, but they are a helpful pointer to see what is the problem.</p>
 <p></p>
 </qt>
