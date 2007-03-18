@@ -266,8 +266,8 @@ private slots:
 
 protected slots:
 	//virtual void reject();
-	void mspinboxStartUserAction();
-	void mspinboxFinishUserAction();
+	void spinboxStartUserAction();
+	void spinboxFinishUserAction();
 	void updateSpinBoxConstants();
 
 signals:
@@ -415,7 +415,8 @@ protected:
 	bool HaveDoc;
 	bool HaveItem;
 	ScribusDoc *doc;
-	double Umrech;
+	double m_unitRatio;
+	int m_unitIndex;
 	bool LMode;
 	double RoVal;
 

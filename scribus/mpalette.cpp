@@ -129,13 +129,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	HaveDoc = false;
 	HaveItem = false;
 	RoVal = 0;
-	Umrech = 1.0;
+	m_unitRatio = 1.0;
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
 	_userActionOn = false;
 	userActionSniffer = new UserActionSniffer();
-	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(mspinboxStartUserAction()));
-	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(mspinboxFinishUserAction()));
+	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(spinboxStartUserAction()));
+	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
 
 	MpalLayout = new Q3VBoxLayout( this, 5, 1, "MpalLayout");
 	setOrientation(Qt::Vertical);
@@ -166,16 +166,16 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GeoGroupLayout = new Q3GridLayout( GeoGroup->layout() );
 	GeoGroupLayout->setAlignment( Qt::AlignTop );
 
-	Xpos = new ScrSpinBox( -3000, 3000, GeoGroup, 2 );
+	Xpos = new ScrSpinBox( -3000, 3000, GeoGroup, 0 );
 	installSniffer(Xpos);
 	GeoGroupLayout->addWidget( Xpos, 0, 1 );
-	Ypos = new ScrSpinBox( -3000, 3000, GeoGroup, 2 );
+	Ypos = new ScrSpinBox( -3000, 3000, GeoGroup, 0 );
 	installSniffer(Ypos);
 	GeoGroupLayout->addWidget( Ypos, 1, 1 );
-	Width = new ScrSpinBox( GeoGroup, 2 );
+	Width = new ScrSpinBox( GeoGroup, 0 );
 	installSniffer(Width);
 	GeoGroupLayout->addWidget( Width, 2, 1 );
-	Height = new ScrSpinBox( GeoGroup, 2 );
+	Height = new ScrSpinBox( GeoGroup, 0 );
 	installSniffer(Height);
 	GeoGroupLayout->addWidget( Height, 3, 1 );
 
@@ -194,7 +194,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setOn(true);
 	GeoGroupLayout->addMultiCellWidget( keepFrameWHRatioButton, 2, 3, 2, 2 );
-	Rot = new ScrSpinBox( GeoGroup, 2);
+	Rot = new ScrSpinBox( GeoGroup, 0);
 	Rot->setWrapping( true );
 	installSniffer(Rot);
 	rotationLabel = new QLabel( Rot, "&Rotation:", GeoGroup, "rotationLabel" );
@@ -363,7 +363,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	Layout13 = new Q3HBoxLayout( 0, 0, 2, "Layout13");
 
-	RoundRect = new ScrSpinBox( page_2, 1 );
+	RoundRect = new ScrSpinBox( page_2, 0 );
 	rndcornersLabel = new QLabel( RoundRect, "R&ound\nCorners:", page_2, "rndcornersLabel" );
 	Layout13->addWidget( rndcornersLabel );
 	Layout13->addWidget( RoundRect );
@@ -382,35 +382,35 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout->setAlignment( Qt::AlignTop );
 
 	DCol = new QSpinBox(Distance, "Cols" );
-    DCol->setMaxValue( 3000 );
-    DCol->setMinValue( 1 );
+    DCol->setMaximum( 3000 );
+    DCol->setMinimum( 1 );
 	columnsLabel = new QLabel( DCol, "Colu&mns:", Distance, "columnsLabel" );
 	DistanceLayout->addWidget( columnsLabel, 0, 0 );
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
-	dGap = new ScrSpinBox( 0, 300, Distance, 1 );
+	dGap = new ScrSpinBox( 0, 300, Distance, 0 );
 //	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
 //	colgapLabel->setBuddy(dGap);
 	colgapLabel = new ScComboBox( false, Distance, "colgapLabel" );
 	DistanceLayout->addWidget( colgapLabel, 1, 0, Qt::AlignLeft );
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
-	DTop = new ScrSpinBox( 0, 300, Distance, 1 );
+	DTop = new ScrSpinBox( 0, 300, Distance, 0 );
 	topLabel = new QLabel( DTop, "To&p:", Distance, "topLabel" );
 	DistanceLayout->addWidget( topLabel, 2, 0 );
 	DistanceLayout->addWidget( DTop, 2, 1 );
 
-	DBottom = new ScrSpinBox( 0, 300, Distance, 1 );
+	DBottom = new ScrSpinBox( 0, 300, Distance, 0 );
 	bottomLabel = new QLabel( DBottom, "&Bottom:", Distance, "bottomLabel" );
 	DistanceLayout->addWidget( bottomLabel, 3, 0 );
 	DistanceLayout->addWidget( DBottom, 3, 1 );
 
-	DLeft = new ScrSpinBox( 0, 300, Distance, 1 );
+	DLeft = new ScrSpinBox( 0, 300, Distance, 0 );
 	leftLabel = new QLabel( DLeft, "&Left:", Distance, "leftLabel" );
 	DistanceLayout->addWidget( leftLabel, 4, 0 );
 	DistanceLayout->addWidget( DLeft, 4, 1 );
 
-	DRight = new ScrSpinBox( 0, 300, Distance, 1 );
+	DRight = new ScrSpinBox( 0, 300, Distance, 0 );
 	rightLabel = new QLabel( DRight, "&Right:", Distance, "rightLabel" );
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
@@ -436,13 +436,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	
 	startoffsetLabel = new QLabel( "Start Offset:", Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
-	Dist = new ScrSpinBox( 0, 30000, Distance2, 1 );
+	Dist = new ScrSpinBox( 0, 30000, Distance2, 0 );
 	Dist->setLineStepM(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
 
 	distfromcurveLabel = new QLabel( "Distance from Curve:", Distance2, "distfromcurveLabel" );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
-	LineW = new ScrSpinBox( -300, 300, Distance2, 1 );
+	LineW = new ScrSpinBox( -300, 300, Distance2, 0 );
 	LineW->setLineStepM(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
 
@@ -599,8 +599,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TransTxt = new QLabel( TransGroup, "Transtxt" );
 	Layout1t->addWidget( TransTxt, 0, 0 );
 	TransSpin = new QSpinBox( TransGroup, "traspin" );
-	TransSpin->setMinValue(0);
-	TransSpin->setMaxValue(100);
+	TransSpin->setMinimum(0);
+	TransSpin->setMaximum(100);
 	TransSpin->setLineStep(10);
 	TransSpin->setValue(100);
 	Layout1t->addWidget(TransSpin, 0, 1);
@@ -640,19 +640,19 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 //	Fonts->setMaximumSize(200, 80);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 3 );
 
-	Size = new ScrSpinBox( 0.5, 2048, page_3, 1 );
+	Size = new ScrSpinBox( 0.5, 2048, page_3, 0 );
 	Size->setPrefix( "" );
 	fontsizeLabel = new QLabel( "", page_3, "fontsizeLabel" );
 	fontsizeLabel->setPixmap(loadIcon("Zeichen.xpm"));
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
-	ChBase = new ScrSpinBox( -100, 100, page_3, 1 );
+	ChBase = new ScrSpinBox( -100, 100, page_3, 0 );
 	ChBase->setValue( 0 );
 	ChBaseTxt = new QLabel("", page_3, "ChBaseTxt" );
 	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
 	layout41->addWidget( ChBaseTxt, 1, 2 );
 	layout41->addWidget( ChBase, 1, 3 );
-	LineSp = new ScrSpinBox( page_3, 1 );
+	LineSp = new ScrSpinBox( page_3, 0 );
 	layout41->addWidget( LineSp, 2, 1 );
 	lineSpacingPop = new Q3PopupMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
@@ -665,19 +665,19 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	linespacingButton->setPopupDelay(400);
 	linespacingButton->setAutoRaise(true);
 	layout41->addWidget( linespacingButton, 2, 0 );
-	Extra = new ScrSpinBox( page_3, 1 );
+	Extra = new ScrSpinBox( page_3, 0 );
 	layout41->addWidget( Extra, 2, 3 );
 	trackingLabel = new QLabel( "", page_3, "trackingLabel" );
 	trackingLabel->setText("");
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
 	layout41->addWidget( trackingLabel, 2, 2 );
-	ChScale = new ScrSpinBox( 10, 400, page_3, 1 );
+	ChScale = new ScrSpinBox( 10, 400, page_3, 0 );
 	ChScale->setValue( 100 );
 	ScaleTxt = new QLabel("", page_3, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	layout41->addWidget( ScaleTxt, 3, 0 );
 	layout41->addWidget( ChScale, 3 , 1 );
-	ChScaleV = new ScrSpinBox( 10, 400, page_3, 1 );
+	ChScaleV = new ScrSpinBox( 10, 400, page_3, 0 );
 	ChScaleV->setValue( 100 );
 	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
@@ -752,11 +752,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
 	wordTrackingHLayout = new Q3HBoxLayout(0,0,5,"wordTrackingHLayout");
 	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
-	minWordTrackingSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
+	minWordTrackingSpinBox = new ScrSpinBox( -100, 100, page_3, 0 );
 	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
 	wordTrackingHLayout->add(minWordTrackingLabel);
 	wordTrackingHLayout->add(minWordTrackingSpinBox);
-	maxWordTrackingSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
+	maxWordTrackingSpinBox = new ScrSpinBox( -100, 100, page_3, 0 );
 	maxWordTrackingLabel = new QLabel( maxWordTrackingSpinBox, "Max:", page_3, "wordTrackingMaxLabel" );
 	wordTrackingHLayout->add(maxWordTrackingLabel);
 	wordTrackingHLayout->add(maxWordTrackingSpinBox);
@@ -766,11 +766,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
 	glyphExtensionHLayout = new Q3HBoxLayout(0,0,5,"glyphExtensionHLayout");
 	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
-	minGlyphExtSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
+	minGlyphExtSpinBox = new ScrSpinBox( -100, 100, page_3, 0 );
 	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
 	glyphExtensionHLayout->add(minGlyphExtensionLabel);
 	glyphExtensionHLayout->add(minGlyphExtSpinBox);
-	maxGlyphExtSpinBox = new ScrSpinBox( -100, 100, page_3, 1 );
+	maxGlyphExtSpinBox = new ScrSpinBox( -100, 100, page_3, 0 );
 	maxGlyphExtensionLabel = new QLabel( maxGlyphExtSpinBox, "Max:", page_3, "glyphExtensionMaxLabel" );
 	glyphExtensionHLayout->add(maxGlyphExtensionLabel);
 	glyphExtensionHLayout->add(maxGlyphExtSpinBox);
@@ -794,22 +794,22 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_4->addWidget( FreeScale );
 
 	layout43 = new Q3GridLayout( 0, 1, 1, 0, 5, "layout43");
-	imageXOffsetSpinBox = new ScrSpinBox( page_4, 2 );
+	imageXOffsetSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageXOffsetSpinBox);
 	xposImgLabel = new QLabel( imageXOffsetSpinBox, "&X-Pos:", page_4, "xposImgLabel" );
 	layout43->addWidget( xposImgLabel, 0, 0 );
 	layout43->addWidget( imageXOffsetSpinBox, 0, 1 );
-	imageYOffsetSpinBox = new ScrSpinBox( page_4, 2 );
+	imageYOffsetSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageYOffsetSpinBox);
 	yposImgLabel = new QLabel( imageYOffsetSpinBox, "&Y-Pos:", page_4, "yposImgLabel" );
 	layout43->addWidget( yposImgLabel, 1, 0 );
 	layout43->addWidget( imageYOffsetSpinBox, 1, 1 );
-	imageXScaleSpinBox = new ScrSpinBox( page_4, 1 );
+	imageXScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageXScaleSpinBox);
 	xscaleLabel = new QLabel( imageXScaleSpinBox, "X-Sc&ale:", page_4, "xscaleLabel" );
 	layout43->addWidget( xscaleLabel, 2, 0 );
 	layout43->addWidget( imageXScaleSpinBox, 2, 1 );
-	imageYScaleSpinBox = new ScrSpinBox( page_4, 1 );
+	imageYScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageYScaleSpinBox);
 	yscaleLabel = new QLabel( imageYScaleSpinBox, "Y-Scal&e:", page_4, "yscaleLabel" );
 	layout43->addWidget( yscaleLabel, 3, 0 );
@@ -819,12 +819,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	keepImageWHRatioButton->setAutoRaise( true );
 	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	layout43->addMultiCellWidget( keepImageWHRatioButton, 2, 3, 2, 2 );
-	imgDpiX = new ScrSpinBox( page_4, 1 );
+	imgDpiX = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiX);
 	imgDPIXLabel = new QLabel( imgDpiX, "Actual X-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIXLabel, 4, 0 );
 	layout43->addWidget( imgDpiX, 4, 1 );
-	imgDpiY = new ScrSpinBox( page_4, 1 );
+	imgDpiY = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiY);
 	imgDPIYLabel = new QLabel( imgDpiY, "Actual Y-DPI:", page_4, "imgDPIYLabel" );
 	layout43->addWidget( imgDPIYLabel, 5, 0 );
@@ -914,7 +914,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12_2->addWidget( startArrowText, 1, 0 );
 	endArrowText = new QLabel( endArrow, "End Arrow:", page_5, "endArrowText" );
 	Layout12_2->addWidget( endArrowText, 1, 1 );
-	LSize = new ScrSpinBox( page_5, 3 );
+	LSize = new ScrSpinBox( page_5, 0 );
 	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
 	Layout12_2->addWidget( linewidthLabel, 3, 0 );
 	Layout12_2->addWidget( LSize, 3, 1 );
@@ -1178,16 +1178,16 @@ void Mpalette::setDoc(ScribusDoc *d)
 	doc = d;
 	Cpal->setDocument(doc);
 	Cpal->setCurrentItem(NULL);
-	Umrech=doc->unitRatio();
-	double maxXYWHVal= 30000 * Umrech;
-	double minXYVal= -30000 * Umrech;
+	m_unitRatio=doc->unitRatio();
+	double maxXYWHVal= 30000 * m_unitRatio;
+	double minXYVal= -30000 * m_unitRatio;
 	HaveDoc = true;
 	HaveItem = false;
 
 	Xpos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
 	Ypos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
-	Width->setValues( Umrech, maxXYWHVal, 100, Umrech);
-	Height->setValues( Umrech, maxXYWHVal, 100, Umrech);
+	Width->setValues( m_unitRatio, maxXYWHVal, 100, m_unitRatio);
+	Height->setValues( m_unitRatio, maxXYWHVal, 100, m_unitRatio);
 	imageXOffsetSpinBox->setValues( -30000, maxXYWHVal, 100, 0);
 	imageYOffsetSpinBox->setValues( -30000, maxXYWHVal, 100, 0);
 
@@ -1206,13 +1206,13 @@ void Mpalette::setDoc(ScribusDoc *d)
 	DLeft->setDecimals(10);
 	DBottom->setDecimals(10);
 	DRight->setDecimals(10);
-	LSize->setMaxValue( 300 );
-	LSize->setMinValue( 0 );
-	Dist->setMaxValue( 30000 );
-	Dist->setMinValue( 0 );
+	LSize->setMaximum( 300 );
+	LSize->setMinimum( 0 );
+	Dist->setMaximum( 30000 );
+	Dist->setMinimum( 0 );
 	Dist->setLineStepM(10);
-	LineW->setMaxValue( 300 );
-	LineW->setMinValue( -300 );
+	LineW->setMaximum( 300 );
+	LineW->setMinimum( -300 );
 	LineW->setLineStepM(10);
 
 	updateColorList();
@@ -1284,7 +1284,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
 	LevelTxt->setText(QString::number(i->ItemNr));
 	setTextFlowMode(i->textFlowMode());
-	RoundRect->setValue(i->cornerRadius()*Umrech); */
+	RoundRect->setValue(i->cornerRadius()*m_unitRatio); */
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1322,20 +1322,20 @@ void Mpalette::setCurrentItem(PageItem *i)
 	PageItem_TextFrame* i2=i->asTextFrame();
 	if (i2!=0)
 	{
-		DCol->setMaxValue(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
-		DCol->setMinValue(1);
+		DCol->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
+		DCol->setMinimum(1);
 		DCol->setValue(i2->Cols);
-		dGap->setMinValue(0);
+		dGap->setMinimum(0);
 //		if (colgapLabel->getState())
 		if (colgapLabel->currentItem() == 0)
 		{
-			dGap->setMaxValue(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0));
-			dGap->setValue(i2->ColGap*Umrech);
+			dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0));
+			dGap->setValue(i2->ColGap*m_unitRatio);
 		}
 		else
 		{
-			dGap->setMaxValue(qMax((i2->width() / i2->Cols)*Umrech, 0));
-			dGap->setValue(i2->columnWidth()*Umrech);
+			dGap->setMaximum(qMax((i2->width() / i2->Cols)*m_unitRatio, 0));
+			dGap->setValue(i2->columnWidth()*m_unitRatio);
 		}
 	}
 	bool setter;
@@ -1575,31 +1575,31 @@ void Mpalette::SetCurItem(PageItem *i)
 		endArrow->setEnabled(false);
 	}
 	NameEdit->setText(CurItem->itemName());
-	RoundRect->setValue(CurItem->cornerRadius()*Umrech);
+	RoundRect->setValue(CurItem->cornerRadius()*m_unitRatio);
 	QString tm;
 	LevelTxt->setText(tm.setNum(CurItem->ItemNr));
 	PageItem_TextFrame *i2=CurItem->asTextFrame();
 	if (i2!=0)
 	{
-		DCol->setMaxValue(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
-		DCol->setMinValue(1);
+		DCol->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
+		DCol->setMinimum(1);
 		DCol->setValue(i2->Cols);
-		dGap->setMinValue(0);
+		dGap->setMinimum(0);
 //		if (colgapLabel->getState())
 		if (colgapLabel->currentItem() == 0)
 		{
-			dGap->setMaxValue(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0.0));
-			dGap->setValue(i2->ColGap*Umrech);
+			dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0.0));
+			dGap->setValue(i2->ColGap*m_unitRatio);
 		}
 		else
 		{
-			dGap->setMaxValue(qMax((i2->width() / i2->Cols)*Umrech, 0.0));
-			dGap->setValue(i2->columnWidth()*Umrech);
+			dGap->setMaximum(qMax((i2->width() / i2->Cols)*m_unitRatio, 0.0));
+			dGap->setValue(i2->columnWidth()*m_unitRatio);
 		}
-		DLeft->setValue(i2->textToFrameDistLeft()*Umrech);
-		DTop->setValue(i2->textToFrameDistTop()*Umrech);
-		DBottom->setValue(i2->textToFrameDistBottom()*Umrech);
-		DRight->setValue(i2->textToFrameDistRight()*Umrech);
+		DLeft->setValue(i2->textToFrameDistLeft()*m_unitRatio);
+		DTop->setValue(i2->textToFrameDistTop()*m_unitRatio);
+		DBottom->setValue(i2->textToFrameDistBottom()*m_unitRatio);
+		DRight->setValue(i2->textToFrameDistRight()*m_unitRatio);
 	}
 	Revert->setOn(CurItem->reversed());
 	setTextFlowMode(CurItem->textFlowMode());
@@ -2037,14 +2037,29 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 
 void Mpalette::unitChange()
 {
-	double oldRatio = Umrech;
-	Umrech = doc->unitRatio();
 	bool tmp = HaveItem;
 	HaveItem = false;
-	double maxXYWHVal=30000 * Umrech;
-	double minXYVal=-30000 * Umrech;
+	double oldRatio = m_unitRatio;
+	m_unitRatio = doc->unitRatio();
+	m_unitIndex = doc->unitIndex();
+    Xpos->setNewUnit( m_unitIndex );
+    Ypos->setNewUnit( m_unitIndex );
+    Width->setNewUnit( m_unitIndex );
+    Height->setNewUnit( m_unitIndex );
+    imageXOffsetSpinBox->setNewUnit( m_unitIndex );
+    imageYOffsetSpinBox->setNewUnit( m_unitIndex );
+    dGap->setNewUnit( m_unitIndex );
+    DLeft->setNewUnit( m_unitIndex );
+    DTop->setNewUnit( m_unitIndex );
+    DBottom->setNewUnit( m_unitIndex );
+    DRight->setNewUnit( m_unitIndex );
+    RoundRect->setNewUnit( m_unitIndex );
+    LSize->setNewUnit( m_unitIndex );
+/*
+	double maxXYWHVal=30000 * m_unitRatio;
+	double minXYVal=-30000 * m_unitRatio;
 
-	double ratioDivisor = Umrech / oldRatio;
+	double ratioDivisor = m_unitRatio / oldRatio;
 	double newX = Xpos->value() * ratioDivisor;
 	double newY = Ypos->value() * ratioDivisor;
 	double newW = Width->value() * ratioDivisor;
@@ -2084,39 +2099,40 @@ void Mpalette::unitChange()
 
 	Xpos->setValues( minXYVal, maxXYWHVal, decimals, newX );
 	Ypos->setValues( minXYVal, maxXYWHVal, decimals, newY );
-	Width->setValues( Umrech, maxXYWHVal, decimals, newW );
-	Height->setValues( Umrech, maxXYWHVal, decimals, newH );
+	Width->setValues( m_unitRatio, maxXYWHVal, decimals, newW );
+	Height->setValues( m_unitRatio, maxXYWHVal, decimals, newH );
 
 	imageXOffsetSpinBox->setDecimals(decimals);
-	imageXOffsetSpinBox->setMaxValue( maxXYWHVal );
+	imageXOffsetSpinBox->setMaximum( maxXYWHVal );
 	imageXOffsetSpinBox->setValue(newLX);
 
 	imageYOffsetSpinBox->setDecimals(decimals);
-	imageYOffsetSpinBox->setMaxValue( maxXYWHVal );
+	imageYOffsetSpinBox->setMaximum( maxXYWHVal );
 	imageYOffsetSpinBox->setValue(newLY);
 
 	dGap->setDecimals(decimals);
-	dGap->setMaxValue(newGM);
+	dGap->setMaximum(newGM);
 	dGap->setValue(newG);
 
 	DLeft->setDecimals(decimals);
-	DLeft->setMaxValue( 300 );
+	DLeft->setMaximum( 300 );
 	DLeft->setValue(newDL);
 
 	DTop->setDecimals(decimals);
-	DTop->setMaxValue( 300 );
+	DTop->setMaximum( 300 );
 	DTop->setValue(newDT);
 
 	DBottom->setDecimals(decimals);
-	DBottom->setMaxValue( 300 );
+	DBottom->setMaximum( 300 );
 	DBottom->setValue(newDB);
 
 	DRight->setDecimals(decimals);
-	DRight->setMaxValue( 300 );
+	DRight->setMaximum( 300 );
 	DRight->setValue(newDR);
 
 	RoundRect->setValues(-newRM, newRM, decimals, newRR);
-	Cpal->unitChange(oldRatio, Umrech, doc->unitIndex());
+*/
+	Cpal->unitChange(oldRatio, m_unitRatio, doc->unitIndex());
 	HaveItem = tmp;
 }
 
@@ -2181,8 +2197,8 @@ void Mpalette::setXY(double x, double y)
 			inY -= doc->currentPage()->yOffset();
 		}
 	}
-	Xpos->setValue(inX*Umrech);
-	Ypos->setValue(inY*Umrech);
+	Xpos->setValue(inX*m_unitRatio);
+	Ypos->setValue(inY*m_unitRatio);
 	if ((LMode) && (tmp))
 		setBH(CurItem->width(), CurItem->height());
 	HaveItem = tmp;
@@ -2200,19 +2216,19 @@ void Mpalette::setBH(double x, double y)
 	QPoint dp;
 	if ((LMode) && (CurItem->asLine()))
 	{
-		ma.translate(static_cast<double>(Xpos->value()) / Umrech, static_cast<double>(Ypos->value()) / Umrech);
+		ma.translate(static_cast<double>(Xpos->value()) / m_unitRatio, static_cast<double>(Ypos->value()) / m_unitRatio);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
 		// Qt4 dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
 		dp = QPoint(static_cast<int>(x), static_cast<int>(y)) * ma;
-		Width->setValue(dp.x()*Umrech);
-		Height->setValue(dp.y()*Umrech);
+		Width->setValue(dp.x()*m_unitRatio);
+		Height->setValue(dp.y()*m_unitRatio);
 	}
 	else
 	{
-		RoundRect->setMaxValue(qMin(x, y)/2*Umrech);
-		RoundRect->setMinValue(-qMin(x, y)/2*Umrech);
-		Width->setValue(x*Umrech);
-		Height->setValue(y*Umrech);
+		RoundRect->setMaximum(qMin(x, y)/2*m_unitRatio);
+		RoundRect->setMinimum(-qMin(x, y)/2*m_unitRatio);
+		Width->setValue(x*m_unitRatio);
+		Height->setValue(y*m_unitRatio);
 	}
 	HaveItem = tmp;
 }
@@ -2236,7 +2252,7 @@ void Mpalette::setRR(double r)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	RoundRect->setValue(r*Umrech);
+	RoundRect->setValue(r*m_unitRatio);
 	HaveItem = tmp;
 }
 
@@ -2247,28 +2263,28 @@ void Mpalette::setCols(int r, double g)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	DCol->setValue(r);
-	dGap->setValue(g*Umrech);
+	dGap->setValue(g*m_unitRatio);
 	if (tmp)
 	{
 		PageItem_TextFrame *i2=CurItem->asTextFrame();
 		if (i2!=0)
 		{
-			DCol->setMaxValue(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
+			DCol->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 //			if (colgapLabel->getState())
 			if (colgapLabel->currentItem() == 0)
 			{
-				dGap->setMaxValue(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*Umrech, 0.0));
-				dGap->setValue(i2->ColGap*Umrech);
+				dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0.0));
+				dGap->setValue(i2->ColGap*m_unitRatio);
 			}
 			else
 			{
-				dGap->setMaxValue(qMax((i2->width() / i2->Cols)*Umrech, 0.0));
-				dGap->setValue(i2->columnWidth()*Umrech);
+				dGap->setMaximum(qMax((i2->width() / i2->Cols)*m_unitRatio, 0.0));
+				dGap->setValue(i2->columnWidth()*m_unitRatio);
 			}
 		}
 	}
-	DCol->setMinValue(1);
-	dGap->setMinValue(0);
+	DCol->setMinimum(1);
+	dGap->setMinimum(0);
 	HaveItem = tmp;
 }
 
@@ -2293,7 +2309,7 @@ void Mpalette::setLsp(double r)
 		if (CurItem->currentStyle().lineSpacingMode() > 0)
 		{
 			LineSp->setSpecialValueText( tr( "Auto" ) );
-			LineSp->setMinValue(0);
+			LineSp->setMinimum(0);
 			LineSp->setValue(0);
 			LineSp->setEnabled(false);
 		}
@@ -2301,7 +2317,7 @@ void Mpalette::setLsp(double r)
 		{
 			LineSp->setEnabled(true);
 			LineSp->setSpecialValueText("");
-			LineSp->setMinValue(1);
+			LineSp->setMinimum(1);
 			LineSp->setValue(r);
 		}
 		for (uint al = 0; al < lineSpacingPop->count(); ++al)
@@ -2319,10 +2335,10 @@ void Mpalette::setDvals(double left, double top, double bottom, double right)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	DLeft->setValue(left*Umrech);
-	DTop->setValue(top*Umrech);
-	DBottom->setValue(bottom*Umrech);
-	DRight->setValue(right*Umrech);
+	DLeft->setValue(left*m_unitRatio);
+	DTop->setValue(top*m_unitRatio);
+	DBottom->setValue(bottom*m_unitRatio);
+	DRight->setValue(right*m_unitRatio);
 	HaveItem = tmp;
 }
 
@@ -2404,8 +2420,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	HaveItem = false;
 	if (tmp)
 	{
-		imageXOffsetSpinBox->setValue(x * Umrech * CurItem->imageXScale());
-		imageYOffsetSpinBox->setValue(y * Umrech * CurItem->imageYScale());
+		imageXOffsetSpinBox->setValue(x * m_unitRatio * CurItem->imageXScale());
+		imageYOffsetSpinBox->setValue(y * m_unitRatio * CurItem->imageYScale());
 		imageXScaleSpinBox->setValue(scx * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
 		imageYScaleSpinBox->setValue(scy * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
@@ -2413,8 +2429,8 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 	}
 	else
 	{
-		imageXOffsetSpinBox->setValue(x * Umrech);
-		imageYOffsetSpinBox->setValue(y * Umrech);
+		imageXOffsetSpinBox->setValue(x * m_unitRatio);
+		imageYOffsetSpinBox->setValue(y * m_unitRatio);
 		imageXScaleSpinBox->setValue(scx * 100);
 		imageYScaleSpinBox->setValue(scy * 100);
 		imgDpiX->setValue(72);
@@ -2429,7 +2445,7 @@ void Mpalette::setSvalue(double s)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LSize->setValue(s*Umrech);
+	LSize->setValue(s*m_unitRatio);
 	HaveItem = tmp;
 }
 
@@ -2624,10 +2640,10 @@ void Mpalette::NewX()
 	{
 		double x,y,w,h, gx, gy, gh, gw, base;
 		QMatrix ma;
-		x = Xpos->value() / Umrech;
-		y = Ypos->value() / Umrech;
-		w = Width->value() / Umrech;
-		h = Height->value() / Umrech;
+		x = Xpos->value() / m_unitRatio;
+		y = Ypos->value() / m_unitRatio;
+		w = Width->value() / m_unitRatio;
+		h = Height->value() / m_unitRatio;
 		base = 0;
 		x += doc->rulerXoffset;
 		y += doc->rulerYoffset;
@@ -2701,10 +2717,10 @@ void Mpalette::NewY()
 	{
 		double x,y,w,h, gx, gy, gh, gw, base;
 		QMatrix ma;
-		x = Xpos->value() / Umrech;
-		y = Ypos->value() / Umrech;
-		w = Width->value() / Umrech;
-		h = Height->value() / Umrech;
+		x = Xpos->value() / m_unitRatio;
+		y = Ypos->value() / m_unitRatio;
+		w = Width->value() / m_unitRatio;
+		h = Height->value() / m_unitRatio;
 		base = 0;
 		x += doc->rulerXoffset;
 		y += doc->rulerYoffset;
@@ -2777,10 +2793,10 @@ void Mpalette::NewW()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double x,y,w,h, gx, gy, gh, gw;
-		x = Xpos->value() / Umrech;
-		y = Ypos->value() / Umrech;
-		w = Width->value() / Umrech;
-		h = Height->value() / Umrech;
+		x = Xpos->value() / m_unitRatio;
+		y = Ypos->value() / m_unitRatio;
+		w = Width->value() / m_unitRatio;
+		h = Height->value() / m_unitRatio;
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2882,10 +2898,10 @@ void Mpalette::NewH()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double x,y,w,h, gx, gy, gh, gw;
-		x = Xpos->value() / Umrech;
-		y = Ypos->value() / Umrech;
-		w = Width->value() / Umrech;
-		h = Height->value() / Umrech;
+		x = Xpos->value() / m_unitRatio;
+		y = Ypos->value() / m_unitRatio;
+		w = Width->value() / m_unitRatio;
+		h = Height->value() / m_unitRatio;
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -3012,7 +3028,7 @@ void Mpalette::NewRR()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setCornerRadius(RoundRect->value() / Umrech);
+		CurItem->setCornerRadius(RoundRect->value() / m_unitRatio);
 		m_ScMW->view->SetFrameRounded();
 		emit DocChanged();
 	}
@@ -3064,7 +3080,7 @@ void Mpalette::NewGap()
 	{
 //		if (colgapLabel->getState())
 		if (colgapLabel->currentItem() == 0)
-			CurItem->ColGap = dGap->value() / Umrech;
+			CurItem->ColGap = dGap->value() / m_unitRatio;
 		else
 		{
 			double lineCorr;
@@ -3072,7 +3088,7 @@ void Mpalette::NewGap()
 				lineCorr = CurItem->lineWidth();
 			else
 				lineCorr = 0;
-			double newWidth = dGap->value() / Umrech;
+			double newWidth = dGap->value() / m_unitRatio;
 			double newGap = qMax(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0.0);
 			CurItem->ColGap = newGap;
 		}
@@ -3109,7 +3125,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / Umrech / CurItem->imageXScale(), imageYOffsetSpinBox->value() / Umrech / CurItem->imageYScale());
+		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / CurItem->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / CurItem->imageYScale());
 	}
 }
 
@@ -3120,10 +3136,10 @@ void Mpalette::NewLocalSC()
 	if ((HaveDoc) && (HaveItem))
 	{
 		/*doc->itemSelection_SetImageScale(imageXScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0);
-		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / Umrech / CurItem->imageXScale(), imageYOffsetSpinBox->value() / Umrech / CurItem->imageYScale());
+		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / CurItem->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / CurItem->imageYScale());
 		*/
 		//CB Dont pass in the scale to the offset change as its taken from the new scale
-		doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / Umrech, imageYOffsetSpinBox->value() / Umrech);
+		doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
 		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
@@ -3141,10 +3157,10 @@ void Mpalette::NewLocalDpi()
 	{
 		/*
 		doc->itemSelection_SetImageScale(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value());
-		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / Umrech / CurItem->imageXScale(), imageYOffsetSpinBox->value() / Umrech / CurItem->imageYScale());
+		doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / CurItem->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / CurItem->imageYScale());
 		*/
 		//CB Dont pass in the scale to the offset change as its taken from the new scale
-		doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / Umrech, imageYOffsetSpinBox->value() / Umrech);
+		doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
 		disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 		disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 		imageXScaleSpinBox->setValue(CurItem->imageXScale() * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
@@ -3179,7 +3195,7 @@ void Mpalette::NewLS()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ChLineWidth(LSize->value() / Umrech);
+		doc->ChLineWidth(LSize->value() / m_unitRatio);
 // 		emit DocChanged();
 	}
 }
@@ -3596,8 +3612,8 @@ void Mpalette::NewRotMode(int m)
 				inX -= doc->currentPage()->xOffset();
 				inY -= doc->currentPage()->yOffset();
 			}
-			Xpos->setValue(inX*Umrech);
-			Ypos->setValue(inY*Umrech);
+			Xpos->setValue(inX*m_unitRatio);
+			Ypos->setValue(inY*m_unitRatio);
 		}
 		else
 		{
@@ -3629,8 +3645,8 @@ void Mpalette::NewRotMode(int m)
 				inX -= doc->currentPage()->xOffset();
 				inY -= doc->currentPage()->yOffset();
 			}
-			Xpos->setValue(inX*Umrech);
-			Ypos->setValue(inY*Umrech);
+			Xpos->setValue(inX*m_unitRatio);
+			Ypos->setValue(inY*m_unitRatio);
 		}
 		HaveItem = true;
 	}
@@ -3699,7 +3715,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			CurItem->FrameType = f+2;
 			break;
 		}
-		m_ScMW->SCustom->setPixmap(m_ScMW->SCustom->getIconPixmap(f));
+//qt4		m_ScMW->SCustom->setPixmap(m_ScMW->SCustom->getIconPixmap(f));
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
@@ -3746,7 +3762,7 @@ void Mpalette::NewTDist()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setTextToFrameDist(DLeft->value() / Umrech, DRight->value() / Umrech, DTop->value() / Umrech, DBottom->value() / Umrech);
+		CurItem->setTextToFrameDist(DLeft->value() / m_unitRatio, DRight->value() / m_unitRatio, DTop->value() / m_unitRatio, DBottom->value() / m_unitRatio);
 		setCols(CurItem->Cols, CurItem->ColGap);
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
@@ -3759,10 +3775,10 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->GrStartX = x1 / Umrech;
-		CurItem->GrStartY = y1 / Umrech;
-		CurItem->GrEndX = x2 / Umrech;
-		CurItem->GrEndY = y2 / Umrech;
+		CurItem->GrStartX = x1 / m_unitRatio;
+		CurItem->GrStartY = y1 / m_unitRatio;
+		CurItem->GrEndX = x2 / m_unitRatio;
+		CurItem->GrEndY = y2 / m_unitRatio;
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -4289,12 +4305,12 @@ bool Mpalette::userActionOn()
 	return _userActionOn;
 }
 
-void Mpalette::mspinboxStartUserAction()
+void Mpalette::spinboxStartUserAction()
 {
 	_userActionOn = true;
 }
 
-void Mpalette::mspinboxFinishUserAction()
+void Mpalette::spinboxFinishUserAction()
 {
 	_userActionOn = false;
 
@@ -4716,10 +4732,12 @@ void Mpalette::updateSpinBoxConstants()
 		return;
 	if(doc->m_Selection->count()==0)
 		return;
+/*qt4
 	Width->setConstants(doc->constants());
 	Height->setConstants(doc->constants());
 	Xpos->setConstants(doc->constants());
 	Ypos->setConstants(doc->constants());
+*/
 }
 
 UserActionSniffer::UserActionSniffer() : QObject (this)

@@ -34,6 +34,8 @@ class ScrSpinBox : public QDoubleSpinBox
 		void init(int unitIndex);
 		void setNewUnit(int unitIndex);
 		double getValue(int unitIndex=0);
+		//implemented for backwards compatibility, perhaps we can remove this
+		void setLineStepM(int val);
 		
 	public slots:
 		void setValues(double min, double max, int deci, double val);
