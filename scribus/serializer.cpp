@@ -148,11 +148,11 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	Q3ValueList<QString>::Iterator it;
 	Q3ValueList<QString> names = lists.styleNames();
 	for (it = names.begin(); it != names.end(); ++it)
-		doc->paragraphStyles()[*it].saxx(handler);
+		doc->paragraphStyles().get(*it).saxx(handler);
 
 	names = lists.charStyleNames();
 	for (it = names.begin(); it != names.end(); ++it)
-		doc->charStyles()[*it].saxx(handler);
+		doc->charStyles().get(*it).saxx(handler);
 	
 	names = lists.lineStyleNames();
 	for (it = names.begin(); it != names.end(); ++it)

@@ -34,8 +34,9 @@ class ScrSpinBox : public QDoubleSpinBox
 		void init(int unitIndex);
 		void setNewUnit(int unitIndex);
 		double getValue(int unitIndex=0);
-		//implemented for backwards compatibility, perhaps we can remove this
+		//implemented for backwards compatibility, perhaps we can remove these?
 		void setLineStepM(int val);
+		void setTabAdvance(bool enable);		
 		
 	public slots:
 		void setValues(double min, double max, int deci, double val);
@@ -44,6 +45,7 @@ class ScrSpinBox : public QDoubleSpinBox
 	protected:
 		void setParameters( int s );
 		uint m_unitIndex;
+		bool m_tabAdvance;
 		bool eventFilter ( QObject * watched, QEvent * event );
 		
 	protected slots:

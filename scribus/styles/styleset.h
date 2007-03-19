@@ -169,7 +169,7 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 template<class STYLE>
 inline void StyleSet<STYLE>::rename(const QMap<QString,QString>& newNames)
 {
-	for (uint i=0; i < styles.count(); ++i)
+	for (int i=0; i < styles.count(); ++i)
 	{ 
 		QMap<QString,QString>::ConstIterator it;
 		

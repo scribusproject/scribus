@@ -64,7 +64,8 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	//Qt4 insertShapeButtonMenu->insertItem( Rechteck );
 	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	//newShapeIcon.smoothScale(16,16);
-	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIcon(Rechteck->getIconPixmap(0,16),Rechteck->getIconPixmap(0)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
+//qt4 fixme, Rechteck->getIconPixmap(0)));
 
 	m_ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
 	m_ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
@@ -107,7 +108,8 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 	//QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
 	//newShapeIcon.smoothScale(16,16);
 	//m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
-	m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIcon(Rechteck->getIconPixmap(s,16),Rechteck->getIconPixmap(s)));
+	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
+//qt4 fixme ,Rechteck->getIconPixmap(s)));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;

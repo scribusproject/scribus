@@ -33,6 +33,7 @@ ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIn
 void ScrSpinBox::init(int unitIndex)
 {
 	m_unitIndex=unitIndex;
+	m_tabAdvance=true;
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
 	setSingleStep(1.0);
@@ -227,7 +228,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		}
 		else if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter) || (k->key() == Qt::Key_Tab))
 		{
-// 			if (!m_tabAdvance)
+ 			if (!m_tabAdvance)
 			{
 				QDoubleSpinBox::interpretText();
 				return true;
@@ -306,4 +307,9 @@ void ScrSpinBox::setLineStepM(int val)
 {
 	QDoubleSpinBox::setSingleStep( val );
 //	currLineStep = val * Decimals;
+}
+
+void ScrSpinBox::setTabAdvance(bool enable)
+{
+	m_tabAdvance = enable;
 }

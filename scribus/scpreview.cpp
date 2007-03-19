@@ -1039,13 +1039,13 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 		if (Style & 16)
 		{
 			double st = prefsManager->appPrefs.AvailFonts[ZFo].strikeoutPos() * (Siz / 10.0);
-			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1));
+			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1.0));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 		if (Style & 8)
 		{
 			double st = prefsManager->appPrefs.AvailFonts[ZFo].underlinePos() * (Siz / 10.0);
-			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1));
+			p->setLineWidth(qMax(prefsManager->appPrefs.AvailFonts[ZFo].strokeWidth() * (Siz / 10.0), 1.0));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 		}
 	}
