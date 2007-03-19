@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3PtrList>
+#include <Q3TextStream>
+#include <QApplication>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
@@ -730,7 +732,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						tocsetup.name=tocElem.attribute("Name");
 						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName=tocElem.attribute("FrameName");
-						tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
+						tocsetup.listNonPrintingFrames=QVariant(tocElem.attribute("ListNonPrinting")).toBool();
 						tocsetup.textStyle=tocElem.attribute("Style");
 						QString numberPlacement=tocElem.attribute("NumberPlacement");
 						if (numberPlacement=="Beginning")
@@ -1672,7 +1674,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
  * 2.7.2002 C.Toepp
  * <c.toepp@gmx.de>
 */
-	Q3CString cs = docu.toCString(); // UTF-8 QCString
+	QByteArray cs = docu.toByteArray(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
 		// zipped saving
@@ -1836,7 +1838,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		newStyle.setStrikethruWidth(qRound(it->attribute("CSTW", "-0.1").toDouble() * 10));
 
 	int iobj = it->attribute("COBJ", "-1").toInt();
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		QChar ch = tmp2.at(cxx);		
 		{ // Legacy mode
@@ -3018,7 +3020,7 @@ QString Scribus13Format::AskForFont(QString fStr, ScribusDoc *doc)
 	{
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
@@ -3323,7 +3325,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		}
 		if (item->effectsInUse.count() != 0)
 		{
-			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
 				QDomElement imeff = docu->createElement("ImageEffect");
 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
