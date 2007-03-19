@@ -254,7 +254,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 		Items = m_Doc->DocItems;
 	else
 		Items = m_Doc->MasterItems;
-	for (uint la = 0; la < m_Doc->Layers.count(); la++)
+	for (int la = 0; la < m_Doc->Layers.count(); la++)
 		{
 		Level2Layer(m_Doc, &ll, Lnr);
 		if (ll.isPrintable)
@@ -407,8 +407,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				}
 				else
 				{
-					QString Dt = FToStr(qMax(2*Item->lineWidth(), 1));
-					QString Da = FToStr(qMax(6*Item->lineWidth(), 1));
+					QString Dt = FToStr(qMax(2*Item->lineWidth(), 1.0));
+					QString Da = FToStr(qMax(6*Item->lineWidth(), 1.0));
 					switch (Item->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -820,8 +820,8 @@ QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
 			break;
 		}
 	tmp += " stroke-dasharray:";
-	QString Dt = FToStr(qMax(2*sl->Width, 1));
-	QString Da = FToStr(qMax(6*sl->Width, 1));
+	QString Dt = FToStr(qMax(2*sl->Width, 1.0));
+	QString Da = FToStr(qMax(6*sl->Width, 1.0));
 	switch (static_cast<Qt::PenStyle>(sl->Dash))
 		{
 		case Qt::SolidLine:

@@ -223,7 +223,8 @@ bool SVGPlug::loadData(QString fName)
 	{
 		fi.readBlock(bb.data(), 2);
 		fi.close();
-		if ((bb[0] == QChar(0x1F)) && (bb[1] == QChar(0x8B)))
+		// Qt4 bb[0]->QChar(bb[0])
+		if ((QChar(bb[0]) == QChar(0x1F)) && (QChar(bb[1]) == QChar(0x8B)))
 			isCompressed = true;
 	}
 	if ((fName.right(2) == "gz") || (isCompressed))
@@ -322,7 +323,7 @@ void SVGPlug::convert(int flags)
 		importFailed = true;
 		if (importedColors.count() != 0)
 		{
-			for (uint cd = 0; cd < importedColors.count(); cd++)
+			for (int cd = 0; cd < importedColors.count(); cd++)
 			{
 				m_Doc->PageColors.remove(importedColors[cd]);
 			}
@@ -410,7 +411,7 @@ void SVGPlug::convert(int flags)
 	m_Doc->scMW()->ScriptRunning = false;
 	if (interactive)
 		m_Doc->setLoading(false);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
 		if (flags & LoadSavePlugin::lfScripted)
@@ -455,7 +456,7 @@ void SVGPlug::convert(int flags)
 			{
 				if (importedColors.count() != 0)
 				{
-					for (uint cd = 0; cd < importedColors.count(); cd++)
+					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
@@ -1265,7 +1266,7 @@ Q3PtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElem
 	ite->TxtStrikePos = -1;
 	ite->TxtStrikeWidth = -1;
 		*/
-	for (uint tt = 0; tt < Text.length(); ++tt)
+	for (int tt = 0; tt < Text.length(); ++tt)
 	{
 		CharStyle nstyle;
 		QString ch = Text.mid(tt,1);

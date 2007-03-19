@@ -113,8 +113,8 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	// a string. Otherwise, save it to disk.
 	if (QString::fromUtf8(FileName).isEmpty())
 	{
-		Q3CString buffer_string = "";
-		QBuffer buffer(buffer_string);
+		QByteArray buffer_string = "";
+		QBuffer buffer(&buffer_string);
 		buffer.open(QIODevice::WriteOnly);
 		bool ret = pm.save(&buffer, format);
 		if (!ret)

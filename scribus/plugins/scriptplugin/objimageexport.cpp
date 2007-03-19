@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "page.h"
 
+#include <QPicture>
 #include <structmember.h>
 #include <qfileinfo.h>
 #include <vector>
@@ -111,7 +112,7 @@ static PyObject *ImageExport_getAllTypes(ImageExport */*self*/, void */*closure*
 {
 	PyObject *l;
 	int pos = 0;
-	QStringList list = QImage::outputFormatList();
+	QStringList list = QPicture::outputFormatList();
 	l = PyList_New(list.count());
 	for (QStringList::Iterator it = list.begin(); it != list.end(); ++it)
 	{
