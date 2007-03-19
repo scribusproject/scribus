@@ -205,6 +205,21 @@ void PageSize::generatePageSizeList()
 		height = width;
 		width = floor(tmp / 2.0);
 	}
+
+	/* PA series */
+	width  = 840;
+	height = 1120;
+	for (format = 0; format <= 10; format++) {
+		info.width=mm2pts(width);
+		info.height=mm2pts(height);
+		info.pageUnitIndex=SC_MM;
+		name=QString("PA%1").arg(format);
+		info.trSizeName=name;
+		pageSizeList.insert(name, info);
+		tmp = height;
+		height = width;
+		width = floor(tmp / 2.0);
+	}
 	
 	//Imperial
 	//http://en.wikipedia.org/wiki/Paper_sizes
