@@ -115,7 +115,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 		paraStyleCombo->setFormat("");
 	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
 	pmen->clear();
-	pmen->insertItem(paraStyleCombo);
+//qt4 FIXME	pmen->insertItem(paraStyleCombo);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 }
@@ -206,13 +206,13 @@ void SEditor::setCurrentDocument(ScribusDoc *docc)
 	StyledText = StoryText(docc);
 }
 
-void SEditor::imEndEvent(QIMEvent *e)
+void SEditor::inputMethodEvent(QInputMethodEvent *event)
 {
-	QString uc = e->text();
+	QString uc = event->commitString();
 	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 	{
-		insChars(e->text());
-		Q3TextEdit::imEndEvent(e);
+		insChars(event->commitString());
+		Q3TextEdit::inputMethodEvent(event);
 		emit SideBarUp(true);
 		emit SideBarUpdate();
 	}
@@ -821,7 +821,7 @@ void SEditor::paste()
 		if (!data.isNull())
 		{
 			data.replace(QRegExp("\r"), "");
-			newParaCount=data.contains("\n");
+			newParaCount=data.count("\n");
 			lengthLastPara=data.length()-data.findRev("\n");
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 //			inserted=true;
@@ -1376,7 +1376,7 @@ void StoryEditor::initActions()
 	connect( seActions["editUpdateFrame"], SIGNAL(activated()), this, SLOT(updateTextFrame()) );
 
 	//Insert Menu
-	seActions.insert("insertGlyph", new ScrAction(QIcon(noIcon), "", QKeySequence(), this, "insertGlyph"));
+	seActions.insert("insertGlyph", new ScrAction(QPixmap(), QPixmap(), "", QKeySequence(), this, "insertGlyph"));
 	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
 
 	//Settings Menu
