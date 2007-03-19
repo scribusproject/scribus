@@ -8,8 +8,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMTEXTSTYLEWIDGETS_H
 #define SMTEXTSTYLEWIDGETS_H
 
-#include "smpstylewbase.h"
-#include "smcstylewbase.h"
+#include "ui_smpstylew.h"
+#include "ui_smcstylew.h"
+//qt4 #include "smpstylewbase.h"
+//qt4#include "smcstylewbase.h"
 #include "styles/styleset.h"
 //Added by qt3to4:
 #include <Q3HBoxLayout>
@@ -38,80 +40,12 @@ class SMScComboBox;
 class SMShadeButton;
 class CharStyle;
 class ParagraphStyle;
-class SMCStylePage;
+//qt4class SMCStylePage;
 class ColorList;
 class SMColorCombo;
 class SMStyleSelect;
 
-class SMPStyleWidget : public PStyleWBase
-{
-	Q_OBJECT
-public:
-	SMPStyleWidget();
-	~SMPStyleWidget();
-
-	void show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &pstyles, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
-	void show(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<ParagraphStyle> &pstylesAll, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
-
-	void clearAll();
-
-	void languageChange();
-
-	void unitChange(double oldRatio, double newRatio, int unitIndex);
-
-private:
-	Q3GridLayout *distancesBoxLayout;
-	Q3GridLayout *dropCapsBoxLayout;
-	Q3VBoxLayout *tabsBoxLayout;
-
-	SMScComboBox *lineSpacingMode_;
-
-	QLabel      *pixmapLabel0;
-	QLabel      *pixmapLabel1;
-	QLabel      *pixmapLabel2;
-	QLabel      *pixmapLabel3;
-	QLabel      *pixmapLabel4;
-	QLabel      *capLabel1;
-	QLabel      *capLabel2;
-
-	SMScrSpinBox  *lineSpacing_;
-	SMScrSpinBox  *spaceAbove_;
-	SMScrSpinBox  *spaceBelow_;
-	SMSpinBox   *dropCapLines_;
-	SMScrSpinBox  *dropCapOffset_;
-
-	SMAlignSelect *alignement_;
-	SMTabruler    *tabList_;
-	SMCStylePage  *cpage;
-
-	bool hasParent_;
-	bool parentDropCap_;
-
-	void setupDistances();
-	void setupDropCaps();
-	void setupTabs();
-	void setupCharStyle();
-
-	void showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles);
-	void showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showAlignment(Q3ValueList<ParagraphStyle*> &pstyles);
-	void showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showCStyle(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
-	void showParent(Q3ValueList<ParagraphStyle*> &pstyles);
-
-	friend class SMParagraphStyle;
-
-private slots:
-	void slotLineSpacingModeChanged(int);
-	void slotDropCap(bool isOn);
-	void slotParentDropCap();
-
-signals:
-	void useParentDropCap();
-};
-
-class SMCStylePage : public CStylePBase
+class SMCStylePage : public QWidget, Ui::CStyleP
 {
 	Q_OBJECT
 public:
@@ -179,6 +113,75 @@ private:
 
 private slots:
 	void slotColorChange();
+};
+
+
+class SMPStyleWidget : public QWidget, Ui::PStyleW
+{
+	Q_OBJECT
+public:
+	SMPStyleWidget();
+	~SMPStyleWidget();
+
+	void show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &pstyles, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
+	void show(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<ParagraphStyle> &pstylesAll, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
+
+	void clearAll();
+
+	void languageChange();
+
+	void unitChange(double oldRatio, double newRatio, int unitIndex);
+
+private:
+	Q3GridLayout *distancesBoxLayout;
+	Q3GridLayout *dropCapsBoxLayout;
+	Q3VBoxLayout *tabsBoxLayout;
+
+	SMScComboBox *lineSpacingMode_;
+
+	QLabel      *pixmapLabel0;
+	QLabel      *pixmapLabel1;
+	QLabel      *pixmapLabel2;
+	QLabel      *pixmapLabel3;
+	QLabel      *pixmapLabel4;
+	QLabel      *capLabel1;
+	QLabel      *capLabel2;
+
+	SMScrSpinBox  *lineSpacing_;
+	SMScrSpinBox  *spaceAbove_;
+	SMScrSpinBox  *spaceBelow_;
+	SMSpinBox   *dropCapLines_;
+	SMScrSpinBox  *dropCapOffset_;
+
+	SMAlignSelect *alignement_;
+	SMTabruler    *tabList_;
+	SMCStylePage  *cpage;
+
+	bool hasParent_;
+	bool parentDropCap_;
+
+	void setupDistances();
+	void setupDropCaps();
+	void setupTabs();
+	void setupCharStyle();
+
+	void showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles);
+	void showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showAlignment(Q3ValueList<ParagraphStyle*> &pstyles);
+	void showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showCStyle(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
+	void showParent(Q3ValueList<ParagraphStyle*> &pstyles);
+
+	friend class SMParagraphStyle;
+
+private slots:
+	void slotLineSpacingModeChanged(int);
+	void slotDropCap(bool isOn);
+	void slotParentDropCap();
+
+signals:
+	void useParentDropCap();
 };
 
 #endif

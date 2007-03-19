@@ -38,8 +38,645 @@ static bool isEqual(double a, double b)
     return al == bl;
 }
 
-SMPStyleWidget::SMPStyleWidget()
+/******************************************************************************/
+/******************************************************************************/
+
+SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 {
+	setupUi(this);
+	basicGroup->setColumnLayout(0, Qt::Vertical );
+	basicGroup->layout()->setSpacing( 0 );
+	basicGroup->layout()->setMargin( 0 );
+	basicBoxLayout = new Q3VBoxLayout(basicGroup->layout());	
+	basicBoxLayout->setAlignment( Qt::AlignTop );
+	basicBoxLayout->setSpacing( 5 );
+	basicBoxLayout->setMargin( 10 );
+
+	fontFace_ = new SMFontComboH(basicGroup);
+	basicBoxLayout->addWidget( fontFace_ );
+	
+	spinBoxLayoutBasic_ = new Q3GridLayout(1, 9);
+	fontSize_ = new SMScrSpinBox( 1, 2048, basicGroup, 1 );
+	fontSize_->setMinimumSize( QSize( 70, 22 ) );
+	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
+	fontSizeLabel_ = new QLabel( "" ,basicGroup, "TextF2" );
+	fontSizeLabel_->setPixmap(loadIcon("Zeichen.xpm"));
+	fontSizeLabel_->setMinimumSize( QSize( 22, 22 ) );
+	fontSizeLabel_->setMaximumSize( QSize( 22, 22 ) );
+	trackingLabel_ = new QLabel( basicGroup, "pixmapLabel3_3" );
+	trackingLabel_->setMinimumSize( QSize( 22, 22 ) );
+	trackingLabel_->setMaximumSize( QSize( 22, 22 ) );
+	trackingLabel_->setPixmap( loadIcon("textkern.png") );
+	tracking_ = new SMScrSpinBox( -300, 300, basicGroup, 1 );
+	tracking_->setSuffix( tr( " %" ) );
+	spinBoxLayoutBasic_->addWidget(fontSizeLabel_, 0, 0);
+	spinBoxLayoutBasic_->addMultiCellWidget(fontSize_, 0, 0, 1, 2);
+	spinBoxLayoutBasic_->addWidget(trackingLabel_, 0, 3);
+	spinBoxLayoutBasic_->addMultiCellWidget(tracking_, 0, 0, 4, 5);
+//qt4	spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+//qt4  	spinBoxLayoutBasic_->addItem( spacer4 );
+	basicBoxLayout->addLayout( spinBoxLayoutBasic_ );
+	
+	layout8 = new Q3HBoxLayout( 0, 0, 0, "layout8");
+	effects_ = new SMStyleSelect(basicGroup);
+	layout8->addWidget(effects_);
+	spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  	layout8->addItem( spacer2 );
+
+	basicBoxLayout->addLayout( layout8, Qt::AlignLeft );
+
+	advGroup->setColumnLayout(0, Qt::Vertical );
+	advGroup->layout()->setSpacing( 0 );
+	advGroup->layout()->setMargin( 0 );
+	advBoxLayout = new Q3VBoxLayout(advGroup->layout());	
+	advBoxLayout->setAlignment( Qt::AlignTop );
+	advBoxLayout->setSpacing( 5 );
+	advBoxLayout->setMargin( 10 );
+	
+	spinBoxLayout_ = new Q3GridLayout(1, 9);
+
+	baselineOffsetLabel_ = new QLabel( advGroup, "pixmapLabel2" );
+	baselineOffsetLabel_->setMinimumSize( QSize( 22, 22 ) );
+	baselineOffsetLabel_->setMaximumSize( QSize( 22, 22 ) );
+	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
+
+	baselineOffset_ = new SMScrSpinBox( -100, 100, advGroup, 1 );
+	baselineOffset_->setSuffix( tr( " %" ) );
+
+	spinBoxLayout_->addWidget(baselineOffsetLabel_, 0, 6);
+	spinBoxLayout_->addMultiCellWidget(baselineOffset_, 0, 0, 7, 8);
+
+	hscaleLabel_ = new QLabel( "", advGroup, "pixmapLabel3" );
+	hscaleLabel_->setMinimumSize( QSize( 22, 22 ) );
+	hscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
+	hscaleLabel_->setPixmap( loadIcon("textscaleh.png") );
+
+	fontHScale_ = new SMScrSpinBox( 10, 400, advGroup, 1 );
+	fontHScale_->setSuffix( tr( " %" ) );
+
+	spinBoxLayout_->addWidget(hscaleLabel_, 0, 0);
+	spinBoxLayout_->addMultiCellWidget(fontHScale_, 0, 0, 1, 2);
+
+	vscaleLabel_ = new QLabel( "", advGroup, "pixmapLabel3_2" );
+	vscaleLabel_->setMinimumSize( QSize( 22, 22 ) );
+	vscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
+	vscaleLabel_->setPixmap( loadIcon("textscalev.png") );
+
+	fontVScale_ = new SMScrSpinBox( 10, 400, advGroup, 1 );
+	fontVScale_->setSuffix( tr( " %" ) );
+
+	spinBoxLayout_->addWidget(vscaleLabel_, 0, 3);
+	spinBoxLayout_->addMultiCellWidget(fontVScale_, 0, 0, 4, 5);
+
+	spinBoxLayout_->setColStretch(9, 10);
+
+	advBoxLayout->addLayout( spinBoxLayout_, Qt::AlignLeft );
+	
+	layout9a = new Q3HBoxLayout( 0, 0, 0, "layout9");
+	languageLabel_ = new QLabel( "", advGroup, "languageLabel_" );
+	language_ = new SMScComboBox(false, advGroup, "language_");
+	layout9a->addWidget(languageLabel_);
+	layout9a->addWidget(language_);
+
+ 	spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  	layout9a->addItem( spacer1 );
+	advBoxLayout->addLayout( layout9a, Qt::AlignLeft );
+	
+	
+	
+	
+	smColorGroup->setColumnLayout(0, Qt::Vertical );
+	smColorGroup->layout()->setSpacing( 0 );
+	smColorGroup->layout()->setMargin( 0 );
+	colorBoxLayout = new Q3VBoxLayout(smColorGroup->layout());	
+	colorBoxLayout->setAlignment( Qt::AlignTop );
+	colorBoxLayout->setSpacing( 5 );
+	colorBoxLayout->setMargin( 10 );
+	
+	layout5 = new Q3HBoxLayout( 0, 0, 5, "layout5");
+	FillIcon = new QLabel( "", smColorGroup, "FillIcon" );
+	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
+	layout5->addWidget( FillIcon );
+
+	fillColor_ = new SMColorCombo(smColorGroup, "TxFill");
+	layout5->addWidget( fillColor_ );
+
+	pixmapLabel3_20 = new QLabel( smColorGroup, "pixmapLabel3_20" );
+	pixmapLabel3_20->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_20->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_20->setPixmap( loadIcon("shade.png") );
+	layout5->addWidget( pixmapLabel3_20 );
+
+	fillShade_ = new SMShadeButton(smColorGroup);
+	layout5->addWidget( fillShade_ );
+	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout5->addItem( spacer3 );
+	colorBoxLayout->addLayout( layout5 );
+
+	layout6 = new Q3HBoxLayout( 0, 0, 5, "layout6");
+	StrokeIcon = new QLabel( "", smColorGroup, "StrokeIcon" );
+	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
+	layout6->addWidget( StrokeIcon );
+
+	strokeColor_ = new SMColorCombo(smColorGroup, "TxStroke");
+	layout6->addWidget( strokeColor_ );
+
+	pixmapLabel3_19 = new QLabel( "", smColorGroup, "pixmapLabel3_19" );
+	pixmapLabel3_19->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_19->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_19->setPixmap( loadIcon("shade.png") );
+	layout6->addWidget( pixmapLabel3_19 );
+
+	strokeShade_ = new SMShadeButton(smColorGroup);
+	layout6->addWidget( strokeShade_ );
+
+	spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout6->addItem( spacer3 );
+	colorBoxLayout->addLayout( layout6 );
+
+	fillColor_->clear();
+	strokeColor_->clear();
+	ColorList::Iterator it;
+	QPixmap pm = QPixmap(15, 15);
+	fillColor_->insertItem(CommonStrings::tr_NoneColor);
+	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
+	StrokeIcon->setEnabled(false);
+	strokeShade_->setEnabled(false);
+	strokeColor_->setEnabled(false);
+
+	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
+}
+
+void SMCStylePage::languageChange()
+{
+/***********************************/
+/*      Begin Tooltips             */
+/***********************************/
+// These are for the character style page
+// as in character styles and in paragraph style's character style
+
+	QToolTip::add(parentCombo,     tr("Parent style"));
+	QToolTip::add(fontFace_,       tr("Font face"));
+	QToolTip::add(fontSize_,       tr("Font size"));
+	QToolTip::add(tracking_,       tr("Tracking"));
+	QToolTip::add(baselineOffset_, tr("Baseline offset"));
+	QToolTip::add(fontHScale_,     tr("Horizontal scaling"));
+	QToolTip::add(fontVScale_,     tr("Vertical scaling"));
+	QToolTip::add(language_,       tr("Language"));
+	QToolTip::add(fillColor_,      tr("Fill color"));
+	QToolTip::add(fillShade_,      tr("Fill shade"));
+	QToolTip::add(strokeColor_,    tr("Stroke color"));
+	QToolTip::add(strokeShade_,    tr("Stroke shade"));
+
+/***********************************/
+/*        End Tooltips             */
+/***********************************/
+
+	parentLabel->setText( tr("Based On:"));
+	languageLabel_->setText( tr("Language:"));
+	fontVScale_->setSuffix( tr(" %"));
+	fontHScale_->setSuffix( tr(" %"));
+	baselineOffset_->setSuffix( tr(" %"));
+	tracking_->setSuffix( tr(" %"));
+	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
+}
+
+void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
+{
+	QStringList sortList;
+	QMap<QString,QString>::Iterator it;
+
+	langMap_ = langMap;
+
+	language_->clear();
+
+	for (it = langMap.begin(); it != langMap.end(); ++it)
+		sortList.push_back(it.data());
+
+	language_->insertStringList(sortQStringList(sortList));
+	language_->listBox()->setMinimumWidth(language_->listBox()->maxItemWidth() + 24);
+}
+
+void SMCStylePage::fillColorCombo(ColorList &colors)
+{
+	fillColor_->clear();
+	strokeColor_->clear();
+
+	fillColor_->insertItem(CommonStrings::tr_NoneColor);
+	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
+	ColorList::Iterator itend=colors.end();
+	ScribusDoc* doc = colors.document();
+	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
+	{
+		fillColor_->insertSmallItem(it.data(), doc, it.key());
+		strokeColor_->insertSmallItem(it.data(), doc, it.key());
+	}
+	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
+	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
+}
+
+void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
+{
+	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
+	parentCombo->setEnabled(true);
+	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
+	bool hasParent =  cstyle->hasParent() && parent != 0 && parent->hasName() && cstyle->parent() != "";
+	if (hasParent)
+	{
+		fontSize_->setValue(cstyle->fontSize() / 10.0, cstyle->isInhFontSize());
+		fontSize_->setParentValue(parent->fontSize() / 10.0);
+
+		fontHScale_->setValue(cstyle->scaleH() / 10.0, cstyle->isInhScaleH());
+		fontHScale_->setParentValue(parent->scaleH() / 10.0);
+
+		fontVScale_->setValue(cstyle->scaleV() / 10.0, cstyle->isInhScaleV());
+		fontVScale_->setParentValue(parent->scaleV() / 10.0);
+
+		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0, cstyle->isInhBaselineOffset());
+		baselineOffset_->setParentValue(parent->baselineOffset() / 10.0);
+
+		tracking_->setValue(cstyle->tracking() / 10.0, cstyle->isInhTracking());
+		tracking_->setParentValue(parent->tracking() / 10.0);
+
+		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhEffects());
+		effects_->setParentItem(static_cast<int>(parent->effects()));
+
+		fillShade_->setValue(cstyle->fillShade(), cstyle->isInhFillShade());
+		fillShade_->setParentValue(parent->fillShade());
+
+		strokeShade_->setValue(cstyle->strokeShade(), cstyle->isInhStrokeShade());
+		strokeShade_->setParentValue(parent->strokeShade());
+
+		fillColor_->setCurrentText(cstyle->fillColor(), cstyle->isInhFillColor());
+		fillColor_->setParentText(parent->fillColor());
+
+		strokeColor_->setCurrentText(cstyle->strokeColor(), cstyle->isInhStrokeColor());
+		strokeColor_->setParentText(parent->strokeColor());
+
+		fontFace_->setCurrentFont(cstyle->font().scName(), cstyle->isInhFont());
+		fontFace_->setParentFont(parent->font().scName());
+	}
+	else
+	{
+		fontSize_->setValue(cstyle->fontSize() / 10.0);
+		fontHScale_->setValue(cstyle->scaleH() / 10.0);
+		fontVScale_->setValue(cstyle->scaleV() / 10.0);
+		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0);
+		tracking_->setValue(cstyle->tracking() / 10.0);
+		effects_->setStyle(static_cast<int>(cstyle->effects()));
+		fillShade_->setValue(cstyle->fillShade());
+		strokeShade_->setValue(cstyle->strokeShade());
+		fillColor_->setCurrentText(cstyle->fillColor());
+		strokeColor_->setCurrentText(cstyle->strokeColor());
+		fontFace_->setCurrentFont(cstyle->font().scName());
+	}
+
+	effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
+	effects_->ShadowVal->Yoffset->setValue(cstyle->shadowYOffset() / 10.0);
+	effects_->OutlineVal->LWidth->setValue(cstyle->outlineWidth() / 10.0);
+	effects_->StrikeVal->LPos->setValue(cstyle->strikethruOffset() / 10.0);
+	effects_->StrikeVal->LWidth->setValue(cstyle->strikethruWidth() / 10.0);
+	effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
+	effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
+	slotColorChange();
+
+	parentCombo->clear();
+	parentCombo->insertItem("");
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (cstyles[i].name() != cstyle->name())
+			parentCombo->insertItem(cstyles[i].name());
+	}
+
+	if (hasParent)
+	{
+		int index = 0;
+		for (int i = 0; i < parentCombo->count(); ++i)
+		{
+			if (parentCombo->text(i) == cstyle->parentStyle()->name())
+			{
+				index = i;
+				break;
+			}
+		}
+		parentCombo->setCurrentItem(index);
+	}
+	else
+		parentCombo->setCurrentItem(0);
+
+	QString clang = cstyle->language().isNull() || cstyle->language().isEmpty() ?
+	                                      defLang : cstyle->language();
+	QString plang(QString::null);
+	if (hasParent)
+		plang = parent->language().isNull() || parent->language().isEmpty() ?
+		                              defLang : parent->language();
+
+	int ci = -1, pi = -1, di = -1;
+	for (int i = 0; i < language_->count(); ++i)
+	{
+		if (language_->text(i) == langMap_[clang])
+			ci = i;
+		
+		if (hasParent && language_->text(i) == langMap_[plang])
+			pi = i;
+
+		if (language_->text(i) == defLang || language_->text(i) == langMap_[defLang])
+			di = i;
+	}
+
+	Q_ASSERT(di != -1);
+
+	if (hasParent)
+	{
+		if (ci == -1)
+			language_->setCurrentItem(di, cstyle->isInhLanguage());
+		else
+			language_->setCurrentItem(ci, cstyle->isInhLanguage());
+
+		language_->setParentItem(pi);
+	}
+	else
+	{
+		if (ci == -1)
+			language_->setCurrentItem(di);
+		else
+			language_->setCurrentItem(ci);
+	}
+
+	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
+}
+
+void SMCStylePage::show(Q3ValueList<CharStyle*> &cstyles, Q3ValueList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
+{
+// 	int decimals = unitGetDecimalsFromIndex(unitIndex);
+// 	QString suffix = unitGetSuffixFromIndex(unitIndex);
+
+	if (cstyles.count() == 1)
+		show(cstyles[0], cstylesAll, defLang, unitIndex);
+	else if (cstyles.count() > 1)
+	{
+		showSizeAndPosition(cstyles);
+		showEffects(cstyles);
+		showColors(cstyles);
+		showLanguage(cstyles, defLang);
+		showParent(cstyles);
+	}
+}
+
+void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
+{
+	int d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->fontSize() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->fontSize();
+	}
+	if (d == -30000)
+		fontSize_->clear();
+	else
+		fontSize_->setValue(d / 10.0);
+
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->scaleH() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->scaleH();
+	}
+	if (d == -30000)
+		fontHScale_->clear();
+	else
+		fontHScale_->setValue(d / 10.0);
+
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->scaleV() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->scaleV();
+	}
+	if (d == -30000)
+		fontVScale_->clear();
+	else
+		fontVScale_->setValue(d / 10.0);
+
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->baselineOffset() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->baselineOffset();
+	}
+	if (d == -30000)
+		baselineOffset_->clear();
+	else
+		baselineOffset_->setValue(d / 10.0);
+
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->tracking() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->tracking();
+	}
+	if (d == -30000)
+		tracking_->clear();
+	else
+		tracking_->setValue(d / 10.0);
+}
+
+void SMCStylePage::showEffects(const Q3ValueList<CharStyle*> &cstyles)
+{
+	int d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && static_cast<int>(cstyles[i]->effects()) != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = static_cast<int>(cstyles[i]->effects());
+	}
+	if (d == -30000)
+		effects_->setStyle(0);
+	else
+		effects_->setStyle(d);
+
+// 	TODO these things still missing:
+// 		effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
+// 		effects_->ShadowVal->Yoffset->setValue(cstyle->shadowYOffset() / 10.0);
+// 		effects_->OutlineVal->LWidth->setValue(cstyle->outlineWidth() / 10.0);
+// 		effects_->StrikeVal->LPos->setValue(cstyle->strikethruOffset() / 10.0);
+// 		effects_->StrikeVal->LWidth->setValue(cstyle->strikethruWidth() / 10.0);
+// 		effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
+// 		effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
+}
+
+void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
+{
+	strokeShade_->setEnabled(true);
+	strokeColor_->setEnabled(true);
+
+	int d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->fillShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->fillShade();
+	}
+	if (d == -30000)
+		fillShade_->setText( tr("Shade"));
+	else
+		fillShade_->setValue(d);
+
+	d = -30000;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->strokeShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->strokeShade();
+	}
+	if (d == -30000)
+	{
+		strokeShade_->setValue(21);
+		strokeShade_->setText( tr("Shade"));
+	}
+	else
+		strokeShade_->setValue(d);
+
+	QString s(QString::null);
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (!s.isNull() && s != cstyles[i]->fillColor())
+		{
+			s = QString::null;
+			break;
+		}
+		else
+			s = cstyles[i]->fillColor();
+	}
+	if (s.isNull())
+	{
+		if (fillColor_->text(fillColor_->count() - 1) != "")
+			fillColor_->insertItem("");
+		fillColor_->setCurrentItem(fillColor_->count() - 1);
+	}
+	else
+		fillColor_->setCurrentText(s);
+
+	s = QString::null;
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (!s.isNull() && s != cstyles[i]->strokeColor())
+		{
+			s = QString::null;
+			break;
+		}
+		else
+			s = cstyles[i]->strokeColor();
+	}
+	if (s.isNull())
+	{
+		if (strokeColor_->text(strokeColor_->count() - 1) != "")
+			strokeColor_->insertItem("");
+		strokeColor_->setCurrentItem(fillColor_->count() - 1);
+	}
+	else
+		strokeColor_->setCurrentText(s);
+}
+
+void SMCStylePage::showLanguage(const Q3ValueList<CharStyle*> &cstyles, const QString &defLang)
+{
+	QString s(cstyles[0]->language());
+	for (int i = 0; i < cstyles.count(); ++i)
+	{
+		if (s != cstyles[i]->language())
+		{
+			s = QString::null;
+			break;
+		}
+		else
+			s = cstyles[i]->language();
+	}
+
+	if (s.isNull())
+	{
+		if (language_->text(language_->count() - 1) != "")
+			language_->insertItem("");
+		language_->setCurrentItem(language_->count() - 1);
+	}
+	else
+	{
+		Q_ASSERT(langMap_.contains(s));
+		language_->setCurrentText(langMap_[s]);
+	}
+}
+
+void SMCStylePage::showParent(const Q3ValueList<CharStyle*> &cstyles)
+{
+	parentCombo->setEnabled(false);
+}
+
+void SMCStylePage::clearAll()
+{
+	
+}
+
+void SMCStylePage::slotColorChange()
+{
+	int s = effects_->getStyle();
+	bool enabled;
+	if ((s & 4) || (s & 256))
+		enabled = true;
+	else
+		enabled = false;
+	StrokeIcon->setEnabled(enabled);
+	strokeShade_->setEnabled(enabled);
+	strokeColor_->setEnabled(enabled);
+}
+
+
+SMCStylePage::~SMCStylePage()
+{
+	
+}
+
+/******************************************************************************/
+/******************************************************************************/
+
+SMPStyleWidget::SMPStyleWidget() : QWidget()
+{
+	setupUi(this);
 	setupDistances();
 	setupDropCaps();
 	setupTabs();
@@ -140,12 +777,12 @@ void SMPStyleWidget::languageChange()
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
 {
-    spaceAbove_->setNewUnit(oldRatio, newRatio, unitIndex);
-	spaceBelow_->setNewUnit(oldRatio, newRatio, unitIndex);
-	dropCapOffset_->setNewUnit(oldRatio, newRatio, unitIndex);
-	tabList_->left_->setNewUnit(oldRatio, newRatio, unitIndex);
-	tabList_->right_->setNewUnit(oldRatio, newRatio, unitIndex);
-	tabList_->first_->setNewUnit(oldRatio, newRatio, unitIndex);
+    spaceAbove_->setNewUnit(unitIndex);
+	spaceBelow_->setNewUnit(unitIndex);
+	dropCapOffset_->setNewUnit(unitIndex);
+	tabList_->left_->setNewUnit(unitIndex);
+	tabList_->right_->setNewUnit(unitIndex);
+	tabList_->first_->setNewUnit(unitIndex);
 }
 
 void SMPStyleWidget::setupDropCaps()
@@ -641,637 +1278,3 @@ SMPStyleWidget::~SMPStyleWidget()
 	
 }
 
-/******************************************************************************/
-/******************************************************************************/
-
-SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
-{
-	basicGroup->setColumnLayout(0, Qt::Vertical );
-	basicGroup->layout()->setSpacing( 0 );
-	basicGroup->layout()->setMargin( 0 );
-	basicBoxLayout = new Q3VBoxLayout(basicGroup->layout());	
-	basicBoxLayout->setAlignment( Qt::AlignTop );
-	basicBoxLayout->setSpacing( 5 );
-	basicBoxLayout->setMargin( 10 );
-
-	fontFace_ = new SMFontComboH(basicGroup);
-	basicBoxLayout->addWidget( fontFace_ );
-	
-	spinBoxLayoutBasic_ = new Q3GridLayout(1, 9);
-	fontSize_ = new SMScrSpinBox( 1, 2048, basicGroup, 1 );
-	fontSize_->setMinimumSize( QSize( 70, 22 ) );
-	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
-	fontSizeLabel_ = new QLabel( "" ,basicGroup, "TextF2" );
-	fontSizeLabel_->setPixmap(loadIcon("Zeichen.xpm"));
-	fontSizeLabel_->setMinimumSize( QSize( 22, 22 ) );
-	fontSizeLabel_->setMaximumSize( QSize( 22, 22 ) );
-	trackingLabel_ = new QLabel( basicGroup, "pixmapLabel3_3" );
-	trackingLabel_->setMinimumSize( QSize( 22, 22 ) );
-	trackingLabel_->setMaximumSize( QSize( 22, 22 ) );
-	trackingLabel_->setPixmap( loadIcon("textkern.png") );
-	tracking_ = new SMScrSpinBox( -300, 300, basicGroup, 1 );
-	tracking_->setSuffix( tr( " %" ) );
-	spinBoxLayoutBasic_->addWidget(fontSizeLabel_, 0, 0);
-	spinBoxLayoutBasic_->addMultiCellWidget(fontSize_, 0, 0, 1, 2);
-	spinBoxLayoutBasic_->addWidget(trackingLabel_, 0, 3);
-	spinBoxLayoutBasic_->addMultiCellWidget(tracking_, 0, 0, 4, 5);
-	spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  	spinBoxLayoutBasic_->addItem( spacer4 );
-	basicBoxLayout->addLayout( spinBoxLayoutBasic_ );
-	
-	layout8 = new Q3HBoxLayout( 0, 0, 0, "layout8");
-	effects_ = new SMStyleSelect(basicGroup);
-	layout8->addWidget(effects_);
-	spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  	layout8->addItem( spacer2 );
-
-	basicBoxLayout->addLayout( layout8, Qt::AlignLeft );
-
-	advGroup->setColumnLayout(0, Qt::Vertical );
-	advGroup->layout()->setSpacing( 0 );
-	advGroup->layout()->setMargin( 0 );
-	advBoxLayout = new Q3VBoxLayout(advGroup->layout());	
-	advBoxLayout->setAlignment( Qt::AlignTop );
-	advBoxLayout->setSpacing( 5 );
-	advBoxLayout->setMargin( 10 );
-	
-	spinBoxLayout_ = new Q3GridLayout(1, 9);
-
-	baselineOffsetLabel_ = new QLabel( advGroup, "pixmapLabel2" );
-	baselineOffsetLabel_->setMinimumSize( QSize( 22, 22 ) );
-	baselineOffsetLabel_->setMaximumSize( QSize( 22, 22 ) );
-	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
-
-	baselineOffset_ = new SMScrSpinBox( -100, 100, advGroup, 1 );
-	baselineOffset_->setSuffix( tr( " %" ) );
-
-	spinBoxLayout_->addWidget(baselineOffsetLabel_, 0, 6);
-	spinBoxLayout_->addMultiCellWidget(baselineOffset_, 0, 0, 7, 8);
-
-	hscaleLabel_ = new QLabel( "", advGroup, "pixmapLabel3" );
-	hscaleLabel_->setMinimumSize( QSize( 22, 22 ) );
-	hscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
-	hscaleLabel_->setPixmap( loadIcon("textscaleh.png") );
-
-	fontHScale_ = new SMScrSpinBox( 10, 400, advGroup, 1 );
-	fontHScale_->setSuffix( tr( " %" ) );
-
-	spinBoxLayout_->addWidget(hscaleLabel_, 0, 0);
-	spinBoxLayout_->addMultiCellWidget(fontHScale_, 0, 0, 1, 2);
-
-	vscaleLabel_ = new QLabel( "", advGroup, "pixmapLabel3_2" );
-	vscaleLabel_->setMinimumSize( QSize( 22, 22 ) );
-	vscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
-	vscaleLabel_->setPixmap( loadIcon("textscalev.png") );
-
-	fontVScale_ = new SMScrSpinBox( 10, 400, advGroup, 1 );
-	fontVScale_->setSuffix( tr( " %" ) );
-
-	spinBoxLayout_->addWidget(vscaleLabel_, 0, 3);
-	spinBoxLayout_->addMultiCellWidget(fontVScale_, 0, 0, 4, 5);
-
-	spinBoxLayout_->setColStretch(9, 10);
-
-	advBoxLayout->addLayout( spinBoxLayout_, Qt::AlignLeft );
-	
-	layout9a = new Q3HBoxLayout( 0, 0, 0, "layout9");
-	languageLabel_ = new QLabel( "", advGroup, "languageLabel_" );
-	language_ = new SMScComboBox(false, advGroup, "language_");
-	layout9a->addWidget(languageLabel_);
-	layout9a->addWidget(language_);
-
- 	spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  	layout9a->addItem( spacer1 );
-	advBoxLayout->addLayout( layout9a, Qt::AlignLeft );
-	
-	
-	
-	
-	colorGroup->setColumnLayout(0, Qt::Vertical );
-	colorGroup->layout()->setSpacing( 0 );
-	colorGroup->layout()->setMargin( 0 );
-	colorBoxLayout = new Q3VBoxLayout(colorGroup->layout());	
-	colorBoxLayout->setAlignment( Qt::AlignTop );
-	colorBoxLayout->setSpacing( 5 );
-	colorBoxLayout->setMargin( 10 );
-	
-	layout5 = new Q3HBoxLayout( 0, 0, 5, "layout5");
-	FillIcon = new QLabel( "", colorGroup, "FillIcon" );
-	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
-	layout5->addWidget( FillIcon );
-
-	fillColor_ = new SMColorCombo(colorGroup, "TxFill");
-	layout5->addWidget( fillColor_ );
-
-	pixmapLabel3_20 = new QLabel( colorGroup, "pixmapLabel3_20" );
-	pixmapLabel3_20->setMinimumSize( QSize( 22, 22 ) );
-	pixmapLabel3_20->setMaximumSize( QSize( 22, 22 ) );
-	pixmapLabel3_20->setPixmap( loadIcon("shade.png") );
-	layout5->addWidget( pixmapLabel3_20 );
-
-	fillShade_ = new SMShadeButton(colorGroup);
-	layout5->addWidget( fillShade_ );
-	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout5->addItem( spacer3 );
-	colorBoxLayout->addLayout( layout5 );
-
-	layout6 = new Q3HBoxLayout( 0, 0, 5, "layout6");
-	StrokeIcon = new QLabel( "", colorGroup, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
-	layout6->addWidget( StrokeIcon );
-
-	strokeColor_ = new SMColorCombo(colorGroup, "TxStroke");
-	layout6->addWidget( strokeColor_ );
-
-	pixmapLabel3_19 = new QLabel( "", colorGroup, "pixmapLabel3_19" );
-	pixmapLabel3_19->setMinimumSize( QSize( 22, 22 ) );
-	pixmapLabel3_19->setMaximumSize( QSize( 22, 22 ) );
-	pixmapLabel3_19->setPixmap( loadIcon("shade.png") );
-	layout6->addWidget( pixmapLabel3_19 );
-
-	strokeShade_ = new SMShadeButton(colorGroup);
-	layout6->addWidget( strokeShade_ );
-
-	spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout6->addItem( spacer3 );
-	colorBoxLayout->addLayout( layout6 );
-
-	fillColor_->clear();
-	strokeColor_->clear();
-	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
-	fillColor_->insertItem(CommonStrings::tr_NoneColor);
-	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
-	StrokeIcon->setEnabled(false);
-	strokeShade_->setEnabled(false);
-	strokeColor_->setEnabled(false);
-
-	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
-}
-
-void SMCStylePage::languageChange()
-{
-/***********************************/
-/*      Begin Tooltips             */
-/***********************************/
-// These are for the character style page
-// as in character styles and in paragraph style's character style
-
-	QToolTip::add(parentCombo,     tr("Parent style"));
-	QToolTip::add(fontFace_,       tr("Font face"));
-	QToolTip::add(fontSize_,       tr("Font size"));
-	QToolTip::add(tracking_,       tr("Tracking"));
-	QToolTip::add(baselineOffset_, tr("Baseline offset"));
-	QToolTip::add(fontHScale_,     tr("Horizontal scaling"));
-	QToolTip::add(fontVScale_,     tr("Vertical scaling"));
-	QToolTip::add(language_,       tr("Language"));
-	QToolTip::add(fillColor_,      tr("Fill color"));
-	QToolTip::add(fillShade_,      tr("Fill shade"));
-	QToolTip::add(strokeColor_,    tr("Stroke color"));
-	QToolTip::add(strokeShade_,    tr("Stroke shade"));
-
-/***********************************/
-/*        End Tooltips             */
-/***********************************/
-
-	parentLabel->setText( tr("Based On:"));
-	languageLabel_->setText( tr("Language:"));
-	fontVScale_->setSuffix( tr(" %"));
-	fontHScale_->setSuffix( tr(" %"));
-	baselineOffset_->setSuffix( tr(" %"));
-	tracking_->setSuffix( tr(" %"));
-	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
-}
-
-void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
-{
-	QStringList sortList;
-	QMap<QString,QString>::Iterator it;
-
-	langMap_ = langMap;
-
-	language_->clear();
-
-	for (it = langMap.begin(); it != langMap.end(); ++it)
-		sortList.push_back(it.data());
-
-	language_->insertStringList(sortQStringList(sortList));
-	language_->listBox()->setMinimumWidth(language_->listBox()->maxItemWidth() + 24);
-}
-
-void SMCStylePage::fillColorCombo(ColorList &colors)
-{
-	fillColor_->clear();
-	strokeColor_->clear();
-
-	fillColor_->insertItem(CommonStrings::tr_NoneColor);
-	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
-	ColorList::Iterator itend=colors.end();
-	ScribusDoc* doc = colors.document();
-	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
-	{
-		fillColor_->insertSmallItem(it.data(), doc, it.key());
-		strokeColor_->insertSmallItem(it.data(), doc, it.key());
-	}
-	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
-	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
-}
-
-void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
-{
-	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
-	parentCombo->setEnabled(true);
-	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
-	bool hasParent =  cstyle->hasParent() && parent != 0 && parent->hasName() && cstyle->parent() != "";
-	if (hasParent)
-	{
-		fontSize_->setValue(cstyle->fontSize() / 10.0, cstyle->isInhFontSize());
-		fontSize_->setParentValue(parent->fontSize() / 10.0);
-
-		fontHScale_->setValue(cstyle->scaleH() / 10.0, cstyle->isInhScaleH());
-		fontHScale_->setParentValue(parent->scaleH() / 10.0);
-
-		fontVScale_->setValue(cstyle->scaleV() / 10.0, cstyle->isInhScaleV());
-		fontVScale_->setParentValue(parent->scaleV() / 10.0);
-
-		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0, cstyle->isInhBaselineOffset());
-		baselineOffset_->setParentValue(parent->baselineOffset() / 10.0);
-
-		tracking_->setValue(cstyle->tracking() / 10.0, cstyle->isInhTracking());
-		tracking_->setParentValue(parent->tracking() / 10.0);
-
-		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhEffects());
-		effects_->setParentItem(static_cast<int>(parent->effects()));
-
-		fillShade_->setValue(cstyle->fillShade(), cstyle->isInhFillShade());
-		fillShade_->setParentValue(parent->fillShade());
-
-		strokeShade_->setValue(cstyle->strokeShade(), cstyle->isInhStrokeShade());
-		strokeShade_->setParentValue(parent->strokeShade());
-
-		fillColor_->setCurrentText(cstyle->fillColor(), cstyle->isInhFillColor());
-		fillColor_->setParentText(parent->fillColor());
-
-		strokeColor_->setCurrentText(cstyle->strokeColor(), cstyle->isInhStrokeColor());
-		strokeColor_->setParentText(parent->strokeColor());
-
-		fontFace_->setCurrentFont(cstyle->font().scName(), cstyle->isInhFont());
-		fontFace_->setParentFont(parent->font().scName());
-	}
-	else
-	{
-		fontSize_->setValue(cstyle->fontSize() / 10.0);
-		fontHScale_->setValue(cstyle->scaleH() / 10.0);
-		fontVScale_->setValue(cstyle->scaleV() / 10.0);
-		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0);
-		tracking_->setValue(cstyle->tracking() / 10.0);
-		effects_->setStyle(static_cast<int>(cstyle->effects()));
-		fillShade_->setValue(cstyle->fillShade());
-		strokeShade_->setValue(cstyle->strokeShade());
-		fillColor_->setCurrentText(cstyle->fillColor());
-		strokeColor_->setCurrentText(cstyle->strokeColor());
-		fontFace_->setCurrentFont(cstyle->font().scName());
-	}
-
-	effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
-	effects_->ShadowVal->Yoffset->setValue(cstyle->shadowYOffset() / 10.0);
-	effects_->OutlineVal->LWidth->setValue(cstyle->outlineWidth() / 10.0);
-	effects_->StrikeVal->LPos->setValue(cstyle->strikethruOffset() / 10.0);
-	effects_->StrikeVal->LWidth->setValue(cstyle->strikethruWidth() / 10.0);
-	effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
-	effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
-	slotColorChange();
-
-	parentCombo->clear();
-	parentCombo->insertItem("");
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (cstyles[i].name() != cstyle->name())
-			parentCombo->insertItem(cstyles[i].name());
-	}
-
-	if (hasParent)
-	{
-		int index = 0;
-		for (int i = 0; i < parentCombo->count(); ++i)
-		{
-			if (parentCombo->text(i) == cstyle->parentStyle()->name())
-			{
-				index = i;
-				break;
-			}
-		}
-		parentCombo->setCurrentItem(index);
-	}
-	else
-		parentCombo->setCurrentItem(0);
-
-	QString clang = cstyle->language().isNull() || cstyle->language().isEmpty() ?
-	                                      defLang : cstyle->language();
-	QString plang(QString::null);
-	if (hasParent)
-		plang = parent->language().isNull() || parent->language().isEmpty() ?
-		                              defLang : parent->language();
-
-	int ci = -1, pi = -1, di = -1;
-	for (int i = 0; i < language_->count(); ++i)
-	{
-		if (language_->text(i) == langMap_[clang])
-			ci = i;
-		
-		if (hasParent && language_->text(i) == langMap_[plang])
-			pi = i;
-
-		if (language_->text(i) == defLang || language_->text(i) == langMap_[defLang])
-			di = i;
-	}
-
-	Q_ASSERT(di != -1);
-
-	if (hasParent)
-	{
-		if (ci == -1)
-			language_->setCurrentItem(di, cstyle->isInhLanguage());
-		else
-			language_->setCurrentItem(ci, cstyle->isInhLanguage());
-
-		language_->setParentItem(pi);
-	}
-	else
-	{
-		if (ci == -1)
-			language_->setCurrentItem(di);
-		else
-			language_->setCurrentItem(ci);
-	}
-
-	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
-}
-
-void SMCStylePage::show(Q3ValueList<CharStyle*> &cstyles, Q3ValueList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
-{
-// 	int decimals = unitGetDecimalsFromIndex(unitIndex);
-// 	QString suffix = unitGetSuffixFromIndex(unitIndex);
-
-	if (cstyles.count() == 1)
-		show(cstyles[0], cstylesAll, defLang, unitIndex);
-	else if (cstyles.count() > 1)
-	{
-		showSizeAndPosition(cstyles);
-		showEffects(cstyles);
-		showColors(cstyles);
-		showLanguage(cstyles, defLang);
-		showParent(cstyles);
-	}
-}
-
-void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
-{
-	int d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->fontSize() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->fontSize();
-	}
-	if (d == -30000)
-		fontSize_->clear();
-	else
-		fontSize_->setValue(d / 10.0);
-
-	d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->scaleH() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->scaleH();
-	}
-	if (d == -30000)
-		fontHScale_->clear();
-	else
-		fontHScale_->setValue(d / 10.0);
-
-	d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->scaleV() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->scaleV();
-	}
-	if (d == -30000)
-		fontVScale_->clear();
-	else
-		fontVScale_->setValue(d / 10.0);
-
-	d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->baselineOffset() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->baselineOffset();
-	}
-	if (d == -30000)
-		baselineOffset_->clear();
-	else
-		baselineOffset_->setValue(d / 10.0);
-
-	d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->tracking() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->tracking();
-	}
-	if (d == -30000)
-		tracking_->clear();
-	else
-		tracking_->setValue(d / 10.0);
-}
-
-void SMCStylePage::showEffects(const Q3ValueList<CharStyle*> &cstyles)
-{
-	int d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && static_cast<int>(cstyles[i]->effects()) != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = static_cast<int>(cstyles[i]->effects());
-	}
-	if (d == -30000)
-		effects_->setStyle(0);
-	else
-		effects_->setStyle(d);
-
-// 	TODO these things still missing:
-// 		effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
-// 		effects_->ShadowVal->Yoffset->setValue(cstyle->shadowYOffset() / 10.0);
-// 		effects_->OutlineVal->LWidth->setValue(cstyle->outlineWidth() / 10.0);
-// 		effects_->StrikeVal->LPos->setValue(cstyle->strikethruOffset() / 10.0);
-// 		effects_->StrikeVal->LWidth->setValue(cstyle->strikethruWidth() / 10.0);
-// 		effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
-// 		effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
-}
-
-void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
-{
-	strokeShade_->setEnabled(true);
-	strokeColor_->setEnabled(true);
-
-	int d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->fillShade() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->fillShade();
-	}
-	if (d == -30000)
-		fillShade_->setText( tr("Shade"));
-	else
-		fillShade_->setValue(d);
-
-	d = -30000;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (d != -30000 && cstyles[i]->strokeShade() != d)
-		{
-			d = -30000;
-			break;
-		}
-		else
-			d = cstyles[i]->strokeShade();
-	}
-	if (d == -30000)
-	{
-		strokeShade_->setValue(21);
-		strokeShade_->setText( tr("Shade"));
-	}
-	else
-		strokeShade_->setValue(d);
-
-	QString s(QString::null);
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (!s.isNull() && s != cstyles[i]->fillColor())
-		{
-			s = QString::null;
-			break;
-		}
-		else
-			s = cstyles[i]->fillColor();
-	}
-	if (s.isNull())
-	{
-		if (fillColor_->text(fillColor_->count() - 1) != "")
-			fillColor_->insertItem("");
-		fillColor_->setCurrentItem(fillColor_->count() - 1);
-	}
-	else
-		fillColor_->setCurrentText(s);
-
-	s = QString::null;
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (!s.isNull() && s != cstyles[i]->strokeColor())
-		{
-			s = QString::null;
-			break;
-		}
-		else
-			s = cstyles[i]->strokeColor();
-	}
-	if (s.isNull())
-	{
-		if (strokeColor_->text(strokeColor_->count() - 1) != "")
-			strokeColor_->insertItem("");
-		strokeColor_->setCurrentItem(fillColor_->count() - 1);
-	}
-	else
-		strokeColor_->setCurrentText(s);
-}
-
-void SMCStylePage::showLanguage(const Q3ValueList<CharStyle*> &cstyles, const QString &defLang)
-{
-	QString s(cstyles[0]->language());
-	for (int i = 0; i < cstyles.count(); ++i)
-	{
-		if (s != cstyles[i]->language())
-		{
-			s = QString::null;
-			break;
-		}
-		else
-			s = cstyles[i]->language();
-	}
-
-	if (s.isNull())
-	{
-		if (language_->text(language_->count() - 1) != "")
-			language_->insertItem("");
-		language_->setCurrentItem(language_->count() - 1);
-	}
-	else
-	{
-		Q_ASSERT(langMap_.contains(s));
-		language_->setCurrentText(langMap_[s]);
-	}
-}
-
-void SMCStylePage::showParent(const Q3ValueList<CharStyle*> &cstyles)
-{
-	parentCombo->setEnabled(false);
-}
-
-void SMCStylePage::clearAll()
-{
-	
-}
-
-void SMCStylePage::slotColorChange()
-{
-	int s = effects_->getStyle();
-	bool enabled;
-	if ((s & 4) || (s & 256))
-		enabled = true;
-	else
-		enabled = false;
-	StrokeIcon->setEnabled(enabled);
-	strokeShade_->setEnabled(enabled);
-	strokeColor_->setEnabled(enabled);
-}
-
-
-SMCStylePage::~SMCStylePage()
-{
-	
-}
-
-/******************************************************************************/
-/******************************************************************************/
