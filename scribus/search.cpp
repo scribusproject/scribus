@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <QPixmap>
 #include <Q3VBoxLayout>
+#include <QListView>
 
 #include "colorlistbox.h"
 #include "commonstrings.h"
@@ -105,7 +106,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
 			SStyleVal->insertItem(doc->paragraphStyles()[x].name());
 	}
-	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
+	QListView *tmpView = dynamic_cast<QListView*>(SStyleVal->view()); Q_ASSERT(tmpView);
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 	SStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
 	SStyleVal->setEnabled(false);
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
@@ -125,7 +129,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillVal = new ColorCombo( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
 	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
+	SFillVal->setMinimumWidth(SFillVal->listBox()->maxItemWidth() + 24);
 	SFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
 	SearchLayout->addWidget( SFillVal, 5, 1 );
@@ -135,7 +139,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
 	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
+	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth() + 24);
 	SStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
 	SearchLayout->addWidget( SStrokeVal, 7, 1 );
@@ -190,7 +194,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		for (uint x = 5; x < doc->paragraphStyles().count(); ++x)
 			RStyleVal->insertItem(doc->paragraphStyles()[x].name());
 	}
-	RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
+	tmpView = dynamic_cast<QListView*>(RStyleVal->view()); Q_ASSERT(tmpView);
+	tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 	RStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
 	RStyleVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
@@ -210,7 +217,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
 	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
+	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth() + 24);
 	RFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillVal, 5, 1 );
@@ -220,7 +227,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
 	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
+	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth() + 24);
 	RStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeVal, 7, 1 );

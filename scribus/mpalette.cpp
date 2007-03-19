@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <QCloseEvent>
 #include <Q3GridLayout>
+#include <QListView>
 
 #include "arrowchooser.h"
 #include "autoform.h"
@@ -4242,7 +4243,10 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 	for (it = langMap.begin(); it != langMap.end(); ++it)
 		sortList.push_back(it.data());
 	langCombo->insertStringList(sortQStringList(sortList));
-	langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth() + 24);
+	QListView *tmpView = dynamic_cast<QListView*>(langCombo->view()); Q_ASSERT(tmpView);
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 
 void Mpalette::NewLanguage()

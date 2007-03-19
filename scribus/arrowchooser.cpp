@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3listbox.h>
 //Added by qt3to4:
 #include <Q3ValueList>
+#include <QListView>
 #include "scpainter.h"
 #include <qimage.h>
 #include "util.h"
@@ -20,7 +21,7 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : Q3ComboBox(true, pa)
 	setEditable(false);
 	clear();
 	insertItem( tr("None"));
-	setMaximumWidth(listBox()->maxItemWidth()*2+22);
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()*2 + 22);
 	arrowDirection = direction;
 }
 

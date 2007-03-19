@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <QPixmap>
 #include <QLabel>
+#include <QListView>
 
 #include "sccombobox.h"
 
@@ -111,7 +112,10 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		else if (type == ScFace::TTF)
 			insertItem(ttfFont, it2.data());
 	}
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	QListView *tmpView = dynamic_cast<QListView*>(view());
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 
 FontComboH::FontComboH(QWidget* parent, bool labels) :

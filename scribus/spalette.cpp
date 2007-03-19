@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "spalette.h"
 //#include "spalette.moc"
+#include <QListView>
 
 #include "page.h"
 
@@ -65,7 +66,10 @@ void ParaStyleComboBox::updateFormatList()
 		st.sort();
 		insertStringList(st);
 	}
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	QListView *tmpView = dynamic_cast<QListView*>(view());
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
@@ -123,7 +127,10 @@ void CharStyleComboBox::updateFormatList()
 		st.sort();
 		insertStringList(st);
 	}
-	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	QListView *tmpView = dynamic_cast<QListView*>(view());
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 

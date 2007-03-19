@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
 #include <cmath>
+#include <QListView>
 
 static bool isEqual(double a, double b)
 {
@@ -254,7 +255,11 @@ void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
 		sortList.push_back(it.data());
 
 	language_->insertStringList(sortQStringList(sortList));
-	language_->listBox()->setMinimumWidth(language_->listBox()->maxItemWidth() + 24);
+
+	QListView *tmpView = dynamic_cast<QListView*>(language_->view()); Q_ASSERT(tmpView);
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 
 void SMCStylePage::fillColorCombo(ColorList &colors)
