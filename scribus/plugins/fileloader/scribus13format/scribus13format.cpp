@@ -1626,6 +1626,9 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 			case Type_A_B_C:
 				currsection.setAttribute("Type", "Type_A_B_C");
 				break;
+			case Type_None:
+				currsection.setAttribute("Type", "Type_None");
+				break;
 		}
 		currsection.setAttribute("Start", (*it).sectionstartindex);
 		currsection.setAttribute("Reversed", (*it).reversed);

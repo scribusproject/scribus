@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "story.h"
 #include "menumanager.h"
-#include "fmitem.h"
+//qt4 #include "fmitem.h"
 #include "mpalette.h"
 #include "smwidgets.h"
 
@@ -97,7 +97,7 @@ Q3ValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 		reloadTmpStyles();
 	}
 
-	for (int i = 0; i < tmpStyles_.count(); ++i)
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
 	{
 		if (tmpStyles_[i].hasName())
 		{
@@ -132,9 +132,9 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 
 	Q3ValueList<ParagraphStyle> pstyles; // get saved styles
 	Q3ValueList<CharStyle> cstyles;
-	for (int i = 0; i < tmpStyles_.count(); ++i)
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
 		pstyles << tmpStyles_[i];
-	for (int i = 0; i < cstyles_->count(); ++i)
+	for (uint i = 0; i < cstyles_->count(); ++i)
 		cstyles << (*cstyles_)[i];
 
 	int index;
@@ -145,7 +145,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), (*cstyles_)[""].language());
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), (*cstyles_).get("").language());
 
 	setupConnections();
 }
@@ -157,7 +157,7 @@ Q3ValueList<CharStyle> SMParagraphStyle::getCharStyles()
 		return charStyles; // no doc available
 
 	const StyleSet<CharStyle> &tmp(doc_->charStyles());
-	for (int i = 0; i < tmp.count(); ++i)
+	for (uint i = 0; i < tmp.count(); ++i)
 		charStyles.append(tmp[i]);
 	return charStyles;
 }
@@ -168,7 +168,7 @@ QString SMParagraphStyle::fromSelection() const
 	if (!doc_)
 		return lsName; // no doc available
 
-	for (int i = 0; i < doc_->m_Selection->count(); ++i)
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
@@ -215,7 +215,7 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 		return QString::null;
 
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
-	ParagraphStyle p(tmpStyles_[fromStyle]);
+	ParagraphStyle p(tmpStyles_.get(fromStyle));
 	p.setName(s);
 	p.setShortcut(QString::null); // do not clone the sc
 	tmpStyles_.create(p);
@@ -234,7 +234,7 @@ QString SMParagraphStyle::getUniqueName(const QString &name)
 	{
 start:
 		++id;
-		for (int i = 0; i < tmpStyles_.count(); ++i)
+		for (uint i = 0; i < tmpStyles_.count(); ++i)
 		{
 			if (tmpStyles_[i].name() == s)
 			{
@@ -335,7 +335,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 	tmpStyles_.create(p);
 	selection_.clear();
 	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
 	{
 		int index = tmpStyles_.find(oldName);
 		if (index > -1)
@@ -345,7 +345,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
 	{
 		if (tmpStyles_[j].parent() == oldName)
 			tmpStyles_[j].setParent(newName);
@@ -1238,7 +1238,7 @@ Q3ValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 	if (reloadFromDoc)
 		reloadTmpStyles();
 
-	for (int i = 0; i < tmpStyles_.count(); ++i)
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
 	{
 		if (tmpStyles_[i].hasName())
 		{
@@ -1269,7 +1269,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 	tmpStyles_.invalidate();
 
-	for (int i = 0; i < tmpStyles_.count(); ++i)
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
 		cstyles << tmpStyles_[i];
 
 	for (int i = 0; i < styleNames.count(); ++i)
@@ -1290,7 +1290,7 @@ QString SMCharacterStyle::fromSelection() const
 	if (!doc_)
 		return lsName; // no doc available
 
-	for (int i = 0; i < doc_->m_Selection->count(); ++i)
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
@@ -1336,7 +1336,7 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 		return QString::null;
 
 	QString s = getUniqueName( tr("Clone of %1").arg(fromStyle));
-	CharStyle c(tmpStyles_[fromStyle]);
+	CharStyle c(tmpStyles_.get(fromStyle));
 	c.setName(s);
 	c.setShortcut(QString::null);
 	tmpStyles_.create(c);
@@ -1354,7 +1354,7 @@ QString SMCharacterStyle::getUniqueName(const QString &name)
 	{
 start:
 		++id;
-		for (int i = 0; i < tmpStyles_.count(); ++i)
+		for (uint i = 0; i < tmpStyles_.count(); ++i)
 		{
 			if (tmpStyles_[i].name() == s)
 			{
@@ -1453,7 +1453,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 	tmpStyles_.create(c);
 	selection_.clear();
 	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
 	{
 		int index = tmpStyles_.find(oldName);
 		if (index > -1)
@@ -1463,7 +1463,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
 	{
 		if (tmpStyles_[j].parent() == oldName)
 			tmpStyles_[j].setParent(newName);
