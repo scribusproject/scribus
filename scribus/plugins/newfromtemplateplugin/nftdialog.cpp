@@ -201,7 +201,7 @@ void nftdialog::setTNails()
 	}
 	
 	QString curtype = categoryList->text(categoryList->currentItem());
-	if (curtype != NULL)
+	if (curtype != QString::null)
 	{
 		tnailGrid->clear();
 		for (uint i = 0; i < iconItems.size(); ++i)
@@ -258,38 +258,38 @@ void nftdialog::setInfo(Q3IconViewItem* item)
 
 void nftdialog::infoToggle()
 {
-	if (infoButton->state() == QButton::On)
+	if (infoButton->isDown())
 	{
 		tmpSpacer->setHidden(true);
 		infoLabel->setHidden(false);
-		if (imgButton->state() == QButton::On)
+		if (imgButton->isDown())
 			imgButton->toggle();
-		if (aboutButton->state() == QButton::On)
+		if (aboutButton->isDown())
 			aboutButton->toggle();
 	} 
 	else
 	{
-		if (imgButton->state() == QButton::Off)
+		if (imgButton->isDown() == false)
 			tmpSpacer->setHidden(false);
 		infoLabel->setHidden(true);
 	}
 	
 }
 
-void nftdialog::imgToggle() 
+void nftdialog::imgToggle()
 {	
-	if (imgButton->state() == QButton::On)
+	if (imgButton->isDown())
 	{
 		tmpSpacer->setHidden(true);
 		imgLabel->setHidden(false);
-		if (infoButton->state() == QButton::On) 
+		if (infoButton->isDown()) 
 			infoButton->toggle();
-		if (aboutButton->state() == QButton::On) 
+		if (aboutButton->isDown()) 
 			aboutButton->toggle();
 	}
 	else
 	{
-		if (infoButton->state() == QButton::Off)
+		if (infoButton->isDown() == false)
 			tmpSpacer->setHidden(false);
 		imgLabel->setHidden(true);
 	}
@@ -297,18 +297,18 @@ void nftdialog::imgToggle()
 
 void nftdialog::aboutToggle()
 {
-	if (aboutButton->state() == QButton::On)
+	if (aboutButton->isDown())
 	{
 		tmpSpacer->setHidden(true);
 		aboutLabel->setHidden(false);
-		if (imgButton->state() == QButton::On) 
+		if (imgButton->isDown()) 
 			imgButton->toggle();
-		if (infoButton->state() == QButton::On)
+		if (infoButton->isDown())
 			infoButton->toggle();
 	}
 	else
 	{
-		if (aboutButton->state() == QButton::Off)
+		if (aboutButton->isDown() == false)
 			tmpSpacer->setHidden(false);
 		aboutLabel->setHidden(true);
 	}
