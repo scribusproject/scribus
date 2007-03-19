@@ -1131,6 +1131,8 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	bool retVal;
+	if ( e->type() == QEvent::ToolTip && !prefsManager->appPrefs.showToolTips)
+		return false;
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
@@ -3834,13 +3836,13 @@ void ScribusMainWindow::slotGetContent()
 				currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				doc->LoadPict(fileName, currItem->ItemNr, false, true);
 				//view->AdjustPictScale(currItem, false);
 				//false was ignored anyway
 				currItem->AdjustPictScale();
 				propertiesPalette->setLvalue(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
 				propertiesPalette->updateColorList();
@@ -5104,7 +5106,7 @@ void ScribusMainWindow::slotOnlineHelp()
 
 void ScribusMainWindow::ToggleTips()
 {
-	QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
+	//qt4 consume in event filter QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
 	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isOn();
 }
 
@@ -8285,7 +8287,8 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 {
 	uint pagenr   = state->getUInt("PAGENR");
-	QStringList tmpl = state->get("MASTERPAGE");
+	QStringList tmpl;
+	tmpl << state->get("MASTERPAGE");
 	int where, wo;
 	if (pagenr == 1)
 	{
@@ -8502,7 +8505,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		}
 		this->repaint();
 		retval = dia->selectedFile();
-		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+		qApp->processEvents(QEventLoop::ExcludeUserInput);
 	}
 	delete dia;
 	return retval;
@@ -8659,7 +8662,7 @@ void ScribusMainWindow::initHyphenator()
 				for (QMap<QString, QStringList>::Iterator it=InstLang.begin(); it!=InstLang.end(); ++it)
 				{
 					translatedLang="";
-					translatedLang = trans->findMessage("ScribusMainWindow", it.key(), "").translation();
+					translatedLang = trans->translate("ScribusMainWindow", it.key(), "");
 					if (!translatedLang.isEmpty())
 						it.data().append(translatedLang);
 				}
@@ -8822,7 +8825,7 @@ void ScribusMainWindow::emergencySave()
 			doc->setModified(false);
 			if (doc->hasName)
 			{
-				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
+				std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
 				doc->autoSaveTimer->stop();
 				//disconnect(ActWin, SIGNAL(Schliessen()), ScMW, SLOT(DoFileClose()));
 				FileLoader fl(doc->DocName+".emergency");
@@ -9319,7 +9322,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				imageItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 				imageItem->IRender = doc->CMSSettings.DefaultIntentImages;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
 				imageItem->AdjustPictScale();
 				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
@@ -9332,7 +9335,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				imageItem->IProfile=contentsBuffer.inputProfile;
 				imageItem->UseEmbedded=contentsBuffer.useEmbedded;
 				imageItem->IRender=contentsBuffer.renderingIntent;
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
 				propertiesPalette->updateColorList();
