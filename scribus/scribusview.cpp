@@ -10286,7 +10286,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		if (drawFrame)
 			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 		else
-			painter->setPen(NoPen);
+			//painter->setPen(NoPen);
+			painter->setPen(Doc->papColor, 1, SolidLine, FlatCap, MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
@@ -10352,7 +10353,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		if (drawFrame)
 			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 		else
-			painter->setPen(NoPen);
+			//painter->setPen(NoPen);
+			painter->setPen(Doc->papColor, 1, SolidLine, FlatCap, MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		painter->setZoomFactor(Scale);
