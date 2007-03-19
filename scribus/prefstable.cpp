@@ -62,7 +62,7 @@ QString PrefsTable::get(int row, int col, const QString& defValue)
 {
 	checkSize(row, col, defValue);
 	if ((*table[row])[col] == "__NOT__SET__")
-		table[row]->insert(table[row]->at(col), defValue);
+		table[row]->insert(table[row]->begin()+col, defValue);
 
 	return (*table[row])[col];
 }
@@ -80,7 +80,7 @@ void PrefsTable::set(int row, int col, const std::string& value)
 void PrefsTable::set(int row, int col, const QString& value)
 {
 	checkSize(row, col, "__NOT__SET__");
-	table[row]->insert(table[row]->at(col), value);
+	table[row]->insert(table[row]->begin()+col, value);
 }
 
 int PrefsTable::getInt(int row, int col, int defValue)
