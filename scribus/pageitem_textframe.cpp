@@ -849,7 +849,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // ! dropCapMode
 			{
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 					chs = qRound((hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
@@ -868,7 +868,7 @@ void PageItem_TextFrame::layout()
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width of char
-			if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+			if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 			else
 			{
@@ -893,7 +893,7 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// drop caps are wider...
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
 					wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
@@ -928,7 +928,7 @@ void PageItem_TextFrame::layout()
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
 				// find ascent / descent
 				double hlcsize10=charStyle.fontSize() / 10.0;
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
 					desc = desc2 = 0;
 				}
@@ -1137,14 +1137,14 @@ void PageItem_TextFrame::layout()
 			// right tab stuff
 			if (tabs.active)
 			{
-				if (((hl->ch == ".") && (tabs.status == TabPOINT)) || ((hl->ch == ",") && (tabs.status == TabCOMMA)) || (hl->ch == SpecialChars::TAB))
+				if (((hl->ch[0] == ".") && (tabs.status == TabPOINT)) || ((hl->ch[0] == ",") && (tabs.status == TabCOMMA)) || (hl->ch[0] == SpecialChars::TAB))
 				{
 					tabs.active = false;
 					tabs.status = TabNONE;
 				}
 			}
 			// tab positioning
-			if (hl->ch == SpecialChars::TAB)
+			if (hl->ch[0] == SpecialChars::TAB)
 			{
 				wide = 1;
 				if (tabs.active)
@@ -1228,7 +1228,7 @@ void PageItem_TextFrame::layout()
 			
 			//FIXME: asce / desc set correctly?
 			if (legacy && 
-				((hl->ch == "-" || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
+				((hl->ch[0] == "-" || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
 				|| hl->ch[0] == SpecialChars::SHYPHEN)
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
@@ -1258,14 +1258,14 @@ void PageItem_TextFrame::layout()
 				outs = true;
 			if (current.isEndOfCol())
 				outs = true;
-			if ((hl->ch == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
+			if ((hl->ch[0] == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
 				goNoRoom = true;
-			if ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1))
+			if ((hl->ch[0] == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
 
 
 			// remember possible break
-			if ( (SpecialChars::isBreakingSpace(hl->ch[0]) || hl->ch == SpecialChars::TAB) && !outs)
+			if ( (SpecialChars::isBreakingSpace(hl->ch[0]) || hl->ch[0] == SpecialChars::TAB) && !outs)
 			{
 				if ( a == firstInFrame() || !SpecialChars::isBreakingSpace(itemText.text(a-1)) )
 				{
@@ -1275,10 +1275,10 @@ void PageItem_TextFrame::layout()
 			
 
 			// hyphenation
-			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch[0] == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
 			{
 				breakPos = current.xPos;
-				if (hl->ch != "-")
+				if (hl->ch[0] != "-")
 				{
 					breakPos += charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
 				}
@@ -1390,9 +1390,9 @@ void PageItem_TextFrame::layout()
 						
 						if (style.alignment() == 4
 							|| (style.alignment() == 3 
-								&&  (hl->ch == SpecialChars::LINEBREAK ||
-									 hl->ch == SpecialChars::FRAMEBREAK ||
-									 hl->ch == SpecialChars::COLBREAK)
+								&&  (hl->ch[0] == SpecialChars::LINEBREAK ||
+									 hl->ch[0] == SpecialChars::FRAMEBREAK ||
+									 hl->ch[0] == SpecialChars::COLBREAK)
 								&&  !itemText.text(current.line.lastItem - 1).isSpace()))
 						{
 							justifyLine(itemText, current.line); 
@@ -1543,7 +1543,7 @@ void PageItem_TextFrame::layout()
 									current.xPos = current.colLeft;
 								if (SpecialChars::isBreak(hl->ch[0]))
 								{
-									if (hl->ch == SpecialChars::PARSEP)
+									if (hl->ch[0] == SpecialChars::PARSEP)
 										current.yPos += style.gapAfter();
 									current.hyphenCount = 0;
 								}
@@ -1570,7 +1570,7 @@ void PageItem_TextFrame::layout()
 					}
 					else
 					{
-						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK ) 
+						if (( hl->ch[0] == SpecialChars::PARSEP || hl->ch[0] == SpecialChars::LINEBREAK ) 
 							&& AbsHasDrop)
 						{
 							AbsHasDrop = false;
@@ -1602,7 +1602,7 @@ void PageItem_TextFrame::layout()
 							current.xPos = current.colLeft;
 						if ( SpecialChars::isBreak(hl->ch[0]) )
 						{
-							if (hl->ch == SpecialChars::PARSEP)
+							if (hl->ch[0] == SpecialChars::PARSEP)
 								current.yPos += style.gapAfter();
 							current.hyphenCount = 0;
 						}
@@ -1772,9 +1772,9 @@ void PageItem_TextFrame::layout()
 				OFs = 0;
 			if (style.alignment() == 4
 				|| (style.alignment() == 3 
-					&&  (hl->ch == SpecialChars::LINEBREAK ||
-						 hl->ch == SpecialChars::FRAMEBREAK ||
-						 hl->ch == SpecialChars::COLBREAK)
+					&&  (hl->ch[0] == SpecialChars::LINEBREAK ||
+						 hl->ch[0] == SpecialChars::FRAMEBREAK ||
+						 hl->ch[0] == SpecialChars::COLBREAK)
 					&&  !itemText.text(current.line.firstItem + current.itemsInLine-1).isSpace()))
 			{
 				justifyLine(itemText, current.line);
@@ -1906,7 +1906,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	QPoint pt1, pt2;
 	QRegion cm;
 	double wide, lineCorr;
-	QString chstr;
+	QString chstr0;
 	ScText *hl;
 	QString cachedStroke = "";
 	QString cachedFill = "";
@@ -1993,7 +1993,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				bool selected = itemText.selected(a);
 				if (charStyle.effects() & ScStyle_StartOfLine)
 					tabCc = 0;
-				chstr = hl->ch;
+				chstr0 = hl->ch[0];
 				actFill = charStyle.fillColor();
 				actFillShade = charStyle.fillShade();
 				if (actFill != CommonStrings::None)
@@ -2013,19 +2013,19 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					const ParagraphStyle& style(itemText.paragraphStyle(a));
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
+						chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
 					else
 					{
 						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-							chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
+							chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
 						else
 						{
 							double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-							chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
+							chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
 						}
 					}
 				}
-				if (chstr[0] == SpecialChars::TAB)
+				if (chstr0 == SpecialChars::TAB)
 					tabCc++;
 				// paint selection
 				if (!m_Doc->RePos)
