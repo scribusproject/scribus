@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QMouseEvent>
 #include <Q3Frame>
+#include <QDesktopWidget>
 #include <QDropEvent>
 #include <QCloseEvent>
 #include <Q3ValueList>
@@ -2301,7 +2302,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		qApp->processEvents();
 		doc->recalcPicturesRes(true);
-		qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 	}
@@ -3315,7 +3316,7 @@ bool ScribusMainWindow::slotPageImport()
 			startPage = doc->currentPage()->pageNr() + 1;
 			if (static_cast<uint>(nrToImport) > (doc->DocPages.count() - doc->currentPage()->pageNr()))
 			{
-				qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +
 				QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:<br>"
 				"<ul><li><b>Create</b> missing pages</li>"
@@ -3366,7 +3367,7 @@ bool ScribusMainWindow::slotPageImport()
 				doIt = false;
 			}
 		}
-		qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 		ret = doIt;
 	}
 	delete dia;
@@ -3482,14 +3483,14 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (testResult == -1)
 		{
 			delete fileLoader;
-			qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
 			return false;
 		}
 		bool is12doc=false;
 		if (testResult == 0)
 		{
-			qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			//Scribus 1.3.x warning, remove at a later stage
 			is12doc=true;
 		}
@@ -3536,7 +3537,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			view=NULL;
 			doc=NULL;
 			ScriptRunning = false;
-			qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
 			ActWin = NULL;
@@ -3646,7 +3647,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			}
 			if (cmsWarning)
 			{
-				qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				QString mess = tr("Some ICC profiles used by this document are not installed:")+"\n\n";
 				for (int m = 0; m < missing.count(); ++m)
 				{
@@ -3793,7 +3794,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	}
 	undoManager->switchStack(doc->DocName);
 	pagePalette->Rebuild();
-	qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	undoManager->setUndoEnabled(true);
 	doc->setModified(false);
 	return ret;
@@ -4341,12 +4342,12 @@ void ScribusMainWindow::slotReallyPrint()
 #endif
 		if (!done)
 		{
-			qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Printing failed!"), CommonStrings::tr_OK);
 		}
 		else
 			doc->Print_Options.firstUse = false;
-		qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	printDinUse = false;
 	disconnect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -4372,7 +4373,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 			filename = prefsManager->preferencesLocation()+"/tmp.ps";
 		else
 		{
-			qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			if (!overwrite(this, filename))
 			{
 				delete dd;
@@ -5859,8 +5860,8 @@ void ScribusMainWindow::setAppMode(int mode)
 			actionManager->saveActionShortcutsPreEditMode();
 		if (oldMode == modeEdit)
 		{
-			view->zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
-			view->pageSelector->focusPolicy(QWidget::ClickFocus);
+			view->zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
+			view->pageSelector->focusPolicy(Qt::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
 			charPalette->setEnabled(false, 0);
 			view->slotDoCurs(false);
@@ -5876,7 +5877,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (mode == modeEdit)
 		{
 //			view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
-			view->pageSelector->focusPolicy(QWidget::NoFocus);
+			view->pageSelector->focusPolicy(Qt::NoFocus);
 			if (currItem != 0)
 			{
 				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
@@ -7549,7 +7550,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 		else
 			return_value = false;
 		delete dd;
-		qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 	ScCore->fileWatcher->start();
 	return return_value;
@@ -7744,7 +7745,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa])+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
 				{
-					qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+					qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 					QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 					return;
 				}
@@ -7763,13 +7764,13 @@ void ScribusMainWindow::doSaveAsPDF()
 			}
 			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs))
 			{
-				qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 			}
 		}
 		if (doc->PDF_Options.useDocBleeds)
 			doc->PDF_Options.bleeds = optBleeds;
-		qApp->setOverrideCursor(QCursor(Qt:ArrowCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
 }
 
