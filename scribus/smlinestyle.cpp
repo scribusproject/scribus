@@ -39,11 +39,12 @@ LineStyleWidget::LineStyleWidget() : QWidget()
 	removeButton->setPixmap(loadIcon("pencilsub.png"));
 
 	dashCombo = new LineCombo(this);
-	lineLayout->addWidget(dashCombo, 0, 0);
+//qt4	lineLayout->addWidget(dashCombo, 0, 0);
+	gridLayout->addWidget(dashCombo, 0, 0);
 
-	lineWidth = new ScrSpinBox( 0, 300, this, 1 );
-	lineWidth->setSuffix( tr( " pt" ) );
-	widthLayout->addWidget(lineWidth, 0, 1);
+	lineWidth = new ScrSpinBox( 0, 300, this, 0 );
+//qt4	widthLayout->addWidget(lineWidth, 0, 1);
+	gridLayout1->addWidget(lineWidth, 0, 1);
 
 	endCombo->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	endCombo->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
@@ -87,7 +88,9 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	ColorList::Iterator it;
 	ScribusDoc* doc = colorList.document();
 	for (it = colorList.begin(); it != colorList.end(); ++it)
+	{
 		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], doc, it.key()));
+	}
 	colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);
@@ -302,7 +305,7 @@ QString SMLineStyle::fromSelection() const
 	if (!doc_)
 		return lsName;
 
-	for (int i = 0; i < doc_->m_Selection->count(); ++i)
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		PageItem *item = doc_->m_Selection->itemAt(i);
 		QString tmpName = item->customLineStyle();
@@ -324,7 +327,7 @@ void SMLineStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return;
 
-	for (int i = 0; i < doc_->m_Selection->count(); ++i)
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		if (styleName.isNull())
 			doc_->m_Selection->itemAt(i)->setCustomLineStyle("");
@@ -398,7 +401,7 @@ void SMLineStyle::apply()
 
 	deleted_.clear();
 
-	for (int d = 0; d < doc_->DocItems.count(); ++d)
+	for (uint d = 0; d < doc_->DocItems.count(); ++d)
 	{
 		ite = doc_->DocItems.at(d);
 		if (!ite->NamedLStyle.isEmpty())
@@ -407,7 +410,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (int d1 = 0; d1 < doc_->MasterItems.count(); ++d1)
+	for (uint d1 = 0; d1 < doc_->MasterItems.count(); ++d1)
 	{
 		ite = doc_->MasterItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())
@@ -416,7 +419,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (int d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
+	for (uint d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
 	{
 		ite = doc_->FrameItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())
@@ -455,7 +458,7 @@ void SMLineStyle::setShortcut(const QString &shortcut)
 
 void SMLineStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
 {
-	for (uint i = 0; i < removeList.count(); ++i)
+	for (int i = 0; i < removeList.count(); ++i)
 	{
 		selection_.remove(selection_.find(removeList[i].first));
 		tmpLines.remove(tmpLines.find(removeList[i].first));
