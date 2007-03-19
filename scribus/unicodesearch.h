@@ -25,7 +25,7 @@ description and in the hex representation (as string) too.
 See directory ./unicodemap/ for more info
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API UnicodeSearch : public QDialog, Ui::UnicodeSearch
+class SCRIBUS_API UnicodeSearch : public QDialog, public Ui::UnicodeSearch
 {
 	Q_OBJECT
 
