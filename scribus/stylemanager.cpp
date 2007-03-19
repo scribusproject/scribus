@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
-StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), doc_(0), currentType_(QString::null), isEditMode_(true)
+StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true), doc_(0)
 {
 	setupUi(this);
 	splitter->setMinimumWidth(0);
@@ -1306,7 +1306,8 @@ void StyleManager::hideEvent(QHideEvent *e)
 	prefs_->set("InitY", y());
 	storeVisibility(false);
 	storePosition();
-	SMBase::hideEvent(e);
+	// QT4 SMBase::hideEvent(e);
+	hideEvent(e);
 	emit closed();
 }
 
@@ -1335,7 +1336,8 @@ void StyleManager::closeEvent(QCloseEvent *e)
 	prefs_->set("InitY", y());
 	storeVisibility(false);
 	storePosition();
-	SMBase::closeEvent(e);
+	// Qt4 SMBase::closeEvent(e);
+	closeEvent(e);
 	emit closed();
 }
 
@@ -1349,7 +1351,8 @@ void StyleManager::showEvent(QShowEvent *e)
 		slotEdit();
 	}
 	setOkButtonText();
-	SMBase::showEvent(e);
+	// Qt4 SMBase::showEvent(e);
+	showEvent(e);
 	if (isFirst)
 	{
 		QPoint p(prefs_->getInt("InitX", x()), prefs_->getInt("InitY", y()));
