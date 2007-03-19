@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qdir.h>
 #include <q3filedialog.h>
+#include <QPicture>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
@@ -75,7 +76,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	groupBox1Layout->addWidget( textLabel4, 3, 0 );
 	BitmapType = new QComboBox( false, groupBox1, "BitmapType" );
     BitmapType->clear();
-	BitmapType->insertStrList(QImageIO::outputFormats());
+	BitmapType->addItems(QPicture::outputFormatList());
 	BitmapType->setCurrentText(type);
 	BitmapType->setEditable(false);
 	groupBox1Layout->addMultiCellWidget( BitmapType, 0, 0, 1, 2 );
