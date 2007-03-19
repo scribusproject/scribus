@@ -8900,7 +8900,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		if (drawFrame)
 			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 		else
-			painter->setPen(NoPen);
+			//painter->setPen(NoPen);
+			painter->setPen(Doc->papColor, 1, SolidLine, FlatCap, MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		//Hmm do we need master page mode before this? Seiten.cpp uses this function.
@@ -8956,7 +8957,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		if (drawFrame)
 			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 		else
-			painter->setPen(NoPen);
+			painter->setPen(Doc->papColor, 1, SolidLine, FlatCap, MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
