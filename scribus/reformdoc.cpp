@@ -507,7 +507,7 @@ void ReformDoc::updateDocumentSettings()
 			else
 				currDoc->HasCMS = false;
 			ScMW->mainWindowProgressBar->setProgress(cc);
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 			ScMW->setStatusBarInfoText("");
 			ScMW->mainWindowProgressBar->reset();
 		}

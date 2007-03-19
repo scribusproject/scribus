@@ -419,7 +419,8 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc("/PaintProc {\n");
 		QIODevice *spStream = spoolStream.device();
 		QByteArray buf;
-		QBuffer b(buf);
+		// Qt4 QBuffer b(buf);
+		QBuffer b(&buf);
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
 		Q3PtrStack<PageItem> groupStack;
@@ -1651,7 +1652,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			progressDialog->setProgress("EMP", 0);
 			progressDialog->setProgress("EP", 0);
 			progressDialog->show();
-			connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+			connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 			ScQApp->processEvents();
 		}
 	}
