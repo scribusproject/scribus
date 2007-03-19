@@ -18,7 +18,7 @@ class QString;
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabGeneral : public QWidget, Ui::TabGeneral
+class SCRIBUS_API TabGeneral : public QWidget, public Ui::TabGeneral
 {
 	Q_OBJECT
 

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabScrapbook : public QWidget, Ui::TabScrapbook
+class SCRIBUS_API TabScrapbook : public QWidget, public Ui::TabScrapbook
 {
 	Q_OBJECT
 

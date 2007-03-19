@@ -246,13 +246,12 @@ void Preferences::addPlugins()
 	QPixmap panelIcon;
 
 	PluginManager& pluginManager = PluginManager::instance();
-	Q3ValueList<Q3CString> pluginNames(pluginManager.pluginNames(true));
-	Q3ValueList<Q3CString>::Iterator itEnd(pluginNames.end());
+	QStringList pluginNames(pluginManager.pluginNames(true));
 
-	for (Q3ValueList<Q3CString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
+	foreach (QString pName, pluginManager.pluginNames(true))
 	{
 		// Ask the plugin manager for a plugin (skipping disabled plugins).
-		plugin = pluginManager.getPlugin(*it, false);
+		plugin = pluginManager.getPlugin(pName, false);
 		// If we got a plugin (which we know is enabled):
 		if (plugin)
 		{

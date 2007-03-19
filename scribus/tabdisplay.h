@@ -18,7 +18,7 @@ class ScribusDoc;
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>
 */
-class SCRIBUS_API TabDisplay : public QWidget, Ui::TabDisplay
+class SCRIBUS_API TabDisplay : public QWidget, public Ui::TabDisplay
 {
 	Q_OBJECT
 
