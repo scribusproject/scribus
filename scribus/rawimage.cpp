@@ -29,7 +29,9 @@ bool RawImage::create( int width, int height, int channels )
 	m_width = width;
 	m_height = height;
 	m_channels = channels;
-	return resize(width * height * channels);
+	int finalSize=width * height * channels;
+	resize(finalSize);
+	return (size()==finalSize);
 }
 
 uchar *RawImage::scanLine(int row)

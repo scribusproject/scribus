@@ -1787,7 +1787,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			ParagraphStyle pstyle;
 			// Qt4 if (last->ParaStyle >= 0) {
 			if (!last->ParaStyle.isNull()) {
-				pstyle.setParent( doc->paragraphStyles()[last->ParaStyle].name());
+				pstyle.setParent( doc->paragraphStyles().get(last->ParaStyle).name());
 			}
 			if (calign >= 0)
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
@@ -1798,7 +1798,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
 	if (!last->ParaStyle.isNull()) { // Qt4 >= 0) {
-		pstyle.setParent( doc->paragraphStyles()[last->ParaStyle].name());
+		pstyle.setParent( doc->paragraphStyles().get(last->ParaStyle).name());
 		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	}
 	if (calign >= 0) {
