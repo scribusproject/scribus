@@ -1525,7 +1525,7 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 	struct Layer ll;
 	ll.LNr = Layers.last().LNr + 1;
 	ll.Level = Layers.count();
-	if (layerName.isNull() || layerName.isEmpty())
+	if (layerName.isEmpty())
 	{
 		QString tmp;
 		ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
@@ -2188,7 +2188,7 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 	return true;
 }
 
-const QString& ScribusDoc::layerName(const int layerNumber) const
+QString ScribusDoc::layerName(const int layerNumber) const
 {
 	uint layerCount=Layers.count();
 	for (uint i=0; i < layerCount; ++i)
@@ -2650,7 +2650,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 		}
 	}
 	QStringList patterns = getUsedPatterns();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -3135,7 +3135,7 @@ void ScribusDoc::recalculateColors()
 		}
 	}
 	QStringList patterns = docPatterns.keys();
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -3415,7 +3415,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					currItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 					currItem->IRender = CMSSettings.DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+					qApp->processEvents(QEventLoop::ExcludeUserInput);
 					loadPict(iafData.source, currItem, false, true);
 					if (iafData.sizeType==3) //Frame is size of imported image
 					{
@@ -3425,7 +3425,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 						currItem->OldH2 = currItem->height();
 						currItem->updateClip();
 					}
-					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+					qApp->processEvents(QEventLoop::ExcludeUserInput);
 					qApp->restoreOverrideCursor();
 				}
 			}
@@ -3918,7 +3918,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 		FPoint minPoint, maxPoint;
 		canvasMinMax(minPoint, maxPoint);
 		FPoint maxSize(qMax(maxXPos, maxPoint.x()+scratch.Right), qMax(maxYPos, maxPoint.y()+scratch.Bottom));
-		adjustCanvas(FPoint(qMin(0, minPoint.x()-scratch.Left),qMin(0, minPoint.y()-scratch.Top)), maxSize, true);
+		adjustCanvas(FPoint(qMin(0.0, minPoint.x()-scratch.Left),qMin(0.0, minPoint.y()-scratch.Top)), maxSize, true);
 		changed();
 	}
 	else
@@ -4766,7 +4766,7 @@ void ScribusDoc::ChLineWidth(double w)
 			//currItem->Oldm_lineWidth = currItem->lineWidth();
 			currItem->setLineWidth(w);
 			if (currItem->asPolyLine())
-				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
+				currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 			if (currItem->asLine())
 			{
 				int ph = static_cast<int>(qMax(1.0, w / 2.0));
@@ -5919,7 +5919,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->AdjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setProgress(ca);
-			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
 	for (uint a = 0; a < MasterItems.count(); ++a)
@@ -5937,7 +5937,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->AdjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setProgress(ca);
-			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
 	for (uint a = 0; a < FrameItems.count(); ++a)
@@ -5955,10 +5955,10 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->AdjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setProgress(ca);
-			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
-	for (uint c = 0; c < patterns.count(); ++c)
+	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
 		for (uint o = 0; o < pa.items.count(); o++)
@@ -5976,7 +5976,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				currItem->AdjustPictScale();
 				ca++;
 				m_ScMW->mainWindowProgressBar->setProgress(ca);
-				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInput);
 			}
 		}
 		PageItem *ite = pa.items.at(0);
@@ -8578,7 +8578,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 	currItem->ClipEdited = true;
 	currItem->PoLine = Clip.copy();
 	if (currItem->asPolyLine())
-		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
+		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 	else if (currItem->asPathText())
 		currItem->updatePolyClip();
 	else

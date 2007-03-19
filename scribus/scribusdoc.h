@@ -342,7 +342,7 @@ public:
 	 * @param layerNumber Number of the layer
 	 * @return Name of the layer
 	 */
-	const QString &layerName(const int layerNumber) const;
+	QString layerName(const int layerNumber) const;
 	/**
 	 * @brief Change the name of a layer
 	 * @param layerNumber number of the layer

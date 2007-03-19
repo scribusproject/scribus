@@ -83,7 +83,7 @@ for which a new license (GPL+exception) is in place.
 #include "reformdoc.h"
 #include "serializer.h"
 #include "aligndistribute.h"
-#include "fmitem.h"
+//#include "fmitem.h"
 #include "fontprefs.h"
 #include "prefs.h"
 #include "prefscontext.h"

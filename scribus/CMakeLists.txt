@@ -297,7 +297,7 @@ fileloader.cpp
 filesearch.cpp
 fileunzip.cpp
 filewatcher.cpp
-fmitem.cpp
+# fmitem.cpp
 fontcombo.cpp
 fontprefs.cpp
 fontreplacedialog.cpp

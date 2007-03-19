@@ -40,7 +40,7 @@ public:
 		return style; 
 	}
 	
-	inline void remove(uint index);
+	inline void remove(int index);
 	
 	inline void redefine(const StyleSet<STYLE>& defs, bool removeUnused=false);
 	
@@ -97,9 +97,9 @@ private:
 };
 
 template<class STYLE>
-inline void StyleSet<STYLE>::remove(uint index)
+inline void StyleSet<STYLE>::remove(int index)
 {
-	assert(index < styles.count()); 
+	assert(index>=0 && index < styles.count()); 
 	typename Q3ValueList<STYLE*>::Iterator it = styles.at(index);
 	if (*it == m_default)
 		return;

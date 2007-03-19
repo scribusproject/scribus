@@ -138,7 +138,7 @@ public:
 
 protected:
 	void keyPressEvent(QKeyEvent *k);
-	void imEndEvent(QIMEvent *e);
+	void inputMethodEvent(QInputMethodEvent *event);
 	void focusOutEvent(QFocusEvent *e);
 	void focusInEvent(QFocusEvent *e);
 	Q3PopupMenu* createPopupMenu(const QPoint & pos);
