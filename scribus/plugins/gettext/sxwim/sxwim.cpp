@@ -91,7 +91,8 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	stylePath   = fun->getFile(STYLE);
 	contentPath = fun->getFile(CONTENT);
 	delete fun;
-	if ((stylePath != NULL) && (contentPath != NULL))
+	// Qt4 NULL -> isNull()
+	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
@@ -106,12 +107,12 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath == NULL) && (contentPath != NULL))
+	else if ((stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath != NULL) && (contentPath == NULL))
+	else if ((!stylePath.isNull()) && (contentPath.isNull()))
 	{
 		QFile f1(stylePath);
 		f1.remove();

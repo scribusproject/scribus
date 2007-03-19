@@ -285,7 +285,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != NULL))
  			force = attrs.value(i);
  	}
- 	if (align != NULL)
+	// Qt4 NULL->isNull()
+ 	if (!align.isNull())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -366,7 +367,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  // 				tmp->setAutoLineSpacing(true);
  				currentStyle = tmp;
  			}
- 			if (listName != NULL)
+ 			if (!listName.isNull())
  			{
  				listParents[listName] = currentStyle;
  			}
@@ -395,9 +396,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				type = attrs.value(i);
  				
  		}
- 		if (pos != NULL)
+ 		if (!pos.isNull())
  		{
- 			if (type == NULL)
+ 			if (!type.isNull())
  				type = "left";
  			double posd = getSize(pos);
  			if (type == "left")
@@ -639,7 +640,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	else if ((key == "style:justify-single-word") && (pstyle != NULL))
  		force = value;
  
- 	if (align != NULL)
+ 	if (!align.isNull())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
