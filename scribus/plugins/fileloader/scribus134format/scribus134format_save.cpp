@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3PtrList>
+#include <QDataStream>
 
 
 bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
@@ -212,7 +213,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	 * <c.toepp@gmx.de>
 	 */
 	static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	Q3CString cs = docu.toCString(); // UTF-8 QCString
+	QByteArray cs = docu.toByteArray(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
 		// zipped saving
@@ -226,7 +227,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		QFile f(fileName);
 		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		Q3TextStream s(&f);
+		QDataStream s(&f);
 		s.writeRawBytes(xmlpi, strlen(xmlpi));
 		s.writeRawBytes(cs, cs.length());
 		f.close();
@@ -429,7 +430,7 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 
 	if ( ! style.isInhTabValues())
 	{
-		for (uint a = 0; a < style.tabValues().count(); ++a)
+		for (int a = 0; a < style.tabValues().count(); ++a)
 		{
 			QDomElement tabs = docu.createElement("Tabs");
 			tabs.setAttribute("Type", (*style.tabValues().at(a)).tabType);
@@ -1073,7 +1074,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		}
 		if (item->effectsInUse.count() != 0)
 		{
-			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
 				QDomElement imeff = docu->createElement("ImageEffect");
 				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
@@ -1084,7 +1085,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 
 		if (item->itemText.defaultStyle().tabValues().count() != 0)
 		{
-			for (uint a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
+			for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 			{
 				QDomElement tabs = docu->createElement("Tabs");
 				tabs.setAttribute("Type", (*item->itemText.defaultStyle().tabValues().at(a)).tabType);

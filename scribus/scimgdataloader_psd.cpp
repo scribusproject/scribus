@@ -552,7 +552,8 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 			s >> right;
 			lay.width = right - left;
 			s >> numChannels;
-			maxChannels = qMax(maxChannels, numChannels);
+			// Qt4 check these conversions
+			maxChannels = qMax(maxChannels, (int)numChannels);
 			if (numChannels > 6)	// we don't support images with more than 6 channels yet
 			{
 				m_imageInfoRecord.layerInfo.clear();
@@ -841,12 +842,12 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	bool createOk = false;
 	if (header.color_mode == CM_CMYK)
 	{
-		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, 5));
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint)5));
 		r2_image.fill(0);
 	}
 	else
 	{
-		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, 4));
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, qMax(channel_num, (uint)4));
 		r2_image.fill(0);
 	}
 	if( !createOk )
@@ -858,7 +859,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		s.device()->at( base2 );
 		return false;
 	}
-	channel_num = qMin(channel_num, 39);
+	channel_num = qMin(channel_num, (uint)39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
 	{

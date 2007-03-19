@@ -358,7 +358,7 @@ QPixmap ScPreview::createPreview(QString data)
 					tmp3 += it.attribute("CSTROKE",CommonStrings::None) + "\t";
 					tmp3 += it.attribute("CSHADE2","100") + "\t";
 					tmp3 += it.attribute("CSCALE","100") + "\n";
-					for (uint cxx=0; cxx<tmp2.length(); cxx++)
+					for (int cxx=0; cxx<tmp2.length(); cxx++)
 					{
 						tmpx += tmp2.at(cxx)+tmp3;
 					}
@@ -395,6 +395,7 @@ QPixmap ScPreview::createPreview(QString data)
 					it++;
 					hg->setFillShade((*it).toInt());
 					it++;
+					// Qt4 if (it == NULL)
 					if (it == NULL)
 						hg->setEffects(ScStyle_Default);
 					else

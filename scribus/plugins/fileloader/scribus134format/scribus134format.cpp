@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3PtrList>
+#include <QTextStream>
+#include <QApplication>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
@@ -611,7 +613,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+				QTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -806,7 +808,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						tocsetup.name=tocElem.attribute("Name");
 						tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
 						tocsetup.frameName=tocElem.attribute("FrameName");
-						tocsetup.listNonPrintingFrames=tocElem.attribute("ListNonPrinting");
+						tocsetup.listNonPrintingFrames= QVariant(tocElem.attribute("ListNonPrinting")).toBool();
 						tocsetup.textStyle=tocElem.attribute("Style");
 						QString numberPlacement=tocElem.attribute("NumberPlacement");
 						if (numberPlacement=="Beginning")
@@ -1754,7 +1756,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	// end of legacy stuff
 	
 	int iobj = it->attribute("COBJ", "-1").toInt();
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
+	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		QChar ch = tmp2.at(cxx);		
 		{ // Legacy mode
@@ -1783,7 +1785,8 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		}
 		if (ch == SpecialChars::PARSEP) {
 			ParagraphStyle pstyle;
-			if (last->ParaStyle >= 0) {
+			// Qt4 if (last->ParaStyle >= 0) {
+			if (!last->ParaStyle.isNull()) {
 				pstyle.setParent( doc->paragraphStyles()[last->ParaStyle].name());
 			}
 			if (calign >= 0)
@@ -1794,7 +1797,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	}
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
-	if (last->ParaStyle >= 0) {
+	if (!last->ParaStyle.isNull()) { // Qt4 >= 0) {
 		pstyle.setParent( doc->paragraphStyles()[last->ParaStyle].name());
 		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	}
@@ -1842,7 +1845,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
-		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		double xf, xf2;
 		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -2278,7 +2281,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if ((obj->hasAttribute("GROUPS")) && (obj->attribute("NUMGROUP", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("GROUPS");
-		Q3TextStream fg(&tmp, QIODevice::ReadOnly);
+		QTextStream fg(&tmp, QIODevice::ReadOnly);
 		currItem->Groups.clear();
 		for (int cx = 0; cx < obj->attribute("NUMGROUP", "0").toInt(); ++cx)
 		{
@@ -2297,7 +2300,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -2340,7 +2343,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		Q3TextStream dgv(&tmp, QIODevice::ReadOnly);
+		QTextStream dgv(&tmp, QIODevice::ReadOnly);
 		currItem->DashValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
 		{
@@ -2356,7 +2359,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		currItem->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2371,7 +2374,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	{
 		currItem->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -2655,7 +2658,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				arrow.userArrow = true;
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
-				Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+				QTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
