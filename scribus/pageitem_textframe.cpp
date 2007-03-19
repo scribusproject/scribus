@@ -1137,7 +1137,7 @@ void PageItem_TextFrame::layout()
 			// right tab stuff
 			if (tabs.active)
 			{
-				if (((hl->ch[0] == ".") && (tabs.status == TabPOINT)) || ((hl->ch[0] == ",") && (tabs.status == TabCOMMA)) || (hl->ch[0] == SpecialChars::TAB))
+				if (((hl->ch[0] == '.') && (tabs.status == TabPOINT)) || ((hl->ch[0] == ',') && (tabs.status == TabCOMMA)) || (hl->ch[0] == SpecialChars::TAB))
 				{
 					tabs.active = false;
 					tabs.status = TabNONE;
@@ -1228,7 +1228,7 @@ void PageItem_TextFrame::layout()
 			
 			//FIXME: asce / desc set correctly?
 			if (legacy && 
-				((hl->ch[0] == "-" || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
+				((hl->ch[0] == '-' || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
 				|| hl->ch[0] == SpecialChars::SHYPHEN)
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
@@ -1275,10 +1275,10 @@ void PageItem_TextFrame::layout()
 			
 
 			// hyphenation
-			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch[0] == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch[0] == '-') || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
 			{
 				breakPos = current.xPos;
-				if (hl->ch[0] != "-")
+				if (hl->ch[0] != '-')
 				{
 					breakPos += charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
 				}
@@ -1906,7 +1906,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	QPoint pt1, pt2;
 	QRegion cm;
 	double wide, lineCorr;
-	QString chstr0;
+	QChar chstr0;
 	ScText *hl;
 	QString cachedStroke = "";
 	QString cachedFill = "";
