@@ -227,7 +227,8 @@ bool OODPlug::import( QString fileName, int flags )
 	contentPath = fun->getFile("content.xml");
 	metaPath = fun->getFile("meta.xml");
 	delete fun;
-	if ((stylePath != NULL) && (contentPath != NULL))
+	// Qt4 NULL -> isNull()
+	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QString docname = fileName.right(fileName.length() - fileName.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
@@ -241,7 +242,7 @@ bool OODPlug::import( QString fileName, int flags )
 		f1.remove();
 		QFile f2(contentPath);
 		f2.remove();
-		if (metaPath != NULL)
+		if (!metaPath.isNull())
 		{
 			HaveMeta = true;
 			loadText(metaPath, &f3);
@@ -253,12 +254,12 @@ bool OODPlug::import( QString fileName, int flags )
 		else
 			HaveMeta = false;
 	}
-	else if ((stylePath == NULL) && (contentPath != NULL))
+	else if ((stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath != NULL) && (contentPath == NULL))
+	else if ((!stylePath.isNull()) && (contentPath.isNull()))
 	{
 		QFile f1(stylePath);
 		f1.remove();
