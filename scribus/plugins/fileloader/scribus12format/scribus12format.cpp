@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3PtrList>
+#include <Q3TextStream>
+#include <QApplication>
 
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods

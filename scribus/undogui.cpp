@@ -420,7 +420,7 @@ void UndoPalette::showToolTip(Q3ListBoxItem *i)
 	if (item)
 	{
 		QString tip = item->getDescription();
-		if (tip != 0)
+		if (tip.isNull())
 		  QToolTip::add(undoList, tip);
 	}
 	else

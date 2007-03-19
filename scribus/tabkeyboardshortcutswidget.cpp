@@ -124,7 +124,7 @@ void TabKeyboardShortcutsWidget::setNoKey()
 
 void TabKeyboardShortcutsWidget::loadKeySetFile()
 {
-	if (keySetList[loadableSets->currentText()])
+	if (keySetList.contains(loadableSets->currentText()))
 		importKeySet(keySetList[loadableSets->currentText()]);
 }
 
@@ -289,7 +289,7 @@ QStringList TabKeyboardShortcutsWidget::scanForSets()
 		}
 		return QStringList(appNames);
 	}
-	return NULL;
+	return QStringList();
 }
 
 QString TabKeyboardShortcutsWidget::getKeyText(int KeyC)
