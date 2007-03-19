@@ -1429,7 +1429,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 			fo.setAttribute("EFFECT", m_Doc->paragraphStyles()[ff].charStyle().effects());
 			if (m_Doc->paragraphStyles()[ff].tabValues().count() != 0)
 			{
-				for (uint a = 0; a < m_Doc->paragraphStyles()[ff].tabValues().count(); ++a)
+				for (int a = 0; a < m_Doc->paragraphStyles()[ff].tabValues().count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
 					tabs.setAttribute("Type", (*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabType);
@@ -1527,19 +1527,19 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	pdf.setAttribute("fitWindow", static_cast<int>(m_Doc->PDF_Options.fitWindow));
 	pdf.setAttribute("PageLayout", m_Doc->PDF_Options.PageLayout);
 	pdf.setAttribute("openAction", m_Doc->PDF_Options.openAction);
-	for (uint pdoF = 0; pdoF < m_Doc->PDF_Options.EmbedList.count(); ++pdoF)
+	for (int pdoF = 0; pdoF < m_Doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");
 		pdf2.setAttribute("Name", m_Doc->PDF_Options.EmbedList[pdoF]);
 		pdf.appendChild(pdf2);
 	}
-	for (uint pdoS = 0; pdoS < m_Doc->PDF_Options.SubsetList.count(); ++pdoS)
+	for (int pdoS = 0; pdoS < m_Doc->PDF_Options.SubsetList.count(); ++pdoS)
 	{
 		QDomElement pdf4 = docu.createElement("Subset");
 		pdf4.setAttribute("Name", m_Doc->PDF_Options.SubsetList[pdoS]);
 		pdf.appendChild(pdf4);
 	}
-	for (uint pdoE = 0; pdoE < m_Doc->PDF_Options.PresentVals.count(); ++pdoE)
+	for (int pdoE = 0; pdoE < m_Doc->PDF_Options.PresentVals.count(); ++pdoE)
 	{
 		QDomElement pdf3 = docu.createElement("Effekte");
 		pdf3.setAttribute("pageEffectDuration", m_Doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);

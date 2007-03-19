@@ -851,7 +851,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				continue;
 
 			styleActions_[key] =
-				new ScrAction(ScrAction::DataQString, QIcon(), "",
+				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
 							sitem->text(SHORTCUT_COL), doc_->view(), key, 0, 0.0, key);
 			connect(styleActions_[key], SIGNAL(activatedData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
@@ -936,7 +936,7 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it2.current());
 		if (item)
 		{
-			for (uint i = 0; i < selected.count(); ++i)
+			for (int i = 0; i < selected.count(); ++i)
 			{
 				if (selected[i].first == item->rootName() &&
 				    selected[i].second == item->text(NAME_COL))
@@ -1007,7 +1007,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 	{
 		ScrAction *a = styleActions_[oldKey];
 		disconnect(a, SIGNAL(activatedData(QString)), this, SLOT(slotApplyStyle(QString)));
-		ScrAction *b = new ScrAction(ScrAction::DataQString, QIcon(), "",
+		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
 			               a->accel(), doc_->view(), newKey, 0, 0.0, newKey);
 		styleActions_.remove(oldKey);
 		delete a;
@@ -1041,7 +1041,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	else
 	{
 		styleActions_[key] =
-			new ScrAction(ScrAction::DataQString, QIcon(), "",
+			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
 			              shortcut, doc_->view(), key, 0, 0.0, key);
 		connect(styleActions_[key], SIGNAL(activatedData(QString)),
 		        this, SLOT(slotApplyStyle(QString)));
@@ -1066,7 +1066,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 	for (QMap<QString,Keys>::Iterator it=prefsData->KeyActions.begin();
 	     it!=prefsData->KeyActions.end(); ++it)
 	{
-		if (key.matches(it.data().keySequence) != Qt::NoMatch)
+		if (key.matches(it.data().keySequence) != QKeySequence::NoMatch)
 			return true;
 	}
 

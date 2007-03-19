@@ -158,7 +158,7 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout = new Q3GridLayout(dropCapsBox->layout());
 	dropCapsBoxLayout->setAlignment(Qt::AlignTop);
 
-	dropCapLines_ = new SScrSpinBox(dropCapsBox, "DropLines");
+	dropCapLines_ = new SMSpinBox(dropCapsBox, "DropLines");
 	dropCapLines_->setMinValue(2);
 	dropCapLines_->setMaxValue(20);
 	capLabel1 = new QLabel(dropCapLines_, tr("&Lines:"), dropCapsBox, "CapLabel");

@@ -105,7 +105,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param itemIndex Index of the item in the list
 		 * @return Item
 		 */
-		PageItem* takeItem(uint itemIndex);
+		PageItem* takeItem(int itemIndex);
 		/**
 		 * \brief Find an item from the selection and return an index to it
 		 * @param item Item pointer to find in the list

@@ -1344,7 +1344,7 @@ void StoryEditor::initActions()
 	seActions.insert("fileLoadFromFile", new ScrAction(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png"), "", QKeySequence(), this, "fileLoadFromFile"));
 	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this, "fileSaveDocument"));
 	seActions.insert("fileUpdateAndExit", new ScrAction(loadIcon("ok.png"), loadIcon("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this, "fileUpdateAndExit"));
-	seActions.insert("fileExit", new ScrAction(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
+	seActions.insert("fileExit", new ScrAction(loadIcon("exit.png"), loadIcon("exit22.png"), "", QKeySequence(),  this, "fileExit"));
 
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );

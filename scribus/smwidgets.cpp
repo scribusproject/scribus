@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 /***********************************************************************/
 /***********************************************************************/
 
-SScrSpinBox::SMSpinBox(QWidget *parent, const char *name)
+SMSpinBox::SMSpinBox(QWidget *parent, const char *name)
 : QSpinBox(parent, name),
   hasParent_(false),
   useParentValue_(false),
@@ -25,7 +25,7 @@ SScrSpinBox::SMSpinBox(QWidget *parent, const char *name)
 
 }
 
-void SScrSpinBox::setValue(int val)
+void SMSpinBox::setValue(int val)
 {
 	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 	hasParent_ = false;
@@ -35,7 +35,7 @@ void SScrSpinBox::setValue(int val)
 	QSpinBox::setValue(val);
 }
 
-void SScrSpinBox::setValue(int val, bool isParentVal)
+void SMSpinBox::setValue(int val, bool isParentVal)
 {
 	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 	hasParent_ = true;
@@ -46,27 +46,27 @@ void SScrSpinBox::setValue(int val, bool isParentVal)
 	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 }
 
-void SScrSpinBox::clear()
+void SMSpinBox::clear()
 {
 	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-	editor()->clear();
+	QSpinBox::clear();
 	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 }
 
-void SScrSpinBox::setParentValue(int val)
+void SMSpinBox::setParentValue(int val)
 {
 	hasParent_ = true;
 	pValue_ = val;
 }
 
-bool SScrSpinBox::useParentValue()
+bool SMSpinBox::useParentValue()
 {
 	bool ret = useParentValue_;
 	useParentValue_ = false;
 	return ret;
 }
 
-void SScrSpinBox::interpretText()
+void SMSpinBox::interpretText()
 {
 // 	QString t = text();
 // 	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
@@ -78,14 +78,14 @@ void SScrSpinBox::interpretText()
 	QSpinBox::interpretText();
 }
 
-void SScrSpinBox::setFont(bool wantBold)
+void SMSpinBox::setFont(bool wantBold)
 {
 	QFont f(font());
 	f.setBold(wantBold);
 	QSpinBox::setFont(f);
 }
 
-void SScrSpinBox::slotValueChanged()
+void SMSpinBox::slotValueChanged()
 {
 	if(hasParent_)
 		setFont(true);
@@ -94,7 +94,7 @@ void SScrSpinBox::slotValueChanged()
 /***********************************************************************/
 /***********************************************************************/
 
-SMScrSpinBox::SMMSpinBox(QWidget *pa, int s)
+SMScrSpinBox::SMScrSpinBox(QWidget *pa, int s)
 : ScrSpinBox(pa, s),
   hasParent_(false),
   useParentValue_(false),
@@ -103,7 +103,7 @@ SMScrSpinBox::SMMSpinBox(QWidget *pa, int s)
 	
 }
 
-SMScrSpinBox::SMMSpinBox(double minValue, double maxValue, QWidget *pa, int s)
+SMScrSpinBox::SMScrSpinBox(double minValue, double maxValue, QWidget *pa, int s)
 : ScrSpinBox(minValue, maxValue, pa, s),
   hasParent_(false),
   useParentValue_(false),
@@ -112,8 +112,8 @@ SMScrSpinBox::SMMSpinBox(double minValue, double maxValue, QWidget *pa, int s)
 	
 }
 
-SMScrSpinBox::SMMSpinBox(QWidget *parent, const char * name)
-: ScrSpinBox(parent, name),
+SMScrSpinBox::SMScrSpinBox(QWidget *parent, const char * name)
+: ScrSpinBox(parent, 0),
   hasParent_(false),
   useParentValue_(false),
   pValue_(0.0)
@@ -145,7 +145,7 @@ void SMScrSpinBox::setValue(double val, bool isParentVal)
 void SMScrSpinBox::clear()
 {
 	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-	editor()->clear();
+	ScrSpinBox::clear();
 	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 }
 
@@ -373,7 +373,7 @@ SMStyleSelect::SMStyleSelect(QWidget *parent)
 	parentButton->setMinimumSize(QSize(22, 22));
 	parentButton->setText( tr("P", "P as in Parent"));
 	QToolTip::add(parentButton, tr("Use parent style's effects instead of overriding them"));
-	ssLayout->addWidget( parentButton, 0, 5 );
+	ssLayout->addWidget(parentButton);
 	resize(minimumSizeHint());
 	parentButton->hide();
 }

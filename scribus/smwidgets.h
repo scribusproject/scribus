@@ -19,12 +19,12 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3ValueList>
 
-class SScrSpinBox : public QSpinBox
+class SMSpinBox : public QSpinBox
 {
 	Q_OBJECT
 public:
-	SScrSpinBox(QWidget *parent, const char *name);
-	~SScrSpinBox() {};
+	SMSpinBox(QWidget *parent, const char *name);
+	~SMSpinBox() {};
 
 	void setValue(int val);
 	void setValue(int val, bool isParentVal);
@@ -48,7 +48,7 @@ private slots:
 	void slotValueChanged();
 };
 
-class SMScrSpinBox : public MSpinBox
+class SMScrSpinBox : public ScrSpinBox
 {
 	Q_OBJECT
 public:

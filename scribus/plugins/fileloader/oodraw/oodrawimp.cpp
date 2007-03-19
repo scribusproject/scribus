@@ -69,7 +69,7 @@ void oodrawimp_freePlugin(ScPlugin* plugin)
 
 OODrawImportPlugin::OODrawImportPlugin() :
 	LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QIcon(), "", QKeySequence(), this, "ImportOpenOfficeDraw"))
+	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this, "ImportOpenOfficeDraw"))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
@@ -406,7 +406,7 @@ bool OODPlug::convert(int flags)
 		importFailed = true;
 		if (importedColors.count() != 0)
 		{
-			for (uint cd = 0; cd < importedColors.count(); cd++)
+			for (int cd = 0; cd < importedColors.count(); cd++)
 			{
 				m_Doc->PageColors.remove(importedColors[cd]);
 			}
@@ -538,7 +538,7 @@ bool OODPlug::convert(int flags)
 			{
 				if (importedColors.count() != 0)
 				{
-					for (uint cd = 0; cd < importedColors.count(); cd++)
+					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}

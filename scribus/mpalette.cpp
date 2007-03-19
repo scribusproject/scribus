@@ -1179,6 +1179,8 @@ void Mpalette::setDoc(ScribusDoc *d)
 	Cpal->setDocument(doc);
 	Cpal->setCurrentItem(NULL);
 	m_unitRatio=doc->unitRatio();
+	m_unitIndex=doc->unitIndex();
+//qt4 FIXME here
 	double maxXYWHVal= 30000 * m_unitRatio;
 	double minXYVal= -30000 * m_unitRatio;
 	HaveDoc = true;

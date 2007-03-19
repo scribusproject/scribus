@@ -1146,7 +1146,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		retVal=true;
 		//Palette actions
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
-			scrActions["specialToggleAllPalettes"]->activate();
+			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
 		else
 		if (currKeySeq == scrActions["toolsProperties"]->accel())
 			scrActions["toolsProperties"]->toggle();
@@ -1180,21 +1180,21 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 			scrActions["editStyles"]->toggle();
 		else
 		if (currKeySeq == scrActions["editUndoAction"]->accel() && scrActions["editUndoAction"]->isEnabled())
-			scrActions["editUndoAction"]->activate();
+			scrActions["editUndoAction"]->activate(QAction::Trigger);
 		else
 		if (currKeySeq == scrActions["editRedoAction"]->accel() && scrActions["editRedoAction"]->isEnabled())
-			scrActions["editRedoAction"]->activate();
+			scrActions["editRedoAction"]->activate(QAction::Trigger);
 		else
 		//Other actions
 		if (currKeySeq == scrActions["fileQuit"]->accel())
-			scrActions["fileQuit"]->activate();
+			scrActions["fileQuit"]->activate(QAction::Trigger);
 		else
 		//Zoom actions
 		if (currKeySeq == scrActions["toolsZoomIn"]->accel())
-			scrActions["toolsZoomIn"]->activate();
+			scrActions["toolsZoomIn"]->activate(QAction::Trigger);
 		else
 		if (currKeySeq == scrActions["toolsZoomOut"]->accel())
-			scrActions["toolsZoomOut"]->activate();
+			scrActions["toolsZoomOut"]->activate(QAction::Trigger);
 		else
 			retVal=false;
 	}
@@ -5158,8 +5158,8 @@ void ScribusMainWindow::slotNewPageM()
 		addNewPages(dia->getWherePage(),
 		            dia->getWhere(),
 		            dia->getCount(),
-					dia->heightScrSpinBox->value() / doc->unitRatio(),
-					dia->widthScrSpinBox->value() / doc->unitRatio(),
+					dia->heightSpinBox->value() / doc->unitRatio(),
+					dia->widthSpinBox->value() / doc->unitRatio(),
 					dia->orientationQComboBox->currentItem(),
 					dia->prefsPageSizeName,
 					dia->moveObjects->isChecked(),

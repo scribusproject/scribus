@@ -302,8 +302,8 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 	return QDoubleSpinBox::eventFilter(watched, event);
 }
 
-void MSpinBox::setLineStepM(int val)
+void ScrSpinBox::setLineStepM(int val)
 {
-	QDoubleSpinBox::setLineStep( val );
+	QDoubleSpinBox::setSingleStep( val );
 //	currLineStep = val * Decimals;
 }

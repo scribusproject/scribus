@@ -3224,7 +3224,7 @@ QString Scribus134Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *d
 	{
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();

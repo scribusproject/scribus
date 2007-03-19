@@ -156,7 +156,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 void Vruler::drawNumber(QString num, int starty, QPainter *p)
 {
 	int textY = starty;
-	for (uint a = 0; a < num.length(); ++a)
+	for (int a = 0; a < num.length(); ++a)
 	{
 		QString txt = num.mid(a, 1);
 #ifndef QT_MAC

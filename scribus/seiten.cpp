@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ValueList>
 #include <QLabel>
 #include <QPixmap>
+//QPixmap doesnt seem to include this for its mask() code
+#include <QBitmap>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>

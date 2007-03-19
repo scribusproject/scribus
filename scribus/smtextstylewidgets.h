@@ -28,7 +28,7 @@ class QTabWidget;
 class QString;
 class QComboBox;
 class SMAlignSelect;
-class SScrSpinBox;
+class SMSpinBox;
 class Q3VBoxLayout;
 class SMTabruler;
 class SMFontComboH;
@@ -77,7 +77,7 @@ private:
 	SMScrSpinBox  *lineSpacing_;
 	SMScrSpinBox  *spaceAbove_;
 	SMScrSpinBox  *spaceBelow_;
-	SScrSpinBox   *dropCapLines_;
+	SMSpinBox   *dropCapLines_;
 	SMScrSpinBox  *dropCapOffset_;
 
 	SMAlignSelect *alignement_;

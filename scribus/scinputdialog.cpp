@@ -33,7 +33,7 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt:
 	entryLabel = new QLabel( this, "entryLabel" );
 	labelEntryLayout->addWidget( entryLabel );
 
-	entrySpin = new ScrSpinBox( this, "entrySpin" );
+	entrySpin = new ScrSpinBox( this, 0 );
 	entrySpin->setMinimumSize( QSize( 0, 10 ) );
 	labelEntryLayout->addWidget( entrySpin );
 

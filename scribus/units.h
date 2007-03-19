@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 
 #define UNITMIN 0
-#define UNITMAX 5
+#define UNITMAX 7
 
 enum scUnit {
 	SC_POINTS      = 0,
@@ -41,7 +41,11 @@ enum scUnit {
 	SC_CENTIMETERS = 4,
 	SC_CM          = 4,
 	SC_CICERO      = 5,
-	SC_C           = 5
+	SC_C           = 5,
+	SC_DEGREES     = 6,
+	SC_DEG         = 6,
+	SC_PERCENT     = 7,
+	SC_PCT         = 7
 };
 
 const double SCRIBUS_API unitGetRatioFromIndex(const int index);
@@ -70,7 +74,7 @@ double SCRIBUS_API value2value(double unitValue, int primaryUnit, int secondaryU
 //Ruler specific functions
 double SCRIBUS_API unitRulerGetIter1FromIndex(const int index);
 double SCRIBUS_API unitRulerGetIter2FromIndex(const int index);
-
+bool SCRIBUS_API unitValidForDocUnit(const int index);
 
 #endif // UNITS_H
 

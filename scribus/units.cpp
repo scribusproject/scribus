@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 /*!
- * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P, CM, C
+ * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P, CM, C. DEG and PCT return 1.0 as they will never convert
  */
 const double unitGetRatioFromIndex(const int index)
 {
@@ -33,7 +33,7 @@ const double unitGetRatioFromIndex(const int index)
 	// a zero value if they are accessing here with a correct index.
 	if (index<UNITMIN || index>UNITMAX)
 		return 0;
-	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0, 25.4/72.0/4.512 };
+	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0, 25.4/72.0/4.512, 1.0, 1.0 };
 	return ratio[index];
 }
 
@@ -64,9 +64,13 @@ const double unitValueFromString(const QString& value)
 	{
 		dbl = lowerValue.remove("cm");
 	}
-	else if (lowerValue.find("c") != -1)
+	else if (lowerValue.find("°") != -1)
 	{
-		dbl = lowerValue.remove("c");
+		dbl = lowerValue.remove("°");
+	}
+	else if (lowerValue.find("%") != -1)
+	{
+		dbl = lowerValue.remove("%");
 	}
 	else
 		dbl = "0.0";
@@ -106,6 +110,14 @@ const scUnit unitIndexFromString(const QString& value)
 	{
 		retVal=SC_C;
 	}	
+	else if (lowerValue.find("°") != -1)
+	{
+		retVal=SC_DEGREES;
+	}
+	else if (lowerValue.find("%") != -1)
+	{
+		retVal=SC_PERCENT;
+	}	
 	else
 		retVal=SC_PT;
 	return retVal;
@@ -119,7 +131,16 @@ const QString unitGetSuffixFromIndex(const int index)
 	//Could also return " "+unitGetStrFromIndex(indeX);
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
-	QString suffix[] = { QObject::tr(" pt"), QObject::tr(" mm"), QObject::tr(" in"), QObject::tr(" p"), QObject::tr(" cm"), QObject::tr(" c") };
+	QString suffix[] = {
+						QObject::tr(" pt"), 
+						QObject::tr(" mm"), 
+						QObject::tr(" in"), 
+						QObject::tr(" p"), 
+						QObject::tr(" cm"), 
+						QObject::tr(" c"), 
+						QObject::tr(" °"),
+						QObject::tr(" %")
+					  };
 	return suffix[index];
 }
 
@@ -130,7 +151,16 @@ const QString unitGetStrFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
-	QString suffix[] = { QObject::tr("pt"), QObject::tr("mm"), QObject::tr("in"), QObject::tr("p"), QObject::tr("cm"), QObject::tr("c") };
+	QString suffix[] = {
+						QObject::tr("pt"), 
+						QObject::tr("mm"), 
+						QObject::tr("in"), 
+						QObject::tr("p"), 
+						QObject::tr("cm"), 
+						QObject::tr("c"),
+						QObject::tr("°"),
+						QObject::tr("%")
+						};
 	return suffix[index];
 }
 
@@ -141,7 +171,7 @@ const QString unitGetUntranslatedStrFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
-	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c" };
+	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c", "°", "%" };
 	return suffix[index];
 }
 /*!
@@ -151,8 +181,8 @@ const int unitGetDecimalsFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
-	//                      PT,   MM,    IN,   P,    CM,   C
-	int decimalPoints[] = {100, 1000, 10000, 100, 10000, 10000};
+	//                      PT,   MM,    IN,   P,    CM,     C,   °,   %
+	int decimalPoints[] = {100, 1000, 10000, 100, 10000, 10000, 100, 100};
 	return decimalPoints[index];
 }
 
@@ -163,8 +193,8 @@ const int unitGetPrecisionFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
-	//                PT,MM,IN, P,CM, C
-	int precision[] = {2, 3, 4, 2, 4, 4};
+	//                PT,MM,IN, P,CM, C, °, %
+	int precision[] = {2, 3, 4, 2, 4, 4, 2, 2};
 	return precision[index];
 }
 
@@ -180,6 +210,9 @@ const QStringList unitGetTextUnitList()
 	suffixList.append( QObject::tr( "Picas (p)" ) );
 	suffixList.append( QObject::tr( "Centimeters (cm)" ) );
 	suffixList.append( QObject::tr( "Cicero (c)" ) );
+	//Here for completeness, dont use!
+	//suffixList.append( QObject::tr( "°" ) );
+	//suffixList.append( QObject::tr( "%" ) );
 	return QStringList(suffixList);
 }
 
@@ -280,6 +313,8 @@ double pts2value(double unitValue, int unit)
 	switch (unit)
 	{
 		case 0:
+		case 6:
+		case 7:
 			ret = unitValue; //dont multiply by 1
 			break;
 		default:
@@ -298,6 +333,8 @@ double value2pts(double unitValue, int unit)
 	switch (unit)
 	{
 		case 0:
+		case 6:
+		case 7:
 			ret = unitValue; // dont divide by 1
 			break;
 		default:
@@ -327,10 +364,10 @@ double value2value(double unitValue, int primaryUnit, int secondaryUnit)
  */
 double unitRulerGetIter1FromIndex(const int index)
 {
-	if (index<UNITMIN || index>UNITMAX) 
+	if (!unitValidForDocUnit(index)) 
 		return 0;
-	//                 PT,         MM,   IN,    P,        CM,               C
-	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4, 72.0/25.4*4.512};
+	//                 PT,         MM,   IN,    P,        CM,               C     °,    %
+	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4, 72.0/25.4*4.512, 10.0, 10.0};
 	return iter[index];
 }
 
@@ -339,9 +376,18 @@ double unitRulerGetIter1FromIndex(const int index)
  */
 double unitRulerGetIter2FromIndex(const int index)
 {
-	if (index<UNITMIN || index>UNITMAX) 
+	if (!unitValidForDocUnit(index))
 		return 0;
-	//                  PT,          MM,   IN,     P,         CM,                C
-	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4, 720.0/25.4*4.512};
+	//                  PT,          MM,   IN,     P,         CM,                C,     °,     %
+	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4, 720.0/25.4*4.512, 100.0, 100.0};
 	return iter[index];
+}
+
+bool unitValidForDocUnit(const int index)
+{
+	if (index<UNITMIN || index>UNITMAX)
+		return false;
+	if (index==6 || index==7)
+		return false;
+	return true;
 }

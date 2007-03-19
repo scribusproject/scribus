@@ -300,7 +300,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	GroupBox1Layout->setSpacing( 5 );
 	GroupBox1Layout->setMargin( 10 );
 	TextLabel1 = new QLabel( tr( "Compatibilit&y:" ), GroupBox1, "TextLabel1" );
-	TextLabel1->setAlignment( Qt::AlignVCenter | Qt::AlignLeft ) );
+	TextLabel1->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	GroupBox1Layout->addWidget( TextLabel1, 0, 0 );
 	PDFVersionCombo = new QComboBox( true, GroupBox1, "PDFVersionCombo" );
 	PDFVersionCombo->setEditable(false);
@@ -330,13 +330,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	useLayers = new QCheckBox( tr( "Include La&yers" ), GroupBox1, "LI" );
 	GroupBox1Layout->addMultiCellWidget( useLayers, 5, 5, 0, 2 );
 	Resolution = new QSpinBox( GroupBox1, "Resolution" );
-	Resolution->setMaxValue( 4000 );
-	Resolution->setMinValue( 35 );
+	Resolution->setMaximum( 4000 );
+	Resolution->setMinimum( 35 );
 	Resolution->setSuffix( tr( " dpi" ) );
 	TextLabel2 = new QLabel( Resolution, tr( "&Resolution for EPS Graphics:" ), GroupBox1, "TextLabel2" );
 	TextLabel2->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
-	GroupBox1Layout->addWidget( Resolution, 6, 1, AlignLeft );
+	GroupBox1Layout->addWidget( Resolution, 6, 1, Qt::AlignLeft );
 	Layout13->addWidget( GroupBox1 );
 	tabLayout->addLayout( Layout13 );
 	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral, "Compression" );
@@ -372,9 +372,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CBoxLayout->addWidget( DSColor, 2, 0 );
 	ValC = new QSpinBox( CBox, "ValC" );
 	ValC->setSuffix( tr( " dpi" ) );
-	ValC->setMaxValue( 4000 );
-	ValC->setMinValue( 35 );
-	CBoxLayout->addWidget( ValC, 2, 1, AlignLeft );
+	ValC->setMaximum( 4000 );
+	ValC->setMinimum( 35 );
+	CBoxLayout->addWidget( ValC, 2, 1, Qt::AlignLeft );
 	tabLayout->addWidget( CBox );
 	insertTab( tabGeneral, tr( "&General" ) );
 	if (doc != 0 && exporting)
@@ -482,14 +482,14 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		EffectsLayout->addWidget( TextLabel6e, 5, 0 );
 		PageTime = new QSpinBox( Effects, "PageTime" );
 		PageTime->setSuffix( tr( " sec" ) );
-		PageTime->setMaxValue( 3600 );
-		PageTime->setMinValue( 0 );
+		PageTime->setMaximum( 3600 );
+		PageTime->setMinimum( 0 );
 		TextLabel1e->setBuddy(PageTime);
 		EffectsLayout->addWidget( PageTime, 0, 1 );
 		EffectTime = new QSpinBox( Effects, "EffectTime" );
 		EffectTime->setSuffix( tr( " sec" ) );
-		EffectTime->setMaxValue( 3600 );
-		EffectTime->setMinValue( 1 );
+		EffectTime->setMaximum( 3600 );
+		EffectTime->setMinimum( 1 );
 		TextLabel2e->setBuddy(EffectTime);
 		EffectsLayout->addWidget( EffectTime, 1, 1 );
 		EffectType = new QComboBox( true, Effects, "EffectType" );
@@ -690,16 +690,16 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	textLPI1 = new QLabel( tr( "Fre&quency:" ), LPIgroup, "textLPI1" );
 	LPIgroupLayout->addWidget( textLPI1, 0, 1 );
 	LPIfreq = new QSpinBox( LPIgroup, "LPIfreq" );
-	LPIfreq->setMinValue(10);
-	LPIfreq->setMaxValue(1000);
+	LPIfreq->setMinimum(10);
+	LPIfreq->setMaximum(1000);
 	textLPI1->setBuddy(LPIfreq);
 	LPIgroupLayout->addWidget( LPIfreq, 0, 2 );
 	textLPI2 = new QLabel( tr( "&Angle:" ), LPIgroup, "textLPI2" );
 	LPIgroupLayout->addWidget( textLPI2, 1, 1 );
 	LPIangle = new QSpinBox( LPIgroup, "LPIangle" );
 	LPIangle->setSuffix( QString::fromUtf8(" °"));
-	LPIangle->setMinValue(-180);
-	LPIangle->setMaxValue(180);
+	LPIangle->setMinimum(-180);
+	LPIangle->setMaximum(180);
 	textLPI2->setBuddy(LPIangle);
 	LPIgroupLayout->addWidget( LPIangle, 1, 2 );
 	textLPI3 = new QLabel( tr( "S&pot Function:" ), LPIgroup, "textLPI3" );
@@ -798,8 +798,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	markOffset = new ScrSpinBox( MarkGroup, precision );
 	MarkGroupLayout->addWidget( markOffset, 2, 2 );
 	markOffset->setSuffix( unit );
-	markOffset->setMinValue(0);
-	markOffset->setMaxValue(3000 * unitRatio);
+	markOffset->setMinimum(0);
+	markOffset->setMaximum(3000 * unitRatio);
 	tabPDFXLayout->addWidget( MarkGroup );
 
 	BleedGroup = new Q3GroupBox( tabPDFX, "BleedGroup" );
@@ -856,17 +856,17 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 
 	insertTab( tabPDFX, tr( "Pre-Press" ) );
 	BleedTop->setSuffix( unit );
-	BleedTop->setMinValue(0);
-	BleedTop->setMaxValue(3000*unitRatio);
+	BleedTop->setMinimum(0);
+	BleedTop->setMaximum(3000*unitRatio);
 	BleedBottom->setSuffix( unit );
-	BleedBottom->setMinValue(0);
-	BleedBottom->setMaxValue(3000*unitRatio);
+	BleedBottom->setMinimum(0);
+	BleedBottom->setMaximum(3000*unitRatio);
 	BleedRight->setSuffix( unit );
-	BleedRight->setMinValue(0);
-	BleedRight->setMaxValue(3000*unitRatio);
+	BleedRight->setMinimum(0);
+	BleedRight->setMaximum(3000*unitRatio);
 	BleedLeft->setSuffix( unit );
-	BleedLeft->setMinValue(0);
-	BleedLeft->setMaxValue(3000*unitRatio);
+	BleedLeft->setMinimum(0);
+	BleedLeft->setMaximum(3000*unitRatio);
 
 	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts, Eff, unitIndex, PageH, PageB, doc, pdfExport);
 
@@ -1725,8 +1725,8 @@ void TabPDFOptions::DoDownsample()
 		ValC->setEnabled(true);
 		if (ValC->value() > Resolution->value())
 			ValC->setValue(Resolution->value());
-		ValC->setMaxValue(Resolution->value());
-		ValC->setMinValue(35);
+		ValC->setMaximum(Resolution->value());
+		ValC->setMinimum(35);
 	}
 	else
 		ValC->setEnabled(false);

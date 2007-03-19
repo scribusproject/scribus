@@ -165,7 +165,7 @@
                </widget>
               </item>
               <item row="0" column="1" >
-               <widget class="MSpinBox" native="1" name="leftScratch" >
+               <widget class="ScrSpinBox" native="1" name="leftScratch" >
                 <property name="minimumSize" >
                  <size>
                   <width>0</width>
@@ -188,7 +188,7 @@
                </widget>
               </item>
               <item row="1" column="1" >
-               <widget class="MSpinBox" native="1" name="rightScratch" />
+               <widget class="ScrSpinBox" native="1" name="rightScratch" />
               </item>
               <item row="2" column="0" >
                <widget class="QLabel" name="textLabel12" >
@@ -204,7 +204,7 @@
                </widget>
               </item>
               <item row="2" column="1" >
-               <widget class="MSpinBox" native="1" name="topScratch" />
+               <widget class="ScrSpinBox" native="1" name="topScratch" />
               </item>
               <item row="3" column="0" >
                <widget class="QLabel" name="textLabel12_2" >
@@ -220,7 +220,7 @@
                </widget>
               </item>
               <item row="3" column="1" >
-               <widget class="MSpinBox" native="1" name="bottomScratch" />
+               <widget class="ScrSpinBox" native="1" name="bottomScratch" />
               </item>
              </layout>
             </widget>
@@ -251,7 +251,7 @@
                </widget>
               </item>
               <item row="0" column="1" >
-               <widget class="MSpinBox" native="1" name="gapHorizontal" />
+               <widget class="ScrSpinBox" native="1" name="gapHorizontal" />
               </item>
               <item row="1" column="0" >
                <widget class="QLabel" name="textLabel14" >
@@ -264,7 +264,7 @@
                </widget>
               </item>
               <item row="1" column="1" >
-               <widget class="MSpinBox" native="1" name="gapVertical" />
+               <widget class="ScrSpinBox" native="1" name="gapVertical" />
               </item>
              </layout>
             </widget>
@@ -855,18 +855,18 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MSpinBox</class>
-   <extends>QWidget</extends>
-   <header>mspinbox.h</header>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
  </includes>
  <resources/>
  <connections/>

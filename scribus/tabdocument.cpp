@@ -286,7 +286,7 @@ void TabDocument::unitChange()
 
 	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageW * unitRatio);
 	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageH * unitRatio);
-	marginGroup->unitChange(unitRatio, decimals, suffix);
+	marginGroup->setNewUnit(docUnitIndex);
 	marginGroup->setPageHeight(pageH);
 	marginGroup->setPageWidth(pageW);
 

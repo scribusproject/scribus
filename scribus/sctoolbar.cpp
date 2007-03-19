@@ -238,7 +238,7 @@ void ScToolBar::slotLeft()
 
 void ScToolBar::slotVert()
 {
-	floatOrientation = Q3DockWindow::Vertical;
+	floatOrientation = Qt::Vertical;
 	orientationMenu->setItemChecked(orientationMenu->idAt(0), false);
 	orientationMenu->setItemChecked(orientationMenu->idAt(1), true);
 	m_prefs->set("FloatOrientation", Vert);
@@ -248,7 +248,7 @@ void ScToolBar::slotVert()
 
 void ScToolBar::slotHor()
 {
-	floatOrientation = Q3DockWindow::Horizontal;
+	floatOrientation = Qt::Horizontal;
 	orientationMenu->setItemChecked(orientationMenu->idAt(0), true);
 	orientationMenu->setItemChecked(orientationMenu->idAt(1), false);
 	m_prefs->set("FloatOrientation", Hor);
@@ -277,16 +277,9 @@ void ScToolBar::languageChange()
 	orientationMenu->insertItem( tr("Horizontal"), this, SLOT(slotHor()));
 	orientationMenu->insertItem( tr("Vertical"), this, SLOT(slotVert()));
 	popup->insertItem( tr("Floating Orientation..."), orientationMenu);
-	if (floatOrientation == Q3DockWindow::Horizontal)
-	{
-		orientationMenu->setItemChecked(orientationMenu->idAt(0), true);
-		orientationMenu->setItemChecked(orientationMenu->idAt(1), false);
-	}
-	else
-	{
-		orientationMenu->setItemChecked(orientationMenu->idAt(0), false);
-		orientationMenu->setItemChecked(orientationMenu->idAt(1), true);
-	}
+	bool b=(floatOrientation == Qt::Horizontal);
+	orientationMenu->setItemChecked(orientationMenu->idAt(0), b);
+	orientationMenu->setItemChecked(orientationMenu->idAt(1), !b);
 }
 
 void ScToolBar::initPrefsButton()

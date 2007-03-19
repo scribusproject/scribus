@@ -205,9 +205,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baseGridBox->layout()->setMargin( 10 );
 	baseGridBoxLayout = new Q3GridLayout( baseGridBox->layout() );
 	baseGridBoxLayout->setAlignment( Qt::AlignTop );
-	baseGrid = new ScrSpinBox( baseGridBox, precision );
-	baseGrid->setMaxValue(1000);
-	baseGrid->setMinValue(pts2value(1.0, unitIndex));
+	baseGrid = new ScrSpinBox( pts2value(1.0, unitIndex), 1000, baseGridBox, precision );
 	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baseGridBox, "textLabel6a" );
 	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
