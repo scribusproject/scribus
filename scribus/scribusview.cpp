@@ -10848,39 +10848,39 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				it++;
 				nstyle.setFillShade((*it).toInt());
 				it++;
-				nstyle.setEffects(static_cast<StyleFlag>(it == NULL ? 0 : (*it).toInt()));
+				nstyle.setEffects(static_cast<StyleFlag>(it == wt.end() ? 0 : (*it).toInt()));
 				it++;
-				int cab = it == NULL ? 0 : (*it).toInt();
+				int cab = it == wt.end() ? 0 : (*it).toInt();
 				it++;
-				nstyle.setStrokeColor(it == NULL ? CommonStrings::None : *it);
+				nstyle.setStrokeColor(it == wt.end() ? CommonStrings::None : *it);
 				it++;
-				nstyle.setStrokeShade(it == NULL ? 100 : (*it).toInt());
+				nstyle.setStrokeShade(it == wt.end() ? 100 : (*it).toInt());
 				it++;
-				if (it == NULL)
+				if (it == wt.end())
 					nstyle.setScaleH(1000);
 				else
 					nstyle.setScaleH(qMin(qMax((*it).toInt(), 100), 4000));
 				it++;
-				if (it == NULL)
+				if (it == wt.end())
 					nstyle.setScaleV(1000);
 				else
 					nstyle.setScaleV(qMin(qMax((*it).toInt(), 100), 4000));
 				it++;
-				nstyle.setBaselineOffset(it == NULL ? 0 : (*it).toInt());
+				nstyle.setBaselineOffset(it == wt.end() ? 0 : (*it).toInt());
 				it++;
-				nstyle.setShadowXOffset(it == NULL ? 50 : (*it).toInt());
+				nstyle.setShadowXOffset(it == wt.end() ? 50 : (*it).toInt());
 				it++;
-				nstyle.setShadowYOffset(it == NULL ? -50 : (*it).toInt());
+				nstyle.setShadowYOffset(it == wt.end() ? -50 : (*it).toInt());
 				it++;
-				nstyle.setOutlineWidth(it == NULL ? 10 : (*it).toInt());
+				nstyle.setOutlineWidth(it == wt.end() ? 10 : (*it).toInt());
 				it++;
-				nstyle.setUnderlineOffset(it == NULL ? -1 : (*it).toInt());
+				nstyle.setUnderlineOffset(it == wt.end() ? -1 : (*it).toInt());
 				it++;
-				nstyle.setUnderlineWidth(it == NULL ? -1 : (*it).toInt());
+				nstyle.setUnderlineWidth(it == wt.end() ? -1 : (*it).toInt());
 				it++;
-				nstyle.setStrikethruOffset(it == NULL ? -1 : (*it).toInt());
+				nstyle.setStrikethruOffset(it == wt.end() ? -1 : (*it).toInt());
 				it++;
-				nstyle.setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
+				nstyle.setStrikethruWidth(it == wt.end() ? -1 : (*it).toInt());
 				uint pos = Doc->Items->at(z)->itemText.length();
 				Doc->Items->at(z)->itemText.insertChars(pos, ch);
 				if (ch == SpecialChars::PARSEP) {
