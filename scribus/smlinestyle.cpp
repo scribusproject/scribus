@@ -89,7 +89,7 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	ScribusDoc* doc = colorList.document();
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
-		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], doc, it.key()));
+//Qt4		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], doc, it.key()));
 	}
 	colors = colorList;
 	updateLineList();
