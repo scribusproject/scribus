@@ -227,7 +227,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout->addWidget( shade1, 1, 1 );
 	CurveD1 = new CurveWidget( NULL );
 	CurveD1Pop = new Q3PopupMenu();
-	CurveD1Pop->insertItem(CurveD1);
+// Qt4	CurveD1Pop->insertItem(CurveD1);
 	CurveD1Button = new QToolButton( WStackPage_8, "CurveD1Button" );
 	CurveD1Button->setText( "" );
 	CurveD1Button->setMaximumSize( QSize( 22, 22 ) );
@@ -246,7 +246,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout->addWidget( shade2, 3, 1 );
 	CurveD2 = new CurveWidget( NULL );
 	CurveD2Pop = new Q3PopupMenu();
-	CurveD2Pop->insertItem(CurveD2);
+// Qt4	CurveD2Pop->insertItem(CurveD2);
 	CurveD2Button = new QToolButton( WStackPage_8, "CurveD2Button" );
 	CurveD2Button->setText( "" );
 	CurveD2Button->setMaximumSize( QSize( 22, 22 ) );
@@ -270,7 +270,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( shadet1, 1, 1 );
 	CurveT1 = new CurveWidget( NULL );
 	CurveT1Pop = new Q3PopupMenu();
-	CurveT1Pop->insertItem(CurveT1);
+// Qt4	CurveT1Pop->insertItem(CurveT1);
 	CurveT1Button = new QToolButton( WStackPage_9, "CurveT1Button" );
 	CurveT1Button->setText( "" );
 	CurveT1Button->setMaximumSize( QSize( 22, 22 ) );
@@ -288,7 +288,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( shadet2, 3, 1 );
 	CurveT2 = new CurveWidget( NULL );
 	CurveT2Pop = new Q3PopupMenu();
-	CurveT2Pop->insertItem(CurveT2);
+// Qt4	CurveT2Pop->insertItem(CurveT2);
 	CurveT2Button = new QToolButton( WStackPage_9, "CurveT2Button" );
 	CurveT2Button->setText( "" );
 	CurveT2Button->setMaximumSize( QSize( 22, 22 ) );
@@ -306,7 +306,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( shadet3, 5, 1 );
 	CurveT3 = new CurveWidget( NULL );
 	CurveT3Pop = new Q3PopupMenu();
-	CurveT3Pop->insertItem(CurveT3);
+// Qt4	CurveT3Pop->insertItem(CurveT3);
 	CurveT3Button = new QToolButton( WStackPage_9, "CurveT3Button" );
 	CurveT3Button->setText( "" );
 	CurveT3Button->setMaximumSize( QSize( 22, 22 ) );
@@ -328,7 +328,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( shadeq1, 1, 1 );
 	CurveQ1 = new CurveWidget( NULL );
 	CurveQ1Pop = new Q3PopupMenu();
-	CurveQ1Pop->insertItem(CurveQ1);
+// Qt4	CurveQ1Pop->insertItem(CurveQ1);
 	CurveQ1Button = new QToolButton( WStackPage_10, "CurveQ1Button" );
 	CurveQ1Button->setText( "" );
 	CurveQ1Button->setMaximumSize( QSize( 22, 22 ) );
@@ -346,7 +346,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( shadeq2, 3, 1 );
 	CurveQ2 = new CurveWidget( NULL );
 	CurveQ2Pop = new Q3PopupMenu();
-	CurveQ2Pop->insertItem(CurveQ2);
+// Qt4	CurveQ2Pop->insertItem(CurveQ2);
 	CurveQ2Button = new QToolButton( WStackPage_10, "CurveQ2Button" );
 	CurveQ2Button->setText( "" );
 	CurveQ2Button->setMaximumSize( QSize( 22, 22 ) );
@@ -364,7 +364,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( shadeq3, 5, 1 );
 	CurveQ3 = new CurveWidget( NULL );
 	CurveQ3Pop = new Q3PopupMenu();
-	CurveQ3Pop->insertItem(CurveQ3);
+// Qt4	CurveQ3Pop->insertItem(CurveQ3);
 	CurveQ3Button = new QToolButton( WStackPage_10, "CurveQ3Button" );
 	CurveQ3Button->setText( "" );
 	CurveQ3Button->setMaximumSize( QSize( 22, 22 ) );
@@ -382,7 +382,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( shadeq4, 7, 1 );
 	CurveQ4 = new CurveWidget( NULL );
 	CurveQ4Pop = new Q3PopupMenu();
-	CurveQ4Pop->insertItem(CurveQ4);
+// Qt4	CurveQ4Pop->insertItem(CurveQ4);
 	CurveQ4Button = new QToolButton( WStackPage_10, "CurveQ4Button" );
 	CurveQ4Button->setText( "" );
 	CurveQ4Button->setMaximumSize( QSize( 22, 22 ) );
@@ -464,7 +464,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	usedEffects->clear();
 	effectValMap.clear();
-	for (uint a = 0; a < effectsList.count(); ++a)
+	for (int a = 0; a < effectsList.count(); ++a)
 	{
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_INVERT)
 		{

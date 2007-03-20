@@ -20,7 +20,7 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 {
 	Men = new Q3PopupMenu();
 	buttonGroup1 = new AutoformButtonGroup(Men);
-	Men->insertItem(buttonGroup1);
+// Qt4	Men->insertItem(buttonGroup1);
 	setPopup(Men);
 	setPopupDelay(10);
 	setPixmap(buttonGroup1->getIconPixmap(0));
