@@ -58,6 +58,7 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
 	// in the list.
+	//First, check if we even have any plugins to load with
 	if (it!=itEnd)
 	{
 		filterList.append((*it).filter);
@@ -75,6 +76,8 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 			}
 		}
 	}
+	else
+		qDebug("%s", tr("No File Loader Plugins Found").local8Bit().data());
 	filterList.append( tr("All Files (*)"));
 	return filterList;
 }
