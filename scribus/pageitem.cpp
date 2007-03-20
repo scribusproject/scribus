@@ -1343,7 +1343,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	p.rotate(Rot);
 	if (Sizing)
 	{
-// Qt4		p.setRasterOp(XorROP);
+		p.setCompositionMode(QPainter::CompositionMode_Xor);
 		p.setBrush(Qt::NoBrush);
 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawRect(0, 0, static_cast<int>(OldB), static_cast<int>(OldH));

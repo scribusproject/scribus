@@ -354,7 +354,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 				QPainter p;
 				p.begin(currView->viewport());
-//Qt4	FIXME: p.setRasterOp(XorROP);
+				p.setCompositionMode(QPainter::CompositionMode_Xor);
 				p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage()->yOffset() * Scaling)));
 				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage()->height() * Scaling));

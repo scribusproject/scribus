@@ -75,7 +75,7 @@ void ColorChart::drawMark(int x, int y)
 {
 	QPainter p;
 	p.begin(this);
-//Qt4	FIXME: p.setRasterOp(XorROP);
+	p.setCompositionMode(QPainter::CompositionMode_Xor);
 	p.setPen(QPen(QColor(Qt::white), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
 	p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
