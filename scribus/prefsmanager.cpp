@@ -105,7 +105,7 @@ void PrefsManager::setup()
 	setupPreferencesLocation();
 
 	importingFrom12=copyOldPreferences();
-	prefsFile = new PrefsFile( prefsLocation + "/prefs134.xml" );
+	prefsFile = new PrefsFile( prefsLocation + "/prefs135.xml" );
 	if (importingFrom12)
 		convert12Preferences();
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
@@ -615,7 +615,7 @@ const QString PrefsManager::preferencesLocation()
 bool PrefsManager::copyOldPreferences()
 {
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString prefs12[4], prefs130[4], prefs134[4];
+	QString prefs12[4], prefs130[4], prefs134[4], prefs135[4];
 
 	// Special case for scribus.rc - if found, use scribus123.rc,
 	// otherwise fall back to the possibly mis-encoded scribus.rc .
@@ -634,20 +634,25 @@ bool PrefsManager::copyOldPreferences()
 	prefs134[1]=QDir::convertSeparators(prefsLocation+"/scrap134.scs");
 	prefs134[2]=QDir::convertSeparators(prefsLocation+"/prefs134.xml");
 	prefs134[3]=QDir::convertSeparators(prefsLocation+"/scripter134.rc");
+	prefs135[0]=QDir::convertSeparators(prefsLocation+"/scribus135.rc");
+	prefs135[1]=QDir::convertSeparators(prefsLocation+"/scrap135.scs");
+	prefs135[2]=QDir::convertSeparators(prefsLocation+"/prefs135.xml");
+	prefs135[3]=QDir::convertSeparators(prefsLocation+"/scripter135.rc");
 
-	bool existsPrefs12[4], existsPrefs130[4], existsPrefs134[4];
+	bool existsPrefs12[4], existsPrefs130[4], existsPrefs134[4], existsPrefs135[4];
 	for (uint i=0;i<4;++i)
 	{
 		existsPrefs12[i]=QFile::exists(prefs12[i]);
 		existsPrefs130[i]=QFile::exists(prefs130[i]);
 		existsPrefs134[i]=QFile::exists(prefs134[i]);
+		existsPrefs135[i]=QFile::exists(prefs135[i]);
 	}
 
 	bool retVal=false;
-	if (existsPrefs134[0] && existsPrefs134[2])
+	if (existsPrefs135[0] && existsPrefs135[2])
 		return retVal;
-	//Only check for these two as they will be autocreated if they dont exist.
-	if( (existsPrefs12[0] && !existsPrefs130[0]) || (existsPrefs12[2] && !existsPrefs130[2]) )
+	//Only check for these three as they will be autocreated if they dont exist.
+	if( (existsPrefs12[0] && !existsPrefs130[0] && !existsPrefs134[0]) || (existsPrefs12[2] && !existsPrefs130[2] && !existsPrefs134[2]) )
 	{
 		retVal=true; // converting from 1.2 prefs
 		if (ScCore->usingGUI())
@@ -662,8 +667,8 @@ bool PrefsManager::copyOldPreferences()
 			{
 				for (uint i=0;i<4;++i)
 				{
-					if (existsPrefs12[i] && !existsPrefs134[i])
-						copyFile(prefs12[i], prefs134[i]);
+					if (existsPrefs12[i] && !existsPrefs135[i])
+						copyFile(prefs12[i], prefs135[i]);
 				}
 			}
 			if (splashShown)
@@ -671,12 +676,21 @@ bool PrefsManager::copyOldPreferences()
 		}
 	}
 	else
+	if(existsPrefs134[0])
+	{
+		for (uint i=0;i<4;++i)
+		{
+			if (existsPrefs134[i] && !existsPrefs135[i])
+				copyFile(prefs134[i], prefs135[i]);
+		}
+	}
+	else
 	if(existsPrefs130[0])
 	{
 		for (uint i=0;i<4;++i)
 		{
-			if (existsPrefs130[i] && !existsPrefs134[i])
-				copyFile(prefs130[i], prefs134[i]);
+			if (existsPrefs130[i] && !existsPrefs135[i])
+				copyFile(prefs130[i], prefs135[i]);
 		}
 	}
 	return retVal;
@@ -703,7 +717,7 @@ void PrefsManager::ReadPrefs(const QString & fname)
 {
 	QString realFile;
 	if (fname.isNull())
-		realFile = prefsLocation + "/scribus134.rc";
+		realFile = prefsLocation + "/scribus135.rc";
 	else
 		realFile = fname;
 
@@ -781,7 +795,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	SavePrefsXML();
 	QString realFile;
 	if (fname.isNull())
-		realFile = prefsLocation+"/scribus134.rc";
+		realFile = prefsLocation+"/scribus135.rc";
 	else
 		realFile = fname;
 	if (!WritePref(realFile))
