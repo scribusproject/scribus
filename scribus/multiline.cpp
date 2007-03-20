@@ -111,7 +111,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	ColorList::Iterator it;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		Color->listBox()->insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
+//Qt4			Color->listBox()->insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
 	}
 	layout4->addWidget( Color );
 	Shade = new QSpinBox( Properties, "Shade" );
