@@ -956,7 +956,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["alignBlock"], "Alignment");
 	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
 
-	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+//Qt4	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 //Qt4	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
@@ -4212,7 +4212,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsPDFListBox"]->setEnabled(false);
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
-		ColorMenC->clear();
+		//qt4ColorMenC->clear();
 		//CB dont need this until we have a doc...
 		//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		propertiesPalette->Cpal->ChooseGrad(0);
@@ -6454,6 +6454,7 @@ void ScribusMainWindow::setFSizeMenu(int size)
 }
 
 //CB-->Doc
+/*qt4
 void ScribusMainWindow::setItemFarbe(int id)
 {
 	if (doc->m_Selection->count() != 0)
@@ -6467,7 +6468,7 @@ void ScribusMainWindow::setItemFarbe(int id)
 	scrMenuMgr->getLocalPopupMenu("Color")->activateItemAt(0);
 	slotDocCh();
 }
-
+*/
 //CB-->Doc partly
 void ScribusMainWindow::setItemShade(int id)
 {
@@ -6532,11 +6533,12 @@ void ScribusMainWindow::setCSMenu()
 	}
 	if (la == CommonStrings::None)
 		la = CommonStrings::tr_NoneColor;
-	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
+/* qt4	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
 	{
 		if (ColorMenC->text(a) == la)
 			ColorMenC->setCurrentItem(a);
 	}
+*/
 	if (scrActions[QString("shade%1").arg(lb)])
 		scrActions[QString("shade%1").arg(lb)]->setOn(true);
 }
@@ -6899,9 +6901,9 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	propertiesPalette->paraStyleCombo->updateFormatList();
 	propertiesPalette->charStyleCombo->updateFormatList();
 	propertiesPalette->updateColorList();
-	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+	//qt4 disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorList::Iterator it;
-	updateColorMenu();
+	//qt4 updateColorMenu();
 	view->DrawNew();
 	slotDocCh();
 }
@@ -9186,6 +9188,7 @@ void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString 
 	*command=PDef.Command;
 }
 
+/*qt4
 void ScribusMainWindow::updateColorMenu(Q3ProgressBar* progressBar)
 {
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
@@ -9209,6 +9212,7 @@ void ScribusMainWindow::updateColorMenu(Q3ProgressBar* progressBar)
 	}
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 }
+*/
 
 void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 {

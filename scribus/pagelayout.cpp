@@ -253,10 +253,11 @@ void PageLayouts::languageChange()
 		disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 		int currFirstPageIndex=firstPage->currentItem();
 		firstPage->clear();
-		for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
-		{
-			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
-		}
+		if (currIndex>=0 && currIndex<pageSets.count())
+			for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
+			{
+				firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+			}
 		firstPage->setCurrentItem(currFirstPageIndex);
 		connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 	}

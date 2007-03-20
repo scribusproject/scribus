@@ -58,18 +58,23 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 	// We know the list is sorted by id, then priority, so we can just take the
 	// highest priority entry for each ID, and we can start with the first entry
 	// in the list.
-	filterList.append((*it).filter);
-	unsigned int lastID = (*it).formatId;
-	++it;
-	for ( ; it != itEnd ; ++it )
-		// Find the next load/save (as appropriate) plugin for the next format type
-		if ( (forLoad ? (*it).load : (*it).save) && ((*it).formatId > lastID) )
+	if (it!=itEnd)
+	{
+		filterList.append((*it).filter);
+		unsigned int lastID = (*it).formatId;
+		++it;
+		for ( ; it != itEnd ; ++it )
 		{
-			// And add it to the filter list, since we know it's 
-			// the highest priority because of the sort order.
-			filterList.append((*it).filter);
-			lastID = (*it).formatId;
+			// Find the next load/save (as appropriate) plugin for the next format type
+			if ( (forLoad ? (*it).load : (*it).save) && ((*it).formatId > lastID) )
+			{
+				// And add it to the filter list, since we know it's 
+				// the highest priority because of the sort order.
+				filterList.append((*it).filter);
+				lastID = (*it).formatId;
+			}
 		}
+	}
 	filterList.append( tr("All Files (*)"));
 	return filterList;
 }

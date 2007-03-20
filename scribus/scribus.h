@@ -426,7 +426,7 @@ public slots:
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Farbe */
-	void setItemFarbe(int id);
+	//qt4 void setItemFarbe(int id);
 	/** Setzt die Abstufung */
 	void setItemShade(int id);
 	/** Setzt den Font */
@@ -588,7 +588,7 @@ private:
 	QString recentPasteMenuName;
 	QString layerMenuName;
 	QPixmap noIcon;
-	ColorCombo *ColorMenC;
+	//qt4 ColorCombo *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	Q3PopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
