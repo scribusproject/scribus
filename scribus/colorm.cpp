@@ -145,7 +145,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	Layout2->addLayout( layout5 );
 	replaceMap.clear();
 	EditColors = doco;
-	dynTip = new DynamicTip(colorListBox, &EditColors);
+// 	dynTip = new DynamicTip(colorListBox, &EditColors);
 	updateCList();
 	// signals and slots connections
 	if (m_Doc==0)

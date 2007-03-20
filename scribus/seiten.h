@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrpalettebase.h"
 class ScribusView;
 class ScribusMainWindow;
-class DynamicTip;
+// class DynamicTip;
 class PageLayouts;
 
 class SCRIBUS_API SeDrag : public Q3StoredDrag
@@ -206,7 +206,7 @@ protected:
 	ScribusView *currView;
 	ScribusMainWindow *m_scMW;
 	QPixmap pix;
-	DynamicTip* dynTip;
+// 	DynamicTip* dynTip;
 };
 
 #endif // SEITENPAL_H

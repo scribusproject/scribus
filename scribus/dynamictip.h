@@ -32,33 +32,36 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
-class SCRIBUS_API DynamicTip : public QToolTip
-{
-public:
-	enum TipType
-	{
-		ColorListBox,
-		Table,
-		TableHeader,
-		TreeView
-	};
+// Qt4 FIXME: QToolTip is totally rewritten in the Qt4. We have to use new API.
+// Qt4 FIXME: all references and calls of DynamicTip are commented out
 
-	DynamicTip( Q3ListBox* parent, ColorList* pale );
-	DynamicTip( Q3Table* parent );
-	DynamicTip( Q3Header *parent );
-	DynamicTip( Q3ListView *parent );
-	virtual ~DynamicTip() {};
-	void addHeaderTip(QString tip);
-	void clearHeaderTips();
-protected:
-	void maybeTip( const QPoint & );
-	ColorList* colorList;
-	Q3ListBox* listB;
-	Q3Table* table;
-	Q3Header *header;
-	QStringList headerTips;
-	Q3ListView *listV;
-	TipType kind;
-};
+// class SCRIBUS_API DynamicTip : public QToolTip
+// {
+// public:
+// 	enum TipType
+// 	{
+// 		ColorListBox,
+// 		Table,
+// 		TableHeader,
+// 		TreeView
+// 	};
+// 
+// 	DynamicTip( Q3ListBox* parent, ColorList* pale );
+// 	DynamicTip( Q3Table* parent );
+// 	DynamicTip( Q3Header *parent );
+// 	DynamicTip( Q3ListView *parent );
+// 	virtual ~DynamicTip() {};
+// 	void addHeaderTip(QString tip);
+// 	void clearHeaderTips();
+// protected:
+// 	void maybeTip( const QPoint & );
+// 	ColorList* colorList;
+// 	Q3ListBox* listB;
+// 	Q3Table* table;
+// 	Q3Header *header;
+// 	QStringList headerTips;
+// 	Q3ListView *listV;
+// 	TipType kind;
+// };
 
 #endif

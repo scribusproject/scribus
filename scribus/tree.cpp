@@ -81,7 +81,7 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	selectionTriggered = false;
 	freeObjects = 0;
 	languageChange();
-	dynTip = new DynamicTip(reportDisplay);
+// 	dynTip = new DynamicTip(reportDisplay);
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
 	connect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));

@@ -27,7 +27,7 @@ class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
 class Page;
-class DynamicTip;
+// class DynamicTip;
 
 class SCRIBUS_API TreeItem : public Q3ListViewItem
 {
@@ -97,7 +97,7 @@ protected:
 	QPixmap annotLinkIcon;
 	bool selectionTriggered;
 	ScribusDoc *currDoc;
-	DynamicTip* dynTip;
+// 	DynamicTip* dynTip;
 };
 
 #endif // TREE_H

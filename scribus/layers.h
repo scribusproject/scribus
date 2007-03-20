@@ -31,7 +31,7 @@ class QSpinBox;
 class QLabel;
 class ScComboBox;
 class ScribusDoc;
-class DynamicTip;
+// class DynamicTip;
 
 class SCRIBUS_API LayerLabel : public Q3TableItem
 {
@@ -116,7 +116,7 @@ protected:
 	Q3PtrList<QCheckBox> flagsOutline;
 	Q3PtrList<QToolButton> flagsMarker;
 	Q3ValueList<Layer> *layers;
-	DynamicTip* dynTip;
+// 	DynamicTip* dynTip;
 };
 
 #endif // LAYERPALETTE_H

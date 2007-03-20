@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 #include "scguardedptr.h"
 
-class DynamicTip;
 class ScribusDoc;
 class ColorListBox;
 

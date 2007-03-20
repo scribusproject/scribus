@@ -555,7 +555,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	currView = 0;
 	Rebuild();
 	languageChange();
-	dynTip = new DynamicTip(pageView);
+// 	dynTip = new DynamicTip(pageView);
 	connect(masterPageList, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));

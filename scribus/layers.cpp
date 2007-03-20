@@ -188,7 +188,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	header->setResizeEnabled(false, 4);
 	header->setResizeEnabled(false, 5);
 	header->setResizeEnabled(true, 6);
-	dynTip = new DynamicTip(header);
+// 	dynTip = new DynamicTip(header);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
 	Table->setSelectionMode( Q3Table::SingleRow );
@@ -656,13 +656,13 @@ void LayerPalette::languageChange()
 	QToolTip::add( deleteLayerButton, tr( "Delete layer" ) );
 	QToolTip::add( raiseLayerButton, tr( "Raise layer" ) );
 	QToolTip::add( lowerLayerButton, tr( "Lower layer" ) );
-	dynTip->clearHeaderTips();
-	dynTip->addHeaderTip("<qt>" + tr("Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. ") + "</qt>");
-	dynTip->addHeaderTip( "<qt>" + tr("Make Layer Visible - Uncheck to hide the layer from the display ") + "</qt>" );
-	dynTip->addHeaderTip( "<qt>" + tr("Print Layer - Uncheck to disable printing. ") + "</qt>" );
-	dynTip->addHeaderTip( "<qt>" + tr("Lock or Unlock Layer - Unchecked is unlocked ") + "</qt>" );
-	dynTip->addHeaderTip( "<qt>" + tr("Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below") + "</qt>" );
-	dynTip->addHeaderTip( "<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
-	dynTip->addHeaderTip( "<qt>" + tr("Name of the Layer - Double clicking on the name of a layer enabled editing") + "</qt>" );
+// 	dynTip->clearHeaderTips();
+// 	dynTip->addHeaderTip("<qt>" + tr("Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. ") + "</qt>");
+// 	dynTip->addHeaderTip( "<qt>" + tr("Make Layer Visible - Uncheck to hide the layer from the display ") + "</qt>" );
+// 	dynTip->addHeaderTip( "<qt>" + tr("Print Layer - Uncheck to disable printing. ") + "</qt>" );
+// 	dynTip->addHeaderTip( "<qt>" + tr("Lock or Unlock Layer - Unchecked is unlocked ") + "</qt>" );
+// 	dynTip->addHeaderTip( "<qt>" + tr("Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below") + "</qt>" );
+// 	dynTip->addHeaderTip( "<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
+// 	dynTip->addHeaderTip( "<qt>" + tr("Name of the Layer - Double clicking on the name of a layer enabled editing") + "</qt>" );
 }
 
