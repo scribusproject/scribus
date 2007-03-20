@@ -2098,7 +2098,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		p.begin(viewport());
 		QPoint out = contentsToViewport(QPoint(0, 0));
 		p.translate(out.x(), out.y());
-		p.setRasterOp(XorROP);
+		p.setCompositionMode(QPainter::CompositionMode_Xor);
 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.end();
@@ -2123,7 +2123,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			normalizeSelectionRect();
 			HaveSelRect = false;
@@ -2283,7 +2283,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		p.begin(viewport());
 		ToView(&p);
 		p.scale(Scale, Scale);
-		p.setRasterOp(XorROP);
+		p.setCompositionMode(QPainter::CompositionMode_Xor);
 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 		p.end();
@@ -4056,7 +4056,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 			p.end();
@@ -4197,7 +4197,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 			p.end();
@@ -4462,7 +4462,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		p.begin(viewport());
 		QPoint out = contentsToViewport(QPoint(0, 0));
 		p.translate(out.x(), out.y());
-		p.setRasterOp(XorROP);
+		p.setCompositionMode(QPainter::CompositionMode_Xor);
 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.drawLine(Dxp, Dyp, newX, newY);
@@ -4582,7 +4582,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
 			{
@@ -4628,7 +4628,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			p.begin(viewport());
 			ToView(&p);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (m->state() & Qt::ShiftButton)
 			{
@@ -4654,7 +4654,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		{
 			p.begin(viewport());
 			ToView(&p);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (Doc->useRaster)
 			{
@@ -4732,7 +4732,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					p.begin(viewport());
 					ToView(&p);
 					p.scale(Scale, Scale);
-					p.setRasterOp(XorROP);
+					p.setCompositionMode(QPainter::CompositionMode_Xor);
 					p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 					p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 					p.drawRect(Mxp, Myp, newX-Mxp, newY-Myp);
@@ -4995,7 +4995,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									{
 										p.begin(viewport());
 										currItem->Sizing = true;
-										p.setRasterOp(XorROP);
+										p.setCompositionMode(QPainter::CompositionMode_Xor);
 										p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 										p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc),
 												static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
@@ -5473,7 +5473,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (!((SeRx - Mxp == 0) && (SeRy - Myp == 0)))
 				p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
@@ -6847,7 +6847,7 @@ void ScribusView::PaintSizeRect(QPainter *p, QRect newRect)
 		QMatrix ma(p->worldMatrix());
 		ma.setTransformationMode ( QMatrix::Areas );
 		p->setWorldMatrix(ma);
-		p->setRasterOp(XorROP);
+		p->setCompositionMode(QPainter::CompositionMode_Xor);
 		p->setBrush(Qt::NoBrush);
 		p->setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		if (!oldRect.isNull())
@@ -6949,7 +6949,7 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	else
 	{
-		p.setRasterOp(XorROP);
+		p.setCompositionMode(QPainter::CompositionMode_Xor);
 		p.setPen(QPen(Qt::yellow, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	}
 	p.setBrush(Qt::NoBrush);
@@ -7716,7 +7716,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 // 		p.translate(out.x(), out.y());
 // 		p.scale(Scale, Scale);
 // 		p.rotate(currItem->rotation());
-// 		p.setRasterOp(XorROP);
+// 		p.setCompositionMode(QPainter::CompositionMode_Xor);
 // 		p.setBrush(NoBrush);
 // 		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 // 		p.save();
@@ -7883,7 +7883,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 			p.translate(qRound(currItem->xPos()*Scale), qRound(currItem->yPos()*sc));
 			p.scale(sc, sc);
 			p.rotate(currItem->rotation());
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setBrush(Qt::NoBrush);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (selectedItemCount < moveWithFullOutlinesThreshold)
@@ -7929,7 +7929,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 			p.translate(qRound(currItem->xPos()*sc), qRound(currItem->yPos()*sc));
 			p.scale(sc, sc);
 			p.rotate(currItem->rotation());
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			p.setBrush(Qt::NoBrush);
 			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (itemSelection->count() < moveWithFullOutlinesThreshold)
@@ -8701,7 +8701,7 @@ void ScribusView::slotDoCurs(bool draw)
 			if (x < 1)
 				x = 1;
 			p.setPen(QPen(Qt::white, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			p.setRasterOp(XorROP);
+			p.setCompositionMode(QPainter::CompositionMode_Xor);
 			if (draw)
 			{
 				p.drawLine(x, qMin(qMax(y,0),static_cast<int>(currItem->height())), 
@@ -10368,7 +10368,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		else
 			//painter->setPen(Qt::NoPen);
-			painter->setPen(Doc->papColor, 1, SolidLine, FlatCap, MiterJoin);
+			painter->setPen(Doc->papColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		painter->setZoomFactor(Scale);
@@ -10403,7 +10403,7 @@ void ScribusView::rulerMove(QMouseEvent *m)
 	vertRuler->Draw(out.y());
 	QPainter p;
 	p.begin(viewport());
-	p.setRasterOp(XorROP);
+	p.setCompositionMode(QPainter::CompositionMode_Xor);
 	p.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(0, DrHY, viewport()->width(), DrHY);
 	p.drawLine(0, newY, viewport()->width(), newY);
@@ -10451,7 +10451,7 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	vertRuler->Draw(out.y() + 2);
 	QPainter p;
 	p.begin(viewport());
-	p.setRasterOp(XorROP);
+	p.setCompositionMode(QPainter::CompositionMode_Xor);
 	p.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(0, DrHY, viewport()->width(), DrHY);
 	p.drawLine(0, newY, viewport()->width(), newY);
@@ -10479,7 +10479,7 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	vertRuler->Draw(out.y());
 	QPainter p;
 	p.begin(viewport());
-	p.setRasterOp(XorROP);
+	p.setCompositionMode(QPainter::CompositionMode_Xor);
 	p.setPen(QPen(Qt::white, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(DrVX, 0, DrVX, viewport()->height());
 	p.drawLine(newY, 0, newY, viewport()->height());
