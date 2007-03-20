@@ -49,14 +49,17 @@ PyObject* wrapQObject(QObject* obj)
 
 const char* getpropertytype(QObject* obj, const char* propname, bool includesuper)
 {
-	QMetaObject* objmeta = obj->metaObject();
+	const QMetaObject* objmeta = obj->metaObject();
+/*qt4 FIXME
 	int i = objmeta->findProperty(propname, includesuper);
 	if (i == -1)
 		return NULL;
 	const QMetaProperty* propmeta = objmeta->property(i, includesuper);
 	if (propmeta == NULL)
 		return NULL;
-	const char* type = propmeta->type();
+*/
+	const char* type = "";
+//type=propmeta->type();
 	assert(type);
 	return type;
 }
@@ -94,11 +97,12 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 
 PyObject* convert_QStrList_to_PyListObject(Q3StrList& origlist)
 {
+/* qt4 FIXME
 	QStrListIterator it (origlist);
 	char* item = NULL;
-
+*/
 	PyObject* resultList = PyList_New(0);
-	if (!resultList)
+/*qt4 FIXME	if (!resultList)
 		return NULL;
 
 	while ( (item = it.current()) != 0 ) {
@@ -106,6 +110,7 @@ PyObject* convert_QStrList_to_PyListObject(Q3StrList& origlist)
 		if (PyList_Append(resultList, PyString_FromString(item)) == -1)
 			return NULL;
 	}
+*/
 	return resultList;
 }
 
@@ -133,6 +138,7 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 	PyObject* objPtr = NULL;
 	// Loop over the objects in the list and add them to the python
 	// list wrapped in PyCObjects .
+/*qt4 FIXME
 	for ( origlist->first(); origlist->current(); origlist->next() )
 	{
 		// Wrap up the object pointer
@@ -147,6 +153,7 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 		if (PyList_Append(resultList, (PyObject*)objPtr) == -1)
 			return NULL;
 	}
+*/
 	return resultList;
 }
 
@@ -177,9 +184,11 @@ PyObject* scribus_getchildren(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Our job is to return a Python list containing the children of this
 	// widget (as PyCObjects).
-	QObjectList* children = obj->queryList(ofclass, ofname, regexpmatch, recursive);
-	PyObject* itemlist = convert_QObjectList_to_PyListObject(children);
-	delete children;
+//qt4 FIXME	QObjectList* children;
+//qt4 FIXME	children = obj->queryList(ofclass, ofname, regexpmatch, recursive);
+	PyObject* itemlist = 0;
+//qt4 FIXME 	itemlist = convert_QObjectList_to_PyListObject(children);
+//qt4 FIXME	delete children;
 	return itemlist;
 }
 
@@ -239,11 +248,12 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	objArg = NULL; // no need to decref, it's borrowed
 
 	// Retrive the object's meta object so we can query it
-	QMetaObject* objmeta = obj->metaObject();
+	const QMetaObject* objmeta = obj->metaObject();
 	assert(objmeta);
 
 	// Return the list of properties
-	Q3StrList propertyNames = objmeta->propertyNames(includesuper);
+	Q3StrList propertyNames;
+//qt4 FIXME	propertNames = objmeta->propertyNames(includesuper);
 	return convert_QStrList_to_PyListObject(propertyNames);
 }
 
@@ -267,17 +277,18 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Get the QMetaProperty for the property, so we can check
 	// if it's a set/enum and do name/value translation.
-	QMetaObject* objmeta = obj->metaObject();
-	int i = objmeta->findProperty(propertyName, true);
+	const QMetaObject* objmeta = obj->metaObject();
+/*qt4 FIXME	int i = objmeta->findProperty(propertyName, true);
 	if (i == -1)
 	{
 		PyErr_SetString(PyExc_ValueError,
 				QObject::tr("Property not found"));
 		return NULL;
 	}
+
 	const QMetaProperty* propmeta = objmeta->property(i, true);
 	assert(propmeta);
-
+*/
 	// Get the property value as a variant type
 	QVariant prop = obj->property(propertyName);
 

@@ -77,7 +77,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		progressDialog->setOverallProgress(0);
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
-		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+//qt4 FIXME 		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else {
@@ -485,9 +485,9 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		qDebug("Ghostscript diagnostics:\n");
 		QFile diag(errFile);
 		if (diag.open(QIODevice::ReadOnly) && !diag.atEnd() ) {
-			QString line;
-			while (diag.readLine(line, 120) > 0) {
-				qDebug("\t%s", line.ascii());
+			char buf[121];
+			while (diag.readLine(buf, 120) > 0) {
+				qDebug("\t%s", buf);
 			}
 			diag.close();
 		}
@@ -872,14 +872,14 @@ bool EPSPlug::Image(QString vals)
 		qDebug("Ghostscript diagnostics: %d\n", ret);
 		QFile diag(filename);
 		if (diag.open(QIODevice::ReadOnly)) {
-			QString line;
+			char buf[121];
 			long int len;
 			bool gs_error = false;
 			do {
-				len = diag.readLine(line, 120);
-				gs_error |= line.contains("Error");
+				len = diag.readLine(buf, 120);
+				gs_error |= (strstr(buf,"Error")==NULL);
 				if (gs_error)
-					qDebug("\t%s", line.ascii());
+					qDebug("\t%s", buf);
 			}
 			while (len > 0);
 			diag.close();
@@ -890,13 +890,13 @@ bool EPSPlug::Image(QString vals)
 		qDebug("Failed file was:\n");
 		QFile dat(rawfile);
 		if (dat.open(QIODevice::ReadOnly)) {
-			QString line;
+			char buf[121];
 			long int len;
 			do {
-				len = dat.readLine(line, 120);
-				qDebug("\t%s", line.ascii());
+				len = dat.readLine(buf, 120);
+				qDebug("\t%s", buf);
 			}
-			while ( len > 0 && !line.contains("image") );
+			while ( len > 0 && !(strstr(buf, "image")==NULL) );
 			dat.close();
 		}
 		else {
