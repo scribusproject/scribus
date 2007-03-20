@@ -61,7 +61,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	toolButtonDummy2->hide();
 
 	//set up scrspinboxes
-	distributeDistSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
+	distributeDistSpinBox->setValues(-1000.0, 1000.0, 100, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
@@ -158,34 +158,34 @@ void AlignDistributePalette::init()
 	undoManager = UndoManager::instance();
 
 // GUI3-4 compile PV
-// 	alignLeftOutToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-left-out.png"), QIcon::Small));
-// 	alignLeftInToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-left.png"), QIcon::Small));
-// 	alignCenterHorToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-center.png"), QIcon::Small));
-// 	alignRightInToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-right.png"), QIcon::Small));
-// 	alignRightOutToolButton->setIconSet(QIcon(loadIcon("22/align-horizontal-right-out.png"), QIcon::Small));
-// 	
-// 	alignTopOutToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-top-out.png"), QIcon::Small));
-// 	alignTopInToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-top.png"), QIcon::Small));
-// 	alignCenterVerToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-center.png"), QIcon::Small));
-// 	alignBottomInToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-bottom.png"), QIcon::Small));
-// 	alignBottomOutToolButton->setIconSet(QIcon(loadIcon("22/align-vertical-bottom-out.png"), QIcon::Small));
-// 	
-// 	distributeLeftToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-left.png"), QIcon::Small));
-// 	distributeCenterHToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-center.png"), QIcon::Small));
-// 	distributeRightToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-right.png"), QIcon::Small));
-// 	distributeDistHToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-equal.png"), QIcon::Small));
-// 	
-// 	distributeBottomToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-bottom.png"), QIcon::Small));
-// 	distributeCenterVToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-center.png"), QIcon::Small));
-// 	distributeTopToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-top.png"), QIcon::Small));
-// 	distributeDistVToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-equal.png"), QIcon::Small));
-// 	
-// 	distributeAcrossPageToolButton->setIconSet(QIcon(loadIcon("distribute_acrosspage.png"), QIcon::Small));
-// 	distributeDownPageToolButton->setIconSet(QIcon(loadIcon("distribute_downpage.png"), QIcon::Small));
-// 	distributeAcrossMarginsToolButton->setIconSet(QIcon(loadIcon("distribute_acrossmargins.png"), QIcon::Small));
-// 	distributeDownMarginsToolButton->setIconSet(QIcon(loadIcon("distribute_downmargins.png"), QIcon::Small));
-// 	distributeDistValueHToolButton->setIconSet(QIcon(loadIcon("distribute_hdist_val.png"), QIcon::Small));
-// 	distributeDistValueVToolButton->setIconSet(QIcon(loadIcon("distribute_vdist_val.png"), QIcon::Small));
+	alignLeftOutToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-left-out.png")));
+	alignLeftInToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-left.png")));
+	alignCenterHorToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-center.png")));
+	alignRightInToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-right.png")));
+	alignRightOutToolButton->setIcon(QIcon(loadIcon("22/align-horizontal-right-out.png")));
+ 	
+	alignTopOutToolButton->setIcon(QIcon(loadIcon("22/align-vertical-top-out.png")));
+	alignTopInToolButton->setIcon(QIcon(loadIcon("22/align-vertical-top.png")));
+	alignCenterVerToolButton->setIcon(QIcon(loadIcon("22/align-vertical-center.png")));
+	alignBottomInToolButton->setIcon(QIcon(loadIcon("22/align-vertical-bottom.png")));
+	alignBottomOutToolButton->setIcon(QIcon(loadIcon("22/align-vertical-bottom-out.png")));
+ 	
+	distributeLeftToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-left.png")));
+	distributeCenterHToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-center.png")));
+	distributeRightToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-right.png")));
+	distributeDistHToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-equal.png")));
+ 	
+	distributeBottomToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-bottom.png")));
+	distributeCenterVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-center.png")));
+	distributeTopToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-top.png")));
+	distributeDistVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-equal.png")));
+ 	
+	distributeAcrossPageToolButton->setIcon(QIcon(loadIcon("distribute_acrosspage.png")));
+	distributeDownPageToolButton->setIcon(QIcon(loadIcon("distribute_downpage.png")));
+	distributeAcrossMarginsToolButton->setIcon(QIcon(loadIcon("distribute_acrossmargins.png")));
+	distributeDownMarginsToolButton->setIcon(QIcon(loadIcon("distribute_downmargins.png")));
+	distributeDistValueHToolButton->setIcon(QIcon(loadIcon("distribute_hdist_val.png")));
+	distributeDistValueVToolButton->setIcon(QIcon(loadIcon("distribute_vdist_val.png")));
 	
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
