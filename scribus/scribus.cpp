@@ -2357,7 +2357,7 @@ bool ScribusMainWindow::slotDocSetup()
 
 void ScribusMainWindow::SwitchWin()
 {
-	updateColorMenu();
+//qt4	updateColorMenu();
 	//Qt4 buildFontMenu();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
@@ -2501,7 +2501,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 
-	updateColorMenu();
+//qt4	updateColorMenu();
 	//Update palettes
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
@@ -7143,7 +7143,7 @@ void ScribusMainWindow::slotEditColors()
 			doc->recalcPicturesRes();
 			propertiesPalette->updateColorList();
 			styleManager->updateColorList();
-			updateColorMenu();
+//qt4			updateColorMenu();
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
@@ -8520,7 +8520,7 @@ void ScribusMainWindow::recalcColors(Q3ProgressBar *dia)
 	if (HaveDoc)
 	{
 		doc->recalculateColors();
-		updateColorMenu(dia);
+//qt4		updateColorMenu(dia);
 		propertiesPalette->updateColorList();
 	}
 }
