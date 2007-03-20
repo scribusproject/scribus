@@ -65,7 +65,8 @@ QPixmap ScPreview::createPreview(QString data)
 	Q3PointArray cl;
 	QColor tmpfa;
 	QString chstr;
-	uint a, zae;
+	uint a;
+	int zae;
 	double CurY, EndX, CurX, wide, rota, wid;
 	Q3ValueList<ArrowDesc> arrowStyles;
 	Q3ValueStack<int> groupStack;
@@ -396,7 +397,7 @@ QPixmap ScPreview::createPreview(QString data)
 					hg->setFillShade((*it).toInt());
 					it++;
 					// Qt4 if (it == NULL)
-					if (it == NULL)
+					if (it == wt.end())
 						hg->setEffects(ScStyle_Default);
 					else
 						hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
@@ -406,17 +407,17 @@ QPixmap ScPreview::createPreview(QString data)
 //					else
 //						hg->cab = (*it).toInt();
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->setStrokeColor(CommonStrings::None);
 					else
 						hg->setStrokeColor(*it);
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->setStrokeShade(100);
 					else
 						hg->setStrokeShade((*it).toInt());
 					it++;
-					if (it == NULL)
+					if (it == wt.end())
 						hg->setScaleH(100);
 					else
 						hg->setScaleH((*it).toInt());
