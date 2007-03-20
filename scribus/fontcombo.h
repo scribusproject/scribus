@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <q3listbox.h>
+#include <q3combobox.h>
 #include <qlayout.h>
 #include <qwidget.h>
 //Added by qt3to4:
@@ -48,7 +49,7 @@ class PrefsManager;
 class SCRIBUS_API FontListItem : public Q3ListBoxItem
 {
 public:
-    FontListItem(QComboBox* parent, QString f, QFont fo);
+    FontListItem(Q3ComboBox* parent, QString f, QFont fo);
     virtual ~FontListItem() {};
 
     virtual const int width(const Q3ListBox *);

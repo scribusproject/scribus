@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
-FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : Q3ListBoxItem(parent->listBox())
+FontListItem::FontListItem(Q3ComboBox* parent, QString f, QFont fo) : Q3ListBoxItem(parent->listBox())
 {
 	fontName = f;
 	iFont = fo;
