@@ -45,7 +45,7 @@ class ColorList;
 class SMColorCombo;
 class SMStyleSelect;
 
-class SMCStylePage : public QWidget, Ui::CStyleP
+class SMCStylePage : public QWidget, public Ui::CStyleP
 {
 	Q_OBJECT
 public:
