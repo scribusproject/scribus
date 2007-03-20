@@ -60,7 +60,7 @@ void SplashScreen::setStatus( const QString &message )
 		}
 	}
 	QPixmap textPix(pix);
-	QPainter painter( &textPix, this );
+	QPainter painter( &textPix);// Qt4, this );
 #if defined _WIN32
 	QFont font("Lucida Sans", 10);
 #elif defined(__INNOTEK_LIBC__)
