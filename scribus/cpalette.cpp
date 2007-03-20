@@ -373,12 +373,12 @@ void Cpalette::updatePatternList()
 			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
 		(void) new Q3IconViewItem(patternBox, it.key(), pm);
 	}
-	if (patternList->count() == 0)
-		// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(false);
-		dynamic_cast<QStandardItem*>(gradientQCombo->view()->children().at(8))->setSelectable(false);
-	else
-		// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(true);
-		dynamic_cast<QStandardItem*>(gradientQCombo->view()->children().at(8))->setSelectable(true);
+	// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(patternList->count() != 0);
+	/* qt4 FIXME
+	QStandardItem* si=dynamic_cast<QStandardItem*>(gradientQCombo->view()->children().at(8));
+	if (si)
+		si->setSelectable(patternList->count() != 0);
+	*/
 	patternBox->setSelected(patternBox->currentItem(), false);
 	connect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
 }

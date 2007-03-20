@@ -503,7 +503,8 @@ void CharSelect::setupRangeCombo()
 void CharSelect::generatePreview(int charClass)
 {
 	characters.clear();
-	characters = allClasses[charClass];
+	if (charClass>=0 && charClass<allClasses.count())
+		characters = allClasses[charClass];
 	m_charTable->setCharacters(characters);
 }
 
