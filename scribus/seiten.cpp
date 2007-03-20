@@ -36,7 +36,7 @@ SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): Q3StoredDra
 {
 	QByteArray data(secret.length());
 	for (int a = 0; a < secret.length(); ++a)
-		data[a]= QChar(secret[a]);
+		data[a] = secret.at(a).toAscii();// Qt4 QChar(secret[a]); maybe there is no loop required
 	setEncodedData( data );
 }
 
@@ -824,12 +824,12 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 {
 	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable
-	QPixmap ret(pixin.width(), pixin.height(), pixin.depth());
+	QPixmap ret(pixin.width(), pixin.height()); // Qt4, pixin.depth());
 	if (p.begin(&ret))
 	{
 		bitBlt( &ret, 0, 0, &pixin, 0, 0, pixin.width(), pixin.height() );
-		if( pixin.mask() )
-			ret.setMask( *pixin.mask() );
+		if( !pixin.mask().isNull() )
+			ret.setMask( pixin.mask() );
 		p.setBrush(Qt::white);
 		p.setBackgroundColor(Qt::white);
 		p.setBackgroundMode(Qt::OpaqueMode);

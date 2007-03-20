@@ -141,8 +141,8 @@ void ScToolBar::storeDockPositions()
 {
 	if (place() == Q3DockWindow::OutsideDock)
 		return; // nothing to store if not docked
-	Q3PtrList<Q3DockWindow> tbs = area()->dockWindowList();
-	for (uint i = 0; i < tbs.count(); ++i)
+	QList<Q3DockWindow*> tbs = area()->dockWindowList();
+	for (int i = 0; i < tbs.count(); ++i)
 	{
 		if (ScToolBar *sctb = dynamic_cast<ScToolBar*>(tbs.at(i)))
 			sctb->storeDockPosition();
@@ -153,8 +153,8 @@ void ScToolBar::moveDocks()
 {
 	if (place() == Q3DockWindow::OutsideDock)
 		return; // do not move if not docked;
-	Q3PtrList<Q3DockWindow> tbs = area()->dockWindowList();
-	for (uint i = 0; i < tbs.count(); ++i)
+	QList<Q3DockWindow*> tbs = area()->dockWindowList();
+	for (int i = 0; i < tbs.count(); ++i)
 	{
 		if (ScToolBar *sctb = dynamic_cast<ScToolBar*>(tbs.at(i)))
 			sctb->moveDock();
