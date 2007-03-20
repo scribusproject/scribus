@@ -36,9 +36,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "gradienteditor.h"
+#include "scribusdoc.h"
 #include <qpointer.h>
 
-class ScribusDoc;
 class PageItem;
 class Q3ListBox;
 class Q3ListBoxItem;
@@ -66,7 +66,6 @@ class LinkButton;
 /**
   *@author Franz Schmid
   */
-
 class SCRIBUS_API Cpalette : public QWidget
 {
 	Q_OBJECT

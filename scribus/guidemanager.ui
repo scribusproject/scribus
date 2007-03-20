@@ -323,7 +323,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="MSpinBox" native="1" name="horizontalAutoGapSpin" >
+                 <widget class="ScrSpinBox" native="1" name="horizontalAutoGapSpin" >
                   <property name="minimumSize" >
                    <size>
                     <width>0</width>
@@ -473,7 +473,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="MSpinBox" native="1" name="verticalAutoGapSpin" >
+                 <widget class="ScrSpinBox" native="1" name="verticalAutoGapSpin" >
                   <property name="minimumSize" >
                    <size>
                     <width>0</width>
@@ -667,16 +667,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MSpinBox</class>
+   <class>ScrSpinBox</class>
    <extends>QWidget</extends>
    <header>mspinbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>
   <include location="local" >scrpalettebase.h</include>
-  <include location="local" >scrpalettebase.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
+  <include location="local" >scrspinbox.h</include>
  </includes>
  <resources/>
  <connections>

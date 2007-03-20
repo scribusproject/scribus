@@ -353,7 +353,7 @@
            </widget>
           </item>
           <item row="1" column="2" >
-           <widget class="MSpinBox" native="1" name="offsetValue" />
+           <widget class="ScrSpinBox" native="1" name="offsetValue" />
           </item>
           <item row="0" column="1" colspan="2" >
            <widget class="QCheckBox" name="colorMarks" >
@@ -401,10 +401,10 @@
            </widget>
           </item>
           <item row="0" column="1" >
-           <widget class="MSpinBox" native="1" name="bleedTop" />
+           <widget class="ScrSpinBox" native="1" name="bleedTop" />
           </item>
           <item row="1" column="1" >
-           <widget class="MSpinBox" native="1" name="bleedBottom" />
+           <widget class="ScrSpinBox" native="1" name="bleedBottom" />
           </item>
           <item row="0" column="2" >
            <widget class="QLabel" name="textLabel5" >
@@ -427,10 +427,10 @@
            </widget>
           </item>
           <item row="0" column="3" >
-           <widget class="MSpinBox" native="1" name="bleedLeft" />
+           <widget class="ScrSpinBox" native="1" name="bleedLeft" />
           </item>
           <item row="1" column="3" >
-           <widget class="MSpinBox" native="1" name="bleedRight" />
+           <widget class="ScrSpinBox" native="1" name="bleedRight" />
           </item>
          </layout>
         </widget>
@@ -472,9 +472,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MSpinBox</class>
+   <class>ScrSpinBox</class>
    <extends>QWidget</extends>
-   <header>mspinbox.h</header>
+   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>

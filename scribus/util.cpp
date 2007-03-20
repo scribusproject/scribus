@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ValueList>
 #include <Q3CString>
 #include <Q3PointArray>
+#include <QPicture>
 
 // #include <algorithm>
 // #include <cstdlib>
@@ -252,17 +253,27 @@ uint getDouble(QString in, bool raw)
 	QByteArray bb(4);
 	if (raw)
 	{
-		bb[3] = static_cast<uchar>(QChar(in.at(0)));
+		// Qt4
+/*		bb[3] = static_cast<uchar>(QChar(in.at(0)));
 		bb[2] = static_cast<uchar>(QChar(in.at(1)));
 		bb[1] = static_cast<uchar>(QChar(in.at(2)));
-		bb[0] = static_cast<uchar>(QChar(in.at(3)));
+		bb[0] = static_cast<uchar>(QChar(in.at(3)));*/
+		bb = bb.insert(3, in.at(0));
+		bb = bb.insert(2, in.at(1));
+		bb = bb.insert(1, in.at(2));
+		bb = bb.insert(0, in.at(4));
 	}
 	else
 	{
-		bb[0] = static_cast<uchar>(QChar(in.at(0)));
-		bb[1] = static_cast<uchar>(QChar(in.at(1)));
-		bb[2] = static_cast<uchar>(QChar(in.at(2)));
-		bb[3] = static_cast<uchar>(QChar(in.at(3)));
+		// Qt4
+// 		bb[0] = static_cast<uchar>(QChar(in.at(0)));
+// 		bb[1] = static_cast<uchar>(QChar(in.at(1)));
+// 		bb[2] = static_cast<uchar>(QChar(in.at(2)));
+// 		bb[3] = static_cast<uchar>(QChar(in.at(3)));
+		bb = bb.insert(0, in.at(0));
+		bb = bb.insert(1, in.at(1));
+		bb = bb.insert(2, in.at(2));
+		bb = bb.insert(3, in.at(4));
 	}
 	uint ret;
 	ret = bb[0] & 0xff;
@@ -491,7 +502,8 @@ QString CompressStr(QString *in)
 	QString out = "";
 	QByteArray bb(in->length());
 	for (int ax = 0; ax < in->length(); ++ax)
-		bb[ax] = uchar(QChar(in->at(ax)));
+		// Qt4 bb[ax] = uchar(QChar(in->at(ax)));
+		bb.insert(ax, in->at(ax));
 	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
 	QByteArray bc(exlen);
 	int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
@@ -549,7 +561,8 @@ QString String2Hex(QString *in, bool lang)
 	QString out("");
 	for( int xi = 0; xi < in->length(); ++xi )
 	{
-		out += toHex(uchar(QChar(in->at(xi))));
+		// Qt4 .cell() added ???
+		out += toHex(uchar(QChar(in->at(xi)).cell()));
 		++i;
 		if ((i>40) && (lang))
 		{
@@ -1424,10 +1437,10 @@ QString setupImageFormats()
 	QString formatD = QObject::tr("All Supported Formats")+" (";
 	QString form1 = "";
 	QString form2 = "";
-	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
+	for (int i = 0; i < QPicture::inputFormatList().count(); ++i )
 	{
-		form1 = QString(QImageIO::inputFormats().at(i)).lower();
-		form2 = QString(QImageIO::inputFormats().at(i)).upper();
+		form1 = QString(QPicture::inputFormatList().at(i)).lower();
+		form2 = QString(QPicture::inputFormatList().at(i)).upper();
 		if (form1 == "jpeg")
 		{
 			form1 = "jpg";

@@ -323,7 +323,7 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 				else
 					PrintC->setText( tr("Disabled"));
 				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
-				pmen4->insertItem(InfoGroup);
+// Qt4				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
 					m_MainWindow->scrActions["itemImageInfo"]->addTo(pmen4);
 				pmen->insertItem( tr("In&fo"), pmen4);

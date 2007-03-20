@@ -1583,7 +1583,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		Q3Url ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
-		Q3StrList imfo = QImageIO::inputFormats();
+		QStringList imfo = QPicture::inputFormatList();
 		if (ext == "JPG")
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
@@ -2458,7 +2458,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					QString strippedName = it.key();
 					QPixmap pm = it.data().Preview;
-					pmen3->insertItem(pm, strippedName);
+// Qt4					pmen3->insertItem(pm, strippedName);
+					pmen3->addAction(pm, strippedName);
 					it--;
 				}
 				connect(pmen3, SIGNAL(activated(int)), this, SLOT(PasteRecentToPage(int)));
@@ -2705,7 +2706,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					PrintC->setText( tr("Disabled"));
 				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
 
-				pmen4->insertItem(InfoGroup);
+// Qt4				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
 					m_ScMW->scrActions["itemImageInfo"]->addTo(pmen4);
 				pmen->insertItem( tr("In&fo"), pmen4);
@@ -6845,7 +6846,7 @@ void ScribusView::PaintSizeRect(QPainter *p, QRect newRect)
 	if (!newRect.isNull())
 	{
 		QMatrix ma(p->worldMatrix());
-		ma.setTransformationMode ( QMatrix::Areas );
+		// Qt4 ma.setTransformationMode ( QMatrix::Areas );
 		p->setWorldMatrix(ma);
 		p->setCompositionMode(QPainter::CompositionMode_Xor);
 		p->setBrush(Qt::NoBrush);
@@ -8736,7 +8737,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 {
 	QPoint tx, tx2;
 	QMatrix ma = p->worldMatrix();
-	ma.setTransformationMode ( QMatrix::Areas );
+// Qt4	ma.setTransformationMode ( QMatrix::Areas );
 	p->setWorldMatrix(ma);
 	tx = p->xForm(QPoint(static_cast<int>(currItem->width()), 0));
 	tx2 = p->xForm(QPoint(0, static_cast<int>(currItem->height())));
@@ -11444,7 +11445,10 @@ void ScribusView::TextToPath()
 						FPoint origin = hl->font().glyphOrigin(gl);
 						x = origin.x() * csi;
 						y = origin.y() * csi;
-						if ((charStyle.effects() & ScStyle_Underline) || ((charStyle.effects() & ScStyle_UnderlineWords) && chstr != charStyle.font().char2CMap(QChar(' '))))
+						if ((charStyle.effects() & ScStyle_Underline)
+											   || ((charStyle.effects() & ScStyle_UnderlineWords)
+											   // Qt4 added toInt() ???
+											   && chstr.toInt() != charStyle.font().char2CMap(QChar(' '))))
 						{
 							double st, lw;
 							if ((charStyle.underlineOffset() != -1) || (charStyle.underlineWidth() != -1))
