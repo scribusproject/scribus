@@ -60,7 +60,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	toolButtonDummy2->hide();
 
 	//set up mspinboxes
-	distributeDistMSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
+	distributeDistMSpinBox->setValues(-1000.0, 1000.0, 100, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
