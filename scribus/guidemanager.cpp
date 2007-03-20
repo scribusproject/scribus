@@ -73,11 +73,10 @@ GuideManager::GuideManager(QWidget* parent) :
 {
 	setupUi(this);
 	tabWidget->setEnabled(false);
-	// Qt4 FIXME ScrSpinBox
-// 	horizontalAutoGapSpin->setMinValue(0.0);
-// 	horizontalAutoGapSpin->setMaxValue(100.0);
-// 	verticalAutoGapSpin->setMinValue(0.0);
-// 	verticalAutoGapSpin->setMaxValue(100.0);
+	horizontalAutoGapSpin->setMinimum(0.0);
+	horizontalAutoGapSpin->setMaximum(100.0);
+	verticalAutoGapSpin->setMinimum(0.0);
+	verticalAutoGapSpin->setMaximum(100.0);
 
 	// signals that cannot be defined in designer (mspinbox related)
 	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(horizontalAutoGapSpin_valueChanged(int)));
