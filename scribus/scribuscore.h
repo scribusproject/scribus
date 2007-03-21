@@ -110,7 +110,7 @@ public:
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
 	//CB FIXME protect
-	QWidget *m_PaletteParent;
+// 	QWidget *m_PaletteParent;
 	
 protected:
 	void initCMS();

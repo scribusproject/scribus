@@ -411,7 +411,7 @@ void ScribusMainWindow::initPalettes()
 	outlinePalette->setMainWindow(this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
 	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
-	propertiesPalette = new Mpalette(ScCore->m_PaletteParent);
+	propertiesPalette = new Mpalette(this);
 	propertiesPalette->setMainWindow(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));

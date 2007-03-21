@@ -49,7 +49,7 @@ ScribusCore::ScribusCore() : QObject()
 	m_SplashScreen=0;
 	m_UseGUI=false;
 	m_HaveCMS=false;
-	m_PaletteParent=0;
+// 	m_PaletteParent=0;
 	m_currScMW=0;
 }
 
@@ -57,7 +57,7 @@ ScribusCore::ScribusCore() : QObject()
 
 ScribusCore::~ScribusCore()
 {
-	delete m_PaletteParent;
+// 	delete m_PaletteParent;
 }
 
 #ifndef NDEBUG
@@ -84,8 +84,8 @@ int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fil
 
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
-	m_PaletteParent=new QWidget(0);
-	Q_CHECK_PTR(m_PaletteParent);
+// 	m_PaletteParent=new QWidget(0);
+// 	Q_CHECK_PTR(m_PaletteParent);
 	ScribusMainWindow* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
 	if (!scribus)
