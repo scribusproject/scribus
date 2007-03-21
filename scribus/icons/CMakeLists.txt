@@ -437,11 +437,17 @@ INSTALL(FILES
 22/distribute-horizontal-center.png
 22/distribute-horizontal-equal.png
 22/distribute-horizontal-left.png
+22/distribute-horizontal-margin.png
+22/distribute-horizontal-page.png
 22/distribute-horizontal-right.png
+22/distribute-horizontal-x.png
 22/distribute-vertical-bottom.png
 22/distribute-vertical-center.png
 22/distribute-vertical-equal.png
+22/distribute-vertical-margin.png
+22/distribute-vertical-page.png
 22/distribute-vertical-top.png
+22/distribute-vertical-y.png
 22/document-new.png
 22/document-open.png
 22/document-print.png
