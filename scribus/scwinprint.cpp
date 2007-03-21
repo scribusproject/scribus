@@ -96,8 +96,8 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	bool success;
 	HDC printerDC;
 	QString diaSelection, docDir, prefsDocDir;
-	Q3CString printerName = options.printer;
-	Q3CString fileName;
+	QByteArray printerName = options.printer.local8Bit();
+	QByteArray fileName;
 
 	if( !doc || options.toFile )	
 		return false;
@@ -283,7 +283,7 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	return success;
 }
 
-bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, Q3CString& fileName, bool forceGDI )
+bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, QByteArray& fileName, bool forceGDI )
 {
  int  jobId;
  bool psPrint;
@@ -324,7 +324,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 		progress.reset( new MultiProgressDialog( tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW(), "printprogress") );
 		progress->setOverallTotalSteps( options.pageNumbers.size() );
 		progress->setOverallProgress(0);
-		connect(progress->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+		connect(progress.get(), SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		progress->show();
 	}
 
