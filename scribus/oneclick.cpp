@@ -198,37 +198,37 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	if (mode == 0)
 	{
 		connect(linkSize, SIGNAL(clicked()), this, SLOT(ToggleKette()));
-		connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-		connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+		connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+		connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 	}
 }
 
 void OneClick::ToggleKette()
 {
-	disconnect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-	disconnect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	disconnect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+	disconnect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 	if (linkSize->isOn())
 		spinHeight->setValue(spinWidth->value());
-	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 }
 
 void OneClick::changeSizesH()
 {
-	disconnect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-	disconnect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	disconnect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+	disconnect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 	if (linkSize->isOn())
 		spinWidth->setValue(spinHeight->value());
-	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 }
 
 void OneClick::changeSizesW()
 {
-	disconnect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-	disconnect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	disconnect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+	disconnect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 	if (linkSize->isOn())
 		spinHeight->setValue(spinWidth->value());
-	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
-	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
 }

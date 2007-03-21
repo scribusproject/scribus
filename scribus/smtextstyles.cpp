@@ -407,9 +407,9 @@ void SMParagraphStyle::setupConnections()
 
 	// paragraph attributes
 	connect(pwidget_->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
-	connect(pwidget_->lineSpacing_, SIGNAL(valueChanged(int)), this, SLOT(slotLineSpacing()));
-	connect(pwidget_->spaceAbove_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceAbove()));
-	connect(pwidget_->spaceBelow_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceBelow()));
+	connect(pwidget_->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
+	connect(pwidget_->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
+	connect(pwidget_->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
 	connect(pwidget_->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
@@ -420,13 +420,13 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
 	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapOffset()));
+	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
 
 	connect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
 	connect(pwidget_->tabList_, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
-	connect(pwidget_->tabList_->left_, SIGNAL(valueChanged(int)), this, SLOT(slotLeftIndent()));
-	connect(pwidget_->tabList_->right_, SIGNAL(valueChanged(int)), this, SLOT(slotRightIndent()));
-	connect(pwidget_->tabList_->first_, SIGNAL(valueChanged(int)), this, SLOT(slotFirstLine()));
+	connect(pwidget_->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	connect(pwidget_->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	connect(pwidget_->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	connect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));
@@ -434,30 +434,30 @@ void SMParagraphStyle::setupConnections()
 	// character attributes
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+	connect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
 	connect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	connect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	connect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
-	connect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
-	connect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
-	connect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
-	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	connect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	connect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	connect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	connect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotCharParentChanged(const QString&)));
@@ -469,9 +469,9 @@ void SMParagraphStyle::removeConnections()
 		return;
 
 	disconnect(pwidget_->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
-	disconnect(pwidget_->lineSpacing_, SIGNAL(valueChanged(int)), this, SLOT(slotLineSpacing()));
-	disconnect(pwidget_->spaceAbove_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceAbove()));
-	disconnect(pwidget_->spaceBelow_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceBelow()));
+	disconnect(pwidget_->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
+	disconnect(pwidget_->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
+	disconnect(pwidget_->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
 	disconnect(pwidget_->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
@@ -482,42 +482,42 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
 	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	disconnect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapOffset()));
+	disconnect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
 
 	disconnect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));
 
 	disconnect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	disconnect(pwidget_->tabList_->left_, SIGNAL(valueChanged(int)), this, SLOT(slotLeftIndent()));
-	disconnect(pwidget_->tabList_->right_, SIGNAL(valueChanged(int)), this, SLOT(slotRightIndent()));
-	disconnect(pwidget_->tabList_->first_, SIGNAL(valueChanged(int)), this, SLOT(slotFirstLine()));
+	disconnect(pwidget_->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	disconnect(pwidget_->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	disconnect(pwidget_->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+	disconnect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
 			this, SLOT(slotEffectProperties()));
 	disconnect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	disconnect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	disconnect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
-	disconnect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
-	disconnect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
-	disconnect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
-	disconnect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	disconnect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	disconnect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	disconnect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	disconnect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	disconnect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotCharParentChanged(const QString&)));
@@ -1520,30 +1520,30 @@ void SMCharacterStyle::setupConnections()
 
 	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+	connect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
 	connect(page_->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(page_->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	connect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	connect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
-	connect(page_->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
-	connect(page_->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
-	connect(page_->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
-	connect(page_->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	connect(page_->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	connect(page_->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	connect(page_->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	connect(page_->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	connect(page_->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(page_->parentCombo, SIGNAL(activated(const QString&)),
 	        this, SLOT(slotParentChanged(const QString&)));
@@ -1556,30 +1556,30 @@ void SMCharacterStyle::removeConnections()
 
 	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+	disconnect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
 	disconnect(page_->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(page_->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	disconnect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	disconnect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
-	disconnect(page_->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
-	disconnect(page_->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
-	disconnect(page_->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
-	disconnect(page_->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	disconnect(page_->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	disconnect(page_->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	disconnect(page_->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	disconnect(page_->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	disconnect(page_->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(page_->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));

@@ -143,7 +143,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	connect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	connect(LineJoin, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LineEnds, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	connect(LWidth, SIGNAL(valueChanged(int)), this, SLOT(NewLWidth()));
+	connect(LWidth, SIGNAL(valueChanged(double)), this, SLOT(NewLWidth()));
 	connect(Color, SIGNAL(activated(int)), this, SLOT(NewLColor()));
 	connect(AddStyle, SIGNAL(clicked()), this, SLOT(NewSubLine()));
 	connect(RemoveStyle, SIGNAL(clicked()), this, SLOT(DelSubLine()));
@@ -431,7 +431,7 @@ void MultiLine::slotEditStyle(int i)
 	disconnect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	disconnect(LineJoin, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	disconnect(LineEnds, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	disconnect(LWidth, SIGNAL(valueChanged(int)), this, SLOT(NewLWidth()));
+	disconnect(LWidth, SIGNAL(valueChanged(double)), this, SLOT(NewLWidth()));
 	disconnect(Color, SIGNAL(activated(int)), this, SLOT(NewLColor()));
 	disconnect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 	Styles->setSelected(i, true);
@@ -498,7 +498,7 @@ void MultiLine::slotEditStyle(int i)
 	connect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	connect(LineJoin, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LineEnds, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	connect(LWidth, SIGNAL(valueChanged(int)), this, SLOT(NewLWidth()));
+	connect(LWidth, SIGNAL(valueChanged(double)), this, SLOT(NewLWidth()));
 	connect(Color, SIGNAL(activated(int)), this, SLOT(NewLColor()));
 	connect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 }

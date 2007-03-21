@@ -123,7 +123,7 @@ SMScrSpinBox::SMScrSpinBox(QWidget *parent, const char * name)
 
 void SMScrSpinBox::setValue(double val)
 {
-	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	disconnect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
 	hasParent_ = false;
 	pValue_ = 0.0;
 	setFont(false);
@@ -133,20 +133,20 @@ void SMScrSpinBox::setValue(double val)
 
 void SMScrSpinBox::setValue(double val, bool isParentVal)
 {
-	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	disconnect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
 	hasParent_ = true;
 	pValue_ = val;
 	setFont(!isParentVal);
 
 	ScrSpinBox::setValue(val);
-	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	connect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
 }
 
 void SMScrSpinBox::clear()
 {
-	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	disconnect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
 	ScrSpinBox::clear();
-	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	connect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
 }
 
 void SMScrSpinBox::setParentValue(double val)
@@ -381,13 +381,13 @@ SMStyleSelect::SMStyleSelect(QWidget *parent)
 void SMStyleSelect::setStyle(int i)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
-	disconnect(ShadowVal->Xoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(ShadowVal->Yoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(OutlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(UnderlineVal->LPos, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(UnderlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
-	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Xoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Yoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(OutlineVal->LWidth, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LPos, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LWidth, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	setFont(false);
 	hasParent_ = false;
@@ -399,13 +399,13 @@ void SMStyleSelect::setStyle(int i)
 void SMStyleSelect::setStyle(int i, bool isParentValue)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
-	disconnect(ShadowVal->Xoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(ShadowVal->Yoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(OutlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(UnderlineVal->LPos, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(UnderlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
-	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Xoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Yoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(OutlineVal->LWidth, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LPos, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LWidth, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	hasParent_ = true;
 	pStyle_ = i;
@@ -417,13 +417,13 @@ void SMStyleSelect::setStyle(int i, bool isParentValue)
 	parentButton->setOn(true);
 	StyleSelect::setStyle(i);
 	connect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
-	connect(ShadowVal->Xoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	connect(ShadowVal->Yoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	connect(OutlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	connect(UnderlineVal->LPos, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	connect(UnderlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
-	connect(StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
-	connect(StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	connect(ShadowVal->Xoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	connect(ShadowVal->Yoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	connect(OutlineVal->LWidth, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	connect(UnderlineVal->LPos, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	connect(UnderlineVal->LWidth, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
+	connect(StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
+	connect(StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
 	connect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 }
 
@@ -808,13 +808,13 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 	indentLayout->insertWidget(3, right_);
 	right_->show();
 
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
@@ -876,45 +876,45 @@ void SMTabruler::setParentTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs)
 
 void SMTabruler::setFirstLineValue(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	first_->setValue(t);
 	firstLineData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setFirstLineValue(double t, bool isParentValue)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	isSetupFirst_ = true;
 	first_->setValue(t, isParentValue);
 	firstLineData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setParentFirstLine(double t)
@@ -924,45 +924,45 @@ void SMTabruler::setParentFirstLine(double t)
 
 void SMTabruler::setLeftIndentValue(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	left_->setValue(t);
 	leftIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setLeftIndentValue(double t, bool isParentValue)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	isSetupLeft_ = true;
 	left_->setValue(t, isParentValue);
 	leftIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setParentLeftIndent(double t)
@@ -972,45 +972,45 @@ void SMTabruler::setParentLeftIndent(double t)
 
 void SMTabruler::setRightIndentValue(double t)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	right_->setValue(t);
 	rightIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setRightIndentValue(double t, bool isParentValue)
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	isSetupRight_ = true;
 	right_->setValue(t, isParentValue);
 	rightIndentData->setValue(t);
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::setParentRightIndent(double t)
@@ -1070,9 +1070,9 @@ void SMTabruler::pbClicked()
 
 void SMTabruler::leftDataChanged()
 {
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	double a, b, value;
 	int c;
 	leftIndentData->getValues(&a, &b, &c, &value);
@@ -1082,16 +1082,16 @@ void SMTabruler::leftDataChanged()
 		left_->setValue(value);
 
 	isSetupLeft_ = false;
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::rightDataChanged()
 {
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	double a, b, value;
 	int c;
 	rightIndentData->getValues(&a, &b, &c, &value);
@@ -1101,16 +1101,16 @@ void SMTabruler::rightDataChanged()
 		right_->setValue(value);
 
 	isSetupRight_ = false;
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::firstDataChanged()
 {
-	disconnect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	disconnect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	disconnect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 	double a, b, value;
 	int c;
 	firstLineData->getValues(&a, &b, &c, &value);
@@ -1120,16 +1120,16 @@ void SMTabruler::firstDataChanged()
 		first_->setValue(value);
 
 	isSetupFirst_ = false;
-	connect(first_, SIGNAL(valueChanged(int)), this, SLOT(firstValueChanged()));
-	connect(right_, SIGNAL(valueChanged(int)), this, SLOT(rightValueChanged()));
-	connect(left_, SIGNAL(valueChanged(int)), this, SLOT(leftValueChanged()));
+	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
+	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
+	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
 }
 
 void SMTabruler::firstValueChanged()
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 	double a, b, value;
 	int c;
 	first_->getValues(&a, &b, &c, &value);
@@ -1138,16 +1138,16 @@ void SMTabruler::firstValueChanged()
 	setFirstLine();
 	setRightIndent();
 	isSetupFirst_ = true;
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
 void SMTabruler::leftValueChanged()
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 	double a, b, value;
 	int c;
 	left_->getValues(&a, &b, &c, &value);
@@ -1156,16 +1156,16 @@ void SMTabruler::leftValueChanged()
 	setFirstLine();
 	setRightIndent();
 	isSetupLeft_ = true;
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
 void SMTabruler::rightValueChanged()
 {
-	disconnect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	disconnect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	disconnect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	disconnect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	disconnect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 	double a, b, value;
 	int c;
 	right_->getValues(&a, &b, &c, &value);
@@ -1174,9 +1174,9 @@ void SMTabruler::rightValueChanged()
 	setFirstLine();
 	setRightIndent();
 	isSetupRight_ = true;
-	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(firstDataChanged()));
-	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(rightDataChanged()));
-	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(leftDataChanged()));
+	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
+	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
+	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
 }
 
 

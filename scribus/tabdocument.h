@@ -72,13 +72,13 @@ private slots:
 	\brief Preferences (Document / Page Size), sets Page width values
 	\param v Width value
 	 */
-	void setPageWidth(int);
+	void setPageWidth(double);
 	/*!
 	\author Franz Schmid
 	\brief Preferences (Document / Page Size), sets Page height values
 	\param v Height value
 	 */
-	void setPageHeight(int);
+	void setPageHeight(double);
 	/*!
 	\author Franz Schmid
 	\brief Preferences (Document / Page Size), sets Page orientation value and page dimensions

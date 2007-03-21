@@ -197,8 +197,8 @@ protected slots:
 	void applyToAllAutoButton_clicked();
 	void horizontalAutoCountSpin_valueChanged( int );
 	void verticalAutoCountSpin_valueChanged( int );
-	void horizontalAutoGapSpin_valueChanged(int);
-	void verticalAutoGapSpin_valueChanged(int);
+	void horizontalAutoGapSpin_valueChanged(double);
+	void verticalAutoGapSpin_valueChanged(double);
 	void horizontalReferGroup_clicked( int );
 	void verticalReferGroup_clicked( int );
 	void tabWidget_currentChanged( QWidget * );

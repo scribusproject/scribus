@@ -309,8 +309,8 @@ public slots:
 signals:
 	void NewFont(const QString &);
 	void NewSize(double);
-	void NewScale(int);
-	void NewScaleV(int);
+	void newScale(double);
+	void newScaleV(double);
 
 private:
 	ScrSpinBox* Size;

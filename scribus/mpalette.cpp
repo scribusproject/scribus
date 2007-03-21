@@ -988,22 +988,22 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	languageChange();
 
-	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
-	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
-	connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));
-	connect(Height, SIGNAL(valueChanged(int)), this, SLOT(NewH()));
-	connect(Rot, SIGNAL(valueChanged(int)), this, SLOT(NewR()));
-	connect(RoundRect, SIGNAL(valueChanged(int)), this, SLOT(NewRR()));
-	connect(LineSp, SIGNAL(valueChanged(int)), this, SLOT(NewLsp()));
-	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(NewSize()));
-	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(NewExtra()));
-	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
-	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(int)), this, SLOT(NewLocalXY()));
-	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
-	connect(LSize, SIGNAL(valueChanged(int)), this, SLOT(NewLS()));
+	connect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
+	connect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
+	connect(Width, SIGNAL(valueChanged(double)), this, SLOT(NewW()));
+	connect(Height, SIGNAL(valueChanged(double)), this, SLOT(NewH()));
+	connect(Rot, SIGNAL(valueChanged(double)), this, SLOT(NewR()));
+	connect(RoundRect, SIGNAL(valueChanged(double)), this, SLOT(NewRR()));
+	connect(LineSp, SIGNAL(valueChanged(double)), this, SLOT(NewLsp()));
+	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(NewSize()));
+	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(NewExtra()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	connect(imageXOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(imageYOffsetSpinBox, SIGNAL(valueChanged(double)), this, SLOT(NewLocalXY()));
+	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
+	connect(LSize, SIGNAL(valueChanged(double)), this, SLOT(NewLS()));
 	connect(LStyle, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	connect(LJoinStyle, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LEndStyle, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
@@ -1015,13 +1015,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
 	connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
 	connect(SeStyle, SIGNAL(State(int)), this, SLOT(setTypeStyle(int)));
-	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
-	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
-	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
-	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
-	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
-	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
-	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineW()));
+	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
+	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -1039,12 +1039,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
 	connect(SCustom2, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape2, SIGNAL(clicked()), this, SLOT(EditSh2()));
-	connect(dGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
+	connect(dGap, SIGNAL(valueChanged(double)), this, SLOT(NewGap()));
 	connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
-	connect(DTop, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
-	connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
-	connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
-	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
+	connect(DTop, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(DLeft, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
+	connect(DBottom, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
 	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
 	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
@@ -1052,17 +1052,17 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
 	connect(PM1, SIGNAL(clicked()), this, SLOT(setActShade()));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(setActShade()));
-	connect(ChScale, SIGNAL(valueChanged(int)), this, SLOT(NewTScale()));
-	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SLOT(NewTScaleV()));
-	connect(ChBase, SIGNAL(valueChanged(int)), this, SLOT(NewTBase()));
+	connect(ChScale, SIGNAL(valueChanged(double)), this, SLOT(NewTScale()));
+	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SLOT(NewTScaleV()));
+	connect(ChBase, SIGNAL(valueChanged(double)), this, SLOT(NewTBase()));
 	connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
 	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleLockSize()));
 	connect(showcurveCheckBox, SIGNAL(clicked()), this, SLOT(handlePathLine()));
 	connect(pathTextType, SIGNAL(activated(int)), this, SLOT(handlePathType()));
 	connect(flippedPathText, SIGNAL(clicked()), this, SLOT(handlePathFlip()));
-	connect(Dist, SIGNAL(valueChanged(int)), this, SLOT(handlePathDist()));
-	connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
+	connect(Dist, SIGNAL(valueChanged(double)), this, SLOT(handlePathDist()));
+	connect(LineW, SIGNAL(valueChanged(double)), this, SLOT(handlePathOffs()));
 	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 	connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
@@ -2149,8 +2149,8 @@ void Mpalette::setXY(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
-	disconnect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
+	disconnect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
+	disconnect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
 	bool tmp = HaveItem;
 	double inX, inY, b, h, r, dummy1, dummy2;
 	QMatrix ma;
@@ -2205,8 +2205,8 @@ void Mpalette::setXY(double x, double y)
 	if ((LMode) && (tmp))
 		setBH(CurItem->width(), CurItem->height());
 	HaveItem = tmp;
-	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
-	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
+	connect(Xpos, SIGNAL(valueChanged(double)), this, SLOT(NewX()));
+	connect(Ypos, SIGNAL(valueChanged(double)), this, SLOT(NewY()));
 }
 
 void Mpalette::setBH(double x, double y)
@@ -3143,12 +3143,12 @@ void Mpalette::NewLocalSC()
 		*/
 		//CB Dont pass in the scale to the offset change as its taken from the new scale
 		doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / CurItem->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
-		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+		disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+		disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
 		imgDpiY->setValue(qRound(720.0 / CurItem->imageYScale()) / 10.0);
-		connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-		connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+		connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+		connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 	}
 }
 
@@ -3164,12 +3164,12 @@ void Mpalette::NewLocalDpi()
 		*/
 		//CB Dont pass in the scale to the offset change as its taken from the new scale
 		doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
-		disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-		disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+		disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+		disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 		imageXScaleSpinBox->setValue(CurItem->imageXScale() * 100 / 72.0 * CurItem->pixm.imgInfo.xres);
 		imageYScaleSpinBox->setValue(CurItem->imageYScale() * 100 / 72.0 * CurItem->pixm.imgInfo.yres);
-		connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-		connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+		connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+		connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	}
 }
 
@@ -3331,8 +3331,8 @@ void Mpalette::ToggleKette()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	if (keepImageWHRatioButton->isOn())
 	{
 		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
@@ -3341,38 +3341,38 @@ void Mpalette::ToggleKette()
 	}
 	else
 		keepImageDPIRatioButton->setOn(false);
-	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
 void Mpalette::HChange()
 {
-	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	if (keepImageWHRatioButton->isOn())
 		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
 	NewLocalSC();
-	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
 void Mpalette::VChange()
 {
-	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	if (keepImageWHRatioButton->isOn())
 		imageXScaleSpinBox->setValue(imageYScaleSpinBox->value());
 	NewLocalSC();
-	connect(imageXScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(imageYScaleSpinBox, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
 void Mpalette::ToggleKetteD()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 	if (keepImageDPIRatioButton->isOn())
 	{
 		imgDpiY->setValue(imgDpiX->value());
@@ -3381,30 +3381,30 @@ void Mpalette::ToggleKetteD()
 	}
 	else
 		keepImageWHRatioButton->setOn(false);
-	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
 void Mpalette::HChangeD()
 {
-	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 	if (keepImageDPIRatioButton->isOn())
 		imgDpiY->setValue(imgDpiX->value());
 	NewLocalDpi();
-	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
 void Mpalette::VChangeD()
 {
-	disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 	if (keepImageDPIRatioButton->isOn())
 		imgDpiX->setValue(imgDpiY->value());
 	NewLocalDpi();
-	connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
-	connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
+	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
+	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
 
 void Mpalette::NewAli(int a)
@@ -3445,12 +3445,12 @@ void Mpalette::setShadowOffs(int x, int y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
-	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
+	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
 	SeStyle->ShadowVal->Xoffset->setValue(x / 10.0);
 	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
-	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
-	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
 }
 
 void Mpalette::newUnderline()
@@ -3470,12 +3470,12 @@ void Mpalette::setUnderline(int p, int w)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
-	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
+	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
 	SeStyle->UnderlineVal->LPos->setValue(p / 10.0);
 	SeStyle->UnderlineVal->LWidth->setValue(w / 10.0);
-	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
-	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderline()));
+	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
+	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderline()));
 }
 
 void Mpalette::newStrike()
@@ -3495,21 +3495,21 @@ void Mpalette::setStrike(int p, int w)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
-	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
+	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
 	SeStyle->StrikeVal->LPos->setValue(p / 10.0);
 	SeStyle->StrikeVal->LWidth->setValue(w / 10.0);
-	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
-	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrike()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
 }
 
 void Mpalette::setOutlineW(int x)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
+	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineW()));
 	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
-	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineW()));
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineW()));
 }
 
 void Mpalette::newOutlineW()

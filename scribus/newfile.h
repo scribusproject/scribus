@@ -105,12 +105,12 @@ public:
 	double bleedRight;
 
 public slots:
-	void setHeight(int v);
-	void setWidth(int v);
+	void setHeight(double v);
+	void setWidth(double v);
 	void selectItem(uint nr);
 	void itemSelected(Q3IconViewItem* ic);
 	void handleAutoFrame();
-	void setDist(int v);
+	void setDist(double v);
 	void setUnit(int u);
 	void ExitOK();
 	void setOrien(int ori);

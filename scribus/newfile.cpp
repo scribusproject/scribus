@@ -100,7 +100,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
-	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
+	connect(Distance, SIGNAL(valueChanged(double)), this, SLOT(setDist(double)));
 	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
 	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
 	if (startUp)
@@ -330,7 +330,7 @@ void NewDoc::createRecentDocPage()
 		recentDocListBox->insertItem( QDir::convertSeparators(recentDocList[m]) );
 }
 
-void NewDoc::setWidth(int)
+void NewDoc::setWidth(double)
 {
 	pageWidth = widthSpinBox->value() / unitRatio;
 	marginGroup->setPageWidth(pageWidth);
@@ -339,7 +339,7 @@ void NewDoc::setWidth(int)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
-void NewDoc::setHeight(int)
+void NewDoc::setHeight(double)
 {
 	pageHeight = heightSpinBox->value() / unitRatio;
 	marginGroup->setPageHeight(pageHeight);
@@ -409,15 +409,15 @@ void NewDoc::handleAutoFrame()
 	}
 }
 
-void NewDoc::setDist(int)
+void NewDoc::setDist(double)
 {
 	Dist = Distance->value() / unitRatio;
 }
 
 void NewDoc::setUnit(int newUnitIndex)
 {
-	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	widthSpinBox->setNewUnit(newUnitIndex);
 	heightSpinBox->setNewUnit(newUnitIndex);
 	Distance->setNewUnit(newUnitIndex);
@@ -454,8 +454,8 @@ double oldUnitRatio = unitRatio;
 	marginGroup->setNewUnit(unitIndex);
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 
 }
 
@@ -477,8 +477,8 @@ void NewDoc::ExitOK()
 void NewDoc::setOrien(int ori)
 {
 	double br;
-	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	if (ori != Orient)
 	{
 		br = widthSpinBox->value();
@@ -497,8 +497,8 @@ void NewDoc::setOrien(int ori)
 	// end of #869
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
 void NewDoc::setPGsize(const QString &size)
@@ -518,8 +518,8 @@ void NewDoc::setSize(QString gr)
 	pageWidth = widthSpinBox->value() / unitRatio;
 	pageHeight = heightSpinBox->value() / unitRatio;
 
-	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	if (gr==CommonStrings::trCustomPageSize || gr==CommonStrings::customPageSize)
 	{
 		//widthSpinBox->setEnabled(true);
@@ -542,8 +542,8 @@ void NewDoc::setSize(QString gr)
 	heightSpinBox->setValue(pageHeight * unitRatio);
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
-	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
 void NewDoc::setDS(int layout)

@@ -994,14 +994,14 @@ SToolBStyle::SToolBStyle(Q3MainWindow* parent) : Q3ToolBar( tr("Character Settin
 	Extra->setSuffix( tr( " %" ) );
 
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
-	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
-	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
-	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
-	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
-	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
-	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
-	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
-	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
+	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
+	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 
 	languageChange();
 }
@@ -1046,39 +1046,39 @@ void SToolBStyle::newKernHandler()
 
 void SToolBStyle::setOutline(int x)
 {
-	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
+	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
 	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
-	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newOutlineHandler()));
+	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
 }
 
 void SToolBStyle::setStrike(int p, int w)
 {
-	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
-	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
+	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 	SeStyle->StrikeVal->LWidth->setValue(w / 10.0);
 	SeStyle->StrikeVal->LPos->setValue(p / 10.0);
-	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
-	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newStrikeHandler()));
+	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
+	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 }
 
 void SToolBStyle::setUnderline(int p, int w)
 {
-	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
-	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
+	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
+	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
 	SeStyle->UnderlineVal->LWidth->setValue(w / 10.0);
 	SeStyle->UnderlineVal->LPos->setValue(p / 10.0);
-	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
-	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(newUnderlineHandler()));
+	connect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
+	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
 }
 
 void SToolBStyle::SetShadow(int x, int y)
 {
-	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
-	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
+	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
 	SeStyle->ShadowVal->Xoffset->setValue(x / 10.0);
 	SeStyle->ShadowVal->Yoffset->setValue(y / 10.0);
-	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
-	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(int)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
+	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
 }
 
 void SToolBStyle::SetStyle(int s)
@@ -1090,9 +1090,9 @@ void SToolBStyle::SetStyle(int s)
 
 void SToolBStyle::SetKern(int k)
 {
-	disconnect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
+	disconnect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
 	Extra->setValue(k / 10.0);
-	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
+	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
 }
 
 /* Toolbar for alignment of Paragraphs */
@@ -1149,10 +1149,10 @@ SToolBFont::SToolBFont(Q3MainWindow* parent) : Q3ToolBar( tr("Font Settings"), p
 	ChScaleV->setValue( 100 );
 	ChScaleV->setSuffix( tr( " %" ) );
 
-	connect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
-	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
+	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
+	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
-	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
+	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
 }
 
 void SToolBFont::languageChange()
@@ -1176,23 +1176,23 @@ void SToolBFont::SetFont(QString f)
 
 void SToolBFont::SetSize(double s)
 {
-	disconnect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
+	disconnect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
 	Size->setValue(s / 10.0);
-	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(newSizeHandler()));
+	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
 }
 
 void SToolBFont::SetScale(int s)
 {
-	disconnect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
+	disconnect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
 	ChScale->setValue(s / 10.0);
-	connect(ChScale, SIGNAL(valueChanged(int)), this, SIGNAL(NewScale(int)));
+	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
 }
 
 void SToolBFont::SetScaleV(int s)
 {
-	disconnect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
+	disconnect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 	ChScaleV->setValue(s / 10.0);
-	connect(ChScaleV, SIGNAL(valueChanged(int)), this, SIGNAL(NewScaleV(int)));
+	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 }
 
 void SToolBFont::newSizeHandler()
@@ -1709,10 +1709,10 @@ void StoryEditor::connectSignals()
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
-	connect(FontTools, SIGNAL(NewSize(double )), this, SLOT(newTxSize(double)));
+	connect(FontTools, SIGNAL(NewSize(int )), this, SLOT(newTxSize(double)));
 	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
-	connect(FontTools, SIGNAL(NewScale(int )), this, SLOT(newTxScale(int )));
-	connect(FontTools, SIGNAL(NewScaleV(int )), this, SLOT(newTxScaleV(int )));
+	connect(FontTools, SIGNAL(newScale(double )), this, SLOT(newTxScale(double)));
+	connect(FontTools, SIGNAL(newScaleV(double )), this, SLOT(newTxScaleV(double)));
 	connect(StyleTools, SIGNAL(NewKern(int )), this, SLOT(newTxKern(int )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));

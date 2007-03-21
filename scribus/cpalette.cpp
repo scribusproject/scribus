@@ -248,16 +248,16 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
-	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
-	connect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(gradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
 	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -403,8 +403,8 @@ void Cpalette::changePatternProps()
 
 void Cpalette::ToggleKette()
 {
-	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	if (keepScaleRatio->isOn())
 	{
 		spinYscaling->setValue(spinXscaling->value());
@@ -413,30 +413,30 @@ void Cpalette::ToggleKette()
 	}
 	else
 		keepScaleRatio->setOn(false);
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
 void Cpalette::HChange()
 {
-	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	if (keepScaleRatio->isOn())
 		spinYscaling->setValue(spinXscaling->value());
 	changePatternProps();
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
 void Cpalette::VChange()
 {
-	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	if (keepScaleRatio->isOn())
 		spinXscaling->setValue(spinYscaling->value());
 	changePatternProps();
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
 
 void Cpalette::SetColors(ColorList newColorList)
@@ -705,18 +705,18 @@ void Cpalette::setActGradient(int typ)
 
 void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2)
 {
-	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 	gX1->setValue(x1);
 	gX2->setValue(x2);
 	gY1->setValue(y1);
 	gY2->setValue(y2);
-	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
 }
 
 void Cpalette::changeSpecial()
@@ -752,11 +752,11 @@ void Cpalette::setActShade()
 void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
 	disconnect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
-	disconnect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	disconnect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	disconnect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	disconnect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	disconnect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	Q3IconViewItem *it = patternBox->findItem(pattern);
 	if (it)
 		patternBox->setCurrentItem(it);
@@ -770,33 +770,33 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	else
 		keepScaleRatio->setOn(false);
 	connect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
-	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
-	connect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
+	connect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 }
 
 void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
 {
-	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	disconnect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	disconnect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	disconnect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	disconnect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	gX1->setNewUnit(unitIndex);
 	gY1->setNewUnit(unitIndex);
 	gX2->setNewUnit(unitIndex);
 	gY2->setNewUnit(unitIndex);
 	spinXoffset->setNewUnit(unitIndex);
 	spinYoffset->setNewUnit(unitIndex);
-	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(gX1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(double)), this, SLOT(changeSpecial()));
+	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
+	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 }
 
 void Cpalette::languageChange()

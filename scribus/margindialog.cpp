@@ -175,8 +175,8 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(sizeQComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
-	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(int)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(int)));
 	
 	setPageSize();
 	setMinimumSize(minimumSizeHint());
@@ -222,15 +222,15 @@ void MarginDialog::setSize(const QString & gr)
 		pageWidth = ps2->width();
 		pageHeight = ps2->height();
 	}
-	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(int)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(int)));
 	widthSpinBox->setValue(pageWidth * unitRatio);
 	heightSpinBox->setValue(pageHeight * unitRatio);
 	GroupRand->setPageHeight(pageHeight);
 	GroupRand->setPageWidth(pageWidth);
 	GroupRand->setPageSize(gr);
-	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(int)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(int)));
 	delete ps2;
 }
 
@@ -238,8 +238,8 @@ void MarginDialog::setOrien(int ori)
 {
 	double br;
 	setSize(sizeQComboBox->currentText());
-	disconnect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	disconnect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(int)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(int)));
 	if ((sizeQComboBox->currentText() == CommonStrings::trCustomPageSize) && (ori != oldOri))
 	{
 		br = widthSpinBox->value();
@@ -258,8 +258,8 @@ void MarginDialog::setOrien(int ori)
 	oldOri = ori;
 	pageWidth = widthSpinBox->value() / unitRatio;
 	pageHeight = heightSpinBox->value() / unitRatio;
-	connect(widthSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(int)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(int)));
 }
 
 int MarginDialog::pageOrder()

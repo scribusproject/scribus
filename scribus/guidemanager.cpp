@@ -79,8 +79,8 @@ GuideManager::GuideManager(QWidget* parent) :
 	verticalAutoGapSpin->setMaximum(100.0);
 
 	// signals that cannot be defined in designer (mspinbox related)
-	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(horizontalAutoGapSpin_valueChanged(int)));
-	connect(verticalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(verticalAutoGapSpin_valueChanged(int)));
+	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoGapSpin_valueChanged(double)));
+	connect(verticalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(verticalAutoGapSpin_valueChanged(double)));
 	m_drawGuides = true;
 }
 
@@ -358,7 +358,7 @@ void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
 	drawGuides();
 }
 
-void GuideManager::horizontalAutoGapSpin_valueChanged(int)
+void GuideManager::horizontalAutoGapSpin_valueChanged(double)
 {
 	currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
 	drawGuides();
@@ -386,7 +386,7 @@ void GuideManager::verticalAutoCountSpin_valueChanged(int val)
 	drawGuides();
 }
 
-void GuideManager::verticalAutoGapSpin_valueChanged(int)
+void GuideManager::verticalAutoGapSpin_valueChanged(double)
 {
 	currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
 	drawGuides();
