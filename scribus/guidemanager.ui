@@ -669,7 +669,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QWidget</extends>
-   <header>mspinbox.h</header>
+   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>
