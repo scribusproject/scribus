@@ -9490,6 +9490,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		currItem->LayerNr = Buffer->LayerNr;
 	currItem->PoLine = Buffer->PoLine.copy();
 	currItem->setTextFlowUsesContourLine(Buffer->UseContour);
+	currItem->isTableItem = Buffer->isTableItem;
+	currItem->LeftLinkID = Buffer->LeftLinkID;
+	currItem->RightLinkID = Buffer->RightLinkID;
+	currItem->TopLinkID = Buffer->TopLinkID;
+	currItem->BottomLinkID = Buffer->BottomLinkID;
 	if (Buffer->ContourLine.size() == 0)
 		currItem->ContourLine = currItem->PoLine.copy();
 	else
