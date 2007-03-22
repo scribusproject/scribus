@@ -2308,7 +2308,8 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 	}
-	FontSub->RebuildList(doc);
+// Qt4
+//	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 	scrActions["viewShowBleeds"]->setOn(doc->guidesSettings.showBleed);
@@ -2364,7 +2365,8 @@ void ScribusMainWindow::SwitchWin()
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
 	pagePalette->setView(view);
-	FontSub->RebuildList(doc);
+// Qt4
+//	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
@@ -7363,7 +7365,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
 		qApp->setFont(apf,true);
 	}
-	FontSub->RebuildList(0);
+// qt4
+//	FontSub->RebuildList(0);
 	propertiesPalette->Fonts->RebuildList(0);
 	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();

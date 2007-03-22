@@ -22,14 +22,14 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <qstringlist.h>
 #include <qcombobox.h>
-#include <q3listbox.h>
+// #include <q3listbox.h>
 #include <qfont.h>
 #include <qpainter.h>
 //Added by qt3to4:
-#include <Q3GridLayout>
+#include <QGridLayout>
 #include <QPixmap>
 #include <QLabel>
-#include <QListView>
+#include <QAbstractItemView>
 
 #include "sccombobox.h"
 
@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "prefsmanager.h"
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
-
+/*
 FontListItem::FontListItem(Q3ComboBox* parent, QString f, QFont fo) : Q3ListBoxItem(parent->listBox())
 {
 	fontName = f;
@@ -64,6 +64,7 @@ void FontListItem::paint(QPainter *painter)
 	QFontMetrics fontMetrics(painter->fontMetrics());
 	painter->drawText(3, fontMetrics.ascent() + fontMetrics.leading() / 2, fontName);
 }
+*/
 
 FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 {
@@ -106,13 +107,14 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || fon.subset()))
 			continue;
 		if (type == ScFace::OTF)
-			insertItem(otfFont, it2.data());
+			addItem(otfFont, it2.data());
 		else if (type == ScFace::TYPE1)
-			insertItem(psFont, it2.data());
+			addItem(psFont, it2.data());
 		else if (type == ScFace::TTF)
-			insertItem(ttfFont, it2.data());
+			addItem(ttfFont, it2.data());
 	}
-	QListView *tmpView = dynamic_cast<QListView*>(view());
+//	QAbstractItemView *tmpView = dynamic_cast<QAbstractItemView*>(view());
+	QAbstractItemView *tmpView = view();
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
@@ -129,12 +131,14 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
 	currDoc = 0;
-	fontComboLayout = new Q3GridLayout( this, 0, 0);
+	fontComboLayout = new QGridLayout(this);
+	fontComboLayout->setMargin(0);
+	fontComboLayout->setSpacing(0);
 	int col=0;
 	if (showLabels)
 	{
-		fontFaceLabel=new QLabel("", this, "fontFaceLabel");
-		fontStyleLabel=new QLabel("", this, "fontStyleLabel");
+		fontFaceLabel=new QLabel("", this);
+		fontStyleLabel=new QLabel("", this);
 		fontComboLayout->addWidget(fontFaceLabel,0,0);
 		fontComboLayout->addWidget(fontStyleLabel,1,0);
 		fontComboLayout->setColStretch(1,10);
@@ -166,7 +170,7 @@ void FontComboH::familySelected(int id)
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->text(id)];
 	slist.sort();
-	fontStyle->insertStringList(slist);
+	fontStyle->addItems(slist);
 	if (slist.contains(curr))
 		fontStyle->setCurrentText(curr);
 	else if (slist.contains("Regular"))
@@ -206,10 +210,10 @@ void FontComboH::setCurrentFont(QString f)
 			if ((currDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3].localForDocument()) || (prefsManager->appPrefs.AvailFonts[family + " " + *it3].localForDocument().isEmpty()))
 				ilist.append(*it3);
 		}
-		fontStyle->insertStringList(ilist);
+		fontStyle->addItems(ilist);
 	}
 	else
-		fontStyle->insertStringList(slist);
+		fontStyle->addItems(slist);
 	fontStyle->setCurrentText(style);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
@@ -257,11 +261,11 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
 			continue;
 		if (type == ScFace::OTF)
-			fontFamily->insertItem(otfFont, it2a.data());
+			fontFamily->addItem(otfFont, it2a.data());
 		else if (type == ScFace::TYPE1)
-			fontFamily->insertItem(psFont, it2a.data());
+			fontFamily->addItem(psFont, it2a.data());
 		else if (type == ScFace::TTF)
-			fontFamily->insertItem(ttfFont, it2a.data());
+			fontFamily->addItem(ttfFont, it2a.data());
 	}
 	QString family = fontFamily->currentText();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
@@ -275,7 +279,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 			if (prefsManager->appPrefs.AvailFonts.contains(family + " " + *it3) && (currentDoc->DocName == prefsManager->appPrefs.AvailFonts[family + " " + *it3].localForDocument() || prefsManager->appPrefs.AvailFonts[family + " " + *it3].localForDocument().isEmpty()))
 				ilist.append(*it3);
 		}
-		fontStyle->insertStringList(ilist);
+		fontStyle->addItems(ilist);
 	}
 	else
 		fontStyle->insertStringList(slist);

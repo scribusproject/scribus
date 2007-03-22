@@ -26,17 +26,17 @@ for which a new license (GPL+exception) is in place.
 
 #include <qcombobox.h>
 #include <qlabel.h>
-#include <q3listbox.h>
-#include <q3combobox.h>
+//#include <q3listbox.h>
+//#include <q3combobox.h>
 #include <qlayout.h>
 #include <qwidget.h>
 //Added by qt3to4:
-#include <Q3GridLayout>
+#include <QGridLayout>
 #include <QPixmap>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-class Q3ListBoxItem;
+//class Q3ListBoxItem;
 class QFont;
 
 class ScribusDoc;
@@ -45,7 +45,7 @@ class PrefsManager;
 /**
   *@author Franz Schmid
   */
-
+/*
 class SCRIBUS_API FontListItem : public Q3ListBoxItem
 {
 public:
@@ -62,7 +62,7 @@ private:
     QFont iFont;
     QString fontName;
 };
-
+*/
 class SCRIBUS_API FontCombo : public QComboBox  
 {
 public:
@@ -109,7 +109,7 @@ protected:
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
-	Q3GridLayout* fontComboLayout;
+	QGridLayout* fontComboLayout;
 	bool showLabels;
 };
 
