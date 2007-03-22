@@ -282,10 +282,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	SetShortCut();
 
 	resize(610, 600);
-	Q3VBox* vb = new Q3VBox( this );
-	vb->setFrameStyle( Q3Frame::StyledPanel | Q3Frame::Sunken );
-	wsp = new QWorkspace( vb );
-	setCentralWidget( vb );
+//	Q3VBox* vb = new Q3VBox( this );
+//	vb->setFrameStyle( Q3Frame::StyledPanel | Q3Frame::Sunken );
+	wsp = new QWorkspace( this );
+	setCentralWidget( wsp );
 	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
 	connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
@@ -2102,6 +2102,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//>>
 	if (requiresGUI)
 	{
+		wsp->addWindow(w);
 		connect(undoManager, SIGNAL(undoRedoDone()), tempView, SLOT(DrawNew()));
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		connect(tempView, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
@@ -3521,6 +3522,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		ActWin = w;
 		doc->WinHan = w;
 		w->setCentralWidget(view);
+		wsp->addWindow(w);
 		w->setUpdatesEnabled(false);
 		view->updatesOn(false);
 		doc->SoftProofing = false;
