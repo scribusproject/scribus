@@ -2179,15 +2179,24 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	QValueList<double> StopVec;
 	QStringList Gcolors;
 	QString hs,ss,vs,ks;
+	double lastStop = -1.0;
+	double actualStop = 0.0;
+	bool isFirst = true;
 	if ((c->GrType == 5) || (c->GrType == 7))
 	{
 		StopVec.clear();
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
-			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			Gcolors.prepend(GCol);
+			actualStop = cstops.at(cst)->rampPoint;
+			if ((actualStop != lastStop) || (isFirst))
+			{
+				isFirst = false;
+				lastStop = actualStop;
+				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
+				SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
+				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				Gcolors.prepend(GCol);
+			}
 		}
 		PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors);
 	}
@@ -2196,13 +2205,19 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		StopVec.clear();
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
-			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
-			StopVec.append(x);
-			StopVec.append(-y);
-			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
-			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
-			Gcolors.append(GCol);
+			actualStop = cstops.at(cst)->rampPoint;
+			if ((actualStop != lastStop) || (isFirst))
+			{
+				isFirst = false;
+				lastStop = actualStop;
+				double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+				double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
+				StopVec.append(x);
+				StopVec.append(-y);
+				SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
+				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				Gcolors.append(GCol);
+			}
 		}
 		PS_MultiLinGradient(w, -h, StopVec, Gcolors);
 	}
