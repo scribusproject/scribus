@@ -5033,29 +5033,44 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	Gcolors.clear();
 	colorNames.clear();
 	colorShades.clear();
+	double lastStop = -1.0;
+	double actualStop = 0.0;
+	bool isFirst = true;
 	if ((currItem->GrType == 5) || (currItem->GrType == 7))
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
-			TransVec.prepend(cstops.at(cst)->opacity);
-			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-			Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
-			colorNames.prepend(cstops.at(cst)->name);
-			colorShades.prepend(cstops.at(cst)->shade);
+			actualStop = cstops.at(cst)->rampPoint;
+			if ((actualStop != lastStop) || (isFirst))
+			{
+				isFirst = false;
+				lastStop = actualStop;
+				TransVec.prepend(cstops.at(cst)->opacity);
+				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
+				Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+				colorNames.prepend(cstops.at(cst)->name);
+				colorShades.prepend(cstops.at(cst)->shade);
+			}
 		}
 	}
 	else
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
-			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
-			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
-			TransVec.append(cstops.at(cst)->opacity);
-			StopVec.append(x);
-			StopVec.append(y);
-			Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
-			colorNames.append(cstops.at(cst)->name);
-			colorShades.append(cstops.at(cst)->shade);
+			actualStop = cstops.at(cst)->rampPoint;
+			if ((actualStop != lastStop) || (isFirst))
+			{
+				isFirst = false;
+				lastStop = actualStop;
+				double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+				double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
+				TransVec.append(cstops.at(cst)->opacity);
+				StopVec.append(x);
+				StopVec.append(y);
+				Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+				colorNames.append(cstops.at(cst)->name);
+				colorShades.append(cstops.at(cst)->shade);
+			}
 		}
 	}
 	QString tmp(PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors, colorNames, colorShades));
