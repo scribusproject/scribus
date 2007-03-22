@@ -48,12 +48,17 @@ for which a new license (GPL+exception) is in place.
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	prefsManager=PrefsManager::instance();
-	setEraseColor(QColor(255,255,255));
+	setBackgroundRole(QPalette::Window);
+	setAutoFillBackground(true);
+	QPalette palette;
+	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	setPalette(palette);
 	currDoc = doc;
 	currView = pa;
 	offs = 0;
 	oldMark = 0;
 	Mpressed = false;
+	drawMark = false;
 	unitChange();
 }
 
@@ -151,6 +156,59 @@ void Vruler::paintEvent(QPaintEvent *e)
 		markC++;
 	}
 	p.end();
+	if (drawMark)
+	{
+		Q3PointArray cr;
+		QPainter p;
+#ifdef OPTION_SMOOTH_MARKERS
+		// draw new marker to pixmap
+		static const int SCALE = 16;
+		static const QColor BACKGROUND(255, 255, 255);
+		static QPixmap pix( 16*SCALE, 4*SCALE );
+		static bool initpix = true;
+		if (initpix) {
+			initpix = false;
+			p.begin( &pix );
+			p.setBrush( BACKGROUND );
+			p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
+	
+			p.setPen(Qt::red);
+			p.setBrush(Qt::red);
+			cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
+			p.drawPolygon(cr);
+			p.end();
+		}
+		// draw pixmap
+		p.begin(this);
+		p.translate(0, -currView->contentsY());
+		p.scale(1.0/(SCALE+1), 1.0/SCALE);
+		p.drawPixmap(0, (where-2)*SCALE, pix);
+		p.end();
+		// restore marks
+		p.begin(this);
+		p.setBrush(Qt::black);
+		p.setPen(Qt::black);
+		p.setFont(font());
+		double sc = currView->getScale();
+		double cc = height() / sc;
+		double firstMark = ceil(offs / iter) * iter - offs;
+		while (firstMark < cc)
+		{
+			p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
+			firstMark += iter;
+		}
+		p.end();
+#else
+		// draw slim marker
+		p.begin(this);
+		p.translate(0, -currView->contentsY());
+		p.setPen(Qt::red);
+		p.setBrush(Qt::red);
+		cr.setPoints(5,  5, whereToDraw, 16, whereToDraw, 5, whereToDraw, 0, whereToDraw+2, 0, whereToDraw-2);
+		p.drawPolygon(cr);
+		p.end();
+#endif
+	}
 }
 
 void Vruler::drawNumber(QString num, int starty, QPainter *p)
@@ -193,58 +251,10 @@ void Vruler::Draw(int where)
 {
 	// erase old marker
 	int currentCoor = where - currView->contentsY();
+	whereToDraw = where;
+	drawMark = true;
 	repaint(0, oldMark-3, 17, 6);
-	Q3PointArray cr;
-	QPainter p;
-#ifdef OPTION_SMOOTH_MARKERS
-	// draw new marker to pixmap
-	static const int SCALE = 16;
-	static const QColor BACKGROUND(255, 255, 255);
-	static QPixmap pix( 16*SCALE, 4*SCALE );
-	static bool initpix = true;
-	if (initpix) {
-		initpix = false;
-		p.begin( &pix );
-		p.setBrush( BACKGROUND );
-		p.drawRect( 0, 0, 16*SCALE, 4*SCALE );
-
-		p.setPen(Qt::red);
-		p.setBrush(Qt::red);
-		cr.setPoints(3, 16*SCALE, 2*SCALE, 0, 4*SCALE, 0, 0);
-		p.drawPolygon(cr);
-		p.end();
-	}
-	// draw pixmap
-	p.begin(this);
-	p.translate(0, -currView->contentsY());
-	p.scale(1.0/(SCALE+1), 1.0/SCALE);
-	p.drawPixmap(0, (where-2)*SCALE, pix);
-	p.end();
-	// restore marks
-	p.begin(this);
-	p.setBrush(Qt::black);
-	p.setPen(Qt::black);
-	p.setFont(font());
-	double sc = currView->getScale();
-	double cc = height() / sc;
-	double firstMark = ceil(offs / iter) * iter - offs;
-	while (firstMark < cc)
-	{
-		p.drawLine(10, qRound(firstMark * sc), 16, qRound(firstMark * sc));
-		firstMark += iter;
-	}
-	p.end();
-#else
-	// draw slim marker
-	p.begin(this);
-	p.translate(0, -currView->contentsY());
-	p.setPen(Qt::red);
-	p.setBrush(Qt::red);
-	cr.setPoints(5,  5, where, 16, where, 5, where, 0, where+2, 0, where-2);
-	p.drawPolygon(cr);
-	p.end();
-#endif
-
+	drawMark = false;
 	oldMark = currentCoor;
 }
 

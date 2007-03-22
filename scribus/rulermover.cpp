@@ -34,6 +34,11 @@ extern QPixmap loadIcon(QString nam);
 
 RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 {
+	setBackgroundRole(QPalette::Window);
+	setAutoFillBackground(true);
+	QPalette palette;
+	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	setPalette(palette);
  	setErasePixmap(loadIcon("mover.png"));
 	currView = pa;
 	Mpressed = false;

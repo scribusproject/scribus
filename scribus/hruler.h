@@ -102,6 +102,8 @@ signals:
 private:
 	double iter, iter2;
 	int cor;
+	int whereToDraw;
+	bool drawMark;
 	PrefsManager *prefsManager;
 
 	//void drawGuides();

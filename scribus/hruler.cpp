@@ -70,7 +70,11 @@ enum ruler_code
 Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	prefsManager=PrefsManager::instance();
-	setEraseColor(QColor(255,255,255));
+	setBackgroundRole(QPalette::Window);
+	setAutoFillBackground(true);
+	QPalette palette;
+	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	setPalette(palette);
 	currDoc = doc;
 	currView = pa;
 	offs = 0;
@@ -79,6 +83,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 	ActCol = 1;
 	Mpressed = false;
 	ItemPosValid = false;
+	drawMark = false;
 	RulerCode = rc_none;
 	setMouseTracking(true);
 	unitChange();
@@ -695,6 +700,59 @@ void Hruler::paintEvent(QPaintEvent *e)
 		p.restore();
 	}
 	p.end();
+	if (drawMark)
+	{
+		Q3PointArray cr;
+		QPainter p;
+#ifdef OPTION_SMOOTH_MARKERS
+		// draw new marker to pixmap
+		static const int SCALE = 16;
+		static const QColor BACKGROUND(255, 255, 255);
+		static QPixmap pix( 4*SCALE, 16*SCALE );
+		static bool initpix = true;
+		if (initpix) {
+			initpix = false;
+			p.begin( &pix );
+			p.setBrush( BACKGROUND );
+			p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
+	
+			p.setPen(Qt::red);
+			p.setBrush(Qt::red);
+			cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
+			p.drawPolygon(cr);
+			p.end();
+		}
+		// draw pixmap
+		p.begin(this);
+		p.translate(-currView->contentsX(), 0);
+		p.scale(1.0/SCALE, 1.0/(SCALE+1));
+		p.drawPixmap((where-2)*SCALE, 1, pix);
+		p.end();
+		// restore marks
+		p.begin(this);
+		p.setBrush(Qt::black);
+		p.setPen(Qt::black);
+		p.setFont(font());
+		double sc = currView->getScale();
+		double cc = width() / sc;
+		double firstMark = ceil(offs / iter) * iter - offs;
+		while (firstMark < cc)
+		{
+			p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
+			firstMark += iter;
+		}
+		p.end();
+#else
+		// draw slim marker
+		p.begin(this);
+		p.translate(-currView->contentsX(), 0);
+		p.setPen(Qt::red);
+		p.setBrush(Qt::red);
+		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
+		p.drawPolygon(cr);
+		p.end();
+#endif
+	}
 }
 
 
@@ -733,57 +791,10 @@ void Hruler::Draw(int where)
 {
 	// erase old marker
 	int currentCoor = where - currView->contentsX();
+	whereToDraw = where;
+	drawMark = true;
 	repaint(oldMark-3, 0, 7, 17);
-	Q3PointArray cr;
-	QPainter p;
-#ifdef OPTION_SMOOTH_MARKERS
-	// draw new marker to pixmap
-	static const int SCALE = 16;
-	static const QColor BACKGROUND(255, 255, 255);
-	static QPixmap pix( 4*SCALE, 16*SCALE );
-	static bool initpix = true;
-	if (initpix) {
-		initpix = false;
-		p.begin( &pix );
-		p.setBrush( BACKGROUND );
-		p.drawRect( 0, 0, 4*SCALE, 16*SCALE );
-
-		p.setPen(Qt::red);
-		p.setBrush(Qt::red);
-		cr.setPoints(3, 2*SCALE, 16*SCALE, 4*SCALE, 0, 0, 0);
-		p.drawPolygon(cr);
-		p.end();
-	}
-	// draw pixmap
-	p.begin(this);
-	p.translate(-currView->contentsX(), 0);
-	p.scale(1.0/SCALE, 1.0/(SCALE+1));
-	p.drawPixmap((where-2)*SCALE, 1, pix);
-	p.end();
-	// restore marks
-	p.begin(this);
-	p.setBrush(Qt::black);
-	p.setPen(Qt::black);
-	p.setFont(font());
-	double sc = currView->getScale();
-	double cc = width() / sc;
-	double firstMark = ceil(offs / iter) * iter - offs;
-	while (firstMark < cc)
-	{
-		p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
-		firstMark += iter;
-	}
-	p.end();
-#else
-	// draw slim marker
-	p.begin(this);
-	p.translate(-currView->contentsX(), 0);
-	p.setPen(Qt::red);
-	p.setBrush(Qt::red);
-	cr.setPoints(5,  where, 5, where, 16, where, 5, where+2, 0, where-2, 0);
-	p.drawPolygon(cr);
-	p.end();
-#endif
+	drawMark = false;
 	oldMark = currentCoor;
 }
 
