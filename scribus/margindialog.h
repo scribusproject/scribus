@@ -84,11 +84,11 @@ public slots:
 	/*! \brief Recompute the page width for current unit.
 	It's called from width spinbox.
 	\param v new width */
-	virtual void setPageWidth(int v);
+	virtual void setPageWidth(double v);
 	/*! \brief Recompute the page height for current unit.
 	It's called from width spinbox.
 	\param v new height */
-	virtual void setPageHeight(int v);
+	virtual void setPageHeight(double v);
 
 private:
 	MarginWidget* GroupRand;

@@ -782,7 +782,7 @@ void NodePalette::unitChange()
 	double minVal=-30000 * unitRatio;
 	double newScaleDistance = scaleDistance->value() * unitRatio / oldRatio;
 	scaleDistance->setSuffix( unitGetSuffixFromIndex(doc->unitIndex()) );
-	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
+	int decimals = unitGetPrecisionFromIndex(doc->unitIndex());
 	scaleDistance->setValues( minVal, maxVal, decimals, newScaleDistance );
 }
 

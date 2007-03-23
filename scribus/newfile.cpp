@@ -45,6 +45,8 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	tabSelected = 0;
 	onStartup = startUp;
 	unitIndex = prefsManager->appPrefs.docUnitIndex;
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -221,8 +223,8 @@ void NewDoc::createNewDocPage()
 	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
-	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+//	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+//	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
 
 	optionsGroupBox = new Q3GroupBox( newDocFrame, "optionsGroupBox" );
@@ -421,6 +423,8 @@ void NewDoc::setUnit(int newUnitIndex)
 	widthSpinBox->setNewUnit(newUnitIndex);
 	heightSpinBox->setNewUnit(newUnitIndex);
 	Distance->setNewUnit(newUnitIndex);
+	unitRatio = unitGetRatioFromIndex(newUnitIndex);
+	unitIndex = newUnitIndex;
 /*	
 double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;
@@ -522,8 +526,8 @@ void NewDoc::setSize(QString gr)
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	if (gr==CommonStrings::trCustomPageSize || gr==CommonStrings::customPageSize)
 	{
-		//widthSpinBox->setEnabled(true);
-		//heightSpinBox->setEnabled(true);
+		widthSpinBox->setEnabled(true);
+		heightSpinBox->setEnabled(true);
 	}
 	else
 	{
