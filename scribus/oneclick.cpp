@@ -29,7 +29,6 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
-	int decimals = unitGetDecimalsFromIndex(unitIndex);
 	setCaption( titel );
 	setIcon(loadIcon("AppIcon.png"));
 	queryLayout = new QVBoxLayout( this );
@@ -138,7 +137,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	if (mode == 1)
 		questionLabel->setText( tr("Length:"));
 	SizeGroupLayout->addWidget( questionLabel, 0, 0 );
-	spinWidth = new ScrSpinBox( 0, 1000, SizeGroup, decimals );
+	spinWidth = new ScrSpinBox( 0, 1000, SizeGroup, unitIndex );
 	spinWidth->setSuffix( m_suffix );
 	spinWidth->setMinimum(0.1*m_unitRatio);
 	spinWidth->setMaximum(30000.0*m_unitRatio);
@@ -159,8 +158,9 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	}
 	else
 	{
+		spinHeight->setSuffix(unitGetSuffixFromIndex(6));
 		spinHeight->setWrapping( true );
-		spinHeight->setValues( 0, 359.99, 100, 0);
+		spinHeight->setValues( 0, 359.99, 2, 0);
 		spinHeight->setValue(defH * m_unitRatio);
 	}
 	SizeGroupLayout->addWidget( spinHeight, 1, 1 );

@@ -177,7 +177,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	unitSwitcher = new QComboBox( false, this, "unitSwitcher" );
 	unitSwitcher->setFocusPolicy(Qt::NoFocus);
 	unitSwitcher->setFont(fo);
-	for (int i=0;i<=unitGetMaxIndex();++i)
+	int maxUindex = unitGetMaxIndex() - 2;
+	for (int i = 0; i <= maxUindex; ++i)
 		unitSwitcher->insertItem(unitGetStrFromIndex(i));
 	zoomSpinBox = new ScrSpinBox( 10, 3200, this, 2 );
 	zoomSpinBox->setTabAdvance(false);
@@ -198,15 +199,15 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	cmsToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	cmsToolbarButton->setToggleButton(true);
 	QIcon ic2;
-	ic2.setPixmap(loadIcon("cmsOff.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
-	ic2.setPixmap(loadIcon("cmsOn.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
-	cmsToolbarButton->setIconSet(ic2);
+	ic2.addPixmap(loadIcon("cmsOff.png"), QIcon::Normal, QIcon::Off);
+	ic2.addPixmap(loadIcon("cmsOn.png"), QIcon::Normal, QIcon::On);
+	cmsToolbarButton->setIcon(ic2);
 	previewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	previewToolbarButton->setToggleButton(true);
 	QIcon ic;
-	ic.setPixmap(loadIcon("previewOff.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
-	ic.setPixmap(loadIcon("previewOn.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
-	previewToolbarButton->setIconSet(ic);
+	ic.addPixmap(loadIcon("previewOff.png"), QIcon::Normal, QIcon::Off);
+	ic.addPixmap(loadIcon("previewOn.png"), QIcon::Normal, QIcon::On);
+	previewToolbarButton->setIcon(ic);
 #else
 	zoomDefaultToolbarButton = new QPushButton(this);
 	zoomDefaultToolbarButton->setFocusPolicy(Qt::NoFocus);
@@ -2951,11 +2952,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			double itemY = 0.0;
 			if (Doc->appMode == modeDrawLine)
 			{
-				QPainter p;
-				p.begin(viewport());
-				Transform(currItem, &p);
-				QPoint np = p.xFormDev(m->pos());
-				p.end();
+				QMatrix p;
+				Transform(currItem, p);
+				QPoint np = m->pos() * p.inverted();
 				np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 				np = Doc->ApplyGrid(np);
 				itemX = sqrt(pow(np.x(),2.0)+pow(np.y(),2.0));
@@ -3150,11 +3149,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if ((Doc->appMode == modeDrawLine) && (inItemCreation))
 		{
 			currItem = Doc->m_Selection->itemAt(0);
-			QPainter p;
-			p.begin(viewport());
-			Transform(currItem, &p);
-			QPoint np = p.xFormDev(m->pos());
-			p.end();
+			QMatrix p;
+			Transform(currItem, p);
+			QPoint np = m->pos() * p.inverted();
 			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 			np = Doc->ApplyGrid(np);
 			double newRot=xy2Deg(np.x(), np.y());
@@ -4091,11 +4088,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				for (uint a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = Doc->Items->at(a);
-					p.begin(viewport());
-					Transform(docItem, &p);
-					QRegion apr = QRegion(p.xForm(docItem->Clip));
+					QMatrix p;
+					Transform(docItem, p);
+					QRegion apr = QRegion(docItem->Clip * p);
 					QRect apr2(docItem->getRedrawBounding(Scale));
-					p.end();
 					if ((Doc->masterPageMode()) && (docItem->OnMasterPage != Doc->currentPage()->pageName()))
 						continue;
 					//CB Finally Items are selected here
@@ -5607,11 +5603,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				oldItemX = currItem->xPos();
 				oldItemY = currItem->yPos();
 				undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), uAction);
-				p.begin(viewport());
-				p.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
-				Transform(currItem, &p);
-				npf2 = FPoint(p.xFormDev(m->pos()));
-				p.end();
+				QMatrix pm;
+				pm.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
+				Transform(currItem, pm);
+				npf2 = FPoint(m->pos() * pm.inverted());
 				p.begin(viewport());
 				Transform(currItem, &p);
 				ClRe = -1;
