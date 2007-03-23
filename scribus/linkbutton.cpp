@@ -32,17 +32,18 @@ LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
 	setBackgroundMode(Qt::PaletteBackground);
 	QIcon a = QIcon();
-	a.setPixmap(QPixmap(ChainC), QIcon::Automatic, QIcon::Normal, QIcon::On);
-	a.setPixmap(QPixmap(ChainO), QIcon::Automatic, QIcon::Normal, QIcon::Off);
-	setIconSet(a);
+	a.addPixmap(QPixmap(ChainC), QIcon::Normal, QIcon::On);
+	a.addPixmap(QPixmap(ChainO), QIcon::Normal, QIcon::Off);
+	setIcon(a);
+	setIconSize(QPixmap(ChainC).size());
 }
 
 QSize LinkButton::sizeHint()
 {
-	return QSize(QPixmap(ChainC).width(),QPixmap(ChainC).height());
+	return iconSize();
 }
 
 QSize LinkButton::minimumSizeHint()
 {
-	return QSize(QPixmap(ChainC).width(),QPixmap(ChainC).height());
+	return iconSize();
 }

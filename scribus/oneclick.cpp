@@ -127,6 +127,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	QSpacerItem* spacerB = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout12a->addItem( spacerB, 2, 1 );
 	editLayout->addWidget( RotationGroupContainer, 0, 0 );
+// FIXME this has to be handled different in Qt4
 //	RotationGroup->setButton(origin);
 	SizeGroup = new QGroupBox( tr("Size"), this );
 	SizeGroupLayout = new QGridLayout(SizeGroup);
