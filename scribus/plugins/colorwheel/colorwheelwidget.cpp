@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, Qt::WNoAutoErase)
 {
+	pointList.clear();
 	currentDoc = NULL;
 	currentColorSpace = colorModelRGB;
 	baseAngle = 0;
@@ -60,6 +61,7 @@ void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 	actualColor = colorMap[baseAngle];
 	actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
 	emit clicked(e->button(), e->pos());
+	update();
 }
 
 void ColorWheel::paintEvent(QPaintEvent *)
@@ -67,6 +69,12 @@ void ColorWheel::paintEvent(QPaintEvent *)
 	paintWheel();
 	paintCenterSample();
 	makeColors();
+	// clear marks
+	for (int i = 0; i < 360; ++i)
+		drawBorderPoint(i, false, true);
+	QList<PaintPoint>::const_iterator it;
+	for (it = pointList.constBegin(); it != pointList.constEnd(); ++it)
+		drawBorderPoint((*it).angle, (*it).base);
 }
 
 void ColorWheel::makeColors()
@@ -154,7 +162,11 @@ ScColor ColorWheel::sampleByAngle(int angle)
 		angle -= 359;
 	while (angle < 0)
 		angle += 359;
-	drawBorderPoint(angle);
+	//drawBorderPoint(angle);
+	PaintPoint p;
+	p.angle = angle;
+	p.base = false;
+	pointList.append(p);
 	return colorSpaceColor(colorMap[angle]);
 }
 
@@ -173,9 +185,14 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 
 void ColorWheel::baseColor()
 {
-	clearBorder();
-	drawBorderPoint(baseAngle, true);
-	paintCenterSample();
+	//clearBorder();
+	pointList.clear();
+	//drawBorderPoint(baseAngle, true);
+	PaintPoint p;
+	p.angle = baseAngle;
+	p.base = true;
+	pointList.append(p);
+	//paintCenterSample();
 	colorList.clear();
 	colorList[trBaseColor] = colorSpaceColor(actualColor);
 }
@@ -236,11 +253,11 @@ void ColorWheel::makeTetradic()
 	currentType = Tetradic;
 }
 
-void ColorWheel::clearBorder()
-{
-	for (int i = 0; i < 360; ++i)
-		drawBorderPoint(i, false, true);
-}
+// void ColorWheel::clearBorder()
+// {
+// 	for (int i = 0; i < 360; ++i)
+// 		drawBorderPoint(i, false, true);
+// }
 
 void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 {

@@ -195,13 +195,20 @@ class ColorWheel : public QLabel
 
 		/*! \brief Clear border marks before redrawing.
 		It redraws only small piece of the bitmap */
-		void clearBorder();
+// 		void clearBorder();
 
 		/** \brief Counts an angle of the point in color wheel.
 		Modified method from Qt QDial widget.
 		\param p coordinates of the point.
 		\retval int index in the colorMap */
 		int valueFromPoint(const QPoint & p) const;
+
+		typedef struct
+		{
+			int angle;
+			bool base;
+		} PaintPoint;
+		QList<PaintPoint> pointList;
 };
 
 #endif
