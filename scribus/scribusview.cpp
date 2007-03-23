@@ -3007,7 +3007,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						{
 							xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
 							ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
-							originPoint = dia->RotationGroup->selectedId();
+							originPoint = dia->RotationGroup->checkedId();
 							if (doRemember)
 							{
 								sizes->set("defWidth", xSize);
@@ -3019,7 +3019,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						{
 							xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
 							ySize = dia->spinHeight->value();
-							originPoint = dia->RotationGroup->selectedId();
+							originPoint = dia->RotationGroup->checkedId();
 							if (doRemember)
 							{
 								sizes->set("defLength", xSize);
