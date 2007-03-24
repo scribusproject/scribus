@@ -428,45 +428,43 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #else
 				painter->setPen(Qt::black, 0.5 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 #endif
+				Page *actPg;
 				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 				{
+					actPg = Doc->Pages->at(a);
 					double bleedRight = 0.0;
 					double bleedLeft = 0.0;
 					double bleedBottom = 0.0;
 					double bleedTop = 0.0;
-					Doc->getBleeds(Doc->Pages->at(a), &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-					int blx = qRound((Doc->Pages->at(a)->xOffset() - bleedLeft) * Scale);
-					int bly = qRound((Doc->Pages->at(a)->yOffset() - bleedTop) * Scale);
-					int blw = qRound((Doc->Pages->at(a)->width() + bleedLeft + bleedRight) * Scale);
-					int blh = qRound((Doc->Pages->at(a)->height() + bleedBottom + bleedTop) * Scale);
+					Doc->getBleeds(actPg, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+					double blx = (actPg->xOffset() - bleedLeft) * Scale;
+					double bly = (actPg->yOffset() - bleedTop) * Scale;
+					double blw = (actPg->width() + bleedLeft + bleedRight) * Scale;
+					double blh = (actPg->height() + bleedBottom + bleedTop) * Scale;
 	
-					QRect drawRect = QRect(blx-1, bly-1, blw+6, blh+6);
-					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+					QRectF drawRect = QRectF(blx-1, bly-1, blw+6, blh+6);
+					drawRect.translate(-Doc->minCanvasCoordinate.x() * Scale, -Doc->minCanvasCoordinate.y() * Scale);
+					if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 					{
 						painter->setFillMode(ScPainter::Solid);
-						int blx2, bly2, blw2, blh2;
+						double blx2 = actPg->xOffset();
+						double bly2 = actPg->yOffset();
+						double blw2 = actPg->width();
+						double blh2 = actPg->height();
 						if (Doc->guidesSettings.showBleed)
 						{
-							blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
-							bly2 = qRound(Doc->Pages->at(a)->yOffset() - bleedTop);
-							blw2 = qRound(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
-							blh2 = qRound(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
-						}
-						else
-						{
-							blx2 = qRound(Doc->Pages->at(a)->xOffset());
-							bly2 = qRound(Doc->Pages->at(a)->yOffset());
-							blw2 = qRound(Doc->Pages->at(a)->width());
-							blh2 = qRound(Doc->Pages->at(a)->height());
+							blx2 -= bleedLeft;
+							bly2 -= bleedTop;
+							blw2 += bleedLeft + bleedRight;
+							blh2 += bleedBottom + bleedTop;
 						}
 #ifdef HAVE_CAIRO
 						painter->drawRect(blx2 + 5 / Scale, bly2 + 5 / Scale, blw2, blh2);
 #else
-						blx2 = qRound(blx2 * Scale);
-						bly2 = qRound(bly2 * Scale);
-						blw2 = qRound(blw2 * Scale);
-						blh2 = qRound(blh2 * Scale);
+						blx2 *=  Scale;
+						bly2 *= Scale;
+						blw2 *= Scale;
+						blh2 *= Scale;
 						painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
 #endif
 						if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
@@ -488,18 +486,20 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #endif
 			}
 			painter->setFillMode(ScPainter::Solid);
+			Page *actPg;
 			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
+				actPg = Doc->Pages->at(a);
 #ifdef HAVE_CAIRO
-				int x = qRound(Doc->Pages->at(a)->xOffset());
-				int y = qRound(Doc->Pages->at(a)->yOffset());
-				int w = qRound(Doc->Pages->at(a)->width());
-				int h = qRound(Doc->Pages->at(a)->height());
+				double x = actPg->xOffset();
+				double y = actPg->yOffset();
+				double w = actPg->width();
+				double h = actPg->height();
 #else
-				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
-				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
-				int w = qRound(Doc->Pages->at(a)->width() * Scale);
-				int h = qRound(Doc->Pages->at(a)->height() * Scale);
+				double x = actPg->xOffset() * Scale;
+				double y = actPg->yOffset() * Scale;
+				double w = actPg->width() * Scale;
+				double h = actPg->height() * Scale;
 #endif
 				double bleedRight = 0.0;
 				double bleedLeft = 0.0;
@@ -511,14 +511,14 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					drawBleed = true;
 					Doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
 				}
-				int blx = qRound((Doc->Pages->at(a)->xOffset() - bleedLeft) * Scale);
-				int bly = qRound((Doc->Pages->at(a)->yOffset() - bleedTop) * Scale);
-				int blw = qRound((Doc->Pages->at(a)->width() + bleedLeft + bleedRight) * Scale);
-				int blh = qRound((Doc->Pages->at(a)->height() + bleedBottom + bleedTop) * Scale);
+				double blx = (actPg->xOffset() - bleedLeft) * Scale;
+				double bly = (actPg->yOffset() - bleedTop) * Scale;
+				double blw = (actPg->width() + bleedLeft + bleedRight) * Scale;
+				double blh = (actPg->height() + bleedBottom + bleedTop) * Scale;
 
-				QRect drawRect = QRect(blx, bly, blw+5, blh+5);
-				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+				QRectF drawRect = QRectF(blx, bly, blw+5, blh+5);
+				drawRect.translate(-Doc->minCanvasCoordinate.x() * Scale, -Doc->minCanvasCoordinate.y() * Scale);
+				if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 				{
 					painter->setFillMode(ScPainter::Solid);
 					painter->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -531,10 +531,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					if (!viewAsPreview)
 					{
 #ifdef HAVE_CAIRO
-						int blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
-						int bly2 = qRound(Doc->Pages->at(a)->yOffset() - bleedTop);
-						int blw2 = qRound(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
-						int blh2 = qRound(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+						double blx2 = actPg->xOffset() - bleedLeft;
+						double bly2 = actPg->yOffset() - bleedTop;
+						double blw2 = actPg->width() + bleedLeft + bleedRight;
+						double blh2 = actPg->height() + bleedBottom + bleedTop;
 						painter->drawRect(blx2, bly2, blw2, blh2);
 #else
 						painter->drawRect(blx, bly, blw, blh);
@@ -555,15 +555,17 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			{
 				FPointArray PoLine;
 				bool first = true;
+				Page *actPg;
 				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 				{
 					if (!first)
 						PoLine.setMarker();
 					first = false;
-					double x = Doc->Pages->at(a)->xOffset();
-					double y = Doc->Pages->at(a)->yOffset();
-					double w = Doc->Pages->at(a)->width();
-					double h = Doc->Pages->at(a)->height();
+					actPg = Doc->Pages->at(a);
+					double x = actPg->xOffset();
+					double y = actPg->yOffset();
+					double w = actPg->width();
+					double h = actPg->height();
 					static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 													1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 													0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
@@ -580,15 +582,17 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #endif
 			if ((Doc->guidesSettings.before) && (!viewAsPreview))
 			{
+				Page *actPg;
 				for (uint a = 0; a < docPagesCount; ++a)
 				{
-					int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
-					int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
-					int w = qRound(Doc->Pages->at(a)->width() * Scale);
-					int h = qRound(Doc->Pages->at(a)->height() * Scale);
-					QRect drawRect = QRect(x, y, w+5, h+5);
-					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+					actPg = Doc->Pages->at(a);
+					double x = actPg->xOffset() * Scale;
+					double y = actPg->yOffset() * Scale;
+					double w = actPg->width() * Scale;
+					double h = actPg->height() * Scale;
+					QRectF drawRect = QRectF(x, y, w+5, h+5);
+					drawRect.translate(-Doc->minCanvasCoordinate.x() * Scale, -Doc->minCanvasCoordinate.y() * Scale);
+					if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 			}
@@ -602,28 +606,30 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #endif
 			if ((!Doc->guidesSettings.before) && (!viewAsPreview))
 			{
+				Page *actPg;
 				for (uint a = 0; a < docPagesCount; ++a)
 				{
-					int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
-					int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
-					int w = qRound(Doc->Pages->at(a)->width() * Scale);
-					int h = qRound(Doc->Pages->at(a)->height() * Scale);
-					QRect drawRect = QRect(x, y, w+5, h+5);
-					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+					actPg = Doc->Pages->at(a);
+					double x = actPg->xOffset() * Scale;
+					double y = actPg->yOffset() * Scale;
+					double w = actPg->width() * Scale;
+					double h = actPg->height() * Scale;
+					QRectF drawRect = QRectF(x, y, w+5, h+5);
+					drawRect.translate(-Doc->minCanvasCoordinate.x() * Scale, -Doc->minCanvasCoordinate.y() * Scale);
+					if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 			}
 		}
 		else
 		{
-			int x = qRound(Doc->scratch.Left * Scale);
-			int y = qRound(Doc->scratch.Top * Scale);
-			int w = qRound(Doc->currentPage()->width() * Scale);
-			int h = qRound(Doc->currentPage()->height() * Scale);
-			QRect drawRect = QRect(x, y, w+5, h+5);
-			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-			if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+			double x = Doc->scratch.Left * Scale;
+			double y = Doc->scratch.Top * Scale;
+			double w = Doc->currentPage()->width() * Scale;
+			double h = Doc->currentPage()->height() * Scale;
+			QRectF drawRect = QRectF(x, y, w+5, h+5);
+			drawRect.translate(-Doc->minCanvasCoordinate.x() * Scale, -Doc->minCanvasCoordinate.y() * Scale);
+			if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
 			{
 				painter->setFillMode(ScPainter::Solid);
 				painter->setBrush(QColor(128,128,128));
@@ -652,10 +658,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #else
 				if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
 				{
-					x = qRound((Doc->scratch.Left - bleedLeft) * Scale);
-					y = qRound((Doc->scratch.Top - bleedTop) * Scale);
-					w = qRound((Doc->currentPage()->width() + bleedLeft + bleedRight) * Scale);
-					h = qRound((Doc->currentPage()->height() + bleedBottom + bleedTop) * Scale);
+					x = (Doc->scratch.Left - bleedLeft) * Scale:
+					y = (Doc->scratch.Top - bleedTop) * Scale;
+					w = (Doc->currentPage()->width() + bleedLeft + bleedRight) * Scale;
+					h = (Doc->currentPage()->height() + bleedBottom + bleedTop) * Scale;
 				}
 				painter->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				painter->drawRect(x+5, y+5, w, h);
@@ -8941,16 +8947,16 @@ void ScribusView::selectPage(QMouseEvent *m)
 //CB-->Doc/Fix
 bool ScribusView::SeleItem(QMouseEvent *m)
 {
-	QPainter p;
-	QRect tx, mpo;
+	QMatrix p;
+	QRectF tx, mpo;
 	PageItem *currItem;
 	m_MouseButtonPressed = true;
 	Mxp = static_cast<int>(m->x()/Scale);
 	Myp = static_cast<int>(m->y()/Scale);
 	int MxpS = static_cast<int>(m->x()/Scale + Doc->minCanvasCoordinate.x());
 	int MypS = static_cast<int>(m->y()/Scale + Doc->minCanvasCoordinate.y());
-	mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
-	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
+	mpo = QRectF(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+	mpo.translate(Doc->minCanvasCoordinate.x() * Scale, Doc->minCanvasCoordinate.y() * Scale);
 	ClRe = -1;
 	if ((Doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
 		currItem = Doc->m_Selection->itemAt(0);
@@ -9019,18 +9025,18 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		currItem = Doc->currentPage()->FromMaster.last();
 		for (a = 0; a < Doc->currentPage()->FromMaster.count(); ++a)
 		{
+			p = QMatrix();
 			if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
 			{
-				p.begin(this);
 				double OldX = currItem->xPos();
 				double OldY = currItem->yPos();
 				if (!currItem->ChangedMasterItem)
 				{
 					currItem->moveBy(-Mp->xOffset() + Doc->currentPage()->xOffset(), -Mp->yOffset() + Doc->currentPage()->yOffset());
 				}
-				Transform(currItem, &p);
-				if ((QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
-						(QRegion(p.xForm(currItem->Clip)).contains(mpo)))
+				Transform(currItem, p);
+				if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
+						(QRegion(currItem->Clip * p).contains(mpo.toRect())))
 				{
 					if (!currItem->isSelected())
 					{
@@ -9109,14 +9115,12 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					{
 						currItem->emitAllToGUI();
 					}
-					p.end();
 					if (!currItem->ChangedMasterItem)
 					{
 						currItem->setXYPos(OldX, OldY);
 					}
 					return true;
 				}
-				p.end();
 				if (!currItem->ChangedMasterItem)
 				{
 					currItem->setXYPos(OldX, OldY);
@@ -9158,10 +9162,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 		if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
 		{
-			p.begin(this);
-			Transform(currItem, &p);
-			if ((QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
-			        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
+			p = QMatrix();
+			Transform(currItem, p);
+			if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
+			        (QRegion(currItem->Clip * p).contains(mpo.toRect())))
 			{
 				//If the clicked on item is not tagged as selected
 				if (!currItem->isSelected())
@@ -9250,19 +9254,20 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 // 				}
 				if (Doc->m_Selection->count() == 1)
 				{
-					HandleSizer(&p, currItem, mpo, m);
+					QPainter pp;
+					pp.begin(this);
+					HandleSizer(&pp, currItem, mpo.toRect(), m);
 					if ((frameResizeHandle == 0) && (!currItem->locked()))
 						qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor), true);
+					pp.end();
 				}
 				else
 				{
 					qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor), true);
 					operItemResizing = false;
 				}
-				p.end();
 				return true;
 			}
-			p.end();
 		}
 		currItem = Doc->Items->prev();
 	}
