@@ -277,7 +277,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
-	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setZoom()));
+	connect(zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
@@ -10153,9 +10153,9 @@ void ScribusView::DrawNew()
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->currentPage()->pageNr());
-	disconnect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setZoom()));
+	disconnect(zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 	zoomSpinBox->setValue(Scale/Prefs->DisScale*100);
-	connect(zoomSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setZoom()));
+	connect(zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 }
 
 void ScribusView::SetCCPo(double x, double y)
