@@ -12,12 +12,13 @@ a modern, cross-platform replacement for autotools.
 Please see install4.html or http://docs.scribus.net/index.php?lang=en&page=install4
 for details *after* reviewing the build requirements below.
 
-
+ 
 
 REQUIREMENTS AND BUILDING - *BSD/Linux/*nix
 =========================
 
-Install the below packages BEFORE running configure or compiling Scribus:
+You must install the libraries listed below BEFORE running configure or
+compiling Scribus:
 
 Requirements:
 	Qt >= 3.3 (3.3.7+ recommended)
@@ -27,6 +28,10 @@ Requirements:
 	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
 	libjpeg (depending on how Qt is packaged)
 	libpng
+
+If you are installing from distro packages, the base package is NOT ENOUGH. You
+MUST also install the -dev or -devel package, or Scribus can not use the
+library.
 
 
 Recommended:
