@@ -172,7 +172,8 @@ void FDialogPreview::GenPreview(QString name)
 			QPainter p;
 			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 			// Qt4 FIXME imho should be better
-			p.begin(new QPixmap(*pixmap()));
+			pm = *pixmap();
+			p.begin(&pm);
 			p.fillRect(0, 0, w, h-44, b);
 			p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
 			p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
@@ -201,6 +202,7 @@ void FDialogPreview::GenPreview(QString name)
 			}
 			p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
 			p.end();
+			setPixmap(pm);
 			repaint();
 		}
 	}
