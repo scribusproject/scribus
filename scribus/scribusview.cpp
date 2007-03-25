@@ -2307,10 +2307,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			if (Clip.point(a).x() > 900000)
 				continue;
-			p.begin(viewport());
-			Transform(currItem, &p);
-			QPoint npf = p.xForm(Clip.pointQ(a));
-			p.end();
+			QMatrix p;
+			Transform(currItem, p);
+			QPoint npf = Clip.pointQ(a) * p;
 			if ((Sele.contains(npf)) && ((a == 0) || (((a-2) % 4) == 0)))
 			{
 				ClRe = a;
@@ -2319,11 +2318,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		HaveSelRect = false;
+		RefreshItem(currItem);
+/*
 		if (EditContour)
 			MarkClip(currItem, currItem->ContourLine, true);
 		else
 			MarkClip(currItem, currItem->PoLine, true);
-
+*/
 		if (oldClip) // is there the old clip stored for the undo action
 		{
 			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
@@ -4915,12 +4916,12 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						double nh = currItem->height();
 						if ((frameResizeHandle == 1) || (frameResizeHandle == 2))
 						{
+							QMatrix mp;
 							switch (frameResizeHandle)
 							{
 							case 1:
-								p.begin(viewport());
-								Transform(currItem, &p);
-								p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
+								Transform(currItem, mp);
+								mp.translate(-Doc->minCanvasCoordinate.x(),-Doc->minCanvasCoordinate.y());
 								//Shift proportional square resize
 								if ((m->state() & Qt::ShiftButton) && (!(m->state() & Qt::ControlButton)))
 								{
@@ -4947,10 +4948,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									else
 										mop = QPoint(m->x(), m->y());
 								}
-								np = p.xFormDev(mop);
+								np = mop * mp.inverted();
 								nx = np.x();
 								ny = np.y();
-								p.end();
 								if (!currItem->asLine())
 								{
 									if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
@@ -4976,13 +4976,12 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								}
 								else
 								{
-									p.begin(viewport());
 									double rba = currItem->rotation();
 									currItem->setRotation(0.0);
-									Transform(currItem, &p);
-									p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
-									np = p.xFormDev(QPoint(m->x(), m->y()));
-									p.end();
+									QMatrix mp;
+									Transform(currItem, mp);
+									mp.translate(-Doc->minCanvasCoordinate.x(), -Doc->minCanvasCoordinate.y());
+									np = QPoint(m->x(), m->y()) * mp.inverted();
 									double sizeItemX=np.x(), sizeItemY=np.y();
 									//Constrain rotation angle, when the mouse is moving the non-origin point of a line
 									if (m->state() & Qt::ControlButton)
@@ -5025,16 +5024,15 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								{
 									newX = qRound(translateToDoc(m->x(), m->y()).x());
 									newY = qRound(translateToDoc(m->x(), m->y()).y());
-									p.begin(viewport());
 									np2 = QPoint(newX, newY);
 									np2 = Doc->ApplyGrid(np2);
 									double nx = np2.x();
 									double ny = np2.y();
 									Doc->ApplyGuides(&nx, &ny);
-									p.translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
-									p.rotate(currItem->rotation());
-									np2 = p.xFormDev(QPoint(qRound(nx), qRound(ny)));
-									p.end();
+									QMatrix mp;
+									mp.translate(currItem->xPos(), currItem->yPos());
+									mp.rotate(currItem->rotation());
+									np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
 									p.begin(viewport());
 									ToView(&p);
 									Transform(currItem, &p);
@@ -5046,16 +5044,15 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						}
 						else
 						{
-							p.begin(viewport());
 							np2 = QPoint(newX, newY);
 							np2 = Doc->ApplyGrid(np2);
 							double nx = np2.x();
 							double ny = np2.y();
 							Doc->ApplyGuides(&nx, &ny);
-							p.translate(static_cast<int>(currItem->xPos() - Doc->minCanvasCoordinate.x()), static_cast<int>(currItem->yPos() - Doc->minCanvasCoordinate.y()));
-							p.rotate(currItem->rotation());
-							np2 = p.xFormDev(QPoint(qRound(nx), qRound(ny)));
-							p.end();
+							QMatrix mp;
+							mp.translate(currItem->xPos() - Doc->minCanvasCoordinate.x(), currItem->yPos() - Doc->minCanvasCoordinate.y());
+							mp.rotate(currItem->rotation());
+							np2 = QPoint(qRound(nx), qRound(ny)) * mp.inverted();
 							p.begin(viewport());
 							ToView(&p);
 							Transform(currItem, &p);
@@ -5610,17 +5607,17 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				oldItemY = currItem->yPos();
 				undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), uAction);
 				QMatrix pm;
-				pm.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
+				pm.translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
 				Transform(currItem, pm);
 				npf2 = FPoint(m->pos() * pm.inverted());
-				p.begin(viewport());
-				Transform(currItem, &p);
+				QMatrix pm2;
+				Transform(currItem, pm2);
 				ClRe = -1;
 				for (a=0; a<Clip.size(); ++a)
 				{
 					if (((EdPoints) && (a % 2 != 0)) || ((!EdPoints) && (a % 2 == 0)))
 						continue;
-					npf = FPoint(p.xForm(Clip.pointQ(a)));
+					npf = FPoint(Clip.pointQ(a) * pm2);
 					tx = QRect(static_cast<int>(npf.x()-3), static_cast<int>(npf.y()-3), 6, 6);
 					if (tx.intersects(mpo))
 					{
@@ -5642,7 +5639,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				if ((!pfound) || (!EdPoints))
 					SelNode.clear();
-				p.end();
 				if ((Doc->EditClipMode == 0) && (ClRe2 != -1) && (ClRe == -1))
 				{
 					SegP1 = ClRe2;
@@ -5918,6 +5914,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								case 6:
 								case 7:
 									qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+									break;
+								default:
+									qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor), true);
 									break;
 							}
 						}
@@ -7472,7 +7471,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		return;
 	currItem->ClipEdited = true;
 	FPointArray Clip;
-	if (EditContour)
+	RefreshItem(currItem);
+/*	if (EditContour)
 	{
 		MarkClip(currItem, currItem->ContourLine);
 		Clip = currItem->ContourLine.copy();
@@ -7481,7 +7481,7 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 	{
 		MarkClip(currItem, currItem->PoLine);
 		Clip = currItem->PoLine.copy();
-	}
+	} */
 	currItem->FrameType = 3;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
@@ -7639,7 +7639,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		else
 			currItem->PoLine = Clip.copy();
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-		MarkClip(currItem, Clip);
+		RefreshItem(currItem);
+//		MarkClip(currItem, Clip);
 	}
 }
 

@@ -229,8 +229,8 @@ void NodePalette::connectSignals()
 	connect(BezierClose, SIGNAL(clicked()), this, SLOT(CloseBezier()));
 	connect(PolySplit, SIGNAL(clicked()), this, SLOT(SplitPoly()));
 	connect(MoveControl, SIGNAL(clicked()), this, SLOT(MoveK()));
-	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
 	connect(PolyMirrorV, SIGNAL(clicked()), this, SLOT(MirrorV()));
 	connect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearR()));
@@ -263,8 +263,8 @@ void NodePalette::disconnectSignals()
 	disconnect(BezierClose, SIGNAL(clicked()), this, SLOT(CloseBezier()));
 	disconnect(PolySplit, SIGNAL(clicked()), this, SLOT(SplitPoly()));
 	disconnect(MoveControl, SIGNAL(clicked()), this, SLOT(MoveK()));
-	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
 	disconnect(PolyMirrorV, SIGNAL(clicked()), this, SLOT(MirrorV()));
 	disconnect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearR()));
@@ -513,14 +513,14 @@ void NodePalette::SetXY(double x, double y)
 	if (doc==0)
 		return;
 	FPoint zp(0.0, 0.0);
-	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
 		zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
 	XSpin->setValue((x + zp.x())*doc->unitRatio());
 	YSpin->setValue((y + zp.y())*doc->unitRatio());
-	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
 void NodePalette::ToggleAbsMode()
@@ -528,8 +528,8 @@ void NodePalette::ToggleAbsMode()
 	if (doc==0)
 		return;
 	FPoint zp(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
-	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	double unitRatio=doc->unitRatio();
 	FPoint np(XSpin->value()/unitRatio, YSpin->value()/unitRatio);
 	if (AbsMode->isChecked())
@@ -538,14 +538,14 @@ void NodePalette::ToggleAbsMode()
 		np -= zp;
 	XSpin->setValue(np.x()*unitRatio);
 	YSpin->setValue(np.y()*unitRatio);
-	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
 void NodePalette::ToggleConMode()
 {
-	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	if (doc != 0)
 	{
 		view->EditContour = EditCont->isChecked();
@@ -569,8 +569,8 @@ void NodePalette::ToggleConMode()
 			YSpin->setMinimum(0);
 		}
 	}
-	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
 void NodePalette::HaveNode(bool have, bool mov)

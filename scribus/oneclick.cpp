@@ -53,6 +53,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	TopLeft = new QRadioButton( RotationGroupContainer );
 	TopLeft->setText( "" );
 	TopLeft->setChecked( true );
+	RotationGroup->addButton(TopLeft, 0);
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignRight );
 	if (mode == 0)
 	{
@@ -65,6 +66,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 		TopRight = new QRadioButton( RotationGroupContainer );
 		TopRight->setText( "" );
+		RotationGroup->addButton(TopRight, 1);
 		Layout12->addWidget( TopRight, 0, 2, Qt::AlignLeft );
 		Line2 = new QFrame( RotationGroupContainer);
 		Line2->setMinimumSize( QSize( 4, 20 ) );
@@ -75,6 +77,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 		Center = new QRadioButton( RotationGroupContainer);
 		Center->setText( "" );
+		RotationGroup->addButton(Center, 2);
 		Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
 		Line4 = new QFrame( RotationGroupContainer );
 		Line4->setMinimumSize( QSize( 4, 20 ) );
@@ -85,6 +88,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 		BottomLeft = new QRadioButton( RotationGroupContainer );
 		BottomLeft->setText( "" );
+		RotationGroup->addButton(BottomLeft, 3);
 		Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignRight );
 		Line5 = new QFrame( RotationGroupContainer );
 		Line5->setMinimumSize( QSize( 20, 4 ) );
@@ -95,6 +99,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 		BottomRight = new QRadioButton( RotationGroupContainer );
 		BottomRight->setText( "" );
+		RotationGroup->addButton(BottomRight, 4);
 		Layout12->addWidget( BottomRight, 2, 2, Qt::AlignLeft );
 	}
 	else
@@ -108,6 +113,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 		Center = new QRadioButton( RotationGroupContainer );
 		Center->setText( "" );
+		RotationGroup->addButton(Center, 1);
 		Layout12->addWidget( Center, 0, 2, Qt::AlignCenter );
 		Line2 = new QFrame( RotationGroupContainer );
 		Line2->setMinimumSize( QSize( 10, 4 ) );
@@ -118,6 +124,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		Layout12->addWidget( Line2, 0, 3, Qt::AlignCenter );
 		TopRight = new QRadioButton( RotationGroupContainer );
 		TopRight->setText( "" );
+		RotationGroup->addButton(TopRight, 2);
 		Layout12->addWidget( TopRight, 0, 4, Qt::AlignLeft );
 	}
 	Layout12a->addLayout(Layout12, 1, 1);
@@ -126,8 +133,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	QSpacerItem* spacerB = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout12a->addItem( spacerB, 2, 1 );
 	editLayout->addWidget( RotationGroupContainer, 0, 0 );
-// FIXME this has to be handled different in Qt4
-//	RotationGroup->setButton(origin);
+	RotationGroup->button(origin)->setChecked(true);
 	SizeGroup = new QGroupBox( tr("Size"), this );
 	SizeGroupLayout = new QGridLayout(SizeGroup);
 	SizeGroupLayout->setSpacing( 5 );
