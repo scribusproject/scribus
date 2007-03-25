@@ -7,33 +7,26 @@ for which a new license (GPL+exception) is in place.
 #ifndef TREE_H
 #define TREE_H
 
-#include <q3ptrlist.h>
-#include <q3valuelist.h>
-#include <qpixmap.h>
-#include <q3listview.h>
-//Added by qt3to4:
+#include <QPixmap>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 #include <QResizeEvent>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QList>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
 class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
 class Page;
 // class DynamicTip;
 
-class SCRIBUS_API TreeItem : public Q3ListViewItem
+class SCRIBUS_API TreeItem : public QTreeWidgetItem
 {
 public:
 	TreeItem(TreeItem* parent, TreeItem* after);
-	TreeItem(Q3ListView* parent, TreeItem* after);
+	TreeItem(QTreeWidget* parent, TreeItem* after);
 	~TreeItem() {};
 	PageItem *PageItemObject;
 	Page *PageObject;
@@ -51,9 +44,9 @@ public:
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
 	void reopenTree();
-	Q3ListViewItem* getListItem(uint SNr, int Nr);
-	void setItemIcon(Q3ListViewItem *item, PageItem *pgItem);
-	void parseSubGroup(int level, TreeItem* object, Q3PtrList<PageItem> *subGroupList, int itemType);
+	QTreeWidgetItem* getListItem(uint SNr, int Nr);
+	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
+	void parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType);
 	void buildReopenVals();
 
 public slots:
@@ -69,17 +62,16 @@ signals:
 	void selectMasterPage(QString);
 
 protected slots:
-	void slotRightClick(Q3ListViewItem* ite, const QPoint &, int col);
+	void slotRightClick(QTreeWidgetItem* ite, int col);
 	void slotRenameItem();
-	void slotDoRename(Q3ListViewItem* ite, int col);
-	void slotSelect(Q3ListViewItem* ite);
+	void slotDoRename(QTreeWidgetItem* ite, int col);
+	void slotSelect(QTreeWidgetItem* ite, int col);
 protected:
 	void clearPalette();
-	int idElemCol;
-	Q3ListView* reportDisplay;
-	Q3ListViewItem* freeObjects;
-	Q3ListViewItem* rootObject;
-	Q3ListViewItem* currentObject;
+	QTreeWidget* reportDisplay;
+	QTreeWidgetItem* freeObjects;
+	QTreeWidgetItem* rootObject;
+	QTreeWidgetItem* currentObject;
 	int currentColumn;
 	ScribusMainWindow* m_MainWindow;
 	QPixmap imageIcon;

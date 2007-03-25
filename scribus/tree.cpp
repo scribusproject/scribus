@@ -6,20 +6,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include "tree.h"
 //#include "tree.moc"
-#include <q3header.h>
+#include <QHeaderView>
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
 #include <qimage.h>
-#include <qpixmap.h>
 #include <qmessagebox.h>
 //Added by qt3to4:
-#include <Q3ValueList>
 #include <QLabel>
-#include <Q3GridLayout>
-#include <Q3PtrList>
+#include <QList>
 #include <QResizeEvent>
-#include <Q3PopupMenu>
+#include <QMenu>
 
 #include "commonstrings.h"
 #include "page.h"
@@ -33,14 +30,14 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-TreeItem::TreeItem(TreeItem* parent, TreeItem* after) : Q3ListViewItem(parent, after)
+TreeItem::TreeItem(TreeItem* parent, TreeItem* after) : QTreeWidgetItem(parent, after)
 {
 	PageObject = NULL;
 	PageItemObject = NULL;
 	type = -1;
 }
 
-TreeItem::TreeItem(Q3ListView* parent, TreeItem* after) : Q3ListViewItem(parent, after)
+TreeItem::TreeItem(QTreeWidget* parent, TreeItem* after) : QTreeWidgetItem(parent, after)
 {
 	PageObject = NULL;
 	PageItemObject = NULL;
@@ -53,17 +50,18 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
 
-	reportDisplay = new Q3ListView( this, "ListView1" );
+	reportDisplay = new QTreeWidget( this );
 
 	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
 	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
 	reportDisplay->setRootIsDecorated( true );
-	idElemCol=reportDisplay->addColumn("Element"); //Use width from initial untranslated string, translation is set with languageChange()
-	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->setSorting(-1);
-	reportDisplay->setSelectionMode(Q3ListView::Single);
-	reportDisplay->setDefaultRenameAction(Q3ListView::Accept);
+	reportDisplay->setColumnCount(1);
+	reportDisplay->setHeaderLabel( tr("Element"));
+	reportDisplay->header()->setClickable( false );
+	reportDisplay->header()->setResizeMode( QHeaderView::ResizeToContents );
+	reportDisplay->setSortingEnabled(false);
+	reportDisplay->setSelectionMode(QAbstractItemView::SingleSelection);
+//	reportDisplay->setDefaultRenameAction(QTreeWidget::Accept);
 	unsetDoc();
 	imageIcon = loadIcon("22/insert-image.png");
 	lineIcon = loadIcon("Stift.xpm");
@@ -83,9 +81,9 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	languageChange();
 // 	dynTip = new DynamicTip(reportDisplay);
 	// signals and slots connections
-	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
-	connect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));
-	connect(reportDisplay, SIGNAL(rightButtonClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(Q3ListViewItem*, const QPoint &, int)));
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+//	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
+//	connect(reportDisplay, SIGNAL(rightButtonClicked(QTreeWidgetItem *, const QPoint &, int)), this, SLOT(slotRightClick(QTreeWidgetItem*, const QPoint &, int)));
 }
 
 void Tree::setMainWindow(ScribusMainWindow *mw)
@@ -118,7 +116,7 @@ void Tree::setPaletteShown(bool visible)
 		BuildTree();
 }
 
-void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
+void Tree::slotRightClick(QTreeWidgetItem *ite, int col)
 {
 	if (ite == NULL)
 		return;
@@ -129,7 +127,7 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 	{
 		if ((item->type == 0) || (item->type == 2))
 		{
-			Q3PopupMenu *pmen = new Q3PopupMenu();
+			QMenu *pmen = new QMenu();
 			m_MainWindow->scrActions["viewShowMargins"]->addTo(pmen);
 			m_MainWindow->scrActions["viewShowFrames"]->addTo(pmen);
 			m_MainWindow->scrActions["viewShowLayerMarkers"]->addTo(pmen);
@@ -159,15 +157,15 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 			currentObject = ite;
 			currentColumn = col;
 			PageItem *currItem = item->PageItemObject;
-			Q3PopupMenu *pmen = new Q3PopupMenu();
-			Q3PopupMenu *pmen2 = new Q3PopupMenu();
-			Q3PopupMenu *pmen3 = new Q3PopupMenu();
+			QMenu *pmen = new QMenu();
+			QMenu *pmen2 = new QMenu();
+			QMenu *pmen3 = new QMenu();
 			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-			Q3PopupMenu *pmen4 = new Q3PopupMenu();
-			Q3PopupMenu *pmenEditContents = new Q3PopupMenu();
-			Q3PopupMenu *pmenLevel = new Q3PopupMenu();
-			Q3PopupMenu *pmenPDF = new Q3PopupMenu();
-			Q3PopupMenu *pmenResolution = new Q3PopupMenu();
+			QMenu *pmen4 = new QMenu();
+			QMenu *pmenEditContents = new QMenu();
+			QMenu *pmenLevel = new QMenu();
+			QMenu *pmenPDF = new QMenu();
+			QMenu *pmenResolution = new QMenu();
 			bool _isGlobalMode = currDoc->view()->undoManager->isGlobalMode();
 			m_MainWindow->scrActions["editActionMode"]->setOn(true);
 			uint docSelectionCount = currDoc->m_Selection->count();
@@ -179,7 +177,7 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 				currDoc->view()->undoManager->showObject(currDoc->currentPage()->getUId());
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
-				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
+/*				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
 				InfoGroup->setFrameShape( Q3ButtonGroup::NoFrame );
 				InfoGroup->setFrameShadow( Q3ButtonGroup::Plain );
 				InfoGroup->setTitle("");
@@ -315,14 +313,14 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 						CharC->setText(txtC.setNum(Chara));
 					InfoGroupLayout->addWidget( CharC, 4, 1 );
 				}
-				int row = InfoGroupLayout->numRows(); // <a.l.e>
+				int row = InfoGroupLayout->numRows();
 				PrintCT->setText( tr("Print: "));
 				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
 				if (currItem->printEnabled())
 					PrintC->setText( tr("Enabled"));
 				else
 					PrintC->setText( tr("Disabled"));
-				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
+				InfoGroupLayout->addWidget( PrintC, row, 1 ); */
 // Qt4				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
 					m_MainWindow->scrActions["itemImageInfo"]->addTo(pmen4);
@@ -544,14 +542,14 @@ void Tree::slotRightClick(Q3ListViewItem *ite, const QPoint &, int col)
 
 void Tree::slotRenameItem()
 {
-	currentObject->startRename(currentColumn);
+//	currentObject->startRename(currentColumn);
 }
 
-void Tree::slotDoRename(Q3ListViewItem *ite , int col)
+void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	disconnect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));
+/*	disconnect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));
 	TreeItem *item = (TreeItem*)ite;
 	if (item != NULL)
 	{
@@ -591,24 +589,24 @@ void Tree::slotDoRename(Q3ListViewItem *ite , int col)
 			}
 		}
 	}
-	connect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));
+	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int))); */
 }
 
-Q3ListViewItem* Tree::getListItem(uint SNr, int Nr)
+QTreeWidgetItem* Tree::getListItem(uint SNr, int Nr)
 {
 	TreeItem *item = 0;
-	Q3ListViewItem *retVal = 0;
+	QTreeWidgetItem *retVal = 0;
 	if (currDoc->masterPageMode())
 	{
 		if (Nr == -1)
 		{
-			Q3ListViewItemIterator it( reportDisplay );
-			while ( it.current() )
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
 			{
-				item = (TreeItem*)it.current();
+				item = (TreeItem*)(*it);
 				if ((item->type == 0) && (item->PageObject->pageNr() == SNr))
 				{
-					retVal = it.current();
+					retVal = (*it);
 					break;
 				}
 				++it;
@@ -616,13 +614,13 @@ Q3ListViewItem* Tree::getListItem(uint SNr, int Nr)
 		}
 		else
 		{
-			Q3ListViewItemIterator it( reportDisplay );
-			while ( it.current() )
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
 			{
-				item = (TreeItem*)it.current();
+				item = (TreeItem*)(*it);
 				if ((item->type == 1) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
 				{
-					retVal = it.current();
+					retVal = (*it);
 					break;
 				}
 				++it;
@@ -633,13 +631,13 @@ Q3ListViewItem* Tree::getListItem(uint SNr, int Nr)
 	{
 		if (Nr == -1)
 		{
-			Q3ListViewItemIterator it( reportDisplay );
-			while ( it.current() )
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
 			{
-				item = (TreeItem*)it.current();
+				item = (TreeItem*)(*it);
 				if ((item->type == 2) && (item->PageObject->pageNr() == SNr))
 				{
-					retVal = it.current();
+					retVal = (*it);
 					break;
 				}
 				++it;
@@ -647,13 +645,13 @@ Q3ListViewItem* Tree::getListItem(uint SNr, int Nr)
 		}
 		else
 		{
-			Q3ListViewItemIterator it( reportDisplay );
-			while ( it.current() )
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
 			{
-				item = (TreeItem*)it.current();
+				item = (TreeItem*)(*it);
 				if (((item->type == 3) || (item->type == 4)) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
 				{
-					retVal = it.current();
+					retVal = (*it);
 					break;
 				}
 				++it;
@@ -673,61 +671,61 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 		return;
 	if (selectionTriggered)
 		return;
-	disconnect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	reportDisplay->clearSelection();
-	Q3ListViewItem *retVal = getListItem(SNr, Nr);
+	QTreeWidgetItem *retVal = getListItem(SNr, Nr);
 	if (retVal != 0)
-		reportDisplay->setSelected(retVal, true);
-	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+		retVal->setSelected(true);
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::setItemIcon(Q3ListViewItem *item, PageItem *pgItem)
+void Tree::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 {
 	switch (pgItem->itemType())
 	{
 	case PageItem::ImageFrame:
-		item->setPixmap( 0, imageIcon );
+		item->setIcon( 0, imageIcon );
 		break;
 	case PageItem::TextFrame:
 		switch (pgItem->annotation().Type())
 		{
 			case 2:
-				item->setPixmap( 0, buttonIcon );
+				item->setIcon( 0, buttonIcon );
 				break;
 			case 3:
-				item->setPixmap( 0, textFieldIcon );
+				item->setIcon( 0, textFieldIcon );
 				break;
 			case 4:
-				item->setPixmap( 0, checkBoxIcon );
+				item->setIcon( 0, checkBoxIcon );
 				break;
 			case 5:
-				item->setPixmap( 0, comboBoxIcon );
+				item->setIcon( 0, comboBoxIcon );
 				break;
 			case 6:
-				item->setPixmap( 0, listBoxIcon );
+				item->setIcon( 0, listBoxIcon );
 				break;
 			case 10:
-				item->setPixmap( 0, annotTextIcon );
+				item->setIcon( 0, annotTextIcon );
 				break;
 			case 11:
-				item->setPixmap( 0, annotLinkIcon );
+				item->setIcon( 0, annotLinkIcon );
 				break;
 			default:
-				item->setPixmap( 0, textIcon );
+				item->setIcon( 0, textIcon );
 				break;
 		}
 		break;
 	case PageItem::Line:
-		item->setPixmap( 0, lineIcon );
+		item->setIcon( 0, lineIcon );
 		break;
 	case PageItem::Polygon:
-		item->setPixmap( 0, polygonIcon );
+		item->setIcon( 0, polygonIcon );
 		break;
 	case PageItem::PolyLine:
-		item->setPixmap( 0, polylineIcon );
+		item->setIcon( 0, polylineIcon );
 		break;
 	case PageItem::PathText:
-		item->setPixmap( 0, textIcon );
+		item->setIcon( 0, textIcon );
 		break;
 	default:
 		break;
@@ -741,25 +739,25 @@ void Tree::reopenTree()
 	if (currDoc->OpenNodes.count() == 0)
 		return;
 	TreeItem *item = 0;
-	Q3ListViewItemIterator it( reportDisplay );
-	while ( it.current() )
+	QTreeWidgetItemIterator it( reportDisplay );
+	while ( (*it) )
 	{
-		item = (TreeItem*)it.current();
+		item = (TreeItem*)(*it);
 		for (int olc = 0; olc < currDoc->OpenNodes.count(); olc++)
 		{
 			if (item->type == currDoc->OpenNodes[olc].type)
 			{
 				if ((item->type == -3) || (item->type == -2))
-					reportDisplay->setOpen(it.current(), true);
+					reportDisplay->expandItem((*it));
 				else if ((item->type == 0) || (item->type == 2))
 				{
 					if (item->PageObject == currDoc->OpenNodes[olc].page)
-						reportDisplay->setOpen(it.current(), true);
+						reportDisplay->expandItem((*it));
 				}
 				else if ((item->type == 2) || (item->type == 3) || (item->type == 4))
 				{
 					if (item->PageItemObject == currDoc->OpenNodes[olc].item)
-						reportDisplay->setOpen(it.current(), true);
+						reportDisplay->expandItem((*it));
 				}
 			}
 		}
@@ -770,15 +768,15 @@ void Tree::reopenTree()
 void Tree::buildReopenVals()
 {
 	ScribusDoc::OpenNodesList ol;
-	if (reportDisplay->childCount() == 0)
+	if (reportDisplay->model()->rowCount() == 0)
 		return;
 	currDoc->OpenNodes.clear();
 	TreeItem *item = 0;
-	Q3ListViewItemIterator it( reportDisplay );
-	while ( it.current() )
+	QTreeWidgetItemIterator it( reportDisplay );
+	while ( (*it) )
 	{
-		item = (TreeItem*)it.current();
-		if (item->isOpen())
+		item = (TreeItem*)(*it);
+		if (item->isExpanded())
 		{
 			ol.type = item->type;
 			ol.page = item->PageObject;
@@ -789,11 +787,16 @@ void Tree::buildReopenVals()
 	}
 }
 
-void Tree::slotSelect(Q3ListViewItem* ite)
+void Tree::slotSelect(QTreeWidgetItem* ite, int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	disconnect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	if (qApp->mouseButtons() == Qt::RightButton)
+	{
+		slotRightClick(ite, col);
+		return;
+	}
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	selectionTriggered = true;
 	TreeItem *item = (TreeItem*)ite;
 	uint pg = 0;
@@ -839,7 +842,7 @@ void Tree::slotSelect(Q3ListViewItem* ite)
 			break;
 	}
 	selectionTriggered = false;
-	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
 void Tree::resizeEvent(QResizeEvent *r)
@@ -855,12 +858,12 @@ void Tree::BuildTree(bool storeVals)
 		return;
 	if (selectionTriggered)
 		return;
-	disconnect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	setUpdatesEnabled(false);
 	if (storeVals)
 		buildReopenVals();
 	clearPalette();
-	Q3PtrList<PageItem> subGroupList;
+	QList<PageItem*> subGroupList;
 	TreeItem * item = new TreeItem( reportDisplay, 0 );
 	rootObject = item;
 	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
@@ -892,7 +895,7 @@ void Tree::BuildTree(bool storeVals)
 					object->type = 1;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
-					object->setRenameEnabled(0, true);
+//					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
 				else
@@ -904,8 +907,8 @@ void Tree::BuildTree(bool storeVals)
 						object->setText(0, pgItem->itemName());
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
-					object->setPixmap( 0, groupIcon );
-					object->setRenameEnabled(0, true);
+					object->setIcon( 0, groupIcon );
+//					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->MasterItems.count(); ++ga)
@@ -942,7 +945,7 @@ void Tree::BuildTree(bool storeVals)
 					object->type = 3;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
-					object->setRenameEnabled(0, true);
+//					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
 				else
@@ -954,8 +957,8 @@ void Tree::BuildTree(bool storeVals)
 						object->setText(0, pgItem->itemName());
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
-					object->setPixmap( 0, groupIcon );
-					object->setRenameEnabled(0, true);
+					object->setIcon( 0, groupIcon );
+//					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
@@ -997,7 +1000,7 @@ void Tree::BuildTree(bool storeVals)
 					object->type = 4;
 					object->setText(0, pgItem->itemName());
 					setItemIcon(object, pgItem);
-					object->setRenameEnabled(0, true);
+//					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 				}
 				else
@@ -1009,8 +1012,8 @@ void Tree::BuildTree(bool storeVals)
 						object->setText(0, pgItem->itemName());
 					else
 						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
-					object->setPixmap( 0, groupIcon );
-					object->setRenameEnabled(0, true);
+					object->setIcon( 0, groupIcon );
+//					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
 					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
@@ -1029,15 +1032,15 @@ void Tree::BuildTree(bool storeVals)
 		reopenTree();
 	setUpdatesEnabled(true);
 	repaint();
-	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::parseSubGroup(int level, TreeItem* object, Q3PtrList<PageItem> *subGroupList, int itemType)
+void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType)
 {
-	Q3PtrList<PageItem> *subGroup;
+	QList<PageItem*> *subGroup;
 	PageItem *pgItem;
 	QString tmp;
-	for (uint b = 0; b < subGroupList->count(); ++b)
+	for (int b = 0; b < subGroupList->count(); ++b)
 	{
 		pgItem = subGroupList->at(b);
 		if (!pgItem->Dirty)
@@ -1049,7 +1052,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, Q3PtrList<PageItem> *subGr
 				grp->type = itemType;
 				grp->setText(0, pgItem->itemName());
 				setItemIcon(grp, pgItem);
-				grp->setRenameEnabled(0, true);
+//				grp->setRenameEnabled(0, true);
 				pgItem->Dirty = true;
 			}
 			else
@@ -1061,12 +1064,12 @@ void Tree::parseSubGroup(int level, TreeItem* object, Q3PtrList<PageItem> *subGr
 					grp->setText(0, pgItem->itemName());
 				else
 				grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
-				grp->setPixmap( 0, groupIcon );
-				grp->setRenameEnabled(0, true);
+				grp->setIcon( 0, groupIcon );
+//				grp->setRenameEnabled(0, true);
 				pgItem->Dirty = true;
-				subGroup = new Q3PtrList<PageItem>;
+				subGroup = new QList<PageItem*>;
 				subGroup->clear();
-				for (uint ga = 0; ga < subGroupList->count(); ++ga)
+				for (int ga = 0; ga < subGroupList->count(); ++ga)
 				{
 					PageItem* pgItem2 = subGroupList->at(ga);
 					if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
@@ -1083,7 +1086,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, Q3PtrList<PageItem> *subGr
 void Tree::languageChange()
 {
 	setCaption( tr("Outline"));
-	reportDisplay->setColumnText(idElemCol, tr("Element"));
+	reportDisplay->setHeaderLabel( tr("Element"));
 }
 
 void Tree::clearPalette()
