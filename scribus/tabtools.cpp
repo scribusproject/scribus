@@ -712,8 +712,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	connect(colorComboTextBackground, SIGNAL(activated(int)), this, SLOT(setSample()));
 	connect(shadingTextBack, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
 	connect(shadingText, SIGNAL(valueChanged(int)), this, SLOT(setSample()));
-	connect(buttonGroup3, SIGNAL(clicked(int)), this, SLOT(changeImageScalingFree(int)));
-	connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(changeImageScalingRatio(int)));
+	connect(buttonGroup3, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingFree(bool)));
+	connect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
 	connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
 	connect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
 	connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
@@ -784,7 +784,7 @@ void TabTools::vChange()
 		scalingHorizontal->setValue(scalingVertical->value());
 }
 
-void TabTools::changeImageScalingFree(int)
+void TabTools::changeImageScalingFree(bool)
 {
 	if (buttonGroup3->isChecked())
 		buttonGroup5->setChecked(false);
@@ -792,7 +792,7 @@ void TabTools::changeImageScalingFree(int)
 		buttonGroup5->setChecked(true);
 }
 
-void TabTools::changeImageScalingRatio(int)
+void TabTools::changeImageScalingRatio(bool)
 {
 	if (buttonGroup5->isChecked())
 		buttonGroup3->setChecked(false);
