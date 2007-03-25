@@ -31,6 +31,8 @@ FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, u
 
 #include "fonts/scface.h"
 
+class ScribusDoc;
+
 /*! \brief Main class SCFonts.
 Subclass of QDict<ScFace>.
 This class replaces the previous SCFonts typedef, and is nearly as convenient.
@@ -46,8 +48,15 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		~SCFonts();
 		void updateFontMap();
 		void GetFonts(QString pf, bool showFontInfo=false);
-		void AddScalableFonts(const QString &path, QString DocName = "");
+		void AddScalableFonts(const QString& path, QString DocName = "");
+		/// Returns a font with that name; creates a replacement font if not found
+		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
+		/// Returns a map of pairs (scName, replacementName). Using this map for replaceFonts() will make substitutions permanent
+		QMap<QString,QString> getSubstitutions(const QValueList<QString> skip = QValueList<QString>()) const;
+		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
+		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
 		void removeFont(QString name);
+		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
 	private:
 		void ReadCacheList(QString pf);

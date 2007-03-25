@@ -4006,7 +4006,8 @@ bool ScribusMainWindow::DoFileSave(QString fn)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	ReorgFonts();
+	doc->reorganiseFonts();
+	buildFontMenu();
 	mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
 	bool ret=doc->save(fn);
@@ -8705,13 +8706,13 @@ QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool wit
 	CollectForOutput c(doc, withFonts, withProfiles, compress);
 	return c.collect();
 }
-
+/*
 void ScribusMainWindow::ReorgFonts()
 {
 	doc->reorganiseFonts();
 	buildFontMenu();
 }
-
+*/
 void ScribusMainWindow::docCheckToggle(bool visible)
 {
 	if (!visible)

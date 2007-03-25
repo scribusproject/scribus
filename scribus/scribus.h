@@ -157,7 +157,7 @@ public:
 	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
-	void ReorgFonts();
+//	void ReorgFonts();
 
 	void emergencySave();
 

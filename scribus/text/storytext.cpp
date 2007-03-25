@@ -656,7 +656,7 @@ void StoryText::getNamedResources(ResourceCollection& lists) const
 void StoryText::replaceStyles(QMap<QString,QString> newNameForOld)
 {
 	ResourceCollection newnames;
-	newnames.pstyles = newNameForOld;
+	newnames.mapStyles(newNameForOld);
 	replaceNamedResources(newnames);
 }
 
@@ -686,7 +686,7 @@ void StoryText::replaceNamedResources(ResourceCollection& newNames)
 void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 {
 	ResourceCollection newnames;
-	newnames.cstyles = newNameForOld;
+	newnames.mapCharStyles(newNameForOld);
 	replaceNamedResources(newnames);
 }
 

@@ -218,19 +218,19 @@ void CharStyle::getNamedResources(ResourceCollection& lists) const
 
 void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 {
-	QMap<QString,QString>::Iterator it;
+	QMap<QString,QString>::ConstIterator it;
 	
-	if (!inh_FillColor && (it = newNames.colors.find(fillColor())) != newNames.colors.end())
+	if (!inh_FillColor && (it = newNames.colors().find(fillColor())) != newNames.colors().end())
 		setFillColor(it.data()); 
 								  
-	if (!inh_StrokeColor && (it = newNames.colors.find(strokeColor())) != newNames.colors.end())
+	if (!inh_StrokeColor && (it = newNames.colors().find(strokeColor())) != newNames.colors().end())
 		setStrokeColor(it.data());
 
-	if (hasParent() && (it = newNames.cstyles.find(parent())) != newNames.cstyles.end())
+	if (hasParent() && (it = newNames.charStyles().find(parent())) != newNames.charStyles().end())
 		setParent(it.data());
 	
-	if (!inh_Font && (it = newNames.fonts.find(font().scName())) != newNames.fonts.end())
-		setFont(font()); // FIXME
+	if (!inh_Font && (it = newNames.fonts().find(font().scName())) != newNames.fonts().end())
+		setFont(newNames.availableFonts->findFont(it.data(), NULL));
 }
 								
 								  /*

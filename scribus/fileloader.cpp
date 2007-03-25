@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "plugins/formatidlist.h"
 #include "pagestructs.h"
+#include "resourcecollection.h"
 #include "scconfig.h"
 #include "scribuscore.h"
 #include "scribusXml.h"
@@ -133,7 +134,7 @@ int FileLoader::TestFile()
 	FileType = ret;
 	return ret;
 }
-
+/*
 static void replaceFonts(ScribusDoc* currDoc, PageItem *it, QMap<QString, int> UsedFonts, QMap<QString, QString> ReplacedFonts)
 {	
 	if ((it->asTextFrame()) || (it->asPathText()))
@@ -151,13 +152,13 @@ static void replaceFonts(ScribusDoc* currDoc, PageItem *it, QMap<QString, int> U
 	}
 }
 
-
+*/
 bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName)
 {
 	bool ret = false;
-	newReplacement = false;
-	ReplacedFonts.clear();
-	dummyScFaces.clear();
+//	newReplacement = false;
+	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
+//	dummyScFaces.clear();
 	QValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 	{
@@ -165,17 +166,21 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 		{
 			(*it).plug->setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 			ret=(*it).plug->loadPage(FileName, PageToLoad, Mpage, renamedPageName);
-			if (ret)
-				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
+			//if (ret)
+			//	(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
 		if (FileType==FORMATID_SLA13XIMPORT || FileType==FORMATID_SLA134IMPORT)
 		{
 			(*it).plug->setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 			ret=(*it).plug->loadPage(FileName, PageToLoad, Mpage, renamedPageName);
-			if (ret)
-				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
+			//if (ret)
+			//	(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
 	}
+	if (ret)
+		ret = postLoad(currDoc);  // FIXME: return false if user doesnt want to replace fonts??
+	
+	/*
 	//FIXME: this goes into scribusdoc and should work with substitutes
 	if (ReplacedFonts.count() != 0)
 	{
@@ -227,8 +232,9 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 		}
 		if (prefsManager->appPrefs.askBeforeSubstituite)
 			ReplacedFonts.clear();
-		dummyScFaces.clear();
+		//dummyScFaces.clear();
 	}
+	 */
 	return ret;
 }
 
@@ -257,8 +263,8 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	currDoc->toolSettings.polyS = prefsManager->appPrefs.toolSettings.polyS;
 	currDoc->AutoSave = prefsManager->appPrefs.AutoSave;
 	currDoc->AutoSaveTime = prefsManager->appPrefs.AutoSaveTime;
-	ReplacedFonts.clear();
-	dummyScFaces.clear();
+	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
+	//dummyScFaces.clear();
 	bool ret = false;
 	QValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
@@ -268,8 +274,8 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 				{
 					(*it).setupTargets(currDoc, currDoc->view(), currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
-					if (ret)
-						(*it).getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
+					//if (ret)
+					//	(*it).getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 				}
 				break;
 			case FORMATID_SLA13XIMPORT:
@@ -277,8 +283,8 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 				{
 					(*it).setupTargets(currDoc, 0, currDoc->scMW(), currDoc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 					ret=(*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
-					if (ret)
-						(*it).getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
+					//if (ret)
+					//	(*it).getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 				}
 				break;
 			default:
@@ -369,27 +375,8 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
-	PrefsManager * prefsManager = PrefsManager::instance();
 	QString tmpf = pg.attribute("FONT", currDoc->toolSettings.defFont);
-	if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
-	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-		{
-			newReplacement = true;
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-		}
-		else
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-		}
-		else
-		{
-			if (!currDoc->UsedFonts.contains(tmpf))
-			{
-				//						QFont fo = avail[tmpf]->Font;
-				//						fo.setPointSize(qRound(currDoc->toolSettings.defSize / 10.0));
-				currDoc->AddFont(tmpf, qRound(currDoc->toolSettings.defSize / 10.0));
-			}
-		}
+	currDoc->AllFonts->findFont(tmpf, currDoc);
 		vg.charStyle().setFont((*currDoc->AllFonts)[tmpf]);
 		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
@@ -500,10 +487,21 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 			}
 		}
 	} */
-	//FIXME: this goes into scribusdoc and should work with substitutes
+	//FIXME: this goes into scribusdoc
+	//ResourceCollection rsc;
+	//currDoc->getNamedResources(rsc);
+	//ReplacedFonts.clear();
+	//QMap<QString,QString>::ConstIterator it;
+	//for (it = rsc.fonts().begin(); it != rsc.fonts().end(); ++it)
+	//{
+	//	const ScFace& font (rsc.availableFonts->findFont(it.key(), currDoc));
+	//	if (font.isReplacement() )
+	//		ReplacedFonts[it.key()] = font.replacementName();
+	//}
+		ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
 	if (ReplacedFonts.count() != 0)
 	{
-		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
+		if ((prefsManager->appPrefs.askBeforeSubstituite)) 
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 			FontReplaceDialog dia(0, &ReplacedFonts);
@@ -515,12 +513,18 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 					if (dia.stickyReplacements->isChecked())
 						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
 				}
+				currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
+				//ResourceCollection repl;
+				//repl.mapFonts(ReplacedFonts);
+				//currDoc->replaceNamedResources(repl);
+				return true;
 			}
 			else
 			{
 				return false;
 			}
 		}
+		/*
 		for (uint d = 0; d < currDoc->MasterItems.count(); ++d)
 		{
 			replaceFonts(currDoc, currDoc->MasterItems.at(d), currDoc->UsedFonts, ReplacedFonts);
@@ -574,6 +578,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 		if (prefsManager->appPrefs.askBeforeSubstituite)
 			ReplacedFonts.clear();
 		dummyScFaces.clear();
+		 */
 	}
 
 	return true;
