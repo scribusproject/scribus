@@ -2712,7 +2712,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 
 		break;
 	case PageItem::TextFrame: //Text Frame
-		FontSub->RebuildList(doc, currItem->isAnnotation());
+//		FontSub->RebuildList(doc, currItem->isAnnotation());
 		propertiesPalette->Fonts->RebuildList(doc, currItem->isAnnotation());
 		scrActions["fileImportText"]->setEnabled(true);
 		scrActions["fileImportText2"]->setEnabled(true);

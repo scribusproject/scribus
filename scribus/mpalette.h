@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
-#include <qtoolbutton.h>
 #include <qwidget.h>
 #include <q3widgetstack.h>
 #include <qlayout.h>
@@ -35,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <QEvent>
 #include <Q3VBoxLayout>
+#include <QToolButton>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
