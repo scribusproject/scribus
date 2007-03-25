@@ -186,8 +186,8 @@ protected slots:
 	\brief TabTools (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
 	*/
 	virtual void vChange();
-	virtual void changeImageScalingFree(int);
-	virtual void changeImageScalingRatio(int);
+	virtual void changeImageScalingFree(bool);
+	virtual void changeImageScalingRatio(bool);
 	/*!
 	\author Franz Schmid
 	\brief TabTools (Tools, Text frame), Sets the sample text in selected font in text frame preferences
