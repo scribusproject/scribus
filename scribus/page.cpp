@@ -168,7 +168,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
-	m_Doc->view()->Deselect(true);
+	
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
@@ -182,6 +182,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 				m_Doc->scMW()->setAppMode(modeNormal);
 			m_Doc->m_Selection->removeItem(ite);
 		}
+		m_Doc->view()->Deselect(true);
 		Selection tempSelection(m_Doc, false);
 		tempSelection.addItem(ite);
 		m_Doc->itemSelection_DeleteItem(&tempSelection, false);
@@ -194,6 +195,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	}
 	else
 	{
+		m_Doc->view()->Deselect(true);
 		m_Doc->Items->append(ite);
 		ite->ItemNr = m_Doc->Items->count()-1;
 		m_Doc->view()->updateContents();
