@@ -8267,9 +8267,9 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 		emit UpdtObj(currentPage->pageNr(), b->ItemNr); */
 	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
 	setRedrawBounding(currItem);
-	QRect newR(currItem->getRedrawBounding(m_View->scale()));
-	if ((!m_View->operItemMoving) && (!currItem->Sizing))
-		emit updateContents(newR.unite(oldR));
+//	QRect newR(currItem->getRedrawBounding(m_View->scale()));
+//	if ((!m_View->operItemMoving) && (!currItem->Sizing))
+//		emit updateContents(newR.unite(oldR));
 	currItem->OwnPage = OnPage(currItem);
 	return retw;
 }

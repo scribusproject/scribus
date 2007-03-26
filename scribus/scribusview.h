@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QPaintEvent>
 #include <QWheelEvent>
+ #include <QRubberBand>
 // application specific includes
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -159,6 +160,10 @@ public:
 	bool storedFramesShown;
 	bool storedShowControls;
 	int previewVisual;
+	int redrawMode;
+	int redrawCount;
+	PageItem *redrawItem;
+	QRubberBand *redrawMarker;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);

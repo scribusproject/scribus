@@ -270,6 +270,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	previewVisual = 0;
 	shiftSelItems = false;
 	inItemCreation = false;
+	redrawMode = 0;
+	redrawCount = 0;
+	redrawMarker = new QRubberBand(QRubberBand::Rectangle, viewport());
+	redrawMarker->hide();
 #ifdef HAVE_CAIRO
 	m_ScMW->scrActions["viewFitPreview"]->setOn(viewAsPreview);
 #endif
@@ -7876,10 +7880,15 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 	QPainter p;
 	double gx, gy, gw, gh;
 	double sc = Scale;
+	itemSelection->setGroupRect();
+	getGroupRectScreen(&gx, &gy, &gw, &gh);
+	QRect OldRect = QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh));
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		currItem = itemSelection->itemAt(a);
-		if ((!fromMP) && (selectedItemCount < moveWithBoxesOnlyThreshold))
+		Doc->MoveItem(x, y, currItem, fromMP);
+		OldRect = OldRect.united(currItem->getRedrawBounding(Scale));
+/*		if ((!fromMP) && (selectedItemCount < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -7969,42 +7978,39 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 			else
 				p.drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
 			p.end();
-		}
+		} */
 	}
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	if (itemSelection->isMultipleSelection())
 	{
-		itemSelection->setGroupRect();
-		itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemPos(gx, gy);
 		currItem = itemSelection->itemAt(0);
 		Doc->GroupOnPage(currItem);
-		if (fromMP)
-		{
-			gx -= Doc->minCanvasCoordinate.x();
-			gy -= Doc->minCanvasCoordinate.y();
-			updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)));
-		}
-
-		getGroupRectScreen(&gx, &gy, &gw, &gh);
-		p.begin(viewport());
-		PaintSizeRect(&p, QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh)));
-		p.end();
+//		if (fromMP)
+//		{
+//			gx -= Doc->minCanvasCoordinate.x();
+//			gy -= Doc->minCanvasCoordinate.y();
+//			updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)));
+//		}
 	}
-	else
-	{
+//	getGroupRectScreen(&gx, &gy, &gw, &gh);
+	updateContents(OldRect);
+//	else
+//	{
 		//Paint the drag moved item, ie the black dashed line representing the frame
-		currItem = itemSelection->itemAt(0);
-		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
+//		currItem = itemSelection->itemAt(0);
+//		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
 		//CB this breaks dragging an item when the canvas has been push resized
 		//oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-		if (!currItem->asLine())
-		{
-			p.begin(viewport());
-			ToView(&p);
-			PaintSizeRect(&p, oldR);
-			p.end();
-		}
-	}
+//		if (!currItem->asLine())
+//		{
+//			p.begin(viewport());
+//			ToView(&p);
+//			PaintSizeRect(&p, oldR);
+//			p.end();
+//		}
+//	}
 }
 
 //CB-->Doc
