@@ -1448,7 +1448,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							{
 								Zli2 = LiList.at(0);
 								double firstasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
-								double currasce;
+								double currasce = 0;
 								if ((Zli2->Zeich == QChar(13)) || (Zli2->Zeich == QChar(28)))
 									currasce = Zli2->ZFo->numAscent * (Zli2->realSiz / 10.0);
 								else if ((Zli2->Zeich == QChar(25)) && (Zli2->embedded != 0))
