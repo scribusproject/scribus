@@ -2082,7 +2082,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 #ifdef HAVE_CAIRO
 						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 #else
-						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) *  p->zoomFactor();
+						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) /**  p->zoomFactor()*/;
 #endif
 					else
 						CurX += hl->glyph.wide();
