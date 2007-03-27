@@ -7,10 +7,10 @@ for which a new license (GPL+exception) is in place.
 #include "scpageoutput.h"
 
 #include <qptrstack.h>
-#include "qpainter.h"
 #include "pageitem.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
+#include "prefsmanager.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
@@ -233,7 +233,6 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect& cl
 	QPtrStack<PageItem> groupClips;
 	if (m_doc->Items->count() != 0)
 	{
-		//QPainter p;
 		int Lnr=0;
 		struct Layer ll;
 		PageItem *currItem;
@@ -504,13 +503,20 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs, QRect& clip)
 {
 	uint glyph = glyphs.glyph;
-	if (glyph == (ScFace::CONTROL_GLYPHS + 29)) // NBSPACE
+	if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) // NBSPACE
 		glyph = style.font().char2CMap(QChar(' '));
-	else if (glyph == (ScFace::CONTROL_GLYPHS + 24)) // NBHYPHEN
+	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode())) // NBHYPHEN
 		glyph = style.font().char2CMap(QChar('-'));
 	
 	if (glyph >= ScFace::CONTROL_GLYPHS)
+	{
+		if (glyphs.more)
+		{
+			painter->translate(glyphs.xadvance, 0);
+			DrawGlyphs(item, painter, style, *glyphs.more, clip);
+		}
 		return;
+	}
 	
 	//if (style.font().canRender(QChar(glyph)))
 	{
@@ -532,37 +538,50 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if (style.underlineWidth() != -1)
 					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
 			ScColorShade tmpPen = painter->pen();
 			painter->setPen(painter->brush());
 			painter->setLineWidth(lw);
-			painter->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
+			if (style.effects() & ScStyle_Subscript)
+				painter->drawLine(FPoint(glyphs.xoffset, glyphs.yoffset - st), FPoint(glyphs.xoffset + glyphs.xadvance, glyphs.yoffset - st));
+			else
+				painter->drawLine(FPoint(glyphs.xoffset, -st), FPoint(glyphs.xoffset + glyphs.xadvance, -st));
 			painter->setPen(tmpPen);
 		}
 		if (gly.size() > 3)
 		{
+			painter->save();
+			painter->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
 			if (item->reversed())
 			{
-				chma3.scale(-1, 1);
-				chma3.translate(-glyphs.xadvance, 0);
+				painter->scale(-1, 1);
+				painter->translate(-glyphs.xadvance, 0);
 			}
-			chma4.translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
 			if (style.baselineOffset() != 0)
-				chma6.translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0));
-			gly.map(chma * chma3 * chma4 * chma5 * chma6);
+				painter->translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0));
+			double glxSc = glyphs.scaleH * style.fontSize() / 100.00;
+			double glySc = glyphs.scaleV * style.fontSize() / 100.0;
+			painter->scale(glxSc, glySc);
 			painter->setFillMode(ScPainterExBase::Solid);
 			bool fr = painter->fillRule();
 			painter->setFillRule(false);
 			painter->setupTextPolygon(&gly);
-			if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
+			if (glyph == 0)
+			{
+				ScColorShade tmp(PrefsManager::instance()->appPrefs.DControlCharColor, 100);
+				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				painter->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
+				painter->strokePath();
+			}
+			else if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				ScColorShade tmp = painter->brush();
 				painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -574,7 +593,7 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
 				{
 					painter->save();
-					painter->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0), -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0));
+					painter->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) / glxSc, -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) / glySc);
 					ScColorShade tmp = painter->brush();
 					painter->setBrush(painter->pen());
 					painter->setupTextPolygon(&gly);
@@ -587,11 +606,12 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 					FillPath(item, painter, clip);
 				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 				{
-					painter->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
+					painter->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
 					painter->strokePath();
 				}
 			}
 			painter->setFillRule(fr);
+			painter->restore();
 		}
 		if (style.effects() & ScStyle_Strikethrough)
 		{
@@ -605,12 +625,12 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 				if (style.strikethruWidth() != -1)
 					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+					lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
 				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1);
+				lw = QMAX(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -636,105 +656,84 @@ void ScPageOutput::DrawGlyphs(PageItem* item, ScPainterExBase *painter, const Ch
 
 void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect& clip, const CharStyle& style, PageItem* cembedded)
 {
+	if (!cembedded)
+		return;
 	QPtrList<PageItem> emG;
+	QPtrStack<PageItem> groupStack;
 	emG.clear();
-	if (cembedded != 0)
+	emG.append(cembedded);
+	if (cembedded->Groups.count() != 0)
 	{
-		if (!item->doc()->DoDrawing)
+		for (uint ga=0; ga < m_doc->FrameItems.count(); ++ga)
 		{
-//			cembedded->Tinput = false;
-			return;
-		}
-		emG.append(cembedded);
-		if (cembedded->Groups.count() != 0)
-		{
-			for (uint ga=0; ga < m_doc->FrameItems.count(); ++ga)
+			if (m_doc->FrameItems.at(ga)->Groups.count() != 0)
 			{
-				if (m_doc->FrameItems.at(ga)->Groups.count() != 0)
+				if (m_doc->FrameItems.at(ga)->Groups.top() == cembedded->Groups.top())
 				{
-					if (m_doc->FrameItems.at(ga)->Groups.top() == cembedded->Groups.top())
+					if (m_doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
 					{
-						if (m_doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
-						{
-							if (emG.find(m_doc->FrameItems.at(ga)) == -1)
-								emG.append(m_doc->FrameItems.at(ga));
-						}
+						if (emG.find(m_doc->FrameItems.at(ga)) == -1)
+							emG.append(m_doc->FrameItems.at(ga));
 					}
 				}
 			}
 		}
-		for (uint em = 0; em < emG.count(); ++em)
+	}
+	for (uint em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		p->save();
+		embedded->setXPos( item->xPos() + embedded->gXpos );
+		embedded->setYPos( item->yPos() - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos );
+		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
+		if (style.baselineOffset() != 0)
 		{
-			PageItem* embedded = emG.at(em);
-/*
- ParagraphStyle vg;
-			QValueList<ParagraphStyle> savedParagraphStyles;
-			for (int xxx=0; xxx<5; ++xxx)
-			{
-				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m_Doc->docParagraphStyles[xxx].lineSpacingMode()));
-				vg.setUseBaselineGrid(m_Doc->docParagraphStyles[xxx].useBaselineGrid());
-				vg.setLineSpacing(m_Doc->docParagraphStyles[xxx].lineSpacing());
-				vg.charStyle().setFontSize(m_Doc->docParagraphStyles[xxx].charStyle().fontSize());
-				vg.setLeftMargin(m_Doc->docParagraphStyles[xxx].leftMargin());
-				vg.setFirstIndent(m_Doc->docParagraphStyles[xxx].firstIndent());
-				vg.setGapBefore(m_Doc->docParagraphStyles[xxx].gapBefore());
-				vg.setGapAfter(m_Doc->docParagraphStyles[xxx].gapAfter());
-				savedParagraphStyles.append(vg);
-			}
- */
-			p->save();
-			double pws=0;
-/*	FIXME
-				embedded->Xpos = Xpos + hl->xco + embedded->gXpos;
-			embedded->Ypos = Ypos + (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0))) + embedded->gYpos;
-			p->translate((hl->xco + embedded->gXpos * (hl->scale / 1000.0)) * p->zoomFactor(), (hl->yco - (embedded->gHeight * (hl->scalev / 1000.0)) + embedded->gYpos * (hl->scalev / 1000.0)) * p->zoomFactor());
-			if (hl->base != 0)
-			{
-				p->translate(0, -embedded->gHeight * (hl->base / 1000.0) * p->zoomFactor());
-				embedded->Ypos -= embedded->gHeight * (hl->base / 1000.0);
-			}
-			p->scale(hl->scale / 1000.0, hl->scalev / 1000.0);
-			embedded->Dirty = Dirty;
-			embedded->invalid = invalid;
-			double sc;
-			double pws = embedded->m_lineWidth;
-			embedded->DrawObj_Pre(p, sc);
-			switch(embedded->itemType())
-			{
-				case ImageFrame:
-				case TextFrame:
-				case Polygon:
-				case PathText:
-					embedded->DrawObj_Item(p, e, sc);
-					break;
-				case Line:
-				case PolyLine:
-					embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-					embedded->DrawObj_Item(p, e, sc);
-					break;
-				default:
-					break;
-			}
-			embedded->m_lineWidth = pws * QMIN(hl->scale / 1000.0, hl->scalev / 1000.0);
-			embedded->DrawObj_Post(p);
-*/
-			p->restore();
-			embedded->setLineWidth(pws);
-/*
- for (int xxx=0; xxx<5; ++xxx)
-			{
-				m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(savedParagraphStyles[xxx].lineSpacingMode()));
-				m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(savedParagraphStyles[xxx].useBaselineGrid());
-				m_Doc->docParagraphStyles[xxx].setLineSpacing(savedParagraphStyles[xxx].lineSpacing());
-				m_Doc->docParagraphStyles[xxx].charStyle().setFontSize(savedParagraphStyles[xxx].charStyle().fontSize());
-				m_Doc->docParagraphStyles[xxx].setLeftMargin(savedParagraphStyles[xxx].leftMargin());
-				m_Doc->docParagraphStyles[xxx].setFirstIndent(savedParagraphStyles[xxx].firstIndent());
-				m_Doc->docParagraphStyles[xxx].setGapBefore(savedParagraphStyles[xxx].gapBefore());
-				m_Doc->docParagraphStyles[xxx].setGapAfter(savedParagraphStyles[xxx].gapAfter());
-			}
-			savedParagraphStyles.clear();
-*/
+			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
+			embedded->setYPos( embedded->yPos() - embedded->gHeight * (style.baselineOffset() / 1000.0) );
 		}
+		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		if (embedded->isGroupControl)
+		{
+			p->restore();
+			p->save();
+			FPointArray cl = embedded->PoLine.copy();
+			QWMatrix mm;
+			mm.translate(embedded->xPos() - item->xPos(), embedded->yPos() - item->yPos());
+			mm.rotate(embedded->rotation());
+			cl.map( mm );
+			groupStack.push(embedded->groupsLastItem);
+			continue;
+		}
+		double pws = embedded->m_lineWidth;
+		DrawItem_Pre(embedded, p);
+		switch(embedded->itemType())
+		{
+			case PageItem::ImageFrame:
+			case PageItem::TextFrame:
+			case PageItem::Polygon:
+			case PageItem::PathText:
+				DrawItem(embedded, p, clip);
+				break;
+			case PageItem::Line:
+			case PageItem::PolyLine:
+				embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+				DrawItem(embedded, p, clip);
+				break;
+			default:
+				break;
+		}
+		embedded->m_lineWidth = pws * QMIN(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		DrawItem_Post(embedded, p);
+		p->restore();
+		if (groupStack.count() != 0)
+		{
+			while (embedded == groupStack.top())
+			{
+				p->restore();
+				groupStack.pop();
+			}
+		}
+		embedded->m_lineWidth = pws;
 	}
 }
 
@@ -1263,10 +1262,7 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	double lineCorr;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
-
-	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	double desc, asce, tabDist;
-	tTabValues.clear();
 	
 	QRect e2;
 	painter->save();
@@ -1289,9 +1285,9 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		lineCorr = 0;
 	if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PicAvail) && (item->imageShown()) && (item->annotation().UseIcons()))
 	{
+		painter->save();
 		painter->setupPolygon(&item->PoLine);
 		painter->setClipPath();
-		painter->save();
 		painter->scale(item->imageXScale(), item->imageYScale());
 		painter->translate(static_cast<int>(item->imageXOffset() * item->imageXScale()), static_cast<int>(item->imageYOffset()  * item->imageYScale()));
 		if (!item->pixm.qImage().isNull())
@@ -1321,14 +1317,10 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 				hl = item->itemText.item(a);
 				const CharStyle& charStyle = item->itemText.charStyle(a);
 				const ParagraphStyle& style = item->itemText.paragraphStyle(a);
-				tTabValues = style.tabValues();
 				double chs = charStyle.fontSize() * hl->glyph.scaleV;
-				bool selected = item->itemText.selected(a);
 				if (charStyle.effects() & ScStyle_StartOfLine)
 					tabCc = 0;
 				chstr = hl->ch;
-				if (hl->glyph.glyph == 0)
-					continue;
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
 					ScColorShade tmp(m_doc->PageColors[charStyle.fillColor()], hl->fillShade());
@@ -1341,7 +1333,8 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 				}
 				if (charStyle.effects() & ScStyle_DropCap)
 				{
-					if (style.useBaselineGrid())
+					const ParagraphStyle& style(item->itemText.paragraphStyle(a));
+					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
 					else
 					{
@@ -1353,28 +1346,6 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 							chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
 						}
 					}
-				}
-				if ((chstr == SpecialChars::TAB) && (tTabValues.count() != 0) && (tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
-				{
-					QChar tabFillChar(tTabValues[tabCc].tabFillChar);
-					double wt = charStyle.font().charWidth(tabFillChar, chs / 10.0);
-					int coun = static_cast<int>((CurX - tabDist) / wt);
-					double sPos = tabDist - CurX + hl->glyph.xoffset + 1;
-					desc = -charStyle.font().descent(chs / 10.0);
-					asce = charStyle.font().ascent(chs / 10.0);
-					GlyphLayout tglyph;
-					tglyph.glyph = tabFillChar.unicode();
-					tglyph.yoffset = hl->glyph.yoffset;
-					tglyph.scaleV = tglyph.scaleH = chs / charStyle.fontSize();
-					tglyph.xadvance = wt;
-					painter->save();
-					for (int cx = 0; cx < coun; ++cx)
-					{
-						tglyph.xoffset =  sPos + wt * cx;
-						if (e2.intersects(wm.mapRect(QRect(qRound(CurX + tglyph.xoffset),qRound(ls.y + tglyph.yoffset-asce), qRound(tglyph.xadvance+1), qRound(asce+desc)))))
-							DrawGlyphs(item, painter, charStyle, tglyph, clip);
-					}
-					painter->restore();
 				}
 				if (chstr[0] == SpecialChars::TAB)
 					tabCc++;
@@ -1393,17 +1364,15 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 						painter->save();
 						painter->translate(CurX, ls.y);
 						if (hl->ch[0] == SpecialChars::OBJECT)
-						{
 							DrawItem_Embedded(item, painter, clip, charStyle, hl->embedded.getItem());
-							CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
-						}
 						else
-						{
 							DrawGlyphs(item, painter, charStyle, hl->glyph, clip);
-							CurX += hl->glyph.wide();
-						}
 						painter->restore();
 					}
+					if (hl->ch[0] == SpecialChars::OBJECT)
+						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
+					else
+						CurX += hl->glyph.wide();
 				}
 				tabDist = CurX;
 			}
