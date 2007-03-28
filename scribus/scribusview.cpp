@@ -9718,18 +9718,19 @@ void ScribusView::PasteToPage()
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();
+	Selection newObjects(this, false);
 	for (uint as = ac; as < Doc->Items->count(); ++as)
 	{
 		PageItem* currItem = Doc->Items->at(as);
 		if (currItem->isBookmark)
 			emit AddBM(currItem);
-		Doc->m_Selection->addItem(currItem);
+		newObjects.addItem(currItem);
 	}
-	if (Doc->m_Selection->count() > 1)
+	if (newObjects.count() > 1)
 	{
-		Doc->m_Selection->setGroupRect();
+		newObjects.setGroupRect();
 		double gx, gy, gh, gw;
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		double nx = gx;
 		double ny = gy;
 		if (!Doc->ApplyGuides(&nx, &ny))
@@ -9739,22 +9740,23 @@ void ScribusView::PasteToPage()
 			nx = npx.x();
 			ny = npx.y();
 		}
-		moveGroup(nx-gx, ny-gy, false);
-		Doc->m_Selection->setGroupRect();
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		moveGroup(nx-gx, ny-gy, false, &newObjects);
+		newObjects.setGroupRect();
+		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		nx = gx+gw;
 		ny = gy+gh;
 		Doc->ApplyGuides(&nx, &ny);
-		moveGroup(nx-(gx+gw), ny-(gy+gh), false);
-		Doc->m_Selection->setGroupRect();
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		moveGroup(nx-(gx+gw), ny-(gy+gh), false, &newObjects);
+		newObjects.setGroupRect();
+		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemPos(gx, gy);
 		emit ItemGeom(gw, gh);
-		emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
+		emit HaveSel(newObjects.itemAt(0)->itemType());
 	}
 	else
 	{
-		PageItem *currItem = Doc->m_Selection->itemAt(0);
+		Q_ASSERT(newObjects.count()==1);
+		PageItem *currItem = newObjects.itemAt(0);
 		if (Doc->useRaster)
 		{
 			double nx = currItem->xPos();

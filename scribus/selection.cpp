@@ -68,6 +68,25 @@ Selection& Selection::operator=( const Selection &other )
 	return *this;
 }
 
+void Selection::copy(Selection& other, bool copyGUISelection, bool emptyOther)
+{
+	if (&other==this)
+		return;
+	m_SelList=other.m_SelList;
+	m_hasGroupSelection=other.m_hasGroupSelection;
+	if (copyGUISelection)
+		m_isGUISelection=other.m_isGUISelection;
+	if (m_isGUISelection && !m_SelList.isEmpty())
+	{
+		m_SelList[0]->connectToGUI();
+		m_SelList[0]->emitAllToGUI();
+		m_SelList[0]->setSelected(true);
+		emit selectionIsMultiple(m_hasGroupSelection);
+	}
+	if (emptyOther)
+		other.clear();
+}
+
 Selection::~Selection()
 {
 }
