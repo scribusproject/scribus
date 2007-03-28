@@ -56,6 +56,11 @@ class SCRIBUS_API Selection : public QObject
 		Selection& operator=( const Selection & );
 		~Selection();
 		
+		/**
+		 * \brief Copy the selection of items from one selection to another
+		 */
+		void copy(Selection& other, bool copyGUISelectionn, bool emptyOther);
+		
 		bool connectItemToGUI();
 		/**
 		 * \brief Disconnect all items from the GUI slots. 
