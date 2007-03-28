@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-    <mime-type type="application/x-scribus">
+    <mime-type type="application/vnd.scribus">
    	<comment>Scribus Document</comment>
 	<comment xml:lang="en">Scribus Document</comment>
 	<comment xml:lang="pl">Dokument Scribusa</comment>
@@ -25,5 +25,6 @@
         <glob pattern="*.sla.gz" />
         <glob pattern="*.scd" />
         <glob pattern="*.scd.gz" />
+	<glob pattern="*.slaz" />
   </mime-type>
 </mime-info>
