@@ -1960,16 +1960,37 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	if (itemText.length() != 0)
 	{
 //		qDebug("drawing textframe: len=%d", itemText.length());
+#ifdef HAVE_CAIRO
+		if (imageFlippedH())
+		{
+			p->translate(Width, 0);
+			p->scale(-1, 1);
+			pf2.translate(Width, 0);
+			pf2.scale(-1, 1);
+		}
+		if (imageFlippedV())
+		{
+			p->translate(0, Height);
+			p->scale(1, -1);
+			pf2.translate(0, Height);
+			pf2.scale(1, -1);
+		}
+#else
 		if (imageFlippedH())
 		{
 			p->translate(Width * sc, 0);
 			p->scale(-1, 1);
+			pf2.translate(Width, 0);
+			pf2.scale(-1, 1);
 		}
 		if (imageFlippedV())
 		{
 			p->translate(0, Height * sc);
 			p->scale(1, -1);
+			pf2.translate(0, Height);
+			pf2.scale(1, -1);
 		}
+#endif
 		uint tabCc = 0;
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
