@@ -747,19 +747,21 @@ void SMPStyleWidget::languageChange()
 /***********************************/
 // These are for the paragraph style
 
-	QToolTip::add(parentCombo,      tr("Parent style"));
-	QToolTip::add(lineSpacingMode_, tr("Line spacing mode"));
-	QToolTip::add(lineSpacing_,     tr("Line spacing"));
-	QToolTip::add(spaceAbove_,      tr("Space above"));
-	QToolTip::add(spaceBelow_,      tr("Space below"));
-	QToolTip::add(dropCapsBox,      tr("Enable or disable drop cap"));
-	QToolTip::add(dropCapLines_,    tr("Drop cap lines"));
-	QToolTip::add(dropCapOffset_,   tr("Drop cap offset"));
+	QToolTip::add(parentCombo,      tr("Parent Style"));
+	QToolTip::add(lineSpacingMode_, tr("Line Spacing Mode"));
+	QToolTip::add(lineSpacing_,     tr("Line Spacing"));
+	QToolTip::add(spaceAbove_,      tr("Space Above"));
+	QToolTip::add(spaceBelow_,      tr("Space Below"));
+	//CB Unneeded, gets in the way of single widget tooltips
+	//QToolTip::add(dropCapsBox,      tr("Enable or disable drop cap"));
+	QToolTip::add(dropCapLines_,    tr("Drop Cap Lines"));
+	QToolTip::add(dropCapOffset_,   tr("Drop Cap Offset"));
 	QToolTip::add(alignement_,      tr("Alignment"));
-	QToolTip::add(tabList_->first_, tr("First line indent"));
-	QToolTip::add(tabList_->left_,  tr("Left indent"));
-	QToolTip::add(tabList_->right_, tr("Right indent"));
-	QToolTip::add(tabList_,         tr("Tabulators"));
+	QToolTip::add(tabList_->first_, tr("First Line Indent"));
+	QToolTip::add(tabList_->left_,  tr("Left Indent"));
+	QToolTip::add(tabList_->right_, tr("Right Indent"));
+	//CB Unneeded, gets in the way of single widget tooltips
+	//QToolTip::add(tabList_,         tr("Tabulators"));
 
 /***********************************/
 /*      End Tooltips               */

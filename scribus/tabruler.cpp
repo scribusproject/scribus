@@ -578,6 +578,11 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<Parag
 	connect(ruler, SIGNAL(noTabs()), this, SLOT(lastTabRemoved()));
 	connect(tabData, SIGNAL(valueChanged(double)), this, SLOT(setTab()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearAll()));
+
+	QToolTip::add( tabFillCombo, tr( "Fill Character of Tab" ) );
+	QToolTip::add( TypeCombo, tr( "Type/Orientation of Tab" ) );
+	QToolTip::add( tabData, tr( "Position of Tab" ) );
+
 	if (haveFirst)
 	{
 		connect(ruler, SIGNAL(firstLineMoved(double)) , this, SLOT(setFirstLineData(double)));
