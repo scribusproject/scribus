@@ -2683,7 +2683,7 @@ void StoryEditor::newTxStyle(int s)
 	hg.cstyle = Editor->CurrentStyle;
 	Editor->updateSel(4, &hg);
 	Editor->setStyle(s);
-	if (s & 4)
+	if ((s & 4) || (s & 256))
 	{
 		StrokeTools->TxStroke->setEnabled(true);
 		StrokeTools->PM1->setEnabled(true);
@@ -2847,7 +2847,7 @@ void StoryEditor::updateProps(int p, int ch)
 			FontTools->SetScale(currItem->TxtScale);
 			FontTools->SetScaleV(currItem->TxtScaleV);
 		}
-		if (Editor->CurrentStyle & 4)
+		if ((Editor->CurrentStyle & 4) || (Editor->CurrentStyle & 256))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
@@ -2947,7 +2947,7 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 	}
 	StrokeTools->SetColor(c);
-	if (Editor->CurrentStyle & 4)
+	if ((Editor->CurrentStyle & 4) || (Editor->CurrentStyle & 256))
 	{
 		StrokeTools->TxStroke->setEnabled(true);
 		StrokeTools->PM1->setEnabled(true);
@@ -3439,7 +3439,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
-		if (Editor->CurrentStyle & 4)
+		if ((Editor->CurrentStyle & 4) || (Editor->CurrentStyle & 256))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
@@ -3587,7 +3587,7 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
 		}
 		Editor->setStyle(Editor->CurrentStyle);
-		if (Editor->CurrentStyle & 4)
+		if ((Editor->CurrentStyle & 4) || (Editor->CurrentStyle & 256))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
