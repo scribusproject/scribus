@@ -1936,7 +1936,7 @@ void StoryEditor::newTxStyle(int s)
 	charStyle.setEffects(Editor->CurrentStyle);
 	Editor->updateSel(charStyle);
 	Editor->setStyle(s);
-	if (s & ScStyle_Outline)
+	if ((s & ScStyle_Outline) || (s & ScStyle_Shadowed))
 	{
 		StrokeTools->TxStroke->setEnabled(true);
 		StrokeTools->PM1->setEnabled(true);
@@ -2100,7 +2100,7 @@ void StoryEditor::updateProps(int p, int ch)
 			FontTools->SetScale(Editor->CurrTextScale);
 			FontTools->SetScaleV(Editor->CurrTextScaleV);
 		}
-		if (Editor->CurrentStyle & ScStyle_Outline)
+		if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
@@ -2205,7 +2205,7 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 	}
 	StrokeTools->SetColor(c);
-	if (Editor->CurrentStyle & ScStyle_Outline)
+	if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
 	{
 		StrokeTools->TxStroke->setEnabled(true);
 		StrokeTools->PM1->setEnabled(true);
@@ -2636,7 +2636,7 @@ void StoryEditor::changeStyleSB(int pa, int st)
 		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruWidth();
 
 		Editor->setStyle(Editor->CurrentStyle);
-		if (Editor->CurrentStyle & ScStyle_Outline)
+		if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
@@ -2722,7 +2722,7 @@ void StoryEditor::changeStyle(int )
 		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruWidth();
 
 		Editor->setStyle(Editor->CurrentStyle);
-		if (Editor->CurrentStyle & ScStyle_Outline)
+		if ((Editor->CurrentStyle & ScStyle_Outline) || (Editor->CurrentStyle & ScStyle_Shadowed))
 		{
 			StrokeTools->TxStroke->setEnabled(true);
 			StrokeTools->PM1->setEnabled(true);
