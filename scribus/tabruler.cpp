@@ -473,7 +473,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	tabrulerLayout->addLayout( layout2 );
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1" );
 	layout1->setAlignment( Qt::AlignTop );
-	tabData = new MSpinBox( 0, ww, this, 1 );
+	tabData = new MSpinBox( 0, ww / docUnitRatio, this, 1 );
 	tabData->setValue(0);
 	positionLabel = new QLabel( tabData, tr("&Position:"), this, "positionLabel" );
 	layout1->addWidget( positionLabel );
@@ -490,14 +490,14 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<PageIt
 	layout1->addWidget( tabFillCombo );
 	if (haveFirst)
 	{
-		firstLineData = new MSpinBox( -3000, ww, this, 1);
+		firstLineData = new MSpinBox( -3000, ww / docUnitRatio, this, 1);
 		firstLineData->setValue(0);
 		firstLineLabel = new QLabel( "", this, "firstLineLabel" );
 		firstLineLabel->setText("");
 		firstLineLabel->setPixmap(loadIcon("firstline.png"));
 		layout1->addWidget( firstLineLabel );
 		layout1->addWidget( firstLineData );
-		leftIndentData = new MSpinBox( 0, ww, this, 1 );
+		leftIndentData = new MSpinBox( 0, ww / docUnitRatio, this, 1 );
 		leftIndentData->setValue(0);
 		leftIndentLabel = new QLabel( "", this, "leftIndentLabel" );
 		leftIndentLabel->setText("");
