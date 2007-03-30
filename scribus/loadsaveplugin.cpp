@@ -75,7 +75,8 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 		}
 	}
 	else
-		qDebug("%s", tr("No File Loader Plugins Found"));
+//		qDebug("%s", tr("No File Loader Plugins Found"));
+		qDebug("%s", tr("No File Loader Plugins Found").local8Bit().data());
 	filterList.append( tr("All Files (*)"));
 	return filterList;
 }
