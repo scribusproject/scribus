@@ -430,28 +430,28 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 					{
 						painter->setFillMode(ScPainter::Solid);
-						int blx2, bly2, blw2, blh2;
+						double blx2, bly2, blw2, blh2;
 						if (Doc->guidesSettings.showBleed)
 						{
-							blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
-							bly2 = qRound(Doc->Pages->at(a)->yOffset() - bleedTop);
-							blw2 = qRound(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
-							blh2 = qRound(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+							blx2 = Doc->Pages->at(a)->xOffset() - bleedLeft;
+							bly2 = Doc->Pages->at(a)->yOffset() - bleedTop;
+							blw2 = Doc->Pages->at(a)->width() + bleedLeft + bleedRight;
+							blh2 =  Doc->Pages->at(a)->height() + bleedBottom + bleedTop;
 						}
 						else
 						{
-							blx2 = qRound(Doc->Pages->at(a)->xOffset());
-							bly2 = qRound(Doc->Pages->at(a)->yOffset());
-							blw2 = qRound(Doc->Pages->at(a)->width());
-							blh2 = qRound(Doc->Pages->at(a)->height());
+							blx2 = Doc->Pages->at(a)->xOffset();
+							bly2 = Doc->Pages->at(a)->yOffset();
+							blw2 = Doc->Pages->at(a)->width();
+							blh2 = Doc->Pages->at(a)->height();
 						}
 #ifdef HAVE_CAIRO
-						painter->drawRect(blx2 + 5 / Scale, bly2 + 5 / Scale, blw2, blh2);
+						painter->drawRect(blx2 + 5.0 / Scale, bly2 + 5.0 / Scale, blw2, blh2);
 #else
-						blx2 = qRound(blx2 * Scale);
-						bly2 = qRound(bly2 * Scale);
-						blw2 = qRound(blw2 * Scale);
-						blh2 = qRound(blh2 * Scale);
+						blx2 = blx2 * Scale;
+						bly2 = bly2 * Scale;
+						blw2 = blw2 * Scale;
+						blh2 = blh2 * Scale;
 						painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
 #endif
 						if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
@@ -459,10 +459,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 							painter->setFillMode(ScPainter::None);
 #ifdef HAVE_CAIRO
 							painter->setPen(black, 1.0 / Scale, SolidLine, FlatCap, MiterJoin);
-							painter->drawRect(blx2, bly2 - 1 / Scale, blw2 + 1 / Scale, blh2 + 2 / Scale);
+							painter->drawRect(blx2, bly2 - 1.0 / Scale, blw2 + 1.0 / Scale, blh2 + 2.0 / Scale);
 #else
 							painter->setPen(black, 0.5 / Scale, SolidLine, FlatCap, MiterJoin);
-							painter->drawRect(blx2, bly2 - 1, blw2 + 1, blh2 + 2);
+							painter->drawRect(blx2, bly2 - 1.0, blw2 + 1.0, blh2 + 2.0);
 #endif
 						}
 					}
@@ -476,15 +476,15 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
 #ifdef HAVE_CAIRO
-				int x = qRound(Doc->Pages->at(a)->xOffset());
-				int y = qRound(Doc->Pages->at(a)->yOffset());
-				int w = qRound(Doc->Pages->at(a)->width());
-				int h = qRound(Doc->Pages->at(a)->height());
+				double x = Doc->Pages->at(a)->xOffset();
+				double y = Doc->Pages->at(a)->yOffset();
+				double w = Doc->Pages->at(a)->width();
+				double h = Doc->Pages->at(a)->height();
 #else
-				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
-				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
-				int w = qRound(Doc->Pages->at(a)->width() * Scale);
-				int h = qRound(Doc->Pages->at(a)->height() * Scale);
+				double x = Doc->Pages->at(a)->xOffset() * Scale;
+				double y = Doc->Pages->at(a)->yOffset() * Scale;
+				double w = Doc->Pages->at(a)->width() * Scale;
+				double h = Doc->Pages->at(a)->height() * Scale;
 #endif
 				double bleedRight = 0.0;
 				double bleedLeft = 0.0;
@@ -516,10 +516,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					if (!viewAsPreview)
 					{
 #ifdef HAVE_CAIRO
-						int blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
-						int bly2 = qRound(Doc->Pages->at(a)->yOffset() - bleedTop);
-						int blw2 = qRound(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
-						int blh2 = qRound(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+						double blx2 = Doc->Pages->at(a)->xOffset() - bleedLeft;
+						double bly2 = Doc->Pages->at(a)->yOffset() - bleedTop;
+						double blw2 = Doc->Pages->at(a)->width() + bleedLeft + bleedRight;
+						double blh2 = Doc->Pages->at(a)->height() + bleedBottom + bleedTop;
 						painter->drawRect(blx2, bly2, blw2, blh2);
 #else
 						painter->drawRect(blx, bly, blw, blh);
