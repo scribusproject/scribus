@@ -231,6 +231,9 @@ static void layoutDropCap(GlyphLayout layout, double curX, double curY, double o
 }
 
 
+/**
+ Clones the tab fill char as often as necssary after all distances are known
+ */
 static void fillInTabLeaders(StoryText & itemText, LineSpec & curLine)
 {
 	// fill in tab leaders
@@ -277,6 +280,10 @@ enum TabStatus {
 	TabCENTER  = 4
 };
 
+
+/**
+fields which describe what type of tab is currently active
+ */
 struct TabControl {
 	bool   active;
 	int    status;
@@ -285,6 +292,9 @@ struct TabControl {
 	QChar  fillChar;
 };
 
+/**
+fields which describe how the current line is placed into the frame
+ */
 struct LineControl {
 	LineSpec line;
 	int      itemsInLine;
@@ -304,6 +314,7 @@ struct LineControl {
 	double   breakXPos;
 	
 	
+	/// remember frame dimensions and offsets
 	void init(double w, double h, const MarginStruct& extra, double lCorr)
 	{
 		insets = extra;
@@ -312,6 +323,7 @@ struct LineControl {
 		frameHeight = h;
 	}
 	
+	/// start at column 0
 	void initColumns(double width, double gap)
 	{
 		column = 0;
@@ -319,6 +331,7 @@ struct LineControl {
 		colGap = gap;
 	}
 	
+	/// move position to next column
 	void nextColumn(double asce)
 	{
 		startOfCol = true;
@@ -335,6 +348,9 @@ struct LineControl {
 		return yPos + morespace + insets.Bottom + lineCorr > frameHeight;
 	}
 	
+	/**
+		init fields for a new line at current position
+	 */
 	void startLine(int first)
 	{		
 		itemsInLine = 0;
@@ -349,13 +365,14 @@ struct LineControl {
 		breakXPos = 0;
 	}
 	
+	/// called when a possible break is passed
 	void rememberBreak(int index, double pos)
 	{
 		breakIndex = index;
 		breakXPos = pos;
 	}
 	
-	
+	/// called when a mandatory break is found
 	void breakLine(const StoryText& itemText, int last)
 	{
 		breakIndex = last;
@@ -365,6 +382,7 @@ struct LineControl {
 				breakXPos += itemText.item(j)->glyph.wide();
 	}
 	
+	/// use the last remembered break to set line width and itemrange
 	void finishLine(double endX)
 	{
 		line.lastItem = breakIndex;
@@ -381,6 +399,7 @@ struct LineControl {
 			return xPos + moreSpace >= colRight;
 	}
 	
+	/// find x position to start current line
 	double startOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace)
 	{
 		QPoint pt1, pt2;
@@ -401,6 +420,7 @@ struct LineControl {
 		return tmpX;
 	}
 	
+	/// find x position where this line must end
 	double endOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace = 0)
 	{
 		double EndX = floor(qMax(line.x, breakXPos - 1));
@@ -429,8 +449,11 @@ private:
 
 
 
+/// called when line length is known and line is to be justified
 static void justifyLine(StoryText& itemText, LineSpec& line)
 {
+	// TODO: word tracking and glyph extension
+	
 	// count the available spaces
 	int aSpa = 0;
 	double OFs2;
@@ -459,12 +482,14 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 }
 
 
+/// called when linelength is known and line is centered
 static void indentLine(LineSpec& line, double leftIndent)
 {
 	line.x += leftIndent;
 	line.width -= leftIndent;
 }
 
+/// calculate how much the first char should stick out to the left
 static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 {
 	int b = line.firstItem;
@@ -475,21 +500,21 @@ static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 	QChar chr = itemText.text(b);
 	double leftCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
 	if (QString("'´`").find(chr) >= 0
-		|| chr == QChar(0x2018)
-		|| chr == QChar(0x2019)
-		|| chr == QChar(0x201a)
-		|| chr == QChar(0x201b)
-		|| chr == QChar(0x2039)
-		|| chr == QChar(0x203a)
+		|| chr == QChar(0x2018) // quote 6
+		|| chr == QChar(0x2019) // quote 9
+		|| chr == QChar(0x201a) // lower quote 9
+		|| chr == QChar(0x201b) // upper reversed 9 6
+		|| chr == QChar(0x2039) // single guillemet <
+		|| chr == QChar(0x203a) // single guillemet >
 		)
 		leftCorr *= -0.7;
 	else if (QString("\"").find(chr) >= 0
-			 || chr == QChar(0x00ab)
-			 || chr == QChar(0x00bb)
-			 || chr == QChar(0x201c)
-			 || chr == QChar(0x201d)
-			 || chr == QChar(0x201e)
-			 || chr == QChar(0x201f)
+			 || chr == QChar(0x00ab) // guillemet <<
+			 || chr == QChar(0x00bb) // guillemet >>
+			 || chr == QChar(0x201c) // quote 66
+			 || chr == QChar(0x201d) // quote 99
+			 || chr == QChar(0x201e) // lower quote 99
+			 || chr == QChar(0x201f) // upper reversed 99
 			 ) 
 		leftCorr *= -0.5;
 	else {
@@ -503,6 +528,8 @@ static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 }
 
 
+
+/// calculate how much the last char should stick out to the right
 static double opticalRightMargin(const StoryText& itemText, const LineSpec& line)
 {
 	int b = line.lastItem;
@@ -523,7 +550,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 			|| chr == QChar(0x201b)
 			|| chr == QChar(0x2039)
 			|| chr == QChar(0x203a)
-			|| chr == QChar(0x2032)
+			|| chr == QChar(0x2032) // PRIME
 			)
 			rightCorr *= 0.7;
 		else if (QString(";:\"").find(chr) >= 0
@@ -533,8 +560,8 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 				 || chr == QChar(0x201d)
 				 || chr == QChar(0x201e)
 				 || chr == QChar(0x201f)
-				 || chr == QChar(0x2013)
-				 || chr == QChar(0x2033)
+				 || chr == QChar(0x2013) // EN DASH
+				 || chr == QChar(0x2033) // double prime
 				 )
 			rightCorr *= 0.5;
 		else {
@@ -545,6 +572,9 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 	}
 	return 0.0;
 }
+
+
+
 
 
 void PageItem_TextFrame::layout() 
@@ -926,6 +956,9 @@ void PageItem_TextFrame::layout()
 			{
 //				qDebug(QString("textframe ascent/descent: fontsize=%1, ascent=%2, descent=%3")
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
+
+				// TODO: word tracking and glyph extension
+				
 				// find ascent / descent
 				double hlcsize10=charStyle.fontSize() / 10.0;
 				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
