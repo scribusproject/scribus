@@ -883,6 +883,16 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				}
 				if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
 					doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
+				QString clPath = pite.attribute("ImageClip", "");
+				if (Neu->pixm.imgInfo.PDSpathData.contains(clPath))
+				{
+					Neu->imageClip = Neu->pixm.imgInfo.PDSpathData[clPath].copy();
+					Neu->pixm.imgInfo.usedPath = clPath;
+					QMatrix cl;
+					cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
+					cl.scale(Neu->imageXScale(), Neu->imageYScale());
+					Neu->imageClip.map(cl);
+				}
 				if (Neu->isTableItem)
 				{
 					TableItems.append(Neu);
@@ -1044,6 +1054,16 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			}
 			if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
 				doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
+				QString clPath = pg.attribute("ImageClip", "");
+			if (Neu->pixm.imgInfo.PDSpathData.contains(clPath))
+			{
+				Neu->imageClip = Neu->pixm.imgInfo.PDSpathData[clPath].copy();
+				Neu->pixm.imgInfo.usedPath = clPath;
+				QMatrix cl;
+				cl.translate(Neu->imageXOffset()*Neu->imageXScale(), Neu->imageYOffset()*Neu->imageYScale());
+				cl.scale(Neu->imageXScale(), Neu->imageYScale());
+				Neu->imageClip.map(cl);
+			}
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
@@ -1378,6 +1398,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 	ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 	ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
 	ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
+	ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 	if (item->effectsInUse.count() != 0)
 	{
 		for (int a = 0; a < item->effectsInUse.count(); ++a)
