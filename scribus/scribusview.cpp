@@ -11360,7 +11360,7 @@ void ScribusView::TextToPath()
 						chma3.scale(-1, 1);
 						chma3.translate(-wide, 0);
 					}
-					chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
+					chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * hl->glyph.scaleV);
 					if (hl->baselineOffset() != 0)
 						chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
 					uint gl = hl->font().char2CMap(chr);
