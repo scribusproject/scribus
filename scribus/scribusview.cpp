@@ -10896,8 +10896,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				nstyle.setStrikethruWidth(it == wt.end() ? -1 : (*it).toInt());
 				uint pos = Doc->Items->at(z)->itemText.length();
 				Doc->Items->at(z)->itemText.insertChars(pos, ch);
-				if (ch == SpecialChars::PARSEP) {
-					Doc->Items->at(z)->itemText.applyStyle(pos, Doc->paragraphStyles()[cab]);
+				if (ch == SpecialChars::PARSEP && cab > 0) {
+					Doc->Items->at(z)->itemText.applyNamedStyle(pos, Doc->paragraphStyles()[cab].name());
 				}
 				else {
 					Doc->Items->at(z)->itemText.applyCharStyle(pos, 1, nstyle);
