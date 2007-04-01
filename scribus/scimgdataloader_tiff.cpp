@@ -635,6 +635,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
 						else
 							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
+						r_image.fill(0);
 						QRgb *s;
 						uchar *d;
 						unsigned char cc, cm, cy, ck;
@@ -843,6 +844,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					}
 					if( !r_image.create( widtht, heightt, chans ))
 						return false;
+					r_image.fill(0);
 					bool firstLayer = true;
 					for (int layer = 0; layer < numLayers; layer++)
 					{
@@ -885,6 +887,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				TIFFClose(tif);
 				return false;
 			}
+			r_image.fill(0);
 			do
 			{
 				RawImage tmpImg;
