@@ -524,6 +524,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	PageItem* ite;
 	Q3PtrStack<PageItem> groupStack;
 	Q3ValueStack<int> gsStack;
+	Q3ValueStack<uint> elemCount;
 	Q3ValueStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
@@ -713,10 +714,12 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						}
 					}
 					ite->isGroupControl = true;
-					ite->setItemName( tr("Group%1").arg(ite->Groups.top()));
+					ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+					ite->AutoName = false;
 					ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 					Elements.append(ite);
 					groupStack.push(ite);
+					elemCount.push(Elements.count());
 					gsStackMarks.push(gsStack.count());
 					m_Doc->GroupCounter++;
 				}
@@ -736,7 +739,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					if (gsStack.count() < static_cast<int>(gsStackMarks.top()))
 					{
 						PageItem *ite = groupStack.pop();
-						ite->groupsLastItem = Elements.at(Elements.count()-1);
+						uint count = elemCount.pop();
+						if (count == Elements.count())
+						{
+							m_Doc->Items->removeLast();
+							Elements.removeLast();
+						}
+						else
+							ite->groupsLastItem = Elements.at(Elements.count()-1);
 						gsStackMarks.pop();
 					}
 				}
@@ -820,7 +830,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			while (!groupStack.isEmpty())
 			{
 				PageItem *ite = groupStack.pop();
-				ite->groupsLastItem = Elements.at(Elements.count()-1);
+				uint count = elemCount.pop();
+				if (count == Elements.count())
+				{
+					m_Doc->Items->removeLast();
+					Elements.removeLast();
+				}
+				else
+					ite->groupsLastItem = Elements.at(Elements.count()-1);
 			}
 		}
 	}
