@@ -788,7 +788,7 @@ void ScribusDoc::enableCMS(bool enable)
 
 void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 {
-	lists.availableFonts = Allfonts;
+	lists.availableFonts = AllFonts;
 	lists.availableColors = const_cast<ColorList*>(& PageColors);
 
 	const Q3PtrList<PageItem> * itemlist = & MasterItems;
