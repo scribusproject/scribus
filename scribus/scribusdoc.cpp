@@ -869,7 +869,16 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		{
 			pa.items.at(o)->replaceNamedResources(newNames);
 		}
-	}	
+	}
+	
+	if (newNames.colors().count() > 0)
+		docCharStyles.invalidate();
+	else if (newNames.fonts().count() > 0)
+		docCharStyles.invalidate();
+	else if (newNames.charStyles().count() > 0)
+		docCharStyles.invalidate();
+	else if (newNames.styles().count() > 0)
+		docParagraphStyles.invalidate();	
 }
 
 
@@ -948,6 +957,7 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 			sty.breakImplicitCharStyleInheritance(false);
 		}
 	}
+	docParagraphStyles.invalidate();
 }
 
 void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused)
@@ -961,11 +971,14 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
 		{
 			const QString& nam(docCharStyles[i].name());
 			if (newStyles.find(nam) < 0)
+			{
 				deletion[nam] = deflt;
+			}
 		}
 		if (deletion.count() > 0)
 			replaceCharStyles(deletion);
 	}
+	docCharStyles.invalidate();
 }
 
 

@@ -182,6 +182,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "scmessagebox.h"
 #include "imageinfodialog.h"
+#include "resourcecollection.h"
 #include "selection.h"
 #include "stylemanager.h"
 #include "smlinestyle.h"
@@ -6975,17 +6976,26 @@ void ScribusMainWindow::slotEditColors()
 		{
 			uint c;
 			int d;
-			QMap<QString,QString> ers;
 			PageItem *ite;
 			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
-			ers = dia->replaceMap;
-			if (!ers.isEmpty())
+			if (dia->replaceMap.isEmpty())
 			{
+				// invalidate all charstyles, as replaceNamedResources() wont do it if all maps are empty
+				const StyleSet<CharStyle> dummy;
+				doc->redefineCharStyles(dummy, false);
+			}
+			else
+			{
+				ResourceCollection colorrsc;
+				colorrsc.mapColors(dia->replaceMap);
 				// Update tools colors
-				PrefsManager::replaceToolColors(doc->toolSettings, ers);
+				PrefsManager::replaceToolColors(doc->toolSettings, colorrsc.colors());
 				// Update objects and styles colors
+				doc->replaceNamedResources(colorrsc);
+				/*
+				// ers == colorrsc.fonts()
 				QMap<QString,QString>::Iterator it;
 				for (it = ers.begin(); it != ers.end(); ++it)
 				{
@@ -7142,6 +7152,7 @@ void ScribusMainWindow::slotEditColors()
 						}
 					}
 				}
+				*/
 			}
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
