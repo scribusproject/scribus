@@ -287,8 +287,9 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				PageItem *neu = m_Doc->Items->take(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
-				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
 				neu->isGroupControl = true;
+				neu->AutoName = false;
 				neu->groupsLastItem = high;
 				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 				for (uint a = 0; a < m_Doc->Items->count(); ++a)
@@ -521,6 +522,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	PageItem* ite;
 	QPtrStack<PageItem> groupStack;
 	QValueStack<int> gsStack;
+	QValueStack<uint> elemCount;
 	QValueStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
@@ -710,9 +712,11 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						}
 					}
 					ite->isGroupControl = true;
-					ite->setItemName( tr("Group%1").arg(ite->Groups.top()));
+					ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+					ite->AutoName = false;
 					ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 					Elements.append(ite);
+					elemCount.push(Elements.count());
 					groupStack.push(ite);
 					gsStackMarks.push(gsStack.count());
 					m_Doc->GroupCounter++;
@@ -733,7 +737,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					if (gsStack.count() < gsStackMarks.top())
 					{
 						PageItem *ite = groupStack.pop();
-						ite->groupsLastItem = Elements.at(Elements.count()-1);
+						uint count = elemCount.pop();
+						if (count == Elements.count())
+						{
+							m_Doc->Items->removeLast();
+							Elements.removeLast();
+						}
+						else
+							ite->groupsLastItem = Elements.at(Elements.count()-1);
 						gsStackMarks.pop();
 					}
 				}
@@ -817,7 +828,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			while (!groupStack.isEmpty())
 			{
 				PageItem *ite = groupStack.pop();
-				ite->groupsLastItem = Elements.at(Elements.count()-1);
+				uint count = elemCount.pop();
+				if (count == Elements.count())
+				{
+					m_Doc->Items->removeLast();
+					Elements.removeLast();
+				}
+				else
+					ite->groupsLastItem = Elements.at(Elements.count()-1);
 			}
 		}
 	}
