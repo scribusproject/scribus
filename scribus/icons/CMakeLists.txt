@@ -123,6 +123,7 @@ flow-none.png
 font_otf16.png
 font_otf.png
 font.png
+font_subst16.png
 font_truetype16.png
 font_truetype.png
 font_type1_16.png
