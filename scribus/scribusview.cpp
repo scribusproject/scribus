@@ -826,21 +826,86 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		delete painter;
 		painter=NULL;
 	}
-	if (Doc->m_Selection->count() != 0)
+	if (operItemMoving)
 	{
-		PageItem *currItem = Doc->m_Selection->itemAt(0);
-		currItem->paintObj();
-		if ((Doc->EditClip) && (currItem->isSelected()))
+		if (Doc->m_Selection->count() != 0)
 		{
-		if (EditContour)
-			MarkClip(currItem, currItem->ContourLine, true);
-		else
-			MarkClip(currItem, currItem->PoLine, true);
+			uint selectedItemCount = Doc->m_Selection->count();
+			PageItem *currItem = Doc->m_Selection->itemAt(0);
+			if (selectedItemCount < moveWithBoxesOnlyThreshold)
+			{
+				psx->resetMatrix();
+//				ToView(psx);
+				QPoint out = contentsToViewport(QPoint(0, 0));
+				psx->translate(out.x(), out.y());
+				Transform(currItem, psx);
+				psx->setBrush(Qt::NoBrush);
+				psx->setPen(QPen(Qt::black, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				if (selectedItemCount < moveWithFullOutlinesThreshold)
+				{
+					if (!(currItem->asLine()))
+						currItem->DrawPolyL(psx, currItem->Clip);
+					else
+					{
+						if (currItem->asLine())
+						{
+							int lw2 = 1;
+							int lw = 1;
+							Qt::PenCapStyle le = Qt::FlatCap;
+							if (currItem->NamedLStyle.isEmpty())
+							{
+								lw2 = qRound(currItem->lineWidth()  / 2.0);
+								lw = qRound(qMax(currItem->lineWidth(), 1.0));
+								le = currItem->PLineEnd;
+							}
+							else
+							{
+								multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+								lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+								lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
+								le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
+							}
+							if (le != Qt::FlatCap)
+								psx->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+							else
+								psx->drawRect(-1, -lw2, qRound(currItem->width()), lw);
+						}
+					}
+				}
+				else
+					psx->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
+			}
+			else
+			{
+				double gx, gy, gw, gh;
+				Doc->m_Selection->setGroupRect();
+				getGroupRectScreen(&gx, &gy, &gw, &gh);
+				QPoint out = contentsToViewport(QPoint(0, 0));
+				psx->translate(out.x(), out.y());
+				psx->translate(qRound(gx), qRound(gy));
+				psx->scale(Scale, Scale);
+				psx->drawRect(QRect(0, 0, qRound(gw), qRound(gh)));
+			}
 		}
-		if (Doc->m_Selection->isMultipleSelection())
+	}
+	else
+	{
+		if (Doc->m_Selection->count() != 0)
 		{
-			Doc->m_Selection->setGroupRect();
-			paintGroupRect();
+			PageItem *currItem = Doc->m_Selection->itemAt(0);
+			currItem->paintObj();
+			if ((Doc->EditClip) && (currItem->isSelected()))
+			{
+			if (EditContour)
+				MarkClip(currItem, currItem->ContourLine, true);
+			else
+				MarkClip(currItem, currItem->PoLine, true);
+			}
+			if (Doc->m_Selection->isMultipleSelection())
+			{
+				Doc->m_Selection->setGroupRect();
+				paintGroupRect();
+			}
 		}
 	}
 	if (Doc->appMode == modeEdit)
@@ -955,7 +1020,10 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (!evSpon || forceRedraw)
 							currItem->invalid = true;
 						if (clip.intersects(oldR))
-							currItem->DrawObj(painter, clip);
+						{
+							if (!((operItemMoving) && (currItem->isSelected())))
+								currItem->DrawObj(painter, clip);
+						}
 						currItem->OwnPage = currItem->savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
@@ -1148,7 +1216,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if (!evSpon || forceRedraw) 
 							currItem->invalid = true;
 //						if ((!m_MouseButtonPressed) || (Doc->EditClip))
-						currItem->DrawObj(painter, clip);
+						if (!((operItemMoving) && (currItem->isSelected())))
+							currItem->DrawObj(painter, clip);
 //						currItem->Redrawn = true;
 						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 						{
@@ -7879,15 +7948,15 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 	PageItem* currItem;
 	QPainter p;
 	double gx, gy, gw, gh;
-	double sc = Scale;
+//	double sc = Scale;
 	itemSelection->setGroupRect();
-	getGroupRectScreen(&gx, &gy, &gw, &gh);
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	QRect OldRect = QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh));
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		currItem = itemSelection->itemAt(a);
 		Doc->MoveItem(x, y, currItem, fromMP);
-		OldRect = OldRect.united(currItem->getRedrawBounding(Scale));
+		OldRect.unite(currItem->getRedrawBounding(Scale));
 /*		if ((!fromMP) && (selectedItemCount < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
@@ -7995,7 +8064,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 //		}
 	}
 //	getGroupRectScreen(&gx, &gy, &gw, &gh);
-	updateContents(OldRect);
+	updateContents(OldRect.adjusted(-10, -10, 20, 20));
 //	else
 //	{
 		//Paint the drag moved item, ie the black dashed line representing the frame
