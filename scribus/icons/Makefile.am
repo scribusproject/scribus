@@ -950,6 +950,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/font.png
 	-rm -f $(prefix)/share/scribus/icons/font_otf.png
 	-rm -f $(prefix)/share/scribus/icons/font_otf16.png
+	-rm -f $(prefix)/share/scribus/icons/font_subst16.png	
 	-rm -f $(prefix)/share/scribus/icons/font_truetype.png
 	-rm -f $(prefix)/share/scribus/icons/font_truetype16.png
 	-rm -f $(prefix)/share/scribus/icons/font_type1.png
