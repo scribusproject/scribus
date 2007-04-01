@@ -55,6 +55,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
+	substFont = loadIcon("font_subst16.png");
 
 	checkOn = getQCheckBoxPixmap(true, fontList->paletteBackgroundColor());
 	checkOff = getQCheckBoxPixmap(false, fontList->paletteBackgroundColor());
@@ -362,11 +363,13 @@ void FontPrefs::rebuildDialog()
 
 		ScFace::FontType type = it.current().type();
 		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
-		if (type == ScFace::TYPE1)
+		if (it.current().isReplacement())
+			row->setPixmap(0, substFont);
+		else if (type == ScFace::TYPE1)
 			row->setPixmap(0, psFont);
-		if (type == ScFace::TTF)
+		else if (type == ScFace::TTF)
 			row->setPixmap(0, ttfFont);
-		if (type == ScFace::OTF)
+		else if (type == ScFace::OTF)
 			row->setPixmap(0, otfFont);
 
 		foS.FlagNames = it.current().hasNames();

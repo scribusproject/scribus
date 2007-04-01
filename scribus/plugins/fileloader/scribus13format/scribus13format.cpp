@@ -249,8 +249,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		m_Doc->toolSettings.defSize=qRound(dc.attribute("DSIZE").toDouble() * 10);
 		Defont=dc.attribute("DFONT");
+		//findFont will use that if it doesnt find the font:
 		m_Doc->toolSettings.defFont = prefsManager->appPrefs.toolSettings.defFont;
-		findFont(m_Doc, Defont);
+		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->toolSettings.defFont = Defont;
 		m_Doc->toolSettings.dCols=dc.attribute("DCOL", "1").toInt();
 		m_Doc->toolSettings.dGap=dc.attribute("DGAP", "0.0").toDouble();
@@ -1718,7 +1719,7 @@ void scribus13format_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-
+/*
 const ScFace& Scribus13Format::findFont(ScribusDoc *doc, const QString& fontname)
 {
 	if (fontname.isEmpty())
@@ -1743,7 +1744,7 @@ const ScFace& Scribus13Format::findFont(ScribusDoc *doc, const QString& fontname
 	}
 	return (*m_AvailableFonts)[fontname];
 }
-
+*/
 void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
 	ScFace dummy = ScFace::none();
@@ -1759,7 +1760,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	tmpf = it->attribute("CFONT", "");
 
 	if (! tmpf.isEmpty() )
-		newStyle.setFont(findFont(doc, tmpf));
+		newStyle.setFont(m_AvailableFonts->findFont(tmpf, doc));
 
 	if (it->hasAttribute("CSIZE"))
 		newStyle.setFontSize(qRound(it->attribute("CSIZE").toDouble() * 10));
@@ -1906,7 +1907,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	
-	vg.charStyle().setFont(findFont(doc, pg.attribute("FONT", doc->toolSettings.defFont)));
+	vg.charStyle().setFont(m_AvailableFonts->findFont(pg.attribute("FONT", doc->toolSettings.defFont), doc));
 	vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
@@ -2193,7 +2194,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		pstyle.setParent(DoVorl[align-5]);
 	else if (align >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(align));
-	pstyle.charStyle().setFont(findFont(m_Doc, obj->attribute("IFONT", m_Doc->toolSettings.defFont)));
+	pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT", m_Doc->toolSettings.defFont), m_Doc));
 	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
 	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));

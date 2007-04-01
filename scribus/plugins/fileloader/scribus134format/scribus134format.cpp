@@ -144,8 +144,8 @@ QString Scribus134Format::readSLA(const QString & fileName)
 
 void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=newReplacement;
-	getReplacedFonts=ReplacedFonts;
+	getNewReplacement=false;
+	getReplacedFonts.clear();
 }
 
 bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -155,8 +155,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
 		return false;
 	}
-	ReplacedFonts.clear();
-	newReplacement = false;
 	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
@@ -252,17 +250,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		m_Doc->toolSettings.defSize=qRound(dc.attribute("DSIZE").toDouble() * 10);
 		Defont=dc.attribute("DFONT");
-		if ((!m_AvailableFonts->contains(Defont)) || (!(*m_AvailableFonts)[Defont].usable()))
-		{
-			ReplacedFonts.insert(Defont, prefsManager->appPrefs.toolSettings.defFont);
-			Defont = prefsManager->appPrefs.toolSettings.defFont;
-		}
-		else
-		{
-//			QFont fo = avail[Defont]->Font;
-//			fo.setPointSize(qRound(m_Doc->toolSettings.defSize / 10.0));
-			m_Doc->AddFont(Defont, qRound(m_Doc->toolSettings.defSize / 10.0));
-		}
+		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->toolSettings.defFont = Defont;
 		m_Doc->toolSettings.dCols=dc.attribute("DCOL", "1").toInt();
 		m_Doc->toolSettings.dGap=dc.attribute("DGAP", "0.0").toDouble();
@@ -968,25 +956,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						Neu->OnMasterPage = "";
 					m_Doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-						{
-							newReplacement = true;
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-						}
-						else
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-					}
-					else
-					{
-						if (!m_Doc->UsedFonts.contains(tmpf))
-						{
-//							QFont fo = avail[tmpf]->Font;
-//							fo.setPointSize(qRound(m_Doc->toolSettings.defSize / 10.0));
-							m_Doc->AddFont(tmpf, qRound(m_Doc->toolSettings.defSize / 10.0));
-						}
-					}
+					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pg.firstChild();
 					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
@@ -1185,21 +1155,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->OnMasterPage = "";
 					m_Doc->GroupCounter = docGc;
 					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-						{
-							newReplacement = true;
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-						}
-						else
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-					}
-					else
-					{
-						if (!m_Doc->UsedFonts.contains(tmpf))
-							m_Doc->AddFont(tmpf, qRound(m_Doc->toolSettings.defSize / 10.0));
-					}
+					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pite.firstChild();
 					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
@@ -1592,7 +1548,7 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setParent(it->attribute("CPARENT"));
 	
 	if (it->hasAttribute("FONT"))
-		newStyle.setFont(findFont(doc,it->attribute("FONT")));
+		newStyle.setFont(m_AvailableFonts->findFont(it->attribute("FONT"),doc));
 	
 	if (it->hasAttribute("FONTSIZE"))
 		newStyle.setFontSize(qRound(it->attribute("FONTSIZE").toDouble() * 10));
@@ -1676,7 +1632,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	// more legacy stuff:
 	
 	if (it->hasAttribute("CFONT"))
-		newStyle.setFont(findFont(doc, it->attribute("CFONT")));
+		newStyle.setFont(m_AvailableFonts->findFont(it->attribute("CFONT"), doc));
 	
 	if (it->hasAttribute("CSIZE"))
 		newStyle.setFontSize(qRound(it->attribute("CSIZE").toDouble() * 10));
@@ -1904,32 +1860,6 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	fixLegacyParStyle(vg);
 }
 
-const ScFace& Scribus134Format::findFont(ScribusDoc *doc, const QString& fontname)
-{
-	if (fontname.isEmpty())
-		return ScFace::none();
-	
-	PrefsManager* prefsManager=PrefsManager::instance();
-	if (!(*m_AvailableFonts).contains(fontname) || !(*m_AvailableFonts)[fontname].usable())
-	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(fontname)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[fontname]].usable()))
-		{
-			newReplacement = true;
-			ReplacedFonts.insert(fontname, doc->toolSettings.defFont);
-		}
-		else
-			ReplacedFonts.insert(fontname, prefsManager->appPrefs.GFontSub[fontname]);
-		ScFace dummy = (*m_AvailableFonts)[ReplacedFonts[fontname]].mkReplacementFor(fontname, doc->DocName);
-		(*m_AvailableFonts).insert(fontname, dummy);
-	}
-	else if ( !doc->UsedFonts.contains(fontname) )
-	{
-		doc->AddFont(fontname, qRound(doc->toolSettings.defSize / 10.0));
-	}
-	return (*m_AvailableFonts)[fontname];
-}
-
-
 PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 {
 	struct ImageLoadRequest loadingInfo;
@@ -2136,7 +2066,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if (obj->hasAttribute("ALIGN"))
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(obj->attribute("ALIGN", "0").toInt()));
 	if (obj->hasAttribute("IFONT"))
-		pstyle.charStyle().setFont(findFont(doc, obj->attribute("IFONT")));
+		pstyle.charStyle().setFont(m_AvailableFonts->findFont(obj->attribute("IFONT"), doc));
 	if (obj->hasAttribute("ISIZE"))
 		pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE").toDouble() * 10));
 	if (obj->hasAttribute("TXTSTROKE"))
@@ -2785,25 +2715,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						Neu->OnMasterPage = "";
 					m_Doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-						{
-							newReplacement = true;
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-						}
-						else
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-					}
-					else
-					{
-						if (!m_Doc->UsedFonts.contains(tmpf))
-						{
-//							QFont fo = avail[tmpf]->Font;
-//							fo.setPointSize(qRound(m_Doc->toolSettings.defSize / 10.0));
-							m_Doc->AddFont(tmpf, qRound(m_Doc->toolSettings.defSize / 10.0));
-						}
-					}
+					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pg.firstChild();
 					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
@@ -2956,21 +2868,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->OnMasterPage = "";
 					m_Doc->GroupCounter = docGc;
 					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-						{
-							newReplacement = true;
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-						}
-						else
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-					}
-					else
-					{
-						if (!m_Doc->UsedFonts.contains(tmpf))
-							m_Doc->AddFont(tmpf, qRound(m_Doc->toolSettings.defSize / 10.0));
-					}
+					m_AvailableFonts->findFont(tmpf, m_Doc);
 					QDomNode IT=pite.firstChild();
 					LastStyles * last = new LastStyles();
 					while(!IT.isNull())
@@ -3216,37 +3114,6 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 			VorlC++;
 		}
 	}
-}
-
-QString Scribus134Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
-{
-	PrefsManager *prefsManager=PrefsManager::instance();
-//	QFont fo;
-	QString tmpf = fStr;
-	if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
-	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-		{
-			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-			MissingFont *dia = new MissingFont(0, tmpf, doc);
-			dia->exec();
-			tmpf = dia->getReplacementFont();
-			delete dia;
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-			prefsManager->appPrefs.GFontSub[fStr] = tmpf;
-		}
-		else
-			tmpf = prefsManager->appPrefs.GFontSub[tmpf];
-		ReplacedFonts[fStr] = tmpf;
-	}
-	if (!doc->UsedFonts.contains(tmpf))
-	{
-//		fo = avail[tmpf]->Font;
-//		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-		doc->AddFont(tmpf);
-	}
-// 	DoFonts[fStr] = tmpf;
-	return tmpf;
 }
 
 bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)

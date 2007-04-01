@@ -123,7 +123,8 @@ public:
 	float PRot;
 	InlineFrame embedded;
 	QString ch;
-	ScText() : //cselect(false), cab(0), 
+	ScText() : 
+		CharStyle(),
 		parstyle(NULL), glyph(), 
 		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), embedded(NULL), ch() {}
 	ScText(const ScText& other) : 

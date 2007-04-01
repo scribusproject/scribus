@@ -51,16 +51,16 @@ public:
 	const FileFormat * const formatSVG;
 	const FileFormat * const formatSXD;
 	const FileFormat * const formatODG;
- 	bool newReplacement;
  	Q3ValueList<int> LFrames;
-	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;
-	Q3ValueList<ScFace> dummyScFaces;
+// 	Q3ValueList<ScFace> dummyScFaces;
 
 	static const QString getLoadFilterString();
 private:
- 	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
+	QMap<QString, QString> ReplacedFonts;
+	bool newReplacement;
+	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 	bool findFormat(uint formatId, Q3ValueList<FileFormat>::const_iterator &it);
 	PrefsManager* prefsManager;
 	double maximumX;

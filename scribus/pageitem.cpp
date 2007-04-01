@@ -3524,30 +3524,30 @@ void PageItem::setTagged(bool tag)
 
 void PageItem::replaceNamedResources(ResourceCollection& newNames) 
 {
-	QMap<QString,QString>::Iterator it;
+	QMap<QString,QString>::ConstIterator it;
 
-	it = newNames.colors.find(fillColor());
-	if (it != newNames.colors.end())
+	it = newNames.colors().find(fillColor());
+	if (it != newNames.colors().end())
 		setFillColor(*it);
 
-	it = newNames.colors.find(lineColor());
-	if (it != newNames.colors.end())
+	it = newNames.colors().find(lineColor());
+	if (it != newNames.colors().end())
 		setFillColor(*it);
 
 	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
-		it = newNames.colors.find(cstops.at(cst)->name);
-		if (it != newNames.colors.end())
+		it = newNames.colors().find(cstops.at(cst)->name);
+		if (it != newNames.colors().end())
 			cstops.at(cst)->name = *it;
 	}
 	
-	it = newNames.patterns.find(pattern());
-	if (it != newNames.patterns.end())
+	it = newNames.patterns().find(pattern());
+	if (it != newNames.patterns().end())
 		setPattern(*it);
 
-	it = newNames.linestyles.find(customLineStyle());
-	if (it != newNames.linestyles.end())
+	it = newNames.lineStyles().find(customLineStyle());
+	if (it != newNames.lineStyles().end())
 		setCustomLineStyle(*it);
 
 	if (prevInChain() == NULL)

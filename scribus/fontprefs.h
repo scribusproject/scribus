@@ -72,6 +72,7 @@ private:
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
+	QPixmap substFont;
 	//QPixmap okIcon;
 	//QPixmap empty;
 	QPixmap checkOn;

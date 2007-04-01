@@ -164,9 +164,14 @@ QString Scribus12Format::readSLA(const QString & fileName)
 
 void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces)
 {
-	getNewReplacement=newReplacement;
-	getReplacedFonts=ReplacedFonts;
-	getDummyScFaces=dummyScFaces;
+	getNewReplacement=false;
+	getReplacedFonts.clear();
+	getDummyScFaces.clear();
+}
+
+static long scribus12itemID(int itemNr, int pageNr)
+{
+	return itemNr * 100000 + pageNr; 
 }
 
 bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -176,9 +181,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);
 		return false;
 	}
-	ReplacedFonts.clear();
-	newReplacement = false;
-	dummyScFaces.clear();
+// 	ReplacedFonts.clear();
+// 	newReplacement = false;
+// 	dummyScFaces.clear();
 	DoVorl.clear();
 	DoVorl[0] = "";
 	DoVorl[1] = "";
@@ -203,8 +208,6 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	PageItem *Neu;
 	itemRemap.clear();
 	itemNext.clear();
-	itemCount = 0;
-	nextPg.clear();
 	QDomDocument docu("scridoc");
 	QFile fi(fileName);
 	// Load the document text
@@ -273,23 +276,11 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
 		m_Doc->guidesSettings.showPic = true;
 		m_Doc->guidesSettings.showControls = false;
-		DoFonts.clear();
+// 		DoFonts.clear();
 		m_Doc->toolSettings.defSize=qRound(dc.attribute("DSIZE").toDouble() * 10);
 		Defont=dc.attribute("DFONT");
-		if ((!m_AvailableFonts->contains(Defont)) || (!(*m_AvailableFonts)[Defont].usable()))
-		{
-			ReplacedFonts.insert(Defont, prefsManager->appPrefs.toolSettings.defFont);
-			Defont = prefsManager->appPrefs.toolSettings.defFont;
-		}
-		else
-		{
-			if (!m_Doc->UsedFonts.contains(tmpf))
-			{
-//				QFont fo = avail[Defont]->Font;
-//				fo.setPointSize(qRound(m_Doc->toolSettings.defSize / 10.0));
-				m_Doc->AddFont(Defont);
-			}
-		}
+		m_Doc->toolSettings.defFont = prefsManager->appPrefs.toolSettings.defFont;
+		m_AvailableFonts->findFont(Defont, m_Doc);
 		m_Doc->toolSettings.defFont = Defont;
 		m_Doc->toolSettings.dCols=dc.attribute("DCOL", "1").toInt();
 		m_Doc->toolSettings.dGap=dc.attribute("DGAP", "0.0").toDouble();
@@ -379,25 +370,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 				vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 				tmpf = pg.attribute("FONT", m_Doc->toolSettings.defFont);
-				if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-				{
-					if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-					{
-						newReplacement = true;
-						ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-					}
-					else
-						ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-				}
-				else
-				{
-					if (!m_Doc->UsedFonts.contains(tmpf))
-					{
-//						QFont fo = avail[tmpf]->Font;
-//						fo.setPointSize(qRound(m_Doc->toolSettings.defSize / 10.0));
-						m_Doc->AddFont(tmpf);
-					}
-				}
+				
+				m_AvailableFonts->findFont(tmpf, m_Doc));
 				vg.charStyle().setFont((*m_AvailableFonts)[tmpf]);
 				vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 				vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
@@ -560,19 +534,26 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 							pg.hasAttribute("NumHGuides"));
 
 				QDomNode OBJ=PAGE.firstChild();
+				int pageNo = a;
+				int pageItem = 0;
 				while(!OBJ.isNull())
 				{
 					QDomElement obj=OBJ.toElement();
-				/*
-				* Attribute von OBJECT auslesen
-				*/
-					if (obj.tagName()=="PAGEOBJECT")
+					/*
+					 * Attribute von OBJECT auslesen
+					 */
+					if (!m_Doc->masterPageMode())
 					{
-						itemRemap[itemCount++] = m_Doc->Items->count();
-						// member of linked chain?
-						if (obj.attribute("NEXTITEM").toInt() != -1)
+						const long itemID = scribus12itemID(pageItem++, pageNo);
+//						qDebug(QString("1.2 remap: %1 -> %2 [%3 on page %4]").arg(itemID).arg(m_Doc->Items->count()).arg(pageItem-1).arg(pageNo));
+						itemRemap[itemID] = m_Doc->Items->count();
+						if (obj.tagName()=="PAGEOBJECT")
 						{
-							itemNext[m_Doc->Items->count()] = obj.attribute("NEXTITEM").toInt();
+							// member of linked chain?
+							if (obj.attribute("NEXTITEM").toInt() != -1)
+							{
+								itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), obj.attribute("NEXTPAGE").toInt());
+							}
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
@@ -586,25 +567,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
 					tmpf = obj.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
-					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-						{
-							newReplacement = true;
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-						}
-						else
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-					}
-					else
-					{
-						if (!m_Doc->UsedFonts.contains(tmpf))
-						{
-//							QFont fo = avail[tmpf]->Font;
-//							fo.setPointSize(qRound(m_Doc->toolSettings.defSize / 10.0));
-							m_Doc->AddFont(tmpf);
-						}
-					}
+					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerNr = obj.attribute("LAYER", "0").toInt();
 					OB.Language = obj.attribute("LANGUAGE", m_Doc->Language);
@@ -663,7 +626,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 //					Neu->NextIt = obj.attribute("NEXTITEM").toInt();
-					nextPg[Neu->ItemNr] = obj.attribute("NEXTPAGE").toInt();
+// 					nextPg[Neu->ItemNr] = obj.attribute("NEXTPAGE").toInt();
 					if (Neu->isTableItem)
 					{
 						TableItems.append(Neu);
@@ -837,27 +800,12 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	// reestablish textframe links
 	if (itemNext.count() != 0)
 	{
-		QMap<int,int>::Iterator lc;
+		QMap<int,long>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
+//			qDebug(QString("1.2 textframe links: %1->%2[%3]").arg(lc.key()).arg(itemRemap[lc.data()]).arg(lc.data()));
 			PageItem *Its = m_Doc->Items->at(lc.key());
-			PageItem *Itn = NULL;
-			if (lc.data()!= -1)
-			{
-				int itnr = 0;
-				for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
-				{
-					if (m_Doc->Items->at(nn)->OwnPage == nextPg[Its->ItemNr])
-					{
-						if (itnr == lc.data())
-						{
-							Itn = m_Doc->Items->at(nn);
-							break;
-						}
-						itnr++;
-					}
-				}
-			}
+			PageItem *Itn = m_Doc->Items->at(itemRemap[lc.data()]);
 			assert(Its && Its->asTextFrame());
 			assert(Itn && Itn->asTextFrame());
 			if (Itn->prevInChain() || Its->nextInChain()) 
@@ -904,44 +852,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	tmp2.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 	tmp2.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
-	bool unknown = false;
-	ScFace dummy = ScFace::none();
-	PrefsManager* prefsManager=PrefsManager::instance();
-	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
-	{
-		bool isThere = false;
-		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
-		{
-			if ((*dummyScFaces.at(dl)).scName() == tmpf)
-			{
-				isThere = true;
-				dummy = *dummyScFaces.at(dl);
-				break;
-			}
-		}
-		if (!isThere)
-		{
-			dummy = ScFace(); // FIXME
-			dummyScFaces.append(dummy);
-		}
-		unknown = true;
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
-		{
-			newReplacement = true;
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-		}
-		else
-			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-	}
-	else
-	{
-		if (!doc->UsedFonts.contains(tmpf))
-		{
-//			QFont fo = prefsManager->appPrefs.AvailFonts[tmpf]->Font;
-//			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-			doc->AddFont(tmpf);
-		}
-	}
+	doc->AllFonts->findFont(tmpf, doc);
 	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
 	QString fcolor = it->attribute("CCOLOR");
 	int shade = it->attribute("CSHADE").toInt();
@@ -974,10 +885,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 			ch = SpecialChars::PARSEP;
 		if (ch == QChar(4))
 			ch = SpecialChars::TAB;
-		if (unknown)
-			style.setFont(dummy);
-		else
-			style.setFont((*doc->AllFonts)[tmpf]);
+		style.setFont((*doc->AllFonts)[tmpf]);
 		style.setFontSize(size);
 		style.setFillColor(fcolor);
 		style.setTracking(extra);
@@ -1031,8 +939,6 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	PageItem *Neu;
 	itemRemap.clear();
 	itemNext.clear();
-	itemCount = 0;
-	nextPg.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	Q3PtrList<PageItem> TableItems;
@@ -1050,8 +956,6 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 	DoVorl.clear();
-	DoFonts.clear();
-	DoFonts[m_Doc->toolSettings.defFont] = m_Doc->toolSettings.defFont;
 	DoVorl[0] = "";
 	DoVorl[1] = "";
 	DoVorl[2] = "";
@@ -1231,19 +1135,20 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QDomNode OBJ=PAGE.firstChild();
 				counter = m_Doc->Items->count();
 				baseobj = counter;
+				int pageItem = 0;
 				while(!OBJ.isNull())
 				{
 					QDomElement obj=OBJ.toElement();
 				/*
 				* Attribute von OBJECT auslesen
 				*/
+					itemRemap[scribus12itemID(pageItem++, pageNumber)] = m_Doc->Items->count();
 					if (obj.tagName()=="PAGEOBJECT")
 					{
-						itemRemap[itemCount++] = m_Doc->Items->count();
 						// member of linked chain?
 						if ((obj.attribute("NEXTITEM").toInt() != -1) && (obj.attribute("NEXTPAGE").toInt() == pageNumber))
 						{
-							itemNext[m_Doc->Items->count()] = obj.attribute("NEXTITEM").toInt();
+							itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), pageNumber);
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
@@ -1261,11 +1166,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					tmpf = obj.attribute("IFONT", m_Doc->toolSettings.defFont);
 					if (tmpf.isEmpty())
 						tmpf = m_Doc->toolSettings.defFont;
-					tmf = tmpf;
-					if (!DoFonts.contains(tmpf))
-						tmpf = AskForFont(*m_AvailableFonts, tmpf, m_Doc);
-					else
-						tmpf = DoFonts[tmf];
+					m_AvailableFonts->findFont(tmpf, m_Doc);
 					OB.IFont = tmpf;
 					OB.LayerNr = layerTrans[obj.attribute("LAYER", "0").toInt()];
 					OB.Language = obj.attribute("LANGUAGE", m_Doc->Language);
@@ -1312,11 +1213,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							GetItemText(&it, m_Doc, VorLFound, true, Neu);
 						IT=IT.nextSibling();
 					}
-					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
-					{
+// 					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
+// 					{
 //						Neu->NextIt = baseobj + obj.attribute("NEXTITEM").toInt();
-						nextPg[Neu->ItemNr] = a; // obj.attribute("NEXTPAGE").toInt();
-					}
+// 						nextPg[Neu->ItemNr] = a; // obj.attribute("NEXTPAGE").toInt();
+// 					}
 //					else
 //						Neu->NextIt = -1;
 					if (Neu->isTableItem)
@@ -1353,27 +1254,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				// reestablish textframe links
 				if (itemNext.count() != 0)
 				{
-					QMap<int,int>::Iterator lc;
+					QMap<int,long>::Iterator lc;
 					for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 					{
 						PageItem *Its = m_Doc->Items->at(lc.key());
-						PageItem *Itn = NULL;
-						if (lc.data()!= -1)
-						{
-							int itnr = 0;
-							for (uint nn = 0; nn < m_Doc->Items->count(); ++nn)
-							{
-								if (m_Doc->Items->at(nn)->OwnPage == nextPg[Its->ItemNr])
-								{
-									if (itnr == lc.data())
-									{
-										Itn = m_Doc->Items->at(nn);
-										break;
-									}
-									itnr++;
-								}
-							}
-						}
+						PageItem *Itn = m_Doc->Items->at(itemRemap[lc.data()]);
 						assert(Its && Its->asTextFrame());
 						assert(Itn && Itn->asTextFrame());
 						if (Itn->prevInChain() || Its->nextInChain()) 
@@ -1384,17 +1269,6 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						Its->link(Itn);
 					}
 				}
-
-				// reestablish first/lastAuto
-				m_Doc->FirstAuto = m_Doc->LastAuto;
-				if (m_Doc->LastAuto)
-				{
-					while (m_Doc->LastAuto->nextInChain())
-						m_Doc->LastAuto = m_Doc->LastAuto->nextInChain();
-					while (m_Doc->FirstAuto->prevInChain())
-						m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
-				}
-				
 				
 				if (!Mpage)
 					m_View->reformPages();
@@ -1451,12 +1325,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
 	if (tmpf.isEmpty())
 		tmpf = doc->toolSettings.defFont;
-	tmf = tmpf;
-	PrefsManager* prefsManager=PrefsManager::instance();
-	if (!DoFonts.contains(tmpf))
-		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
-	else
-		tmpf = DoFonts[tmf];
+	PrefsManager *prefsManager=PrefsManager::instance();
+	prefsManager->appPrefs.AvailFonts.findFont(tmpf, doc);
 	vg->charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
 	vg->charStyle().setFontSize(qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0));
 	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
@@ -1583,7 +1453,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		}
 	}
 }
-
+/*
 QString Scribus12Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 {
 	PrefsManager *prefsManager=PrefsManager::instance();
@@ -1614,13 +1484,13 @@ QString Scribus12Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *do
 	DoFonts[fStr] = tmpf;
 	return tmpf;
 }
-
+*/
 bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	ParagraphStyle vg;
 	QDomDocument docu("scridoc");
 	QString tmpf, tmf;
-	DoFonts.clear();
+// 	DoFonts.clear();
 	QString f (readSLA(fileName));
 	if (f.isEmpty())
 		return false;

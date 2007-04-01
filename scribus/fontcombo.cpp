@@ -72,6 +72,7 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
+	substFont = loadIcon("font_subst16.png");
 	setEditable(false);
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
@@ -79,7 +80,7 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
 	RebuildList(0);
 }
 
-void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
+void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
 {
 	clear();
 	QMap<QString, QString> rlist;
@@ -106,7 +107,11 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		ScFace::FontType type = fon.type();
 		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || fon.subset()))
 			continue;
-		if (type == ScFace::OTF)
+		if (forSubstitute && fon.isReplacement())
+			continue;
+		if (fon.isReplacement())
+			insertItem(substFont, it2.data());
+		else if (type == ScFace::OTF)
 			addItem(otfFont, it2.data());
 		else if (type == ScFace::TYPE1)
 			addItem(psFont, it2.data());
@@ -130,6 +135,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
+	substFont = loadIcon("font_subst16.png");
 	currDoc = 0;
 	fontComboLayout = new QGridLayout(this);
 	fontComboLayout->setMargin(0);
@@ -219,7 +225,7 @@ void FontComboH::setCurrentFont(QString f)
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
 
-void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
+void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
 {
 	currDoc = currentDoc;
 	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
@@ -260,7 +266,11 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation)
 		ScFace::FontType type = fon.type();
 		if ((forAnnotation) && ((type == ScFace::TYPE1) || (type == ScFace::OTF) || (fon.subset())))
 			continue;
-		if (type == ScFace::OTF)
+		if ((forSubstitute) && fon.isReplacement())
+			continue;
+		if (fon.isReplacement())
+			fontFamily->insertItem(substFont, it2a.data());
+		else if (type == ScFace::OTF)
 			fontFamily->addItem(otfFont, it2a.data());
 		else if (type == ScFace::TYPE1)
 			fontFamily->addItem(psFont, it2a.data());

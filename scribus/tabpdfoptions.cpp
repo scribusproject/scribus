@@ -1042,7 +1042,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		AvailFlist->clear();
 		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
 		{
-			if (AllFonts[it.key()].type() == ScFace::TYPE1)
+			if (AllFonts[it.key()].isReplacement())
+				AvailFlist->insertItem(loadIcon("font_subst16.png"), it.key());
+			else if (AllFonts[it.key()].type() == ScFace::TYPE1)
 				AvailFlist->insertItem(loadIcon("font_type1_16.png"), it.key());
 			else if (AllFonts[it.key()].type() == ScFace::TTF)
 				AvailFlist->insertItem(loadIcon("font_truetype16.png"), it.key());

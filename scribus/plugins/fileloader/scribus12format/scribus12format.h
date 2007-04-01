@@ -52,15 +52,13 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
-		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
-		Q3ValueList<ScFace> dummyScFaces;
-		bool newReplacement;
-		QMap<QString,QString> ReplacedFonts;
-		QMap<QString,QString> DoFonts;
-		QMap<int,int> itemRemap;
-		QMap<int,int> itemNext;
-		QMap<int,int> nextPg; // old PageItem::NextPg attribute; transformation for PageItem* pi: pi->NextPg  ==>  nextPg[pi->ItemNr]
-		int itemCount;
+//		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
+//		QValueList<ScFace> dummyScFaces;
+//		bool newReplacement;
+//		QMap<QString,QString> ReplacedFonts;
+//		QMap<QString,QString> DoFonts;
+		QMap<long,int> itemRemap;
+		QMap<int,long> itemNext;
 		QMap<uint,QString> DoVorl;
 		uint VorlC;
 		

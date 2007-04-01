@@ -229,8 +229,16 @@ public:
 		ScFace result(m); 
 		result.replacedName = name; 
 		result.replacedInDoc = doc; 
-		return result; }
-
+		return result; 
+	}
+ 
+	void chReplacementTo(ScFace& other, QString doc) { 
+		QString oldName = replacedName;
+		(*this) = other;
+		replacedName = oldName;
+		replacedInDoc = doc; 
+	}
+	
 	/// the name PostScript uses for this font
 	QString psName()   const { return m->psName; }
 	

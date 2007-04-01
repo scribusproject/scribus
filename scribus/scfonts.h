@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QMap>
 #include <QDateTime>
+#include <Q3ValueList>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
@@ -28,6 +29,8 @@ FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, u
 #include "scconfig.h"
 
 #include "fonts/scface.h"
+
+class ScribusDoc;
 
 /*! \brief Main class SCFonts.
 Subclass of QDict<ScFace>.
@@ -44,8 +47,15 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		~SCFonts();
 		void updateFontMap();
 		void GetFonts(QString pf, bool showFontInfo=false);
-		void AddScalableFonts(const QString &path, QString DocName = "");
+		void AddScalableFonts(const QString& path, QString DocName = "");
+		/// Returns a font with that name; creates a replacement font if not found
+		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
+		/// Returns a map of pairs (scName, replacementName). Using this map for replaceFonts() will make substitutions permanent
+		QMap<QString,QString> getSubstitutions(const Q3ValueList<QString> skip = Q3ValueList<QString>()) const;
+		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
+		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
 		void removeFont(QString name);
+		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
 	private:
 		void ReadCacheList(QString pf);

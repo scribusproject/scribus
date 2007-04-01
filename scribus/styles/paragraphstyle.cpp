@@ -210,9 +210,9 @@ void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 
 void ParagraphStyle::replaceNamedResources(ResourceCollection& newNames)
 {
-	QMap<QString,QString>::Iterator it;
+	QMap<QString,QString>::ConstIterator it;
 	
-	if (!hasParent() && (it = newNames.pstyles.find(parent())) != newNames.pstyles.end())
+	if (!hasParent() && (it = (newNames.styles().find(parent()))) != newNames.styles().end())
 	{
 		setParent(it.data());
 		repairImplicitCharStyleInheritance();

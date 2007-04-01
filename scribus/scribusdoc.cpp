@@ -788,6 +788,9 @@ void ScribusDoc::enableCMS(bool enable)
 
 void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 {
+	lists.availableFonts = Allfonts;
+	lists.availableColors = const_cast<ColorList*>(& PageColors);
+
 	const Q3PtrList<PageItem> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
@@ -826,7 +829,7 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 {
 	ResourceCollection newNames;
-	newNames.pstyles = newNameForOld;
+	newNames.mapStyles(newNameForOld);
 	replaceNamedResources(newNames);
 }
 
@@ -885,7 +888,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 void ScribusDoc::replaceCharStyles(const QMap<QString,QString>& newNameForOld)
 {
 	ResourceCollection newNames;
-	newNames.cstyles = newNameForOld;
+	newNames.mapCharStyles(newNameForOld);
 	replaceNamedResources(newNames);
 	
 	/*

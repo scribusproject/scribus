@@ -69,12 +69,13 @@ public:
 	FontCombo(QWidget* pa);
 	~FontCombo() {};
 
-	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false);
+	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 private:
 	PrefsManager* prefsManager;
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
+	QPixmap substFont;
 };
 
 class SCRIBUS_API FontComboH : public QWidget
@@ -86,7 +87,7 @@ public:
 	FontComboH(QWidget* parent, bool labels=false);
 	~FontComboH() {};
 	QString currentFont();
-	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false);
+	void RebuildList(ScribusDoc *currentDoc, bool forAnnotation = false, bool forSubstitute = false);
 
 public slots:
 	void setCurrentFont(QString f);
@@ -109,6 +110,7 @@ protected:
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
+	QPixmap substFont;
 	QGridLayout* fontComboLayout;
 	bool showLabels;
 };
