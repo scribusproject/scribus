@@ -169,7 +169,7 @@ void Scribus12Format::getReplacedFontData(bool & getNewReplacement, QMap<QString
 	getDummyScFaces.clear();
 }
 
-static long scribus12itemID(int itemNr, int pageNr)
+static long long scribus12itemID(int itemNr, int pageNr)
 {
 	return itemNr * 100000 + pageNr; 
 }
@@ -544,7 +544,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					 */
 					if (!m_Doc->masterPageMode())
 					{
-						const long itemID = scribus12itemID(pageItem++, pageNo);
+						const long long itemID = scribus12itemID(pageItem++, pageNo);
 //						qDebug(QString("1.2 remap: %1 -> %2 [%3 on page %4]").arg(itemID).arg(m_Doc->Items->count()).arg(pageItem-1).arg(pageNo));
 						itemRemap[itemID] = m_Doc->Items->count();
 						if (obj.tagName()=="PAGEOBJECT")
@@ -800,7 +800,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	// reestablish textframe links
 	if (itemNext.count() != 0)
 	{
-		QMap<int,long>::Iterator lc;
+		QMap<int,long long>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
 //			qDebug(QString("1.2 textframe links: %1->%2[%3]").arg(lc.key()).arg(itemRemap[lc.data()]).arg(lc.data()));
@@ -1254,7 +1254,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				// reestablish textframe links
 				if (itemNext.count() != 0)
 				{
-					QMap<int,long>::Iterator lc;
+					QMap<int,long long>::Iterator lc;
 					for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 					{
 						PageItem *Its = m_Doc->Items->at(lc.key());
