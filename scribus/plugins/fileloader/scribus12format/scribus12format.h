@@ -57,8 +57,8 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 //		bool newReplacement;
 //		QMap<QString,QString> ReplacedFonts;
 //		QMap<QString,QString> DoFonts;
-		QMap<long,int> itemRemap;
-		QMap<int,long> itemNext;
+		QMap<long long,int> itemRemap;
+		QMap<int,long long> itemNext;
 		QMap<uint,QString> DoVorl;
 		uint VorlC;
 		
