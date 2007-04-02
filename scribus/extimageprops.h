@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3PtrList>
 #include <Q3HBoxLayout>
 #include <QLabel>
+#include <QCheckBox>
 
 class Q3VBoxLayout;
 class Q3HBoxLayout;
@@ -25,7 +26,6 @@ class QSpinBox;
 class Q3Table;
 class Q3ListBox;
 class Q3ListBoxItem;
-class QCheckBox;
 class QPushButton;
 
 class ScribusView;
