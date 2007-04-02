@@ -826,26 +826,37 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			if (styles[i].second.isNull())
 			{
 				sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
-				sitems[styles[i].first] = sitem;
-				sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
 			}
-			else
+			else if (sitems.contains(styles[i].second))
 			{
-				StyleViewItem *parent = 0;
-				if (sitems.contains(styles[i].second))
-					parent = sitems[styles[i].second];
-				else
-				{
-					styles.append(styles[i]);
-					continue;
-				}
-
+				StyleViewItem *parent = sitems[styles[i].second];
 				sitem = new StyleViewItem(parent, styles[i].first, item_->typeName());
-				sitems[styles[i].first] = sitem;
-				sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
 				parent->setOpen(true);
 			}
-
+			else 
+			{
+				bool postpone = false;
+				// search if parent is in remaing styles
+				for (uint j = i+1; j < styles.count(); ++j)
+				{
+					if (styles[j].first == styles[i].second)
+					{
+						styles.append(styles[i]); // postpone
+						postpone = true;
+					}
+				}
+				if (postpone)
+					continue;
+				else 
+				{
+					qDebug(QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(item_->typeName()).arg(styles[i].first));
+					sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+				}
+			}
+			
+			sitems[styles[i].first] = sitem;
+			sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
+			
 			QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
 			if (styleActions_.contains(key))
 				continue;

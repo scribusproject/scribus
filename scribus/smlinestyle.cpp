@@ -367,22 +367,15 @@ QString SMLineStyle::newStyle(const QString &fromStyle)
 QString SMLineStyle::getUniqueName(const QString &name)
 {
 	int id = 0;
-	bool done = false;
 	QString s = name;
 
-	while (!done)
+	while (tmpLines.contains(s))
 	{
-start:
 		++id;
-		if (tmpLines.contains(s))
-		{
-			s = tr("%1 (%2)", "This for unique name when creating "
-					"a new character style. %1 will be the name "
-							"of the style and %2 will be a number forming "
-							"a style name like: New Style (2)").arg(name).arg(id);
-			goto start;
-		}
-		done = true;
+		s = tr("%1 (%2)", "This for unique name when creating "
+			"a new character style. %1 will be the name "
+			"of the style and %2 will be a number forming "
+			"a style name like: New Style (2)").arg(name).arg(id);
 	}
 
 	return s;
