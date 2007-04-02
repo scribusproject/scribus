@@ -49,7 +49,7 @@ ScrSpinBox::~ScrSpinBox()
 void ScrSpinBox::setParameters( int s )
 {
 	if (s>=0 && s <=unitGetMaxIndex())
-		setDecimals(static_cast<int>(pow(10, s)));
+		setDecimals(static_cast<int>(pow(10.0, s)));
 	else
 		setDecimals(100);
 }
