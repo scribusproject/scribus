@@ -179,8 +179,8 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	TxStroke->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	TxFill->insertItem(CommonStrings::NoneColor);
-	TxStroke->insertItem(CommonStrings::NoneColor);
+	TxFill->insertItem(CommonStrings::tr_NoneColor);
+	TxStroke->insertItem(CommonStrings::tr_NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
 		TxFill->insertSmallItem(it.data(), parentDoc, it.key());
@@ -335,7 +335,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	previewText = new QLabel(this, "previewText");
 	previewText->setMinimumSize(640, 200);
 	previewText->setMaximumSize(640, 200);
-	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	previewText->setAlignment( static_cast<int>( Qt::AlignVCenter | Qt::AlignLeft ) );
 	previewText->setFrameShape(Q3Frame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	layoutPreview->addWidget(previewText);
@@ -446,7 +446,7 @@ void EditStyle::toggleLsp(int id)
 	if (lineSpacingPop->indexOf(id) > 0)
 	{
 		LineSpVal->setSpecialValueText( tr( "Auto" ) );
-		LineSpVal->setMinValue(0);
+		LineSpVal->setMinimum(0);
 		LineSpVal->setValue(0);
 		LineSpVal->setEnabled(false);
 	}
@@ -454,7 +454,7 @@ void EditStyle::toggleLsp(int id)
 	{
 		LineSpVal->setEnabled(true);
 		LineSpVal->setSpecialValueText("");
-		LineSpVal->setMinValue(1);
+		LineSpVal->setMinimum(1);
 		double val = SizeC->value();
 		LineSpVal->setValue((val  * AutoVal / 100) + val);
 	}
