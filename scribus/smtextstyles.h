@@ -10,11 +10,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "styleitem.h"
 #include "styles/styleset.h"
+#include "styles/paragraphstyle.h"
 //Added by qt3to4:
 #include <Q3ValueList>
 
 class CharStyle;
-class ParagraphStyle;
 class ScribusDoc;
 class SMCStylePage;
 class SMPStyleWidget;
