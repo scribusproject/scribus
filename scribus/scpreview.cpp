@@ -49,6 +49,7 @@ ScPreview::ScPreview()
 
 QPixmap ScPreview::createPreview(QString data)
 {
+	uint a;
 	struct CopyPasteBuffer OB;
 	ScText *hg;
 	ScText *hl;
@@ -58,15 +59,13 @@ QPixmap ScPreview::createPreview(QString data)
 	QMap<QString,QString> DoFonts;
 	QMap<int,int> arrowID;
 	QString tmpf, tmpx, tmp2, tmp3;
-	int x, y;
+	int x, y, zae;
 	double xf, yf, asce;
 	FPoint gv;
 	int chs, currItem, fillBlendmode, strokeBlendmode;
 	Q3PointArray cl;
 	QColor tmpfa;
 	QString chstr;
-	uint a;
-	int zae;
 	double CurY, EndX, CurX, wide, rota, wid;
 	Q3ValueList<ArrowDesc> arrowStyles;
 	Q3ValueStack<int> groupStack;
