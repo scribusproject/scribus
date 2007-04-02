@@ -24,16 +24,16 @@ Xml_string toXMLString(const FPointArray& path);
 Xml_string toXMLString(const Q3ValueList<double>& doublelist);
 Xml_string toXMLString(const Q3ValueList<int>& intlist);
 
-unsigned int parseUInt(Xml_string str);
-int parseInt(Xml_string str);
-unsigned long parseULong(Xml_string str);
-long parseLong(Xml_string str);
-double parseDouble(Xml_string str);
-float parseFloat(Xml_string str);
-bool parseBool(Xml_string str);
-Q3ValueList<double> parseDoubleList(Xml_string str);
-Q3ValueList<int> parseIntList(Xml_string str);
-Q3ValueStack<int> parseIntStack(Xml_string str);
+unsigned int parseUInt(const Xml_string& str);
+int parseInt(const Xml_string& str);
+unsigned long parseULong(const Xml_string& str);
+long parseLong(const Xml_string& str);
+double parseDouble(const Xml_string& str);
+float parseFloat(const Xml_string& str);
+bool parseBool(const Xml_string& str);
+Q3ValueList<double> parseDoubleList(const Xml_string& str);
+Q3ValueList<int> parseIntList(const Xml_string& str);
+Q3ValueStack<int> parseIntStack(const Xml_string& str);
 
 
 Xml_string mkXMLName(QString any);
@@ -41,7 +41,7 @@ Xml_string mkXMLName(QString any);
 
 template<class ENUM>
 inline
-ENUM parseEnum(Xml_string str)
+ENUM parseEnum(const Xml_string& str)
 {
 	return static_cast<ENUM>(str.toUInt());
 }
@@ -49,70 +49,77 @@ ENUM parseEnum(Xml_string str)
 
 template<class DATA>
 inline
-DATA parse(Xml_string str)
+DATA parse(const Xml_string& str)
 {
 	return static_cast<DATA>(str);
 }
 
 template<>
 inline
-unsigned int parse<unsigned int>(Xml_string str)
+const Xml_string& parse<const Xml_string&>(const Xml_string& str)
+{
+	return str;
+}
+
+template<>
+inline
+unsigned int parse<unsigned int>(const Xml_string& str)
 {
 	return parseUInt(str);
 }
 
 template<>
 inline
-int parse<int>(Xml_string str)
+int parse<int>(const Xml_string& str)
 {
 	return parseInt(str);
 }
 
 template<>
 inline
-unsigned long parse<unsigned long>(Xml_string str)
+unsigned long parse<unsigned long>(const Xml_string& str)
 {
 	return parseULong(str);
 }
 
 template<>
 inline
-long parse<long>(Xml_string str)
+long parse<long>(const Xml_string& str)
 {
 	return parseLong(str);
 }
 
 template<>
 inline
-double parse<double>(Xml_string str)
+double parse<double>(const Xml_string& str)
 {
 	return parseDouble(str);
 }
 
 template<>
 inline
-float parse<float>(Xml_string str)
+float parse<float>(const Xml_string& str)
 {
 	return parseFloat(str);
 }
 
 template<>
 inline
-bool parse<bool>(Xml_string str)
+bool parse<bool>(const Xml_string& str)
 {
 	return parseBool(str);
 }
 
 template<>
 inline
-Q3ValueList<int> parse<Q3ValueList<int> >(Xml_string str)
+Q3ValueList<int> parse<Q3ValueList<int> >(const Xml_string& str)
 {
 	return parseIntList(str);
 }
 
 template<>
 inline
-Q3ValueList<double> parse<Q3ValueList<double> >(Xml_string str)
+Q3ValueList<double> parse<Q3ValueList<double> >(const Xml_string& str)
 {
 	return parseDoubleList(str);
 }

@@ -63,7 +63,7 @@ public:
 	: create_(create) 
     {}
 	
-	void begin(const Xml_string name, Xml_attr attr)
+	void begin(const Xml_string& name, Xml_attr attr)
     { 
 		this->dig->push(create_? create_() : new Obj_Type()); 
     }	
@@ -89,18 +89,18 @@ template<class Obj_Type>
 class FactoryWithArgs_body : public Generator_body<Obj_Type>
 {
 public:
-	typedef Obj_Type* (*FunType)(Xml_string, Xml_attr);
+	typedef Obj_Type* (*FunType)(const Xml_string&, Xml_attr);
 	
 	FactoryWithArgs_body(FunType create) 
 		: create_(create) 
     {}
 	
-	void begin(const Xml_string name, Xml_attr attr)
+	void begin(const Xml_string& name, Xml_attr attr)
     { 
 		this->dig->push(create_(name, attr)); 
     }	
 private:
-		Obj_Type* (*create_)(Xml_string, Xml_attr);
+		Obj_Type* (*create_)(const Xml_string&, Xml_attr);
 };
 
 template <class Type>
@@ -119,7 +119,7 @@ template<class Obj_Type>
 class FactoryWithName_body : public Generator_body<Obj_Type>
 {
 public:
-	typedef Obj_Type* (*FunType)(Xml_string);
+	typedef Obj_Type* (*FunType)(const Xml_string&);
 	
 	FactoryWithName_body() 
 	: create_(NULL) 
@@ -129,7 +129,7 @@ public:
 	: create_(create) 
 	{}
 	
-	void begin(const Xml_string tag, Xml_attr)
+	void begin(const Xml_string& tag, Xml_attr)
 	{ 
 		this->dig->push(create_? create_(tag) : new Obj_Type(tag)); 
 	}	
@@ -164,7 +164,7 @@ public:
 		delete proto_; 
 	}
 	
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string&, Xml_attr)
 	{
 		this->dig->push(new Obj_Type(proto_));
 	}
@@ -193,7 +193,7 @@ public:
 	: distance(n) 
 	{}
 		
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string&, Xml_attr)
 	{
 		this->dig->push(this->dig->template top<Obj_Type>(distance));
 	}
@@ -227,7 +227,7 @@ public:
 	: get_(get)
 	{}
 	
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string&, Xml_attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
 		Data_Type* data = (obj->*get_)();
@@ -259,7 +259,7 @@ public:
 	: set_(set) 
 	{}
 	
-	void end(const Xml_string)
+	void end(const Xml_string&)
 	{ 
 		Store_Type* data = this->dig->template top<Store_Type>(); 
 		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
@@ -294,7 +294,7 @@ public:
 	: set_(set) 
 	{}
 	
-	void end(const Xml_string)
+	void end(const Xml_string&)
 	{ 
 		Data_Type* data = this->dig->template top<Data_Type>(); 
 		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
@@ -330,7 +330,7 @@ public:
 		: set_(set), conv_(conv)
 	{}
 	
-	void end(const Xml_string)
+	void end(const Xml_string&)
 	{ 
 		Store_Type* data = this->dig->template top<Store_Type>(); 
 		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
@@ -371,7 +371,7 @@ public:
 	SetAttributes_body(FunType set) : set_(set) 
 	{}
 	
-	void begin(const Xml_string, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it;
@@ -402,15 +402,15 @@ class SetAttribute_body : public Action_body
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type) ;
 	
-	SetAttribute_body(FunType set, Xml_string name) 
+	SetAttribute_body(FunType set, const Xml_string& name) 
 		: set_(set), name_(name), default_(), hasDefault_(false)
 	{}
 	
-	SetAttribute_body(FunType set, Xml_string name, Data_Type deflt) 
+	SetAttribute_body(FunType set, const Xml_string& name, Data_Type deflt) 
 		: set_(set), name_(name), default_(deflt), hasDefault_(true)
 	{}
 		
-	void begin(const Xml_string, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it = attr.find(name_);
@@ -448,17 +448,17 @@ class SetAttributeWithConversion_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type) ;
-	typedef Data_Type (*ConvType)(Xml_string);
+	typedef Data_Type (*ConvType)(const Xml_string&);
 	
-	SetAttributeWithConversion_body(FunType set, Xml_string name, ConvType conv) 
+	SetAttributeWithConversion_body(FunType set, const Xml_string& name, ConvType conv) 
 		: set_(set), name_(name), conv_(conv), default_(), hasDefault_(false)
 	{}
 	
-	SetAttributeWithConversion_body(FunType set, Xml_string name, ConvType conv, Data_Type deflt) 
+	SetAttributeWithConversion_body(FunType set, const Xml_string& name, ConvType conv, Data_Type deflt) 
 		: set_(set), name_(name), conv_(conv), default_(deflt), hasDefault_(true)
 	{}
 	
-	void begin(const Xml_string, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it = attr.find(name_);
@@ -481,10 +481,10 @@ struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversio
 {	
 	typedef SetAttributeWithConversion_body<Type,Data> BodyType;
 	
-	SetAttributeWithConversion(typename BodyType::FunType set, Xml_string name, typename BodyType::ConvType conv)
+	SetAttributeWithConversion(typename BodyType::FunType set, const Xml_string& name, typename BodyType::ConvType conv)
 	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>(set,name,conv) {} 
 	
-	SetAttributeWithConversion(typename BodyType::FunType set, Xml_string name, typename BodyType::ConvType conv, Data deflt)
+	SetAttributeWithConversion(typename BodyType::FunType set, const Xml_string& name, typename BodyType::ConvType conv, Data deflt)
 	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>(set,name,conv,deflt) {} 
 };
 
@@ -503,7 +503,7 @@ public:
 	AddText_body(FunType add) : addT(add) 
 	{}
 	
-	void chars(const Xml_string txt)
+	void chars(const Xml_string& txt)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		(obj->*addT)( txt ); 
@@ -539,17 +539,17 @@ public:
 	SetText_body(FunType set) : setT(set) 
 	{}
 	
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string&, Xml_attr)
 	{
 		txt = "";
 	}
 	
-	void chars(const Xml_string chunk)
+	void chars(const Xml_string& chunk)
 	{
 		txt += chunk;
 	}
 	
-	void end(const Xml_string tag)
+	void end(const Xml_string& tag)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		(obj->*setT)( txt ); 
@@ -577,9 +577,9 @@ template<class Obj_Type>
 class Store_body : public Action_body
 {
 public:
-	Store_body(Xml_string name) : m_name(name) {}
+	Store_body(const Xml_string& name) : m_name(name) {}
 	
-	void begin(const Xml_string tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		qDebug(QString("Store: %1 <- %2").arg(tag).arg(typeid(obj).name()));
@@ -774,7 +774,7 @@ public:
 		: set_(set), name_(name)
 	{}
 	
-	void begin(const Xml_string, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Xml_attr::iterator it = attr.find(name_);
 		if (it != attr.end())
@@ -810,7 +810,7 @@ public:
 	Result_body() 
 	{}
 	
-	void end(const Xml_string)
+	void end(const Xml_string&)
 	{ 
 		this->dig->setResult(dig->template top<Data_Type>());
 	}

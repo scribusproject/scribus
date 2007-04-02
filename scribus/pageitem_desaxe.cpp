@@ -21,7 +21,7 @@ using namespace desaxe;
 
 
 
-FPointArray parseSVG(Xml_string str)
+FPointArray parseSVG(const Xml_string& str)
 {
 	FPointArray result;
 	result.parseSVG(str);
@@ -170,7 +170,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 }	
 
 
-void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
+void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att(PageItemXMLAttributes(this));
 	Xml_attr dumm;
@@ -179,7 +179,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 
 	if (effectsInUse.count() != 0)
 	{
-		for (uint a = 0; a < effectsInUse.count(); ++a)
+		for (int a = 0; a < effectsInUse.count(); ++a)
 		{
 			Xml_attr imeff;
 			imeff.insert("Code", toXMLString((*effectsInUse.at(a)).effectCode));
@@ -262,7 +262,7 @@ void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
 
 class CreatePageItem_body : public Generator_body<PageItem>
 {
-	void begin (const Xml_string /*tagname*/, Xml_attr attr)
+	void begin (const Xml_string& /*tagname*/, Xml_attr attr)
 	{
 		PageItem* result;
 		ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
@@ -293,7 +293,7 @@ class CreatePageItem : public MakeGenerator<CreatePageItem_body, PageItem>
 ///   PageItem StoryText -> PageItem StoryText
 class SetItemText_body : public Action_body
 {
-	void end (const Xml_string /*tagname*/)
+	void end (const Xml_string& /*tagname*/)
 	{
 		PageItem* item = this->dig->top<PageItem>(1);
 		StoryText* story = this->dig->top<StoryText>(0);
@@ -310,7 +310,7 @@ class SetItemText : public MakeAction<SetItemText_body>
 
 class Gradient_body : public Action_body
 {
-	void begin (const Xml_string tagName, Xml_attr attr)
+	void begin (const Xml_string& tagName, Xml_attr attr)
 	{
 		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
 		if (tagName=="CStop")
@@ -343,7 +343,7 @@ class Gradient : public MakeAction<Gradient_body>
 
 class ImageEffectsAndLayers_body : public Action_body
 {
-	void begin (const Xml_string tagName, Xml_attr attr)
+	void begin (const Xml_string& tagName, Xml_attr attr)
 	{
 		qDebug(QString("pageitem_desaxe: effects/layers %1").arg(tagName));
 		if (tagName=="ImageEffect")
@@ -375,7 +375,7 @@ class ImageEffectsAndLayers : public MakeAction<ImageEffectsAndLayers_body>
 
 class LoadPicture_body : public Action_body
 {
-	void end (const Xml_string /*tagname*/)
+	void end (const Xml_string& /*tagname*/)
 	{
 		PageItem* item = this->dig->top<PageItem>();
 		if (item->itemType() == PageItem::ImageFrame)
@@ -390,7 +390,7 @@ class LoadPicture : public MakeAction<LoadPicture_body>
 
 class AdjustGroupIds_body : public Action_body
 {
-	void begin (const Xml_string tagname, Xml_attr attr)
+	void begin (const Xml_string& tagname, Xml_attr attr)
 	{
 		if (tagname != PageItem::saxxDefaultElem)
 		{
@@ -400,7 +400,7 @@ class AdjustGroupIds_body : public Action_body
 		}
 	}
 
-	void end (const Xml_string tagname)
+	void end (const Xml_string& tagname)
 	{
 		if (tagname != PageItem::saxxDefaultElem)
 		{
@@ -410,7 +410,7 @@ class AdjustGroupIds_body : public Action_body
 		else {
 			PageItem* item = this->dig->top<PageItem>();
 			Q3ValueStack<int> groups;
-			for (uint i=0; i < item->groups().count(); ++i)
+			for (int i=0; i < item->groups().count(); ++i)
 			{
 				int newGroup = minGroup + item->groups()[i];
 				if (newGroup > maxGroup)
@@ -487,7 +487,7 @@ void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_stri
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setEndArrowIndex, "line-end-arrow", &parseInt ));
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFrameType, "frame-type", &parseInt ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,FPointArray>( & PageItem::setShape, "frame-shape", &parseSVG ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem, FPointArray>( & PageItem::setShape, "frame-shape", &parseSVG ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasDefaultShape, "frame-has-default-shape", &parseBool ));	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setCornerRadius, "corner-radius", &parseDouble ));	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,FPointArray>( & PageItem::setContour, "frame-contour", &parseSVG ));

@@ -4,7 +4,7 @@
 #include "annotation.h"
 #include "util.h"
 
-void Annotation::saxx(SaxHandler& handler, Xml_string elemtag) const
+void Annotation::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
 	att.insert("ANTYPE", QString::number(Type()));

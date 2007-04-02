@@ -232,7 +232,7 @@ static QString toXMLString(const Q3ValueList<ParagraphStyle::TabRecord> & )
 	return "dummy";
 }
 
-void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
+void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
@@ -299,14 +299,14 @@ class SetTabStop : public desaxe::MakeAction<SetTabStop_body>
 
 
 template<>
-ParagraphStyle::AlignmentType parse<ParagraphStyle::AlignmentType>(Xml_string str)
+ParagraphStyle::AlignmentType parse<ParagraphStyle::AlignmentType>(const Xml_string& str)
 {
 	return parseEnum<ParagraphStyle::AlignmentType>(str);
 }
 
 
 template<>
-ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(Xml_string str)
+ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(const Xml_string& str)
 {
 	return parseEnum<ParagraphStyle::LineSpacingMode>(str);
 }
@@ -315,7 +315,7 @@ ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(Xml_strin
 typedef Q3ValueList<ParagraphStyle::TabRecord> Tablist;
 
 template<>
-Tablist parse<Tablist>(Xml_string str)
+Tablist parse<Tablist>(const Xml_string& str)
 {
 	return Tablist();
 }

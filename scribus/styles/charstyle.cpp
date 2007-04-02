@@ -278,7 +278,7 @@ Xml_string toXMLString(StyleFlag val)
 }
 
 
-void CharStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
+void CharStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
@@ -298,13 +298,13 @@ void CharStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 
 
 template<>
-StyleFlag parse<StyleFlag>(Xml_string str)
+StyleFlag parse<StyleFlag>(const Xml_string& str)
 {
 	return StyleFlag(parseInt(str));
 }
 
 template<>
-ScFace parse<ScFace>(Xml_string str)
+ScFace parse<ScFace>(const Xml_string& str)
 {
 	// FIXME: enable font substitution here
 	return PrefsManager::instance()->appPrefs.AvailFonts[str];

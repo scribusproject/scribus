@@ -1167,7 +1167,7 @@ int StoryText::endOfItem(uint itm) const
 
 using namespace desaxe;
 
-void StoryText::saxx(SaxHandler& handler, Xml_string elemtag) const
+void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr empty;
 	Xml_attr pageno;
