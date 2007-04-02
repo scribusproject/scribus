@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QEvent>
 #include <Q3VBoxLayout>
+#include "styleitem.h"
 
-class StyleItem;
 class ScribusDoc;
 class QHideEvent;
 class Q3GridLayout;
