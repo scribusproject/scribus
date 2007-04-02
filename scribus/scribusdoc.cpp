@@ -874,14 +874,18 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		}
 	}
 	
-	if (newNames.colors().count() > 0)
+	if (newNames.colors().count() > 0 || newNames.fonts().count() > 0)
+	{
 		docCharStyles.invalidate();
-	else if (newNames.fonts().count() > 0)
-		docCharStyles.invalidate();
-	else if (newNames.charStyles().count() > 0)
-		docCharStyles.invalidate();
-	else if (newNames.styles().count() > 0)
 		docParagraphStyles.invalidate();	
+	}
+	else
+	{
+		if (newNames.charStyles().count() > 0)
+			docCharStyles.invalidate();
+		if (newNames.styles().count() > 0)
+			docParagraphStyles.invalidate();	
+	}
 }
 
 
