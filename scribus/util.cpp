@@ -562,7 +562,7 @@ QString String2Hex(QString *in, bool lang)
 	for( int xi = 0; xi < in->length(); ++xi )
 	{
 		// Qt4 .cell() added ???
-		out += toHex(uchar(QChar(in->at(xi)).cell()));
+		out += toHex(QChar(in->at(xi)).cell());
 		++i;
 		if ((i>40) && (lang))
 		{
