@@ -1485,7 +1485,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 
 void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!m_ScMW || m_ScMW->ScriptRunning || !HaveItem)
 		return;
 	if (CurItem->isGroupControl)
 	{
