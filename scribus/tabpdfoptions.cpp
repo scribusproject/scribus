@@ -958,17 +958,38 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add( NoEmbedded, "<qt>" + tr( "Do not use color profiles that are embedded in source images" ) + "</qt>" );
 	QToolTip::add( ImageP, "<qt>" + tr( "Color profile for images" ) + "</qt>" );
 	QToolTip::add( IntendI, "<qt>" + tr( "Rendering intent for images" ) + "</qt>" );
-	QToolTip::add( PrintProfC, "<qt>" + tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) + "</qt>" );
-	QToolTip::add( InfoString, "<qt>" + tr( "Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document." ) + "</qt>" );
-	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
-	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
-	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
-	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 	QToolTip::add( MirrorH, "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
 	QToolTip::add( MirrorV, "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
 	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
+	//Viewer tab
+	QToolTip::add( singlePage, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( continuousPages, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( doublePageLeft, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( doublePageRight, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( useViewDefault, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( useFullScreen, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( useBookmarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( useThumbnails, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( useLayers2, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( hideToolBar, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( hideMenuBar, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( fitWindow, "<qt>" + tr( "" ) + "</qt>" );
+	//PrePress tab 
+	QToolTip::add( cropMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( bleedMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( registrationMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( colorMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( docInfoMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( markOffset, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+	QToolTip::add( docBleeds, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( PrintProfC, "<qt>" + tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) + "</qt>" );
+	QToolTip::add( InfoString, "<qt>" + tr( "Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document." ) + "</qt>" );
 }
 
 void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
