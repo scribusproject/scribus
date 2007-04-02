@@ -478,11 +478,6 @@
   </customwidget>
  </customwidgets>
  <includes>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
-  <include location="local" >mspinbox.h</include>
  </includes>
  <resources/>
  <connections/>
