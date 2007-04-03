@@ -42,7 +42,7 @@ private:
 class SMReplaceDia : public QDialog, Ui::SMReplaceDia {
 	Q_OBJECT
 public:
-	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions);
+	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent);
 	~SMReplaceDia();
 
 	Q3ValueList<RemoveItem> items();
