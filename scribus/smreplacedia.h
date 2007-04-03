@@ -36,7 +36,7 @@ private:
 class SMReplaceDia : public SMReplaceDiaBase {
 	Q_OBJECT
 public:
-	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions);
+	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent);
 	~SMReplaceDia();
 
 	QValueList<RemoveItem> items();
