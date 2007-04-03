@@ -736,34 +736,9 @@ void PageItem_TextFrame::layout()
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
-				if (BackBox != 0)
+				if (a == 0 || nextItem->itemText.text(a-1) == SpecialChars::PARSEP)
 				{
-					nextItem = BackBox;
-					while (nextItem != 0)
-					{
-						if (nextItem->frameDisplays(a-1))
-						{
-							if (nextItem->itemText.text(a-1) == SpecialChars::PARSEP)
-							{
-								current.yPos += style.gapBefore();
-								if (chstr[0] != SpecialChars::PARSEP)
-								{
-									DropCmode = style.hasDropCap();
-									if (DropCmode)
-										DropLines = style.dropCapLines();
-								}
-								else
-									DropCmode = false;
-								break;
-							}
-							else
-								break;
-						}
-						nextItem = nextItem->prevInChain();
-					}
-				}
-				else
-				{
+					current.yPos += style.gapBefore();
 					if (chstr[0] != SpecialChars::PARSEP)
 					{
 						DropCmode = style.hasDropCap();
@@ -772,15 +747,16 @@ void PageItem_TextFrame::layout()
 					}
 					else
 						DropCmode = false;
-					current.yPos += style.gapBefore();
 				}
 			}
+
 			{  // local block for 'fl'
 				StyleFlag fl = hl->effects();
 				fl &= ~ScStyle_DropCap;
 				fl &= ~ScStyle_SmartHyphenVisible;
 				hl->setEffects(fl);
 			}
+			
 			// No space at begin of line, 
 			if (legacy)
 			{
@@ -813,7 +789,7 @@ void PageItem_TextFrame::layout()
 			if (current.itemsInLine == 0)
 			{
  				// more about par gap and dropcaps
-				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!current.startOfCol))
+				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!current.startOfCol)) // after || always evaluates to false? FIXME
 				{
 					current.yPos += style.gapBefore();
 					DropCapDrop = 0;
@@ -898,16 +874,8 @@ void PageItem_TextFrame::layout()
 				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 			else
 			{
-/*				if (a+1 < itemText.length())
-				{
-						chstr3 = itemText.text(a+1);
-					// apply kerning
-					wide = charStyle.font().charWidth(chstr2[0], chs / 10.0, chstr3[0]);
-				}
-				else
-					wide = charStyle.font().charWidth(chstr2[0], chs / 10.0);
-*/			
 				wide = hl->glyph.wide();
+				// apply kerning
 				if (a+1 < itemText.length())
 				{
 					uint glyph2 = charStyle.font().char2CMap(itemText.text(a+1));
@@ -948,7 +916,7 @@ void PageItem_TextFrame::layout()
 				desc2 = 0;
 				desc = 0;
 			}
-			else
+			else // !DropCMode
 			{
 //				qDebug(QString("textframe ascent/descent: fontsize=%1, ascent=%2, descent=%3")
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
@@ -1039,8 +1007,13 @@ void PageItem_TextFrame::layout()
 //					qDebug(QString("useBaselIneGrid: %1 * %2 + %3 - %4").arg(ol2 / 10000.0).arg(m_Doc->typographicSettings.valueBaseGrid).arg(m_Doc->typographicSettings.offsetBaseGrid).arg(by));
 					current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
 				}
+				/* this causes different spacing for first line:
 				if (current.yPos-TopOffset < 0.0)
+				{
+					qDebug(QString("current.yPos - Ascender < 0 (%1 - %2 < 0)").arg(current.yPos).arg(TopOffset));
 					current.yPos = TopOffset+1;
+				}
+				 */
 				// find linelength:
 				pt1 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(current.yPos+BotOffset));
 				pt2 = QPoint(static_cast<int>(ceil(current.xPos)), static_cast<int>(ceil(current.yPos-TopOffset)));
@@ -1137,18 +1110,8 @@ void PageItem_TextFrame::layout()
 				}
 				else
 				{
-					if (BackBox == 0)
+					if (legacy)
 						current.xPos += style.firstIndent();
-					else
-					{
-						if (BackBox->frameDisplays(firstInFrame()-1))
-						{
-							if (BackBox->itemText.text(BackBox->lastInFrame()) == SpecialChars::PARSEP)
-								current.xPos += style.firstIndent();
-						}
-						else
-							current.xPos += style.firstIndent();
-					}
 				}
 				// add left margin
 				if (!AbsHasDrop)
@@ -1667,6 +1630,7 @@ void PageItem_TextFrame::layout()
 								currasce = QMAX(currasce, cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0));
 						}
 						double adj = firstasce - currasce;
+//						qDebug(QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(adj));
 						current.line.ascent = currasce;
 						current.line.y -= adj;
 						current.yPos -= adj;
@@ -1695,6 +1659,7 @@ void PageItem_TextFrame::layout()
 						}
 							
 						double adj = firstasce - currasce;
+//						qDebug(QString("move2 line %1.. down by %2").arg(current.line.firstItem).arg(adj));
 						current.line.ascent = currasce;
 						current.line.y -= adj;
 						current.yPos -= adj;
@@ -1839,6 +1804,8 @@ void PageItem_TextFrame::layout()
 						currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem+zc).font().realCharAscent(itemText.text(current.line.firstItem+zc), itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
+//				qDebug(QString("move3 line %1.. down by %2").arg(current.line.firstItem).arg(adj));
+
 				current.line.ascent = currasce;
 				current.line.y -= adj;
 				current.yPos -= adj;
@@ -1864,6 +1831,8 @@ void PageItem_TextFrame::layout()
 						currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
+//				qDebug(QString("move4 line %1.. down by %2").arg(current.line.firstItem).arg(adj));
+
 				current.line.ascent = currasce;
 				current.line.y -= adj;
 				current.yPos -= adj;
