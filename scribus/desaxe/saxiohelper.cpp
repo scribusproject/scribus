@@ -54,7 +54,7 @@ Xml_string toXMLString(unsigned int val)
 	return QString::number(val);
 }
 
-unsigned int parseUInt(Xml_string str)
+unsigned int parseUInt(const Xml_string& str)
 {
 	return str.toUInt();
 }
@@ -65,7 +65,7 @@ Xml_string toXMLString(int val)
 }
 
 
-int parseInt(Xml_string str)
+int parseInt(const Xml_string& str)
 {
 	return str.toInt();
 }
@@ -76,7 +76,7 @@ Xml_string toXMLString(unsigned long val)
 	return QString::number(val);
 }
 
-unsigned long parseULong(Xml_string str)
+unsigned long parseULong(const Xml_string& str)
 {
 	return str.toULong();
 }
@@ -87,7 +87,7 @@ Xml_string toXMLString(long val)
 }
 
 
-long parseLong(Xml_string str)
+long parseLong(const Xml_string& str)
 {
 	return str.toLong();
 }
@@ -99,7 +99,7 @@ Xml_string toXMLString(double val)
 }
 
 
-double parseDouble(Xml_string str)
+double parseDouble(const Xml_string& str)
 {
 	return str.toDouble();
 }
@@ -111,7 +111,7 @@ Xml_string toXMLString(float val)
 }
 
 
-float parseFloat(Xml_string str)
+float parseFloat(const Xml_string& str)
 {
 	return str.toFloat();
 }
@@ -123,7 +123,7 @@ Xml_string toXMLString(bool what)
 }
 
 
-bool parseBool(Xml_string str)
+bool parseBool(const Xml_string& str)
 {
 	return str == "yes";
 }
@@ -145,7 +145,7 @@ Xml_string toXMLString(const QValueList<double>& doublelist)
 }
 
 
-QValueList<double> parseDoubleList(Xml_string str)
+QValueList<double> parseDoubleList(const Xml_string&  str)
 {
 	QStringList strlist = QStringList::split(' ', str);
 	QValueList<double> result;
@@ -165,7 +165,7 @@ Xml_string toXMLString(const QValueList<int>& intlist)
 }
 
 
-QValueList<int> parseIntList(Xml_string str)
+QValueList<int> parseIntList(const Xml_string& str)
 {
 	QStringList strlist = QStringList::split(' ', str);
 	QValueList<int> result;
@@ -175,7 +175,7 @@ QValueList<int> parseIntList(Xml_string str)
 }
 
 
-QValueStack<int> parseIntStack(Xml_string str)
+QValueStack<int> parseIntStack(const Xml_string& str)
 {
 	QStringList strlist = QStringList::split(' ', str);
 	QValueStack<int> result;

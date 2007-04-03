@@ -19,7 +19,7 @@ using namespace desaxe;
 
 
 
-FPointArray parseSVG(Xml_string str)
+FPointArray parseSVG(const Xml_string& str)
 {
 	FPointArray result;
 	result.parseSVG(str);
@@ -168,7 +168,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 }	
 
 
-void PageItem::saxx(SaxHandler& handler, Xml_string elemtag) const
+void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att(PageItemXMLAttributes(this));
 	Xml_attr dumm;

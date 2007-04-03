@@ -170,7 +170,7 @@ static QString toXMLString(const Sublist & )
 }
 
 
-void LineStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
+void LineStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att;
 	Style::saxxAttributes(att);
@@ -196,25 +196,25 @@ void LineStyle::saxx(SaxHandler& handler, const Xml_string elemtag) const
 
 
 template<>
-Sublist parse<Sublist>(Xml_string str)
+Sublist parse<Sublist>(const Xml_string& str)
 {
 	return Sublist();
 }
 
 template<>
-Qt::PenStyle parse<Qt::PenStyle>(Xml_string str)
+Qt::PenStyle parse<Qt::PenStyle>(const Xml_string& str)
 {
 	return parseEnum<Qt::PenStyle>(str);
 }
 
 template<>
-Qt::PenCapStyle parse<Qt::PenCapStyle>(Xml_string str)
+Qt::PenCapStyle parse<Qt::PenCapStyle>(const Xml_string& str)
 {
 	return parseEnum<Qt::PenCapStyle>(str);
 }
 
 template<>
-Qt::PenJoinStyle parse<Qt::PenJoinStyle>(Xml_string str)
+Qt::PenJoinStyle parse<Qt::PenJoinStyle>(const Xml_string& str)
 {
 	return parseEnum<Qt::PenJoinStyle>(str);
 }
