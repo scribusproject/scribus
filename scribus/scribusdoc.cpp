@@ -857,20 +857,31 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 	// replace names in styles...
 	for (int i=docParagraphStyles.count()-1; i >= 0; --i)
 	{
-		docParagraphStyles[i].replaceNamedResources(newNames);
+		if (newNames.styles().contains(docParagraphStyles[i].name()))
+			docParagraphStyles.remove(i);
+		else
+			docParagraphStyles[i].replaceNamedResources(newNames);
 	}
 	for (int i=docCharStyles.count()-1; i >= 0; --i)
 	{
-		docCharStyles[i].replaceNamedResources(newNames);
+		if (newNames.charStyles().contains(docCharStyles[i].name()))
+			docCharStyles.remove(i);
+		else
+			docCharStyles[i].replaceNamedResources(newNames);
 	}
 
 	QMap<QString,ScPattern>::Iterator it;
 	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
-		ScPattern pa = *it;
-		for (uint o = 0; o < pa.items.count(); o++)
+		if (newNames.patterns().contains(it.key()))
+			docPatterns.remove(it);
+		else
 		{
-			pa.items.at(o)->replaceNamedResources(newNames);
+			ScPattern pa = *it;
+			for (uint o = 0; o < pa.items.count(); o++)
+			{
+				pa.items.at(o)->replaceNamedResources(newNames);
+			}
 		}
 	}
 	

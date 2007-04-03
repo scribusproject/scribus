@@ -287,7 +287,7 @@ void StyleManager::slotDelete()
 	Q3ValueList<StyleName> styles = item_->styles(false); // get list from cache
 	for (int i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
-	SMReplaceDia *dia = new SMReplaceDia(selected, tmp);
+	SMReplaceDia *dia = new SMReplaceDia(selected, tmp, this);
 	if (dia->exec() && item_)
 	{
 		item_->deleteStyles(dia->items());
