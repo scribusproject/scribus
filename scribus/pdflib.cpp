@@ -4159,6 +4159,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
 	if ((hl->ch == SpecialChars::OBJECT) && (embedded.hasItem()))
 	{
+		if (!ite->asPathText())
+		{
+			tmp += "ET\n"+tmp2;
+			tmp2 = "";
+		}
 		QPtrList<PageItem> emG = embedded.getGroupedItems();
 		QPtrStack<PageItem> groupStack;
 		for (uint em = 0; em < emG.count(); ++em)
@@ -4205,11 +4210,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				}
 			}
 		}
+		tmp += tmp2+"\n";
+		tmp2 = "";
 		if (ite->asPathText())
-		{
-			tmp += tmp2+"Q\n";
-			tmp2 = "";
-		}
+			tmp += "Q\n";
+		else
+			tmp += "BT\n";
 		return;
 	}
 
@@ -6771,6 +6777,12 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			PutDoc(QString::number(itoc.data().ObjNum)+" 0 R ");
 		}
 		PutDoc("]\n");
+/*		PutDoc("/AS << /Event /Print /Category [/Print] /OCGs [");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			PutDoc(QString::number(itoc.data().ObjNum)+" 0 R ");
+		}
+		PutDoc("] >>\n"); */
 		PutDoc(">>\nendobj\n");
 	}
 	if (Options.Version == 12)
