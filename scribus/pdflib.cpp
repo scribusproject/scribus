@@ -4164,6 +4164,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
 	if ((hl->ch == SpecialChars::OBJECT) && (embedded.hasItem()))
 	{
+		if (!ite->asPathText())
+		{
+			tmp += "ET\n"+tmp2;
+			tmp2 = "";
+		}
 		Q3PtrList<PageItem> emG = embedded.getGroupedItems();
 		Q3PtrStack<PageItem> groupStack;
 		for (uint em = 0; em < emG.count(); ++em)
@@ -4210,11 +4215,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				}
 			}
 		}
+		tmp += tmp2+"\n";
+		tmp2 = "";
 		if (ite->asPathText())
-		{
-			tmp += tmp2+"Q\n";
-			tmp2 = "";
-		}
+			tmp += "Q\n";
+		else
+			tmp += "BT\n";
 		return;
 	}
 
