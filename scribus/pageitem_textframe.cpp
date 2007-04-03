@@ -596,7 +596,6 @@ void PageItem_TextFrame::layout()
 //	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
 	ScribusView* view = m_Doc->view();
 	QPainter pf2;
-	PageItem *nextItem;
 	QPoint pt1, pt2;
 	QRegion cm;
 	double chs, chsd = 0;
@@ -736,7 +735,7 @@ void PageItem_TextFrame::layout()
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
-				if (a == 0 || nextItem->itemText.text(a-1) == SpecialChars::PARSEP)
+				if (a == 0 || itemText.text(a-1) == SpecialChars::PARSEP)
 				{
 					current.yPos += style.gapBefore();
 					if (chstr[0] != SpecialChars::PARSEP)
