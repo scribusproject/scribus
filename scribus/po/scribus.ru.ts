@@ -10,7 +10,8 @@ If no document is open, returns a list of the default document colors.
         <translation>getColorNames() -&gt; list
 
 Возвращает список имён цветов, определённых для этого документа.
-Если ни один документ не открыт, возвращается список стандартных цветов документа.
+Если ни один документ не открыт, возвращается список стандартных 
+цветов документа.
 </translation>
     </message>
     <message>
@@ -63,7 +64,12 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setRedraw(bool)
+
+Запрещает обновление страницы при bool = False, в противоположном 
+случае — разрешает. Это изменение сохраняется даже после завершения 
+выполнения сценария, поэтому рекомендуется всегда вызывать 
+setRedraw(True) в конце кода вашего сценария.</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -76,7 +82,14 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Создаёт новый прямоугольник на текущей странице и возвращает его имя.
+Координаты задаются в текущей единице измерения документа 
+(см. константу UNIT). &quot;name&quot; должно быть уникальным идентификатором 
+для этого объекта, поскольку в дальнейшем оно будет использоваться для 
+работы с объектом. Если параметр &quot;name&quot; не задан, он будет создан автоматически.
+</translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -85,7 +98,12 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Устанавливает тип градиентной заливки для объекта &quot;name&quot;. Параметры цвета
+такие же, как и для setFillColor() и setFillShade(). Доступные типы градиентной
+заливки см. (FILL_&lt;type&gt;).
+</translation>
     </message>
     <message>
         <source>getFontSize([&quot;name&quot;]) -&gt; float
@@ -95,7 +113,13 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontSize([&quot;name&quot;]) -&gt; float
+
+Возвращает размер шрифта в точках текстового фрейма &quot;name&quot;. Если в
+тексте есть выделенный фрагмент, то возвращается размер первого символа
+выделенного фрагмента.
+Если параметр &quot;name&quot; не указан, используется выделенный объект.
+</translation>
     </message>
     <message>
         <source>messagebarText(&quot;string&quot;)
@@ -103,7 +127,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messagebarText(&quot;string&quot;)
+
+Выводит сообщение &quot;string&quot; в статусной строке Scribus. Текст должен быть
+в кодировке UTF8 или Unicode (последний вариант предпочтительнее).
+</translation>
     </message>
     <message>
         <source>newPage(where [,&quot;masterpage&quot;])
@@ -116,7 +144,15 @@ master page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newPage(where [,&quot;masterpage&quot;])
+
+Создаёт новую страницу. Если &quot;where&quot; равно -1, то новая страница добавляется к 
+документу, иначе новая страница вставляется перед &quot;where&quot;. Номера страниц 
+отсчитываются от 1 и далее, какая страница показывается первой — неважно.
+Опциональный параметр &quot;masterpage&quot; указывает имя шаблона для новой страницы
+
+Может вызвать ошибку IndexError, если номер страницы некорректен
+</translation>
     </message>
     <message>
         <source>importSVG(&quot;string&quot;)
@@ -124,7 +160,11 @@ May raise IndexError if the page number is out of range
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>importSVG(&quot;string&quot;)
+
+&quot;string&quot; — корректное имя файла с SVG рисунком. Текст должен быть
+в кодировке UTF8 или Unicode (последний вариант предпочтительнее).
+</translation>
     </message>
     <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
@@ -167,7 +207,38 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber, unit, pagesType, firstPageOrder) -&gt; bool
+
+Создаёт новый документ. В случае успешного создания документа возвращает true.
+Значение параметров:
+
+size = набор (width, height) описывает размер страницы документа. Можно
+использовать предопределённые константы PAPER_&lt;paper_type&gt; напр. PAPER_A4 и т.п.
+
+margins = Набор (left, right, top, bottom) описывающий поля документа.
+
+orientation = ориентация страницы — константы PORTRAIT, LANDSCAPE
+
+firstPageNumer = номер первой страницы документа, от которого будет продолжена
+нумерация. Используется для создания документов, состоящих из нескольких
+частей.
+
+unit: это значение устанавливает единицу измерения, используемую в документе. 
+Используйте предопределенные константы: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+firstPageOrder = Устанавливает позицию первой страницы в документе
+Отсчитывается от 0 (0 = первая).
+
+numPage = Количество создаваемых страниц.
+
+Значения ширины, высоты и отступов выражены в заданной единице измерения документа
+Константы PAPER_*  заданы в пунктах. Если единица измерения в вашем документе не «пункт»,
+обратите на это внимание.
+
+Пример: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS, PAGE_4, 3, 1)
+
+Может вызвать ошибку ScribusError, если firstPageOrder больше чем задано в pagesType.</translation>
     </message>
 </context>
 <context>
@@ -182,7 +253,15 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColor(&quot;name&quot;) -&gt; tuple
+
+Возвращает набор (C, M, Y, K), содержащий 4 цветовых компонента
+цвета &quot;name&quot; из текущего документа. Если документ не открыт, возвращает
+значение именованного цвета из стандартной для документа палитры.
+
+Может вызвать ошибку NotFoundError, если именованный цвет не найден.
+Может вызвать ошибку ValueError, если задан некорректный цвет.
+</translation>
     </message>
     <message>
         <source>changeColor(&quot;name&quot;, c, m, y, k)
@@ -194,7 +273,15 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>changeColor(&quot;name&quot;, c, m, y, k)
+
+Изменяет значение цвета &quot;name&quot; на указанное значение CMYK. 
+Цвет задаётся через 4 компонента: c = Cyan, m = Magenta, y = Yellow 
+и k = Black. Значение цветового компонента должно быть в пределах 0-255.
+
+Может вызвать ошибку NotFoundError, если именованный цвет не найден.
+Может вызвать ошибку ValueError, если задан некорректный цвет.
+</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -209,7 +296,18 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Удаляет цвет &quot;name&quot;.  Каждый случай использования цвета &quot;name&quot; будет
+заменен на цвет  &quot;replace&quot;. Если параметр &quot;replace&quot; не указан, цвет 
+устанавливается как &quot;None&quot;, то есть прозрачный.
+
+Если нет открытого документа, deleteColor работает со стандартной 
+цветовой палитрой. В таком случае &quot;replace&quot; не оказывает эффекта.
+
+Может вызвать ошибку NotFoundError, если именованный цвет не найден.
+Может вызвать ошибку ValueError, если задан некорректный цвет.
+</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -219,7 +317,12 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Каждый случай использования цвета &quot;name&quot; будет заменён на цвет &quot;replace&quot;.
+
+Может вызвать ошибку NotFoundError, если именованный цвет не найден.
+Может вызвать ошибку ValueError, если задан некорректный цвет.</translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -255,7 +358,40 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Показывает диалог сообщения с заголовком &quot;caption&quot;, текстом &quot;message&quot;, 
+значком &quot;icon&quot; и 1-3 кнопками. По умолчанию значка нет, и в диалоге
+только одна кнопка &quot;OK&quot;. Обязательные аргументы — заголовок окна и 
+текст сообщения, и, тем не менее, крайне рекомендуется явно задавать 
+значок и соответствующие кнопки. Текст сообщения может содержать 
+простой HTML-код.
+
+Возвращаемое значение — номер нажатой пользователем кнопки. 
+Нумерация кнопок начинается с 1.
+
+Для значков и кнопок есть константы, имена которых совпадают с именами
+в документации по Qt. В модуле заданы константы BUTTON_* и ICON_*. 
+Также есть еёе две дополнительные константы, которые могут использоваться
+в виде суммы со значениями констант кнопок:
+    BUTTONOPT_DEFAULT   Enter нажимает эту кнопку.
+    BUTTONOPT_ESCAPE    Escape нажимает эту кнопку.
+
+Примеры:
+result = messageBox(&apos;Ошибка сценария&apos;,
+                    &apos;Этот сценарий работает, если выбран текстовый фрейм.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Константы кнопок и значков:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</translation>
     </message>
     <message>
         <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
@@ -265,7 +401,13 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Вызывает диалог для ввода строки и возвращает введённую строку как результат.
+Параметры: заголовок окна, текст в окне и опционально значение по умолчанию.
+
+Пример: valueDialog(&apos;Проба&apos;, &apos;Введите строку:&apos;, &apos;Результат&apos;)
+</translation>
     </message>
     <message>
         <source>closeDoc()
@@ -274,14 +416,22 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeDoc()
+
+Закрывает текущий документ, не предлагая его сохранить.
+
+Возможна ошибка NoDocOpenError, если нет открытых документов.
+</translation>
     </message>
     <message>
         <source>haveDoc() -&gt; bool
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>haveDoc() -&gt; bool
+
+Возвращает true, если есть открытый документ.
+</translation>
     </message>
     <message>
         <source>openDoc(&quot;name&quot;)
@@ -290,7 +440,11 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>openDoc(&quot;name&quot;)
+
+Открывает документ &quot;name&quot;.
+
+Может вызвать ошибку ScribusError, если указанный документ невозможно открыть.</translation>
     </message>
     <message>
         <source>saveDoc()
@@ -301,7 +455,15 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDoc()
+
+Сохраняет документ под текущим именем и возвращает true, если сохранение
+прошло успешно. Если у документа нет имени, вызывается интерактивный
+диалог сохранения документа.
+
+Если сохранить документ не удалось, на данный момент нет возможности 
+узнать про это.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;name&quot;)
@@ -311,7 +473,13 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;name&quot;)
+
+Сохраняет документ под новым именем &quot;name&quot; (путь может быть как относительным, 
+так и абсолютным).
+
+Может вызвать ошибку ScribusError, если сохранить не удалось.
+</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -320,7 +488,10 @@ Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setMargins(lr, rr, tr, br)
+
+Устанавливает поля в документе, левое(lr), правое(rr), сверху(tr) и снизу(br)
+отступы даются в единицах измерения документа - см. константу UNIT_&lt;type&gt;.</translation>
     </message>
     <message>
         <source>setUnit(type)
@@ -330,7 +501,14 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setUnit(type)
+
+Изменяет единицу измерения в документе. Возможные значения 
+определены константами UNIT_&lt;type&gt;.
+
+Может вызвать ошибку ValueError, если используется некорректная
+единица измерения.
+</translation>
     </message>
     <message>
         <source>getUnit() -&gt; integer (Scribus unit constant)
@@ -339,7 +517,12 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getUnit() -&gt; integer (Scribus unit constant)
+
+Возвращает единицу измерения документа. Возвращаемое значение
+будет одной из констант UNIT_*:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
     </message>
     <message>
         <source>loadStylesFromFile(&quot;filename&quot;)
@@ -347,7 +530,10 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadStylesFromFile(&quot;filename&quot;)
+
+Загружает стиль из документа &quot;filename&quot; в текущий документ.
+</translation>
     </message>
     <message>
         <source>setDocType(facingPages, firstPageLeft)
@@ -357,7 +543,14 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setDocType(facingPages, firstPageLeft)
+
+Устанавливает тип документа. Чтобы задать наличие обложки, установите
+первый параметр как FACINGPAGES.Чтобы отказаться от обложки,
+используйте константу NOFACINGPAGES. Если хотите, чтобы первая страница 
+была слева, используйте константу FIRSTPAGELEFT для второго параметра, 
+если справа — FIRSTPAGERIGHT.
+</translation>
     </message>
     <message>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
@@ -365,7 +558,12 @@ a right page use FIRSTPAGERIGHT.
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineColor([&quot;name&quot;]) -&gt; string
+
+Возвращает название цвета, используемого для штриха
+объекта &quot;name&quot;. Если &quot;name&quot; не задан, используется 
+выделенный объект.
+</translation>
     </message>
     <message>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
@@ -373,7 +571,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Возвращает толщину линии штриха объекта &quot;name&quot;. 
+Если &quot;name&quot; не задан, используется выделенный объект.
+</translation>
     </message>
     <message>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
@@ -381,7 +583,11 @@ is not given the currently selected Item is used.
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Возвращает тип тени, используемой для штриха объекта &quot;name&quot;. 
+Если &quot;name&quot; не задан, используется выделенный объект.
+</translation>
     </message>
     <message>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
@@ -390,7 +596,12 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (см. константы)
+
+Возвращает тип соединения линий объекта &quot;name&quot;. Если &quot;name&quot; не задан, 
+используется выделенный объект. Возможные значения:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</translation>
     </message>
     <message>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
@@ -399,7 +610,12 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineEnd([&quot;name&quot;]) -&gt; integer (см. константы)
+
+Возвращает стиль для концов линий объекта &quot;name&quot;. Если &quot;name&quot; 
+не задан, используется выделенный объект. Возможные значения:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -408,7 +624,12 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineStyle([&quot;name&quot;]) -&gt; integer (см. константы)
+
+Возвращает тип линий объекта &quot;name&quot;. Если &quot;name&quot; 
+не задан, используется выделенный объект. Возможные значения:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</translation>
     </message>
     <message>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
@@ -416,7 +637,12 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Возвращает тип тени, используемой для заливки
+объекта &quot;name&quot;. Если &quot;name&quot; не задан, используется 
+выделенный объект.
+</translation>
     </message>
     <message>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
@@ -424,7 +650,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Возвращает набор (x, y) содержащий значения масштабирования для
+изображения &quot;name&quot;. Если &quot;name&quot; не задан, используется выделенный объект.
+</translation>
     </message>
     <message>
         <source>getImageName([&quot;name&quot;]) -&gt; string
@@ -432,7 +662,11 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageName([&quot;name&quot;]) -&gt; string
+
+Взвращает имя файла для изображения &quot;name&quot; в документе.
+Если &quot;name&quot; не задан, используется выделенный объект.
+</translation>
     </message>
     <message>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
@@ -1829,7 +2063,7 @@ strings.
     <name>ActionManager</name>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -1841,7 +2075,7 @@ strings.
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Сохранить</translation>
+        <translation>Со&amp;хранить</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -2265,7 +2499,7 @@ strings.
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation>&amp;Запасник</translation>
+        <translation>&amp;Альбом</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
@@ -2465,15 +2699,15 @@ strings.
     </message>
     <message>
         <source>Bullet</source>
-        <translation>Маркер списка</translation>
+        <translation>Маркер списка (буллит)</translation>
     </message>
     <message>
         <source>Em Dash</source>
-        <translation>Тире на круглую</translation>
+        <translation>Тире на круглую шпацию</translation>
     </message>
     <message>
         <source>En Dash</source>
-        <translation>Тире на полукруглую</translation>
+        <translation>Тире на полукруглую шпацию</translation>
     </message>
     <message>
         <source>Figure Dash</source>
@@ -2493,23 +2727,23 @@ strings.
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Английская открывающая одинарная </translation>
+        <translation>Открывающая одиночная</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Английская закрывающая одинарная</translation>
+        <translation>Закрывающая одиночная</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Английская открывающая двойная</translation>
+        <translation>Немецкая закрывающая двойная</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation>Английская закрывающая двойная</translation>
+        <translation>Закрывающая двойная</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Перевёрнутая одинарная </translation>
+        <translation>Перевёрнутая одиночная</translation>
     </message>
     <message>
         <source>Double Reversed</source>
@@ -2517,11 +2751,11 @@ strings.
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Французская открывающая одинарная</translation>
+        <translation>Французская открывающая одиночная</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Французская закрывающая одинарная</translation>
+        <translation>Французская закрывающая одиночная</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
@@ -2533,19 +2767,19 @@ strings.
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation>Нижняя одинарная запятая</translation>
+        <translation>Нижняя одиночная запятая</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Нижняя двойная запятая</translation>
+        <translation>Немецкая открывающая двойная</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation>Азиатская открывающая одинарная</translation>
+        <translation>Азиатская открывающая одиночная</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation>Азиатская закрывающая одинарная</translation>
+        <translation>Азиатская закрывающая одиночная</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
@@ -2704,15 +2938,15 @@ strings.
     </message>
     <message>
         <source>Thin Space</source>
-        <translation>Узкий пробел</translation>
+        <translation>Тонкая шпация</translation>
     </message>
     <message>
         <source>Thick Space</source>
-        <translation>Широкий пробел</translation>
+        <translation>Третная шпация</translation>
     </message>
     <message>
         <source>Mid Space</source>
-        <translation>Средний пробел</translation>
+        <translation>Четверная шпация</translation>
     </message>
     <message>
         <source>Hair Space</source>
@@ -3810,7 +4044,7 @@ strings.
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
-        <translation>Запасник</translation>
+        <translation>Альбом</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -3830,7 +4064,7 @@ strings.
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
@@ -3864,7 +4098,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
-        <translation>Выберите каталог для запасника</translation>
+        <translation>Выберите каталог для альбома</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -3872,15 +4106,15 @@ Please choose another.</source>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
-        <translation>Запасник (*.scs)</translation>
+        <translation>Альбом (*.scs)</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation>Выберите импортируемый файл запасника</translation>
+        <translation>Выберите импортируемый файл альбома</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation>&amp;Импортировать файл запасника...</translation>
+        <translation>&amp;Импортировать файл альбома...</translation>
     </message>
     <message>
         <source>Main</source>
@@ -4232,11 +4466,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation>Если выбрать, будет печататься на всех плашках. Цвета для приводки используются для создания пометок для принтера, таких как метки под обрез. Их использование в общих случаях при создании макетов нетипично.</translation>
+        <translation>Если выбрать, то будет возможно использовать во всём макете. Цвета для приводки используются для печатных пометок, таких как метки для порезки. Их использование в общих случаях при создании макетов нетипично.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation>Если выбрать, цвет станет плашечным, то есть при создании плашек или цветоделений будет создаваться ещё одна точка. Это чаще всего нужно, когда необходимо точно воспроизвести цвет логотипа или другого цветного объекта, либо когда невозможно использовать чернила CMYK (в случае с металлическими или флюоресцентными чернилами, к примеру).</translation>
+        <translation>Если выбрать, цвет станет плашечным, то есть для него будет выводиться отдельная плёнка. Обычно используется при печати отдельной, спецально намешанной краской для точного воспроизведения цвета (например на логотипах), либо когда невозможно использовать четырёхкрасочную печать (в случае с металликами, флюоресцентами и т.п.).</translation>
     </message>
 </context>
 <context>
@@ -4350,7 +4584,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Small Form Variants</source>
-        <translation type="unfinished"></translation>
+        <translation>Уменьшенные символы</translation>
     </message>
     <message>
         <source>Ligatures</source>
@@ -4530,7 +4764,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -4627,7 +4861,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation>Если управление цветом включено, на цвете может появиться треугольник - это означает, что цвет не попадает в цветовой охват при текущем профиле для принтера. Таким образом, этот цвет может быть напечатан не так, как он выглядит на экране монитора. Плашечные цвета для приводки отображаются красным кружком. Цвета для приводки содержат метку рядом с цветом. Подробности о предупреждениях касательно цветового охвата изложены в разделе «Управление цветом» документации.</translation>
+        <translation>Если управление цветом включено, на цвете может появиться треугольник — это означает, что цвет не попадает в цветовой охват при текущем профиле для принтера. Таким образом, этот цвет может быть напечатан не так, как он выглядит на экране монитора. Плашечные цвета отмечаются красным кружком. Цвета для приводки содержат метку рядом с цветом. Подробности о предупреждениях касательно цветового охвата изложены в разделе «Управление цветом» документации.</translation>
     </message>
 </context>
 <context>
@@ -4927,11 +5161,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>Две вальцовки</translation>
+        <translation>Две фальцовки</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>Три вальцовки</translation>
+        <translation>Три фальцовки</translation>
     </message>
     <message>
         <source>Left Page</source>
@@ -6146,7 +6380,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -7020,7 +7254,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Добавить</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -7028,7 +7262,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>De&amp;lete All</source>
-        <translation>Удалить &amp;всё</translation>
+        <translation>Удалить &amp;все</translation>
     </message>
     <message>
         <source>Book&amp;marks</source>
@@ -8861,7 +9095,7 @@ Corners:</source>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation>Размер страницы документа, стандартный 
+        <translation>Формат страницы документа, стандартный 
 либо заданный пользователем</translation>
     </message>
     <message>
@@ -10046,7 +10280,7 @@ Corners:</source>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation>Стандартный, либо настраиваемый размер страницы</translation>
+        <translation>Стандартный, либо настраиваемый формат страницы</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
@@ -13301,7 +13535,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation>Читается запасник</translation>
+        <translation>Читается альбом</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
@@ -14003,7 +14237,7 @@ Vertical shift: %3</source>
     <name>ScriptPlugin</name>
     <message>
         <source>Embedded Python scripting support.</source>
-        <translation>Встроена поддержка сценариев на Python.</translation>
+        <translation>Поддержка сценариев на встроенном Python.</translation>
     </message>
     <message>
         <source>Scripter</source>
@@ -16294,7 +16528,7 @@ when PDF document is opened:</source>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>Структура</translation>
+        <translation>Схема документа</translation>
     </message>
     <message>
         <source>Element</source>
@@ -16846,7 +17080,7 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation>Предлпринимается попытка получить файл обновления версии Scribus</translation>
+        <translation>Предпринимается попытка получить файл обновления версии Scribus</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
@@ -17084,7 +17318,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Размер страницы</translation>
+        <translation>Формат страницы</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -17181,7 +17415,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Размер страницы</translation>
+        <translation>Формат страницы</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -17283,7 +17517,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>to</source>
-        <translation>до</translation>
+        <translation>для</translation>
     </message>
     <message>
         <source>and</source>
@@ -17331,19 +17565,19 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation>все абзацы</translation>
+        <translation>всех абзацев</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation>абзацы, начинающиеся с</translation>
+        <translation>абзацев, начинающихся с</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation>абзац меньше</translation>
+        <translation>абзацев с размером меньше</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation>Общесистемные параметры перезагружены</translation>
+        <translation>абзацев с размером больше</translation>
     </message>
 </context>
 </TS>
