@@ -3245,6 +3245,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if ((hl->ch == QChar(25)) && (hl->cembedded != 0))
 	{
+		tmp += "ET\n"+tmp2;
+		tmp2 = "";
 		QPtrList<PageItem> emG;
 		emG.clear();
 		emG.append(hl->cembedded);
@@ -3273,6 +3275,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			tmp2 += PDF_ProcessItem(embedded, pag, PNr, true);
 			tmp2 += "Q\n";
 		}
+		tmp += tmp2+"\n";
+		tmp2 = "";
+		tmp += "BT\n";
 		return;
 	}
 	if (hl->ch == QChar(29))
