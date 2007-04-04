@@ -167,11 +167,11 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 		{
 			Xml_attr lineattr;
 			lineattr["Color"] = (*itMU2).Color;
-			lineattr["Shade"] = (*itMU2).Shade;
-			lineattr["Dash"] = (*itMU2).Dash;
-			lineattr["LineEnd"] = (*itMU2).LineEnd;
-			lineattr["LineJoin"] = (*itMU2).LineJoin;
-			lineattr["Width"] = (*itMU2).Width;
+			lineattr["Shade"] = toXMLString((*itMU2).Shade);
+			lineattr["Dash"] = toXMLString((*itMU2).Dash);
+			lineattr["LineEnd"] = toXMLString((*itMU2).LineEnd);
+			lineattr["LineJoin"] = toXMLString((*itMU2).LineJoin);
+			lineattr["Width"] = toXMLString((*itMU2).Width);
 			handler.beginEnd("SubLine", lineattr);
 		}
 		handler.end("MultiLine");
