@@ -54,13 +54,13 @@ public:
 	RuleState(const RuleState& other);
 	~RuleState();
 	/// adds a rule to the list
-	void addRule(const Xml_string pattern, Action action);
+	void addRule(const Xml_string& pattern, Action action);
 	/// sets the pattern recognizing automaton to its start state
 	void reset();
 	/// returns the rules which apply for the currently recognized pattern
 	const std::vector<rule_t>& rulesForCurrentState();
 	/// enters a new state when \c tag is read
-	void open(const Xml_string tag);
+	void open(const Xml_string& tag);
 	/// returns to the old state when the close tag is read
 	void close();
 	/// diagnostics
@@ -79,7 +79,7 @@ private:
 	std::vector<dfa_state_t> stateStack;
 
 	/// assigns a unique token to each string
-	token_t createToken(const Xml_string tok);
+	token_t createToken(const Xml_string& tok);
 	void makeTokens();
 	
 	/// creates a nondeterministic automaton as base for the DFA
@@ -129,7 +129,7 @@ const Xml_string Digester::getError(int i) const
 }
 
 
-void Digester::addRule(const Xml_string pattern, Action action)
+void Digester::addRule(const Xml_string& pattern, Action action)
 {
 	action.setDigester(this);
 	state->addRule(pattern, action);
@@ -148,7 +148,7 @@ void Digester::endDoc()
 {
 }
 
-void Digester::begin(Xml_string tag, Xml_attr attr)
+void Digester::begin(const Xml_string& tag, Xml_attr attr)
 {
 	state->open(tag);
 	const std::vector<rule_t>& rules (state->rulesForCurrentState());
@@ -162,7 +162,7 @@ void Digester::begin(Xml_string tag, Xml_attr attr)
 	}
 }
 
-void Digester::end(Xml_string tag)
+void Digester::end(const Xml_string& tag)
 {
 	const std::vector<rule_t>& rules (state->rulesForCurrentState());
 	std::vector<rule_t>::const_reverse_iterator it;
@@ -176,7 +176,7 @@ void Digester::end(Xml_string tag)
 	state->close();
 }
 
-void Digester::chars(Xml_string text)
+void Digester::chars(const Xml_string& text)
 {
 	const std::vector<rule_t>& rules (state->rulesForCurrentState());
 	std::vector<rule_t>::const_iterator it;
@@ -190,7 +190,7 @@ void Digester::chars(Xml_string text)
 }
 
 
-Xml_string Digester::concat(const Xml_string pattern1, const Xml_string pattern2)
+Xml_string Digester::concat(const Xml_string& pattern1, const Xml_string& pattern2)
 {
 	if (pattern1 == "")
 		return pattern2;
@@ -225,7 +225,7 @@ RuleState::~RuleState()
 }
 
 
-void RuleState::addRule(const Xml_string pattern, Action action)
+void RuleState::addRule(const Xml_string& pattern, Action action)
 {
 	rules.push_back(std::pair<Xml_string, Action>(pattern,action));
 	valid = false;
@@ -276,7 +276,7 @@ void RuleState::dump()
 }
 
 inline
-void RuleState::open(const Xml_string tag)
+void RuleState::open(const Xml_string& tag)
 {
 	dfa_state_t nstate = dfa->next(stateStack.back(), tokens[tag]);
 	assert(nstate != NULL);
@@ -316,7 +316,7 @@ void RuleState::makeTokens()
 
 
 
-token_t RuleState::createToken(const Xml_string tok)
+token_t RuleState::createToken(const Xml_string& tok)
 {
 	if (tokens.find(tok) == tokens.end())
 		tokens[tok] = tokens.size() + 1;

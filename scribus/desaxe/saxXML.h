@@ -23,9 +23,9 @@ public:
 	
 	void beginDoc();
 	void endDoc();
-	void begin(Xml_string tag, Xml_attr attr);
-	void end(Xml_string tag);
-	void chars(Xml_string text);
+	void begin(const Xml_string& tag, Xml_attr attr);
+	void end(const Xml_string& tag);
+	void chars(const Xml_string& text);
 
 private:
 	std::ofstream m_file;

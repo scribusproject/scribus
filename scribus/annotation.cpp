@@ -53,7 +53,7 @@ const Xml_string Annotation::saxxDefaultElem("pdfannotation");
 class ParseAnnotation_body : public Action_body
 {
 public:
-	void begin(const Xml_string tagname, Xml_attr attr)
+	void begin(const Xml_string& tagname, Xml_attr attr)
 	{
 		Annotation* ann = this->dig->top<Annotation>();
 		ann->setType(parseInt(attr["ANTYPE"]));
@@ -96,7 +96,7 @@ class ParseAnnotation : public MakeAction<ParseAnnotation_body>
 {};
 
 
-void Annotation::desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
+void Annotation::desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string annPrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(annPrefix, Factory<Annotation>());

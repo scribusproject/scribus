@@ -1278,7 +1278,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 class AppendText_body : public Action_body
 {
 public:	
-	void chars(const Xml_string txt)
+	void chars(const Xml_string& txt)
 	{
 		StoryText* obj = this->dig->top<StoryText>();
 		obj->insertChars(-1, txt ); 
@@ -1294,7 +1294,7 @@ class AppendSpecial_body : public Action_body
 public:
 	AppendSpecial_body(QChar sp) : chr(sp) {}
 	
-	void begin(const Xml_string tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 		StoryText* obj = this->dig->top<StoryText>();
 		Xml_attr::iterator code = attr.find("code");
@@ -1317,7 +1317,7 @@ struct AppendSpecial : public MakeAction<AppendSpecial_body, QChar>
 class AppendInlineFrame_body : public Action_body
 {
 public:
-	void end(const Xml_string tag) // this could be a setter if we had StoryText::appendObject() ...
+	void end(const Xml_string& tag) // this could be a setter if we had StoryText::appendObject() ...
 	{
 		StoryText* story = this->dig->top<StoryText>(1);
 		PageItem* obj = this->dig->top<PageItem>(0);
@@ -1332,7 +1332,7 @@ struct AppendInlineFrame : public MakeAction<AppendInlineFrame_body>
 class ApplyStyle_body : public Action_body
 {
 public:
-	void end(const Xml_string tag) 
+	void end(const Xml_string& tag) 
 	{
 		qDebug("storytext desaxe: apply style");
 		StoryText* story = this->dig->top<StoryText>(1);
@@ -1353,7 +1353,7 @@ public:
 	ApplyCharStyle_body(const Xml_string& tag) : storyTag(tag), lastPos(0), lastStyle()
 	{}
 	
-	void end(const Xml_string tag) 
+	void end(const Xml_string& tag) 
 	{
 		qDebug("storytext desaxe: apply charstyle");
 		if (tag == CharStyle::saxxDefaultElem)
@@ -1404,7 +1404,7 @@ public:
 			delete lastStyle;
 	}
 	
-	void begin(const Xml_string tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 		if (tag == "p")
 		{
@@ -1421,7 +1421,7 @@ public:
 		}
 	}
 	
-	void end(const Xml_string tag) 
+	void end(const Xml_string& tag) 
 	{
 		if (tag == ParagraphStyle::saxxDefaultElem)
 		{
@@ -1464,7 +1464,7 @@ public:
 			delete lastStyle;
 	}
 	
-	void begin(const Xml_string tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 //		qDebug(QString("spanaction: begin %1").arg(tag));
 		if (tag == "span")
@@ -1477,7 +1477,7 @@ public:
 		}
 	}
 	
-	void end(const Xml_string tag) 
+	void end(const Xml_string& tag) 
 	{
 		if (tag == CharStyle::saxxDefaultElem)
 //			qDebug(QString("spanaction: end %1").arg(tag));
@@ -1509,7 +1509,7 @@ struct SpanAction : public MakeAction<SpanAction_body>
 
 const Xml_string StoryText::saxxDefaultElem("story");
 
-void StoryText::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+void StoryText::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string storyPrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(storyPrefix, Factory<StoryText>());

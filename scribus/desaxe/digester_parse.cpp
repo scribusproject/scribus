@@ -50,7 +50,7 @@ private:
 	Digester * dig;
 };
 
-void Digester::parseFile(const Xml_string filename)
+void Digester::parseFile(const Xml_string& filename)
 {
 	DigesterParser* handler = new DigesterParser(this);
 	QFile xmlFile( filename );

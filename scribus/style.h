@@ -70,7 +70,7 @@ public:
 	// this is an abstract class, so:
 	// static const Xml_string saxxDefaultElem; 
 	template<class SUBSTYLE>
-		static void  desaxeRules(Xml_string prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag);
+		static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag);
 	
 	void saxxAttributes(Xml_attr& attr) const;
 	//virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;

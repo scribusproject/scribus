@@ -3,7 +3,7 @@
 #include "uniqueid.h"
 
 
-void UniqueID::begin(Xml_string tag, Xml_attr attr)
+void UniqueID::begin(const Xml_string& tag, Xml_attr attr)
 {
 	if (level > 0)  // skip mode
 		++level;
@@ -30,7 +30,7 @@ void UniqueID::begin(Xml_string tag, Xml_attr attr)
 }
 
 
-void UniqueID::end(Xml_string tag)
+void UniqueID::end(const Xml_string& tag)
 {
 	if (level > 0)  // skip mode
 		--level;
@@ -38,7 +38,7 @@ void UniqueID::end(Xml_string tag)
 		SaxFilter::end(tag);
 }
 
-void UniqueID::chars(Xml_string text)
+void UniqueID::chars(const Xml_string& text)
 {
 	if (level == 0)
 		SaxFilter::chars(text);

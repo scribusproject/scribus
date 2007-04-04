@@ -260,7 +260,7 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 
 class CreatePageItem_body : public Generator_body<PageItem>
 {
-	void begin (const Xml_string /*tagname*/, Xml_attr attr)
+	void begin (const Xml_string& /*tagname*/, Xml_attr attr)
 	{
 		PageItem* result;
 		ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
@@ -291,7 +291,7 @@ class CreatePageItem : public MakeGenerator<CreatePageItem_body, PageItem>
 ///   PageItem StoryText -> PageItem StoryText
 class SetItemText_body : public Action_body
 {
-	void end (const Xml_string /*tagname*/)
+	void end (const Xml_string& /*tagname*/)
 	{
 		PageItem* item = this->dig->top<PageItem>(1);
 		StoryText* story = this->dig->top<StoryText>(0);
@@ -308,7 +308,7 @@ class SetItemText : public MakeAction<SetItemText_body>
 
 class Gradient_body : public Action_body
 {
-	void begin (const Xml_string tagName, Xml_attr attr)
+	void begin (const Xml_string& tagName, Xml_attr attr)
 	{
 		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
 		if (tagName=="CStop")
@@ -341,7 +341,7 @@ class Gradient : public MakeAction<Gradient_body>
 
 class ImageEffectsAndLayers_body : public Action_body
 {
-	void begin (const Xml_string tagName, Xml_attr attr)
+	void begin (const Xml_string& tagName, Xml_attr attr)
 	{
 		qDebug(QString("pageitem_desaxe: effects/layers %1").arg(tagName));
 		if (tagName=="ImageEffect")
@@ -373,7 +373,7 @@ class ImageEffectsAndLayers : public MakeAction<ImageEffectsAndLayers_body>
 
 class LoadPicture_body : public Action_body
 {
-	void end (const Xml_string /*tagname*/)
+	void end (const Xml_string& /*tagname*/)
 	{
 		PageItem* item = this->dig->top<PageItem>();
 		if (item->itemType() == PageItem::ImageFrame)
@@ -388,7 +388,7 @@ class LoadPicture : public MakeAction<LoadPicture_body>
 
 class AdjustGroupIds_body : public Action_body
 {
-	void begin (const Xml_string tagname, Xml_attr attr)
+	void begin (const Xml_string& tagname, Xml_attr attr)
 	{
 		if (tagname != PageItem::saxxDefaultElem)
 		{
@@ -398,7 +398,7 @@ class AdjustGroupIds_body : public Action_body
 		}
 	}
 
-	void end (const Xml_string tagname)
+	void end (const Xml_string& tagname)
 	{
 		if (tagname != PageItem::saxxDefaultElem)
 		{
@@ -435,7 +435,7 @@ const Xml_string PageItem::saxxDefaultElem("item");
 
 
 
-void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string itemPrefix(Digester::concat(prefixPattern, elemtag));
 	

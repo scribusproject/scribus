@@ -22,14 +22,14 @@ class SaxHandler {
 public:
 	virtual void beginDoc() = 0;
 	virtual void endDoc() = 0;
-	virtual void begin(Xml_string tag, Xml_attr attr) = 0;
-	virtual void end(Xml_string tag) = 0;
-	inline  void beginEnd(Xml_string tag, Xml_attr attr);
-	virtual void chars(Xml_string text) = 0;
+	virtual void begin(const Xml_string& tag, Xml_attr attr) = 0;
+	virtual void end(const Xml_string& tag) = 0;
+	inline  void beginEnd(const Xml_string& tag, Xml_attr attr);
+	virtual void chars(const Xml_string& text) = 0;
 	virtual ~SaxHandler() {}
 };
 
-inline  void SaxHandler::beginEnd(Xml_string tag, Xml_attr attr)
+inline  void SaxHandler::beginEnd(const Xml_string& tag, Xml_attr attr)
 {
 	begin(tag, attr);
 	end(tag);

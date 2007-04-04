@@ -428,13 +428,13 @@ private:
 
 
 template <class Type, class Data>
-struct  SetAttribute : public MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data> 
+struct  SetAttribute : public MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, const Xml_string&, Data> 
 {
-	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, Xml_string name)
-	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>(set,name) {} 
+	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, const Xml_string& name)
+	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, const Xml_string&, Data>(set,name) {} 
 
-	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, Xml_string name, Data deflt)
-	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, Xml_string, Data>(set,name,deflt) {} 
+	SetAttribute(typename SetAttribute_body<Type,Data>::FunType set, const Xml_string& name, Data deflt)
+	: MakeAction<SetAttribute_body<Type,Data>, typename SetAttribute_body<Type,Data>::FunType, const Xml_string&, Data>(set,name,deflt) {} 
 };
 
 
@@ -477,15 +477,15 @@ private:
 
 
 template <class Type, class Data>
-struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, Xml_string, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data> 
+struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, const Xml_string&, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data> 
 {	
 	typedef SetAttributeWithConversion_body<Type,Data> BodyType;
 	
 	SetAttributeWithConversion(typename BodyType::FunType set, const Xml_string& name, typename BodyType::ConvType conv)
-	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>(set,name,conv) {} 
+	: MakeAction<BodyType, typename BodyType::FunType, const Xml_string&, typename BodyType::ConvType, Data>(set,name,conv) {} 
 	
 	SetAttributeWithConversion(typename BodyType::FunType set, const Xml_string& name, typename BodyType::ConvType conv, Data deflt)
-	: MakeAction<BodyType, typename BodyType::FunType, Xml_string, typename BodyType::ConvType, Data>(set,name,conv,deflt) {} 
+	: MakeAction<BodyType, typename BodyType::FunType, const Xml_string&, typename BodyType::ConvType, Data>(set,name,conv,deflt) {} 
 };
 
 
@@ -592,9 +592,9 @@ private:
 
 
 template <class Type>
-struct  Store : public MakeAction<Store_body<Type>, Xml_string > 
+struct  Store : public MakeAction<Store_body<Type>, const Xml_string& > 
 {
-	Store(Xml_string name) : MakeAction<Store_body<Type>, Xml_string >(name) {}
+	Store(const Xml_string& name) : MakeAction<Store_body<Type>, const Xml_string& >(name) {}
 };
 
 
@@ -706,10 +706,10 @@ private:
 
 
 template <class Data>
-struct  Lookup : public MakeGenerator<Lookup_body<Data>, Xml_string> 
+struct  Lookup : public MakeGenerator<Lookup_body<Data>, const Xml_string&> 
 {
 	Lookup(Xml_string ID)
-	: MakeGenerator<Lookup_body<Data>, Xml_string>::MakeGenerator(ID) {} 
+	: MakeGenerator<Lookup_body<Data>, const Xml_string&>::MakeGenerator(ID) {} 
 };
 
 
@@ -770,7 +770,7 @@ class PatchIdRefAttribute_body : public Action_body
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type*) ;
 	
-	PatchIdRefAttribute_body(FunType set, Xml_string name) 
+	PatchIdRefAttribute_body(FunType set, const Xml_string& name) 
 		: set_(set), name_(name)
 	{}
 	
@@ -790,11 +790,11 @@ private:
 
 
 template <class Type, class Data>
-struct  PatchIdRefAttribute : public MakeAction<PatchIdRefAttribute_body<Type,Data>, typename PatchIdRefAttribute_body<Type,Data>::FunType, Xml_string> 
+struct  PatchIdRefAttribute : public MakeAction<PatchIdRefAttribute_body<Type,Data>, typename PatchIdRefAttribute_body<Type,Data>::FunType, const Xml_string&> 
 {
 	typedef PatchIdRefAttribute_body<Type,Data> BodyType;
-	PatchIdRefAttribute(typename BodyType::FunType set, Xml_string name)
-	: MakeAction<BodyType, typename BodyType::FunType, Xml_string>(set,name) {} 
+	PatchIdRefAttribute(typename BodyType::FunType set, const Xml_string& name)
+	: MakeAction<BodyType, typename BodyType::FunType, const Xml_string&>(set,name) {} 
 };
 
 

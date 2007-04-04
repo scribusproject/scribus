@@ -316,7 +316,7 @@ using namespace desaxe;
 
 const Xml_string CharStyle::saxxDefaultElem("charstyle");
 
-void CharStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+void CharStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<CharStyle>());
