@@ -147,7 +147,7 @@ PyObject *scribus_layerlock(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_layeroutline__doc__,
-QT_TR_NOOP("setLayerOutlined\"layer\", outline)\n\
+QT_TR_NOOP("setLayerOutlined(\"layer\", outline)\n\
 \n\
 Sets the layer \"layer\" to be locked or not. If outline is set to\n\
 true the layer will be displayed outlined.\n\
@@ -160,7 +160,7 @@ PyObject *scribus_layeroutline(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_layerflow__doc__,
-QT_TR_NOOP("setLayerFlow\"layer\", flow)\n\
+QT_TR_NOOP("setLayerFlow(\"layer\", flow)\n\
 \n\
 Sets the layers \"layer\"  flowcontrol to flow. If flow is set to\n\
 true text in layers above this one will flow around objects on this layer.\n\
@@ -173,7 +173,7 @@ PyObject *scribus_layerflow(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_layerblend__doc__,
-QT_TR_NOOP("setLayerBlendmode\"layer\", blend)\n\
+QT_TR_NOOP("setLayerBlendmode(\"layer\", blend)\n\
 \n\
 Sets the layers \"layer\"  blendmode to blend.\n\
 \n\
@@ -185,7 +185,7 @@ PyObject *scribus_layerblend(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_layertrans__doc__,
-QT_TR_NOOP("setLayerTransparency\"layer\", trans)\n\
+QT_TR_NOOP("setLayerTransparency(\"layer\", trans)\n\
 \n\
 Sets the layers \"layer\"  transparency to trans.\n\
 \n\
