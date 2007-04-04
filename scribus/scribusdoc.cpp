@@ -3288,7 +3288,8 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			break;
 		case PageItem::Line:
 			{
-				double lineWidth = w == 0.0 ? 1.0 : w;
+				//CB 5521 remove false minimum for line width
+				double lineWidth = w; // == 0.0 ? 1.0 : w;
 				newItem = new PageItem_Line(this, x, y, b, h, lineWidth, CommonStrings::None, outline);
 				Q_ASSERT(frameType==PageItem::Unspecified);
 			}
