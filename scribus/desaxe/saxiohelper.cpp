@@ -12,7 +12,7 @@ const Xml_string SaxIO::saxxDefaultElem("");
 
 
 
-Xml_string mkXMLName(QString any)
+Xml_string mkXMLName(const QString& any)
 {
 	QString result("");
 	for (int i=0; i < any.length(); ++i)

@@ -226,7 +226,7 @@ using namespace desaxe;
 
 const Xml_string LineStyle::saxxDefaultElem("linestyle");
 
-void LineStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+void LineStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string stylePrefix(Digester::concat(prefixPattern, elemtag));
 	ruleset.addRule(stylePrefix, Factory<LineStyle>());

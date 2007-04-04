@@ -102,9 +102,9 @@ public:
 	Digester();
 	Digester& operator=(const Digester& other);
 	virtual ~Digester();
-	void addRule(const Xml_string pattern, Action action);
+	void addRule(const Xml_string& pattern, Action action);
 	
-	void parseFile(const Xml_string filename);
+	void parseFile(const Xml_string& filename);
 	void parseMemory(const char* data, unsigned int length);
 	
 	template<class ObjType>
@@ -115,13 +115,13 @@ public:
 // called by SAX parser:
 	void beginDoc();
 	void endDoc();
-	void begin(Xml_string tag, Xml_attr attr);
-	void end(Xml_string tag);
-	void chars(Xml_string text);
+	void begin(const Xml_string& tag, Xml_attr attr);
+	void end(const Xml_string& tag);
+	void chars(const Xml_string& text);
 	
 // used by actions:
 	void fail();
-	void error(const Xml_string msg);
+	void error(const Xml_string& msg);
 	
 	template<class ObjType>
 	ObjType*  top(unsigned int offset = 0);
@@ -140,18 +140,18 @@ public:
 	
 //  used to resolve idrefs and for general storage	
 	template<class ObjType>
-		ObjType*  lookup(const Xml_string idref);	
+		ObjType*  lookup(const Xml_string& idref);	
 	template<class ObjType>
-		void store(const Xml_string idref, ObjType* res );
+		void store(const Xml_string& idref, ObjType* res );
 	
 //  used to resolve idrefs if use is before definition
 	template<class LinkType>
-		void patchCall(const Xml_string idref, void (*fun)(LinkType*) );
+		void patchCall(const Xml_string& idref, void (*fun)(LinkType*) );
 	template<class ObjType, class LinkType>
-		void patchInvoke(const Xml_string idref, ObjType* obj, void (ObjType::*fun)(LinkType*) );
+		void patchInvoke(const Xml_string& idref, ObjType* obj, void (ObjType::*fun)(LinkType*) );
 	
 	// used to insert "/" where necessary
-	static Xml_string concat(const Xml_string pattern1, const Xml_string pattern2);
+	static Xml_string concat(const Xml_string& pattern1, const Xml_string& pattern2);
 
 private:
 	RuleState* 
@@ -334,7 +334,7 @@ namespace PRIVATE {
 
 template<class ObjType>
 inline
-ObjType*  Digester::lookup(const Xml_string idref) 
+ObjType*  Digester::lookup(const Xml_string& idref) 
 { 
 	using namespace PRIVATE;
 
@@ -360,7 +360,7 @@ ObjType*  Digester::lookup(const Xml_string idref)
 
 template<class ObjType>
 inline
-void Digester::store(const Xml_string idref, ObjType* obj) 
+void Digester::store(const Xml_string& idref, ObjType* obj) 
 {
 	using namespace PRIVATE;
 #ifdef DESAXE_DEBUG
@@ -373,7 +373,7 @@ void Digester::store(const Xml_string idref, ObjType* obj)
 
 
 template<class LinkType>
-void Digester::patchCall(const Xml_string idref, void (*fun)(LinkType*) )
+void Digester::patchCall(const Xml_string& idref, void (*fun)(LinkType*) )
 {
 	using namespace PRIVATE;
 	
@@ -390,7 +390,7 @@ void Digester::patchCall(const Xml_string idref, void (*fun)(LinkType*) )
 
 
 template<class ObjType, class LinkType>
-void Digester::patchInvoke(const Xml_string idref, ObjType* obj, void (ObjType::*fun)(LinkType*) )
+void Digester::patchInvoke(const Xml_string& idref, ObjType* obj, void (ObjType::*fun)(LinkType*) )
 {
 	using namespace PRIVATE;
 	

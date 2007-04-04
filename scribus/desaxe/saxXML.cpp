@@ -40,7 +40,7 @@ void SaxXML::finalizePendingEmptyTag()
 		if (m_pretty && m_manyAttributes)
 		{
 			m_stream << "\n";
-			for (uint k=0; k < m_indentLevel*4; ++k)
+			for (int k=0; k < m_indentLevel*4; ++k)
 				m_stream << " ";
 			m_stream << ">";
 		}
@@ -50,7 +50,7 @@ void SaxXML::finalizePendingEmptyTag()
 	}
 }
 
-void SaxXML::begin(Xml_string tag, Xml_attr attr)
+void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 {
 	finalizePendingEmptyTag();
 	assert( !tag.isNull() );
@@ -58,7 +58,7 @@ void SaxXML::begin(Xml_string tag, Xml_attr attr)
 	{
 		// indent tag
 		m_stream << "\n";
-		for (uint k=0; k < m_indentLevel*4; ++k)
+		for (int k=0; k < m_indentLevel*4; ++k)
 			m_stream << " ";
 	}
 	m_stream << "<" << tag.toStdString();
@@ -70,7 +70,7 @@ void SaxXML::begin(Xml_string tag, Xml_attr attr)
 		if (i > 0 && (i%4)==0 && m_pretty)
 		{
 			m_stream << "\n";
-			for (uint k=0; k < m_indentLevel*4 + 1 + tag.length(); ++k)
+			for (int k=0; k < m_indentLevel*4 + 1 + tag.length(); ++k)
 				m_stream << " ";
 			m_manyAttributes = true;
 		}
@@ -85,14 +85,14 @@ void SaxXML::begin(Xml_string tag, Xml_attr attr)
 }
 
 
-void SaxXML::end(Xml_string tag)
+void SaxXML::end(const Xml_string& tag)
 {
 	--m_indentLevel;
 	if (pendingEmptyTag) {
 		if (m_pretty && m_manyAttributes)
 		{
 			m_stream << "\n";
-			for (uint k=0; k < m_indentLevel*4; ++k)
+			for (int k=0; k < m_indentLevel*4; ++k)
 				m_stream << " ";
 		}
 		m_stream << " />"; 
@@ -102,7 +102,7 @@ void SaxXML::end(Xml_string tag)
 		if (m_pretty)
 		{
 			m_stream << "\n";
-			for (uint k=0; k < m_indentLevel*4; ++k)
+			for (int k=0; k < m_indentLevel*4; ++k)
 				m_stream << " ";
 		}
 		m_stream << "</" << tag.toStdString() << ">";
@@ -110,7 +110,7 @@ void SaxXML::end(Xml_string tag)
 }
 
 
-void SaxXML::chars(Xml_string text)
+void SaxXML::chars(const Xml_string& text)
 {
 	finalizePendingEmptyTag();
 	QString txt(text);

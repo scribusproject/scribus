@@ -437,7 +437,7 @@ const Xml_string PageItem::saxxDefaultElem("item");
 
 
 
-void PageItem::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	Xml_string itemPrefix(Digester::concat(prefixPattern, elemtag));
 	

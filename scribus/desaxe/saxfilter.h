@@ -24,9 +24,9 @@ public:
 	SaxHandler* delegate()                 { return m_delegate; }
 	virtual void beginDoc();
 	virtual void endDoc();
-	virtual void begin(Xml_string tag, Xml_attr attr);
-	virtual void end(Xml_string tag);
-	virtual void chars(Xml_string text);
+	virtual void begin(const Xml_string& tag, Xml_attr attr);
+	virtual void end(const Xml_string& tag);
+	virtual void chars(const Xml_string& text);
 private:
 	SaxHandler* m_delegate;
 };
@@ -44,8 +44,8 @@ private:
 class KeepOpen : public SaxFilter {
 public:
 	KeepOpen(SaxHandler* delegate);
-	virtual void begin(Xml_string tag, Xml_attr attr);
-	virtual void end(Xml_string tag);
+	virtual void begin(const Xml_string& tag, Xml_attr attr);
+	virtual void end(const Xml_string& tag);
 	Xml_string openTag();
 private:
 	int	m_level;
@@ -59,10 +59,10 @@ private:
  */
 class RenameElem : public SaxFilter {
 public:
-	RenameElem(SaxHandler* delegate, Xml_string oldname, Xml_string newname);
-	RenameElem(SaxHandler* delegate, Xml_string newname);
-	virtual void begin(Xml_string tag, Xml_attr attr);
-	virtual void end(Xml_string tag);
+	RenameElem(SaxHandler* delegate, const Xml_string& oldname, const Xml_string& newname);
+	RenameElem(SaxHandler* delegate, const Xml_string& newname);
+	virtual void begin(const Xml_string& tag, Xml_attr attr);
+	virtual void end(const Xml_string& tag);
 private:
 	int m_level;	
 	Xml_string m_old;
@@ -76,7 +76,7 @@ private:
 class AddAttributes : public SaxFilter {
 public:
 	AddAttributes(SaxHandler* delegate, Xml_attr add);
-	virtual void begin(Xml_string tag, Xml_attr attr);
+	virtual void begin(const Xml_string& tag, Xml_attr attr);
 private:
 	bool m_oneshot;
 	Xml_attr m_attributes;
@@ -94,9 +94,9 @@ public:
 	SaxHandlerNull() {}
 	virtual void beginDoc() {}
 	virtual void endDoc() {}
-	virtual void begin(Xml_string tag, Xml_attr attr) {}
-	virtual void end(Xml_string tag) {}
-	virtual void chars(Xml_string text) {}
+	virtual void begin(const Xml_string& tag, Xml_attr attr) {}
+	virtual void end(const Xml_string& tag) {}
+	virtual void chars(const Xml_string& text) {}
 };
 
 

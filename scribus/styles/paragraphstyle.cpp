@@ -264,7 +264,7 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 ///   PageItem StoryText -> PageItem StoryText
 class SetCharStyle_body : public desaxe::Action_body
 {
-	void end (const Xml_string /*tagname*/)
+	void end (const Xml_string& /*tagname*/)
 	{
 		ParagraphStyle* pstyle = this->dig->top<ParagraphStyle>(1);
 		CharStyle* cstyle = this->dig->top<CharStyle>(0);
@@ -279,7 +279,7 @@ class SetCharStyle : public desaxe::MakeAction<SetCharStyle_body>
 
 class SetTabStop_body : public desaxe::Action_body
 {
-	void begin (const Xml_string /*tagname*/, Xml_attr attr)
+	void begin (const Xml_string& /*tagname*/, Xml_attr attr)
 	{
 		ParagraphStyle* pstyle = this->dig->top<ParagraphStyle>();
 		ParagraphStyle::TabRecord tb;
@@ -325,7 +325,7 @@ using namespace desaxe;
 
 const Xml_string ParagraphStyle::saxxDefaultElem("style");
 
-void ParagraphStyle::desaxeRules(Xml_string prefixPattern, Digester& ruleset, Xml_string elemtag)
+void ParagraphStyle::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, Xml_string elemtag)
 {
 	typedef ParagraphStyle::TabRecord TabRecord;
 		

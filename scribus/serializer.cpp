@@ -71,7 +71,7 @@ class CollectColor_body : public Action_body
 	void end (const Xml_string tagname)
 	{
 //		qDebug(QString("collect %1").arg(tagname));
-		Collection* coll = this->dig->top<Collection>(1);
+		Collection* coll = this->dig->lookup<Collection>("<collection>");
 		ScColor* color = this->dig->top<ScColor>();
 		coll->collectColor(m_name, *color);
 	}

@@ -46,7 +46,7 @@ public:
 	  Unfortunately there are no virtual static functions, so this is just a dummy
 	  serving as a template.
 	 */
-	static void desaxeRules(Xml_string /* prefixPattern */, desaxe::Digester & /* ruleset */, const Xml_string /* elemtag */ = saxxDefaultElem) {}
+	static void desaxeRules(const Xml_string& /* prefixPattern */, desaxe::Digester & /* ruleset */, const Xml_string /* elemtag */ = saxxDefaultElem) {}
 };
 
 #endif

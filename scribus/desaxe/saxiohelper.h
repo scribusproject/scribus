@@ -36,7 +36,7 @@ Q3ValueList<int> parseIntList(const Xml_string& str);
 Q3ValueStack<int> parseIntStack(const Xml_string& str);
 
 
-Xml_string mkXMLName(QString any);
+Xml_string mkXMLName(const QString& any);
 
 
 template<class ENUM>
@@ -57,6 +57,13 @@ DATA parse(const Xml_string& str)
 template<>
 inline
 const Xml_string& parse<const Xml_string&>(const Xml_string& str)
+{
+	return str;
+}
+
+template<>
+inline
+Xml_string parse<Xml_string>(const Xml_string& str)
 {
 	return str;
 }

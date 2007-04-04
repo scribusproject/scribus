@@ -21,9 +21,9 @@
 class UniqueID : public SaxFilter {
 public:
 	UniqueID(SaxHandler* delegate) : SaxFilter(delegate), seenIDs(), level(0)  {}
-	virtual void begin(Xml_string tag, Xml_attr attr);
-	virtual void end(Xml_string tag);
-	virtual void chars(Xml_string text);
+	virtual void begin(const Xml_string& tag, Xml_attr attr);
+	virtual void end(const Xml_string& tag);
+	virtual void chars(const Xml_string& text);
 private:
 	std::set<Xml_string> seenIDs;
 	int level;
