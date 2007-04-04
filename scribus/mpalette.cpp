@@ -1049,7 +1049,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 	}
 	else
 	{
-		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+		StyledLine->setCurrentItem(0);
+		StyledLine->setSelected(StyledLine->findItem(CurItem->NamedLStyle), Qt::ExactMatch);
 		setter = false;
 	}
 	LStyle->setEnabled(setter);
