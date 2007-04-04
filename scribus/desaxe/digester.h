@@ -23,7 +23,7 @@
 #include "saxhandler.h"
 
 
-#define DESAXE_DEBUG 1
+//#define DESAXE_DEBUG 1
 
 namespace desaxe {
 	
