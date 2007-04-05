@@ -1396,7 +1396,7 @@ void PageItem_TextFrame::layout()
 						current.xPos = current.line.x + current.line.width;
 					}
 				}
-				else // outs -- last char went outside the columns
+				else // outs -- last char went outside the columns (or into flow-around shape)
 				{
 					if (current.breakIndex >= 0)            // Hier koenen auch andere Trennungen eingebaut werden
 					{
@@ -1463,16 +1463,19 @@ void PageItem_TextFrame::layout()
 							{
 								indentLine(current.line, OFs);
 							}
-//							qDebug(QString("line: endx=%1 lastchar=%2").arg(EndX).arg(LiList.at(BuPos-1)->xco + LiList.at(BuPos-1)->wide));
+//							qDebug(QString("line: endx=%1 next pos=(%2,%3)").arg(EndX).arg(current.line.x + current.line.width).arg(current.yPos));
 							current.xPos = current.line.x + current.line.width;
 						}
 					}
 					else  // no break position
 					{
-						if (a > current.line.firstItem)
+						if (a >= current.line.firstItem)
 						{
 							--a;
 							--current.itemsInLine;
+						}
+						if (a >= 0)
+						{
 							hl = itemText.item(a);
 							style = itemText.paragraphStyle(a);
 						}
@@ -1490,7 +1493,7 @@ void PageItem_TextFrame::layout()
 				}
 				if ( outs || SpecialChars::isBreak(hl->ch[0], (Cols > 1)) )
 				{
-					if (outs && current.isEndOfLine(hl->glyph.wide() + style.rightMargin()))
+					if (outs && !current.isEndOfLine(hl->glyph.wide() + style.rightMargin()))
 					{
 						if (( hl->ch[0] == SpecialChars::PARSEP || hl->ch[0] == SpecialChars::LINEBREAK) 
 							&& AbsHasDrop)
