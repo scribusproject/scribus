@@ -28,7 +28,7 @@ typedef QMap<Xml_string, Xml_string> Xml_attr;
 
 inline Xml_string Xml_key(Xml_attr::iterator& it) { return it.key(); }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it.data(); }
-
+inline const char* fromXMLString(const Xml_string& s) { return s.ascii(); }
 #else
 
 #include <string>
@@ -40,6 +40,7 @@ typedef std::map<Xml_string, Xml_string> Xml_attr;
 
 inline Xml_string Xml_key(Xml_attr::iterator& it) { return it->first; }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it->second; }
+inline const char* fromXMLString(const Xml_string& s) { return s.c_str(); }
 
 #endif
 
