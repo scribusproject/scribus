@@ -379,7 +379,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 				pos2 = len;
 			
 			std::string diff(currPattern.substr(pos, pos2-pos));
-			token_t tok = createToken(QString::fromStdString(diff));
+			token_t tok = createToken(fromSTLString(diff));
 //			std::cerr << pos << "-" << pos2 << "\t: " << diff << " = " << tok << "\n";
 
 			// create loop if REPEAT token
