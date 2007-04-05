@@ -353,7 +353,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 
 	for (unsigned int i = 0; i < rules.size(); ++i)
 	{
-		const std::string currPattern(static_cast<const char*>(rules[i].first));
+		const std::string currPattern(fromXMLString(rules[i].first));
 		const unsigned int len = currPattern.length();
 		int pos;
 		nfa_state_t lastState;
