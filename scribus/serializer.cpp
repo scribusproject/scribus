@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "scribusdoc.h"
 #include "pageitem.h"
+#include <cassert>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
@@ -107,6 +108,7 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 
 void Serializer::serializeObjects(const Selection& selection, SaxHandler& outputhandler)
 {
+	assert (selection.count() > 0);
 	Xml_attr attr;
 	UniqueID handler( & outputhandler );
 	handler.beginDoc();
