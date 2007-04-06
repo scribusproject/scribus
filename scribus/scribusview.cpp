@@ -6505,7 +6505,6 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 			moveY=0.0;
 		MoveItem(moveX, moveY, currItem);
 	}
-	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!Doc->EditClip))
 	{
 		currItem->AdjustPictScale();
@@ -6609,6 +6608,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 			emit ItemGeom(gw, gh);
 		}
 	}
+	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
 	return true;
 }
 
