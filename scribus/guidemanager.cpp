@@ -148,7 +148,7 @@ void GuideManager::storePageValues(Page *page)
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
 		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
-	page->guides.setHorizontalAutoGap(value2pts(gapValue, docUnitIndex));
+	page->guides.setHorizontalAutoGap(gapValue);
 	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 	page->guides.setHorizontalAutoRefer(horizontalReferGroup->selectedId());
 	page->guides.addHorizontals(getAutoHorizontals(), GuideManagerCore::Auto);
@@ -156,7 +156,7 @@ void GuideManager::storePageValues(Page *page)
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
 		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
-	page->guides.setVerticalAutoGap(value2pts(gapValue, docUnitIndex));
+	page->guides.setVerticalAutoGap(gapValue);
 	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 	page->guides.setVerticalAutoRefer(verticalReferGroup->selectedId());
 	page->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
