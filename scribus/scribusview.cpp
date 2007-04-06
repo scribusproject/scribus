@@ -1767,6 +1767,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		SegP2 = -1;
 		currItem = Doc->m_Selection->itemAt(0);
 		operItemMoving = false;
+		double xposOrig = currItem->xPos();
+		double yposOrig = currItem->yPos();
 
 		ItemState<QPair<FPointArray, FPointArray> > *state;
 		if (oldClip) // is there the old clip stored for the undo action
@@ -1790,6 +1792,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 
 		AdjustItemSize(currItem);
+		if (!EditContour)
+			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 		emit DocChanged();
 		updateContents();
 
@@ -6281,6 +6285,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 {
 	if (((EdPoints) && (ClRe % 2 != 0)) || ((!EdPoints) && (ClRe % 2 == 0)))
 		return;
+	double xposOrig = currItem->xPos();
+	double yposOrig = currItem->yPos();
 	currItem->ClipEdited = true;
 	FPointArray Clip;
 	if (EditContour)
@@ -6452,6 +6458,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 		MarkClip(currItem, Clip);
 	}
+	if (!EditContour)
+		currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 }
 
 //CB-->Doc
