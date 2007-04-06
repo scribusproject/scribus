@@ -8415,7 +8415,6 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			moveY=0.0;
 		MoveItem(moveX, moveY, currItem);
 	}
-	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
 	if ((currItem->asImageFrame()) && (!currItem->Sizing) && (!EditClip))
 	{
 		currItem->AdjustPictScale();
@@ -8520,6 +8519,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 			emit widthAndHeight(gw, gh);
 		}
 	}
+	currItem->setCornerRadius(QMIN(currItem->cornerRadius(), QMIN(currItem->width(),currItem->height())/2));
 	return true;
 }
 
