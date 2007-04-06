@@ -906,6 +906,19 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		QToolTip::add( EDirection_2_2, "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
 		QToolTip::add( EonAllPg, "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
 		QToolTip::add(OutlineFonts, "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
+		//Viewer tab
+		QToolTip::add( singlePage, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( continuousPages, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( doublePageLeft, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( doublePageRight, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( useViewDefault, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( useFullScreen, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( useBookmarks, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( useThumbnails, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( useLayers2, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( hideToolBar, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( hideMenuBar, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( fitWindow, "<qt>" + tr( "" ) + "</qt>" );
 	}
 	else
 		docBleeds->hide();
@@ -963,19 +976,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
-	//Viewer tab
-	QToolTip::add( singlePage, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( continuousPages, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( doublePageLeft, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( doublePageRight, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( useViewDefault, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( useFullScreen, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( useBookmarks, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( useThumbnails, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( useLayers2, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( hideToolBar, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( hideMenuBar, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( fitWindow, "<qt>" + tr( "" ) + "</qt>" );
 	//PrePress tab 
 	QToolTip::add( cropMarks, "<qt>" + tr( "" ) + "</qt>" );
 	QToolTip::add( bleedMarks, "<qt>" + tr( "" ) + "</qt>" );
