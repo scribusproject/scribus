@@ -907,18 +907,18 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		QToolTip::add( EonAllPg, "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
 		QToolTip::add(OutlineFonts, "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
 		//Viewer tab
-		QToolTip::add( singlePage, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( continuousPages, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( doublePageLeft, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( doublePageRight, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( useViewDefault, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( useFullScreen, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( useBookmarks, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( useThumbnails, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( useLayers2, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( hideToolBar, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( hideMenuBar, "<qt>" + tr( "" ) + "</qt>" );
-		QToolTip::add( fitWindow, "<qt>" + tr( "" ) + "</qt>" );
+		QToolTip::add( singlePage, "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
+		QToolTip::add( continuousPages, "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
+		QToolTip::add( doublePageLeft, "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
+		QToolTip::add( doublePageRight, "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
+		QToolTip::add( useViewDefault, "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
+		QToolTip::add( useFullScreen, "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
+		QToolTip::add( useBookmarks, "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );
+		QToolTip::add( useThumbnails, "<qt>" + tr( "Display the page thumbnails upon opening" ) + "</qt>" );
+		QToolTip::add( useLayers2, "<qt>" + tr( "Forces the displaying of layers. Useful only for PDF 1.5+." ) + "</qt>" );
+		QToolTip::add( hideToolBar, "<qt>" + tr( "Hides the Tool Bar which has selection and other editing capabilities" ) + "</qt>" );
+		QToolTip::add( hideMenuBar, "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window. " ) + "</qt>" );
+		QToolTip::add( fitWindow, "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window." ) + "</qt>" );
 	}
 	else
 		docBleeds->hide();
@@ -973,21 +973,21 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add( IntendI, "<qt>" + tr( "Rendering intent for images" ) + "</qt>" );
 	QToolTip::add( MirrorH, "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
 	QToolTip::add( MirrorV, "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
-	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
+	QToolTip::add( overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
 	//PrePress tab 
-	QToolTip::add( cropMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( cropMarks, "<qt>" + tr( "Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing" ) + "</qt>" );
 	QToolTip::add( bleedMarks, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( registrationMarks, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( colorMarks, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( docInfoMarks, "<qt>" + tr( "" ) + "</qt>" );
-	QToolTip::add( markOffset, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( registrationMarks, "<qt>" + tr( "Add registration marks to each separation" ) + "</qt>" );
+	QToolTip::add( colorMarks, "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
+	QToolTip::add( docInfoMarks, "<qt>" + tr( "Add document information which includes the document title and page numbers" ) + "</qt>" );
+	QToolTip::add( markOffset, "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
 	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
 	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
-	QToolTip::add( docBleeds, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( docBleeds, "<qt>" + tr( "Use the existing bleed settings from the document preferences" ) + "</qt>" );
 	QToolTip::add( PrintProfC, "<qt>" + tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) + "</qt>" );
 	QToolTip::add( InfoString, "<qt>" + tr( "Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document." ) + "</qt>" );
 }
