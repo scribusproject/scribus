@@ -209,9 +209,10 @@ void CharStyle::setStyle(const CharStyle& other)
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
 {
+	for (const Style* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+		lists.collectCharStyle(sty->name());
 	lists.collectColor(fillColor());
 	lists.collectColor(strokeColor());
-	lists.collectCharStyle(parent());
 	lists.collectFont(font().scName());
 }
 

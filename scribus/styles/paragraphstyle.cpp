@@ -203,7 +203,8 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 
 void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 {
-	lists.collectStyle(parent());
+	for (const Style *sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+		lists.collectStyle(sty->name());
 	charStyle().getNamedResources(lists);
 }
 
