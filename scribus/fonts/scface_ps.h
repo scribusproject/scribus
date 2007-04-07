@@ -73,7 +73,15 @@ class ScFace_postscript : public FtFace
 				afm.setName(afnm+"PFM");
 			}
 			if (afm.exists())
-				error = FT_Attach_File(face, afm.name());
+			{
+				if (FT_Attach_File(face, afm.name()))
+					qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontFile).arg(afm.name()));
+				else
+					// re-initialize: ScFaceData::load() just clears caches,
+					// FtFace::load() skips FT_New_Face if m_face is already defined.
+					// dont mind checking glyphs again for now (PS files have only 255 glyphs max, anyway)
+					FtFace::load();
+			}
 //			Ascent = tmp.setNum(face->ascender);
 //			Descender = tmp.setNum(face->descender);
 //			CapHeight = Ascent;
