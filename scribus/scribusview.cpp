@@ -2477,6 +2477,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				undoManager->cancelTransaction();
 			}
 		}
+		double xposOrig = currItem->xPos();
+		double yposOrig = currItem->yPos();
 		if (ClRe != -1)
 		{
 			double newX = m->x();
@@ -2503,6 +2505,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 
 		Doc->AdjustItemSize(currItem);
+		if (!EditContour)
+			currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 		emit DocChanged();
 		updateContents();
 		if (oldClip)
@@ -7542,6 +7546,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 {
 	if (((EdPoints) && (ClRe % 2 != 0)) || ((!EdPoints) && (ClRe % 2 == 0)))
 		return;
+	double xposOrig = currItem->xPos();
+	double yposOrig = currItem->yPos();
 	currItem->ClipEdited = true;
 	FPointArray Clip;
 	RefreshItem(currItem);
@@ -7715,6 +7721,8 @@ void ScribusView::MoveClipPoint(PageItem *currItem, FPoint ip)
 		RefreshItem(currItem);
 //		MarkClip(currItem, Clip);
 	}
+	if (!EditContour)
+		currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 }
 
 // //CB-->Doc
