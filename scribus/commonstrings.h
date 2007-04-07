@@ -184,7 +184,7 @@ public:
 	
 	//Paragraph Style Word Tracking
 	static QString trMinWordTracking;
-	static QString trMaxWordTracking;
+	static QString trNormWordTracking;
 	
 	//Paragraph Style Glyph Extension
 	static QString trMinGlyphExtension;

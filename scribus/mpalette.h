@@ -387,7 +387,7 @@ protected:
 	QLabel* optMarginLabel;
 	QLabel* wordTrackingLabel;
 	QLabel* minWordTrackingLabel;
-	QLabel* maxWordTrackingLabel;
+	QLabel* normWordTrackingLabel;
 	QLabel* glyphExtensionLabel;
 	QLabel* minGlyphExtensionLabel;
 	QLabel* maxGlyphExtensionLabel;
@@ -499,7 +499,7 @@ protected:
 	MSpinBox* ChScaleV;
 	MSpinBox* ChBase;
 	MSpinBox* minWordTrackingSpinBox;
-	MSpinBox* maxWordTrackingSpinBox;
+	MSpinBox* normWordTrackingSpinBox;
 	MSpinBox* minGlyphExtSpinBox;
 	MSpinBox* maxGlyphExtSpinBox;
 	QSpinBox* DCol;

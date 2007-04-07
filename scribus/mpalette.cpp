@@ -745,10 +745,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
 	wordTrackingHLayout->add(minWordTrackingLabel);
 	wordTrackingHLayout->add(minWordTrackingSpinBox);
-	maxWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
-	maxWordTrackingLabel = new QLabel( maxWordTrackingSpinBox, "Max:", page_3, "wordTrackingMaxLabel" );
-	wordTrackingHLayout->add(maxWordTrackingLabel);
-	wordTrackingHLayout->add(maxWordTrackingSpinBox);
+	normWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	normWordTrackingLabel = new QLabel( normWordTrackingSpinBox, "Norm:", page_3, "wordTrackingNormLabel" );
+	wordTrackingHLayout->add(normWordTrackingLabel);
+	wordTrackingHLayout->add(normWordTrackingSpinBox);
 	GroupBox3aLayout->addMultiCellLayout(wordTrackingHLayout, 4, 4, 0, 1);
 	
 	glyphExtensionLabel = new QLabel( optMarginCombo, "Glyph Extension", page_3, "glyphExtensionLabel" );
@@ -4392,7 +4392,7 @@ void Mpalette::languageChange()
 	optMarginCombo->setCurrentItem(c);
 	wordTrackingLabel->setText( tr("Word Tracking"));
 	minWordTrackingLabel->setText( tr("Min:"));
-	maxWordTrackingLabel->setText( tr("Max:"));
+	normWordTrackingLabel->setText( tr("Norm:"));
 	glyphExtensionLabel->setText( tr("Glyph Extension"));
 	minGlyphExtensionLabel->setText( tr("Min:"));
 	maxGlyphExtensionLabel->setText( tr("Max:"));
@@ -4472,7 +4472,7 @@ void Mpalette::languageChange()
 	imageYScaleSpinBox->setSuffix(pctSuffix);
 	Extra->setSuffix(pctSuffix);
 	minWordTrackingSpinBox->setSuffix(pctSuffix);
-	maxWordTrackingSpinBox->setSuffix(pctSuffix);
+	normWordTrackingSpinBox->setSuffix(pctSuffix);
 	minGlyphExtSpinBox->setSuffix(pctSuffix);
 	maxGlyphExtSpinBox->setSuffix(pctSuffix);
 	
@@ -4557,6 +4557,12 @@ void Mpalette::languageChange()
 	QToolTip::remove(charStyleCombo);
 //	QToolTip::remove(langCombo);
 
+	QToolTip::remove(minWordTrackingSpinBox);
+	QToolTip::remove(normWordTrackingSpinBox);
+	QToolTip::remove(minGlyphExtSpinBox);
+	QToolTip::remove(maxGlyphExtSpinBox);
+	QToolTip::remove(optMarginCombo);
+	
 	QToolTip::remove(LineMode);
 	QToolTip::remove(LStyle);
 	QToolTip::remove(LSize);
@@ -4640,6 +4646,12 @@ void Mpalette::languageChange()
 	QToolTip::add(paraStyleCombo, tr("Paragraph style of currently selected text or paragraph"));
 	QToolTip::add(charStyleCombo, tr("Character style of currently selected text or paragraph"));
 //	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
+
+	QToolTip::add(minWordTrackingSpinBox, tr("Minimal width of spaces between words"));
+	QToolTip::add(normWordTrackingSpinBox, tr("Normal width of spaces between words"));
+	QToolTip::add(minGlyphExtSpinBox, tr("Minimal shrinkage of glyphs for justification"));
+	QToolTip::add(maxGlyphExtSpinBox, tr("Maximal extension of glyphs for justification"));
+	QToolTip::add(optMarginCombo, tr("Uses hanging punctuation and margin kerning to get nicer looking columns"));
 
 	QToolTip::add(LineMode, tr("Change settings for left or end points"));
 	QToolTip::add(LStyle, tr("Pattern of line"));

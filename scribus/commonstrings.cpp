@@ -103,7 +103,7 @@ QString CommonStrings::trOpticalMarginsRightHangPunct  = "";
 QString CommonStrings::trOpticalMarginsDefault         = "";
 
 QString CommonStrings::trMinWordTracking   = "";
-QString CommonStrings::trMaxWordTracking   = "";
+QString CommonStrings::trNormWordTracking   = "";
 QString CommonStrings::trMinGlyphExtension = "";
 QString CommonStrings::trMaxGlyphExtension = "";
 
@@ -267,11 +267,11 @@ void CommonStrings::languageChange()
 	CommonStrings::trOpticalMarginsRightProtruding = tr("Right Protruding", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsLeftHangPunct   = tr("Left Hanging Punctuation", "Optical Margin Setting");
 	CommonStrings::trOpticalMarginsRightHangPunct  = tr("Right Hanging Punctuation", "Optical Margin Setting");
-	CommonStrings::trOpticalMarginsDefault         = tr("Default", "Optical Margin Setting");
+	CommonStrings::trOpticalMarginsDefault         = tr("Both sides", "Optical Margin Setting");
 	
 	//Paragraph Style Word Tracking
 	CommonStrings::trMinWordTracking = tr("Min. Word Tracking");
-	CommonStrings::trMaxWordTracking = tr("Max. Word Tracking");
+	CommonStrings::trNormWordTracking = tr("Norm. Word Tracking");
 	
 	//Paragraph Style Glyph Extension
 	CommonStrings::trMinGlyphExtension = tr("Min. Glyph Extension");
