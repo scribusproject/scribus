@@ -11005,7 +11005,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineSpacingMode(Buffer->LineSpMode);
 	if (currItem->lineSpacingMode() == 3)
 	{
-		Doc->docParagraphStyles[0].setUseBaselineGrid(true);
 		currItem->setLineSpacing(Doc->typographicSettings.valueBaseGrid-1);
 	}
 	*/

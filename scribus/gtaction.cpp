@@ -317,7 +317,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setSpaceBelow(vg.gapAfter());
 	fstyle->setDropCap(vg.hasDropCap());
 	fstyle->setDropCapHeight(vg.dropCapLines());
-	fstyle->setAdjToBaseline(vg.useBaselineGrid());
+	fstyle->setAdjToBaseline(vg.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing);
 
 	gtFont font;
 	getFrameFont(&font);
@@ -341,7 +341,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 		linesp = getLineSpacing(pstyle->getFont()->getSize());
 	else
 		linesp = pstyle->getLineSpacing();
-	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+	vg.setLineSpacingMode(pstyle->isAdjToBaseline() ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
 	vg.setLineSpacing(linesp);
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
 	vg.setLeftMargin(pstyle->getIndent());
@@ -359,7 +359,6 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.charStyle().setFillShade(font->getShade());
 	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
 	vg.charStyle().setStrokeShade(font->getStrokeShade());
-	vg.setUseBaselineGrid(pstyle->isAdjToBaseline());
 	vg.charStyle().setShadowXOffset(50);
 	vg.charStyle().setShadowYOffset(-50);
 	vg.charStyle().setOutlineWidth(10);
@@ -410,7 +409,7 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 		linesp = getLineSpacing(pstyle->getFont()->getSize());
 	else
 		linesp = pstyle->getLineSpacing();
-	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+	vg.setLineSpacingMode(pstyle->isAdjToBaseline() ? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
 	vg.setLineSpacing(linesp);
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
 	vg.setLeftMargin(pstyle->getIndent());
@@ -428,7 +427,6 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.charStyle().setFillShade(font->getShade());
 	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
 	vg.charStyle().setStrokeShade(font->getStrokeShade());
-	vg.setUseBaselineGrid(pstyle->isAdjToBaseline());
 	vg.charStyle().setShadowXOffset(50);
 	vg.charStyle().setShadowYOffset(-50);
 	vg.charStyle().setOutlineWidth(10);

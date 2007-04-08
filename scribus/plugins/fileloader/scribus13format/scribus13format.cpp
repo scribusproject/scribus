@@ -961,12 +961,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*					if (Neu->lineSpacingMode() == 3)
-					{
-						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
-						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
-					}
-*/					if (Neu->isAutoText)
+					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
@@ -1448,7 +1443,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 			fo.setAttribute("FSHADE",m_Doc->paragraphStyles()[ff].charStyle().fillShade());
 			fo.setAttribute("SCOLOR",m_Doc->paragraphStyles()[ff].charStyle().strokeColor());
 			fo.setAttribute("SSHADE",m_Doc->paragraphStyles()[ff].charStyle().strokeShade());
-			fo.setAttribute("BASE", static_cast<int>(m_Doc->paragraphStyles()[ff].useBaselineGrid()));
+			fo.setAttribute("BASE", static_cast<int>(m_Doc->paragraphStyles()[ff].lineSpaceMode() == ParagraphStyle::BaselineGridLineSpacing));
 			fo.setAttribute("TXTSHX",m_Doc->paragraphStyles()[ff].charStyle().shadowXOffset() / 10.0);
 			fo.setAttribute("TXTSHY",m_Doc->paragraphStyles()[ff].charStyle().shadowYOffset() / 10.0);
 			fo.setAttribute("TXTOUT",m_Doc->paragraphStyles()[ff].charStyle().outlineWidth() / 10.0);
@@ -1923,7 +1918,8 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.charStyle().setFillShade(fShade);
 	vg.charStyle().setStrokeColor(sColor);
 	vg.charStyle().setStrokeShade(sShade);
-	vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+	if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
+		vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
 	vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
 	vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
 	vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
@@ -2845,12 +2841,6 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*					if (Neu->lineSpacingMode() == 3)
-					{
-						m_Doc->paragraphStyles()[0].setUseBaselineGrid(true);
-						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
-					}
-*/
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					if (Neu->isTableItem)

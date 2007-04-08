@@ -1045,12 +1045,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*					if (Neu->lineSpacingMode() == 3)
-					{
-						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
-						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
-					}
-*/
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					// first of linked chain?
@@ -2780,12 +2774,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*					if (Neu->lineSpacingMode() == 3)
-					{
-						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
-						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
-					}
-*/					if (Neu->isAutoText)
+					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					if (Neu->isTableItem)
 					{

@@ -388,7 +388,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				vg.charStyle().setFillShade(fShade);
 				vg.charStyle().setStrokeColor(sColor);
 				vg.charStyle().setStrokeShade(sShade);
-				vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+				if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
+					vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
 				vg.charStyle().setShadowXOffset(50);
 				vg.charStyle().setShadowYOffset(-50);
 				vg.charStyle().setOutlineWidth(10);
@@ -1343,7 +1344,8 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->charStyle().setFillShade(fShade);
 	vg->charStyle().setStrokeColor(sColor);
 	vg->charStyle().setStrokeShade(sShade);
-	vg->setUseBaselineGrid(static_cast<bool>(pg->attribute("BASE", "0").toInt()));
+	if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
+		vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
 	vg->charStyle().setShadowXOffset(qRound(pg->attribute("TXTSHX", "5").toDouble() * 10));
 	vg->charStyle().setShadowYOffset(qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10));
 	vg->charStyle().setOutlineWidth(qRound(pg->attribute("TXTOUT", "1").toDouble() * 10));

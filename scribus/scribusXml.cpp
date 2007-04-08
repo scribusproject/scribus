@@ -450,7 +450,9 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
 	vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
 	vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
-	vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+
+	if (static_cast<bool>pg.attribute("BASE", "0").toInt()))
+		vg.setLineSpacingMode(ParagraphStyle::BAselineGridLineSpacing);
 	vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
 	vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
 	vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
@@ -1272,7 +1274,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			fo.setAttribute("FSHADE",UsedStyles[actSt].charStyle().fillShade());
 			fo.setAttribute("SCOLOR",UsedStyles[actSt].charStyle().strokeColor());
 			fo.setAttribute("SSHADE",UsedStyles[actSt].charStyle().strokeShade());
-			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].useBaselineGrid()));
+			fo.setAttribute("BASE", static_cast<int>(UsedStyles[actSt].lineSpacingMode() == ParagraphStyle::BaselineGridSpacing));
 			fo.setAttribute("TXTSHX",UsedStyles[actSt].charStyle().shadowXOffset() / 10.0);
 			fo.setAttribute("TXTSHY",UsedStyles[actSt].charStyle().shadowYOffset() / 10.0);
 			fo.setAttribute("TXTOUT",UsedStyles[actSt].charStyle().outlineWidth() / 10.0);

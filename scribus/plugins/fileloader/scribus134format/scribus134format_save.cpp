@@ -397,8 +397,6 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 		fo.setAttribute("LINESPMode", style.lineSpacingMode());
 	if ( ! style.isInhLineSpacing())
 		fo.setAttribute("LINESP", style.lineSpacing());
-	if ( ! style.isInhUseBaselineGrid())
-		fo.setAttribute("BASE", static_cast<int>(style.useBaselineGrid()));
 	if ( ! style.isInhLeftMargin())
 		fo.setAttribute("INDENT", style.leftMargin());
 	if ( ! style.isInhRightMargin())

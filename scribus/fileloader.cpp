@@ -389,7 +389,8 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
 		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", currDoc->toolSettings.dPen));
 		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
-		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+		if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
+			vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
 		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
 		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
 		vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));

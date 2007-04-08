@@ -369,7 +369,6 @@ void ScribusDoc::init()
 	pstyle.setHasDropCap(false);
 	pstyle.setDropCapLines(2);
 	pstyle.setDropCapOffset(0);
-	pstyle.setUseBaselineGrid(false);
 	pstyle.charStyle().setParent("");
 	
 	CharStyle cstyle;
