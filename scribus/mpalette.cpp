@@ -4651,7 +4651,7 @@ void Mpalette::languageChange()
 	QToolTip::add(normWordTrackingSpinBox, tr("Normal width of spaces between words"));
 	QToolTip::add(minGlyphExtSpinBox, tr("Minimal shrinkage of glyphs for justification"));
 	QToolTip::add(maxGlyphExtSpinBox, tr("Maximal extension of glyphs for justification"));
-	QToolTip::add(optMarginCombo, tr("Uses hanging punctuation and margin kerning to get nicer looking columns"));
+	QToolTip::add(optMarginCombo, tr("Uses hanging punctuation and margin kerning to achieve nicer looking columns"));
 
 	QToolTip::add(LineMode, tr("Change settings for left or end points"));
 	QToolTip::add(LStyle, tr("Pattern of line"));
