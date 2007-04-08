@@ -1443,7 +1443,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 			fo.setAttribute("FSHADE",m_Doc->paragraphStyles()[ff].charStyle().fillShade());
 			fo.setAttribute("SCOLOR",m_Doc->paragraphStyles()[ff].charStyle().strokeColor());
 			fo.setAttribute("SSHADE",m_Doc->paragraphStyles()[ff].charStyle().strokeShade());
-			fo.setAttribute("BASE", static_cast<int>(m_Doc->paragraphStyles()[ff].lineSpaceMode() == ParagraphStyle::BaselineGridLineSpacing));
+			fo.setAttribute("BASE", static_cast<int>(m_Doc->paragraphStyles()[ff].lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing));
 			fo.setAttribute("TXTSHX",m_Doc->paragraphStyles()[ff].charStyle().shadowXOffset() / 10.0);
 			fo.setAttribute("TXTSHY",m_Doc->paragraphStyles()[ff].charStyle().shadowYOffset() / 10.0);
 			fo.setAttribute("TXTOUT",m_Doc->paragraphStyles()[ff].charStyle().outlineWidth() / 10.0);
