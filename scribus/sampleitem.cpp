@@ -73,7 +73,6 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 	tmpStyle.charStyle().setFillShade(100); //m_Doc->toolSettings.dShade;
 	tmpStyle.charStyle().setStrokeColor("__whiteforpreview__");
 	tmpStyle.charStyle().setStrokeShade(100); //m_Doc->toolSettings.dShade2;
-	tmpStyle.setUseBaselineGrid(false);
 	tmpStyle.charStyle().setShadowXOffset(50);
 	tmpStyle.charStyle().setShadowYOffset(-50);
 	tmpStyle.charStyle().setOutlineWidth(10);
@@ -242,7 +241,7 @@ void SampleItem::setSShade(int sShade)
 
 void SampleItem::setBaseAdj(bool baseAdj)
 {
-	tmpStyle.setUseBaselineGrid(baseAdj);
+	tmpStyle.setLineSpacingMode(baseAdj? ParagraphStyle::BaselineGridLineSpacing : ParagraphStyle::FixedLineSpacing);
 }
 
 void SampleItem::setTxtShadowX(int txtShadowX)
