@@ -5346,7 +5346,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove manual paragrphstyle" ), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove manual paragraphstyle" ), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
