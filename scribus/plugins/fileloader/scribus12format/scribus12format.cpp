@@ -147,10 +147,20 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	if (docBytes.left(16) != "<SCRIBUSUTF8NEW " && (docBytes.left(12) == "<SCRIBUSUTF8" || docBytes.left(9) == "<SCRIBUS>"))
-		docText = QString::fromLocal8Bit(docBytes);
+	if (docBytes.left(16) != "<SCRIBUSUTF8NEW ") // Not a 1.3.x doc
+	{
+		if (docBytes.left(12) == "<SCRIBUSUTF8") // 1.2.x UTF8 doc
+			docText = QString::fromUtf8(docBytes);
+		else if (docBytes.left(9) == "<SCRIBUS>") // Older non utf8 doc
+			docText = QString::fromLocal8Bit(docBytes);
+		else 
+			return QString::null;
+	}
 	else
+	{
+		qDebug("SCRIBUSUTF8NEW");
 		return QString::null;
+	}
 	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
 		docText.truncate(docText.length()-1);
 	return docText;
