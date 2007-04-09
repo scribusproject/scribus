@@ -370,6 +370,17 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	if (m_doc->HasCMS)
 		QToolTip::add(UseICC,"<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
 	QToolTip::add(devPar, "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
+	QToolTip::add( cropMarks, "<qt>" + tr( "This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing" ) + "</qt>" );
+	QToolTip::add( bleedMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( registrationMarks, "<qt>" + tr( "Add registration marks which are added to each separation" ) + "</qt>" );
+	QToolTip::add( colorMarks, "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
+	QToolTip::add( markOffset, "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
+	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+	QToolTip::add( docBleeds, "<qt>" + tr( "Use the existing bleed settings from the document preferences" ) + "</qt>" );
+
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
