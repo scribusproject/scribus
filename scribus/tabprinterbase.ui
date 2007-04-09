@@ -384,6 +384,9 @@
                                 <property name="text">
                                     <string>Crop Marks</string>
                                 </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</string>
+                                </property>
                             </widget>
                             <widget class="QCheckBox" row="1" column="0">
                                 <property name="name">
@@ -400,6 +403,9 @@
                                 <property name="text">
                                     <string>Registration Marks</string>
                                 </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>dd registration marks which are added to each separation</string>
+                                </property>
                             </widget>
                             <widget class="QLabel" row="1" column="1">
                                 <property name="name">
@@ -407,6 +413,9 @@
                                 </property>
                                 <property name="text">
                                     <string>Offset:</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>ndicate the distance offset for the registration marks</string>
                                 </property>
                             </widget>
                             <widget class="MSpinBox" row="1" column="2">
@@ -420,6 +429,9 @@
                                 </property>
                                 <property name="text">
                                     <string>Color Bars</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Add color calibration bars</string>
                                 </property>
                             </widget>
                         </grid>
