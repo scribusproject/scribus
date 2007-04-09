@@ -47,9 +47,9 @@ protected:
 public:
 //	static const short NOVALUE = -16000;
 
-	Style(): m_name(""), m_context(NULL), m_contextversion(-1), m_parent(), m_shortcut() {}
+	Style(): m_name(""), m_context(NULL), m_contextversion(-1), m_parent(""), m_shortcut() {}
 
-    Style(StyleContext* b, QString n): m_name(n), m_context(b), m_contextversion(-1), m_parent(), m_shortcut() {}
+    Style(StyleContext* b, QString n): m_name(n), m_context(b), m_contextversion(-1), m_parent(""), m_shortcut() {}
 	
 	Style& operator=(const Style& o) 
 	{ //assert(typeinfo() == o.typeinfo()); 
@@ -78,7 +78,7 @@ public:
 	
 	
 	QString name() const             { return m_name; }
-	void setName(const QString& n)   { m_name = n; }
+	void setName(const QString& n)   { m_name = n.isEmpty() ? "" : n; }
 	bool hasName() const             { return ! m_name.isEmpty(); }
 
 	virtual QString displayName() const { 	
@@ -91,7 +91,7 @@ public:
 	}
 	
 	QString parent() const           { return m_parent; }
-	void setParent(const QString& p) { if (m_parent != p) m_contextversion = -1; m_parent = p; }
+	void setParent(const QString& p) { if (m_parent != p) m_contextversion = -1; m_parent = p.isEmpty() ? "" : p; }
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
 	const Style* parentStyle() const;
 	
