@@ -322,8 +322,11 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (m_Doc->view() != NULL)
 	{
 		sca = m_Doc->view()->scale();
-		m_Doc->view()->setScale(1.0);
+		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.DisScale);
 	}
+#ifdef HAVE_CAIRO
+	painter->setZoomFactor(m_Doc->view()->scale());
+#endif
 
 	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
