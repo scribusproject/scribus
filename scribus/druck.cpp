@@ -371,7 +371,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 		QToolTip::add(UseICC,"<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
 	QToolTip::add(devPar, "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 	QToolTip::add( cropMarks, "<qt>" + tr( "This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing" ) + "</qt>" );
-	QToolTip::add( bleedMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( bleedMarks, "<qt>" + tr( "This creates bleed marks which are indicated by  _ . _ and show the bleed limit" ) + "</qt>" );
 	QToolTip::add( registrationMarks, "<qt>" + tr( "Add registration marks which are added to each separation" ) + "</qt>" );
 	QToolTip::add( colorMarks, "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
 	QToolTip::add( markOffset, "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );

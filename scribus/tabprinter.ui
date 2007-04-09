@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>465</height>
+    <width>612</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -101,6 +101,9 @@
    </item>
    <item>
     <widget class="QTabWidget" name="tabOptions" >
+     <property name="currentIndex" >
+      <number>1</number>
+     </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
        <string>Options</string>
@@ -323,6 +326,9 @@
           </property>
           <item row="0" column="0" >
            <widget class="QCheckBox" name="cropMarks" >
+            <property name="toolTip" >
+             <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</string>
+            </property>
             <property name="text" >
              <string>Crop Marks</string>
             </property>
@@ -330,6 +336,9 @@
           </item>
           <item row="1" column="0" >
            <widget class="QCheckBox" name="bleedMarks" >
+            <property name="toolTip" >
+             <string>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</string>
+            </property>
             <property name="text" >
              <string>Bleed Marks</string>
             </property>
@@ -337,6 +346,9 @@
           </item>
           <item row="2" column="0" >
            <widget class="QCheckBox" name="registrationMarks" >
+            <property name="toolTip" >
+             <string>Add registration marks which are added to each separation</string>
+            </property>
             <property name="text" >
              <string>Registration Marks</string>
             </property>
@@ -357,6 +369,9 @@
           </item>
           <item row="0" column="1" colspan="2" >
            <widget class="QCheckBox" name="colorMarks" >
+            <property name="toolTip" >
+             <string>Add color calibration bars</string>
+            </property>
             <property name="text" >
              <string>Color Bars</string>
             </property>
@@ -460,15 +475,15 @@
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>Q3ButtonGroup</class>
    <extends>Q3GroupBox</extends>
    <header>Qt3Support/Q3ButtonGroup</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -477,8 +492,6 @@
    <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
- <includes>
- </includes>
  <resources/>
  <connections/>
 </ui>

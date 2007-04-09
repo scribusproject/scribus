@@ -978,7 +978,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
 	//PrePress tab 
 	QToolTip::add( cropMarks, "<qt>" + tr( "Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing" ) + "</qt>" );
-	QToolTip::add( bleedMarks, "<qt>" + tr( "" ) + "</qt>" );
+	QToolTip::add( bleedMarks, "<qt>" + tr( "This creates bleed marks which are indicated by  _ . _ and show the bleed limit" ) + "</qt>" );
 	QToolTip::add( registrationMarks, "<qt>" + tr( "Add registration marks to each separation" ) + "</qt>" );
 	QToolTip::add( colorMarks, "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
 	QToolTip::add( docInfoMarks, "<qt>" + tr( "Add document information which includes the document title and page numbers" ) + "</qt>" );
