@@ -224,35 +224,63 @@ Selection Serializer::importCollection()
 	else
 	{
 		QMap<QString,QString> newNames;
-		for (uint i = 0; i < coll->pstyles.count(); ++i)  // FIXME:  QValueList<QString> StyleSet::names()
-		{
-			QString oldName = coll->pstyles[i].name();
-			QString newName = oldName;
-			int counter = 0;
-			while (m_Doc.paragraphStyles().find(newName) >= 0)
-				newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
-			newNames[oldName] = newName;
-		}
-		//ResourceCollection::makeUnique(newNames, mDoc->paragraphStyles().names());
-		coll->pstyles.rename(newNames);
-		m_Doc.redefineStyles(coll->pstyles, false);
-		
-		newNames.clear();
-		for (uint i = 0; i < coll->cstyles.count(); ++i)  
-		{
-			QString oldName = coll->cstyles[i].name();
-			QString newName = oldName;
-			int counter = 0;
-			while (m_Doc.charStyles().find(newName) >= 0)
-				newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
-			newNames[oldName] = newName;
-		}
-		coll->cstyles.rename(newNames);
-		m_Doc.redefineCharStyles(coll->cstyles, false);
-		
-		//TODO: patterns
+
 		//TODO: fonts
+
+		do {
+			newNames.clear();
+			for (uint i = 0; i < coll->cstyles.count(); ++i)  
+			{
+				QString oldName = coll->cstyles[i].name();
+				int oldIndex = m_Doc.charStyles().find(oldName);
+				if (oldIndex >= 0 && m_Doc.charStyle(oldName) == coll->cstyles[i])
+					continue;
+				QString newName = oldName;
+				if (oldIndex >= 0 && !newNames.contains(oldName))
+				{
+					int counter = 0;
+					while (m_Doc.charStyles().find(newName) >= 0)
+						newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
+					newNames[oldName] = newName;
+				}
+			}
+			
+			coll->cstyles.rename(newNames);
+		}
+		while (newNames.count() > 0);
+		m_Doc.redefineCharStyles(coll->cstyles, false);		
+
+		do {
+			newNames.clear();
+			for (uint i = 0; i < coll->pstyles.count(); ++i)  // FIXME:  QValueList<QString> StyleSet::names()
+			{
+				QString oldName = coll->pstyles[i].name();
+				int oldIndex = m_Doc.paragraphStyles().find(oldName);
+//				qDebug(QString("comparing %1 (old %2 new %3): parent '%4'='%5' cstyle %6 equiv %7").arg(oldName).arg(oldIndex).arg(i)
+//					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).parent() : "?").arg(coll->pstyles[i].parent())
+//					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).charStyle() == coll->pstyles[i].charStyle() : false)
+//					   .arg(oldIndex>=0? m_Doc.paragraphStyle(oldName).equiv(coll->pstyles[i]) : false));
+			
+				if (oldIndex >= 0 && coll->pstyles[i] == m_Doc.paragraphStyle(oldName) )
+					continue;
+				QString newName = oldName;
+				if (oldIndex >= 0 && !newNames.contains(oldName))
+				{
+					int counter = 0;
+					while (m_Doc.paragraphStyles().find(newName) >= 0)
+						newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
+					newNames[oldName] = newName;
+				}
+			}
+			coll->pstyles.rename(newNames);
+		}
+		while(newNames.count() > 0);
+		
+		m_Doc.redefineStyles(coll->pstyles, false);		
+
 		//TODO: linestyles
+
+		//TODO: patterns
 		
 		Q3PtrList<PageItem>* objects = &(coll->items);
 		
