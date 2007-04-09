@@ -385,7 +385,7 @@
                                     <string>Crop Marks</string>
                                 </property>
                                 <property name="toolTip" stdset="0">
-                                    <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</string>
+                                    <string>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</string>
                                 </property>
                             </widget>
                             <widget class="QCheckBox" row="1" column="0">
@@ -394,6 +394,9 @@
                                 </property>
                                 <property name="text">
                                     <string>Bleed Marks</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</string>
                                 </property>
                             </widget>
                             <widget class="QCheckBox" row="2" column="0">
@@ -404,7 +407,7 @@
                                     <string>Registration Marks</string>
                                 </property>
                                 <property name="toolTip" stdset="0">
-                                    <string>dd registration marks which are added to each separation</string>
+                                    <string>Add registration marks which are added to each separation</string>
                                 </property>
                             </widget>
                             <widget class="QLabel" row="1" column="1">
@@ -546,6 +549,9 @@
         </sizepolicy>
         <pixmap>image0</pixmap>
         <property type="3">3</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
         <property type="0">0</property>
         <property type="0">0</property>
         <property type="0">0</property>
