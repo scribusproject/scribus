@@ -178,8 +178,8 @@
     <function shortcut="" name="toolsToolbarTools" />
     <function shortcut="U" name="toolsUnlinkTextFrame" />
     <function shortcut="Z" name="toolsZoom" />
-    <function shortcut="Ctrl++" name="toolsZoomIn" />
-    <function shortcut="Ctrl+-" name="toolsZoomOut" />
+    <function shortcut="+" name="toolsZoomIn" />
+    <function shortcut="-" name="toolsZoomOut" />
     <function shortcut="" name="typeEffectAllCaps" />
     <function shortcut="" name="typeEffectNormal" />
     <function shortcut="" name="typeEffectOutline" />
