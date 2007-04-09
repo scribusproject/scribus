@@ -498,6 +498,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( genDispX, tr( "Horizontal displacement of page items") );
 	QToolTip::add( genDispY, tr( "Vertical displacement of page items" ) );
 	QToolTip::add( genRot, tr( "Constrain value for the rotation tool when the Control key is pressed" ) );
+	QToolTip::add( embeddedPath, "<qt>" + tr( "Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths." ) + "</qt>"  );
 	//enableSignals(true);
 }
 
