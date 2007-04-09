@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shortcutset name="Scribus 1.3" >
+<shortcutset name="Scribus 1.3.4" >
     <function shortcut="" name="Barcode Generator" />
     <function shortcut="" name="ColorWheel" />
     <function shortcut="Ctrl+Shift+E" name="ExportAsImage" />
@@ -24,16 +24,15 @@
     <function shortcut="" name="editEditWithImageEditor" />
     <function shortcut="" name="editExtendedImageProperties" />
     <function shortcut="" name="editJavascripts" />
-    <function shortcut="" name="editLineStyles" />
     <function shortcut="" name="editMasterPages" />
-    <function shortcut="" name="editParaStyles" />
     <function shortcut="Ctrl+V" name="editPaste" />
     <function shortcut="Ctrl+Shift+V" name="editPasteContents" />
     <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs" />
+    <function shortcut="" name="editPatterns" />
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction" />
     <function shortcut="Ctrl+F" name="editSearchReplace" />
     <function shortcut="Ctrl+A" name="editSelectAll" />
-    <function shortcut="" name="editStyles" />
+    <function shortcut="F3" name="editStyles" />
     <function shortcut="Ctrl+Z" name="editUndoAction" />
     <function shortcut="" name="extrasDeHyphenateText" />
     <function shortcut="" name="extrasGenerateTableOfContents" />
@@ -48,6 +47,7 @@
     <function shortcut="" name="fileImportAppendText" />
     <function shortcut="Ctrl+D" name="fileImportImage" />
     <function shortcut="Ctrl+D" name="fileImportText" />
+    <function shortcut="" name="fileImportText2" />
     <function shortcut="Ctrl+N" name="fileNew" />
     <function shortcut="Ctrl+O" name="fileOpen" />
     <function shortcut="" name="filePreferences" />
@@ -74,6 +74,7 @@
     <function shortcut="" name="helpAboutScribus" />
     <function shortcut="F1" name="helpManual" />
     <function shortcut="" name="helpTooltips" />
+    <function shortcut="" name="insertFrame" />
     <function shortcut="" name="insertGlyph" />
     <function shortcut="" name="insertSampleText" />
     <function shortcut="" name="itemAdjustFrameToImage" />
@@ -109,6 +110,7 @@
     <function shortcut="" name="itemPrintingEnabled" />
     <function shortcut="Ctrl+Home" name="itemRaise" />
     <function shortcut="Home" name="itemRaiseToTop" />
+    <function shortcut="" name="itemSendToPattern" />
     <function shortcut="" name="itemSendToScrapbook" />
     <function shortcut="" name="itemShapeEdit" />
     <function shortcut="" name="itemSplitPolygons" />
@@ -137,6 +139,7 @@
     <function shortcut="" name="shadeOther" />
     <function shortcut="F11" name="specialToggleAllGuides" />
     <function shortcut="F10" name="specialToggleAllPalettes" />
+    <function shortcut="" name="stickyTools" />
     <function shortcut="Ctrl+E" name="styleImageEffects" />
     <function shortcut="" name="styleTabulators" />
     <function shortcut="" name="toolsActionHistory" />
@@ -175,8 +178,8 @@
     <function shortcut="" name="toolsToolbarTools" />
     <function shortcut="U" name="toolsUnlinkTextFrame" />
     <function shortcut="Z" name="toolsZoom" />
-    <function shortcut="Ctrl++" name="toolsZoomIn" />
-    <function shortcut="Ctrl+-" name="toolsZoomOut" />
+    <function shortcut="+" name="toolsZoomIn" />
+    <function shortcut="-" name="toolsZoomOut" />
     <function shortcut="" name="typeEffectAllCaps" />
     <function shortcut="" name="typeEffectNormal" />
     <function shortcut="" name="typeEffectOutline" />
@@ -235,14 +238,18 @@
     <function shortcut="" name="unicodeSpaceThick" />
     <function shortcut="" name="unicodeSpaceThin" />
     <function shortcut="" name="unicodeTM" />
+    <function shortcut="" name="unicodeZerowidthNonBreakingSpace" />
+    <function shortcut="" name="unicodeZerowidthSpace" />
     <function shortcut="Ctrl+1" name="viewFit100" />
-    <function shortcut="" name="viewFit20" />
     <function shortcut="" name="viewFit200" />
     <function shortcut="" name="viewFit50" />
     <function shortcut="" name="viewFit75" />
     <function shortcut="Ctrl+0" name="viewFitInWindow" />
+    <function shortcut="" name="viewFitPreview" />
+    <function shortcut="" name="viewFitWidth" />
     <function shortcut="" name="viewRulerMode" />
     <function shortcut="" name="viewShowBaseline" />
+    <function shortcut="" name="viewShowBleeds" />
     <function shortcut="" name="viewShowColumnBorders" />
     <function shortcut="" name="viewShowFrames" />
     <function shortcut="" name="viewShowGrid" />
