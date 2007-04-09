@@ -158,6 +158,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
 											"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
 											"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
+											"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 											"<tr><td>Marti Maria</td><td></td></tr>" +
 											"<tr><td>Alexandre Prokoudine</td><td>alexandre.prokoudine@gmail.com</td></tr>"
 											"<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
@@ -168,7 +169,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Eirik Øverby</td><td>ltning@anduin.net</td></tr>" +
 											"<tr><td>Kevin Young</td><td>k.young@youngscomputing.com</td></tr>" +
 											"<tr><td></td><td></td></tr>" +
-											"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 
 											"<tr><td><b>" + tr("Mac OS&#174; X Aqua Port:").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Andreas Vox</td><td>avox@arcor.de</td></tr>" +
