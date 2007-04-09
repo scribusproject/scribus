@@ -4,15 +4,18 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "scribus.h"
 #include "sampleitem.h"
 #include "sampleitem.moc"
-#include "loremipsum.h"
-#include "scribusdoc.h"
-#include "undomanager.h"
-#include "commonstrings.h"
+
 #include <qcolor.h>
 #include <qstring.h>
+
+#include "commonstrings.h"
+#include "loremipsum.h"
+#include "prefsmanager.h"
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "undomanager.h"
 
 extern ScribusMainWindow* ScMW;
 
@@ -295,8 +298,12 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (ScMW->view != NULL)
 	{
 		sca = ScMW->view->scale();
-		ScMW->view->setScale(1.0);
+		ScMW->view->setScale(1.0 * PrefsManager::instance()->appPrefs.DisScale);
 	}
+#ifdef HAVE_CAIRO
+	painter->setZoomFactor(ScMW->view->scale());
+#endif
+
 
 	QFont fo = QFont(tmpStyle.Font);
 	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
