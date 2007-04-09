@@ -2157,6 +2157,8 @@ void PDFlib::PDF_End_Page()
 		}
 		if (Options.bleedMarks)
 		{
+			PutPage("q\n");
+			PutPage("[3 1 1 1] 0 d\n");
 		// Bottom Left
 			PutPage("0 "+FToStr(markOffs)+" m\n");
 			PutPage(FToStr(20.0)+" "+FToStr(markOffs)+" l\n");
@@ -2185,6 +2187,7 @@ void PDFlib::PDF_End_Page()
 			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY)+" m\n");
 			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
 			PutPage("S\n");
+			PutPage("Q\n");
 		}
 		if (Options.registrationMarks)
 		{
