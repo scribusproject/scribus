@@ -633,6 +633,8 @@ void PSLib::PS_end_page()
 		}
 		if (Options.bleedMarks)
 		{
+			PutSeite("gs\n");
+			PutSeite("[3 1 1 1] 0 setdash\n");
 		// Bottom Left
 			PutSeite("0 "+ToStr(markOffs)+" m\n");
 			PutSeite(ToStr(20.0)+" "+ToStr(markOffs)+" li\n");
@@ -661,6 +663,7 @@ void PSLib::PS_end_page()
 			PutSeite(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY)+" m\n");
 			PutSeite(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
 			PutSeite("st\n");
+			PutSeite("gr\n");
 		}
 		if (Options.registrationMarks)
 		{
