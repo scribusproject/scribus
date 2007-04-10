@@ -168,6 +168,10 @@ public slots:
 	void setParStyle(const QString& name);
 	void setCharStyle(const QString& name);
 	void setOpticalMargins(int);
+	void setMinWordTracking();
+	void setNormWordTracking();
+	void setMinGlyphExtension();
+	void setMaxGlyphExtension();
 	void setShadowOffs(int x, int y);
 	void setUnderline(int p, int w);
 	void newUnderline();

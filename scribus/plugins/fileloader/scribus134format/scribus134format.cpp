@@ -1842,8 +1842,8 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 		vg.setHyphenationMode(pg.attribute("HyphenationMode").toInt());
 	if (pg.hasAttribute("MinWordTrack"))
 		vg.setMinWordTracking(pg.attribute("MinWordTrack").toInt());
-	if (pg.hasAttribute("MaxWordTrack"))
-		vg.setMaxWordTracking(pg.attribute("MaxWordTrack").toInt());
+	if (pg.hasAttribute("NormWordTrack"))
+		vg.setMaxWordTracking(pg.attribute("NormWordTrack").toInt());
 	if (pg.hasAttribute("MinGlyphShrink"))
 		vg.setMinGlyphExtension(pg.attribute("MinGlyphShrink").toInt());
 	if (pg.hasAttribute("MaxGlyphExtend"))

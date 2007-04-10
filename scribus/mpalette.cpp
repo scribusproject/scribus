@@ -738,7 +738,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( optMarginLabel, 2, 0 );
 	GroupBox3aLayout->addWidget( optMarginCombo, 2, 1 );
 	
-	wordTrackingLabel = new QLabel( optMarginCombo, "Word Tracking", page_3, "wordTrackingLabel" );
+	wordTrackingLabel = new QLabel( "Word Tracking", page_3, "wordTrackingLabel" );
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
 	wordTrackingHLayout = new Q3HBoxLayout(0,0,5,"wordTrackingHLayout");
 	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
@@ -752,7 +752,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	wordTrackingHLayout->add(normWordTrackingSpinBox);
 	GroupBox3aLayout->addMultiCellLayout(wordTrackingHLayout, 4, 4, 0, 1);
 	
-	glyphExtensionLabel = new QLabel( optMarginCombo, "Glyph Extension", page_3, "glyphExtensionLabel" );
+	glyphExtensionLabel = new QLabel( "Glyph Extension", page_3, "glyphExtensionLabel" );
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
 	glyphExtensionHLayout = new Q3HBoxLayout(0,0,5,"glyphExtensionHLayout");
 	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
@@ -1076,6 +1076,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
 	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
+	connect(minWordTrackingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setMinWordTracking()) );
+	connect(normWordTrackingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setNormWordTracking()) );
+	connect(minGlyphExtSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setMinGlyphExtension()) );
+	connect(maxGlyphExtSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setMaxGlyphExtension()) );
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -2563,6 +2567,44 @@ void Mpalette::setOpticalMargins(int i)
 	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	doc->itemSelection_SetOpticalMargins(i==0 ? ParagraphStyle::OM_None : ParagraphStyle::OM_Default);
+}
+
+void Mpalette::setMinWordTracking()
+{
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	ParagraphStyle newStyle;
+	newStyle.setMinWordTracking(minWordTrackingSpinBox->value() / 100.0);
+	doc->itemSelection_ApplyParagraphStyle(newStyle);
+}
+
+
+void Mpalette::setNormWordTracking()
+{
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	ParagraphStyle newStyle;
+//	newStyle.setNormWordTracking(percent / 100.0);
+	newStyle.setMaxWordTracking(normWordTrackingSpinBox->value() / 100.0);
+	doc->itemSelection_ApplyParagraphStyle(newStyle);
+}
+
+void Mpalette::setMinGlyphExtension()
+{
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	ParagraphStyle newStyle;
+	newStyle.setMinGlyphExtension(minGlyphExtSpinBox->value() / 100.0);
+	doc->itemSelection_ApplyParagraphStyle(newStyle);
+}
+
+void Mpalette::setMaxGlyphExtension()
+{
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	ParagraphStyle newStyle;
+	newStyle.setMaxGlyphExtension(maxGlyphExtSpinBox->value() / 100.0);
+	doc->itemSelection_ApplyParagraphStyle(newStyle);
 }
 
 

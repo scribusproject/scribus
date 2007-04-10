@@ -420,7 +420,7 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 	if ( ! style.isInhMinWordTracking())
 		fo.setAttribute("MinWordTrack", style.minWordTracking());
 	if ( ! style.isInhMaxWordTracking())
-		fo.setAttribute("MaxWordTrack", style.maxWordTracking());
+		fo.setAttribute("NormWordTrack", style.maxWordTracking());
 	if ( ! style.isInhMinGlyphExtension())
 		fo.setAttribute("MinGlyphShrink", style.minGlyphExtension());
 	if ( ! style.isInhMaxGlyphExtension())

@@ -925,6 +925,12 @@ void PageItem_TextFrame::layout()
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
 
 				// TODO: word tracking and glyph extension
+				if (SpecialChars::isExpandingSpace(hl->ch[0]))
+				{
+					double wordtracking = style.maxWordTracking();
+					hl->glyph.xadvance *= wordtracking;
+					wide *= wordtracking;
+				}
 				
 				// find ascent / descent
 				double hlcsize10=charStyle.fontSize() / 10.0;
