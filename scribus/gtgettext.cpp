@@ -109,7 +109,7 @@ ImportSetup gtGetText::run()
 		if (importers[i].fileEndings.count() != 0)
 		{
 			filters += importers[i].fileFormatName + " (";
-			for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+			for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 			{
 				filters += "*." + importers[i].fileEndings[j] + " ";
 				allSupported += "*." + importers[i].fileEndings[j] + " ";
@@ -205,7 +205,7 @@ void gtGetText::createMap()
 {
 	for (uint i = 0; i < importers.size(); ++i)
 	{
-		for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+		for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 				importerMap.insert(importers[i].fileEndings[j], &importers[i]);
 	}
 }

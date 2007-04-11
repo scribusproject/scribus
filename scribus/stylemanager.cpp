@@ -837,7 +837,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			{
 				bool postpone = false;
 				// search if parent is in remaing styles
-				for (uint j = i+1; j < styles.count(); ++j)
+				for (int j = i+1; j < styles.count(); ++j)
 				{
 					if (styles[j].first == styles[i].second)
 					{

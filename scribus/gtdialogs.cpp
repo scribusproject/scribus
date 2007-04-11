@@ -268,7 +268,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 	if (ok)
 	{
 		QString fileExtension = "";
-		for (uint i = 0; i < importers.count(); ++i)
+		for (int i = 0; i < importers.count(); ++i)
 		{
 			if (importers[i] == res)
 			{
