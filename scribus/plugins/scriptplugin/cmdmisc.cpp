@@ -152,7 +152,7 @@ PyObject *scribus_getlayers(PyObject* /* self */)
 		return NULL;
 	PyObject *l;
 	l = PyList_New(ScCore->primaryMainWindow()->doc->Layers.count());
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 		PyList_SetItem(l, lam, PyString_FromString(ScCore->primaryMainWindow()->doc->Layers[lam].Name.utf8()));
 	return l;
 }
@@ -207,10 +207,10 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
-		for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+		for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 			if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Layer))
 			{
 				i->LayerNr = static_cast<int>(lam);
@@ -243,7 +243,7 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -276,7 +276,7 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -309,7 +309,7 @@ PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -342,7 +342,7 @@ PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -375,7 +375,7 @@ PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -408,7 +408,7 @@ PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -441,7 +441,7 @@ PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -474,7 +474,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -505,7 +505,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -536,7 +536,7 @@ PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -567,7 +567,7 @@ PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -598,7 +598,7 @@ PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -629,7 +629,7 @@ PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
 	}
 	int i = 0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -660,7 +660,7 @@ PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
 	}
 	double i = 1.0;
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -696,7 +696,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	bool found = false;
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
@@ -711,7 +711,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 			int num = (*it2).Level;
 			ScCore->primaryMainWindow()->doc->Layers.remove(it2);
 			Q3ValueList<Layer>::iterator it;
-			for (uint l = 0; l < ScCore->primaryMainWindow()->doc->Layers.count(); l++)
+			for (int l = 0; l < ScCore->primaryMainWindow()->doc->Layers.count(); l++)
 			{
 				it = ScCore->primaryMainWindow()->doc->Layers.at(l);
 				if ((*it).Level > num)
