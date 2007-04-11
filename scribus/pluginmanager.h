@@ -94,7 +94,7 @@ public:
 
 	/*! \brief Return the path to the file for the named plugin.
 	An invalid plugin name is an error.*/
-	const QString & getPluginPath(const QString & pluginName) const;
+	const QString getPluginPath(const QString & pluginName) const;
 
 	/*! \brief Whether the given plug-in will be enabled on start-up.
 	Usable as an lvalue. An invalid plugin name is an error. */

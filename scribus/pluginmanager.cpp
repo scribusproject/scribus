@@ -505,7 +505,7 @@ PluginManager & PluginManager::instance()
 	return (*ScCore->pluginManager);
 }
 
-const QString & PluginManager::getPluginPath(const QString & pluginName) const
+const QString PluginManager::getPluginPath(const QString & pluginName) const
 {
 	// It is not legal to call this function without a valid
 	// plug in name.
