@@ -4454,6 +4454,13 @@ void ScribusMainWindow::slotFileQuit()
 	close();
 }
 
+
+static bool hasXMLRootElem(const QString& buffer, const QString& elemtag)
+{
+	return buffer.findRev(elemtag, 50 + elemtag.length()) >= 0;
+}
+
+
 void ScribusMainWindow::slotEditCut()
 {
 //	int a;
@@ -4740,7 +4747,7 @@ void ScribusMainWindow::slotEditPaste()
 			if (currItem->CPos > currItem->itemText.length())
 				currItem->CPos = currItem->itemText.length();
 			
-			if (Buffer2.startsWith("<SCRIBUSTEXT"))
+			if (hasXMLRootElem(Buffer2, "<SCRIBUSTEXT"))
 			{
 				Serializer dig(*doc);
 				dig.store<ScribusDoc>("<scribusdoc>", doc);
@@ -4840,7 +4847,7 @@ void ScribusMainWindow::slotEditPaste()
 				}
 */
 			}
-			else if (Buffer2.startsWith("<SCRIBUSELEM") || Buffer2.contains("<SCRIBUSFRAGMENT"))
+			else if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM") || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT"))
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
@@ -4851,7 +4858,7 @@ void ScribusMainWindow::slotEditPaste()
 				FPoint maxSize = doc->maxCanvasCoordinate;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				if (Buffer2.startsWith("<SCRIBUSELEM"))
+				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				else 
 					Serializer(*doc).deserializeObjects(Buffer2.utf8());
@@ -4918,7 +4925,7 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else
 		{
-			if (Buffer2.startsWith("<SCRIBUSELEM") || Buffer2.contains("<SCRIBUSFRAGMENT"))
+			if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM") || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT"))
 			{
 				view->Deselect(true);
 				uint ac = doc->Items->count();
@@ -4927,7 +4934,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->useRaster = false;
 				doc->SnapGuides = false;
 				qDebug(Buffer2);
-				if (Buffer2.startsWith("<SCRIBUSELEM"))
+				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 				else 
 				{
@@ -5066,8 +5073,8 @@ void ScribusMainWindow::ClipChange()
 		BuFromApp = false;
 	}
 	scrActions["editPaste"]->setEnabled(HaveDoc && 
-										(Buffer2.startsWith("<SCRIBUSELEM") 
-										 || Buffer2.contains("<SCRIBUSFRAGMENT") 
+										(hasXMLRootElem(Buffer2, "<SCRIBUSELEM") 
+										 || hasXMLRootElem(Buffer2, "<SCRIBUSFRAGMENT") 
 										 || doc->appMode == modeEdit));
 }
 
@@ -5903,7 +5910,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				enableTextActions(&scrActions, true, currItem->currentCharStyle().font().scName());
 			if (!Buffer2.isNull())
 			{
-//				if (!Buffer2.startsWith("<SCRIBUSELEM"))
+//				if (!hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 //				{
 					BuFromApp = false;
 					scrActions["editPaste"]->setEnabled(true);
