@@ -421,6 +421,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
+	doc_->changed();
 	doc_->scMW()->propertiesPalette->SetLineFormats(doc_);
 	doc_->view()->DrawNew();
 	selectionIsDirty_ = false;

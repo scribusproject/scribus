@@ -896,6 +896,9 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		if (newNames.styles().count() > 0)
 			docParagraphStyles.invalidate();	
 	}
+	if (!isLoading() && !(newNames.colors().isEmpty() && newNames.fonts().isEmpty() && newNames.patterns().isEmpty() 
+						  && newNames.styles().isEmpty() && newNames.charStyles().isEmpty() && newNames.lineStyles().isEmpty()) )
+		changed();
 }
 
 
@@ -1012,6 +1015,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 	StyleSet<ParagraphStyle> *wrkStyles     = NULL;
 	StyleSet<CharStyle> *wrkCharStyles      = NULL;
 	QMap<QString, multiLine> *wrkLineStyles = NULL;
+	int oldStyles, oldCharStyles, oldLineStyles;
 
 	/*
 	 * Use the working styles struct if passed, or work directly
@@ -1019,19 +1023,22 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 	 */
 	if (tempStyles != NULL)
 		wrkStyles = tempStyles;
-	else
+	else 
 		wrkStyles = &docParagraphStyles;
-
+	oldStyles = wrkStyles->count();
+	
 	if (tempCharStyles != NULL)
 		wrkCharStyles = tempCharStyles;
 	else
 		wrkCharStyles = &docCharStyles;
-
+	oldCharStyles = wrkCharStyles->count();
+	
 	if (tempLineStyles != NULL)
 		wrkLineStyles = tempLineStyles;
 	else
 		wrkLineStyles = &MLineStyles;
-
+	oldLineStyles = wrkLineStyles->count();
+	
 	if (!fileName.isEmpty())
 	{
 		FileLoader fl(fileName);
@@ -1053,6 +1060,11 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 		{
 			//TODO put in nice user warning
 		}
+		
+		 if ( !isLoading() && (   (wrkStyles == &docParagraphStyles && wrkStyles->count() > oldStyles)
+							   || (wrkCharStyles == &docCharStyles && wrkCharStyles->count() > oldCharStyles)
+							   || (wrkLineStyles == &MLineStyles && wrkLineStyles->count() > oldLineStyles) ) )
+			 changed();
 	}
 }
 
@@ -1396,7 +1408,8 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
-	changed();
+	if (!isLoading())
+		changed();
 	return addedPage;
 }
 
@@ -1423,7 +1436,8 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	MasterNames.insert(pageName, pageNumber);
 	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
 	Q_ASSERT(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
-	changed();
+	if  (!isLoading())
+		changed();
 	return addedPage;
 }
 
@@ -3033,7 +3047,8 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 		}
 	}
 	//TODO make a return false if not possible to apply the master page
-	changed();
+	if (!isLoading())
+		changed();
 	return true;
 }
 
