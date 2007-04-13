@@ -1089,19 +1089,37 @@ int StoryText::screenToPosition(FPoint coord) const
 FRect StoryText::boundingBox(int pos, uint len) const
 {
 	FRect result;
+	LineSpec ls;
 	for (uint i=0; i < lines(); ++i)
 	{
-		LineSpec ls = line(i);
+		ls = line(i);
 		if (ls.lastItem < pos)
 			continue;
 		if (ls.firstItem <= pos) {
-			double xpos = ls.x;
-			for (int j = ls.firstItem; j < pos; ++j)
-				xpos += item(j)->glyph.wide();
-			result.setRect(xpos, ls.y-ls.ascent, item(pos)->glyph.wide(), ls.ascent + ls.descent);
+			if (ls.lastItem == pos && (text(pos) == SpecialChars::PARSEP || (item(pos)->effects() & ScStyle_SuppressSpace) ) )
+			{
+				if (i+1 < lines())
+				{
+					ls = line(i+1);
+					result.setRect(ls.x, ls.y - ls.ascent, 1, ls.ascent + ls.descent);
+				}
+				else
+				{
+					ls = line(lines()-1);
+					result.setRect(ls.x, ls.y + ls.descent, 1, ls.ascent + ls.descent);
+				}
+			}
+			else
+			{
+				double xpos = ls.x;
+				for (int j = ls.firstItem; j < pos; ++j)
+					xpos += item(j)->glyph.wide();
+				result.setRect(xpos, ls.y - ls.ascent, item(pos)->glyph.wide(), ls.ascent + ls.descent);
+			}
 			break;
 		}
 	}
+
 	return result;
 }
 
