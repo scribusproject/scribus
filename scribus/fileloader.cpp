@@ -295,7 +295,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	return ret;
 }
 
-bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar */*dia2*/)
+bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar* /*dia2*/)
 {
 	bool ret = false;
 	QValueList<FileFormat>::const_iterator it;

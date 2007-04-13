@@ -1612,7 +1612,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	else
 	{
 		StyledLine->setCurrentItem(0);
-		StyledLine->setSelected(StyledLine->findItem(CurItem->NamedLStyle), Qt::ExactMatch);
+		StyledLine->setSelected(StyledLine->findItem(CurItem->NamedLStyle), true);
 		setter = false;
 	}
 	LStyle->setEnabled(setter);

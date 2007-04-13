@@ -1010,7 +1010,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 	StyleSet<ParagraphStyle> *wrkStyles     = NULL;
 	StyleSet<CharStyle> *wrkCharStyles      = NULL;
 	QMap<QString, multiLine> *wrkLineStyles = NULL;
-	int oldStyles, oldCharStyles, oldLineStyles;
+	uint oldStyles, oldCharStyles, oldLineStyles;
 
 	/*
 	 * Use the working styles struct if passed, or work directly

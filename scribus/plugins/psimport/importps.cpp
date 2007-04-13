@@ -892,7 +892,7 @@ bool EPSPlug::Image(QString vals)
 			bool gs_error = false;
 			do {
 				len = diag.readLine(line, 120);
-				gs_error |= line.contains("Error");
+				gs_error |= (line.contains("Error") > 0);
 				if (gs_error)
 					qDebug("\t%s", line.ascii());
 			}
@@ -937,7 +937,7 @@ bool EPSPlug::Image(QString vals)
 	ite->ClipEdited = true;
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 */
-	m_Doc->loadPict(filename, ite, -1);
+	m_Doc->loadPict(filename, ite, true);
 	ite->setRotation(angle);
 	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
 //	m_Doc->view()->AdjustItemSize(ite);

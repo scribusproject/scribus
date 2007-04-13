@@ -608,7 +608,7 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 	m_doc->changed();
 }
 
-bool CharSelect::eventFilter(QObject */*obj*/, QEvent *ev)
+bool CharSelect::eventFilter(QObject* /*obj*/, QEvent *ev)
 {
 	if (ev->type() == QEvent::Show)
 	{
