@@ -1647,48 +1647,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setLayerOutlined&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerFlow&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerBlendmode&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerTransparency&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
@@ -1776,42 +1734,6 @@ Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a r
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getTextLines([&quot;name&quot;]) -&gt; integer
 
 Returns the number of lines of the text in the text frame &quot;name&quot;.
@@ -1828,16 +1750,6 @@ index of 0. Inserting text at position -1 appends it to the frame. If &quot;name
 not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>placeEPS(&quot;filename&quot;, x, y)
-
-Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-
-If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1860,6 +1772,94 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 If loading was successful, the selection contains the imported ODG
 </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerOutlined(&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow(&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode(&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency(&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeEPS(&quot;filename&quot;, x, y)
+
+Places the EPS &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the EPS placed on the page
+
+If loading was successful, the selection contains the imported EPS
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Kopie #%1 van</translation>
     </message>
 </context>
 <context>
@@ -2699,75 +2699,75 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Apostrophe</source>
-        <translation>Apostrof</translation>
+        <translation type="obsolete">Apostrof</translation>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation>Dubbel recht</translation>
+        <translation type="obsolete">Dubbel recht</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Enkel links</translation>
+        <translation type="obsolete">Enkel links</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Enkel rechts</translation>
+        <translation type="obsolete">Enkel rechts</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Dubbel links</translation>
+        <translation type="obsolete">Dubbel links</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation>Dubbel rechts</translation>
+        <translation type="obsolete">Dubbel rechts</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Enkel omgedraaid</translation>
+        <translation type="obsolete">Enkel omgedraaid</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation>Dubbel omgedraaid</translation>
+        <translation type="obsolete">Dubbel omgedraaid</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Enkele linker Guillemet</translation>
+        <translation type="obsolete">Enkele linker Guillemet</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Enkele rechter Guillemet</translation>
+        <translation type="obsolete">Enkele rechter Guillemet</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation>Dubbele linker Guillemets</translation>
+        <translation type="obsolete">Dubbele linker Guillemets</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation>Dubbele rechter Guillemets</translation>
+        <translation type="obsolete">Dubbele rechter Guillemets</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation>Lage enkele komma</translation>
+        <translation type="obsolete">Lage enkele komma</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Lage dubbele komma</translation>
+        <translation type="obsolete">Lage dubbele komma</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation>CJK enkel links</translation>
+        <translation type="obsolete">CJK enkel links</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation>CJK enkel rechts</translation>
+        <translation type="obsolete">CJK enkel rechts</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation>CJK dubbel links</translation>
+        <translation type="obsolete">CJK dubbel links</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation>CJK dubbel rechts</translation>
+        <translation type="obsolete">CJK dubbel rechts</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
@@ -3003,6 +3003,96 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <source>Zero Width NB Space</source>
         <translation>Nul breedte NB spatie</translation>
+    </message>
+    <message>
+        <source>Apostrophe</source>
+        <comment>Unicode 0x0027</comment>
+        <translation type="unfinished">Apostrof</translation>
+    </message>
+    <message>
+        <source>Straight Double</source>
+        <comment>Unicode 0x0022</comment>
+        <translation type="unfinished">Dubbel recht</translation>
+    </message>
+    <message>
+        <source>Single Left</source>
+        <comment>Unicode 0x2018</comment>
+        <translation type="unfinished">Enkel links</translation>
+    </message>
+    <message>
+        <source>Single Right</source>
+        <comment>Unicode 0x2019</comment>
+        <translation type="unfinished">Enkel rechts</translation>
+    </message>
+    <message>
+        <source>Double Left</source>
+        <comment>Unicode 0x201C</comment>
+        <translation type="unfinished">Dubbel links</translation>
+    </message>
+    <message>
+        <source>Double Right</source>
+        <comment>Unicode 0x201D</comment>
+        <translation type="unfinished">Dubbel rechts</translation>
+    </message>
+    <message>
+        <source>Single Reversed</source>
+        <comment>Unicode 0x201B</comment>
+        <translation type="unfinished">Enkel omgedraaid</translation>
+    </message>
+    <message>
+        <source>Double Reversed</source>
+        <comment>Unicode 0x201F</comment>
+        <translation type="unfinished">Dubbel omgedraaid</translation>
+    </message>
+    <message>
+        <source>Single Left Guillemet</source>
+        <comment>Unicode 0x2039</comment>
+        <translation type="unfinished">Enkele linker Guillemet</translation>
+    </message>
+    <message>
+        <source>Single Right Guillemet</source>
+        <comment>Unicode 0x203A</comment>
+        <translation type="unfinished">Enkele rechter Guillemet</translation>
+    </message>
+    <message>
+        <source>Double Left Guillemet</source>
+        <comment>Unicode 0x00AB</comment>
+        <translation type="unfinished">Dubbele linker Guillemets</translation>
+    </message>
+    <message>
+        <source>Double Right Guillemet</source>
+        <comment>Unicode 0x00BB</comment>
+        <translation type="unfinished">Dubbele rechter Guillemets</translation>
+    </message>
+    <message>
+        <source>Low Single Comma</source>
+        <comment>Unicode 0x201A</comment>
+        <translation type="unfinished">Lage enkele komma</translation>
+    </message>
+    <message>
+        <source>Low Double Comma</source>
+        <comment>Unicode 0x201E</comment>
+        <translation type="unfinished">Lage dubbele komma</translation>
+    </message>
+    <message>
+        <source>CJK Single Left</source>
+        <comment>Unicode 0x300C</comment>
+        <translation type="unfinished">CJK enkel links</translation>
+    </message>
+    <message>
+        <source>CJK Single Right</source>
+        <comment>Unicode 0x300D</comment>
+        <translation type="unfinished">CJK enkel rechts</translation>
+    </message>
+    <message>
+        <source>CJK Double Left</source>
+        <comment>Unicode 0x300E</comment>
+        <translation type="unfinished">CJK dubbel links</translation>
+    </message>
+    <message>
+        <source>CJK Double Right</source>
+        <comment>Unicode 0x300F</comment>
+        <translation type="unfinished">CJK dubbel rechts</translation>
     </message>
 </context>
 <context>
@@ -4569,7 +4659,23 @@ kies een andere.</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Parent</translation>
+        <translation type="obsolete">Parent</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Kleuren</translation>
     </message>
 </context>
 <context>
@@ -5069,6 +5175,10 @@ kies een andere.</translation>
         <source>Image is GIF</source>
         <translation>Afbeelding is GIF</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5192,7 +5302,7 @@ kies een andere.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Openen</translation>
+        <translation type="obsolete">Openen</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -5225,6 +5335,10 @@ Als het een bestand is op PostScript basis, probeer dan Bestand -&amp;; Import.
 Niet alle bestand hebben DSC conform commentaar over de locatie van de kleurbeschrijving.
 Dit voorkomt import van kleuren bij bepaalde bestanden.
 Zie het Bewerk Kleuren deel van het document voor details.</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished">Importeren</translation>
     </message>
 </context>
 <context>
@@ -5586,17 +5700,12 @@ Zie het Bewerk Kleuren deel van het document voor details.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Default</source>
-        <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Min. Word Tracking</source>
         <translation>Min. woord tracking</translation>
     </message>
     <message>
         <source>Max. Word Tracking</source>
-        <translation>Max. woord tracking</translation>
+        <translation type="obsolete">Max. woord tracking</translation>
     </message>
     <message>
         <source>Min. Glyph Extension</source>
@@ -5604,6 +5713,19 @@ Zie het Bewerk Kleuren deel van het document voor details.</translation>
     </message>
     <message>
         <source>Max. Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>Both sides</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6793,6 +6915,30 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation>Inschakelen globale Overprint modus, object instellingen worden genegeerd</translation>
     </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -7459,6 +7605,17 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source> was replaced by: </source>
         <translation> vervangen door: </translation>
+    </message>
+</context>
+<context>
+    <name>FontComboH</name>
+    <message>
+        <source>Face:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="unfinished">Stijl:</translation>
     </message>
 </context>
 <context>
@@ -8140,6 +8297,41 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
 </context>
 <context>
+    <name>ImportDialog</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished">Kies stijlen</translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished">Beschikbare stijlen</translation>
+    </message>
+    <message>
+        <source>Character Styles</source>
+        <translation type="unfinished">Teken stijlen</translation>
+    </message>
+    <message>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished">Alineastijlen</translation>
+    </message>
+    <message>
+        <source>Line Styles</source>
+        <translation type="unfinished">Lijnstijlen</translation>
+    </message>
+    <message>
+        <source>In case of a name clash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename imported style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace existing style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -8772,6 +8964,10 @@ zet de vectordata om naar Scribus objecten.</translation>
     <message>
         <source>All Files (*)</source>
         <translation>Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>No File Loader Plugins Found</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10028,6 +10224,42 @@ hoeken:</translation>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Tekenstijl van de huidige geselecteerde tekst of alinea</translation>
     </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -10495,6 +10727,14 @@ hoeken:</translation>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Waarde om te vergroten of te verkleinen</translation>
     </message>
+    <message>
+        <source>Set Contour to Image Clip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the Contour Line to the Clipping Path of the Image</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OODPlug</name>
@@ -10925,7 +11165,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Parent</translation>
+        <translation type="obsolete">Parent</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -10942,6 +11182,10 @@ hoeken:</translation>
     <message>
         <source>Ch&amp;aracter Style</source>
         <translation>L&amp;etterteken stijl</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11146,6 +11390,45 @@ hoeken:</translation>
     </message>
 </context>
 <context>
+    <name>PicSearch</name>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Grootte:</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished">Resolutie:</translation>
+    </message>
+    <message>
+        <source>DPI</source>
+        <translation type="unfinished">DPI</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Onbekend</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotoon</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished">Kleurruimte: </translation>
+    </message>
+</context>
+<context>
     <name>PicSearchBase</name>
     <message>
         <source>Result</source>
@@ -11173,50 +11456,112 @@ hoeken:</translation>
     </message>
 </context>
 <context>
-    <name>PicStatus</name>
+    <name>PicSearchOptions</name>
     <message>
-        <source>Name</source>
-        <translation>Naam</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>Lokatie</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation>Pagina</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation>Afdrukken</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
-        <source>Goto</source>
-        <translation>Ga naar</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Missing</source>
-        <translation>Ontbrekend</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation>Zoeken</translation>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation type="unfinished">Bij inschakelen wordt het bestandssysyteem doorzocht op case-ongevoelige bestandsnamen. Dit is niet standaard in de meeste operating systems met uitzondering van MS Winsows</translation>
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation>Annuleer zoekopdracht</translation>
+        <translation type="unfinished">Annuleer zoekopdracht</translation>
+    </message>
+    <message>
+        <source>Start Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a base directory for search</source>
+        <translation type="unfinished">Selecteer een te doorzoeken map</translation>
+    </message>
+    <message>
+        <source>Scribus - Image Search</source>
+        <translation type="unfinished">Scribus - Afbeelding zoeken</translation>
+    </message>
+    <message>
+        <source>The search failed: %1</source>
+        <translation type="unfinished">De zoekopdracht is mislukt: %1</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearchOptionsBase</name>
+    <message>
+        <source>Search Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start at:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Wijzigen...</translation>
+    </message>
+    <message>
+        <source>Search for:</source>
+        <translation type="unfinished">Zoeken naar:</translation>
+    </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation type="unfinished">Niet hoofdlettergevoelig zoeken</translation>
+    </message>
+    <message>
+        <source>Search recursivly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PicStatus</name>
+    <message>
+        <source>Name</source>
+        <translation type="obsolete">Naam</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="obsolete">Lokatie</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="obsolete">Pagina</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation type="obsolete">Afdrukken</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation type="obsolete">Status</translation>
+    </message>
+    <message>
+        <source>Goto</source>
+        <translation type="obsolete">Ga naar</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>Missing</source>
+        <translation type="obsolete">Ontbrekend</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="obsolete">Zoeken</translation>
+    </message>
+    <message>
+        <source>Cancel Search</source>
+        <translation type="obsolete">Annuleer zoekopdracht</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Afbeelingen beheren</translation>
+        <translation type="obsolete">Afbeelingen beheren</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -11224,7 +11569,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation>De zoekopdracht is mislukt: %1</translation>
+        <translation type="obsolete">De zoekopdracht is mislukt: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
@@ -11232,39 +11577,202 @@ hoeken:</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
-        <translation>Selecteer een te doorzoeken map</translation>
+        <translation type="obsolete">Selecteer een te doorzoeken map</translation>
     </message>
     <message>
         <source>Case insensitive search</source>
-        <translation>Niet hoofdlettergevoelig zoeken</translation>
+        <translation type="obsolete">Niet hoofdlettergevoelig zoeken</translation>
     </message>
     <message>
         <source>Show thumbnails</source>
-        <translation>Toon miniaturen</translation>
+        <translation type="obsolete">Toon miniaturen</translation>
     </message>
     <message>
         <source>Search Directory</source>
-        <translation>Zoek map</translation>
+        <translation type="obsolete">Zoek map</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sluiten</translation>
+        <translation type="obsolete">Sluiten</translation>
     </message>
     <message>
         <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
-        <translation>Stel nieuwe locatie in voor geselecteerde items. Handig als het document is verplaatst maar niet de afbeeldingen.</translation>
+        <translation type="obsolete">Stel nieuwe locatie in voor geselecteerde items. Handig als het document is verplaatst maar niet de afbeeldingen.</translation>
     </message>
     <message>
         <source>Show/hide image thumbnails</source>
-        <translation>Toon/verberg miniaturen afbeeldingen</translation>
+        <translation type="obsolete">Toon/verberg miniaturen afbeeldingen</translation>
     </message>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Bij inschakelen wordt het bestandssysyteem doorzocht op case-ongevoelige bestandsnamen. Dit is niet standaard in de meeste operating systems met uitzondering van MS Winsows</translation>
+        <translation type="obsolete">Bij inschakelen wordt het bestandssysyteem doorzocht op case-ongevoelige bestandsnamen. Dit is niet standaard in de meeste operating systems met uitzondering van MS Winsows</translation>
     </message>
     <message>
         <source>Select a base directory for your selected rows</source>
-        <translation>Selecteer een basis map voor de geselecteerde rijen</translation>
+        <translation type="obsolete">Selecteer een basis map voor de geselecteerde rijen</translation>
+    </message>
+    <message>
+        <source>Not on a Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JPG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TIFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS/PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
+    </message>
+    <message>
+        <source>JPG2000</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>emb. PSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Onbekend</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotoon</translation>
+    </message>
+    <message>
+        <source>n/a</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PicStatusBase</name>
+    <message>
+        <source>Manage Pictures</source>
+        <translation type="unfinished">Afbeelingen beheren</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informatie</translation>
+    </message>
+    <message>
+        <source>Path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Naam:</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Afbeelding</translation>
+    </message>
+    <message>
+        <source>DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished">Formaat:</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished">Kleurruimte: </translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished">Grootte</translation>
+    </message>
+    <message>
+        <source>Pixels:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale:</source>
+        <translation type="unfinished">Schaal:</translation>
+    </message>
+    <message>
+        <source>Printed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Goto</source>
+        <translation type="unfinished">Ga naar</translation>
+    </message>
+    <message>
+        <source>eff. DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers &amp;&amp; Paths...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Image...</source>
+        <translation type="unfinished">Afbeelding bewerken ...</translation>
+    </message>
+    <message>
+        <source>Print Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Sluiten</translation>
     </message>
 </context>
 <context>
@@ -13819,6 +14327,14 @@ Weergave is mogelijk niet correct</translation>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation>Scribus 1.3.0-&gt;1.3.3.7 ondersteuning</translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy of %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14099,7 +14615,7 @@ Weergave is mogelijk niet correct</translation>
     <name>SMCStylePage</name>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> %</source>
@@ -14155,11 +14671,19 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Parent</translation>
+        <translation type="obsolete">Parent</translation>
     </message>
     <message>
         <source>Shade</source>
         <translation>Tint</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14276,39 +14800,39 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Parent style</source>
-        <translation>Parent stijl</translation>
+        <translation type="obsolete">Parent stijl</translation>
     </message>
     <message>
         <source>Line spacing mode</source>
-        <translation>Regelspatiëring modus</translation>
+        <translation type="obsolete">Regelspatiëring modus</translation>
     </message>
     <message>
         <source>Line spacing</source>
-        <translation>Regelspatiëring</translation>
+        <translation type="obsolete">Regelspatiëring</translation>
     </message>
     <message>
         <source>Space above</source>
-        <translation>Ruimte boven</translation>
+        <translation type="obsolete">Ruimte boven</translation>
     </message>
     <message>
         <source>Space below</source>
-        <translation>Ruimte tussen regels</translation>
+        <translation type="obsolete">Ruimte tussen regels</translation>
     </message>
     <message>
         <source>Enable or disable drop cap</source>
-        <translation>Beginkapitaal aan- of uitschakelen</translation>
+        <translation type="obsolete">Beginkapitaal aan- of uitschakelen</translation>
     </message>
     <message>
         <source>Drop cap lines</source>
-        <translation>Beginkapitaal regels</translation>
+        <translation type="obsolete">Beginkapitaal regels</translation>
     </message>
     <message>
         <source>Drop cap offset</source>
-        <translation>Beginkapitaal verschuiving</translation>
+        <translation type="obsolete">Beginkapitaal verschuiving</translation>
     </message>
     <message>
         <source>Alignment</source>
@@ -14316,23 +14840,23 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>First line indent</source>
-        <translation>Eerste regel inspringen</translation>
+        <translation type="obsolete">Eerste regel inspringen</translation>
     </message>
     <message>
         <source>Left indent</source>
-        <translation>Links inspringen</translation>
+        <translation type="obsolete">Links inspringen</translation>
     </message>
     <message>
         <source>Right indent</source>
-        <translation>Rechts inspringen</translation>
+        <translation type="obsolete">Rechts inspringen</translation>
     </message>
     <message>
         <source>Tabulators</source>
-        <translation>Tabulators</translation>
+        <translation type="obsolete">Tabulators</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Parent</translation>
+        <translation type="obsolete">Parent</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -14364,7 +14888,51 @@ Weergave is mogelijk niet correct</translation>
     </message>
     <message>
         <source>Based on</source>
-        <translation>Gebaseerd op</translation>
+        <translation type="obsolete">Gebaseerd op</translation>
+    </message>
+    <message>
+        <source>Parent Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Spacing Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space Above</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space Below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Line Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14828,7 +15396,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Kopie #%1 van</translation>
+        <translation type="obsolete">Kopie #%1 van</translation>
     </message>
 </context>
 <context>
@@ -14963,6 +15531,14 @@ Rotation: %4</source>
 Horizontale verschuiving: %2
 Verticale verschuiving: %3
 Rotatie: %4</translation>
+    </message>
+    <message>
+        <source>remove manual paragraphstyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove manual charstyle</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16400,11 +16976,11 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     </message>
     <message>
         <source>&lt;&lt; &amp;Done</source>
-        <translation>&lt;&lt; &amp;Gereed</translation>
+        <translation type="obsolete">&lt;&lt; &amp;Gereed</translation>
     </message>
     <message>
         <source>&amp;Edit &gt;&gt;</source>
-        <translation>B&amp;ewerken &gt;&gt;</translation>
+        <translation type="obsolete">B&amp;ewerken &gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -17804,11 +18380,11 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
+        <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
+        <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -18228,7 +18804,7 @@ Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation>Afbeeldingen o&amp;mzetten naar:</translation>
+        <translation type="obsolete">Afbeeldingen o&amp;mzetten naar:</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -18374,7 +18950,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>Pas de pixel-afbeeldingen aan naar het geselecteerde DPI. Indien niet aangevinkt worden de afbeeldingen gerenderd naar de oorspronkelijke resolutie. Dit kan resulteren in meer gebruik van geheugen.</translation>
+        <translation type="obsolete">Pas de pixel-afbeeldingen aan naar het geselecteerde DPI. Indien niet aangevinkt worden de afbeeldingen gerenderd naar de oorspronkelijke resolutie. Dit kan resulteren in meer gebruik van geheugen.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
@@ -18495,6 +19071,90 @@ als PDF document wordt geopend:</translation>
     <message>
         <source>Outside:</source>
         <translation>Buitenzijde:</translation>
+    </message>
+    <message>
+        <source>Maximum Image Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables viewing the document in full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the bookmarks upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the page thumbnails upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Tool Bar which has selection and other editing capabilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add document information which includes the document title and page numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18702,6 +19362,26 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
     </message>
     <message>
         <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ndicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19111,6 +19791,10 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
         <source>Degrees</source>
         <translation>Graden</translation>
     </message>
+    <message>
+        <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -19286,6 +19970,18 @@ Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
     <message>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Inspringen vanaf rechts voor de hele alinea</translation>
+    </message>
+    <message>
+        <source>Fill Character of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type/Orientation of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Position of Tab</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19996,6 +20692,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Copy page</source>
         <translation>Kopieer pagina</translation>
+    </message>
+    <message>
+        <source>Text flows around image clipping path</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1667,48 +1667,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setLayerOutlined&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerFlow&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerBlendmode&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerTransparency&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
@@ -1796,42 +1754,6 @@ Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a r
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getTextLines([&quot;name&quot;]) -&gt; integer
 
 Returns the number of lines of the text in the text frame &quot;name&quot;.
@@ -1848,16 +1770,6 @@ index of 0. Inserting text at position -1 appends it to the frame. If &quot;name
 not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>placeEPS(&quot;filename&quot;, x, y)
-
-Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-
-If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1880,6 +1792,94 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 If loading was successful, the selection contains the imported ODG
 </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerOutlined(&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow(&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode(&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency(&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeEPS(&quot;filename&quot;, x, y)
+
+Places the EPS &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the EPS placed on the page
+
+If loading was successful, the selection contains the imported EPS
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Копия #%1 из </translation>
     </message>
 </context>
 <context>
@@ -2731,75 +2731,75 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Apostrophe</source>
-        <translation>Апостроф</translation>
+        <translation type="obsolete">Апостроф</translation>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation>Двойной апостроф</translation>
+        <translation type="obsolete">Двойной апостроф</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Английская открывающая одинарная </translation>
+        <translation type="obsolete">Английская открывающая одинарная </translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Английская закрывающая одинарная</translation>
+        <translation type="obsolete">Английская закрывающая одинарная</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Английская открывающая двойная</translation>
+        <translation type="obsolete">Английская открывающая двойная</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation>Английская закрывающая двойная</translation>
+        <translation type="obsolete">Английская закрывающая двойная</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Перевёрнутая одинарная </translation>
+        <translation type="obsolete">Перевёрнутая одинарная </translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation>Перевёрнутая двойная</translation>
+        <translation type="obsolete">Перевёрнутая двойная</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Французская открывающая одинарная</translation>
+        <translation type="obsolete">Французская открывающая одинарная</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Французская закрывающая одинарная</translation>
+        <translation type="obsolete">Французская закрывающая одинарная</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation>Французская открывающая двойная</translation>
+        <translation type="obsolete">Французская открывающая двойная</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation>Французская закрывающая двойная</translation>
+        <translation type="obsolete">Французская закрывающая двойная</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation>Нижняя одинарная запятая</translation>
+        <translation type="obsolete">Нижняя одинарная запятая</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Нижняя двойная запятая</translation>
+        <translation type="obsolete">Нижняя двойная запятая</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation>Азиатская открывающая одинарная</translation>
+        <translation type="obsolete">Азиатская открывающая одинарная</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation>Азиатская закрывающая одинарная</translation>
+        <translation type="obsolete">Азиатская закрывающая одинарная</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation>Азиатская открывающая двойная</translation>
+        <translation type="obsolete">Азиатская открывающая двойная</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation>Азиатская закрывающая двойная</translation>
+        <translation type="obsolete">Азиатская закрывающая двойная</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
@@ -3051,6 +3051,96 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <source>Zero Width NB Space</source>
         <translation>Нулевой неразрывный пробел</translation>
+    </message>
+    <message>
+        <source>Apostrophe</source>
+        <comment>Unicode 0x0027</comment>
+        <translation type="unfinished">Апостроф</translation>
+    </message>
+    <message>
+        <source>Straight Double</source>
+        <comment>Unicode 0x0022</comment>
+        <translation type="unfinished">Двойной апостроф</translation>
+    </message>
+    <message>
+        <source>Single Left</source>
+        <comment>Unicode 0x2018</comment>
+        <translation type="unfinished">Английская открывающая одинарная </translation>
+    </message>
+    <message>
+        <source>Single Right</source>
+        <comment>Unicode 0x2019</comment>
+        <translation type="unfinished">Английская закрывающая одинарная</translation>
+    </message>
+    <message>
+        <source>Double Left</source>
+        <comment>Unicode 0x201C</comment>
+        <translation type="unfinished">Английская открывающая двойная</translation>
+    </message>
+    <message>
+        <source>Double Right</source>
+        <comment>Unicode 0x201D</comment>
+        <translation type="unfinished">Английская закрывающая двойная</translation>
+    </message>
+    <message>
+        <source>Single Reversed</source>
+        <comment>Unicode 0x201B</comment>
+        <translation type="unfinished">Перевёрнутая одинарная </translation>
+    </message>
+    <message>
+        <source>Double Reversed</source>
+        <comment>Unicode 0x201F</comment>
+        <translation type="unfinished">Перевёрнутая двойная</translation>
+    </message>
+    <message>
+        <source>Single Left Guillemet</source>
+        <comment>Unicode 0x2039</comment>
+        <translation type="unfinished">Французская открывающая одинарная</translation>
+    </message>
+    <message>
+        <source>Single Right Guillemet</source>
+        <comment>Unicode 0x203A</comment>
+        <translation type="unfinished">Французская закрывающая одинарная</translation>
+    </message>
+    <message>
+        <source>Double Left Guillemet</source>
+        <comment>Unicode 0x00AB</comment>
+        <translation type="unfinished">Французская открывающая двойная</translation>
+    </message>
+    <message>
+        <source>Double Right Guillemet</source>
+        <comment>Unicode 0x00BB</comment>
+        <translation type="unfinished">Французская закрывающая двойная</translation>
+    </message>
+    <message>
+        <source>Low Single Comma</source>
+        <comment>Unicode 0x201A</comment>
+        <translation type="unfinished">Нижняя одинарная запятая</translation>
+    </message>
+    <message>
+        <source>Low Double Comma</source>
+        <comment>Unicode 0x201E</comment>
+        <translation type="unfinished">Нижняя двойная запятая</translation>
+    </message>
+    <message>
+        <source>CJK Single Left</source>
+        <comment>Unicode 0x300C</comment>
+        <translation type="unfinished">Азиатская открывающая одинарная</translation>
+    </message>
+    <message>
+        <source>CJK Single Right</source>
+        <comment>Unicode 0x300D</comment>
+        <translation type="unfinished">Азиатская закрывающая одинарная</translation>
+    </message>
+    <message>
+        <source>CJK Double Left</source>
+        <comment>Unicode 0x300E</comment>
+        <translation type="unfinished">Азиатская открывающая двойная</translation>
+    </message>
+    <message>
+        <source>CJK Double Right</source>
+        <comment>Unicode 0x300F</comment>
+        <translation type="unfinished">Азиатская закрывающая двойная</translation>
     </message>
 </context>
 <context>
@@ -4936,7 +5026,7 @@ please choose another one.</source>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+б</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
@@ -6045,14 +6135,10 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
-        <translation>По умолчанию</translation>
+        <translation type="obsolete">По умолчанию</translation>
     </message>
     <message>
         <source>Min. Word Tracking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Max. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6061,6 +6147,15 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>Max. Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both sides</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm. Word Tracking</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6160,7 +6255,7 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Параметры порзрачности</translation>
     </message>
     <message>
         <source>Offsets</source>
@@ -6168,7 +6263,7 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>X:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">X:</translation>
     </message>
     <message>
         <source>Y:</source>
@@ -7331,6 +7426,30 @@ a range of pages or a single page number.</source>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -7372,7 +7491,7 @@ failed!</source>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Группа%1</translation>
     </message>
 </context>
 <context>
@@ -8861,15 +8980,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Character Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Символьные стили</translation>
     </message>
     <message>
         <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Абзацный стиль</translation>
     </message>
     <message>
         <source>Line Styles</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Стили линий</translation>
     </message>
     <message>
         <source>In case of a name clash</source>
@@ -9676,6 +9795,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>All Files (*)</source>
         <translation>Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>No File Loader Plugins Found</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11013,6 +11136,30 @@ Corners:</source>
         <source>Character style of currently selected text or paragraph</source>
         <translation>Символьный стиль выбранного текста или текстового блока</translation>
     </message>
+    <message>
+        <source>Norm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -11911,7 +12058,7 @@ Corners:</source>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Принудительный режим надпечатки</translation>
     </message>
     <message>
         <source>Convert Spot Colors</source>
@@ -11923,7 +12070,7 @@ Corners:</source>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Уместить по ширине</translation>
     </message>
     <message>
         <source>Fit to Height</source>
@@ -11966,7 +12113,7 @@ Corners:</source>
     </message>
     <message>
         <source>Exporting Page:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экспорт страницы:</translation>
     </message>
 </context>
 <context>
@@ -15732,6 +15879,10 @@ Therefore the image may be not correct</source>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16385,54 +16536,10 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Parent style</source>
-        <translation>Родительский стиль</translation>
-    </message>
-    <message>
-        <source>Line spacing mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line spacing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space above</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable drop cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drop cap lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drop cap offset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Родительский стиль</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>First line indent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left indent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Right indent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tabulators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16466,6 +16573,46 @@ Therefore the image may be not correct</source>
     <message>
         <source>Distance from Text:</source>
         <translation>Расстояние до текста:</translation>
+    </message>
+    <message>
+        <source>Parent Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Spacing Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space Above</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space Below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Line Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Indent</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16944,7 +17091,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Копия #%1 из </translation>
+        <translation type="obsolete">Копия #%1 из </translation>
     </message>
 </context>
 <context>
@@ -17062,10 +17209,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Выполняется цветокоррекция</translation>
     </message>
     <message>
-        <source>remove manual paragrphstyle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>remove manual charstyle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17092,6 +17235,10 @@ Rotation: %4</source>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove manual paragraphstyle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17864,7 +18011,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим предпросмотра</translation>
     </message>
     <message>
         <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
@@ -17872,7 +18019,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Paste Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вставить недавнее</translation>
     </message>
     <message>
         <source>Duotone</source>
@@ -18641,7 +18788,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>&amp;Clone</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">С&amp;клонировать</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -18653,7 +18800,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Импорт</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -19107,7 +19254,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показывать индикаторы слоёв</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -19254,15 +19401,15 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Применить параметры к:</translation>
     </message>
     <message>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Все страницы документа</translation>
     </message>
     <message>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Все мастер-страницы</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -19438,7 +19585,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+б</translation>
     </message>
     <message>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
@@ -19893,7 +20040,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+б</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
@@ -20710,7 +20857,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Принудительный режим надпечатки</translation>
     </message>
     <message>
         <source>Printer Marks</source>
@@ -20794,6 +20941,82 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Outside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables viewing the document in full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the bookmarks upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the page thumbnails upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Tool Bar which has selection and other editing capabilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add document information which includes the document title and page numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21004,6 +21227,26 @@ when PDF document is opened:</source>
     <message>
         <source>Right:</source>
         <translation type="unfinished">Справа:</translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ndicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21423,6 +21666,10 @@ when PDF document is opened:</source>
         <comment>tab fill</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -21610,6 +21857,18 @@ when PDF document is opened:</source>
         <source>Indentation from the right for the whole paragraph</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Fill Character of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type/Orientation of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Position of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextBrowser</name>
@@ -21710,7 +21969,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Строк: </translation>
     </message>
     <message>
         <source>Words: </source>

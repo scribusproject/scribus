@@ -161,7 +161,7 @@ Kan rejse IndexError hvis side-nummer er uden for tilladte værdi
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation>importSVG(&quot;streng&quot;)
+        <translation type="obsolete">importSVG(&quot;streng&quot;)
 
 &quot;streng&quot; skal være et gyldigt filnavn for et SVG billede. Teksten
 skal være UTF8 kodet eller &apos;unicode&apos; streng (anbefalet).
@@ -324,6 +324,16 @@ PAGE_4, 3, 1)
 
 Kan rejse ScribusError hvis førsteSideOrden er større end tilladt af sideType.
 </translation>
+    </message>
+    <message>
+        <source>placeSVG(&quot;filename&quot;, x, y)
+
+Places the SVG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
+
+If loading was successful, the selection contains the imported SVG
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2772,7 +2782,7 @@ true the layer will be displayed outlined.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>setLayerOutLined(&quot;lag&quot;, omrids)
+        <translation type="obsolete">setLayerOutLined(&quot;lag&quot;, omrids)
 
 Sætter laget &quot;lag&quot; til at være omrids eller ej. Hvis omrids sættes til 
 true, så vil laget blive vist som omrids.
@@ -2790,7 +2800,7 @@ true text in layers above this one will flow around objects on this layer.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>setLayerFlow(&quot;lag&quot;, flyd)
+        <translation type="obsolete">setLayerFlow(&quot;lag&quot;, flyd)
 
 Sætter lagets &quot;lag&quot;  flydningscontrol til flyd. Hvis flyd sættes til 
 true, så vil tekst i lag over dette flyde omkring objekter i dette lag.
@@ -2807,7 +2817,7 @@ Sets the layers &quot;layer&quot;  blendmode to blend.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>setLayerBlendmode(&quot;lag&quot;, bland)
+        <translation type="obsolete">setLayerBlendmode(&quot;lag&quot;, bland)
 
 Sætter lagets &quot;lag&quot;  blandings-tilstand til bland.
 
@@ -2823,7 +2833,7 @@ Sets the layers &quot;layer&quot;  transparency to trans.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>setLayerTransparency(&quot;lag&quot;, trans)
+        <translation type="obsolete">setLayerTransparency(&quot;lag&quot;, trans)
 
 Sætter lagets &quot;lag&quot;  gennemsigtighed til trans.
 
@@ -2950,7 +2960,7 @@ Sets the fill transparency of the object &quot;name&quot; to transparency
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation>setFillTransparency(gennemsigtighed, [&quot;navn&quot;])
+        <translation type="obsolete">setFillTransparency(gennemsigtighed, [&quot;navn&quot;])
 
 Sætter fyld-gennemsigtigheden af objektet &quot;navn&quot; til gennemsigtighed
 er navnet på en af de definerede farver, Hvis &quot;navn&quot; ikke angives, 
@@ -2964,7 +2974,7 @@ Sets the fill blendmode of the object &quot;name&quot; to blendmode
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation>setFillBlendmode(blandingstilstand, [&quot;navn&quot;])
+        <translation type="obsolete">setFillBlendmode(blandingstilstand, [&quot;navn&quot;])
 
 Sætter fyld-blandings-tilstanden af objektet &quot;navn&quot; til blandingstilstand
 er navnet på en af de definerede farver, Hvis &quot;navn&quot; ikke angives, 
@@ -2978,7 +2988,7 @@ Sets the line transparency of the object &quot;name&quot; to transparency
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation>setLineTransparency(gennemsigtighed, [&quot;navn&quot;])
+        <translation type="obsolete">setLineTransparency(gennemsigtighed, [&quot;navn&quot;])
 
 Sætter linie-gennemsigtigheden af objektet &quot;navn&quot; til gennemsigtighed
 er navnet på en af de definerede farver, Hvis &quot;navn&quot; ikke angives, 
@@ -2992,7 +3002,7 @@ Sets the line blendmode of the object &quot;name&quot; to blendmode
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation>setLineBlendmode(blandingstilstand, [&quot;navn&quot;])
+        <translation type="obsolete">setLineBlendmode(blandingstilstand, [&quot;navn&quot;])
 
 Sætter linieblandings-tilstanden af objektet &quot;navn&quot; til blandingstilstand
 er navnet på en af de definerede farver, Hvis &quot;navn&quot; ikke angives, 
@@ -3116,6 +3126,114 @@ not given the currently selected Item is used.
 May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerOutlined(&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow(&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode(&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency(&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeEPS(&quot;filename&quot;, x, y)
+
+Places the EPS &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the EPS placed on the page
+
+If loading was successful, the selection contains the imported EPS
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeSXD(&quot;filename&quot;, x, y)
+
+Places the SXD &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SXD placed on the page
+
+If loading was successful, the selection contains the imported SXD
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeODG(&quot;filename&quot;, x, y)
+
+Places the ODG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the ODG placed on the page
+
+If loading was successful, the selection contains the imported ODG
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Kopi #%1 af </translation>
     </message>
 </context>
 <context>
@@ -3427,11 +3545,11 @@ May throw IndexError for an insertion out of bounds.
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Afsnits typografier...</translation>
+        <translation type="obsolete">&amp;Afsnits typografier...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Liniestile...</translation>
+        <translation type="obsolete">&amp;Liniestile...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
@@ -3983,75 +4101,75 @@ May throw IndexError for an insertion out of bounds.
     </message>
     <message>
         <source>Apostrophe</source>
-        <translation>Apostrof</translation>
+        <translation type="obsolete">Apostrof</translation>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation>Lige dobbelt</translation>
+        <translation type="obsolete">Lige dobbelt</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Enkelt venstre</translation>
+        <translation type="obsolete">Enkelt venstre</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Enkelt højre</translation>
+        <translation type="obsolete">Enkelt højre</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Dobbelt venstre</translation>
+        <translation type="obsolete">Dobbelt venstre</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation>Dobbelt højre</translation>
+        <translation type="obsolete">Dobbelt højre</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Enkelt vendt om</translation>
+        <translation type="obsolete">Enkelt vendt om</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation>Dobbelt vendt om</translation>
+        <translation type="obsolete">Dobbelt vendt om</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Enkelt venstre Guillemet</translation>
+        <translation type="obsolete">Enkelt venstre Guillemet</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Enkelt højre Guillemet</translation>
+        <translation type="obsolete">Enkelt højre Guillemet</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation>Dobbelt venstre Guillemet</translation>
+        <translation type="obsolete">Dobbelt venstre Guillemet</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation>Dobbelt højre Guillemet</translation>
+        <translation type="obsolete">Dobbelt højre Guillemet</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation>Lavt enkelt komma</translation>
+        <translation type="obsolete">Lavt enkelt komma</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Lavt dobbelt komma</translation>
+        <translation type="obsolete">Lavt dobbelt komma</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation>CJK Enkelt venstre</translation>
+        <translation type="obsolete">CJK Enkelt venstre</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation>CJK Enkelt højre</translation>
+        <translation type="obsolete">CJK Enkelt højre</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation>CJK Dobbelt venstre</translation>
+        <translation type="obsolete">CJK Dobbelt venstre</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation>CJK Dobbelt højre</translation>
+        <translation type="obsolete">CJK Dobbelt højre</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
@@ -4299,6 +4417,96 @@ May throw IndexError for an insertion out of bounds.
     <message>
         <source>Zero Width NB Space</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apostrophe</source>
+        <comment>Unicode 0x0027</comment>
+        <translation type="unfinished">Apostrof</translation>
+    </message>
+    <message>
+        <source>Straight Double</source>
+        <comment>Unicode 0x0022</comment>
+        <translation type="unfinished">Lige dobbelt</translation>
+    </message>
+    <message>
+        <source>Single Left</source>
+        <comment>Unicode 0x2018</comment>
+        <translation type="unfinished">Enkelt venstre</translation>
+    </message>
+    <message>
+        <source>Single Right</source>
+        <comment>Unicode 0x2019</comment>
+        <translation type="unfinished">Enkelt højre</translation>
+    </message>
+    <message>
+        <source>Double Left</source>
+        <comment>Unicode 0x201C</comment>
+        <translation type="unfinished">Dobbelt venstre</translation>
+    </message>
+    <message>
+        <source>Double Right</source>
+        <comment>Unicode 0x201D</comment>
+        <translation type="unfinished">Dobbelt højre</translation>
+    </message>
+    <message>
+        <source>Single Reversed</source>
+        <comment>Unicode 0x201B</comment>
+        <translation type="unfinished">Enkelt vendt om</translation>
+    </message>
+    <message>
+        <source>Double Reversed</source>
+        <comment>Unicode 0x201F</comment>
+        <translation type="unfinished">Dobbelt vendt om</translation>
+    </message>
+    <message>
+        <source>Single Left Guillemet</source>
+        <comment>Unicode 0x2039</comment>
+        <translation type="unfinished">Enkelt venstre Guillemet</translation>
+    </message>
+    <message>
+        <source>Single Right Guillemet</source>
+        <comment>Unicode 0x203A</comment>
+        <translation type="unfinished">Enkelt højre Guillemet</translation>
+    </message>
+    <message>
+        <source>Double Left Guillemet</source>
+        <comment>Unicode 0x00AB</comment>
+        <translation type="unfinished">Dobbelt venstre Guillemet</translation>
+    </message>
+    <message>
+        <source>Double Right Guillemet</source>
+        <comment>Unicode 0x00BB</comment>
+        <translation type="unfinished">Dobbelt højre Guillemet</translation>
+    </message>
+    <message>
+        <source>Low Single Comma</source>
+        <comment>Unicode 0x201A</comment>
+        <translation type="unfinished">Lavt enkelt komma</translation>
+    </message>
+    <message>
+        <source>Low Double Comma</source>
+        <comment>Unicode 0x201E</comment>
+        <translation type="unfinished">Lavt dobbelt komma</translation>
+    </message>
+    <message>
+        <source>CJK Single Left</source>
+        <comment>Unicode 0x300C</comment>
+        <translation type="unfinished">CJK Enkelt venstre</translation>
+    </message>
+    <message>
+        <source>CJK Single Right</source>
+        <comment>Unicode 0x300D</comment>
+        <translation type="unfinished">CJK Enkelt højre</translation>
+    </message>
+    <message>
+        <source>CJK Double Left</source>
+        <comment>Unicode 0x300E</comment>
+        <translation type="unfinished">CJK Dobbelt venstre</translation>
+    </message>
+    <message>
+        <source>CJK Double Right</source>
+        <comment>Unicode 0x300F</comment>
+        <translation type="unfinished">CJK Dobbelt højre</translation>
     </message>
 </context>
 <context>
@@ -5357,9 +5565,13 @@ May throw IndexError for an insertion out of bounds.
         <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
 For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
 If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
-        <translation>For ISBN-10 skal data indeholde 9 eller 10 cifre passende adskilt med tankestreger.
+        <translation type="obsolete">For ISBN-10 skal data indeholde 9 eller 10 cifre passende adskilt med tankestreger.
 For ISBN-13 skal data indeholde 12 eller 13 cifre passende adskilt med tankestreger.
 Hvis det sidste ciffer ikke er givet, så bliver ISBN tjekcifferet kalkuleret automatisk.</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6021,7 +6233,23 @@ vælg venligst et andet navn.</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Forælder</translation>
+        <translation type="obsolete">Forælder</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Farver</translation>
     </message>
 </context>
 <context>
@@ -6549,6 +6777,13 @@ vælg venligst et andet navn.</translation>
     </message>
 </context>
 <context>
+    <name>CharStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen typografi</translation>
+    </message>
+</context>
+<context>
     <name>CharTable</name>
     <message>
         <source>Delete</source>
@@ -6660,6 +6895,10 @@ vælg venligst et andet navn.</translation>
     <message>
         <source>Layer &quot;%1&quot;</source>
         <translation>LAG &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6788,7 +7027,7 @@ vælg venligst et andet navn.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Åbn</translation>
+        <translation type="obsolete">Åbn</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -6819,10 +7058,6 @@ vælg venligst et andet navn.</translation>
         <translation type="obsolete">Dokumenter (*.sla *.scd);;Andre filer (*.eps *.ps *.ai);;Alle filer (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6831,8 +7066,15 @@ vælg venligst et andet navn.</translation>
         <translation type="unfinished">Information</translation>
     </message>
     <message>
-        <source>The file %1 does not contain any new colors.
-If the file was an EPS try to import it with File -&gt; Import</source>
+        <source>Import</source>
+        <translation type="unfinished">Importér</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7352,6 +7594,76 @@ Farverne på din valgte farvesammensætning</translation>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation type="unfinished">Brugerdefineret: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Massiv linie</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Streg linie</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Prik linie</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Streg prik linie</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Streg prik prik linie</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Left Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both sides</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm. Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max. Glyph Extension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8627,6 +8939,30 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Afstand for tryk til kant fra højre af den fysiske side</translation>
     </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -9309,6 +9645,17 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <source> was replaced by: </source>
         <translation> er erstattet med: </translation>
+    </message>
+</context>
+<context>
+    <name>FontComboH</name>
+    <message>
+        <source>Face:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="unfinished">Stil:</translation>
     </message>
 </context>
 <context>
@@ -10148,6 +10495,41 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
 </context>
 <context>
+    <name>ImportDialog</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished">Vælg typografier</translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished">Tilgængelige typografier</translation>
+    </message>
+    <message>
+        <source>Character Styles</source>
+        <translation type="unfinished">Skrifttegn-stile</translation>
+    </message>
+    <message>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished">Afsnits typografier</translation>
+    </message>
+    <message>
+        <source>Line Styles</source>
+        <translation type="unfinished">Liniestile</translation>
+    </message>
+    <message>
+        <source>In case of a name clash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename imported style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace existing style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -10797,7 +11179,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
+        <translation type="obsolete">Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
     </message>
     <message>
         <source>New Style</source>
@@ -10947,6 +11329,10 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <source>All Files (*)</source>
         <translation>Alle filer (*)</translation>
+    </message>
+    <message>
+        <source>No File Loader Plugins Found</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11264,6 +11650,10 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <source>New Name:</source>
         <translation>Nyt navn:</translation>
     </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -11339,7 +11729,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
+        <translation type="obsolete">Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
     </message>
     <message>
         <source>Import Page(s)</source>
@@ -11691,7 +12081,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Typografi i nuværende afsnit</translation>
+        <translation type="obsolete">Typografi i nuværende afsnit</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -11937,7 +12327,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation>Af&amp;snits typografi:</translation>
+        <translation type="obsolete">Af&amp;snits typografi:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
@@ -12247,6 +12637,94 @@ hjørner:</translation>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optical Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -12256,7 +12734,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Streg prik prik linie</translation>
+        <translation type="obsolete">Streg prik prik linie</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -12276,11 +12754,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Streg linie</translation>
+        <translation type="obsolete">Streg linie</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Prik linie</translation>
+        <translation type="obsolete">Prik linie</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -12296,11 +12774,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Streg prik linie</translation>
+        <translation type="obsolete">Streg prik linie</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Massiv linie</translation>
+        <translation type="obsolete">Massiv linie</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12316,11 +12794,15 @@ hjørner:</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Navnet &quot;%1&quot; er ikke entydigt.&lt;br/&gt;Vælg venligst et andet.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -12422,6 +12904,10 @@ hjørner:</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12746,6 +13232,14 @@ hjørner:</translation>
         <source>Value to Enlarge or Shrink By</source>
         <translation>Værdi til at forøge eller reducere med</translation>
     </message>
+    <message>
+        <source>Set Contour to Image Clip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the Contour Line to the Clipping Path of the Image</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OODPlug</name>
@@ -12784,6 +13278,10 @@ hjørner:</translation>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13227,7 +13725,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Forælder</translation>
+        <translation type="obsolete">Forælder</translation>
     </message>
     <message>
         <source>Parent&apos;s Drop Cap Status</source>
@@ -13236,6 +13734,10 @@ hjørner:</translation>
     <message>
         <source>Ch&amp;aracter Style</source>
         <translation>&amp;Skrifttegn-stile</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13513,6 +14015,13 @@ hjørner:</translation>
     </message>
 </context>
 <context>
+    <name>ParaStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen typografi</translation>
+    </message>
+</context>
+<context>
     <name>PatternDialog</name>
     <message>
         <source>Choose a Directory</source>
@@ -13553,6 +14062,42 @@ hjørner:</translation>
         <source>Preview</source>
         <translation type="obsolete">Vis</translation>
     </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Størrelse:</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished">Opløsning:</translation>
+    </message>
+    <message>
+        <source>DPI</source>
+        <translation type="unfinished">DPI</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Ukendt</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotone</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished">Farverum:</translation>
+    </message>
 </context>
 <context>
     <name>PicSearchBase</name>
@@ -13582,6 +14127,68 @@ hjørner:</translation>
     </message>
 </context>
 <context>
+    <name>PicSearchOptions</name>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation type="unfinished">Filsystemet vil blive søgt for filnavne uden at skelne mellem store/små bogstaver, når du aktiverer dette. Husk, at det ikke er standard på de fleste operativ-systemer undtagen MS Windows</translation>
+    </message>
+    <message>
+        <source>Cancel Search</source>
+        <translation type="unfinished">Annullér søgning</translation>
+    </message>
+    <message>
+        <source>Start Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a base directory for search</source>
+        <translation type="unfinished">Vælg en rodmappe for søgning</translation>
+    </message>
+    <message>
+        <source>Scribus - Image Search</source>
+        <translation type="unfinished">Scribus - Billed-søgning</translation>
+    </message>
+    <message>
+        <source>The search failed: %1</source>
+        <translation type="unfinished">Søgningen mislykkedes: %1</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearchOptionsBase</name>
+    <message>
+        <source>Search Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start at:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Vælg...</translation>
+    </message>
+    <message>
+        <source>Search for:</source>
+        <translation type="unfinished">Søg efter:</translation>
+    </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation type="unfinished">Søgning ufølsom for store/små bogstaver</translation>
+    </message>
+    <message>
+        <source>Search recursivly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PicStatus</name>
     <message>
         <source>Yes</source>
@@ -13589,47 +14196,47 @@ hjørner:</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Gå til</translation>
+        <translation type="obsolete">Gå til</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Navn</translation>
+        <translation type="obsolete">Navn</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Side</translation>
+        <translation type="obsolete">Side</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>Sti</translation>
+        <translation type="obsolete">Sti</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation>Udskriv</translation>
+        <translation type="obsolete">Udskriv</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation>Mangler</translation>
+        <translation type="obsolete">Mangler</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Søg</translation>
+        <translation type="obsolete">Søg</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Status</translation>
+        <translation type="obsolete">Status</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation>Annullér søgning</translation>
+        <translation type="obsolete">Annullér søgning</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Håndtér billeder</translation>
+        <translation type="obsolete">Håndtér billeder</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -13637,7 +14244,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation>Søgningen mislykkedes: %1</translation>
+        <translation type="obsolete">Søgningen mislykkedes: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
@@ -13645,7 +14252,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
-        <translation>Vælg en rodmappe for søgning</translation>
+        <translation type="obsolete">Vælg en rodmappe for søgning</translation>
     </message>
     <message>
         <source></source>
@@ -13653,35 +14260,190 @@ hjørner:</translation>
     </message>
     <message>
         <source>Search Directory</source>
-        <translation>Søg mappe</translation>
+        <translation type="obsolete">Søg mappe</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Luk</translation>
+        <translation type="obsolete">Luk</translation>
     </message>
     <message>
         <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
-        <translation>Angiv en ny placering for det valgte element. Brugbart når du har flyttet dokumentet men ikke billederne.</translation>
+        <translation type="obsolete">Angiv en ny placering for det valgte element. Brugbart når du har flyttet dokumentet men ikke billederne.</translation>
     </message>
     <message>
         <source>Select a base directory for your selected rows</source>
-        <translation>Vælg en basis-mappe for de valgte rækker</translation>
+        <translation type="obsolete">Vælg en basis-mappe for de valgte rækker</translation>
     </message>
     <message>
         <source>Case insensitive search</source>
-        <translation>Søgning ufølsom for store/små bogstaver</translation>
+        <translation type="obsolete">Søgning ufølsom for store/små bogstaver</translation>
     </message>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Filsystemet vil blive søgt for filnavne uden at skelne mellem store/små bogstaver, når du aktiverer dette. Husk, at det ikke er standard på de fleste operativ-systemer undtagen MS Windows</translation>
+        <translation type="obsolete">Filsystemet vil blive søgt for filnavne uden at skelne mellem store/små bogstaver, når du aktiverer dette. Husk, at det ikke er standard på de fleste operativ-systemer undtagen MS Windows</translation>
     </message>
     <message>
-        <source>Show thumbnails</source>
+        <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show/hide image thumbnails</source>
+        <source>JPG</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TIFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS/PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
+    </message>
+    <message>
+        <source>JPG2000</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>emb. PSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Ukendt</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotone</translation>
+    </message>
+    <message>
+        <source>n/a</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PicStatusBase</name>
+    <message>
+        <source>Manage Pictures</source>
+        <translation type="unfinished">Håndtér billeder</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <source>Path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Navn:</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Billede</translation>
+    </message>
+    <message>
+        <source>DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished">Format:</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished">Farverum:</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished">Størrelse</translation>
+    </message>
+    <message>
+        <source>Pixels:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale:</source>
+        <translation type="unfinished">Skalér:</translation>
+    </message>
+    <message>
+        <source>Printed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Goto</source>
+        <translation type="unfinished">Gå til</translation>
+    </message>
+    <message>
+        <source>eff. DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Vælg</translation>
+    </message>
+    <message>
+        <source>Image Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers &amp;&amp; Paths...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Image...</source>
+        <translation type="unfinished">Redigér billede...</translation>
+    </message>
+    <message>
+        <source>Print Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Luk</translation>
     </message>
 </context>
 <context>
@@ -14469,6 +15231,10 @@ Do you want to migrate them to the new Scribus version?</source>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus var ikke i stand til at indlæse sine præferencer:&lt;br&gt;%1&lt;br&gt;Standardindstillinger vil blive indlæst.</translation>
     </message>
+    <message>
+        <source>PDF 1.5</source>
+        <translation type="unfinished">PDF 1.5</translation>
+    </message>
 </context>
 <context>
     <name>PresetLayout</name>
@@ -15061,7 +15827,7 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>SVG-billeder (*.svg);;Alle filer (*)</translation>
+        <translation type="obsolete">SVG-billeder (*.svg);;Alle filer (*)</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -15674,7 +16440,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation>Mål-rammen skal være tom.</translation>
+        <translation type="obsolete">Mål-rammen skal være tom.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
@@ -16168,7 +16934,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
+        <translation type="obsolete">Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
@@ -16761,6 +17527,66 @@ Derfor er billedet måske ikke korrekt</translation>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished">Scribus 1.3.0-&gt;1.3.3.7 Understøttelse</translation>
     </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Billede</translation>
+    </message>
+    <message>
+        <source>PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished">Linie</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation type="unfinished">Polygon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation type="unfinished">Poly-linie</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation type="unfinished">Sti-tekst</translation>
+    </message>
+    <message>
+        <source>Copy of %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -17245,7 +18071,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <name>SMCStylePage</name>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> %</source>
@@ -17253,7 +18079,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Forælder</translation>
+        <translation type="obsolete">Forælder</translation>
     </message>
     <message>
         <source>Parent style</source>
@@ -17305,6 +18131,14 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17437,7 +18271,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
@@ -17449,7 +18283,7 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Forælder</translation>
+        <translation type="obsolete">Forælder</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -17473,62 +18307,58 @@ Derfor er billedet måske ikke korrekt</translation>
     </message>
     <message>
         <source>Based on</source>
-        <translation>Baseret på</translation>
+        <translation type="obsolete">Baseret på</translation>
     </message>
     <message>
         <source>Parent&apos;s Character Style</source>
         <translation type="obsolete">Forælders Skrifttegn-stil</translation>
     </message>
     <message>
-        <source>Parent style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line spacing mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line spacing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space above</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable drop cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drop cap lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drop cap offset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>First line indent</source>
+        <source>Parent Style</source>
+        <translation type="unfinished">Forælder stil</translation>
+    </message>
+    <message>
+        <source>Line Spacing Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Left indent</source>
+        <source>Line Spacing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Right indent</source>
+        <source>Space Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tabulators</source>
+        <source>Space Below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Line Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Based On:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17755,6 +18585,10 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG-fil indeholder nogle ikke-understøttede egenskaber</translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18004,7 +18838,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Kopi #%1 af </translation>
+        <translation type="obsolete">Kopi #%1 af </translation>
     </message>
 </context>
 <context>
@@ -18144,7 +18978,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation>Antal kopier: %1
+        <translation type="obsolete">Antal kopier: %1
 Horisontal forskydning: %2
 Vertikal forskydning: %3</translation>
     </message>
@@ -18162,6 +18996,21 @@ Vertikal afstand: %3</translation>
     </message>
     <message>
         <source>Default Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove manual paragraphstyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove manual charstyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3
+Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18655,7 +19504,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Documents (*.sla);;All Files (*)</source>
-        <translation>Dokumenter (*.sla);; Alle filer (*)</translation>
+        <translation type="obsolete">Dokumenter (*.sla);; Alle filer (*)</translation>
     </message>
     <message>
         <source>Group%1</source>
@@ -18885,7 +19734,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation>Du prøver at sammenkæde til en fyldt ramme, eller en ramme til sig selv.</translation>
+        <translation type="obsolete">Du prøver at sammenkæde til en fyldt ramme, eller en ramme til sig selv.</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
@@ -18987,6 +19836,18 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>Enter Object Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19398,7 +20259,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation>Ingen typografi</translation>
+        <translation type="obsolete">Ingen typografi</translation>
     </message>
 </context>
 <context>
@@ -19413,7 +20274,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
+        <translation type="obsolete">Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
     </message>
     <message>
         <source>Edit Styles</source>
@@ -19678,11 +20539,11 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>&lt;&lt; &amp;Done</source>
-        <translation>&lt;&lt; &amp;Færdig</translation>
+        <translation type="obsolete">&lt;&lt; &amp;Færdig</translation>
     </message>
     <message>
         <source>&amp;Edit &gt;&gt;</source>
-        <translation>&amp;Redigér &gt;&gt;</translation>
+        <translation type="obsolete">&amp;Redigér &gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -19774,6 +20635,14 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>More than one style selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Åbn</translation>
+    </message>
+    <message>
+        <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19970,6 +20839,10 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <source>Inde&amp;x</source>
         <translation type="obsolete">Inde&amp;ks</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20877,6 +21750,10 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <source>Turns the margins on or off</source>
         <translation>Slår margenerne til eller fra </translation>
     </message>
+    <message>
+        <source>px</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabKeyboardShortcutsWidget</name>
@@ -21182,11 +22059,11 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
+        <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
+        <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -21667,7 +22544,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation>Formindsk billedopl&amp;øsning til:</translation>
+        <translation type="obsolete">Formindsk billedopl&amp;øsning til:</translation>
     </message>
     <message>
         <source>Display Settings</source>
@@ -21781,7 +22658,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>Ændrer bitmap-billederne til valgte DPI. Hvis dette ikke vælges, så bruges billedernes oprindelige opløsning. Aktivering af dette vil øget brug af hukommelse og forlænge eksport-tiden.</translation>
+        <translation type="obsolete">Ændrer bitmap-billederne til valgte DPI. Hvis dette ikke vælges, så bruges billedernes oprindelige opløsning. Aktivering af dette vil øget brug af hukommelse og forlænge eksport-tiden.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
@@ -21897,6 +22774,90 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Image Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables viewing the document in full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the bookmarks upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the page thumbnails upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Tool Bar which has selection and other editing capabilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add document information which includes the document title and page numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22109,6 +23070,26 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     </message>
     <message>
         <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ndicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22554,6 +23535,14 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Degrees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -22741,6 +23730,18 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Indrykning fra højre af hele afsnittet</translation>
     </message>
+    <message>
+        <source>Fill Character of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type/Orientation of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Position of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextBrowser</name>
@@ -22780,8 +23781,128 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <translation>Side </translation>
     </message>
     <message>
-        <source>Free items</source>
+        <source>Picture</source>
+        <translation type="unfinished">Billede</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">Fil: </translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished">Original PPI: </translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished">Faktiske PPI: </translation>
+    </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation type="unfinished">Farverum: </translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Ukendt</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotone</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation type="unfinished">Sammenkædet tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Tekstramme</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Tekst på en sti</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Afsnit: </translation>
+    </message>
+    <message>
+        <source>Lines: </source>
+        <translation type="unfinished">Linier: </translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation type="unfinished">Ord: </translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation type="unfinished">Tegn: </translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Udskriv: </translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">Aktiv</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Ikke aktiv</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished">In&amp;fo</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Vis udskrift indstillinger</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">&amp;PDF Indstillinger</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Placér i la&amp;g</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished">Ni&amp;veau</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished">Konve&amp;rtér til</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished">Nyt navn</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slet</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Indhold</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Navnet &quot;%1&quot; er ikke entydigt.&lt;br/&gt;Vælg venligst et andet.</translation>
     </message>
 </context>
 <context>
@@ -23317,6 +24438,22 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Set start and end arrows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around image clipping path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove all guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

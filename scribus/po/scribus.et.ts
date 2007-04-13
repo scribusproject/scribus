@@ -99,14 +99,6 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>importSVG(&quot;string&quot;)
-
-The &quot;string&quot; must be a valid filename for a SVG image. The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder, numPages) -&gt; bool
 
@@ -146,6 +138,16 @@ example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
 PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeSVG(&quot;filename&quot;, x, y)
+
+Places the SVG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
+
+If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1580,48 +1582,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setLayerOutlined&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerFlow&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerBlendmode&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerTransparency&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
 
 Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
@@ -1693,42 +1653,6 @@ If &quot;state&quot; is not passed, text flow is toggled.
         <source>duplicateObject([&quot;name&quot;]) -&gt; string
 
 creates a Duplicate of the selected Object (or Selection Group).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1827,6 +1751,114 @@ not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerOutlined(&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow(&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode(&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency(&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeEPS(&quot;filename&quot;, x, y)
+
+Places the EPS &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the EPS placed on the page
+
+If loading was successful, the selection contains the imported EPS
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeSXD(&quot;filename&quot;, x, y)
+
+Places the SXD &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SXD placed on the page
+
+If loading was successful, the selection contains the imported SXD
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeODG(&quot;filename&quot;, x, y)
+
+Places the ODG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the ODG placed on the page
+
+If loading was successful, the selection contains the imported ODG
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2147,11 +2179,11 @@ May throw IndexError for an insertion out of bounds.
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Lõigu stiilid...</translation>
+        <translation type="obsolete">&amp;Lõigu stiilid...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Joone stiilid...</translation>
+        <translation type="obsolete">&amp;Joone stiilid...</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
@@ -2810,75 +2842,75 @@ May throw IndexError for an insertion out of bounds.
     </message>
     <message>
         <source>Apostrophe</source>
-        <translation>Ülakoma</translation>
+        <translation type="obsolete">Ülakoma</translation>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation>Sirged topelt</translation>
+        <translation type="obsolete">Sirged topelt</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation>Ühekordne vasakpoolne</translation>
+        <translation type="obsolete">Ühekordne vasakpoolne</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation>Ühekordne parempoolne</translation>
+        <translation type="obsolete">Ühekordne parempoolne</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation>Kahekordne vasakpoolne</translation>
+        <translation type="obsolete">Kahekordne vasakpoolne</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation>Kahekordne parempoolne</translation>
+        <translation type="obsolete">Kahekordne parempoolne</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation>Ühekordne ümberpööratud</translation>
+        <translation type="obsolete">Ühekordne ümberpööratud</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation>Kahekordne ümberpööratud</translation>
+        <translation type="obsolete">Kahekordne ümberpööratud</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation>Ühekordne vasakpoolne prantsuse</translation>
+        <translation type="obsolete">Ühekordne vasakpoolne prantsuse</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation>Ühekordne parempoolne prantsuse</translation>
+        <translation type="obsolete">Ühekordne parempoolne prantsuse</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation>Kahekordne vasakpoolne prantsuse</translation>
+        <translation type="obsolete">Kahekordne vasakpoolne prantsuse</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation>Kahekordne parempoolne prantsuse</translation>
+        <translation type="obsolete">Kahekordne parempoolne prantsuse</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation>Ühekordne alumine koma</translation>
+        <translation type="obsolete">Ühekordne alumine koma</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation>Kahekordne alumine koma</translation>
+        <translation type="obsolete">Kahekordne alumine koma</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
-        <translation>CJK ühekordne vasakpoolne</translation>
+        <translation type="obsolete">CJK ühekordne vasakpoolne</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
-        <translation>CJK ühekordne parempoolne</translation>
+        <translation type="obsolete">CJK ühekordne parempoolne</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
-        <translation>CJK kahekordne vasakpoolne</translation>
+        <translation type="obsolete">CJK kahekordne vasakpoolne</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
-        <translation>CJK kahekordne parempoolne</translation>
+        <translation type="obsolete">CJK kahekordne parempoolne</translation>
     </message>
     <message>
         <source>En Space</source>
@@ -2999,6 +3031,96 @@ May throw IndexError for an insertion out of bounds.
     <message>
         <source>Zero Width NB Space</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apostrophe</source>
+        <comment>Unicode 0x0027</comment>
+        <translation type="unfinished">Ülakoma</translation>
+    </message>
+    <message>
+        <source>Straight Double</source>
+        <comment>Unicode 0x0022</comment>
+        <translation type="unfinished">Sirged topelt</translation>
+    </message>
+    <message>
+        <source>Single Left</source>
+        <comment>Unicode 0x2018</comment>
+        <translation type="unfinished">Ühekordne vasakpoolne</translation>
+    </message>
+    <message>
+        <source>Single Right</source>
+        <comment>Unicode 0x2019</comment>
+        <translation type="unfinished">Ühekordne parempoolne</translation>
+    </message>
+    <message>
+        <source>Double Left</source>
+        <comment>Unicode 0x201C</comment>
+        <translation type="unfinished">Kahekordne vasakpoolne</translation>
+    </message>
+    <message>
+        <source>Double Right</source>
+        <comment>Unicode 0x201D</comment>
+        <translation type="unfinished">Kahekordne parempoolne</translation>
+    </message>
+    <message>
+        <source>Single Reversed</source>
+        <comment>Unicode 0x201B</comment>
+        <translation type="unfinished">Ühekordne ümberpööratud</translation>
+    </message>
+    <message>
+        <source>Double Reversed</source>
+        <comment>Unicode 0x201F</comment>
+        <translation type="unfinished">Kahekordne ümberpööratud</translation>
+    </message>
+    <message>
+        <source>Single Left Guillemet</source>
+        <comment>Unicode 0x2039</comment>
+        <translation type="unfinished">Ühekordne vasakpoolne prantsuse</translation>
+    </message>
+    <message>
+        <source>Single Right Guillemet</source>
+        <comment>Unicode 0x203A</comment>
+        <translation type="unfinished">Ühekordne parempoolne prantsuse</translation>
+    </message>
+    <message>
+        <source>Double Left Guillemet</source>
+        <comment>Unicode 0x00AB</comment>
+        <translation type="unfinished">Kahekordne vasakpoolne prantsuse</translation>
+    </message>
+    <message>
+        <source>Double Right Guillemet</source>
+        <comment>Unicode 0x00BB</comment>
+        <translation type="unfinished">Kahekordne parempoolne prantsuse</translation>
+    </message>
+    <message>
+        <source>Low Single Comma</source>
+        <comment>Unicode 0x201A</comment>
+        <translation type="unfinished">Ühekordne alumine koma</translation>
+    </message>
+    <message>
+        <source>Low Double Comma</source>
+        <comment>Unicode 0x201E</comment>
+        <translation type="unfinished">Kahekordne alumine koma</translation>
+    </message>
+    <message>
+        <source>CJK Single Left</source>
+        <comment>Unicode 0x300C</comment>
+        <translation type="unfinished">CJK ühekordne vasakpoolne</translation>
+    </message>
+    <message>
+        <source>CJK Single Right</source>
+        <comment>Unicode 0x300D</comment>
+        <translation type="unfinished">CJK ühekordne parempoolne</translation>
+    </message>
+    <message>
+        <source>CJK Double Left</source>
+        <comment>Unicode 0x300E</comment>
+        <translation type="unfinished">CJK kahekordne vasakpoolne</translation>
+    </message>
+    <message>
+        <source>CJK Double Right</source>
+        <comment>Unicode 0x300F</comment>
+        <translation type="unfinished">CJK kahekordne parempoolne</translation>
     </message>
 </context>
 <context>
@@ -4045,9 +4167,13 @@ May throw IndexError for an insertion out of bounds.
         <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
 For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
 If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
-        <translation>ISBN-10 korral peavad andmed sisaldama 9 või 10 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
+        <translation type="obsolete">ISBN-10 korral peavad andmed sisaldama 9 või 10 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
 ISBN-13 korral peavad andmed sisaldama 12 või 13 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
 Kui viimast arvu ei ole antud, arvutatakse (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)ISBN kontrollarv automaatselt.</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4640,7 +4766,23 @@ please choose another one.</source>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Eellane</translation>
+        <translation type="obsolete">Eellane</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Advanced Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Värvid</translation>
     </message>
 </context>
 <context>
@@ -5076,6 +5218,13 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CharStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Stiil puudub</translation>
+    </message>
+</context>
+<context>
     <name>CharTable</name>
     <message>
         <source>Delete</source>
@@ -5183,6 +5332,10 @@ please choose another one.</source>
     <message>
         <source>Layer &quot;%1&quot;</source>
         <translation>Kiht &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5311,7 +5464,7 @@ please choose another one.</source>
     </message>
     <message>
         <source>Open</source>
-        <translation>Avamine</translation>
+        <translation type="obsolete">Avamine</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -5342,10 +5495,6 @@ please choose another one.</source>
         <translation type="obsolete">Dokumendid (*.sla *.scd);;Teised failid (*.eps *.ps *.ai);;Kõik failid (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5354,8 +5503,15 @@ please choose another one.</source>
         <translation type="unfinished">Info</translation>
     </message>
     <message>
-        <source>The file %1 does not contain any new colors.
-If the file was an EPS try to import it with File -&gt; Import</source>
+        <source>Import</source>
+        <translation type="unfinished">Impordi</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5762,6 +5918,76 @@ If the file was an EPS try to import it with File -&gt; Import</source>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
         <translation type="unfinished">Kohandatud: </translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Puudub</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Ühtlane joon</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Punktiirjoon</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Punktjoon</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Kriipspunktjoon</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Kriipspunktpunktjoon</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished">Puudub</translation>
+    </message>
+    <message>
+        <source>Left Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Both sides</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm. Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max. Glyph Extension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7017,6 +7243,30 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <source>Distance for bleed from the right of the physical page</source>
         <translation type="unfinished">Lõikevaru füüsilise lehekülje paremas servas</translation>
     </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -7699,6 +7949,17 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     <message>
         <source> was replaced by: </source>
         <translation> asendati fondiga: </translation>
+    </message>
+</context>
+<context>
+    <name>FontComboH</name>
+    <message>
+        <source>Face:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="unfinished">Stiil:</translation>
     </message>
 </context>
 <context>
@@ -8422,6 +8683,41 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
+    <name>ImportDialog</name>
+    <message>
+        <source>Choose Styles</source>
+        <translation type="unfinished">Stiilide valik</translation>
+    </message>
+    <message>
+        <source>Available Styles</source>
+        <translation type="unfinished">Saadaolevad stiilid</translation>
+    </message>
+    <message>
+        <source>Character Styles</source>
+        <translation type="unfinished">Märgistiilid</translation>
+    </message>
+    <message>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished">Lõigustiilid</translation>
+    </message>
+    <message>
+        <source>Line Styles</source>
+        <translation type="unfinished">Joone stiilid</translation>
+    </message>
+    <message>
+        <source>In case of a name clash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename imported style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace existing style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -9111,7 +9407,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
+        <translation type="obsolete">Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
     </message>
 </context>
 <context>
@@ -9217,6 +9513,10 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <source>All Files (*)</source>
         <translation>Kõik failid (*)</translation>
+    </message>
+    <message>
+        <source>No File Loader Plugins Found</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9538,6 +9838,10 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <source>New Name:</source>
         <translation>Uus nimi:</translation>
     </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -9665,7 +9969,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
+        <translation type="obsolete">Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
     </message>
     <message>
         <source> from %1</source>
@@ -9939,7 +10243,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation>St&amp;iil:</translation>
+        <translation type="obsolete">St&amp;iil:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
@@ -10251,7 +10555,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Aktiivse lõigu stiil</translation>
+        <translation type="obsolete">Aktiivse lõigu stiil</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -10501,6 +10805,94 @@ n&amp;urgad:</translation>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flip Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Tüüp:</translation>
+    </message>
+    <message>
+        <source>Use Image Clip Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optical Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norm:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the clipping path of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal width of spaces between words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -10546,27 +10938,27 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Ühtlane joon</translation>
+        <translation type="obsolete">Ühtlane joon</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Punktiirjoon</translation>
+        <translation type="obsolete">Punktiirjoon</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Punktjoon</translation>
+        <translation type="obsolete">Punktjoon</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Kriipspunktjoon</translation>
+        <translation type="obsolete">Kriipspunktjoon</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Kriipspunktpunktjoon</translation>
+        <translation type="obsolete">Kriipspunktpunktjoon</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
@@ -10575,6 +10967,10 @@ n&amp;urgad:</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -10676,6 +11072,10 @@ n&amp;urgad:</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Loobu</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10996,6 +11396,14 @@ n&amp;urgad:</translation>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation>Sisselülitamisel kasutatakse leheküljega, vastasel juhul objektiga seotud koordinaate.</translation>
     </message>
+    <message>
+        <source>Set Contour to Image Clip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the Contour Line to the Clipping Path of the Image</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OODPlug</name>
@@ -11034,6 +11442,10 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>This file contains some unsupported features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11434,7 +11846,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Eellane</translation>
+        <translation type="obsolete">Eellane</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -11455,6 +11867,10 @@ n&amp;urgad:</translation>
     <message>
         <source>Ch&amp;aracter Style</source>
         <translation>Mär&amp;gistiil</translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11732,6 +12148,13 @@ n&amp;urgad:</translation>
     </message>
 </context>
 <context>
+    <name>ParaStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Stiil puudub</translation>
+    </message>
+</context>
+<context>
     <name>PatternDialog</name>
     <message>
         <source>Choose a Directory</source>
@@ -11772,6 +12195,42 @@ n&amp;urgad:</translation>
         <source>Cancel</source>
         <translation type="obsolete">Loobu</translation>
     </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Suurus:</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished">Lahutus:</translation>
+    </message>
+    <message>
+        <source>DPI</source>
+        <translation type="unfinished">DPI</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Teadmata</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished">Halltoonid</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotone</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished">Värviruum:</translation>
+    </message>
 </context>
 <context>
     <name>PicSearchBase</name>
@@ -11801,30 +12260,92 @@ n&amp;urgad:</translation>
     </message>
 </context>
 <context>
+    <name>PicSearchOptions</name>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation type="unfinished">Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
+    </message>
+    <message>
+        <source>Cancel Search</source>
+        <translation type="unfinished">Katkesta otsing</translation>
+    </message>
+    <message>
+        <source>Start Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a base directory for search</source>
+        <translation type="unfinished">Otsingu baaskataloogi valik</translation>
+    </message>
+    <message>
+        <source>Scribus - Image Search</source>
+        <translation type="unfinished">Scribus - pildiotsing</translation>
+    </message>
+    <message>
+        <source>The search failed: %1</source>
+        <translation type="unfinished">Otsing ebaõnnestus: %1</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearchOptionsBase</name>
+    <message>
+        <source>Search Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start at:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Muuda...</translation>
+    </message>
+    <message>
+        <source>Search for:</source>
+        <translation type="unfinished">Otsimine:</translation>
+    </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation type="unfinished">Tõstutundetu otsing</translation>
+    </message>
+    <message>
+        <source>Search recursivly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PicStatus</name>
     <message>
         <source>Manage Pictures</source>
-        <translation>Piltide haldamine</translation>
+        <translation type="obsolete">Piltide haldamine</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nimi</translation>
+        <translation type="obsolete">Nimi</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>Asukoht</translation>
+        <translation type="obsolete">Asukoht</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Lehekülg</translation>
+        <translation type="obsolete">Lehekülg</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation>Trükitav</translation>
+        <translation type="obsolete">Trükitav</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Olek</translation>
+        <translation type="obsolete">Olek</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -11832,27 +12353,27 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation>Puuduv</translation>
+        <translation type="obsolete">Puuduv</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Otsi</translation>
+        <translation type="obsolete">Otsi</translation>
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation>Katkesta otsing</translation>
+        <translation type="obsolete">Katkesta otsing</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Liigu</translation>
+        <translation type="obsolete">Liigu</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
-        <translation>Otsingu baaskataloogi valik</translation>
+        <translation type="obsolete">Otsingu baaskataloogi valik</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
@@ -11860,7 +12381,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation>Otsing ebaõnnestus: %1</translation>
+        <translation type="obsolete">Otsing ebaõnnestus: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
@@ -11868,35 +12389,190 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Search Directory</source>
-        <translation>Otsingukataloog</translation>
+        <translation type="obsolete">Otsingukataloog</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Sulge</translation>
+        <translation type="obsolete">Sulge</translation>
     </message>
     <message>
         <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
-        <translation>Määra valitud elementide uus asukoht. Kasulik, kui oled näiteks liigutanud dokumenti, aga mitte pilte.</translation>
+        <translation type="obsolete">Määra valitud elementide uus asukoht. Kasulik, kui oled näiteks liigutanud dokumenti, aga mitte pilte.</translation>
     </message>
     <message>
         <source>Select a base directory for your selected rows</source>
-        <translation>Vali valitud ridade baaskataloog</translation>
+        <translation type="obsolete">Vali valitud ridade baaskataloog</translation>
     </message>
     <message>
         <source>Case insensitive search</source>
-        <translation>Tõstutundetu otsing</translation>
+        <translation type="obsolete">Tõstutundetu otsing</translation>
     </message>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation>Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
+        <translation type="obsolete">Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
     </message>
     <message>
-        <source>Show thumbnails</source>
+        <source>Not on a Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show/hide image thumbnails</source>
+        <source>JPG</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TIFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EPS/PS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished">PDF</translation>
+    </message>
+    <message>
+        <source>JPG2000</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>emb. PSD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Teadmata</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished">Halltoonid</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotone</translation>
+    </message>
+    <message>
+        <source>n/a</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PicStatusBase</name>
+    <message>
+        <source>Manage Pictures</source>
+        <translation type="unfinished">Piltide haldamine</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Info</translation>
+    </message>
+    <message>
+        <source>Path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Nimi:</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Pilt</translation>
+    </message>
+    <message>
+        <source>DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation type="unfinished">Vorming:</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation type="unfinished">Värviruum:</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="unfinished">Suurus</translation>
+    </message>
+    <message>
+        <source>Pixels:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale:</source>
+        <translation type="unfinished">Skaleerimine:</translation>
+    </message>
+    <message>
+        <source>Printed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>On Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Goto</source>
+        <translation type="unfinished">Liigu</translation>
+    </message>
+    <message>
+        <source>eff. DPI:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Vali</translation>
+    </message>
+    <message>
+        <source>Image Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers &amp;&amp; Paths...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Effects...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Image...</source>
+        <translation type="unfinished">Redigeeri pilti...</translation>
+    </message>
+    <message>
+        <source>Print Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Sulge</translation>
     </message>
 </context>
 <context>
@@ -12614,6 +13290,10 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ei suutnud seadistusi laadida:&lt;br&gt;%1&lt;br&gt;Laaditakse vaikeseadistused.</translation>
+    </message>
+    <message>
+        <source>PDF 1.5</source>
+        <translation type="unfinished">PDF 1.5</translation>
     </message>
 </context>
 <context>
@@ -14290,7 +14970,7 @@ Palun kontrolli asukohta ja nime.</translation>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation>Sihtkast peab olema tühi.</translation>
+        <translation type="obsolete">Sihtkast peab olema tühi.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
@@ -14320,7 +15000,7 @@ Palun kontrolli asukohta ja nime.</translation>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Objekt on viimane kast jadas, linki ei saa eemaldada. Selle asemel võib lingi eemaldada eelmiselt kastilt.</translation>
+        <translation type="obsolete">Objekt on viimane kast jadas, linki ei saa eemaldada. Selle asemel võib lingi eemaldada eelmiselt kastilt.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
@@ -14500,7 +15180,7 @@ funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>SVG pildid (*.svg);;Kõik failid (*)</translation>
+        <translation type="obsolete">SVG pildid (*.svg);;Kõik failid (*)</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -14882,6 +15562,66 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
         <translation type="unfinished">Scribus 1.3.0-&gt;1.3.3.7 toetus</translation>
+    </message>
+    <message>
+        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Pilt</translation>
+    </message>
+    <message>
+        <source>PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation type="unfinished">Joon</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation type="unfinished">Hulknurk</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation type="unfinished">Kompleksjoon</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation type="unfinished">Trajektooritekst</translation>
+    </message>
+    <message>
+        <source>Copy of %1 (%2)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15355,7 +16095,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     <name>SMCStylePage</name>
     <message>
         <source> pt</source>
-        <translation>(sp)pt</translation>
+        <translation type="obsolete">(sp)pt</translation>
     </message>
     <message>
         <source> %</source>
@@ -15363,7 +16103,7 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Eellane</translation>
+        <translation type="obsolete">Eellane</translation>
     </message>
     <message>
         <source>Parent style</source>
@@ -15415,6 +16155,14 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     </message>
     <message>
         <source>Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Based On:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15536,11 +16284,11 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>(sp)pt</translation>
+        <translation type="obsolete">(sp)pt</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation>Eellane</translation>
+        <translation type="obsolete">Eellane</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
@@ -15572,62 +16320,58 @@ Pilt ei pruugi seetõttu olla korrektne</translation>
     </message>
     <message>
         <source>Based on</source>
-        <translation>Alus</translation>
+        <translation type="obsolete">Alus</translation>
     </message>
     <message>
         <source>Parent&apos;s Character Style</source>
         <translation type="obsolete">Eellase märgistiil</translation>
     </message>
     <message>
-        <source>Parent style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line spacing mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line spacing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space above</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Space below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable drop cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drop cap lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Drop cap offset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>First line indent</source>
+        <source>Parent Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Left indent</source>
+        <source>Line Spacing Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Right indent</source>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Reavahe</translation>
+    </message>
+    <message>
+        <source>Space Above</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Tabulators</source>
+        <source>Space Below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Cap Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Line Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Based On:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15850,6 +16594,10 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG-fail sisaldab mõningaid toetamata omadusi</translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16100,7 +16848,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Koopia nr. %1  - </translation>
+        <translation type="obsolete">Koopia nr. %1  - </translation>
     </message>
 </context>
 <context>
@@ -16229,7 +16977,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation>Koopiate arv: %1
+        <translation type="obsolete">Koopiate arv: %1
 Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
@@ -16251,6 +16999,21 @@ Vahe püstsuunas: %3</translation>
     </message>
     <message>
         <source>Default Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove manual paragraphstyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove manual charstyle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3
+Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16704,7 +17467,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Documents (*.sla);;All Files (*)</source>
-        <translation>Dokumendid (*.sla);;Kõik failid (*)</translation>
+        <translation type="obsolete">Dokumendid (*.sla);;Kõik failid (*)</translation>
     </message>
     <message>
         <source>Group%1</source>
@@ -16958,7 +17721,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation>Üritad linkida täidetud kastiga või sama kasti endaga.</translation>
+        <translation type="obsolete">Üritad linkida täidetud kastiga või sama kasti endaga.</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
@@ -17032,6 +17795,18 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>Enter Object Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17443,7 +18218,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation>Stiil puudub</translation>
+        <translation type="obsolete">Stiil puudub</translation>
     </message>
 </context>
 <context>
@@ -17490,7 +18265,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
+        <translation type="obsolete">Dokumendid (*.sla *.scd);;Kõik failid (*)</translation>
     </message>
 </context>
 <context>
@@ -17711,11 +18486,11 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>&lt;&lt; &amp;Done</source>
-        <translation>&lt;&lt; &amp;Tehtud</translation>
+        <translation type="obsolete">&lt;&lt; &amp;Tehtud</translation>
     </message>
     <message>
         <source>&amp;Edit &gt;&gt;</source>
-        <translation>&amp;Redigeeri &gt;&gt;</translation>
+        <translation type="obsolete">&amp;Redigeeri &gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -17819,6 +18594,14 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>More than one style selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17994,6 +18777,10 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     <message>
         <source>Inde&amp;x</source>
         <translation type="obsolete">Re&amp;gister</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18905,6 +19692,10 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
         <source>Turns the margins on or off</source>
         <translation>Lülitab veeriste näitamise sisse või välja</translation>
     </message>
+    <message>
+        <source>px</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabKeyboardShortcutsWidget</name>
@@ -19214,7 +20005,7 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation>Pildilahutuse &amp;muutmine väärtusele:</translation>
+        <translation type="obsolete">Pildilahutuse &amp;muutmine väärtusele:</translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -19238,11 +20029,11 @@ Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
+        <translation type="obsolete">&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
+        <translation type="obsolete">&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
@@ -19712,7 +20503,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>Bittrasterpiltide lahutuse muutmine määratud DPI-le. Märkimatajätmisel renderdatakse neid loomuliku lahutusega. Sisselülitamise korral läheb vaja rohkem mälu ning eksport muutub aeglasemaks.</translation>
+        <translation type="obsolete">Bittrasterpiltide lahutuse muutmine määratud DPI-le. Märkimatajätmisel renderdatakse neid loomuliku lahutusega. Sisselülitamise korral läheb vaja rohkem mälu ning eksport muutub aeglasemaks.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -19920,6 +20711,90 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Image Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show the document with facing pages, starting with the first page displayed on the right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables viewing the document in full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the bookmarks upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display the page thumbnails upon opening</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Tool Bar which has selection and other editing capabilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit the document page or pages to the available space in the viewer window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add document information which includes the document title and page numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the existing bleed settings from the document preferences</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20132,6 +21007,26 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
     </message>
     <message>
         <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add registration marks which are added to each separation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ndicate the distance offset for the registration marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20577,6 +21472,14 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Degrees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -20760,6 +21663,18 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Terve lõigu paremtaandus</translation>
     </message>
+    <message>
+        <source>Fill Character of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type/Orientation of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Position of Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TextBrowser</name>
@@ -20799,8 +21714,128 @@ Tase 1 või 2 võib tekitada hiiglaslikud failid.</translation>
         <translation>Element</translation>
     </message>
     <message>
-        <source>Free items</source>
+        <source>Picture</source>
+        <translation type="unfinished">Pilt</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">Fail: </translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished">Originaali PPI: </translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished">Tegelik PPI: </translation>
+    </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation type="unfinished">Värviruum: </translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Teadmata</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation type="unfinished">Halltoonid</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished">Duotone</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation type="unfinished">Lingitud tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Tekstikast</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Trajektoori tekst</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Lõike: </translation>
+    </message>
+    <message>
+        <source>Lines: </source>
+        <translation type="unfinished">Read: </translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation type="unfinished">Sõnu: </translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation type="unfinished">Märke: </translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Trükkimine: </translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">Lubatud</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Keelatud</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished">In&amp;fo</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation type="unfinished">Eelvaatluse seadistused</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">&amp;PDF-i valikud</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Saatmine ki&amp;hile</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished">&amp;Tase</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished">T&amp;eisendamine</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">K&amp;ustuta</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Nimi &quot;%1&quot; ei ole unikaalne.&lt;br/&gt;Palun vali mõni muu nimi.</translation>
     </message>
 </context>
 <context>
@@ -21336,6 +22371,22 @@ to %2</source>
     </message>
     <message>
         <source>Set start and end arrows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around image clipping path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove all guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
