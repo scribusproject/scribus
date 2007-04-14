@@ -67,6 +67,7 @@ using namespace std;
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
+	cursorBiasBackward = false;
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
@@ -734,7 +735,7 @@ void PageItem_TextFrame::layout()
 //			qDebug(QString("expanded token: '%1'").arg(chstr));
 			if (chstr.isEmpty())
 				chstr = SpecialChars::ZWNBSPACE;
-			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
+			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing && chstr[0] != SpecialChars::PARSEP)
 				style.setLineSpacing(charStyle.font().height(charStyle.fontSize() / 10.0));
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
@@ -927,7 +928,7 @@ void PageItem_TextFrame::layout()
 				// TODO: word tracking and glyph extension
 				if (SpecialChars::isExpandingSpace(hl->ch[0]))
 				{
-					double wordtracking = style.maxWordTracking();
+					double wordtracking = charStyle.wordTracking();
 					hl->glyph.xadvance *= wordtracking;
 					wide *= wordtracking;
 				}
@@ -1854,13 +1855,16 @@ void PageItem_TextFrame::layout()
 						|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
 						|| (ch == SpecialChars::LINEBREAK) || (ch.isSpace()))
 						continue;
+					double asce;
 					if (itemText.object(current.line.firstItem+zc) != 0)
-						currasce = qMax(currasce, (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0));
+						asce = (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0));
 					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
-						currasce = qMax(currasce, itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
+						asce = itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0));
+					qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
+					currasce = qMax(currasce, asce);
 				}
 				double adj = firstasce - currasce;
-//				qDebug(QString("move4 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
+				qDebug(QString("move4 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
 
 				current.line.ascent = currasce;
 				current.line.y -= adj;
@@ -2831,6 +2835,7 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 		}
 		*/
 	}
+	cursorBiasBackward = (dir < 0);
 }
 
 
@@ -2936,6 +2941,9 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 	if ( ! sel )
 		//CB Replace with direct call for now //emit  HasNoTextSel();
 		m_Doc->scMW()->DisableTxEdit();
+
+	cursorBiasBackward = (dir < 0);
+
 	view->RefreshItem(this);
 }
 

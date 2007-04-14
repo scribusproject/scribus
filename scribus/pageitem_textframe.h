@@ -106,6 +106,8 @@ protected:
 	QString unicodeInputString;
 	
 private:
+	bool cursorBiasBackward;
+
 	void setShadow();
 	QString currentShadow;
 	QMap<QString,StoryText> shadows;

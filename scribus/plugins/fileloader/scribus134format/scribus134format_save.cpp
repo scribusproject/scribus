@@ -419,8 +419,6 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 		fo.setAttribute("HyphenationMode", style.hyphenationMode());
 	if ( ! style.isInhMinWordTracking())
 		fo.setAttribute("MinWordTrack", style.minWordTracking());
-	if ( ! style.isInhMaxWordTracking())
-		fo.setAttribute("NormWordTrack", style.maxWordTracking());
 	if ( ! style.isInhMinGlyphExtension())
 		fo.setAttribute("MinGlyphShrink", style.minGlyphExtension());
 	if ( ! style.isInhMaxGlyphExtension())
@@ -500,6 +498,8 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 		fo.setAttribute("BASEO", style.baselineOffset() / 10.0);
 	if ( ! style.isInhTracking())
 		fo.setAttribute("KERN", style.tracking() / 10.0); 
+	if ( ! style.isInhWordTracking())
+		fo.setAttribute("wordTrack", style.wordTracking());
 	fo.setAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }
 
@@ -883,7 +883,6 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	CharStyle lastStyle;
 	int lastPos = 0;
 	QString tmpnum;
-	
 	for(int k = 0; k < item->itemText.length(); ++k)
 	{
 		const CharStyle& style1(item->itemText.charStyle(k));
@@ -986,48 +985,49 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, Q3PtrList<PageItem> *items)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, Q3PtrList<PageItem> *some_items)
 {
 	uint ObCount = maxC;
-	PageItem *item = NULL;
+	QptrList<PageItem> *items = NULL;
 	QDomElement ob;
 	uint objects = 0;
 	switch (master)
 	{
 		case 0:
-			objects = doc->MasterItems.count();
+			items = &doc->MasterItems;
 			break;
 		case 1:
-			objects = doc->DocItems.count();
+			items = &doc->DocItems;
 			break;
 		case 2:
-			objects = doc->FrameItems.count();
+			items = &doc->FrameItems;
 			break;
 		case 3:
-			objects = items->count();
+			items = some_items;
 			break;
 	}
+	objects = items->count();
 	for(uint j = 0; j < objects;++j)
 	{
 		ObCount++;
 		if (dia2 != 0)
 			dia2->setProgress(ObCount);
+		item = items->at(j);
 		switch (master)
 		{
 			case 0:
-				item = doc->MasterItems.at(j);
+//				item = doc->MasterItems.at(j);
 				ob = docu->createElement("MASTEROBJECT");
 				break;
 			case 1:
-				item = doc->DocItems.at(j);
+//				item = doc->DocItems.at(j);
 				ob = docu->createElement("PAGEOBJECT");
 				break;
 			case 2:
-				item = doc->FrameItems.at(j);
+//				item = doc->FrameItems.at(j);
 				ob = docu->createElement("FRAMEOBJECT");
 				break;
 			case 3:
-				item = items->at(j);
 				ob = docu->createElement("PatternItem");
 				break;
 		}
@@ -1119,11 +1119,13 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
 
-		writeITEXTs(doc, docu, ob, item); 
-		if (item->prevInChain() != 0)
+		if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
 			ob.setAttribute("BACKITEM", item->prevInChain()->ItemNr);
 		else
+		{
+			writeITEXTs(doc, docu, ob, item); 
 			ob.setAttribute("BACKITEM", -1);
+		}
 		if (item->nextInChain() != 0)
 			ob.setAttribute("NEXTITEM", item->nextInChain()->ItemNr);
 		else

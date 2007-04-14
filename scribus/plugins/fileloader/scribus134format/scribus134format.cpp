@@ -1601,6 +1601,9 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 	if (it->hasAttribute("SHORTCUT"))
 		newStyle.setShortcut(it->attribute("SHORTCUT"));
 
+	if (it->hasAttribute("wordTrack"))
+		newStyle.setWordTracking(it->attribute("wordTrack").toDouble());
+
 }	
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
@@ -1841,13 +1844,13 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	if (pg.hasAttribute("HyphenationMode"))
 		vg.setHyphenationMode(pg.attribute("HyphenationMode").toInt());
 	if (pg.hasAttribute("MinWordTrack"))
-		vg.setMinWordTracking(pg.attribute("MinWordTrack").toInt());
+		vg.setMinWordTracking(pg.attribute("MinWordTrack").toDouble());
 	if (pg.hasAttribute("NormWordTrack"))
-		vg.setMaxWordTracking(pg.attribute("NormWordTrack").toInt());
+		vg.charStyle().setWordTracking(pg.attribute("NormWordTrack").toDouble());
 	if (pg.hasAttribute("MinGlyphShrink"))
-		vg.setMinGlyphExtension(pg.attribute("MinGlyphShrink").toInt());
+		vg.setMinGlyphExtension(pg.attribute("MinGlyphShrink").toDouble());
 	if (pg.hasAttribute("MaxGlyphExtend"))
-		vg.setMaxGlyphExtension(pg.attribute("MaxGlyphExtend").toInt());
+		vg.setMaxGlyphExtension(pg.attribute("MaxGlyphExtend").toDouble());
 	
 	GetCStyle( &pg, doc, vg.charStyle());
 	
@@ -2392,7 +2395,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 
 bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
 {
-	qDebug(QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber));
+//	qDebug(QString("loading page %2 from file '%1' from 1.3.x plugin").arg(fileName).arg(pageNumber));
 	if (m_Doc==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);

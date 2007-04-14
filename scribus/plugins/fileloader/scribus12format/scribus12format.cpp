@@ -152,13 +152,23 @@ QString Scribus12Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	if (docBytes.left(16) != "<SCRIBUSUTF8NEW " && (docBytes.left(12) == "<SCRIBUSUTF8" || docBytes.left(9) == "<SCRIBUS>"))
-		docText = QString::fromLocal8Bit(docBytes);
+	if (docBytes.left(16) != "<SCRIBUSUTF8NEW ") // Not a 1.3.x doc
+	{
+		if (docBytes.left(12) == "<SCRIBUSUTF8") // 1.2.x UTF8 doc
+			docText = QString::fromUtf8(docBytes);
+		else if (docBytes.left(9) == "<SCRIBUS>") // Older non utf8 doc
+			docText = QString::fromLocal8Bit(docBytes);
+		else 
+			return QString::null;
+	}
 	else
+	{
+		qDebug("scribus12format: SCRIBUSUTF8NEW");
 		return QString::null;
+	}
 	if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
 		docText.truncate(docText.length()-1);
-	return docText;
+	return docText;	return docText;
 }
 
 
@@ -616,13 +626,15 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					Neu->oldOwnPage = 0;
 					Neu->setRedrawBounding();
 					IT=OBJ.firstChild();
+					LastStyles * lastS = new LastStyles();
 					while(!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, m_Doc, true, false, Neu);
+							GetItemText(&it, m_Doc, true, false, Neu, lastS);
 						IT=IT.nextSibling();
 					}
+					delete lastS
 					Neu->isAutoText=static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
@@ -843,7 +855,7 @@ bool Scribus12Format::saveFile(const QString & /* fileName */, const FileFormat 
 	return false;
 }
 
-void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj)
+void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj, LastStyles* last)
 {
 	QString tmp2, tmf, tmpf, tmp3;
 	tmp2 = it->attribute("CH");
@@ -906,7 +918,14 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		style.setStrikethruWidth(stw);
 		int pos = obj->itemText.length();
 		obj->itemText.insertChars(pos, QString(ch));
-		obj->itemText.applyCharStyle(pos, 1, style); // FIXME:NLS
+
+		if (style != last->Style) {
+			//	qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
+			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			last->Style = style;
+			last->StyleStart = pos;
+		}
+
 		if (ch == SpecialChars::PARSEP || cxx+1 == tmp2.length()) {
 //			qDebug(QString("scribus12 para: %1 %2 %3 %4").arg(ab)
 //				   .arg(ab < signed(DoVorl.size())? DoVorl[ab] : QString("./."))
@@ -921,12 +940,13 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 			obj->itemText.applyStyle(pos, pstyle); 
 		}
 	}
+	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	return;
 }
 
 bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString /*renamedPageName*/)
 {
-	qDebug(QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber));
+//	qDebug(QString("loading page %2 from file '%1' from 1.2.x plugin").arg(fileName).arg(pageNumber));
 	if (m_Doc==0 || m_View==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_View==0 || m_AvailableFonts==0);
@@ -1207,13 +1227,16 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					m_View->PasteItem(&OB, true);
 					Neu = m_Doc->Items->at(counter);
 					IT=OBJ.firstChild();
+					LastStyles* last = new LastStyles();
 					while(!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
 						if (it.tagName()=="ITEXT")
-							GetItemText(&it, m_Doc, VorLFound, true, Neu);
+							GetItemText(&it, m_Doc, VorLFound, true, Neu, last);
 						IT=IT.nextSibling();
 					}
+					delete last;
+
 // 					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
 // 					{
 //						Neu->NextIt = baseobj + obj.attribute("NEXTITEM").toInt();

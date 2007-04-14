@@ -8784,6 +8784,7 @@ void ScribusView::slotDoCurs(bool draw)
 					y1 = static_cast<int>(bbox.y() + bbox.height());
 			}
 #endif
+			// avoid displaying the cursor on the frameborder
 			if (x < 1)
 				x = 1;
 			p.setPen(QPen(Qt::white, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));

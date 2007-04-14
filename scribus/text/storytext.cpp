@@ -10,7 +10,7 @@ pageitem.cpp  -  description
     begin                : Sat Apr 7 2001
     copyright            : (C) 2001 by Franz Schmid
     email                : Franz.Schmid@altmuehlnet.de
-	***************************************************************************/
+***************************************************************************/
 
 /***************************************************************************
 *                                                                         *
@@ -1106,7 +1106,8 @@ FRect StoryText::boundingBox(int pos, uint len) const
 				else
 				{
 					ls = line(lines()-1);
-					result.setRect(ls.x, ls.y + ls.descent, 1, ls.ascent + ls.descent);
+					const ParagraphStyle& pstyle(paragraphStyle(pos));
+					result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
 				}
 			}
 			else
@@ -1122,7 +1123,6 @@ FRect StoryText::boundingBox(int pos, uint len) const
 
 	return result;
 }
-
 
 int StoryText::layout(int startItem)
 {
