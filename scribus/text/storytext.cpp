@@ -640,7 +640,9 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 
 void StoryText::getNamedResources(ResourceCollection& lists) const
 {
-	defaultStyle().getNamedResources(lists);
+	d->defaultStyle.getNamedResources(lists);
+	d->trailingStyle.getNamedResources(lists);
+
 	for (int i=0; i < length(); ++i)
 	{
 		if (text(i) == SpecialChars::PARSEP)
