@@ -634,7 +634,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 							GetItemText(&it, m_Doc, true, false, Neu, lastS);
 						IT=IT.nextSibling();
 					}
-					delete lastS
+					delete lastS;
 					Neu->isAutoText=static_cast<bool>(obj.attribute("AUTOTEXT").toInt());
 					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
