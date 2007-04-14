@@ -1106,7 +1106,8 @@ FRect StoryText::boundingBox(int pos, uint len) const
 				else
 				{
 					ls = line(lines()-1);
-					result.setRect(ls.x, ls.y + ls.descent, 1, ls.ascent + ls.descent);
+					const ParagraphStyle& pstyle(paragraphStyle(pos));
+					result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
 				}
 			}
 			else

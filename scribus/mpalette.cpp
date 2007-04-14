@@ -2563,7 +2563,7 @@ void Mpalette::setNormWordTracking()
 		return;
 	ParagraphStyle newStyle;
 //	newStyle.setNormWordTracking(percent / 100.0);
-	newStyle.setMaxWordTracking(normWordTrackingSpinBox->value() / 100.0);
+	newStyle.charStyle().setWordTracking(normWordTrackingSpinBox->value() / 100.0);
 	doc->itemSelection_ApplyParagraphStyle(newStyle);
 }
 
