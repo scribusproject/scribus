@@ -582,7 +582,7 @@ void PageItem_TextFrame::layout()
 		invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
 		if (!prevInChain)
-			qDebug(QString("layout(): backBox=%1").arg((ulong)BackBox));
+			qDebug(QString("layout(): backBox=%1 is no textframe!!").arg((ulong)BackBox));
 		else 
 			BackBox->layout();
 		return;
@@ -715,7 +715,7 @@ void PageItem_TextFrame::layout()
 				opticalMargins = style.opticalMargins();
 			
 //			qDebug(QString("style pos %1: %2 (%3)").arg(a).arg(style.alignment()).arg(style.parent()));
-			const CharStyle& charStyle = itemText.charStyle(a);
+			const CharStyle& charStyle =  (chstr[0] != SpecialChars::PARSEP? itemText.charStyle(a) : itemText.paragraphStyle(a).charStyle());
 			if (!charStyle.parent().isEmpty())
 			{
 //				qDebug(QString("charstyle pos %1: %2 (%3 %4 %5 %6 %7 %8 %9)").arg(a).arg(charStyle.parent())
@@ -731,7 +731,7 @@ void PageItem_TextFrame::layout()
 //			qDebug(QString("expanded token: '%1'").arg(chstr));
 			if (chstr.isEmpty())
 				chstr = SpecialChars::ZWNBSPACE;
-			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing && chstr[0] != SpecialChars::PARSEP)
+			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
 				style.setLineSpacing(charStyle.font().height(charStyle.fontSize() / 10.0));
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
@@ -1637,10 +1637,13 @@ void PageItem_TextFrame::layout()
 								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::LINEBREAK)
 								|| (ch == SpecialChars::FRAMEBREAK) || (ch.isSpace()))
 								continue;
+							double asce;
 							if (itemText.object(current.line.firstItem + zc) != 0)
-								currasce = QMAX(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0));
+								asce = itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth() * (cStyle.scaleV() / 1000.0);
 							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								currasce = QMAX(currasce, cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0));
+								asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
+//							qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
+							currasce = QMAX(currasce, asce);
 						}
 						double adj = firstasce - currasce;
 //						qDebug(QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
@@ -1653,7 +1656,7 @@ void PageItem_TextFrame::layout()
 						QChar ch = itemText.text(current.line.firstItem);
 						if (ch == SpecialChars::PAGENUMBER)
 							ch = '8'; // should have highest ascender even in oldstyle
-						double firstasce = style.lineSpacing();
+						double firstasce = itemText.paragraphStyle(current.line.firstItem).lineSpacing();
 						double currasce = 0;
 						if (itemText.object(current.line.firstItem) != 0)
 							currasce = QMAX(currasce, (itemText.object(current.line.firstItem)->gHeight + itemText.object(current.line.firstItem)->lineWidth()) * (itemText.charStyle(current.line.firstItem).scaleV() / 1000.0));
@@ -1667,10 +1670,13 @@ void PageItem_TextFrame::layout()
 								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::FRAMEBREAK)
 								|| (ch == SpecialChars::LINEBREAK) || (ch.isSpace()))
 								continue;
+							double asce;
 							if (itemText.object(current.line.firstItem + zc) != 0)
-								currasce = QMAX(currasce, (itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem + zc).scaleV() / 1000.0));
+								asce = itemText.object(current.line.firstItem + zc)->gHeight + itemText.object(current.line.firstItem + zc)->lineWidth() * (itemText.charStyle(current.line.firstItem + zc).scaleV() / 1000.0);
 							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
-								currasce = QMAX(currasce, itemText.charStyle(current.line.firstItem + zc).font().height(itemText.charStyle(current.line.firstItem + zc).fontSize() / 10.0));
+								asce = itemText.charStyle(current.line.firstItem + zc).font().height(itemText.charStyle(current.line.firstItem + zc).fontSize() / 10.0);
+//							qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
+							currasce = QMAX(currasce, asce);
 						}
 							
 						double adj = firstasce - currasce;
@@ -1856,11 +1862,11 @@ void PageItem_TextFrame::layout()
 						asce = (itemText.object(current.line.firstItem+zc)->gHeight + itemText.object(current.line.firstItem+zc)->lineWidth()) * (itemText.charStyle(current.line.firstItem+zc).scaleV() / 1000.0);
 					else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
 						asce = itemText.charStyle(current.line.firstItem+zc).font().height(itemText.charStyle(current.line.firstItem+zc).fontSize() / 10.0);
-					qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
+//					qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
 					currasce = QMAX(currasce, asce);
 				}
 				double adj = firstasce - currasce;
-				qDebug(QString("move4 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
+//				qDebug(QString("move4 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
 
 				current.line.ascent = currasce;
 				current.line.y -= adj;
