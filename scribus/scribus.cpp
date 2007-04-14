@@ -1268,6 +1268,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeUnlinkFrames:
 				case modeRotation:
 				case modeEditGradientVectors:
+				case modeCopyProperties:
 					view->Deselect(false);
 				case modePanning:
 					break;
