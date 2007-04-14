@@ -1623,7 +1623,6 @@ bool ScribusDoc::deleteTaggedItems()
 
 void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 {
-	PageItem* ite;
 	bool found;
 	colorsToUse.clear();
 	ColorList::Iterator it;
@@ -1642,113 +1641,16 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 				colorsToUse.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint c = 0; c < MasterItems.count(); ++c)
-		{
-			ite = MasterItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				if (it.key() == cstops.at(cst)->name)
-					found = true;
-				if (found)
-					break;
-			}
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
-			{
-				for (int d=0; d<ite->itemText.length(); ++d)
-				{
-					if (it.key() == ite->itemText.charStyle(d).ccolor)
-						found = true;
-					if (it.key() == ite->itemText.charStyle(d).cstroke)
-						found = true;
-					if (found)
-						break;
-				}
-			}
-			/* PFJ - 29.02.04 - merged if's to one line */
-			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
-				found = true;
-			if (found)
-				break;
-		}
-		if (found)
-		{
-			if (spot)
-			{
-				if (it.data().isSpotColor())
-					colorsToUse.insert(it.key(), it.data());
-			}
-			else
-				colorsToUse.insert(it.key(), it.data());
-			continue;
-		}
-		for (uint c = 0; c < DocItems.count(); ++c)
-		{
-			ite = DocItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				if (it.key() == cstops.at(cst)->name)
-					found = true;
-				if (found)
-					break;
-			}
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
-			{
-				for (int d=0; d<ite->itemText.length(); ++d)
-				{
-					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.charStyle(d).ccolor) || (it.key() == ite->itemText.charStyle(d).cstroke))
-						found = true;
-					if (found)
-						break;
-				}
-			}
-			/* PFJ - 29.02.04 - Merged if's */
-			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
-				found = true;
-			if (found)
-				break;
-		}
-		if (found)
-		{
-			if (spot)
-			{
-				if (it.data().isSpotColor())
-					colorsToUse.insert(it.key(), it.data());
-			}
-			else
-				colorsToUse.insert(it.key(), it.data());
-			continue;
-		}
-		for (uint c = 0; c < FrameItems.count(); ++c)
-		{
-			ite = FrameItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				if (it.key() == cstops.at(cst)->name)
-					found = true;
-				if (found)
-					break;
-			}
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
-			{
-				for (int d=0; d<ite->itemText.length(); ++d)
-				{
-					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.charStyle(d).ccolor) || (it.key() == ite->itemText.charStyle(d).cstroke))
-						found = true;
-					if (found)
-						break;
-				}
-			}
-			/* PFJ - 29.02.04 - Merged if's */
-			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
-				found = true;
-			if (found)
-				break;
-		}
+		if (!found)
+			found = itemsUseColor(MasterItems, it.key());
+		if (!found)
+			found = itemsUseColor(DocItems, it.key());
+		if (!found)
+			found = itemsUseColor(FrameItems, it.key());
+		if (!found)
+			found = lineStylesUseColor(it.key());
+		if (!found)
+			found = paragraphStylesUseColor(it.key());
 		if (found)
 		{
 			if (spot)
@@ -1761,6 +1663,73 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 			continue;
 		}
 	}
+}
+
+bool ScribusDoc::itemsUseColor(QPtrList<PageItem>& itemList, const QString& colorName)
+{
+	PageItem* ite;
+	bool found = false;
+	ColorList::Iterator it;
+	for (uint c = 0; c < itemList.count() && !found; ++c)
+	{
+		ite = itemList.at(c);
+		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops() && !found; ++cst)
+		{
+			if (it.key() == cstops.at(cst)->name)
+				found = true;
+		}
+		if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+		{
+			for (int d=0; d<ite->itemText.length() && !found; ++d)
+			{
+				if (it.key() == ite->itemText.charStyle(d).ccolor || it.key() == ite->itemText.charStyle(d).cstroke)
+					found = true;
+			}
+		}
+		/* PFJ - 29.02.04 - merged if's to one line */
+		if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+			found = true;
+	}
+	return found;
+}
+
+bool ScribusDoc::lineStylesUseColor(const QString& colorName)
+{
+	bool found = false;
+	QMap<QString,multiLine>::const_iterator itm, itmend;
+	multiLine::const_iterator its, itsend;
+	itmend = MLineStyles.constEnd();
+	for (itm = MLineStyles.constBegin(); itm != itmend && !found; ++itm)
+	{
+		const multiLine& ml = itm.data();
+		itsend = ml.constEnd();
+		for (its = ml.constBegin(); its != itsend; ++its)
+		{
+			if ( its->Color == colorName )
+			{
+				found = true;
+				break;
+			}
+		}
+	}
+	return found;
+}
+
+bool ScribusDoc::paragraphStylesUseColor(const QString& colorName)
+{
+	bool found = false;
+	QValueList<ParagraphStyle>::const_iterator it, itend;
+	itend = docParagraphStyles.constEnd();
+	for (it = docParagraphStyles.constBegin(); it != itend; ++it)
+	{
+		if ( (*it).FColor == colorName || (*it).SColor == colorName)
+		{
+			found = true;
+			break;
+		}
+	}
+	return found;
 }
 
 void ScribusDoc::getUsedFonts(QMap<QString,int> *Really)

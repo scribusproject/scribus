@@ -322,6 +322,18 @@ public:
 	*/
 	void getUsedColors(ColorList &colorsToUse, bool spot = false);
 	/*!
+	* @brief Return if a color is used by a particular list of items
+	*/
+	bool itemsUseColor(QPtrList<PageItem>& itemList, const QString& colorName);
+	/*!
+	* @brief Return if a specific color is used by line styles
+	*/
+	bool lineStylesUseColor(const QString& colorName);
+	/*!
+	* @brief Return if a specific color is used by paragraph styles
+	*/
+	bool paragraphStylesUseColor(const QString& colorName);
+	/*!
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 */
 	void reorganiseFonts();
