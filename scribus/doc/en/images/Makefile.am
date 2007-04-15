@@ -5,7 +5,7 @@ gsadv1.png gsadv2.png gsadv3.png htmlstyle.png htmlimport.png hyphen1.png hyphen
 inkscape.png kfontinstaller.png ksnapshot.png lprof.png monprof1.png monprof2.png monprof3.png monprof4.png oochart.png ooeps1.png \
 oogettext1.png pagetemplate1.png pdfeffect1.png pdfeffect2.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png \
 svg1.png gimpoptions1.png  printpreview.png  RDF.png batik1.png  gimpoptions2.png prefs.png prefsdisplay.png \
-prefs-mac-1.png cmspanel.png  gimpoptions3.png  prefs2.png scribustru4.png colormanager1.png colormanager2.png  hyphen1.png   \
+prefs-mac-1.png gimpoptions3.png  prefs2.png scribustru4.png colormanager1.png colormanager2.png  hyphen1.png   \
 Scripter_error_string.png fontprev.png hyphen2.png  prefs4.png prefs5.png prefs6.png prefs8.png prefs10.png prefs11.png \
 prefs12.png prefs15.png Scripter.png fonts.png  hyphen3.png  xnview.png spinbox1.png scribuscms1.png printer1.png \
 printer2.png printseps.png formularz_export_PDF.png formularz_js_skrypt.png formularz_js_sprawdzanie.png \
@@ -26,7 +26,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/after_short_words.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/after_short_words.png
 	$(INSTALL_DATA) $(srcdir)/before_short_words.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/before_short_words.png
 	$(INSTALL_DATA) $(srcdir)/batik1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/batik1.png
-	$(INSTALL_DATA) $(srcdir)/cmspanel.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmspanel.png
 	$(INSTALL_DATA) $(srcdir)/cmsmodify1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmsmodify1.png
 	$(INSTALL_DATA) $(srcdir)/colormgmtscreen.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormgmtscreen.png
 	$(INSTALL_DATA) $(srcdir)/colormanager1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager1.png
@@ -136,7 +135,6 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/acrosec.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/batik1.png	
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmsmodify1.png
-	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/cmspanel.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormanager2.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/colormgmtscreen.png

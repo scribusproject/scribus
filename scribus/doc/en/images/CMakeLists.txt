@@ -16,7 +16,6 @@ batik1.png
 before_short_words.png
 CMakeLists.txt
 cmsmodify1.png
-cmspanel.png
 colormanager1.png
 colormanager2.png
 colormgmtscreen.png
