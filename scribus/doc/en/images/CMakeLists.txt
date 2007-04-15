@@ -11,11 +11,13 @@ acropass.png
 acroreader5.1.png
 acrosec.png
 after_short_words.png
-automargins.png
+#automargins.png
 batik1.png
 before_short_words.png
 CMakeLists.txt
 cmsmodify1.png
+cmspanel.png
+colormanager1.png
 colormanager2.png
 colormgmtscreen.png
 cups1.png
@@ -24,7 +26,7 @@ docheader1.png
 docheader2.png
 docinfo2.png
 docinfo.png
-external.png
+#external.png
 fontpref1.png
 fontpref2.png
 fontpref3.png
@@ -54,11 +56,11 @@ hyphen1.png
 hyphen2.png
 hyphen3.png
 inkscape.png
-imageeffects.png
 kfontinstaller.png
 ksnapshot.png
 layers1.png
 layers2.png
+lprof.png
 monprof1.png
 monprof2.png
 monprof3.png
@@ -85,7 +87,7 @@ prefs6.png
 prefs8.png
 prefsblgrid1.png
 prefsdisplay.png
-prefsgeneral.png
+#prefsgeneral.png
 prefs-mac-1.png
 prefs.png
 printer1.png
@@ -108,9 +110,6 @@ svg1.png
 swdialog.png
 swmenu.png
 symbole.png
-#toolbar1.png
-#toolbar1d.png
-#toolbar3.png
 ulica.png
 wlasciwosci_pola.png
 wyslij_formularz.png
