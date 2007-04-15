@@ -11261,11 +11261,13 @@ void ScribusView::TextToPath()
 				break;
 		}
 	}
+	
 	QPtrList<PageItem> delItems,newGroupedItems;
 	newGroupedItems.clear();
 	uint selectedItemCount=Doc->m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", 0);
 		uint offset=0;
 		for(uint i=0; i<selectedItemCount; ++i)
 		{
@@ -11667,6 +11669,7 @@ void ScribusView::TextToPath()
 				Doc->m_Selection->addItem(delItems.take(0)); //yes, 0, remove the first
 			Doc->itemSelection_DeleteItem();
 		}
+		undoManager->commit();
 	}
 #endif
 }

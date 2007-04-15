@@ -557,6 +557,7 @@ public:
 	static QString AdjustFrameToImage;
 	static QString Copy;
 	static QString CopyPage;
+	static QString ToOutlines;
 	/*@}*/
 
 	/**

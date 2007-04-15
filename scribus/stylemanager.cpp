@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
-StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), doc_(0), currentType_(QString::null), isEditMode_(true)
+StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true), doc_(0)
 {
 	splitter->setMinimumWidth(0);
 	splitter->setResizeMode(leftFrame, QSplitter::KeepSize);
@@ -70,7 +70,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	if (pname.isEmpty())
 		pname = "styleManager";
 	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
-	isEditMode_ = !prefs_->getBool("isEditMode", false);
+	isEditMode_ = true;
 	isStoryEditMode_ = false;
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));
@@ -707,6 +707,12 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	applyButton->setEnabled(true);
 	resetButton->setEnabled(true);
 }
+
+void StyleManager::show()
+{
+	QDialog::show();
+}
+
 
 // open or close edit mode
 void StyleManager::slotOk()

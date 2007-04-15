@@ -43,6 +43,8 @@ public:
 
 	QMap<QString,Keys> keyMap();
 
+	void show();
+
 public slots:
 	void setDoc(ScribusDoc *doc);
 	void languageChange();
