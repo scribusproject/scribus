@@ -447,6 +447,8 @@ const CharStyle & StoryText::charStyle(int pos) const
 		qDebug(QString("storytext::charstyle: access at end of text %1").arg(pos));
 		--pos;
 	}
+	if (text(pos) == SpecialChars::PARSEP)
+		return paragraphStyle(pos).charStyle();
 	
 	StoryText* that = const_cast<StoryText *>(this);
 	return dynamic_cast<const CharStyle &> (*that->d->at(pos));
@@ -527,7 +529,10 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 
 	d->at(pos);
 	for (uint i=pos; i < pos+len; ++i) {
-		d->current()->applyCharStyle(style);
+		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
+			d->current()->parstyle->charStyle().applyCharStyle(style);
+		else
+			d->current()->applyCharStyle(style);
 		d->next();
 	}
 
@@ -549,7 +554,10 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	
 	d->at(pos);
 	for (uint i=pos; i < pos+len; ++i) {
-		d->current()->eraseCharStyle(style);
+		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
+			d->current()->parstyle->charStyle().eraseCharStyle(style);
+		else
+			d->current()->eraseCharStyle(style);
 		d->next();
 	}
 	
