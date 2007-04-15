@@ -10,6 +10,8 @@
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
+#include "resourcecollection.h"
+
 #include "styles/style.h"
 #include "linestyle.h"
 #include "desaxe/saxiohelper.h"
@@ -122,7 +124,29 @@ void LineStyle::setStyle(const LineStyle& other)
 #undef ATTRDEF
 }
 
+void LineStyle::getNamedResources(ResourceCollection& lists) const
+{
+	Q3ValueList<LineStyle>::const_iterator it, itend = m_Sublines.constEnd();
 
+	lists.collectColor(color());
+	for (const Style* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
+		lists.collectLineStyle(sty->name());
+	for (it = m_Sublines.begin(); it != itend; ++it)
+		(*it).getNamedResources(lists);
+}
+
+void LineStyle::replaceNamedResources(ResourceCollection& newNames)
+{
+	QMap<QString,QString>::ConstIterator it;
+	Q3ValueList<LineStyle>::iterator itl, itle = m_Sublines.end();
+
+	if (!inh_Color && (it = newNames.colors().find(color())) != newNames.colors().end())
+		setColor(it.data());
+	if (hasParent() && (it = newNames.lineStyles().find(parent())) != newNames.lineStyles().end())
+		setParent(it.data());
+	for (itl = m_Sublines.begin(); itl != itle; ++itl)
+		(*itl).replaceNamedResources(newNames);
+}
 
 /*
 bool LineStyle::definesAll() const
