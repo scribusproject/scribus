@@ -82,7 +82,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	if (pname.isEmpty())
 		pname = "styleManager";
 	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
-	isEditMode_ = !prefs_->getBool("isEditMode", false);
+	isEditMode_ = true;
 	isStoryEditMode_ = false;
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));
@@ -718,6 +718,11 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	nameEdit->selectAll();
 	applyButton->setEnabled(true);
 	resetButton->setEnabled(true);
+}
+
+void StyleManager::show()
+{
+	QDialog::show();
 }
 
 // open or close edit mode

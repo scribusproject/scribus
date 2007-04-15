@@ -805,6 +805,7 @@ void UndoManager::languageChange()
 	UndoManager::RemoveAllGuides    = tr("Remove all guides");
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
+	UndoManager::ToOutlines         = tr("Convert to outlines");
 }
 
 void UndoManager::initIcons()
@@ -987,6 +988,7 @@ QString UndoManager::AdjustFrameToImage = "";
 QString UndoManager::RemoveAllGuides    = "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
+QString UndoManager::ToOutlines         = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

@@ -2954,13 +2954,17 @@ void ScribusDoc::restorePageCopy(SimpleState *state, bool isUndo)
 
 	if (isUndo)
 	{
-		int destLocation=extPage;
+		int destLocation=extPage + 1;
 		if (whereTo==0)
 			--destLocation;
 		else if (whereTo==2)
 			destLocation=DocPages.count();
 		for (int i = 0; i < copyCount; ++i)
+		{
 			m_ScMW->DeletePage(destLocation, destLocation);
+			if (whereTo == 2)
+				--destLocation;
+		}
 	}
 	else
 		copyPage(pnum, extPage, whereTo, copyCount);
