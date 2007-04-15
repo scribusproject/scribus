@@ -449,6 +449,10 @@ public:
 	*/
 	void getUsedColors(ColorList &colorsToUse, bool spot = false);
 	/*!
+	* @brief Return if a specific color is used by line styles
+	*/
+	bool lineStylesUseColor(const QString& colorName);
+	/*!
 	* @brief Set the patterns for a document
 	*/
 	bool addPattern(QString &name, ScPattern& pattern);
