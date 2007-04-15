@@ -2,7 +2,7 @@ EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro2.png acro3.png
 colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png docinfo.png docinfo2.png fonts2.png fonts3.png \
 fonts4.png fontpref2.png fontpref3.png fontpref4.png fontpref1.png fontsampler.png fontsampler2.png gammagrayscale.png \
 gsadv1.png gsadv2.png gsadv3.png htmlstyle.png htmlimport.png hyphen1.png hyphen2.png hyphen3.png imageeffects.png \
-inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png monprof4.png oochart.png ooeps1.png \
+inkscape.png kfontinstaller.png ksnapshot.png lprof.png monprof1.png monprof2.png monprof3.png monprof4.png oochart.png ooeps1.png \
 oogettext1.png pagetemplate1.png pdfeffect1.png pdfeffect2.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png \
 svg1.png gimpoptions1.png  printpreview.png  RDF.png batik1.png  gimpoptions2.png prefs.png prefsdisplay.png \
 prefs-mac-1.png cmspanel.png  gimpoptions3.png  prefs2.png scribustru4.png colormanager1.png colormanager2.png  hyphen1.png   \
@@ -64,6 +64,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/inkscape.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/inkscape.png
 	$(INSTALL_DATA) $(srcdir)/layers1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers1.png
 	$(INSTALL_DATA) $(srcdir)/layers2.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers2.png
+	$(INSTALL_DATA) $(srcdir)/lprof.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/lprof.png
 	$(INSTALL_DATA) $(srcdir)/kfontinstaller.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/kfontinstaller.png
 	$(INSTALL_DATA) $(srcdir)/ksnapshot.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/ksnapshot.png
 	$(INSTALL_DATA) $(srcdir)/monprof1.png $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof1.png
@@ -177,6 +178,7 @@ uninstall-local:
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/ksnapshot.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/layers2.png
+	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/lprof.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof1.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof2.png
 	-rm -f $(DESTDIR)$(prefix)/share/doc/scribus-$(VERSION)/en/images/monprof3.png

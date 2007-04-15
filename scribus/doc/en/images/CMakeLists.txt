@@ -60,6 +60,7 @@ kfontinstaller.png
 ksnapshot.png
 layers1.png
 layers2.png
+lprof.png
 monprof1.png
 monprof2.png
 monprof3.png
