@@ -63,7 +63,7 @@ using namespace std;
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
-	cursorBiasBackward = false;
+	cursorBiasBackward = false;  // not used yet - av
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
@@ -2415,10 +2415,13 @@ void PageItem_TextFrame::clearContents()
 		else
 			break;
 	}
+	ParagraphStyle defaultStyle = nextItem->itemText.defaultStyle();
+	nextItem->itemText.clear();
+	nextItem->itemText.setDefaultStyle(defaultStyle);
+
 	while (nextItem != 0)
 	{
 		nextItem->CPos = 0;
-		nextItem->itemText.clear();
 		nextItem->invalid = true;
 		nextItem = nextItem->nextInChain();
 	}
