@@ -83,7 +83,7 @@ public:
 		double bbox_ascent;
 		double bbox_descent;
 		bool broken;
-		GlyphData() : Outlines(), x(0), y(0), broken(true), bbox_width(1), bbox_ascent(1), bbox_descent(0) {}
+		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
 	};
 	
 	
