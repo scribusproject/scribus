@@ -1307,6 +1307,9 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if ((doc->appMode != modeEdit) && (doc->m_Selection->count() == 0))
 		{
 			int pg;
+			int wheelVal = prefsManager->mouseWheelValue();
+			if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+				wheelVal = QMAX(qRound(wheelVal / 10.0), 1);
 			switch (kk)
 			{
 			case Key_Space:
@@ -1346,6 +1349,26 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (pg < static_cast<int>(doc->Pages->count()))
 						view->GotoPage(pg);
 				}
+				keyrep = false;
+				return;
+				break;
+			case Key_Left:
+				view->scrollBy(-wheelVal, 0);
+				keyrep = false;
+				return;
+				break;
+			case Key_Right:
+				view->scrollBy(wheelVal, 0);
+				keyrep = false;
+				return;
+				break;
+			case Key_Up:
+				view->scrollBy(0, -wheelVal);
+				keyrep = false;
+				return;
+				break;
+			case Key_Down:
+				view->scrollBy(0, wheelVal);
 				keyrep = false;
 				return;
 				break;
