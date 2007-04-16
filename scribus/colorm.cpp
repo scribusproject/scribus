@@ -210,7 +210,7 @@ int	ColorFancyPixmapItem::width( const QListBox *lb )  const
 ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
 	: QListBox(parent, name, f)
 {
-	if (name == "")
+	if (!name || strlen(name) == 0)
 		setName("ColorListBox");
 }
 
