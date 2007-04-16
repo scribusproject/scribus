@@ -1005,12 +1005,12 @@ void StyleManager::slotNameChanged(const QString& name)
 	{
 		item_->nameChanged(name);
 		updateActionName(styleView->currentItem()->text(NAME_COL), name);
+		styleView->currentItem()->setText(NAME_COL, name);
+		applyButton->setEnabled(true);
+		resetButton->setEnabled(true);
 	}
-
-	styleView->currentItem()->setText(NAME_COL, name);
-	applyButton->setEnabled(true);
-	resetButton->setEnabled(true);
 }
+
 
 void StyleManager::updateActionName(const QString &oldName, const QString &newName)
 {

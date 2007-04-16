@@ -462,6 +462,11 @@ void SMLineStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
 
 void SMLineStyle::nameChanged(const QString &newName)
 {
+	if (selection_.count() != 1)
+	{
+		qDebug(QString("SMLineStyle::nameChanged #selection=%1").arg(selection_.count()));
+		return;
+	}
 	QString oldName = selection_.begin().key();
 	multiLine *tmpLine = selection_.begin().data();
 	multiLine newLine(*tmpLine);
@@ -692,7 +697,7 @@ void SMLineStyle::slotLineWidth()
 
 void SMLineStyle::slotAddLine()
 {
-	if (!doc_)
+	if (!doc_ || selection_.count() != 1)
 		return;
 
 	multiLine *tmpLine = selection_.begin().data();
@@ -767,7 +772,7 @@ void SMLineStyle::rebuildList()
 
 void SMLineStyle::slotDeleteLine()
 {
-	if (!doc_)
+	if (!doc_ || selection_.count() != 1)
 		return;
 
 	multiLine *tmpLine = selection_.begin().data();
@@ -847,6 +852,9 @@ void SMLineStyle::updateSList()
 
 void SMLineStyle::updatePreview()
 {
+    if (selection_.count() < 1)
+		return;
+	
 	QPixmap pm = QPixmap(200, 37);
 	pm.fill(Qt::white);
 	QPainter p;
@@ -883,7 +891,7 @@ void SMLineStyle::slotCurrentLineChanged(int i)
 
 void SMLineStyle::resort()
 {
-	if (!doc_)
+	if (!doc_ || selection_.count() != 1)
 		return;
 
 	int cc = 0;
