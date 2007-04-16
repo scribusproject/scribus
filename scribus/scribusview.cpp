@@ -5807,6 +5807,43 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				if ((Doc->EditClipMode == 1) && (ClRe2 != -1))
 				{
+					bool foundP = false;
+					QPointArray Bez(4);
+					uint seg = 0;
+					double absDist = 9999999999.9;
+					FPoint point = FPoint(0, 0);
+					FPoint normal = FPoint(0, 0);
+					FPoint tangent = FPoint(0, 0);
+					FPoint nearPoint = FPoint(0, 0);
+					QRect mpo2(0, 0, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
+					mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
+					for (uint poi=0; poi<Clip.size()-3; poi += 4)
+					{
+						BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3), Clip.pointQ(poi+2));
+						QPointArray cli2 = Bez.cubicBezier();
+						for (uint clp = 0; clp < cli2.size()-1; ++clp)
+						{
+							if (PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
+							{
+								seg = poi;
+								double sp = 0.0;
+								while (sp < 1.0)
+								{
+									Clip.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+									double d1 = fabs(sqrt(pow(point.x() - npf2.x(), 2) + pow(point.y() - npf2.y() ,2)));
+									if (d1 < absDist)
+									{
+										foundP = true;
+										nearPoint = point;
+										absDist = d1;
+									}
+									sp += 0.001;
+								}
+							}
+						}
+					}
+					if (foundP)
+						npf2 = nearPoint;
 					cli.putPoints(0, ClRe2+2, Clip);
 					cli.resize(cli.size()+4);
 					cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
