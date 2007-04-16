@@ -5374,7 +5374,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->CPos);
-					length = 1;
+					length = start + 1 < currItem->itemText.length()? 1 : 0;
 				}
 			}
 			currItem->itemText.applyCharStyle(start, qMax(0, length), newStyle);
@@ -5426,7 +5426,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->CPos);
-					length = 1;
+					length = start + 1 < currItem->itemText.length()? 1 : 0;
 				}
 			}
 			currItem->itemText.setCharStyle(start, length, newStyle);
@@ -5477,7 +5477,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->CPos);
-					length = 1;
+					length = start + 1 < currItem->itemText.length()? 1 : 0;
 				}
 			}
 			QString lastParent;
