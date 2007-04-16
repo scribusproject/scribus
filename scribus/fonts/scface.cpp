@@ -50,9 +50,19 @@ QMap<QString,QString> ScFace::ScFaceData::fontDictionary(double sz) const
 GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, double sz) const
 {
 	GlyphMetrics res;
-	res.width = sz;
-	res.ascent = sz;
-	res.descent = 0;
+	if (gl == 0 || gl >= CONTROL_GLYPHS)
+	{	res.width   = (gl == 0? sz : 0);
+		res.ascent  = (gl == 0? sz : 0);
+		res.descent = 0;
+		return res;
+	}
+	else if (! m_glyphWidth.contains(gl)) {
+		loadGlyph(gl);
+	}			
+	const struct GlyphData & data(m_glyphOutline[gl]);
+	res.width = data.bbox_width * sz;
+	res.ascent = data.bbox_ascent * sz;
+	res.descent = data.bbox_descent * sz;	
 	return res;
 }
 

@@ -191,6 +191,11 @@ void FtFace::loadGlyph(uint gl) const
 			GRec.x = x;
 			GRec.y = y;
 			GRec.broken = false;
+			double w  = (face->glyph->metrics.width + QABS((double)face->glyph->metrics.horiBearingX)) / m_uniEM;
+			GRec.bbox_width = QMAX(w, ww);
+			double height = face->glyph->metrics.height / m_uniEM;
+			GRec.bbox_ascent = face->glyph->metrics.horiBearingY / m_uniEM;
+			GRec.bbox_descent = height - GRec.bbox_ascent;
 		}
 		else {
 			m_glyphWidth[gl] = 1;
@@ -227,7 +232,7 @@ double FtFace::glyphKerning(uint gl, uint gl2, double size) const
 	return result;
 }
 
-
+/*
 GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
 {
 	FT_Face    face = ftFace();
@@ -246,6 +251,8 @@ GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
 	}
 	return result;
 }
+*/
+
 
 /// copied from Freetype's FT_Stream_ReadAt()
 FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count)

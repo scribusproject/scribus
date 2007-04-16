@@ -78,7 +78,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	uint         char2CMap(QChar ch)                         const;
 
 	double       glyphKerning (uint gl1, uint gl2, double sz) const;
-	GlyphMetrics glyphBBox (uint gl,               double sz) const;
+//	GlyphMetrics glyphBBox (uint gl,               double sz) const;
 
 	void RawData   (QByteArray & bb)            const;
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;

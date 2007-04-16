@@ -79,8 +79,11 @@ public:
 		FPointArray Outlines;
 		double x;
 		double y;
+		double bbox_width;
+		double bbox_ascent;
+		double bbox_descent;
 		bool broken;
-		GlyphData() : Outlines(), x(0), y(0), broken(true) {}
+		GlyphData() : Outlines(), x(0), y(0), broken(true), bbox_width(1), bbox_ascent(1), bbox_descent(0) {}
 	};
 	
 	
