@@ -741,11 +741,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
 	wordTrackingHLayout = new QHBoxLayout(0,0,5,"wordTrackingHLayout");
 	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
-	minWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	minWordTrackingSpinBox = new MSpinBox( 0, 200, page_3, 1 );
 	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
 	wordTrackingHLayout->add(minWordTrackingLabel);
 	wordTrackingHLayout->add(minWordTrackingSpinBox);
-	normWordTrackingSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	normWordTrackingSpinBox = new MSpinBox( 0, 200, page_3, 1 );
 	normWordTrackingLabel = new QLabel( normWordTrackingSpinBox, "Norm:", page_3, "wordTrackingNormLabel" );
 	wordTrackingHLayout->add(normWordTrackingLabel);
 	wordTrackingHLayout->add(normWordTrackingSpinBox);
@@ -755,11 +755,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
 	glyphExtensionHLayout = new QHBoxLayout(0,0,5,"glyphExtensionHLayout");
 	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
-	minGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	minGlyphExtSpinBox = new MSpinBox( -90, 110, page_3, 1 );
 	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
 	glyphExtensionHLayout->add(minGlyphExtensionLabel);
 	glyphExtensionHLayout->add(minGlyphExtSpinBox);
-	maxGlyphExtSpinBox = new MSpinBox( -100, 100, page_3, 1 );
+	maxGlyphExtSpinBox = new MSpinBox( -90, 110, page_3, 1 );
 	maxGlyphExtensionLabel = new QLabel( maxGlyphExtSpinBox, "Max:", page_3, "glyphExtensionMaxLabel" );
 	glyphExtensionHLayout->add(maxGlyphExtensionLabel);
 	glyphExtensionHLayout->add(maxGlyphExtSpinBox);

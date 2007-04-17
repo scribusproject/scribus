@@ -309,7 +309,8 @@ struct LineControl {
 	double   yPos;
 	int      breakIndex;
 	double   breakXPos;
-	
+	double   maxShrink;
+	double   maxStretch;
 	
 	/// remember frame dimensions and offsets
 	void init(double w, double h, const MarginStruct& extra, double lCorr)
@@ -360,13 +361,47 @@ struct LineControl {
 		line.naturalWidth = 0;
 		breakIndex = -1;
 		breakXPos = 0;
+		maxShrink = 0;
+		maxStretch = 0;
 	}
+	
+	
+	/// called when glyphs are placed on the line
+	void rememberShrinkStretch(QChar ch, double wide, const ParagraphStyle& style)
+	{
+		if (SpecialChars::isExpandingSpace(ch))
+			maxShrink += (1 - style.minWordTracking()) * wide;
+		else
+		{
+			maxShrink += (1 - style.minGlyphExtension()) * wide;
+		}
+		maxStretch += (style.maxGlyphExtension() - 1) * wide;
+	}
+	
 	
 	/// called when a possible break is passed
 	void rememberBreak(int index, double pos)
 	{
+		if (pos > colRight)
+		{
+			// only look for the first break behind the right edge
+			maxShrink = 0;
+		
+			// check if we already have a better break
+			if (breakIndex >= 0)
+			{
+				double oldLooseness = QABS(colRight - breakXPos);
+				double newLooseness = pos - colRight;
+				if (newLooseness >= oldLooseness)
+					return;
+			}
+			breakXPos = colRight;
+		}
+		else
+		{
+			breakXPos = pos;
+		}
 		breakIndex = index;
-		breakXPos = pos;
 	}
 	
 	/// called when a mandatory break is found
@@ -385,15 +420,16 @@ struct LineControl {
 		line.lastItem = breakIndex;
 		line.naturalWidth = breakXPos - line.x;
 		line.width = endX - line.x;
+		maxShrink = maxStretch = 0;
 	}
 	
 	
 	bool isEndOfLine(double moreSpace = 0)
 	{
 		if (legacy)
-			return xPos + insets.Right + lineCorr + moreSpace >= colRight;
+			return xPos + insets.Right + lineCorr + moreSpace - maxShrink >= colRight;
 		else
-			return xPos + moreSpace >= colRight;
+			return xPos + moreSpace - maxShrink >= colRight;
 	}
 	
 	/// find x position to start current line
@@ -407,7 +443,7 @@ struct LineControl {
 		while ((!shape.contains(pf2.xForm(pt1))) || (!shape.contains(pf2.xForm(pt2))))
 		{
 			tmpX++;
-			if (isEndOfLine(morespace))
+			if (xPos + (legacy? lineCorr + insets.Right : 0) + lineCorr + morespace >= colRight)
 			{
 				return tmpX;
 			}
@@ -509,29 +545,72 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 {
 	// TODO: word tracking and glyph extension
 	
-	// count the available spaces
-	int aSpa = 0;
-	double OFs2;
-	for (int sof = line.firstItem; sof < line.lastItem; ++sof)
-	{
-		if (SpecialChars::isExpandingSpace(itemText.text(sof))
-			&& ! (itemText.item(sof)->effects() & ScStyle_SuppressSpace)
-			)
-			aSpa++;
-	}
-	if (aSpa != 0)
-		OFs2 = (line.width - line.naturalWidth) / aSpa;
-	else
-		OFs2 = 0;
+	double glyphNatural = 0;
+	double spaceNatural = 0;
+	double glyphExtension;
+	double spaceExtension;
 	
-	// distribute whitespace on spaces
-	for (int yof = line.firstItem; yof < line.lastItem; ++yof)
+	const ParagraphStyle& style(itemText.paragraphStyle(line.firstItem));
+	
+	// measure natural widths for glyphs and spaces
+	for (int sof = line.firstItem; sof <= line.lastItem; ++sof)
 	{
-		if (SpecialChars::isExpandingSpace(itemText.text(yof)) 
-			&& ! (itemText.item(yof)->effects() & ScStyle_SuppressSpace)
-			)
+		if (!SpecialChars::isExpandingSpace(itemText.text(sof)))
 		{
-			itemText.item(yof)->glyph.last()->xadvance += OFs2;
+			glyphNatural += itemText.item(sof)->glyph.wide();
+		}
+		else if ((itemText.item(sof)->effects() & ScStyle_SuppressSpace) == 0)
+		{
+			spaceNatural += itemText.item(sof)->glyph.wide();
+		}
+	}
+	
+	// decision: prio 1: stretch glyph;  prio 2: stretch spaces
+	
+	if (line.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
+	{
+		glyphExtension = style.minGlyphExtension() - 1;
+		spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+	}
+	else if (line.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
+	{
+		spaceExtension = 0;
+		glyphExtension = (line.width - spaceNatural) / glyphNatural  - 1;
+	}
+	else
+	{
+		glyphExtension = style.maxGlyphExtension() - 1;
+		if (spaceNatural > 0)
+			spaceExtension = (line.width - glyphNatural * (1+glyphExtension) ) / spaceNatural  - 1;
+		else
+			spaceExtension = 0;
+	}
+	
+	double glyphScale = 1 + glyphExtension;
+	
+	qDebug(QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces x %5; min=%8; glyphs x %6; min=%9")
+		   .arg(spaceNatural).arg(glyphNatural).arg(spaceNatural+glyphNatural).arg(line.naturalWidth)
+		   .arg(spaceExtension).arg(glyphExtension).arg(line.width)
+		   .arg(style.minWordTracking()).arg(style.minGlyphExtension()));
+	
+	// distribute whitespace on spaces and glyphs
+	for (int yof = line.firstItem; yof <= line.lastItem; ++yof)
+	{
+		double wide = itemText.item(yof)->glyph.wide();
+		if (!SpecialChars::isExpandingSpace(itemText.text(yof)))
+		{
+			itemText.item(yof)->glyph.last()->xadvance += wide * glyphExtension;
+			GlyphLayout* glyph = &(itemText.item(yof)->glyph);
+			while (glyph)
+			{
+				glyph->xoffset *= glyphScale;
+				glyph->scaleH *= glyphScale;
+				glyph = glyph->more;
+			}
+		}
+		else if ((itemText.item(yof)->effects() & ScStyle_SuppressSpace) == 0)
+		{
+			itemText.item(yof)->glyph.last()->xadvance += wide * spaceExtension;
 		}
 	}
 }
@@ -1009,6 +1088,7 @@ void PageItem_TextFrame::layout()
 				else
 				{
 					desc = desc2 = -charStyle.font().descent(hlcsize10);
+					current.rememberShrinkStretch(hl->ch[0], wide, style);					
 				}
 				asce = charStyle.font().ascent(hlcsize10);
 //				wide = wide * hl->glyph.scaleH;
@@ -1311,24 +1391,24 @@ void PageItem_TextFrame::layout()
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
 				{
-					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(current.yPos+desc));
-					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(ceil(current.yPos-asce)));
+					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink + charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(current.yPos+desc));
+					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink + charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(ceil(current.yPos-asce)));
 				}
 				else
 				{
-					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
-					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
+					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink )), qRound(current.yPos+desc));
+					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink )), qRound(ceil(current.yPos-asce)));
 				}
 			}
 			else if (!legacy && SpecialChars::isBreakingSpace(hl->ch[0]))
 			{
-				pt1 = QPoint(qRound(ceil(breakPos + extra.Right)), qRound(current.yPos+desc));
-				pt2 = QPoint(qRound(ceil(breakPos + extra.Right)), qRound(ceil(current.yPos-asce)));
+				pt1 = QPoint(qRound(ceil(breakPos + extra.Right - current.maxShrink )), qRound(current.yPos+desc));
+				pt2 = QPoint(qRound(ceil(breakPos + extra.Right - current.maxShrink )), qRound(ceil(current.yPos-asce)));
 			}
 			else
 			{
-				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
-				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
+				pt1 = QPoint(qRound(ceil(current.xPos + extra.Right - current.maxShrink )), qRound(current.yPos+desc));
+				pt2 = QPoint(qRound(ceil(current.xPos + extra.Right - current.maxShrink )), qRound(ceil(current.yPos-asce)));
 			}
 			
 			// test if end of line reached
@@ -1558,7 +1638,7 @@ void PageItem_TextFrame::layout()
 							{
 								indentLine(current.line, OFs);
 							}
-//							qDebug(QString("line: endx=%1 next pos=(%2,%3)").arg(EndX).arg(current.line.x + current.line.width).arg(current.yPos));
+							qDebug(QString("line: endx=%1 next pos=(%2,%3)").arg(EndX).arg(current.line.x + current.line.width).arg(current.yPos));
 							current.xPos = current.line.x + current.line.width;
 						}
 					}
@@ -1649,8 +1729,8 @@ void PageItem_TextFrame::layout()
 								}
 								break;
 							}
-							pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
-							pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
+							pt1 = QPoint(qRound(current.xPos + extra.Right), static_cast<int>(current.yPos+BotOffset));
+							pt2 = QPoint(qRound(current.xPos + extra.Right), static_cast<int>(ceil(current.yPos-asce)));
 							if (cl.contains(pf2.xForm(pt1)) && cl.contains(pf2.xForm(pt2)))
 								break;
 //							else
