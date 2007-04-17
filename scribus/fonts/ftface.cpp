@@ -177,7 +177,17 @@ void FtFace::loadGlyph(uint gl) const
 		m_glyphWidth[gl] = 1;
 	}
 	else {
-		double ww = face->glyph->metrics.horiAdvance / m_uniEM;
+		double ww = double(face->glyph->metrics.horiAdvance) / m_uniEM;
+		double w  = (face->glyph->metrics.width + QABS(double(face->glyph->metrics.horiBearingX))) / m_uniEM;
+		GRec.bbox_width = QMAX(w, ww);
+		double height = double(face->glyph->metrics.height) / m_uniEM;
+		GRec.bbox_ascent = double(face->glyph->metrics.horiBearingY) / m_uniEM;
+		GRec.bbox_descent = height - GRec.bbox_ascent;
+		qDebug(QString("glyphmetrics %1: EM %2 bearing (%3,%4) size (%5,%6) advance %7 bbox (%8,%9)")
+			   .arg(gl).arg(m_uniEM).arg(face->glyph->metrics.horiBearingX).arg(face->glyph->metrics.horiBearingY)
+			   .arg(face->glyph->metrics.width).arg(face->glyph->metrics.height).arg(face->glyph->metrics.horiAdvance)
+			   .arg(w).arg(height));
+
 		double x, y;
 		bool error = false;
 		error = FT_Set_Char_Size( face, 0, 10, 72, 72 );
@@ -191,11 +201,6 @@ void FtFace::loadGlyph(uint gl) const
 			GRec.x = x;
 			GRec.y = y;
 			GRec.broken = false;
-			double w  = (face->glyph->metrics.width + QABS((double)face->glyph->metrics.horiBearingX)) / m_uniEM;
-			GRec.bbox_width = QMAX(w, ww);
-			double height = face->glyph->metrics.height / m_uniEM;
-			GRec.bbox_ascent = face->glyph->metrics.horiBearingY / m_uniEM;
-			GRec.bbox_descent = height - GRec.bbox_ascent;
 		}
 		else {
 			m_glyphWidth[gl] = 1;

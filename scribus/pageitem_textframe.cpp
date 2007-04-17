@@ -462,7 +462,7 @@ struct LineControl {
 				asce = itemText.object(line.firstItem + zc)->gHeight + itemText.object(line.firstItem + zc)->lineWidth() * (cStyle.scaleV() / 1000.0);
 			else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
 				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
-			//							qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result));
+			qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result));
 			result = QMAX(result, asce);
 		}
 		return result;
@@ -1757,7 +1757,7 @@ void PageItem_TextFrame::layout()
 							currasce = QMAX(currasce, asce);
 						}*/
 						double adj = firstasce - currasce;
-//						qDebug(QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
+						qDebug(QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));
 						current.line.ascent = currasce;
 						current.line.y -= adj;
 						current.yPos -= adj;
@@ -1945,7 +1945,7 @@ void PageItem_TextFrame::layout()
 				}
 				*/
 				double adj = firstasce - currasce;
-//				qDebug(QString("move3 line %1.. down by %2 current ascender=%3").arg(current.line.firstItem).arg(-adj).arg(currasce));
+				qDebug(QString("move3 line %1.. down by %2 current ascender=%3").arg(current.line.firstItem).arg(-adj).arg(currasce));
 
 				current.line.ascent = currasce;
 				current.line.y -= adj;
