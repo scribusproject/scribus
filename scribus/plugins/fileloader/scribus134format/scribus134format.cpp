@@ -833,6 +833,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							newSection.type=Type_a_b_c;
 						if (sectionElem.attribute("Type")=="Type_A_B_C")
 							newSection.type=Type_A_B_C;
+						if (sectionElem.attribute("Type")=="Type_None")
+							newSection.type=Type_None;
 						newSection.sectionstartindex=sectionElem.attribute("Start").toInt();
 						newSection.reversed=static_cast<bool>(sectionElem.attribute("Reversed").toInt());
 						newSection.active=static_cast<bool>(sectionElem.attribute("Active").toInt());
