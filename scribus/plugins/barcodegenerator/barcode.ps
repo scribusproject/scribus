@@ -4,7 +4,7 @@
 %%EndComments
 %%EndProlog
 
-% Barcode Writer in Pure PostScript - Version 2006-09-26
+% Barcode Writer in Pure PostScript - Version 2007-02-25
 % http://www.terryburton.co.uk/barcodewriter/
 %
 % Copyright (c) 2006 Terry Burton - tez@terryburton.co.uk
@@ -455,18 +455,37 @@
 
     % Add checksum digit to barcode if length is odd
     barlen 2 mod 0 ne {
-        /pad barlen 1 add string def    % Create pad one bigger than barcode
+        % Derive the equivalent UPC-A for its checksum
+        /upcacode (00000000000) def
+        barcode 6 get 48 sub 2 le {
+            upcacode 1 barcode 1 2 getinterval putinterval
+            upcacode 3 barcode 6 1 getinterval putinterval
+            upcacode 8 barcode 3 3 getinterval putinterval
+        } if
+        barcode 6 get 48 sub 3 eq {
+            upcacode 1 barcode 1 3 getinterval putinterval
+            upcacode 9 barcode 4 2 getinterval putinterval
+        } if
+        barcode 6 get 48 sub 4 eq {
+            upcacode 1 barcode 1 4 getinterval putinterval
+            upcacode 10 barcode 5 1 getinterval putinterval
+        } if
+        barcode 6 get 48 sub 5 ge {
+            upcacode 1 barcode 1 5 getinterval putinterval
+            upcacode 10 barcode 6 1 getinterval putinterval
+        } if
         /checksum 0 def
-        0 1 barlen 1 sub {
-            /i exch def
-            /barchar barcode i get 48 sub def
-            i 2 mod 0 ne {
-                /checksum barchar checksum add def
-            } {
-                /checksum barchar 3 mul checksum add def
-            } ifelse
+        0 1 10 {
+           /i exch def
+           /barchar upcacode i get 48 sub def
+           i 2 mod 0 ne {
+               /checksum checksum barchar add def
+           } {
+               /checksum checksum barchar 3 mul add def
+           } ifelse
         } for
         /checksum 10 checksum 10 mod sub 10 mod def
+        /pad barlen 1 add string def    % Create pad one bigger than barcode
         pad 0 barcode putinterval       % Add barcode to the start of the pad
         pad barlen checksum 48 add put  % Put ascii for checksum at end of pad
         /barcode pad def                % barcode=pad
