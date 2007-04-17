@@ -855,17 +855,16 @@ bool Scribus12Format::saveFile(const QString & /* fileName */, const FileFormat 
 
 void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj, LastStyles* last)
 {
-	QString tmp2, tmf, tmpf, tmp3;
-	tmp2 = it->attribute("CH");
+	QString tmp2(it->attribute("CH"));
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmp2.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
 	tmp2.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
-	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
+	QString tmpf(it->attribute("CFONT", doc->toolSettings.defFont));
 	doc->AllFonts->findFont(tmpf, doc);
 	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
-	QString fcolor = it->attribute("CCOLOR");
+	QString fcolor(it->attribute("CCOLOR"));
 	int shade = it->attribute("CSHADE").toInt();
 	handleOldColorShade(doc, fcolor, shade);
 	int extra;
@@ -875,7 +874,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		extra = it->attribute("CKERN").toInt();
 	int cstyle = it->attribute("CSTYLE").toInt() & 255;
 	int ab = it->attribute("CAB", "0").toInt();
-	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
+	QString stroke(it->attribute("CSTROKE",CommonStrings::None));
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	handleOldColorShade(doc, stroke, shade2);
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
@@ -891,7 +890,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle style;
-		QChar ch = tmp2.at(cxx);
+		QChar ch(tmp2.at(cxx));
 		if (ch == QChar(5))
 			ch = SpecialChars::PARSEP;
 		if (ch == QChar(4))
