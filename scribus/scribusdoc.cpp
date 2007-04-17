@@ -1621,6 +1621,79 @@ bool ScribusDoc::deleteTaggedItems()
 	return true;
 }
 
+void ScribusDoc::replaceItemColors(QPtrList<PageItem>& itemList, const QMap<QString, QString>& colorMap)
+{
+	uint c, d;
+	QColor tmpc;
+	PageItem *ite;
+	QMap<QString,QString>::ConstIterator it;
+	for (it = colorMap.begin(); it != colorMap.end(); ++it)
+	{
+		for (c=0; c < itemList.count(); ++c)
+		{
+			ite = itemList.at(c);
+			if ((ite->asTextFrame()) || (ite->asPathText()))
+			{
+				for (d=0; d< ite->itemText.count(); ++d)
+				{
+					if (it.key() == ite->itemText.at(d)->ccolor)
+						ite->itemText.at(d)->ccolor = it.data();
+					if (it.key() == ite->itemText.at(d)->cstroke)
+						ite->itemText.at(d)->cstroke = it.data();
+				}
+			}
+			if (it.key() == ite->fillColor())
+				ite->setFillColor(it.data());
+			if (it.key() == ite->lineColor())
+				ite->setLineColor(it.data());
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				if (it.key() == cstops.at(cst)->name)
+				{
+					ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
+					cstops.at(cst)->color = tmpc;
+					cstops.at(cst)->name = it.data();
+				}
+			}
+		}
+	}
+}
+
+void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
+{
+	multiLine::iterator its;
+	QMap<QString, QString>::const_iterator it;
+	QMap<QString,multiLine>::iterator  itl;
+	for (itl = MLineStyles.begin(); itl != MLineStyles.end(); ++itl)
+	{
+		multiLine& mline = itl.data();
+		for (its = mline.begin(); its != mline.end(); ++its)
+		{
+			struct SingleLine& sline = *its;
+			it = colorMap.find(sline.Color);
+			if (it != colorMap.end())
+				sline.Color = it.data();
+		}
+	}
+}
+
+void ScribusDoc::replaceParagraphStyleColors(const QMap<QString, QString>& colorMap)
+{
+	QMap<QString, QString>::const_iterator it;
+	QValueList<ParagraphStyle>::iterator itp;
+	for (itp = docParagraphStyles.begin(); itp != docParagraphStyles.end(); ++itp)
+	{
+		struct ParagraphStyle& pstyle = *itp;
+		it = colorMap.find(pstyle.FColor);
+		if (it != colorMap.end())
+			pstyle.FColor = it.data();
+		it = colorMap.find(pstyle.SColor);
+		if (it != colorMap.end())
+			pstyle.SColor = it.data();
+	}
+}
+
 void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 {
 	bool found;

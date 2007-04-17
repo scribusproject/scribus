@@ -6687,6 +6687,11 @@ void ScribusMainWindow::slotEditColors()
 				// Update tools colors
 				PrefsManager::replaceToolColors(doc->toolSettings, ers);
 				// Update objects and styles colors
+				doc->replaceItemColors(doc->DocItems, ers);
+				doc->replaceItemColors(doc->FrameItems, ers);
+				doc->replaceItemColors(doc->MasterItems, ers);
+				doc->replaceParagraphStyleColors(ers);
+				doc->replaceLineStyleColors(ers);
 				QMap<QString,QString>::Iterator it;
 				for (it = ers.begin(); it != ers.end(); ++it)
 				{
@@ -6694,96 +6699,6 @@ void ScribusMainWindow::slotEditColors()
 						doc->CurrTextFill = it.data();
 					if (it.key() == doc->CurrTextStroke)
 						doc->CurrTextStroke = it.data();
-					for (c=0; c<doc->DocItems.count(); ++c)
-					{
-						ite = doc->DocItems.at(c);
-						if ((ite->asTextFrame()) || (ite->asPathText()))
-						{
-							for (d=0; d<ite->itemText.count(); ++d)
-							{
-								if (it.key() == ite->itemText.at(d)->ccolor)
-									ite->itemText.at(d)->ccolor = it.data();
-								if (it.key() == ite->itemText.at(d)->cstroke)
-									ite->itemText.at(d)->cstroke = it.data();
-							}
-						}
-						if (it.key() == ite->fillColor())
-							ite->setFillColor(it.data());
-						if (it.key() == ite->lineColor())
-							ite->setLineColor(it.data());
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-						{
-							if (it.key() == cstops.at(cst)->name)
-							{
-								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-								cstops.at(cst)->color = tmpc;
-								cstops.at(cst)->name = it.data();
-							}
-						}
-					}
-				}
-				for (it = ers.begin(); it != ers.end(); ++it)
-				{
-					for (c=0; c<doc->FrameItems.count(); ++c)
-					{
-						ite = doc->FrameItems.at(c);
-						if ((ite->asTextFrame()) || (ite->asPathText()))
-						{
-							for (d=0; d<ite->itemText.count(); ++d)
-							{
-								if (it.key() == ite->itemText.at(d)->ccolor)
-									ite->itemText.at(d)->ccolor = it.data();
-								if (it.key() == ite->itemText.at(d)->cstroke)
-									ite->itemText.at(d)->cstroke = it.data();
-							}
-						}
-						if (it.key() == ite->fillColor())
-							ite->setFillColor(it.data());
-						if (it.key() == ite->lineColor())
-							ite->setLineColor(it.data());
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-						{
-							if (it.key() == cstops.at(cst)->name)
-							{
-								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-								cstops.at(cst)->color = tmpc;
-								cstops.at(cst)->name = it.data();
-							}
-						}
-					}
-				}
-				for (it = ers.begin(); it != ers.end(); ++it)
-				{
-					for (c=0; c<doc->MasterItems.count(); ++c)
-					{
-						ite = doc->MasterItems.at(c);
-						if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
-						{
-							for (d=0; d<ite->itemText.count(); ++d)
-							{
-								if (it.key() == ite->itemText.at(d)->ccolor)
-									ite->itemText.at(d)->ccolor = it.data();
-								if (it.key() == ite->itemText.at(d)->cstroke)
-									ite->itemText.at(d)->cstroke = it.data();
-							}
-						}
-						if (it.key() == ite->fillColor())
-							ite->setFillColor(it.data());
-						if (it.key() == ite->lineColor())
-							ite->setLineColor(it.data());
-						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-						{
-							if (it.key() == cstops.at(cst)->name)
-							{
-								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-								cstops.at(cst)->color = tmpc;
-								cstops.at(cst)->name = it.data();
-							}
-						}
-					}
 				}
 			}
 			doc->updateAllItemQColors();

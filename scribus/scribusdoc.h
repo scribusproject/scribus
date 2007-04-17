@@ -314,6 +314,19 @@ public:
 	QStringList getItemAttributeNames();
 
 	/*!
+	 * @brief Replace colors of an item list
+	 */
+	void replaceItemColors(QPtrList<PageItem>& itemList, const QMap<QString, QString>& colorMap);
+	/*!
+	 * @brief Replace line style colors
+	 */
+	void replaceLineStyleColors(const QMap<QString, QString>& colorMap);
+	/*!
+	 * @brief Replace paragraph style colors
+	 */
+	void replaceParagraphStyleColors(const QMap<QString, QString>& colorMap);
+
+	/*!
 	 * @brief Returns a qmap of the fonts used within the document
 	 */
 	void getUsedFonts(QMap<QString,int> *Really);
