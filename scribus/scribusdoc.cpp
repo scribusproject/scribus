@@ -2354,6 +2354,24 @@ bool ScribusDoc::deleteTaggedItems()
 	return true;
 }
 
+void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
+{
+	multiLine::iterator its;
+	QMap<QString, QString>::const_iterator it;
+	QMap<QString,multiLine>::iterator  itl;
+	for (itl = MLineStyles.begin(); itl != MLineStyles.end(); ++itl)
+	{
+		multiLine& mline = itl.data();
+		for (its = mline.begin(); its != mline.end(); ++its)
+		{
+			struct SingleLine& sline = *its;
+			it = colorMap.find(sline.Color);
+			if (it != colorMap.end())
+				sline.Color = it.data();
+		}
+	}
+}
+
 void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 {
 	bool found;

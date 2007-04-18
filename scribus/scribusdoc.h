@@ -444,6 +444,11 @@ public:
 	 */
 	void getUsedFonts(QMap<QString,QMap<uint, FPointArray> > &Really);
 	void checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPointArray> > & Really, uint lc);
+
+	/*!
+	 * @brief Replace line style colors
+	 */
+	void replaceLineStyleColors(const QMap<QString, QString>& colorMap);
 	/*!
 	* @brief Builds a qmap of the colours used within the document
 	*/
