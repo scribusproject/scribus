@@ -2095,6 +2095,18 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE").toInt()));
 	if (obj->hasAttribute("TXTKERN"))
 		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
+	if (obj->hasAttribute("wordTrack"))
+		pstyle.charStyle().setWordTracking(obj->attribute("wordTrack").toDouble());
+	if (obj->hasAttribute("MinWordTrack"))
+		pstyle.setMinWordTracking(obj->attribute("MinWordTrack").toDouble());
+	if (obj->hasAttribute("MinGlyphShrink"))
+		pstyle.setMinGlyphExtension(obj->attribute("MinGlyphShrink").toDouble());
+	if (obj->hasAttribute("MaxGlyphExtend"))
+		pstyle.setMaxGlyphExtension(obj->attribute("MaxGlyphExtend").toDouble());
+	if (obj->hasAttribute("OpticalMargins"))
+		pstyle.setOpticalMargins(obj->attribute("OpticalMargins").toInt());
+	if (obj->hasAttribute("HyphenationMode"))
+		pstyle.setHyphenationMode(obj->attribute("HyphenationMode").toInt());
 	currItem->itemText.setDefaultStyle(pstyle);
 	currItem->setRotation(obj->attribute("ROT").toDouble());
 	currItem->setTextToFrameDist(obj->attribute("EXTRA").toDouble(),
