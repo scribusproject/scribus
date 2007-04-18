@@ -193,6 +193,8 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			{
 				found = true;
 				BBox = tmp.remove("%%BoundingBox:");
+				if (BBox.contains("(atend)"))
+					found = false;
 			}
 			if (!found)
 			{
@@ -200,6 +202,8 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				{
 					found = true;
 					BBox = tmp.remove("%%BoundingBox");
+					if (BBox.contains("(atend)"))
+						found = false;
 				}
 			}
 			if (tmp.startsWith("%%CyanPlate:"))
@@ -321,10 +325,27 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				while (!ts.atEnd())
 				{
 					tmp = ts.readLine();
-					if ((!tmp.isEmpty()) && (!tmp.startsWith("%")))
+					if ((!tmp.isEmpty()) && (!tmp.startsWith("%")) && (found))
 					{
 						psFound = true;
 						break;
+					}
+					if (tmp.startsWith("%%BoundingBox:"))
+					{
+						found = true;
+						BBox = tmp.remove("%%BoundingBox:");
+						if (BBox.contains("(atend)"))
+							found = false;
+					}
+					if (!found)
+					{
+						if (tmp.startsWith("%%BoundingBox"))
+						{
+							found = true;
+							BBox = tmp.remove("%%BoundingBox");
+							if (BBox.contains("(atend)"))
+								found = false;
+						}
 					}
 					if (tmp.startsWith("%ImageData: "))
 					{
@@ -549,6 +570,14 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				{
 					m_imageInfoRecord.BBoxX = static_cast<int>(x);
 					m_imageInfoRecord.BBoxH = static_cast<int>(h);
+					x = x * gsRes / 72.0;
+					y = y * gsRes / 72.0;
+					b = b * gsRes / 72.0;
+					if (((b - x) < m_image.width()) || ((h - y) < m_image.height()))
+					{
+						int yc = qRound(m_image.height() - y - (h-y));
+						m_image = m_image.copy(qRound(x), yc, qRound(b - x), qRound(h - y));
+					}
 				}
 				else
 				{
@@ -613,6 +642,14 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				{
 					m_imageInfoRecord.BBoxX = static_cast<int>(x);
 					m_imageInfoRecord.BBoxH = static_cast<int>(h);
+					x = x * gsRes / 72.0;
+					y = y * gsRes / 72.0;
+					b = b * gsRes / 72.0;
+					if (((b - x) < m_image.width()) || ((h - y) < m_image.height()))
+					{
+						int yc = qRound(m_image.height() - y - (h-y));
+						m_image = m_image.copy(qRound(x), yc, qRound(b - x), qRound(h - y));
+					}
 				}
 				else
 				{
@@ -728,6 +765,14 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 		{
 			m_imageInfoRecord.BBoxX = static_cast<int>(x);
 			m_imageInfoRecord.BBoxH = static_cast<int>(h);
+			x = x * gsRes / 72.0;
+			y = y * gsRes / 72.0;
+			b = b * gsRes / 72.0;
+			if (((b - x) < m_image.width()) || ((h - y) < m_image.height()))
+			{
+				int yc = qRound(m_image.height() - y - (h-y));
+				m_image = m_image.copy(qRound(x), yc, qRound(b - x), qRound(h - y));
+			}
 		}
 		else
 		{
@@ -1387,6 +1432,14 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	{
 		m_imageInfoRecord.BBoxX = static_cast<int>(x);
 		m_imageInfoRecord.BBoxH = static_cast<int>(h);
+		x = x * gsRes / 72.0;
+		y = y * gsRes / 72.0;
+		b = b * gsRes / 72.0;
+		if (((b - x) < m_image.width()) || ((h - y) < m_image.height()))
+		{
+			int yc = qRound(m_image.height() - y - (h-y));
+			m_image = m_image.copy(qRound(x), yc, qRound(b - x), qRound(h - y));
+		}
 	}
 	else
 	{
@@ -1486,6 +1539,14 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	{
 		m_imageInfoRecord.BBoxX = static_cast<int>(x);
 		m_imageInfoRecord.BBoxH = static_cast<int>(h);
+		x = x * gsRes / 72.0;
+		y = y * gsRes / 72.0;
+		b = b * gsRes / 72.0;
+		if (((b - x) < m_image.width()) || ((h - y) < m_image.height()))
+		{
+			int yc = qRound(m_image.height() - y - (h-y));
+			m_image = m_image.copy(qRound(x), yc, qRound(b - x), qRound(h - y));
+		}
 	}
 	else
 	{
@@ -1564,6 +1625,8 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 			{
 				found = true;
 				BBox = tmp.remove("%%BoundingBox:");
+				if (BBox.contains("(atend)"))
+					found = false;
 			}
 			if (!found)
 			{
@@ -1571,9 +1634,11 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 				{
 					found = true;
 					BBox = tmp.remove("%%BoundingBox");
+					if (BBox.contains("(atend)"))
+						found = false;
 				}
 			}
-			if (tmp.startsWith("%%EndComments"))
+			if ((tmp.startsWith("%%EndComments")) && (found))
 				break;
 		}
 	}
@@ -1612,6 +1677,17 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 							(*s) &= alpha00;
 						s++;
 					}
+				}
+			}
+			if ((ext == "eps") || (ext == "epsi"))
+			{
+				x = x * gsRes / 72.0;
+				y = y * gsRes / 72.0;
+				b = b * gsRes / 72.0;
+				if (((b - x) < m_image.width()) || ((h - y) < m_image.height()))
+				{
+					int yc = qRound(m_image.height() - y - (h-y));
+					m_image = m_image.copy(qRound(x), yc, qRound(b - x), qRound(h - y));
 				}
 			}
 			m_image.setAlphaBuffer(true);
