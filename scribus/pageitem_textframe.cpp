@@ -411,7 +411,7 @@ struct LineControl {
 		breakXPos  = line.x;
 		for (int j = line.firstItem; j <= last; ++j)
 			if ( (itemText.item(j)->effects() & ScStyle_SuppressSpace) == 0)
-				breakXPos += itemText.item(j)->glyph.wide();
+				breakXPos += itemText.item(j)->glyph.wide();		
 	}
 	
 	/// use the last remembered break to set line width and itemrange
@@ -421,6 +421,7 @@ struct LineControl {
 		line.naturalWidth = breakXPos - line.x;
 		line.width = endX - line.x;
 		maxShrink = maxStretch = 0;
+//		qDebug(QString("finishLine ..%1: %2___%3 %4->%5").arg(breakIndex).arg(line.x).arg(endX).arg(line.naturalWidth).arg(line.width));
 	}
 	
 	
@@ -543,8 +544,6 @@ private:
 /// called when line length is known and line is to be justified
 static void justifyLine(StoryText& itemText, LineSpec& line)
 {
-	// TODO: word tracking and glyph extension
-	
 	double glyphNatural = 0;
 	double spaceNatural = 0;
 	double glyphExtension;
@@ -588,7 +587,7 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 	
 	double glyphScale = 1 + glyphExtension;
 	
-	qDebug(QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces x %5; min=%8; glyphs x %6; min=%9")
+	qDebug(QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces + %5%%; min=%8; glyphs + %6%%; min=%9")
 		   .arg(spaceNatural).arg(glyphNatural).arg(spaceNatural+glyphNatural).arg(line.naturalWidth)
 		   .arg(spaceExtension).arg(glyphExtension).arg(line.width)
 		   .arg(style.minWordTracking()).arg(style.minGlyphExtension()));
@@ -1560,6 +1559,11 @@ void PageItem_TextFrame::layout()
 						}
 						else
 						{
+							if (current.line.naturalWidth > current.colRight)
+							{
+								current.line.width = current.colRight;
+								justifyLine(itemText, current.line);
+							}							
 							// simple offset
 							indentLine(current.line, OFs);
 						}
@@ -1636,9 +1640,14 @@ void PageItem_TextFrame::layout()
 							}
 							else
 							{
+								if (current.line.naturalWidth > current.colRight)
+								{
+									current.line.width = current.colRight;
+									justifyLine(itemText, current.line);
+								}								
 								indentLine(current.line, OFs);
 							}
-							qDebug(QString("line: endx=%1 next pos=(%2,%3)").arg(EndX).arg(current.line.x + current.line.width).arg(current.yPos));
+//							qDebug(QString("line: endx=%1 next pos=(%2,%3)").arg(EndX).arg(current.line.x + current.line.width).arg(current.yPos));
 							current.xPos = current.line.x + current.line.width;
 						}
 					}
@@ -1986,6 +1995,11 @@ void PageItem_TextFrame::layout()
 			}
 			else
 			{
+				if (current.line.naturalWidth > current.colRight)
+				{
+					current.line.width = current.colRight;
+					justifyLine(itemText, current.line);
+				}				
 				indentLine(current.line, OFs);
 			}
 		}
