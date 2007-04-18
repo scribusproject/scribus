@@ -440,6 +440,10 @@ public:
 
 	bool AddFont(QString name, int fsize = 10);
 	/*!
+	 * @brief Replace line style colors
+	 */
+	void replaceLineStyleColors(const QMap<QString, QString>& colorMap);
+	/*!
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
 	void getUsedFonts(QMap<QString,QMap<uint, FPointArray> > &Really);

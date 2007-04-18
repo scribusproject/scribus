@@ -6996,6 +6996,8 @@ void ScribusMainWindow::slotEditColors()
 				PrefsManager::replaceToolColors(doc->toolSettings, colorrsc.colors());
 				// Update objects and styles colors
 				doc->replaceNamedResources(colorrsc);
+				// Temporary code until LineStyle is effectively used
+				doc->replaceLineStyleColors(dia->replaceMap);
 				/*
 				// ers == colorrsc.fonts()
 				QMap<QString,QString>::Iterator it;
