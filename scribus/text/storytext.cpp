@@ -92,7 +92,7 @@ void StoryText::removeChars(int pos, uint len)
 
 	for ( uint i=0; i < len; ++i )
 	{
-		ScText *it = take(i);
+		ScText *it = take(pos);
 		if ((it->ch == SpecialChars::OBJECT) && (it->cembedded != 0)) {
 			doc->FrameItems.remove(it->cembedded);
 			it->cembedded = 0;
