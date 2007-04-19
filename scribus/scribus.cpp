@@ -916,7 +916,7 @@ void ScribusMainWindow::initMenuBar()
 
 	//Window menu
 	 scrMenuMgr->createMenu("Windows", tr("&Windows"), QString::null, true);
-	connect(FontMenu, SIGNAL(aboutToShow()), this, SLOT(fontMenuAboutToShow()));
+	//Qt4 connect(FontMenu, SIGNAL(aboutToShow()), this, SLOT(fontMenuAboutToShow()));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
 
@@ -2176,6 +2176,7 @@ void ScribusMainWindow::newView()
 
 void ScribusMainWindow::fontMenuAboutToShow()
 {
+/* Qt4
 	QString df;
 	if (doc->m_Selection->count() != 0)
 	{
@@ -2189,6 +2190,7 @@ void ScribusMainWindow::fontMenuAboutToShow()
 		df = FontID[FontMenu->idAt(a)];
 		FontMenu->setItemChecked(FontMenu->idAt(a), (df == currentFontForFontMenu));
 	}
+*/
 }
 
 void ScribusMainWindow::windowsMenuAboutToShow()
@@ -6466,21 +6468,21 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 void ScribusMainWindow::AdjustFontMenu(const QString& nf)
 {
 	currentFontForFontMenu=nf;
-/*
-	QString df;
-	if (doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		FontSub->RebuildList(doc, currItem->isAnnotation());
-	}
-	FontSub->setCurrentText(nf);
-	//propertiesPalette->Fonts->setCurrentFont(nf);
-	for (uint a = 2; a < FontMenu->count(); ++a)
-	{
-		df = FontID[FontMenu->idAt(a)];
-		FontMenu->setItemChecked(FontMenu->idAt(a), (df == nf));
-	}
-*/
+
+//	QString df;
+//	if (doc->m_Selection->count() != 0)
+//	{
+//		PageItem *currItem = doc->m_Selection->itemAt(0);
+//		FontSub->RebuildList(doc, currItem->isAnnotation());
+//	}
+//	FontSub->setCurrentText(nf);
+//	//propertiesPalette->Fonts->setCurrentFont(nf);
+//	for (uint a = 2; a < FontMenu->count(); ++a)
+//	{
+//		df = FontID[FontMenu->idAt(a)];
+//		FontMenu->setItemChecked(FontMenu->idAt(a), (df == nf));
+//	}
+
 }
 */
 
