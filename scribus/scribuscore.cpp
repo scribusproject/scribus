@@ -198,8 +198,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		ToggleTips();
 
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
-		connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
+		connect(this, SIGNAL(TextIFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
+		connect(this, SIGNAL(TextIFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
 		connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
