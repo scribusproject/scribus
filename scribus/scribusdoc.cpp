@@ -8360,49 +8360,49 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	{
 //		currItem->Tinput = true;
 		currItem->FrameOnly = true;
-		if ((m_View->frameResizeHandle == 1) && !(currItem->asLine()))
-			currItem->paintObj();
+//		if ((m_View->frameResizeHandle == 1) && !(currItem->asLine()))
+//			currItem->paintObj();
 		if ((currItem->FrameType == 0) || (currItem->asLine()) || (m_View->frameResizeHandle != 1))
 			return true;
-		QPainter p;
-		p.begin(m_View->viewport());
-		QPoint in(qRound((currItem->xPos()-minCanvasCoordinate.x())*viewScale), qRound((currItem->yPos()-minCanvasCoordinate.y())*viewScale));
-		QPoint out(m_View->contentsToViewport(in));
-		p.translate(out.x(), out.y());
-		p.scale(viewScale, viewScale);
-		p.rotate(currItem->rotation());
-		p.setCompositionMode(QPainter::CompositionMode_Xor);
-		p.setBrush(Qt::NoBrush);
-		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		p.save();
-		if (currItem->OldB2 < 0.0)
-		{
-			p.scale(-1, 1);
-			p.translate(qRound(-currItem->OldB2), 0);
-		}
-		if (currItem->OldH2 < 0.0)
-		{
-			p.scale(1, -1);
-			p.translate(0, qRound(-currItem->OldH2));
-		}
-		currItem->DrawPolyL(&p, currItem->Clip);
-		p.restore();
+//		QPainter p;
+//		p.begin(m_View->viewport());
+//		QPoint in(qRound((currItem->xPos()-minCanvasCoordinate.x())*viewScale), qRound((currItem->yPos()-minCanvasCoordinate.y())*viewScale));
+//		QPoint out(m_View->contentsToViewport(in));
+//		p.translate(out.x(), out.y());
+//		p.scale(viewScale, viewScale);
+//		p.rotate(currItem->rotation());
+//		p.setCompositionMode(QPainter::CompositionMode_Xor);
+//		p.setBrush(Qt::NoBrush);
+//		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+//		p.save();
+//		if (currItem->OldB2 < 0.0)
+//		{
+//			p.scale(-1, 1);
+//			p.translate(qRound(-currItem->OldB2), 0);
+//		}
+//		if (currItem->OldH2 < 0.0)
+//		{
+//			p.scale(1, -1);
+//			p.translate(0, qRound(-currItem->OldH2));
+//		}
+//		currItem->DrawPolyL(&p, currItem->Clip);
+//		p.restore();
 		currItem->updateClip();
 //		currItem->updateGradientVectors();
-		p.save();
-		if (currItem->width() < 0.0)
-		{
-			p.scale(-1, 1);
-			p.translate(qRound(-currItem->width()), 0);
-		}
-		if (currItem->height() < 0.0)
-		{
-			p.scale(1, -1);
-			p.translate(0, qRound(-currItem->height()));
-		}
-		currItem->DrawPolyL(&p, currItem->Clip);
-		p.restore();
-		p.end();
+//		p.save();
+//		if (currItem->width() < 0.0)
+//		{
+//			p.scale(-1, 1);
+//			p.translate(qRound(-currItem->width()), 0);
+//		}
+//		if (currItem->height() < 0.0)
+//		{
+//			p.scale(1, -1);
+//			p.translate(0, qRound(-currItem->height()));
+//		}
+//		currItem->DrawPolyL(&p, currItem->Clip);
+//		p.restore();
+//		p.end();
 		return true;
 	}
 	if (DoUpdateClip)
