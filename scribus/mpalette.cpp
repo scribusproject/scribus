@@ -2340,7 +2340,7 @@ void Mpalette::setDvals(double left, double top, double bottom, double right)
 	HaveItem = tmp;
 }
 
-void Mpalette::setFontFace(QString newFont)
+void Mpalette::setFontFace(const QString& newFont)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;

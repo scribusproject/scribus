@@ -1243,7 +1243,7 @@ signals:
 	void lineSpacing(double);
 	void textKerning(int);
 	void textStyle(int);
-	void textFont(QString);
+	void textFont(const QString&);
 	void textSize(int);
 	void textWidthScale(int);
 	void textHeightScale(int);

@@ -270,6 +270,7 @@ public slots:
 	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
 	//bool DoSaveClose();
+	void fontMenuAboutToShow();
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void closeActiveWindowMasterPageEditor();
@@ -433,7 +434,7 @@ public slots:
 //Qt4	void setItemFont(int id);
 //Qt4	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
-//Qt4	void AdjustFontMenu(QString nf);
+//Qt4	void AdjustFontMenu(const QString& nf);
 	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
@@ -547,7 +548,7 @@ public slots:
 
 signals:
 	void TextISize(int);
-	void TextIFont(QString);
+	void TextIFont(const QString&);
 	void TextUSval(int);
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
@@ -644,6 +645,7 @@ private:
 	StyleManager *styleManager;
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;
+	QString currentFontForFontMenu;
 };
 
 #endif

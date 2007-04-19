@@ -399,7 +399,7 @@ signals:
 	void ItemTextCols(int, double);
 	void SetDistValues(double, double, double, double);
 	void ItemTextAbs(int);
-	void ItemTextFont(QString);
+	void ItemTextFont(const QString&);
 	void ItemTextSize(int);
 	void ItemTextSca(int);
 	void ItemTextScaV(int);

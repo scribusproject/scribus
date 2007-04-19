@@ -320,7 +320,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-	//Qt4 connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+	//Qt4 connect(this, SIGNAL(TextIFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
@@ -916,6 +916,7 @@ void ScribusMainWindow::initMenuBar()
 
 	//Window menu
 	 scrMenuMgr->createMenu("Windows", tr("&Windows"), QString::null, true);
+	connect(FontMenu, SIGNAL(aboutToShow()), this, SLOT(fontMenuAboutToShow()));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
 
@@ -2173,6 +2174,23 @@ void ScribusMainWindow::newView()
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
+void ScribusMainWindow::fontMenuAboutToShow()
+{
+	QString df;
+	if (doc->m_Selection->count() != 0)
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		FontSub->RebuildList(doc, currItem->isAnnotation());
+	}
+	FontSub->setCurrentText(currentFontForFontMenu);
+	//propertiesPalette->Fonts->setCurrentFont(nf);
+	for (uint a = 2; a < FontMenu->count(); ++a)
+	{
+		df = FontID[FontMenu->idAt(a)];
+		FontMenu->setItemChecked(FontMenu->idAt(a), (df == currentFontForFontMenu));
+	}
+}
+
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
 	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
@@ -2574,8 +2592,8 @@ void ScribusMainWindow::HaveNewDoc()
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
-	//Qt4 connect(view, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
-	connect(view, SIGNAL(ItemTextFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
+	//Qt4 connect(view, SIGNAL(ItemTextFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
+	connect(view, SIGNAL(ItemTextFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
 	connect(view, SIGNAL(ItemTextSize(int)), propertiesPalette, SLOT(setSize(int)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
@@ -6445,8 +6463,10 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 }
 
 /*Qt4
-void ScribusMainWindow::AdjustFontMenu(QString nf)
+void ScribusMainWindow::AdjustFontMenu(const QString& nf)
 {
+	currentFontForFontMenu=nf;
+/*
 	QString df;
 	if (doc->m_Selection->count() != 0)
 	{
@@ -6460,6 +6480,7 @@ void ScribusMainWindow::AdjustFontMenu(QString nf)
 		df = FontID[FontMenu->idAt(a)];
 		FontMenu->setItemChecked(FontMenu->idAt(a), (df == nf));
 	}
+*/
 }
 */
 
