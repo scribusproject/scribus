@@ -975,6 +975,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							PrefsManager* prefsManager=PrefsManager::instance();
 							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
 							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
 						}
 						else if (it.tagName()=="tab") {
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
@@ -1162,6 +1163,31 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						}
 						if (it.tagName()=="ITEXT")
 							GetItemText(&it, m_Doc, Neu, last);
+						else if (it.tagName()=="para") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
+							ParagraphStyle newStyle;
+							PrefsManager* prefsManager=PrefsManager::instance();
+							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
+						}
+						else if (it.tagName()=="tab") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
+						}
+						else if (it.tagName()=="breakline") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
+						}
+						else if (it.tagName()=="breakcol") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::COLBREAK);
+						}
+						else if (it.tagName()=="breakframe") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::FRAMEBREAK);
+						}
+						else if (it.tagName()=="var" && it.attribute("name")=="pgno") 
+						{
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGENUMBER);
+						}
+						
 						if(it.tagName()=="PageItemAttributes")
 						{
 							QDomNode PIA = it.firstChild();
@@ -2737,6 +2763,31 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						}
 						if (it.tagName()=="ITEXT")
 							GetItemText(&it, m_Doc, Neu, last, true, VorLFound);
+						else if (it.tagName()=="para") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
+							ParagraphStyle newStyle;
+							PrefsManager* prefsManager=PrefsManager::instance();
+							readParagraphStyle(newStyle, it, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.setStyle(Neu->itemText.length()-1, newStyle);
+							Neu->itemText.setCharStyle(Neu->itemText.length()-1, 1, last->Style);
+						}
+						else if (it.tagName()=="tab") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
+						}
+						else if (it.tagName()=="breakline") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
+						}
+						else if (it.tagName()=="breakcol") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::COLBREAK);
+						}
+						else if (it.tagName()=="breakframe") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::FRAMEBREAK);
+						}
+						else if (it.tagName()=="var" && it.attribute("name")=="pgno") 
+						{
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGENUMBER);
+						}
+						
 						if(it.tagName()=="PageItemAttributes")
 						{
 							QDomNode PIA = it.firstChild();
