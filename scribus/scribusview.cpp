@@ -4758,10 +4758,79 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				if ((Doc->EditClipMode == 1) && (ClRe2 != -1))
 				{
+					bool foundP = false;
+					QPointArray Bez(4);
+					uint seg = 0;
+					double absDist = 9999999999.9;
+					FPoint point = FPoint(0, 0);
+					FPoint normal = FPoint(0, 0);
+					FPoint tangent = FPoint(0, 0);
+					FPoint nearPoint = FPoint(0, 0);
+					double nearT = 0.0;
+					npf2 += FPoint(Doc->minCanvasCoordinate.x() * Scale, Doc->minCanvasCoordinate.y() * Scale);
+					QRect mpo2(0, 0, Doc->guidesSettings.grabRad*3, Doc->guidesSettings.grabRad*3);
+					mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
+					for (uint poi=0; poi<Clip.size()-3; poi += 4)
+					{
+						BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3), Clip.pointQ(poi+2));
+						QPointArray cli2 = Bez.cubicBezier();
+						for (uint clp = 0; clp < cli2.size()-1; ++clp)
+						{
+							if (PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
+							{
+								seg = poi;
+								double sp = 0.0;
+								double spadd = 1.0 / (Clip.lenPathSeg(seg) * Scale);
+								while (sp < 1.0)
+								{
+									Clip.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+									double d1 = fabs(sqrt(pow(point.x() - npf2.x(), 2) + pow(point.y() - npf2.y() ,2)));
+									if (d1 < absDist)
+									{
+										foundP = true;
+										nearPoint = point;
+										nearT = sp;
+										absDist = d1;
+									}
+									sp += spadd;
+								}
+							}
+						}
+					}
 					cli.putPoints(0, ClRe2+2, Clip);
-					cli.resize(cli.size()+4);
-					cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
-					cli.putPoints(cli.size(), Clip.size()-(ClRe2 + 2), Clip, ClRe2+2);
+					if (foundP)
+					{
+						npf2 = nearPoint;
+						FPoint base = cli.point(cli.size()-2);
+						FPoint c1 = cli.point(cli.size()-1);
+						FPoint base2 =  Clip.point(ClRe2+2);
+						FPoint c2 = Clip.point(ClRe2+3);
+						if ((base == c1) && (base2 == c2))
+						{
+							cli.resize(cli.size()+4);
+							cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+							cli.putPoints(cli.size(), Clip.size()-(ClRe2 + 2), Clip, ClRe2+2);
+						}
+						else
+						{
+							FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
+							FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
+							FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
+							FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
+							cli.setPoint(cli.size()-1, cn1);
+							cli.resize(cli.size()+4);
+							uint basind = cli.size()+1;
+							cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), cn2.x(), cn2.y(), npf2.x(), npf2.y(), cn3.x(), cn3.y());
+							cli.putPoints(cli.size(), Clip.size()-(ClRe2 + 2), Clip, ClRe2+2);
+							cli.setPoint(basind, cn4);
+						}
+					}
+					else
+					{
+						cli.resize(cli.size()+4);
+						cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
+						cli.putPoints(cli.size(), Clip.size()-(ClRe2 + 2), Clip, ClRe2+2);
+					}
 					if (EditContour)
 						currItem->ContourLine = cli.copy();
 					else
