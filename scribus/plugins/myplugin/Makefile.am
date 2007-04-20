@@ -9,7 +9,7 @@ libmyplugin_la_LDFLAGS = -version-info 0:0:0
 libmyplugin_la_METASOURCES = AUTO
 libmyplugin_la_SOURCES = myplugin.cpp mypluginimpl.cpp
 
-EXTRA_DIST = cwdialogbase.ui myplugin.cpp myplugin.h mypluginwidget.cpp mypluginwidget.h cwdialog.cpp cwdialog.h CMakeLists.txt
+EXTRA_DIST = myplugin.cpp myplugin.h mypluginwidget.cpp mypluginwidget.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
