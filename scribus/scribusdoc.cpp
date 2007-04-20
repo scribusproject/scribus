@@ -1742,26 +1742,25 @@ bool ScribusDoc::itemsUseColor(QPtrList<PageItem>& itemList, const QString& colo
 {
 	PageItem* ite;
 	bool found = false;
-	ColorList::Iterator it;
 	for (uint c = 0; c < itemList.count() && !found; ++c)
 	{
 		ite = itemList.at(c);
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops() && !found; ++cst)
 		{
-			if (it.key() == cstops.at(cst)->name)
+			if (colorName == cstops.at(cst)->name)
 				found = true;
 		}
 		if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 		{
 			for (int d=0; d<ite->itemText.length() && !found; ++d)
 			{
-				if (it.key() == ite->itemText.charStyle(d).ccolor || it.key() == ite->itemText.charStyle(d).cstroke)
+				if (colorName == ite->itemText.charStyle(d).ccolor || colorName == ite->itemText.charStyle(d).cstroke)
 					found = true;
 			}
 		}
 		/* PFJ - 29.02.04 - merged if's to one line */
-		if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+		if ((colorName == ite->fillColor()) || (colorName == ite->lineColor()))
 			found = true;
 	}
 	return found;
