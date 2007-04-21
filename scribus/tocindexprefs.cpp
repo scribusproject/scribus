@@ -305,9 +305,12 @@ void TOCIndexPrefs::deleteToC()
 	if (numberSelected>=0)
 	{
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		localToCSetupVector.erase(it);
 		updateToCListBox();
 		enableGUIWidgets();
@@ -321,9 +324,12 @@ void TOCIndexPrefs::itemAttributeSelected( const QString& itemAttributeName )
 	if (numberSelected>=0)
 	{
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		if (itemAttributeName==trStrNone)
 			(*it).itemAttrName=strNone;
 		else
@@ -338,9 +344,12 @@ void TOCIndexPrefs::itemFrameSelected( const QString& frameName )
 	if (numberSelected>=0)
 	{
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		if (frameName==trStrNone)
 			(*it).frameName=strNone;
 		else
@@ -356,9 +365,12 @@ void TOCIndexPrefs::itemPageNumberPlacedSelected( const QString& pageLocation )
 	if (numberSelected>=0)
 	{
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		if (pageLocation==trStrPNBeginning || pageLocation==strPNBeginning)
 			(*it).pageLocation=Beginning;
 		else
@@ -376,9 +388,12 @@ void TOCIndexPrefs::itemParagraphStyleSelected( const QString& itemStyle )
 	if (numberSelected>=0)
 	{
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		if (itemStyle==trStrNone)
 			(*it).textStyle=strNone;
 		else
@@ -399,9 +414,12 @@ void TOCIndexPrefs::setToCName( const QString &newName )
 	{
 		tocListBox->changeItem(newName, numberSelected);
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		(*it).name=newName;
 	}
 }
@@ -413,9 +431,12 @@ void TOCIndexPrefs::nonPrintingFramesSelected( bool showNonPrinting )
 	if (numberSelected>=0)
 	{
 		int i=0;
-		ToCSetupVector::Iterator it;
-		for(it = localToCSetupVector.begin(); it!= localToCSetupVector.end(), i<numberSelected ; ++it, ++i)
-			;
+		ToCSetupVector::Iterator it=localToCSetupVector.begin();
+		while (it!= localToCSetupVector.end() && i<numberSelected)
+		{
+			++it;
+			++i;
+		}
 		(*it).listNonPrintingFrames=showNonPrinting;
 	}
 }
