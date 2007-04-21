@@ -2490,7 +2490,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QDomNode DOC=elem.firstChild();
 	counter = m_Doc->Items->count();
 	baseobj = counter;
-	PrefsManager* prefsManager=PrefsManager::instance();
+//	PrefsManager* prefsManager=PrefsManager::instance();
 	while(!DOC.isNull())
 	{
 		QDomElement dc=DOC.toElement();
