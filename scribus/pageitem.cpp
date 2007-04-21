@@ -1654,7 +1654,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	double retval = 0.0;
 	double asce = style.font().ascent(style.fontSize() / 10.0);
 	int chst = style.effects() & 1919;
-	if (chars[0] == SpecialChars::ZWSPACE ||
+/*	if (chars[0] == SpecialChars::ZWSPACE ||
 		chars[0] == SpecialChars::ZWNBSPACE ||
 		chars[0] == SpecialChars::NBSPACE ||
 		chars[0] == SpecialChars::NBHYPHEN ||
@@ -1667,7 +1667,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	{
 		layout.glyph = ScFace::CONTROL_GLYPHS + chars[0].unicode();
 	}
-	else 
+	else */
 	{
 		layout.glyph = style.font().char2CMap(chars[0].unicode());
 	}
@@ -1718,7 +1718,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		layout.scaleV = style.scaleV() / 1000.0;
 	}	
 	
-	if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) {
+/*	if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) {
 		uint replGlyph = style.font().char2CMap(QChar(' '));
 		layout.xadvance = style.font().glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
 		layout.yadvance = style.font().glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
@@ -1732,7 +1732,8 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		layout.xadvance = 0;
 		layout.yadvance = 0;
 	}
-	else {
+	else */
+	{
 		layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
 		layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
