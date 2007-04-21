@@ -457,7 +457,7 @@ struct LineControl {
 	/// find x position where this line must end
 	double endOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace = 0)
 	{
-		double EndX = floor(QMAX(line.x, breakXPos - 1));
+		double EndX = floor(QMAX(line.x, QMIN(colRight,breakXPos) - 1));
 		QPoint pt1, pt2;
 		//	qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
 		do {
@@ -587,10 +587,12 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 	
 	double glyphScale = 1 + glyphExtension;
 	
+/*
 	qDebug(QString("justify: line = %7 natural = %1 + %2 = %3 (%4); spaces + %5%%; min=%8; glyphs + %6%%; min=%9")
 		   .arg(spaceNatural).arg(glyphNatural).arg(spaceNatural+glyphNatural).arg(line.naturalWidth)
 		   .arg(spaceExtension).arg(glyphExtension).arg(line.width)
 		   .arg(style.minWordTracking()).arg(style.minGlyphExtension()));
+	*/
 	
 	// distribute whitespace on spaces and glyphs
 	for (int yof = line.firstItem; yof <= line.lastItem; ++yof)
@@ -615,11 +617,18 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 }
 
 
-/// called when linelength is known and line is centered
-static void indentLine(LineSpec& line, double leftIndent)
+/// called when linelength is known and line is not justified
+static void indentLine(StoryText& itemText, LineSpec& line, double leftIndent)
 {
-	line.x += leftIndent;
-	line.width -= leftIndent;
+	if (line.naturalWidth > line.width)
+	{
+		justifyLine(itemText, line);
+	}
+	if (leftIndent > 0)
+	{
+		line.x += leftIndent;
+		line.width -= leftIndent;
+	}
 }
 
 /// calculate how much the first char should stick out to the left
@@ -1070,7 +1079,6 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("textframe ascent/descent: fontsize=%1, ascent=%2, descent=%3")
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
 
-				// TODO: word tracking and glyph extension
 				if (SpecialChars::isExpandingSpace(hl->ch[0]))
 				{
 					double wordtracking = charStyle.wordTracking();
@@ -1535,7 +1543,7 @@ void PageItem_TextFrame::layout()
 					EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
 					current.finishLine(EndX);
 					
-					if (style.alignment() != 0)
+//					if (style.alignment() != 0)
 					{
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 							current.line.width += opticalRightMargin(itemText, current.line);
@@ -1559,15 +1567,15 @@ void PageItem_TextFrame::layout()
 						}
 						else
 						{
-							if (current.line.naturalWidth > current.colRight)
-							{
-								current.line.width = current.colRight;
-								justifyLine(itemText, current.line);
-							}							
+							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
+								current.line.naturalWidth += opticalRightMargin(itemText, current.line);
+							double optiWidth = current.colRight - style.lineSpacing()/2.0 - current.line.x;
+							if (current.line.naturalWidth > optiWidth)
+								current.line.width = QMAX(current.line.width - current.maxShrink, optiWidth);
 							// simple offset
-							indentLine(current.line, OFs);
+							indentLine(itemText, current.line, OFs);
 						}
-						current.xPos = current.line.x + current.line.width;
+						current.xPos = current.colRight;
 					}
 				}
 				else // outs -- last char went outside the columns (or into flow-around shape)
@@ -1597,12 +1605,12 @@ void PageItem_TextFrame::layout()
 							hl->glyph.xadvance = 0;
 						}
 						
+//						current.breakXPos = current.line.x;
+//						for (int j=current.line.firstItem; j <= a; ++j)
+//							current.breakXPos += itemText.item(j)->glyph.wide();
+						
 						EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
 						current.finishLine(EndX);
-
-//???						current.breakXPos = current.line.x;
-//???						for (int j=current.line.firstItem; j <= a; ++j)
-//???							current.breakXPos += itemText.item(j)->glyph.wide();
 						
 						if ((hl->effects() & ScStyle_HyphenationPossible) || hl->ch[0] == SpecialChars::SHYPHEN)
 						{
@@ -1622,7 +1630,7 @@ void PageItem_TextFrame::layout()
 						}
 						
 						// Justification
-						if (style.alignment() != 0)
+//						if (style.alignment() != 0)
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 								current.line.width += opticalRightMargin(itemText, current.line);
@@ -1640,12 +1648,9 @@ void PageItem_TextFrame::layout()
 							}
 							else
 							{
-								if (current.line.naturalWidth > current.colRight)
-								{
-									current.line.width = current.colRight;
-									justifyLine(itemText, current.line);
-								}								
-								indentLine(current.line, OFs);
+								if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
+									current.line.naturalWidth += opticalRightMargin(itemText, current.line);
+								indentLine(itemText, current.line, OFs);
 							}
 //							qDebug(QString("line: endx=%1 next pos=(%2,%3)").arg(EndX).arg(current.line.x + current.line.width).arg(current.yPos));
 							current.xPos = current.line.x + current.line.width;
@@ -1678,6 +1683,7 @@ void PageItem_TextFrame::layout()
 						qDebug(QString("no break pos: %1-%2 @ %3 wid %4 nat %5 endX %6")
 							   .arg(current.line.firstItem).arg(current.line.firstItem)
 							   .arg(current.line.x).arg(current.line.width).arg(current.line.naturalWidth).arg(EndX));
+						indentLine(itemText, current.line, 0);
 					}
 				}
 				if ( outs || SpecialChars::isBreak(hl->ch[0], (Cols > 1)) )
@@ -1970,7 +1976,7 @@ void PageItem_TextFrame::layout()
 		EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
 		current.finishLine(EndX);
 
-		if (style.alignment() != 0)
+//		if (style.alignment() != 0)
 		{
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 			{
@@ -1995,12 +2001,9 @@ void PageItem_TextFrame::layout()
 			}
 			else
 			{
-				if (current.line.naturalWidth > current.colRight)
-				{
-					current.line.width = current.colRight;
-					justifyLine(itemText, current.line);
-				}				
-				indentLine(current.line, OFs);
+				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
+					current.line.naturalWidth += opticalRightMargin(itemText, current.line);
+				indentLine(itemText, current.line, OFs);
 			}
 		}
 
