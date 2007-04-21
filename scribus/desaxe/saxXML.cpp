@@ -70,7 +70,7 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 		if (i > 0 && (i%4)==0 && m_pretty)
 		{
 			m_stream << "\n";
-			for (int k=0; k < m_indentLevel*4 + 1 + tag.length(); ++k)
+			for (uint k=0; k < m_indentLevel*4 + 1 + tag.length(); ++k)
 				m_stream << " ";
 			m_manyAttributes = true;
 		}
