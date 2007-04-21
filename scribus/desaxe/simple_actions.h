@@ -63,7 +63,7 @@ public:
 	: create_(create) 
     {}
 	
-	void begin(const Xml_string& name, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr)
     { 
 		this->dig->push(create_? create_() : new Obj_Type()); 
     }	
