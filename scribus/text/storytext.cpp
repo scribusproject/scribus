@@ -912,11 +912,12 @@ int StoryText::nextLine(int pos)
 	return lastFrameItem;
 }
 
-int StoryText::startOfFrame(int pos) 
+int StoryText::startOfFrame(int /*pos*/) 
 {
 	return firstFrameItem;
 }
-int StoryText::endOfFrame(int pos)
+
+int StoryText::endOfFrame(int /*pos*/)
 {
 	return lastFrameItem + 1;
 }
@@ -1028,7 +1029,7 @@ void StoryText::removeSelection()
 
 
 
-void StoryText::invalidateObject(const PageItem * embedded)
+void StoryText::invalidateObject(const PageItem * /*embedded*/)
 {
 }
 
@@ -1344,7 +1345,7 @@ struct AppendSpecial : public MakeAction<AppendSpecial_body, QChar>
 class AppendInlineFrame_body : public Action_body
 {
 public:
-	void end(const Xml_string& tag) // this could be a setter if we had StoryText::appendObject() ...
+	void end(const Xml_string&) // this could be a setter if we had StoryText::appendObject() ...
 	{
 		StoryText* story = this->dig->top<StoryText>(1);
 		PageItem* obj = this->dig->top<PageItem>(0);
@@ -1431,7 +1432,7 @@ public:
 			delete lastStyle;
 	}
 	
-	void begin(const Xml_string& tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr)
 	{
 		if (tag == "p")
 		{
@@ -1491,7 +1492,7 @@ public:
 			delete lastStyle;
 	}
 	
-	void begin(const Xml_string& tag, Xml_attr attr)
+	void begin(const Xml_string& tag, Xml_attr)
 	{
 //		qDebug(QString("spanaction: begin %1").arg(tag));
 		if (tag == "span")
