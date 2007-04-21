@@ -6997,9 +6997,9 @@ void ScribusMainWindow::slotEditColors()
 	{
 		if (HaveDoc)
 		{
-			uint c;
-			int d;
-			PageItem *ite;
+// 			uint c;
+// 			int d;
+// 			PageItem *ite;
 			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
