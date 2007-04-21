@@ -103,7 +103,7 @@ ellipsis.png \
 22/draw-star.png \
 16/draw-triangle1.png \
 22/draw-triangle1.png \
-22/draw-triangle2.png \
+16/draw-triangle2.png \
 22/draw-triangle2.png \
 16/draw-triangle3.png \
 22/draw-triangle3.png \
