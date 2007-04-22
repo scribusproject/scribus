@@ -106,7 +106,7 @@ public:
 
 public slots:
 	void textChanged();
-	void stepDown();
+	virtual void stepDown();
 	/*!
 	\author Franz Schmid
 	\brief Sets the Maximum Value of the Spinbox
@@ -131,7 +131,7 @@ public slots:
 
 protected:
  	bool m_tabAdvance;
-	bool eventFilter( QObject* ob, QEvent* ev );
+	virtual bool eventFilter( QObject* ob, QEvent* ev );
 	void setParameters( int s );
 	void setFPConstants(FunctionParser &fp);
 	bool readOnly;

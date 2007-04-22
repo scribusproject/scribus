@@ -310,12 +310,14 @@ void MSpinBox::textChanged()
 
 void MSpinBox::stepDown()
 {
-	if ( edited )
-		QSpinBox::interpretText();
-	if ( wrapping() && ( QSpinBox::value()-lineStep() < QSpinBox::minValue() ) )
+	if ((wrapping()) &&  (QSpinBox::value()-lineStep() < QSpinBox::minValue()) )
+	{
+		if ( edited )
+			QSpinBox::interpretText();
 		QSpinBox::setValue( QSpinBox::maxValue() - (QSpinBox::maxValue() % lineStep()));
+	}
 	else
-		QSpinBox::subtractLine();
+		QSpinBox::stepDown();
 }
 
 void MSpinBox::setValues(double min, double max, int deci, double val)

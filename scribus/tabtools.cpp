@@ -165,7 +165,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( tabFillCombo, 7, 1, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
 	subTabTextLayout->addWidget( textLabel3b2t, 7, 0 );
-	gapTab = new MSpinBox( 1, 200, subTabText, precision );
+	gapTab = new MSpinBox( 1, 200, subTabText, 2 );
 
 	subTabTextLayout->addWidget( gapTab, 7, 3, Qt::AlignLeft );
 	textLabel3b2t2 = new QLabel(gapTab, tr( "Tab Width:" ), subTabText, "textLabel3b2t2" );
@@ -177,7 +177,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( columnsText, 8, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel4b, 8, 0 );
-	gapText = new MSpinBox( 0, 200, subTabText, precision );
+	gapText = new MSpinBox( 0, 200, subTabText, 2 );
 
 	subTabTextLayout->addWidget( gapText, 8, 3, Qt::AlignLeft );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");

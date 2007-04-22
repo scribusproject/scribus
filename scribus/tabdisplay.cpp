@@ -56,7 +56,7 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 
 	DisScale = prefsData->DisScale;
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 	QPixmap pm(54, 14);
 	pm.fill(prefsData->DpapColor);
@@ -111,7 +111,7 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	leftScratch->setMaxValue(1000);
 	leftScratch->setValue(scratch.Left * unitRatio);
 	bottomScratch->setDecimals( decimals );
-	bottomScratch->setMaxValue(1000);
+	bottomScratch->setMaxValue(10000);
 	bottomScratch->setValue(scratch.Bottom * unitRatio);
 	rightScratch->setDecimals( decimals );
 	rightScratch->setMaxValue(1000);
