@@ -1499,7 +1499,9 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 void ScribusDoc::deletePage(const int pageNumber)
 {
 	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
-	setCurrentPage(Pages->at(0));
+	//#5561: If we are going to delete the first page, do not set the current page to it
+	if (pageNumber!=0)
+		setCurrentPage(Pages->at(pageNumber!=0?0:1));
 	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
 	delete page;
