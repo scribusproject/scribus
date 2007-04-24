@@ -164,6 +164,7 @@ public:
 	int redrawCount;
 	PageItem *redrawItem;
 	QRubberBand *redrawMarker;
+	QPolygon redrawPolygon;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
@@ -209,10 +210,11 @@ public:
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
+	void PaintSizeRect(QPolygon neu);
 	void ToView(QPainter *p);
 	void ToView(QMatrix& m);
 // 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
+	void MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	void Reset1Control();

@@ -1076,10 +1076,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
 	connect(optMarginCombo, SIGNAL(activated(int)), this, SLOT(setOpticalMargins(int)) );
-	connect(minWordTrackingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setMinWordTracking()) );
-	connect(normWordTrackingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setNormWordTracking()) );
-	connect(minGlyphExtSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setMinGlyphExtension()) );
-	connect(maxGlyphExtSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setMaxGlyphExtension()) );
+	connect(minWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMinWordTracking()) );
+	connect(normWordTrackingSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setNormWordTracking()) );
+	connect(minGlyphExtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMinGlyphExtension()) );
+	connect(maxGlyphExtSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setMaxGlyphExtension()) );
 
 	HaveItem = false;
 	Xpos->setValue(0);

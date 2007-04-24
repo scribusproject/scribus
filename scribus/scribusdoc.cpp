@@ -5626,7 +5626,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 		currItem->FrameOnly = true;
 		currItem->paintObj();
 		currItem->FrameOnly = false;
-		m_View->MarkClip(currItem, currItem->ContourLine, true);
+//		m_View->MarkClip(currItem, currItem->ContourLine, true);
 		changed();
 		return;
 	}
@@ -5673,7 +5673,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 		currItem->FrameOnly = true;
 		currItem->paintObj();
 		currItem->FrameOnly = false;
-		m_View->MarkClip(currItem, currItem->ContourLine, true);
+//		m_View->MarkClip(currItem, currItem->ContourLine, true);
 		changed();
 		return;
 	}

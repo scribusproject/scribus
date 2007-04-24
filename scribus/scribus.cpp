@@ -5776,7 +5776,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		if (doc->m_Selection->count() != 0)
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
-			view->MarkClip(currItem, currItem->PoLine, true);
+//			view->MarkClip(currItem, currItem->PoLine, true);
 			nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
 			nodePalette->ResetCont->setEnabled(false);
 			nodePalette->ResetContClip->setEnabled(false);

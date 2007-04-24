@@ -7,17 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef NODEPALETTE_H
 #define NODEPALETTE_H
 
-#include <q3buttongroup.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qlabel.h>
-#include <qlayout.h>
 #include <qtooltip.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QCheckBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QToolButton>
+#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QCloseEvent>
 
 #include "scribusapi.h"
@@ -35,7 +32,6 @@ public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
 
-	Q3ButtonGroup* ButtonGroup1;
 	QToolButton* MoveNode;
 	QToolButton* MoveControl;
 	QToolButton* AddNode;
@@ -117,9 +113,10 @@ public slots:
 protected:
 	void connectSignals();
 	void disconnectSignals();
-	Q3VBoxLayout* NodePaletteLayout;
-	Q3GridLayout* ButtonGroup1Layout;
-	Q3GridLayout* Layout2;
+	QVBoxLayout *vboxLayout;
+	QGridLayout *gridLayout;
+	QGridLayout *gridLayout1;
+	QGridLayout *gridLayout2;
 	
 	double unitRatio;
 	
