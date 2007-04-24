@@ -64,7 +64,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	double height(double sz=1.0)    const { return m_height * sz; }
 	double strikeoutPos(double sz=1.0)    const { return m_strikeoutPos * sz; }
 	double underlinePos(double sz=1.0)    const { return m_underlinePos * sz; }
-	double strokeWidth(double sz=1.0)     const { return m_strokeWidth; }
+	double strokeWidth(double /*sz*/)     const { return m_strokeWidth; }
 	double maxAdvanceWidth(double sz=1.0) const { return m_maxAdvanceWidth * sz; }
 	QString ascentAsString()    const { return Ascent; }
 	QString descentAsString()    const { return Descender; }
@@ -78,7 +78,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	uint         char2CMap(QChar ch)                         const;
 
 	double       glyphKerning (uint gl1, uint gl2, double sz) const;
-	GlyphMetrics glyphBBox (uint gl,               double sz) const;
+//	GlyphMetrics glyphBBox (uint gl,               double sz) const;
 
 	void RawData   (QByteArray & bb)            const;
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;

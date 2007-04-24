@@ -44,7 +44,7 @@ typedef std::map<Xml_string, Xml_string> Xml_attr;
 inline Xml_string Xml_key(Xml_attr::iterator& it) { return it->first; }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it->second; }
 inline const char* fromXMLString(const Xml_string& s) { return s.c_str(); }
-inline Xml_string fromSTLString(const std::string& s) { reutrn s; }
+inline Xml_string fromSTLString(const std::string& s) { return s; }
 
 #endif
 

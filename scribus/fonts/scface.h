@@ -79,8 +79,11 @@ public:
 		FPointArray Outlines;
 		double x;
 		double y;
+		double bbox_width;
+		double bbox_ascent;
+		double bbox_descent;
 		bool broken;
-		GlyphData() : Outlines(), x(0), y(0), broken(true) {}
+		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
 	};
 	
 	
@@ -231,7 +234,7 @@ public:
 		result.replacedInDoc = doc; 
 		return result; 
 	}
- 
+
 	void chReplacementTo(ScFace& other, QString doc) { 
 		QString oldName = replacedName;
 		(*this) = other;
@@ -327,19 +330,19 @@ public:
 	// glyph interface
 	
 	/// returns the glyphs normal advance width at size 'sz'
-	double glyphWidth(uint gl, double sz=1.0) const { return gl < CONTROL_GLYPHS ? m->glyphWidth(gl, sz) : 0; }
+	double glyphWidth(uint gl, double sz=1.0) const { return m->glyphWidth(gl, sz); }
 
 	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
 	double glyphKerning(uint gl1, uint gl2, double sz=1.0) const { return qMax(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
 
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
-	GlyphMetrics glyphBBox(uint gl, double sz=1.0) const { return m->glyphBBox(gl < CONTROL_GLYPHS? gl : 0, sz); }
+	GlyphMetrics glyphBBox(uint gl, double sz=1.0) const { return m->glyphBBox(gl, sz); }
 
 	/// returns the glyph's outline as a cubic Bezier path
-	FPointArray glyphOutline(uint gl, double sz=1.0) const { return m->glyphOutline(gl < CONTROL_GLYPHS? gl : 0, sz); }
+	FPointArray glyphOutline(uint gl, double sz=1.0) const { return m->glyphOutline(gl, sz); }
 
 	/// returns the glyph's origin FIXME: what's that exactly?
-	FPoint glyphOrigin(uint gl, double sz=1.0)    const { return m->glyphOrigin(gl<CONTROL_GLYPHS? gl : 0, sz); }
+	FPoint glyphOrigin(uint gl, double sz=1.0)    const { return m->glyphOrigin(gl, sz); }
 	
 	// char interface
 

@@ -143,7 +143,7 @@ public:
 		return res;
 	}
 protected:
-	virtual void end(const Xml_string& tag) { dig->pop(); }
+	virtual void end(const Xml_string& ) { dig->pop(); }
 };
 
 

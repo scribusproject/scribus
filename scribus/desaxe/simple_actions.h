@@ -63,7 +63,7 @@ public:
 	: create_(create) 
     {}
 	
-	void begin(const Xml_string& name, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr)
     { 
 		this->dig->push(create_? create_() : new Obj_Type()); 
     }	
@@ -616,7 +616,7 @@ class IdRef_body : public Action_body
 public:
 	IdRef_body() : stack() {}
 	
-	void begin(const Xml_string, Xml_attr attr)
+	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Mode mode;
@@ -659,7 +659,7 @@ public:
 		stack.push_back(mode);
 		
 	}
-	void end(const Xml_string)
+	void end(const Xml_string&)
 	{
 		Mode mode = stack.back();
 		stack.pop_back();
@@ -691,11 +691,11 @@ template<class Data_Type>
 class Lookup_body : public Generator_body<Data_Type>
 {
 public:
-	Lookup_body(Xml_string ID) 
+	Lookup_body(const Xml_string& ID) 
 		: ID_(ID)
 	{}
 	
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string&, Xml_attr)
 	{
 		Data_Type* data = this->dig->template lookup<Data_Type>(ID_);
 		this->dig->push(data);
@@ -727,7 +727,7 @@ public:
 		: fun_(fun), stack()
 	{}
 	
-	void begin(const Xml_string, Xml_attr)
+	void begin(const Xml_string&, Xml_attr)
 	{ 
 		Cell cell;
 		cell.arg = this->dig->template top<Arg_Type>(); 
@@ -740,7 +740,7 @@ public:
 		this->dig->push(&cell.obj); 
 	}	
 
-	void end(const Xml_string)
+	void end(const Xml_string&)
 	{
 		Cell cell = stack.back();
 		stack.pop_back();

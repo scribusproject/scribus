@@ -29,19 +29,19 @@ ScFace::ScFaceData::ScFaceData() :
 {
 }
 
-double ScFace::ScFaceData::glyphKerning(uint gl1, uint gl2, double sz) const 
+double ScFace::ScFaceData::glyphKerning(uint /*gl1*/, uint /*gl2*/, double /*sz*/) const 
 { 
 	return 0.0; 
 }
 
 
-bool ScFace::ScFaceData::glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const 
+bool ScFace::ScFaceData::glyphNames(QMap<uint, std::pair<QChar, QString> >& /*gList*/) const 
 { 
 	return false; 
 }
 
 
-QMap<QString,QString> ScFace::ScFaceData::fontDictionary(double sz) const
+QMap<QString,QString> ScFace::ScFaceData::fontDictionary(double /*sz*/) const
 {
 	return QMap<QString, QString>();
 }
@@ -50,9 +50,19 @@ QMap<QString,QString> ScFace::ScFaceData::fontDictionary(double sz) const
 GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, double sz) const
 {
 	GlyphMetrics res;
-	res.width = sz;
-	res.ascent = sz;
-	res.descent = 0;
+	if (gl == 0 || gl >= CONTROL_GLYPHS)
+	{	res.width   = glyphWidth(gl, sz);
+		res.ascent  = (gl == 0? sz : 0);
+		res.descent = 0;
+		return res;
+	}
+	else if (! m_glyphWidth.contains(gl)) {
+		loadGlyph(gl);
+	}			
+	const struct GlyphData & data(m_glyphOutline[gl]);
+	res.width = data.bbox_width * sz;
+	res.ascent = data.bbox_ascent * sz;
+	res.descent = data.bbox_descent * sz;	
 	return res;
 }
 
@@ -242,7 +252,12 @@ uint ScFace::char2CMap(QChar ch) const
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
 	}
+	
+	if (ch == SpecialChars::SHYPHEN)
+		return emulateGlyph(ch);
+
 	uint gl = m->char2CMap(ch);
+	
 	if (gl == 0)
 		return emulateGlyph(ch);
 	else
@@ -256,7 +271,7 @@ bool ScFace::canRender(QChar ch) const
 		return false;
 	else {
 		uint gl = char2CMap(ch);    //  calls load()
-		if (gl >= CONTROL_GLYPHS)   //  those are always zero width and empty
+		if (gl >= CONTROL_GLYPHS)   //  those are always empty
 			return true;
 		else if (gl != 0) {
 			m->loadGlyph(gl);

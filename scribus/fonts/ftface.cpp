@@ -8,6 +8,7 @@
 #include <qfile.h>
 
 #include "scfonts.h"
+#include "util.h"
 #include "fonts/scfontmetrics.h"
 
 // static:
@@ -44,7 +45,7 @@ FtFace::FtFace(QString fam, QString sty, QString vari, QString scname,
 	faceIndex = face;
 	if (!library) {
 		if (FT_Init_FreeType( &library ))
-			qDebug(QObject::tr("Freetype2 library not available"));
+			sDebug(QObject::tr("Freetype2 library not available"));
 	}
 }
 
@@ -59,7 +60,7 @@ FT_Face FtFace::ftFace() const {
 		if (FT_New_Face( library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
 			status = ScFace::BROKEN;
 			m_face = NULL;
-			qDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
+			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 		}
 		else {
 			load();
@@ -76,7 +77,7 @@ void FtFace::load() const
 		if (FT_New_Face( library, QFile::encodeName(fontFile), faceIndex, & m_face )) {
 			status = ScFace::BROKEN;
 			m_face = NULL;
-			qDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
+			sDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex));
 			return;
 		}
 	}
@@ -125,7 +126,7 @@ void FtFace::load() const
 		if (error)
 		{
 			++invalidGlyph;
-			qDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(fontFile).arg(gindex).arg(charcode));
+			sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(fontFile).arg(gindex).arg(charcode));
 			charcode = FT_Get_Next_Char( m_face, charcode, &gindex );
 			continue;
 		}
@@ -173,11 +174,21 @@ void FtFace::loadGlyph(uint gl) const
 	FT_Face face = ftFace();
 	if (FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP ))
 	{
-		qDebug(QObject::tr("Font %1 has broken glyph %2").arg(fontFile).arg(gl));
+		sDebug(QObject::tr("Font %1 has broken glyph %2").arg(fontFile).arg(gl));
 		m_glyphWidth[gl] = 1;
 	}
 	else {
-		double ww = face->glyph->metrics.horiAdvance / m_uniEM;
+		double ww = double(face->glyph->metrics.horiAdvance) / m_uniEM;
+		double w  = (face->glyph->metrics.width + QABS(double(face->glyph->metrics.horiBearingX))) / m_uniEM;
+		GRec.bbox_width = qMax(w, ww);
+		double height = double(face->glyph->metrics.height) / m_uniEM;
+		GRec.bbox_ascent = double(face->glyph->metrics.horiBearingY) / m_uniEM;
+		GRec.bbox_descent = height - GRec.bbox_ascent;
+//		qDebug(QString("glyphmetrics %1: EM %2 bearing (%3,%4) size (%5,%6) advance %7 bbox (%8,%9)")
+//			   .arg(gl).arg(m_uniEM).arg(face->glyph->metrics.horiBearingX).arg(face->glyph->metrics.horiBearingY)
+//			   .arg(face->glyph->metrics.width).arg(face->glyph->metrics.height).arg(face->glyph->metrics.horiAdvance)
+//			   .arg(w).arg(height));
+
 		double x, y;
 		bool error = false;
 		error = FT_Set_Char_Size( face, 0, 10, 72, 72 );
@@ -215,19 +226,19 @@ double FtFace::glyphKerning(uint gl, uint gl2, double size) const
 	{
 		FT_Error error = FT_Get_Kerning(face, gl, gl2, FT_KERNING_UNSCALED, &delta);
 		if (error) {
-			qDebug(QString("Error %2 when accessing kerning pair for font %1").arg(scName).arg(error));
+			sDebug(QString("Error %2 when accessing kerning pair for font %1").arg(scName).arg(error));
 		}
 		else {
 			result = delta.x / m_uniEM * size;
 		}
 	}
 	else {
-		qDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(scName));
+		sDebug(QString("Font %1 has no kerning pairs (according to Freetype)").arg(scName));
 	}
 	return result;
 }
 
-
+/*
 GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
 {
 	FT_Face    face = ftFace();
@@ -246,6 +257,8 @@ GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
 	}
 	return result;
 }
+*/
+
 
 /// copied from Freetype's FT_Stream_ReadAt()
 FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count)
@@ -299,7 +312,7 @@ void FtFace::RawData(QByteArray & bb) const
 	bool error = ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
 	if (error) 
 	{
-		qDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
+		sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
 		bb.resize(0);
 		status = qMax(status, ScFace::BROKENGLYPHS);
 	}
