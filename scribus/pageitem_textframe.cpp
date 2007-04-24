@@ -558,7 +558,7 @@ static void justifyLine(StoryText& itemText, LineSpec& line)
 	const ParagraphStyle& style(itemText.paragraphStyle(line.firstItem));
 
 	// measure natural widths for glyphs and spaces
-	for (int sof = line.firstItem; sof < line.lastItem; ++sof)
+	for (int sof = line.firstItem; sof <= line.lastItem; ++sof)
 	{
 		if (!SpecialChars::isExpandingSpace(itemText.text(sof)))
 		{
@@ -1418,8 +1418,8 @@ void PageItem_TextFrame::layout()
 			}
 			else
 			{
-				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(current.yPos+desc));
-				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right)), qRound(ceil(current.yPos-asce)));
+				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right - curent.maxShrink)), qRound(current.yPos+desc));
+				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - curent.maxShrink)), qRound(ceil(current.yPos-asce)));
 			}
 			
 			// test if end of line reached
