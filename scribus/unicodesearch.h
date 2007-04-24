@@ -100,6 +100,10 @@ signals:
 	//! \brief Signal transfering the chosen character as QString
 	void chosenUnicode(QString);
 
+public slots:
+    //! \brief Slot for changing language of GUI
+    void languageChange();
+
 private:
 	/*! \brief UnicodeSearch reference.
 	The dialog is created in "this" constructor. Showing and hiding
