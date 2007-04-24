@@ -137,12 +137,18 @@ void LineFormate::neuesFormat()
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
 	struct SingleLine sl;
-	sl.Color = "Black";
+/*	sl.Color = "Black";
 	sl.Shade = 100;
-	sl.Dash = Qt::SolidLine;
-	sl.LineEnd = Qt::FlatCap;
-	sl.LineJoin = Qt::MiterJoin;
-	sl.Width = 1.0;
+	sl.Dash = SolidLine;
+	sl.LineEnd = FlatCap;
+	sl.LineJoin = MiterJoin;
+	sl.Width = 1.0; */
+	sl.Color = Docu->toolSettings.dPenLine;
+	sl.Shade = Docu->toolSettings.dShadeLine;
+	sl.Dash = Qt::SolidLine;//Docu->toolSettings.;
+	sl.LineEnd = Qt::FlatCap;//Docu->toolSettings.;
+	sl.LineJoin = Docu->toolSettings.dLstyleLine;
+	sl.Width = Docu->toolSettings.dWidthLine;
 	multiLine ml;
 	ml.push_back(sl);
 	MultiLine* dia = new MultiLine(this, Docu, ml, tr("New Style"), &TempStyles);
