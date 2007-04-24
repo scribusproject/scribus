@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "colorutil.h"
 #include "util.h"
+#include "scpaths.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -233,7 +234,7 @@ void FontPrefs::readPaths()
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	PathList->clear();
 	for (int i = 0; i < fontPathTable->getRowCount(); ++i)
-		PathList->insertItem(fontPathTable->get(i,0));
+		PathList->insertItem( QDir::convertSeparators(fontPathTable->get(i,0)) );
 }
 
 void FontPrefs::writePaths()
@@ -243,7 +244,7 @@ void FontPrefs::writePaths()
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	fontPathTable->clear();
 	for (uint i = 0; i < PathList->count(); ++i)
-		fontPathTable->set(i, 0, PathList->text(i));
+		fontPathTable->set(i, 0, ScPaths::separatorsToSlashes(PathList->text(i)));
 }
 
 void FontPrefs::SelectPath(Q3ListBoxItem *c)
@@ -267,9 +268,10 @@ void FontPrefs::AddPath()
 		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
 		if( s.endsWith("/") )
 			s = s.left(s.length()-1);
-		if (PathList->findItem(s))
+		QString s2 = QDir::convertSeparators(s);
+		if (PathList->findItem(s2))
 			return;
-		PathList->insertItem(s);
+		PathList->insertItem(s2);
 		writePaths();
 		ChangeB->setEnabled(true);
 		RemoveB->setEnabled(true);
@@ -284,10 +286,12 @@ void FontPrefs::ChangePath()
 	QString s = Q3FileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 	{
-		s = s.left(s.length()-1);
-		if (PathList->findItem(s))
+		if( s.endsWith("/") )
+			s = s.left(s.length()-1);
+		QString s2 = QDir::convertSeparators(s2);
+		if (PathList->findItem(s2))
 			return;
-		PathList->changeItem(s, PathList->currentItem());
+		PathList->changeItem(s2, PathList->currentItem());
 		writePaths();
 		CurrentPath = s;
 		rebuildDialog();
@@ -334,7 +338,8 @@ void FontPrefs::rebuildDialog()
 	{
 		for (uint a = 0; a < PathList->count(); ++a)
 		{
-			availFonts->AddScalableFonts(PathList->text(a)+"/"); //, docc->DocName);
+			QString dir = ScPaths::separatorsToSlashes(PathList->text(a));
+			availFonts->AddScalableFonts(dir +"/"); //, docc->DocName);
 			availFonts->updateFontMap();
 		}
 	}
