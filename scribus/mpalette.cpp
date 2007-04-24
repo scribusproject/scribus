@@ -269,7 +269,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	ZBottom->setMaximumSize( QSize( 22, 22 ) );
 	ZBottom->setPixmap(loadIcon("bottom.png"));
 	LayerGroupLayout->addWidget( ZBottom, 1, 1 );
-	LevelTxt = new QLabel( "  0", LayerGroup, "LevelTxt" );
+	LevelTxt = new QLabel( "  1", LayerGroup, "LevelTxt" );
 	LevelTxt->setAlignment( Qt::AlignCenter );
 	LayerGroupLayout->addMultiCellWidget( LevelTxt, 0, 1, 2, 2 );
 
@@ -985,7 +985,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 
 	Revert->setOn(i->reversed());
 	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
-	LevelTxt->setText(QString::number(i->ItemNr));
+	LevelTxt->setText(QString::number(i->ItemNr + 1));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	RoundRect->setValue(i->cornerRadius()*Umrech);
@@ -1205,7 +1205,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	NameEdit->setText(i->itemName());
 	RoundRect->setValue(i->cornerRadius()*Umrech);
 	QString tm;
-	LevelTxt->setText(tm.setNum(i->ItemNr));
+	LevelTxt->setText(tm.setNum(i->ItemNr + 1));
 	PageItem_TextFrame *i2=i->asTextFrame();
 	if (i2!=0)
 	{
@@ -1645,7 +1645,7 @@ void Mpalette::unitChange()
 void Mpalette::setLevel(uint l)
 {
 	QString tm;
-	LevelTxt->setText(tm.setNum(l));
+	LevelTxt->setText(tm.setNum(l + 1));
 }
 
 void Mpalette::setXY(double x, double y)
