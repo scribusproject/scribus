@@ -1126,14 +1126,10 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 
 	for (int i = 0; i < selection_.count(); ++i)
 	{
-		const ParagraphStyle *style = & (doc_->paragraphStyle(parent));
-		if (style)
-		{
-			selection_[i]->erase(); // reset everything to NOVALUE
-			selection_[i]->setParent(parent);
-			selection_[i]->charStyle().setParent("");
-			sel << selection_[i]->name();
-		}
+		selection_[i]->erase(); // reset everything to NOVALUE
+		selection_[i]->setParent(parent);
+		selection_[i]->charStyle().setParent("");
+		sel << selection_[i]->name();
 	}
 
 	selected(sel);

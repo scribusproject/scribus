@@ -89,9 +89,9 @@ bool ParagraphStyle::equiv(const Style& other) const
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
-	other.validate();
 	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 
+	other.validate();
 	cstyle = other.charStyle();
 
 	// we dont want cstyleContext to point to other's charstyle...
