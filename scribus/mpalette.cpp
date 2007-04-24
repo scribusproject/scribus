@@ -287,7 +287,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	ZBottom->setMaximumSize( QSize( 22, 22 ) );
 	ZBottom->setPixmap(loadIcon("16/go-bottom.png"));
 	LayerGroupLayout->addWidget( ZBottom, 1, 1 );
-	LevelTxt = new QLabel( "  0", LayerGroup, "LevelTxt" );
+	LevelTxt = new QLabel( "  1", LayerGroup, "LevelTxt" );
 	LevelTxt->setAlignment( Qt::AlignCenter );
 	LayerGroupLayout->addMultiCellWidget( LevelTxt, 0, 1, 2, 2 );
 
@@ -1574,7 +1574,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	NameEdit->setText(CurItem->itemName());
 	RoundRect->setValue(CurItem->cornerRadius()*m_unitRatio);
 	QString tm;
-	LevelTxt->setText(tm.setNum(CurItem->ItemNr));
+	LevelTxt->setText(tm.setNum(CurItem->ItemNr + 1));
 	PageItem_TextFrame *i2=CurItem->asTextFrame();
 	if (i2!=0)
 	{
@@ -2137,7 +2137,7 @@ void Mpalette::unitChange()
 void Mpalette::setLevel(uint l)
 {
 	QString tm;
-	LevelTxt->setText(tm.setNum(l));
+	LevelTxt->setText(tm.setNum(l + 1));
 }
 
 void Mpalette::setXY(double x, double y)
