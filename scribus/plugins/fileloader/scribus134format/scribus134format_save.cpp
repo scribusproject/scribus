@@ -1171,21 +1171,48 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("PWIDTH",item->lineWidth());
 	ob->setAttribute("PCOLOR",item->fillColor());
 	ob->setAttribute("PCOLOR2",item->lineColor());
-	ob->setAttribute("TXTFILL",item->itemText.defaultStyle().charStyle().fillColor());
-	ob->setAttribute("TXTSTROKE",item->itemText.defaultStyle().charStyle().strokeColor());
-	ob->setAttribute("TXTSTRSH",item->itemText.defaultStyle().charStyle().strokeShade());
-	ob->setAttribute("TXTFILLSH",item->itemText.defaultStyle().charStyle().fillShade());
-	ob->setAttribute("TXTSCALE",item->itemText.defaultStyle().charStyle().scaleH() / 10.0);
-	ob->setAttribute("TXTSCALEV",item->itemText.defaultStyle().charStyle().scaleV() / 10.0);
-	ob->setAttribute("TXTBASE",item->itemText.defaultStyle().charStyle().baselineOffset() / 10.0);
-	ob->setAttribute("TXTSHX",item->itemText.defaultStyle().charStyle().shadowXOffset() / 10.0);
-	ob->setAttribute("TXTSHY",item->itemText.defaultStyle().charStyle().shadowYOffset() / 10.0);
-	ob->setAttribute("TXTOUT",item->itemText.defaultStyle().charStyle().outlineWidth() / 10.0);
-	ob->setAttribute("TXTULP",item->itemText.defaultStyle().charStyle().underlineOffset() / 10.0);
-	ob->setAttribute("TXTULW",item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
-	ob->setAttribute("TXTSTP",item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
-	ob->setAttribute("TXTSTW",item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
-	ob->setAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhFillColor())
+		ob->setAttribute("TXTFILL",item->itemText.defaultStyle().charStyle().fillColor());
+	if ( ! item->itemText.defaultStyle().charStyle().isInhStrokeColor())
+		ob->setAttribute("TXTSTROKE",item->itemText.defaultStyle().charStyle().strokeColor());
+	if ( ! item->itemText.defaultStyle().charStyle().isInhStrokeShade())
+		ob->setAttribute("TXTSTRSH",item->itemText.defaultStyle().charStyle().strokeShade());
+	if ( ! item->itemText.defaultStyle().charStyle().isInhFillShade())
+		ob->setAttribute("TXTFILLSH",item->itemText.defaultStyle().charStyle().fillShade());
+	if ( ! item->itemText.defaultStyle().charStyle().isInhScaleH())
+		ob->setAttribute("TXTSCALE",item->itemText.defaultStyle().charStyle().scaleH() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhScaleV())
+		ob->setAttribute("TXTSCALEV",item->itemText.defaultStyle().charStyle().scaleV() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhBaselineOffset())
+		ob->setAttribute("TXTBASE",item->itemText.defaultStyle().charStyle().baselineOffset() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhShadowXOffset())
+		ob->setAttribute("TXTSHX",item->itemText.defaultStyle().charStyle().shadowXOffset() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhShadowYOffset())
+		ob->setAttribute("TXTSHY",item->itemText.defaultStyle().charStyle().shadowYOffset() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhOutlineWidth())
+		ob->setAttribute("TXTOUT",item->itemText.defaultStyle().charStyle().outlineWidth() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhUnderlineOffset())
+		ob->setAttribute("TXTULP",item->itemText.defaultStyle().charStyle().underlineOffset() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhUnderlineWidth())
+		ob->setAttribute("TXTULW",item->itemText.defaultStyle().charStyle().underlineWidth() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhStrikethruOffset())
+		ob->setAttribute("TXTSTP",item->itemText.defaultStyle().charStyle().strikethruOffset() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhStrikethruWidth())
+		ob->setAttribute("TXTSTW",item->itemText.defaultStyle().charStyle().strikethruWidth() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhTracking())
+		ob->setAttribute("TXTKERN",item->itemText.defaultStyle().charStyle().tracking() / 10.0);
+	if ( ! item->itemText.defaultStyle().charStyle().isInhWordTracking())
+		ob->setAttribute("wordTrack",item->itemText.defaultStyle().charStyle().wordTracking());
+	if ( ! item->itemText.defaultStyle().isInhMinWordTracking())
+		ob->setAttribute("MinWordTrack", item->itemText.defaultStyle().minWordTracking());
+	if ( ! item->itemText.defaultStyle().isInhMinGlyphExtension())
+		ob->setAttribute("MinGlyphShrink", item->itemText.defaultStyle().minGlyphExtension());
+	if ( ! item->itemText.defaultStyle().isInhMaxGlyphExtension())
+		ob->setAttribute("MaxGlyphExtend", item->itemText.defaultStyle().maxGlyphExtension());
+	if ( ! item->itemText.defaultStyle().isInhOpticalMargins())
+		ob->setAttribute("OpticalMargins", item->itemText.defaultStyle().opticalMargins());
+	if ( ! item->itemText.defaultStyle().isInhHyphenationMode())
+		ob->setAttribute("HyphenationMode", item->itemText.defaultStyle().hyphenationMode());
 	ob->setAttribute("COLUMNS", item->columns());
 	ob->setAttribute("COLGAP", item->columnGap());
 	ob->setAttribute("NAMEDLST",item->NamedLStyle);
@@ -1196,8 +1223,10 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("PLINEART",item->PLineArt);
 	ob->setAttribute("PLINEEND", item->PLineEnd);
 	ob->setAttribute("PLINEJOIN", item->PLineJoin);
-	ob->setAttribute("LINESP",item->itemText.defaultStyle().lineSpacing());
-	ob->setAttribute("LINESPMode", item->itemText.defaultStyle().lineSpacingMode());
+	if ( ! item->itemText.defaultStyle().isInhLineSpacing())
+		ob->setAttribute("LINESP",item->itemText.defaultStyle().lineSpacing());
+	if ( ! item->itemText.defaultStyle().isInhLineSpacingMode())
+		ob->setAttribute("LINESPMode", item->itemText.defaultStyle().lineSpacingMode());
 	ob->setAttribute("LOCALSCX",item->imageXScale());
 	ob->setAttribute("LOCALSCY",item->imageYScale());
 	ob->setAttribute("LOCALX",item->imageXOffset());
@@ -1211,8 +1240,10 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
 /*	ob->setAttribute("BBOXX",item->BBoxX);
 	ob->setAttribute("BBOXH",item->BBoxH); */
-	ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());
-	ob->setAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
+	if ( ! item->itemText.defaultStyle().charStyle().isInhFont())
+		ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());
+	if ( ! item->itemText.defaultStyle().charStyle().isInhFontSize())
+		ob->setAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);
 	ob->setAttribute("PRINTABLE", item->printEnabled() ? 1 : 0);
@@ -1354,7 +1385,8 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);
-	ob->setAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
+	if ( ! item->itemText.defaultStyle().charStyle().isInhLanguage())
+		ob->setAttribute("LANGUAGE", item->itemText.defaultStyle().charStyle().language());
 	ob->setAttribute("startArrowIndex", item->startArrowIndex());
 	ob->setAttribute("endArrowIndex", item->endArrowIndex());
 }
