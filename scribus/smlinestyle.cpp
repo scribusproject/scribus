@@ -337,12 +337,18 @@ void SMLineStyle::toSelection(const QString &styleName) const
 QString SMLineStyle::newStyle()
 {
 	struct SingleLine sl;
-	sl.Color = "Black";
-	sl.Shade = 100;
-	sl.Dash = SolidLine;
-	sl.LineEnd = FlatCap;
-	sl.LineJoin = MiterJoin;
-	sl.Width = 1.0;
+// 	sl.Color = "Black";
+// 	sl.Shade = 100;
+// 	sl.Dash = SolidLine;
+// 	sl.LineEnd = FlatCap;
+// 	sl.LineJoin = MiterJoin;
+// 	sl.Width = 1.0;
+	sl.Color = doc_->toolSettings.dPenLine;
+	sl.Shade = doc_->toolSettings.dShadeLine;
+	sl.Dash = Qt::SolidLine;//Docu->toolSettings.;
+	sl.LineEnd = Qt::FlatCap;//Docu->toolSettings.;
+	sl.LineJoin = doc_->toolSettings.dLstyleLine;
+	sl.Width = doc_->toolSettings.dWidthLine;
 	multiLine ml;
 	ml.push_back(sl);
 	QString name = getUniqueName( tr("New Style"));
