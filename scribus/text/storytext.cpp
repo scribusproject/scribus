@@ -531,8 +531,7 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	for (uint i=pos; i < pos+len; ++i) {
 		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle().applyCharStyle(style);
-		else
-			d->current()->applyCharStyle(style);
+		d->current()->applyCharStyle(style);
 		d->next();
 	}
 
@@ -556,8 +555,7 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	for (uint i=pos; i < pos+len; ++i) {
 		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle().eraseCharStyle(style);
-		else
-			d->current()->eraseCharStyle(style);
+		d->current()->eraseCharStyle(style);
 		d->next();
 	}
 	
