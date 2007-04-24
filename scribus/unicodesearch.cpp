@@ -24,7 +24,7 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
 	: QPushButton(parent, name),
 	m_searchDialog(0)
 {
-	setText("&Search");
+	languageChange();
 	setToggleButton(true);
 
 	m_searchDialog = new UnicodeSearch(this, "m_searchDialog", false);
@@ -37,6 +37,11 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
 	connect(m_searchDialog->unicodeList, SIGNAL(doubleClicked(QListViewItem *, const QPoint &, int)), this, SLOT(unicodeList_chosen(QListViewItem *)));
 	connect(m_searchDialog->unicodeList, SIGNAL(returnPressed(QListViewItem *)), this, SLOT(unicodeList_chosen(QListViewItem *)));
 	connect(m_searchDialog->unicodeList, SIGNAL(spacePressed(QListViewItem *)), this, SLOT(unicodeList_chosen(QListViewItem *)));
+}
+
+void UnicodeChooseButton::languageChange()
+{
+	setText(tr("&Search"));
 }
 
 void UnicodeChooseButton::unicodeList_chosen(QListViewItem *item)
@@ -162,3 +167,4 @@ void UnicodeSearch::unicodeList_mouseButtonPressed(int button, QListViewItem* it
 		m_zoom->show();
 	}
 }
+
