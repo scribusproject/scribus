@@ -20,193 +20,196 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 {
 	doc=0;
 	unitRatio=1.0;
+	setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	NodePaletteLayout = new QVBoxLayout( this );
 	NodePaletteLayout->setSpacing( 2 );
 	NodePaletteLayout->setMargin( 5 );
+	gridLayout = new QGridLayout();
+	gridLayout->setSpacing(0);
+	gridLayout->setMargin(0);
 
-	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
-	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup1->setFrameShadow( QButtonGroup::Plain );
-	ButtonGroup1->setTitle( "" );
-	ButtonGroup1->setExclusive( true );
-	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup1->layout()->setSpacing( 0 );
-	ButtonGroup1->layout()->setMargin( 0 );
-	ButtonGroup1Layout = new QGridLayout( ButtonGroup1->layout() );
-	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
-	ButtonGroup1Layout->setSpacing( 0 );
-	ButtonGroup1Layout->setMargin( 0 );
-
-	MoveNode = new QToolButton( ButtonGroup1, "MoveNode" );
+	MoveNode = new QToolButton(this);
 	MoveNode->setText( "" );
 	MoveNode->setPixmap(loadIcon("MoveNode.png"));
 	MoveNode->setToggleButton( true );
 	MoveNode->setOn(true);
-	ButtonGroup1Layout->addWidget( MoveNode, 0, 0 );
-	MoveControl = new QToolButton( ButtonGroup1, "MoveControl" );
-	MoveControl->setText( "" );
-	MoveControl->setPixmap(loadIcon("MoveKontrol.png"));
-	MoveControl->setToggleButton( true );
-	ButtonGroup1Layout->addWidget( MoveControl, 0, 1 );
-	AddNode = new QToolButton( ButtonGroup1, "AddNode" );
-	AddNode->setText( "" );
+	gridLayout->addWidget(MoveNode, 0, 0);
+
+	AddNode = new QToolButton(this);
 	AddNode->setPixmap(loadIcon("AddNode.png"));
-	AddNode->setToggleButton( true );
-	ButtonGroup1Layout->addWidget( AddNode, 0, 2 );
-	DeleteNode = new QToolButton( ButtonGroup1, "DeleteNode" );
-	DeleteNode->setText( "" );
+	AddNode->setEnabled(true);
+	AddNode->setToggleButton(true);
+	gridLayout->addWidget(AddNode, 0, 1);
+
+	DeleteNode = new QToolButton(this);
 	DeleteNode->setPixmap(loadIcon("DeleteNode.png"));
-	DeleteNode->setToggleButton( true );
-	ButtonGroup1Layout->addWidget( DeleteNode, 0, 3 );
+	DeleteNode->setEnabled(true);
+	DeleteNode->setToggleButton(true);
+	gridLayout->addWidget(DeleteNode, 0, 2);
 
-	AsymMove = new QToolButton( ButtonGroup1, "AsymMove" );
-	AsymMove->setEnabled( false );
-	AsymMove->setText( "" );
-	AsymMove->setPixmap(loadIcon("MoveAsym.png"));
-	AsymMove->setToggleButton( true );
-	ButtonGroup1Layout->addWidget( AsymMove, 1, 0 );
-	SymMove = new QToolButton( ButtonGroup1, "SymMove" );
-	SymMove->setEnabled( false );
-	SymMove->setText( "" );
-	SymMove->setPixmap(loadIcon("MoveSym.png"));
-	SymMove->setToggleButton( true );
-	ButtonGroup1Layout->addWidget( SymMove, 1, 1 );
-	ResNode = new QToolButton( ButtonGroup1, "resnode" );
-	ResNode->setEnabled( false );
-	ResNode->setText( "" );
+	ResNode = new QToolButton(this);
 	ResNode->setPixmap(loadIcon("ResetNode.png"));
-	ButtonGroup1Layout->addWidget( ResNode, 1, 2 );
-	Res1Node = new QToolButton( ButtonGroup1, "res1node" );
-	Res1Node->setEnabled( false );
-	Res1Node->setText( "" );
-	Res1Node->setPixmap(loadIcon("Reset1Node.png"));
-	ButtonGroup1Layout->addWidget( Res1Node, 1, 3 );
+	ResNode->setEnabled(true);
+	gridLayout->addWidget(ResNode, 0, 3);
 
-	PolySplit = new QToolButton( ButtonGroup1, "PolySplit" );
+	MoveControl = new QToolButton(this);
+	MoveControl->setPixmap(loadIcon("MoveKontrol.png"));
+	MoveControl->setToggleButton(true);
+	gridLayout->addWidget(MoveControl, 1, 0);
+
+	AsymMove = new QToolButton(this);
+	AsymMove->setPixmap(loadIcon("MoveAsym.png"));
+	AsymMove->setEnabled(false);
+	AsymMove->setToggleButton(true);
+	gridLayout->addWidget(AsymMove, 1, 1);
+
+	SymMove = new QToolButton(this);
+	SymMove->setPixmap(loadIcon("MoveSym.png"));
+	SymMove->setEnabled(false);
+	SymMove->setToggleButton(true);
+	gridLayout->addWidget(SymMove, 1, 2);
+
+	Res1Node = new QToolButton(this);
+	Res1Node->setPixmap(loadIcon("Reset1Node.png"));
+	Res1Node->setEnabled(false);
+	gridLayout->addWidget(Res1Node, 1, 3);
+
+	PolySplit = new QToolButton(this);
 	PolySplit->setEnabled( false );
-	PolySplit->setText( "" );
 	PolySplit->setToggleButton( true );
 	PolySplit->setPixmap(loadIcon("PolyCut.png"));
-	ButtonGroup1Layout->addWidget( PolySplit, 2, 0 );
-	BezierClose = new QToolButton( ButtonGroup1, "BezierClose" );
+	gridLayout->addWidget(PolySplit, 2, 0);
+
+	BezierClose = new QToolButton(this);
 	BezierClose->setEnabled( false );
-	BezierClose->setText( "" );
 	BezierClose->setPixmap(loadIcon("BezierClose.png"));
-	ButtonGroup1Layout->addWidget( BezierClose, 2, 1 );
+	gridLayout->addWidget(BezierClose, 2, 1);
 
-	PolyMirrorH = new QToolButton( ButtonGroup1, "MirrorH" );
-	PolyMirrorH->setText( "" );
+	PolyMirrorH = new QToolButton(this);
 	PolyMirrorH->setPixmap(loadIcon("hmirror.png"));
-	ButtonGroup1Layout->addWidget( PolyMirrorH, 2, 2 );
+	gridLayout->addWidget(PolyMirrorH, 2, 2);
 
-	PolyMirrorV = new QToolButton( ButtonGroup1, "MirrorV" );
-	PolyMirrorV->setText( "" );
+	PolyMirrorV = new QToolButton(this);
 	PolyMirrorV->setPixmap(loadIcon("vmirror.png"));
-	ButtonGroup1Layout->addWidget( PolyMirrorV, 2, 3 );
+	gridLayout->addWidget(PolyMirrorV, 2, 3);
 
-	PolyShearL = new QToolButton( ButtonGroup1, "ShearL" );
-	PolyShearL->setAutoRepeat(true);
-	PolyShearL->setText( "" );
+	PolyShearL = new QToolButton(this);
 	PolyShearL->setPixmap(loadIcon("shear_left.png"));
-	ButtonGroup1Layout->addWidget( PolyShearL, 3, 0 );
-	PolyShearR = new QToolButton( ButtonGroup1, "ShearR" );
-	PolyShearR->setAutoRepeat(true);
-	PolyShearR->setText( "" );
+	PolyShearL->setAutoRepeat(true);
+	gridLayout->addWidget(PolyShearL, 3, 0);
+
+	PolyShearR = new QToolButton(this);
 	PolyShearR->setPixmap(loadIcon("shear_right.png"));
-	ButtonGroup1Layout->addWidget( PolyShearR, 3, 1 );
-	PolyShearU = new QToolButton( ButtonGroup1, "ShearU" );
-	PolyShearU->setAutoRepeat(true);
-	PolyShearU->setText( "" );
+	PolyShearR->setAutoRepeat(true);
+	gridLayout->addWidget(PolyShearR, 3, 1);
+
+	PolyShearU = new QToolButton(this);
 	PolyShearU->setPixmap(loadIcon("shear_up.png"));
-	ButtonGroup1Layout->addWidget( PolyShearU, 3, 2 );
-	PolyShearD = new QToolButton( ButtonGroup1, "ShearD" );
-	PolyShearD->setAutoRepeat(true);
-	PolyShearD->setText( "" );
+	PolyShearU->setAutoRepeat(true);
+	gridLayout->addWidget(PolyShearU, 3, 2);
+
+	PolyShearD = new QToolButton(this);
 	PolyShearD->setPixmap(loadIcon("shear_down.png"));
-	ButtonGroup1Layout->addWidget( PolyShearD, 3, 3 );
+	PolyShearD->setAutoRepeat(true);
+	gridLayout->addWidget(PolyShearD, 3, 3);
+	NodePaletteLayout->addLayout(gridLayout);
 
-	RotateCCW = new QToolButton( ButtonGroup1, "RotateCCW" );
-	RotateCCW->setAutoRepeat(true);
-	RotateCCW->setText( "" );
+	gridLayout1 = new QGridLayout();
+	gridLayout1->setSpacing(0);
+	gridLayout1->setMargin(0);
+
+	RotateCCW = new QToolButton(this);
 	RotateCCW->setPixmap(loadIcon("rotate_ccw.png"));
-	ButtonGroup1Layout->addWidget( RotateCCW, 4, 0 );
-	RotateCW = new QToolButton( ButtonGroup1, "RotateCW" );
-	RotateCW->setAutoRepeat(true);
-	RotateCW->setText( "" );
-	RotateCW->setPixmap(loadIcon("rotate_cw.png"));
-	ButtonGroup1Layout->addWidget( RotateCW, 4, 1 );
-	RotVal = new QSpinBox( 1, 180, 1, ButtonGroup1, "RotVal");
-	RotVal->setSuffix( QString::fromUtf8(" °"));
-	ButtonGroup1Layout->addMultiCellWidget( RotVal, 4, 4, 2, 3 );
+	RotateCCW->setAutoRepeat(true);
+	gridLayout1->addWidget(RotateCCW, 0, 0);
 
-	Expand = new QToolButton( ButtonGroup1, "Expand" );
-	Expand->setAutoRepeat(true);
-	Expand->setText( "" );
+	RotateCW = new QToolButton(this);
+	RotateCW->setPixmap(loadIcon("rotate_cw.png"));
+	RotateCW->setAutoRepeat(true);
+	gridLayout1->addWidget(RotateCW, 0, 1);
+
+	RotVal = new QSpinBox(this, "RotVal");
+	RotVal->setMinValue(1);
+	RotVal->setMaxValue(180);
+	RotVal->setValue(1);
+	RotVal->setSuffix( QString::fromUtf8(" °"));
+	gridLayout1->addWidget(RotVal, 0, 2);
+
+	Expand = new QToolButton(this);
 	Expand->setPixmap(loadIcon("expand.png"));
-	ButtonGroup1Layout->addWidget( Expand, 5, 0 );
-	Shrink = new QToolButton( ButtonGroup1, "Shrink" );
-	Shrink->setAutoRepeat(true);
-	Shrink->setText( "" );
+	Expand->setAutoRepeat(true);
+	gridLayout1->addWidget(Expand, 1, 0);
+
+	Shrink = new QToolButton(this);
 	Shrink->setPixmap(loadIcon("crop.png"));
-	ButtonGroup1Layout->addWidget( Shrink, 5, 1 );
-	scalePercentage = new QSpinBox( ButtonGroup1, "scalePercentage");
+	Shrink->setAutoRepeat(true);
+	gridLayout1->addWidget(Shrink, 1, 1);
+
+	scalePercentage = new QSpinBox( this, "scalePercentage");
 	scalePercentage->setMinValue(1);
 	scalePercentage->setMaxValue(100);
-	scalePercentage->setValue(0);
-	ButtonGroup1Layout->addMultiCellWidget( scalePercentage, 5, 5, 2, 3 );
-	
-	Enlarge = new QToolButton( ButtonGroup1, "Enlarge" );
-	Enlarge->setAutoRepeat(true);
-	Enlarge->setText( "" );
+	scalePercentage->setValue(10);
+	gridLayout1->addWidget(scalePercentage, 1, 2);
+
+	Enlarge = new QToolButton(this);
 	Enlarge->setPixmap(loadIcon("expand.png"));
-	ButtonGroup1Layout->addWidget( Enlarge, 6, 0 );
-	Reduce = new QToolButton( ButtonGroup1, "Reduce" );
-	Reduce->setAutoRepeat(true);
-	Reduce->setText( "" );
+	Enlarge->setAutoRepeat(true);
+	gridLayout1->addWidget(Enlarge, 2, 0);
+
+	Reduce = new QToolButton(this);
 	Reduce->setPixmap(loadIcon("crop.png"));
-	ButtonGroup1Layout->addWidget( Reduce, 6, 1 );
-	scaleDistance = new MSpinBox( 1, 30000, ButtonGroup1, 2);
+	Reduce->setAutoRepeat(true);
+	gridLayout1->addWidget(Reduce, 2, 1);
+
+	scaleDistance = new MSpinBox( 1, 30000, this, 2);
 	scaleDistance->setValue(10);
 	scaleDistance->setSuffix("");
-	ButtonGroup1Layout->addMultiCellWidget( scaleDistance, 6, 6, 2, 3 );
+	gridLayout1->addWidget(scaleDistance, 2, 2);
+	NodePaletteLayout->addLayout(gridLayout1);
 
-	/*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	    ButtonGroup4Layout->addItem( spacer_2 );  */
-	NodePaletteLayout->addWidget( ButtonGroup1 );
+	gridLayout2 = new QGridLayout();
+	gridLayout2->setSpacing(2);
+	gridLayout2->setMargin(0);
 
 	AbsMode = new QCheckBox( "&Absolute Coordinates", this, "Textflow" );
 	AbsMode->setChecked(false);
-	NodePaletteLayout->addWidget( AbsMode );
+	gridLayout2->addMultiCellWidget(AbsMode, 0, 0, 0, 1);
 
-	Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
+	TextLabel1 = new QLabel(this);
+	gridLayout2->addWidget(TextLabel1, 1, 0);
+
 	XSpin = new MSpinBox( this, 2 );
 	XSpin->setMaxValue(30000);
 	XSpin->setEnabled(false);
+	gridLayout2->addWidget(XSpin, 1, 1);
+
+	TextLabel2 = new QLabel(this);
+	gridLayout2->addWidget(TextLabel2, 2, 0);
+
 	YSpin = new MSpinBox( this, 2 );
 	YSpin->setMaxValue(30000);
 	YSpin->setEnabled(false);
-	TextLabel1 = new QLabel( XSpin, "&X-Pos:", this, "TextLabel1" );
-	TextLabel2 = new QLabel( YSpin, "&Y-Pos:", this, "TextLabel2" );
-	Layout2->addWidget( TextLabel1, 0, 0 );
-	Layout2->addWidget( TextLabel2, 1, 0 );
-	Layout2->addWidget( XSpin, 0, 1 );
-	Layout2->addWidget( YSpin, 1, 1 );
-	NodePaletteLayout->addLayout( Layout2 );
+	gridLayout2->addWidget(YSpin, 2, 1);
+	TextLabel1->setBuddy(XSpin);
+	TextLabel2->setBuddy(YSpin);
 
-	EditCont = new QCheckBox( "Edit &Contour Line", this, "EditCont" );
+	EditCont = new QCheckBox(this);
 	EditCont->setChecked(false);
-	NodePaletteLayout->addWidget( EditCont );
+	gridLayout2->addMultiCellWidget(EditCont, 3, 3, 0, 1);
 
-	ResetCont = new QPushButton( "&Reset Contour Line", this, "editEditButton" );
-	NodePaletteLayout->addWidget( ResetCont );
-	
-	ResetContClip = new QPushButton( "Set Contour to Image Clip", this, "editEditButton" );
-	NodePaletteLayout->addWidget( ResetContClip );
+	ResetCont = new QPushButton(this);
+	ResetCont->setEnabled(false);
+	gridLayout2->addMultiCellWidget(ResetCont, 4, 4, 0, 1);
 
-	editEditButton = new QPushButton( "&End Editing", this, "editEditButton" );
+	ResetContClip = new QPushButton(this);
+	ResetContClip->setEnabled(true);
+	gridLayout2->addMultiCellWidget(ResetContClip, 5, 5, 0, 1);
+
+	editEditButton = new QPushButton(this);
 	editEditButton->setDefault(true);
-	NodePaletteLayout->addWidget( editEditButton );
+	gridLayout2->addMultiCellWidget(editEditButton, 6, 6, 0, 1);
 
+	NodePaletteLayout->addLayout(gridLayout2);
 	languageChange();
 //	connectSignals();	
 }
@@ -496,12 +499,16 @@ void NodePalette::SetSym()
 {
 	if (doc != 0)
 		view->MoveSym = true;
+	SymMove->setOn(true);
+	AsymMove->setOn(false);
 }
 
 void NodePalette::SetAsym()
 {
 	if (doc != 0)
 		view->MoveSym = false;
+	SymMove->setOn(false);
+	AsymMove->setOn(true);
 }
 
 void NodePalette::SetXY(double x, double y)
@@ -593,9 +600,15 @@ void NodePalette::HaveNode(bool have, bool mov)
 		disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 		disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
 		if (mov)
+		{
 			SymMove->setOn(true);
+			AsymMove->setOn(false);
+		}
 		else
+		{
 			AsymMove->setOn(true);
+			SymMove->setOn(false);
+		}
 		connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 		connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
 	}
@@ -639,8 +652,14 @@ void NodePalette::MoveK()
 		view->MarkClip(currItem, currItem->PoLine, true);
 	SymMove->setEnabled(true);
 	AsymMove->setEnabled(true);
+	Res1Node->setEnabled(true);
 	ResNode->setEnabled(false);
-	Res1Node->setEnabled(false);
+	AddNode->setEnabled(false);
+	DeleteNode->setEnabled(false);
+	MoveNode->setOn(false);
+	MoveControl->setOn(true);
+	DeleteNode->setOn(false);
+	AddNode->setOn(false);
 }
 
 void NodePalette::MoveN()
@@ -658,11 +677,15 @@ void NodePalette::MoveN()
 		view->MarkClip(currItem, currItem->ContourLine, true);
 	else
 		view->MarkClip(currItem, currItem->PoLine, true);
-	MoveNode->setOn(true);
+	AddNode->setEnabled(true);
+	DeleteNode->setEnabled(true);
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
-	ResNode->setEnabled(false);
 	Res1Node->setEnabled(false);
+	MoveNode->setOn(true);
+	MoveControl->setOn(false);
+	DeleteNode->setOn(false);
+	AddNode->setOn(false);
 }
 
 void NodePalette::AddN()
@@ -675,6 +698,8 @@ void NodePalette::AddN()
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
 	Res1Node->setEnabled(false);
+	AddNode->setOn(true);
+	DeleteNode->setOn(false);
 }
 
 void NodePalette::DelN()
@@ -687,6 +712,8 @@ void NodePalette::DelN()
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
 	Res1Node->setEnabled(false);
+	AddNode->setOn(false);
+	DeleteNode->setOn(true);
 }
 
 void NodePalette::closeEvent(QCloseEvent *ce)

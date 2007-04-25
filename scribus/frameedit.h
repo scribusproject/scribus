@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef NODEPALETTE_H
 #define NODEPALETTE_H
 
-#include <qbuttongroup.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
@@ -31,7 +30,6 @@ public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
 
-	QButtonGroup* ButtonGroup1;
 	QToolButton* MoveNode;
 	QToolButton* MoveControl;
 	QToolButton* AddNode;
@@ -114,8 +112,9 @@ protected:
 	void connectSignals();
 	void disconnectSignals();
 	QVBoxLayout* NodePaletteLayout;
-	QGridLayout* ButtonGroup1Layout;
-	QGridLayout* Layout2;
+	QGridLayout *gridLayout;
+	QGridLayout *gridLayout1;
+	QGridLayout *gridLayout2;
 	
 	double unitRatio;
 	
