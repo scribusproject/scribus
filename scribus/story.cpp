@@ -3338,6 +3338,9 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	if (Editor->StyledText.count() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		//Disconnect these too as they otherwise run for every character - Michael Koren #5577
+		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 		SEditor::ChList *chars;
 		(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
 		if (Editor->StyledText.at(pa)->count() > 0)
@@ -3391,7 +3394,11 @@ void StoryEditor::changeAlignSB(int pa, int align)
 		Editor->setCursorPosition(pa, 0);
 		updateProps(pa, 0);
 		Editor->ensureCursorVisible();
+		//Add this once here to replace the signal. modifiedText() is called below already  - Michael Koren #5577
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	else
 	{
@@ -3466,6 +3473,9 @@ void StoryEditor::changeAlign(int )
 	if (Editor->StyledText.count() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		//disconnect these too as they otherwise run for every character - Michael Koren #5577
+		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 		int PStart, PEnd, SelStart, SelEnd, PStart2, PEnd2, SelStart2, SelEnd2;
 		SEditor::ChList *chars;
 		if (Editor->hasSelectedText())
@@ -3539,7 +3549,11 @@ void StoryEditor::changeAlign(int )
 		Editor->setCursorPosition(p, i);
 		Editor->ensureCursorVisible();
 		updateProps(p, i);
+		//Add this once here to replace the signal. modifiedText() is called below already  - Michael Koren #5577
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	else
 	{
