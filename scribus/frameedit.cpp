@@ -30,99 +30,99 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	MoveNode->setIcon(QIcon(loadIcon("MoveNode.png")));
 	MoveNode->setCheckable(true);
 	MoveNode->setChecked(true);
-    MoveNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	MoveNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(MoveNode, 0, 0, 1, 1);
 
 	AddNode = new QToolButton(this);
 	AddNode->setIcon(QIcon(loadIcon("AddNode.png")));
 	AddNode->setEnabled(true);
 	AddNode->setCheckable(true);
-    AddNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	AddNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(AddNode, 0, 1, 1, 1);
 
 	DeleteNode = new QToolButton(this);
 	DeleteNode->setIcon(QIcon(loadIcon("DeleteNode.png")));
 	DeleteNode->setEnabled(true);
 	DeleteNode->setCheckable(true);
-    DeleteNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	DeleteNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(DeleteNode, 0, 2, 1, 1);
 
 	ResNode = new QToolButton(this);
 	ResNode->setIcon(QIcon(loadIcon("ResetNode.png")));
 	ResNode->setEnabled(true);
-    ResNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	ResNode->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(ResNode, 0, 3, 1, 1);
 
 	MoveControl = new QToolButton(this);
 	MoveControl->setIcon(QIcon(loadIcon("MoveKontrol.png")));
 	MoveControl->setCheckable(true);
-    MoveControl->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	MoveControl->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(MoveControl, 1, 0, 1, 1);
 
 	AsymMove = new QToolButton(this);
 	AsymMove->setIcon(QIcon(loadIcon("MoveAsym.png")));
 	AsymMove->setEnabled(false);
 	AsymMove->setCheckable(true);
-    AsymMove->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	AsymMove->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(AsymMove, 1, 1, 1, 1);
 
 	SymMove = new QToolButton(this);
 	SymMove->setIcon(QIcon(loadIcon("MoveSym.png")));
 	SymMove->setEnabled(false);
 	SymMove->setCheckable(true);
-    SymMove->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	SymMove->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(SymMove, 1, 2, 1, 1);
 
 	Res1Node = new QToolButton(this);
 	Res1Node->setIcon(QIcon(loadIcon("Reset1Node.png")));
 	Res1Node->setEnabled(false);
-    Res1Node->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	Res1Node->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(Res1Node, 1, 3, 1, 1);
 
 	PolySplit = new QToolButton(this);
 	PolySplit->setEnabled( false );
 	PolySplit->setCheckable( true );
 	PolySplit->setIcon(QIcon(loadIcon("PolyCut.png")));
-    PolySplit->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolySplit->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(PolySplit, 2, 0, 1, 1);
 
 	BezierClose = new QToolButton(this);
 	BezierClose->setEnabled( false );
 	BezierClose->setIcon(QIcon(loadIcon("BezierClose.png")));
-    BezierClose->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	BezierClose->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(BezierClose, 2, 1, 1, 1);
 
 	PolyMirrorH = new QToolButton(this);
 	PolyMirrorH->setIcon(QIcon(loadIcon("hmirror.png")));
-    PolyMirrorH->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolyMirrorH->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(PolyMirrorH, 2, 2, 1, 1);
 
 	PolyMirrorV = new QToolButton(this);
 	PolyMirrorV->setIcon(QIcon(loadIcon("vmirror.png")));
-    PolyMirrorV->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolyMirrorV->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	gridLayout->addWidget(PolyMirrorV, 2, 3, 1, 1);
 
 	PolyShearL = new QToolButton(this);
 	PolyShearL->setIcon(QIcon(loadIcon("shear_left.png")));
-    PolyShearL->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolyShearL->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearL->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearL, 3, 0, 1, 1);
 
 	PolyShearR = new QToolButton(this);
 	PolyShearR->setIcon(QIcon(loadIcon("shear_right.png")));
-    PolyShearR->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolyShearR->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearR->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearR, 3, 1, 1, 1);
 
 	PolyShearU = new QToolButton(this);
 	PolyShearU->setIcon(QIcon(loadIcon("shear_up.png")));
-    PolyShearU->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolyShearU->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearU->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearU, 3, 2, 1, 1);
 
 	PolyShearD = new QToolButton(this);
 	PolyShearD->setIcon(QIcon(loadIcon("shear_down.png")));
-    PolyShearD->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+	PolyShearD->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearD->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearD, 3, 3, 1, 1);
 	vboxLayout->addLayout(gridLayout);
@@ -174,7 +174,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Reduce->setAutoRepeat(true);
 	gridLayout1->addWidget(Reduce, 2, 1, 1, 1);
 
-	scaleDistance = new ScrSpinBox( 1, 30000, this, 0);
+	scaleDistance = new ScrSpinBox( 1, 30000, this, 2);
 	scaleDistance->setValue(10);
 	scaleDistance->setSuffix("");
 	gridLayout1->addWidget(scaleDistance, 2, 2, 1, 1);
