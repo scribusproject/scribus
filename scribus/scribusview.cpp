@@ -9635,7 +9635,8 @@ void ScribusView::SetupDrawNoResize(int nr)
 	Doc->m_Selection->clear();
 	Doc->m_Selection->addItem(currItem);
 	currItem->paintObj();
-	Doc->appMode = modeNormal;
+	if (!Prefs->stickyTools)
+		Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = false;
