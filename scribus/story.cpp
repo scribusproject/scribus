@@ -990,7 +990,7 @@ SToolBStyle::SToolBStyle(Q3MainWindow* parent) : Q3ToolBar( tr("Character Settin
 	trackingLabel->setText("");
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
 	Extra = new ScrSpinBox( this, 1 );
-	Extra->setValues( -300, 300, 10, 0);
+	Extra->setValues( -300, 300, 2, 0);
 	Extra->setSuffix( tr( " %" ) );
 
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
