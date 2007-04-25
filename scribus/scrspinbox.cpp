@@ -208,23 +208,17 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		if (k->key() == Qt::Key_Shift && !controlB)
 		{
 			setSingleStep(0.1);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval = QWidget::event(event);
 		}
 		else if (k->key() == Qt::Key_Control && !shiftB)
 		{
 			setSingleStep(10.0);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval = QWidget::event(event);
 		}
 		else if ((k->key() == Qt::Key_Control && shiftB) || (k->key() == Qt::Key_Shift && controlB))
 		{
 			setSingleStep(0.01);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval = QWidget::event(event);
 		}
 		else if ((k->key() == Qt::Key_Return) || (k->key() == Qt::Key_Enter) || (k->key() == Qt::Key_Tab))
 		{
@@ -235,6 +229,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 			}
 		}
 	}
+	else
 	if (event->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)event;
@@ -243,25 +238,20 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		if ((k->key() == Qt::Key_Shift && !controlB) || (k->key() == Qt::Key_Control && !shiftB))
 		{
 			setSingleStep(1.0);
-			retval = true;
-// 		    qApp->sendEvent( this, ev );
-			return retval;
+			retval = QWidget::event(event);
 		}
 		else if (k->key() == Qt::Key_Shift && controlB)
 		{
 			setSingleStep(10.0);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval = QWidget::event(event);
 		}
 		else if (k->key() == Qt::Key_Control && shiftB)
 		{
 			setSingleStep(0.1);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval = QWidget::event(event);
 		}
 	}
+	else
 	if ( event->type() == QEvent::Wheel )
 	{
 		//If read only dont spin
@@ -273,34 +263,28 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		if (shiftB && !controlB)
 		{
 			setSingleStep(0.1);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval=QWidget::event(event);
 		} 
 		else if (!shiftB && controlB)
 		{
 			setSingleStep(10.0);
-			retval = true;
-// 		    qApp->sendEvent( this, ev );
-			return retval;
+			retval=QWidget::event(event);
 		}
 		else if (shiftB && controlB)
 		{
 			setSingleStep(0.01);
-			retval = true;
-// 		    qApp->sendEvent( this, ev );
-			return retval;
+			retval=QWidget::event(event);
 		}
 		else
 		if (!shiftB && !controlB)
 		{
  			setSingleStep(1.0);
-			retval = true;
-// 			qApp->sendEvent( this, ev );
-			return retval;
+			retval=QWidget::event(event);
 		}
 	}
-	return QDoubleSpinBox::eventFilter(watched, event);
+	else
+		return QDoubleSpinBox::eventFilter(watched, event);
+	return retval;
 }
 
 void ScrSpinBox::setLineStepM(int val)
