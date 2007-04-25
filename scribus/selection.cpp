@@ -415,6 +415,8 @@ bool Selection::itemsAreSameType() const
 	PageItem::ItemType itemType = (*it)->itemType();
 	for ( ; it!=itend ; ++it)
 	{
+		if ((*it)->isGroupControl)		// ignore GroupControl items
+			continue;
 		if ((*it)->itemType() != itemType)
 			return false;
 	}

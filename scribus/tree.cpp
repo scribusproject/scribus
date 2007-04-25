@@ -61,6 +61,7 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	reportDisplay->header()->setResizeMode( QHeaderView::ResizeToContents );
 	reportDisplay->setSortingEnabled(false);
 	reportDisplay->setSelectionMode(QAbstractItemView::SingleSelection);
+	reportDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
 //	reportDisplay->setDefaultRenameAction(QTreeWidget::Accept);
 	unsetDoc();
 	imageIcon = loadIcon("22/insert-image.png");
@@ -82,6 +83,7 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 // 	dynTip = new DynamicTip(reportDisplay);
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
 //	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
 //	connect(reportDisplay, SIGNAL(rightButtonClicked(QTreeWidgetItem *, const QPoint &, int)), this, SLOT(slotRightClick(QTreeWidgetItem*, const QPoint &, int)));
 }
@@ -116,12 +118,14 @@ void Tree::setPaletteShown(bool visible)
 		BuildTree();
 }
 
-void Tree::slotRightClick(QTreeWidgetItem *ite, int col)
+void Tree::slotRightClick(QPoint point)
 {
-	if (ite == NULL)
-		return;
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
+	QTreeWidgetItem *ite = reportDisplay->itemAt(point);
+	if (ite == NULL)
+		return;
+	slotSelect(ite, 0);
 	TreeItem *item = (TreeItem*)ite;
 	if (item != NULL)
 	{
@@ -155,7 +159,7 @@ void Tree::slotRightClick(QTreeWidgetItem *ite, int col)
 		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
 			currentObject = ite;
-			currentColumn = col;
+//			currentColumn = col;
 			PageItem *currItem = item->PageItemObject;
 			QMenu *pmen = new QMenu();
 			QMenu *pmen2 = new QMenu();
@@ -791,11 +795,6 @@ void Tree::slotSelect(QTreeWidgetItem* ite, int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if (qApp->mouseButtons() == Qt::RightButton)
-	{
-		slotRightClick(ite, col);
-		return;
-	}
 	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	selectionTriggered = true;
 	TreeItem *item = (TreeItem*)ite;

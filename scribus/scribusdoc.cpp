@@ -3962,7 +3962,10 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (currItem->itemType()==PageItem::Line || newType==PageItem::Line)
 		return false;
 	//Take the item to convert from the docs Items list
-	PageItem *oldItem = Items->take(currItem->ItemNr);
+//	PageItem *oldItem = Items->take(currItem->ItemNr);
+	// Don't use take as we will insert the new item later at the same position
+	PageItem *oldItem = Items->at(currItem->ItemNr);
+	uint oldItemNr = currItem->ItemNr;
 	//Remove old item from the doc's selection if it was in it
 	bool removedFromSelection=m_Selection->removeItem(oldItem);
 	//Create a new item from the old one
@@ -4098,10 +4101,27 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//We could append and renumber the list, or, we can insert at the same position..
 	//for (uint a = 0; a < Items->count(); ++a)
 	//	Items->at(a)->ItemNr = a;
-	Items->insert(oldItem->ItemNr, newItem);
+//	Items->insert(oldItem->ItemNr, newItem);
+	newItem->ItemNr = oldItemNr;
+	newItem->uniqueNr = oldItem->uniqueNr;
+	Items->replace(oldItemNr, newItem);
+	//FIXME: shouldn't we delete the oldItem ???
 	//Add new item back to selection if old item was in selection
 	if (removedFromSelection)
 		m_Selection->addItem(newItem);
+	if (oldItem->Groups.count() != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < Items->count(); ++a)
+		{
+			currItem = Items->at(a);
+			if (currItem->isGroupControl)
+			{
+				if (currItem->groupsLastItem == oldItem)
+					currItem->groupsLastItem = newItem;
+			}
+		}
+	}
 	//If converting text to path, delete the bezier
 	if (newType==PageItem::PathText)
 	{

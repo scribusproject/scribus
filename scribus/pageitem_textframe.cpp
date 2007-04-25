@@ -1418,8 +1418,8 @@ void PageItem_TextFrame::layout()
 			}
 			else
 			{
-				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right - curent.maxShrink)), qRound(current.yPos+desc));
-				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - curent.maxShrink)), qRound(ceil(current.yPos-asce)));
+				pt1 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink)), qRound(current.yPos+desc));
+				pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink)), qRound(ceil(current.yPos-asce)));
 			}
 			
 			// test if end of line reached

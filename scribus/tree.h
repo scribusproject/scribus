@@ -54,6 +54,7 @@ public slots:
 	void languageChange();
 	void slotShowSelect(uint SNr, int Nr);
 	void setPaletteShown(bool);
+	void slotRightClick(QPoint point);
 
 signals:
 	void ToggleAllPalettes();
@@ -62,7 +63,6 @@ signals:
 	void selectMasterPage(QString);
 
 protected slots:
-	void slotRightClick(QTreeWidgetItem* ite, int col);
 	void slotRenameItem();
 	void slotDoRename(QTreeWidgetItem* ite, int col);
 	void slotSelect(QTreeWidgetItem* ite, int col);
