@@ -73,16 +73,11 @@ void ParaStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
 	{
-		emit newStyle(0);
-		return;
+		emit newStyle(QString::null);
 	}
-	for (uint x = 0; x < currentDoc->paragraphStyles().count(); ++x)
+	else
 	{
-		if (currentDoc->paragraphStyles()[x].name() == currentText())
-		{
-			emit newStyle(x);
-			break;
-		}
+		emit newStyle(currentText());
 	}
 }
 
@@ -131,15 +126,10 @@ void CharStyleComboBox::selFormat(int e)
 {
 	if (e == 0)
 	{
-		emit newStyle(0);
-		return;
+		emit newStyle(QString::null);
 	}
-	for (uint x = 0; x < currentDoc->charStyles().count(); ++x)
+	else
 	{
-		if (currentDoc->charStyles()[x].name() == currentText())
-		{
-			emit newStyle(x);
-			break;
-		}
+		emit newStyle(currentText());
 	}
 }
