@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "frameedit.h"
+#include "guidemanager.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -152,6 +153,21 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.deleteVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
 				guides.addVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
 			}
+		}
+		// automatic guides
+		else if (ss->contains("REMOVE_HA_GAP"))
+		{
+			guides.setHorizontalAutoCount(ss->getInt("REMOVE_HA_COUNT"));
+			guides.setHorizontalAutoGap(ss->getDouble("REMOVE_HA_GAP"));
+			guides.setHorizontalAutoRefer(ss->getInt("REMOVE_HA_REFER"));
+			m_Doc->scMW()->guidePalette->setupGui();
+		}
+		else if (ss->contains("REMOVE_VA_GAP"))
+		{
+			guides.setVerticalAutoCount(ss->getInt("REMOVE_VA_COUNT"));
+			guides.setVerticalAutoGap(ss->getDouble("REMOVE_VA_GAP"));
+			guides.setVerticalAutoRefer(ss->getInt("REMOVE_VA_REFER"));
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("CREATE_ITEM"))
 			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);

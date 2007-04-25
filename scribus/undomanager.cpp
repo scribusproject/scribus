@@ -676,6 +676,8 @@ void UndoManager::languageChange()
 	UndoManager::AddHGuide          = tr("Add horizontal guide");
 	UndoManager::DelVGuide          = tr("Remove vertical guide");
 	UndoManager::DelHGuide          = tr("Remove horizontal guide");
+	UndoManager::DelVAGuide         = tr("Remove vertical auto guide");
+	UndoManager::DelHAGuide         = tr("Remove horizontal auto guide");
 	UndoManager::MoveVGuide         = tr("Move vertical guide");
 	UndoManager::MoveHGuide         = tr("Move horizontal guide");
 	UndoManager::LockGuides         = tr("Lock guides");
@@ -859,6 +861,8 @@ QString UndoManager::AddVGuide          = "";
 QString UndoManager::AddHGuide          = "";
 QString UndoManager::DelVGuide          = "";
 QString UndoManager::DelHGuide          = "";
+QString UndoManager::DelVAGuide         = "";
+QString UndoManager::DelHAGuide         = "";
 QString UndoManager::MoveVGuide         = "";
 QString UndoManager::MoveHGuide         = "";
 QString UndoManager::LockGuides         = "";

@@ -101,7 +101,11 @@ void GuideManager::setupPage()
 	storePageValues(currentPage);
 	currentPage = m_Doc->currentPage();
 	unitChange();
+	setupGui();
+}
 
+void GuideManager::setupGui()
+{
 	// restore values from new page
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
