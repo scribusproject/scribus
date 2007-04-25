@@ -2819,7 +2819,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					m_ScMW->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
 				}
 			}
-			if (Doc->appMode != modeEdit && Doc->m_Selection->itemsAreSameType()) //Create convertTo Menu
+			if (Doc->appMode != modeEdit && (Doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
 			{
 				bool insertConvertToMenu=false;
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
@@ -2830,7 +2830,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					else
 					{
 						if (currItem->isTableItem)
+						{
+							m_ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
 							m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+						}
 						if (!currItem->isTableItem)
 						{
 							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
@@ -2844,6 +2847,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					insertConvertToMenu=true;
+					m_ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
 					m_ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
 					if (!currItem->isTableItem)
 						m_ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
