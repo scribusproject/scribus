@@ -6556,7 +6556,7 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation>a été remplacé par :</translation>
+        <translation> a été remplacé par : </translation>
     </message>
 </context>
 <context>
@@ -13471,7 +13471,7 @@ convertissant les données vectorielles en objets Scribus.</translation>
     </message>
     <message>
         <source> was replaced by: </source>
-        <translation>a été remplacé par :</translation>
+        <translation> a été remplacé par : </translation>
     </message>
     <message>
         <source>(converted)</source>
