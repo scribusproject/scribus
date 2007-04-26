@@ -327,8 +327,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->CMSSettings.DefaultMonitorProfile = dc.attribute("DPMo","");
 		m_Doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
 		m_Doc->CMSSettings.DefaultImageRGBProfile = dc.attribute("DPIn","");
+		m_Doc->CMSSettings.DefaultImageCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
 		m_Doc->CMSSettings.DefaultSolidColorRGBProfile = dc.attribute("DPIn2","");
-		m_Doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPIn3","");
+		m_Doc->CMSSettings.DefaultSolidColorCMYKProfile = dc.attribute("DPPr",""); // Use DPPr to match 1.2.x behavior
 		//m_Doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
 		//m_Doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
 		m_Doc->CMSSettings.DefaultIntentColors = dc.attribute("DISc", "1").toInt();
