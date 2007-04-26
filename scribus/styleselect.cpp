@@ -4,42 +4,39 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <q3groupbox.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3popupmenu.h>
-#include <qlabel.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include "scrspinbox.h"
 
 #include "styleselect.h"
-//#include "styleselect.moc"
+
 
 extern QPixmap loadIcon(QString nam);
 
-StrikeValues::StrikeValues( QWidget* parent ) : Q3GroupBox( parent, "StrikeValues" )
+class WidgetPopupMenu : public QMenu
 {
-	this->setFrameShape( Q3GroupBox::NoFrame );
-	this->setTitle("");
-	this->setColumnLayout(0, Qt::Vertical );
-	this->layout()->setSpacing( 0 );
-	this->layout()->setMargin( 0 );
-	group1Layout = new Q3GridLayout( this->layout() );
-	group1Layout->setAlignment( Qt::AlignTop );
+public:
+    WidgetPopupMenu(QWidget *parent = 0) : QMenu(parent), w(0){}
+    QWidget *widget() const { return w; }
+    void setWidget(QWidget *widget) { w = widget; w->setParent(this); w->move(2, 2); }
+    QSize sizeHint() const { return w->sizeHint() + QSize(4,4); }
+    void insertItem(QWidget *widget) { setWidget(widget); }
+
+private:
+    QWidget *w;
+};
+
+StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent, "StrikeValues" )
+{
+	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	LPos = new ScrSpinBox( -0.1, 100, this, 1 );
+	group1Layout->setAlignment( Qt::AlignTop );
+	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
 	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
-	LWidth = new ScrSpinBox( -0.1, 100, this, 1 );
+	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
@@ -59,31 +56,26 @@ void StrikeValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-UnderlineValues::UnderlineValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValues" )
+UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
 {
-	this->setFrameShape( Q3GroupBox::NoFrame );
-	this->setTitle("");
-	this->setColumnLayout(0, Qt::Vertical );
-	this->layout()->setSpacing( 0 );
-	this->layout()->setMargin( 0 );
-	group1Layout = new Q3GridLayout( this->layout() );
-	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout = new QGridLayout(this);
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	LPos = new ScrSpinBox( -0.1, 100, this, 1 );
+	group1Layout->setAlignment( Qt::AlignTop );
+	LPos = new ScrSpinBox( -0.1, 100, this, 0 );
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
 	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
-	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
-	LWidth = new ScrSpinBox( -0.1, 100, this, 1 );
+	group1Layout->addWidget( LPos, 0, 1 );
+	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
 	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
-	group1Layout->addWidget( LWidth, 1, 1 );
 	group1Layout->addWidget( LWidthTxt, 1 , 0 );
+	group1Layout->addWidget( LWidth, 1, 1 );
 	languageChange();
 }
 
@@ -97,18 +89,13 @@ void UnderlineValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-OutlineValues::OutlineValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValues" )
+OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
 {
-	this->setFrameShape( Q3GroupBox::NoFrame );
-	this->setTitle("");
-	this->setColumnLayout(0, Qt::Vertical );
-	this->layout()->setSpacing( 0 );
-	this->layout()->setMargin( 0 );
-	group1Layout = new Q3GridLayout( this->layout() );
-	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	LWidth = new ScrSpinBox( 0, 100, this, 1 );
+	group1Layout->setAlignment( Qt::AlignTop );
+	LWidth = new ScrSpinBox( 0, 100, this, 0 );
 	LWidth->setValue( 1 );
 	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
 	group1Layout->addWidget( LWidth, 0, 1 );
@@ -123,23 +110,18 @@ void OutlineValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-ShadowValues::ShadowValues( QWidget* parent ) : Q3GroupBox( parent, "ShadowValues" )
+ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
 {
-	this->setFrameShape( Q3GroupBox::NoFrame );
-	this->setTitle("");
-	this->setColumnLayout(0, Qt::Vertical );
-	this->layout()->setSpacing( 0 );
-	this->layout()->setMargin( 0 );
-	group1Layout = new Q3GridLayout( this->layout() );
-	group1Layout->setAlignment( Qt::AlignTop );
+	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
 	group1Layout->setMargin( 0 );
-	Xoffset = new ScrSpinBox( -100, 100, this, 1 );
+	group1Layout->setAlignment( Qt::AlignTop );
+	Xoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Xoffset->setValue( 5 );
 	XoffsetTxt = new QLabel( "X-Offset", this, "XoffsetTxt" );
 	group1Layout->addWidget( Xoffset, 0, 1 );
 	group1Layout->addWidget( XoffsetTxt, 0 , 0 );
-	Yoffset = new ScrSpinBox( -100, 100, this, 1 );
+	Yoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Yoffset->setValue( 5 );
 	YoffsetTxt = new QLabel( "Y-Offset", this, "YoffsetTxt" );
 	group1Layout->addWidget( Yoffset, 1, 1 );
@@ -159,125 +141,99 @@ void ShadowValues::languageChange()
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 {
-	ssLayout = new Q3HBoxLayout( this, 0, 0, "ssLayout");
+	ssLayout = new QHBoxLayout(this);
+	ssLayout->setSpacing( 0 );
+	ssLayout->setMargin( 0 );
 
-	buttonGroup3 = new Q3GroupBox( this, "buttonGroup" );
-	buttonGroup3->setFrameShape( Q3GroupBox::NoFrame );
-	buttonGroup3->setTitle("");
-	buttonGroup3->setColumnLayout(0, Qt::Vertical );
-	buttonGroup3->layout()->setSpacing( 0 );
-	buttonGroup3->layout()->setMargin( 0 );
-	buttonGroup3Layout = new Q3HBoxLayout( buttonGroup3->layout() );
-	buttonGroup3Layout->setAlignment( Qt::AlignTop );
 	UnderlineVal = new UnderlineValues( NULL );
-	UnderlinePop = new Q3PopupMenu();
-//	UnderlinePop->insertItem(UnderlineVal);
-	underlineButton = new QToolButton( buttonGroup3, "underlineButton" );
+//<< widget in menu change
+	UnderlinePop = new WidgetPopupMenu();
+	UnderlinePop->insertItem(UnderlineVal);
+//>> widget in menu change
+	underlineButton = new QToolButton( this, "underlineButton" );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
-	underlineButton->setPixmap(loadIcon("Unter.xpm"));
-	underlineButton->setToggleButton( true );
+	underlineButton->setIcon(QIcon(loadIcon("Unter.xpm")));
+	underlineButton->setCheckable( true );
 	underlineButton->setPopup(UnderlinePop);
 	underlineButton->setPopupDelay(400);
-	buttonGroup3Layout->addWidget( underlineButton );
-	underlineWordButton = new QToolButton( buttonGroup3, "underlineButton" );
+	ssLayout->addWidget( underlineButton );
+	underlineWordButton = new QToolButton( this, "underlineButton" );
 	underlineWordButton->setText( "" );
 	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
-	underlineWordButton->setPixmap(loadIcon("wordsOnly.png"));
-	underlineWordButton->setToggleButton( true );
+	underlineWordButton->setIcon(QIcon(loadIcon("wordsOnly.png")));
+	underlineWordButton->setCheckable( true );
 	underlineWordButton->setPopup(UnderlinePop);
 	underlineWordButton->setPopupDelay(400);
-	buttonGroup3Layout->addWidget( underlineWordButton );
-	ssLayout->addWidget( buttonGroup3 );
+	ssLayout->addWidget( underlineWordButton );
 
-	buttonGroup = new Q3GroupBox( this, "buttonGroup" );
-	buttonGroup->setFrameShape( Q3GroupBox::NoFrame );
-	buttonGroup->setTitle("");
-	buttonGroup->setColumnLayout(0, Qt::Vertical );
-	buttonGroup->layout()->setSpacing( 0 );
-	buttonGroup->layout()->setMargin( 0 );
-	buttonGroupLayout = new Q3HBoxLayout( buttonGroup->layout() );
-	buttonGroupLayout->setAlignment( Qt::AlignTop );
-	subscriptButton = new QToolButton( buttonGroup, "subscriptButton" );
+	subscriptButton = new QToolButton( this, "subscriptButton" );
 	subscriptButton->setText( "" );
 	subscriptButton->setMaximumSize( QSize( 22, 22 ) );
-	subscriptButton->setPixmap(loadIcon("Tief.xpm"));
-	subscriptButton->setToggleButton( true );
-	buttonGroupLayout->addWidget( subscriptButton );
-	superscriptButton = new QToolButton( buttonGroup, "superscriptButton" );
+	subscriptButton->setIcon(QIcon(loadIcon("Tief.xpm")));
+	subscriptButton->setCheckable( true );
+	ssLayout->addWidget( subscriptButton );
+	superscriptButton = new QToolButton( this, "superscriptButton" );
 	superscriptButton->setText( "" );
 	superscriptButton->setMaximumSize( QSize( 22, 22 ) );
-	superscriptButton->setPixmap(loadIcon("Hoch.xpm"));
-	superscriptButton->setToggleButton( true );
-	buttonGroupLayout->addWidget( superscriptButton );
-	ssLayout->addWidget( buttonGroup );
+	superscriptButton->setIcon(QIcon(loadIcon("Hoch.xpm")));
+	superscriptButton->setCheckable( true );
+	ssLayout->addWidget( superscriptButton );
 
-	buttonGroup2 = new Q3GroupBox( this, "buttonGroup" );
-	buttonGroup2->setFrameShape( Q3GroupBox::NoFrame );
-	buttonGroup2->setTitle("");
-	buttonGroup2->setColumnLayout(0, Qt::Vertical );
-	buttonGroup2->layout()->setSpacing( 0 );
-	buttonGroup2->layout()->setMargin( 0 );
-	buttonGroup2Layout = new Q3HBoxLayout( buttonGroup2->layout() );
-	buttonGroup2Layout->setAlignment( Qt::AlignTop );
-	allcapsButton = new QToolButton( buttonGroup2, "allcapsButton" );
+	allcapsButton = new QToolButton( this, "allcapsButton" );
 	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	allcapsButton->setText("");
-	allcapsButton->setPixmap(loadIcon("AllCaps.png"));
-	allcapsButton->setToggleButton( true );
-	buttonGroup2Layout->addWidget( allcapsButton );
-	smallcapsButton = new QToolButton( buttonGroup2, "smallcapsButton" );
+	allcapsButton->setIcon(QIcon(loadIcon("AllCaps.png")));
+	allcapsButton->setCheckable( true );
+	ssLayout->addWidget( allcapsButton );
+	smallcapsButton = new QToolButton( this, "smallcapsButton" );
 	smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	smallcapsButton->setText("");
-	smallcapsButton->setPixmap(loadIcon("Kapital.xpm"));
-	smallcapsButton->setToggleButton( true );
-	buttonGroup2Layout->addWidget( smallcapsButton );
-	ssLayout->addWidget( buttonGroup2 );
+	smallcapsButton->setIcon(QIcon(loadIcon("Kapital.xpm")));
+	smallcapsButton->setCheckable( true );
+	ssLayout->addWidget( smallcapsButton );
 
-	buttonGroup4 = new Q3GroupBox( this, "buttonGroup" );
-	buttonGroup4->setFrameShape( Q3GroupBox::NoFrame );
-	buttonGroup4->setTitle("");
-	buttonGroup4->setColumnLayout(0, Qt::Vertical );
-	buttonGroup4->layout()->setSpacing( 0 );
-	buttonGroup4->layout()->setMargin( 0 );
-	buttonGroup4Layout = new Q3HBoxLayout( buttonGroup4->layout() );
-	buttonGroup4Layout->setAlignment( Qt::AlignTop );
 	StrikeVal = new StrikeValues( NULL );
-	StrikePop = new Q3PopupMenu();
-//Qt4	StrikePop->insertItem(StrikeVal);
-	strikeoutButton = new QToolButton( buttonGroup4, "strikeoutButton" );
+//<< widget in menu change
+	StrikePop = new WidgetPopupMenu();
+	StrikePop->insertItem(StrikeVal);
+//>> widget in menu change
+	strikeoutButton = new QToolButton( this, "strikeoutButton" );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
-	strikeoutButton->setPixmap(loadIcon("Strike.xpm"));
-	strikeoutButton->setToggleButton( true );
+	strikeoutButton->setIcon(QIcon(loadIcon("Strike.xpm")));
+	strikeoutButton->setCheckable( true );
 	strikeoutButton->setPopup(StrikePop);
 	strikeoutButton->setPopupDelay(400);
-	buttonGroup4Layout->addWidget( strikeoutButton );
+	ssLayout->addWidget( strikeoutButton );
 
 	OutlineVal = new OutlineValues( NULL );
-	OutlinePop = new Q3PopupMenu();
-//Qt4	OutlinePop->insertItem(OutlineVal);
-	outlineButton = new QToolButton( buttonGroup4, "outlineButton" );
+//<< widget in menu change
+	OutlinePop = new WidgetPopupMenu();
+	OutlinePop->insertItem(OutlineVal);
+//>> widget in menu change
+	outlineButton = new QToolButton( this, "outlineButton" );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
-	outlineButton->setPixmap(loadIcon("outlined.png"));
-	outlineButton->setToggleButton( true );
+	outlineButton->setIcon(QIcon(loadIcon("outlined.png")));
+	outlineButton->setCheckable( true );
 	outlineButton->setPopup(OutlinePop);
 	outlineButton->setPopupDelay(400);
-	buttonGroup4Layout->addWidget( outlineButton );
+	ssLayout->addWidget( outlineButton );
 
 	ShadowVal = new ShadowValues( NULL );
-	ShadowPop = new Q3PopupMenu();
-//Qt4	ShadowPop->insertItem(ShadowVal);
-	shadowButton = new QToolButton( buttonGroup4, "shadowButton" );
+//<< widget in menu change
+	ShadowPop = new WidgetPopupMenu();
+	ShadowPop->insertItem(ShadowVal);
+//>> widget in menu change
+	shadowButton = new QToolButton( this, "shadowButton" );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
-	shadowButton->setPixmap(loadIcon("shadow.png"));
-	shadowButton->setToggleButton( true );
+	shadowButton->setIcon(QIcon(loadIcon("shadow.png")));
+	shadowButton->setCheckable( true );
 	shadowButton->setPopup(ShadowPop);
 	shadowButton->setPopupDelay(400);
-	buttonGroup4Layout->addWidget( shadowButton );
-	ssLayout->addWidget( buttonGroup4 );
+	ssLayout->addWidget( shadowButton );
 	
 	languageChange();
 
@@ -321,55 +277,55 @@ void StyleSelect::languageChange()
 
 void StyleSelect::setStyle(int s)
 {
-	superscriptButton->setOn(false);
-	subscriptButton->setOn(false);
-	strikeoutButton->setOn(false);
-	underlineButton->setOn(false);
-	underlineWordButton->setOn(false);
-	allcapsButton->setOn(false);
-	smallcapsButton->setOn(false);
-	outlineButton->setOn(false);
-	shadowButton->setOn(false);
+	superscriptButton->setChecked(false);
+	subscriptButton->setChecked(false);
+	strikeoutButton->setChecked(false);
+	underlineButton->setChecked(false);
+	underlineWordButton->setChecked(false);
+	allcapsButton->setChecked(false);
+	smallcapsButton->setChecked(false);
+	outlineButton->setChecked(false);
+	shadowButton->setChecked(false);
 	if (s & 1)
-		superscriptButton->setOn(true);
+		superscriptButton->setChecked(true);
 	if (s & 2)
-		subscriptButton->setOn(true);
+		subscriptButton->setChecked(true);
 	if (s & 4)
-		outlineButton->setOn(true);
+		outlineButton->setChecked(true);
 	if (s & 8)
-		underlineButton->setOn(true);
+		underlineButton->setChecked(true);
 	if (s & 16)
-		strikeoutButton->setOn(true);
+		strikeoutButton->setChecked(true);
 	if (s & 32)
-		allcapsButton->setOn(true);
+		allcapsButton->setChecked(true);
 	if (s & 64)
-		smallcapsButton->setOn(true);
+		smallcapsButton->setChecked(true);
 	if (s & 256)
-		shadowButton->setOn(true);
+		shadowButton->setChecked(true);
 	if (s & 512)
-		underlineWordButton->setOn(true);
+		underlineWordButton->setChecked(true);
 }
 
 int StyleSelect::getStyle()
 {
 	int ret = 0;
-	if (superscriptButton->isOn())
+	if (superscriptButton->isChecked())
 		ret |= 1;
-	if (subscriptButton->isOn())
+	if (subscriptButton->isChecked())
 		ret |= 2;
-	if (outlineButton->isOn())
+	if (outlineButton->isChecked())
 		ret |= 4;
-	if (underlineButton->isOn())
+	if (underlineButton->isChecked())
 		ret |= 8;
-	if (strikeoutButton->isOn())
+	if (strikeoutButton->isChecked())
 		ret |= 16;
-	if (allcapsButton->isOn())
+	if (allcapsButton->isChecked())
 		ret |= 32;
-	if (smallcapsButton->isOn())
+	if (smallcapsButton->isChecked())
 		ret |= 64;
-	if (shadowButton->isOn())
+	if (shadowButton->isChecked())
 		ret |= 256;
-	if (underlineWordButton->isOn())
+	if (underlineWordButton->isChecked())
 		ret |= 512;
 	return ret;
 }
@@ -377,17 +333,17 @@ int StyleSelect::getStyle()
 void StyleSelect::setTypeStyle()
 {
 	if (superscriptButton == sender())
-		subscriptButton->setOn(false);
+		subscriptButton->setChecked(false);
 	if (subscriptButton == sender())
-		superscriptButton->setOn(false);
+		superscriptButton->setChecked(false);
 	if (allcapsButton == sender())
-		smallcapsButton->setOn(false);
+		smallcapsButton->setChecked(false);
 	if (smallcapsButton == sender())
-		allcapsButton->setOn(false);
+		allcapsButton->setChecked(false);
 	if (underlineWordButton == sender())
-		underlineButton->setOn(false);
+		underlineButton->setChecked(false);
 	if (underlineButton == sender())
-		underlineWordButton->setOn(false);
+		underlineWordButton->setChecked(false);
 	emit State(getStyle());
 }
 

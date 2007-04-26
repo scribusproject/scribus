@@ -720,8 +720,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout47->addLayout( layout46 );
 	pageLayout_3->addLayout( layout47 );
 
+	Layout1AL = new Q3HBoxLayout( 0, 0, 0, "Layout1");
+	Layout1AL->setAlignment( Qt::AlignLeft );
 	GroupAlign = new AlignSelect(page_3);
-	pageLayout_3->addWidget( GroupAlign );
+	Layout1AL->addWidget(GroupAlign);
+	QSpacerItem* spacer7AL = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1AL->addItem( spacer7AL );
+	pageLayout_3->addLayout( Layout1AL );
 
 	GroupBox3aLayout = new Q3GridLayout( 0, 6, 1, 0, 5, "Layout25");
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );

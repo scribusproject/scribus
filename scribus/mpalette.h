@@ -310,6 +310,7 @@ protected:
 	Q3VBoxLayout* layout46;
 	Q3GridLayout* layout41;
 	Q3HBoxLayout* Layout1;
+	Q3HBoxLayout* Layout1AL;
 	Q3GridLayout* layout43;
 	Q3VBoxLayout* Layout24;
 	Q3HBoxLayout* Layout18;

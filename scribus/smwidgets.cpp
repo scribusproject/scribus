@@ -289,7 +289,7 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
 	parentButton->setToggleButton( true );
 	parentButton->setText( tr("P", "P as in Parent"));
 	QToolTip::add(parentButton, tr("Use parent style's alignment instead of overriding it"));
-	GroupAlignLayout->addWidget( parentButton, 0, 5 );
+	GroupAlignLayout->addWidget( parentButton );
 	resize(minimumSizeHint());
 	parentButton->hide();
 }

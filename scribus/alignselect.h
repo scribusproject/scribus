@@ -7,16 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef ALIGNSELECT_H
 #define ALIGNSELECT_H
 
-#include <q3buttongroup.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
+#include <QHBoxLayout>
+#include <QToolButton>
+#include <QButtonGroup>
 
 #include "scribusapi.h"
 
-class SCRIBUS_API AlignSelect : public Q3ButtonGroup
+class SCRIBUS_API AlignSelect : public QWidget
 {
 
 Q_OBJECT
@@ -26,8 +23,10 @@ public:
 	~AlignSelect() {};
 	void setStyle(int s);
 	int getStyle();
+	int selectedId();
 
-	Q3ButtonGroup* GroupAlign;
+	QButtonGroup* buttonGroup;
+	int selected;
 	QToolButton* TextL;
 	QToolButton* TextR;
 	QToolButton* TextC;
@@ -44,7 +43,7 @@ signals:
 	void State(int);
 
 protected:
-	Q3GridLayout* GroupAlignLayout;
+	QHBoxLayout* GroupAlignLayout;
 
 };
 

@@ -7,21 +7,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-#include <Q3PopupMenu>
-#include <Q3GridLayout>
-#include <Q3GroupBox>
-#include <Q3HBoxLayout>
+#include <QToolTip>
+#include <QMenu>
 #include <QLabel>
-
-class QToolButton;
-class QLayout;
-class ScrSpinBox;
-class QLabel;
-class Q3PopupMenu;
-
+#include <QPixmap>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QToolButton>
+#include <QFrame>
+#include "scrspinbox.h"
 #include "scribusapi.h"
+class WidgetPopupMenu;
 
-class SCRIBUS_API StrikeValues : public Q3GroupBox
+class SCRIBUS_API StrikeValues : public QFrame
 {
     Q_OBJECT
 
@@ -37,10 +35,10 @@ public slots:
 	void languageChange();
 	
 protected:
-	Q3GridLayout* group1Layout;
+	QGridLayout* group1Layout;
 };
 
-class SCRIBUS_API UnderlineValues : public Q3GroupBox
+class SCRIBUS_API UnderlineValues : public QFrame
 {
     Q_OBJECT
 
@@ -56,10 +54,10 @@ public slots:
 	void languageChange();
 	
 protected:
-	Q3GridLayout* group1Layout;
+	QGridLayout* group1Layout;
 };
 
-class SCRIBUS_API OutlineValues : public Q3GroupBox
+class SCRIBUS_API OutlineValues : public QFrame
 {
     Q_OBJECT
 
@@ -73,10 +71,10 @@ public slots:
 	void languageChange();
 	
 protected:
-	Q3GridLayout* group1Layout;
+	QGridLayout* group1Layout;
 };
 
-class SCRIBUS_API ShadowValues : public Q3GroupBox
+class SCRIBUS_API ShadowValues : public QFrame
 {
     Q_OBJECT
 
@@ -92,7 +90,7 @@ public slots:
 	void languageChange();
 	
 protected:
-	Q3GridLayout* group1Layout;
+	QGridLayout* group1Layout;
 };
 
 class SCRIBUS_API StyleSelect : public QWidget
@@ -120,15 +118,7 @@ signals:
 	void State(int);
 
 protected:
-	Q3HBoxLayout* ssLayout;
-	Q3HBoxLayout* buttonGroupLayout;
-	Q3HBoxLayout* buttonGroup2Layout;
-	Q3HBoxLayout* buttonGroup3Layout;
-	Q3HBoxLayout* buttonGroup4Layout;
-	Q3GroupBox* buttonGroup;
-	Q3GroupBox* buttonGroup2;
-	Q3GroupBox* buttonGroup3;
-	Q3GroupBox* buttonGroup4;
+	QHBoxLayout* ssLayout;
 	QToolButton* underlineButton;
 	QToolButton* underlineWordButton;
 	QToolButton* subscriptButton;
@@ -138,10 +128,10 @@ protected:
 	QToolButton* strikeoutButton;
 	QToolButton* outlineButton;
 	QToolButton* shadowButton;
-	Q3PopupMenu* ShadowPop;
-	Q3PopupMenu* OutlinePop;
-	Q3PopupMenu* UnderlinePop;
-	Q3PopupMenu* StrikePop;
+	WidgetPopupMenu* ShadowPop;
+	WidgetPopupMenu* OutlinePop;
+	WidgetPopupMenu* UnderlinePop;
+	WidgetPopupMenu* StrikePop;
 };
 
 #endif

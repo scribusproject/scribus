@@ -1123,9 +1123,9 @@ void SMPStyleWidget::showAlignment(Q3ValueList<ParagraphStyle*> &pstyles)
 		{
 			if (alignement_->selectedId() > -1)
 			{
-				alignement_->setExclusive(false);
-				alignement_->selected()->toggle();
-				alignement_->setExclusive(true);
+				alignement_->buttonGroup->setExclusive(false);
+				alignement_->buttonGroup->button(alignement_->selectedId())->toggle();
+				alignement_->buttonGroup->setExclusive(true);
 			}
 			return;
 		}
