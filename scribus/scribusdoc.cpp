@@ -238,10 +238,10 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	vg.DropLin = 2;
 	vg.DropDist = 0;
 	vg.FontEffect = 0;
-	vg.FColor = toolSettings.dBrush;
-	vg.FShade = toolSettings.dShade;
-	vg.SColor = toolSettings.dPen;
-	vg.SShade = toolSettings.dShade2;
+	vg.FColor = toolSettings.dPenText;
+	vg.FShade = toolSettings.dTextPenShade;
+	vg.SColor = toolSettings.dStrokeText;
+	vg.SShade = toolSettings.dTextStrokeShade;
 	vg.BaseAdj = false;
 	vg.txtShadowX = 50;
 	vg.txtShadowY = -50;
