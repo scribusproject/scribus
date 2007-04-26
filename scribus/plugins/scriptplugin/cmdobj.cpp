@@ -572,7 +572,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			// Now apply the style.
 			int mode = ScCore->primaryMainWindow()->doc->appMode;
 			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-			ScCore->primaryMainWindow()->setNewParStyle(styleid);
+			ScCore->primaryMainWindow()->setNewParStyle(QString::fromUtf8(style));
 			ScCore->primaryMainWindow()->doc->appMode = mode;
 		}
 		else // for multiple selection

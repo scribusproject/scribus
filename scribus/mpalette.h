@@ -163,6 +163,8 @@ public slots:
 	void setLvalue(double scx, double scy, double x, double y);
 	void setSvalue(double s);
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
+	/// update TB values:
+	void updateStyle(const ParagraphStyle& newCurrent);
 	void setStil(int s);
 	void setAli(int e);
 	void setParStyle(const QString& name);

@@ -321,6 +321,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 	//Qt4 connect(this, SIGNAL(TextIFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
+	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
 	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
@@ -486,8 +487,8 @@ void ScribusMainWindow::initPalettes()
 	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
-	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setNewParStyle(int)));
-	connect(propertiesPalette->charStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setNewCharStyle(int)));
+	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewParStyle(const QString&)));
+	connect(propertiesPalette->charStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewCharStyle(const QString&)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -1041,7 +1042,10 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currPStyle.parent());
 		propertiesPalette->setCharStyle(currItem->currentCharStyle().name());
+		doc->currentStyle = currItem->currentStyle();
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
+		emit TextStyle(doc->currentStyle);
+		// to go: (av)
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
 		emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
@@ -2839,7 +2843,9 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		}
 		else
 		{
-			doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
+			doc->currentStyle = currItem->itemText.defaultStyle();
+			emit TextStyle(doc->currentStyle);
+			// to go: (av)
 			emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
 			emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 			emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
@@ -2891,7 +2897,9 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			setTBvals(currItem);
 		else
 		{
-			doc->currentStyle.charStyle() = currItem->itemText.defaultStyle().charStyle();
+			doc->currentStyle = currItem->itemText.defaultStyle();
+			emit TextStyle(doc->currentStyle);
+			// to go: (av)
 			emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
 			emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 			emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
@@ -6981,23 +6989,33 @@ void ScribusMainWindow::setNewAlignment(int a)
 	}
 }
 
-void ScribusMainWindow::setNewParStyle(int a)
+void ScribusMainWindow::setNewParStyle(const QString& name)
 {
 	if (HaveDoc)
 	{
-//		doc->currentStyle = doc->docParagraphStyles[a];
-		doc->itemSelection_SetNamedParagraphStyle(doc->paragraphStyles()[a].name());
+		if (name.isEmpty())
+		{
+			doc->itemSelection_SetNamedParagraphStyle(name);
+			doc->itemSelection_EraseParagraphStyle();
+		}
+		else			
+			doc->itemSelection_SetNamedParagraphStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
 }
 
-void ScribusMainWindow::setNewCharStyle(int a)
+void ScribusMainWindow::setNewCharStyle(const QString& name)
 {
 	if (HaveDoc)
 	{
-//		doc->currentStyle = doc->docParagraphStyles[a];
-		doc->itemSelection_SetNamedCharStyle(doc->charStyles()[a].name());
+		if (name.isEmpty())
+		{
+			doc->itemSelection_SetNamedCharStyle(name);			
+			doc->itemSelection_EraseCharStyle();
+		}
+		else
+			doc->itemSelection_SetNamedCharStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}

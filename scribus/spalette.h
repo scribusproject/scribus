@@ -50,7 +50,7 @@ public slots:
 	void selFormat(int e);
 	
 signals:
-	void newStyle(int);
+	void newStyle(const QString&);
 	void editStyle();
 };
 
@@ -71,7 +71,7 @@ public slots:
 	void selFormat(int e);
 	
 signals:
-	void newStyle(int);
+	void newStyle(const QString&);
 	void editCharStyle();
 };
 

@@ -113,7 +113,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 		paraStyleCombo->setFormat("");
-	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
+	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
 	pmen->clear();
 //qt4 FIXME	pmen->insertItem(paraStyleCombo);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
@@ -125,9 +125,9 @@ void SideBar::editStyles()
 	emit sigEditStyles();
 }
 
-void SideBar::setPStyle(int s)
+void SideBar::setPStyle(const QString& name)
 {
-	emit ChangeStyle(CurrentPar, s);
+	emit ChangeStyle(CurrentPar, name);
 	pmen->activateItemAt(0);
 }
 
@@ -1100,7 +1100,7 @@ SToolBAlign::SToolBAlign(Q3MainWindow* parent) : Q3ToolBar( tr("Style Settings")
 {
 	GroupAlign = new AlignSelect(this);
 	paraStyleCombo = new ParaStyleComboBox(this);
-	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 
 	languageChange();
@@ -1122,9 +1122,9 @@ void SToolBAlign::SetAlign(int s)
 
 void SToolBAlign::SetParaStyle(int s)
 {
-	disconnect(paraStyleCombo, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	disconnect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
 	paraStyleCombo->selFormat(s);
-	connect(paraStyleCombo, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
 }
 
 
@@ -1703,9 +1703,9 @@ void StoryEditor::connectSignals()
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
-	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeStyleSB(int, int )));
+	connect(EditorBar, SIGNAL(ChangeStyle(int, const QString& )), this, SLOT(changeStyleSB(int, const QString&)));
 	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
-	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
+	connect(AlignTools, SIGNAL(newParaStyle(const QString&)), this, SLOT(newStyle(const QString&)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
@@ -2605,22 +2605,25 @@ void StoryEditor::newAlign(int st)
 }
 
 
-void StoryEditor::newStyle(int st)
+void StoryEditor::newStyle(const QString& name)
 {
-	Editor->currentParaStyle = currDoc->paragraphStyles()[st].name();
-	changeStyle(st);
+	Editor->currentParaStyle = name;
+	changeStyle();
 }
 
 
-void StoryEditor::changeStyleSB(int pa, int st)
+void StoryEditor::changeStyleSB(int pa, const QString& name)
 {
-	Editor->currentParaStyle = currDoc->paragraphStyles()[st].name();
+	Editor->currentParaStyle = name;
 	ParagraphStyle newStyle;
 	newStyle.setParent(Editor->currentParaStyle);
 
 	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+
 /*		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
 			   .arg(pa)
 			   .arg(Editor->StyledText.startOfParagraph(pa))
@@ -2633,7 +2636,10 @@ void StoryEditor::changeStyleSB(int pa, int st)
 //		Editor->setCursorPosition(pa, 0);
 //		updateProps(pa, 0);
 		Editor->ensureCursorVisible();
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	else
 	{
@@ -2675,7 +2681,7 @@ void StoryEditor::changeStyleSB(int pa, int st)
 	Editor->setFocus();
 }
 
-void StoryEditor::changeStyle(int )
+void StoryEditor::changeStyle()
 {
 	int p=0, i=0;
 	bool sel = false;
@@ -2686,6 +2692,8 @@ void StoryEditor::changeStyle(int )
 	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 		int PStart = 0;
 		int PEnd = 0;
 		int SelStart = 0;
@@ -2719,7 +2727,10 @@ void StoryEditor::changeStyle(int )
 		Editor->setCursorPosition(p, i);
 		Editor->ensureCursorVisible();
 		updateProps(p, i);
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	else
 	{
@@ -2772,6 +2783,8 @@ void StoryEditor::changeAlign(int )
 	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 		int PStart = 0;
 		int PEnd = 0;
 		int SelStart = 0;
@@ -2805,7 +2818,10 @@ void StoryEditor::changeAlign(int )
 		Editor->setCursorPosition(p, i);
 		Editor->ensureCursorVisible();
 		updateProps(p, i);
+		EditorBar->doRepaint();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
+		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
 	modifiedText();
 	Editor->sync();

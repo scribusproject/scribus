@@ -5286,7 +5286,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove manual paragraphstyle" ), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
@@ -5414,7 +5414,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->CPos);
-					length = start + 1 < currItem->itemText.length()? 1 : 0;
+					length = (start + 1) < currItem->itemText.length()? 1 : 0;
 				}
 			}
 			currItem->itemText.applyCharStyle(start, qMax(0, length), newStyle);
@@ -5466,7 +5466,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->CPos);
-					length = start + 1 < currItem->itemText.length()? 1 : 0;
+					length = (start + 1) < currItem->itemText.length()? 1 : 0;
 				}
 			}
 			currItem->itemText.setCharStyle(start, length, newStyle);
@@ -5498,7 +5498,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 	if (selectedItemCount == 0)
 		return;
 	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove manual charstyle" ), Um::IFont);
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle, tr( "remove direct char formatting" ), Um::IFont);
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
@@ -5517,7 +5517,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				else
 				{
 					start = qMax(currItem->firstInFrame(), currItem->CPos);
-					length = start + 1 < currItem->itemText.length()? 1 : 0;
+					length = (start + 1) < currItem->itemText.length()? 1 : 0;
 				}
 			}
 			QString lastParent;

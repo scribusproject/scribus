@@ -1126,7 +1126,7 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 	move(p2);
 
 	connect(this, SIGNAL(DocChanged()), m_ScMW, SLOT(slotDocCh()));
-	connect(this, SIGNAL(NewParStyle(int)), m_ScMW, SLOT(setNewParStyle(int)));
+//	connect(this, SIGNAL(NewParStyle(int)), m_ScMW, SLOT(setNewParStyle(int)));
 	connect(this, SIGNAL(NewAlignment(int)), m_ScMW, SLOT(setNewAlignment(int)));
 	connect(this, SIGNAL(NewEffects(int)), m_ScMW, SLOT(setItemHoch(int)));
 	connect(this, SIGNAL(ShapeEdit()), m_ScMW, SLOT(ToggleFrameEdit()));
@@ -2511,6 +2511,23 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 	HaveItem = tmp;
 }
 
+
+void Mpalette::updateStyle(const ParagraphStyle& newCurrent)
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
+	GroupAlign->setStyle(newCurrent.alignment());
+	minWordTrackingSpinBox->setValue(newCurrent.minWordTracking() * 100.0);
+	normWordTrackingSpinBox->setValue(newCurrent.charStyle().wordTracking() * 100.0);
+	minGlyphExtSpinBox->setValue(newCurrent.minGlyphExtension() * 100.0);
+	maxGlyphExtSpinBox->setValue(newCurrent.maxGlyphExtension() * 100.0);
+	HaveItem = tmp;
+	
+	
+}
+
 void Mpalette::setStil(int s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
@@ -2533,14 +2550,8 @@ void Mpalette::setAli(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-//	if (e < 5)
-//	{
-		GroupAlign->setEnabled(true);
-		GroupAlign->setStyle(e);
-//	}
-//	else
-//		GroupAlign->setEnabled(false);
-//	paraStyleCombo->setFormat(e);
+	GroupAlign->setEnabled(true);
+	GroupAlign->setStyle(e);
 	HaveItem = tmp;
 }
 

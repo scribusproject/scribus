@@ -637,9 +637,24 @@ void StoryText::setStyle(int pos, const ParagraphStyle& style)
 
 void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 {
-	// FIXME
-	eraseCharStyle(pos, len, charStyle(pos));
-	applyCharStyle(pos, len, style);
+	if (pos < 0)
+		pos += length();
+	
+	assert(pos >= 0);
+	assert(pos + signed(len) <= length());
+	
+	if (len == 0)
+		return;
+	
+	d->at(pos);
+	for (uint i=pos; i < pos+len; ++i) {
+		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
+			d->current()->parstyle->charStyle() = style;
+		*static_cast<CharStyle*>(d->current()) = style;
+		d->next();
+	}
+	
+	invalidate(pos, pos + len);
 }
 
 

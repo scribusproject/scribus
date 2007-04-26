@@ -483,8 +483,8 @@ public slots:
 // 	void slotEditLineStyles();
 // 	void saveLStyles(LineFormate *dia);
 	void setNewAlignment(int a);
-	void setNewParStyle(int a);
-	void setNewCharStyle(int a);
+	void setNewParStyle(const QString& name);
+	void setNewCharStyle(const QString& name);
 	void setAbsValue(int a);
 	void selectItemsFromOutlines(PageItem *ite);
 	void selectItemsFromOutlines(int Page, int Item, bool single = false);
@@ -547,6 +547,8 @@ public slots:
 	StyleManager *styleMgr() const {return styleManager;};
 
 signals:
+	void TextStyle(const ParagraphStyle&);
+//deprecated: (av)
 	void TextISize(int);
 	void TextIFont(const QString&);
 	void TextUSval(int);

@@ -177,12 +177,12 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *m);
 
 signals:
-	void ChangeStyle(int, int);
+	void ChangeStyle(int, const QString&);
 	//! signal raised when user ask for style manager
 	void sigEditStyles();
 
 public slots:
-	void setPStyle(int s);
+	void setPStyle(const QString&);
 	void doMove(int x, int y);
 	void doRepaint();
 	void setRepaint(bool r);
@@ -285,7 +285,7 @@ public slots:
 
 signals:
 	void newAlign(int);
-	void newParaStyle(int);
+	void newParaStyle(const QString&);
 };
 
 class SCRIBUS_API SToolBFont : public Q3ToolBar
@@ -382,9 +382,9 @@ protected slots:
 	void newTxtStrike(int p, int w);
 	void updateProps(int p, int ch);
 
-	void newStyle(int st);
-	void changeStyleSB(int pa, int st);
-	void changeStyle(int st);
+	void newStyle(const QString&);
+	void changeStyleSB(int pa, const QString&);
+	void changeStyle();
 	void updateStatus();
 	void Do_leave();
 	void Do_leave2();
