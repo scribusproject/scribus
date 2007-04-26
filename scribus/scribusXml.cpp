@@ -1315,6 +1315,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->CMSSettings.DefaultMonitorProfile = dc.attribute("DPMo","");
 		doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
 		doc->CMSSettings.DefaultImageRGBProfile = dc.attribute("DPIn","");
+		if (dc.hasAttribute("DPInCMYK"))
+			doc->CMSSettings.DefaultImageCMYKProfile  = dc.attribute("DPInCMYK","");
+		else
+			doc->CMSSettings.DefaultImageCMYKProfile  = dc.attribute("DPPr",""); // DPInCMYK does not exists in 1.2.x doc
 		doc->CMSSettings.DefaultSolidColorProfile = dc.attribute("DPIn2","");
 		doc->CMSSettings.DefaultIntentPrinter = dc.attribute("DIPr", "0").toInt();
 		doc->CMSSettings.DefaultIntentMonitor = dc.attribute("DIMo", "1").toInt();
