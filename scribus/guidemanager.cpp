@@ -175,7 +175,7 @@ void GuideManager::unitChange()
 	docUnitIndex = m_Doc->unitIndex();
 	docUnitPrecision = unitGetPrecisionFromIndex(docUnitIndex);
 	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
-	docUnitDecimals = unitGetDecimalsFromIndex(docUnitIndex);
+	docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
 	
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
 	horizontalAutoGapSpin->setSuffix(suffix);
