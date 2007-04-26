@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
+#include <cassert>
 
 #include "scconfig.h"
 
@@ -6176,6 +6177,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	if (doc->Pages->count() == 1)
 		return;
 	uint oldPg = doc->currentPageNumber();
+	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
 /*	if (!doc->masterPageMode)
@@ -6249,7 +6251,11 @@ void ScribusMainWindow::DeletePage()
 
 void ScribusMainWindow::DeletePage(int from, int to)
 {
+	assert( from > 0 );
+	assert( from <= to );
+	assert( to <= doc->Pages->count() );
 	uint oldPg = doc->currentPageNumber();
+	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument,
 									  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
