@@ -29,10 +29,10 @@ GuideManagerCore::GuideManagerCore():
 	m_horizontalAutoRefer(0),
 	m_verticalAutoRefer(0)
 {
-	clearHorizontals(Standard);
-	clearVerticals(Standard);
-	clearHorizontals(Auto);
-	clearVerticals(Auto);
+	verticalStdG.clear();
+	verticalAutoG.clear();
+	horizontalStdG.clear();
+	horizontalAutoG.clear();
 }
 
 GuideManagerCore::GuideManagerCore(Page *parentPage):
@@ -45,10 +45,10 @@ GuideManagerCore::GuideManagerCore(Page *parentPage):
 	m_horizontalAutoRefer(0),
 	m_verticalAutoRefer(0)
 {
-	clearHorizontals(Standard);
-	clearVerticals(Standard);
-	clearHorizontals(Auto);
-	clearVerticals(Auto);
+	verticalStdG.clear();
+	verticalAutoG.clear();
+	horizontalStdG.clear();
+	horizontalAutoG.clear();
 }
 
 GuideManagerCore::~GuideManagerCore()
