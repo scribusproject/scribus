@@ -69,7 +69,7 @@ GuideManager::GuideManager(QWidget* parent) :
 		GuideManagerBase(parent, "GuideManager"),
 		m_Doc(0),
 		currentPage(0),
-		m_drawGuides(false)
+		m_drawGuides(true)
 {
 	tabWidget->setEnabled(false);
 	horizontalAutoGapSpin->setMinValue(0.0);
@@ -80,7 +80,6 @@ GuideManager::GuideManager(QWidget* parent) :
 	// signals that cannot be defined in designer (mspinbox related)
 	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(horizontalAutoGapSpin_valueChanged(int)));
 	connect(verticalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(verticalAutoGapSpin_valueChanged(int)));
-	m_drawGuides = true;
 }
 
 void GuideManager::setDoc(ScribusDoc* doc)
@@ -517,7 +516,7 @@ void GuideManager::deletePageButton_clicked()
 {
 	UndoManager::instance()->beginTransaction(currentPage->getUName(),
 	                              currentPage->getUPixmap(),
-	                              Um::RemoveAllGuides, "",
+	                              Um::RemoveAllPageGuides, "",
 	                              Um::IGuides);
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);

@@ -435,6 +435,7 @@ public:
 	static QString MoveVGuide;
 	static QString MoveHGuide;
 	static QString RemoveAllGuides;
+	static QString RemoveAllPageGuides;
 	static QString LockGuides;
 	static QString UnlockGuides;
 	static QString Move;
