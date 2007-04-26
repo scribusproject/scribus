@@ -142,6 +142,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 				   "there is no document currently open. Close any open documents, then "
 				   "use File > Preferences > Fonts to change the font search path.") + "</qt>",
 				tab3, "whyBlankLabel");
+		whyBlankLabel->setWordWrap(true);
 		tab3Layout->addWidget( whyBlankLabel );
 	}
 	insertTab( tab3, tr( "Additional &Paths" ) );
