@@ -376,10 +376,10 @@ void ScribusDoc::init()
 	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
 	cstyle.setFontSize(toolSettings.defSize);
 	cstyle.setEffects(ScStyle_Default);
-	cstyle.setFillColor(toolSettings.dBrush);
-	cstyle.setFillShade(toolSettings.dShade);
-	cstyle.setStrokeColor(toolSettings.dPen);
-	cstyle.setStrokeShade(toolSettings.dShade2);
+	cstyle.setFillColor(toolSettings.dPenText);
+	cstyle.setFillShade(toolSettings.dTextPenShade);
+	cstyle.setStrokeColor(toolSettings.dStrokeText);
+	cstyle.setStrokeShade(toolSettings.dTextStrokeShade);
 	cstyle.setBaselineOffset(0);
 	cstyle.setShadowXOffset(50);
 	cstyle.setShadowYOffset(-50);
