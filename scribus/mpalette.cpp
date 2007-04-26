@@ -1193,10 +1193,10 @@ void Mpalette::setDoc(ScribusDoc *d)
 	Extra->setValues( -300, 300, 2, 0);
 	Size->setValues( 0.5, 2048, 2, 1);
 	LineSp->setValues( 1, 2048, 2, 1);
-	minWordTrackingSpinBox->setValues(1, 100, 10, 100);
-	normWordTrackingSpinBox->setValues(1, 200, 10, 100);
-	minGlyphExtSpinBox->setValues(90, 110, 10, 100);
-	maxGlyphExtSpinBox->setValues(90, 110, 10, 100);
+	minWordTrackingSpinBox->setValues(1, 100, 2, 100);
+	normWordTrackingSpinBox->setValues(1, 200, 2, 100);
+	minGlyphExtSpinBox->setValues(90, 110, 2, 100);
+	maxGlyphExtSpinBox->setValues(90, 110, 2, 100);
 	imageXScaleSpinBox->setValues( 1, 30000, 2, 1);
 	imageYScaleSpinBox->setValues( 1, 30000, 2, 1);
 	imgDpiX->setValues( 1, 30000, 2, 1);
