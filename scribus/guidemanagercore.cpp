@@ -250,10 +250,17 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 			horizontalStdG.clear();
 			break;
 		case Auto:
+			if (undoManager->undoEnabled())
+			{
+				SimpleState * ss = new SimpleState(Um::DelHAGuide, 0, Um::IGuides);
+				ss->set("REMOVE_HA_GAP", m_horizontalAutoGap);
+				ss->set("REMOVE_HA_COUNT", m_horizontalAutoCount);
+				ss->set("REMOVE_HA_REFER", m_horizontalAutoRefer);
+				undoManager->action(m_page, ss);
+			}
+
 			m_horizontalAutoGap = 0.0;
-			m_verticalAutoGap = 0.0;
 			m_horizontalAutoCount= 0;
-			m_verticalAutoCount = 0;
 			m_horizontalAutoRefer = 0;
 			horizontalAutoG.clear();
 			break;
@@ -277,9 +284,16 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			verticalStdG.clear();
 			break;
 		case Auto:
-			m_horizontalAutoGap = 0.0;
+			if (undoManager->undoEnabled())
+			{
+				SimpleState * ss = new SimpleState(Um::DelVAGuide, 0, Um::IGuides);
+				ss->set("REMOVE_VA_GAP", m_verticalAutoGap);
+				ss->set("REMOVE_VA_COUNT", m_verticalAutoCount);
+				ss->set("REMOVE_VA_REFER", m_verticalAutoRefer);
+				undoManager->action(m_page, ss);
+			}
+
 			m_verticalAutoGap = 0.0;
-			m_horizontalAutoCount= 0;
 			m_verticalAutoCount = 0;
 			m_verticalAutoRefer = 0;
 			verticalAutoG.clear();

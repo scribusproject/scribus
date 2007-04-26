@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "frameedit.h"
+#include "guidemanager.h"
 //Added by qt3to4:
 #include <QPixmap>
 
@@ -100,6 +101,7 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
 			else
 				guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("ADD_H"))
 		{
@@ -108,6 +110,7 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
 			else
 				guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("REMOVE_V"))
 		{
@@ -116,6 +119,7 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
 			else
 				guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("REMOVE_H"))
 		{
@@ -124,6 +128,7 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
 			else
 				guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("MOVE_H_FROM"))
 		{
@@ -139,6 +144,7 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.deleteHorizontal(from, GuideManagerCore::Standard);//removeYGuide(position);
 				guides.addHorizontal(to, GuideManagerCore::Standard);//addYGuide(position);
 			}
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("MOVE_V_FROM"))
 		{
@@ -154,6 +160,40 @@ void Page::restore(UndoState* state, bool isUndo)
 				guides.deleteVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
 				guides.addVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
 			}
+			m_Doc->scMW()->guidePalette->setupGui();
+		}
+		// automatic guides
+		else if (ss->contains("REMOVE_HA_GAP"))
+		{
+			if (isUndo)
+			{
+				guides.setHorizontalAutoCount(ss->getInt("REMOVE_HA_COUNT"));
+				guides.setHorizontalAutoGap(ss->getDouble("REMOVE_HA_GAP"));
+				guides.setHorizontalAutoRefer(ss->getInt("REMOVE_HA_REFER"));
+			}
+			else
+			{
+				guides.setHorizontalAutoCount(0);
+				guides.setHorizontalAutoGap(0.0);
+				guides.setHorizontalAutoRefer(0);
+			}
+			m_Doc->scMW()->guidePalette->setupGui();
+		}
+		else if (ss->contains("REMOVE_VA_GAP"))
+		{
+			if (isUndo)
+			{
+				guides.setVerticalAutoCount(ss->getInt("REMOVE_VA_COUNT"));
+				guides.setVerticalAutoGap(ss->getDouble("REMOVE_VA_GAP"));
+				guides.setVerticalAutoRefer(ss->getInt("REMOVE_VA_REFER"));
+			}
+			else
+			{
+				guides.setVerticalAutoCount(0);
+				guides.setVerticalAutoGap(0.0);
+				guides.setVerticalAutoRefer(0);
+			}
+			m_Doc->scMW()->guidePalette->setupGui();
 		}
 		else if (ss->contains("CREATE_ITEM"))
 			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
