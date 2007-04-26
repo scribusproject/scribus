@@ -626,6 +626,9 @@ QString GuideManagerIO::writeSelection(Page *page)
 
 void GuideManagerIO::readSelection(const QString guideString, Page *page)
 {
+	// TODO: examine this check in 134vs.134qt4 - PV
+	if (guideString.isNull() || guideString.isEmpty())
+		return;
 	QStringList gVal(QStringList::split(' ', guideString));
 	page->guides.gx = gVal[0].toDouble();
 	page->guides.gy = gVal[1].toDouble();
