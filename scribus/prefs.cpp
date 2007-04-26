@@ -295,7 +295,7 @@ void Preferences::unitChange()
 	double oldUnitRatio = unitRatio;
 	docUnitIndex = tabDocument->unitCombo->currentItem();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
+	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	

@@ -271,7 +271,7 @@ void TabDocument::unitChange()
 	double oldUnitRatio = unitRatio;
 	double oldB, oldBM, oldH, oldHM, val;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
+	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	
 	pageWidth->getValues(&oldB, &oldBM, &decimals, &val);
