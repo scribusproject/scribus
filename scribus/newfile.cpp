@@ -307,11 +307,9 @@ void NewDoc::createOpenDocPage()
 	while (it.hasNext())
 	{
 		obj = it.next();
-		((QPushButton*)obj)->hide();
+		((QPushButton*)obj)->setVisible(false);
 	}
-
-	QPoint point = QPoint(0,0);
-	fileDialog->reparent(openDocFrame, point);
+	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
 	connect(fileDialog, SIGNAL(fileSelected ( const QString & )), this, SLOT(openFile(const QString& )));
 }
