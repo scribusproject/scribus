@@ -828,8 +828,8 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 	if (p.begin(&ret))
 	{
 		bitBlt( &ret, 0, 0, &pixin, 0, 0, pixin.width(), pixin.height() );
-		if( !pixin.mask().isNull() )
-			ret.setMask( pixin.mask() );
+//		if( !pixin.mask().isNull() )
+//			ret.setMask( pixin.mask() );
 		p.setBrush(Qt::white);
 		p.setBackgroundColor(Qt::white);
 		p.setBackgroundMode(Qt::OpaqueMode);
@@ -846,6 +846,8 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 		p.setFont(QFont("Helvetica", 10, QFont::Normal));
 		p.drawText(d, Qt::AlignCenter, tmp);
 		p.end();
+		if( !pixin.mask().isNull() )
+			ret.setMask( pixin.mask() );
 	}
 	return ret;
 }
