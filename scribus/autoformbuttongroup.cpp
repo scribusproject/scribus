@@ -6,12 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qimage.h>
 #include <qlayout.h>
-#include <q3popupmenu.h>
 #include <qbitmap.h>
 #include <qpixmap.h>
-#include <q3buttongroup.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
 
 #include "autoformbuttongroup.h"
 //#include "autoformbuttongroup.moc"
@@ -19,92 +15,108 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "util.h"
 
-AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : Q3ButtonGroup( parent, "autoformbuttongroup" )
+AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QFrame( parent, "autoformbuttongroup" )
 {
-	this->setExclusive( true );
-	this->setColumnLayout(0, Qt::Vertical );
-	this->layout()->setSpacing( 0 );
-	this->layout()->setMargin( 0 );
-	buttonGroup1Layout = new Q3GridLayout( this->layout() );
-	buttonGroup1Layout->setAlignment( Qt::AlignTop );
+	buttonGroup1Layout = new QGridLayout( this );
+	buttonGroup1Layout->setSpacing( 0 );
+	buttonGroup1Layout->setMargin( 0 );
 	toolButton1 = new QToolButton( this, "toolButton1" );
-	toolButton1->setToggleButton( true );
-	toolButton1->setPixmap(getIconPixmap(0,16));
+	toolButton1->setCheckable( true );
+	toolButton1->setIcon(QIcon(getIconPixmap(0,16)));
 	buttonGroup1Layout->addWidget( toolButton1, 0, 0 );
 	toolButton2 = new QToolButton( this, "toolButton2" );
-	toolButton2->setToggleButton( true );
-	toolButton2->setPixmap(getIconPixmap(1,16));
+	toolButton2->setCheckable( true );
+	toolButton2->setIcon(QIcon(getIconPixmap(1,16)));
 	buttonGroup1Layout->addWidget( toolButton2, 0, 1 );
 	toolButton3 = new QToolButton( this, "toolButton3" );
-	toolButton3->setToggleButton( true );
-	toolButton3->setPixmap(getIconPixmap(2,16));
+	toolButton3->setCheckable( true );
+	toolButton3->setIcon(QIcon(getIconPixmap(2,16)));
 	buttonGroup1Layout->addWidget( toolButton3, 0, 2 );
 	toolButton4 = new QToolButton( this, "toolButton4" );
-	toolButton4->setToggleButton( true );
-	toolButton4->setPixmap(getIconPixmap(3,16));
+	toolButton4->setCheckable( true );
+	toolButton4->setIcon(QIcon(getIconPixmap(3,16)));
 	buttonGroup1Layout->addWidget( toolButton4, 0, 3 );
 
 	toolButton5 = new QToolButton( this, "toolButton3" );
-	toolButton5->setToggleButton( true );
-	toolButton5->setPixmap(getIconPixmap(4,16));
+	toolButton5->setCheckable( true );
+	toolButton5->setIcon(QIcon(getIconPixmap(4,16)));
 	buttonGroup1Layout->addWidget( toolButton5, 1, 0 );
 	toolButton6 = new QToolButton( this, "toolButton4" );
-	toolButton6->setToggleButton( true );
-	toolButton6->setPixmap(getIconPixmap(5,16));
+	toolButton6->setCheckable( true );
+	toolButton6->setIcon(QIcon(getIconPixmap(5,16)));
 	buttonGroup1Layout->addWidget( toolButton6, 1, 1 );
 	toolButton7 = new QToolButton( this, "toolButton3" );
-	toolButton7->setToggleButton( true );
-	toolButton7->setPixmap(getIconPixmap(6,16));
+	toolButton7->setCheckable( true );
+	toolButton7->setIcon(QIcon(getIconPixmap(6,16)));
 	buttonGroup1Layout->addWidget( toolButton7, 1, 2 );
 	toolButton8 = new QToolButton( this, "toolButton4" );
-	toolButton8->setToggleButton( true );
-	toolButton8->setPixmap(getIconPixmap(7,16));
+	toolButton8->setCheckable( true );
+	toolButton8->setIcon(QIcon(getIconPixmap(7,16)));
 	buttonGroup1Layout->addWidget( toolButton8, 1, 3 );
 
 	toolButton9 = new QToolButton( this, "toolButton4" );
-	toolButton9->setToggleButton( true );
-	toolButton9->setPixmap(getIconPixmap(8,16));
+	toolButton9->setCheckable( true );
+	toolButton9->setIcon(QIcon(getIconPixmap(8,16)));
 	buttonGroup1Layout->addWidget( toolButton9, 2, 0 );
 	toolButton10 = new QToolButton( this, "toolButton4" );
-	toolButton10->setToggleButton( true );
-	toolButton10->setPixmap(getIconPixmap(9,16));
+	toolButton10->setCheckable( true );
+	toolButton10->setIcon(QIcon(getIconPixmap(9,16)));
 	buttonGroup1Layout->addWidget( toolButton10, 2, 1 );
 	toolButton11 = new QToolButton( this, "toolButton4" );
-	toolButton11->setToggleButton( true );
-	toolButton11->setPixmap(getIconPixmap(10,16));
+	toolButton11->setCheckable( true );
+	toolButton11->setIcon(QIcon(getIconPixmap(10,16)));
 	buttonGroup1Layout->addWidget( toolButton11, 2, 2 );
 	toolButton12 = new QToolButton( this, "toolButton4" );
-	toolButton12->setToggleButton( true );
-	toolButton12->setPixmap(getIconPixmap(11,16));
+	toolButton12->setCheckable( true );
+	toolButton12->setIcon(QIcon(getIconPixmap(11,16)));
 	buttonGroup1Layout->addWidget( toolButton12, 2, 3 );
 
 	toolButton13 = new QToolButton( this, "toolButton4" );
-	toolButton13->setToggleButton( true );
-	toolButton13->setPixmap(getIconPixmap(12,16));
+	toolButton13->setCheckable( true );
+	toolButton13->setIcon(QIcon(getIconPixmap(12,16)));
 	buttonGroup1Layout->addWidget( toolButton13, 3, 0 );
 	toolButton14 = new QToolButton( this, "toolButton4" );
-	toolButton14->setToggleButton( true );
-	toolButton14->setPixmap(getIconPixmap(13,16));
+	toolButton14->setCheckable( true );
+	toolButton14->setIcon(QIcon(getIconPixmap(13,16)));
 	buttonGroup1Layout->addWidget( toolButton14, 3, 1 );
 	toolButton15 = new QToolButton( this, "toolButton4" );
-	toolButton15->setToggleButton( true );
-	toolButton15->setPixmap(getIconPixmap(14,16));
+	toolButton15->setCheckable( true );
+	toolButton15->setIcon(QIcon(getIconPixmap(14,16)));
 	buttonGroup1Layout->addWidget( toolButton15, 3, 2 );
 	toolButton16 = new QToolButton( this, "toolButton4" );
-	toolButton16->setToggleButton( true );
-	toolButton16->setPixmap(getIconPixmap(15,16));
+	toolButton16->setCheckable( true );
+	toolButton16->setIcon(QIcon(getIconPixmap(15,16)));
 	buttonGroup1Layout->addWidget( toolButton16, 3, 3 );
 
 	toolButton17 = new QToolButton( this, "toolButton4" );
-	toolButton17->setToggleButton( true );
-	toolButton17->setPixmap(getIconPixmap(16,16));
+	toolButton17->setCheckable( true );
+	toolButton17->setIcon(QIcon(getIconPixmap(16,16)));
 	buttonGroup1Layout->addWidget( toolButton17, 4, 0 );
 	toolButton18 = new QToolButton( this, "toolButton4" );
-	toolButton18->setToggleButton( true );
-	toolButton18->setPixmap(getIconPixmap(17,16));
+	toolButton18->setCheckable( true );
+	toolButton18->setIcon(QIcon(getIconPixmap(17,16)));
 	buttonGroup1Layout->addWidget( toolButton18, 4, 1 );
+	buttonGroup = new QButtonGroup(this);
+	buttonGroup->addButton(toolButton1, 0);
+	buttonGroup->addButton(toolButton2, 1);
+	buttonGroup->addButton(toolButton3, 2);
+	buttonGroup->addButton(toolButton4, 3);
+	buttonGroup->addButton(toolButton5, 4);
+	buttonGroup->addButton(toolButton6, 5);
+	buttonGroup->addButton(toolButton7, 6);
+	buttonGroup->addButton(toolButton8, 7);
+	buttonGroup->addButton(toolButton9, 8);
+	buttonGroup->addButton(toolButton10, 9);
+	buttonGroup->addButton(toolButton11, 10);
+	buttonGroup->addButton(toolButton12, 11);
+	buttonGroup->addButton(toolButton13, 12);
+	buttonGroup->addButton(toolButton14, 13);
+	buttonGroup->addButton(toolButton15, 14);
+	buttonGroup->addButton(toolButton16, 15);
+	buttonGroup->addButton(toolButton17, 16);
+	buttonGroup->addButton(toolButton18, 17);
 	
-	connect(this, SIGNAL(clicked(int)), this, SLOT(selForm(int)));
+	connect(buttonGroup, SIGNAL(buttonClicked(int)), this, SLOT(selForm(int)));
 
 }
 
@@ -267,9 +279,9 @@ double* AutoformButtonGroup::getShapeData(int a, int *n)
 void AutoformButtonGroup::selForm(int a)
 {
 	int n;
-	
 	double* AutoShapes;
 	AutoShapes = getShapeData(a, &n);
+	emit buttonClicked(a);
 	emit FormSel(a, n, AutoShapes);
 }
 

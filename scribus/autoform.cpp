@@ -24,7 +24,7 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 	setPopup(Men);
 	setPopupDelay(10);
 	setPixmap(buttonGroup1->getIconPixmap(0));
-	connect(buttonGroup1, SIGNAL(clicked(int)), this, SLOT(selForm(int)));
+	connect(buttonGroup1, SIGNAL(buttonClicked(int)), this, SLOT(selForm(int)));
 }
 
 void Autoforms::selForm(int a)
@@ -32,8 +32,8 @@ void Autoforms::selForm(int a)
 	int n;
 	double* AutoShapes;
 	Men->activateItemAt(0);
-	const QPixmap *px = buttonGroup1->find(a)->pixmap();
-	setPixmap(*px);
+//	const QPixmap *px = buttonGroup1->find(a)->pixmap();
+//	setPixmap(*px);
 	AutoShapes = buttonGroup1->getShapeData(a, &n);
 	emit FormSel(a, n, AutoShapes);
 }
