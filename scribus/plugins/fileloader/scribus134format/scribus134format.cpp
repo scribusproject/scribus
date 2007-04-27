@@ -1638,8 +1638,9 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 {
 	QString tmp2, tmpf;
 	CharStyle newStyle;
-	GetCStyle(it, doc, newStyle);
 	
+	GetCStyle(it, doc, newStyle);
+
 	if (it->hasAttribute("Unicode"))
 	{
 		tmp2 = QChar(it->attribute("Unicode").toUInt());
@@ -1737,6 +1738,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	// end of legacy stuff
 	
 	int iobj = it->attribute("COBJ", "-1").toInt();
+
 	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		QChar ch = tmp2.at(cxx);		
@@ -1767,8 +1769,8 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		if (ch == SpecialChars::PARSEP) {
 			ParagraphStyle pstyle;
 			// Qt4 if (last->ParaStyle >= 0) {
-			if (!last->ParaStyle.isNull()) {
-				pstyle.setParent( doc->paragraphStyles().get(last->ParaStyle).name());
+			if (!last->ParaStyle.isEmpty()) {
+				pstyle.setParent( last->ParaStyle );
 			}
 			if (calign >= 0)
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
@@ -1776,10 +1778,12 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
+
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
-	if (!last->ParaStyle.isNull()) { // Qt4 >= 0) {
-		pstyle.setParent( doc->paragraphStyles().get(last->ParaStyle).name());
+
+	if (!last->ParaStyle.isEmpty()) { // Qt4 >= 0) {
+		pstyle.setParent( last->ParaStyle );
 		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	}
 	if (calign >= 0) {

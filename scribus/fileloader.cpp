@@ -270,6 +270,8 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	bool ret = false;
 	Q3ValueList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
+	{
+		qDebug(QString("fileloader: type %1 plugin %2").arg(FileType).arg((*it).trName));
 		switch (FileType)
 		{
 			case FORMATID_SLA12XIMPORT:
@@ -294,6 +296,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 				ret = (*it).loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 				break;
 		}
+	}
 	return ret;
 }
 
