@@ -381,6 +381,8 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 void ScPainter::endLayer()
 {
 	layerProp la;
+	if (Layers.count() == 0)
+		return;
 	la = Layers.top();
 // #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	if (la.pushed)
