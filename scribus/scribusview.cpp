@@ -10476,9 +10476,9 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
-		painter->endLayer();
-#endif
+//#ifdef HAVE_CAIRO
+//		painter->endLayer();
+//#endif
 		painter->end();
 		double sx = pm.width() / static_cast<double>(maxGr);
 		double sy = pm.height() / static_cast<double>(maxGr);
@@ -10545,9 +10545,9 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		painter->setZoomFactor(Scale);
 		DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
 		DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
-		painter->endLayer();
-#endif
+//#ifdef HAVE_CAIRO
+//		painter->endLayer();
+//#endif
 		painter->end();
 		Doc->guidesSettings.framesShown = frs;
 		Doc->guidesSettings.showControls = ctrls;
