@@ -1646,7 +1646,8 @@ void TabPDFOptions::DoEffects()
 void TabPDFOptions::ValidDI(int nr)
 {
 	// Qt4 if (!EDirection_2_2->listBox()->item(nr)->isSelectable())
-	if (!dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(nr))->isSelectable())
+	QStandardItem* si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(nr));
+	if ( !(si && si->isSelectable()) )
 		EDirection_2_2->setCurrentItem(0);
 }
 
@@ -1676,9 +1677,12 @@ void TabPDFOptions::SetEffOpts(int nr)
 // 	EDirection_2_2->listBox()->item(2)->setSelectable(false);
 // 	EDirection_2_2->listBox()->item(3)->setSelectable(false);
 // 	EDirection_2_2->listBox()->item(4)->setSelectable(false);
-	dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(2))->setSelectable(false);
-	dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(3))->setSelectable(false);
-	dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(4))->setSelectable(false);
+	QStandardItem* si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(2));
+	if (si) si->setSelectable(false);
+	si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(3));
+	if (si) si->setSelectable(false);
+	si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(4));
+	if (si) si->setSelectable(false);
 	switch (nr)
 	{
 	case 0:
@@ -1707,13 +1711,17 @@ void TabPDFOptions::SetEffOpts(int nr)
 			// Qt4
 /*			EDirection_2_2->listBox()->item(2)->setSelectable(true);
 			EDirection_2_2->listBox()->item(3)->setSelectable(true);*/
-			dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(2))->setSelectable(true);
-			dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(3))->setSelectable(true);
+			si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(2));
+			if (si) si->setSelectable(true);
+			si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(3));
+			if (si) si->setSelectable(true);
 		}
-		else
+		else {
 			// Qt4
-// 			EDirection_2_2->listBox()->item(4)->setSelectable(true);
-			dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(4))->setSelectable(true);
+			// 			EDirection_2_2->listBox()->item(4)->setSelectable(true);
+			si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(4));
+			if (si) si->setSelectable(true);
+		}
 		break;
 	case 5:
 		EDirection->setEnabled(true);
