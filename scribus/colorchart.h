@@ -24,9 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORCHART_H
 #define COLORCHART_H
 
-#include <qlabel.h>
-#include <qpixmap.h>
-//Added by qt3to4:
+#include <QWidget>
+#include <QPixmap>
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include "scribusapi.h"
@@ -37,7 +36,8 @@ class ScribusDoc;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API ColorChart : public QLabel  {
+class SCRIBUS_API ColorChart : public QWidget
+{
 
 Q_OBJECT
 
@@ -53,6 +53,7 @@ public:
 	void drawPalette(int val);
 	int Xp;
 	int Yp;
+	bool doDrawMark;
 	QPixmap pmx;
 
 protected:

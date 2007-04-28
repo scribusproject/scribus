@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3widgetstack.h>
 #include <q3listbox.h>
 //Added by qt3to4:
-#include <Q3GridLayout>
+#include <QGridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <QMouseEvent>
@@ -94,6 +94,7 @@ public:
 	QString Fnam;
 
 public slots:
+	void setValSLiders(double value);
 	void SetValueS(int val);
 	void ToggleSL();
 	QPixmap SliderPix(int farbe);
@@ -111,8 +112,8 @@ public slots:
 protected:
 	Q3HBoxLayout* CMYKFarbenLayout;
 	Q3VBoxLayout* Layout23;
-	Q3GridLayout* Layout2;
-	Q3GridLayout* Layout2x;
+	QGridLayout* Layout2;
+	QGridLayout* Layout2x;
 	Q3HBoxLayout* Layout21;
 	Q3VBoxLayout* Frame4Layout;
 	Q3HBoxLayout* Frame5Layout;
