@@ -233,12 +233,7 @@ testfill.png
 Text16.xpm
 Text2.xpm
 textbase.png
-text_block.png
-text_center.png
-text_force.png
 textkern.png
-text_left.png
-text_right.png
 textscaleh.png
 textscalev.png
 Text.xpm
@@ -361,6 +356,11 @@ INSTALL(FILES
 16/edit-undo.png
 16/flip-object-horizontal.png
 16/flip-object-vertical.png
+16/format-justify-center.png
+16/format-justify-fill.png
+16/format-justify-fill-block.png
+16/format-justify-left.png
+16/format-justify-right.png
 16/go-bottom.png
 16/go-down.png
 16/go-next.png
