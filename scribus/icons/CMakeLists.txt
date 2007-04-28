@@ -152,7 +152,6 @@ pencilsub.png
 plugins.png
 PolyCut.png
 postscript.png
-pushbutton.png
 printer.png
 python.png
 Raiselayer.png
