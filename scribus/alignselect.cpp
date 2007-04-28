@@ -22,32 +22,32 @@ AlignSelect::AlignSelect(QWidget* parent) : QButtonGroup(parent, "AlignSelect")
 
 	TextL = new QToolButton( this, "TextL" );
 	TextL->setMaximumSize( QSize( 22, 22 ) );
-	TextL->setPixmap(loadIcon("text_left.png"));
+	TextL->setPixmap(loadIcon("16/format-justify-left.png"));
 	TextL->setToggleButton( true );
 	TextL->setOn( true );
 	GroupAlignLayout->addWidget( TextL, 0, 0 );
 
 	TextC = new QToolButton( this, "TextC" );
 	TextC->setMaximumSize( QSize( 22, 22 ) );
-	TextC->setPixmap(loadIcon("text_center.png"));
+	TextC->setPixmap(loadIcon("16/format-justify-center.png"));
 	TextC->setToggleButton( true );
 	GroupAlignLayout->addWidget( TextC, 0, 1 );
 
 	TextR = new QToolButton( this, "TextR" );
 	TextR->setMaximumSize( QSize( 22, 22 ) );
-	TextR->setPixmap(loadIcon("text_right.png"));
+	TextR->setPixmap(loadIcon("16/format-justify-right.png"));
 	TextR->setToggleButton( true );
 	GroupAlignLayout->addWidget( TextR, 0, 2 );
 
 	TextB = new QToolButton( this, "TextB" );
 	TextB->setMaximumSize( QSize( 22, 22 ) );
-	TextB->setPixmap(loadIcon("text_block.png"));
+	TextB->setPixmap(loadIcon("16/format-justify-fill-block.png"));
 	TextB->setToggleButton( true );
 	GroupAlignLayout->addWidget( TextB, 0, 3 );
 
 	TextF = new QToolButton( this, "TextF" );
 	TextF->setMaximumSize( QSize( 22, 22 ) );
-	TextF->setPixmap(loadIcon("text_force.png"));
+	TextF->setPixmap(loadIcon("16/format-justify-fill.png"));
 	TextF->setToggleButton( true );
 	GroupAlignLayout->addWidget( TextF, 0, 4 );
 	resize(minimumSizeHint());
