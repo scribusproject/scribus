@@ -1381,9 +1381,9 @@ void ScribusDoc::addSymbols()
 
 Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, const bool addAutoFrame)
 {
-	Q_ASSERT(masterPageMode()==false);
+	assert(masterPageMode()==false);
 	Page* addedPage = new Page(scratch.Left, DocPages.count()*(pageHeight+scratch.Bottom+scratch.Top)+scratch.Top, pageWidth, pageHeight);
-	Q_ASSERT(addedPage!=NULL);
+	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
@@ -1395,7 +1395,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
 	bool insertsuccess=DocPages.insert(pageIndex, addedPage);
-	Q_ASSERT(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
+	assert(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
 	setCurrentPage(addedPage);
 	//if (!masterPageMode())
 	if (!masterPageName.isEmpty())
@@ -1413,7 +1413,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	//CB We dont create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Page* addedPage = new Page(scratch.Left, scratch.Top, pageWidth, pageHeight);
-	Q_ASSERT(addedPage!=NULL);
+	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
 	addedPage->Margins.Bottom = pageMargins.Bottom;
@@ -1430,7 +1430,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->setPageNr(pageNumber);
 	MasterNames.insert(pageName, pageNumber);
 	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
-	Q_ASSERT(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
+	assert(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
 	if  (!isLoading())
 		changed();
 	return addedPage;
@@ -1468,7 +1468,8 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 
 void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
-	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
+	assert(masterPageMode());
+	assert( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
 	setCurrentPage(Pages->at(0));
 	Page* page = Pages->at(pageNumber);
 	QString oldPageName(page->pageName());
@@ -1493,7 +1494,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 
 void ScribusDoc::deletePage(const int pageNumber)
 {
-	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
+	assert( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
 	//#5561: If we are going to delete the first page, do not set the current page to it
 	if (pageNumber!=0)
 		setCurrentPage(Pages->at(pageNumber!=0?0:1));
@@ -3115,14 +3116,14 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 
 const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
 {
-	Q_ASSERT(!masterPageMode());
+	assert(!masterPageMode());
 	if (masterPageMode())
 		return false;
 	int GrMax = GroupCounter;
 	Page* sourcePage = Pages->at(pageNumber);
 	int nr = MasterPages.count();
 	Page* targetPage=addMasterPage(nr, masterPageName);
-	Q_ASSERT(targetPage!=NULL);
+	assert(targetPage!=NULL);
 	//Backup currentpage, and dont use sourcepage here as we might convert a non current page
 	Page* oldCurrentPage = currentPage();
 	//Must set current page for pasteitem to work properly
@@ -5228,7 +5229,7 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -5277,7 +5278,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -5310,8 +5311,14 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 			ParagraphStyle newStyle2;
 			newStyle2.setParent(currItem->itemText.paragraphStyle(stop).parent());
 			currItem->itemText.setStyle(stop, newStyle2);
-			currItem->invalid = true;
 		}
+		else
+		{
+			ParagraphStyle newStyle;
+			newStyle.setParent(currItem->itemText.defaultStyle().parent());
+			currItem->itemText.setDefaultStyle(newStyle);
+		}
+		currItem->invalid = true;
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
 	}
@@ -5326,7 +5333,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -5386,7 +5393,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -5438,7 +5445,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -5489,7 +5496,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -5540,8 +5547,15 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				newStyle2.setParent(lastParent);
 				currItem->itemText.setCharStyle(lastPos, stop-lastPos, newStyle2);
 			}
-			currItem->invalid = true;
 		}
+		else {
+			ParagraphStyle defStyle = currItem->itemText.defaultStyle();
+			CharStyle newStyle;
+			newStyle.setParent(defStyle.charStyle().parent());
+			defStyle.charStyle() = newStyle;
+			currItem->itemText.setDefaultStyle(defStyle);
+		}
+		currItem->invalid = true;
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
 	}
@@ -6331,7 +6345,7 @@ void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
@@ -6369,7 +6383,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	if (EditClip)
 		return;
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -6539,7 +6553,7 @@ void ScribusDoc::itemSelection_SetItemLineBlend(int t)
 void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -6549,7 +6563,7 @@ void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection
 void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -6638,7 +6652,7 @@ void ScribusDoc::itemSelection_SetAlignment(int s, Selection* customSelection)
 void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
@@ -6673,7 +6687,7 @@ void ScribusDoc::itemSelection_SetImageOffset(double x, double y, Selection* cus
 void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
@@ -6708,7 +6722,7 @@ void ScribusDoc::itemSelection_SetImageScale(double x, double y, Selection* cust
 void ScribusDoc::itemSelection_SetImageScaleAndOffset(double sx, double sy, double ox, double oy, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -6754,7 +6768,7 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 	//CB TODO Handling custom selections
 	//Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Selection* itemSelection = m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	PageItem *currItem;
 	int ObjGroup;
@@ -7902,7 +7916,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=NULL);
+	assert(itemSelection!=NULL);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
@@ -7926,7 +7940,7 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
@@ -8633,7 +8647,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 void ScribusDoc::itemSelection_adjustFrametoImageSize( Selection *customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
+	assert(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;

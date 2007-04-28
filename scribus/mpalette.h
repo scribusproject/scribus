@@ -242,6 +242,8 @@ private slots:
 	void NewSpGradient(double x1, double y1, double x2, double y2);
 	void toggleGradientEdit();
 	void DoRevert();
+	void doClearCStyle();
+	void doClearPStyle();
 	void handleLock();
 	void handleLockSize();
 	void handlePrint();
@@ -540,6 +542,8 @@ protected:
 	QToolButton* NoPrint;
 	QToolButton* NoResize;
 	QToolButton* Revert;
+	QToolButton* charStyleClear;
+	QToolButton* paraStyleClear;
 	QToolButton* EditShape;
 	QToolButton* EditShape2;
 	QToolButton* EditEffects;
