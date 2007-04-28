@@ -268,7 +268,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 
 	homeButton = new QToolButton( this, "homeButton" );
 	homeButton->setText( "" );
-	homeButton->setPixmap(loadIcon("gohome.png"));
+	homeButton->setPixmap(loadIcon("16/go-home.png"));
 	homeButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, homeButton->sizePolicy().hasHeightForWidth() ) );
 	buttonLayout->addWidget( homeButton );
 

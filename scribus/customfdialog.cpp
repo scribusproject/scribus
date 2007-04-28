@@ -359,7 +359,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
 	HomeB = new QToolButton(this);
-	HomeB->setIconSet(loadIcon("gohome.png"));
+	HomeB->setIconSet(loadIcon("16/go-home.png"));
 	#ifdef _WIN32
 	HomeB->setAutoRaise(true);
 	#endif
