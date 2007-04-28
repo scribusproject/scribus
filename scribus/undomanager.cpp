@@ -814,8 +814,8 @@ void UndoManager::initIcons()
 	QString iconDir = ScPaths::instance().iconDir();
 
 /*** Icons for UndoObjects *******************************************/
-	UndoManager::IImageFrame      = new QPixmap(iconDir + "Bild.xpm");
-	UndoManager::ITextFrame       = new QPixmap(iconDir + "Text.xpm");
+	UndoManager::IImageFrame      = new QPixmap(iconDir + "16/insert-image.png");
+	UndoManager::ITextFrame       = new QPixmap(iconDir + "16/insert-text-frame.png");
 	UndoManager::ILine            = new QPixmap(iconDir + "Stift.xpm");
 	UndoManager::IPolygon         = new QPixmap(iconDir + "spline.png");
 	UndoManager::IPolyline        = new QPixmap(iconDir + "beziertool.png");

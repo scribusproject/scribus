@@ -22,7 +22,6 @@ BezierClose.png
 beziertool16.png
 beziertool.png
 Bild16.xpm
-Bild.xpm
 blend.png
 bottom.png
 ButtCap.png
@@ -235,7 +234,6 @@ textbase.png
 textkern.png
 textscaleh.png
 textscalev.png
-Text.xpm
 Tief.xpm
 tools.png
 top.png
