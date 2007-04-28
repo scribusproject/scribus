@@ -1,8 +1,7 @@
-EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png page16.png pagedouble16.png pagequadro16.png pagesingle16.png pagetriple16.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png pagedouble.png pagequadro.png pagesingle.png pagetriple.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png filenew.png fileopen.png editcopy22.png edittrash.png font_otf16.png font_subst16.png font_truetype16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png page.png guides.png font.png typography.png screen.png nftabout.xpm nftinfo.xpm dist.png dist22.png tab.png view.png Kreuz.xpm Bild.xpm Bild16.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift16.xpm Stift.xpm Text.xpm Text16.xpm Unlock.xpm DateiClose.png DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editcut22.png editdelete.png editdelete22.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png text_block.png text_center.png text_left.png text_right.png Text2.xpm spline16.png spline.png triangle.png Stiftalt.xpm Stiftalt16.xpm beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png text_force.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png fill.png NoPrint.png unlock.png locked.png signature.png signature2.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png frame_table16.png frame_table.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
+EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png nftabout.xpm nftinfo.xpm dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift16.xpm Stift.xpm Unlock.xpm AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png exit.png doc.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm Winkel.xpm acrobat.png scribusicon.png Text2.xpm spline16.png spline.png triangle.png Stiftalt.xpm Stiftalt16.xpm beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
  u_undo.png u_redo.png u_undo16.png u_redo16.png u_margins.png u_margins_locked.png u_align.png u_move.png u_resize.png u_rotate.png u_group.png u_fill.png u_shade.png u_lock.png u_unlock.png u_create.png u_delete.png u_fliph.png u_flipv.png u_cut.png u_transp.png u_line.png u_arrow.png u_font.png u_svg.png u_eps.png u_scale_image.png u_shape.png u_enableprint.png u_disableprint.png \
  docattributes.png tabtocindex.png colorpicker.png colorpickercursor.png wizard.png flow-bounding.png flow-contour.png flow-frame.png flow-none.png\
- al_bottom_in.png al_bottom_out.png al_center_hor.png al_center_ver.png al_left_in.png al_left_out.png al_right_in.png al_right_out.png al_top_in.png al_top_out.png distribute_acrosspage.png distribute_acrossmargins.png distribute_bottom.png distribute_downpage.png distribute_downmargins.png distribute_hcentre.png \
- distribute_hdist.png distribute_hdist_val.png distribute_left.png distribute_right.png distribute_top.png distribute_vcentre.png distribute_vdist.png distribute_vdist_val.png vpl.png noicon.xpm clear_right.png layer-outline.png\
+ vpl.png noicon.xpm clear_right.png layer-outline.png\
 ellipsis.png \
 16/align-horizontal-center.png \
 16/align-horizontal-left-out.png \
@@ -24,7 +23,6 @@ ellipsis.png \
 22/align-vertical-center.png \
 22/align-vertical-top-out.png \
 22/align-vertical-top.png \
-22/checkbox.png \
 16/close.png \
 22/close.png \
 16/color-fill.png \
@@ -42,11 +40,17 @@ ellipsis.png \
 22/distribute-horizontal-center.png \
 22/distribute-horizontal-equal.png \
 22/distribute-horizontal-left.png \
+22/distribute-horizontal-margin.png \
+22/distribute-horizontal-page.png \
 22/distribute-horizontal-right.png \
+22/distribute-horizontal-x.png \
 22/distribute-vertical-bottom.png \
 22/distribute-vertical-center.png \
 22/distribute-vertical-equal.png \
+22/distribute-vertical-margin.png \
+22/distribute-vertical-page.png \
 22/distribute-vertical-top.png \
+22/distribute-vertical-y.png \
 16/document-new.png \
 22/document-new.png \
 16/document-open.png \
@@ -97,7 +101,7 @@ ellipsis.png \
 22/draw-star.png \
 16/draw-triangle1.png \
 22/draw-triangle1.png \
-22/draw-triangle2.png \
+16/draw-triangle2.png \
 22/draw-triangle2.png \
 16/draw-triangle3.png \
 22/draw-triangle3.png \
@@ -111,16 +115,25 @@ ellipsis.png \
 22/edit-copy.png \
 16/edit-cut.png \
 22/edit-cut.png \
+16/edit-delete.png \
+22/edit-delete.png \
 16/edit-find-replace.png \
 22/edit-find-replace.png \
 16/edit-paste.png \
 22/edit-paste.png \
 16/edit-redo.png \
 22/edit-redo.png \
+16/edit-select-all.png \
+22/edit-select-all.png \
 16/edit-undo.png \
 22/edit-undo.png \
 16/flip-object-horizontal.png \
 16/flip-object-vertical.png \
+16/format-justify-center.png \
+16/format-justify-fill.png \
+16/format-justify-fill-block.png \
+16/format-justify-left.png \
+16/format-justify-right.png \
 16/go-bottom.png \
 22/go-bottom.png \
 16/go-down.png \
@@ -133,6 +146,8 @@ ellipsis.png \
 22/go-top.png \
 16/go-up.png \
 22/go-up.png \
+16/image-x-generic.png \
+22/image-x-generic.png \
 22/insert-button.png \
 16/insert-image.png \
 22/insert-image.png \
@@ -215,15 +230,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/rgb.png $(prefix)/share/scribus/icons/rgb.png
 	$(INSTALL_DATA) $(srcdir)/spot.png $(prefix)/share/scribus/icons/spot.png
 	$(INSTALL_DATA) $(srcdir)/alert.png $(prefix)/share/scribus/icons/alert.png
-	$(INSTALL_DATA) $(srcdir)/pagedouble.png $(prefix)/share/scribus/icons/pagedouble.png
-	$(INSTALL_DATA) $(srcdir)/pagequadro.png $(prefix)/share/scribus/icons/pagequadro.png
-	$(INSTALL_DATA) $(srcdir)/pagesingle.png $(prefix)/share/scribus/icons/pagesingle.png
-	$(INSTALL_DATA) $(srcdir)/pagetriple.png $(prefix)/share/scribus/icons/pagetriple.png
-	$(INSTALL_DATA) $(srcdir)/pagedouble16.png $(prefix)/share/scribus/icons/pagedouble16.png
-	$(INSTALL_DATA) $(srcdir)/pagequadro16.png $(prefix)/share/scribus/icons/pagequadro16.png
-	$(INSTALL_DATA) $(srcdir)/pagesingle16.png $(prefix)/share/scribus/icons/pagesingle16.png
-	$(INSTALL_DATA) $(srcdir)/pagetriple16.png $(prefix)/share/scribus/icons/pagetriple16.png
-	$(INSTALL_DATA) $(srcdir)/page16.png $(prefix)/share/scribus/icons/page16.png
 	$(INSTALL_DATA) $(srcdir)/mover.png $(prefix)/share/scribus/icons/mover.png
 	$(INSTALL_DATA) $(srcdir)/above.png $(prefix)/share/scribus/icons/above.png
 	$(INSTALL_DATA) $(srcdir)/below.png $(prefix)/share/scribus/icons/below.png
@@ -257,16 +263,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/align-vertical-top-out.png     $(prefix)/share/scribus/icons/22/align-vertical-top-out.png
 	$(INSTALL_DATA) $(srcdir)/22/align-vertical-top.png         $(prefix)/share/scribus/icons/22/align-vertical-top.png
 	$(INSTALL_DATA) $(srcdir)/AllCaps.png $(prefix)/share/scribus/icons/AllCaps.png
-	$(INSTALL_DATA) $(srcdir)/al_bottom_in.png $(prefix)/share/scribus/icons/al_bottom_in.png
-	$(INSTALL_DATA) $(srcdir)/al_bottom_out.png $(prefix)/share/scribus/icons/al_bottom_out.png
-	$(INSTALL_DATA) $(srcdir)/al_center_hor.png $(prefix)/share/scribus/icons/al_center_hor.png
-	$(INSTALL_DATA) $(srcdir)/al_center_ver.png $(prefix)/share/scribus/icons/al_center_ver.png
-	$(INSTALL_DATA) $(srcdir)/al_left_in.png $(prefix)/share/scribus/icons/al_left_in.png
-	$(INSTALL_DATA) $(srcdir)/al_left_out.png $(prefix)/share/scribus/icons/al_left_out.png
-	$(INSTALL_DATA) $(srcdir)/al_right_in.png $(prefix)/share/scribus/icons/al_right_in.png
-	$(INSTALL_DATA) $(srcdir)/al_right_out.png $(prefix)/share/scribus/icons/al_right_out.png
-	$(INSTALL_DATA) $(srcdir)/al_top_in.png $(prefix)/share/scribus/icons/al_top_in.png
-	$(INSTALL_DATA) $(srcdir)/al_top_out.png $(prefix)/share/scribus/icons/al_top_out.png
 	$(INSTALL_DATA) $(srcdir)/AppIcon.png $(prefix)/share/scribus/icons/AppIcon.png
 	$(INSTALL_DATA) $(srcdir)/AppIcon2.png $(prefix)/share/scribus/icons/AppIcon2.png
 	$(INSTALL_DATA) $(srcdir)/back.png $(prefix)/share/scribus/icons/back.png
@@ -274,8 +270,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/BezierClose.png $(prefix)/share/scribus/icons/BezierClose.png
 	$(INSTALL_DATA) $(srcdir)/beziertool.png $(prefix)/share/scribus/icons/beziertool.png
 	$(INSTALL_DATA) $(srcdir)/beziertool16.png $(prefix)/share/scribus/icons/beziertool16.png
-	$(INSTALL_DATA) $(srcdir)/Bild.xpm $(prefix)/share/scribus/icons/Bild.xpm
-	$(INSTALL_DATA) $(srcdir)/Bild16.xpm $(prefix)/share/scribus/icons/Bild16.xpm
 	$(INSTALL_DATA) $(srcdir)/blend.png $(prefix)/share/scribus/icons/blend.png
 	$(INSTALL_DATA) $(srcdir)/bottom.png $(prefix)/share/scribus/icons/bottom.png
 	$(INSTALL_DATA) $(srcdir)/ButtCap.png $(prefix)/share/scribus/icons/ButtCap.png
@@ -302,17 +296,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/compfile16.png $(prefix)/share/scribus/icons/compfile16.png
 	$(INSTALL_DATA) $(srcdir)/Corner.xpm $(prefix)/share/scribus/icons/Corner.xpm
 	$(INSTALL_DATA) $(srcdir)/crop.png $(prefix)/share/scribus/icons/crop.png
-	$(INSTALL_DATA) $(srcdir)/DateiClos16.png $(prefix)/share/scribus/icons/DateiClos16.png
-	$(INSTALL_DATA) $(srcdir)/DateiClose.png $(prefix)/share/scribus/icons/DateiClose.png
-	$(INSTALL_DATA) $(srcdir)/DateiNeu.xpm $(prefix)/share/scribus/icons/DateiNeu.xpm
-	$(INSTALL_DATA) $(srcdir)/DateiNeu16.png $(prefix)/share/scribus/icons/DateiNeu16.png
-	$(INSTALL_DATA) $(srcdir)/DateiOpen.xpm $(prefix)/share/scribus/icons/DateiOpen.xpm
-	$(INSTALL_DATA) $(srcdir)/DateiOpen16.png $(prefix)/share/scribus/icons/DateiOpen16.png
-	$(INSTALL_DATA) $(srcdir)/DateiPrint.xpm $(prefix)/share/scribus/icons/DateiPrint.xpm
-	$(INSTALL_DATA) $(srcdir)/DateiPrint16.png $(prefix)/share/scribus/icons/DateiPrint16.png
-	$(INSTALL_DATA) $(srcdir)/DateiSave16.png $(prefix)/share/scribus/icons/DateiSave16.png
-	$(INSTALL_DATA) $(srcdir)/DateiSave2.png $(prefix)/share/scribus/icons/DateiSave2.png
-	$(INSTALL_DATA) $(srcdir)/Deletelayer.png $(prefix)/share/scribus/icons/Deletelayer.png
 	$(INSTALL_DATA) $(srcdir)/DeleteNode.png $(prefix)/share/scribus/icons/DeleteNode.png
 	$(INSTALL_DATA) $(srcdir)/DelPoint.png $(prefix)/share/scribus/icons/DelPoint.png
 	$(INSTALL_DATA) $(srcdir)/dist.png $(prefix)/share/scribus/icons/dist.png
@@ -333,20 +316,20 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-center.png    $(prefix)/share/scribus/icons/22/distribute-vertical-center.png
 	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-equal.png     $(prefix)/share/scribus/icons/22/distribute-vertical-equal.png
 	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-top.png       $(prefix)/share/scribus/icons/22/distribute-vertical-top.png
-	$(INSTALL_DATA) $(srcdir)/distribute_acrosspage.png $(prefix)/share/scribus/icons/distribute_acrosspage.png
-	$(INSTALL_DATA) $(srcdir)/distribute_acrossmargins.png $(prefix)/share/scribus/icons/distribute_acrossmargins.png
-	$(INSTALL_DATA) $(srcdir)/distribute_bottom.png $(prefix)/share/scribus/icons/distribute_bottom.png
-	$(INSTALL_DATA) $(srcdir)/distribute_downpage.png $(prefix)/share/scribus/icons/distribute_downpage.png
-	$(INSTALL_DATA) $(srcdir)/distribute_downmargins.png $(prefix)/share/scribus/icons/distribute_downmargins.png
-	$(INSTALL_DATA) $(srcdir)/distribute_hcentre.png $(prefix)/share/scribus/icons/distribute_hcentre.png
-	$(INSTALL_DATA) $(srcdir)/distribute_hdist.png $(prefix)/share/scribus/icons/distribute_hdist.png
-	$(INSTALL_DATA) $(srcdir)/distribute_hdist_val.png $(prefix)/share/scribus/icons/distribute_hdist_val.png
-	$(INSTALL_DATA) $(srcdir)/distribute_left.png $(prefix)/share/scribus/icons/distribute_left.png
-	$(INSTALL_DATA) $(srcdir)/distribute_right.png $(prefix)/share/scribus/icons/distribute_right.png
-	$(INSTALL_DATA) $(srcdir)/distribute_top.png $(prefix)/share/scribus/icons/distribute_top.png
-	$(INSTALL_DATA) $(srcdir)/distribute_vcentre.png $(prefix)/share/scribus/icons/distribute_vcentre.png
-	$(INSTALL_DATA) $(srcdir)/distribute_vdist.png $(prefix)/share/scribus/icons/distribute_vdist.png
-	$(INSTALL_DATA) $(srcdir)/distribute_vdist_val.png $(prefix)/share/scribus/icons/distribute_vdist_val.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-center.png  $(prefix)/share/scribus/icons/22/distribute-horizontal-center.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-equal.png   $(prefix)/share/scribus/icons/22/distribute-horizontal-equal.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-left.png    $(prefix)/share/scribus/icons/22/distribute-horizontal-left.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-margin.png  $(prefix)/share/scribus/icons/22/distribute-horizontal-margin.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-page.png    $(prefix)/share/scribus/icons/22/distribute-horizontal-page.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-right.png   $(prefix)/share/scribus/icons/22/distribute-horizontal-right.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-horizontal-x.png       $(prefix)/share/scribus/icons/22/distribute-horizontal-x.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-bottom.png    $(prefix)/share/scribus/icons/22/distribute-vertical-bottom.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-center.png    $(prefix)/share/scribus/icons/22/distribute-vertical-center.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-equal.png     $(prefix)/share/scribus/icons/22/distribute-vertical-equal.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-margin.png    $(prefix)/share/scribus/icons/22/distribute-vertical-margin.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-page.png      $(prefix)/share/scribus/icons/22/distribute-vertical-page.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-top.png       $(prefix)/share/scribus/icons/22/distribute-vertical-top.png
+	$(INSTALL_DATA) $(srcdir)/22/distribute-vertical-y.png         $(prefix)/share/scribus/icons/22/distribute-vertical-y.png
 	$(INSTALL_DATA) $(srcdir)/doc.png $(prefix)/share/scribus/icons/doc.png
 	$(INSTALL_DATA) $(srcdir)/docattributes.png $(prefix)/share/scribus/icons/docattributes.png
 	$(INSTALL_DATA) $(srcdir)/16/document-new.png $(prefix)/share/scribus/icons/16/document-new.png
@@ -422,38 +405,28 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/edit-copy.png $(prefix)/share/scribus/icons/22/edit-copy.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-cut.png $(prefix)/share/scribus/icons/16/edit-cut.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-cut.png $(prefix)/share/scribus/icons/22/edit-cut.png
+	$(INSTALL_DATA) $(srcdir)/16/edit-delete.png $(prefix)/share/scribus/icons/16/edit-delete.png
+	$(INSTALL_DATA) $(srcdir)/22/edit-delete.png $(prefix)/share/scribus/icons/22/edit-delete.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-find-replace.png $(prefix)/share/scribus/icons/16/edit-find-replace.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-find-replace.png $(prefix)/share/scribus/icons/22/edit-find-replace.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-paste.png $(prefix)/share/scribus/icons/16/edit-paste.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-paste.png $(prefix)/share/scribus/icons/22/edit-paste.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-redo.png $(prefix)/share/scribus/icons/16/edit-redo.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-redo.png $(prefix)/share/scribus/icons/22/edit-redo.png
+	$(INSTALL_DATA) $(srcdir)/16/edit-select-all.png $(prefix)/share/scribus/icons/16/edit-select-all.png
+	$(INSTALL_DATA) $(srcdir)/22/edit-select-all.png $(prefix)/share/scribus/icons/22/edit-select-all.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-undo.png $(prefix)/share/scribus/icons/16/edit-undo.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-undo.png $(prefix)/share/scribus/icons/22/edit-undo.png
-	$(INSTALL_DATA) $(srcdir)/editcopy.png $(prefix)/share/scribus/icons/editcopy.png
-	$(INSTALL_DATA) $(srcdir)/editcopy22.png $(prefix)/share/scribus/icons/editcopy22.png
-	$(INSTALL_DATA) $(srcdir)/editcut.png $(prefix)/share/scribus/icons/editcut.png
-	$(INSTALL_DATA) $(srcdir)/editcut22.png $(prefix)/share/scribus/icons/editcut22.png
-	$(INSTALL_DATA) $(srcdir)/editdelete.png $(prefix)/share/scribus/icons/editdelete.png
-	$(INSTALL_DATA) $(srcdir)/editdelete22.png $(prefix)/share/scribus/icons/editdelete22.png
 	$(INSTALL_DATA) $(srcdir)/Editm.xpm $(prefix)/share/scribus/icons/Editm.xpm
-	$(INSTALL_DATA) $(srcdir)/editpaste.png $(prefix)/share/scribus/icons/editpaste.png
-	$(INSTALL_DATA) $(srcdir)/edittrash.png $(prefix)/share/scribus/icons/edittrash.png
 	$(INSTALL_DATA) $(srcdir)/exit.png $(prefix)/share/scribus/icons/exit.png
 	$(INSTALL_DATA) $(srcdir)/exit22.png $(prefix)/share/scribus/icons/exit22.png
 	$(INSTALL_DATA) $(srcdir)/expand.png $(prefix)/share/scribus/icons/expand.png
 	$(INSTALL_DATA) $(srcdir)/externaltools.png $(prefix)/share/scribus/icons/externaltools.png
-	$(INSTALL_DATA) $(srcdir)/filenew.png $(prefix)/share/scribus/icons/filenew.png
-	$(INSTALL_DATA) $(srcdir)/fileopen.png $(prefix)/share/scribus/icons/fileopen.png
-	$(INSTALL_DATA) $(srcdir)/filesaveas.png $(prefix)/share/scribus/icons/filesaveas.png
-	$(INSTALL_DATA) $(srcdir)/fill.png $(prefix)/share/scribus/icons/fill.png
 	$(INSTALL_DATA) $(srcdir)/find.png $(prefix)/share/scribus/icons/find.png
 	$(INSTALL_DATA) $(srcdir)/find16.png $(prefix)/share/scribus/icons/find16.png
 	$(INSTALL_DATA) $(srcdir)/finish.png $(prefix)/share/scribus/icons/finish.png
 	$(INSTALL_DATA) $(srcdir)/16/flip-object-horizontal.png $(prefix)/share/scribus/icons/16/flip-object-horizontal.png
 	$(INSTALL_DATA) $(srcdir)/16/flip-object-vertical.png $(prefix)/share/scribus/icons/16/flip-object-vertical.png
-	$(INSTALL_DATA) $(srcdir)/FlipH.xpm $(prefix)/share/scribus/icons/FlipH.xpm
-	$(INSTALL_DATA) $(srcdir)/FlipV.xpm $(prefix)/share/scribus/icons/FlipV.xpm
 	$(INSTALL_DATA) $(srcdir)/flow-bounding.png $(prefix)/share/scribus/icons/flow-bounding.png
 	$(INSTALL_DATA) $(srcdir)/flow-contour.png $(prefix)/share/scribus/icons/flow-contour.png
 	$(INSTALL_DATA) $(srcdir)/flow-frame.png $(prefix)/share/scribus/icons/flow-frame.png
@@ -461,16 +434,19 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/font.png $(prefix)/share/scribus/icons/font.png
 	$(INSTALL_DATA) $(srcdir)/font_otf.png $(prefix)/share/scribus/icons/font_otf.png
 	$(INSTALL_DATA) $(srcdir)/font_otf16.png $(prefix)/share/scribus/icons/font_otf16.png
-	$(INSTALL_DATA) $(srcdir)/font_subst16.png $(prefix)/share/scribus/icons/font_subst16.png
 	$(INSTALL_DATA) $(srcdir)/font_truetype.png $(prefix)/share/scribus/icons/font_truetype.png
+	$(INSTALL_DATA) $(srcdir)/font_subst16.png $(prefix)/share/scribus/icons/font_subst16.png
 	$(INSTALL_DATA) $(srcdir)/font_truetype16.png $(prefix)/share/scribus/icons/font_truetype16.png
 	$(INSTALL_DATA) $(srcdir)/font_type1.png $(prefix)/share/scribus/icons/font_type1.png
 	$(INSTALL_DATA) $(srcdir)/font_type1_16.png $(prefix)/share/scribus/icons/font_type1_16.png
+	$(INSTALL_DATA) $(srcdir)/16/format-justify-center.png $(prefix)/share/scribus/icons/16/format-justify-center.png
+	$(INSTALL_DATA) $(srcdir)/16/format-justify-fill.png $(prefix)/share/scribus/icons/16/format-justify-fill.png
+	$(INSTALL_DATA) $(srcdir)/16/format-justify-fill-block.png $(prefix)/share/scribus/icons/16/format-justify-fill-block.png
+	$(INSTALL_DATA) $(srcdir)/16/format-justify-left.png $(prefix)/share/scribus/icons/16/format-justify-left.png
+	$(INSTALL_DATA) $(srcdir)/16/format-justify-right.png $(prefix)/share/scribus/icons/16/format-justify-right.png
 	$(INSTALL_DATA) $(srcdir)/forward.png $(prefix)/share/scribus/icons/forward.png
 	$(INSTALL_DATA) $(srcdir)/framenoresize.png $(prefix)/share/scribus/icons/framenoresize.png
 	$(INSTALL_DATA) $(srcdir)/frameresize.png $(prefix)/share/scribus/icons/frameresize.png
-	$(INSTALL_DATA) $(srcdir)/frame_table.png $(prefix)/share/scribus/icons/frame_table.png
-	$(INSTALL_DATA) $(srcdir)/frame_table16.png $(prefix)/share/scribus/icons/frame_table16.png
 	$(INSTALL_DATA) $(srcdir)/16/go-bottom.png $(prefix)/share/scribus/icons/16/go-bottom.png
 	$(INSTALL_DATA) $(srcdir)/22/go-bottom.png $(prefix)/share/scribus/icons/22/go-bottom.png
 	$(INSTALL_DATA) $(srcdir)/16/go-down.png $(prefix)/share/scribus/icons/16/go-down.png
@@ -490,7 +466,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hmirror.png $(prefix)/share/scribus/icons/hmirror.png
 	$(INSTALL_DATA) $(srcdir)/Hoch.xpm $(prefix)/share/scribus/icons/Hoch.xpm
 	$(INSTALL_DATA) $(srcdir)/hyphenate.png $(prefix)/share/scribus/icons/hyphenate.png
-	$(INSTALL_DATA) $(srcdir)/image.png $(prefix)/share/scribus/icons/image.png
+	$(INSTALL_DATA) $(srcdir)/16/image-x-generic.png $(prefix)/share/scribus/icons/16/image-x-generic.png
+	$(INSTALL_DATA) $(srcdir)/22/image-x-generic.png $(prefix)/share/scribus/icons/22/image-x-generic.png
 	$(INSTALL_DATA) $(srcdir)/22/insert-button.png $(prefix)/share/scribus/icons/22/insert-button.png
 	$(INSTALL_DATA) $(srcdir)/16/insert-image.png $(prefix)/share/scribus/icons/16/insert-image.png
 	$(INSTALL_DATA) $(srcdir)/22/insert-image.png $(prefix)/share/scribus/icons/22/insert-image.png
@@ -506,7 +483,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Kreuz.xpm $(prefix)/share/scribus/icons/Kreuz.xpm
 	$(INSTALL_DATA) $(srcdir)/launch.png $(prefix)/share/scribus/icons/launch.png
 	$(INSTALL_DATA) $(srcdir)/launch16.png $(prefix)/share/scribus/icons/launch16.png
-	$(INSTALL_DATA) $(srcdir)/Layervisible.xpm $(prefix)/share/scribus/icons/Layervisible.xpm
 	$(INSTALL_DATA) $(srcdir)/linespacing.png $(prefix)/share/scribus/icons/linespacing.png
 	$(INSTALL_DATA) $(srcdir)/linespacing2.png $(prefix)/share/scribus/icons/linespacing2.png
 	$(INSTALL_DATA) $(srcdir)/16/list-add.png $(prefix)/share/scribus/icons/16/list-add.png
@@ -520,7 +496,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/locked.png $(prefix)/share/scribus/icons/locked.png
 	$(INSTALL_DATA) $(srcdir)/lower-to-bottom.png $(prefix)/share/scribus/icons/lower-to-bottom.png
 	$(INSTALL_DATA) $(srcdir)/lower.png $(prefix)/share/scribus/icons/lower.png
-	$(INSTALL_DATA) $(srcdir)/Lowerlayer.png $(prefix)/share/scribus/icons/Lowerlayer.png
 	$(INSTALL_DATA) $(srcdir)/Lupe.xpm $(prefix)/share/scribus/icons/Lupe.xpm
 	$(INSTALL_DATA) $(srcdir)/LupeZ.xpm $(prefix)/share/scribus/icons/LupeZ.xpm
 	$(INSTALL_DATA) $(srcdir)/LupeZm.xpm $(prefix)/share/scribus/icons/LupeZm.xpm
@@ -532,7 +507,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/MoveKontrol.png $(prefix)/share/scribus/icons/MoveKontrol.png
 	$(INSTALL_DATA) $(srcdir)/MoveNode.png $(prefix)/share/scribus/icons/MoveNode.png
 	$(INSTALL_DATA) $(srcdir)/MoveSym.png $(prefix)/share/scribus/icons/MoveSym.png
-	$(INSTALL_DATA) $(srcdir)/Newlayer.png $(prefix)/share/scribus/icons/Newlayer.png
 	$(INSTALL_DATA) $(srcdir)/nftabout.xpm $(prefix)/share/scribus/icons/nftabout.xpm
 	$(INSTALL_DATA) $(srcdir)/nftinfo.xpm $(prefix)/share/scribus/icons/nftinfo.xpm
 	$(INSTALL_DATA) $(srcdir)/noicon.xpm $(prefix)/share/scribus/icons/noicon.xpm
@@ -542,7 +516,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/ooo_draw.png $(prefix)/share/scribus/icons/ooo_draw.png
 	$(INSTALL_DATA) $(srcdir)/ooo_writer.png $(prefix)/share/scribus/icons/ooo_writer.png
 	$(INSTALL_DATA) $(srcdir)/outlined.png $(prefix)/share/scribus/icons/outlined.png
-	$(INSTALL_DATA) $(srcdir)/page.png $(prefix)/share/scribus/icons/page.png
 	$(INSTALL_DATA) $(srcdir)/pdf.png $(prefix)/share/scribus/icons/pdf.png
 	$(INSTALL_DATA) $(srcdir)/penciladd.png $(prefix)/share/scribus/icons/penciladd.png
 	$(INSTALL_DATA) $(srcdir)/pencilsub.png $(prefix)/share/scribus/icons/pencilsub.png
@@ -552,11 +525,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/preflight-verifier.png $(prefix)/share/scribus/icons/16/preflight-verifier.png
 	$(INSTALL_DATA) $(srcdir)/22/preflight-verifier.png $(prefix)/share/scribus/icons/22/preflight-verifier.png
 	$(INSTALL_DATA) $(srcdir)/postscript.png $(prefix)/share/scribus/icons/postscript.png
-	$(INSTALL_DATA) $(srcdir)/pushbutton.png $(prefix)/share/scribus/icons/pushbutton.png
 	$(INSTALL_DATA) $(srcdir)/python.png $(prefix)/share/scribus/icons/python.png
 	$(INSTALL_DATA) $(srcdir)/raise-to-top.png $(prefix)/share/scribus/icons/raise-to-top.png
 	$(INSTALL_DATA) $(srcdir)/raise.png $(prefix)/share/scribus/icons/raise.png
-	$(INSTALL_DATA) $(srcdir)/Raiselayer.png $(prefix)/share/scribus/icons/Raiselayer.png
 	$(INSTALL_DATA) $(srcdir)/Rechtecke.xpm $(prefix)/share/scribus/icons/Rechtecke.xpm
 	$(INSTALL_DATA) $(srcdir)/reload.png $(prefix)/share/scribus/icons/reload.png
 	$(INSTALL_DATA) $(srcdir)/reload16.png $(prefix)/share/scribus/icons/reload16.png
@@ -585,8 +556,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/shear_up.png $(prefix)/share/scribus/icons/shear_up.png
 	$(INSTALL_DATA) $(srcdir)/shortwords.png $(prefix)/share/scribus/icons/shortwords.png
 	$(INSTALL_DATA) $(srcdir)/16/show-object.png $(prefix)/share/scribus/icons/16/show-object.png
-	$(INSTALL_DATA) $(srcdir)/signature.png $(prefix)/share/scribus/icons/signature.png
-	$(INSTALL_DATA) $(srcdir)/signature2.png $(prefix)/share/scribus/icons/signature2.png
 	$(INSTALL_DATA) $(srcdir)/Spacing.xpm $(prefix)/share/scribus/icons/Spacing.xpm
 	$(INSTALL_DATA) $(srcdir)/Splash.png $(prefix)/share/scribus/icons/Splash.png
 	$(INSTALL_DATA) $(srcdir)/spline.png $(prefix)/share/scribus/icons/spline.png
@@ -612,19 +581,12 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/testfill.png $(prefix)/share/scribus/icons/testfill.png
 	$(INSTALL_DATA) $(srcdir)/22/text-frame-link.png $(prefix)/share/scribus/icons/22/text-frame-link.png
 	$(INSTALL_DATA) $(srcdir)/22/text-frame-unlink.png $(prefix)/share/scribus/icons/22/text-frame-unlink.png
-	$(INSTALL_DATA) $(srcdir)/Text.xpm $(prefix)/share/scribus/icons/Text.xpm
-	$(INSTALL_DATA) $(srcdir)/Text16.xpm $(prefix)/share/scribus/icons/Text16.xpm
 	$(INSTALL_DATA) $(srcdir)/Text2.xpm $(prefix)/share/scribus/icons/Text2.xpm
 	$(INSTALL_DATA) $(srcdir)/textbase.png $(prefix)/share/scribus/icons/textbase.png
 	$(INSTALL_DATA) $(srcdir)/textkern.png $(prefix)/share/scribus/icons/textkern.png
 	$(INSTALL_DATA) $(srcdir)/textscaleh.png $(prefix)/share/scribus/icons/textscaleh.png
 	$(INSTALL_DATA) $(srcdir)/textscalev.png $(prefix)/share/scribus/icons/textscalev.png
 	$(INSTALL_DATA) $(srcdir)/22/text-field.png $(prefix)/share/scribus/icons/22/text-field.png
-	$(INSTALL_DATA) $(srcdir)/text_block.png $(prefix)/share/scribus/icons/text_block.png
-	$(INSTALL_DATA) $(srcdir)/text_center.png $(prefix)/share/scribus/icons/text_center.png
-	$(INSTALL_DATA) $(srcdir)/text_force.png $(prefix)/share/scribus/icons/text_force.png
-	$(INSTALL_DATA) $(srcdir)/text_left.png $(prefix)/share/scribus/icons/text_left.png
-	$(INSTALL_DATA) $(srcdir)/text_right.png $(prefix)/share/scribus/icons/text_right.png
 	$(INSTALL_DATA) $(srcdir)/typography.png $(prefix)/share/scribus/icons/typography.png
 	$(INSTALL_DATA) $(srcdir)/Tief.xpm $(prefix)/share/scribus/icons/Tief.xpm
 	$(INSTALL_DATA) $(srcdir)/tools.png $(prefix)/share/scribus/icons/tools.png
@@ -726,16 +688,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-top-out.png
 	-rm -f $(prefix)/share/scribus/icons/22/align-vertical-top.png
 	-rm -f $(prefix)/share/scribus/icons/AllCaps.png
-	-rm -f $(prefix)/share/scribus/icons/al_bottom_in.png
-	-rm -f $(prefix)/share/scribus/icons/al_bottom_out.png
-	-rm -f $(prefix)/share/scribus/icons/al_center_hor.png
-	-rm -f $(prefix)/share/scribus/icons/al_center_ver.png
-	-rm -f $(prefix)/share/scribus/icons/al_left_in.png
-	-rm -f $(prefix)/share/scribus/icons/al_left_out.png
-	-rm -f $(prefix)/share/scribus/icons/al_right_in.png
-	-rm -f $(prefix)/share/scribus/icons/al_right_out.png
-	-rm -f $(prefix)/share/scribus/icons/al_top_in.png
-	-rm -f $(prefix)/share/scribus/icons/al_top_out.png
 	-rm -f $(prefix)/share/scribus/icons/AppIcon.png
 	-rm -f $(prefix)/share/scribus/icons/AppIcon2.png
 	-rm -f $(prefix)/share/scribus/icons/back.png
@@ -743,8 +695,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/BezierClose.png
 	-rm -f $(prefix)/share/scribus/icons/beziertool.png
 	-rm -f $(prefix)/share/scribus/icons/beziertool16.png
-	-rm -f $(prefix)/share/scribus/icons/Bild.xpm
-	-rm -f $(prefix)/share/scribus/icons/Bild16.xpm
 	-rm -f $(prefix)/share/scribus/icons/blend.png
 	-rm -f $(prefix)/share/scribus/icons/bottom.png
 	-rm -f $(prefix)/share/scribus/icons/ButtCap.png
@@ -764,17 +714,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/compfile16.png
 	-rm -f $(prefix)/share/scribus/icons/Corner.xpm
 	-rm -f $(prefix)/share/scribus/icons/crop.png
-	-rm -f $(prefix)/share/scribus/icons/DateiClos16.png
-	-rm -f $(prefix)/share/scribus/icons/DateiClose.png
-	-rm -f $(prefix)/share/scribus/icons/DateiNeu.xpm
-	-rm -f $(prefix)/share/scribus/icons/DateiNeu16.png
-	-rm -f $(prefix)/share/scribus/icons/DateiOpen.xpm
-	-rm -f $(prefix)/share/scribus/icons/DateiOpen16.png
-	-rm -f $(prefix)/share/scribus/icons/DateiPrint.xpm
-	-rm -f $(prefix)/share/scribus/icons/DateiPrint16.png
-	-rm -f $(prefix)/share/scribus/icons/DateiSave16.png
-	-rm -f $(prefix)/share/scribus/icons/DateiSave2.png
-	-rm -f $(prefix)/share/scribus/icons/Deletelayer.png
 	-rm -f $(prefix)/share/scribus/icons/DeleteNode.png
 	-rm -f $(prefix)/share/scribus/icons/DelPoint.png
 	-rm -f $(prefix)/share/scribus/icons/dist.png
@@ -790,25 +729,25 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-center.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-equal.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-left.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-margin.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-page.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-right.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-x.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-bottom.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-center.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-equal.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-margin.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-page.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-top.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-y.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-center.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-equal.png
+	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-left.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-horizontal-right.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-bottom.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-center.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-equal.png
 	-rm -f $(prefix)/share/scribus/icons/22/distribute-vertical-top.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_acrosspage.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_acrossmargins.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_bottom.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_downpage.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_downmargins.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_hcentre.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_hdist.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_hdist_val.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_left.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_right.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_top.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_vcentre.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_vdist.png
-	-rm -f $(prefix)/share/scribus/icons/distribute_vdist_val.png
 	-rm -f $(prefix)/share/scribus/icons/doc.png
 	-rm -f $(prefix)/share/scribus/icons/docattributes.png
 	-rm -f $(prefix)/share/scribus/icons/16/document-new.png
@@ -883,38 +822,28 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/edit-copy.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-cut.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-cut.png
+	-rm -f $(prefix)/share/scribus/icons/16/edit-delete.png
+	-rm -f $(prefix)/share/scribus/icons/22/edit-delete.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-find-replace.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-find-replace.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-paste.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-paste.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-redo.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-redo.png
+	-rm -f $(prefix)/share/scribus/icons/16/edit-select-all.png
+	-rm -f $(prefix)/share/scribus/icons/22/edit-select-all.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-undo.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-undo.png
-	-rm -f $(prefix)/share/scribus/icons/editcopy.png
-	-rm -f $(prefix)/share/scribus/icons/editcopy22.png
-	-rm -f $(prefix)/share/scribus/icons/editcut.png
-	-rm -f $(prefix)/share/scribus/icons/editcut22.png
-	-rm -f $(prefix)/share/scribus/icons/editdelete.png
-	-rm -f $(prefix)/share/scribus/icons/editdelete22.png
 	-rm -f $(prefix)/share/scribus/icons/Editm.xpm
-	-rm -f $(prefix)/share/scribus/icons/editpaste.png
-	-rm -f $(prefix)/share/scribus/icons/edittrash.png
 	-rm -f $(prefix)/share/scribus/icons/exit.png
 	-rm -f $(prefix)/share/scribus/icons/exit22.png
 	-rm -f $(prefix)/share/scribus/icons/externaltools.png
 	-rm -f $(prefix)/share/scribus/icons/expand.png
-	-rm -f $(prefix)/share/scribus/icons/filenew.png
-	-rm -f $(prefix)/share/scribus/icons/fileopen.png
-	-rm -f $(prefix)/share/scribus/icons/filesaveas.png
-	-rm -f $(prefix)/share/scribus/icons/fill.png
 	-rm -f $(prefix)/share/scribus/icons/find.png
 	-rm -f $(prefix)/share/scribus/icons/find16.png
 	-rm -f $(prefix)/share/scribus/icons/finish.png
 	-rm -f $(prefix)/share/scribus/icons/16/flip-object-horizontal.png
 	-rm -f $(prefix)/share/scribus/icons/16/flip-object-vertical.png
-	-rm -f $(prefix)/share/scribus/icons/FlipH.xpm
-	-rm -f $(prefix)/share/scribus/icons/FlipV.xpm
 	-rm -f $(prefix)/share/scribus/icons/flow-bounding.png
 	-rm -f $(prefix)/share/scribus/icons/flow-contour.png
 	-rm -f $(prefix)/share/scribus/icons/flow-frame.png
@@ -922,16 +851,19 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/font.png
 	-rm -f $(prefix)/share/scribus/icons/font_otf.png
 	-rm -f $(prefix)/share/scribus/icons/font_otf16.png
-	-rm -f $(prefix)/share/scribus/icons/font_subst16.png
+	-rm -f $(prefix)/share/scribus/icons/font_subst16.png	
 	-rm -f $(prefix)/share/scribus/icons/font_truetype.png
 	-rm -f $(prefix)/share/scribus/icons/font_truetype16.png
 	-rm -f $(prefix)/share/scribus/icons/font_type1.png
 	-rm -f $(prefix)/share/scribus/icons/font_type1_16.png
+	-rm -f $(prefix)/share/scribus/icons/16/format-justify-center.png
+	-rm -f $(prefix)/share/scribus/icons/16/format-justify-fill.png
+	-rm -f $(prefix)/share/scribus/icons/16/format-justify-fill-block.png
+	-rm -f $(prefix)/share/scribus/icons/16/format-justify-left.png
+	-rm -f $(prefix)/share/scribus/icons/16/format-justify-right.png
 	-rm -f $(prefix)/share/scribus/icons/forward.png
 	-rm -f $(prefix)/share/scribus/icons/framenoresize.png
 	-rm -f $(prefix)/share/scribus/icons/frameresize.png
-	-rm -f $(prefix)/share/scribus/icons/frame_table.png
-	-rm -f $(prefix)/share/scribus/icons/frame_table16.png
 	-rm -f $(prefix)/share/scribus/icons/16/go-bottom.png
 	-rm -f $(prefix)/share/scribus/icons/22/go-bottom.png
 	-rm -f $(prefix)/share/scribus/icons/16/go-down.png
@@ -951,7 +883,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/hmirror.png
 	-rm -f $(prefix)/share/scribus/icons/Hoch.xpm
 	-rm -f $(prefix)/share/scribus/icons/hyphenate.png
-	-rm -f $(prefix)/share/scribus/icons/image.png
+	-rm -f $(prefix)/share/scribus/icons/16/image-x-generic.png
+	-rm -f $(prefix)/share/scribus/icons/22/image-x-generic.png
 	-rm -f $(prefix)/share/scribus/icons/22/insert-button.png
 	-rm -f $(prefix)/share/scribus/icons/16/insert-image.png
 	-rm -f $(prefix)/share/scribus/icons/22/insert-image.png
@@ -967,7 +900,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Kreuz.xpm
 	-rm -f $(prefix)/share/scribus/icons/launch.png
 	-rm -f $(prefix)/share/scribus/icons/launch16.png
-	-rm -f $(prefix)/share/scribus/icons/Layervisible.xpm
 	-rm -f $(prefix)/share/scribus/icons/linespacing.png
 	-rm -f $(prefix)/share/scribus/icons/linespacing2.png
 	-rm -f $(prefix)/share/scribus/icons/16/list-add.png
@@ -981,7 +913,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/locked.png
 	-rm -f $(prefix)/share/scribus/icons/lower-to-bottom.png
 	-rm -f $(prefix)/share/scribus/icons/lower.png
-	-rm -f $(prefix)/share/scribus/icons/Lowerlayer.png
 	-rm -f $(prefix)/share/scribus/icons/Lupe.xpm
 	-rm -f $(prefix)/share/scribus/icons/LupeZ.xpm
 	-rm -f $(prefix)/share/scribus/icons/LupeZm.xpm
@@ -993,7 +924,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/MoveKontrol.png
 	-rm -f $(prefix)/share/scribus/icons/MoveNode.png
 	-rm -f $(prefix)/share/scribus/icons/MoveSym.png
-	-rm -f $(prefix)/share/scribus/icons/Newlayer.png
 	-rm -f $(prefix)/share/scribus/icons/nftabout.xpm
 	-rm -f $(prefix)/share/scribus/icons/nftinfo.xpm
 	-rm -f $(prefix)/share/scribus/icons/noicon.xpm
@@ -1003,7 +933,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/ooo_draw.png
 	-rm -f $(prefix)/share/scribus/icons/ooo_writer.png
 	-rm -f $(prefix)/share/scribus/icons/outlined.png
-	-rm -f $(prefix)/share/scribus/icons/page.png
 	-rm -f $(prefix)/share/scribus/icons/16/page-3fold.png
 	-rm -f $(prefix)/share/scribus/icons/32/page-3fold.png
 	-rm -f $(prefix)/share/scribus/icons/16/page-4fold.png
@@ -1021,10 +950,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/16/preflight-verifier.png
 	-rm -f $(prefix)/share/scribus/icons/22/preflight-verifier.png
 	-rm -f $(prefix)/share/scribus/icons/postscript.png
-	-rm -f $(prefix)/share/scribus/icons/pushbutton.png
 	-rm -f $(prefix)/share/scribus/icons/raise-to-top.png
 	-rm -f $(prefix)/share/scribus/icons/raise.png
-	-rm -f $(prefix)/share/scribus/icons/Raiselayer.png
 	-rm -f $(prefix)/share/scribus/icons/Rechtecke.xpm
 	-rm -f $(prefix)/share/scribus/icons/reload.png
 	-rm -f $(prefix)/share/scribus/icons/reload16.png
@@ -1052,8 +979,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/shear_up.png
 	-rm -f $(prefix)/share/scribus/icons/shortwords.png
 	-rm -f $(prefix)/share/scribus/icons/16/show-object.png
-	-rm -f $(prefix)/share/scribus/icons/signature.png
-	-rm -f $(prefix)/share/scribus/icons/signature2.png
 	-rm -f $(prefix)/share/scribus/icons/Spacing.xpm
 	-rm -f $(prefix)/share/scribus/icons/Splash.png
 	-rm -f $(prefix)/share/scribus/icons/spline.png
@@ -1078,19 +1003,12 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/testfill.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-frame-link.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-frame-unlink.png
-	-rm -f $(prefix)/share/scribus/icons/Text.xpm
-	-rm -f $(prefix)/share/scribus/icons/Text16.xpm
 	-rm -f $(prefix)/share/scribus/icons/Text2.xpm
 	-rm -f $(prefix)/share/scribus/icons/textbase.png
 	-rm -f $(prefix)/share/scribus/icons/textkern.png
 	-rm -f $(prefix)/share/scribus/icons/textscaleh.png
 	-rm -f $(prefix)/share/scribus/icons/textscalev.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-field.png
-	-rm -f $(prefix)/share/scribus/icons/text_block.png
-	-rm -f $(prefix)/share/scribus/icons/text_center.png
-	-rm -f $(prefix)/share/scribus/icons/text_force.png
-	-rm -f $(prefix)/share/scribus/icons/text_left.png
-	-rm -f $(prefix)/share/scribus/icons/text_right.png
 	-rm -f $(prefix)/share/scribus/icons/Tief.xpm
 	-rm -f $(prefix)/share/scribus/icons/tools.png
 	-rm -f $(prefix)/share/scribus/icons/top.png
@@ -1152,10 +1070,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/leftindent2.png
 	-rm -f $(prefix)/share/scribus/icons/shade.png
 	-rm -f $(prefix)/share/scribus/icons/mover.png
-	-rm -f $(prefix)/share/scribus/icons/pagedouble.png
-	-rm -f $(prefix)/share/scribus/icons/pagequadro.png
-	-rm -f $(prefix)/share/scribus/icons/pagesingle.png
-	-rm -f $(prefix)/share/scribus/icons/pagetriple.png
 	-rm -f $(prefix)/share/scribus/icons/alert.png
 	-rm -f $(prefix)/share/scribus/icons/cmyk.png
 	-rm -f $(prefix)/share/scribus/icons/rgb.png
@@ -1164,11 +1078,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/viewmagout.png
 	-rm -f $(prefix)/share/scribus/icons/viewmagin.png
 	-rm -f $(prefix)/share/scribus/icons/viewmag1.png
-	-rm -f $(prefix)/share/scribus/icons/pagedouble16.png
-	-rm -f $(prefix)/share/scribus/icons/pagequadro16.png
-	-rm -f $(prefix)/share/scribus/icons/pagesingle16.png
-	-rm -f $(prefix)/share/scribus/icons/pagetriple16.png
-	-rm -f $(prefix)/share/scribus/icons/page16.png
 	-rm -f $(prefix)/share/scribus/icons/vpl.png
 	-rm -f $(prefix)/share/scribus/icons/16/zoom.png
 	-rm -f $(prefix)/share/scribus/icons/22/zoom.png
