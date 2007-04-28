@@ -101,7 +101,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 	
 	dtbarlo = new QHBoxLayout(detailBar,0,5);
 	imgButton = new QToolButton(detailBar,"imgButton");
-	QIconSet imgSet(loadIcon("Bild.xpm"));
+	QIconSet imgSet(loadIcon("16/image-x-generic.png"));
 	imgButton->setIconSet(imgSet);
 	imgButton->setToggleButton(true);
 	imgButton->setMinimumWidth(30);
@@ -110,7 +110,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 	imgButton->setMaximumHeight(30);
 	dtbarlo->addWidget(imgButton);
 	infoButton = new QToolButton(detailBar,"infoButton");
-	QIconSet imgSet2(loadIcon("nftinfo.xpm"));
+	QIconSet imgSet2(loadIcon("16/information.png"));
 	infoButton->setIconSet(imgSet2);
 	infoButton->setToggleButton(true);
 	infoButton->setMinimumWidth(30);
@@ -122,7 +122,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 	dtbarlo->addStretch(10);
 	dtbarlo->insertSpacing(0,5);
 	aboutButton = new QToolButton(detailBar,"aboutButton");
-	QIconSet imgSet3(loadIcon("nftabout.xpm"));
+	QIconSet imgSet3(loadIcon("16/help-browser.png"));
 	aboutButton->setIconSet(imgSet3);
 	aboutButton->setToggleButton(true);
 	aboutButton->setMinimumWidth(30);

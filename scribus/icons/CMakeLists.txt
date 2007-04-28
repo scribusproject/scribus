@@ -271,6 +271,7 @@ INSTALL(FILES
 16/document-new.png
 16/document-open.png
 16/document-print.png
+16/document-print-preview.png
 16/document-properties.png
 16/document-save.png
 16/document-save-as.png
@@ -317,6 +318,8 @@ INSTALL(FILES
 16/go-previous.png
 16/go-top.png
 16/go-up.png
+16/help-browser.png
+16/information.png
 16/image-x-generic.png
 16/insert-image.png
 16/insert-text-frame.png
@@ -380,6 +383,7 @@ INSTALL(FILES
 22/document-new.png
 22/document-open.png
 22/document-print.png
+22/document-print-preview.png
 22/document-properties.png
 22/document-save.png
 22/document-save-as.png
