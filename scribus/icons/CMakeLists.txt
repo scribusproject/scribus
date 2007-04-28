@@ -114,8 +114,6 @@ MoveKontrol.png
 MoveNode.png
 mover.png
 MoveSym.png
-nftabout.xpm
-nftinfo.xpm
 noicon.xpm
 NoPrint.png
 ok22.png
