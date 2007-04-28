@@ -413,7 +413,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc("/PatternType 1 def\n");
 		PutDoc("/PaintType 1 def\n");
 		PutDoc("/TilingType 1 def\n");
-		PutDoc("/BBox [ 0 0 "+ToStr(pa.width)+" "+ToStr(-pa.height)+"] def\n");
+		PutDoc("/BBox [ 0 0 "+ToStr(pa.width)+" "+ToStr(pa.height)+"] def\n");
 		PutDoc("/XStep "+ToStr(pa.width)+" def\n");
 		PutDoc("/YStep "+ToStr(pa.height)+" def\n");
 		PutDoc("/PaintProc {\n");
@@ -432,7 +432,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 				PS_save();
 				FPointArray cl = item->PoLine.copy();
 				QMatrix mm;
-				mm.translate(item->gXpos, item->gYpos);
+				mm.translate(item->gXpos, item->gYpos - pa.height);
 				mm.rotate(item->rotation());
 				cl.map( mm );
 				SetClipPath(&cl);
@@ -442,7 +442,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 				continue;
 			}
 			PS_save();
-			PS_translate(item->gXpos, -item->gYpos);
+			PS_translate(item->gXpos, pa.height - item->gYpos);
 			ProcessItem(m_Doc, m_Doc->Pages->at(0), item, 0, sep, farb, ic, gcr, false, true, true);
 			PS_restore();
 			if (groupStack.count() != 0)
