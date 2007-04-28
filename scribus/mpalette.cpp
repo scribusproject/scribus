@@ -732,12 +732,22 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	paraStyleCombo = new ParaStyleComboBox(page_3);
 	paraStyleLabel = new QLabel( paraStyleCombo, "Paragraph St&yle:", page_3, "parastyleLabel" );
+	paraStyleClear = new QToolButton( page_3, "Clear_PStyle" );
+	paraStyleClear->setMaximumSize( QSize( 22, 22 ) );
+	paraStyleClear->setText("");
+	paraStyleClear->setPixmap(loadIcon("16/edit-clear.png"));
 	GroupBox3aLayout->addWidget( paraStyleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( paraStyleCombo, 0, 1 );
+	GroupBox3aLayout->addWidget( paraStyleClear, 0, 2 );
 	charStyleCombo = new CharStyleComboBox(page_3);
 	charStyleLabel = new QLabel( charStyleCombo, "Character St&yle:", page_3, "charstyleLabel" );
+	charStyleClear = new QToolButton( page_3, "Clear_CStyle" );
+	charStyleClear->setMaximumSize( QSize( 22, 22 ) );
+	charStyleClear->setText("");
+	charStyleClear->setPixmap(loadIcon("16/edit-clear.png"));
 	GroupBox3aLayout->addWidget( charStyleLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( charStyleCombo, 1, 1 );
+	GroupBox3aLayout->addWidget( charStyleClear, 1, 2 );
 	optMarginCombo = new QComboBox(page_3);
 	optMarginLabel = new QLabel( optMarginCombo, "Optical Margins:", page_3, "optMarginLabel" );
 	GroupBox3aLayout->addWidget( optMarginLabel, 2, 0 );
@@ -1008,6 +1018,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	connect(GroupAlign, SIGNAL(State(int)), this, SLOT(NewAli(int)));
 	connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
+	connect(charStyleClear, SIGNAL(clicked()), this, SLOT(doClearCStyle()));
+	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
 	connect(SeStyle, SIGNAL(State(int)), this, SLOT(setTypeStyle(int)));
 	connect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
 	connect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowOffs()));
@@ -3876,6 +3888,29 @@ void Mpalette::DoRevert()
 	}
 }
 
+
+void Mpalette::doClearCStyle()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if (HaveDoc)
+	{
+		doc->itemSelection_EraseCharStyle();
+	}
+}
+
+
+void Mpalette::doClearPStyle()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if (HaveDoc)
+	{
+		doc->itemSelection_EraseParagraphStyle();
+	}
+}
+
+
 void Mpalette::SetLineFormats(ScribusDoc *dd)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
@@ -4643,6 +4678,8 @@ void Mpalette::languageChange()
 	QToolTip::remove(linespacingButton);
 	QToolTip::remove(paraStyleCombo);
 	QToolTip::remove(charStyleCombo);
+	QToolTip::remove(paraStyleClear);
+	QToolTip::remove(charStyleClear);
 //	QToolTip::remove(langCombo);
 
 	QToolTip::remove(minWordTrackingSpinBox);
@@ -4733,6 +4770,8 @@ void Mpalette::languageChange()
 	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
 	QToolTip::add(paraStyleCombo, tr("Paragraph style of currently selected text or paragraph"));
 	QToolTip::add(charStyleCombo, tr("Character style of currently selected text or paragraph"));
+	QToolTip::add(paraStyleClear, tr("remove direct paragraph formatting"));
+	QToolTip::add(charStyleClear, tr("remove direct char formatting"));
 //	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 
 	QToolTip::add(minWordTrackingSpinBox, tr("Minimal width of spaces between words"));

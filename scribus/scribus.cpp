@@ -5331,7 +5331,6 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		undoManager->commit();
 }
 
-//signal is disconnected.. unused, and will be deleted.
 void ScribusMainWindow::slotNewMasterPage(int w, const QString& name)
 {
 	if (doc->masterPageMode())
@@ -6999,12 +6998,12 @@ void ScribusMainWindow::setNewParStyle(const QString& name)
 {
 	if (HaveDoc)
 	{
-		if (name.isEmpty())
+/*		if (name.isEmpty())
 		{
 			doc->itemSelection_SetNamedParagraphStyle(name);
 			doc->itemSelection_EraseParagraphStyle();
 		}
-		else			
+		else */		
 			doc->itemSelection_SetNamedParagraphStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
@@ -7015,12 +7014,12 @@ void ScribusMainWindow::setNewCharStyle(const QString& name)
 {
 	if (HaveDoc)
 	{
-		if (name.isEmpty())
+/*		if (name.isEmpty())
 		{
 			doc->itemSelection_SetNamedCharStyle(name);			
 			doc->itemSelection_EraseCharStyle();
 		}
-		else
+		else */
 			doc->itemSelection_SetNamedCharStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
@@ -8406,7 +8405,14 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	}
 	if (isUndo)
 	{
-		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true, &tmpl);
+		if (doc->masterPageMode())
+		{
+			slotNewMasterPage(wo, tmpl[0]);
+		}
+		else
+		{
+			addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->m_pageSize, true, &tmpl);
+		}
 		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages->at(pagenr - 1));
 		delete tmp;
@@ -8470,7 +8476,15 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		addNewPages(wo, where, count, height, width, orient, siz, mov, &based);
+		if (doc->masterPageMode())
+		{
+			assert (count == 1);
+			slotNewMasterPage(wo, based[0]);
+		}
+		else
+		{
+			addNewPages(wo, where, count, height, width, orient, siz, mov, &based);
+		}
 		for (int i = delFrom - 1; i < delTo; ++i)
 		{
 			UndoObject *tmp = undoManager->replaceObject(
