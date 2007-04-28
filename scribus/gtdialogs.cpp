@@ -119,7 +119,9 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("16/go-home.png"));
+	#ifdef _WIN32
 	HomeB->setAutoRaise(true);
+	#endif
 // 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
 	addToolButton(HomeB);
