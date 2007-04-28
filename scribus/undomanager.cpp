@@ -838,7 +838,7 @@ void UndoManager::initIcons()
 	UndoManager::IDisablePrint    = new QPixmap(iconDir + "u_disableprint.png");
 	UndoManager::IDelete          = new QPixmap(iconDir + "u_delete.png");
 	UndoManager::ICreate          = new QPixmap(iconDir + "u_create.png");
-	UndoManager::IPaste           = new QPixmap(iconDir + "editpaste.png");
+	UndoManager::IPaste           = new QPixmap(iconDir + "16/edit-paste.png");
 	UndoManager::ICut             = new QPixmap(iconDir + "u_cut.png");
 	UndoManager::ITransparency    = new QPixmap(iconDir + "u_transp.png");
 	UndoManager::ILineStyle       = new QPixmap(iconDir + "u_line.png");

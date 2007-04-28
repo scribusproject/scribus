@@ -1320,7 +1320,7 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
+	seActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("16/document-new.png"), loadIcon("22/document-new.png")), "", CTRL+Key_N, this, "fileNew"));
 	seActions.insert("fileRevert", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
 	seActions.insert("fileSaveToFile", new ScrAction(QIconSet(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", QKeySequence(), this, "fileSaveToFile"));
 	seActions.insert("fileLoadFromFile", new ScrAction(QIconSet(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png")), "", QKeySequence(), this, "fileLoadFromFile"));
@@ -1337,12 +1337,12 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editSelectAll", new ScrAction(QIconSet(noIcon), "", CTRL+Key_A, this, "editSelectAll"));
-	seActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png")), "", CTRL+Key_X, this, "editCut"));
-	seActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png")), "", CTRL+Key_C, this, "editCopy"));
-	seActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png")), "", CTRL+Key_V, this, "editPaste"));
-	seActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editdelete.png")), "", Key_Delete, this, "editClear"));
-	seActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png")), "", QKeySequence(), this, "editSearchReplace"));
+	seActions.insert("editSelectAll", new ScrAction(QIconSet(loadIcon("16/edit-select-all.png")), "", CTRL+Key_A, this, "editSelectAll"));
+	seActions.insert("editCut", new ScrAction(QIconSet(loadIcon("16/edit-cut.png")), "", CTRL+Key_X, this, "editCut"));
+	seActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("16/edit-copy.png")), "", CTRL+Key_C, this, "editCopy"));
+	seActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("16/edit-paste.png")), "", CTRL+Key_V, this, "editPaste"));
+	seActions.insert("editClear", new ScrAction(QIconSet(loadIcon("16/edit-delete.png")), "", Key_Delete, this, "editClear"));
+	seActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("16/edit-find-replace.png")), "", QKeySequence(), this, "editSearchReplace"));
 	seActions.insert("editEditStyle", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editEditStyle"));
 	seActions.insert("editFontPreview", new ScrAction(QIconSet(noIcon), "", QKeySequence(), this, "editFontPreview"));
 	seActions.insert("editUpdateFrame", new ScrAction(QIconSet(loadIcon("compfile16.png"),loadIcon("compfile.png")), "", CTRL+Key_U, this, "editUpdateFrame"));

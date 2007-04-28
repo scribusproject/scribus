@@ -1,4 +1,4 @@
-EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png filenew.png fileopen.png editcopy22.png edittrash.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png nftabout.xpm nftinfo.xpm dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift16.xpm Stift.xpm Unlock.xpm DateiClose.png DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editcut22.png editdelete.png editdelete22.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png Text2.xpm spline16.png spline.png triangle.png Stiftalt.xpm Stiftalt16.xpm beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png signature.png signature2.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png frame_table16.png frame_table.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
+EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png filenew.png fileopen.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png nftabout.xpm nftinfo.xpm dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift16.xpm Stift.xpm Unlock.xpm DateiClose.png DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png Text2.xpm spline16.png spline.png triangle.png Stiftalt.xpm Stiftalt16.xpm beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png signature.png signature2.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png frame_table16.png frame_table.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
  u_undo.png u_redo.png u_undo16.png u_redo16.png u_margins.png u_margins_locked.png u_align.png u_move.png u_resize.png u_rotate.png u_group.png u_fill.png u_shade.png u_lock.png u_unlock.png u_create.png u_delete.png u_fliph.png u_flipv.png u_cut.png u_transp.png u_line.png u_arrow.png u_font.png u_svg.png u_eps.png u_scale_image.png u_shape.png u_enableprint.png u_disableprint.png \
  docattributes.png tabtocindex.png colorpicker.png colorpickercursor.png wizard.png flow-bounding.png flow-contour.png flow-frame.png flow-none.png\
  vpl.png noicon.xpm clear_right.png layer-outline.png\
@@ -116,12 +116,16 @@ ellipsis.png \
 22/edit-copy.png \
 16/edit-cut.png \
 22/edit-cut.png \
+16/edit-delete.png \
+22/edit-delete.png \
 16/edit-find-replace.png \
 22/edit-find-replace.png \
 16/edit-paste.png \
 22/edit-paste.png \
 16/edit-redo.png \
 22/edit-redo.png \
+16/edit-select-all.png \
+22/edit-select-all.png \
 16/edit-undo.png \
 22/edit-undo.png \
 16/flip-object-horizontal.png \
@@ -411,23 +415,19 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/edit-copy.png $(prefix)/share/scribus/icons/22/edit-copy.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-cut.png $(prefix)/share/scribus/icons/16/edit-cut.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-cut.png $(prefix)/share/scribus/icons/22/edit-cut.png
+	$(INSTALL_DATA) $(srcdir)/16/edit-delete.png $(prefix)/share/scribus/icons/16/edit-delete.png
+	$(INSTALL_DATA) $(srcdir)/22/edit-delete.png $(prefix)/share/scribus/icons/22/edit-delete.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-find-replace.png $(prefix)/share/scribus/icons/16/edit-find-replace.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-find-replace.png $(prefix)/share/scribus/icons/22/edit-find-replace.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-paste.png $(prefix)/share/scribus/icons/16/edit-paste.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-paste.png $(prefix)/share/scribus/icons/22/edit-paste.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-redo.png $(prefix)/share/scribus/icons/16/edit-redo.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-redo.png $(prefix)/share/scribus/icons/22/edit-redo.png
+	$(INSTALL_DATA) $(srcdir)/16/edit-select-all.png $(prefix)/share/scribus/icons/16/edit-select-all.png
+	$(INSTALL_DATA) $(srcdir)/22/edit-select-all.png $(prefix)/share/scribus/icons/22/edit-select-all.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-undo.png $(prefix)/share/scribus/icons/16/edit-undo.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-undo.png $(prefix)/share/scribus/icons/22/edit-undo.png
-	$(INSTALL_DATA) $(srcdir)/editcopy.png $(prefix)/share/scribus/icons/editcopy.png
-	$(INSTALL_DATA) $(srcdir)/editcopy22.png $(prefix)/share/scribus/icons/editcopy22.png
-	$(INSTALL_DATA) $(srcdir)/editcut.png $(prefix)/share/scribus/icons/editcut.png
-	$(INSTALL_DATA) $(srcdir)/editcut22.png $(prefix)/share/scribus/icons/editcut22.png
-	$(INSTALL_DATA) $(srcdir)/editdelete.png $(prefix)/share/scribus/icons/editdelete.png
-	$(INSTALL_DATA) $(srcdir)/editdelete22.png $(prefix)/share/scribus/icons/editdelete22.png
 	$(INSTALL_DATA) $(srcdir)/Editm.xpm $(prefix)/share/scribus/icons/Editm.xpm
-	$(INSTALL_DATA) $(srcdir)/editpaste.png $(prefix)/share/scribus/icons/editpaste.png
-	$(INSTALL_DATA) $(srcdir)/edittrash.png $(prefix)/share/scribus/icons/edittrash.png
 	$(INSTALL_DATA) $(srcdir)/exit.png $(prefix)/share/scribus/icons/exit.png
 	$(INSTALL_DATA) $(srcdir)/exit22.png $(prefix)/share/scribus/icons/exit22.png
 	$(INSTALL_DATA) $(srcdir)/expand.png $(prefix)/share/scribus/icons/expand.png
@@ -856,23 +856,19 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/edit-copy.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-cut.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-cut.png
+	-rm -f $(prefix)/share/scribus/icons/16/edit-delete.png
+	-rm -f $(prefix)/share/scribus/icons/22/edit-delete.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-find-replace.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-find-replace.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-paste.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-paste.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-redo.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-redo.png
+	-rm -f $(prefix)/share/scribus/icons/16/edit-select-all.png
+	-rm -f $(prefix)/share/scribus/icons/22/edit-select-all.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-undo.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-undo.png
-	-rm -f $(prefix)/share/scribus/icons/editcopy.png
-	-rm -f $(prefix)/share/scribus/icons/editcopy22.png
-	-rm -f $(prefix)/share/scribus/icons/editcut.png
-	-rm -f $(prefix)/share/scribus/icons/editcut22.png
-	-rm -f $(prefix)/share/scribus/icons/editdelete.png
-	-rm -f $(prefix)/share/scribus/icons/editdelete22.png
 	-rm -f $(prefix)/share/scribus/icons/Editm.xpm
-	-rm -f $(prefix)/share/scribus/icons/editpaste.png
-	-rm -f $(prefix)/share/scribus/icons/edittrash.png
 	-rm -f $(prefix)/share/scribus/icons/exit.png
 	-rm -f $(prefix)/share/scribus/icons/exit22.png
 	-rm -f $(prefix)/share/scribus/icons/externaltools.png
