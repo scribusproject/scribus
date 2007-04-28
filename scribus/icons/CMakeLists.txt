@@ -39,17 +39,6 @@ cmsOn.png
 curve.png
 curvebezier.png
 curvelinear.png
-DateiClos16.png
-DateiClose.png
-DateiNeu16.png
-DateiNeu.xpm
-DateiOpen16.png
-DateiOpen.xpm
-DateiPrint16.png
-DateiPrint.xpm
-DateiSave16.png
-DateiSave2.png
-Deletelayer.png
 DeleteNode.png
 DelPoint.png
 dist22.png
@@ -72,9 +61,6 @@ exit22.png
 exit.png
 expand.png
 externaltools.png
-filenew.png
-fileopen.png
-filesaveas.png
 find16.png
 find.png
 finish.png
@@ -196,8 +182,6 @@ Stift16.xpm
 Stiftalt16.xpm
 Stiftalt.xpm
 Stift.xpm
-stoplaunch16.png
-stoplaunch.png
 Strike.xpm
 tab.png
 tabtocindex.png

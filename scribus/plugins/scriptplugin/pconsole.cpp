@@ -48,9 +48,9 @@ PythonConsole::PythonConsole( QWidget* parent)
 	// setup the menu
 	menuBar = new QMenuBar(this, "menuBar");
 	QPopupMenu *fileMenu = new QPopupMenu(this);
-	fileMenu->insertItem(loadIcon("fileopen.png"), tr("&Open..."), this, SLOT(slot_open()), CTRL+Key_O);
-	fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slot_save()), CTRL+Key_S);
-	fileMenu->insertItem( tr("Save &As..."), this, SLOT(slot_saveAs()));
+	fileMenu->insertItem(loadIcon("16/document-open.png"), tr("&Open..."), this, SLOT(slot_open()), CTRL+Key_O);
+	fileMenu->insertItem(loadIcon("16/document-save.png"), tr("&Save"), this, SLOT(slot_save()), CTRL+Key_S);
+	fileMenu->insertItem(loadIcon("16/document-save-as.png"), tr("Save &As..."), this, SLOT(slot_saveAs()));
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
 	menuBar->insertItem( tr("&File"), fileMenu);
