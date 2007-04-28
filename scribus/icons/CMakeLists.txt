@@ -97,13 +97,11 @@ Kreise.xpm
 Kreuz.xpm
 launch16.png
 launch.png
-Layervisible.xpm
 leftindent.png
 linespacing.png
 linespacing2.png
 locked.png
 Lock.xpm
-Lowerlayer.png
 lower.png
 lower-to-bottom.png
 Lupe.xpm
@@ -116,7 +114,6 @@ MoveKontrol.png
 MoveNode.png
 mover.png
 MoveSym.png
-Newlayer.png
 nftabout.xpm
 nftinfo.xpm
 noicon.xpm
@@ -134,7 +131,6 @@ PolyCut.png
 postscript.png
 printer.png
 python.png
-Raiselayer.png
 raise.png
 raise-to-top.png
 Rechtecke.xpm
@@ -167,8 +163,6 @@ shear_left.png
 shear_right.png
 shear_up.png
 shortwords.png
-signature2.png
-signature.png
 Spacing.xpm
 spiral.png
 Splash.png
