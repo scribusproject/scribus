@@ -108,7 +108,7 @@
                         <cstring>recursiveSearch</cstring>
                     </property>
                     <property name="text">
-                        <string>Search recursivly</string>
+                        <string>Search recursively</string>
                     </property>
                     <property name="checked">
                         <bool>true</bool>
