@@ -183,9 +183,9 @@ void ActionManager::initEditMenuActions()
 	name="editPasteContents";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/edit-paste.png"), QPixmap(), "", defKeys[name], mainWindow, name,0));
 	name="editPasteContentsAbs";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("editpaste.png"), QPixmap(), "", defKeys[name], mainWindow, name,1));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/edit-paste.png"), QPixmap(), "", defKeys[name], mainWindow, name,1));
 	name="editClearContents";
-	scrActions->insert(name, new ScrAction(loadIcon("editdelete.png"), loadIcon("editdelete22.png"), "", defKeys[name], mainWindow, name));
+	scrActions->insert(name, new ScrAction(loadIcon("16/edit-delete.png"), loadIcon("22/edit-delete.png"), "", defKeys[name], mainWindow, name));
 	name="editSelectAll";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="editDeselectAll";

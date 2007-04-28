@@ -20,7 +20,7 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent, "AlignSelect")
 
 	TextL = new QToolButton( this, "TextL" );
 	TextL->setMaximumSize( QSize( 22, 22 ) );
-	TextL->setIcon(QIcon(loadIcon("text_left.png")));
+	TextL->setIcon(QIcon(loadIcon("16/format-justify-left.png")));
 	TextL->setCheckable( true );
 	TextL->setChecked( true );
 	GroupAlignLayout->addWidget( TextL );
@@ -28,28 +28,28 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent, "AlignSelect")
 
 	TextC = new QToolButton( this, "TextC" );
 	TextC->setMaximumSize( QSize( 22, 22 ) );
-	TextC->setIcon(QIcon(loadIcon("text_center.png")));
+	TextC->setIcon(QIcon(loadIcon("16/format-justify-center.png")));
 	TextC->setCheckable( true );
 	GroupAlignLayout->addWidget( TextC );
 	buttonGroup->addButton(TextC, 1);
 
 	TextR = new QToolButton( this, "TextR" );
 	TextR->setMaximumSize( QSize( 22, 22 ) );
-	TextR->setIcon(QIcon(loadIcon("text_right.png")));
+	TextR->setIcon(QIcon(loadIcon("16/format-justify-right.png")));
 	TextR->setCheckable( true );
 	GroupAlignLayout->addWidget( TextR );
 	buttonGroup->addButton(TextR, 2);
 
 	TextB = new QToolButton( this, "TextB" );
 	TextB->setMaximumSize( QSize( 22, 22 ) );
-	TextB->setIcon(QIcon(loadIcon("text_block.png")));
+	TextB->setIcon(QIcon(loadIcon("16/format-justify-fill-block.png")));
 	TextB->setCheckable( true );
 	GroupAlignLayout->addWidget( TextB );
 	buttonGroup->addButton(TextB, 3);
 
 	TextF = new QToolButton( this, "TextF" );
 	TextF->setMaximumSize( QSize( 22, 22 ) );
-	TextF->setIcon(QIcon(loadIcon("text_force.png")));
+	TextF->setIcon(QIcon(loadIcon("16/format-justify-fill.png")));
 	TextF->setCheckable( true );
 	GroupAlignLayout->addWidget( TextF );
 	buttonGroup->addButton(TextF, 4);

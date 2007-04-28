@@ -50,7 +50,7 @@ ImIconProvider::ImIconProvider(QWidget *pa) : Q3FileIconProvider(pa)
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
 		fmts += tmp[a];
-	imagepm = loadIcon("image.png");
+	imagepm = loadIcon("16/image-x-generic.png");
 	pspm = loadIcon("postscript.png");
 	txtpm = loadIcon("txt.png");
 	docpm = loadIcon("doc.png");

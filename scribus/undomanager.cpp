@@ -816,8 +816,8 @@ void UndoManager::initIcons()
 	QString iconDir = ScPaths::instance().iconDir();
 
 /*** Icons for UndoObjects *******************************************/
-	UndoManager::IImageFrame      = new QPixmap(iconDir + "Bild.xpm");
-	UndoManager::ITextFrame       = new QPixmap(iconDir + "Text.xpm");
+	UndoManager::IImageFrame      = new QPixmap(iconDir + "16/insert-image.png");
+	UndoManager::ITextFrame       = new QPixmap(iconDir + "16/insert-text-frame.png");
 	UndoManager::ILine            = new QPixmap(iconDir + "Stift.xpm");
 	UndoManager::IPolygon         = new QPixmap(iconDir + "spline.png");
 	UndoManager::IPolyline        = new QPixmap(iconDir + "beziertool.png");
@@ -840,7 +840,7 @@ void UndoManager::initIcons()
 	UndoManager::IDisablePrint    = new QPixmap(iconDir + "u_disableprint.png");
 	UndoManager::IDelete          = new QPixmap(iconDir + "u_delete.png");
 	UndoManager::ICreate          = new QPixmap(iconDir + "u_create.png");
-	UndoManager::IPaste           = new QPixmap(iconDir + "editpaste.png");
+	UndoManager::IPaste           = new QPixmap(iconDir + "16/edit-paste.png");
 	UndoManager::ICut             = new QPixmap(iconDir + "u_cut.png");
 	UndoManager::ITransparency    = new QPixmap(iconDir + "u_transp.png");
 	UndoManager::ILineStyle       = new QPixmap(iconDir + "u_line.png");
