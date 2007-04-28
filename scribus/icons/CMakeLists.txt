@@ -85,7 +85,6 @@ externaltools.png
 filenew.png
 fileopen.png
 filesaveas.png
-fill.png
 find16.png
 find.png
 finish.png
