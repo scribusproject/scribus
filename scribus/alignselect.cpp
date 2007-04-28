@@ -59,7 +59,8 @@ AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent, "AlignSelect")
 
 void AlignSelect::setStyle(int s)
 {
-	buttonGroup->button(s)->setChecked(true);
+	if ((s >= 0) && (s < 5))
+		buttonGroup->button(s)->setChecked(true);
 }
 
 int AlignSelect::getStyle()
