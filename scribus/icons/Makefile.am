@@ -111,6 +111,8 @@ ellipsis.png \
 22/draw-triangle4.png \
 16/draw-triangle.png \
 22/draw-triangle.png \
+16/edit-clear.png \
+22/edit-clear.png \
 16/edit-copy.png \
 22/edit-copy.png \
 16/edit-cut.png \
@@ -434,6 +436,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/DrawPolylineFrame.xpm $(prefix)/share/scribus/icons/DrawPolylineFrame.xpm
 	$(INSTALL_DATA) $(srcdir)/DrawTable.xpm $(prefix)/share/scribus/icons/DrawTable.xpm
 	$(INSTALL_DATA) $(srcdir)/DrawTextFrame.xpm $(prefix)/share/scribus/icons/DrawTextFrame.xpm
+	$(INSTALL_DATA) $(srcdir)/16/edit-clear.png $(prefix)/share/scribus/icons/16/edit-clear.png
+	$(INSTALL_DATA) $(srcdir)/22/edit-clear.png $(prefix)/share/scribus/icons/22/edit-clear.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-copy.png $(prefix)/share/scribus/icons/16/edit-copy.png
 	$(INSTALL_DATA) $(srcdir)/22/edit-copy.png $(prefix)/share/scribus/icons/22/edit-copy.png
 	$(INSTALL_DATA) $(srcdir)/16/edit-cut.png $(prefix)/share/scribus/icons/16/edit-cut.png
@@ -907,6 +911,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/DrawPolylineFrame.xpm
 	-rm -f $(prefix)/share/scribus/icons/DrawTable.xpm
 	-rm -f $(prefix)/share/scribus/icons/DrawTextFrame.xpm
+	-rm -f $(prefix)/share/scribus/icons/16/edit-clear.png
+	-rm -f $(prefix)/share/scribus/icons/22/edit-clear.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-copy.png
 	-rm -f $(prefix)/share/scribus/icons/22/edit-copy.png
 	-rm -f $(prefix)/share/scribus/icons/16/edit-cut.png

@@ -376,6 +376,7 @@ INSTALL(FILES
 16/draw-triangle3.png
 16/draw-triangle4.png
 16/draw-triangle.png
+16/edit-clear.png
 16/edit-copy.png
 16/edit-cut.png
 16/edit-find-replace.png
@@ -478,6 +479,7 @@ INSTALL(FILES
 22/draw-triangle3.png
 22/draw-triangle4.png
 22/draw-triangle.png
+22/edit-clear.png
 22/edit-copy.png
 22/edit-cut.png
 22/edit-find-replace.png
