@@ -79,8 +79,6 @@ find16.png
 find.png
 finish.png
 firstline.png
-FlipH.xpm
-FlipV.xpm
 flow-bounding.png
 flow-contour.png
 flow-frame.png
@@ -96,8 +94,6 @@ font_type1.png
 forward.png
 framenoresize.png
 frameresize.png
-frame_table16.png
-frame_table.png
 gohome.png
 goto.png
 group.png
@@ -106,7 +102,6 @@ HandC.xpm
 hmirror.png
 Hoch.xpm
 hyphenate.png
-image.png
 invert.png
 irreg.png
 Kapital.xpm
@@ -120,7 +115,6 @@ Layervisible.xpm
 leftindent.png
 linespacing.png
 linespacing2.png
-listbox.png
 locked.png
 Lock.xpm
 Lowerlayer.png
@@ -345,6 +339,7 @@ INSTALL(FILES
 16/go-previous.png
 16/go-top.png
 16/go-up.png
+16/image-x-generic.png
 16/insert-image.png
 16/insert-text-frame.png
 16/insert-table.png
@@ -448,6 +443,7 @@ INSTALL(FILES
 22/go-previous.png
 22/go-top.png
 22/go-up.png
+22/image-x-generic.png
 22/insert-button.png
 22/insert-image.png
 22/insert-text-frame.png
