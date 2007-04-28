@@ -130,7 +130,7 @@ void ActionManager::initFileMenuActions()
 	name="filePrint";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-print.png"), loadIcon("22/document-print.png"), "", defKeys[name], mainWindow, name));
 	name="PrintPreview";
-	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
+	scrActions->insert(name, new ScrAction(loadIcon("16/document-print-preview.png"), loadIcon("22/document-print-preview.png"), "", defKeys[name], mainWindow, name));
 	name="fileQuit";
 	scrActions->insert(name, new ScrAction(loadIcon("exit.png"), QPixmap(), "", defKeys[name], mainWindow, name));
 
@@ -805,7 +805,7 @@ void ActionManager::initHelpMenuActions()
 	name="helpTooltips";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="helpManual";
-	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
+	scrActions->insert(name, new ScrAction(loadIcon("16/help-browser.png"), QPixmap(), "", defKeys[name], mainWindow, name));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setOn(true);

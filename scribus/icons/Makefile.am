@@ -57,6 +57,8 @@ ellipsis.png \
 22/document-open.png \
 16/document-print.png \
 22/document-print.png \
+16/document-print-preview.png \
+22/document-print-preview.png \
 16/document-properties.png \
 22/document-properties.png \
 16/document-save.png \
@@ -146,8 +148,10 @@ ellipsis.png \
 22/go-top.png \
 16/go-up.png \
 22/go-up.png \
+16/help-browser.png \
 16/image-x-generic.png \
 22/image-x-generic.png \
+16/information.png \
 22/insert-button.png \
 16/insert-image.png \
 22/insert-image.png \
@@ -338,6 +342,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/document-open.png $(prefix)/share/scribus/icons/22/document-open.png
 	$(INSTALL_DATA) $(srcdir)/16/document-print.png $(prefix)/share/scribus/icons/16/document-print.png
 	$(INSTALL_DATA) $(srcdir)/22/document-print.png $(prefix)/share/scribus/icons/22/document-print.png
+	$(INSTALL_DATA) $(srcdir)/16/document-print-preview.png $(prefix)/share/scribus/icons/16/document-print-preview.png
+	$(INSTALL_DATA) $(srcdir)/22/document-print-preview.png $(prefix)/share/scribus/icons/22/document-print-preview.png
 	$(INSTALL_DATA) $(srcdir)/16/document-properties.png $(prefix)/share/scribus/icons/16/document-properties.png
 	$(INSTALL_DATA) $(srcdir)/22/document-properties.png $(prefix)/share/scribus/icons/22/document-properties.png
 	$(INSTALL_DATA) $(srcdir)/16/document-save.png $(prefix)/share/scribus/icons/16/document-save.png
@@ -463,9 +469,11 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/goto.png $(prefix)/share/scribus/icons/goto.png
 	$(INSTALL_DATA) $(srcdir)/guides.png $(prefix)/share/scribus/icons/guides.png
 	$(INSTALL_DATA) $(srcdir)/HandC.xpm $(prefix)/share/scribus/icons/HandC.xpm
+	$(INSTALL_DATA) $(srcdir)/16/help-browser.png $(prefix)/share/scribus/icons/16/help-browser.png
 	$(INSTALL_DATA) $(srcdir)/hmirror.png $(prefix)/share/scribus/icons/hmirror.png
 	$(INSTALL_DATA) $(srcdir)/Hoch.xpm $(prefix)/share/scribus/icons/Hoch.xpm
 	$(INSTALL_DATA) $(srcdir)/hyphenate.png $(prefix)/share/scribus/icons/hyphenate.png
+	$(INSTALL_DATA) $(srcdir)/16/information.png $(prefix)/share/scribus/icons/16/information.png
 	$(INSTALL_DATA) $(srcdir)/16/image-x-generic.png $(prefix)/share/scribus/icons/16/image-x-generic.png
 	$(INSTALL_DATA) $(srcdir)/22/image-x-generic.png $(prefix)/share/scribus/icons/22/image-x-generic.png
 	$(INSTALL_DATA) $(srcdir)/22/insert-button.png $(prefix)/share/scribus/icons/22/insert-button.png
@@ -756,6 +764,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/document-open.png
 	-rm -f $(prefix)/share/scribus/icons/16/document-print.png
 	-rm -f $(prefix)/share/scribus/icons/22/document-print.png
+	-rm -f $(prefix)/share/scribus/icons/16/document-print-preview.png
+	-rm -f $(prefix)/share/scribus/icons/22/document-print-preview.png
 	-rm -f $(prefix)/share/scribus/icons/16/document-properties.png
 	-rm -f $(prefix)/share/scribus/icons/22/document-properties.png
 	-rm -f $(prefix)/share/scribus/icons/16/document-save.png
@@ -880,9 +890,11 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/goto.png
 	-rm -f $(prefix)/share/scribus/icons/guides.png
 	-rm -f $(prefix)/share/scribus/icons/HandC.xpm
+	-rm -f $(prefix)/share/scribus/icons/16/help-browser.png
 	-rm -f $(prefix)/share/scribus/icons/hmirror.png
 	-rm -f $(prefix)/share/scribus/icons/Hoch.xpm
 	-rm -f $(prefix)/share/scribus/icons/hyphenate.png
+	-rm -f $(prefix)/share/scribus/icons/16/information.png
 	-rm -f $(prefix)/share/scribus/icons/16/image-x-generic.png
 	-rm -f $(prefix)/share/scribus/icons/22/image-x-generic.png
 	-rm -f $(prefix)/share/scribus/icons/22/insert-button.png
