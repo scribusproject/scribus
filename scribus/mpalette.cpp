@@ -4770,8 +4770,8 @@ void Mpalette::languageChange()
 	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
 	QToolTip::add(paraStyleCombo, tr("Paragraph style of currently selected text or paragraph"));
 	QToolTip::add(charStyleCombo, tr("Character style of currently selected text or paragraph"));
-	QToolTip::add(paraStyleClear, tr("remove direct paragraph formatting"));
-	QToolTip::add(charStyleClear, tr("remove direct char formatting"));
+	QToolTip::add(paraStyleClear, tr("Remove Direct Paragraph Formatting"));
+	QToolTip::add(charStyleClear, tr("Remove Direct Character Formatting"));
 //	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 
 	QToolTip::add(minWordTrackingSpinBox, tr("Minimal width of spaces between words"));
