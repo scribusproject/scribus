@@ -63,7 +63,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "29";
+	QString BUILD_DAY = "30";
 	QString BUILD_MONTH = CommonStrings::april;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -201,6 +201,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + tr("Tango Project Icons:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr>" +
 											"<tr><td>Jakub Steiner</td><td>jimmac@ximian.com</td></tr>"  +
+											"<tr><td>Antoine Cailliau</td><td>antoinecailliau@gmail.com</td></tr>"  +
 											"<tr><td> </td><td> </td></tr>" + "</table>"));
 	tabLayout->addWidget( textView1 );
 	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
