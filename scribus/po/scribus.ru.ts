@@ -2475,7 +2475,7 @@ strings.
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показывать &amp;базовые линии</translation>
+        <translation>Показывать &amp;линии шрифта</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
@@ -6257,7 +6257,7 @@ failed!</source>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Между строк</translation>
+        <translation>Интерлиньяж</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -8884,11 +8884,11 @@ Corners:</source>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation>Автомат. между строк</translation>
+        <translation>Автоматический интерлиньяж</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation>Выровнять по сетке базовой линии</translation>
+        <translation>Выровнять по линии шрифта</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
@@ -15179,15 +15179,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Показывать базовые линии</translation>
+        <translation>Показывать линии шрифта</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>&amp;Базовые линии:</translation>
+        <translation>&amp;Линии шрифта:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>С&amp;мещение базовых линий:</translation>
+        <translation>С&amp;двиг линий шрифта:</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
@@ -15239,11 +15239,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation>Параметры базовых линий</translation>
+        <translation>Параметры линий шрифта</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation>Цвет базовых линий</translation>
+        <translation>Цвет линий шрифта</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
@@ -15255,11 +15255,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Distance between the lines of the baseline grid</source>
-        <translation>Расстояние между линиями сетки основной линии</translation>
+        <translation>Расстояние между линиями сетки линий шрифта</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation>Расстояние от верха страницы до первой базовой линии</translation>
+        <translation>Расстояние от верха страницы до первой линии шрифта</translation>
     </message>
 </context>
 <context>
@@ -16386,7 +16386,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Смещение выше базовой линии</translation>
+        <translation>Смещение выше линии шрифта</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -16394,7 +16394,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Смещение ниже базовой линии</translation>
+        <translation>Смещение ниже линии шрифта</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -16430,7 +16430,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation>Между строк:</translation>
+        <translation>Интерлиньяж:</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
@@ -16438,7 +16438,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation>Смещение ниже базовой линии, выраженное в процентном соотношении нисхождения шрифтов</translation>
+        <translation>Смещение ниже линии шрифта, выраженное в процентном соотношении нисхождения шрифтов</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
@@ -16446,7 +16446,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation>Смещение выше базовой линии, выраженное в процентном соотношении восхождения шрифтов</translation>
+        <translation>Смещение выше линии шрифта, выраженное в процентном соотношении восхождения шрифтов</translation>
     </message>
 </context>
 <context>
