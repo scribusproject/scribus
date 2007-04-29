@@ -1,4 +1,4 @@
-EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Stift16.xpm Stift.xpm Unlock.xpm AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png exit.png doc.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm Winkel.xpm acrobat.png scribusicon.png spline16.png spline.png triangle.png beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png Splash.png penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
+EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Stift16.xpm Stift.xpm Unlock.xpm AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png exit.png doc.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm Winkel.xpm acrobat.png scribusicon.png spline16.png spline.png triangle.png beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png Splash.png penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png launch.png launch16.png \
  u_undo.png u_redo.png u_undo16.png u_redo16.png u_margins.png u_margins_locked.png u_align.png u_move.png u_resize.png u_rotate.png u_group.png u_fill.png u_shade.png u_lock.png u_unlock.png u_create.png u_delete.png u_fliph.png u_flipv.png u_cut.png u_transp.png u_line.png u_arrow.png u_font.png u_svg.png u_eps.png u_scale_image.png u_shape.png u_enableprint.png u_disableprint.png \
  docattributes.png tabtocindex.png colorpicker.png colorpickercursor.png wizard.png flow-bounding.png flow-contour.png flow-frame.png flow-none.png\
  vpl.png noicon.xpm clear_right.png layer-outline.png\
@@ -166,8 +166,10 @@ ellipsis.png \
 16/insert-table.png \
 22/insert-table.png \
 16/list-add.png \
+22/list-add.png \
 22/list-box.png \
 16/list-remove.png \
+22/list-remove.png \
 16/lock.png \
 22/lock.png \
 16/lock-unlocked.png \
@@ -249,7 +251,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/shade.png $(prefix)/share/scribus/icons/shade.png
 	$(INSTALL_DATA) $(srcdir)/acrobat.png $(prefix)/share/scribus/icons/acrobat.png
 	$(INSTALL_DATA) $(srcdir)/acroread.png $(prefix)/share/scribus/icons/acroread.png
-	$(INSTALL_DATA) $(srcdir)/addf.png $(prefix)/share/scribus/icons/addf.png
 	$(INSTALL_DATA) $(srcdir)/AddNode.png $(prefix)/share/scribus/icons/AddNode.png
 	$(INSTALL_DATA) $(srcdir)/AddPoint.png $(prefix)/share/scribus/icons/AddPoint.png
 	$(INSTALL_DATA) $(srcdir)/16/align-horizontal-center.png    $(prefix)/share/scribus/icons/16/align-horizontal-center.png
@@ -500,8 +501,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/linespacing.png $(prefix)/share/scribus/icons/linespacing.png
 	$(INSTALL_DATA) $(srcdir)/linespacing2.png $(prefix)/share/scribus/icons/linespacing2.png
 	$(INSTALL_DATA) $(srcdir)/16/list-add.png $(prefix)/share/scribus/icons/16/list-add.png
+	$(INSTALL_DATA) $(srcdir)/22/list-add.png $(prefix)/share/scribus/icons/22/list-add.png
 	$(INSTALL_DATA) $(srcdir)/22/list-box.png $(prefix)/share/scribus/icons/22/list-box.png
 	$(INSTALL_DATA) $(srcdir)/16/list-remove.png $(prefix)/share/scribus/icons/16/list-remove.png
+	$(INSTALL_DATA) $(srcdir)/22/list-remove.png $(prefix)/share/scribus/icons/22/list-remove.png
 	$(INSTALL_DATA) $(srcdir)/16/lock.png $(prefix)/share/scribus/icons/16/lock.png
 	$(INSTALL_DATA) $(srcdir)/22/lock.png $(prefix)/share/scribus/icons/22/lock.png
 	$(INSTALL_DATA) $(srcdir)/16/lock-unlocked.png $(prefix)/share/scribus/icons/16/lock-unlocked.png
@@ -542,7 +545,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/raise.png $(prefix)/share/scribus/icons/raise.png
 	$(INSTALL_DATA) $(srcdir)/reload.png $(prefix)/share/scribus/icons/reload.png
 	$(INSTALL_DATA) $(srcdir)/reload16.png $(prefix)/share/scribus/icons/reload16.png
-	$(INSTALL_DATA) $(srcdir)/removef.png $(prefix)/share/scribus/icons/removef.png
 	$(INSTALL_DATA) $(srcdir)/Reset1Node.png $(prefix)/share/scribus/icons/Reset1Node.png
 	$(INSTALL_DATA) $(srcdir)/ResetNode.png $(prefix)/share/scribus/icons/ResetNode.png
 	$(INSTALL_DATA) $(srcdir)/Revers.png $(prefix)/share/scribus/icons/Revers.png
@@ -668,7 +670,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/pixmaps/wordsOnly.png
 	-rm -f $(prefix)/share/scribus/icons/acrobat.png
 	-rm -f $(prefix)/share/scribus/icons/acroread.png
-	-rm -f $(prefix)/share/scribus/icons/addf.png
 	-rm -f $(prefix)/share/scribus/icons/AddNode.png
 	-rm -f $(prefix)/share/scribus/icons/AddPoint.png
 	-rm -f $(prefix)/share/scribus/icons/16/align-horizontal-center.png
@@ -911,8 +912,10 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/linespacing.png
 	-rm -f $(prefix)/share/scribus/icons/linespacing2.png
 	-rm -f $(prefix)/share/scribus/icons/16/list-add.png
+	-rm -f $(prefix)/share/scribus/icons/22/list-add.png
 	-rm -f $(prefix)/share/scribus/icons/22/list-box.png
 	-rm -f $(prefix)/share/scribus/icons/16/list-remove.png
+	-rm -f $(prefix)/share/scribus/icons/22/list-remove.png
 	-rm -f $(prefix)/share/scribus/icons/16/lock.png
 	-rm -f $(prefix)/share/scribus/icons/22/lock.png
 	-rm -f $(prefix)/share/scribus/icons/16/lock-unlocked.png
@@ -960,7 +963,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/raise.png
 	-rm -f $(prefix)/share/scribus/icons/reload.png
 	-rm -f $(prefix)/share/scribus/icons/reload16.png
-	-rm -f $(prefix)/share/scribus/icons/removef.png
 	-rm -f $(prefix)/share/scribus/icons/Reset1Node.png
 	-rm -f $(prefix)/share/scribus/icons/ResetNode.png
 	-rm -f $(prefix)/share/scribus/icons/Revers.png

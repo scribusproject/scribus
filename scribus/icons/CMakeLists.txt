@@ -8,7 +8,6 @@ ellipsis.png
 above.png
 acrobat.png
 acroread.png
-addf.png
 AddNode.png
 AddPoint.png
 alert.png
@@ -128,7 +127,6 @@ raise-to-top.png
 register.png
 reload16.png
 reload.png
-removef.png
 Reset1Node.png
 ResetNode.png
 Revers.png
@@ -418,7 +416,9 @@ INSTALL(FILES
 22/insert-image.png
 22/insert-text-frame.png
 22/insert-table.png
+22/list-add.png
 22/list-box.png
+22/list-remove.png
 22/lock.png
 22/lock-unlocked.png
 22/measure.png
