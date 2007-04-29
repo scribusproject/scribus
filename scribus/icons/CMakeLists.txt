@@ -312,7 +312,9 @@ INSTALL(FILES
 16/format-justify-right.png
 16/go-bottom.png
 16/go-down.png
+16/go-first.png
 16/go-home.png
+16/go-last.png
 16/go-next.png
 16/go-previous.png
 16/go-top.png
@@ -421,7 +423,9 @@ INSTALL(FILES
 22/edit-undo.png
 22/go-bottom.png
 22/go-down.png
+22/go-first.png
 22/go-home.png
+22/go-last.png
 22/go-next.png
 22/go-previous.png
 22/go-top.png

@@ -91,11 +91,11 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	Last->setAutoDefault( false );
 	Last->setFlat(OPTION_FLAT_BUTTON);
 #endif
-	Start->setPixmap( loadIcon("start.png") );
+	Start->setPixmap( loadIcon("16/go-first.png") );
 	Start->setFocusPolicy(QWidget::NoFocus);
 	PageSelectorLayout->addWidget( Start );
 
-	Back->setPixmap( loadIcon("back.png") );
+	Back->setPixmap( loadIcon("16/go-previous.png") );
 	Back->setFocusPolicy(QWidget::NoFocus);
 	Back->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Back );
@@ -114,12 +114,12 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageCombo->setFocusPolicy(QWidget::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 	
-	Forward->setPixmap( loadIcon("forward.png") );
+	Forward->setPixmap( loadIcon("16/go-next.png") );
 	Forward->setFocusPolicy(QWidget::NoFocus);
 	Forward->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Forward );
 
-	Last->setPixmap( loadIcon("finish.png") );
+	Last->setPixmap( loadIcon("16/go-last.png") );
 	Last->setFocusPolicy(QWidget::NoFocus);
 	PageSelectorLayout->addWidget( Last );
 	Forward->setEnabled(true);
