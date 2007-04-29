@@ -276,6 +276,7 @@ INSTALL(FILES
 16/draw-arrow-down.png
 16/draw-arrow-forward.png
 16/draw-arrow-up.png
+16/draw-bezier-curves.png
 16/draw-cross.png
 16/draw-donut.png
 16/draw-ellipse.png
@@ -389,6 +390,7 @@ INSTALL(FILES
 22/draw-arrow-down.png
 22/draw-arrow-forward.png
 22/draw-arrow-up.png
+22/draw-bezier-curves.png
 22/draw-cross.png
 22/draw-donut.png
 22/draw-ellipse.png

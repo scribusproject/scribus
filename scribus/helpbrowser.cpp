@@ -365,7 +365,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	// menus
 	menuBar = new QMenuBar(this);
 	QPopupMenu *fileMenu = new QPopupMenu(this);
-	fileMenu->insertItem(loadIcon("DateiPrint.xpm"), tr("&Print..."), this, SLOT(print()), CTRL+Key_P);
+	fileMenu->insertItem(loadIcon("16/document-print.png"), tr("&Print..."), this, SLOT(print()), CTRL+Key_P);
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
 	menuBar->insertItem( tr("&File"), fileMenu);
