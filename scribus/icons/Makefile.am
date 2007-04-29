@@ -1,4 +1,4 @@
-EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift16.xpm Stift.xpm Unlock.xpm AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png exit.png doc.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm Winkel.xpm acrobat.png scribusicon.png Text2.xpm spline16.png spline.png triangle.png Stiftalt.xpm Stiftalt16.xpm beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png    penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
+EXTRA_DIST = DrawFreeLine.png printer.png cmsOn.png cmsOff.png group.png ungroup.png configure.png previewOn.png previewOff.png curvelinear.png curvebezier.png curve.png invert.png viewmag1.png viewmagout.png viewmagin.png register.png cmyk.png rgb.png spot.png alert.png mover.png above.png below.png firstline.png leftindent.png rightindent.png shade.png linespacing.png linespacing2.png textbase.png textscaleh.png textkern.png textscalev.png wordsOnly.png shadow.png AllCaps.png DrawFrame.xpm DrawImageFrame.xpm DrawPolylineFrame.xpm DrawTable.xpm DrawTextFrame.xpm plugins.png shortwords.png font_otf16.png font_truetype16.png font_subst16.png font_type1_16.png font_otf.png font_truetype.png font_type1.png acroread.png checkdoc.png vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.png hyphenate.png scrap.png misc.png externaltools.png tools.png guides.png font.png typography.png screen.png dist.png dist22.png tab.png view.png Kreuz.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Stift16.xpm Stift.xpm Unlock.xpm AppIcon2.png AppIcon.png LupeZ.xpm LupeZm.xpm DragPix.xpm Rotieren2.png HandC.xpm scribus_logo.png exit.png doc.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm Winkel.xpm acrobat.png scribusicon.png spline16.png spline.png triangle.png beziertool.png beziertool16.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png irreg.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png    penciladd.png pencilsub.png outlined.png NoPrint.png unlock.png locked.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png scribusdoc.png scribusdoc16.png documentinfo.png documentinfo32.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png launch.png launch16.png \
  u_undo.png u_redo.png u_undo16.png u_redo16.png u_margins.png u_margins_locked.png u_align.png u_move.png u_resize.png u_rotate.png u_group.png u_fill.png u_shade.png u_lock.png u_unlock.png u_create.png u_delete.png u_fliph.png u_flipv.png u_cut.png u_transp.png u_line.png u_arrow.png u_font.png u_svg.png u_eps.png u_scale_image.png u_shape.png u_enableprint.png u_disableprint.png \
  docattributes.png tabtocindex.png colorpicker.png colorpickercursor.png wizard.png flow-bounding.png flow-contour.png flow-frame.png flow-none.png\
  vpl.png noicon.xpm clear_right.png layer-outline.png\
@@ -540,7 +540,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/python.png $(prefix)/share/scribus/icons/python.png
 	$(INSTALL_DATA) $(srcdir)/raise-to-top.png $(prefix)/share/scribus/icons/raise-to-top.png
 	$(INSTALL_DATA) $(srcdir)/raise.png $(prefix)/share/scribus/icons/raise.png
-	$(INSTALL_DATA) $(srcdir)/Rechtecke.xpm $(prefix)/share/scribus/icons/Rechtecke.xpm
 	$(INSTALL_DATA) $(srcdir)/reload.png $(prefix)/share/scribus/icons/reload.png
 	$(INSTALL_DATA) $(srcdir)/reload16.png $(prefix)/share/scribus/icons/reload16.png
 	$(INSTALL_DATA) $(srcdir)/removef.png $(prefix)/share/scribus/icons/removef.png
@@ -550,7 +549,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/revert.png $(prefix)/share/scribus/icons/revert.png
 	$(INSTALL_DATA) $(srcdir)/rotate_ccw.png $(prefix)/share/scribus/icons/rotate_ccw.png
 	$(INSTALL_DATA) $(srcdir)/rotate_cw.png $(prefix)/share/scribus/icons/rotate_cw.png
-	$(INSTALL_DATA) $(srcdir)/Rotieren.xpm $(prefix)/share/scribus/icons/Rotieren.xpm
 	$(INSTALL_DATA) $(srcdir)/Rotieren2.png $(prefix)/share/scribus/icons/Rotieren2.png
 	$(INSTALL_DATA) $(srcdir)/RoundCap.png $(prefix)/share/scribus/icons/RoundCap.png
 	$(INSTALL_DATA) $(srcdir)/RoundJoin.png $(prefix)/share/scribus/icons/RoundJoin.png
@@ -576,8 +574,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/SquareCap.png $(prefix)/share/scribus/icons/SquareCap.png
 	$(INSTALL_DATA) $(srcdir)/Stift.xpm $(prefix)/share/scribus/icons/Stift.xpm
 	$(INSTALL_DATA) $(srcdir)/Stift16.xpm $(prefix)/share/scribus/icons/Stift16.xpm
-	$(INSTALL_DATA) $(srcdir)/Stiftalt.xpm $(prefix)/share/scribus/icons/Stiftalt.xpm
-	$(INSTALL_DATA) $(srcdir)/Stiftalt16.xpm $(prefix)/share/scribus/icons/Stiftalt16.xpm
 	$(INSTALL_DATA) $(srcdir)/16/story-editor.png $(prefix)/share/scribus/icons/16/story-editor.png
 	$(INSTALL_DATA) $(srcdir)/22/story-editor.png $(prefix)/share/scribus/icons/22/story-editor.png
 	$(INSTALL_DATA) $(srcdir)/Strike.xpm $(prefix)/share/scribus/icons/Strike.xpm
@@ -592,7 +588,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/testfill.png $(prefix)/share/scribus/icons/testfill.png
 	$(INSTALL_DATA) $(srcdir)/22/text-frame-link.png $(prefix)/share/scribus/icons/22/text-frame-link.png
 	$(INSTALL_DATA) $(srcdir)/22/text-frame-unlink.png $(prefix)/share/scribus/icons/22/text-frame-unlink.png
-	$(INSTALL_DATA) $(srcdir)/Text2.xpm $(prefix)/share/scribus/icons/Text2.xpm
 	$(INSTALL_DATA) $(srcdir)/textbase.png $(prefix)/share/scribus/icons/textbase.png
 	$(INSTALL_DATA) $(srcdir)/textkern.png $(prefix)/share/scribus/icons/textkern.png
 	$(INSTALL_DATA) $(srcdir)/textscaleh.png $(prefix)/share/scribus/icons/textscaleh.png
@@ -963,7 +958,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/postscript.png
 	-rm -f $(prefix)/share/scribus/icons/raise-to-top.png
 	-rm -f $(prefix)/share/scribus/icons/raise.png
-	-rm -f $(prefix)/share/scribus/icons/Rechtecke.xpm
 	-rm -f $(prefix)/share/scribus/icons/reload.png
 	-rm -f $(prefix)/share/scribus/icons/reload16.png
 	-rm -f $(prefix)/share/scribus/icons/removef.png
@@ -973,7 +967,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/revert.png
 	-rm -f $(prefix)/share/scribus/icons/rotate_ccw.png
 	-rm -f $(prefix)/share/scribus/icons/rotate_cw.png
-	-rm -f $(prefix)/share/scribus/icons/Rotieren.xpm
 	-rm -f $(prefix)/share/scribus/icons/Rotieren2.png
 	-rm -f $(prefix)/share/scribus/icons/RoundCap.png
 	-rm -f $(prefix)/share/scribus/icons/RoundJoin.png
@@ -997,8 +990,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Split.png
 	-rm -f $(prefix)/share/scribus/icons/SquareCap.png
 	-rm -f $(prefix)/share/scribus/icons/Stift.xpm
-	-rm -f $(prefix)/share/scribus/icons/Stiftalt.xpm
-	-rm -f $(prefix)/share/scribus/icons/Stiftalt16.xpm
 	-rm -f $(prefix)/share/scribus/icons/16/story-editor.png
 	-rm -f $(prefix)/share/scribus/icons/22/story-editor.png
 	-rm -f $(prefix)/share/scribus/icons/Strike.xpm
@@ -1013,7 +1004,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/testfill.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-frame-link.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-frame-unlink.png
-	-rm -f $(prefix)/share/scribus/icons/Text2.xpm
 	-rm -f $(prefix)/share/scribus/icons/textbase.png
 	-rm -f $(prefix)/share/scribus/icons/textkern.png
 	-rm -f $(prefix)/share/scribus/icons/textscaleh.png
