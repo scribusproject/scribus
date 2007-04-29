@@ -8380,8 +8380,8 @@ void ScribusView::slotDoCurs(bool draw)
 				y = 0;
 				y1 = static_cast<int>(textframe->itemText.defaultStyle().charStyle().fontSize() / 10);
 			}
-			else if (textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
-					 || textframe->CPos >= textframe->itemText.length())
+			else if ( textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame())
+					  || (textframe->CPos >= textframe->itemText.length() && textframe->itemText.text(textframe->itemText.length()-1) != SpecialChars::PARSEP) )
 			{
 				FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)));
 				x = static_cast<int>(bbox.x() + textframe->itemText.item(qMax(0,qMin(textframe->lastInFrame(), textframe->itemText.length()-1)))->glyph.wide());
@@ -8393,7 +8393,7 @@ void ScribusView::slotDoCurs(bool draw)
 			}
 			else
 			{
-				FRect bbox = textframe->itemText.boundingBox(textframe->CPos);
+				FRect bbox = textframe->itemText.boundingBox(QMAX(0,QMIN(textframe->CPos, textframe->itemText.length())));
 				x = static_cast<int>(bbox.x());
 				y = static_cast<int>(bbox.y());
 				if (bbox.height() <= 2) 

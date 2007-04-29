@@ -1119,7 +1119,8 @@ FRect StoryText::boundingBox(int pos, uint len) const
 		if (ls.lastItem < pos)
 			continue;
 		if (ls.firstItem <= pos) {
-			if (ls.lastItem == pos && (text(pos) == SpecialChars::PARSEP || (item(pos)->effects() & ScStyle_SuppressSpace) ) )
+			/*
+			if (ls.lastItem == pos && (item(pos)->effects() & ScStyle_SuppressSpace)  )
 			{
 				if (i+1 < lines())
 				{
@@ -1133,17 +1134,27 @@ FRect StoryText::boundingBox(int pos, uint len) const
 					result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
 				}
 			}
-			else
+			else */
 			{
 				double xpos = ls.x;
 				for (int j = ls.firstItem; j < pos; ++j)
 					xpos += item(j)->glyph.wide();
-				result.setRect(xpos, ls.y - ls.ascent, item(pos)->glyph.wide(), ls.ascent + ls.descent);
+				result.setRect(xpos, ls.y - ls.ascent, pos < length()? item(pos)->glyph.wide() : 1, ls.ascent + ls.descent);
 			}
-			break;
+			return result;
 		}
 	}
 
+	const ParagraphStyle& pstyle(paragraphStyle(pos));
+	if (lines() > 0)
+	{
+		ls = line(lines()-1);		
+		result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
+	}
+	else
+	{
+		result.setRect(1, 1, 1, pstyle.lineSpacing());
+	}	
 	return result;
 }
 
