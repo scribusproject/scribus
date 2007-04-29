@@ -1366,6 +1366,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		pat.setAttribute("height", pa.height);
 		for (uint o = 0; o < pa.items.count(); o++)
 		{
+			QDir::setCurrent(QDir::homeDirPath());
 			item = pa.items.at(o);
 			QDomElement ob = docu.createElement("PatternItem");
 			WriteObject(doc, docu, ob, UsedMapped2Saved, item);
