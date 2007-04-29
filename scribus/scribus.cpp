@@ -7969,7 +7969,7 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 			slotDocCh();
 		}
 	}
-	// delete ss;
+	delete ss;
 }
 
 void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
