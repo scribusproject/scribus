@@ -274,14 +274,14 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 
 	histMenu = new Q3PopupMenu( this );
 	backButton = new QToolButton( this, "backButton" );
-	backButton->setPixmap(loadIcon("back.png"));
+	backButton->setPixmap(loadIcon("16/go-previous.png"));
 	backButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, backButton->sizePolicy().hasHeightForWidth() ) );
 	backButton->setPopup(histMenu);
 	backButton->setPopupDelay(0);
 	buttonLayout->addWidget( backButton );
 
 	forwButton = new QToolButton( this, "forwButton" );
-	forwButton->setPixmap(loadIcon("forward.png"));
+	forwButton->setPixmap(loadIcon("16/go-next.png"));
 	forwButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, forwButton->sizePolicy().hasHeightForWidth() ) );
 	buttonLayout->addWidget( forwButton );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
