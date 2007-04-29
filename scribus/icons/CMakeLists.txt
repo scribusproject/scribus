@@ -130,7 +130,6 @@ printer.png
 python.png
 raise.png
 raise-to-top.png
-Rechtecke.xpm
 register.png
 reload16.png
 reload.png
@@ -144,7 +143,6 @@ rightindent.png
 rotate_ccw.png
 rotate_cw.png
 Rotieren2.png
-Rotieren.xpm
 RoundCap.png
 RoundJoin.png
 scrap.png
@@ -170,14 +168,11 @@ spot.png
 SquareCap.png
 start.png
 Stift16.xpm
-Stiftalt16.xpm
-Stiftalt.xpm
 Stift.xpm
 Strike.xpm
 tab.png
 tabtocindex.png
 testfill.png
-Text2.xpm
 textbase.png
 textkern.png
 textscaleh.png
