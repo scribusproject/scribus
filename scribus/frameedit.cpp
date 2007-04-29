@@ -94,22 +94,22 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(PolyMirrorV, 2, 3);
 
 	PolyShearL = new QToolButton(this);
-	PolyShearL->setPixmap(loadIcon("shear_left.png"));
+	PolyShearL->setPixmap(loadIcon("22/transform-shear-left.png"));
 	PolyShearL->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearL, 3, 0);
 
 	PolyShearR = new QToolButton(this);
-	PolyShearR->setPixmap(loadIcon("shear_right.png"));
+	PolyShearR->setPixmap(loadIcon("22/transform-shear-right.png"));
 	PolyShearR->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearR, 3, 1);
 
 	PolyShearU = new QToolButton(this);
-	PolyShearU->setPixmap(loadIcon("shear_up.png"));
+	PolyShearU->setPixmap(loadIcon("22/transform-shear-up.png"));
 	PolyShearU->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearU, 3, 2);
 
 	PolyShearD = new QToolButton(this);
-	PolyShearD->setPixmap(loadIcon("shear_down.png"));
+	PolyShearD->setPixmap(loadIcon("22/transform-shear-down.png"));
 	PolyShearD->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearD, 3, 3);
 	NodePaletteLayout->addLayout(gridLayout);

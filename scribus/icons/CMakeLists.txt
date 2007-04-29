@@ -15,14 +15,12 @@ alert.png
 AllCaps.png
 AppIcon2.png
 AppIcon.png
-back.png
 below.png
 BevelJoin.png
 BezierClose.png
 beziertool16.png
 beziertool.png
 blend.png
-bottom.png
 ButtCap.png
 checkdoc.png
 clear_right.png
@@ -48,7 +46,6 @@ doc.png
 document2.png
 documentinfo32.png
 documentinfo.png
-down.png
 DragPix.xpm
 DrawFrame.xpm
 DrawFreeLine.png
@@ -63,7 +60,6 @@ expand.png
 externaltools.png
 find16.png
 find.png
-finish.png
 firstline.png
 flow-bounding.png
 flow-contour.png
@@ -77,7 +73,6 @@ font_truetype16.png
 font_truetype.png
 font_type1_16.png
 font_type1.png
-forward.png
 framenoresize.png
 frameresize.png
 goto.png
@@ -153,10 +148,6 @@ scribusicon.png
 scribus_logo.png
 shade.png
 shadow.png
-shear_down.png
-shear_left.png
-shear_right.png
-shear_up.png
 shortwords.png
 Spacing.xpm
 spiral.png
@@ -166,7 +157,6 @@ spline.png
 Split.png
 spot.png
 SquareCap.png
-start.png
 Stift16.xpm
 Stift.xpm
 Strike.xpm
@@ -179,7 +169,6 @@ textscaleh.png
 textscalev.png
 Tief.xpm
 tools.png
-top.png
 trashcan2.png
 trashcan.png
 triangle.png
@@ -208,7 +197,6 @@ ungroup.png
 unlock.png
 Unlock.xpm
 Unter.xpm
-up.png
 u_redo16.png
 u_redo.png
 u_resize.png
@@ -442,6 +430,10 @@ INSTALL(FILES
 22/text-frame-link.png
 22/text-frame-unlink.png
 22/transform-rotate.png
+22/transform-shear-down.png
+22/transform-shear-left.png
+22/transform-shear-right.png
+22/transform-shear-up.png
 22/zoom.png
 22/zoom-in.png
 22/zoom-original.png
