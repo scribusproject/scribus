@@ -103,25 +103,25 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(PolyMirrorV, 2, 3, 1, 1);
 
 	PolyShearL = new QToolButton(this);
-	PolyShearL->setIcon(QIcon(loadIcon("shear_left.png")));
+	PolyShearL->setIcon(QIcon(loadIcon("22/transform-shear-left.png")));
 	PolyShearL->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearL->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearL, 3, 0, 1, 1);
 
 	PolyShearR = new QToolButton(this);
-	PolyShearR->setIcon(QIcon(loadIcon("shear_right.png")));
+	PolyShearR->setIcon(QIcon(loadIcon("22/transform-shear-right.png")));
 	PolyShearR->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearR->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearR, 3, 1, 1, 1);
 
 	PolyShearU = new QToolButton(this);
-	PolyShearU->setIcon(QIcon(loadIcon("shear_up.png")));
+	PolyShearU->setIcon(QIcon(loadIcon("22/transform-shear-up.png")));
 	PolyShearU->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearU->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearU, 3, 2, 1, 1);
 
 	PolyShearD = new QToolButton(this);
-	PolyShearD->setIcon(QIcon(loadIcon("shear_down.png")));
+	PolyShearD->setIcon(QIcon(loadIcon("22/transform-shear-down.png")));
 	PolyShearD->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 	PolyShearD->setAutoRepeat(true);
 	gridLayout->addWidget(PolyShearD, 3, 3, 1, 1);
