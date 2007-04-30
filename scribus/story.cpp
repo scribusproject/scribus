@@ -1768,7 +1768,8 @@ void SToolBStyle::newStrikeHandler()
 {
 	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
 	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
-	emit newUnderline(x, y);
+// 	emit newUnderline(x, y);
+	emit newStrike(x, y);
 }
 
 void SToolBStyle::newUnderlineHandler()
@@ -2962,7 +2963,8 @@ void StoryEditor::updateProps(int p, int ch)
 	StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
 	StyleTools->setOutline(Editor->CurrTextOutline);
 	StyleTools->setUnderline(Editor->CurrTextUnderPos, Editor->CurrTextUnderWidth);
-	StyleTools->setStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
+// 	StyleTools->setStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
+	StyleTools->setStrike(Editor->CurrTextStrikePos, Editor->CurrTextStrikeWidth);
 	FontTools->SetSize(Editor->CurrFontSize);
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
