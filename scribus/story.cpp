@@ -1016,7 +1016,8 @@ void SToolBStyle::newStrikeHandler()
 {
 	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
 	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
-	emit newUnderline(x, y);
+// 	emit newUnderline(x, y);
+	emit newStrike(x, y);
 }
 
 void SToolBStyle::newUnderlineHandler()
