@@ -37,6 +37,19 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
+class WidgetPopupMenu2 : public Q3PopupMenu
+{
+public:
+    WidgetPopupMenu2(QWidget *parent = 0) : Q3PopupMenu(parent), w(0){}
+    QWidget *widget() const { return w; }
+    void setWidget(QWidget *widget) { w = widget; w->setParent(this); w->move(2, 2); }
+    QSize sizeHint() const { return w->sizeHint() + QSize(4,4); }
+    void insertItem(QWidget *widget) { setWidget(widget); }
+
+private:
+    QWidget *w;
+};
+
 
 ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
 {
@@ -54,13 +67,22 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	
 	m_ScMW->scrActions["toolsInsertShape"]->addTo(this);
 	m_ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
-	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
+//	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
 	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
 	
-	QToolButton *insertShapeButton = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
-	if (insertShapeButton)
-		insertShapeButton->setPopupDelay(0);
+	insertShapeButtonMenu = new WidgetPopupMenu2();
 	Rechteck = new AutoformButtonGroup( NULL );
+	insertShapeButtonMenu->insertItem(Rechteck);
+	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
+	
+//	QToolButton *isB = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
+//	if (isB)
+//		isB->setPopupMode(QToolButton::MenuButtonPopup);
+//	{
+//		insertShapeButton->setPopupDelay(0);
+//		insertShapeButton->setPopup(insertShapeButtonMenu);
+//	}
+
 	//Qt4 insertShapeButtonMenu->insertItem( Rechteck );
 	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
 	//newShapeIcon.smoothScale(16,16);

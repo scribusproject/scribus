@@ -6722,7 +6722,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
     <message>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
-        <translation>Keine</translation>
+        <translation>Keiner</translation>
     </message>
     <message>
         <source>Left Protruding</source>
@@ -9024,7 +9024,7 @@ im Dokument gespeichert.</translation>
     </message>
     <message>
         <source>&amp;Number:</source>
-        <translation>&amp;Nummer:</translation>
+        <translation>&amp;Anzahl:</translation>
     </message>
     <message>
         <source>U&amp;se Gap:</source>
@@ -9036,7 +9036,7 @@ im Dokument gespeichert.</translation>
     </message>
     <message>
         <source>Nu&amp;mber:</source>
-        <translation>Nu&amp;mmer:</translation>
+        <translation>An&amp;zahl:</translation>
     </message>
     <message>
         <source>Use &amp;Gap:</source>
@@ -9068,7 +9068,7 @@ im Dokument gespeichert.</translation>
     </message>
     <message>
         <source>&amp;Misc</source>
-        <translation>&amp;Andere</translation>
+        <translation>&amp;Sonstiges</translation>
     </message>
     <message>
         <source>Delete all guides from the current page</source>
@@ -11286,7 +11286,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Min:</source>
-        <translation>Minimum:</translation>
+        <translation>Minimal:</translation>
     </message>
     <message>
         <source>Norm:</source>
@@ -11331,6 +11331,14 @@ ab&amp;runden:</translation>
     <message>
         <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation>Wendet Zeicheneinzug und Randunterschneidung an, um optisch anprechendere Spaltenränder zu erhalten</translation>
+    </message>
+    <message>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation>Direkte Absatzformatierung entfernen</translation>
+    </message>
+    <message>
+        <source>Remove Direct Character Formatting</source>
+        <translation>Direkte Zeichenformatierung entfernen</translation>
     </message>
 </context>
 <context>
@@ -12584,7 +12592,7 @@ werden ignoriert</translation>
     </message>
     <message>
         <source>Search recursivly</source>
-        <translation>Rekursive Suche</translation>
+        <translation type="obsolete">Rekursive Suche</translation>
     </message>
     <message>
         <source>Searching</source>
@@ -12593,6 +12601,10 @@ werden ignoriert</translation>
     <message>
         <source>Start Search</source>
         <translation>Suche starten</translation>
+    </message>
+    <message>
+        <source>Search recursively</source>
+        <translation>Rekursive Suche</translation>
     </message>
 </context>
 <context>
@@ -16631,14 +16643,6 @@ Vertikaler Abstand: %3</translation>
         <translation>Standard-Zeichenstil</translation>
     </message>
     <message>
-        <source>remove manual paragraphstyle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>remove manual charstyle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -16647,6 +16651,14 @@ Rotation: %4</source>
 Horizontaler Versatz: %2
 Vertikaler Versatz %3
 Drehung: %4</translation>
+    </message>
+    <message>
+        <source>remove direct paragraph formatting</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>remove direct char formatting</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -17084,7 +17096,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Scribus </source>
-        <translation type="obsolete">Scribus</translation>
+        <translation>Scribus</translation>
     </message>
 </context>
 <context>
@@ -18164,7 +18176,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     </message>
     <message>
         <source>New %1</source>
-        <translation>Neu %1</translation>
+        <translation>Neu: %1</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
@@ -21838,6 +21850,22 @@ X: %4, Y: %5</translation>
         <source>Copy page</source>
         <translation>Seite kopieren</translation>
     </message>
+    <message>
+        <source>Remove vertical auto guide</source>
+        <translation>Vertikale automatische Hilfslinie entfernen</translation>
+    </message>
+    <message>
+        <source>Remove horizontal auto guide</source>
+        <translation>Horizontale automatische Hilfslinie entfernen</translation>
+    </message>
+    <message>
+        <source>Remove page guides</source>
+        <translation>Hilfslinien auf der Seite entfernen</translation>
+    </message>
+    <message>
+        <source>Convert to outlines</source>
+        <translation>In Umrisse umwandeln</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -21868,6 +21896,13 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UnicodeChooseButton</name>
+    <message>
+        <source>&amp;Search</source>
+        <translation>&amp;Suchen</translation>
     </message>
 </context>
 <context>

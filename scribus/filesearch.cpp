@@ -150,7 +150,7 @@ void FileSearch::addCurrentDirFiles()
 		{
 			++it;
 			m_matchingFiles.push_back(fi->absFilePath());
-		}*/
+		} */
 	}
 	else
 	{

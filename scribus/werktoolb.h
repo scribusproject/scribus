@@ -32,6 +32,7 @@ class QToolButton;
 class Q3PopupMenu;
 class AutoformButtonGroup;
 class ScribusMainWindow;
+class WidgetPopupMenu2;
 
 /**
   *@author Franz Schmid
@@ -56,7 +57,7 @@ public slots:
 		
 protected:
 	AutoformButtonGroup* Rechteck;
-	Q3PopupMenu* insertShapeButtonMenu;
+	WidgetPopupMenu2* insertShapeButtonMenu;
 	Q3PopupMenu* insertPolygonButtonMenu;
 	int idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
