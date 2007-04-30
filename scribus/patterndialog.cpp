@@ -324,10 +324,10 @@ void PatternDialog::removePattern()
 					patterns2Del.append(mainPatterns[a]);
 			}
 		}
-		QStringList subPatterns;
-		subPatterns = getUsedPatternsHelper(it->text(), subPatterns);
-		if (!subPatterns.isEmpty())
-			patterns2Del += subPatterns;
+//		QStringList subPatterns;
+//		subPatterns = getUsedPatternsHelper(it->text(), subPatterns);
+//		if (!subPatterns.isEmpty())
+//			patterns2Del += subPatterns;
 		patterns2Del.append(it->text());
 		for (int a = 0; a < patterns2Del.count(); a++)
 		{

@@ -923,7 +923,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			pat.scaleY = pg.attribute("scaleY", "0").toDouble();
 			pat.width = pg.attribute("width", "0").toDouble();
 			pat.height = pg.attribute("height", "0").toDouble();
-			doc->docPatterns.insert(pg.attribute("Name"), pat);
+			if (!doc->docPatterns.contains(pg.attribute("Name")))
+				doc->docPatterns.insert(pg.attribute("Name"), pat);
 		}
 		DOC=DOC.nextSibling();
 	}
