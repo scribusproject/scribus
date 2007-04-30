@@ -291,7 +291,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/page-simple.png $(prefix)/share/scribus/icons/16/page-simple.png	
 	$(INSTALL_DATA) $(srcdir)/32/page-simple.png $(prefix)/share/scribus/icons/32/page-simple.png
 	$(INSTALL_DATA) $(srcdir)/22/pdf-annotations.png $(prefix)/share/scribus/icons/22/pdf-annotations.png
-	$(INSTALL_DATA) $(srcdir)/22/checkbox.png $(prefix)/share/scribus/icons/22/checkbox.png
 	$(INSTALL_DATA) $(srcdir)/checkdoc.png $(prefix)/share/scribus/icons/checkdoc.png
 	$(INSTALL_DATA) $(srcdir)/16/close.png $(prefix)/share/scribus/icons/16/close.png
 	$(INSTALL_DATA) $(srcdir)/22/close.png $(prefix)/share/scribus/icons/22/close.png
@@ -702,7 +701,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/blend.png
 	-rm -f $(prefix)/share/scribus/icons/ButtCap.png
 	-rm -f $(prefix)/share/scribus/icons/22/pdf-annotations.png
-	-rm -f $(prefix)/share/scribus/icons/22/checkbox.png
 	-rm -f $(prefix)/share/scribus/icons/checkdoc.png
 	-rm -f $(prefix)/share/scribus/icons/clear_right.png
 	-rm -f $(prefix)/share/scribus/icons/16/close.png
