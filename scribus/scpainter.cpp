@@ -136,7 +136,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	// ???
 #else
 	m_img.create(w, h, 32);
-	img = cairo_image_surface_create_for_data(m_img.bits(), CAIRO_FORMAT_ARGB32, w, h, 4);
+	img = cairo_image_surface_create_for_data(m_img.bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 #endif
 	m_cr = cairo_create(img);
 	clear();
