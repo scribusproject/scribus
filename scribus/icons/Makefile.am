@@ -203,7 +203,9 @@ ellipsis.png \
 16/transform-rotate.png \
 22/transform-rotate.png \
 22/transform-shear-down.png \
+22/transform-shear-up.png \
 22/transform-shear-left.png \
+22/transform-shear-right.png \
 16/layer-flow-around.png \
 16/zoom.png \
 22/zoom.png \
