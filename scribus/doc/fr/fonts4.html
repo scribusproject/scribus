@@ -1,0 +1,28 @@
+<qt>
+<title>Tests de base sur les polices - partie 1</title>
+<h2>Tests de base sur les polices - partie 1</h2>
+
+<h4>Comment peut-on savoir quelles polices sont bonnes, mauvaises ou neutres? </h4>
+
+<p>Vous avez donc t&eacute;l&eacute;charg&eacute; et install&eacute; un ensemble de polices. Partout dans la documentation, sur la liste de diffusion dans IRC, tout le monde parle d'utiliser de bonnes polices. Comment le savoir? Comment puis dire qu'une police est bonne?  Ci-dessous est pr&eacute;sent&eacute;e une liste de v&eacute;rifications que vous pouvez utiliser. Elle n'est pas exacte &agrave; 100%. Elle vient sans garantie : </p>
+
+<p>Une des caract&eacute;ristiques tr&egrave;s utile de KDE 3.3+ est l'outil kio-fonts qui peut extraire les m&eacute;tadonn&eacute;es des polices  et permettre de parcourir ces donn&eacute;es dans konqueror. C'est mon outil de pr&eacute;dilection pour juger d'une police. Permettre ceci est aussi simple que d'ouvrir konqueror, parcourir un r&eacute;pertoire de polices, cliquer la vue en ic&ocirc;nes et laisser le s aper&ccedil;us se g&eacute;n&eacute;rer dans le fond. Puis, en passant votre souris au-dessus d'une police en particulier, vous obtiendrez plus de donn&eacute;es. Ceci g&eacute;n&eacute;rera un aper&ccedil;u. Vous pouvez aussi cliquer avec le bouton droit de la souris et choisir <strong>Ouvrir avec... Kfontview</strong></p><br />
+
+<table width="100%"><tr><td align="center"><img src="images/fonts3.png" alt="aper&ccedil;us de polices dans Konqueror" title="aper&ccedil;us de polices dans Konqueror" /></td></tr></table>
+
+<p>Dans l'exemple ci-dessus, il y a quelques indications de polices potentiellement probl&eacute;matiques. Premi&egrave;rement, il n'y  a pas d'aper&ccedil;u, ce qui indique des probl&egrave;mes internes. Dans plus de deux douzaines de polices sans aper&ccedil;u, presque toutes ont d&eacute;montr&eacute; des probl&egrave;mes d'impression ou d'exportation dans Scribus.  Deuxi&egrave;mement, il manque une fonderie, ce qui indique qu'il peut s'agir d'un clone mal fait d'un original de haute qualit&eacute;.</p>
+
+<ul>
+	<li>V&eacute;rifiez les dates des fichiers : les polices Type 1 avant 1991 peuvent poser des probl&egrave;mes.</li>
+	<li>En v&eacute;rifiant les polices Type 1, le fichier <strong>.pfb</strong> cr&eacute;era l'aper&ccedil;u. Les fichiers <strong>.afm</strong> et <strong>.pfm</strong> poss&egrave;dent des m&eacute;triques de polices utiles pour les ligatures et l'information d'espacement entre une paire de caract&egrave;res.</li>
+	<li>V&eacute;rifiez la taille. Il n'y a pas de r&egrave;gle absolue, mais des tailles plus petites, <em>sp&eacute;cialement</em> avec les polices True Type, peuvent indiquer des glyphes manquants. Ce n'est pas le cas des polices sp&eacute;ciales comme symbols ou d'autres polices. Notez que Scribus 1.3+ affichera automatiquement les glyphes manquants d'une police directement sur le canevas.</li>
+	<li>Est-ce que la police provient d'une fonderie connue? Si la fonderie est marqu&eacute;e inconnue, utilisez cette police avec pr&eacute;caution. Vous ne devriez pas &ecirc;tre surpris si elle cause de probl&egrave;mes dans Scribus. Une fois encore, ce n'est pas une r&egrave;gle absolue. Certaines polices &agrave; usage sp&eacute;cial n'incluent pas cette information pour une raison quelconque.</li>
+	<li>Est-ce que le nom de la fonderie est Altsys ou Macromedia? Macromedia vend Fontographer, un logiciel de cr&eacute;ation/&eacute;dition qui &eacute;tait vendu auparavant par Altsys. Certains clones sont actuellement des polices &eacute;dit&eacute;es avec Fontographer et si les param&egrave;tres par d&eacute;faut ne sont pas chang&eacute;s, la fonderie sera list&eacute;e comme Macromedia ou Altsys. La plupart du temps, les concepteurs connus de types incluent leur nom ou le nom de la fonderie dans la police. Si vous obtenez une police attribu&eacute;e &agrave; Altsys ou Macromedia, soyez pr&eacute;cautionneux. Fontographer lui-m&ecirc;me, dans de bonnes mains est un outil superbe.</li>
+</ul>
+<p>Ci-dessous est affich&eacute;e une bonne police provenant d'une fonderie connue et fiable poss&eacute;dant des m&eacute;tadonn&eacute;es correctes.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fonts4.png" alt="Un affichage correct de m&eacute;tadonn&eacute;es de police" title="Un affichage correct de m&eacute;tadonn&eacute;es de police" /></td></tr></table>
+
+
+</qt>
+ 

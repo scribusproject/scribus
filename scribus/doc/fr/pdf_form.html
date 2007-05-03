@@ -1,0 +1,101 @@
+<qt>
+<title>Comment cr&eacute;er votre premier formulaire web en PDF avec Scribus</title>
+<h2>Comment cr&eacute;er votre premier formulaire web en PDF avec Scribus</h2>
+<p><em><strong>Avec des remerciements &agrave; Maciej Hanski</strong>, qui a gracieusement traduit ceci &agrave; partir de l'original en polonais, sous licence FDL.</em></p>
+<p><strong>Les fichiers d'exemple, <code>scribusformphp.tar.gz</code>, un tarball d'un fichier php et d'un document exemple, sont disponibles &agrave; l'adresse http://docs.scribus.net</a></p>
+
+<p>Un des plus grands avantages de Scribus est la possibilit&eacute; de cr&eacute;er des formulaires PDF incluant des script JavaScript (dans la version de Adobe), comme d&eacute;crit dans la r&eacute;f&eacute;rence JavaScript de Adobe &agrave; l'adressehttp://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf</p>
+
+<p>Il est assez simple de cr&eacute;er un nouveau formulaire avec Scribus. Nous commen&ccedil;ons par cliquer sur l'ic&ocirc;ne "Nouveau document" ou choisir <strong>Nouveau</strong> dans le menu <strong>Fichier</strong>.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/formularz_nowy.png" alt="Cr&eacute;er un nouveau document" title="Cr&eacute;er un nouveau document" /></a></td></tr></table>
+
+<br />
+<p>Activons alors la grille (menu <strong>Affichage</strong> -> <strong>Afficher la grille</strong>), ce qui nous aidera &agrave; positionner correctement nos champs de formulaire dans la page. Nous avons besoin de cadres de texte pour former un beau titre et des descriptions de champs - quelques clics sur l'ic&ocirc;ne <strong>[ab]</strong> et tous les cadres de texte sont l&agrave; en un rien de temps.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/siatka_menu.png" border="0" alt="null" /></td></tr></table>
+
+<p>Apr&egrave;s avoir rempli les cadres avec du texte, nous pouvons changer leurs propri&eacute;t&eacute;s avec la palette <strong>Propri&eacute;t&eacute;s</strong>, qui peut &ecirc;tre trouv&eacute;e dans le menu <strong>Outils</strong>.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/siatka_jednostki_miar.png"  alt="" /></td></tr></table>
+
+
+<br />
+
+<div>Nous pouvons maintenant commencer &agrave; ajouter les &eacute;l&eacute;ments de formulaire : quelques champs de texte et un bouton pour soummetre le formulaire &agrave; une URL. Pour ajouter un champ, cliquez simplement sur la fl&egrave;che &agrave; droite de l'ic&ocirc;ne <strong>OK</strong> et s&eacute;lectionnez un type parmi les options affich&eacute;es : bouton, champ de texte, case &agrave; cocher, menu d&eacute;roulant et liste.</div>
+
+<br />
+<table width="100%"><tr><td align="center"><img src="images/symbole.png" alt="null" /></td></tr></table>
+
+<p>L'&eacute;l&eacute;ment actif du formulaire &agrave; une bordure de cadre rouge. Vous pouvez activer un &eacute;l&eacute;ment en choisissant l'ic&ocirc;ne "S&eacute;lectionner" (celle avec les fl&egrave;ches transversales) et en cliquant sur l'&eacute;l&eacute;ment choisi.</p>
+<br />
+
+<table width="100%"><tr><td align="center"><img src="images/ulica.png" alt="null" /></td></tr></table>
+
+<br />
+ 
+<p>Cliquer avec le bouton droit sur un &eacute;l&eacute;ment active un nouveau menu. Nous choisissons <strong>Propri&eacute;t&eacute;s sur champ</strong> pour d&eacute;finir les noms des champs (nous aurons besoin des noms des champs dans notre script PHP auquel nous enverrons le formulaire), les types (ex : nombre, heure, date) et les actions qui doivent &ecirc;tre effectu&eacute;es lors de diff&eacute;rents &eacute;v&egrave;nements (Entr&eacute;e souris, Sortie souris, Autour et ainsi de suite).</p>
+
+<br /><br />
+
+<table width="100%"><tr><td align="center"><img src="images/wlasciwosci_pola.png" alt="null"  border="0" /></td></tr></table>
+
+<br />
+
+<p>Ici nous d&eacute;finissons le champs <strong>No</strong> comme un nombre. Acrobat Reader n'acceptera alors rien d'autre comme entr&eacute;e valide.</p>
+
+<br />
+
+<table width="100%"><tr><td align="center"><img src="images/formularz_pole_num.png" border="0" alt="null" /></td></tr></table>
+
+<br />
+
+<p>Ici, nous d&eacute;finissons un script de validation personnalis&eacute; pour le champ <strong>Nom</strong> - apr&egrave;s avoir chang&eacute; le contenu du champ il y aura un son bip et une alerte appara&icirc;tra (pas tr&egrave;s sophistiqu&eacute;, je sais, mais cela d&eacute;montre quand m&ecirc;me les possibilit&eacute;s de PDF). Scribus poss&egrave;de son propre &eacute;diteur de texte qui nous permet d'enregistrer un script dans un fichier s&eacute;par&eacute;. Les scripts personnalis&eacute;s peuvent &ecirc;tre d&eacute;finis au niveau des champs, mais aussi en tant que scripts globaux(<strong>&Eacute;dition</strong> -&#062; <strong>JavaScripts</strong>).</p>
+
+<br />
+
+<table width="100%"><tr><td align="center"><img src="images/formularz_js_skrypt.png" alt="null" /></td></tr></table>
+<br />
+
+<p>Apr&egrave;s avoir enregistr&eacute; le script et ferm&eacute; l'&eacute;diteur, le contenu du script est affich&eacute; dans les <strong>Propri&eacute;t&eacute;s du champ</strong>.</p>
+<br />
+
+<table width="100%"><tr><td align="center"><img src="images/formularz_js_sprawdzanie.png" border="0" alt="null" /></td></tr></table>
+
+<br />
+
+<p>Nous devons encore d&eacute;finir &agrave; quelle URL le contenu du formulaire sera envoy&eacute; (il y a un script PHP simple &agrave; l'adresse de destination, lequel formatera et affichera les donn&eacute;es re&ccedil;ues du formulaire). Nous choisissons dans les propri&eacute;t&eacute;s du bouton le type d'action <strong>Envoyer le formulaire</strong> et nous entrons l'adresse de notre page PHP : <strong>scribus_test.php</strong>. Nous choisissons <strong>Envoyer les donn&eacute;es en HTML</strong> (l'autre option serait en donn&eacute;es FDF, mais c'est une autre histoire) et nous avons termin&eacute;.</p>
+
+<br />
+
+<table width="100%"><tr><td align="center"><img src="images/wyslij_formularz.png" alt="null" /></td></tr></table>
+
+<br />
+
+<p>La seule chose qui reste &agrave; faire est d'exporter le document en PDF : menu <strong>Fichier -&#062; Exporter... -&#062; Enregistrer en PDF...</strong>.<br />Nous s&eacute;lectionnons <strong>Acrobat 5.0</strong> comme format de fichier et nous enregistrons le fichier.</p>
+
+<br />
+<table width="100%"><tr><td align="center"><img src="images/formularz_export_PDF.png" border="0" alt="null" /></td></tr></table>
+<br />
+
+<p>Le r&eacute;sultat de notre travail peut &ecirc;tre t&eacute;l&eacute;charg&eacute; &agrave; l'adresse http://docs.scribus.net, puis test&eacute;e. Pour soumettre le formulaire nous devons l'ouvrir dans un navigateur, Netscape 4.* ou Mozilla sont des bons choix (v&eacute;rifiez dans les extensions de Mozilla si l'extension Acrobat Reader est activ&eacute;e. Si ce n'est pas le cas, vous pouvez faire un lien symbolique (symlink) vers le r&eacute;pertoire d'extension de Mozilla. Dans mon cas, le r&eacute;pertoire d'extension de Mozilla est <strong>/usr/lib/mozilla-1.3/plug-in</strong> et l'extension &agrave; lier (symlink) est <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
+
+<p><strong>Ma toute premi&egrave;re impression :</strong> Scribus en tant qu'outil pour travailler avec les formulaires PDF semble &ecirc;tre beaucoup plus confortable &agrave; utiliser que Adobe Acrobat 5.0 (la seule version avec laquelle j'ai travaill&eacute;). Il est beaucoup plus facile de mettre en page des documents avec Scribus, puisque Acrobat vous permet seulement d'&eacute;diter des documents existants, mais pas de cr&eacute;er un nouveau document &agrave; partir de rien. Scribus nous fournit le plein contr&ocirc;le sur les r&eacute;sultats finaux et nous permet beaucoup plus de libert&eacute; dans les changements de mise en page du document. De plus, les fichiers Scribus peuvent &ecirc;tre &eacute;dit&eacute;s avec un simple &eacute;diteur de texte, vu que son format de fichier est enti&egrave;rement bas&eacute; sur XML.</p>
+<p><em>Maciej Hanski</em> - 22:10:2003</p>
+
+<p><strong>Quelques liens utiles concernant PDF/JavaScript :</strong></p>
+<ul>
+	<li><a href="http://www.planetpdf.com/mainpage.asp?WebPageID=229" target="_blank">Planet PDF</a></li>
+	<li><a href="http://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf" target="_blank">Sp&eacute;cification des objets JavaScript de Acrobat</a></li>
+	<li><a href="http://ahnews.music.salford.ac.uk/scribus/documentation/pdfs/javascriptpdfa4.pdf" target="_blank">JavaScript et Scribus</a></li>
+</ul>
+
+<p><strong>Quelques liens utiles concernant CGI/PHP :</strong></p>
+<ul>
+	<li><a href="http://www.cgi101.com/book/ch4/text.html">http://www.cgi101.com/book/ch4/text.html</a></li>
+	<li><a href="http://www.cgi101.com/book/ch4/post-cgi.html">http://www.cgi101.com/book/ch4/post-cgi.html</a></li>
+	<li><a href="http://www.mkaz.com/reference/php/setup_linux.html">http://www.mkaz.com/reference/php/setup_linux.html</a></li>
+</ul>
+
+</qt>
+ 

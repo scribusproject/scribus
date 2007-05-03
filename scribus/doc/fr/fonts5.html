@@ -1,0 +1,43 @@
+<qt>
+
+	<title>Tests de base sur les polices - partie 2</title>
+	<h2>Tests de base sur les polices - partie 2</h2>
+	
+<h4>Une seconde v&eacute;rification de qualit&eacute; des polices.</h4>
+<p>Un exemple magnifique et tr&egrave;s puissant de ce que le scripteur Python peut faire est inclus dans Scribus. Le script d'&eacute;chantillonnage de police, &eacute;crit par Steve Callcott, est un outil pour cr&eacute;er un catalogue joliment dispos&eacute; de votre police existante, qui peut &ecirc;tre imprim&eacute; et reli&eacute;, et aussi cr&eacute;er un PDF pour r&eacute;f&eacute;rence.  Il permet de cerner facilement les polices corrompues ou les polices avec des glyphes manquants qui peuvent poser un probl&egrave;me &agrave; l'impression, sp&eacute;cialement lors de l'impression commerciale.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontsampler.png" alt="&Eacute;chantillonnage de police avec toutes les polices s&eacute;lectionn&eacute;es" title="&Eacute;chantillonage de police avec toutes les polices s&eacute;lectionn&eacute;es"/></td></tr></table>
+
+
+
+<p>Pour utiliser ce module du scripteur, vous aurez besoin de :
+<ul>
+<li>tkinter, qui fournit l'interface utilisateur graphique pour les scripts Python</li>
+<li>Optionnellement, python-imaging, un ensemble de librairies python pour la manipulation d'image qui fournit l'aper&ccedil;u ci-dessus.</li>
+<li>&Eacute;videmment, le support python construit dans Scribus.</li>
+</ul>
+</p>
+<p>L'ex&eacute;cution est simple :</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Scripter.png" alt="D&eacute;marrer l'&eacute;chantillonneur de polices" "title="D&eacute;marrer l'&eacute;chantillonneur de polices"/></td></tr></table>
+
+<p>Maintenant, d&eacute;pendant du nombre de polices, des types de polices et de la vitesse/m&eacute;moire de votre machine, ce script peut prendre un certain temps &agrave; s'ex&eacute;cuter. Approximativement, plus de 700 polices sur un P4 peut prendre quelques minutes, mais rappelez-vous que le script ne fait pas que parcourir toutes vos polices, il ajoute aussi les pages et les dispose automagicalement. S'il vous manque de m&eacute;moire ou si vous avez beaucoup de polices, de l'ordre de 1000et plus, vous pourriez s&eacute;parer le travail en plusieurs parties.</p>
+
+
+
+<h4>R&eacute;sultats : </h4>
+
+<table width="100%"><tr><td align="center"><img src="images/fontsampler2.png" alt="Sortie du scripteur montrant une police corrompue"  title="Sortie du scripteur montrant une police corrompue"/></td></tr></table>
+
+<p>Notez la sortie &agrave; fauche et &agrave; droite. La partie de gauche est une police Type 1 connue de haute qualit&eacute;. Le c&ocirc;t&eacute; droit montre une police gratuite, tir&eacute;e d'un rapport de probl&egrave;me. Le manque de glyphes ci-dessus n'indique pas toujours une police corrompue. Certaines polices sp&eacute;cialis&eacute;es comme les polices symbol, dingbats et certaines polices non latines peuvent afficher le m&ecirc;me r&eacute;sultat. Cependant, pour une police normale, les r&eacute;sultats ci-dessus sont habituellement une indication de probl&egrave;mes possibles.</p>
+
+
+<h4>Regardez sur la console</h4>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>Font /usr/X11R6/lib/X11/fonts/URW/p052023l.pfb is broken, discarding it
+Font /usr/X11R6/lib/X11/fonts/URW/p052023l.pfb is broken, discarding it
+Font /usr/X11R6/lib/X11/fonts/URW/p052023l.pfb is broken, discarding it....
+</pre>
+</td></tr></table></blockquote>
+&Agrave; partir de la console, Scribus indiquera quelles polices sont &eacute;cart&eacute;es au chargement et, une fois encore, lorsqu'elles sont utilis&eacute;es, quels glyphes sont manquants ou corrompus. La m&ecirc;me police peut &ecirc;tre list&eacute;e plusieurs fois lorsque Scribus utilise freetype pour chercher les glyphes disponibles. <strong>C'est une bonne chose &#8482;</strong> Les mauvaises polices causent des plantages dans Scribus et d'autres probl&egrave;mes en cours de route lorsque vous exportez ou imprimez.
+</qt> 

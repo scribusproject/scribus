@@ -1,0 +1,51 @@
+<qt>
+<title>Notes sur l'importation HTML dans Scribus</title>
+<h2>Notes sur l'importation HTML dans Scribus</h2>
+
+<p>Scribus poss&egrave;de un module d'importation HTML qui peut importer du HTML net et bien form&eacute;, en pr&eacute;servant l'essentiel de la mise en page et du formatage, si le formatage et le style sont du HTML de base <strong>dans les marqueurs HTML</strong>, et non des feuilles de style CSS. Le support CSS sera ajout&eacute; dans le futur.</p>
+<h4>Quelle sorte de document HTML est support&eacute;e et quel en est le fonctionnement ?</h4>
+<p>&Agrave; l'importation, le module d'importation cr&eacute;e des styles de paragraphes qui correspondent aux balises HTML. Gras, italique, l'espacement non proportionnel et l'alignement sont aussi reconnus. Voici une liste des balises HTML support&eacute;es, les version en majuscule et en minuscule &eacute;tant support&eacute;es. </p>
+<ul>
+<li>body, div, a - le texte doit &ecirc;tre &agrave; l'int&eacute;rieur de la balise &#060;body&#062;.</li>
+<li>p et br - saut de paragraphe et saut de ligne.</li>
+<li>H1 &agrave; H4 - taille de titre de 1 &agrave; 4.</li>
+<li>ol,ul,li - listes ordonn&eacute;es et non ordonn&eacute;es.</li>
+<li>pre et code - texte pr&eacute;format&eacute; et affichage de code source. Ceci sera converti en texte dans la police &agrave; taille fixe Courier.</li>
+<li>Les liens de style web www. sont convertis en textes bleus pour les mettre en &eacute;vidence de la m&ecirc;me mani&egrave;re que la plupart des navigateurs font par d&eacute;faut.</li>
+<li>b, u, i, em, strong,sub.sup,del,u - le formattage du texte est converti en un style de police correspondant. Notez que votre police par d&eacute;faut doit poss&eacute;der toutes ces variantes disponibles dans Scribus. </li>
+</ul>
+La portion de HTML qui suit s'affichera donc en cr&eacute;ant des styles de paragraphes dans Scribus, tel que d&eacute;montr&eacute; plus bas.
+<pre>
+&#060;?xml version="1.0" encoding="utf-8"?&#062;
+&#060;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&#062;
+&#060;html xmlns="http://www.w3.org/1999/xhtml"&#062;
+&#060;head&#062;
+&#060;title&#062;&#060;/title&#062;
+&#060;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&#062;
+&#060;/head&#062;
+&#060;body&#062;
+&#060;h1&#062;H1 Texte&#060;/h1&#062;
+&#060;h2&#062;H2 Texte&#060;/h2&#062;
+&#060;h3&#062;H3 Texte&#060;/h3&#062;
+&#060;h4&#062;H4 Texte&#060;/h4&#062;
+&#060;ol&#062;
+&#060;li&#062;&Eacute;l&eacute;ment 1 d'une liste ordonn&eacute;e &#060;/li&#062;
+&#060;li&#062;&Eacute;l&eacute;ment 2 d'une liste ordonn&eacute;e &#060;/li&#062;
+ &#060;/ol&#062;
+ &#060;ul&#062;
+&#060;li&#062;&Eacute;l&eacute;ment 1 d'une liste non ordonn&eacute;e &#060;/li&#062;
+&#060;li&#062;&Eacute;l&eacute;ment 2 d'une liste non ordonn&eacute;e &#060;/li&#062;
+ &#060;/ul&#062;
+ &#060;code&#062;affichage de code&#060;/code&#062;
+ &#060;p&#062;&#060;b&#062;Style de paragraphe gras&#060;/b&#062;&#060;/p&#062;
+ &#060;p&#062;&#060;i&#062;Style de paragraphe italique&#060;/i&#062;&#060;/p&#062;
+ &#060;p align="center"&#062;Texte centr&eacute;&#060;/p&#062;
+&#060;/body&#062;
+&#060;/html&#062;</pre>
+<p>Ci-dessous les styles import&eacute;s du fichier pr&eacute;c&eacute;dent. </p>
+<table width="100%"><tr><td align="center"><img src="images/htmlstyle.png" alt="Styles HTML import&eacute;s dans Scribus"  title="Styles HTML import&eacute;s dans Scribus" /></td></tr></table>
+<p>Voici le texte import&eacute; affich&eacute; sur le canevas :</p>
+<table width="100%"><tr><td align="center"><img src="images/htmlimport.png" alt="HTML import&eacute; dans Scribus"  title="HTML import&eacute; dans Scribus" /></td></tr></table>
+<p>Ce ne sont pas toutes les applications qui exportent le HTML en respectant fid&eacute;lement les sp&eacute;cifications W3C. Vous pouvez utiliser htmltidy pour nettoyer et rendre conforme le texte HTML que vous devez importer. Voir : <a href=" http://w3c.org"> http://w3c.org</a>
+</qt> 
