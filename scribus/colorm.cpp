@@ -590,8 +590,7 @@ void ColorManager::delUnused()
 {
 	ScMW->doc->getUsedColors(UsedC);
 	EditColors = UsedC;
-	EditColors.insert("White", ScColor(0, 0, 0, 0));
-	EditColors.insert("Black", ScColor(0, 0, 0, 255));
+	EditColors.ensureBlackAndWhite();
 	updateCList();
 }
 

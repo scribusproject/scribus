@@ -197,8 +197,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	toolSettings.defFont = prefsData.toolSettings.defFont;
 	toolSettings.defSize = prefsData.toolSettings.defSize;
 	toolSettings.tabFillChar = prefsData.toolSettings.tabFillChar;
-	PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	PageColors.insert("White", ScColor(0, 0, 0, 0));
+	PageColors.ensureBlackAndWhite();
 	if (prefsData.toolSettings.dPen != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dPen, prefsData.DColors[prefsData.toolSettings.dPen]);
 	toolSettings.dPen = prefsData.toolSettings.dPen;
@@ -353,8 +352,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
-	PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	PageColors.insert("White", ScColor(0, 0, 0, 0));
+	PageColors.ensureBlackAndWhite();
 
 	CMSSettings = prefsManager->appPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorProfile;

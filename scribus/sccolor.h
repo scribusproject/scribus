@@ -189,7 +189,18 @@ private:
 	QColor getColorProof(int c, int m, int y, int k, bool gamutCkeck = false) const;
 };
 
-/** \brief Definition of the Color list */
-typedef QMap<QString,ScColor> ColorList;
+class SCRIBUS_API ColorList : public QMap<QString,ScColor>
+{
+protected:
+	/** \brief Ensure availability of black color. */
+	void ensureBlack(void);
+
+	/** \brief Ensure availability of white color. */
+	void ensureWhite(void);
+
+public:
+	/** \brief Ensure availability of black and white colors. */
+	void ensureBlackAndWhite(void);
+};
 
 #endif
