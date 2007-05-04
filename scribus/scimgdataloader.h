@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcstring.h>
 #include <qimage.h>
 #include <qstringlist.h>
+#include <cstdlib>
 
 #include "scimagestructs.h"
 #include "rawimage.h"
