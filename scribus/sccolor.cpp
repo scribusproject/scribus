@@ -340,14 +340,7 @@ void ColorList::ensureBlack(void)
 	{
 		ScColor& black = itb.data();
 		colorModel model = black.getColorModel();
-		if (model == colorModelRGB)
-		{
-			int r, g, b;
-			black.getRGB(&r, &g, &b);
-			if (r == 0 && g == 0 && b == 0)
-				addBlack = false;
-		}
-		else if (model == colorModelCMYK)
+		if (model == colorModelCMYK)
 		{
 			int c, m, y, k;
 			black.getCMYK(&c, &m, &y, &k);
@@ -367,14 +360,7 @@ void ColorList::ensureWhite(void)
 	{
 		ScColor& white = itw.data();
 		colorModel model = white.getColorModel();
-		if (model == colorModelRGB)
-		{
-			int r, g, b;
-			white.getRGB(&r, &g, &b);
-			if (r == 255 && g == 255 && b == 255)
-				addWhite = false;
-		}
-		else if (model == colorModelCMYK)
+		if (model == colorModelCMYK)
 		{
 			int c, m, y, k;
 			white.getCMYK(&c, &m, &y, &k);
