@@ -354,7 +354,8 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 			qDebug("psimport: enddata");
 			qDebug(QString("psimport: drag type %1").arg(dr->format()));
 #endif
-				if (!dr->drag())
+				dr->drag();
+				/*if (!dr->drag())
 				{
 					if (importedColors.count() != 0)
 					{
@@ -363,7 +364,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 							m_Doc->PageColors.remove(importedColors[cd]);
 						}
 					}
-				}
+				}*/
 				delete ss;
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = 0;

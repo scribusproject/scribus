@@ -283,8 +283,7 @@ void SVGPlug::convert(int flags)
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	gc->Family = m_Doc->toolSettings.defFont;
-	if (!m_Doc->PageColors.contains("Black"))
-		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	m_Doc->PageColors.ensureBlackAndWhite();
 	m_gc.push( gc );
 	viewTransformX = 0;
 	viewTransformY = 0;
@@ -447,7 +446,8 @@ void SVGPlug::convert(int flags)
 			m_Doc->maxCanvasCoordinate = maxSize;
 			m_Doc->view()->updatesOn(true);
 			dr->setPixmap(loadIcon("DragPix.xpm"));
-			importCanceled = dr->drag();
+			dr->drag();
+			/*importCanceled = dr->drag();
 			if (!importCanceled)
 			{
 				if (importedColors.count() != 0)
@@ -457,7 +457,7 @@ void SVGPlug::convert(int flags)
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
 				}
-			}
+			}*/
 			delete ss;
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;

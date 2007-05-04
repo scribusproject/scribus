@@ -378,8 +378,7 @@ bool OODPlug::convert(int flags)
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
-	if (!m_Doc->PageColors.contains("Black"))
-		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	m_Doc->PageColors.ensureBlackAndWhite();
 	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
@@ -531,7 +530,8 @@ bool OODPlug::convert(int flags)
 			m_Doc->maxCanvasCoordinate = maxSize;
 			m_Doc->view()->updatesOn(true);
 			dr->setPixmap(loadIcon("DragPix.xpm"));
-			importCanceled = dr->drag();
+			dr->drag();
+			/*importCanceled = dr->drag();
 			if (!importCanceled)
 			{
 				if (importedColors.count() != 0)
@@ -541,7 +541,7 @@ bool OODPlug::convert(int flags)
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
 				}
-			}
+			}*/
 			delete ss;
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
