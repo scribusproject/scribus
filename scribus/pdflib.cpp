@@ -5076,7 +5076,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			if (ext == "pdf")
 			{
 				if (Options.UseRGB)
-					img.LoadPicture(fn, Profil, Intent, Embedded, true, 2, afl);
+					img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, afl);
 				else
 				{
 #ifdef HAVE_CMS
@@ -5130,7 +5130,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					if (found)
 					{
 						if (Options.UseRGB)
-							img.LoadPicture(fn, Profil, Intent, Embedded, true, 2, afl);
+							img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, afl);
 						else
 						{
 #ifdef HAVE_CMS
@@ -5165,7 +5165,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 			if (Options.UseRGB)
-				img.LoadPicture(fn, Profil, Intent, Embedded, true, 2, 72, &realCMYK);
+				img.LoadPicture(fn, Profil, Intent, Embedded, true, 1, 72, &realCMYK);
 			else
 			{
 #ifdef HAVE_CMS
