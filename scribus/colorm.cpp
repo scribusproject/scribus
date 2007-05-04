@@ -544,8 +544,7 @@ void ColorManager::deleteUnusedColors()
 {
 	m_Doc->getUsedColors(UsedC);
 	EditColors = UsedC;
-	EditColors.insert("White", ScColor(0, 0, 0, 0));
-	EditColors.insert("Black", ScColor(0, 0, 0, 255));
+	EditColors.ensureBlackAndWhite();
 	updateCList();
 }
 

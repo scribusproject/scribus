@@ -325,3 +325,63 @@ ScribusDoc* ColorList::document(void)
 { 
 	return m_doc;
 }
+
+void ColorList::ensureBlackAndWhite(void)
+{
+	ensureBlack();
+	ensureWhite();
+}
+
+void ColorList::ensureBlack(void)
+{
+	bool addBlack = true;
+	ColorList::Iterator itb = find("Black");
+	if (itb != end())
+	{
+		ScColor& black = itb.data();
+		colorModel model = black.getColorModel();
+		if (model == colorModelRGB)
+		{
+			int r, g, b;
+			black.getRGB(&r, &g, &b);
+			if (r == 0 && g == 0 && b == 0)
+				addBlack = false;
+		}
+		else if (model == colorModelCMYK)
+		{
+			int c, m, y, k;
+			black.getCMYK(&c, &m, &y, &k);
+			if (c == 0 && m == 0 && y == 0 && k == 255)
+				addBlack = false;
+		}
+	}
+	if (addBlack)
+		insert("Black", ScColor(0, 0, 0, 100));
+}
+
+void ColorList::ensureWhite(void)
+{
+	bool addWhite = true;
+	ColorList::Iterator itw = find("White");
+	if (itw != end())
+	{
+		ScColor& white = itw.data();
+		colorModel model = white.getColorModel();
+		if (model == colorModelRGB)
+		{
+			int r, g, b;
+			white.getRGB(&r, &g, &b);
+			if (r == 255 && g == 255 && b == 255)
+				addWhite = false;
+		}
+		else if (model == colorModelCMYK)
+		{
+			int c, m, y, k;
+			white.getCMYK(&c, &m, &y, &k);
+			if (c == 0 && m == 0 && y == 0 && k == 0)
+				addWhite = false;
+		}
+	}
+	if (addWhite)
+		insert("White", ScColor(0, 0, 0, 0));
+}

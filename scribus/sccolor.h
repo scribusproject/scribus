@@ -139,6 +139,13 @@ class SCRIBUS_API ColorList : public QMap<QString,ScColor>
 protected:
 	QPointer<ScribusDoc> m_doc;
 	bool m_retainDoc;
+
+	/** \brief Ensure availability of black color. */
+	void ensureBlack(void);
+
+	/** \brief Ensure availability of white color. */
+	void ensureWhite(void);
+
 public:
 	ColorList(ScribusDoc* doc = NULL, bool retainDoc = false);
 
@@ -155,6 +162,9 @@ public:
 
 	/** \brief Copy colors from the specified list.*/
 	void copyColors(const ColorList& colorList, bool overwrite = TRUE);
+
+	/** \brief Ensure availability of black and white colors. */
+	void ensureBlackAndWhite(void);
 };
 
 #endif

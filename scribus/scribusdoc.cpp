@@ -329,8 +329,7 @@ void ScribusDoc::init()
 	toolSettings.dispY = prefsData.toolSettings.dispY;
 	toolSettings.constrain = prefsData.toolSettings.constrain;
 
-	PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	PageColors.insert("White", ScColor(0, 0, 0, 0));
+	PageColors.ensureBlackAndWhite();
 	if (prefsData.toolSettings.dPen != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dPen, prefsData.DColors[prefsData.toolSettings.dPen]);
 	toolSettings.dPen = prefsData.toolSettings.dPen;
@@ -485,8 +484,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
-	PageColors.insert("Black", ScColor(0, 0, 0, 255));
-	PageColors.insert("White", ScColor(0, 0, 0, 0));
+	PageColors.ensureBlackAndWhite();
 	PageColors.setDocument(this);
 
 	CMSSettings = prefsManager->appPrefs.DCMSset;
@@ -795,9 +793,9 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	{
 		for (uint i=0; i < itemlist->count(); ++i)
 		{
-			const PageItem_TextFrame * currItem = const_cast<Q3PtrList<PageItem>*>(itemlist)->at(i)->asTextFrame();
+			const PageItem * currItem = const_cast<Q3PtrList<PageItem>*>(itemlist)->at(i);
 			if (currItem)
-				currItem->itemText.getNamedResources(lists);
+				currItem->getNamedResources(lists);
 		}
 		if (itemlist == &MasterItems)
 			itemlist = &DocItems;

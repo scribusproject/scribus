@@ -2066,6 +2066,7 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		DOC=DOC.nextSibling();
 	}
+	appPrefs.DColors.ensureBlackAndWhite();
 	if (appPrefs.GUI != "Default")
 		qApp->setStyle(QStyleFactory::create(appPrefs.GUI));
 	QFont apf = qApp->font();
