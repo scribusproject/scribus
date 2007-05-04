@@ -6014,7 +6014,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			{
 				CMSettings cms(c->doc(), Profil, Intent);
 				if (Options.UseRGB)
-					img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, afl);
+					img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 				else
 				{
 					if ((doc.HasCMS) && (Options.UseProfiles2))
@@ -6065,7 +6065,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					{
 						CMSettings cms(c->doc(), Profil, Intent);
 						if (Options.UseRGB)
-							img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, afl);
+							img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 						else
 						{
 							if ((doc.HasCMS) && (Options.UseProfiles2))
@@ -6097,7 +6097,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 			CMSettings cms(c->doc(), Profil, Intent);
 			if (Options.UseRGB)
-				img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, 72, &realCMYK);
+				img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
 			else
 			{
 				if ((doc.HasCMS) && (Options.UseProfiles2))
