@@ -9672,7 +9672,7 @@ void ScribusView::slotZoom100()
 	int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
 	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	setScale(Prefs->DisScale);
-	reformPages(false);
+//	reformPages(false);
 	slotDoZoom();
 }
 

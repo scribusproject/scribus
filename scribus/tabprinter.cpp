@@ -43,7 +43,8 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
+//	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 	bleedTop->setDecimals( decimals );
 	bleedTop->setMinValue(0);

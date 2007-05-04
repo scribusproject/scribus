@@ -19,7 +19,7 @@ class SCRIBUS_API PrinterUtil
 	public:
 		PrinterUtil() {};
 		~PrinterUtil() {};
-		QStringList static getPrinterNames();
+		static QStringList getPrinterNames();
 
 #if defined(_WIN32)
 		/**

@@ -4100,7 +4100,6 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	newItem->ItemNr = oldItemNr;
 	newItem->uniqueNr = oldItem->uniqueNr;
 	Items->replace(oldItemNr, newItem);
-	//FIXME: shouldn't we delete the oldItem ???
 	//Add new item back to selection if old item was in selection
 	if (removedFromSelection)
 		m_Selection->addItem(newItem);
