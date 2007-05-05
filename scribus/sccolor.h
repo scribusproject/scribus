@@ -83,17 +83,32 @@ public:
 	void getRawRGBColor(int *r, int *g, int *b);
 	QColor getRawRGBColor();
 
-	/** \brief Returns the 4 Values that form an ScColor */
-	void getCMYK(int *c, int *m, int *y, int *k);
-
 	/** \brief Returns the 3 Values that form an RGBColor */
 	void getRGB(int *r, int *g, int *b);
 
+	/** \brief Returns the 4 Values that form an ScColor */
+	void getCMYK(int *c, int *m, int *y, int *k);
+
+	/** \brief Return a color converted to monitor color space. No soft-proofing done. */
+	QColor getDisplayColor() const;
+
+	/** \brief Return a color with the specified shade converted to monitor color space. 
+	* No soft-proofing is done. */
+	QColor getDisplayColor(int level) const;
+
+	/** \brief Return a color converted to monitor color space. No soft-proofing is done
+	* If gamut check is valid, the return value may be an gamut warning . */
+	QColor getDisplayColorGC();
+
+	/** \brief Return a proofed QColor with 100% shade and optional gamut check.
+	* If color management is enabled, returned value use the monitor color space. */
+	QColor getColorProof(bool gamutCheck = false) const;
+
 	/** \brief get CMYK values of a specified shade */
-	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level);
+	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const;
 
 	/** \brief get RGB values of a specified shade */
-	void getShadeColorRGB(int *r, int *g, int *b, int level);
+	void getShadeColorRGB(int *r, int *g, int *b, int level) const;
 
 	/** \brief Return a proofed QColor with the specified shade */
 	QColor getShadeColorProof(int level);
@@ -156,9 +171,36 @@ private:
 
 	/** \brief Flag, true if out of Gamut */
 	bool outOfGamutFlag;
+
+	/** \brief Return a proofed QColor from a rgb color using doc rgb color space as input.
+	* If color management is enabled, returned value use the monitor rgb color space. */
+	QColor getDisplayColor(int r, int g, int b) const;
+
+	/** \brief Return a proofed QColor from a cmyk color using doc cmyk color space as input.
+	* If color management is enabled, returned value use the monitor rgb color space. */
+	QColor getDisplayColor(int c, int m, int y, int k) const;
+
+	/** \brief Return a proofed QColor from a rgb color.
+	* If color management is enabled, returned value use the monitor color space. */
+	QColor getColorProof(int r, int g, int b, bool gamutCkeck = false) const;
+
+	/** \brief Return a proofed QColor from a cmyk color.
+	* If color management is enabled, returned value use the monitor color space. */
+	QColor getColorProof(int c, int m, int y, int k, bool gamutCkeck = false) const;
 };
 
-/** \brief Definition of the Color list */
-typedef QMap<QString,ScColor> ColorList;
+class SCRIBUS_API ColorList : public QMap<QString,ScColor>
+{
+protected:
+	/** \brief Ensure availability of black color. */
+	void ensureBlack(void);
+
+	/** \brief Ensure availability of white color. */
+	void ensureWhite(void);
+
+public:
+	/** \brief Ensure availability of black and white colors. */
+	void ensureBlackAndWhite(void);
+};
 
 #endif

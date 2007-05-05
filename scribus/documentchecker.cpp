@@ -26,10 +26,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scribusdoc.h"
 #include "page.h"
+#include "prefsmanager.h"
 
 void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
 	PageItem* currItem;
+	PrefsManager* prefsManager = PrefsManager::instance();
 	QString chx;
 	struct checkerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = currDoc->checkerProfiles[currDoc->curCheckProfile].ignoreErrors;
@@ -87,8 +89,14 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
-			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
+			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
 				itemError.insert(TextOverflow, 0);
+			if (currItem->isAnnotation())
+			{
+				Foi::FontFormat fformat = prefsManager->appPrefs.AvailFonts[currItem->font()]->formatCode;
+				if (!(fformat == Foi::SFNT || fformat == Foi::TTCF))
+					itemError.insert(WrongFontInAnnotation, 0);
+			}
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();
@@ -190,8 +198,14 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		}
 		if ((currItem->asTextFrame()) || (currItem->asPathText()))
 		{
-			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow))
+			if ((currItem->itemText.count() > currItem->MaxChars) && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == 5) || (currItem->annotation().Type() == 6)))))
 				itemError.insert(TextOverflow, 0);
+			if (currItem->isAnnotation())
+			{
+				Foi::FontFormat fformat = prefsManager->appPrefs.AvailFonts[currItem->font()]->formatCode;
+				if (!(fformat == Foi::SFNT || fformat == Foi::TTCF))
+					itemError.insert(WrongFontInAnnotation, 0);
+			}
 			for (uint e = 0; e < currItem->itemText.count(); ++e)
 			{
 				uint chr = currItem->itemText.at(e)->ch[0].unicode();

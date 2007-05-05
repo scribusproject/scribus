@@ -292,7 +292,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(size, margins, orientation, firstPageNumber,(new line)
+        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,(new line)
                      unit, pagesType, firstPageOrder) -&gt; bool(new line)
 
 Creates a new document and returns true if successful. The parameters have the
@@ -327,6 +327,83 @@ is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
 PAGE_4, 3)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation>newDocument(size, margins, orientation, firstPageNumber, unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS, PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.</translation>
     </message>
@@ -913,7 +990,7 @@ Může vyvolat výjimku ScribusError, jestliže ukládání selže.</translation
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Nastaví informace o dokumentu. Parametry jsou textové řetězce.</translation>
     </message>
@@ -2608,6 +2685,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2861,7 +2953,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Okno ukazuje verzi programu, datum kompilace a knihovny v něm použité. Symboly C-C-T-F znamenají C-littlecms C-CUPS T-TIFF F-Fontconfig podporu. Poslední písmeno uvádí způsob vykreslení C - Cairo A - Libart. Chybějící knihovny jsou zobrazeny jako *. Také je zde uvedena verze Ghostscriptu, kterou Scribus našel.</translation>
     </message>
     <message>
         <source>January</source>
@@ -2869,14 +2961,18 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mac OS&amp;#174; X Aqua Port:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>March</source>
+        <source>Tango Project Icons:</source>
+        <translation>Ikony projektu Tango:</translation>
+    </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2892,35 +2988,35 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation type="unfinished">Verze:</translation>
+        <translation>Verze:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation type="unfinished">Povoleno:</translation>
+        <translation>Povoleno:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation type="unfinished">Datum vydání:</translation>
+        <translation>Datum vydání:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">Popis:</translation>
+        <translation>Popis:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation type="unfinished">Autor/Autoři:</translation>
+        <translation>Autor/Autoři:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">Copyright:</translation>
+        <translation>Copyright:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation type="unfinished">Licence:</translation>
+        <translation>Licence:</translation>
     </message>
 </context>
 <context>
@@ -3062,7 +3158,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>V&amp;ymazat obsah</translation>
+        <translation type="obsolete">V&amp;ymazat obsah</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -3094,7 +3190,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Master Pages...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vzorové strany...</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
@@ -3154,19 +3250,19 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Verzálky</translation>
     </message>
     <message>
         <source>Small &amp;Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kapitálky</translation>
     </message>
     <message>
         <source>Su&amp;perscript</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Horní index</translation>
     </message>
     <message>
         <source>Su&amp;bscript</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dolní index</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -3206,11 +3302,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>Je &amp;zamčeno</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Velikost je zamčena</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
@@ -3242,27 +3338,27 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Update Image</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aktualizovat obrázek</translation>
     </message>
     <message>
         <source>Adjust Frame to Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Přizpůsobit rám obrázku</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšířené vlastnosti obrázku</translation>
     </message>
     <message>
         <source>&amp;Low Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nízké rozlišení</translation>
     </message>
     <message>
         <source>&amp;Normal Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>N&amp;ormální rozlišení</translation>
     </message>
     <message>
         <source>&amp;Full Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Plné rozlišení</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
@@ -3306,7 +3402,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Obrázkový rám</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -3314,7 +3410,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mnohoúhelník</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
@@ -3322,11 +3418,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Znak...</translation>
     </message>
     <message>
         <source>Sample Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Výplňový text</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
@@ -3334,7 +3430,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Im&amp;port...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Import...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
@@ -3342,7 +3438,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Copy...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopírovat...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
@@ -3350,7 +3446,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Apply Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Použít vzorovou stranu...</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
@@ -3358,11 +3454,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Manage Page Properties...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti strany...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Přizpůsobit oknu</translation>
     </message>
     <message>
         <source>&amp;50%</source>
@@ -3410,15 +3506,15 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Zob&amp;razit řetězení textu</translation>
     </message>
     <message>
         <source>Show Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit řídící znaky</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravítka relativně ke straně</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
@@ -3442,7 +3538,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Arrange Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uspořádat strany</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -3450,19 +3546,19 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Measurements</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vzdálenosti</translation>
     </message>
     <message>
         <source>Action &amp;History</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Historie akcí</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Preflight (předtisková kontrola)</translation>
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zarovnat a rozmístit</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -3474,11 +3570,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Select Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat objekt</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tabulka</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -3490,7 +3586,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kresba od ruky</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -3502,11 +3598,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvětšit</translation>
     </message>
     <message>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmenšit</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -3526,11 +3622,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barevná pipeta</translation>
     </message>
     <message>
         <source>Copy Item Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat vlastnosti objektu</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
@@ -3542,7 +3638,7 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Insert Image Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit obrázjový rámec</translation>
     </message>
     <message>
         <source>Insert Table</source>
@@ -3550,19 +3646,19 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Insert Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit tvar</translation>
     </message>
     <message>
         <source>Insert Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit mnohoúhelník</translation>
     </message>
     <message>
         <source>Insert Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit čáru</translation>
     </message>
     <message>
         <source>Insert Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit Beziérovu křivku</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
@@ -3578,11 +3674,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Dehyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit dělení slov textu</translation>
     </message>
     <message>
         <source>&amp;Generate Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Generovat obsah</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
@@ -3602,55 +3698,55 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Smart &amp;Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Chytré dělení textu</translation>
     </message>
     <message>
         <source>Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedělitelná pomlčka</translation>
     </message>
     <message>
         <source>Non Breaking &amp;Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedělitelná &amp;mezera</translation>
     </message>
     <message>
         <source>Page &amp;Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Číslo &amp;strany</translation>
     </message>
     <message>
         <source>New Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Nový řádek</translation>
     </message>
     <message>
         <source>Frame Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Zalomení rámce</translation>
     </message>
     <message>
         <source>Column Break</source>
-        <translation type="unfinished"></translation>
+        <translation>Zalomení sloupce</translation>
     </message>
     <message>
         <source>Copyright</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright</translation>
     </message>
     <message>
         <source>Registered Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrovaná obchodní známka</translation>
     </message>
     <message>
         <source>Trademark</source>
-        <translation type="unfinished"></translation>
+        <translation>Obchodní známka</translation>
     </message>
     <message>
         <source>Bullet</source>
-        <translation type="unfinished"></translation>
+        <translation>Odrážka</translation>
     </message>
     <message>
         <source>Em Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Em pomlčka</translation>
     </message>
     <message>
         <source>En Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>En pomlčka</translation>
     </message>
     <message>
         <source>Figure Dash</source>
@@ -3662,59 +3758,59 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Apostrophe</source>
-        <translation type="unfinished"></translation>
+        <translation>Apostrof</translation>
     </message>
     <message>
         <source>Straight Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Přímé dvojité</translation>
     </message>
     <message>
         <source>Single Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Levé jednoduché</translation>
     </message>
     <message>
         <source>Single Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravé jednoduché</translation>
     </message>
     <message>
         <source>Double Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Levé dvojité</translation>
     </message>
     <message>
         <source>Double Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravé dvojité</translation>
     </message>
     <message>
         <source>Single Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation>Jednoduché obrácené</translation>
     </message>
     <message>
         <source>Double Reversed</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvojité obrácené</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Jednoduché levé Guillemet (francouzské)</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Jednoduché pravé Guillemet (francouzské)</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvojité levé Guillemet (francouzské)</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvojité pravé Guillemet (framcouzské)</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Dolní jednoduché</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Dolní dvojité</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
@@ -3734,11 +3830,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepnout palety</translation>
     </message>
     <message>
         <source>Toggle Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepnout vodítka</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
@@ -3746,11 +3842,11 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Javaskripty...</translation>
     </message>
     <message>
         <source>Convert to Master Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>Převést na vzorovou stranu...</translation>
     </message>
     <message>
         <source>&amp;Cascade</source>
@@ -3762,44 +3858,36 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation type="unfinished"></translation>
+        <translation>O &amp;Modulech</translation>
     </message>
     <message>
         <source>More Info...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Více informací...</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tisk povolen</translation>
     </message>
     <message>
         <source>&amp;Flip Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Překlopit &amp;vodorovně</translation>
     </message>
     <message>
         <source>&amp;Flip Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Překlopit &amp;svisle</translation>
     </message>
     <message>
         <source>Show Rulers</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit pravítka</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
-        <translation type="unfinished">&amp;Obrysy</translation>
+        <translation>&amp;Objekty</translation>
     </message>
     <message>
         <source>Solidus</source>
-        <translation type="unfinished"></translation>
+        <translation>Lomítko</translation>
     </message>
     <message>
         <source>Middle Dot</source>
@@ -3807,19 +3895,19 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>En Space</source>
-        <translation type="unfinished"></translation>
+        <translation>En mezera</translation>
     </message>
     <message>
         <source>Em Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Em mezera</translation>
     </message>
     <message>
         <source>Thin Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Tenká mezera</translation>
     </message>
     <message>
         <source>Thick Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Široká mezera</translation>
     </message>
     <message>
         <source>Mid Space</source>
@@ -3831,65 +3919,73 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>Insert Smart Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit chytré dělení textu</translation>
     </message>
     <message>
         <source>Insert Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit nedělitelnou pomlčku</translation>
     </message>
     <message>
         <source>Insert Non Breaking Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit nedělitelnou mezeru</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation type="unfinished">Vložit číslo strany</translation>
+        <translation>Vložit číslo strany</translation>
     </message>
     <message>
         <source>ff</source>
-        <translation type="unfinished"></translation>
+        <translation>ff</translation>
     </message>
     <message>
         <source>fi</source>
-        <translation type="unfinished"></translation>
+        <translation>fi</translation>
     </message>
     <message>
         <source>fl</source>
-        <translation type="unfinished"></translation>
+        <translation>fl</translation>
     </message>
     <message>
         <source>ffi</source>
-        <translation type="unfinished"></translation>
+        <translation>ffi</translation>
     </message>
     <message>
         <source>ffl</source>
-        <translation type="unfinished"></translation>
+        <translation>ffl</translation>
     </message>
     <message>
         <source>ft</source>
-        <translation type="unfinished"></translation>
+        <translation>ft</translation>
     </message>
     <message>
         <source>st</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
+        <translation>st</translation>
     </message>
     <message>
         <source>S&amp;tyles...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;tyly...</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation type="unfinished">&amp;Obrysy</translation>
+        <translation>&amp;Obrys</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation type="unfinished">O&amp;brysy</translation>
+        <translation>O&amp;brysy</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>&amp;Vymazat</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Ukázat sloupce textového rámu</translation>
     </message>
 </context>
 <context>
@@ -4089,7 +4185,7 @@ tiskárna.</translation>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarovnat a rozmístit</translation>
     </message>
     <message>
         <source>Align</source>
@@ -4097,31 +4193,31 @@ tiskárna.</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Relativně k:</translation>
     </message>
     <message>
         <source>First Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Prvně vybranému</translation>
     </message>
     <message>
         <source>Last Selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Posledně vybranému</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Strana</translation>
+        <translation>Straně</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Okrajům</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodítkům</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Výběrům</translation>
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
@@ -4165,7 +4261,7 @@ tiskárna.</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vybrané vodítko:</translation>
     </message>
     <message>
         <source>Distribute</source>
@@ -4213,7 +4309,7 @@ tiskárna.</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vzdálenost:</translation>
     </message>
     <message>
         <source>Distribute the items with the distance specified</source>
@@ -4229,19 +4325,19 @@ tiskárna.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Některé objekty jsou zamčeny.</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odemknout vše</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
-        <translation type="unfinished"></translation>
+        <translation>Y: %1%2</translation>
     </message>
     <message>
         <source>X: %1%2</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1%2</translation>
     </message>
 </context>
 <context>
@@ -4812,12 +4908,12 @@ tiskárna.</translation>
     <message>
         <source>None</source>
         <comment>highlight</comment>
-        <translation type="unfinished"></translation>
+        <translation>Žádná</translation>
     </message>
     <message>
         <source>None</source>
         <comment>action</comment>
-        <translation type="unfinished"></translation>
+        <translation>Žádná</translation>
     </message>
 </context>
 <context>
@@ -4895,39 +4991,39 @@ tiskárna.</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít vzorovou stranu</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vzorová strana:</translation>
     </message>
     <message>
         <source>Apply To</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít na</translation>
     </message>
     <message>
         <source>Current &amp;page</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aktuální strana</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Even pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sudé strany</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation>Alt+U</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>O&amp;dd pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Liché strany</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+S</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -4939,15 +5035,15 @@ tiskárna.</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Interval stran</translation>
     </message>
     <message>
         <source>Alt+W</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>to</source>
-        <translation>na</translation>
+        <translation>po</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -5016,77 +5112,81 @@ tiskárna.</translation>
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation type="unfinished"></translation>
+        <translation>Čá&amp;rové kódy...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozhraní &quot;Pure Postscript Barcode Writer&quot;</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
     <message>
         <source>Error opening file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při otevírání souboru: %1</translation>
     </message>
     <message>
         <source>12 or 13 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>12 nebo 13 číslic</translation>
     </message>
     <message>
         <source>8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>8 číslic</translation>
     </message>
     <message>
         <source>11 or 12 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>11 nebo 12 číslic</translation>
     </message>
     <message>
         <source>7 or 8 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>7 nebo 8 číslic</translation>
     </message>
     <message>
         <source>5 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>5 číslic</translation>
     </message>
     <message>
         <source>2 digits</source>
-        <translation type="unfinished"></translation>
+        <translation>2 číslice</translation>
     </message>
     <message>
         <source>9 or 10 digits separated appropriately with dashes</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">9 nebo 10 číslic náležitě oddělených pomlčkami</translation>
     </message>
     <message>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelný počet znaků, číslic a symbolů: -. *$/+%.</translation>
     </message>
     <message>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation type="unfinished"></translation>
+        <translation>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</translation>
     </message>
     <message>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelný počet číslic a symbolů: -$:/.+ABCD.</translation>
     </message>
     <message>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelný počet číslic. ITF-14 obsahuje 14 číslic a nemá číslici kontrolní</translation>
     </message>
     <message>
         <source>Variable number of digits</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelný počet číslic</translation>
     </message>
     <message>
         <source>Variable number of digits and capital letters</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelný počet číslic a velkých písmen</translation>
     </message>
     <message>
         <source>Variable number of hexadecimal characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Volitelný počet hexadecimálních číslic</translation>
     </message>
     <message>
         <source>Barcode incomplete</source>
+        <translation>Čárový kód není kompletní</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5094,131 +5194,127 @@ tiskárna.</translation>
     <name>BarcodeGeneratorBase</name>
     <message>
         <source>Barcode Creator</source>
-        <translation type="unfinished"></translation>
+        <translation>Generátor čárových kódů</translation>
     </message>
     <message>
         <source>Barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Čárový kód</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished">&amp;Typ:</translation>
+        <translation>&amp;Typ:</translation>
     </message>
     <message>
         <source>Select one of the available barcode type here</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte jeden z dostupných typů čárových kódů</translation>
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation type="unfinished"></translation>
+        <translation>Číselná reprezentace vlastního kódu. Přečtěte si níže uvedenou nápovědu</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
-        <translation type="unfinished"></translation>
+        <translation>Znovu nastavit ukázkovou hodnotu</translation>
     </message>
     <message>
         <source>&amp;Include text in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit &amp;text do výsledného kódu</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+TAlt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
-        <translation type="unfinished"></translation>
+        <translation>Jestliže je zaškrtnuto, bude ve výsledném kódu také jeho textová reprezentace</translation>
     </message>
     <message>
         <source>&amp;Guard whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hlídat okolní místo</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kreslit pomocné šipky, aby bylo kolem kódu dostatek místa</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Barvy</translation>
+        <translation>Barvy</translation>
     </message>
     <message>
         <source>&amp;Background</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pozadí</translation>
     </message>
     <message>
         <source>Alt+B</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva pozadí - pod čárami kódu</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Čá&amp;ry</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <source>Color of the lines in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva čar kódu</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished">&amp;Text</translation>
+        <translation>&amp;Text</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva textu a čísel</translation>
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipy a nápověda</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhled výsledného kódu. 72dpi.</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kód:</translation>
     </message>
     <message>
         <source>I&amp;nclude checksum</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vložit kontrolní součet</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
         <source>Generate and include a checksum in barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvořit a vložit kontrolní součet do kódu</translation>
     </message>
     <message>
         <source>Incl&amp;ude checksum digit</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit &amp;kontrolní číslici</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>Include the checksum digit in the barcode text</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit kontrolní číslici do textu kódu</translation>
     </message>
 </context>
 <context>
@@ -5313,11 +5409,27 @@ Prosím, zvolte jiné.</translation>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolte adresář zápisníku</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Vybrat adresář</translation>
+        <translation>Vybrat adresář</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Zápisník (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Vyberte zápisník, který importuji</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Import souborů zápisníku...</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation>Hlavní</translation>
     </message>
 </context>
 <context>
@@ -5570,11 +5682,11 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     </message>
     <message>
         <source>Default color profile for imported CMYK images</source>
-        <translation type="unfinished"></translation>
+        <translation>Implicitní barevný profil importovaných CMYK onrázků</translation>
     </message>
     <message>
         <source>Default color profile for imported RGB images</source>
-        <translation type="unfinished"></translation>
+        <translation>Implicitní barevný profil importovaných RGB onrázků</translation>
     </message>
 </context>
 <context>
@@ -5702,6 +5814,14 @@ It is a reserved name for transparent color</source>
         <source>Name of the color is not unique</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChTable</name>
@@ -5722,7 +5842,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Character Class:</source>
-        <translation type="unfinished"></translation>
+        <translation>Třída znaků:</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
@@ -5730,7 +5850,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>Vy&amp;mazat</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -5750,35 +5870,35 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Full Character Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Plná znaková sada</translation>
     </message>
     <message>
         <source>Basic Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Základní latinka</translation>
     </message>
     <message>
         <source>Latin-1 Supplement</source>
-        <translation type="unfinished"></translation>
+        <translation>Latin-1 doplňky</translation>
     </message>
     <message>
         <source>Latin Extended-A</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšířená latinka A</translation>
     </message>
     <message>
         <source>Latin Extended-B</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšířená latinka B</translation>
     </message>
     <message>
         <source>General Punctuation</source>
-        <translation type="unfinished"></translation>
+        <translation>Obecná interpunkce</translation>
     </message>
     <message>
         <source>Super- and Subscripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Horní a dolní indexy</translation>
     </message>
     <message>
         <source>Currency Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Měny</translation>
     </message>
     <message>
         <source>Letterlike Symbols</source>
@@ -5790,11 +5910,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Arrows</source>
-        <translation type="unfinished"></translation>
+        <translation>Šipky</translation>
     </message>
     <message>
         <source>Mathematical Operators</source>
-        <translation type="unfinished"></translation>
+        <translation>Matematické operátory</translation>
     </message>
     <message>
         <source>Box Drawing</source>
@@ -5806,15 +5926,15 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Geometric Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometrické útvary</translation>
     </message>
     <message>
         <source>Miscellaneous Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Různé symboly</translation>
     </message>
     <message>
         <source>Dingbats</source>
-        <translation type="unfinished"></translation>
+        <translation>Blbinky</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
@@ -5822,47 +5942,47 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatury</translation>
     </message>
     <message>
         <source>Specials</source>
-        <translation type="unfinished"></translation>
+        <translation>Speciální znaky</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished"></translation>
+        <translation>Řečtina</translation>
     </message>
     <message>
         <source>Greek Extended</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšířená Řečtina</translation>
     </message>
     <message>
         <source>Cyrillic</source>
-        <translation type="unfinished"></translation>
+        <translation>Azbuka</translation>
     </message>
     <message>
         <source>Cyrillic Supplement</source>
-        <translation type="unfinished"></translation>
+        <translation>Azbuka - doplňky</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabské</translation>
     </message>
     <message>
         <source>Arabic Extended A</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabské rozšířené A</translation>
     </message>
     <message>
         <source>Arabic Extended B</source>
-        <translation type="unfinished"></translation>
+        <translation>Arabské rozšířené B</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation type="unfinished"></translation>
+        <translation>Hebrejské</translation>
     </message>
     <message>
         <source>&amp;Insert Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vložit kód:</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing</source>
@@ -5877,35 +5997,35 @@ It is a reserved name for transparent color</source>
     <name>CheckDocument</name>
     <message>
         <source>Glyphs missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Cybí znak</translation>
     </message>
     <message>
         <source>Text overflow</source>
-        <translation type="unfinished"></translation>
+        <translation>Text přetéká</translation>
     </message>
     <message>
         <source>Object is not on a Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt není na straně</translation>
     </message>
     <message>
         <source>Missing Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Chybí obrázek</translation>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázek má menší DPI než %1 DPI</translation>
     </message>
     <message>
         <source>Object has transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Objek onsahuje průhlednost</translation>
     </message>
     <message>
         <source>Object is a PDF Annotation or Field</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt je PDF anotací nebo formulářem</translation>
     </message>
     <message>
         <source>Object is a placed PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekt je umístěné PDF</translation>
     </message>
     <message>
         <source>Document</source>
@@ -5913,7 +6033,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>No Problems found</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenalezeny žádné problémy</translation>
     </message>
     <message>
         <source>Page </source>
@@ -5921,31 +6041,31 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Volné objekty</translation>
     </message>
     <message>
         <source>Problems found</source>
-        <translation type="unfinished"></translation>
+        <translation>Nalezeny problémy</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight (předtisková kontrola)</translation>
     </message>
     <message>
         <source>Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Onjekty</translation>
     </message>
     <message>
         <source>Problems</source>
-        <translation type="unfinished"></translation>
+        <translation>Problémy</translation>
     </message>
     <message>
         <source>Current Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuální profil:</translation>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignorovat chyby</translation>
     </message>
 </context>
 <context>
@@ -6005,55 +6125,55 @@ It is a reserved name for transparent color</source>
     <name>ColorManager</name>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Barvy</translation>
+        <translation>Barvy</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Import</translation>
+        <translation>&amp;Import</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nová</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">Ú&amp;pravy</translation>
+        <translation>Ú&amp;pravy</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished">&amp;Duplikovat</translation>
+        <translation>&amp;Duplikovat</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Smazat</translation>
+        <translation>&amp;Smazat</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
-        <translation type="unfinished">&amp;Odstranit nepoužité</translation>
+        <translation>&amp;Odstranit nepoužité</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation type="unfinished">Množiny barev</translation>
+        <translation>Množiny barev</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation type="unfinished">Aktuálí množina barev:</translation>
+        <translation>Aktuálí množina barev:</translation>
     </message>
     <message>
         <source>&amp;Save Color Set</source>
-        <translation type="unfinished">&amp;Uložit množinu barev</translation>
+        <translation>&amp;Uložit množinu barev</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
-        <translation type="unfinished">Nahrát množinu barev</translation>
+        <translation>Nahrát množinu barev</translation>
     </message>
     <message>
         <source>Save the current color set</source>
-        <translation type="unfinished">Uložit aktuální množinu barev</translation>
+        <translation>Uložit aktuální množinu barev</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation type="unfinished">Odstranit nepoužité barvy z aktuální množiny barev</translation>
+        <translation>Odstranit nepoužité barvy z aktuální množiny barev</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
@@ -6061,51 +6181,55 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Create a new color within the current set</source>
-        <translation type="unfinished">Vytvořit novou barvu v aktuální množině</translation>
+        <translation>Vytvořit novou barvu v aktuální množině</translation>
     </message>
     <message>
         <source>Edit the currently selected color</source>
-        <translation type="unfinished">Upravit zvolenou barvu</translation>
+        <translation>Upravit zvolenou barvu</translation>
     </message>
     <message>
         <source>Make a copy of the currently selected color</source>
-        <translation type="unfinished">Vytvořit kopii vybrané barvy</translation>
+        <translation>Vytvořit kopii vybrané barvy</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
-        <translation type="unfinished">Smazat vybranou barvu</translation>
+        <translation>Smazat vybranou barvu</translation>
     </message>
     <message>
         <source>Make the current colorset the default color set</source>
-        <translation type="unfinished">Nastavit aktuální množinu barev jako implicitní</translation>
+        <translation>Nastavit aktuální množinu barev jako implicitní</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Jméno:</translation>
+        <translation>&amp;Jméno:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation type="unfinished">Vybrat jméno</translation>
+        <translation>Vybrat jméno</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Otevřít</translation>
+        <translation>Otevřít</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished">Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Všechny soubory (*)</translation>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="unfinished">Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
+        <translation>Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished">Kopie %1</translation>
+        <translation>Kopie %1</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished">Nová barva</translation>
+        <translation>Nová barva</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6295,7 +6419,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Zavřít</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
@@ -6407,43 +6531,135 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Custom</source>
         <comment>CommonStrings, custom page size</comment>
-        <translation type="unfinished">Vlastní</translation>
+        <translation>Vlastní</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedna strana</translation>
     </message>
     <message>
         <source>Double Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvojstrany</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>3 složení</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>4 složení</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation type="unfinished">Levá strana</translation>
+        <translation>Levá strana</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Střední</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Střední levá</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Střední pravá</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation type="unfinished">Pravá strana</translation>
+        <translation>Pravá strana</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normální</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished">Leden</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6773,15 +6989,15 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit &amp;RGB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit &amp;CMYK</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -6861,15 +7077,15 @@ Lze uvést v Nastavení.</translation>
     <name>DelStyle</name>
     <message>
         <source>Delete Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat styl</translation>
     </message>
     <message>
         <source>Delete Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat styl:</translation>
     </message>
     <message>
         <source>Replace With:</source>
-        <translation type="unfinished">Nehradit čím:</translation>
+        <translation>Nehradit čím:</translation>
     </message>
     <message>
         <source>No Style</source>
@@ -6903,12 +7119,13 @@ Lze uvést v Nastavení.</translation>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba importu</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba importu Word souboru
+%1</translation>
     </message>
 </context>
 <context>
@@ -7067,7 +7284,7 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     </message>
     <message>
         <source>Documen&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumen&amp;t</translation>
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
@@ -7106,23 +7323,23 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>1, 2, 3, ...</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>i, ii, iii, ...</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>I, II, III, ...</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>a, b, c, ...</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>A, B, C, ...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
@@ -7141,7 +7358,7 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     <name>DocSectionsBase</name>
     <message>
         <source>Document Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Sekce dokumentu</translation>
     </message>
     <message>
         <source>Name</source>
@@ -7149,11 +7366,11 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     </message>
     <message>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Od</translation>
     </message>
     <message>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>po</translation>
     </message>
     <message>
         <source>Style</source>
@@ -7161,7 +7378,7 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Start</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -7188,15 +7405,15 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     <name>DocumentItemAttributes</name>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vztažen k</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Je rodičem</translation>
     </message>
     <message>
         <source>Is Child Of</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Je dítětem</translation>
     </message>
     <message>
         <source>Text Frames</source>
@@ -7298,15 +7515,15 @@ volitelně s kódem země ISO-3166 např. cs-CZ, en-GB</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parametr</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vztah</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vztah k</translation>
     </message>
     <message>
         <source>Auto Add To</source>
@@ -7615,14 +7832,24 @@ se nepodařil!</translation>
         <translation>Kritická chyba</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation>Chyba</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7946,15 +8173,15 @@ Chyba byla:
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pevné řádkování</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Automatické řádkování</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zarovnat k pomocné mřížce</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -7987,6 +8214,22 @@ Chyba byla:
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Manuální nastavení prokládání textu</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
     </message>
 </context>
 <context>
@@ -8120,7 +8363,7 @@ Chyba byla:
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stupnice šedi</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -8282,7 +8525,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <name>ExtImageProps</name>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rozšířené vlastnosti obrázku</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -8417,7 +8660,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozlišení:</translation>
     </message>
     <message>
         <source>DPI</source>
@@ -8433,11 +8676,11 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Stupnice šedi</translation>
     </message>
     <message>
         <source>Colorspace:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barevný prostor:</translation>
     </message>
 </context>
 <context>
@@ -8698,7 +8941,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
         <translation>PostScript</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8809,11 +9052,11 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Start searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit hledání</translation>
     </message>
     <message>
         <source>Size of the selected font</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost zvoleného písma</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -8823,12 +9066,12 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <message>
         <source>User</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uživatel</translation>
     </message>
     <message>
         <source>System</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Systém</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -8836,7 +9079,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázka bude zobrazena až po puštění tlačítka</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
@@ -8847,79 +9090,79 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Náhled písem</translation>
+        <translation>Náhled písem</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rychlé hledání:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Hledat</translation>
+        <translation>&amp;Hledat</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished">Název písma</translation>
+        <translation>Název písma</translation>
     </message>
     <message>
         <source>Doc</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation type="unfinished">Podmnožina glyphů</translation>
+        <translation>Podmnožina glyphů</translation>
     </message>
     <message>
         <source>Access</source>
-        <translation type="unfinished">Přístup</translation>
+        <translation>Přístup</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Velikost písma:</translation>
+        <translation>&amp;Velikost písma:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Sample text to display</source>
-        <translation type="unfinished"></translation>
+        <translation>Text, který se zobrazí</translation>
     </message>
     <message>
         <source>Se&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Na&amp;stavit</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt-T</translation>
     </message>
     <message>
         <source>Reset the text</source>
-        <translation type="unfinished"></translation>
+        <translation>Obnovit text</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished">Připoji&amp;t</translation>
+        <translation>Připoji&amp;t</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Zavřít</translation>
+        <translation>&amp;Zavřít</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+Z</translation>
+        <translation>Alt+Z</translation>
     </message>
 </context>
 <context>
@@ -8941,19 +9184,19 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation type="unfinished"></translation>
+        <translation>Substituce písem</translation>
     </message>
     <message>
         <source>Original Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Původní písmo</translation>
     </message>
     <message>
         <source>Substitution Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Nové písmo</translation>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit tyto substituce jako permanentní</translation>
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
@@ -8984,7 +9227,11 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Zde můžete přidat, změnit nemo odstranit Požadované barvy (Stop-colors).</translation>
+        <translation type="obsolete">Zde můžete přidat, změnit nemo odstranit Požadované barvy (Stop-colors).</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation>Přidat, změnit, anebo odebrat zarážky barev</translation>
     </message>
 </context>
 <context>
@@ -9055,7 +9302,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Řady a sloupce - automatická vodítka</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
@@ -9108,7 +9355,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vodítkům</translation>
     </message>
     <message>
         <source>Unit</source>
@@ -9177,11 +9424,11 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>Se&amp;arch</source>
-        <translation type="unfinished"></translation>
+        <translation>Hl&amp;edat</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nový</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -9189,11 +9436,11 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>De&amp;lete All</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;mazat vše</translation>
     </message>
     <message>
         <source>Book&amp;marks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Záložky</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -9201,19 +9448,19 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zavřít</translation>
     </message>
     <message>
         <source>Searching is case unsensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Hlednání ignoruje velikost písmen</translation>
     </message>
     <message>
         <source>New Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová záložka</translation>
     </message>
     <message>
         <source>New Bookmark&apos;s Title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadpis nové záložky:</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -9221,15 +9468,15 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>&amp;Find...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hledat...</translation>
     </message>
     <message>
         <source>Find &amp;Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat &amp;další</translation>
     </message>
     <message>
         <source>Find &amp;Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat &amp;předchozí</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -9237,11 +9484,11 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>&amp;Add Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Přidat záložku</translation>
     </message>
     <message>
         <source>D&amp;elete All</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;mazat vše</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
@@ -9249,7 +9496,7 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>Relevance</source>
-        <translation type="unfinished"></translation>
+        <translation>Relevance</translation>
     </message>
 </context>
 <context>
@@ -9329,19 +9576,19 @@ ve kterém budou zobrazeny všechny možnosti dělení slova.</translation>
     <name>ImageInfoDialog</name>
     <message>
         <source>Image Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Informace o obrázku</translation>
     </message>
     <message>
         <source>General Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Obecné informace</translation>
     </message>
     <message>
         <source>Date / Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum/čas:</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
-        <translation type="unfinished"></translation>
+        <translation>Má vložený profil:</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -9353,7 +9600,7 @@ ve kterém budou zobrazeny všechny možnosti dělení slova.</translation>
     </message>
     <message>
         <source>Profile Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jméno profilu:</translation>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
@@ -9361,47 +9608,47 @@ ve kterém budou zobrazeny všechny možnosti dělení slova.</translation>
     </message>
     <message>
         <source>Has Layers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ná vrstvy:</translation>
     </message>
     <message>
         <source>EXIF Info</source>
-        <translation type="unfinished"></translation>
+        <translation>EXIF informace</translation>
     </message>
     <message>
         <source>Artist:</source>
-        <translation type="unfinished"></translation>
+        <translation>Umělec:</translation>
     </message>
     <message>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentář:</translation>
     </message>
     <message>
         <source>User Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uživatelův komentář:</translation>
     </message>
     <message>
         <source>Camera Model:</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ fotoaparátu:</translation>
     </message>
     <message>
         <source>Camera Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Výrobce fotoaparátu:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished">Popis:</translation>
+        <translation>Popis:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished">Copyright:</translation>
+        <translation>Copyright:</translation>
     </message>
     <message>
         <source>Scanner Model:</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ skeneru:</translation>
     </message>
     <message>
         <source>Scanner Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Výrobce skeneru:</translation>
     </message>
 </context>
 <context>
@@ -9412,7 +9659,7 @@ ve kterém budou zobrazeny všechny možnosti dělení slova.</translation>
     </message>
     <message>
         <source>Imports EPS Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Import EPS souborů</translation>
     </message>
     <message>
         <source>Imports most EPS files into the current document,
@@ -9425,7 +9672,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF</translation>
     </message>
 </context>
 <context>
@@ -9488,11 +9735,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorové strany</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vzorová strany:</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -9697,19 +9944,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Načíst</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Import...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Export...</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Obnovit</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
@@ -9780,7 +10027,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Do you want to delete all objects on this layer too?</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu chcete také smazat všechny objekty z této hladiny?</translation>
     </message>
     <message>
         <source>Name</source>
@@ -9788,19 +10035,19 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Add a new layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat vrstvu</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat vrstvu</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstvu dopředu</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstvu dozadu</translation>
     </message>
 </context>
 <context>
@@ -9889,67 +10136,63 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Šířka čáry:</translation>
+        <translation>Šířka čáry:</translation>
     </message>
 </context>
 <context>
     <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished">Ostrá hlavička</translation>
+        <translation>Ostrá hlavička</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished">Čtvercová hlavička</translation>
+        <translation>Čtvercová hlavička</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished">Oblá hlavička</translation>
+        <translation>Oblá hlavička</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation type="unfinished">Kolmý spoj</translation>
+        <translation>Kolmý spoj</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation type="unfinished">Zkosený spoj</translation>
+        <translation>Zkosený spoj</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation type="unfinished">Oblý spoj</translation>
+        <translation>Oblý spoj</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Plná čára</translation>
+        <translation>Plná čára</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Čárkovaná čára</translation>
+        <translation>Čárkovaná čára</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Tečkovaná čára</translation>
+        <translation>Tečkovaná čára</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Čerchovaná čára</translation>
+        <translation>Čerchovaná čára</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Dvojitě čerchovaná čára</translation>
+        <translation>Dvojitě čerchovaná čára</translation>
     </message>
 </context>
 <context>
@@ -10358,7 +10601,7 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastnosti strany</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -10484,7 +10727,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit vzorové strany</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -10508,7 +10751,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>New Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová vzorová strana</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -10520,7 +10763,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>New MasterPage</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová vzorová strana</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
@@ -10532,22 +10775,38 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Duplicate the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplikovat zvolenou vzorovou stranu</translation>
     </message>
     <message>
         <source>Delete the selected master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat zvolenou vzorovou stranu</translation>
     </message>
     <message>
         <source>Add a new master page</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat novou vzorovou stranu</translation>
     </message>
     <message>
         <source>Import master pages from another document</source>
-        <translation type="unfinished"></translation>
+        <translation>Import vzorových stran z existujícího dokumentu</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
+        <translation>Nová vzorová strana %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10753,23 +11012,23 @@ t.j. interval, nebo jediné číslo strany.</translation>
     </message>
     <message>
         <source>Import Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Importovat vzorovou stranu</translation>
     </message>
     <message>
         <source>&amp;From Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Z dokumentu:</translation>
     </message>
     <message>
         <source>Chan&amp;ge...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Změnit...</translation>
     </message>
     <message>
         <source>&amp;Import Page(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importovat stranu(y):</translation>
     </message>
     <message>
         <source>&amp;Import Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Importovat &amp;vzorovou stranu</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
@@ -10777,15 +11036,15 @@ t.j. interval, nebo jediné číslo strany.</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Před stranu</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Za stranu</translation>
     </message>
     <message>
         <source>At End</source>
-        <translation type="unfinished"></translation>
+        <translation>Na konec</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -10851,19 +11110,19 @@ t.j. interval, nebo jediné číslo strany.</translation>
     </message>
     <message>
         <source>Move Page(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Posun stran(y)</translation>
     </message>
     <message>
         <source>Before Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Před stranu</translation>
     </message>
     <message>
         <source>After Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Za stranu</translation>
     </message>
     <message>
         <source>At End</source>
-        <translation type="unfinished"></translation>
+        <translation>Na konec</translation>
     </message>
     <message>
         <source>To:</source>
@@ -10871,7 +11130,7 @@ t.j. interval, nebo jediné číslo strany.</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet kopií:</translation>
     </message>
 </context>
 <context>
@@ -11285,7 +11544,7 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Povolit obtékání textu v nižších objektech kolem zvoleného obrysu</translation>
+        <translation type="obsolete">Povolit obtékání textu v nižších objektech kolem zvoleného obrysu</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -11467,11 +11726,11 @@ Corners:</source>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Použít obrys celého rámu místo obysu objektu</translation>
+        <translation type="obsolete">Použít obrys celého rámu místo obysu objektu</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Použít druhou čáru, založenou na obrysu rámu, při řetězení textu</translation>
+        <translation type="obsolete">Použít druhou čáru, založenou na obrysu rámu, při řetězení textu</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -11491,31 +11750,31 @@ Corners:</source>
     </message>
     <message>
         <source>Fixed Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Pevné řádkování</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatické řádkování</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarovnat k pomocné mřížce</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuální X-DPI:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuální Y-DPI:</translation>
     </message>
     <message>
         <source>Start Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počáteční šipka:</translation>
     </message>
     <message>
         <source>End Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koncová šipka:</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
@@ -11527,15 +11786,7 @@ Corners:</source>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="unfinished">Jméno %1 není unikátní.&lt;br/&gt;Prosím, zvolte jiné.</translation>
-    </message>
-    <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jméno &quot;%1&quot; není unikátní.&lt;br/&gt;Prosím, zvolte jiné.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -11547,6 +11798,34 @@ Corners:</source>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11598,7 +11877,7 @@ Corners:</source>
     </message>
     <message>
         <source> pt </source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
@@ -11642,20 +11921,24 @@ Vyberte, prosím, jiný.</translation>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Jméno %1 není unikátní.&lt;br/&gt;Prosím, zvolte jiné.</translation>
     </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
 </context>
 <context>
     <name>MultiProgressDialogBase</name>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Postup</translation>
     </message>
     <message>
         <source>Overall Progress:</source>
-        <translation type="unfinished"></translation>
+        <translation>Celkový postup:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zrušit</translation>
     </message>
 </context>
 <context>
@@ -11729,18 +12012,18 @@ Vyberte, prosím, jiný.</translation>
     <name>MyPlugin</name>
     <message>
         <source>My &amp;Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Můj &amp;Modul</translation>
     </message>
 </context>
 <context>
     <name>MyPluginImpl</name>
     <message>
         <source>Scribus - My Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Můj modul</translation>
     </message>
     <message>
         <source>The plugin worked!</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul funguje!</translation>
     </message>
 </context>
 <context>
@@ -11755,7 +12038,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Vlastní</translation>
+        <translation>Vlastní</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -11975,15 +12258,15 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Do not show this dialog again</source>
-        <translation type="unfinished"></translation>
+        <translation>Znovu tento dialog nezobrazovat</translation>
     </message>
     <message>
         <source>Initial number of pages of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Počáteční počet stran dokumentu</translation>
     </message>
     <message>
         <source>N&amp;umber of Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Počet stran:</translation>
     </message>
     <message>
         <source>All Files (*)</source>
@@ -11995,15 +12278,15 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>&amp;New Document</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nový dokument</translation>
     </message>
     <message>
         <source>Open &amp;Existing Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít &amp;existující dokument</translation>
     </message>
     <message>
         <source>Open Recent &amp;Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít ne&amp;dávný dokument</translation>
     </message>
 </context>
 <context>
@@ -12205,7 +12488,7 @@ ke straně, v opačném případě k objektu.</translation>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tento dokument nevypadá jako OpenOffice Draw soubor.</translation>
     </message>
 </context>
 <context>
@@ -12216,7 +12499,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Imports OpenOffice.org Draw Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Import souborů OpenOffice Draw</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
@@ -12225,11 +12508,15 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument 1.0 Draw</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
+        <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12319,7 +12606,7 @@ a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepsat styly odstavce</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -13150,19 +13437,19 @@ Není-li povoleno, anotace jsou zakázány.</translation>
     <name>PDFlib</name>
     <message>
         <source>Saving PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukládám PDF</translation>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Export vzorových stran:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Export stran:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Export objektů aktualní strany:</translation>
     </message>
 </context>
 <context>
@@ -13207,11 +13494,11 @@ Týká se Type 1 písem</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Vyhlazený &amp;text</translation>
+        <translation type="obsolete">Vyhlazený &amp;text</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Vyhlazená &amp;grafika</translation>
+        <translation type="obsolete">Vyhlazená &amp;grafika</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -13266,7 +13553,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Separation Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Jméno separace</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -13286,19 +13573,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvětšení:</translation>
     </message>
     <message>
         <source>Print...</source>
         <translation>Tisk...</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -13314,18 +13593,26 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Soubor</translation>
+        <translation>Soubor</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Povolit &amp;vyhlazování</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zpracování vzorových stran:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Export stran:</translation>
     </message>
 </context>
 <context>
@@ -13654,15 +13941,15 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <name>PageItemAttributes</name>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation>Vztažen k</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Je rodičem</translation>
     </message>
     <message>
         <source>Is Child Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Je dítětem</translation>
     </message>
     <message>
         <source>Name</source>
@@ -13722,7 +14009,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <name>PageItemAttributesBase</name>
     <message>
         <source>Page Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Atributy objektu</translation>
     </message>
     <message>
         <source>Name</source>
@@ -13738,15 +14025,15 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Parametr</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished"></translation>
+        <translation>Vztah</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation>Vztah k</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -13774,11 +14061,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vymazat</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+N</translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -13792,11 +14079,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>Page Layout</source>
-        <translation type="unfinished"></translation>
+        <source>First Page is:</source>
+        <translation>První strana je:</translation>
     </message>
     <message>
-        <source>First Page is:</source>
+        <source>Document Layout</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13804,11 +14091,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <name>PagePalette</name>
     <message>
         <source>Double sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvojstrany</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Střední pravá</translation>
     </message>
     <message>
         <source>Drag pages or master pages onto the trashbin to delete them</source>
@@ -13828,7 +14115,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostupné vzorové strany:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
@@ -13902,7 +14189,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Střední</translation>
+        <translation type="unfinished">Střední</translation>
     </message>
     <message>
         <source>Royal</source>
@@ -14020,7 +14307,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Cancel Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit hledání</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
@@ -14028,19 +14315,19 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledání obrázků</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba hledání: %1</translation>
     </message>
     <message>
         <source>No images named &quot;%1&quot; were found.</source>
-        <translation type="unfinished"></translation>
+        <translation>6ádný soubor jménem &quot;%1&quot; nenalezen.</translation>
     </message>
     <message>
         <source>Select a base directory for search</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolit základní adresář</translation>
     </message>
 </context>
 <context>
@@ -14051,11 +14338,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportovat jako obrázek</translation>
     </message>
     <message>
         <source>Exports selected pages as bitmap images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportuje vybrané strany jako bitmapové obrázky.</translation>
     </message>
 </context>
 <context>
@@ -14063,17 +14350,17 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <message>
         <source>Cannot find plugin</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze najít modul</translation>
     </message>
     <message>
         <source>unknown error</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>neznámá chyba</translation>
     </message>
     <message>
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nejít symbol (%1)</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -14083,42 +14370,42 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     <message>
         <source>Plugin: loading %1</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Modul: nahrávám %1</translation>
     </message>
     <message>
         <source>init failed</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>chyba inicializace</translation>
     </message>
     <message>
         <source>unknown plugin type</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>neznámý typ modulu</translation>
     </message>
     <message>
         <source>Plugin: %1 loaded</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Modul: %1 nahrán</translation>
     </message>
     <message>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Modul: %1 chyba nahrávání: %2</translation>
     </message>
 </context>
 <context>
     <name>PluginManagerPrefsGui</name>
     <message>
         <source>Plugin Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Správce modulů</translation>
     </message>
     <message>
         <source>Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>How to run</source>
-        <translation type="unfinished"></translation>
+        <translation>Jak spustit</translation>
     </message>
     <message>
         <source>Type</source>
@@ -14126,11 +14413,11 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>Load it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát?</translation>
     </message>
     <message>
         <source>Plugin ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID modulu</translation>
     </message>
     <message>
         <source>File</source>
@@ -14146,7 +14433,7 @@ v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aby se změny projevily, musíte znovu spustit program.</translation>
     </message>
 </context>
 <context>
@@ -14771,7 +15058,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Umístění Ghostscript interpreteru na disku</translation>
+        <translation type="obsolete">Umístění Ghostscript interpreteru na disku</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -15242,11 +15529,11 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Šablony &amp;dokumentů:</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jednotky:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
@@ -15254,27 +15541,27 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation type="unfinished"></translation>
+        <translation>Délka historie akcí</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Dělení slov</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Písma</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight (předtisková kontrola)</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Správa barev</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF export</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
@@ -15282,11 +15569,11 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah a rejstříky</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Klávesové zkratky</translation>
     </message>
     <message>
         <source>Page Display</source>
@@ -15298,27 +15585,27 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+K</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit obrázky</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit řetězení textu</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit řídící znaky textu</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit rámy</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravítka relativně ke straně</translation>
     </message>
     <message>
         <source>Scratch Space</source>
@@ -15326,27 +15613,27 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezera mezi stranami</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodorovná:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Svislá:</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrazovku přizpůsobíte posuem jezdce na spodním pravítku.</translation>
     </message>
     <message>
         <source>dpi</source>
-        <translation type="unfinished"></translation>
+        <translation>dpi</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozlišení:</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -15358,7 +15645,7 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazovat uvítací dialog</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
@@ -15366,15 +15653,15 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Always use standard Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation>Vždy použít klasické Lorem Ipsum</translation>
     </message>
     <message>
         <source>Count of the Paragraphs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet odstavců:</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation>Různé</translation>
     </message>
     <message>
         <source>Type</source>
@@ -15394,7 +15681,7 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Moduly</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -15434,15 +15721,15 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished"></translation>
+        <translation>Umístění Ghostscriptu</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Umístění editoru obrázků</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpret PostScriptu</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
@@ -15454,11 +15741,11 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Velikost písma (nabídky):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost &amp;písma (palety):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
@@ -15484,20 +15771,24 @@ běžící instanci GIMPu.</translation>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
     <message>
         <source>&amp;Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Výchozí</translation>
     </message>
     <message>
         <source>Save...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit...</translation>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit nastavení</translation>
     </message>
 </context>
 <context>
@@ -15516,7 +15807,7 @@ běžící instanci GIMPu.</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Převést stará nastavení Scribusu?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
@@ -15545,19 +15836,19 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba zápisu nastavení</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
@@ -15566,7 +15857,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba čtení nastavení</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
@@ -15577,15 +15868,15 @@ Do you want to migrate them to the new Scribus version?</source>
     <name>PresetLayout</name>
     <message>
         <source>Magazine</source>
-        <translation type="unfinished"></translation>
+        <translation>Časopis</translation>
     </message>
     <message>
         <source>Fibonacci</source>
-        <translation type="unfinished"></translation>
+        <translation>Fibonacci</translation>
     </message>
     <message>
         <source>Golden Mean</source>
-        <translation type="unfinished"></translation>
+        <translation>Zlatý řez</translation>
     </message>
     <message>
         <source>Nine Parts</source>
@@ -15593,7 +15884,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Gutenberg</source>
-        <translation type="unfinished"></translation>
+        <translation>Gutenberg</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
@@ -15602,7 +15893,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <source>None</source>
         <comment>layout type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Žádný</translation>
     </message>
 </context>
 <context>
@@ -15621,7 +15912,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zavřít</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -15629,23 +15920,23 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>&amp;Run</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit sk&amp;ript</translation>
     </message>
     <message>
         <source>Run As &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Spustit jako &amp;konzole</translation>
     </message>
     <message>
         <source>&amp;Save Output...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit &amp;výstup...</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skript</translation>
     </message>
     <message>
         <source>Scribus Python Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Python konzole</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
@@ -15677,7 +15968,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Text Files (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation>Textové soubory (*.txt)</translation>
     </message>
     <message>
         <source>Save Current Output</source>
@@ -16332,19 +16623,19 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Scribus skripty</translation>
+        <translation>&amp;Scribus skripty</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Vykonat skript...</translation>
+        <translation>&amp;Vykonat skript...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Použité skripty</translation>
+        <translation>&amp;Použité skripty</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished">Ukázat &amp;konzoli</translation>
+        <translation>Ukázat &amp;konzoli</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -16424,7 +16715,7 @@ Odkazy ven
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Brazilština</translation>
+        <translation type="obsolete">Brazilština</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -17341,23 +17632,23 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     </message>
     <message>
         <source>Master Page </source>
-        <translation type="unfinished"></translation>
+        <translation>Vzorová strana </translation>
     </message>
     <message>
         <source>4A0</source>
-        <translation type="unfinished"></translation>
+        <translation>4A0</translation>
     </message>
     <message>
         <source>2A0</source>
-        <translation type="unfinished"></translation>
+        <translation>2A0</translation>
     </message>
     <message>
         <source>Comm10E</source>
-        <translation type="unfinished"></translation>
+        <translation>Comm10E</translation>
     </message>
     <message>
         <source>DLE</source>
-        <translation type="unfinished"></translation>
+        <translation>DLE</translation>
     </message>
     <message>
         <source>Could not open output file %1</source>
@@ -17477,10 +17768,6 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17590,7 +17877,7 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     </message>
     <message>
         <source>File exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor existuje</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
@@ -17599,7 +17886,7 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     <message>
         <source>page</source>
         <comment>page export</comment>
-        <translation type="unfinished"></translation>
+        <translation>strana</translation>
     </message>
     <message>
         <source>All</source>
@@ -17773,7 +18060,7 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skript</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -17835,11 +18122,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Náhled písem</translation>
     </message>
     <message>
         <source>My Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Můj Modul</translation>
     </message>
     <message>
         <source>New From Template</source>
@@ -17847,15 +18134,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Export As Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit jako obrázek</translation>
     </message>
     <message>
         <source>PS/EPS Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>PS/EPS Import</translation>
     </message>
     <message>
         <source>Save As Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit jako šablonu</translation>
     </message>
     <message>
         <source>Scripter</source>
@@ -17867,15 +18154,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>SVG Export</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG Export</translation>
     </message>
     <message>
         <source>SVG Import</source>
-        <translation type="unfinished"></translation>
+        <translation>SVG Import</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Import OpenOffice.org Draw</translation>
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
@@ -17956,7 +18243,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Barcode Generator</source>
-        <translation type="unfinished"></translation>
+        <translation>Generátor čárových kódů</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
@@ -17964,12 +18251,12 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Word dokumenty</translation>
     </message>
     <message>
         <source>Palm PDB Documents</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Palm PDB dokumenty</translation>
     </message>
     <message>
         <source>PDB_data</source>
@@ -17979,20 +18266,65 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>PDB Import</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Import PDB</translation>
     </message>
     <message>
         <source>Could not open file %1</source>
         <comment>PDB Importer</comment>
+        <translation>Nelze otevřít soubor %1</translation>
+    </message>
+    <message>
+        <source>Luxembourgish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabské</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Luxembourgish</source>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18272,7 +18604,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Jednotka:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -18316,27 +18648,27 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+K</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit obrázky</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit řetězení textu</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit řídící znaky textu</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit rámy</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravítka relativně ke straně</translation>
     </message>
     <message>
         <source>Minimum Scratch Space</source>
@@ -18344,15 +18676,15 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezera mezi stranami</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vodorovná:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Svislá:</translation>
     </message>
     <message>
         <source>Display</source>
@@ -18368,19 +18700,19 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Dělení slov</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Písma</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight (předtisková kontrola)</translation>
     </message>
     <message>
         <source>PDF Export</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF export</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
@@ -18388,11 +18720,11 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah a rejstříky</translation>
     </message>
     <message>
         <source>Color Management</source>
-        <translation type="unfinished"></translation>
+        <translation>Správa barev</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
@@ -18444,81 +18776,81 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spustit jako Python rozšíření</translation>
     </message>
 </context>
 <context>
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Správce stylů</translation>
     </message>
     <message>
         <source>Column 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Column 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Připojit</translation>
+        <translation>&amp;Připojit</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>C&amp;lone</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Duplikovat</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Smazat</translation>
+        <translation>&amp;Smazat</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Název:</translation>
+        <translation>Název:</translation>
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation type="unfinished"></translation>
+        <translation>O&amp;K</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Použít</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zrušit</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+Z</translation>
     </message>
 </context>
 <context>
     <name>SMLineStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Vlastnosti</translation>
+        <translation>Vlastnosti</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Čáry</translation>
     </message>
 </context>
 <context>
@@ -18640,7 +18972,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Exports SVG Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Export SVG souborů</translation>
     </message>
     <message>
         <source>Exports the current page into an SVG file.</source>
@@ -18655,7 +18987,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Imports SVG Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Import SVG souborů</translation>
     </message>
     <message>
         <source>Imports most SVG files into the current document,
@@ -18718,11 +19050,11 @@ converting their vector data into Scribus objects.</source>
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Uživatelské nastavení</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Systémová konfigurace</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -18730,11 +19062,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Obnovit</translation>
     </message>
     <message>
         <source>Save user configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit uživatelskou konfiguraci</translation>
     </message>
     <message>
         <source>Reload system wide configuration and remove user defined one</source>
@@ -18789,7 +19121,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Perzistentní</translation>
     </message>
     <message>
         <source>Action</source>
@@ -18809,19 +19141,19 @@ converting their vector data into Scribus objects.</source>
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahoře</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Vpravo</translation>
+        <translation>Vpravo</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Dole</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Vlevo</translation>
+        <translation>Vlevo</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
@@ -18829,22 +19161,22 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Vodorovně</translation>
+        <translation>Vodorovně</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Svisle</translation>
+        <translation>Svisle</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Prostorová orientace...</translation>
     </message>
 </context>
 <context>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished">Tisknu...</translation>
+        <translation>Tisknu...</translation>
     </message>
 </context>
 <context>
@@ -20119,7 +20451,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Document Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Barvy v dokumentu</translation>
     </message>
 </context>
 <context>
@@ -20152,6 +20484,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -20161,7 +20497,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializace klávesových skratek</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
@@ -20169,15 +20505,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializace editoru textu</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializece ICC profilů</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializace dělení slov</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
@@ -20201,7 +20537,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenalezena zádná písma.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
@@ -20265,7 +20601,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení ukázky</translation>
     </message>
     <message>
         <source>Level</source>
@@ -20285,23 +20621,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Převést na</translation>
     </message>
     <message>
         <source>I&amp;nsert</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vložit</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation>Znak</translation>
+        <translation>Znaky</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozovky</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezery</translation>
     </message>
     <message>
         <source>&amp;Page</source>
@@ -20410,11 +20746,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignorovat</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Přerušit</translation>
     </message>
     <message>
         <source>Printing...</source>
@@ -20462,7 +20798,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Převést stranu na vzorovou stranu</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -20478,7 +20814,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Stín</translation>
     </message>
     <message>
         <source>No Style</source>
@@ -20486,11 +20822,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Chybí následující program(y):</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: nelze použít EPS obrázky nebo Náhled před tiskem</translation>
     </message>
     <message>
         <source>All</source>
@@ -20503,7 +20839,7 @@ Consider using the Preflight Verifier  to correct them.</source>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS soubory (*.eps);;Všechny soubory (*)</translation>
     </message>
     <message>
         <source>Detected some errors.
@@ -20512,19 +20848,19 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation type="unfinished"></translation>
+        <translation>-Strana%1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Některé objekty jsou zamčeny.</translation>
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zamknout vše</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odemknout vše</translation>
     </message>
     <message>
         <source>Information</source>
@@ -20532,11 +20868,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Program %1 už běží!</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Program %1 nenalezen!</translation>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
@@ -20544,7 +20880,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Color Not Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva nenalezena</translation>
     </message>
     <message>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
@@ -20576,15 +20912,15 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezery &amp;&amp; Zalomení</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatury</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nová vzorová strana %1</translation>
     </message>
     <message>
         <source>Number of copies: %1
@@ -20594,14 +20930,22 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: nelze použít EPS obrázky nebo PS Náhled před tiskem</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript chybí: PS Náhled před tiskem nelze použít</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Obsah</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20693,6 +21037,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20804,7 +21152,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nastavení ukázky</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
@@ -20828,7 +21176,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Linking Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězení textových rámů</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -20852,11 +21200,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Page %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Strana %1 až %2</translation>
     </message>
     <message>
         <source>Colorspace: </source>
-        <translation type="unfinished"></translation>
+        <translation>Barevný prostor: </translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -20872,7 +21220,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Stupnice šedi</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Obsah</translation>
     </message>
 </context>
 <context>
@@ -21038,7 +21390,7 @@ Please read the documentation on extension scripts first.
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
+        <translation>Chybná inicializace Python modulu. Detaily chyby byly vypsány na standardní chybový výstup. </translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
@@ -21046,15 +21398,15 @@ Please read the documentation on extension scripts first.
     </message>
     <message>
         <source>Documentation for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentace:</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
-        <translation type="unfinished"></translation>
+        <translation> neobsahuje žádný docstring!</translation>
     </message>
 </context>
 <context>
@@ -21190,70 +21542,70 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Povolit Python rozšíření</translation>
     </message>
     <message>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšíření</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Konzole</translation>
     </message>
     <message>
         <source>Startup Script:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript při startu:</translation>
     </message>
     <message>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Chyba:</translation>
     </message>
     <message>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Komentáře:</translation>
     </message>
     <message>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Klíčová slova:</translation>
     </message>
     <message>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Operátory:</translation>
     </message>
     <message>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Čísla:</translation>
     </message>
     <message>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Řetězce:</translation>
     </message>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Základní texty:</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte barvu</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">Změnit...</translation>
+        <translation>Změnit...</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Umístění start skriptu</translation>
     </message>
 </context>
 <context>
@@ -21386,7 +21738,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledání dokončeno, nalezeno %1</translation>
     </message>
 </context>
 <context>
@@ -21484,11 +21836,11 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>X-posun</translation>
     </message>
     <message>
         <source>Y-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-posun</translation>
     </message>
 </context>
 <context>
@@ -21502,6 +21854,10 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Short Words</source>
         <translation>Předložky a zkratky</translation>
     </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -21511,7 +21867,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>Úprava stylů...</translation>
     </message>
 </context>
 <context>
@@ -21784,15 +22140,15 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vložit znak...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Vymazat text</translation>
     </message>
     <message>
         <source>Story Editor - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor textu - %1</translation>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
@@ -21804,60 +22160,60 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Vložit</translation>
+        <translation>&amp;Vložit</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Znak</translation>
+        <translation>Znak</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvozovky</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezery &amp;&amp; Zalomení</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligatury</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezera</translation>
     </message>
 </context>
 <context>
     <name>StrikeValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunití</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished">Šířka čáry</translation>
+        <translation>Šířka čáry</translation>
     </message>
 </context>
 <context>
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvoleno více než jedna položka</translation>
     </message>
 </context>
 <context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Podtržené</translation>
+        <translation type="obsolete">Podtržené</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -21877,23 +22233,30 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Přeškrtnuté</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Přeškrtnuté</translation>
     </message>
     <message>
         <source>All Caps</source>
+        <translation>Verzálky</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shadow</source>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21979,7 +22342,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Přepsat styly odstavců</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -21990,27 +22353,27 @@ příliš upravovat.</translation>
     <name>TOCIndexPrefs</name>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Žádný</translation>
     </message>
     <message>
         <source>At the beginning</source>
-        <translation type="unfinished"></translation>
+        <translation>Na začátku</translation>
     </message>
     <message>
         <source>At the end</source>
-        <translation type="unfinished"></translation>
+        <translation>Na konci</translation>
     </message>
     <message>
         <source>Not Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezobrazeno</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah a rejstřík</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Onsah</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -22018,7 +22381,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+V</translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -22026,19 +22389,19 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Rám s obsahem bude umístěn</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Čísla stran umístěna:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jméno atributu objektu:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
@@ -22050,11 +22413,11 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Vypsat netisknuté položky</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Začlenit rámy, které mají vypnutý tisk</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
@@ -22062,14 +22425,14 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Styl odstavce:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cílový rám:</translation>
     </message>
     <message>
-        <source>Inde&amp;x</source>
+        <source>Table of Contents %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22077,11 +22440,11 @@ příliš upravovat.</translation>
     <name>TOCIndexPrefsBase</name>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah a rejstřík</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -22101,15 +22464,15 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Rám s obsahem bude umístěn</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Čísla stran umístěna:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Jméno atributu objektu:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
@@ -22121,11 +22484,11 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Vypsat netisknuté položky</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Začlenit rámy, které mají vypnutý tisk</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
@@ -22133,54 +22496,50 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Styl odstavce:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
+        <translation>Cílový rám:</translation>
     </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
     <message>
         <source>Ignore all errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorovat všechny chyby</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaticky kontrolovat před tiskem nebo exportem</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat chybějící znaky</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat objekty mimo strany</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat přetečení textu</translation>
     </message>
     <message>
         <source>Check for transparencies used</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat transparentnost</translation>
     </message>
     <message>
         <source>Check for missing images</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat chybějící obrázky</translation>
     </message>
     <message>
         <source>Check image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat rozlišení obrázků</translation>
     </message>
     <message>
         <source>Lowest allowed resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Nejnižší povolené rozlišení</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -22188,19 +22547,19 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat umístěné PDF soubory</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolovat PDF anotace a formuláře</translation>
     </message>
     <message>
         <source>Add Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat profil</translation>
     </message>
     <message>
         <source>Remove Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit profil</translation>
     </message>
 </context>
 <context>
@@ -22239,7 +22598,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit vodítka</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -22247,7 +22606,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Zobrazit okraje</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
@@ -22477,11 +22836,11 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>V&amp;ložit všechna písma</translation>
+        <translation type="obsolete">V&amp;ložit všechna písma</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Čá&amp;stečné zařazení písem (subset)</translation>
+        <translation type="obsolete">Čá&amp;stečné zařazení písem (subset)</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -22505,7 +22864,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Částečně zařazená písma (subset):</translation>
+        <translation type="obsolete">Částečně zařazená písma (subset):</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -22685,7 +23044,7 @@ příliš upravovat.</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stupnice šedi</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
@@ -22799,7 +23158,7 @@ stejný vzhled dokumentu v jiných prohlížečích.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Jak dlouho je strana zobrazena, než je spuštěn přechod na dalsší.</translation>
+        <translation type="obsolete">Jak dlouho je strana zobrazena, než je spuštěn přechod na dalsší.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -22996,10 +23355,6 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23021,10 +23376,6 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -23076,12 +23427,8 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Page Layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Single Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Jedna strana</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -23177,10 +23524,6 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23190,6 +23533,42 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23469,19 +23848,19 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní: </translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva textu:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stín:</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
@@ -23544,7 +23923,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Auto</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -23699,11 +24078,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Vlastní: </translation>
     </message>
 </context>
 <context>
@@ -23784,7 +24163,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Volné objekty</translation>
     </message>
     <message>
         <source>Page </source>
@@ -23795,80 +24174,82 @@ Vyberte, prosím, jiný.</translation>
     <name>UnderlineValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunití</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished">Šířka čáry</translation>
+        <translation>Šířka čáry</translation>
     </message>
 </context>
 <context>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat vertikální vodítko</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat horizontální vodítko</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Odebrat vertikální vodítko</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Odebrat horizontální vodítko</translation>
     </message>
     <message>
         <source>Move vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout vertikální vodítko</translation>
     </message>
     <message>
         <source>Move horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout horizontální vodítko</translation>
     </message>
     <message>
         <source>Lock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknout vodítka</translation>
     </message>
     <message>
         <source>Unlock guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Odemknout vodítka</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation>Změnit velikost</translation>
     </message>
     <message>
         <source>Rotate</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotovat</translation>
     </message>
     <message>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
     </message>
     <message>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Výběr</translation>
     </message>
     <message>
         <source>Group</source>
@@ -23876,7 +24257,7 @@ W2: %3, H2: %4</source>
     </message>
     <message>
         <source>Selection/Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Výběr/seskupení</translation>
     </message>
     <message>
         <source>Create</source>
@@ -23885,15 +24266,16 @@ W2: %3, H2: %4</source>
     <message>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>X: %1, Y: %2
+Š: %3, V: %4</translation>
     </message>
     <message>
         <source>Align/Distribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarovnat/rozmístit</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahrnuté objekty</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -23901,11 +24283,11 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Set fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit barvu výplně</translation>
     </message>
     <message>
         <source>Color1: %1, Color2: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva1: %1, Barva2: %2</translation>
     </message>
     <message>
         <source>Set fill color shade</source>
@@ -23913,7 +24295,7 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Set line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit barvu čáry</translation>
     </message>
     <message>
         <source>Set line color shade</source>
@@ -23921,11 +24303,11 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Flip horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Překlopit vodorovně</translation>
     </message>
     <message>
         <source>Flip vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Překlopit svisle</translation>
     </message>
     <message>
         <source>Lock</source>
@@ -23937,15 +24319,15 @@ W: %3, H: %4</source>
     </message>
     <message>
         <source>Lock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknout velikost</translation>
     </message>
     <message>
         <source>Unlock size</source>
-        <translation type="unfinished"></translation>
+        <translation>Odemnkount velikost</translation>
     </message>
     <message>
         <source>Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit seskupení</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -23958,11 +24340,12 @@ W: %3, H: %4</source>
     <message>
         <source>From %1
 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Od %1
+po %2</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít vzorovou stranu</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -23982,7 +24365,7 @@ to %2</source>
     </message>
     <message>
         <source>Set line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit styl čáry</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
@@ -23994,11 +24377,11 @@ to %2</source>
     </message>
     <message>
         <source>Set line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit šířku čáry</translation>
     </message>
     <message>
         <source>No style</source>
-        <translation type="unfinished"></translation>
+        <translation>Bez stylu</translation>
     </message>
     <message>
         <source>Set custom line style</source>
@@ -24018,27 +24401,27 @@ to %2</source>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation>Vytvořit tabulku</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Řádky: %1, Sloupce: %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit písmo</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit velikost písma</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit šířku písma</translation>
     </message>
     <message>
         <source>Set font height</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit výšku písma</translation>
     </message>
     <message>
         <source>Set font fill color</source>
@@ -24058,23 +24441,23 @@ to %2</source>
     </message>
     <message>
         <source>Set kerning</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit kerning</translation>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit řádkování</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit styl odstavce</translation>
     </message>
     <message>
         <source>Set language</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit jazyk</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarovnání textu</translation>
     </message>
     <message>
         <source>Set font effect</source>
@@ -24082,11 +24465,11 @@ to %2</source>
     </message>
     <message>
         <source>Image frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázkový rám</translation>
     </message>
     <message>
         <source>Text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Textový rám</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -24094,7 +24477,7 @@ to %2</source>
     </message>
     <message>
         <source>Bezier curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Beziérova křivka</translation>
     </message>
     <message>
         <source>Polyline</source>
@@ -24102,19 +24485,19 @@ to %2</source>
     </message>
     <message>
         <source>Convert to</source>
-        <translation type="unfinished"></translation>
+        <translation>Konverze na</translation>
     </message>
     <message>
         <source>Import SVG image</source>
-        <translation type="unfinished"></translation>
+        <translation>Import SVG obrázku</translation>
     </message>
     <message>
         <source>Import EPS image</source>
-        <translation type="unfinished"></translation>
+        <translation>Import EPS obrázku</translation>
     </message>
     <message>
         <source>Import OpenOffice.org Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Import souboru OpenOffice Draw</translation>
     </message>
     <message>
         <source>Scratch space</source>
@@ -24122,7 +24505,7 @@ to %2</source>
     </message>
     <message>
         <source>Text flows around the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Text obtéká okolo rámu</translation>
     </message>
     <message>
         <source>Text flows around bounding box</source>
@@ -24146,7 +24529,7 @@ to %2</source>
     </message>
     <message>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Strana %1</translation>
     </message>
     <message>
         <source>Set image scaling</source>
@@ -24154,15 +24537,15 @@ to %2</source>
     </message>
     <message>
         <source>Frame size</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost rámu</translation>
     </message>
     <message>
         <source>Free scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Volná změna velikosti</translation>
     </message>
     <message>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodržet poměr stran</translation>
     </message>
     <message>
         <source>Break aspect ratio</source>
@@ -24170,63 +24553,63 @@ to %2</source>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit konturu</translation>
     </message>
     <message>
         <source>Edit shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit obrys</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Vynulovat konturu</translation>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat stranu</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat strany</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat stranu</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat strany</translation>
     </message>
     <message>
         <source>Add layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat vrstvu</translation>
     </message>
     <message>
         <source>Delete layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Smazat vrstvu</translation>
     </message>
     <message>
         <source>Rename layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Přejmenovat vrstvu</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstvu dopředu</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrstvu dozadu</translation>
     </message>
     <message>
         <source>Send to layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout do vrstvy</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Tisk vrstvy povolen</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Tisk vrstvy zakázán</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
@@ -24234,7 +24617,7 @@ to %2</source>
     </message>
     <message>
         <source>Get image</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit obrázek</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -24242,15 +24625,15 @@ to %2</source>
     </message>
     <message>
         <source>Enable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Tisk objektu povolen</translation>
     </message>
     <message>
         <source>Disable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Tisk objektu zakázán</translation>
     </message>
     <message>
         <source>Multiple duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Vícenásobné duplikování</translation>
     </message>
     <message>
         <source>Change Image Offset</source>
@@ -24263,11 +24646,25 @@ to %2</source>
     <message>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
-        <translation type="unfinished"></translation>
+        <translation>X1: %1, Y1: %2
+X2: %4, Y2: %5</translation>
     </message>
     <message>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
+        <translation>X: %1, Y: %2
+X: %4, Y: %5</translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation>Vynulovat řídící bod</translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation>Vynulovat řídící body</translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24275,15 +24672,15 @@ X: %4, Y: %5</source>
     <name>UndoPalette</name>
     <message>
         <source>Initial State</source>
-        <translation type="unfinished"></translation>
+        <translation>Původní stav</translation>
     </message>
     <message>
         <source>Action History</source>
-        <translation type="unfinished"></translation>
+        <translation>Historie akcí</translation>
     </message>
     <message>
         <source>Show selected object only</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat pouze vybrané objekty</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -24303,6 +24700,54 @@ X: %4, Y: %5</source>
     </message>
 </context>
 <context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
@@ -24317,43 +24762,43 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat &amp;tiskárnu:</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Okraje</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pravý:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">&amp;Horní:</translation>
+        <translation>&amp;Horní:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Dolní:</translation>
+        <translation>&amp;Dolní:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Levý:</translation>
+        <translation>&amp;Levý:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zrušit</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+Z</translation>
+        <translation>Alt+Z</translation>
     </message>
 </context>
 <context>
@@ -24667,6 +25112,10 @@ hodnoty nahradíte.</translation>
     <message>
         <source>Import Text Only</source>
         <translation>Importovat pouze text</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Otevřít</translation>
     </message>
 </context>
 <context>

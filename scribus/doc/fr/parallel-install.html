@@ -1,0 +1,34 @@
+<qt>
+<title>Comment installer plus d'une version de Scribus sur un ordinateur</title>
+<h2>Comment installer plus d'une version de Scribus sur un ordinateur</h2>
+
+<p>Imaginez une situation o&ugrave; Scribus est d&eacute;j&agrave; install&eacute;. C'est tr&egrave;s envisageable vu la qualit&eacute;, l'utilit&eacute; et la pr&eacute;sence de Scribus dans un grand nombre de distributions :)</p>
+<p>Et alors vient le jour. Le jour o&ugrave; vous apprenez l'existence de <em><strong>caract&eacute;ristiques mirobolantes</strong></em> impl&eacute;ment&eacute;es dans CVS. Vous voulez vraiment les essayer, mais vous avez peur des probl&egrave;mes qui pourraient survenir avec du code non test&eacute;, etc., donc vous ne voulez pas remplacer votre version stable install&eacute;e.</p>
+<p>Supposons une situation o&ugrave; Scribus a &eacute;t&eacute; install&eacute; &agrave; partir de votre distribution pr&eacute;f&eacute;r&eacute;e (rpm, deb etc. selon la distribution) ou &agrave; partir des sources (tar.gz habituellement dans <code>/usr/local</code>) et que vous avez une version CVS fra&icirc;chement t&eacute;l&eacute;charg&eacute;e. Les op&eacute;rations suivantes sont effectu&eacute;es par un utilisateur normal, pas en tant que <code>root</code>.</p>
+<p>Cr&eacute;ez le r&eacute;pertoire o&ugrave; vous d&eacute;sirez installer le nouveau Scribus (dans votre gestionnaire de fichiers pr&eacute;f&eacute;r&eacute;) c'est-&agrave;-dire :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>mkdir ~/scribus_cvs</pre>
+</td></tr></table></blockquote>
+<p>Ensuite allez dans le r&eacute;pertoire CVS t&eacute;l&eacute;charg&eacute; et d&eacute;compress&eacute; :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>cd ~/Scribus</pre>
+</td></tr></table></blockquote>
+<p>et ex&eacute;cutez: (n&eacute;cessaire seulement pour CVS)</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>make -f Makefile.cvs</pre>
+</td></tr></table></blockquote>
+<p>Et maintenant la t&acirc;che importante. Vous devez sp&eacute;cifier l'endroit o&ugrave; le CVS de Scribus doit s'installer pour ne pas remplacer la version de la distribution ou celle install&eacute;e par un moduletar.gz :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+$./configure --prefix=/home/yourusername/scribus_cvs</pre>
+</td></tr></table></blockquote>
+<p>Il est maintenant temps pour le classique :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+make
+make install
+</pre>
+</td></tr></table></blockquote>
+<p>Lorsque c'est fait, vous pouvez ex&eacute;cuter le nouveau Scribus par la commande <code>~/scribus_cvs/bin/scribus</code></p>
+</qt>
+ 

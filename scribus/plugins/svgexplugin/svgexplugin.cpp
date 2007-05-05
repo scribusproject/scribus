@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "util.h"
 #include "customfdialog.h"
+#include "sctextstruct.h"
 
 
 int svgexplugin_getPluginAPIVersion()
@@ -123,7 +124,13 @@ bool SVGExportPlugin::run(QString filename)
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
 		if (openDia->exec())
+		{
+#ifdef HAVE_LIBZ
+			if (openDia->SaveZip->isChecked())
+				openDia->handleCompress();
+#endif
 			fileName = openDia->selectedFile();
+		}
 		delete openDia;
 
 		if (!fileName.isEmpty())
@@ -169,7 +176,7 @@ SVGExPlug::SVGExPlug( QString fName )
 	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
-		{
+	{
 // zipped saving
 		gzFile gzDoc = gzopen(fName.latin1(),"wb");
 		if(gzDoc == NULL)
@@ -177,26 +184,27 @@ SVGExPlug::SVGExPlug( QString fName )
 		gzputs(gzDoc, vo);
 		gzputs(gzDoc, docu.toString().utf8());
 		gzclose(gzDoc);
-		}
+	}
 	else
-		{
+	{
 		QFile f(fName);
 		if(!f.open(IO_WriteOnly))
 			return;
 		QTextStream s(&f);
 		QString wr = vo;
-		wr += docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		wr += docu.toString();
+		QCString utf8wr = wr.utf8();
+		s.writeRawBytes(utf8wr.data(), utf8wr.length());
 		f.close();
-		}
+	}
 #else
 	QFile f(fName);
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	QString wr = vo;
-	wr += docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	wr += docu.toString();
+	QCString utf8wr = wr.utf8();
+	s.writeRawBytes(utf8wr.data(), utf8wr.length());
 	f.close();
 #endif
 }
@@ -205,7 +213,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
-	struct ScText *hl;
+	ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -432,10 +440,13 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								ob = docu->createElement("path");
-								ob.setAttribute("d", SetClipPath(Item)+"Z");
-								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-								gr.appendChild(ob);
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									ob = docu->createElement("path");
+									ob.setAttribute("d", SetClipPath(Item)+"Z");
+									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+									gr.appendChild(ob);
+								}
 							}
 						}
 					break;
@@ -486,10 +497,13 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								ob = docu->createElement("path");
-								ob.setAttribute("d", SetClipPath(Item)+"Z");
-								ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
-								gr.appendChild(ob);
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									ob = docu->createElement("path");
+									ob.setAttribute("d", SetClipPath(Item)+"Z");
+									ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
+									gr.appendChild(ob);
+								}
 							}
 						}
 					break;
@@ -504,10 +518,13 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								ob = docu->createElement("path");
-								ob.setAttribute("d", SetClipPath(Item));
-								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-								gr.appendChild(ob);
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									ob = docu->createElement("path");
+									ob.setAttribute("d", SetClipPath(Item));
+									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+									gr.appendChild(ob);
+								}
 							}
 						}
 					break;
@@ -551,10 +568,13 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								ob = docu->createElement("path");
-								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
-								ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-								gr.appendChild(ob);
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									ob = docu->createElement("path");
+									ob.setAttribute("d", "M 0 0 L "+FToStr(Item->width())+" 0");
+									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+									gr.appendChild(ob);
+								}
 							}
 						}
 					break;
@@ -572,10 +592,13 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								multiLine ml = ScMW->doc->MLineStyles[Item->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									ob = docu->createElement("path");
-									ob.setAttribute("d", SetClipPath(Item));
-									ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
-									gr.appendChild(ob);
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										ob = docu->createElement("path");
+										ob.setAttribute("d", SetClipPath(Item));
+										ob.setAttribute("style", GetMultiStroke(&ml[it], Item));
+										gr.appendChild(ob);
+									}
 								}
 							}
 						}
@@ -693,7 +716,7 @@ QString SVGExPlug::IToStr(int c)
 	return cc.setNum(c);
 }
 
-void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
+void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 {
 	int chst = hl->cstyle & 127;
 	if (hl->ccolor != CommonStrings::None)

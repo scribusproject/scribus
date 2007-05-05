@@ -72,6 +72,12 @@ public:
 	 * @return "untranslated" string
 	 */
 	static const QString& untranslatePageSetLocString(const QString &trString);
+	/**
+	 * \brief Return the untranslated Page Set Location string if given the translated one
+	 * @param trString translated string
+	 * @return "untranslated" string
+	 */
+	static const QString& translatePenStyleName(Qt::PenStyle ps);
 	static void languageChange();
 	static QString _Apply;
 	static QString tr_Apply;
@@ -109,6 +115,45 @@ public:
 	static QString trPageLocMiddleLeft;
 	static QString trPageLocMiddleRight;
 	static QString trPageLocRight;
+
+	//Master Page Default Names
+	static QString masterPageNormal;
+	static QString trMasterPageNormal;
+	static QString masterPageNormalLeft;
+	static QString trMasterPageNormalLeft;
+	static QString masterPageNormalMiddle;
+	static QString trMasterPageNormalMiddle;
+	static QString masterPageNormalRight;
+	static QString trMasterPageNormalRight;
+	
+	//Pen Styles
+	static QString trPenStyle_SolidLine;
+	static QString trPenStyle_DashedLine;
+	static QString trPenStyle_DottedLine;
+	static QString trPenStyle_DashDotLine;
+	static QString trPenStyle_DashDotDotLine;
+	
+	//Days and Months
+	static QString monday; 
+	static QString tuesday;
+	static QString wednesday;
+	static QString thursday;
+	static QString friday;
+	static QString saturday;
+	static QString sunday;
+
+	static QString january;
+	static QString february;
+	static QString march;
+	static QString april;
+	static QString may;
+	static QString june;
+	static QString july;
+	static QString august;
+	static QString september;
+	static QString october;
+	static QString november;
+	static QString december;
 };
 
 #endif

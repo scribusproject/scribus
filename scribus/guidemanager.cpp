@@ -92,8 +92,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	horGroupLayout->setAlignment(Qt::AlignTop);
 
 	horList = new QListView(horGroup, "horList");
-	horList->addColumn(tr("Guide"));
-	horList->addColumn(tr("Unit"));
+	horList->addColumn( tr("Guide"));
+	horList->addColumn( tr("Unit"));
 	horList->setMinimumSize(QSize(0, 150));
 	horList->setSelectionMode(QListView::Extended);
 	horList->setAllColumnsShowFocus(true);
@@ -134,8 +134,8 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	verGroupLayout->setAlignment(Qt::AlignTop);
 
 	verList = new QListView(verGroup, "verList");
-	verList->addColumn(tr("Guide"));
-	verList->addColumn(tr("Unit"));
+	verList->addColumn( tr("Guide"));
+	verList->addColumn( tr("Unit"));
 	verList->setMinimumSize(QSize(0, 150));
 	verList->setSorting(0);
 	verList->setSelectionMode(QListView::Extended);
@@ -262,7 +262,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	// prevMainLayout is here due the aligning with the others widgets
 	QVBoxLayout *prevMainLayout = new QVBoxLayout(0, 11, 6, "prevMainLayout");
 	QGroupBox *previewGBox = new QGroupBox(this, "previewGBox");
-	previewGBox->setTitle(tr("Preview"));
+	previewGBox->setTitle( tr("Preview"));
 	previewGBox->setColumnLayout(0, Qt::Vertical);
 	previewGBox->layout()->setSpacing(6);
 	previewGBox->layout()->setMargin(11);
@@ -277,7 +277,7 @@ GuideManager::GuideManager(QWidget* parent) : QDialog(parent, "GuideManager", tr
 	lockedCheckBox->setChecked(ScMW->doc->GuideLock);
 	prevMainLayout->addWidget(lockedCheckBox);
 
-	allPages = new QCheckBox(tr("&Apply to All Pages"), this, "allPages");
+	allPages = new QCheckBox( tr("&Apply to All Pages"), this, "allPages");
 	allPages->setChecked(false);
 	prevMainLayout->addWidget(allPages);
 	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
@@ -359,7 +359,7 @@ bool GuideManager::addValueToList(QListView *list, MSpinBox *spin)
 	// no duplications
 	if (list->findItem(tmp, 0) != 0)
 	{
-		ScMW->mainWindowStatusLabel->setText(tr("There is empty (0.0) guide already"));
+		ScMW->mainWindowStatusLabel->setText( tr("There is empty (0.0) guide already"));
 		return false;
 	}
 	QListViewItem *item = new GuideListItem(list, tmp, suffix);
@@ -468,19 +468,26 @@ QValueList<double> GuideManager::getAutoRows()
 		offset = gy;
 		newPageHeight = gh;
 	}
-
-	double spacing = newPageHeight / n;
 	QValueList<double> values;
-	for (int i = 1; i < n; ++i)
+	double gapValue;
+	double rowSize;
+	if (useRowGap->isChecked())
+	{
+		gapValue = value2pts(rowGap->value(), ScMW->doc->unitIndex());
+		rowSize = (newPageHeight - (n - 1) * gapValue) / n;
+	}
+	else
+		rowSize = newPageHeight / n;
+	for (int i = 1, gapCount = 0; i < n; ++i)
 	{
 		if (useRowGap->isChecked())
 		{
-			double gapValue = value2pts(rowGap->value(), ScMW->doc->unitIndex());
-			values.append(offset + (spacing * i) + (gapValue / 2.0));
-			values.append(offset + (spacing * i) - (gapValue / 2.0));
+			values.append(offset + i * rowSize + gapCount * gapValue);
+			++gapCount;
+			values.append(offset + i * rowSize + gapCount * gapValue);
 		}
 		else
-			values.append(offset + (spacing * i));
+			values.append(offset + rowSize * i);
 	}
 	return values;
 }
@@ -510,18 +517,26 @@ QValueList<double> GuideManager::getAutoCols()
 		newPageWidth = gw;
 	}
 
-	double spacing = newPageWidth / n;
 	QValueList<double> values;
-	for (int i = 1; i < n; ++i)
+	double gapValue;
+	double columnSize;
+	if (useColGap->isChecked())
+	{
+		gapValue = value2pts(colGap->value(), ScMW->doc->unitIndex());
+		columnSize = (newPageWidth - (n - 1) * gapValue) / n;
+	}
+	else
+		columnSize = newPageWidth / n;
+	for (int i = 1, gapCount = 0; i < n; ++i)
 	{
 		if (useColGap->isChecked())
 		{
-			double gapValue = value2pts(colGap->value(), ScMW->doc->unitIndex());
-			values.append(offset + spacing * i + (gapValue / 2.0));
-			values.append(offset + spacing * i - (gapValue / 2.0));
+			values.append(offset + i * columnSize + gapCount * gapValue);
+			++gapCount;
+			values.append(offset + i * columnSize + gapCount * gapValue);
 		}
 		else
-			values.append(offset + spacing * i);
+			values.append(offset + columnSize * i);
 	}
 	return values;
 }

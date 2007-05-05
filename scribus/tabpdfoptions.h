@@ -192,7 +192,7 @@ private:
 	QLabel* ColorText1;
 	QGroupBox* Effects;
 	QGridLayout* EffectsLayout;
-	QCheckBox* EmbedFonts;
+	QPushButton* EmbedFonts;
 	QListBox* EmbedList;
 	QPushButton* EonAllPg;
 	QPushButton* FromEmbed;
@@ -242,7 +242,7 @@ private:
 	QLabel* ProfsTxt4;
 	QButtonGroup* RangeGroup;
 	QVBoxLayout* RangeGroupLayout;
-	QCheckBox* SubsetFonts;
+	QPushButton* SubsetFonts;
 	QListBox* SubsetList;
 	QWidget* tabColor;
 	QVBoxLayout* tabColorLayout;
@@ -296,6 +296,7 @@ private:
 	double pageH;
 	double pageB;
 	bool cms;
+	QMap<QString, QString> AnnotationFonts;
 
 };
 #endif

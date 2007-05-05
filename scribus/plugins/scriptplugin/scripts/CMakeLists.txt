@@ -1,0 +1,13 @@
+INCLUDE_DIRECTORIES(
+"${CMAKE_SOURCE_DIR}/scribus"
+)
+
+INSTALL(FILES
+CalendarWizard.py
+FontSample.py
+ChangeLog
+NEWS
+ReadMe
+TODO
+  DESTINATION ${SCRIPTSDIR}
+)

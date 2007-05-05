@@ -15,7 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
-#include "sccombobox.h"
+#include "colorcombo.h"
+#include "prefsmanager.h"
 
 #include "dcolor.h"
 #include "dcolor.moc"
@@ -38,21 +39,20 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
     colorToDelLabel = new QLabel( colorName, this, "colorToDelLabel" );
     delColorLayout->addWidget( colorToDelLabel, 0, 1 );
 
-	if (haveDoc)
+	PrefsManager* prefsManager = PrefsManager::instance();
+	bool isToolColor = prefsManager->isToolColor(colorName);
+	if (haveDoc || isToolColor)
 	{
     	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
     	delColorLayout->addWidget( replaceLabel, 1, 0 );
-    	replacementColData = new ScComboBox(false, this);
+    	replacementColData = new ColorCombo(false, this);
 		ColorList::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		colorList.remove(colorName);
 		// 10/26/2004 pv - user can replace deleted color with "None"
 		replacementColData->insertItem(CommonStrings::NoneColor);
 		for (it = colorList.begin(); it != colorList.end(); ++it)
-		{
-			pm.fill(colorList[it.key()].getRawRGBColor());
-			replacementColData->insertItem(pm, it.key());
-		}
+			replacementColData->insertSmallItem(colorList[it.key()], it.key());
     	delColorLayout->addWidget( replacementColData, 1, 1 );
     	replacementColor = replacementColData->text(0);
 	}
@@ -73,7 +73,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 
     connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	if (haveDoc)
+	if (haveDoc || isToolColor)
     	connect( replacementColData, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 

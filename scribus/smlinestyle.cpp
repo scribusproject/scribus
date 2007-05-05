@@ -170,21 +170,7 @@ void LineStyleWidget::updateLineList()
 
 QColor LineStyleWidget::getColor(const QString &name, int shade)
 {
-	QColor tmpf;
-	int h, s, v, sneu;
-	colors[name].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		colors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shade / 100);
-		tmpf.setHsv(h, s, sneu);
-	}
-	else
-	{
-		colors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shade / 100;
-		tmpf.setHsv(h, sneu, v);
-	}
+	QColor tmpf = colors[name].getDisplayColor(shade);
 	return tmpf;
 }
 

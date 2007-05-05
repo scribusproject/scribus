@@ -1,4 +1,4 @@
-EXTRA_DIST = ReadMe FontSample.py ChangeLog NEWS TODO CalendarWizard.py
+EXTRA_DIST = ReadMe FontSample.py ChangeLog NEWS TODO CalendarWizard.py CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/scripts/

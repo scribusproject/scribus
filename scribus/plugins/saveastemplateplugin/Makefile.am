@@ -10,7 +10,7 @@ libsaveastemplateplugin_la_LDFLAGS = -version-info 0:0:0
 libsaveastemplateplugin_la_METASOURCES = AUTO
 libsaveastemplateplugin_la_SOURCES = satemplate.cpp satdialog.cpp 
 
-EXTRA_DIST = satemplate.cpp satemplate.h satdialog.cpp satdialog.h
+EXTRA_DIST = satemplate.cpp satemplate.h satdialog.cpp satdialog.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

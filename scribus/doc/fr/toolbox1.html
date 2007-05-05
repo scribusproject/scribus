@@ -1,0 +1,52 @@
+<qt>
+<title>Adobe Reader</title>
+<h2>Adobe Reader</h2>
+<h4>Utilisation des fonctionnalit&eacute;s "cach&eacute;es" avec Acrobat Reader et Scribus</h4>
+
+<p>Acrobat Reader&#174; 7.0.5 est, d'apr&egrave;s mon exp&eacute;rience, l'un des outils essentiels pour l'utilisateur de Scribus. Bien quesimple visionneur, il dispose de fonctionnalit&eacute;s qu'aucun autre outil d'affichage PDF ne propose dans le monde Linux ou *nix : support complet de Javascript dans le PDF (Vous ne saviez pas qu'un PDF pouvait inclure des scripts ? Scribus est unique dans le monde Linux / *nix par sa capacit&eacute; &agrave; produire des formulaires PDF interactifs) mais aussi le seul outil capable d'afficher les informations d&eacute;taill&eacute;es incluses dans le document PDF, uniquement visibles dans Adobe Reader.</p>
+
+<p>Pour les utilisateurs MacOSX et Windows, ce qui pr&eacute;c&egrave;de s'applique aussi. Nous ne recommandons pas non plus de juger les couleurs ou l'exactitude dans l'application de pr&eacute;visualisation de Mac. </p>
+
+<p> De plus, bien que PDF soit un standard ouvert, Adobe a invent&eacute; le format PostScript sur lequel est bas&eacute; PDF et sa politique commerciale impose la promotion du PDF sur toutes les plates-formes.</p>
+<h3>Astuces pour les utilisateurs Scribus :</h3>
+<p><strong>Nous recommandons fortement d'utiliser la derni&egrave;re version 7.0.5 de Adobe Reader. </strong>En bref : il n'y a rien de mieux pour afficher vos PDF correctement. Quelles que soient vos objections face aux anciennes versions (parfois justifi&eacute;es, notamment sous Linux), cette derni&egrave;re version 7 les r&eacute;sout presque toutes. Elle est beaucoup plus stable, sans probl&egrave;me et se charge plus rapidement que la version 6.x. Sous Linux, l'apparence est modernis&eacute;e. La version 7.0.5 supporte aussi directement CUPS et offre plusieurs options d'impression suppl&eacute;mentaires. <strong>Les probl&egrave;mes de rendu PDF avec les PDF export&eacute;s par Scribus dans d'autres visualiseurs doivent &ecirc;tre v&eacute;rifi&eacute;s avec Reader 7 avant tout signalement.</strong>
+<h4>Probl&egrave;mes connus :</h4>
+Nous sommes conscient des diff&eacute;rences de couleur lors de la visualisation de PDF qui utilisent la transparence de PDF 1.4. Oui, ce probl&egrave;me a aussi &eacute;t&eacute; signal&eacute; en bonne et due forme &agrave; Adobe.</p> <p><strong>D&eacute;tails :</strong> d&egrave;s qu'un dictionnaire comporte un param&egrave;tre d'&eacute;tat graphique &eacute;tendu qui contient des op&eacute;rateurs de gestion de l'espace de transparence, Adobe Reader 7.x passe en mode CMYK en affichant des couleurs incorrectes. Mon imprimeur local a confirm&eacute; ce comportement &eacute;trange et ce, m&ecirc;me avec des fichiers qui n'avaient pas &eacute;t&eacute; g&eacute;n&eacute;r&eacute;s avec Scribus; donc, il s'agit d'un probl&egrave;me qui vient de Adobe.</p>
+<h3>Ajuster les pr&eacute;f&eacute;rences du visualiseur</h3>
+
+<p>Au d&eacute;part, r&eacute;glez les pr&eacute;f&eacute;rences de l'outil Reader. Vous devez vous assurer que les valeurs par d&eacute;faut sont &eacute;tablies pour am&eacute;liorer la fiabilit&eacute; des op&eacute;rations r&eacute;alis&eacute;es avec Scribus. Il y a beaucoup de pr&eacute;f&eacute;rences dans Reader 7. La section la plus importante est celle concernant l'affichage de la page. </p>
+
+<table width="100%"><tr><td align="center"><img src="images/acro1.png" alt="Pr&eacute;f&eacute;rences g&eacute;n&eacute;rales d'Acrobat Reader" /></td></tr></table>
+<p>Cette fen&ecirc;tre est <strong>tr&egrave;s</strong> importante pour optimiser l'affichage des PDF cr&eacute;&eacute;s avec Scribus.</p>
+
+<p>L'option <strong>Display Edge to Edge</strong> vous offrira une zone d'affichage plus importante de votre PDF.</p>
+
+ <p>Les options <strong>Smooth Text, Smooth Line Art et Smooth Images</strong> effectuent un lissage &agrave; l'affichage. Si vous envoyez &agrave; quelqu'un un PDF cr&eacute;&eacute; par Scribus et qu'il se plaint que les textes ou les d&eacute;grad&eacute;s ressemblent &agrave; du fil barbel&eacute; ou pr&eacute;sentent des bandes superflues, conseillez-lui d'activer ces options, qui sont communes &agrave; toutes les versions r&eacute;centes d'Acrobat Reader, quelle que soit la plate-forme. Il y a d'autres astuces de rendu des polices, toutes plates-formes confondues, dans la section des options d'exportation PDF. <strong>Cool Type</strong> est une fonctionnalit&eacute; sp&eacute;cifique aux &eacute;crans d'ordinateurs portables qui permet de r&eacute;gler le lissage et le rendu sous-pixel. Si vous n'avez pas de portable, laissez la d&eacute;coch&eacute;e.</p>
+<p>Si vous cr&eacute;ez des fichiers Scribus avec des effets de transparence pour les exporter au format PDF 1.4 (le PDF 1.3 ne supporte pas la transparence), vous pouvez cocher la case <strong>Show Transparency Grid</strong>. </p>
+<table width="100%"><tr><td align="center"><img src="images/acro2.png" alt="" title="" /></td></tr></table>
+
+<p>Les autres options concernent, pour la plupart, l'extension pour les navigateurs Internet. Je trouve l'&eacute;cran de d&eacute;marrage encombrant, donc d&eacute;sactivez l'option <strong>Splash Screen</strong>.</p>
+<table width="100%"><tr><td align="center"><img src="images/acro3.png" alt="Copie d'&eacute;cran de Acrobat Reader" title="Copie d'&eacute;cran de Acrobat Reader" /></td></tr></table>
+<p>Ensuite, en regardant l'&eacute;cran ci-dessus, vous verrez 3 options bien utiles :</p>
+<ol>
+	<li><strong>Les vignettes (que Scribus peut &agrave; la demande incorporer dans le fichier PDF lors de l'exportation) sont utilis&eacute;s pour la navigation.</strong> </li>
+	<li><strong>Le triangle dans le coin</strong> est un raccourci vers <strong>View &#062; Document Info, Document Fonts et Document Security</strong>.</li> 
+	<li><strong>Les notes, qui ne sont pas imprimables, permettent d'ajouter des d&eacute;finitions ou des astuces dans un document.</strong> L'important ici est l'information sur le document. Dans Scribus, le menu <strong>Fichier &#062; R&eacute;glage du document &#062; Onglet Informations sur le document</strong> permet de saisir l'auteur et le titre du document. Ils sont visibles dans la fen&ecirc;tre d'information :</li>
+</ol>
+<table width="100%"><tr><td align="center"><img src="images/acroinfo.png" alt="Panneau d'information g&eacute;n&eacute;ral de Acrobat Reader General" /></td></tr></table>
+<p>Nous y voyons la taille du document, la date de cr&eacute;ation et l'application qui a servi &agrave; g&eacute;n&eacute;rer le document. Ces
+informations sont incluses automatiquement. Scribus peut &eacute;ventuellement ajouter l'auteur et le titre du document. Cette fen&ecirc;tre pr&eacute;sente &eacute;galement les m&eacute;ta-donn&eacute;es Dublin Core RDF (Resource Definition Format) ainsi que le niveau de s&eacute;curit&eacute; du document.</p>
+<p><strong>S&eacute;curit&eacute; du document.</strong> Scribus peut chiffrer un document avec les droits d'un utilisateur sp&eacute;cifique. En activant le chiffrement dans l'onglet Protection dans la fen&ecirc;tre d'exportation au format PDF, vous activez un cryptage 40 bits pour le format PDF 1.3.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/acropass.png" alt="Fen&ecirc;tre de mot de passe pour ouvrir un PDF prot&eacute;g&eacute;" title="Fen&ecirc;tre de mot de passe pour ouvrir un PDF prot&eacute;g&eacute;" /></td></tr></table>
+<p>Dans le cas d'une exportation au format PDF 1.4, le cryptage a lieu sur 128 bits : </p>
+<table width="100%"><tr><td align="center"><img src="images/acrosec.png" alt="Fen&ecirc;tre de s&eacute;curit&eacute; de Acrobat Reader" /></td></tr></table>
+<p><strong>Les annotations</strong> sont des notes non imprimables que Scribus peut inclure dans un fichier PDF. Il est tr&egrave;s simple de le faire. Cr&eacute;ez un cadre de texte et tapez votre annotation. Ensuite cliquez avec le bouton droit, choisissez "Options PDF" puis "Annotation PDF".</p>
+<p>Pour les autres fonctionnalit&eacute;s "cach&eacute;es", lisez l'aide en ligne, qui est elle-m&ecirc;me un fichier PDF. &Agrave; partir de la page 10
+sont d&eacute;crites nombre de fonctions plus ou moins connues, y compris les options en ligne de commande. Celles-ci sont propres &agrave; Linux/Unix et comportent d'&eacute;l&eacute;gantes routines d'exportation PDF vers PostScript. Vous y trouverez &eacute;galement des conseils pour les r&eacute;glages sp&eacute;cifiques &agrave; Acrobat Reader dans le fichier <code>~/Xdefaults</code>.</p>
+<p><strong>Options avanc&eacute;es</strong> - Heureusement, Adobe fournit une interface graphique pour l'activation/d&eacute;sactivation des polices locales. <strong>Document &gt; Use Local Fonts </strong>. Avec ce choix, Acrobat peut utiliser les polices install&eacute;es localement qui sont nomm&eacute;es dans le PDF, s'il peut les trouver dans le chemin d'acc&egrave;s de polices.</p>
+
+<p>Je vous conseille de r&eacute;gler cette option &agrave; "false" pour une utilisation conjointe avec Scribus. Pourquoi ? Il est probable que les PDFs cr&eacute;&eacute;s par Scribus seront envoy&eacute;s &agrave; des utilisateurs qui ne travaillent pas sous Linux. Dans ce cas, vous souhaitez bien &eacute;videmment un rendu r&eacute;aliste, m&ecirc;me si le destinataire ne poss&egrave;de <strong>pas</strong> vos polices. La seule m&eacute;thode s&ucirc;re est d'inclure les polices dans le document PDF. Pour r&eacute;duire la taille du document g&eacute;n&eacute;r&eacute;, vous pouvez inclure seulement une partie d'une police, &agrave; partir l'&eacute;cran des pr&eacute;f&eacute;rences.Cette strat&eacute;gie est encore plus importante lorsque vous utilisez les polices Ghostscript, telles que Nimbus. Acrobat
+Reader effectue un rendu m&eacute;diocre lorsqu'il  substitue ces polices aux siennes.</p>
+</qt>
+ 

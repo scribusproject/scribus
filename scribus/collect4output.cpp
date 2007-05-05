@@ -64,20 +64,20 @@ QString CollectForOutput::collect()
 		return "";
 	ScMW->fileWatcher->forceScan();
 	ScMW->fileWatcher->stop();
-	if(outputDirectory.right(1) != "/")
-		outputDirectory += "/";
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
-	ScMW->mainWindowStatusLabel->setText(tr("Collecting..."));
-
-	if (!collectDocument())
-	{
-		QMessageBox::warning(ScMW, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
-		return "";
-	}
+	ScMW->mainWindowStatusLabel->setText( tr("Collecting..."));
 
 	if (!collectItems())
 	{
 		QMessageBox::warning(ScMW, tr("Warning"), "<qt>" + tr("Cannot collect all files for output for file:\n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
+		return "";
+	}
+
+	/* collect document must go last because of image paths changes
+	in collectItems() */
+	if (!collectDocument())
+	{
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, "<qt>" + tr("Cannot collect the file: \n%1").arg(newName) + "</qt>", CommonStrings::tr_OK);
 		return "";
 	}
 

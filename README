@@ -1,5 +1,6 @@
-This is Scribus Version 1.3.4cvs, the fifth release of the 1.3.x development
-series.
+This is Scribus Version 1.3.3.9cvs, the twelvth release of the 1.3.x development
+series. We have stablized 1.3.3.x and now consider his our stable release. 
+Scribus 1.2.x is deprecated.
 
 CHANGES 1.2.x to 1.3.x
 ======================
@@ -35,6 +36,10 @@ To convert older( =< 1.1.1) documents follow the procedure below:
 
 When you now open old documents Scribus will convert all font names
 automatically.
+
+Scribus 1.3.3.8 includes support for building via CMake, a replacement
+for traditional autotools. 
+Please see:http://docs.scribus.net/index.php?lang=en&page=install4 for details.
 
 For detailed changes please see the ChangeLog.
 
@@ -75,11 +80,11 @@ distributions can be quite difficult.
 
 PSD/CMYK TIFF Support
 
-1.3.2 now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
+1.3.3+ now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
 16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC 
 profiles and embedding clipping paths. CMYKA is not yet supported as there is a 
-limitation in the Qimage class. RGBA is supported. Expect this to be enhanced in
-a future version.
+limitation in the Qimage class. RGBA is supported. Current Scribus 1.3.4cvs does 
+handle a much larger variety of CMYKA files along with advanced PSD features.
 
 Issue with gradients:
 
@@ -90,9 +95,9 @@ the gradient to have equal shading from beginning to end, especially if there
  and not fixable by us. The gradient will export and print properly.
  The optional cairo build is a compile time option. The is enabled by:
 ./configure --enable-cairo
-The cairo build option is experimental, has not received all the needed
- regression tests and requires cairo 0.9+ or greater. 
-Cario 1.0+ is strongly recommended.
+The cairo build option is optional, has not received all the needed
+ regression tests and requires cairo 1.2.x+ or greater. 
+Cario 1.2.x+ is strongly recommended. 
 
 Our experimental Cairo build does not have these issues.  We encourage those
  willing to test the Cairo backend builds and report issues to the mailing 
@@ -126,7 +131,7 @@ One of the more crucial tools Scribus depends on is Ghostscript. While it is
 not required for compilation, Scribus must be able to find a recent version of
 Ghostscript at runtime for all features to be present and fully working. In
 particular, printing, print preview, and PDF/EPS import will not be fully
-functional without Ghostscript. Ghostscript 8.x is STRONGLY recommended.
+functional without Ghostscript. Ghostscript 8.5x is STRONGLY recommended.
 Support for versions older than 7.07 is untested and Scribus may not operate
 reliably using such an old version of gs.
 
@@ -151,6 +156,9 @@ as root to select gs-afpl as the default version of Ghostscript to use.
 
 DISTRIBUTION AND OS SPECIFIC NOTES
 =====================
+
+For MacOSX, OS/2 and Windows Please also see the specific platform notes as 
+well. 
 
 Debian
 ======
@@ -220,7 +228,6 @@ Microsoft Windows
 
 There is a separate readme for Windows, please see readme-win32.html
 
-
 Additional information
 ======================
 
@@ -237,4 +244,4 @@ the Scribus community so special.
 For the Scribus Team,
 Craig Ringer
 Peter Linnell
-in March 2006
+in February 2007

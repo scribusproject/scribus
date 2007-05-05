@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qfontmetrics.h>
 #include <qpixmap.h>
+#include <qbitmap.h>
 #include <cstdlib>
 
 #include "commonstrings.h"
@@ -54,7 +55,7 @@ void ColorSmallPixmapItem::paint( QPainter *p )
 	int itemHeight = height( listBox() );
     int yPos;
 
-	QColor rgb = color.getRawRGBColor();
+	QColor rgb = color.getDisplayColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
 	painter.setBrush(Qt::NoBrush);
@@ -96,7 +97,7 @@ void ColorWidePixmapItem::paint( QPainter *p )
 	int itemHeight = height( listBox() );
     int yPos;
 
-	QColor rgb = color.getRawRGBColor();
+	QColor rgb = color.getDisplayColor();
 	widePix.fill(rgb);
 
 	QRect rect;
@@ -149,7 +150,7 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	int itemHeight = height( listBox() );
     int yPos;
 
-	QColor rgb = color.getRawRGBColor();
+	QColor rgb = color.getDisplayColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
 	painter.setBrush(Qt::NoBrush);
@@ -158,7 +159,7 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	painter.drawRect(0, 0, 15, 15);
 	painter.end();
 
-	cellPix.fill(Qt::white);
+	cellPix.fill(Qt::color0);
 	paintAlert(smallPix, cellPix, 0, 0);
 	color.checkGamut();
 	if (color.isOutOfGamut())
@@ -168,9 +169,21 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	else
 		paintAlert(rgbIcon, cellPix, 30, 0);
 	if (color.isSpotColor())
-		paintAlert(spotIcon, cellPix, 46, 2);
+		paintAlert(spotIcon, cellPix, 46, 0);
 	if (color.isRegistrationColor())
 		paintAlert(regIcon, cellPix, 45, 0);
+	if (cellPix.mask() && ((!color.isSpotColor() && !color.isRegistrationColor()) || !color.isOutOfGamut()))
+	{
+		QPainter alpha; // transparency handling
+		alpha.begin(cellPix.mask());
+		alpha.setBrush(Qt::color0);
+		alpha.setPen(Qt::color0);
+		if (!color.isSpotColor() && !color.isRegistrationColor())
+			alpha.drawRect(45, 0, 15, 15);
+		if (!color.isOutOfGamut())
+			alpha.drawRect(15, 0, 15, 15);
+		alpha.end();
+	}
 
 	QRect rect;
 	rect.setCoords(3, 0, 60, 15);
@@ -197,7 +210,7 @@ int	ColorFancyPixmapItem::width( const QListBox *lb )  const
 ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
 	: QListBox(parent, name, f)
 {
-	if (name == "")
+	if (!name || strlen(name) == 0)
 		setName("ColorListBox");
 }
 
@@ -354,6 +367,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QStrin
 	QToolTip::add( DupF, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
 	QToolTip::add( DelF, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
 	QToolTip::add( SaveF, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
+        QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
@@ -473,23 +487,37 @@ void ColorManager::loadDefaults(int id)
 			while (!tsC.atEnd())
 			{
 				ScColor tmp;
-				ColorEn = tsC.readLine();
+				ColorEn = tsC.readLine().stripWhiteSpace();
 				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 					continue;
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
-				if (cus)
-				{
-					CoE >> Kval;
-					Cname = CoE.read().stripWhiteSpace();
-					tmp.setColor(Rval, Gval, Bval, Kval);
+				
+				if (ColorEn[0].isNumber()) {
+					QTextStream CoE(&ColorEn, IO_ReadOnly);
+					CoE >> Rval;
+					CoE >> Gval;
+					CoE >> Bval;
+					if (cus)
+					{
+						CoE >> Kval;
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColor(Rval, Gval, Bval, Kval);
+					}
+					else
+					{
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColorRGB(Rval, Gval, Bval);
+					}
 				}
-				else
-				{
-					Cname = CoE.read().stripWhiteSpace();
-					tmp.setColorRGB(Rval, Gval, Bval);
+				else {
+					QStringList fields = QStringList::split(QChar(9), ColorEn);
+					if (fields.count() != 5)
+						continue;
+					Cname = fields[0];
+					Rval = fields[1].toInt();
+					Gval = fields[2].toInt();
+					Bval = fields[3].toInt();
+					Kval = fields[4].toInt();
+					tmp.setColor(Rval, Gval, Bval, Kval);
 				}
 				if ((c<customSetStartIndex) && (Cname.length()==0))
 				{
@@ -560,133 +588,9 @@ void ColorManager::loadFarben()
 
 void ColorManager::delUnused()
 {
-	PageItem* ite;
-	bool found;
-	UsedC.clear();
-	ColorList::Iterator it;
-	for (it = EditColors.begin(); it != EditColors.end(); ++it)
-	{
-		found = false;
-		if ((it.key() == ScMW->doc->toolSettings.dBrush) || (it.key() == ScMW->doc->toolSettings.dPen) ||
-		        (it.key() == ScMW->doc->toolSettings.dBrushPict)
-		        || (it.key() == ScMW->doc->toolSettings.dPenLine) || (it.key() == ScMW->doc->toolSettings.dPenText))
-		{
-			UsedC.insert(it.key(), it.data());
-			continue;
-		}
-		for (uint c = 0; c < ScMW->doc->MasterItems.count(); ++c)
-		{
-			ite = ScMW->doc->MasterItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				if (it.key() == cstops.at(cst)->name)
-					found = true;
-				if (found)
-					break;
-			}
-			if ((ite->asTextFrame()) || (ite->asPathText()))
-			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
-				{
-					if (it.key() == ite->itemText.at(d)->ccolor)
-						found = true;
-					if (it.key() == ite->itemText.at(d)->cstroke)
-						found = true;
-					if (found)
-						break;
-				}
-			}
-			/* PFJ - 29.02.04 - merged if's to one line */
-			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
-				found = true;
-			if (found)
-				break;
-		}
-		if (found)
-		{
-			UsedC.insert(it.key(), it.data());
-			continue;
-		}
-		for (uint c = 0; c < ScMW->doc->FrameItems.count(); ++c)
-		{
-			ite = ScMW->doc->FrameItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				if (it.key() == cstops.at(cst)->name)
-					found = true;
-				if (found)
-					break;
-			}
-			if ((ite->asTextFrame()) || (ite->asPathText()))
-			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
-				{
-					if (it.key() == ite->itemText.at(d)->ccolor)
-						found = true;
-					if (it.key() == ite->itemText.at(d)->cstroke)
-						found = true;
-					if (found)
-						break;
-				}
-			}
-			/* PFJ - 29.02.04 - merged if's to one line */
-			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
-				found = true;
-			if (found)
-				break;
-		}
-		if (found)
-		{
-			UsedC.insert(it.key(), it.data());
-			continue;
-		}
-		for (uint c = 0; c < ScMW->doc->DocItems.count(); ++c)
-		{
-			ite = ScMW->doc->DocItems.at(c);
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				if (it.key() == cstops.at(cst)->name)
-					found = true;
-				if (found)
-					break;
-			}
-			if ((ite->asTextFrame()) || (ite->asPathText()))
-			{
-				for (uint d=0; d<ite->itemText.count(); ++d)
-				{
-					/* PFJ - 29.02.04 - Merged if's */
-					if ((it.key() == ite->itemText.at(d)->ccolor) ||
-							(it.key() == ite->itemText.at(d)->cstroke))
-						found = true;
-					if (found)
-						break;
-				}
-			}
-			/* PFJ - 29.02.04 - Merged if's */
-			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
-				found = true;
-			if (found)
-				break;
-		}
-		/* PFJ - 29.02.04 - Merged if's */
-		if ((it.key() == ScMW->doc->CurrTextFill) ||
-		        (it.key() == ScMW->doc->CurrTextStroke))
-			found = true;
-		if (found)
-		{
-			UsedC.insert(it.key(), it.data());
-			continue;
-		}
-	}
+	ScMW->doc->getUsedColors(UsedC);
 	EditColors = UsedC;
-	if (EditColors.count() == 0)
-	{
-		EditColors.insert("White", ScColor(0, 0, 0, 0));
-		EditColors.insert("Black", ScColor(0, 0, 0, 255));
-	}
+	EditColors.ensureBlackAndWhite();
 	updateCList();
 }
 
@@ -765,16 +669,19 @@ void ColorManager::delFarbe()
 	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 	{
+		QString replacementColor(dia->getReplacementColor());
+		if (replacementColor == CommonStrings::NoneColor)
+			replacementColor = CommonStrings::None;
 		if (replaceMap.values().contains(sFarbe))
 		{
 			QMap<QString,QString>::Iterator it;
 			for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
 			{
 				if (it.data() == sFarbe)
-					it.data() = dia->getReplacementColor();
+					it.data() = replacementColor;
 			}
 		}
-		replaceMap.insert(sFarbe, dia->getReplacementColor());
+		replaceMap.insert(sFarbe, replacementColor);
 		EditColors.remove(sFarbe);
 		updateCList();
 	}
@@ -789,23 +696,35 @@ void ColorManager::delFarbe()
 void ColorManager::selFarbe(QListBoxItem *c)
 {
 	sFarbe = c->text();
-	EditF->setEnabled(true);
+	bool enableEdit = (sFarbe != "Black" && sFarbe != "White");
+	bool enableDel  = (sFarbe != "Black" && sFarbe != "White") && (EditColors.count() > 1);
+	EditF->setEnabled(enableEdit);
 	DupF->setEnabled(true);
-	DelF->setEnabled(EditColors.count() == 1 ? false : true);
+	DelF->setEnabled(enableDel);
 }
 
 void ColorManager::selEditFarbe(QListBoxItem *c)
 {
 	sFarbe = c->text();
-	EditF->setEnabled(true);
+	bool enableEdit = (sFarbe != "Black" && sFarbe != "White");
+	bool enableDel  = (sFarbe != "Black" && sFarbe != "White") && (EditColors.count() > 1);
+	EditF->setEnabled(enableEdit);
 	DupF->setEnabled(true);
-	DelF->setEnabled(EditColors.count() == 1 ? false : true);
-	editFarbe();
+	DelF->setEnabled(enableDel);
+	if(enableEdit)
+		editFarbe();
 }
 
 void ColorManager::updateCList()
 {
-	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
+	ColorList::Iterator it;
+	colorListBox->clear();
+	for (it = EditColors.begin(); it != EditColors.end(); ++it)
+	{
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+			continue;
+		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), it.key()) );
+	}
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (colorListBox->currentItem() == -1)
 	{

@@ -260,7 +260,13 @@ void ContentReader::write(const QString& text)
 void ContentReader::parse(QString fileName)
 {
 	sreader->parse(fileName);
-	xmlSAXParseFile(cSAXHandler, fileName.ascii(), 1);
+#if defined(_WIN32)
+	QString fname = QDir::convertSeparators(fileName);
+	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+#else
+	QCString fn(fileName.local8Bit());
+#endif
+	xmlSAXParseFile(cSAXHandler, fn.data(), 1);
 }
 
 xmlSAXHandler cSAXHandlerStruct = {

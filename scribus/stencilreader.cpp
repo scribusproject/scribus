@@ -329,6 +329,8 @@ QString StencilReader::createObjects(QString datain)
 		{
 			ScColor tmp;
 			tmp.fromQColor(stroke);
+			tmp.setSpotColor(false);
+			tmp.setRegistrationColor(false);
 			PageColors.insert("FromKivio"+stroke.name(), tmp);
 			StrokeCol = "FromKivio"+stroke.name();
 			QDomElement co = data.createElement("COLOR");
@@ -364,6 +366,8 @@ QString StencilReader::createObjects(QString datain)
 		{
 			ScColor tmp;
 			tmp.fromQColor(fill);
+			tmp.setSpotColor(false);
+			tmp.setRegistrationColor(false);
 			PageColors.insert("FromKivio"+fill.name(), tmp);
 			FillCol = "FromKivio"+fill.name();
 			QDomElement co = data.createElement("COLOR");
@@ -690,5 +694,5 @@ QString StencilReader::createObjects(QString datain)
 		}
 		DOC = DOC.nextSibling();
 	}
-	return data.toString().utf8();
+	return data.toString();
 }

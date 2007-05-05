@@ -223,7 +223,14 @@ void FDialogPreview::GenPreview(QString name)
 void FDialogPreview::previewUrl( const QUrl &url )
 {
 	if (url.isLocalFile())
-		GenPreview(url.path());
+	{
+		QFileInfo finfo(url.path());
+		if (filePath != finfo.filePath())
+		{
+			filePath = finfo.filePath();
+			GenPreview(url.path());
+		}
+	}
 }
 
 CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
@@ -347,7 +354,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 CustomFDialog::~CustomFDialog()
 {
 	setIconProvider(0);
-	cDir.setCurrent(dir()->path());
+	const QDir* d(dir());
+	cDir.setCurrent(d->path());
+	delete d;
 }
 
 void CustomFDialog::slotHome()
@@ -360,16 +369,22 @@ void CustomFDialog::handleCompress()
 	QFileInfo tmp;
 	tmp.setFile(selectedFile());
 	QString e(tmp.extension());
-
+	QStringList ex = QStringList::split(".", e);
+	QString baseExt = "";
+	for (uint a = 0; a < ex.count(); a++)
+	{
+		if ((ex[a] != "sla") && (ex[a] != "SLA") && (ex[a] != "gz") && (ex[a] != "GZ"))
+			baseExt += "."+ex[a];
+	}
 	if (SaveZip->isChecked())
 	{
 		if (e != extZip)
-			tmp.setFile(tmp.baseName() + "." + extZip);
+			tmp.setFile(tmp.baseName() + baseExt + "." + extZip);
 	}
 	else
 	{
 		if (e != ext)
-			tmp.setFile(tmp.baseName() + "." + ext);
+			tmp.setFile(tmp.baseName() + baseExt + "." + ext);
 	}
 	setSelection(tmp.fileName());
 }

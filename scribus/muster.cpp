@@ -78,6 +78,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(appendPage()));
 	connect(masterPageData, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectMasterPage(QListBoxItem*)));
+	connect(masterPageData, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(renameMasterPage( QListBoxItem*)));
 }
 
 void MasterPagesPalette::reject()
@@ -395,3 +396,19 @@ void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 	masterPageData->setSelected(masterPageData->index(masterPageData->findItem(MasterPageName)), true);
 }
 
+void MasterPagesPalette::renameMasterPage(QListBoxItem * item)
+{
+	QString oldName(item->text());
+	if ((oldName == CommonStrings::masterPageNormal) || (oldName == CommonStrings::trMasterPageNormal) || (oldName == CommonStrings::trMasterPageNormalLeft) || (oldName == CommonStrings::trMasterPageNormalMiddle) || (oldName == CommonStrings::trMasterPageNormalRight))
+	{
+		QMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed."), QMessageBox::Ok );
+		return;
+	}
+	bool ok;
+	QString newName = QInputDialog::getText(
+			tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal,
+			oldName, &ok, this );
+	if (ok && !newName.isEmpty())
+		if (currentDoc->renameMasterPage( oldName, newName))
+			updateMasterPageList(newName);
+}

@@ -20,7 +20,10 @@ SplashScreen::SplashScreen()
 	pix = loadIcon("Splash.png");
 	Q_ASSERT(!pix.isNull());
 	if (pix.isNull())
-		return;
+{
+	pix = QPixmap(360, 200);
+	pix.fill(Qt::darkGray);
+}
 	setErasePixmap( pix );
 	resize( pix.size() );
 	QRect scr = QApplication::desktop()->screenGeometry();
@@ -42,23 +45,33 @@ void SplashScreen::repaint()
 
 void SplashScreen::setStatus( const QString &message )
 {
-	QString tmp = message;
+	static QRegExp rx("&\\S*");	
+	QString tmp(message);
 	int f = 0;
 	while (f != -1)
 	{
-		f = tmp.find(QRegExp( "&\\S*" ));
+		f = tmp.find(rx);
 		if (f != -1)
 		{
 			tmp.remove(f, 1);
 			f = 0;
 		}
 	}
-	QPixmap textPix = pix;
+	QPixmap textPix(pix);
 	QPainter painter( &textPix, this );
-	painter.setFont(QFont("Helvetica", 10));
-	painter.setPen( white );
+#if defined _WIN32
+	QFont font("Lucida Sans Unicode", 10);
+#elif defined(__INNOTEK_LIBC__)
+	QFont font("WarpSans", 9);
+#else
+	QFont font("Bitstream Vera Sans", 10);
+#endif
+	painter.setFont(font);
+	painter.setPen(QColor(236,233,216));
+
 	//painter.setRasterOp(NotROP);
-	painter.drawText( 10, textPix.height()-8, tmp );
+	painter.drawText( 81, textPix.height()-8, tmp );
+	painter.end();
 	setErasePixmap( textPix );
 	repaint();
 }

@@ -138,11 +138,11 @@ SWDialog::~SWDialog()
  */
 void SWDialog::languageChange()
 {
-	setCaption(tr("Short Words", "short words plugin"));
-	buttonGroup->setTitle(tr("Apply unbreakable space on:", "short words plugin"));
-	frameRadio->setText(tr("&Selected frames", "short words plugin"));
-	pageRadio->setText(tr("Active &page", "short words plugin"));
-	allRadio->setText(tr("&All items", "short words plugin"));
+	setCaption( tr("Short Words", "short words plugin"));
+	buttonGroup->setTitle( tr("Apply unbreakable space on:", "short words plugin"));
+	frameRadio->setText( tr("&Selected frames", "short words plugin"));
+	pageRadio->setText( tr("Active &page", "short words plugin"));
+	allRadio->setText( tr("&All items", "short words plugin"));
 	okButton->setText(CommonStrings::tr_OK);
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	//infoButton->setText(tr("&Info and\nLanguages", "short words plugin"));

@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "loadsaveplugin.h"
+#include "loadsaveplugin.moc"
 
 QValueList<FileFormat> LoadSavePlugin::formats;
 
@@ -62,7 +63,7 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 			filterList.append((*it).filter);
 			lastID = (*it).formatId;
 		}
-	filterList.append(tr("All Files (*)"));
+	filterList.append( tr("All Files (*)"));
 	return filterList;
 }
 
@@ -73,9 +74,27 @@ bool LoadSavePlugin::saveFile(const QString & /* fileName */,
 }
 
 bool LoadSavePlugin::loadFile(const QString & /* fileName */,
-							  const FileFormat & /* fmt */)
+							  const FileFormat & /* fmt */,
+							  int /* flags */,
+							  int /* index */)
 {
 	return false;
+}
+
+bool LoadSavePlugin::checkFlags(int flags)
+{
+	int numFlags = 0;
+	// Only one of the following flags must be set:
+	// lfCreateDoc, lfUseCurrentPage, lfInsertPage
+	if( flags & lfCreateDoc ) 
+		numFlags++;
+	if( flags & lfUseCurrentPage ) 
+		numFlags++;
+	if( flags & lfInsertPage ) 
+		numFlags++;
+	if( numFlags > 1 )
+		return false;
+	return true;
 }
 
 void LoadSavePlugin::registerFormat(const FileFormat & fmt)
@@ -153,9 +172,9 @@ LoadSavePlugin::findFormat(unsigned int id,
 
 
 
-bool FileFormat::loadFile(const QString & fileName) const
+bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 {
-	return (plug && load) ? plug->loadFile(fileName, *this) : false;
+	return (plug && load) ? plug->loadFile(fileName, *this, flags, index) : false;
 }
 
 bool FileFormat::saveFile(const QString & fileName) const

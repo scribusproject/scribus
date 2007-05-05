@@ -247,6 +247,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString transpar = tr("Object has transparency");
 	QString annot = tr("Object is a PDF Annotation or Field");
 	QString rasterPDF = tr("Object is a placed PDF");
+	QString WrongFont = tr("Annotation uses a non TrueType font");
 
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
@@ -318,6 +319,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
+						case WrongFontInAnnotation:
+							object->setText(1, WrongFont);
+							hasGraveError = true;
+							pageGraveError = true;
+							itemError = true;
+							break;
 						}
 					}
 					else
@@ -367,6 +374,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case WrongFontInAnnotation:
+								errorText->setText(1, WrongFont);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
 								break;
 							}
 						}
@@ -447,6 +461,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case PlacedPDF:
 							object->setText(1, rasterPDF);
 							break;
+						case WrongFontInAnnotation:
+							object->setText(1, WrongFont);
+							hasGraveError = true;
+							pageGraveError = true;
+							itemError = true;
+							break;
 						}
 					}
 					else
@@ -496,6 +516,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case 8:
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case 9:
+								errorText->setText(1, WrongFont);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
 								break;
 							}
 						}
@@ -579,6 +606,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case 8:
 							object->setText(1, rasterPDF);
 							break;
+						case 9:
+							object->setText(1, WrongFont);
+							hasGraveError = true;
+							pageGraveError = true;
+							break;
 						}
 					}
 					else
@@ -626,6 +658,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setText(1, rasterPDF);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
+							case 9:
+								errorText->setText(1, WrongFont);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								break;
 							}
 						}
 						object->setOpen( true );
@@ -670,7 +708,7 @@ void CheckDocument::languageChange()
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
 
 	textLabel1->setText( tr("Current Profile:"));
-	ignoreErrors->setText(tr("&Ignore Errors"));
+	ignoreErrors->setText( tr("&Ignore Errors"));
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)

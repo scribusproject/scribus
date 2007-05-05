@@ -10,7 +10,7 @@ libdocim_la_LDFLAGS = -version-info 0:0:0
 libdocim_la_METASOURCES = AUTO
 libdocim_la_SOURCES = docim.cpp 
 
-EXTRA_DIST = docim.cpp docim.h  
+EXTRA_DIST = docim.cpp docim.h  CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

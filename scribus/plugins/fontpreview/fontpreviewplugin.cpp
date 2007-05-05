@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "fontpreviewplugin.h"
+#include "fontpreviewplugin.moc"
 #include "fontpreview.h"
 #include "scribus.h"
 #include <qcursor.h>
@@ -81,9 +82,14 @@ Create dialog and insert font into Style menu when user accepts.
 */
 bool FontPreviewPlugin::run(QString target)
 {
+	return run(ScMW, target);
+}
+
+bool FontPreviewPlugin::run(QWidget * parent, QString target)
+{
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	FontPreview *dlg = new FontPreview(target);
+	FontPreview *dlg = new FontPreview(parent, target);
 	qApp->restoreOverrideCursor();
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)

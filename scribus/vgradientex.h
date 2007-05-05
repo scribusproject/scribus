@@ -73,6 +73,9 @@ public:
 }
 ; // VColorStopEx
 
+// comparison function for use with stable_sort
+bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 );
+
 class SCRIBUS_API VGradientEx
 {
 	// friend class VGradientWidget;
@@ -96,8 +99,9 @@ public:
 	{
 	protected:
 		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
-	}
-	; // VColorStopExList
+	public:
+		void inSort( QPtrCollection::Item d );
+	}; // VColorStopExList
 
 	VGradientEx( VGradientEx::Type type = linear );
 	VGradientEx( const VGradientEx& gradient );

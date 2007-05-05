@@ -34,7 +34,7 @@ class SCRIBUS_API LanguageManager
 {
 public:
 	LanguageManager() {};
-	~LanguageManager() {};
+	~LanguageManager();
 	void init(bool generateInstalledList = true);
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
 	const QString getAbbrevFromLang(QString, bool getTranslated=true);

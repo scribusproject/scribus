@@ -565,6 +565,10 @@ public:
 	static QString SetLayerName;
 	static QString GetImage;
 	static QString MultipleDuplicate;
+	static QString EditContour;
+	static QString ResetControlPoint;
+	static QString ResetControlPoints;
+	static QString ImageEffects;
 	/*@}*/
 
 	/**

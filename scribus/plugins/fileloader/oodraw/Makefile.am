@@ -10,7 +10,7 @@ liboodrawimp_la_LDFLAGS = -version-info 0:0:0
 liboodrawimp_la_METASOURCES = AUTO
 liboodrawimp_la_SOURCES = oodrawimp.cpp stylestack.cpp
 
-EXTRA_DIST = oodrawimp.cpp oodrawimp.h stylestack.cpp stylestack.h color.h
+EXTRA_DIST = oodrawimp.cpp oodrawimp.h stylestack.cpp stylestack.h color.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

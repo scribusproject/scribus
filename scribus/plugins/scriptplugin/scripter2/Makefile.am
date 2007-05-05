@@ -44,6 +44,8 @@ EXTRA_DIST = \
 	scripter2_scribus_scribuswin.cpp \
 	scripter2_scribusstructs.cpp \
 	scripter2_styles.cpp
+# \
+#        CMakeLists.txt
 
 AM_LDFLAGS = $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS) $(BOOST_PYTHON_LDFLAGS)
 

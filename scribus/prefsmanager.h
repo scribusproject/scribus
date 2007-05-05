@@ -145,6 +145,16 @@ public:
 	ColorList* colorSetPtr();
 	//! \brief Returns the preferences' color set name
 	const QString& colorSetName();
+	/*! \brief Return if a color belongs to tools prefs colors */
+	bool isToolColor(const QString& name);
+	static bool isToolColor(const struct toolPrefs& settings, const QString& name);
+	/*! \brief Return the list of used colors in tool prefs */
+	QStringList toolColorNames();
+	static QStringList toolColorNames(const struct toolPrefs& settings);
+	/*! \brief Replace used colors in tool prefs */
+	void replaceToolColors(const QMap<QString, QString> replaceMap);
+	static void replaceToolColors(struct toolPrefs& settings, const QMap<QString, QString> replaceMap);
+
 	const bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();

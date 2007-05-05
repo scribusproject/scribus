@@ -13,7 +13,7 @@ libmyplugin_la_LDFLAGS = -version-info 0:0:0
 libmyplugin_la_METASOURCES = AUTO
 libmyplugin_la_SOURCES = myplugin.cpp mypluginimpl.cpp
 
-EXTRA_DIST = myplugin.h mypluginimpl.h
+EXTRA_DIST = myplugin.h mypluginimpl.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 

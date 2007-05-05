@@ -13,13 +13,13 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 {
-	setCaption(tr("CSV Importer Options"));
+	setCaption( tr("CSV Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 
 	QBoxLayout* flayout = new QHBoxLayout(0, 5, 5, "flayout");
-	QLabel* fdlabel = new QLabel(tr("Field delimiter:"), this, "fdlabel", 0);
+	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this, "fdlabel", 0);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
 	fdelimCombo = new QComboBox(true, this, "fdelimCombo");
@@ -32,7 +32,7 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	layout->addLayout(flayout);
 
 	QBoxLayout* vlayout = new QHBoxLayout(0, 5, 5, "vlayout");
-	QLabel* vdlabel = new QLabel(tr("Value delimiter:"), this, "fdlabel", 0);
+	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this, "fdlabel", 0);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
 	vdelimCombo = new QComboBox(true, this, "vdelimCombo");
@@ -44,16 +44,16 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	layout->addLayout(vlayout);
 
 	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
-	headerCheck = new QCheckBox(tr("First row is a header"), this, "headerCheck");
+	headerCheck = new QCheckBox( tr("First row is a header"), this, "headerCheck");
 	hlayout->addWidget(headerCheck);
 	layout->addLayout(hlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout");
 	blayout->addStretch(10);
-	okButton = new QPushButton(tr("OK"), this, "okButton");
+	okButton = new QPushButton( tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);
 
-	cancelButton = new QPushButton(tr("Cancel"), this, "cancelButton");
+	cancelButton = new QPushButton( tr("Cancel"), this, "cancelButton");
 	blayout->addWidget(cancelButton);
 	layout->addLayout(blayout);
 

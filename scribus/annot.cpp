@@ -618,12 +618,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	SpinBox11 = new QSpinBox( GroupBox11, "SpinBox1" );
 	SpinBox11->setMinValue(1);
 	SpinBox11->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
-	SpinBox11->setValue(item->annotation().Ziel()+1);
+	SpinBox11->setValue(QMIN(item->annotation().Ziel()+1, Seite));
 	GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
 	if (item->annotation().ActionType() == 7)
 		Pg1 = new Navigator( GroupBox11, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
-		Pg1 = new Navigator( GroupBox11, 100, item->annotation().Ziel(), view);
+		Pg1 = new Navigator( GroupBox11, 100, QMIN(item->annotation().Ziel(), Seite-1), view);
 	Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
 	GroupBox11Layout->addMultiCellWidget(Pg1, 1, 3, 2, 2);
 	TextLabel41 = new QLabel( GroupBox11, "TextLabel4" );
@@ -1480,7 +1480,7 @@ void Annot::DecodeNum()
 		}
 	if (item->annotation().Format() == 3)
 		{
-		Format0c->setCurrentText(pfol[0]);
+		Format0c->setCurrentText(pfol[0].remove("\""));
 		setDateSample(pfol[0]);
 		}
 	if (item->annotation().Format() == 4)
@@ -1635,8 +1635,10 @@ void Annot::SetFoScript(int it)
 	{
 		EditFormat->setEnabled( true );
 		EditKeystr->setEnabled( true );
-		KeyScript->setText( item->annotation().K_act() );
-		FormatScript->setText( item->annotation().F_act() );
+		KeyScript->setText("");
+		FormatScript->setText("");
+//		KeyScript->setText( item->annotation().K_act() );
+//		FormatScript->setText( item->annotation().F_act() );
 	}
 	item->annotation().setFormat(it);
 }
@@ -1663,8 +1665,8 @@ void Annot::SetPg(int v)
 	}
 	else
 	{
-		Pg1->SetSeite(v-1, 100);
-		SpinBox11->setValue(v);
+		Pg1->SetSeite(QMIN(v-1, MaxSeite-1), 100);
+		SpinBox11->setValue(QMIN(v, MaxSeite));
 		Breite = OriBreite;
 		Hoehe = OriHoehe;
 		//		SetCo(0,0);
@@ -1686,7 +1688,7 @@ void Annot::SetCross()
 
 void Annot::SetVals()
 {
-	QString tmp;
+	QString tmp, tmp2;
 	QString Nfo("");
 	bool AAct = false;
 	item->annotation().setType(ComboBox1->currentItem()+2);
@@ -1797,7 +1799,7 @@ void Annot::SetVals()
 				item->annotation().setK_act("");
 				break;
 			case 1:
-				Nfo = tmp.setNum(Decim->value())+", "+tmp.setNum(FormNum)+", 0, 0, \"";
+				Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
 				if (UseCurr->isChecked())
 					{
 					if (!PreCurr->isChecked())
@@ -1879,7 +1881,7 @@ void Annot::SetVals()
 				item->annotation().setActionType(2);
 			}
 			item->annotation().setZiel(SpinBox11->value()-1);
-			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0");
+			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Hoehe-SpinBox31->value())+" 0");
 			break;
 		case 3:
 			item->annotation().setActionType(3);

@@ -1,0 +1,143 @@
+<qt>
+<title>Configuration des pr&eacute;f&eacute;rences </title>
+<h2>Configuration des pr&eacute;f&eacute;rences </h2>
+
+<p>Les panneaux de configuration permettent de modifier le comportement par d&eacute;faut de Scribus. Ces panneaux vous permettent de r&eacute;gler avec beaucoup de souplesse les valeurs par d&eacute;faut de votre document ou du programme lui-m&ecirc;me. Si vous d&eacute;butez en PAO, certains de ces termes peuvent ne pas &ecirc;tre familiers, mais il existe un glossaire multilingue &agrave;<a href="http://wiki.scribus.net">http://wiki.scribus.net</a> compil&eacute; par un groupe d'utilisateurs de Scribus, ainsi que la documentation incluse. </p>
+
+
+
+<h4>O&ugrave; sont situ&eacute;es les fichiers de pr&eacute;f&eacute;rences?</h4>
+<p>Les pr&eacute;f&eacute;rences de Scribus sont conserv&eacute;es dans un r&eacute;pertoire cach&eacute; <code>.scribus</code>. Il est situ&eacute; comme suit :
+<ul>
+<li><strong>Linux:</strong> Dans votre r&eacute;pertoire $home, %username/.scribus</li>
+<li><strong>MacOSX:</strong> Dans User/%username/.scribus</li>
+<li><strong>Windows:</strong> Documents and Settings/%username/.scribus</li>
+</ul>
+Ce r&eacute;pertoire contient un fichier <code>.scribus13.rc</code> et un fichier <code>scribusfont.rc</code> qui contient vos pr&eacute;f&eacute;rences de polices. Ce fichier est au format XML ce qui vous permet d'en inspecter le contenu avec un &eacute;diteur de texte. Si vous avez install&eacute; le module d'extension du scripteur, vous verrez aussi le fichier <code>scripter.rc</code> qui contient les scripts r&eacute;cemment utilis&eacute;s. Il peut &eacute;galement y avoir plusieurs r&eacute;pertoires, qui sont les fichiers de configuration ou d'historique. Si vous essayez de r&eacute;soudre des probl&egrave;mes d&eacute;marrage de Scribus, <strong>renommez</strong>, mais ne supprimez pas ces fichiers et r&eacute;pertoires. Si vous renommez un r&eacute;pertoire, au red&eacute;marrage de Scribus, le temps de chargement sera un peu plus long, puisque Scribus cr&eacute;e un cache des polices install&eacute;es. Le deuxi&egrave;me d&eacute;marrage de Scribus sera plus rapide. </p>
+
+<p>Vous pouvez modifier les pr&eacute;f&eacute;rences du document en cours de travail et ces pr&eacute;f&eacute;rences affecteront uniquement le document ouvert. Lorsque vous changez les pr&eacute;f&eacute;rences de l'application, tout nouveau document h&eacute;ritera de ces pr&eacute;f&eacute;rences et des param&egrave;tres par d&eacute;faut.</p>
+
+<p>Vous pourrez modifier &agrave; volont&eacute; plusieurs des valeurs par d&eacute;faut de Scribus dans chacun des neuf panneaux de configuration. Ces valeurs seront modifiables en cours de travail dans un menu (ordinaire ou contextuel) ou dans la palette des mesures.</p>
+
+<p><strong>Note: les copies d'&eacute;cran ci-dessous sont faites sous Windows 2000. L'aspect peut diff&eacute;rer l&eacute;g&egrave;rement sous Linux et MacOSX.</strong></p>
+
+<h3>Panneau de configuration G&eacute;n&eacute;ral</h3>
+<p>Il est possible de modifier l'apparence de Scribus. Les th&egrave;mes comme Liquid ou les nouveaux th&egrave;mes bas&eacute;s sur les modules d'extension de KDE vous sont accessibles. Les th&egrave;mes et d&eacute;corations de KDE feront partie de Scribus si vous travaillez dans l'environnement KDE. Si KDE n'est pas install&eacute;, vous pouvez ajuster l'apparence de vos programmes Qt s&eacute;par&eacute;ment avec <strong><code>qtconfig</code></strong> au moyen des lignes de commande. Ouvrez simplement un terminal et saisissez <code>qtconfig</code>. Les panneaux de configuration de Qtconfig sont assez explicites. La taille de la police ne doit pas d&eacute;passer 12 points, car certains boutons des menus de Scribus risquent d'&ecirc;tre &eacute;clips&eacute;s. Dans l'exemple, j'utilise une police TrueType de 10 points avec le tout dernier th&egrave;me Mostfet Liquid.</p>
+
+<p>Sous MacOSX et Windows, il n'est pas n&eacute;cessaire d'acc&eacute;der &agrave; qtconfig puisque ses styles font partie du syst&egrave;mes d'exploitation. Cependant, modifier le style par d&eacute;faut en Platinum ou un autre style peut ne pas sembler aussi attrayant. Ces styles  sont avant faits pour les syst&egrave;mes Linux et Unix.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs.png" align="center" alt="Fen&ecirc;tre d'&eacute;dition des styles" title="Pr&eacute;f&eacute;rences g&eacute;n&eacute;rales" /></td></tr></table>
+
+<p>Notez que le menu d&eacute;roulant "Langue" peut &ecirc;tre vide. Dans ce cas, Scribus utilisera la langue par d&eacute;faut du syst&egrave;me.</p>
+
+<h3>Configuration de la souris</h3>
+<p>Si votre souris est munie d'une molette de d&eacute;filement, il est possible de l'utiliser pour parcourir un document. Vous pouvez d&eacute;finir le nombre de lignes qui d&eacute;filent pour chaque cran de la molette. Le <strong>rayon d'action</strong> d&eacute;finit la distance &agrave; partir de laquelle on peut saisir un objet. Plus le chiffre est petit, plus la pr&eacute;cision est grande mais il sera alors parfois difficile de s&eacute;lectionner les tr&egrave;s petits objets.</p>
+
+<h3>Chemins d'acc&egrave;s</h3>
+<p>Vous pouvez d&eacute;finir les chemins d'acc&egrave;s &agrave; vos documents, &agrave; vos profils ICC et &agrave; vos scripts Python. Vous n'avez qu'&agrave; cliquer sur l'endroit de votre choix. Notez que les r&eacute;pertoires cach&eacute;s ne sont pas visibles par d&eacute;faut mais un clic droit dans la fen&ecirc;tre de vos r&eacute;pertoires vous permet de s&eacute;lectionner &laquo; Afficher les fichiers cach&eacute;s &raquo;.</p>
+
+<h3>Document</h3>
+<p>C'est ici que vous r&eacute;glez les param&egrave;tres par d&eacute;faut de format du document, des marges et de l'enregistrement automatique. Ce dernier r&eacute;glage permet &agrave; Scribus de sauvegarder une copie de votre document avec l'extension <code>.sla.bak</code>. La section "Formats pr&eacute;d&eacute;finis" vous propose un choix de valeurs standard pour les marges, d&eacute;pendant si vous cr&eacute;ez un livre, un magasine ou un autre type de document. Vous pouvez &eacute;galement d&eacute;cider d'avoir la page de gauche ou de droite en premier.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs2.png" align="center" alt="Valeurs par d&eacute;faut pour le document" title="Valeur par d&eacute;faut pour le document"  /></td></tr></table>
+
+<h3>Guides</h3>
+<p>Le panneau de configuration Guide permet d'&eacute;tablir les valeurs par d&eacute;faut de distance, de couleur et de magn&eacute;tisme des grilles de Scribus. La <strong>Grille typographique</strong> est une suite de guides horizontaux sur lesquels on peut forcer un texte r&eacute;parti sur plusieurs colonnes &agrave; s'aligner horizontalement tel que montr&eacute; plus bas. On r&egrave;gle l'interlignage dans Styles de paragraphe, et dans le panneau suivant : <strong>Typographie</strong></p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs3.png" alt="Param&egrave;tres de positionnement et de grille typographique" align="middle" title="Param&egrave;tres de positionnement et de grille typographique" /></td></tr></table>
+
+<h3>Typographie</h3>
+<p>Ici, vous pouvez modifier les options typographiques : exposants, indices, petites capitales et interlignage automatique. Le <strong>d&eacute;calage</strong> est le d&eacute;placement vertical au-dessus ou au-dessous de la ligne de base du texte normal. La <strong>Grille typographique</strong> ne s'imprime pas et permet un alignement parfait du texte d'une colonne &agrave; l'autre sur une page. La <strong>Position de la premi&egrave;re ligne de la grille typographique</strong> &eacute;tablit le point de d&eacute;part de cette grille &agrave; partir du haut de la page.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefsblgrid1.png" alt="Grille typographique"title="Grille typographique" /></td></tr></table>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs4.png" align="center" alt="Panneau de configuration typographie" /></td></tr></table>
+
+<h3>Outils</h3>
+<p>Le panneau Outils permet de r&eacute;gler les valeurs par d&eacute;faut de plusieurs t&acirc;ches : police, corps et couleur, cadre de texte et d'image ainsi que le zoom. La majorit&eacute; de ces r&eacute;glages pourront &ecirc;tre modifi&eacute;s en cours de travail soit dans les menus contextuels, soit dans la palette des Propri&eacute;t&eacute;s. Ils peuvent &eacute;galement &ecirc;tre modifi&eacute; dans la fen&ecirc;tre R&eacute;glage du document.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs5.png" alt="Panneau de configurations Outils"/></td></tr></table>
+
+<h3>Polygones</h3>
+<p>Il est possible de dessiner des &eacute;toiles, des triangles et des polygones convexes sans n&eacute;cessairement avoir &agrave; tracer ces formes avec une grande pr&eacute;cision. Vous pouvez aussi appliquer des d&eacute;grad&eacute;s de couleur &agrave; toutes ces formes &agrave; partir de la palette des Propri&eacute;t&eacute;s. </p>
+
+<h3>C&eacute;sure</h3>
+<p>L'information d&eacute;taill&eacute;e concernant la c&eacute;sure est d&eacute;crite ici : <a href="hyphenator.html">C&eacute;sure dans Scribus</a>.</p>
+
+<h3>Polices</h3>
+<p>La s&eacute;lection et l'installation correcte des polices est un &eacute;l&eacute;ment de configuration important de Scribus et des informations d&eacute;taill&eacute;es sont disponible &agrave;: <a href="fonts1.html">Les polices et Scribus</a>. S'il est une partie de la documentation que vous devriez absolument lire, c'est bien celle-ci.</p>
+
+
+
+
+<h3>Param&egrave;tres de gestion des couleurs</h3>
+<p>Notez que dans ce dialogue, la valeur de sRGB <strong>ne convient pas</strong> &agrave; un profil d'&eacute;cran. Plus de d&eacute;tails sont disponible &agrave; <a href="cms.html"> Gestion des couleurs sous Scribus</a> et <a href="moncal.html">Cr&eacute;er un profil &eacute;cran avec Littlecms</a>. Les utilisateurs MacOSX et Windows peuvent utiliser des outils commerciaux comme l'outil de couleur Monaco,  Eye-One, Adobe Gamma et Scribus peut utiliser avec d'autres applications attentives aux couleurs. Les utilisateurs MacOSX peuvent utiliser n'importe quel profil disponible pourColor Sync. Scribus d&eacute;couvrira automatiquement tous les profils syst&egrave;mes install&eacute;s.</p>
+<table width="100%"><tr><td align="center"><img src="images/prefs10.png" alt="Param&eacute;trer les pr&eacute;f&eacute;rences PDF pour Scribus" title="Param&eacute;trer les pr&eacute;f&eacute;rences PDF pour Scribus" /></td></tr></table>
+<p><strong>Note: </strong>les pr&eacute;f&eacute;rences PDF/X-3 sont d&eacute;sactiv&eacute;es si la gestion des couleur est d&eacute;sactiv&eacute;e. CMS doit &ecirc;tre activ&eacute; pour utiliser PDF/X-3.</p>
+
+<h3>Exportation au format PDF</h3>
+<p> Pour en savoir sur le format PDF, r&eacute;f&eacute;rez-vous &agrave; <a href="pdfexport1.html">Options d'exportation PDF</a> et <a href="pdfx3.html">PDF/X-3 et Scribus</a>. Cette section des pr&eacute;f&eacute;rences poss&egrave;de &eacute;galement beaucoup d'infobulles.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs11.png" alt="Param&eacute;trer les pr&eacute;f&eacute;rences PDF pour Scribus" title="Param&eacute;trer les pr&eacute;f&eacute;rences PDF pour Scribus" /></td></tr></table>
+
+<h3>R&eacute;glage du document et Table des mati&egrave;res</h3>
+<p>Cette nouvelle fonctionnalit&eacute; est expliqu&eacute;e ici : <a href="http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents">http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents</a></p>
+
+<h3>Raccourcis clavier</h3>
+
+<table width="100%"><tr><td align="center"><img src="images/prefs12.png" alt="Param&eacute;trer les raccourcis clavier pour Scribus" title="Param&eacute;trer les raccourcis clavier pour Scribus" /></td></tr></table>
+
+<p>Scribus vous offre une grande flexibilit&eacute; par rapport aux raccourcis clavier. De plus, une fois personnalis&eacute;s, vous pouvez les exporter dans un fichier XML s&eacute;par&eacute;, ce qui le rend portable sur d'autres machines. Le suffixe du fichier par d&eacute;faut est .ksxml. Le XML est un fichier unicode et ne devrait pas poser de probl&egrave;mes sur d'autres plateformes, avec le seul point que Mac poss&egrave;de une cl&eacute; option command meta, alors que Linux et Windows paratgent des claviers communs.</p>
+
+<h3>Album</h3>
+<p>Vous pouvez glisser-d&eacute;poser dans l'album, avec le <em>bouton droit</em> les &eacute;l&eacute;ments que vous utilisez fr&eacute;quemment. Images et textes peuvent &ecirc;tre plac&eacute;s tr&egrave;s rapidement dans l'album. L'album peut &ecirc;tre enregistr&eacute; &agrave; m&ecirc;me votre document ou ind&eacute;pendamment de celui-ci. Son contenu sera alors &agrave; votre disposition pour plusieurs autres documents par simple chargement (Fichier > Charger). Les albums distincts portent l'extension <code>.scs</code>. L'exemple ci-dessous montre que la taille de l'album est r&eacute;gl&eacute;e &agrave; petit et que toute modification de l'album sera enregistr&eacute;e automatiquement.</p>
+<h3>Affichage</h3>
+<p>Ce panneau permet de r&eacute;gler les valeurs par d&eacute;faut de la couleur des marges et du fond de page. Vous pouvez choisir d'afficher la zone non imprimable dans la couleur des marges. C'est ici que vous indiquez &agrave; Scribus d'afficher les pages en vis-&agrave;-vis, aussi connu en lingo PAO comme &#034;diffusion de lecture&#034;.  Le r&eacute;glage de l'affichage vous permet d'ajuster la taille de l'&eacute;cran pour que 1 pouce &agrave; l'&eacute;cran mesure effectivement 1 pouce. Il suffit de prendre une r&egrave;gle pr&eacute;cise, de la placer sur l'&eacute;cran et d'ajuster le glisseur jusqu'&agrave; ce que les deux concordent.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/prefsdisplay.png" alt="lt="P&eacute;f&eacute;rence globales de gestion des couleurs pour Scribus" title="lt="P&eacute;f&eacute;rence globales de gestion des couleurs pour Scribus" /></td></tr></table>
+
+<h3>Outils externes</h3>
+<p>C'est ici que vous indiquerez &agrave; Scribus o&ugrave; trouver Ghostscript ainsi que votre outil de pr&eacute;dilection pour l'&eacute;dition des images. Sous Windows, si vous avez install&eacute; Ghostscript avant d'installer Scribus, il est habituellement d&eacute;tect&eacute; automatiquement. Si vous obtenez un message d'erreur sous Windows indiquant que les fichiers EPS ne peuvent pas &ecirc;tre utilis&eacute;s, c'est ici que les param&egrave;tres peuvent &ecirc;tre modifi&eacute;s afin de permettre &agrave;Scribus de trouver l'emplacement correct de Ghostscript.</p>
+<p><strong>Sous Linux:</strong></p>
+<table width="100%"><tr><td align="center"><img src="images/gsadv2.png" alt="Param&egrave;tres d'outils externes" title="Param&egrave;tres d'outils externes" /></td></tr></table>
+<p> Dans l'exemple ci-dessous, une compilation parall&egrave;le de Ghostscript 8.53 a &eacute;t&eacute; install&eacute;e dans <code>/usr/local/bin/</code> pour de meilleurs r&eacute;sultats lors de l'importation des fichiers EPS, PS et PDF, en plus d'acc&eacute;l&eacute;rer les pr&eacute;visualisation d'impression. Les utilisateurs Linux et Unix devraient consulter <a href="toolbox7.html" title="Param&eacute;trage avanc&eacute; de Ghostscript">Ghostscript avanc&eacute;.</a></p>
+<p>Vous pouvez utiliser n'importe quel &eacute;diteur d'images disponible comme : cinepaint, krita et m&ecirc;me Photoshop avec wine. Avec Crossover, vous utiliseriez dans la fen&ecirc;tre quelque chose comme (avec les guillemets) :
+<pre>"/opt/cxoffice/bin/wine" --workdir "C://Adobe" --check --cx-app "C:////Adobe////Photoshp.exe"</pre>
+Vous pouvez copier les param&egrave;tres exacts dans le raccourci bureau du menu d'&eacute;dition de KDE.</p>
+<p> Note tr&egrave;s importante quand vous utilisez GIMP pour &eacute;diter vos images : <strong>vous devez quitter GIMP afin que Scribus reprenne le contr&ocirc;le.</strong> Sinon, vous pouvez utiliser <strong>gimp-remote</strong>
+<p><strong>Sous MacOSX</strong></p>
+<p>D&eacute;pendant de la langue choisie, le menu Pr&eacute;f&eacute;rences peut appara&icirc;tre sous &Eacute;dition->Pr&eacute;f&eacute;rences ou sous Scribus->Pr&eacute;f&eacute;rences.
+Si les <strong>deux</strong> entr&eacute;es sont pr&eacute;sentes, celle sous Scribus->Pr&eacute;f&eacute;rences ne fonctionnera <strong>pas</strong>. Il s'agit d'une limitation des librairies Qt3.
+</p>
+<table width="100%"><tr><td align="center"><img src="images/prefs-mac-1.png" alt="Param&egrave;tre d'outils externes" title="Param&egrave;tres d'outils externes" /></td></tr></table>
+<p>Ci-dessous vous trouverez les param&egrave;tres recommand&eacute;s, si vous utilisez GIMP et/ou si vous avez install&eacute; Ghostscript.framework de <a href="http://aqua.scribus.net">http://aqua.scribus.net</a>.</p>
+<p><strong>Sous Windows:</strong></p>
+
+<p><em>Notez que le nom correct pour Ghostscript est gswin32c.exe, <strong>pas</strong> gswin32.exe.</em></p>
+<table width="100%"><tr><td align="center"><img src="images/prefs15.png" alt="Param&egrave;tre d'outils externes" title="Param&egrave;tres d'outils externes" /></td></tr></table>
+
+<p>Pour utiliser GIMP pour &eacute;diter vos images sous Windows , <strong>vous devez quitter GIMP afin que Scribus reprenne le contr&ocirc;le.</strong> Sinon, vous pouvez utiliser <strong>c:\path to\gimp-remote.exe gimp-2.2.exe</strong> en remplacement.<br /> Le d&eacute;faut sous Windows est :<br /> <code>C:/Program Files/GIMP-2.0/bin/gimp-win-remote.exe gimp-2.2.exe</code> ce qui d&eacute;marrera une nouvelle instance de gimp ou utilisera la version en cours d'ex&eacute;cution de gimp. </p>
+
+<p></p>
+
+
+<h3>Divers</h3>
+<ul>
+   <li><strong>Restreindre aux marges de la page</strong> - cette option emp&ecirc;che les objets qui sont &agrave; l'ext&eacute;rieur des marges de la page d'&ecirc;tre imprim&eacute;s ou export&eacute;s en PDF. Le contenu d'un objet &agrave; l'int&eacute;rieur des marges continuera &agrave; s'imprimer ou s'exporter. </li>
+   <li><strong>Retrait des sous-couleurs</strong> - cette option change la composition des gris &agrave; l'impression. On l'utilise le plus souvent pour des journaux ou d'autres m&eacute;dia &agrave; faible &eacute;tendue de couleurs.  </li>
+   <li><strong>Toujours demander avant de remplacer les polices</strong> - cette option vous demandera de choisir des polices de substitution lorsqu'elles ne sont pas dans le syst&egrave;mes et qu'un document les utilise dans une mise en page.</li>
+   <li><strong>Aper&ccedil;u </strong>du style de paragraphe courant lors de l'&eacute;dition des styles, est une option qui permet de visualiser votre paragraphe incluant la police utilis&eacute;e, la taille de police et l'alignement en utilisant du texte de remplissage Lorem Ipsum. </li>
+   <li><strong>Afficher l'&eacute;cran de d&eacute;marrage</strong> - si vous d&eacute;sactivez l'&eacute;cran de d&eacute;marrage, vous pouvez le r&eacute;activer ici. </li>
+<li><strong>Lorem Ipsum</strong> - Lorem Ipsum est en fait du texte Latin d'un discours connu de Cicero, qui a &eacute;t&eacute; utilis&eacute; pour la mise en page depuis longtemps. Ceci permet &agrave; un concepteur de faire une mise en page avec du texte de remplissage que peu de personnes peuvent effectivement lire et de plus l'alphabet roman est utilis&eacute;. Lors de l'insertion d'un texte d'exemple dans un cadre de texte, vous pouvez choisir la langue et le nombre de paragraphes. Cette option instaure ces param&egrave;tres pour tous les documents.</li>
+ </ul>
+
+<h3>Extensions</h3>
+<p>Ce panneau contr&ocirc;le le chargement et affiche le type d'extensions disponible &agrave; Scribus. Normalement, vous ne devriez pas toucher &agrave; ce panneau.</p>
+
+<h3>Espaces ins&eacute;cables</h3>
+<p>Il s'agit d'une extension d'assistance &agrave; la c&eacute;sure. L'usage et les configurations d&eacute;taill&eacute;es se trouvent ici : <a href="short-words.html">Espaces ins&eacute;cables dans Scribus</a>. </p>
+
+<h3>Moteur de script</h3>
+<p>Les extension du moteur de script sont des modules sp&eacute;ciaux du scripteur ou des scripts qui sont charg&eacute;s au d&eacute;marrage pour modifier les capacit&eacute;s du scripteur python dans Scribus. Des d&eacute;tails sont fournis ici : <a href="scripter-extensions.html">Scripteur : scripts d'extension</a>. La console du panneau sert &agrave; choisir les couleurs des &eacute;l&eacute;ments de script.</p>
+<br />
+</qt> 

@@ -87,7 +87,7 @@ OODrawImportPlugin::~OODrawImportPlugin()
 
 void OODrawImportPlugin::languageChange()
 {
-	importAction->setMenuText(tr("Import &OpenOffice.org Draw..."));
+	importAction->setMenuText( tr("Import &OpenOffice.org Draw..."));
 	// (Re)register file formats
 	unregisterAll();
 	registerFormats();
@@ -148,18 +148,19 @@ bool OODrawImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat &)
+bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
 	// For this plugin, right now "load" and "import" are the same thing
-	return import(fileName);
+	return import(fileName, flags);
 }
 
-bool OODrawImportPlugin::import(QString fileName)
+bool OODrawImportPlugin::import(QString fileName, int flags)
 {
-	bool interactive = false;
+	if (!checkFlags(flags))
+		return false;
 	if (fileName.isEmpty())
 	{
-		interactive = true;
+		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScMW, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"));
@@ -178,24 +179,27 @@ bool OODrawImportPlugin::import(QString fileName)
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
 	OODPlug dia;
-	bool importDone = dia.import(fileName, interactive);
+	bool importDone = dia.import(fileName, flags);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
+	if (dia.unsupported)
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, tr("This file contains some unsupported features"), 1, 0, 0);
 	return importDone;
 }
 
 OODPlug::OODPlug()
 {
 	interactive = false;
+	unsupported = false;
 	Doku = NULL;
 }
 
-bool OODPlug::import( QString fileName, bool isInteractive )
+bool OODPlug::import( QString fileName, int flags )
 {
 	bool importDone = false;
-	interactive = isInteractive;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
@@ -244,12 +248,12 @@ bool OODPlug::import( QString fileName, bool isInteractive )
 	QString CurDirP = QDir::currentDirPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.dirPath());
-	importDone = convert();
+	importDone = convert(flags);
 	QDir::setCurrent(CurDirP);
 	return importDone;
 }
 
-bool OODPlug::convert()
+bool OODPlug::convert(int flags)
 {
 	bool ret = false;
 	bool isOODraw2 = false;
@@ -297,11 +301,11 @@ bool OODPlug::convert()
 	}
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
-	if (!interactive)
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 		ScMW->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	else
 	{
-		if (!ScMW->HaveDoc)
+		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
 			ScMW->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ScMW->HaveNewDoc();
@@ -601,7 +605,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			double y1 = b.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y1" ) );
 			double x2 = b.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:x2" ) );
 			double y2 = b.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "svg:y2" ) );
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
+			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
@@ -612,6 +616,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->setWidthHeight(wh.x(), wh.y());
 			ite->ClipEdited = true;
 			ite->FrameType = 3;
+			HaveGradient = false;
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -652,11 +657,12 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:path" )
 		{
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
+			FPointArray pArray;
+			PageItem::ItemType itype = parseSVG(b.attribute("svg:d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon;
+			z = Doku->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
-			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
-				ite->convertTo(PageItem::PolyLine);
+			ite->PoLine = pArray;
 			if (ite->PoLine.size() < 4)
 			{
 				Doku->m_Selection->addItem(ite);
@@ -699,6 +705,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
+			unsupported = true;
 			qDebug("Not supported yet: %s", STag.local8Bit().data());
 			continue;
 		}
@@ -725,15 +732,15 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					if (m_styleStack.attribute("fo:text-align") == "right")
 						AbsStyle = 2;
 				}
-				if( m_styleStack.hasAttribute("fo:font-family"))
+				if( m_styleStack.hasAttribute("fo:font-size"))
 				{
-					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
+					FontSize = (int) (m_styleStack.attribute("fo:font-size").remove( "pt" ).toFloat() * 10);
 				}
 /* ToDo: Add reading of Textstyles here */
-				ite->setLineSpacing(FontSize + FontSize * 0.2);
+				ite->setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
+				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize, firstPa);
 				delete ss;
 				firstPa = true;
 				if (! ite->asPolyLine())
@@ -758,88 +765,97 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			if (HaveGradient)
 			{
 				ite->GrType = 0;
-				ite->fill_gradient = gradient;
-				if (GradientType == 1)
+				if (gradient.Stops() > 1)
 				{
-					bool flipped = false;
-					if ((GradientAngle == 0) || (GradientAngle == 180) || (GradientAngle == 90) || (GradientAngle == 270))
+					ite->fill_gradient = gradient;
+					if (GradientType == 1)
 					{
-						if ((GradientAngle == 0) || (GradientAngle == 180))
+						bool flipped = false;
+						if ((GradientAngle == 0) || (GradientAngle == 180) || (GradientAngle == 90) || (GradientAngle == 270))
 						{
-							ite->GrType = 2;
-							//ScMW->view->updateGradientVectors(ite);
-							ite->updateGradientVectors();
-						}
-						else if ((GradientAngle == 90) || (GradientAngle == 270))
-						{
-							ite->GrType = 1;
-							//ScMW->view->updateGradientVectors(ite);
-							ite->updateGradientVectors();
-						}
-					}
-					else
-					{
-						if ((GradientAngle > 90) && (GradientAngle < 270))
-							GradientAngle -= 180;
-						else if ((GradientAngle > 270) && (GradientAngle < 360))
-						{
-							GradientAngle = 360 - GradientAngle;
-							flipped = true;
-						}
-						double xpos;
-						xpos = (ite->width() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width()) + (ite->width() / 2);
-						if ((xpos < 0) || (xpos > ite->width()))
-						{
-							xpos = (ite->height() / 2)- (ite->height() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width());
-							if (flipped)
+							if ((GradientAngle == 0) || (GradientAngle == 180))
 							{
-								ite->GrEndX = ite->width();
-								ite->GrEndY = ite->height() - xpos;
-								ite->GrStartX = 0;
-								ite->GrStartY = xpos;
+								ite->GrType = 2;
+								//ScMW->view->updateGradientVectors(ite);
+								ite->updateGradientVectors();
 							}
-							else
+							else if ((GradientAngle == 90) || (GradientAngle == 270))
 							{
-								ite->GrEndY = xpos;
-								ite->GrEndX = ite->width();
-								ite->GrStartX = 0;
-								ite->GrStartY = ite->height() - xpos;
+								ite->GrType = 1;
+								//ScMW->view->updateGradientVectors(ite);
+								ite->updateGradientVectors();
 							}
 						}
 						else
 						{
-							ite->GrEndX = xpos;
-							ite->GrEndY = ite->height();
-							ite->GrStartX = ite->width() - xpos;
-							ite->GrStartY = 0;
+							if ((GradientAngle > 90) && (GradientAngle < 270))
+								GradientAngle -= 180;
+							else if ((GradientAngle > 270) && (GradientAngle < 360))
+							{
+								GradientAngle = 360 - GradientAngle;
+								flipped = true;
+							}
+							double xpos;
+							xpos = (ite->width() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width()) + (ite->width() / 2);
+							if ((xpos < 0) || (xpos > ite->width()))
+							{
+								xpos = (ite->height() / 2)- (ite->height() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width());
+								if (flipped)
+								{
+									ite->GrEndX = ite->width();
+									ite->GrEndY = ite->height() - xpos;
+									ite->GrStartX = 0;
+									ite->GrStartY = xpos;
+								}
+								else
+								{
+									ite->GrEndY = xpos;
+									ite->GrEndX = ite->width();
+									ite->GrStartX = 0;
+									ite->GrStartY = ite->height() - xpos;
+								}
+							}
+							else
+							{
+								ite->GrEndX = xpos;
+								ite->GrEndY = ite->height();
+								ite->GrStartX = ite->width() - xpos;
+								ite->GrStartY = 0;
+							}
+							if (flipped)
+							{
+								ite->GrEndX = ite->width() - xpos;
+								ite->GrEndY = ite->height();
+								ite->GrStartX = xpos;
+								ite->GrStartY = 0;
+							}
+							ite->GrType = 6;
 						}
-						if (flipped)
+					}
+					if (GradientType == 2)
+					{
+						ite->GrType = 7;
+						ite->GrStartX = ite->width() * xGoff;
+						ite->GrStartY = ite->height()* yGoff;
+						if (ite->width() >= ite->height())
 						{
-							ite->GrEndX = ite->width() - xpos;
-							ite->GrEndY = ite->height();
-							ite->GrStartX = xpos;
-							ite->GrStartY = 0;
+							ite->GrEndX = ite->width();
+							ite->GrEndY = ite->height() / 2.0;
 						}
-						ite->GrType = 6;
+						else
+						{
+							ite->GrEndX = ite->width() / 2.0;
+							ite->GrEndY = ite->height();
+						}
+						//ScMW->view->updateGradientVectors(ite);
+						ite->updateGradientVectors();
 					}
 				}
-				if (GradientType == 2)
+				else
 				{
-					ite->GrType = 7;
-					ite->GrStartX = ite->width() * xGoff;
-					ite->GrStartY = ite->height()* yGoff;
-					if (ite->width() >= ite->height())
-					{
-						ite->GrEndX = ite->width();
-						ite->GrEndY = ite->height() / 2.0;
-					}
-					else
-					{
-						ite->GrEndX = ite->width() / 2.0;
-						ite->GrEndY = ite->height();
-					}
-					//ScMW->view->updateGradientVectors(ite);
-					ite->updateGradientVectors();
+					QPtrVector<VColorStop> cstops = gradient.colorStops();
+					ite->setFillColor(cstops.at(0)->name);
+					ite->setFillShade(cstops.at(0)->shade);
 				}
 				HaveGradient = false;
 			}
@@ -1009,6 +1025,8 @@ QString OODPlug::parseColor( const QString &s )
 	{
 		ScColor tmp;
 		tmp.fromQColor(c);
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
 		Doku->PageColors.insert("FromOODraw"+c.name(), tmp);
 		ScMW->propertiesPalette->updateColorList();
 		ret = "FromOODraw"+c.name();
@@ -1057,13 +1075,13 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 		else if(subtransform[0] == "skewx")
 		{
 			result = QWMatrix();
-			result.shear(-params[0].toDouble(), 0.0);
+			result.shear(-tan(params[0].toDouble()), 0.0);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "skewy")
 		{
 			result = QWMatrix();
-			result.shear(0.0, -params[0].toDouble());
+			result.shear(0.0, -tan(params[0].toDouble()));
 			composite->map(result);
 		}
 	}

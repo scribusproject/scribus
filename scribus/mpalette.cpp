@@ -15,12 +15,15 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qradiobutton.h>
 #include <qobjectlist.h>
+#include <qvalidator.h>
+#include <qregexp.h>
 
 #include "arrowchooser.h"
 #include "autoform.h"
 #include "commonstrings.h"
 #include "colorm.h"
 #include "cpalette.h"
+#include "lineformats.h"
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
@@ -90,7 +93,11 @@ void LabelButton::mouseReleaseEvent(QMouseEvent*)
 }
 
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
-{}
+{
+	QRegExp rx( "\\w+" );
+	QValidator* validator = new QRegExpValidator( rx, this );
+	setValidator( validator );
+}
 
 void NameWidget::focusOutEvent(QFocusEvent *e)
 {
@@ -262,7 +269,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	ZBottom->setMaximumSize( QSize( 22, 22 ) );
 	ZBottom->setPixmap(loadIcon("bottom.png"));
 	LayerGroupLayout->addWidget( ZBottom, 1, 1 );
-	LevelTxt = new QLabel( "  0", LayerGroup, "LevelTxt" );
+	LevelTxt = new QLabel( "  1", LayerGroup, "LevelTxt" );
 	LevelTxt->setAlignment( Qt::AlignCenter );
 	LayerGroupLayout->addMultiCellWidget( LevelTxt, 0, 1, 2, 2 );
 
@@ -438,8 +445,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowsAroundFrame->setCheckable( true );
 	textFlowUsesBoundingBox = new QCheckBox( "Use &Bounding Box", textFlowsAroundFrame, "textFlowUsesBoundingBox" );
 	textFlowsAroundFrameLayout->addWidget( textFlowUsesBoundingBox );
-	Textflow3 = new QCheckBox( "&Use Contour Line", textFlowsAroundFrame, "Textflow3" );
-	textFlowsAroundFrameLayout->addWidget( Textflow3 );
+	textFlowUsesContourLine = new QCheckBox( "&Use Contour Line", textFlowsAroundFrame, "textFlowUsesContourLine" );
+	textFlowsAroundFrameLayout->addWidget( textFlowUsesContourLine );
 	pageLayout_2->addWidget( textFlowsAroundFrame );
 
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -788,7 +795,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
 	connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
 	connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
-	connect(textFlowsAroundFrame, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
+	// Workaround for a qt 3.3.6 bug
+	//connect(textFlowsAroundFrame, SIGNAL(clicked(int)), this, SLOT(DoFlow(int)));
+	connect(textFlowsAroundFrame, SIGNAL(toggled(bool)), this, SLOT(toggleTextFlowsAroundFrame(bool)));
+	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(clickTextFlowUsesBoundingBox()));
+	connect(textFlowUsesContourLine, SIGNAL(clicked()), this, SLOT(clickTextFlowUsesContourLine()));
+
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
 	connect(dGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
@@ -973,12 +985,12 @@ void Mpalette::setCurrentItem(PageItem *i)
 
 	Revert->setOn(i->reversed());
 	setDvals(i->textToFrameDistLeft(), i->textToFrameDistTop(), i->textToFrameDistBottom(), i->textToFrameDistRight());
-	LevelTxt->setText(QString::number(i->ItemNr));
+	LevelTxt->setText(QString::number(i->ItemNr + 1));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	RoundRect->setValue(i->cornerRadius()*Umrech);
 
-	Textflow3->setChecked(i->textFlowUsesContourLine());
+	textFlowUsesContourLine->setChecked(i->textFlowUsesContourLine());
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1037,7 +1049,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 	}
 	else
 	{
-		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+		StyledLine->setCurrentItem(0);
+		StyledLine->setSelected(StyledLine->findItem(CurItem->NamedLStyle), Qt::ExactMatch);
 		setter = false;
 	}
 	LStyle->setEnabled(setter);
@@ -1192,7 +1205,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	NameEdit->setText(i->itemName());
 	RoundRect->setValue(i->cornerRadius()*Umrech);
 	QString tm;
-	LevelTxt->setText(tm.setNum(i->ItemNr));
+	LevelTxt->setText(tm.setNum(i->ItemNr + 1));
 	PageItem_TextFrame *i2=i->asTextFrame();
 	if (i2!=0)
 	{
@@ -1218,7 +1231,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	Revert->setOn(i->reversed());
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
-	Textflow3->setChecked(i->textFlowUsesContourLine());
+	textFlowUsesContourLine->setChecked(i->textFlowUsesContourLine());
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1348,7 +1361,7 @@ void Mpalette::SetCurItem(PageItem *i)
 
 void Mpalette::NewSel(int nr)
 {
-	if (ScMW->ScriptRunning)
+	if (!HaveDoc || ScMW->ScriptRunning)
 		return;
 	int visID;
 	PageItem *i;
@@ -1385,7 +1398,7 @@ void Mpalette::NewSel(int nr)
 		Width->setEnabled(true);
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
-		TabStack->setCurrentIndex(0);
+//		TabStack->setCurrentIndex(0);
 		TabStack->item(0)->setEnabled(true);
 		TabStack->setItemEnabled(0, true);
 		NameEdit->setEnabled(false);
@@ -1437,7 +1450,7 @@ void Mpalette::NewSel(int nr)
 			RoundRect->setValue(0);
 			for (int ws = 1; ws < 6; ++ws)
 				TabStack->setItemEnabled(ws, false);
-			TabStack->setCurrentIndex(0);
+//			TabStack->setCurrentIndex(0);
 			TabStack->item(0)->setEnabled(false);
 			TabStack->setItemEnabled(0, false);
 			Cpal->ChooseGrad(0);
@@ -1456,8 +1469,8 @@ void Mpalette::NewSel(int nr)
 			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
-			if (visID == 2)
-				TabStack->setCurrentIndex(0);
+//			if (visID == 2)
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 4:
@@ -1473,8 +1486,8 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(false);
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
-			if (visID == 3)
-				TabStack->setCurrentIndex(0);
+//			if (visID == 3)
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 5:
@@ -1488,8 +1501,8 @@ void Mpalette::NewSel(int nr)
 			BottomLeft->setEnabled(false);
 			BottomRight->setEnabled(false);
 			Center->setEnabled(false);
-			if ((visID == 1) || (visID == 2) || (visID == 3))
-				TabStack->setCurrentIndex(0);
+//			if ((visID == 1) || (visID == 2) || (visID == 3))
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 1:
@@ -1506,8 +1519,8 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 			else
 				RoundRect->setEnabled(false);
-			if ((visID == 2) || (visID == 3))
-				TabStack->setCurrentIndex(0);
+//			if ((visID == 2) || (visID == 3))
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 7:
@@ -1516,8 +1529,8 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
-			if ((visID == 2) || (visID == 3))
-				TabStack->setCurrentIndex(0);
+//			if ((visID == 2) || (visID == 3))
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 8:
@@ -1526,8 +1539,8 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
-			if (visID == 3)
-				TabStack->setCurrentIndex(0);
+//			if (visID == 3)
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		}
@@ -1632,7 +1645,7 @@ void Mpalette::unitChange()
 void Mpalette::setLevel(uint l)
 {
 	QString tm;
-	LevelTxt->setText(tm.setNum(l));
+	LevelTxt->setText(tm.setNum(l + 1));
 }
 
 void Mpalette::setXY(double x, double y)
@@ -1794,13 +1807,22 @@ void Mpalette::setLsp(double r)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LineSp->setValue(r);
 	if (tmp)
 	{
 		if (CurItem->lineSpacingMode() > 0)
+		{
+			LineSp->setSpecialValueText( tr( "Auto" ) );
+			LineSp->setMinValue(0);
+			LineSp->setValue(0);
 			LineSp->setEnabled(false);
+		}
 		else
+		{
 			LineSp->setEnabled(true);
+			LineSp->setSpecialValueText("");
+			LineSp->setMinValue(1);
+			LineSp->setValue(r);
+		}
 		for (uint al = 0; al < lineSpacingPop->count(); ++al)
 		{
 			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
@@ -2584,7 +2606,7 @@ void Mpalette::NewLocalSC()
 		disconnect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		disconnect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 		imgDpiX->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
-		imgDpiY->setValue(qRound(720.0 / CurItem->imageXScale()) / 10.0);
+		imgDpiY->setValue(qRound(720.0 / CurItem->imageYScale()) / 10.0);
 		connect(imgDpiX, SIGNAL(valueChanged(int)), this, SLOT(HChangeD()));
 		connect(imgDpiY, SIGNAL(valueChanged(int)), this, SLOT(VChangeD()));
 	}
@@ -3079,21 +3101,21 @@ void Mpalette::DoFlow(int id)
 			case 0:
 				CurItem->setTextFlowsAroundFrame(textFlowsAroundFrame->isChecked());
 				textFlowUsesBoundingBox->setChecked(CurItem->textFlowUsesBoundingBox());
-				Textflow3->setChecked(CurItem->textFlowUsesContourLine());
+				textFlowUsesContourLine->setChecked(CurItem->textFlowUsesContourLine());
 				break;
 			case 1:
 				CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
 				if (textFlowUsesBoundingBox->isChecked())
 				{
-					Textflow3->setChecked(!textFlowUsesBoundingBox->isChecked());
-					CurItem->setTextFlowUsesContourLine(Textflow3->isChecked());
+					textFlowUsesContourLine->setChecked(!textFlowUsesBoundingBox->isChecked());
+					CurItem->setTextFlowUsesContourLine(textFlowUsesContourLine->isChecked());
 				}
 				break;
 			case 2:
-				CurItem->setTextFlowUsesContourLine(Textflow3->isChecked());
-				if (Textflow3->isChecked())
+				CurItem->setTextFlowUsesContourLine(textFlowUsesContourLine->isChecked());
+				if (textFlowUsesContourLine->isChecked())
 				{
-					textFlowUsesBoundingBox->setChecked(!Textflow3->isChecked());
+					textFlowUsesBoundingBox->setChecked(!textFlowUsesContourLine->isChecked());
 					CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
 				}
 				break;
@@ -3101,6 +3123,21 @@ void Mpalette::DoFlow(int id)
 		ScMW->view->DrawNew();
 		emit DocChanged();
 	}
+}
+
+void Mpalette::toggleTextFlowsAroundFrame(bool)
+{
+	DoFlow(0);
+}
+
+void Mpalette::clickTextFlowUsesBoundingBox()
+{
+	DoFlow(1);
+}
+
+void Mpalette::clickTextFlowUsesContourLine()
+{
+	DoFlow(2);
 }
 
 void Mpalette::MakeIrre(int f, int c, double *vals)
@@ -3134,7 +3171,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			return;
 		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
-		TabStack->setCurrentIndex(1);
+//		TabStack->setCurrentIndex(1);
 	}
 }
 
@@ -3195,7 +3232,7 @@ void Mpalette::toggleGradientEdit()
 			ScMW->setAppMode(modeEditGradientVectors);
 		else
 			ScMW->setAppMode(modeNormal);
-		ScMW->view->RefreshItem(CurItem);
+		ScMW->view->RefreshGradient(CurItem);
 	}
 }
 
@@ -3231,39 +3268,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	{
 		QMap<QString,multiLine>::Iterator it;
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
-		{
-			QPixmap pm = QPixmap(37, 37);
-			pm.fill(white);
-			QPainter p;
-			p.begin(&pm);
-			QColor tmpf;
-			int h, s, v, sneu;
-			multiLine ml = it.data();
-			for (int its = ml.size()-1; its > -1; its--)
-			{
-				dd->PageColors[ml[its].Color].getRawRGBColor().rgb(&h, &s, &v);
-				if ((h == s) && (s == v))
-				{
-					dd->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
-					sneu = 255 - ((255 - v) * ml[its].Shade / 100);
-					tmpf.setHsv(h, s, sneu);
-				}
-				else
-				{
-					dd->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
-					sneu = s * ml[its].Shade / 100;
-					tmpf.setHsv(h, sneu, v);
-				}
-				p.setPen(QPen(tmpf,
-								QMAX(static_cast<int>(ml[its].Width), 1),
-								 static_cast<PenStyle>(ml[its].Dash),
-								 static_cast<PenCapStyle>(ml[its].LineEnd),
-								 static_cast<PenJoinStyle>(ml[its].LineJoin)));
-				p.drawLine(0, 18, 37, 18);
-				}
-			p.end();
-			StyledLine->insertItem(pm, it.key());
-		}
+			StyledLine->insertItem( new LineFormateItem(dd, it.data(), it.key()) );
 		StyledLine->sort( true );
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
@@ -3311,8 +3316,8 @@ void Mpalette::updateCList()
 	ColorList::Iterator itend=doc->PageColors.end();
 	for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 	{
-		TxFill->insertSmallItem( doc->PageColors[it.key()], it.key() );
-		TxStroke->insertSmallItem( doc->PageColors[it.key()], it.key() );
+		TxFill->insertFancyItem( doc->PageColors[it.key()], it.key() );
+		TxStroke->insertFancyItem( doc->PageColors[it.key()], it.key() );
 	}
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
@@ -3629,7 +3634,7 @@ void Mpalette::NewName()
 	}
 	if (found)
 	{
-		QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
+		QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
 		NameEdit->setText(NameOld);
 		NameEdit->setFocus();
 	}
@@ -3775,7 +3780,7 @@ void Mpalette::languageChange()
 	NonZero->setText( tr("Non Zero"));
 	textFlowsAroundFrame->setTitle( tr("Text &Flows Around Frame"));
 	textFlowUsesBoundingBox->setText( tr("Use &Bounding Box"));
-	Textflow3->setText( tr("&Use Contour Line"));
+	textFlowUsesContourLine->setText( tr("&Use Contour Line"));
 	styleLabel->setText( tr("St&yle:"));
 	langLabel->setText( tr("Lan&guage:"));
 	FreeScale->setText( tr("&Free Scaling"));
@@ -3901,7 +3906,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(NoPrint);
 	QToolTip::remove(textFlowsAroundFrame);
 	QToolTip::remove(textFlowUsesBoundingBox);
-	QToolTip::remove(Textflow3);
+	QToolTip::remove(textFlowUsesContourLine);
 
 	QToolTip::remove(Fonts);
 	QToolTip::remove(Size);
@@ -3972,23 +3977,24 @@ void Mpalette::languageChange()
 	QToolTip::add(Locked, tr("Lock or unlock the object"));
 	QToolTip::add(NoResize, tr("Lock or unlock the size of the object"));
 	QToolTip::add(NoPrint, tr("Enable or disable printing of the object"));
-	QToolTip::add(textFlowsAroundFrame, tr("Make text in lower frames flow around the object shape"));
-	QToolTip::add(textFlowUsesBoundingBox, tr("Use a surrounding box instead of the frame's shape for text flow"));
-	QToolTip::add(Textflow3, tr("Use a second line originally based on the frame's shape for text flow"));
-
+	QToolTip::add(textFlowsAroundFrame, "<qt>" +  tr("Make text in lower frames flow around the object. The options below define how this is enabled.") + "</qt>" ); 
+	QToolTip::add(textFlowUsesBoundingBox, "<qt>" +  tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
+	QToolTip::add(textFlowUsesContourLine, "<qt>" +  tr("Use a second line originally based on the frame's shape for text flow of text frames below the object. ") + "</qt>" );
+	/* FIXME after 1336
+	QToolTip::add(textFlowUsesContourLine,  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" ); */
 	QToolTip::add(Fonts, tr("Font of selected text or object"));
 	QToolTip::add(Size, tr("Font Size"));
 	QToolTip::add(ChBase, tr("Offset to baseline of characters"));
 	QToolTip::add(ChScale, tr("Scaling width of characters"));
 	QToolTip::add(ChScaleV, tr("Scaling height of characters"));
-	QToolTip::add(TxStroke, tr("Color of text stroke. Only available with \"outline\" text decoration."));
-	QToolTip::add(TxFill, tr("Color of text fill. Only available with \"outline\" text decoration."));
+	QToolTip::add(TxStroke, "<qt>" + tr("Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.") + "</qt>" );
+	QToolTip::add(TxFill, "<qt>" + tr("Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.") + "</qt>" );
 	QToolTip::add(PM1, tr("Saturation of color of text stroke"));
 	QToolTip::add(PM2, tr("Saturation of color of text fill"));
 	QToolTip::add(Revert, tr("Right to Left Writing"));
 	QToolTip::add(Extra, tr("Manual Tracking"));
 	QToolTip::add(LineSp, tr("Line Spacing"));
-	QToolTip::add(linespacingButton, tr("Click to select the line spacing mode"));
+	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
 	QToolTip::add(Spal, tr("Style of current paragraph"));
 	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 

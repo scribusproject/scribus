@@ -1,0 +1,74 @@
+<qt>
+<title>Manipuler les objets</title>
+<h2>Manipuler les objets</h2>
+
+<dl>
+
+<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+<dd><code><a href="#-groupObjects">groupObjects</a>(liste)</code>
+<p>Groupe les objets &eacute;num&eacute;r&eacute;s dans "liste". La "liste" doit contenir les noms des objets &agrave; grouper. 
+Si la "liste" n'est pas fournie, les &eacute;l&eacute;ments s&eacute;lectionn&eacute;s sont
+utilis&eacute;s.</p></dd>
+
+<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+<dd><code><a href="#-isLocked">isLocked</a>(["nom"]) -&gt; bool&eacute;en</code>
+<p>Retourne la valeur True si l'objet "nom" est verrouill&eacute;.  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+<dd><code><a href="#-lockObject">lockObject</a>(["nom"]) -&gt; bool&eacute;en</code>
+<p>Verrouille l'objet "nom" s'il est d&eacute;verrouill&eacute;, ou le d&eacute;verrouille s'il y a lieu. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. 
+Retourne la valeur True si verrouill&eacute;.</p></dd>
+
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
+<dd><code><a href="#-moveObject">moveObject</a>(dx, dy [, "nom"])</code>
+<p>D&eacute;place l'objet "nom" de dx et dy par rapport &agrave; sa position courante. Les
+distances sont exprim&eacute;es dans les unit&eacute;s de mesure du document (voir
+les constantes UNIT). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
+
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
+<dd><code><a href="#-moveObjectAbs">moveObjectAbs</a>(x, y [, "nom"])</code>
+<p>D&eacute;place l'objet "nom" &agrave; une nouvelle position. Les coordonn&eacute;es
+sont exprim&eacute;es dans les unit&eacute;s de mesure du document (voir les
+constantes UNIT).  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</p></dd>
+
+<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+<dd><code><a href="#-rotateObject">rotateObject</a>(rot [, "nom"])</code>
+<p>Fait pivoter l'objet "nom" de la valeur "rot" en degr&eacute;s relatifs. La rotation est activ&eacute;e par le sommet s&eacute;lectionn&eacute; comme point de rotation - par d&eacute;faut, le sommet en haut &agrave; gauche est le point de rotation z&eacute;ro. Les valeurs positives signifient une rotation dans le sens des aiguilles d'une montre, lorsque le point de rotation par d&eacute;faut est utilis&eacute;. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+<dd><code><a href="#-rotateObjectAbs">rotateObjectAbs</a>(rot [, "nom"])</code>
+<p>&Eacute;tablit la rotation de l'objet "nom" &agrave; "rot". Des valeurs positives signifient une rotation dans le sens des aiguilles d'une montre. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+<dd><code><a href="#-scaleGroup">scaleGroup</a>(facteur
+[,"nom"])</code>
+<p>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs sup&eacute;rieures &agrave; 1 agrandissent le groupe, les valeurs inf&eacute;rieures &agrave; 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe &agrave; 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe &agrave; 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre sup&eacute;rieure &agrave; 0. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si le facteur de redimensionnement n'est
+pas valide.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(redimAuCadre, proportionnel=None, nom=&lt;selection&gt;)</code> 	<p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image s&eacute;lectionn&eacute;, ou sp&eacute;cifi&eacute; dans 'redimAuCadre'. 
+Si 'proportionnel' est sp&eacute;cifi&eacute;, &eacute;tablit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont bool&eacute;ens.</p>
+<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError.</p></dd>
+
+<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+<dd><code><a href="#-setStyle">setStyle</a>("style" [, "nom"])</code>
+<p>&Eacute;tablit le "style" d&eacute;sign&eacute; &agrave; l'objet "nom". Si aucun objet n'est fourni, le style est appliqu&eacute; &agrave; l'objet s&eacute;lectionn&eacute;.</p></dd>
+
+<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+<dd><code><a href="#-sizeObject">sizeObject</a>(largeur, hauteur [, "nom"])</code>
+<p>Redimensionne l'objet "nom" &agrave; la largeur et &agrave; la hauteur donn&eacute;es. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
+<dd><code>unGroupObjects("nom")</code>
+<p> D&eacute;truit le groupe auquel appartient l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</p></dd>
+
+<dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
+<dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("nom" [, etat])</code>
+<p>Active ou d&eacute;sactive l'"habillage" (le texte d&eacute;file autour de l'objet) pour l'objet "nom". 
+Appel&eacute; avec les param&egrave;tres cha&icirc;ne "nom" et le bool&eacute;en optionnel "&eacute;tat". Si
+"&eacute;tat" n'est pas pass&eacute;, cette fonctionnalit&eacute; change de valeur (activ&eacute;e si inactive ou d&eacute;sactiv&eacute;e si active).</p></dd>
+
+</dl>
+</qt>
+ 

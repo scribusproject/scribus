@@ -257,7 +257,7 @@ public:
 
 public slots:
 	void languageChange();
-	void specialActionKeyEvent(QString actionName, int unicodevalue);
+	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
 	void newView();
 	void ToggleAllGuides();
 	void ToggleAllPalettes();
@@ -390,6 +390,7 @@ public slots:
 	void ToggleFrames();
 	void ToggleTextLinks();
 	void ToggleTextControls();
+	void ToggleColumnBorders();
 	void ToggleRulers();
 	void ToggleRulerMode();
 	/* Schaltet Masspalette ein/aus */

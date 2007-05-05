@@ -10,7 +10,7 @@ libodtimplugin_la_LDFLAGS = -version-info 0:0:0
 libodtimplugin_la_METASOURCES = AUTO
 libodtimplugin_la_SOURCES = odtim.cpp odtdia.cpp stylereader.cpp contentreader.cpp
 
-EXTRA_DIST = odtim.cpp odtim.h odtdia.cpp odtdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h
+EXTRA_DIST = odtim.cpp odtim.h odtdia.cpp odtdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(XML_LIBS) $(MODULE_LINK_FLAGS)

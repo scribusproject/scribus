@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
+WerkToolB::WerkToolB(QMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;

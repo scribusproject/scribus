@@ -1,4 +1,4 @@
-EXTRA_DIST = menu.xml after_short_words.png before_short_words.png dialog.png menu.png short-words-manual.html
+EXTRA_DIST = menu.xml after_short_words.png before_short_words.png dialog.png menu.png short-words-manual.html CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)/fr/tutorials/scribus-short-words/

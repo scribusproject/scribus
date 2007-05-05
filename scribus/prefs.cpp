@@ -121,7 +121,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	ButtonGroup1Layout->addWidget( GFsize, 2, 1, Qt::AlignLeft );
 
 	GTFsize = new QSpinBox(5, 22, 1, ButtonGroup1, "gtfs");
-	GTFsize->setSuffix(tr(" pt"));
+	GTFsize->setSuffix( tr(" pt"));
 	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
 	TextGstil3 = new QLabel(GTFsize, tr("Font Size (&Palettes):"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget(TextGstil3, 3, 0);
@@ -658,16 +658,16 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	startUpDialog->setChecked(prefsData->showStartupDialog);
 	MiscLayout->addWidget( startUpDialog );
 	// lorem ipsum
-	groupLI = new QGroupBox(tr("Lorem Ipsum"), Misc, "groupLI");
+	groupLI = new QGroupBox( tr("Lorem Ipsum"), Misc, "groupLI");
 	groupLI->setColumnLayout(0, Qt::Vertical);
 	groupLI->layout()->setSpacing(10);
 	groupLI->layout()->setMargin(10);
 	groupLILayout = new QVBoxLayout(groupLI->layout());
 	groupLILayout->setAlignment(Qt::AlignTop);
-	useStandardLI = new QCheckBox(tr("Always use standard Lorem Ipsum"), groupLI, "useStandardLI");
+	useStandardLI = new QCheckBox( tr("Always use standard Lorem Ipsum"), groupLI, "useStandardLI");
 	useStandardLI->setChecked(prefsData->useStandardLI);
 	groupLILayout->addWidget(useStandardLI);
-	paraLabelLI = new QLabel(tr("Count of the Paragraphs:"), groupLI, "paraLabelLI");
+	paraLabelLI = new QLabel( tr("Count of the Paragraphs:"), groupLI, "paraLabelLI");
 	paragraphsLI = new QSpinBox(groupLI, "paragraphsLI");
 	paragraphsLI->setMinValue(1);
 	paragraphsLI->setValue(prefsData->paragraphsLI);
@@ -717,7 +717,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	QToolTip::add( Docs, "<qt>" + tr( "Default documents directory" ) + "</qt>" );
 	QToolTip::add( ProPfad, "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
 	QToolTip::add( ScriptPfad, "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
-	QToolTip::add( DocumentTemplateDir, "<qt>"+tr("Additional directory for document templates")+"</qt>" );
+	QToolTip::add( DocumentTemplateDir, "<qt>"+ tr("Additional directory for document templates")+"</qt>" );
 
 	QToolTip::add( pageSizeComboBox, "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
 	QToolTip::add( pageOrientationComboBox, "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );

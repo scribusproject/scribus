@@ -47,6 +47,10 @@ For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
 
+WHATS NEW v0.8.2tk:
+A one liner change by Jean Ghali to line #734 to add the extra parameter missing.
+See: http://bugs.scribus.net/view.php?id=4377
+
 WHATS NEW v0.8.1tk:
 After reloading users saved preferences the status bar was not showing
 correct calculations.
@@ -731,7 +735,7 @@ def draw_selection(fontList, getSizeOnly):
         if userPrefs['wantDoubleSided']:
             facingPages = scribus.FACINGPAGES
         # now create a new document with empty page and start building...
-        scribus.newDocument(dD['paperSize'], dD['paperMargins'], scribus.PORTRAIT, 1, scribus.UNIT_POINTS, facingPages, scribus.FIRSTPAGERIGHT)
+        scribus.newDocument(dD['paperSize'], dD['paperMargins'], scribus.PORTRAIT, 1, scribus.UNIT_POINTS, facingPages, scribus.FIRSTPAGERIGHT, 1)
         scribus.zoomDocument(-100)
         # A new doc gives us a new page by default so set it up first...
         set_odd_even(pageNum)

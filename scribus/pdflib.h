@@ -75,7 +75,9 @@ private:
 	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	void closeAndCleanup();
 
+	QByteArray EncodeUTF16(const QString &in);
 	QString EncStream(const QString & in, int ObjNum);
+	QString EncStringUTF16(const QString & in, int ObjNum);
 	QString EncString(const QString & in, int ObjNum);
 	void CalcOwnerKey(const QString & Owner, const QString & User);
 	void CalcUserKey(const QString & User, int Permission);
@@ -106,7 +108,7 @@ private:
 	QByteArray ComputeMD5(const QString& in);
 	void PDF_Bookmark(PageItem *currItem, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors);
+	QString PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors, QStringList colorNames, QValueList<int> colorShades);
 	QString PDF_Transparenz(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(const QString& im);

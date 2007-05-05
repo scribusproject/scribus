@@ -906,7 +906,7 @@ public:
 	 * @brief Load an image into an image frame, moved from ScribusView
 	 * @return True if load succeeded
 	 */
-	bool loadImage(const QString& filename, const bool reload, const int gsResolution=-1);
+	bool loadImage(const QString& filename, const bool reload, const int gsResolution=-1, bool showMsg = false);
 	
 	
 	/**
@@ -984,6 +984,8 @@ protected:
 	void restoreContourLine(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
 	void restoreGetImage(SimpleState *state, bool isUndo);
+	void restoreShapeContour(SimpleState *state, bool isUndo);
+	void restoreImageEffects(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**
