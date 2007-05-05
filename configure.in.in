@@ -683,7 +683,7 @@ AC_TRY_COMPILE([
 ],
 [ using_gcc4="yes" ], [ using_gcc4="no" ])
 if test "$using_gcc4" = "yes"; then
-	CXXFLAGS="$CXXFLAGS -Wno-non-virtual-dtor"
+	CXXFLAGS="$CXXFLAGS -Wno-non-virtual-dtor -Waddress"
 fi
 dnl unset the flag to prevent abuse (DO NOT rely on this flag)
 unset using_gcc4
