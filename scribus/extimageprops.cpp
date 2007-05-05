@@ -213,7 +213,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	{
 		for (it = info->PDSpathData.begin(); it != info->PDSpathData.end(); ++it)
 		{
-			QPixmap pixm(40, 40);
+			QImage pixm(40, 40, QImage::Format_ARGB32);
 			ScPainter *p = new ScPainter(&pixm, 40, 40);
 			p->clear();
 			p->translate(3.0, 3.0);
@@ -241,7 +241,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			p->strokePath();
 			p->end();
 			delete p;
-			pathList->insertItem(pixm, it.key());
+			QPixmap pm;
+			pm.convertFromImage(pixm);
+			pathList->insertItem(pm, it.key());
 			if (it.key() == info->usedPath)
 				pathList->setSelected(pathList->count()-1, true);
 		}

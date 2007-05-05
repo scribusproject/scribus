@@ -156,7 +156,7 @@ void ScripterCore::FinishScriptRun()
 		ScMW->pagePalette->setView(ScMW->view);
 		ScMW->pagePalette->Rebuild();
 		ScMW->doc->RePos = true;
-		QPixmap pgPix(10, 10);
+		QImage pgPix(10, 10, QImage::Format_ARGB32);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		for (uint azz=0; azz<ScMW->doc->Items->count(); ++azz)

@@ -33,8 +33,9 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 	insertItem( tr("None"));
 	for (int a = 0; a < arrowStyles->count(); ++a)
 	{
-		QPixmap Ico(22, 22);
-		ScPainter *painter = new ScPainter(&Ico, 22, 22);
+		QImage image(22, 22, QImage::Format_ARGB32);
+		ScPainter *painter = new ScPainter(&image, 22, 22);
+		painter->clear();
 		painter->setBrush(qRgb(0, 0, 0));
 		painter->setPen(qRgb(0, 0, 0));
 		painter->setFillMode(1);
@@ -59,10 +60,6 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 		painter->drawPolyLine();
 		painter->end();
 		delete painter;
-		QImage image;
-		image = Ico.convertToImage();
-  		image = image.convertDepth(32);
-		image.setAlphaBuffer(true);
 		int wi = image.width();
 		int hi = image.height();
     	for( int yi=0; yi < hi; ++yi )
@@ -75,6 +72,7 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 				s++;
 			}
     	}
+    	QPixmap Ico;
 		Ico.convertFromImage(image);
 		insertItem(Ico, (*arrowStyles->at(a)).name);
 	}

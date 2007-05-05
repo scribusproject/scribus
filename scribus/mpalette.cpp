@@ -50,9 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "text/nlsconfig.h"
-#ifdef HAVE_CAIRO
-#include <cairo.h>
-#endif
 
 using namespace std;
 
@@ -599,18 +596,6 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
 	Layout1t->addWidget( blendMode, 1, 1 );
 	page_group_layout->addWidget(TransGroup);
-//	TransGroup->setEnabled(false);
-#ifndef HAVE_CAIRO
-	blendMode->hide();
-	TransTxt2->hide();
-/*
-#else
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
-	blendMode->hide();
-	TransTxt2->hide();
-#endif
-*/
-#endif
 	QSpacerItem* spacerTr2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	page_group_layout->addItem( spacerTr2 );
 	idGroupItem = TabStack->addItem(page_group, "Groups");

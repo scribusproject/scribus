@@ -1080,7 +1080,7 @@ QPixmap StencilReader::createPreview(QString data)
 	double pmmax;
 	double GrW = 50.0;
 	double GrH = 50.0;
-	QPixmap tmp = QPixmap(0, 0);
+	QImage tmp = QImage(0, 0);
 	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
 	Qt::PenStyle Dash = Qt::SolidLine;
@@ -1093,15 +1093,15 @@ QPixmap StencilReader::createPreview(QString data)
 	docu.setContent(data);
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "KivioShapeStencil")
-		return tmp;
+		return QPixmap();
 	QDomNodeList list = elem.elementsByTagName("Dimensions");
 	if (list.count() == 0)
-		return tmp;
+		return QPixmap();
 	QDomElement dims = list.item(0).toElement();
 	GrW = dims.attribute("w","50").toDouble()+10;
 	GrH = dims.attribute("h","50").toDouble()+10;
 	pmmax = 60 / qMax(GrW, GrH);
-	tmp = QPixmap(static_cast<int>(GrW), static_cast<int>(GrH));
+	tmp = QImage(static_cast<int>(GrW), static_cast<int>(GrH), QImage::Format_ARGB32);
 	pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->translate(5, 5);
 	QDomNode DOC=elem.firstChild();
@@ -1307,10 +1307,10 @@ QPixmap StencilReader::createPreview(QString data)
 		pS->end();
 		delete pS;
 	}
-	QImage tmpi1 = tmp.convertToImage();
-	QImage tmpi = tmpi1.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
-	tmp.convertFromImage(tmpi);
-	return tmp;
+	QImage tmpi = tmp.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
+	QPixmap tmpil;
+	tmpil.convertFromImage(tmpi);
+	return tmpil;
 }
 
 void StencilReader::writeDefaults(QDomElement &ob)

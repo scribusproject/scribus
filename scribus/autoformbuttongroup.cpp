@@ -333,11 +333,11 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 				return loadIcon(strSize+"/draw-donut.png");
 		}
 	}
-	int count = 0;
-	double* AutoShapes;
-	FPointArray Path;
+//	int count = 0;
+//	double* AutoShapes;
+//	FPointArray Path;
 	QPixmap Ico(22, 22);
-	Path.resize(0);
+/*	Path.resize(0);
 	AutoShapes = getShapeData(nr, &count);
 	for (int a = 0; a < count-3; a += 4)
 	{
@@ -365,6 +365,6 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	painter->end();
 	delete painter;
 	Ico.setMask( Ico.createHeuristicMask() );
-
+*/
 	return Ico;
 }

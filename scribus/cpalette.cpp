@@ -55,9 +55,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "linkbutton.h"
 #include "sccolorengine.h"
-#ifdef HAVE_CAIRO
-#include <cairo.h>
-#endif
 
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
@@ -220,18 +217,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
 	Layout1t->addWidget( blendMode, 1, 1 );
 	Form1Layout->addWidget(TransGroup);
-#ifndef HAVE_CAIRO
-	groupOffset->hide();
-	blendMode->hide();
-	TransTxt2->hide();
-/*
-#else
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
-	blendMode->hide();
-	TransTxt2->hide();
-#endif
-*/
-#endif
 
 	Inhalt->setOn(true);
 	InnenButton();

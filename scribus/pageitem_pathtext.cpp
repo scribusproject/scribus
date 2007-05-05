@@ -67,7 +67,7 @@ PageItem_PathText::PageItem_PathText(ScribusDoc *pa, double x, double y, double 
 
 void PageItem_PathText::layout()
 {
-	QPixmap pgPix(10, 10);
+	QImage pgPix(10, 10, QImage::Format_ARGB32);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());	
 	DrawObj(painter, rd);
@@ -264,8 +264,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->PtransX = tangent.x();
 		hl->PtransY = tangent.y();
 		hl->PRot = dx;
-//		qDebug(QString("'%1' (%2,%3) %4+%5").arg(itemText.text(a)).arg(point.x()).arg(point.y()).arg(CurX).arg(dx));
-#ifdef HAVE_CAIRO
 		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx, 0 );
 		if (textPathFlipped)
 			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
@@ -283,25 +281,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			else
 				trafo *= QMatrix( a, 4 * a, 0, -1, point.x(), point.y() );
 		}
-#else
-		QMatrix trafo = QMatrix( 1, 0, 0, -1, -dx*sc, 0 );
-		if (textPathFlipped)
-			trafo *= QMatrix(1, 0, 0, -1, 0, 0);
-		if (textPathType == 0)
-			trafo *= QMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc ); // ID's Rainbow mode
-		else if (textPathType == 1)
-			trafo *= QMatrix( 1, 0, 0, -1, point.x()*sc, point.y()*sc ); // ID's Stair Step mode
-		else if (textPathType == 2)
-		{
-			double a = 1;
-			if (tangent.x() < 0)
-				a = -1;
-			if (fabs(tangent.x()) > 0.1)
-				trafo *= QMatrix( a, (tangent.y() / tangent.x()) * a, 0, -1, point.x()*sc, point.y()*sc ); // ID's Skew mode
-			else
-				trafo *= QMatrix( a, 4 * a, 0, -1, point.x()*sc, point.y()*sc );
-		}
-#endif
 		QMatrix sca = p->worldMatrix();
 		trafo *= sca;
 		p->save();
@@ -351,9 +330,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->glyph.yoffset = point.y();
 		p->setWorldMatrix(savWM);
 		p->restore();
-#ifndef HAVE_CAIRO
-		p->setZoomFactor(sc);
-#endif
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;

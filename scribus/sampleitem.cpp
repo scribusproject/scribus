@@ -313,7 +313,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
-	QPixmap pm(width, height);
+	QImage pm(width, height, QImage::Format_ARGB32);
 	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
 	double sca = 1.0; // original scale to set back at the end...
 	int userAppMode = m_Doc->appMode; // We need to be in normal when creating/repainting items
@@ -324,9 +324,7 @@ QPixmap SampleItem::getSample(int width, int height)
 		sca = m_Doc->view()->scale();
 		m_Doc->view()->setScale(1.0 * PrefsManager::instance()->appPrefs.DisScale);
 	}
-#ifdef HAVE_CAIRO
 	painter->setZoomFactor(m_Doc->view()->scale());
-#endif
 
 	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
@@ -359,7 +357,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	m_Doc->appMode = userAppMode;
 //	m_Doc->docParagraphStyles.remove(tmpIndex);
 	UndoManager::instance()->setUndoEnabled(true);
-	return pm;
+	return QPixmap::fromImage(pm);
 }
 
 void SampleItem::cleanupTemporary()

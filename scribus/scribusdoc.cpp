@@ -1634,7 +1634,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 	TableID.clear();
 	TableItems.clear();
 	uint oldItems = Items->count();
-	QPixmap pgPix(10, 10);
+	QImage pgPix(10, 10, QImage::Format_ARGB32);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	RePos = true;

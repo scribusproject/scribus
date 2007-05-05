@@ -232,8 +232,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 		w = s * (ts.length()+1);
 	if (h < 1)
 		h = s;
-	QPixmap pm(w, h);
-	pm.fill();
+	QImage pm(w, h, QImage::Format_ARGB32);
 	pen_x = 0;
 	ymax = 0.0;
 	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
@@ -292,10 +291,12 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 		}
 	}
 	p->end();
-	pm.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
+	QPixmap pmr;
+	pmr.convertFromImage(pm);
+	pmr.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
 	delete p;
 	FT_Done_FreeType( library );
-	return pm;
+	return pmr;
 }
 
 /** Same as FontSample() with \n strings support added.

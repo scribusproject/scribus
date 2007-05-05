@@ -80,8 +80,9 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;
 		StopM.append(center);
 	}
-	QPixmap pixm(width()-20, 37);
+	QImage pixm(width()-20, 37, QImage::Format_ARGB32);
 	ScPainter *p = new ScPainter(&pixm, width()-20, 37);
+	p->clear(Qt::white);
 	p->setPen(Qt::black);
 	p->setLineWidth(1);
 	p->setFillMode(2);
@@ -92,7 +93,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	delete p;
 	QPainter pw;
 	pw.begin(this);
-	pw.drawPixmap(10, 5, pixm);
+	pw.drawImage(10, 5, pixm);
 	for (uint a = 0; a < fill_gradient.Stops(); ++a)
 	{
 		int center = qRound(cstops.at(a)->rampPoint * (width()-20))+10;

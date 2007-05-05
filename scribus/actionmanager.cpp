@@ -561,9 +561,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 //	scrActions->insert("viewNewView", new ScrAction("", defKeys[name], mainWindow, name));
 
-#ifdef HAVE_CAIRO
 	(*scrActions)["viewFitPreview"]->setToggleAction(true);
-#endif
 	(*scrActions)["viewShowMargins"]->setToggleAction(true);
 	(*scrActions)["viewShowBleeds"]->setToggleAction(true);
 	(*scrActions)["viewShowFrames"]->setToggleAction(true);
@@ -580,9 +578,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewSnapToGrid"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
 
-#ifdef HAVE_CAIRO
 	(*scrActions)["viewFitPreview"]->setOn(false);
-#endif
 	(*scrActions)["viewShowMargins"]->setOn(true);
 	(*scrActions)["viewShowBleeds"]->setOn(true);
 	(*scrActions)["viewShowFrames"]->setOn(true);
@@ -599,9 +595,6 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewFit75"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit200"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-#ifndef HAVE_CAIRO
-	connect( (*scrActions)["viewFitPreview"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-#endif
 	connect( (*scrActions)["viewShowMargins"], SIGNAL(activated()), mainWindow, SLOT(ToggleMarks()) );
 	connect( (*scrActions)["viewShowBleeds"], SIGNAL(activated()), mainWindow, SLOT(ToggleBleeds()) );
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(activated()), mainWindow, SLOT(ToggleFrames()) );
@@ -1022,9 +1015,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 
 void ActionManager::disconnectNewViewActions()
 {
-#ifdef HAVE_CAIRO
 	disconnect( (*scrActions)["viewFitPreview"], 0, 0, 0);
-#endif
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
@@ -1048,9 +1039,7 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 {
 	if (currView==NULL)
 		return;
-#ifdef HAVE_CAIRO
 	connect( (*scrActions)["viewFitPreview"], SIGNAL(activated()), currView, SLOT(togglePreview()) );
-#endif
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(activated()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(activated()) , currView, SLOT(slotZoomOut()) );
 	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(activated()), currView, SLOT(ToBack()) );
@@ -1324,11 +1313,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit75"]->setTexts( tr("&75%"));
 	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
 	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
-#ifdef HAVE_CAIRO
 	(*scrActions)["viewFitPreview"]->setTexts( tr("Preview Mode"));
-#else
-	(*scrActions)["viewFitPreview"]->setTexts( tr("&Thumbnails"));
-#endif
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowBleeds"]->setTexts( tr("Show Bleeds"));
 	(*scrActions)["viewShowFrames"]->setTexts( tr("Show &Frames"));

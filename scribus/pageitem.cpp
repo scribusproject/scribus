@@ -69,9 +69,6 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 
 #include "text/nlsconfig.h"
-#ifdef HAVE_CAIRO
-#include <cairo.h>
-#endif
 
 using namespace std;
 
@@ -921,14 +918,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	sc = view->scale();
 	p->save();
 	if (!isEmbedded)
-	{
-#ifdef HAVE_CAIRO
 		p->translate(Xpos, Ypos);
-#else
-		p->setZoomFactor(sc);
-		p->translate(Xpos*sc, Ypos*sc);
-#endif
-	}
 	p->rotate(Rot);
 	if (m_Doc->layerOutline(LayerNr))
 	{
@@ -941,12 +931,8 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	{
 	if (!isGroupControl)
 	{
-#ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 		if (fillBlendmode() != 0)
 			p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
-//#endif
-#endif
 
 		p->setLineWidth(m_lineWidth);
 		if (GrType != 0)
@@ -966,11 +952,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				}
 				else
 				{
-#ifdef HAVE_CAIRO
 					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
-#else
-					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation+Rot);
-#endif
 					p->setFillMode(ScPainter::Pattern);
 				}
 			}
@@ -1000,13 +982,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 						case 3:
 						case 4:
 						case 6:
-#ifdef HAVE_CAIRO
 							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
-#else
-							gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-							gra.map(grm);
-							p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-#endif
 							break;
 						case 5:
 						case 7:
@@ -1089,18 +1065,14 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		else
 		{
-#ifdef HAVE_CAIRO
 			if (fillBlendmode() != 0)
 				p->endLayer();
-#endif
 			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
 				doStroke=false;
 			if ((doStroke) && (!m_Doc->RePos))
 			{
-#ifdef HAVE_CAIRO
 				if (lineBlendmode() != 0)
 					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-#endif
 				if (lineColor() != CommonStrings::None)
 				{
 					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
@@ -1131,10 +1103,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						}
 					}
 				}
-#ifdef HAVE_CAIRO
 				if (lineBlendmode() != 0)
 					p->endLayer();
-#endif
 			}
 		}
 	}
@@ -1237,34 +1207,23 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		p->save();
 		embedded->Xpos = Xpos + embedded->gXpos;
 		embedded->Ypos = Ypos - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos;
-#ifdef HAVE_CAIRO
 		p->translate((embedded->gXpos * (style.scaleH() / 1000.0)), ( - (embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)));
 		if (style.baselineOffset() != 0)
 		{
 			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0));
 			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
 		}
-#else
-		p->translate(( embedded->gXpos * (style.scaleH() / 1000.0)) * p->zoomFactor(), (-(embedded->gHeight * (style.scaleV() / 1000.0)) + embedded->gYpos * (style.scaleV() / 1000.0)) * p->zoomFactor());
-		if (style.baselineOffset() != 0)
-		{
-			p->translate(0, -embedded->gHeight * (style.baselineOffset() / 1000.0) * p->zoomFactor());
-			embedded->Ypos -= embedded->gHeight * (style.baselineOffset() / 1000.0);
-		}
-#endif
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		if (embedded->isGroupControl)
 		{
 			p->restore();
 			p->save();
-#ifdef HAVE_CAIRO
 			FPointArray cl = embedded->PoLine.copy();
 			QMatrix mm;
 			mm.translate(embedded->Xpos-Xpos, embedded->Ypos-Ypos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
 			p->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-#endif
 			groupStack.push(embedded->groupsLastItem);
 			continue;
 		}
@@ -1296,9 +1255,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		{
 			while (embedded == groupStack.top())
 			{
-#ifdef HAVE_CAIRO
 				p->endLayer();
-#endif
 				p->restore();
 				groupStack.pop();
 			}
@@ -1553,7 +1510,7 @@ QImage PageItem::DrawObj_toImage()
 
 QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
 {
-	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
+	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), QImage::Format_ARGB32);
 	retImg.fill( qRgba(255, 255, 255, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(1.0);
@@ -1564,14 +1521,12 @@ QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
 		PageItem* embedded = emG.at(em);
 		if (embedded->isGroupControl)
 		{
-#ifdef HAVE_CAIRO
 			FPointArray cl = embedded->PoLine.copy();
 			QMatrix mm;
 			mm.translate(embedded->gXpos, embedded->gYpos);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
 			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
-#endif
 			groupClips.push(embedded);
 			groupStack.push(embedded->groupsLastItem);
 			continue;
@@ -1599,9 +1554,7 @@ QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
 //				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
 //				mm.rotate(tmpItem->rotation());
 //				cl.map( mm );
-#ifdef HAVE_CAIRO
 				painter->endLayer();
-#endif
 				painter->restore();
 				groupStack.pop();
 			}
@@ -1825,13 +1778,8 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			points.addQuadPoint(1, -10, 1, -10, 0, -10, 0, -10);			
 		}
 		chma.scale(glyphs.scaleH * style.fontSize() / 100.0, glyphs.scaleV * style.fontSize() / 100.0);
-#ifdef HAVE_CAIRO
 		points.map(chma * chma4);
-#else
-		chma5.scale(p->zoomFactor(), p->zoomFactor());
-		points.map(chma * chma4 * chma5);
-#endif
-		p->setupTextPolygon(&points);
+		p->setupPolygon(&points, true);
 		QColor oldBrush = p->brush();
 		p->setBrush( (style.effects() & ScStyle_SuppressSpace) ? Qt::green
 					: PrefsManager::instance()->appPrefs.DControlCharColor);
@@ -1851,11 +1799,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		p->setBrush(oldBrush);
 		if (glyphs.more)
 		{
-#ifdef HAVE_CAIRO
 			p->translate(glyphs.xadvance, 0);
-#else
-			p->translate(glyphs.xadvance * p->zoomFactor(), 0);
-#endif
 			drawGlyphs(p, style, *glyphs.more);
 		}			
 		return;
@@ -1871,11 +1815,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		// all those are empty
 		if (glyphs.more)
 		{
-#ifdef HAVE_CAIRO
 			p->translate(glyphs.xadvance, 0);
-#else
-			p->translate(glyphs.xadvance * p->zoomFactor(), 0);
-#endif
 			drawGlyphs(p, style, *glyphs.more);
 		}			
 		return;
@@ -1921,7 +1861,6 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			{
 //				qDebug(QString("glyph 0: (%1,%2) * %3 %4 + %5").arg(glyphs.xoffset).arg(glyphs.yoffset).arg(glyphs.scaleH).arg(glyphs.scaleV).arg(glyphs.xadvance));
 			}
-#ifdef HAVE_CAIRO
 			p->save();
 			p->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
 			if (Reverse)
@@ -1934,20 +1873,6 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			double glxSc = glyphs.scaleH * style.fontSize() / 100.00;
 			double glySc = glyphs.scaleV * style.fontSize() / 100.0;
 			p->scale(glxSc, glySc);
-#else
-			QMatrix chma, chma2, chma3, chma4, chma5, chma6;
-			chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
-			chma5.scale(p->zoomFactor(), p->zoomFactor());
-			if (Reverse)
-			{
-				chma3.scale(-1, 1);
-				chma3.translate(-glyphs.xadvance, 0);
-			}
-			chma4.translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
-			if (style.baselineOffset() != 0)
-				chma6.translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0) * p->zoomFactor());
-			gly.map(chma * chma3 * chma4 * chma5 * chma6);
-#endif
 			p->setFillMode(1);
 			bool fr = p->fillRule();
 			p->setFillRule(false);
@@ -1958,7 +1883,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 //			qDebug(QString("drawglyphs: %1 (%2,%3) (%4,%5) scaled %6,%7 trans %8,%9")
 //				   .arg(gly.size()).arg(a).arg(b).arg(c).arg(d)
 //				   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy()));
-			p->setupTextPolygon(&gly);
+			p->setupPolygon(&gly, true);
 			if (m_Doc->layerOutline(LayerNr))
 			{
 				p->save();
@@ -1969,16 +1894,10 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				p->strokePath();
 				p->restore();
 				p->setFillRule(fr);
-#ifdef HAVE_CAIRO
 				p->restore();
-#endif
 				if (glyphs.more)
 				{
-#ifdef HAVE_CAIRO
 					p->translate(glyphs.xadvance, 0);
-#else
-					p->translate(glyphs.xadvance * p->zoomFactor(), 0);
-#endif
 					drawGlyphs(p, style, *glyphs.more);
 				}
 				return;
@@ -2001,39 +1920,25 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
 				{
 					p->save();
-#ifdef HAVE_CAIRO
 					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) / glxSc, -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) / glySc);
-#else
-					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) * p->zoomFactor(), -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) * p->zoomFactor());
-#endif
 					QColor tmp = p->brush();
 					p->setBrush(p->pen());
-#ifdef HAVE_CAIRO
-					p->setupTextPolygon(&gly);
-#endif
+					p->setupPolygon(&gly, true);
 					p->fillPath();
 					p->setBrush(tmp);
 					p->restore();
-#ifdef HAVE_CAIRO
-					p->setupTextPolygon(&gly);
-#endif
+					p->setupPolygon(&gly, true);
 				}
 				if (style.fillColor() != CommonStrings::None)
 					p->fillPath();
 				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 				{
-#ifdef HAVE_CAIRO
 					p->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
-#else
-					p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
-#endif
 					p->strokePath();
 				}
 			}
 			p->setFillRule(fr);
-#ifdef HAVE_CAIRO
 			p->restore();
-#endif
 		}
 		else {
 //			qDebug(QString("drawGlyphs: empty glyph %1").arg(glyph));
@@ -2075,11 +1980,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	*/	
 	if (glyphs.more)
 	{
-#ifdef HAVE_CAIRO
 		p->translate(glyphs.xadvance, 0);
-#else
-		p->translate(glyphs.xadvance * p->zoomFactor(), 0);
-#endif
 		drawGlyphs(p, style, *glyphs.more);
 	}
 }

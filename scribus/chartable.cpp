@@ -77,16 +77,15 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 	if (!m_doc)
 		return;
 
-	static QPixmap pixm;
+	static QImage pixm;
 
 	int cc = row * numCols() + col;
 	if (cc >= m_characters.count())
 		return;
 
 	QRect sz = cellGeometry(row, col);
-	pixm.resize(sz.width(), sz.height());
-
-	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height());
+	pixm = QImage(sz.width(), sz.height(), QImage::Format_ARGB32);
+	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height(), 1.0, 0);
 	p->clear();
 	pixm.fill(Qt::white);
 	QMatrix chma;
@@ -110,7 +109,7 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 		p->fillPath();
 		p->end();
 		int x = qMax(0, (cr.width() - sz.width()) / 2);
-		qp->drawPixmap(x, 1, pixm);
+		qp->drawImage(x, 1, pixm);
 		QString tmp;
 		tmp.sprintf("%04X", m_characters[row*numCols()+col]);
 		qp->setPen(Qt::black);

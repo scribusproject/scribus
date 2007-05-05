@@ -72,7 +72,6 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				p->fillPath();
 			}
 			p->save();
-#ifdef HAVE_CAIRO
 			if (imageClip.size() != 0)
 			{
 				p->setupPolygon(&imageClip);
@@ -80,18 +79,6 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			}
 			p->setupPolygon(&PoLine);
 			p->setClipPath();
-#else
-			if (imageClip.size() != 0)
-			{
-				p->setupPolygon(&imageClip);
-				p->setClipPath2(&PoLine, true);
-			}
-			else
-			{
-				p->setupPolygon(&PoLine);
-				p->setClipPath();
-			}
-#endif
 			if (Pfile.isEmpty())
 			{
 				if ((Frame) && (m_Doc->guidesSettings.framesShown))
@@ -115,7 +102,6 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				}
 				else
 				{
-#ifdef HAVE_CAIRO
 					if (imageFlippedH())
 					{
 						p->translate(Width, 0);
@@ -126,20 +112,6 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 						p->translate(0, Height);
 						p->scale(1, -1);
 					}
-					p->translate(LocalX*LocalScX, LocalY*LocalScY);
-#else
-					if (imageFlippedH())
-					{
-						p->translate(Width * sc, 0);
-						p->scale(-1, 1);
-					}
-					if (imageFlippedV())
-					{
-						p->translate(0, Height * sc);
-						p->scale(1, -1);
-					}
-					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
-#endif
 					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);

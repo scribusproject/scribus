@@ -23,7 +23,8 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	setMaximumSize(sizex, sizey);
 	
 	pixm.resize(size, size);
-	ScPainter *p = new ScPainter(&pixm, size, size);
+	QImage pix(size, size, QImage::Format_ARGB32);
+	ScPainter *p = new ScPainter(&pix, size, size);
 	p->clear();
 	pixm.fill(Qt::white);
 	QMatrix chma;
@@ -43,6 +44,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 		p->end();
 	}
 	delete p;
+	pixm.convertFromImage(pix);
 
 	QString tmp;
 	tmp.sprintf("%04X", currentChar);

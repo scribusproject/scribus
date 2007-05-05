@@ -81,10 +81,6 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
 	statusFrameLayout->addWidget(m_View->previewToolbarButton);
 	statusFrameLayout->addWidget(m_View->visualMenu);
-#ifndef HAVE_CAIRO
-	m_View->previewToolbarButton->hide();
-	m_View->visualMenu->hide();
-#endif
 	statusBar()->addWidget(statusFrame, 4, true);
 	currentDir = QDir::currentDirPath();
 }

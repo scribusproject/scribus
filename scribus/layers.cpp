@@ -35,10 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 
 #include "layers.h"
-//#include "layers.moc"
-#ifdef HAVE_CAIRO
-#include <cairo.h>
-#endif
 
 extern QPixmap loadIcon(QString nam);
 
@@ -141,23 +137,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 	opacitySpinBox->setFocusPolicy(Qt::ClickFocus);
 	layout1->addWidget( opacitySpinBox );
 	LayerPaletteLayout->addLayout( layout1 );
-#ifndef HAVE_CAIRO
-	blendMode->hide();
-	textLabel1->hide();
-	textLabel2->hide();
-	opacitySpinBox->hide();
-/*
-#else
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
-	blendMode->hide();
-	textLabel1->hide();
-#endif
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
-	opacitySpinBox->hide();
-	textLabel2->hide();
-#endif
-*/
-#endif
 
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );

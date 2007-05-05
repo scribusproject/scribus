@@ -83,15 +83,10 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrW = elem.attribute("W").toDouble();
 	double GrH = elem.attribute("H").toDouble();
 	double pmmax = 60 / qMax(GrW+50, GrH+50);
-#ifdef HAVE_CAIRO
-	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, 32);
+	QImage tmp = QImage(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50, QImage::Format_ARGB32);
 	tmp.fill( qRgba(255, 255, 255, 0) );
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height(), 1.0, 0);
 	pS->beginLayer(1.0, 0);
-#else
-	QPixmap tmp(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
-	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
-#endif
 	pS->translate(25,25);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
@@ -448,24 +443,20 @@ QPixmap ScPreview::createPreview(QString data)
 			if(static_cast<bool>(pg.attribute("isGroupControl", "0").toInt()))
 			{
 				pS->save();
-#ifdef HAVE_CAIRO
 				FPointArray cl = OB.PoLine.copy();
 				QMatrix mm;
 				mm.translate(OB.Xpos, OB.Ypos);
 				mm.rotate(static_cast<double>(OB.Rot));
 				cl.map( mm );
 				pS->beginLayer(1.0 - OB.Transparency, pg.attribute("TransBlend", "0").toInt(), &cl);
-#endif
 				groupStack.push(pg.attribute("groupsLastItem", "0").toInt() + currItem);
 				DOC=DOC.nextSibling();
 				continue;
 			}
 			pS->save();
-#ifdef HAVE_CAIRO
 			if (fillBlendmode != 0)
 				pS->beginLayer(1.0 - OB.Transparency, fillBlendmode);
 			else
-#endif
 				pS->setBrushOpacity(1.0 - OB.Transparency);
 			pS->translate(OB.Xpos, OB.Ypos);
 			pS->rotate(static_cast<double>(OB.Rot));
@@ -914,17 +905,13 @@ QPixmap ScPreview::createPreview(QString data)
 				Q_ASSERT(false);
 				break;
 			}
-#ifdef HAVE_CAIRO
 			if (fillBlendmode != 0)
 				pS->endLayer();
-#endif
 			if (doStroke)
 			{
-#ifdef HAVE_CAIRO
 				if (strokeBlendmode != 0)
 					pS->beginLayer(1.0 - OB.TranspStroke, strokeBlendmode);
 				else
-#endif
 					pS->setPenOpacity(1.0 - OB.TranspStroke);
 				if (OB.Pcolor2 != CommonStrings::None)
 				{
@@ -951,19 +938,15 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->drawPolyLine();
 					}
 				}
-#ifdef HAVE_CAIRO
 				if (strokeBlendmode != 0)
 					pS->endLayer();
-#endif
 			}
 			pS->restore();
 			if (groupStack.count() != 0)
 			{
 				while (currItem == groupStack.top())
 				{
-#ifdef HAVE_CAIRO
 					pS->endLayer();
-#endif
 					pS->restore();
 					groupStack.pop();
 				}
@@ -972,16 +955,9 @@ QPixmap ScPreview::createPreview(QString data)
 		}
 		DOC=DOC.nextSibling();
 	}
-#ifdef HAVE_CAIRO
 	pS->endLayer();
-#endif
 	pS->end();
-#ifdef HAVE_CAIRO
 	QImage tmpi = tmp.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
-#else
-	QImage tmpi1 = tmp.convertToImage();
-	QImage tmpi = tmpi1.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
-#endif
 	QPixmap ret;
 	ret.convertFromImage(tmpi);
 	delete pS;

@@ -58,9 +58,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "util.h"
 #include "text/nlsconfig.h"
-#ifdef HAVE_CAIRO
-#include <cairo.h>
-#endif
 
 using namespace std;
 
@@ -2208,7 +2205,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	if (itemText.length() != 0)
 	{
 //		qDebug("drawing textframe: len=%d", itemText.length());
-#ifdef HAVE_CAIRO
 		if (imageFlippedH())
 		{
 			p->translate(Width, 0);
@@ -2223,22 +2219,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			pf2.translate(0, Height);
 			pf2.scale(1, -1);
 		}
-#else
-		if (imageFlippedH())
-		{
-			p->translate(Width * sc, 0);
-			p->scale(-1, 1);
-			pf2.translate(Width, 0);
-			pf2.scale(-1, 1);
-		}
-		if (imageFlippedV())
-		{
-			p->translate(0, Height * sc);
-			p->scale(1, -1);
-			pf2.translate(0, Height);
-			pf2.scale(1, -1);
-		}
-#endif
 		uint tabCc = 0;
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
@@ -2336,11 +2316,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					if (e2.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
 					{
 						p->save();
-#ifdef HAVE_CAIRO
 						p->translate(CurX, ls.y);
-#else
-						p->translate(CurX * p->zoomFactor(), ls.y * p->zoomFactor());
-#endif
 						if (hl->ch[0] == SpecialChars::OBJECT)
 							DrawObj_Embedded(p, e, charStyle, hl->embedded.getItem());
 						else
@@ -2348,11 +2324,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->restore();
 					}
 					if (hl->ch[0] == SpecialChars::OBJECT)
-#ifdef HAVE_CAIRO
 						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
-#else
-						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) /**  p->zoomFactor()*/;
-#endif
 					else
 						CurX += hl->glyph.wide();
 				}
@@ -2383,20 +2355,12 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
-#ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 		if (fillBlendmode() != 0)
 			p->endLayer();
-//#endif
-#endif
 		if (!m_Doc->RePos)
 		{
-#ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 			if (lineBlendmode() != 0)
 				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-//#endif
-#endif
 			if (lineColor() != CommonStrings::None)
 			{
 				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
@@ -2425,12 +2389,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 					}
 				}
 			}
-#ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 			if (lineBlendmode() != 0)
 				p->endLayer();
-//#endif
-#endif
 		}
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
@@ -3246,10 +3206,8 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
 	p->setFillMode(ScPainter::Solid);
-#ifdef HAVE_CAIRO
 	p->setupPolygon(&PoLine);
 	p->setClipPath();
-#endif
 	double colWidth = columnWidth();
 	double colLeft=0;
 	int curCol=0;
