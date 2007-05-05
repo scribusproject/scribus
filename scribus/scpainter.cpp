@@ -392,7 +392,7 @@ void ScPainter::endLayer()
 	if (la.pushed)
 	{
 //	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
-		if ((m_blendMode != 0) && (Layers.count() != 1))
+		if ((m_blendMode != 0) && (Layers.count() != 0))
 		{
 			cairo_surface_t *tmp = cairo_get_group_target(m_cr);
 			cairo_surface_t *tmpB = Layers.top().data;
