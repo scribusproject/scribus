@@ -2,6 +2,17 @@ Changes since 1.2 (all relevant changes from 1.2 to 1.3.3.9 are included in the 
 
 Scribus - 1.3.4cvs
 ==================
+- 0005626: [Translation] Russian translation (plinnell)
+- 0005613: [User Interface] ScPainter() is broken for imagemode in cairo (avox)
+- 0005561: [General] After adding/copying pages deleting the first page causes a crash (avox)
+- 0005613: [-] ScPainter() is broken for imagemode in cairo (avox)
+- 0005616: [Translation] Translation update - pt_BR (cbradney)
+- 0005573: [Internal] ftface.cpp warnings (avox)
+- 0002091: [Styles] Clear style attributes (avox)
+- 0005593: [General] sticky tools ignored when shift-inserting a frame (cbradney)
+- 0005611: [Translation] German Translation update for 1.3.4 (fschmid)
+- 0005610: [Translation] Polish translation update for 1.3.4cvs (cbradney)
+- 0005605: [Translation] Updated Danish Translation (cbradney)
 - 0005569: [Story Editor / Text Frames] Properties Palette wrongly remembers/displays text alignment settings (avox)
 - 0005561: [General] After adding/copying pages deleting the first page causes a crash (avox)
 - 0002091: [Styles] Clear style attributes (avox)
