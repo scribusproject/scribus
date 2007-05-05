@@ -349,7 +349,7 @@ void ColorList::ensureBlack(void)
 		}
 	}
 	if (addBlack)
-		insert("Black", ScColor(0, 0, 0, 100));
+		insert("Black", ScColor(0, 0, 0, 255));
 }
 
 void ColorList::ensureWhite(void)
