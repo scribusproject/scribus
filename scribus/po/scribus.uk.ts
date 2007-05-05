@@ -283,7 +283,45 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
+
+Створює новий документ та повертає булеве значення true при успішному 
+завершенні. Параметри мають такі значення:
+
+size = тупль (ширина, висота), який описує розмір документа. Ви 
+можете використовувати попередньо визначені константи з назвами
+PAPER_&lt;тип паперу&gt;. Наприклад PAPER_A4 і т.п.
+
+margins = тупль (ліве, праве, верхнє, нижнє), який описує поля документа
+
+orientation = Орієнтація сторінки - константи PORTRAIT (портретна), LANDSCAPE (ландшафтна)
+
+firstPageNumer = номер першої сторінки документа, яка використовується для нумерації
+сторінок. Звичайно використовується 1, але можна використовувати і вищі номери, якщо
+документ складається з кількох частин.
+
+unit: це значення встановлює одиниці виміру документа. Використовуйте попередньо
+визначені константи: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+pagesType = Одна з попередньо визначених констант PAGE_n. PAGE_1 - одна сторінка,
+PAGE_2 для двосторінкових документів, PAGE_3 - для 3-х сторінкових складок і
+PAGE_4 - для 4-х сторінкових складок.
+
+firstPageOrder = Позиція першої сторінки документа. Індексується з 0 (0 = перша).
+
+numPage = Число створюваних сторінок.
+
+Значення ширини, висоти та полів виражаються у даних одиницях виміру документа. 
+Константи PAPER_* виражаються в точках (points). Якщо одиниці виміру вашого
+документа не точки - майте це на увазі.
+
+приклад: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+Може повернути помилку ScribusError, якщо значення firstPageOrder більше ніж дозволено в
+pagesType.
+</translation>
     </message>
     <message>
         <source>placeSVG(&quot;filename&quot;, x, y)
@@ -293,7 +331,13 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 
 If loading was successful, the selection contains the imported SVG
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeSVG(&quot;filename&quot;, x, y) = розміститиSVG(&quot;ім&apos;я файла&quot;, х, у)
+
+Розміщує SVG файл &quot;filename&quot; на активній сторінці.
+x та y визначають координати верхнього лівого кутка SVG графіки, розміщеної на сторінці
+
+При успішному завантаженні вибірка містить імпортований SVG
+</translation>
     </message>
 </context>
 <context>
@@ -2685,7 +2729,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillTransparency([&quot;ім&apos;я&quot;]) -&gt; дійсне число
+
+Повертає прозорість заливки об&apos;єкта з назвою &quot;ім&apos;я&quot;. Якщо &quot;ім&apos;я&quot; не задано
+буде повернуто вибраний об&apos;єкт.</translation>
     </message>
     <message>
         <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
@@ -2693,7 +2740,11 @@ is not given the currently selected Item is used.
 Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillBlendmode([&quot;name&quot;]) -&gt; ціле число
+
+Повертає режим змішування заливки об&apos;єкта з назвою &quot;name&quot;. Якщо
+ &quot;name&quot; не задано - буде повернено вибраний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getLineTransparency([&quot;name&quot;]) -&gt; float
@@ -2701,7 +2752,11 @@ is not given the currently selected Item is used.
 Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineTransparency([&quot;name&quot;]) -&gt; дійсне число
+
+Повертає ступінь прозорісті об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot;
+не задано - буде повернено вибраний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
@@ -2709,7 +2764,11 @@ is not given the currently selected Item is used.
 Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineBlendmode([&quot;name&quot;]) -&gt; ціле число
+
+Повертає режим змішування контура об&apos;єкта &quot;name&quot;. Якщо &quot;name&quot;
+не задано - повертає вибраний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setLayerLocked(&quot;layer&quot;, locked)
@@ -2720,7 +2779,83 @@ true the layer will be locked.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerLocked(&quot;layer&quot;, locked)
+
+Установлює замикання плана &quot;layer&quot;. Якщо locked - булеве
+true, то план буде замкнено.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути ValueError, якщо назва плана недопустима.
+</translation>
+    </message>
+    <message>
+        <source>setLayerOutlined&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerOutlined&quot;layer&quot;, контур)
+
+Установлює контур плана &quot;layer&quot;. Якщо &quot;контур&quot; це булеве
+true то план буде показаний з контуром.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
+    </message>
+    <message>
+        <source>setLayerFlow&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayer(Flow&quot;layer&quot;, flow)
+
+Установлює контроль огинання тексту на плані &quot;layer&quot;.  Якщо огинання
+установлене як булеве true, текст на планах вище цього буде огинати об&apos;єкти
+на цьому плані.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerBlendmode(&quot;layer&quot;, blend)
+
+Установлює режим змішування плана &quot;layer&quot; до blend.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
+    </message>
+    <message>
+        <source>setLayerTransparency&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerTransparency&quot;layer&quot;, trans)
+
+Установлює ступінь прозорості плана &quot;layer&quot; до trans.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
     </message>
     <message>
         <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
@@ -2732,7 +2867,14 @@ that the layer &quot;layer&quot; is editable, a value of False means that the la
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerLocked(&quot;layer&quot;) -&gt; bool
+
+Повертає булеве значення того чи замкнений план &quot;layer&quot;. Значення 
+True означає, що план можна редагувати, а False, що план замкнено.
+
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.</translation>
     </message>
     <message>
         <source>isLayerOutlined(&quot;layer&quot;) -&gt; bool
@@ -2744,7 +2886,13 @@ that the layer &quot;layer&quot; is outlined, a value of False means that the la
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerOutlined(&quot;layer&quot;) -&gt; bool
+
+Повертає булеве значення того чи має план &quot;layer&quot; контур. True означає
+наявність контура, а False означає, що план звичайний.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.</translation>
     </message>
     <message>
         <source>isLayerFlow(&quot;layer&quot;) -&gt; bool
@@ -2755,7 +2903,13 @@ that text flows around, a value of False means that the text does not flow aroun
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerFlow(&quot;layer&quot;) -&gt; bool
+
+Повертає булеве значення того чи текст огинає об&apos;єкти на плані &quot;layer&quot;.
+True означає огинання, а False його відсутність.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.</translation>
     </message>
     <message>
         <source>getLayerBlendmode(&quot;layer&quot;) -&gt; int
@@ -2765,7 +2919,13 @@ Returns the &quot;layer&quot; layer blendmode,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayerBlendmode(&quot;layer&quot;) -&gt; int
+
+Повертає режим змішування плана &quot;layer&quot;.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
     </message>
     <message>
         <source>getLayerTransparency(&quot;layer&quot;) -&gt; float
@@ -2775,7 +2935,13 @@ Returns the &quot;layer&quot; layer transparency,
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayerTransparency(&quot;layer&quot;) -&gt; float
+
+Повертає прозорість плана &quot;layer&quot;.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
     </message>
     <message>
         <source>textFlowMode(&quot;name&quot; [, state])
@@ -2788,14 +2954,79 @@ Setting &quot;state&quot; to 2 will make text flow around bounding box.
 Setting &quot;state&quot; to 3 will make text flow around contour line.
 If &quot;state&quot; is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textFlowMode(&quot;name&quot; [, state])
+
+Вмикає/вимикає властивість &quot;Текст огинає рамку&quot; об&apos;єкта &quot;name&quot;.
+Викликається з строковими параметрами &quot;name&quot; та необов&quot;язковим
+ &quot;state&quot; (0 &lt;= state &lt;= 3).
+Установка &quot;state&quot; до 0 вимикає огинання текстом рамки.
+Установка &quot;state&quot; до 1  вмикає огинання текстом рамки.
+Установка &quot;state&quot; до 2 вмикає огинання текстом обрямляючого контура.
+Установка &quot;state&quot; до 3 вмикає огинання текстом контурної лінії.
+Якщо &quot;state&quot; не задано, огинання змінює стан на протилежний.
+</translation>
     </message>
     <message>
         <source>duplicateObject([&quot;name&quot;]) -&gt; string
 
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>duplicateObject([&quot;name&quot;]) -&gt; string
+
+створює дублікат вибраного об&apos;єкта або вибраної групи.
+</translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setFillTransparency(transparency, [&quot;name&quot;])
+
+Установлює прозорість заливки об&apos;єкта &quot;name&quot; до transparency.
+Якщо &quot;name&quot; не задано - буде використано активний об&apos;єкт.
+</translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Установлює режим змішування заливки об&apos;єкта &quot;name&quot; до blendmode.
+Якщо &quot;name&quot; не задано - буде використано активний об&apos;єкт.
+</translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setLineTransparency(transparency, [&quot;name&quot;])
+
+Установлює прозорість лінії об&apos;єкта &quot;name&quot; до transparency. Якщо 
+&quot;name&quot; не задано - буде використано активний об&apos;єкт.
+</translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Установлює режим змішування ліній об&apos;єкта &quot;name&quot; до blendmode.
+Якщо &quot;name&quot; не задано - буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
@@ -2803,14 +3034,21 @@ creates a Duplicate of the selected Object (or Selection Group).
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Установлює інформацію про документ. &quot;Author (автор)&quot;, &quot;Info (інформація&quot;,
+ &quot;Description (описання)&quot; є строковими величинами.
+</translation>
     </message>
     <message>
         <source>getPageType() -&gt; integer
 
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageType() -&gt; integer
+
+Повертає тип сторіки. 0 означає ліву сторінку, 1 - середня сторінка, а 2 - права сторінка
+</translation>
     </message>
     <message>
         <source>getTextLines([&quot;name&quot;]) -&gt; integer
@@ -2818,7 +3056,11 @@ Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a r
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextLines([&quot;name&quot;]) -&gt; integer
+
+Повертає число рядків тесту в текстовій рамці &quot;name&quot;. Якщо 
+&quot;name&quot; не задано - буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
@@ -2829,7 +3071,14 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Визначає новий колір &quot;name&quot;. Колір визначається чотирма компонентами:
+c = Cyan (салатний), m = Magenta (малиновий), y = Yellow (жовтий) та 
+k = Black (чорний). Компоненти кольору повинні бути в діапазоні від 0 до 255.
+
+Може повернути помилку ValueError, якщо вказане недопустиме ім&apos;я кольору.
+</translation>
     </message>
     <message>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
@@ -2838,7 +3087,11 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Повертає радіус кутка об&apos;єкта &quot;name&quot;. Радіус виражається в точках.
+Якщо &quot;name&quot; не задано - буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
@@ -2848,7 +3101,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Повертає (x, y) тупль з координатами об&apos;єкта &quot;name&quot;.
+Якщо &quot;name&quot; не задано - буде використано активний об&apos;єкт.
+Координати виражаються в активних одиницях виміру документа -
+див. UNIT_&lt;type&gt; для додаткової інформації.
+</translation>
     </message>
     <message>
         <source>rotateObjectAbs(rot [, &quot;name&quot;])
@@ -2857,7 +3116,12 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Установлює кут повороту об&apos;єкта &quot;name&quot; до &quot;rot&quot;. Позитивні значення
+означають поворот проти часової стрілки. Якщо &quot;name&quot; не задано - 
+буде використано активний об&apos;єкт.
+</translation>
     </message>
     <message>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
@@ -2868,7 +3132,14 @@ printable set to false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerPrintable(&quot;layer&quot;, printable)
+
+Установлює режим друкування плана &quot;layer&quot;. Якщо 
+printable дорівнює false план не буде надруковано.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
     </message>
     <message>
         <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
@@ -2880,7 +3151,14 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Повертає режим видимості плана &quot;layer&quot;. Значення True означає, що
+план &quot;layer&quot; видимий, а значення False означає, що він невидимий.
+
+Може повернути помилку NotFoundError, якщо план не знайдено.
+Може повернути помилку ValueError, якщо назва плана недопустима.
+</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -2892,91 +3170,31 @@ not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerOutlined(&quot;layer&quot;, outline)
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
+Вставляє текст &quot;текст&quot; в позицію &quot;pos&quot; в текстову рамку &quot;name&quot;. Текст
+повинен бути закодований в UTF (див. setText() для подальшої інформації).
+Перший символ має індекс 0. Вставка тексту в позиції -1 добавляє його в
+кінці рамки. Якщо &quot;name&quot; не задано - буде використано активний об&apos;єкт.
 
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerFlow(&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerBlendmode(&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLayerTransparency(&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
+Може повернути помилку IndexError при вставці за межами доступного діапазону.
+</translation>
     </message>
     <message>
         <source>placeEPS(&quot;filename&quot;, x, y)
 
 Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the EPS placed on the page
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
 
-If loading was successful, the selection contains the imported EPS
+If loading was successful, the selection contains the imported SVG
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeEPS(&quot;filename&quot;, x, y)
+
+Розміщує EPS &quot;filename&quot; на активній сторінці.
+x та y визначають координати верхнього лівого кутка EPS розміщеного на сторінці.
+
+При успішному завантаженні вибірка буде містити імпортований EPS
+</translation>
     </message>
     <message>
         <source>placeSXD(&quot;filename&quot;, x, y)
@@ -2986,7 +3204,13 @@ x and y specify the coordinate of the topleft corner of the SXD placed on the pa
 
 If loading was successful, the selection contains the imported SXD
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeSXD(&quot;filename&quot;, x, y)
+
+Розміщує SXD &quot;filename&quot; на активній сторінці.
+x та y визначають координати верхнього лівого кутка SXD розміщеного на сторінці.
+
+При успішному завантаженні вибірка буде містити імпортований SXD
+</translation>
     </message>
     <message>
         <source>placeODG(&quot;filename&quot;, x, y)
@@ -2996,11 +3220,16 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 
 If loading was successful, the selection contains the imported ODG
 </source>
-        <translation type="unfinished"></translation>
+        <translation>placeODG(&quot;filename&quot;, x, y)
+
+Розміщує ODG &quot;filename&quot; на активній сторінці.
+x та y визначають координати верхнього лівого кутка SXD розміщеного на сторінці.
+
+При успішному завантаженні вибірка буде містити імпортований ODG</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Копія #%1 </translation>
     </message>
 </context>
 <context>
@@ -3117,27 +3346,27 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ікони проекту Танго:</translation>
     </message>
     <message>
         <source>&amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Поновлення</translation>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірити на наявність &amp;поновлень</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ця панель показує версію, дату збірки та підтримку вбудованих бібліотек в Scribus. C-C-T-F дорівнює C=littlecms (система менеджменту кольорів) C=CUPS (система друку) T=TIFF (підтримка формату зображень TIFF) F=Fontconfig (підтримка менеджменту шрифтів). Остання літера означає механізм показу зображень C=cairo (Каір) чи A=libart (Лібарт). Відсутність підтримки певної бібліотеки позначається знаком *. Це вікно також показує яку версію Ghostscript знайдену Scribus. Версія для Віндоуз не використовує бібліотеки fontconfig та CUPS.</translation>
     </message>
     <message>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірити на наявність поновлень Scribus. Ніяких даних про ваш комп&apos;ютер не буде передано назовні.</translation>
     </message>
     <message>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; Порт:</translation>
     </message>
 </context>
 <context>
@@ -4101,204 +4330,204 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Insert PDF Push Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити PDF кнопку</translation>
     </message>
     <message>
         <source>Insert PDF Text Field</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити текстове поле PDF</translation>
     </message>
     <message>
         <source>Insert PDF Check Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити PDF поле для галочок</translation>
     </message>
     <message>
         <source>Insert PDF Combo Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити PDF комбіноване поле</translation>
     </message>
     <message>
         <source>Insert PDF List Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити PDF поле для списку значень</translation>
     </message>
     <message>
         <source>Insert Text Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити текстову аннотацію</translation>
     </message>
     <message>
         <source>Insert Link Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити аннотацію гіперзв&apos;язку</translation>
     </message>
     <message>
         <source>Save as &amp;EPS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати як &amp;EPS...</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати колонки в текстовій рамці</translation>
     </message>
     <message>
         <source>&amp;Frame...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Рамка...</translation>
     </message>
     <message>
         <source>Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим попереднього перегляду</translation>
     </message>
     <message>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати індикатори плана</translation>
     </message>
     <message>
         <source>Patterns...</source>
-        <translation type="unfinished"></translation>
+        <translation>Схеми...</translation>
     </message>
     <message>
         <source>Send to Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати в схеми</translation>
     </message>
     <message>
         <source>Sticky Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Прив&apos;язаний інструментарій</translation>
     </message>
     <message>
         <source>&amp;Fit to Height</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Підлаштувати до висоти</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Підлаштувати до ширини</translation>
     </message>
     <message>
         <source>Show Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати перекриття</translation>
     </message>
     <message>
         <source>&amp;Zero Width Space</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Проміжок нульової ширини</translation>
     </message>
     <message>
         <source>Zero Width NB Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Проміжок нульової ширини без розбивки на рядки</translation>
     </message>
     <message>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
-        <translation type="unfinished">Апостроф</translation>
+        <translation>Апостроф</translation>
     </message>
     <message>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
-        <translation type="unfinished">Пряма подвійна</translation>
+        <translation>Пряма подвійна</translation>
     </message>
     <message>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
-        <translation type="unfinished">Пряма ліва</translation>
+        <translation>Пряма ліва</translation>
     </message>
     <message>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
-        <translation type="unfinished">Пряма права</translation>
+        <translation>Пряма права</translation>
     </message>
     <message>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
-        <translation type="unfinished">Подвійна ліва</translation>
+        <translation>Подвійна ліва</translation>
     </message>
     <message>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
-        <translation type="unfinished">Подвійна права</translation>
+        <translation>Подвійна права</translation>
     </message>
     <message>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
-        <translation type="unfinished">Одинарна зворотня</translation>
+        <translation>Одинарна зворотня</translation>
     </message>
     <message>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
-        <translation type="unfinished">Подвійна зворотня</translation>
+        <translation>Подвійна зворотня</translation>
     </message>
     <message>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
-        <translation type="unfinished">Одинарний лівий Гуілемет</translation>
+        <translation>Одинарний лівий Гуілемет</translation>
     </message>
     <message>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
-        <translation type="unfinished">Одинарний правий Гуілемет</translation>
+        <translation>Одинарний правий Гуілемет</translation>
     </message>
     <message>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
-        <translation type="unfinished">Подвійний лівий Гуілемет</translation>
+        <translation>Подвійний лівий Гуілемет</translation>
     </message>
     <message>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
-        <translation type="unfinished">Подвійний правий Гуілемет</translation>
+        <translation>Подвійний правий Гуілемет</translation>
     </message>
     <message>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
-        <translation type="unfinished">Низька одинарна кома</translation>
+        <translation>Низька одинарна кома</translation>
     </message>
     <message>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
-        <translation type="unfinished">Низька подвійна кома</translation>
+        <translation>Низька подвійна кома</translation>
     </message>
     <message>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
-        <translation type="unfinished">CJK одинарний лівий</translation>
+        <translation>CJK одинарна ліва</translation>
     </message>
     <message>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
-        <translation type="unfinished">CJK одинарний правий</translation>
+        <translation>CJK одинарна права</translation>
     </message>
     <message>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
-        <translation type="unfinished">CJK подвійний лівий</translation>
+        <translation>CJK подвійна ліва</translation>
     </message>
     <message>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
-        <translation type="unfinished">CJK подвійний правий</translation>
+        <translation>CJK подвійна права</translation>
     </message>
 </context>
 <context>
     <name>AlignDistributeBase</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished">Розташувати/Вирівняти</translation>
+        <translation>Розташувати/Вирівняти</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Вирівняти</translation>
+        <translation>Вирівняти</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished">&amp;Вибрана направляюча:</translation>
+        <translation>&amp;Вибрана направляюча:</translation>
     </message>
     <message>
         <source>&amp;Relative To:</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;ідносно до:</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished">Розсередити</translation>
+        <translation>Розмістити</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished">&amp;Відстань:</translation>
+        <translation>&amp;Відстань:</translation>
     </message>
 </context>
 <context>
@@ -4309,7 +4538,7 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Вирівняти</translation>
+        <translation>Вирівняти</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4377,7 +4606,7 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished">Розсередити</translation>
+        <translation>Розмістити</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -4457,51 +4686,51 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Align right sides of items to left side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти праві краї об&quot;єктів по лівій стороні якоря</translation>
     </message>
     <message>
         <source>Align left sides of items to right side of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти ліві краї об&quot;єктів по правій стороні якоря</translation>
     </message>
     <message>
         <source>Align tops of items to bottom of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти верхні краї об&quot;єктів по нижній стороні якоря</translation>
     </message>
     <message>
         <source>Align bottoms of items to top of anchor</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти нижні краї об&quot;єктів по верхній стороні якоря</translation>
     </message>
     <message>
         <source>Make horizontal gaps between items equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти горизонтальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
         <source>Make horizontal gaps between items equal to the value specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити горизонтальні проміжки між об&quot;єктами рівними вказаному значенню</translation>
     </message>
     <message>
         <source>Make vertical gaps between items equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти вертикальні проміжки між об&quot;єктами</translation>
     </message>
     <message>
         <source>Make vertical gaps between items equal to the value specified</source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити вертикальні проміжки між об&quot;єктами рівними вказаному значенню</translation>
     </message>
     <message>
         <source>Make horizontal gaps between items and sides of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти горизонтальні проміжки між об&quot;єктами та краями сторінки </translation>
     </message>
     <message>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти вертикальні проміжки між об&quot;єктами та краями сторінки </translation>
     </message>
     <message>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти горизонтальні проміжки між об&quot;єктами та полями сторінки </translation>
     </message>
     <message>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Вирівняти вертикальні проміжки між об&quot;єктами та полями сторінки </translation>
     </message>
 </context>
 <context>
@@ -5073,15 +5302,15 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>Tooltip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Підказка:</translation>
     </message>
     <message>
         <source>Do Not Export Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Не експортувати значення</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення *.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -5304,7 +5533,7 @@ If loading was successful, the selection contains the imported ODG
     </message>
     <message>
         <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-        <translation type="unfinished"></translation>
+        <translation>12 чи 13 цифр з тире. Застарілий формат ISBN-10 допускає 9 чи10 цифр з тире, але цей формат був виведений з загального користування після 1-го січня 2007-го року. (Замітка: Для переводу старого формату ISBN-10 в новий ISBN-13, добавте префікс 978-  до перших 9-ти цифр, наприклад 1-56592-479-7 -&gt; 978-1-56592-479. Остання контрольна цифра буде вирахувана автоматично.)</translation>
     </message>
 </context>
 <context>
@@ -5500,47 +5729,47 @@ Please choose another.</source>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Чорновик (*.scs)</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть файл чорновика для імпортування</translation>
     </message>
     <message>
         <source>Create a new scrapbook page</source>
-        <translation type="unfinished"></translation>
+        <translation>Створити нову сторінку чорновика</translation>
     </message>
     <message>
         <source>Load an existing scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажити існуючий чорновик</translation>
     </message>
     <message>
         <source>Save the selected scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Записати вибраний чорновик</translation>
     </message>
     <message>
         <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати файл чорновика формату версії &lt;=1.3.2</translation>
     </message>
     <message>
         <source>Close the selected scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Зачинити вибраний чорновик</translation>
     </message>
     <message>
         <source>Copy To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіювати в:</translation>
     </message>
     <message>
         <source>Move To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити в:</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Основна</translation>
     </message>
     <message>
         <source>Copied Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Скопійовані об&quot;єкти</translation>
     </message>
 </context>
 <context>
@@ -5784,46 +6013,50 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>&amp;RGB Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Однотонні &amp;RGB кольори:</translation>
     </message>
     <message>
         <source>&amp;CMYK Solid Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Однотонні &amp;CMYK кольори:</translation>
     </message>
     <message>
         <source>Pictures:</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення:</translation>
     </message>
     <message>
         <source>Sol&amp;id Colors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Одн&amp;отонні кольори:</translation>
     </message>
     <message>
         <source>Convert all colors to printer space</source>
-        <translation type="unfinished"></translation>
+        <translation>Конвертувати всі кольори в кольоровий діапазон прінтера</translation>
     </message>
     <message>
         <source>Default color profile for solid RGB colors on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний кольоровий профіль для однотонних RGB кольорів</translation>
     </message>
     <message>
         <source>Default color profile for solid CMYK colors on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний кольоровий профіль для однотонних CMYK кольорів</translation>
     </message>
     <message>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний тип рендерингу для однотонних кольорів. Якщо ви не
+знаєте якй вибрати - використовуйте відносний колориметричний чи перцептивний.</translation>
     </message>
     <message>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний тип рендерингу для однотонних зображень. Якщо ви не
+знаєте якй вибрати - використовуйте відносний колориметричний чи перцептивний.</translation>
     </message>
     <message>
         <source>Simulate a full color managed environment :
 all colors, rgb or cmyk, are converted to printer color space.</source>
-        <translation type="unfinished"></translation>
+        <translation>Симулювати середовище з повним контролем кольорів: всі
+кольори і RGB і CMYR будуть конвертовані в кольоровий діапазон
+прінтера.</translation>
     </message>
 </context>
 <context>
@@ -5924,43 +6157,44 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір цієї установки ввімкне друк цього з усіх пластин. Кольори реєстрації використовуються для прінтерних міток, таких як мітки обрізання, мітки реєстрації і т.п. Вони не використовуються при макетуванні як такому.</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнено керування кольорами, трикутний застережуючий показник вказуватиме на колір, який можливо знаходиться за межами кольорового гамуту вибраного профіля прінтера. Це значить, що колір може бути надруковано не так, як він виглядає на екрані. Додаткова інформація про застереження по гамуту в допомозі в розділі керування кольорами.</translation>
     </message>
     <message>
         <source>The name of the color already exists,
 please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Така назва кольору вже існує. Будь-ласка
+виберіть іншу назву.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір цієї установки приведе до конвертації цього кольору в точковиї колір, призводячи до створення нової точки при створенні пластин або сепарацій. Використовується частіше всього при потребі використання точно визначеного кольору для логотипу чи в схожих ситуаціях, коли колір повинен бути переданий точно і не може бути синтезований CMYK фарбами. Металлічні та флюоресцентні фарби є гарними прикладами кольорів, які неможливо точно передати за домомогою CMYK фарб.</translation>
     </message>
 </context>
 <context>
     <name>CStylePBase</name>
     <message>
         <source>Form1</source>
-        <translation type="unfinished"></translation>
+        <translation>Форма1</translation>
     </message>
     <message>
         <source>Based On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Основана на:</translation>
     </message>
     <message>
         <source>Basic Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Основне форматування</translation>
     </message>
     <message>
         <source>Advanced Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Додаткове форматування</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Кольори</translation>
+        <translation>Кольори</translation>
     </message>
 </context>
 <context>
@@ -5987,190 +6221,190 @@ please choose another one.</source>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation type="unfinished">Поєднання кольорів</translation>
+        <translation>Поєднання кольорів</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation type="unfinished">Помилка:</translation>
+        <translation>Помилка:</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation type="unfinished">Колір %1 вже існує!</translation>
+        <translation>Колір %1 вже існує!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation type="unfinished">Колір %1 додано.</translation>
+        <translation>Колір %1 додано.</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation type="unfinished">Відкриття менеджера кольорів.</translation>
+        <translation>Відкриття менеджера кольорів.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation type="unfinished">Об&quot;єднання кольорів</translation>
+        <translation>Об&quot;єднання кольорів</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished">Неможливо знайти зазначений колір. Ви, можливо, вибрали чорний, сірий, чи білий. Цей колір не може бути опрацьовано.</translation>
+        <translation>Неможливо знайти зазначений колір. Ви, можливо, вибрали чорний, сірий, чи білий. Цей колір не може бути опрацьовано.</translation>
     </message>
 </context>
 <context>
     <name>CWDialogBase</name>
     <message>
         <source>Color Wheel</source>
-        <translation type="unfinished">Колесо кольорів</translation>
+        <translation>Колесо кольорів</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кляцніть на колесі кольорів для того, щоб вибрати колір основи. Використовувана кольорова модель залежить від вибраної закладки.</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <source>RGB:</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB:</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <source>CMYK:</source>
-        <translation type="unfinished"></translation>
+        <translation>CMYK:</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Документ</translation>
+        <translation>Документ</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished">Виберіть один з методів для створення кольорової схеми. Зверніться до документації за додатковою інформацією.</translation>
+        <translation>Виберіть один з методів для створення кольорової схеми. Зверніться до документації за додатковою інформацією.</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished">Кут:</translation>
+        <translation>Кут:</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished">Різниця між вибраним значенням та вирахуваними. Зверніться до документації за додатковою інформацією.</translation>
+        <translation>Різниця між вибраним значенням та вирахуваними. Зверніться до документації за додатковою інформацією.</translation>
     </message>
     <message>
         <source>Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд:</translation>
     </message>
     <message>
         <source>Vision Defect Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип недоліку зору:</translation>
     </message>
     <message>
         <source>Sample color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблонний набір кольорів.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольори з вибраного Вами набору.</translation>
     </message>
     <message>
         <source>&amp;Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Поєднати</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation type="unfinished">Ввести створені кольори в кольори документу</translation>
+        <translation>Поєднати створені кольори з кольорами документу</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Заміна</translation>
+        <translation>&amp;Заміна</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation type="unfinished">Замінити кольори документу створеними кольорами</translation>
+        <translation>Замінити кольори документу створеними</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation type="unfinished">Залишити кольори без змін</translation>
+        <translation>Залишити кольори без змін</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished">Симуляція найбіль поширених недоліків зору. Виберіть тип недоліку.</translation>
+        <translation>Симуляція найбільш поширених недоліків зору. Виберіть тип недоліку.</translation>
     </message>
     <message>
         <source>Color Scheme Method</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод створення набору кольорів</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>HSV:</source>
-        <translation type="unfinished"></translation>
+        <translation>HSV:</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation type="unfinished">HSV</translation>
+        <translation>HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation type="unfinished">H:</translation>
+        <translation>H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation type="unfinished">S:</translation>
+        <translation>S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation type="unfinished">V:</translation>
+        <translation>V:</translation>
     </message>
     <message>
         <source>Result Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Кінцеві кольори</translation>
     </message>
 </context>
 <context>
@@ -6342,71 +6576,71 @@ please choose another one.</source>
     </message>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished">Ви можете побачити зменшене зображення, якщо Ви натиснете та будете тримати праву кнопку
+        <translation>Ви можете побачити зменшене зображення, якщо Ви натиснете та будете тримати праву кнопку
 миші. Клавіша &quot;Вставити&quot; вставляє знак у вибірку внизу а клавіша &quot;Видалити&quot; видаляє
 останній вставлений знак</translation>
     </message>
     <message>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Колекція символів Scribus (*.ucp);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Розширена колекція</translation>
     </message>
     <message>
         <source>Quick Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорочена колекція</translation>
     </message>
     <message>
         <source>Hide Enhanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Заховати розширену</translation>
     </message>
     <message>
         <source>Choose a filename to open</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть назву файла для відкривання</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished">Помилка</translation>
+        <translation>Помилка</translation>
     </message>
     <message>
         <source>Error reading file %1 - file is corrupted propably.</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка зчитування файла %1 - можливо пошкоджений файл.</translation>
     </message>
     <message>
         <source>Choose a filename to save under</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть назву файла для запису</translation>
     </message>
     <message>
         <source>Cannot write file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо записати файл %1</translation>
     </message>
     <message>
         <source>Clean the Palette?</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити колекцію?</translation>
     </message>
     <message>
         <source>You will clean all characters from this palette. Are you sure?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ви вибрали очистку всіх символів у колекції. Ви впевнені?</translation>
     </message>
     <message>
         <source>Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Колекція символів</translation>
     </message>
 </context>
 <context>
     <name>CharStyleComboBox</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль відсутній</translation>
     </message>
 </context>
 <context>
     <name>CharTable</name>
     <message>
         <source>Delete</source>
-        <translation type="unfinished">Видалити</translation>
+        <translation>Видалити</translation>
     </message>
 </context>
 <context>
@@ -6485,39 +6719,39 @@ please choose another one.</source>
     </message>
     <message>
         <source>Check again</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевірити знову</translation>
     </message>
     <message>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Розрішення зображення %1 ТНД, зараз %2 x %3 ТНД</translation>
     </message>
     <message>
         <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Розрішення зображення понад %1 ТНД, зараз %2 x %3 ТНД</translation>
     </message>
     <message>
         <source>Image is GIF</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення в форматі GIF</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Гаразд</translation>
+        <translation>Гаразд</translation>
     </message>
     <message>
         <source>Transparency used</source>
-        <translation type="unfinished"></translation>
+        <translation>Використана прозорість</translation>
     </message>
     <message>
         <source>Blendmode used</source>
-        <translation type="unfinished"></translation>
+        <translation>Використане змішування</translation>
     </message>
     <message>
         <source>Layer &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>План &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation type="unfinished"></translation>
+        <translation>У аннотації використаний не TrueType шрифт</translation>
     </message>
 </context>
 <context>
@@ -6666,19 +6900,19 @@ please choose another one.</source>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо ввімкнено менеджмент кольорів, трикутний попереджуючий показник вказує на те, що колір може бути поза межами гамуту кольроів вибраного профіля прінтера. Це означає, що колір може бути надруковано не так, як він виглядає на екрані. Точкові кольори вказані червоним колом. Реєстровані кольори будуть позначені знаком реєстрації біля кольору. Додаткові підказки про попередження про гамут кольорів знаходяться в довідниковій системі у розділі про Менеджмент Кольорів.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Документи (*.sla *.sla.gz *.scd *.scd.gz);;Інші файли (*.eps *.epsi *.ps *.ai);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished">Інформація</translation>
+        <translation>Інформація</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортування</translation>
     </message>
     <message>
         <source>The file %1 does not contain colors which can be imported.
@@ -6686,7 +6920,11 @@ If the file was a PostScript-based, try to import it with File -&amp;gt; Import.
 Not all files have DSC conformant comments where the color descriptions are located.
  This prevents importing colors from some files.
 See the Edit Colors section of the documentation for more details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 не містить колльорів, які можуть бути імпортовані.
+Якщо файл був оснований на PostScript, спробуйте імпортувати його з Файл -&amp;gt; Імпорт.
+Не у всіх файлах можуть бути коментарії, які відповідають формату DSC, який містить 
+описання кольорів. Це призведе до неможливості імпортування кольорів з деяких файлів. Дивіться документацію в розділі Редагування Кольорів для додаткових деталей.
+</translation>
     </message>
 </context>
 <context>
@@ -7024,240 +7262,240 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Понеділок</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Вівторок</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Середа</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Четвер</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>П&apos;ятниця</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Субота</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Неділя</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>Січень</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>Лютий</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished">Березень</translation>
+        <translation>Березень</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation>Квітень</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Травень</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Червень</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Липень</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>Серпень</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>Вересень</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>Жовтень</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>Листопад</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>Грудень</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ні</translation>
+        <translation>Ні</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Так</translation>
+        <translation>&amp;Так</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Ні</translation>
+        <translation>&amp;Ні</translation>
     </message>
     <message>
         <source>Left Page</source>
         <comment>Left page location</comment>
-        <translation type="unfinished">Ліва сторінка</translation>
+        <translation>Ліва сторінка</translation>
     </message>
     <message>
         <source>Middle</source>
         <comment>Middle page location</comment>
-        <translation type="unfinished">Середня</translation>
+        <translation>Середня</translation>
     </message>
     <message>
         <source>Middle Left</source>
         <comment>Middle Left page location</comment>
-        <translation type="unfinished">Середня ліва</translation>
+        <translation>Середня ліва</translation>
     </message>
     <message>
         <source>Middle Right</source>
         <comment>Middle Right page location</comment>
-        <translation type="unfinished">Середня права</translation>
+        <translation>Середня права</translation>
     </message>
     <message>
         <source>Right Page</source>
         <comment>Right page location</comment>
-        <translation type="unfinished">Права сторінка</translation>
+        <translation>Права сторінка</translation>
     </message>
     <message>
         <source>Normal</source>
         <comment>Default single master page</comment>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна</translation>
     </message>
     <message>
         <source>Normal Left</source>
         <comment>Default left master page</comment>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна ліва</translation>
     </message>
     <message>
         <source>Normal Middle</source>
         <comment>Default middle master page</comment>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна середня</translation>
     </message>
     <message>
         <source>Normal Right</source>
         <comment>Default right master page</comment>
-        <translation type="unfinished"></translation>
+        <translation>Звичайна права</translation>
     </message>
     <message>
         <source>Normal Vision</source>
         <comment>Color Blindness - Normal Vision</comment>
-        <translation type="unfinished">Нормальний зір</translation>
+        <translation>Нормальний зір</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
         <comment>Color Blindness - Red Color Blind</comment>
-        <translation type="unfinished">Протанопія (Червоний)</translation>
+        <translation>Протанопія (Сліпота до Червоного кольору)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
         <comment>Color Blindness - Greed Color Blind</comment>
-        <translation type="unfinished">Дейтеранопія (Зелений)</translation>
+        <translation>Дейтеранопія (Сліпота до Зеленого кольору)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
         <comment>Color Blindness - Blue Color Blind</comment>
-        <translation type="unfinished">Тританопія (Синій)</translation>
+        <translation>Тританопія (Сліпота до синього кольору)</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
-        <translation type="unfinished">Повний дальтонізм</translation>
+        <translation>Повний дальтонізм</translation>
     </message>
     <message>
         <source>Custom: </source>
         <comment>Custom Tab Fill Option</comment>
-        <translation type="unfinished">Нестандартний: </translation>
+        <translation>Нестандартний: </translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Суцільна лінія</translation>
+        <translation>Суцільна лінія</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Переривчаста лінія</translation>
+        <translation>Переривчаста лінія</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Лінія з точок</translation>
+        <translation>Лінія з точок</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Переривчасто точкова лінія</translation>
+        <translation>Переривчасто точкова лінія</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Риска-точка-точка лінія</translation>
+        <translation>Риска-точка-точка лінія</translation>
     </message>
     <message>
         <source>None</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Нічого</translation>
     </message>
     <message>
         <source>Left Protruding</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ліве виступаюче</translation>
     </message>
     <message>
         <source>Right Protruding</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Праве виступаюче</translation>
     </message>
     <message>
         <source>Left Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ліва висяча пунктуація</translation>
     </message>
     <message>
         <source>Right Hanging Punctuation</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Права висяча пунктуація</translation>
     </message>
     <message>
-        <source>Both sides</source>
+        <source>Default</source>
         <comment>Optical Margin Setting</comment>
-        <translation type="unfinished"></translation>
+        <translation>По умовчанню</translation>
     </message>
     <message>
         <source>Min. Word Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінимальний трекінг слів</translation>
     </message>
     <message>
-        <source>Norm. Word Tracking</source>
-        <translation type="unfinished"></translation>
+        <source>Max. Word Tracking</source>
+        <translation>Максимальний трекінг слів</translation>
     </message>
     <message>
         <source>Min. Glyph Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Мінимальне розширення знаків</translation>
     </message>
     <message>
         <source>Max. Glyph Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальне розширення знаків</translation>
     </message>
 </context>
 <context>
@@ -7356,43 +7594,43 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки прозорісті</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Режим змішування:</translation>
+        <translation>Режим змішування:</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished">Затемнити</translation>
+        <translation>Затемнити</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished">Зробити світлішим</translation>
+        <translation>Висвітлити</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished">Перемножити</translation>
+        <translation>Перемножити</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished">Екран</translation>
+        <translation>Екран</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished">Перекрити</translation>
+        <translation>Перекриття</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished">Різке світло</translation>
+        <translation>Різке освітлення</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished">М&apos;яке світло</translation>
+        <translation>М&apos;яке освітлення</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished">Різниця</translation>
+        <translation>Різниця</translation>
     </message>
     <message>
         <source>Exlusion</source>
@@ -7400,182 +7638,182 @@ See the Edit Colors section of the documentation for more details.</source>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished">Уникання кольору</translation>
+        <translation>Уникання кольору</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished">Випалення кольором</translation>
+        <translation>Випалювання кольору</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished">Відтінок</translation>
+        <translation>Відтінок</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Насичення</translation>
+        <translation>Насичення</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished">Яскравість</translation>
+        <translation>Яскравість</translation>
     </message>
     <message>
         <source>Offsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation type="unfinished"></translation>
+        <translation>Х:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Масштабування</translation>
     </message>
     <message>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Ротація</translation>
     </message>
     <message>
         <source>Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Кут</translation>
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Схема</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Виключення</translation>
+        <translation>Виключення</translation>
     </message>
     <message>
         <source>X-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шкала X:</translation>
     </message>
     <message>
         <source>Y-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Шкала Y:</translation>
     </message>
 </context>
 <context>
     <name>CreateRangeBase</name>
     <message>
         <source>Create Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Створити діапазон</translation>
     </message>
     <message>
         <source>Number of Pages in Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>Число сторінок в документі:</translation>
     </message>
     <message>
         <source>Doc Page Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Діапазон сторінок документа</translation>
     </message>
     <message>
         <source>Basic Range Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір основного діапазону</translation>
     </message>
     <message>
         <source>Add a Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавити діапазон сторінок</translation>
     </message>
     <message>
         <source>Consecutive Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Послідовні сторінки</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation type="unfinished"></translation>
+        <translation>Від:</translation>
     </message>
     <message>
         <source>To:</source>
-        <translation type="unfinished">До:</translation>
+        <translation>До:</translation>
     </message>
     <message>
         <source>Comma Separated List</source>
-        <translation type="unfinished"></translation>
+        <translation>Список з розділеними комами полями</translation>
     </message>
     <message>
         <source>Even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Парні сторінки</translation>
     </message>
     <message>
         <source>Odd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Непарні сторінки</translation>
     </message>
     <message>
         <source>&amp;Add To Range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Добавити до діапазону</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+A</translation>
     </message>
     <message>
         <source>Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Діапазон сторінок</translation>
     </message>
     <message>
         <source>Move &amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити &amp;Вверх</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Альт+U</translation>
     </message>
     <message>
         <source>Move &amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемістити &amp;Вниз</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+D</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+L</translation>
     </message>
     <message>
         <source>Advanced Reordering</source>
-        <translation type="unfinished"></translation>
+        <translation>Ускладнена зміна порядку сторінок</translation>
     </message>
     <message>
         <source>Page Group Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір групи сторінок:</translation>
     </message>
     <message>
         <source>Sample Page Order:</source>
-        <translation type="unfinished"></translation>
+        <translation>Порядок зразкових сторінок:</translation>
     </message>
     <message>
         <source>Page Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Порядок сторінок</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+C</translation>
     </message>
 </context>
 <context>
@@ -7690,41 +7928,41 @@ See the Edit Colors section of the documentation for more details.</source>
     <name>CurveWidget</name>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Відчинити</translation>
+        <translation>Відчинити</translation>
     </message>
     <message>
         <source>Curve Files (*.scu);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли кривих (*.scu);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Записати як</translation>
+        <translation>Записати як</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished">Неможливо записати файл: 
+        <translation>Неможливо записати файл: 
 %1</translation>
     </message>
     <message>
         <source>Inverts the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Вивернути криву</translation>
     </message>
     <message>
         <source>Resets the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернути криву в початковий стан</translation>
     </message>
     <message>
         <source>Switches between linear and cubic interpolation of the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Переходить між лінійною та кубічною інтерполяцією кривої</translation>
     </message>
     <message>
         <source>Loads a curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Завантажує криву</translation>
     </message>
     <message>
         <source>Saves this curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Записує цю криву</translation>
     </message>
 </context>
 <context>
@@ -7749,7 +7987,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;Include ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Включити кольорові профілі</translation>
     </message>
 </context>
 <context>
@@ -8449,115 +8687,91 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Змусити застосування режиму друку поверху</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмикає глобальний режим друку поверху для цього документа, Змушує зміну установок об&apos;єкта</translation>
     </message>
     <message>
         <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітки прінтера</translation>
     </message>
     <message>
         <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітки для обрізання</translation>
     </message>
     <message>
         <source>Bleed Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітки переповнення кольору</translation>
     </message>
     <message>
         <source>Registration Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітки реєстрації</translation>
     </message>
     <message>
         <source>Color Bars</source>
-        <translation type="unfinished"></translation>
+        <translation>Кольорові полоси</translation>
     </message>
     <message>
         <source>Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміщення:</translation>
     </message>
     <message>
         <source>Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Мітки</translation>
     </message>
     <message>
         <source>Bleed Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Установки переповнення кольору</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Верх:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Низ:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Лівий:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished">Праве:</translation>
+        <translation>Правий:</translation>
     </message>
     <message>
         <source>Use Document Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати переповнення кольорів документа</translation>
     </message>
     <message>
         <source>Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Переповнення</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Всередині:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ззовні:</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
+        <translation>Відстань для переповнення з верхньої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
+        <translation>Відстань для переповнення з нижньої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
+        <translation>Відстань для переповнення з лівої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
-    </message>
-    <message>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань для переповнення з правої сторони фізичної сторінки</translation>
     </message>
 </context>
 <context>
@@ -8596,11 +8810,11 @@ failed!</source>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Група%1</translation>
     </message>
     <message>
         <source>Importing: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортування: %1</translation>
     </message>
 </context>
 <context>
@@ -8731,11 +8945,11 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light colored text styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть для полегшення читання світлих текстових стилів</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично</translation>
     </message>
 </context>
 <context>
@@ -8901,50 +9115,50 @@ failed!</source>
     </message>
     <message>
         <source>Color 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір 1:</translation>
     </message>
     <message>
         <source>Color 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір 2:</translation>
     </message>
     <message>
         <source>Color 3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір 3:</translation>
     </message>
     <message>
         <source>Color 4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір 4:</translation>
     </message>
     <message>
         <source>Duotone</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійний тон</translation>
     </message>
     <message>
         <source>Tritone</source>
-        <translation type="unfinished"></translation>
+        <translation>Потрійний тон</translation>
     </message>
     <message>
         <source>Quadtone</source>
-        <translation type="unfinished"></translation>
+        <translation>Четверний тон</translation>
     </message>
     <message>
         <source>Curves</source>
-        <translation type="unfinished"></translation>
+        <translation>Криві</translation>
     </message>
 </context>
 <context>
     <name>ExportBitmap</name>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished">Файл вже існує. Переписати поверх?</translation>
+        <translation>Файл вже існує. Переписати поверху?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation type="unfinished">вже існує. Переписати поверх?</translation>
+        <translation>вже існує. Переписати поверху?</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Всі</translation>
     </message>
 </context>
 <context>
@@ -9065,7 +9279,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Image size in Pixels</source>
-        <translation type="unfinished"></translation>
+        <translation>Розмір зображення в пікселях</translation>
     </message>
 </context>
 <context>
@@ -9231,7 +9445,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Duotone</source>
-        <translation type="unfinished"></translation>
+        <translation>Подвійний тон</translation>
     </message>
 </context>
 <context>
@@ -9249,11 +9463,11 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontComboH</name>
     <message>
         <source>Face:</source>
-        <translation type="unfinished"></translation>
+        <translation>Лицева сторона:</translation>
     </message>
     <message>
         <source>Style:</source>
-        <translation type="unfinished">Стиль:</translation>
+        <translation>Стиль:</translation>
     </message>
 </context>
 <context>
@@ -9347,11 +9561,11 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Embed in PostScript</source>
         <comment>font preview</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вбудувати в PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Шляхи пошуку шрифтів можуть бути вказані лише в Файл &gt; Установки і лише у відсутності відчинених документів. Зачиніть всі відчинені документи, тоді використайте Файл &gt; Установки &gt; Шрифти для зміни шляхів пошуку шрифтів.</translation>
     </message>
 </context>
 <context>
@@ -9656,30 +9870,30 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Edit Guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Редагувати направляючі</translation>
     </message>
     <message>
         <source>Enter a position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Вказати позицію:</translation>
     </message>
     <message>
         <source>New Guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова направляюча</translation>
     </message>
 </context>
 <context>
     <name>GuideManagerBase</name>
     <message>
         <source>Manage Guides</source>
-        <translation type="unfinished">Керування направляючими</translation>
+        <translation>Керування направляючими</translation>
     </message>
     <message>
         <source>Horizontals</source>
-        <translation type="unfinished"></translation>
+        <translation>Горизонтальні</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation type="unfinished">Направляюча</translation>
+        <translation>Направляюча</translation>
     </message>
     <message>
         <source>Unit</source>
@@ -9687,123 +9901,123 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+A</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished">Alt+E</translation>
+        <translation>Альт+E</translation>
     </message>
     <message>
         <source>Verticals</source>
-        <translation type="unfinished"></translation>
+        <translation>Вертикальні</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation type="unfinished">&amp;Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+D</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation type="unfinished">&amp;Видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+L</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation type="unfinished">&amp;Замкнути направляючі</translation>
+        <translation>&amp;Замкнути направляючі</translation>
     </message>
     <message>
         <source>Appl&amp;y to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати на в&amp;сіх сторінках</translation>
     </message>
     <message>
         <source>Alt+Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+Y</translation>
     </message>
     <message>
         <source>&amp;Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Число:</translation>
     </message>
     <message>
         <source>U&amp;se Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;икористовувати проміжок:</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Альт+S</translation>
     </message>
     <message>
         <source>Nu&amp;mber:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Число:</translation>
     </message>
     <message>
         <source>Use &amp;Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>В&amp;икористовувати проміжок:</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Альт+G</translation>
     </message>
     <message>
         <source>Refer To</source>
-        <translation type="unfinished"></translation>
+        <translation>Відноситься до</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation type="unfinished">С&amp;торінка</translation>
+        <translation>С&amp;торінка</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+P</translation>
     </message>
     <message>
         <source>M&amp;argins</source>
-        <translation type="unfinished"></translation>
+        <translation>П&amp;оля</translation>
     </message>
     <message>
         <source>S&amp;election</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибі&amp;рка</translation>
     </message>
     <message>
         <source>&amp;Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Інше</translation>
     </message>
     <message>
         <source>Delete all guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити всі направляючі з активної сторінки</translation>
     </message>
     <message>
         <source>Delete all guides from the current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити всі направляючі з активного документа</translation>
     </message>
     <message>
         <source>&amp;Single</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Одна</translation>
     </message>
     <message>
         <source>&amp;Column/Row</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Колонка/Рядок</translation>
     </message>
     <message>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити направляючі з активної с&amp;торінки</translation>
     </message>
     <message>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити направляючі з &amp;усіх сторінок</translation>
     </message>
 </context>
 <context>
@@ -10059,15 +10273,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Exposure time</source>
-        <translation type="unfinished"></translation>
+        <translation>Витримка</translation>
     </message>
     <message>
         <source>Aperture:</source>
-        <translation type="unfinished"></translation>
+        <translation>Діафрагма:</translation>
     </message>
     <message>
         <source>ISO equiv.:</source>
-        <translation type="unfinished"></translation>
+        <translation>ISO еквівалент:</translation>
     </message>
 </context>
 <context>
@@ -12239,15 +12453,11 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Norm:</source>
+        <source>Max:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Glyph Extension</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Max:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12260,26 +12470,6 @@ Corners:</source>
     </message>
     <message>
         <source>Character style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17015,10 +17205,6 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 has broken metrics in file %2, ignoring metrics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Image</source>
         <translation type="unfinished">Зображення</translation>
     </message>
@@ -18419,7 +18605,7 @@ Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>remove manual paragraphstyle</source>
+        <source>remove manual paragrphstyle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -22176,83 +22362,11 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show the document in single page mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enables viewing the document in full screen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display the bookmarks upon opening</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display the page thumbnails upon opening</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fit the document page or pages to the available space in the viewer window.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add color calibration bars</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add document information which includes the document title and page numbers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Indicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use the existing bleed settings from the document preferences</source>
+        <source></source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22466,26 +22580,6 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>TabPrinterBase</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>ndicate the distance offset for the registration marks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add color calibration bars</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22901,10 +22995,6 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
