@@ -8,22 +8,19 @@ for which a new license (GPL+exception) is in place.
 #define INSPAGE_H
 
 #include "scribusapi.h"
-#include <q3ptrlist.h>
-#include <qstringlist.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <QLabel>
 #include <QDialog>
-#include <QComboBox>
+#include <QList>
+#include <QStringList>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
-class QLayout;
 class QLabel;
 class QPushButton;
 class QSpinBox;
-class Q3GroupBox;
+class QGroupBox;
 class QCheckBox;
+class QComboBox;
 class ScrSpinBox;
 class ScribusDoc;
 
@@ -34,8 +31,8 @@ class SCRIBUS_API InsPage : public QDialog
 public:
 	InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages );
 	~InsPage() {};
-	Q3GroupBox* dsGroupBox7;
-	Q3GroupBox* masterPageGroup;
+	QGroupBox* dsGroupBox7;
+	QGroupBox* masterPageGroup;
 	ScrSpinBox* widthSpinBox;
 	ScrSpinBox* heightSpinBox;
 	QLabel*	widthQLabel;
@@ -47,7 +44,7 @@ public:
 	QCheckBox* moveObjects;
 	double unitRatio;
 	QString prefsPageSizeName;
-	Q3PtrList<QComboBox> masterPageCombos;
+	QList<QComboBox*> masterPageCombos;
 
 	const QStringList getMasterPages();
 	const QString getMasterPageN(uint n);
@@ -64,11 +61,11 @@ private:
 	QComboBox* insWhereData;
 	QSpinBox* insWherePageData;
 	QSpinBox* insCountData;
-	Q3VBoxLayout* dialogLayout;
-	Q3GridLayout* whereLayout;
-	Q3GridLayout* masterPageLayout;
-	Q3HBoxLayout* okCancelLayout;
-	Q3GridLayout* dsGroupBox7Layout;
+	QVBoxLayout* dialogLayout;
+	QGridLayout* whereLayout;
+	QGridLayout* masterPageLayout;
+	QHBoxLayout* okCancelLayout;
+	QGridLayout* dsGroupBox7Layout;
 
 private slots:
 	void insWherePageDataDisable (int index);
