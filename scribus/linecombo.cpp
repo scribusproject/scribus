@@ -37,10 +37,11 @@ for which a new license (GPL+exception) is in place.
 LineCombo::LineCombo(QWidget* pa) : QComboBox(true, pa)
 {
 	setEditable(false);
-	insertItem(QPixmap(solidL));
-	insertItem(QPixmap(dashL));
-	insertItem(QPixmap(dotL));
-	insertItem(QPixmap(dashdotL));
-	insertItem(QPixmap(dashdotdotL));
+	setIconSize(QSize(73, 7));
+	addItem(QIcon(solidL), "");
+	addItem(QIcon(dashL), "");
+	addItem(QIcon(dotL), "");
+	addItem(QIcon(dashdotL), "");
+	addItem(QIcon(dashdotdotL), "");
 }
 
