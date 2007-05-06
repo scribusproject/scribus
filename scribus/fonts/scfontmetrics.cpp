@@ -236,10 +236,11 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	pen_x = 0;
 	ymax = 0.0;
 	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
+	p->clear(back);
 	p->setFillMode(1);
 	p->setLineWidth(0.0);
-	p->setBrush(back);
-	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
+//	p->setBrush(back);
+//	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
 	p->setBrush(Qt::black);
 	FPointArray gly;
 	uint dv;
@@ -292,8 +293,10 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	}
 	p->end();
 	QPixmap pmr;
-	pmr.convertFromImage(pm);
-	pmr.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
+	pmr.convertFromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
+// this one below gives some funny results
+//	pmr.convertFromImage(pm.scaled(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+//	pmr.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
 	delete p;
 	FT_Done_FreeType( library );
 	return pmr;
