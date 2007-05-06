@@ -66,9 +66,9 @@ public:
 public slots:
 	virtual void OutputDirectoryButton_pressed();
 	virtual void OkButton_pressed();
-	virtual void IntervalPagesRadio_stateChanged( int );
-	virtual void AllPagesRadio_stateChanged( int );
-	virtual void OnePageRadio_stateChanged( int );
+	virtual void IntervalPagesRadio_stateChanged();
+	virtual void AllPagesRadio_stateChanged();
+	virtual void OnePageRadio_stateChanged();
 	virtual void computeSize();
 
 protected:

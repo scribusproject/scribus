@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qdir.h>
 #include <q3filedialog.h>
-#include <QPicture>
+#include <QImageWriter>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
@@ -75,9 +75,13 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	textLabel4 = new QLabel( groupBox1, "textLabel4" );
 	groupBox1Layout->addWidget( textLabel4, 3, 0 );
 	BitmapType = new QComboBox( false, groupBox1, "BitmapType" );
-    BitmapType->clear();
-	BitmapType->addItems(QPicture::outputFormatList());
-	BitmapType->setCurrentText(type);
+	BitmapType->clear();
+	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
+	for (int a = 0; a < imgs.count(); a++)
+	{
+		BitmapType->addItem(imgs[a]);
+	}
+	BitmapType->setCurrentText(type.lower());
 	BitmapType->setEditable(false);
 	groupBox1Layout->addMultiCellWidget( BitmapType, 0, 0, 1, 2 );
 	QualityBox = new QSpinBox( groupBox1, "QualityBox" );
@@ -150,10 +154,10 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	connect(OutputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(OkButton_pressed()));
 	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(IntervalPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(IntervalPagesRadio_stateChanged(int)));
-	connect(AllPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(AllPagesRadio_stateChanged(int)));
-	connect(OnePageRadio, SIGNAL(stateChanged(int)), this, SLOT(OnePageRadio_stateChanged(int)));
-	connect(EnlargementBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
+	connect(IntervalPagesRadio, SIGNAL(clicked()), this, SLOT(IntervalPagesRadio_stateChanged()));
+	connect(AllPagesRadio, SIGNAL(clicked()), this, SLOT(AllPagesRadio_stateChanged()));
+	connect(OnePageRadio, SIGNAL(clicked()), this, SLOT(OnePageRadio_stateChanged()));
+	connect(EnlargementBox, SIGNAL(valueChanged(double)), this, SLOT(computeSize()));
 	connect(DPIBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
 	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 }
@@ -188,21 +192,21 @@ void ExportForm::OkButton_pressed()
 	accept();
 }
 
-void ExportForm::IntervalPagesRadio_stateChanged(int)
+void ExportForm::IntervalPagesRadio_stateChanged()
 {
 	RangeVal->setEnabled(true);
 	pageNrButton->setEnabled(true);
 	computeSize();
 }
 
-void ExportForm::AllPagesRadio_stateChanged(int)
+void ExportForm::AllPagesRadio_stateChanged()
 {
 	RangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 	computeSize();
 }
 
-void ExportForm::OnePageRadio_stateChanged(int)
+void ExportForm::OnePageRadio_stateChanged()
 {
 	RangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
