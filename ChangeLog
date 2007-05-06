@@ -5,7 +5,8 @@ Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.8 release 
 
 Scribus - 1.3.3.9cvs
 ====================
-
+- 0005438: [Releases] 1.3.3.9 Release (plinnell)
+- 0005624: [Graphics / Image Frames] Gamut warning colour is applied to RGB-PDFs (jghali)
 - 0005617: [Plug-ins] Shortwords: update with italian short words (subik)
 - 0005577: [Internal] _Huge_ increase in SE speed when applying styles after removing bogus signal connections (fschmid)
 - 0005608: [Story Editor / Text Frames] strikeout button doesn't work right in SE [patch] (subik)
