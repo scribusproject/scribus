@@ -69,7 +69,8 @@ void SplashScreen::setStatus( const QString &message )
 	QFont font("Bitstream Vera Sans", 10);
 #endif
 	painter.setFont(font);
-	painter.setPen(QColor(236,233,216));
+//	painter.setPen(QColor(236,233,216));
+	painter.setPen(Qt::black);
 	//painter.setRasterOp(NotROP);
 	painter.drawText( 81, textPix.height()-8, tmp );
 	painter.end();
