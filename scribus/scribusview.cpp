@@ -767,7 +767,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					psx->translate(out.x(), out.y());
 					Transform(currItem, psx);
 					psx->setBrush(Qt::NoBrush);
-					psx->setPen(QPen(Qt::black, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+					psx->setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 					if (selectedItemCount < moveWithFullOutlinesThreshold)
 					{
 						if (!(currItem->asLine()))
@@ -808,6 +808,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					Doc->m_Selection->setGroupRect();
 					getGroupRectScreen(&gx, &gy, &gw, &gh);
 					QPoint out = contentsToViewport(QPoint(0, 0));
+					psx->resetMatrix();
 					psx->translate(-out.x(), -out.y());
 					psx->translate(qRound(gx), qRound(gy));
 					psx->scale(Scale, Scale);
@@ -6844,7 +6845,9 @@ void ScribusView::PaintSizeRect(QPolygon newRect)
 	{
 		if (!oldRect.isNull())
 			newR.unite(oldRect);
+		newR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 		redrawPolygon = newRect;
+		redrawPolygon.translate(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 		updateContents(newR.adjusted(-20, -20, 40, 40));
 	}
 	oldRect = newR;
@@ -7563,106 +7566,16 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 	PageItem* currItem;
 	QPainter p;
 	double gx, gy, gw, gh;
-//	double sc = Scale;
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	QRect OldRect = QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh));
+	QPoint in(qRound(gx*Scale), qRound(gy*Scale));
+	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
+	QPoint out = contentsToViewport(in);
+	QRect OldRect = QRect(out.x(), out.y(), qRound(gw*Scale), qRound(gh*Scale));
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		currItem = itemSelection->itemAt(a);
 		Doc->MoveItem(x, y, currItem, fromMP);
-		OldRect.unite(currItem->getRedrawBounding(Scale));
-/*		if ((!fromMP) && (selectedItemCount < moveWithBoxesOnlyThreshold))
-		{
-			p.begin(viewport());
-			ToView(&p);
-			p.translate(qRound(currItem->xPos()*Scale), qRound(currItem->yPos()*sc));
-			p.scale(sc, sc);
-			p.rotate(currItem->rotation());
-			p.setCompositionMode(QPainter::CompositionMode_Xor);
-			p.setBrush(Qt::NoBrush);
-			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			if (selectedItemCount < moveWithFullOutlinesThreshold)
-			{
-				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
-					currItem->DrawPolyL(&p, currItem->Clip);
-				else
-				{
-					if (currItem->asLine())
-					{
-						int lw2 = 1;
-						int lw = 1;
-						Qt::PenCapStyle le = Qt::FlatCap;
-						if (currItem->NamedLStyle.isEmpty())
-						{
-							lw2 = qRound(currItem->lineWidth()  / 2.0);
-							lw = qRound(qMax(currItem->lineWidth(), 1.0));
-							le = currItem->PLineEnd;
-						}
-						else
-						{
-							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
-							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-							lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
-							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-						}
-						if (le != Qt::FlatCap)
-							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
-						else
-							p.drawRect(-1, -lw2, qRound(currItem->width()), lw);
-					}
-				}
-			}
-			else
-				p.drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
-			p.end();
-		}
-		Doc->MoveItem(x, y, currItem, fromMP);
-		if ((!fromMP) && (itemSelection->count() < moveWithBoxesOnlyThreshold))
-		{
-			p.begin(viewport());
-			ToView(&p);
-			p.translate(qRound(currItem->xPos()*sc), qRound(currItem->yPos()*sc));
-			p.scale(sc, sc);
-			p.rotate(currItem->rotation());
-			p.setCompositionMode(QPainter::CompositionMode_Xor);
-			p.setBrush(Qt::NoBrush);
-			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			if (itemSelection->count() < moveWithFullOutlinesThreshold)
-			{
-				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
-					currItem->DrawPolyL(&p, currItem->Clip);
-				else
-				{
-					if (currItem->asLine())
-					{
-						int lw2 = 1;
-						int lw = 1;
-						Qt::PenCapStyle le = Qt::FlatCap;
-						if (currItem->NamedLStyle.isEmpty())
-						{
-							lw2 = qRound(qMax(currItem->lineWidth()  / 2.0, 1.0));
-							lw = qRound(qMax(currItem->lineWidth(), 1.0));
-							le = currItem->PLineEnd;
-						}
-						else
-						{
-							multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
-							lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-							lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
-							le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-						}
-						if (le != Qt::FlatCap)
-							p.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
-						else
-							p.drawRect(-1, -lw2, qRound(currItem->width()), lw);
-					}
-				}
-			}
-			else
-				p.drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
-			p.end();
-		} */
 	}
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -7671,30 +7584,11 @@ void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSe
 		emit ItemPos(gx, gy);
 		currItem = itemSelection->itemAt(0);
 		Doc->GroupOnPage(currItem);
-//		if (fromMP)
-//		{
-//			gx -= Doc->minCanvasCoordinate.x();
-//			gy -= Doc->minCanvasCoordinate.y();
-//			updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)));
-//		}
 	}
-//	getGroupRectScreen(&gx, &gy, &gw, &gh);
+	QPoint in2(qRound(gx*Scale), qRound(gy*Scale));
+	in2 -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
+	OldRect = OldRect.united(QRect(in2.x()+contentsX(), in2.y()+contentsY(), qRound(gw*Scale), qRound(gh*Scale)));
 	updateContents(OldRect.adjusted(-10, -10, 20, 20));
-//	else
-//	{
-		//Paint the drag moved item, ie the black dashed line representing the frame
-//		currItem = itemSelection->itemAt(0);
-//		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
-		//CB this breaks dragging an item when the canvas has been push resized
-		//oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-//		if (!currItem->asLine())
-//		{
-//			p.begin(viewport());
-//			ToView(&p);
-//			PaintSizeRect(&p, oldR);
-//			p.end();
-//		}
-//	}
 }
 
 //CB-->Doc
