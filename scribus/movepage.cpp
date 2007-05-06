@@ -4,24 +4,16 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qdialog.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
 
 #include "movepage.h"
-//#include "movepage.moc"
+#include <QPixmap>
+#include <QLabel>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QPushButton>
 
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util.h"
 
 /*
  *  Constructs a MovePages which is a child of 'parent', with the 
@@ -30,20 +22,22 @@ extern QPixmap loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool moving )
-		: QDialog( parent, "MovePages", true, 0 )
+MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool moving ) : QDialog( parent )
 {
 	move = moving;	
 	setCaption (move ? tr("Move Pages") : tr("Copy Page"));
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new Q3VBoxLayout( this, 10, 5 );
-	fromToLayout = new Q3GridLayout(this);
-	fromToLayout->setSpacing( 6 );
+	setModal(true);
+	dialogLayout = new QVBoxLayout( this, 10, 5 );
+	dialogLayout->setSpacing( 5 );
+	dialogLayout->setMargin( 10 );
+	fromToLayout = new QGridLayout();
+	fromToLayout->setSpacing( 5 );
 	fromToLayout->setMargin( 5 );
 	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveLabel" );
 	fromPageData = new QSpinBox( 1, maxPages, 1, this, "fromPageData" );
 	fromPageData->setValue( currentPage );
-	uint currentRow=0;
+	uint currentRow = 0;
 	fromToLayout->addWidget( moveLabel, currentRow, 0);
 	fromToLayout->addWidget( fromPageData, currentRow, 1);
 
@@ -79,7 +73,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->addColSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
 	dialogLayout->addLayout( fromToLayout );
 
-	okCancelLayout = new Q3HBoxLayout(this);
+	okCancelLayout = new QHBoxLayout();
 	okCancelLayout->setSpacing( 6 );
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
