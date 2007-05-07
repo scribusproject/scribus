@@ -54,7 +54,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "03";
+	QString BUILD_DAY = "07";
 	QString BUILD_MONTH = CommonStrings::may;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -296,7 +296,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Bojan Božovi&#263;</td><td>bole89@infosky.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("sk").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Zdenko Podobn&yacute;</td><td>zdpo@mailbox.sk</td></tr>" +
+											"<tr><td>Zdenko Podobn&yacute;</td><td>zdposter@gmail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("sl").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Boštjan Špetič</td><td>igzebedze@kiberpipa.org</td></tr>" +
