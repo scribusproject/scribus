@@ -7,19 +7,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef ABOUT_H
 #define ABOUT_H
 
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
+#include <QDialog>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "scribusapi.h"
 
 class TextBrowser; // taken from helpbrowser.h
 class QLabel;
 class QWidget;
-class Q3HBoxLayout;
-class Q3VBoxLayout;
 class QTabWidget;
 class QPushButton;
 
@@ -47,13 +43,13 @@ protected:
 	TextBrowser* textView2;
 	TextBrowser* textView4;
 	TextBrowser* textView5;
-	Q3VBoxLayout* aboutLayout;
-	Q3VBoxLayout* updateLayout;
-	Q3HBoxLayout* tabLayout;
-	Q3VBoxLayout* tabLayout1;
-	Q3HBoxLayout* tabLayout_2;
-	Q3HBoxLayout* tabLayout_4;
-	Q3HBoxLayout* layout2;
+	QVBoxLayout* aboutLayout;
+	QVBoxLayout* updateLayout;
+	QHBoxLayout* tabLayout;
+	QVBoxLayout* tabLayout1;
+	QHBoxLayout* tabLayout_2;
+	QHBoxLayout* tabLayout_4;
+	QHBoxLayout* layout2;
 
 protected slots:
 	void runUpdateCheck();

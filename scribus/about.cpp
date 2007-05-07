@@ -13,18 +13,12 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "about.h"
-//#include "about.moc"
-#include <qpixmap.h>
-#include <q3textstream.h>
-#include <qtooltip.h>
-#include <qlabel.h>
-#include <qtabwidget.h>
-#include <qwidget.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QPixmap>
+#include <QToolTip>
+#include <QLabel>
+#include <QTabWidget>
+#include <QWidget>
+#include <QPushButton>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -44,17 +38,18 @@ extern QPixmap loadIcon(QString nam);
  \param parent QWidget pointer to parent window
  \retval About dialog
  */
-About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
+About::About( QWidget* parent ) : QDialog( parent )
 {
 	setCaption( tr("About Scribus %1").arg(VERSION) );
 	setIcon(loadIcon("AppIcon.png"));
-	aboutLayout = new Q3VBoxLayout( this );
+	setModal(true);
+	aboutLayout = new QVBoxLayout( this );
 	aboutLayout->setSpacing( 6 );
 	aboutLayout->setMargin( 10 );
 	tabWidget2 = new QTabWidget( this, "TabWidget2" );
 	tabWidget2->setMinimumSize( QSize( 438, 258 ) );
 	tab = new QWidget( tabWidget2, "tab" );
-	tabLayout1 = new Q3VBoxLayout( tab );
+	tabLayout1 = new QVBoxLayout( tab );
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
@@ -63,7 +58,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "05";
+	QString BUILD_DAY = "07";
 	QString BUILD_MONTH = CommonStrings::may;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -136,9 +131,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		gsver = tr("No Ghostscript version available");
 	buildID->setText( tr("<b>Scribus Version %1</b><p>%2<br/>%3 %4<br/>%5</p>").arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID );
-	tabWidget2->insertTab( tab, tr( "&About" ) );
+	tabWidget2->addTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );
-	tabLayout = new Q3HBoxLayout( tab_2 );
+	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
 	textView1 = new TextBrowser( tab_2, "TextView1" );
@@ -204,9 +199,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Antoine Cailliau</td><td>antoinecailliau@gmail.com</td></tr>"  +
 											"<tr><td> </td><td> </td></tr>" + "</table>"));
 	tabLayout->addWidget( textView1 );
-	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
+	tabWidget2->addTab( tab_2, tr( "A&uthors" ) );
 	tab_3 = new QWidget( tabWidget2, "tab_3" );
-	tabLayout_2 = new Q3HBoxLayout( tab_3 );
+	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
 	textView2 = new TextBrowser( tab_3, "TextView1_2" );
@@ -377,7 +372,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"</table>"));
 	tabLayout_2->addWidget( textView2 );
-	tabWidget2->insertTab( tab_3, tr( "&Translations" ) );
+	tabWidget2->addTab( tab_3, tr( "&Translations" ) );
 
 	// online tab (03/04/2004 petr vanek)
 	tab_4 = new QWidget( tabWidget2, "tab_4" );
@@ -394,15 +389,15 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		"<tr><td><b>" + tr("Mailing List").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
 		"</table>"));
-	tabLayout_4 = new Q3HBoxLayout( tab_4 );
+	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
 	tabLayout_4->addWidget( textView4 );
-	tabWidget2->insertTab( tab_4, tr( "&Online" ) );
+	tabWidget2->addTab( tab_4, tr( "&Online" ) );
 	// Update tab
 	tab_5 = new QWidget( tabWidget2, "tab_5" );
 	tabWidget2->insertTab( tab_5, tr( "&Updates" ) );
-	updateLayout = new Q3VBoxLayout( tab_5 );
+	updateLayout = new QVBoxLayout( tab_5 );
 	updateLayout->setSpacing( 6 );
 	updateLayout->setMargin( 10 );
 	checkForUpdateButton = new QPushButton( tr( "Check for &Updates" ), tab_5, "checkForUpdateButton" );
@@ -412,7 +407,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 
 	aboutLayout->addWidget( tabWidget2 );
 
-	layout2 = new Q3HBoxLayout;
+	layout2 = new QHBoxLayout;
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
