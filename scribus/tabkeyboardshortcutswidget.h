@@ -32,15 +32,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <qmap.h>
 #include <qpair.h>
-#include <q3ptrlist.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <q3valuevector.h>
-#include <q3listview.h>
-//Added by qt3to4:
 #include <QKeyEvent>
 #include <QEvent>
 
+// FIXME: shortcut tree list is a clear candidate for Qt4 MVC (Proxy model with Treemodel)
 class TabKeyboardShortcutsWidget: public QWidget, Ui::TabKeyboardShortcutsWidget
 {
 	Q_OBJECT
@@ -57,11 +54,11 @@ class TabKeyboardShortcutsWidget: public QWidget, Ui::TabKeyboardShortcutsWidget
 		QMap<QString,Keys> keyMap;
 		QMap<QString,Keys>::Iterator currentKeyMapRow;
 		QMap<QString, QString> keySetList;
-		QMap<Q3ListViewItem*, QString> lviToActionMap;
-		Q3PtrList<Q3ListViewItem> lviToMenuMap;
-		Q3ValueVector< QPair<QString, QStringList> >* defMenus;
-		Q3ValueVector< QPair<QString, QStringList> >* defNonMenuActions;
-		Q3ListViewItem* selectedLVI;
+		QMap<QTreeWidgetItem*, QString> lviToActionMap;
+		QList<QTreeWidgetItem*> lviToMenuMap;
+		QVector< QPair<QString, QStringList> >* defMenus;
+		QVector< QPair<QString, QStringList> >* defNonMenuActions;
+		QTreeWidgetItem * selectedLVI;
 		int keyCode;
 		QString Part0;
 		QString Part1;
@@ -77,7 +74,7 @@ class TabKeyboardShortcutsWidget: public QWidget, Ui::TabKeyboardShortcutsWidget
 	
 	protected slots:
 		void setKeyText();
-		void dispKey(Q3ListViewItem*);
+		void dispKey(QTreeWidgetItem* current, QTreeWidgetItem* previous=0);
 		void setNoKey();
 		void loadKeySetFile();
 		void importKeySetFile();

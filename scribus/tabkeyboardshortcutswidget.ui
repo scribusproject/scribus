@@ -5,21 +5,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>534</width>
-    <height>377</height>
+    <width>615</width>
+    <height>471</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Keyboard Shortcuts</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QGridLayout" >
    <property name="margin" >
-    <number>0</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item>
+   <item row="1" column="0" >
+    <widget class="QTreeWidget" name="keyTable" >
+     <column>
+      <property name="text" >
+       <string>Action</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Shortcut</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="0" column="0" >
     <layout class="QHBoxLayout" >
      <property name="margin" >
       <number>0</number>
@@ -49,94 +63,19 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="Q3ListView" name="keyTable" >
-     <property name="selectionMode" >
-      <enum>Q3ListView::NoSelection</enum>
-     </property>
-     <property name="showSortIndicator" >
-      <bool>false</bool>
-     </property>
-     <property name="rootIsDecorated" >
-      <bool>true</bool>
-     </property>
-     <column>
-      <property name="text" >
-       <string>Action</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>Shortcut</string>
-      </property>
-     </column>
-    </widget>
-   </item>
-   <item>
-    <widget class="Q3ButtonGroup" name="keyGroup" >
+   <item row="2" column="0" >
+    <widget class="QGroupBox" name="groupBox" >
      <property name="title" >
       <string>Shortcut for Selected Action</string>
      </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <layout class="QHBoxLayout" >
+     <layout class="QGridLayout" >
       <property name="margin" >
-       <number>0</number>
+       <number>9</number>
       </property>
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item>
-       <widget class="QRadioButton" name="noKey" >
-        <property name="text" >
-         <string>&amp;No Key</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+N</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="userDef" >
-        <property name="text" >
-         <string>&amp;User Defined Key</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+U</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType" >
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="setKeyButton" >
-        <property name="text" >
-         <string>Set &amp;Key</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+K</string>
-        </property>
-        <property name="checkable" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
+      <item row="0" column="4" >
        <widget class="QLabel" name="keyDisplay" >
         <property name="frameShape" >
          <enum>QFrame::Panel</enum>
@@ -155,103 +94,71 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="3" >
+       <widget class="QPushButton" name="setKeyButton" >
+        <property name="text" >
+         <string>Set &amp;Key</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+K</string>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QRadioButton" name="userDef" >
+        <property name="text" >
+         <string>&amp;User Defined Key</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+U</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QRadioButton" name="noKey" >
+        <property name="text" >
+         <string>&amp;No Key</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+N</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
-   <item>
-    <widget class="Q3GroupBox" name="loadableGroupBox" >
+   <item row="3" column="0" >
+    <widget class="QGroupBox" name="loadableGroupBox" >
      <property name="title" >
       <string>Loadable Shortcut Sets</string>
      </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <layout class="QHBoxLayout" >
+     <layout class="QGridLayout" >
       <property name="margin" >
-       <number>0</number>
+       <number>9</number>
       </property>
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item>
-       <widget class="QComboBox" name="loadableSets" >
-        <property name="toolTip" >
-         <string>Keyboard shortcut sets available to load</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="loadSetButton" >
-        <property name="toolTip" >
-         <string>Load the selected shortcut set</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Load</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+L</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType" >
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="importSetButton" >
-        <property name="toolTip" >
-         <string>Import a shortcut set into the current configuration</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Import...</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+I</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="exportSetButton" >
-        <property name="toolTip" >
-         <string>Export the current shortcuts into an importable file</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Export...</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+E</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType" >
-         <enum>QSizePolicy::Expanding</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
+      <item row="0" column="6" >
        <widget class="QPushButton" name="resetSetButton" >
         <property name="toolTip" >
          <string>Reload the default Scribus shortcuts</string>
@@ -264,6 +171,84 @@
         </property>
        </widget>
       </item>
+      <item row="0" column="5" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4" >
+       <widget class="QPushButton" name="exportSetButton" >
+        <property name="toolTip" >
+         <string>Export the current shortcuts into an importable file</string>
+        </property>
+        <property name="text" >
+         <string>&amp;Export...</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+E</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" >
+       <widget class="QPushButton" name="importSetButton" >
+        <property name="toolTip" >
+         <string>Import a shortcut set into the current configuration</string>
+        </property>
+        <property name="text" >
+         <string>&amp;Import...</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+I</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QPushButton" name="loadSetButton" >
+        <property name="toolTip" >
+         <string>Load the selected shortcut set</string>
+        </property>
+        <property name="text" >
+         <string>&amp;Load</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+L</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QComboBox" name="loadableSets" >
+        <property name="toolTip" >
+         <string>Keyboard shortcut sets available to load</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -271,25 +256,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3ListView</class>
-   <extends>Q3Frame</extends>
-   <header>q3listview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Q3ButtonGroup</class>
-   <extends>Q3GroupBox</extends>
-   <header>Qt3Support/Q3ButtonGroup</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

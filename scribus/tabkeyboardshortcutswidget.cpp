@@ -78,13 +78,14 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
 
-	keyTable->setSorting(-1);
+// 	keyTable->setSorting(-1);
 	// switched off as it's called in main prefs classes - PV
 	//restoreDefaults();
 
 	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
 	// signals and slots connections
-	connect( keyTable, SIGNAL(clicked(Q3ListViewItem*)), this, SLOT(dispKey(Q3ListViewItem*)));
+	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
+			 this, SLOT(dispKey(QTreeWidgetItem *, QTreeWidgetItem *)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 	connect( loadSetButton, SIGNAL(clicked()), this, SLOT(loadKeySetFile()));
@@ -332,23 +333,23 @@ void TabKeyboardShortcutsWidget::insertActions()
 	lviToMenuMap.clear();
 	keyTable->clear();
 	bool first, firstMenu=true;
-	Q3ListViewItem *currLVI = NULL;
-	Q3ListViewItem *currMenuLVI = NULL;
-	Q3ListViewItem *prevLVI = NULL;
-	Q3ListViewItem *prevMenuLVI = NULL;
+	QTreeWidgetItem *currLVI = NULL;
+	QTreeWidgetItem *currMenuLVI = NULL;
+	QTreeWidgetItem *prevLVI = NULL;
+	QTreeWidgetItem *prevMenuLVI = NULL;
 	for (Q3ValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
 	{
 		if (firstMenu)
 		{
-			currMenuLVI=new Q3ListViewItem(keyTable);
-			firstMenu=false;
+			currMenuLVI = new QTreeWidgetItem(keyTable);
+			firstMenu = false;
 		}
 		else
-			currMenuLVI=new Q3ListViewItem(keyTable, prevMenuLVI);
+			currMenuLVI = new QTreeWidgetItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
-		currMenuLVI->setOpen(true);
+		currMenuLVI->setExpanded(true);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
@@ -357,11 +358,11 @@ void TabKeyboardShortcutsWidget::insertActions()
 		{
 			if (first)
 			{
-				currLVI=new Q3ListViewItem(currMenuLVI);
-				first=false;
+				currLVI = new QTreeWidgetItem(currMenuLVI);
+				first = false;
 			}
 			else
-				currLVI=new Q3ListViewItem(currMenuLVI, prevLVI);
+				currLVI = new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
@@ -370,19 +371,19 @@ void TabKeyboardShortcutsWidget::insertActions()
 		}
 	}
 	//Non menu actions
-	for (Q3ValueVector< QPair<QString, QStringList> >::Iterator itmenu = defNonMenuActions->begin(); itmenu != defNonMenuActions->end(); ++itmenu )
+	for (QVector< QPair<QString, QStringList> >::Iterator itmenu = defNonMenuActions->begin(); itmenu != defNonMenuActions->end(); ++itmenu )
 	{
 		if (firstMenu)
 		{
-			currMenuLVI=new Q3ListViewItem(keyTable);
-			firstMenu=false;
+			currMenuLVI = new QTreeWidgetItem(keyTable);
+			firstMenu = false;
 		}
 		else
-			currMenuLVI=new Q3ListViewItem(keyTable, prevMenuLVI);
+			currMenuLVI = new QTreeWidgetItem(keyTable, prevMenuLVI);
 		Q_CHECK_PTR(currMenuLVI);
 		lviToMenuMap.append(currMenuLVI);
 		currMenuLVI->setText(0, itmenu->first);
-		currMenuLVI->setOpen(true);
+		currMenuLVI->setExpanded(true);
 		prevMenuLVI=currMenuLVI;
 		first=true;
 		currLVI=0;
@@ -391,11 +392,11 @@ void TabKeyboardShortcutsWidget::insertActions()
 		{
 			if (first)
 			{
-				currLVI=new Q3ListViewItem(currMenuLVI);
+				currLVI=new QTreeWidgetItem(currMenuLVI);
 				first=false;
 			}
 			else
-				currLVI=new Q3ListViewItem(currMenuLVI, prevLVI);
+				currLVI=new QTreeWidgetItem(currMenuLVI, prevLVI);
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
@@ -408,49 +409,50 @@ void TabKeyboardShortcutsWidget::insertActions()
 void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
 {
 	//Must run this as if newss is not empty and we go to the next for loop, the set visible doesnt work
-	for (Q3PtrList<Q3ListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
-		(*it)->setVisible(true);
+	for (QList<QTreeWidgetItem*>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+		(*it)->setHidden(false);
 	if (newss.isEmpty())
 	{			
-		for (QMap<Q3ListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
-			it.key()->setVisible(true);
+		for (QMap<QTreeWidgetItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+			it.key()->setHidden(false);
 		return;
 	}
 	//Seem to need to do this.. isOpen doesnt seem to do what it says
-	for (QMap<Q3ListViewItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
+	for (QMap<QTreeWidgetItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
 	{
 		if (it.key()->text(0).contains(newss, false))
-			it.key()->setVisible(true);
+			it.key()->setHidden(false);
 		else
-			it.key()->setVisible(false);
+			it.key()->setHidden(true);
 	}
-	for (Q3PtrList<Q3ListViewItem>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
-	{
-		bool toBeVisible=false;
-		Q3ListViewItem* fc=(*it)->firstChild();
-		if (fc!=0)
-		{
-			if (fc->isVisible())
-				toBeVisible=true;
-			else
-			{
-				Q3ListViewItem* sibling=fc->nextSibling();
-				while (sibling!=0)
-				{
-					if (sibling->isVisible())
-					{
-						toBeVisible=true;
-						break;
-					}
-					sibling=sibling->nextSibling();
-				}
-			}
-		}
-		(*it)->setVisible(toBeVisible);
-	}
+// 	for (QList<QTreeWidgetItem*>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
+// 	{
+// 		bool toBeVisible=false;
+// // 		QTreeWidgetItem* fc=(*it)->firstChild();
+// 		QTreeWidgetItem* fc=(*it)->child(0);
+// 		if (fc!=0)
+// 		{
+// 			if (!fc->isHidden())
+// 				toBeVisible=true;
+// 			else
+// 			{
+// 				QTreeWidgetItem* sibling=fc->nextSibling();
+// 				while (sibling!=0)
+// 				{
+// 					if (!sibling->isHidden())
+// 					{
+// 						toBeVisible=true;
+// 						break;
+// 					}
+// 					sibling=sibling->nextSibling();
+// 				}
+// 			}
+// 		}
+// 		(*it)->setHidden(!toBeVisible);
+// 	}
 }
 
-void TabKeyboardShortcutsWidget::dispKey(Q3ListViewItem* qlvi)
+void TabKeyboardShortcutsWidget::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 {
 	if (qlvi!=0 && lviToActionMap.contains(qlvi))
 	{
