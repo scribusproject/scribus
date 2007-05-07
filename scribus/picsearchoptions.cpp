@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
-#include <q3progressbar.h>
 #include <qtimer.h>
 #include <q3filedialog.h>
 #include <qlabel.h>
@@ -55,8 +54,8 @@ void PicSearchOptions::setSearchButton(bool toCancel, const FileSearch* searcher
 		startButton->setText( tr("Cancel Search") );
 		progressBar1->reset();
 		progressBar1->show();
-		progressBar1->setTotalSteps(20);
-		progressBar1->setProgress(0);
+		progressBar1->setRange(0, 20);
+		progressBar1->setValue(0);
 		searchLabel->show();
 		disconnect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 		connect(startButton, SIGNAL(clicked()), searcher, SLOT(cancel()));
@@ -114,16 +113,16 @@ void PicSearchOptions::SearchPic()
 
 void PicSearchOptions::timerDone()
 {
-	int pg = progressBar1->progress();
+	int pg = progressBar1->value();
 	pg++;
 	if (pg == 21)
 	{
 		progressBar1->reset();
-		progressBar1->setTotalSteps(20);
-		progressBar1->setProgress(0);
+		progressBar1->setMaximum(20);
+		progressBar1->setValue(0);
 	}
 	else
-		progressBar1->setProgress(pg);
+		progressBar1->setValue(pg);
 }
 
 void PicSearchOptions::SearchPicAborted(bool userCancelled)
