@@ -4,38 +4,25 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QSpinBox>
 
 #include "delpages.h"
-//#include "delpages.moc"
-
+#include "util.h"
 #include "commonstrings.h"
 
-extern QPixmap loadIcon(QString nam);
-
-/*
- *  Constructs a DelPages which is a child of 'parent', with the 
- *  name 'name' and widget flags set to 'f' 
- *
- *  The dialog will by default be modeless, unless you set 'modal' to
- *  true to construct a modal dialog.
- */
 DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 		: QDialog( parent, "DelPages", true, 0 )
 {
 	setCaption( tr( "Delete Pages" ) );
+	setModal(true);
 	setIcon(loadIcon("AppIcon.png"));
-	dialogLayout = new Q3VBoxLayout( this, 10, 5);
-	fromToLayout = new Q3HBoxLayout;
-	fromToLayout->setSpacing( 6 );
+	dialogLayout = new QVBoxLayout( this );
+	dialogLayout->setSpacing( 5 );
+	dialogLayout->setMargin( 10 );
+	fromToLayout = new QHBoxLayout;
+	fromToLayout->setSpacing( 5 );
 	fromToLayout->setMargin( 5 );
 	fromLabel = new QLabel( tr( "Delete From:" ), this, "fromLabel" );
 	fromToLayout->addWidget( fromLabel );
@@ -50,8 +37,8 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 	fromToLayout->addWidget( toPageData );
 	dialogLayout->addLayout( fromToLayout );
 
-	okCancelLayout = new Q3HBoxLayout;
-	okCancelLayout->setSpacing( 6 );
+	okCancelLayout = new QHBoxLayout;
+	okCancelLayout->setSpacing( 5 );
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
@@ -89,11 +76,11 @@ void DelPages::toChanged(int pageNumber)
 
 const int DelPages::getFromPage()
 {
-    return fromPageData->value();
+	return fromPageData->value();
 }
 
 const int DelPages::getToPage()
 {
-    return toPageData->value();
+	return toPageData->value();
 }
 
