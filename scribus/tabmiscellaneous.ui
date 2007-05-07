@@ -11,50 +11,42 @@
     <height>240</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QGridLayout" >
    <property name="margin" >
-    <number>11</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item>
-    <widget class="QCheckBox" name="AskForSubs" >
-     <property name="text" >
-      <string>Always ask before fonts are replaced when loading a document</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="stylePreview" >
-     <property name="text" >
-      <string>Preview of current Paragraph Style visible when editing Styles</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Q3GroupBox" name="groupBox1" >
-     <property name="title" >
-      <string>Lorem Ipsum</string>
-     </property>
+   <item row="3" column="0" >
+    <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <layout class="QVBoxLayout" >
+     <property name="sizeType" >
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>30</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0" >
+    <widget class="QGroupBox" name="groupBox1" >
+     <property name="title" >
+      <string>Lorem Ipsum</string>
+     </property>
+     <layout class="QGridLayout" >
       <property name="margin" >
-       <number>0</number>
+       <number>9</number>
       </property>
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item>
-       <widget class="QCheckBox" name="useStandardLI" >
-        <property name="text" >
-         <string>Always use standard Lorem Ipsum</string>
-        </property>
-       </widget>
-      </item>
-      <item>
+      <item row="1" column="0" >
        <layout class="QHBoxLayout" >
         <property name="margin" >
          <number>0</number>
@@ -93,37 +85,34 @@
         </item>
        </layout>
       </item>
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="useStandardLI" >
+        <property name="text" >
+         <string>Always use standard Lorem Ipsum</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
-   <item>
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
+   <item row="1" column="0" >
+    <widget class="QCheckBox" name="stylePreview" >
+     <property name="text" >
+      <string>Preview of current Paragraph Style visible when editing Styles</string>
      </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
+    </widget>
+   </item>
+   <item row="0" column="0" >
+    <widget class="QCheckBox" name="AskForSubs" >
+     <property name="text" >
+      <string>Always ask before fonts are replaced when loading a document</string>
      </property>
-     <property name="sizeHint" >
-      <size>
-       <width>20</width>
-       <height>30</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
