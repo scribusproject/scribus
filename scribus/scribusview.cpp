@@ -762,45 +762,49 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				PageItem *currItem = Doc->m_Selection->itemAt(0);
 				if (selectedItemCount < moveWithBoxesOnlyThreshold)
 				{
-					psx->resetMatrix();
-					QPoint out = contentsToViewport(QPoint(0, 0));
-					psx->translate(out.x(), out.y());
-					Transform(currItem, psx);
-					psx->setBrush(Qt::NoBrush);
-					psx->setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					if (selectedItemCount < moveWithFullOutlinesThreshold)
+					for (uint cu = 0; cu < selectedItemCount; cu++)
 					{
-						if (!(currItem->asLine()))
-							currItem->DrawPolyL(psx, currItem->Clip);
-						else
+						currItem = Doc->m_Selection->itemAt(cu);
+						psx->resetMatrix();
+						QPoint out = contentsToViewport(QPoint(0, 0));
+						psx->translate(out.x(), out.y());
+						Transform(currItem, psx);
+						psx->setBrush(Qt::NoBrush);
+						psx->setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+						if (selectedItemCount < moveWithFullOutlinesThreshold)
 						{
-							if (currItem->asLine())
+							if (!(currItem->asLine()))
+								currItem->DrawPolyL(psx, currItem->Clip);
+							else
 							{
-								int lw2 = 1;
-								int lw = 1;
-								Qt::PenCapStyle le = Qt::FlatCap;
-								if (currItem->NamedLStyle.isEmpty())
+								if (currItem->asLine())
 								{
-									lw2 = qRound(currItem->lineWidth()  / 2.0);
-									lw = qRound(qMax(currItem->lineWidth(), 1.0));
-									le = currItem->PLineEnd;
+									int lw2 = 1;
+									int lw = 1;
+									Qt::PenCapStyle le = Qt::FlatCap;
+									if (currItem->NamedLStyle.isEmpty())
+									{
+										lw2 = qRound(currItem->lineWidth()  / 2.0);
+										lw = qRound(qMax(currItem->lineWidth(), 1.0));
+										le = currItem->PLineEnd;
+									}
+									else
+									{
+										multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+										lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+										lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
+										le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
+									}
+									if (le != Qt::FlatCap)
+										psx->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+									else
+										psx->drawRect(-1, -lw2, qRound(currItem->width()), lw);
 								}
-								else
-								{
-									multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
-									lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
-									lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
-									le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-								}
-								if (le != Qt::FlatCap)
-									psx->drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
-								else
-									psx->drawRect(-1, -lw2, qRound(currItem->width()), lw);
 							}
 						}
+						else
+							psx->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
 					}
-					else
-						psx->drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
 				}
 				else
 				{
@@ -831,10 +835,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			}
 			else
 			{
-				QPoint out = contentsToViewport(QPoint(0, 0));
-				psx->translate(-out.x(), -out.y());
 				if (Doc->m_Selection->isMultipleSelection())
 				{
+					QPoint out = contentsToViewport(QPoint(0, 0));
+					psx->translate(-out.x(), -out.y());
 					double x, y, w, h;
 					Doc->m_Selection->setGroupRect();
 					getGroupRectScreen(&x, &y, &w, &h);
@@ -853,7 +857,13 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					psx->drawRect(QRectF(x, y+h-6, 6, 6));
 				}
 				else
-	 				currItem->paintObj();
+				{
+					psx->resetMatrix();
+					QPoint out = contentsToViewport(QPoint(0, 0));
+					psx->translate(out.x(), out.y());
+					Transform(currItem, psx);
+	 				currItem->paintObj(psx);
+	 			}
 	 		}
 		}
 	}

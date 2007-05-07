@@ -229,7 +229,7 @@ public:
 	ObjectAttribute getObjectAttribute(QString) const;
 	void setObjectAttributes(ObjAttrVector*);
   /** Zeichnet das Item */
-	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
+	void paintObj(QPainter *p);
 	void DrawObj(ScPainter *p, QRect e);
 	void DrawObj_Pre(ScPainter *p, double &sc);
 	virtual void DrawObj_Post(ScPainter *p);

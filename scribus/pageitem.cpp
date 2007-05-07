@@ -1265,159 +1265,106 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 }
 
 
-void PageItem::paintObj(QRect e, QPixmap *ppX)
+void PageItem::paintObj(QPainter *p)
 {
-	if (!m_Doc->DoDrawing)
+	if ((!m_Doc->DoDrawing) || (m_Doc->RePos))
 	{
-//		Tinput = false;
 		FrameOnly = false;
 		return;
 	}
-	//qDebug("paintObj(QRect e, QPixmap *ppX)");
-	QPainter p;
-	ScribusView* view = m_Doc->view();
-	double sc = view->scale();
-	if (toPixmap)
-		p.begin(ppX);
-	else
-		p.begin(view->viewport());
-	if ((!toPixmap) && (!m_Doc->RePos))
-	{
-		if (!e.isEmpty())
-			p.setClipRect(e);
-		else
-		{
-			int x = view->contentsX();
-			int y = view->contentsY();
-			QPoint out = view->contentsToViewport(QPoint(x,y));
-			p.setClipRect(QRect(out.x(), out.y(), view->visibleWidth(), view->visibleWidth()));
-		}
-	}
-	QPoint in  = QPoint(qRound((Xpos-m_Doc->minCanvasCoordinate.x())*sc), qRound((Ypos-m_Doc->minCanvasCoordinate.y())*sc));
-	QPoint out = view->contentsToViewport(in);
-	p.translate(out.x(), out.y());
-	p.scale(sc, sc);
-	p.rotate(Rot);
-	if (Sizing)
-	{
-		p.setCompositionMode(QPainter::CompositionMode_Xor);
-		p.setBrush(Qt::NoBrush);
-		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		p.drawRect(0, 0, static_cast<int>(OldB), static_cast<int>(OldH));
-		p.drawRect(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-		OldB = Width;
-		OldH = Height;
-	}
+	double sc = m_Doc->view()->scale();
 	if ((!FrameOnly) && (!m_Doc->RePos))
 	{
-		if (Select) // && (!Doc->EditClip))
+		if (!m_Doc->m_Selection->isEmpty())
 		{
-			if (!m_Doc->m_Selection->isEmpty())
+			if (Groups.count() == 0)
 			{
-				if (Groups.count() == 0)
+				if (m_Locked)
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				else
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setBrush(Qt::NoBrush);
+				int lw2 = 1;
+				int lw = 1;
+				Qt::PenCapStyle le = Qt::FlatCap;
+				if (NamedLStyle.isEmpty())
 				{
-					QPainter pr;
-					pr.begin(view->viewport());
-					pr.translate(out.x(), out.y());
-					pr.rotate(Rot);
-					if (m_Locked)
-						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-					else
-						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					pr.setBrush(Qt::NoBrush);
-					int lw2 = 1;
-					int lw = 1;
-					Qt::PenCapStyle le = Qt::FlatCap;
-					if (NamedLStyle.isEmpty())
-					{
-						lw2 = qRound(m_lineWidth * sc  / 2.0);
-						lw = qRound(qMax(m_lineWidth * sc, 1.0));
-						le = PLineEnd;
-					}
-					else
-					{
-						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-						lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
-						lw = qRound(qMax(ml[ml.size()-1].Width * sc, 1.0));
-						le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
-					}
-					if (asLine())
-					{
-						if (le != Qt::FlatCap)
-							pr.drawRect(-lw2, -lw2, qRound(Width*sc)+lw, lw);
-						else
-							pr.drawRect(-1, -lw2, qRound(Width*sc), lw);
-					}
-					else
-						pr.drawRect(-1, -1, qRound(Width*sc)+2, qRound(Height*sc)+2);
-					pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-					pr.setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
-					if ((!m_Locked) && (!m_SizeLocked))
-					{
-						if (! asLine())
-						{
-							pr.drawRect(-1, -1, 6, 6);
-							pr.drawRect(qRound(Width*sc), qRound(Height*sc), -6, -6);
-							pr.drawRect(qRound(Width*sc), -1, -6, 6);
-							pr.drawRect(-1, qRound(Height*sc), 6, -6);
-							if (Width > 6)
-							{
-								pr.drawRect(qRound(Width/2*sc - 3), qRound(Height*sc), 6, -6);
-								pr.drawRect(qRound(Width/2*sc - 3), -1, 6, 6);
-							}
-							if (Height > 6)
-							{
-								pr.drawRect(qRound(Width*sc), qRound(Height/2*sc - 3), -6, 6);
-								pr.drawRect(-1, qRound(Height/2*sc - 3), 6, 6);
-							}
-						}
-						else
-						{
-							pr.drawRect(-3, -3, 6, 6);
-							pr.drawRect(qRound(Width*sc)+3, -3, -6, 6);
-						}
-					}
-					pr.end();
+					lw2 = qRound(m_lineWidth * sc  / 2.0);
+					lw = qRound(qMax(m_lineWidth * sc, 1.0));
+					le = PLineEnd;
 				}
 				else
 				{
-					p.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					p.setBrush(Qt::NoBrush);
-					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					if (m_Doc->m_Selection->count() == 1)
+					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					lw2 = qRound(ml[ml.size()-1].Width * sc  / 2.0);
+					lw = qRound(qMax(ml[ml.size()-1].Width * sc, 1.0));
+					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
+				}
+				if (asLine())
+				{
+					if (le != Qt::FlatCap)
+						p->drawRect(-lw2, -lw2, qRound(Width*sc)+lw, lw);
+					else
+						p->drawRect(-1, -lw2, qRound(Width*sc), lw);
+				}
+				else
+					p->drawRect(-1, -1, qRound(Width*sc)+2, qRound(Height*sc)+2);
+				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
+				if ((!m_Locked) && (!m_SizeLocked))
+				{
+					if (! asLine())
 					{
-						QPainter pr;
-						pr.begin(view->viewport());
-						pr.translate(out.x(), out.y());
-						pr.rotate(Rot);
-						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-						pr.setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
-						pr.drawRect(-1, -1, 6, 6);
-						pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
-						pr.drawRect(static_cast<int>(Width*sc), -1, -6, 6);
-						pr.drawRect(-1, static_cast<int>(Height*sc), 6, -6);
+						p->drawRect(-1, -1, 6, 6);
+						p->drawRect(qRound(Width*sc), qRound(Height*sc), -6, -6);
+						p->drawRect(qRound(Width*sc), -1, -6, 6);
+						p->drawRect(-1, qRound(Height*sc), 6, -6);
 						if (Width > 6)
 						{
-							pr.drawRect(static_cast<int>(Width/2*sc - 3), static_cast<int>(Height*sc), 6, -6);
-							pr.drawRect(static_cast<int>(Width/2*sc - 3), -1, 6, 6);
+							p->drawRect(qRound(Width/2*sc - 3), qRound(Height*sc), 6, -6);
+							p->drawRect(qRound(Width/2*sc - 3), -1, 6, 6);
 						}
 						if (Height > 6)
 						{
-							pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height/2*sc - 3), -6, 6);
-							pr.drawRect(-1, static_cast<int>(Height/2*sc - 3), 6, 6);
+							p->drawRect(qRound(Width*sc), qRound(Height/2*sc - 3), -6, 6);
+							p->drawRect(-1, qRound(Height/2*sc - 3), 6, 6);
 						}
-						pr.end();
+					}
+					else
+					{
+						p->drawRect(-3, -3, 6, 6);
+						p->drawRect(qRound(Width*sc)+3, -3, -6, 6);
+					}
+				}
+			}
+			else
+			{
+				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setBrush(Qt::NoBrush);
+				p->drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
+				if (m_Doc->m_Selection->count() == 1)
+				{
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					p->setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
+					p->drawRect(-1, -1, 6, 6);
+					p->drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
+					p->drawRect(static_cast<int>(Width*sc), -1, -6, 6);
+					p->drawRect(-1, static_cast<int>(Height*sc), 6, -6);
+					if (Width > 6)
+					{
+						p->drawRect(static_cast<int>(Width/2*sc - 3), static_cast<int>(Height*sc), 6, -6);
+						p->drawRect(static_cast<int>(Width/2*sc - 3), -1, 6, 6);
+					}
+					if (Height > 6)
+					{
+						p->drawRect(static_cast<int>(Width*sc), static_cast<int>(Height/2*sc - 3), -6, 6);
+						p->drawRect(-1, static_cast<int>(Height/2*sc - 3), 6, 6);
 					}
 				}
 			}
 		}
-		//if (m_Doc->m_Selection->findItem(this)!=-1)
-		//	drawLockedMarker(p);
 	}
-//	Tinput = false;
 	FrameOnly = false;
-	p.end();
-// 	checkChanges(); // Check changes for undo actions
 }
 
 QImage PageItem::DrawObj_toImage()
