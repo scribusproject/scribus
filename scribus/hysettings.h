@@ -7,15 +7,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef HYSETTINGS_H
 #define HYSETTINGS_H
 
-#include <qwidget.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qcheckbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
+#include <QWidget>
+#include <QComboBox>
+#include <QLabel>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QGridLayout>
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
@@ -42,7 +39,7 @@ public:
 
 protected:
 	QMap<QString,QString> langsMap;
-	Q3GridLayout* layout3;
+	QGridLayout* layout3;
 };
 
 #endif // HYSETTINGS_H

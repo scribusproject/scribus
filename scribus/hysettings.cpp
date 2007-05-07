@@ -5,24 +5,23 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "hysettings.h"
-//#include "hysettings.moc"
+#include "QToolTip"
 #include "sccombobox.h"
 #include "scribusdoc.h"
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <QLabel>
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
 	langsMap = *langs;
 
-	layout3 = new Q3GridLayout( this, 1, 1, 0, 5, "Layout3");
+	layout3 = new QGridLayout( this );
+	layout3->setMargin(0);
+	layout3->setSpacing(5);
 	layout3->setAlignment( Qt::AlignTop );
 	verbose = new QCheckBox( tr("&Hyphenation Suggestions"), this, "Verbose");
-	layout3->addMultiCellWidget(verbose, 0, 0, 0, 1);
+	layout3->addWidget(verbose, 0, 0, 1, 2);
 	
 	input = new QCheckBox( tr("Hyphenate Text Automatically &During Typing"), this, "inp");
-	layout3->addMultiCellWidget(input, 1, 1, 0, 1);
+	layout3->addWidget(input, 1, 0, 1, 2);
 	
 		// languages
 // 	langMgr.init();
