@@ -62,17 +62,17 @@ void SplashScreen::setStatus( const QString &message )
 	QPixmap textPix(pix);
 	QPainter painter( &textPix);// Qt4, this );
 #if defined _WIN32
-	QFont font("Lucida Sans Unicode", 10);
+	QFont font("Lucida Sans Unicode", 9);
 #elif defined(__INNOTEK_LIBC__)
-	QFont font("WarpSans", 9);
+	QFont font("WarpSans", 8);
 #else
-	QFont font("Bitstream Vera Sans", 10);
+	QFont font("Bitstream Vera Sans", 8);
 #endif
 	painter.setFont(font);
 //	painter.setPen(QColor(236,233,216));
-	painter.setPen(Qt::black);
+	painter.setPen(Qt::white);
 	//painter.setRasterOp(NotROP);
-	painter.drawText( 81, textPix.height()-8, tmp );
+	painter.drawText( 315, textPix.height()-8, tmp );
 	painter.end();
 	setErasePixmap( textPix );
 	repaint();
