@@ -746,12 +746,27 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		{
 			if (!redrawPolygon.isEmpty())
 			{
-				QColor drawColor = qApp->palette().color(QPalette::Active, QColorGroup::Highlight);
-				psx->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-				drawColor.setAlpha(64);
-				psx->setBrush(drawColor);
-				psx->drawPolygon(redrawPolygon);
-				redrawPolygon.clear();
+				if (m_MouseButtonPressed && (Doc->appMode == modeDrawFreehandLine))
+				{
+					psx->resetMatrix();
+					QPoint out = contentsToViewport(QPoint(0, 0));
+					psx->translate(out.x(), out.y());
+					psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+					psx->scale(Scale, Scale);
+					psx->setBrush(Qt::NoBrush);
+					psx->setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+					psx->drawPolyline(redrawPolygon);
+					redrawPolygon.clear();
+				}
+				else
+				{
+					QColor drawColor = qApp->palette().color(QPalette::Active, QColorGroup::Highlight);
+					psx->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					drawColor.setAlpha(64);
+					psx->setBrush(drawColor);
+					psx->drawPolygon(redrawPolygon);
+					redrawPolygon.clear();
+				}
 			}
 		}
 		else
@@ -768,6 +783,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						psx->resetMatrix();
 						QPoint out = contentsToViewport(QPoint(0, 0));
 						psx->translate(out.x(), out.y());
+						psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
 						Transform(currItem, psx);
 						psx->setBrush(Qt::NoBrush);
 						psx->setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
@@ -861,6 +877,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					psx->resetMatrix();
 					QPoint out = contentsToViewport(QPoint(0, 0));
 					psx->translate(out.x(), out.y());
+					psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
 					Transform(currItem, psx);
 	 				currItem->paintObj(psx);
 	 			}
@@ -2240,13 +2257,16 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp(getMaxClipF(&currItem->PoLine));
 			Doc->SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-//			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			Doc->AdjustItemSize(currItem);
 			Doc->m_Selection->clear();
 			Doc->m_Selection->addItem(currItem);
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
 			currItem->OwnPage = Doc->OnPage(currItem);
+			operItemMoving = false;
+			operItemResizing = false;
+			inItemCreation = false;
+			updateContents(currItem->getRedrawBounding(Scale).adjusted(-10, -10, 20, 20));
 		}
 		if (!Prefs->stickyTools)
 		{
@@ -2256,7 +2276,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		else
 			emit Amode(Doc->appMode);
 		emit DocChanged();
-		updateContents();
 		return;
 	}
 	if ((Doc->EditClip) && (ClRe == -1) && (HaveSelRect))
@@ -4513,17 +4532,17 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		else
 			RecordP.addPoint(FPoint(newXF, newYF));
-		p.begin(viewport());
-		ToView(&p);
-		p.translate(qRound(Doc->minCanvasCoordinate.x()*Scale), qRound(Doc->minCanvasCoordinate.y()*Scale));
-		if (RecordP.size() > 1)
+		redrawPolygon.clear();
+		for (uint pp = 0; pp < RecordP.size(); pp++)
 		{
-			FPoint xp(RecordP.point(RecordP.size()-2));
-			p.drawLine(qRound((xp.x() - Doc->minCanvasCoordinate.x())*sc), qRound((xp.y() - Doc->minCanvasCoordinate.y())*sc), newX, newY);
+			redrawPolygon << RecordP.pointQ(pp);
 		}
-		else
-			p.drawPoint(m->x(), m->y());
-		p.end();
+		operItemResizing = true;
+		QRect bRect = redrawPolygon.boundingRect();
+		QPoint in(qRound(bRect.x()*Scale), qRound(bRect.y()*Scale));
+		in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
+		QPoint out = contentsToViewport(in);
+		updateContents(QRect(out.x()+contentsX(), out.y()+contentsY(), qRound(bRect.width()*Scale), qRound(bRect.height()*Scale)).adjusted(-10, -10, 20, 20));
 		return;
 	}
 	if ((GetItem(&currItem)) && (!shiftSelItems))
