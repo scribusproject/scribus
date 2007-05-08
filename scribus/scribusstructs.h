@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include "annotation.h"
 #include "pageitem.h"
 
+extern bool compareDouble(double, double);
+
 struct CopyPasteBuffer
 {
 	PageItem::ItemType PType;
@@ -240,6 +242,19 @@ struct SingleLine
 	int LineJoin;
 	QString Color;
 	int Shade;
+	bool operator==(const SingleLine& other) const
+	{
+		if (!compareDouble(Width, other.Width) )
+			return false;
+		if ((Dash != other.Dash)  || (LineEnd != other.LineEnd) || (LineJoin != other.LineJoin) ||
+			(Color != other.Color)|| (Shade != other.Shade))
+			return false;
+		return true;
+	}
+	bool operator!=(const SingleLine& other) const
+	{
+		return !(*this == other);
+	}
 };
 
 struct ArrowDesc
@@ -309,7 +324,15 @@ struct PrintOptions
 };
 
 typedef QMap<QString,QString> ProfilesL;
-typedef QValueVector<SingleLine> multiLine;
+
+class multiLine : public QValueVector<SingleLine>
+{
+public:
+	bool operator!=(const multiLine& other) const
+	{
+		return !(this->operator ==(other));
+	}
+};
 
 
 typedef enum {

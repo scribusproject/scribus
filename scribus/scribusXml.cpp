@@ -444,10 +444,14 @@ bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				while (Sty->contains(Nam2))
+				QMap<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
+				if (mlit != Sty->end() && ml != mlit.data())
 				{
-					Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-					copyC++;
+					while (Sty->contains(Nam2))
+					{
+						Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+						copyC++;
+					}
 				}
 				Sty->insert(Nam2, ml);
 			}
@@ -954,10 +958,14 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				while (doc->MLineStyles.contains(Nam2))
+				QMap<QString,multiLine>::ConstIterator mlit = doc->MLineStyles.find(Nam2);
+				if (mlit != doc->MLineStyles.end() && ml != mlit.data())
 				{
-					Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-					copyC++;
+					while (doc->MLineStyles.contains(Nam2))
+					{
+						Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+						copyC++;
+					}
 				}
 				doc->MLineStyles.insert(Nam2, ml);
 			}

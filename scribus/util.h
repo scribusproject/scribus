@@ -34,6 +34,11 @@ class PageItem;
 struct Layer;
 class Foi;
 
+/*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.
+If premultiplication does not allow to store result in a long value, perform a standard comparison.
+*/
+bool compareDouble(double a, double b);
+
 QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
 void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
 /*! \brief Returns a sorted list of QStrings - sorted by locale specific rules!
