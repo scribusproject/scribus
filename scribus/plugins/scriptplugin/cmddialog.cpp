@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "valuedialog.h"
 #include "editformats.h"
 #include "customfdialog.h"
+#include "stylemanager.h"
 
 #include <qmessagebox.h>
 #include <qcursor.h>
@@ -109,25 +110,30 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 {
-	/* following code is an uglu HACK. Don't take it as example!
-	Paragrap styles handling will be rewritten in 1.3.x devel
-	series.
-	It simulates user mouse clicking in the style dialogs. Ugly.
-	Unpleasant. Etc. But working. */
-	uint styleCount = ScCore->primaryMainWindow()->doc->paragraphStyles().count();
-	StilFormate *dia2 = new StilFormate(ScCore->primaryMainWindow(), ScCore->primaryMainWindow()->doc);
-	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	dia2->neuesFormat();
-	QApplication::restoreOverrideCursor();
-	ScCore->primaryMainWindow()->saveStyles(dia2);
-	delete dia2;
-	if (styleCount == ScCore->primaryMainWindow()->doc->paragraphStyles().count())
+	if(!checkHaveDocument())
+		return NULL;
+
+	ScribusDoc *d = ScCore->primaryMainWindow()->doc;
+	bool ok;
+	QString s = QInputDialog::getText(
+			"New Paragraph Style",
+			"Enter name of the new paragraph style:",
+			QLineEdit::Normal,
+			QString::null, &ok, ScCore->primaryMainWindow());
+
+	if (ok && !s.isEmpty())
 	{
-//		Py_INCREF(Py_None);
-//		return Py_None;
-		Py_RETURN_NONE;
+		StyleSet<ParagraphStyle> st;
+		st.redefine(d->paragraphStyles(), true);
+		ParagraphStyle p;
+		p.setName(s);
+		st.create(p);
+		d->redefineStyles(st, false);
+		ScCore->primaryMainWindow()->styleMgr()->setDoc(d);
+		return PyString_FromString(s.utf8());
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->paragraphStyles()[ScCore->primaryMainWindow()->doc->paragraphStyles().count() - 1].name().utf8());
+	else
+		Py_RETURN_NONE;
 }
 
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings
