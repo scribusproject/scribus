@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLEMANAGER_H
 #define STYLEMANAGER_H
 
+#include "scribusapi.h"
 #include "scraction.h"
 #include "stylemanagerbase.h"
 #include "scribusstructs.h"
@@ -32,7 +33,7 @@ class QPopupMenu;
 class PrefsContext;
 class StyleView;
 
-class StyleManager : public SMBase {
+class SCRIBUS_API StyleManager : public SMBase {
 	Q_OBJECT
 public:
 	StyleManager(QWidget *parent = 0, const char *name = "StyleManager");
