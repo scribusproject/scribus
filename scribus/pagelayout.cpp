@@ -44,7 +44,7 @@ PageLayouts::PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode
 		layoutsView->setAutoArrange( false );
 		layoutsView->setSorting( false );
 		layoutsView->setFocusPolicy(Qt::NoFocus);
-		layoutsView->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Ignored, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
+		layoutsView->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Expanding, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
 		layoutsView->setSelectionMode(Q3IconView::Single);
 		layoutGroupLayout->addWidget( layoutsView );
 	}
