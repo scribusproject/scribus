@@ -616,9 +616,9 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 	connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
-	connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+	connect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+	connect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+	connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 	connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
@@ -1191,8 +1191,8 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 		}
 		else if (c->text() == tr("Sharpen"))
 		{
-			disconnect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-			disconnect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			disconnect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+			disconnect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
 			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1201,12 +1201,12 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			shRadius->setValue(radius);
 			shValue->setValue(sigma);
 			optionStack->raiseWidget(4);
-			connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-			connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			connect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
+			connect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Blur"))
 		{
-			disconnect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			disconnect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
 			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -1215,7 +1215,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			blRadius->setValue(radius);
 			//			blValue->setValue(sigma);
 			optionStack->raiseWidget(5);
-			connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+			connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Posterize"))
 		{
