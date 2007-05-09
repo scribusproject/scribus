@@ -5216,6 +5216,8 @@ void ScribusMainWindow::TogglePics()
 
 void ScribusMainWindow::ToggleAllGuides()
 {
+	if (!doc)
+		return;
 	keyrep=false;
 	if (guidesStatus[0])
 	{
@@ -5278,93 +5280,127 @@ void ScribusMainWindow::ToggleAllGuides()
 
 void ScribusMainWindow::ToggleMarks()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleFrames()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleRaster()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleGuides()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleColumnBorders()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleBase()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleTextLinks()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleTextControls()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.showControls = !doc->guidesSettings.showControls;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.showControls = !doc->guidesSettings.showControls;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleRulers()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.rulersShown = !doc->guidesSettings.rulersShown;
-	view->setRulersShown(doc->guidesSettings.rulersShown);
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.rulersShown = !doc->guidesSettings.rulersShown;
+		view->setRulersShown(doc->guidesSettings.rulersShown);
+	}
 }
 
 void ScribusMainWindow::ToggleRulerMode()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
-	if (doc->m_Selection->count()==1)
+	if (doc)
 	{
-		PageItem* currItem=doc->m_Selection->itemAt(0);
-		if (currItem!=NULL)
-			currItem->emitAllToGUI();
+		guidesStatus[0] = false;
+		doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
+		if (doc->m_Selection->count()==1)
+		{
+			PageItem* currItem=doc->m_Selection->itemAt(0);
+			if (currItem!=NULL)
+				currItem->emitAllToGUI();
+		}
+		//TODO emit from selection, handle group widths
+		view->DrawNew();
 	}
-	//TODO emit from selection, handle group widths
-	view->DrawNew();
 }
 
 void ScribusMainWindow::ToggleURaster()
 {
-	doc->useRaster = !doc->useRaster;
+	if (doc)
+		doc->useRaster = !doc->useRaster;
 }
 
 void ScribusMainWindow::ToggleUGuides()
 {
-	doc->SnapGuides = !doc->SnapGuides;
+	if (doc)
+		doc->SnapGuides = !doc->SnapGuides;
 }
 
 void ScribusMainWindow::ToggleFrameEdit()
 {
+	if (!doc)
+		return;
 	if (doc->EditClip)
 	{
 		NoFrameEdit();
