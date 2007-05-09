@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ValueList>
 #include <Q3CString>
 #include <Q3PointArray>
-#include <QPicture>
+#include <QImageReader>
 
 // #include <algorithm>
 // #include <cstdlib>
@@ -1437,10 +1437,11 @@ QString setupImageFormats()
 	QString formatD = QObject::tr("All Supported Formats")+" (";
 	QString form1 = "";
 	QString form2 = "";
-	for (int i = 0; i < QPicture::inputFormatList().count(); ++i )
+	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
+	for (int i = 0; i < imgs.count(); ++i )
 	{
-		form1 = QString(QPicture::inputFormatList().at(i)).lower();
-		form2 = QString(QPicture::inputFormatList().at(i)).upper();
+		form1 = QString(imgs.at(i)).lower();
+		form2 = QString(imgs.at(i)).upper();
 		if (form1 == "jpeg")
 		{
 			form1 = "jpg";
