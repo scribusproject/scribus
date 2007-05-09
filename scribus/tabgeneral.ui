@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>784</width>
-    <height>489</height>
+    <width>547</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -76,7 +76,7 @@
         <property name="sizeHint" >
          <size>
           <width>20</width>
-          <height>40</height>
+          <height>5</height>
          </size>
         </property>
        </spacer>
@@ -137,7 +137,7 @@
          <string>Time before a Move or Resize starts:</string>
         </property>
         <property name="wordWrap" >
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="buddy" >
          <cstring>showSplashCheckBox</cstring>
@@ -213,7 +213,7 @@
         <property name="sizeHint" >
          <size>
           <width>20</width>
-          <height>16</height>
+          <height>3</height>
          </size>
         </property>
        </spacer>
@@ -228,7 +228,7 @@
         </property>
         <property name="sizeHint" >
          <size>
-          <width>40</width>
+          <width>4</width>
           <height>20</height>
          </size>
         </property>
