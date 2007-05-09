@@ -74,8 +74,8 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, double yOffset)
 {
 	QRegion res;
-	QPainter pp;
-	pp.begin(view->viewport());
+	QMatrix pp;
+//	pp.begin(view->viewport());
 	pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
 	pp.rotate(docItem->rotation());
 	if (docItem->textFlowUsesBoundingBox())
@@ -85,23 +85,27 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 		tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 		tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
 		tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
-		res = QRegion(pp.xForm(tcli));
+//		res = QRegion(pp.xForm(tcli));
+		res = QRegion(pp.map(tcli));
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
 		Q3ValueList<uint> Segs;
 		Q3PointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
-		res = QRegion(pp.xForm(Clip2));
+//		res = QRegion(pp.xForm(Clip2));
+		res = QRegion(pp.map(Clip2));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{
 		Q3ValueList<uint> Segs;
 		Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
-		res = QRegion(pp.xForm(Clip2));
+//		res = QRegion(pp.xForm(Clip2));
+		res = QRegion(pp.map(Clip2));
 	}
 	else
-		res = QRegion(pp.xForm(docItem->Clip));
-	pp.end();
+//		res = QRegion(pp.xForm(docItem->Clip));
+		res = QRegion(pp.map(docItem->Clip));
+//	pp.end();
 	return  res;
 }
 
@@ -436,14 +440,14 @@ struct LineControl {
 	}
 	
 	/// find x position to start current line
-	double startOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace)
+	double startOfLine(const QRegion& shape, const QMatrix& pf2, double ascent, double descent, double morespace)
 	{
 		QPoint pt1, pt2;
 		double tmpX = xPos;
 		pt1 = QPoint(static_cast<int>(ceil(tmpX)), static_cast<int>(yPos + descent));
 		pt2 = QPoint(static_cast<int>(ceil(tmpX)), static_cast<int>(ceil(yPos - ascent)));
 		// increase pt1/pt2 until i-beam reaches end of line
-		while ((!shape.contains(pf2.xForm(pt1))) || (!shape.contains(pf2.xForm(pt2))))
+		while ((!shape.contains(pf2.map(pt1))) || (!shape.contains(pf2.map(pt2))))
 		{
 			tmpX++;
 			if (xPos + (legacy? lineCorr + insets.Right : 0) + lineCorr + morespace >= colRight)
@@ -457,7 +461,7 @@ struct LineControl {
 	}
 	
 	/// find x position where this line must end
-	double endOfLine(const QRegion& shape, const QPainter& pf2, double ascent, double descent, double morespace = 0)
+	double endOfLine(const QRegion& shape, const QMatrix& pf2, double ascent, double descent, double morespace = 0)
 	{
 		double EndX = floor(qMax(line.x, qMin(colRight,breakXPos) - 1));
 		QPoint pt1, pt2;
@@ -468,8 +472,8 @@ struct LineControl {
 			pt2 = QPoint(qRound(ceil(EndX + insets.Right)), static_cast<int>(ceil(yPos-ascent)));
 		} while 
 			(   (EndX + (legacy? lineCorr + insets.Right : 0) < colRight - morespace)
-			  && shape.contains(pf2.xForm(pt1))
-			  && shape.contains(pf2.xForm(pt2)) 
+			  && shape.contains(pf2.map(pt1))
+			  && shape.contains(pf2.map(pt2)) 
 			  );
 		
 		return EndX;
@@ -744,7 +748,7 @@ void PageItem_TextFrame::layout()
 	
 //	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
 	ScribusView* view = m_Doc->view();
-	QPainter pf2;
+	QMatrix pf2;
 	QPoint pt1, pt2;
 	QRegion cm;
 	double chs, chsd = 0;
@@ -803,7 +807,7 @@ void PageItem_TextFrame::layout()
 	dumpIt(itemText.defaultStyle());
 */	
 	
-	pf2.begin(view->viewport());
+//	pf2.begin(view->viewport());
 	pf2.translate(Xpos, Ypos);
 	pf2.rotate(Rot);
 	
@@ -811,7 +815,7 @@ void PageItem_TextFrame::layout()
 	if ((itemText.length() != 0)) // || (NextBox != 0))
 	{
 		// determine layout area
-		QRegion cl = availableRegion(QRegion(pf2.xForm(Clip)));
+		QRegion cl = availableRegion(QRegion(pf2.map(Clip)));
 		
 		if (imageFlippedH())
 		{
@@ -1189,7 +1193,7 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("linestart: %1 + %2 + %3 < %4").arg(current.xPos).arg(wide).arg(style.rightMargin()).arg(current.colRight));
 				double leftIndent = 0;
 				double xStep = legacy? 1 : 0.125;
-				while (!cl.contains(pf2.xForm(pt1)) || !cl.contains(pf2.xForm(pt2)) || current.isEndOfLine(wide + leftIndent + style.rightMargin()))
+				while (!cl.contains(pf2.map(pt1)) || !cl.contains(pf2.map(pt2)) || current.isEndOfLine(wide + leftIndent + style.rightMargin()))
 				{
 					fBorder = true;
 					current.xPos += xStep;
@@ -1420,7 +1424,7 @@ void PageItem_TextFrame::layout()
 			}
 			
 			// test if end of line reached
-			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (legacy && current.isEndOfLine(style.rightMargin())))
+			if ((!cl.contains(pf2.map(pt1))) || (!cl.contains(pf2.map(pt2))) || (legacy && current.isEndOfLine(style.rightMargin())))
 				outs = true;
 			if (current.isEndOfCol())
 				outs = true;
@@ -1528,7 +1532,7 @@ void PageItem_TextFrame::layout()
 				}
 				tcli.setPoint(2, QPoint(qRound(maxDX), qRound(maxDY)));
 				tcli.setPoint(3, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY)));
-				cm = QRegion(pf2.xForm(tcli));
+				cm = QRegion(pf2.map(tcli));
 				cl = cl.subtract(cm);
 //				current.yPos = maxDY;
 			}
@@ -1747,7 +1751,7 @@ void PageItem_TextFrame::layout()
 							}
 							pt1 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(current.yPos+BotOffset));
 							pt2 = QPoint(qRound(current.xPos+extra.Right), static_cast<int>(ceil(current.yPos-asce)));
-							if (cl.contains(pf2.xForm(pt1)) && cl.contains(pf2.xForm(pt2)))
+							if (cl.contains(pf2.map(pt1)) && cl.contains(pf2.map(pt2)))
 								break;
 //							else
 //								qDebug(QString("looking for start of line at %1,%2").arg(current.xPos).arg(current.yPos));
@@ -2104,7 +2108,7 @@ void PageItem_TextFrame::layout()
 	}
 	MaxChars = itemText.length();
 	invalid = false;
-	pf2.end();
+//	pf2.end();
 	if (NextBox != NULL) {
 		NextBox->invalid = true;
 		dynamic_cast<PageItem_TextFrame*>(NextBox)->firstChar = MaxChars;
@@ -2113,7 +2117,7 @@ void PageItem_TextFrame::layout()
 	return;
 			
 NoRoom:     
-	pf2.end();
+//	pf2.end();
 	invalid = false;
 	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
 	if (next != 0)

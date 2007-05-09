@@ -314,7 +314,7 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	PageItem_TextFrame *previewItem = new PageItem_TextFrame(m_Doc, 0, 0, width, height, 0, "__whiteforpreviewbg__", "__whiteforpreview__");
 	QImage pm(width, height, QImage::Format_ARGB32);
-	ScPainter *painter = new ScPainter(&pm, width, height, 0, 0);
+	ScPainter *painter = new ScPainter(&pm, width, height, 1.0, 0);
 	double sca = 1.0; // original scale to set back at the end...
 	int userAppMode = m_Doc->appMode; // We need to be in normal when creating/repainting items
 	m_Doc->appMode = modeNormal;
