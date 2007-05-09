@@ -359,12 +359,17 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 	m_blendMode = blendmode;
 	la.pushed = false;
 	la.groupClip.resize(0);
-	if (clipArray != NULL)
-	{
-		la.groupClip = *clipArray;
-	}
+//	if (clipArray != NULL)
+//	{
+//		la.groupClip = *clipArray;
+//	}
 //	if ((transparency != 1.0) || (blendmode != 0) || (clipArray != NULL))
 //	{
+		if (clipArray != NULL)
+		{
+			setupPolygon(clipArray);
+			setClipPath();
+		}
 		cairo_push_group(m_cr);
 		la.pushed = true;
 //	}
@@ -607,11 +612,11 @@ void ScPainter::endLayer()
 	if (la.pushed)
 	{
 		cairo_pop_group_to_source (m_cr);
-		if (la.groupClip.size() != 0)
-		{
-			setupPolygon(&la.groupClip);
-			setClipPath();
-		}
+//		if (la.groupClip.size() != 0)
+//		{
+//			setupPolygon(&la.groupClip);
+//			setClipPath();
+//		}
 		if (m_blendMode == 0)
 		{
 			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
