@@ -549,12 +549,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout7->addItem( spacer4 );
 	effectUp = new QPushButton( this, "effectUp" );
 	effectUp->setText( "" );
-	effectUp->setPixmap(loadIcon("Raiselayer.png"));
+	effectUp->setPixmap(loadIcon("16/go-up.png"));
 	effectUp->setEnabled(false);
 	layout7->addWidget( effectUp );
 	effectDown = new QPushButton( this, "effectDown" );
 	effectDown->setText( "" );
-	effectDown->setPixmap(loadIcon("Lowerlayer.png"));
+	effectDown->setPixmap(loadIcon("16/go-down.png"));
 	effectDown->setEnabled(false);
 	layout7->addWidget( effectDown );
 	QSpacerItem* spacer5 = new QSpacerItem( 10, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
