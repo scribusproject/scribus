@@ -437,7 +437,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				{
 					if (Item->NamedLStyle.isEmpty())
 					{
-						if ((Item->asLine()) || (Item->asPolyLine()) || (Item->asPathText()))
+						if (Item->asPathText())
 							gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
 						else
 							gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
