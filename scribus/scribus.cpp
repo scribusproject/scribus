@@ -5526,17 +5526,22 @@ void ScribusMainWindow::toggleUndoPalette()
 
 void ScribusMainWindow::TogglePics()
 {
-	doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
-	for (uint b=0; b<doc->Items->count(); ++b)
+	if (doc)
 	{
-		if (doc->Items->at(b)->asImageFrame())
-			doc->Items->at(b)->setImageShown(doc->guidesSettings.showPic);
+		doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
+		for (uint b=0; b<doc->Items->count(); ++b)
+		{
+			if (doc->Items->at(b)->asImageFrame())
+				doc->Items->at(b)->setImageShown(doc->guidesSettings.showPic);
+		}
+		view->DrawNew();
 	}
-	view->DrawNew();
 }
 
 void ScribusMainWindow::ToggleAllGuides()
 {
+	if (!doc)
+		return;
 	keyrep=false;
 	if (guidesStatus[0])
 	{
@@ -5612,119 +5617,163 @@ void ScribusMainWindow::ToggleAllGuides()
 
 void ScribusMainWindow::ToggleMarks()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleBleeds()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.showBleed = !doc->guidesSettings.showBleed;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.showBleed = !doc->guidesSettings.showBleed;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleFrames()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleLayerMarkers()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.layerMarkersShown = !doc->guidesSettings.layerMarkersShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.layerMarkersShown = !doc->guidesSettings.layerMarkersShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleRaster()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleGuides()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleColumnBorders()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.colBordersShown = !doc->guidesSettings.colBordersShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleBase()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleTextLinks()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleTextControls()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.showControls = !doc->guidesSettings.showControls;
-	view->DrawNew();
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.showControls = !doc->guidesSettings.showControls;
+		view->DrawNew();
+	}
 }
 
 void ScribusMainWindow::ToggleRulers()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.rulersShown = !doc->guidesSettings.rulersShown;
-	view->setRulersShown(doc->guidesSettings.rulersShown);
+	if (doc)
+	{
+		guidesStatus[0] = false;
+		doc->guidesSettings.rulersShown = !doc->guidesSettings.rulersShown;
+		view->setRulersShown(doc->guidesSettings.rulersShown);
+	}
 }
 
 void ScribusMainWindow::ToggleRulerMode()
 {
-	guidesStatus[0] = false;
-	doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
-	if (doc->guidesSettings.rulerMode)
+	if (doc)
 	{
-		doc->rulerXoffset = 0;
-		doc->rulerYoffset = 0;
+		guidesStatus[0] = false;
+		doc->guidesSettings.rulerMode = !doc->guidesSettings.rulerMode;
+		if (doc->guidesSettings.rulerMode)
+		{
+			doc->rulerXoffset = 0;
+			doc->rulerYoffset = 0;
+		}
+		else
+		{
+			doc->rulerXoffset += doc->currentPage()->xOffset();
+			doc->rulerYoffset += doc->currentPage()->yOffset();
+		}
+		if (doc->m_Selection->count()==1)
+		{
+			PageItem* currItem=doc->m_Selection->itemAt(0);
+			if (currItem!=NULL)
+				currItem->emitAllToGUI();
+		}
+		//TODO emit from selection, handle group widths
+		view->DrawNew();
 	}
-	else
-	{
-		doc->rulerXoffset += doc->currentPage()->xOffset();
-		doc->rulerYoffset += doc->currentPage()->yOffset();
-	}
-	if (doc->m_Selection->count()==1)
-	{
-		PageItem* currItem=doc->m_Selection->itemAt(0);
-		if (currItem!=NULL)
-			currItem->emitAllToGUI();
-	}
-	//TODO emit from selection, handle group widths
-	view->DrawNew();
 }
 
 void ScribusMainWindow::ToggleURaster()
 {
-	doc->useRaster = !doc->useRaster;
-	slotDocCh();
+	if (doc)
+	{
+		doc->useRaster = !doc->useRaster;
+		slotDocCh();
+	}
 }
 
 void ScribusMainWindow::ToggleUGuides()
 {
-	doc->SnapGuides = !doc->SnapGuides;
-	slotDocCh();
+	if (doc)
+	{
+		doc->SnapGuides = !doc->SnapGuides;
+		slotDocCh();
+	}
 }
 
 void ScribusMainWindow::ToggleFrameEdit()
 {
+	if (!doc)
+		return;
 	if (doc->EditClip)
 	{
 		NoFrameEdit();
