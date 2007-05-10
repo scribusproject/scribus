@@ -72,14 +72,22 @@ void ScrPaletteBase::setPrefsContext(QString context)
 void ScrPaletteBase::startup()
 {
 	setFontSize();
-	setShown(visibleOnStartup);
+//	setShown(visibleOnStartup);
+	if (visibleOnStartup)
+		show();
+	else
+		hide();
 	emit paletteShown(visibleOnStartup);
 }
 
 void ScrPaletteBase::setPaletteShown(bool visible)
 {
 	storeVisibility(visible);
-	setShown(visible);
+//	setShown(visible);
+	if (visible)
+		show();
+	else
+		hide();
 	setActiveWindow();
 }
 
@@ -197,7 +205,7 @@ void ScrPaletteBase::storePosition()
 {
 	if (palettePrefs)
 	{
-		QRect geo = frameGeometry();
+		QRect geo = geometry();
 		palettePrefs->set("left", geo.left());
 		palettePrefs->set("top", geo.top());
 	}
