@@ -85,7 +85,7 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 
 	QRect sz = cellGeometry(row, col);
 	pixm = QImage(sz.width(), sz.height(), QImage::Format_ARGB32);
-	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height(), 1.0, 0);
+	ScPainter *p = new ScPainter(&pixm, sz.width(), sz.height(), 1.0, 0);
 	p->clear();
 	pixm.fill(Qt::white);
 	QMatrix chma;

@@ -57,7 +57,7 @@ void CharZoom::paintEvent(QPaintEvent *)
 	p.begin(this);
 	p.setPen(Qt::black);
 	p.setBrush(Qt::NoBrush);
-	p.drawRect(0, 0, width(), height());
+	p.drawRect(0, 0, width()-1, height()-1);
 	p.drawPixmap(1, 1, pixm);
 	p.drawText(5, height()-3, valu);
 	p.end();
