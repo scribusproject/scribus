@@ -74,6 +74,8 @@ ellipsis.png \
 22/draw-arrow-forward.png \
 16/draw-arrow-up.png \
 22/draw-arrow-up.png \
+16/draw-bezier-curves.png \
+22/draw-bezier-curves.png \
 16/draw-cross.png \
 22/draw-cross.png \
 16/draw-donut.png \
@@ -371,6 +373,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-forward.png $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-up.png $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-donut.png $(prefix)/share/scribus/icons/16/draw-donut.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-donut.png $(prefix)/share/scribus/icons/22/draw-donut.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
@@ -783,6 +787,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-up.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-donut.png
