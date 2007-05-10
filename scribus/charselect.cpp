@@ -125,7 +125,7 @@ CharSelect::CharSelect(QWidget* parent)
 
 	quickLayout->addLayout(fileLayout, 2, 0);
 
-	m_userTable = new CharTable(m_quickPalette, 2, m_doc, m_fontInUse);
+	m_userTable = new CharTable(m_quickPalette, 4, m_doc, m_fontInUse);
 	m_userTable->setMaximumWidth(120);
 	m_userTable->setMinimumWidth(120);
 	m_userTable->enableDrops(true);
