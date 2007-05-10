@@ -56,7 +56,7 @@ namespace PRIVATE {
 	inline
 	void chkcell(const VarPtr& cell, std::vector<VarPtr>* stack = NULL)
 	{
-		ObjType* dummy;
+		ObjType* dummy = NULL;
 		if( cell.type != typeid(dummy).name() )
 		{
 			std::cerr << "requested type '" << typeid(dummy).name() << "' doesnt match cell type '" << cell.type << "'\n";
@@ -211,7 +211,7 @@ template<class ObjType>
 inline
 ObjType*  Digester::result() 
 { 
-	ObjType* dummy;
+	ObjType* dummy = NULL;
 	if (result_.type != typeid(dummy).name())
 		return NULL;
 #ifdef DESAXE_DEBUG
