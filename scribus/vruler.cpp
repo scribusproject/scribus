@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPaintEvent>
 #include <QPixmap>
 #include <QMouseEvent>
+#include <QRubberBand>
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "units.h"
@@ -69,7 +70,9 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 	{
 		QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 		currView->DrVX = py.x();
-		qApp->setOverrideCursor(QCursor(SPLITVC), true);
+		qApp->changeOverrideCursor(QCursor(SPLITVC));
+		currView->redrawMarker->setGeometry(QRect(m->globalPos().x(), currView->viewport()->mapToGlobal(QPoint(0, 0)).y(), 1, currView->visibleHeight()));
+		currView->redrawMarker->show();
 	}
 }
 
@@ -80,7 +83,9 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 		currView->DrVX = -1;
 		currView->SetXGuide(m, -1);
 	}
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+	if (Mpressed)
+		currView->redrawMarker->hide();
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Mpressed = false;
 	currView->updateContents();
 }

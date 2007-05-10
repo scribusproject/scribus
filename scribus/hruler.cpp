@@ -172,7 +172,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			ActTab = 0;
 			RulerCode = rc_tab;
 			UpdateTabList();
-			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			emit DocChanged(false);
 		}
 	}
@@ -182,7 +182,9 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		{
 			QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 			currView->DrHY = py.y();
-			qApp->setOverrideCursor(QCursor(SPLITHC), true);
+			qApp->changeOverrideCursor(QCursor(SPLITHC));
+			currView->redrawMarker->setGeometry(QRect(currView->viewport()->mapToGlobal(QPoint(0, 0)).x(), m->globalPos().y(), currView->visibleWidth(), 1));
+			currView->redrawMarker->show();
 		}
 	}
 }
@@ -246,7 +248,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				ActTab = 0;
 				currItem->changeCurrentStyle().setTabValues(TabValues);
 				emit DocChanged(false);
-				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
 		}
 		RulerCode = rc_none;
@@ -260,7 +262,9 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			currView->DrHY = -1;
 			currView->SetYGuide(m, -1);
 		}
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		if (Mpressed)
+			currView->redrawMarker->hide();
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		emit DocChanged(false);
 		currView->updateContents();
 	}
@@ -288,7 +292,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
 		{
-			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
 			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
 			switch (RulerCode)
@@ -371,13 +375,13 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
 		{
-			qApp->setOverrideCursor(QCursor(loadIcon("tab.png"), 3), true);
+			qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
 			double Pos = (ItemPos-offs+Extra+lineCorr)*Scaling;
 			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
-				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			Pos = (ItemEndPos-offs-RExtra-lineCorr)*Scaling;
 			if ((static_cast<int>(Pos) < (m->x()+currDoc->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-currDoc->guidesSettings.grabRad)))
-				qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			QRect fpo;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 //			if (currDoc->currentParaStyle > 4)
@@ -388,14 +392,14 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					fpo = QRect(static_cast<int>(Pos)-3, topline, 6, 6);
 					if (fpo.contains(m->pos()))
 					{
-						qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+						qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 						break;
 					}
 					Pos = (ItemPos-offs+Indent+(ColWidth+ColGap)*CurrCol+Extra+lineCorr)*Scaling;
 					fpo = QRect(static_cast<int>(Pos)-3, 9, 6, 6);
 					if (fpo.contains(m->pos()))
 					{
-						qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+						qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 						break;
 					}
 				}
@@ -410,7 +414,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						fpo = QRect(static_cast<int>(Pos)-3, 7, 8, 8);
 						if (fpo.contains(m->pos()))
 						{
-							qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor), true);
+							qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 							break;
 						}
 					}
@@ -421,10 +425,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (RulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
 		{
-			qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1), true);
+			qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
 			return;
 		}
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	else
 	{
