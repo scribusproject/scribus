@@ -380,24 +380,36 @@ ADD_SUBDIRECTORY(scribus)
 
 #Install our READMEs etc.
 INSTALL(FILES
-AUTHORS
-BUILDING
-ChangeLog
-ChangeLogCVS
-COPYING
-INSTALL
-NEWS
-PACKAGING
-README
-README.MacOSX
-TODO
-
+  AUTHORS
+  BUILDING
+  ChangeLog
+  ChangeLogCVS
+  COPYING
+  INSTALL
+  NEWS
+  PACKAGING
+  README
+  README.MacOSX
+  TODO
   DESTINATION ${DOCDIR}
 )
+
 INSTALL(FILES
-scribus.xml
-DESTINATION ${MIMEDIR}
+  scribus.xml
+  DESTINATION ${MIMEDIR}
 )
+
+IF(APPLE)
+  INSTALL(FILES
+  Scribus.app/Contents/Info.plist
+  DESTINATION ${CMAKE_INSTALL_PREFIX}
+  )
+  INSTALL(FILES
+  Scribus.app/Contents/Resources/Scribus.icns
+  Scribus.app/Contents/Resources/Scribus-doc.icns
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources
+  )
+ENDIF(APPLE)
 
 # If the cmake version includes cpack, use it
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
