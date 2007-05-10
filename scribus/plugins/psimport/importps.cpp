@@ -216,7 +216,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
@@ -305,7 +305,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->setLoading(false);
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -386,7 +386,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->view()->updatesOn(true);
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);

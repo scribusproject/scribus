@@ -509,7 +509,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	{
 		if ((prefsManager->appPrefs.askBeforeSubstituite)) 
 		{
-			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			FontReplaceDialog dia(0, &ReplacedFonts);
 			if (dia.exec())
 			{
@@ -594,7 +594,7 @@ void FileLoader::informReplacementFonts()
 {
 	if (ReplacedFonts.count() != 0)
 	{
-		qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		QString mess = tr("Some fonts used by this document have been substituted:")+"\n\n";
 		QMap<QString,QString>::Iterator it;
 		for (it = ReplacedFonts.begin(); it != ReplacedFonts.end(); ++it)

@@ -479,7 +479,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
 			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
 			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			bool newCM = currDoc->CMSSettings.CMSinUse;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
@@ -507,7 +507,7 @@ void ReformDoc::updateDocumentSettings()
 			else
 				currDoc->HasCMS = false;
 			ScMW->mainWindowProgressBar->setProgress(cc);
-			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			ScMW->setStatusBarInfoText("");
 			ScMW->mainWindowProgressBar->reset();
 		}

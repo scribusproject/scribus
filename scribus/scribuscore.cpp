@@ -116,6 +116,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		else
 			scribus->setFocus();
 	}
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 
 	// A hook for plug-ins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be

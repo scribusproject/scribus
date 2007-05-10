@@ -103,7 +103,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
-		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
 		ex->pageDPI = dia->DPIBox->value();
 		ex->enlargement = dia->EnlargementBox->value();
@@ -185,7 +185,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 				CommonStrings::trYes, CommonStrings::trNo,
 				// hack for multiple overwritting (petr) 
 				(single==true) ? QString::null : tr("All"), 0, 0);
-		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == 0)
 			return im.save(fileName, bitmapType, quality);
 		if (over == 2)

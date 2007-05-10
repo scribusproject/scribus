@@ -198,7 +198,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString found = "";
 	QString found2 = "";
 	//uint maxC = it->itemText.length() - 1;
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QRegExp wordBoundary("\\w");
 	QRegExp whiteSpace("\\s|\\W|\\d|\\n|\\r|\\t");
 	while ((firstC+Ccount < signed(text.length())) && (firstC != -1) && 
@@ -290,7 +290,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							outs += "-";
 					}
 					outs += found2.right(1);
-					qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
 					int xpos = prefs->getInt("Xposition", -9999);
 					int ypos = prefs->getInt("Yposition", -9999);
@@ -324,7 +324,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 					prefs->set("Xposition", dia->xpos);
 					prefs->set("Yposition", dia->ypos);
 					delete dia;
-					qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				}
 			}
 			free(buffer);
@@ -333,7 +333,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (Ccount == 0)
 			Ccount++;
 	}
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	doc->DoDrawing = true;
 }
 
@@ -344,6 +344,6 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 
 	uint a = it->itemText.length();
 	it->itemText.hyphenateWord(0, a, NULL);
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	doc->DoDrawing = true;
 }

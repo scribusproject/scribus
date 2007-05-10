@@ -86,7 +86,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	if (m->button() == Qt::RightButton)
 	{
 		Q3PopupMenu *pmen = new Q3PopupMenu();
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)
 			pmen->setItemChecked(px, true);

@@ -1120,7 +1120,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EffVal.clear();
 		if (EffVal.count() != 0)
 		{
-			for (int pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
+			for (uint pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)

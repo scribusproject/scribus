@@ -43,7 +43,7 @@ void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *
 {
 	if (filename.isNull())
 		return;
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	PdbIm *im = new PdbIm(filename, encoding, writer);
 	im->write();

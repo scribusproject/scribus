@@ -792,7 +792,7 @@ void Biblio::HandleMouse(int button, Q3IconViewItem *ite)
 		}
 		connect(pmenu2, SIGNAL(activated(int)), this, SLOT(copyObj(int)));
 		connect(pmenu3, SIGNAL(activated(int)), this, SLOT(moveObj(int)));
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		ren = pmenu->insertItem( tr("Rename"));
 		del = pmenu->insertItem( tr("Delete"));
 		pmenu->insertItem( tr("Copy To:"), pmenu2);

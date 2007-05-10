@@ -68,9 +68,9 @@ PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 	if (!PyArg_ParseTuple(args, "es", "ascii", &aCursor))
 		return NULL;
 	if (strcmp(aCursor, "wait") == 0)
-		qApp->setOverrideCursor(Qt::WaitCursor);
-	else
-		qApp->restoreOverrideCursor();
+		qApp->changeOverrideCursor(Qt::WaitCursor);
+//	else
+//		qApp->restoreOverrideCursor();
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;

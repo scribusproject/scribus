@@ -209,7 +209,7 @@ public:
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 	void paintGroupRect(bool norm = true);
-	void PaintSizeRect(QPainter *p, QRect neu);
+	void PaintSizeRect(QRect neu);
 	void PaintSizeRect(QPolygon neu);
 	void ToView(QPainter *p);
 	void ToView(QMatrix& m);
@@ -232,8 +232,8 @@ public:
 // 	void AdjustItemSize(PageItem *currItem);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
-	void HandleCurs(QPainter *p, PageItem *currItem, QRect mpo);
-	void HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouseEvent *m);
+	void HandleCurs(PageItem *currItem, QRect mpo);
+	void HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
 	void SelectItemNr(uint nr, bool draw = true, bool single = false);

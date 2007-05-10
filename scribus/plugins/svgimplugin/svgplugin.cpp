@@ -285,7 +285,7 @@ void SVGPlug::convert(int flags)
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	gc->Family = m_Doc->toolSettings.defFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -411,7 +411,7 @@ void SVGPlug::convert(int flags)
 	m_Doc->scMW()->ScriptRunning = false;
 	if (interactive)
 		m_Doc->setLoading(false);
-	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
 		if (flags & LoadSavePlugin::lfScripted)

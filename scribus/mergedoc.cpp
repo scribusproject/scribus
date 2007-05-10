@@ -139,7 +139,7 @@ void MergeDoc::changeFile()
 		if (!fn.isEmpty())
 		{
 			dirs->set("merge", fn.left(fn.findRev("/")));
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			FileLoader fl(fn);
 			if (fl.TestFile() == -1)
 			//TODO put in nice user warning
@@ -150,7 +150,7 @@ void MergeDoc::changeFile()
 				ret = fl.ReadPageCount(fn, &dummy, &count, masterPageNames);
 			else
 				ret = fl.ReadPageCount(fn, &count, &dummy, masterPageNames);
-			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			if ((ret) && (count != 0))
 			{
 				fromDocData->setText( QDir::convertSeparators(fn) );

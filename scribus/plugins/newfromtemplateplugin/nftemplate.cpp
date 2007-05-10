@@ -108,7 +108,7 @@ void MenuNFT::RunNFTPlug(ScribusDoc* /*doc*/)
 	nftdialog* nftdia = new nftdialog(mw, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (mw->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file)))
 		{
 			mw->doc->hasName = false;

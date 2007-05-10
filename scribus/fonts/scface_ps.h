@@ -43,7 +43,7 @@ class ScFace_postscript : public FtFace
 		virtual void load()  const // routine by Franz Schmid - modified by Alastair M. Robinson
 		{
 			FtFace::load();
-			bool error;
+//			bool error;
 			FT_Face face = ftFace();
 			if (!face)
 			{

@@ -57,7 +57,7 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 	QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 	currView->DrVX = py.x();
 	currView->DrHY = py.y();
-	qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 }
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
@@ -68,7 +68,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		currView->DrHY = -1;
 		currView->setNewRulerOrigin(m);
 	}
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Mpressed = false;
 }
 

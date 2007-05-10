@@ -164,7 +164,7 @@ void Tree::slotRightClick(QPoint point)
 			QMenu *pmen = new QMenu();
 			QMenu *pmen2 = new QMenu();
 			QMenu *pmen3 = new QMenu();
-			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			QMenu *pmen4 = new QMenu();
 			QMenu *pmenEditContents = new QMenu();
 			QMenu *pmenLevel = new QMenu();

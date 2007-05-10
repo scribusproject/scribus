@@ -249,9 +249,9 @@ void TextBrowser::setSource(const QString &name)
 void TextBrowser::overLink(const QString &link)
 {
 	if ((link.isNull()) || (link.isEmpty()))
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	else
-		qApp->setOverrideCursor(QCursor(Qt::PointingHandCursor), true);
+		qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)

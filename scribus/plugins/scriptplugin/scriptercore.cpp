@@ -270,7 +270,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	if (!inMainInterpreter)
 	{
 		ScCore->primaryMainWindow()->ScriptRunning = true;
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), false);
+		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		// Create the sub-interpreter
 		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
 		stateo = PyEval_SaveThread();
@@ -370,7 +370,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	{
 		Py_EndInterpreter(state);
 		PyEval_RestoreThread(stateo);
-		qApp->restoreOverrideCursor();
+//		qApp->restoreOverrideCursor();
 	}
 	ScCore->primaryMainWindow()->ScriptRunning = false;
 }

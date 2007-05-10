@@ -747,7 +747,7 @@ void PageItem_TextFrame::layout()
 		firstChar = 0;
 	
 //	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
-	ScribusView* view = m_Doc->view();
+//	ScribusView* view = m_Doc->view();
 	QMatrix pf2;
 	QPoint pt1, pt2;
 	QRegion cm;
