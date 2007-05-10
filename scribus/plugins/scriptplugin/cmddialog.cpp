@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "editformats.h"
 #include "customfdialog.h"
 #include "stylemanager.h"
+#include "styleitem.h"
 
 #include <qmessagebox.h>
 #include <qcursor.h>
