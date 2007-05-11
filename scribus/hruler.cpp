@@ -361,14 +361,14 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			if (RulerCode != rc_none)
 			{
 				QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
-				QPainter p;
+/*				QPainter p;
 				p.begin(currView->viewport());
 				p.setCompositionMode(QPainter::CompositionMode_Xor);
 				p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				QPoint out = currView->contentsToViewport(QPoint(0, qRound(currDoc->currentPage()->yOffset() * Scaling)));
 				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(currDoc->currentPage()->height() * Scaling));
 				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(currDoc->currentPage()->height() * Scaling));
-				p.end();
+				p.end(); */
 				Markp = py.x();
 			}
 			return;
@@ -703,11 +703,9 @@ void Hruler::paintEvent(QPaintEvent *e)
 		}
 		p.restore();
 	}
-	p.end();
 	if (drawMark)
 	{
 		Q3PointArray cr;
-		QPainter p;
 #ifdef OPTION_SMOOTH_MARKERS
 		// draw new marker to pixmap
 		static const int SCALE = 16;
@@ -727,7 +725,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 			p.end();
 		}
 		// draw pixmap
-		p.begin(this);
+		p.resetMatrix();
 		p.translate(-currView->contentsX(), 0);
 		p.scale(1.0/SCALE, 1.0/(SCALE+1));
 		p.drawPixmap((where-2)*SCALE, 1, pix);
@@ -745,17 +743,16 @@ void Hruler::paintEvent(QPaintEvent *e)
 			p.drawLine(qRound(firstMark * sc), 10, qRound(firstMark * sc), 16);
 			firstMark += iter;
 		}
-		p.end();
 #else
 		// draw slim marker
-		p.begin(this);
+		p.resetMatrix();
 		p.translate(-currView->contentsX(), 0);
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
 		p.drawPolygon(cr);
-		p.end();
 #endif
+	p.end();
 	}
 }
 

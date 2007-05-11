@@ -890,17 +890,17 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 	if (Doc->appMode == modeEditGradientVectors)
 	{
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
-		QPainter p;
-		p.begin(viewport());
-		ToView(&p);
-		Transform(currItem, &p);
-		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		p.setBrush(Qt::NoBrush);
-		p.drawLine(QPoint(qRound(currItem->GrStartX), qRound(currItem->GrStartY)), QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)));
-		p.setPen(QPen(Qt::magenta, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
-		p.drawLine(QPoint(qRound(currItem->GrStartX), qRound(currItem->GrStartY)), QPoint(qRound(currItem->GrStartX), qRound(currItem->GrStartY)));
-		p.drawLine(QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)), QPoint(qRound(currItem->GrEndX), qRound(currItem->GrEndY)));
-		p.end();
+		psx->resetMatrix();
+		QPoint out = contentsToViewport(QPoint(0, 0));
+		psx->translate(out.x(), out.y());
+		psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+		Transform(currItem, psx);
+		psx->setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		psx->setBrush(Qt::NoBrush);
+		psx->drawLine(QPointF(currItem->GrStartX, currItem->GrStartY), QPointF(currItem->GrEndX, currItem->GrEndY));
+		psx->setPen(QPen(Qt::magenta, 8, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
+		psx->drawPoint(QPointF(currItem->GrStartX, currItem->GrStartY));
+		psx->drawPoint(QPointF(currItem->GrEndX, currItem->GrEndY));
 	}
 	evSpon = false;
 	forceRedraw = false;
@@ -1208,7 +1208,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 									horizRuler->Revers = false;
 								horizRuler->ItemPosValid = true;
 								horizRuler->TabValues = currItem->currentStyle().tabValues();
-								horizRuler->repaint();
+								horizRuler->update();
 							}
 						}
 					}
@@ -7815,9 +7815,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 		// unsed by gcc warning - PV
 		//int xP = qRound(x/Scale + Doc->minCanvasCoordinate.x());
 		//int yP = qRound(y/Scale + Doc->minCanvasCoordinate.y());
- 		QPainter p;
-		p.begin(this);
-		Transform(currItemGeneric, &p);
+ 		QMatrix p;
+//		p.begin(this);
+		Transform(currItemGeneric, p);
 		p.translate(qRound(-Doc->minCanvasCoordinate.x()), qRound(-Doc->minCanvasCoordinate.y()));
 		if (currItemGeneric->asImageFrame())
 			return true;
@@ -7825,8 +7825,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if (currItem==0)
 			return false;
 		QRect mpo(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
-		if ((QRegion(p.xForm(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
-		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
+		if ((QRegion(p.map(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
+		        (QRegion(p.map(currItem->Clip)).contains(mpo)))
 		{
 			m_cursorVisible = true;
 #if 0
@@ -8074,6 +8074,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 
 void ScribusView::slotDoCurs(bool draw)
 {
+//	disabling that function for now
+	return;
+
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
@@ -8191,6 +8194,8 @@ void ScribusView::slotDoCurs(bool draw)
 
 void ScribusView::blinkCursor()
 {
+//	disabling that function for now
+	return;
 	slotDoCurs(true);
 }
 
