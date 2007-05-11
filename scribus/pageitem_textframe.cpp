@@ -2298,8 +2298,14 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
 //						}
 						if (!m_Doc->RePos)
-							p->drawRect(xcoZli, qRound(ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), wide+1, qRound((asce+desc) * (hl->glyph.scaleV)));
+							p->drawRect(xcoZli, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV, wide+1, (asce+desc) * (hl->glyph.scaleV));
 						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
+					}
+					// FIXME temporary solution to have at least something like a cursor
+					if ((a == CPos-1) && (m_Doc->appMode == modeEdit))
+					{
+						p->setPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+						p->drawLine(FPoint(xcoZli+hl->glyph.xadvance+1, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), FPoint(xcoZli+hl->glyph.xadvance+1, ls.y + hl->glyph.yoffset));
 					}
 					actStroke = charStyle.strokeColor();
 					actStrokeShade = charStyle.strokeShade();
@@ -2616,8 +2622,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		CPos = pos;
 		if ( buttonState & Qt::ShiftButton )
 			ExpandSel(-1, oldPos);
-		if ( this->itemText.lengthOfSelection() > 0 )
-			view->RefreshItem(this);
+//		if ( this->itemText.lengthOfSelection() > 0 )
+//			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_End:
@@ -2636,8 +2642,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ( buttonState & Qt::ShiftButton )
 			ExpandSel(1, oldPos);
-		if ( this->itemText.lengthOfSelection() > 0 )
-			view->RefreshItem(this);
+//		if ( this->itemText.lengthOfSelection() > 0 )
+//			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Down:
@@ -2684,8 +2690,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ( this->itemText.lengthOfSelection() > 0 )
-			view->RefreshItem(this);
+//		if ( this->itemText.lengthOfSelection() > 0 )
+//			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Up:
@@ -2730,8 +2736,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ( this->itemText.lengthOfSelection() > 0 )
-			view->RefreshItem(this);
+//		if ( this->itemText.lengthOfSelection() > 0 )
+//			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Prior:
@@ -2799,8 +2805,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					break;
 			}
 		}
-		if ( itemText.lengthOfSelection() > 0 )
-			view->RefreshItem(this);
+//		if ( itemText.lengthOfSelection() > 0 )
+//			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Right:
@@ -2848,7 +2854,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
-				view->RefreshItem(this);
+//				view->RefreshItem(this);
 			}
 			keyRepeat = false;
 			return;
@@ -2869,7 +2875,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
-		view->RefreshItem(this);
+//		view->RefreshItem(this);
 		break;
 	case Qt::Key_Backspace:
 		if (CPos == 0)
@@ -2898,7 +2904,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
-		view->RefreshItem(this);
+//		view->RefreshItem(this);
 		break;
 	default:
 		if ((itemText.lengthOfSelection() > 0) && (kk < 0x1000))
@@ -2909,7 +2915,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			itemText.insertChars(CPos, QString(SpecialChars::TAB));
 			CPos += 1;
 //			Tinput = true;
-			view->RefreshItem(this);
+//			view->RefreshItem(this);
 			break;
 		}
 		if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
@@ -2935,12 +2941,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					m_Doc->docHyphenator->slotHyphenateWord(this, Twort, Tcoun);
 				}
 			}
+			invalid = true;
 //			Tinput = true;
-			view->RefreshItem(this);
+//			view->RefreshItem(this);
 		}
 		break;
 	}
-	view->slotDoCurs(true);
+	view->RefreshItem(this);
+//	view->slotDoCurs(true);
 	if ((kk == Qt::Key_Left) || (kk == Qt::Key_Right) || (kk == Qt::Key_Up) || (kk == Qt::Key_Down))
 	{
 		keyRepeat = false;
