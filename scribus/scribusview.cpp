@@ -4081,6 +4081,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			uint docItemCount=Doc->Items->count();
 			if (docItemCount != 0)
 			{
+				Doc->m_Selection->setIsGUISelection(false);
 				for (uint a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = Doc->Items->at(a);
@@ -4101,6 +4102,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						SelectItemNr(a, redrawSelection);
 					}
 				}
+				Doc->m_Selection->setIsGUISelection(true);
+				Doc->m_Selection->connectItemToGUI();
 				if (Doc->m_Selection->count() > 1)
 				{
 					Doc->m_Selection->setGroupRect();
