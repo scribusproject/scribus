@@ -5705,6 +5705,8 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
+	// JG resetting ElemToLink fixes #5629
+	ElemToLink = NULL;
 	updateContents();
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	//CB FIXME remove this and tree.h too
