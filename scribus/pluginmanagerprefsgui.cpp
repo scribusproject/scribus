@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QPixmap>
 #include <Q3GridLayout>
-#include <Q3CString>
 #include <Q3VBoxLayout>
 #include <Q3ValueList>
 
@@ -130,8 +129,8 @@ void PluginManagerPrefsGui::apply()
 {
 	PluginManager& pluginManager(PluginManager::instance());
 	// For each plugin:
-	QMap<Q3CString,PluginSettings>::Iterator itEnd(pluginSettings.end());
-	for ( QMap<Q3CString,PluginSettings>::Iterator it(pluginSettings.begin()) ; it != itEnd ; ++it )
+	QMap<QString,PluginSettings>::Iterator itEnd(pluginSettings.end());
+	for ( QMap<QString,PluginSettings>::Iterator it(pluginSettings.begin()) ; it != itEnd ; ++it )
 	{
 		// Save any changes from our working info to the plugin manager
 		pluginManager.enableOnStartup(it.key()) = it.data().enableOnStartup;

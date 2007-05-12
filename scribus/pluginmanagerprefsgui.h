@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <Q3GridLayout>
-#include <Q3CString>
 #include <QLabel>
 #include "prefspanel.h"
 #include "qpixmap.h"
