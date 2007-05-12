@@ -4114,6 +4114,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			uint docItemCount=Doc->Items->count();
 			if (docItemCount != 0)
 			{
+				Doc->m_Selection->setIsGUISelection(false);
 				for (uint a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = Doc->Items->at(a);
@@ -4133,6 +4134,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						SelectItemNr(a, redrawSelection);
 					}
 				}
+				Doc->m_Selection->setIsGUISelection(true);
+				Doc->m_Selection->connectItemToGUI();
 				if (Doc->m_Selection->count() > 1)
 				{
 					Doc->m_Selection->setGroupRect();
@@ -8300,7 +8303,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 								if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
 									Doc->m_Selection->addItem(Doc->Items->at(ga));
 							}
-							updateContents(currItem->getRedrawBounding(Scale));
+							if (draw)
+								updateContents(currItem->getRedrawBounding(Scale));
 						}
 					}
 				}
@@ -8308,7 +8312,8 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			else
 			{
 				Doc->m_Selection->addItem(currItem);
-				updateContents(currItem->getRedrawBounding(Scale));
+				if (draw)
+					updateContents(currItem->getRedrawBounding(Scale));
 			}
 			//CB FIXME/TODO We are surely prepending here and we have turned off 
 			//emitting in prepend below so do it here.
