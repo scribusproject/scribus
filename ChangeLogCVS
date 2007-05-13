@@ -1,7 +1,12 @@
-Changes since 1.2 (all Changes from 1.2 to 1.2.4cvs at the time of 1.3.3.2 release are included in the 1.3.3.2 Version too)
+
+
+Scribus - 1.3.5cvs
+- 0005669: [-] Sweep selection and click selection have the same effect but noticable different performance (fschmid)
+- 0004142: [Win32] RFE - Properties Window resizable (jghali)
 
 Scribus - 1.3.4cvs
 ==================
+
 - 0004768: [Import / Export] Provide some commands to access the SVG, EPS and OO importers from the Scripter. (fschmid)
 - 0005348: [Story Editor / Text Frames] connect link chains (avox)
 - 0003633: [Story Editor / Text Frames] text reversed when directly editing linked frames (avox)
