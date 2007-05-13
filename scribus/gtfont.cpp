@@ -704,7 +704,7 @@ void gtFont::parseFamily()
 		family = name;
 	else
 		family = name.left(smallestIndex);
-	if (biggestIndex == -1 || biggestIndex >= name.length())
+	if (biggestIndex == -1 || biggestIndex >= (int) name.length())
 		append = "";
 	else
 		append = name.right(name.length() - biggestIndex - 1);
