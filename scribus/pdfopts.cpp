@@ -143,11 +143,10 @@ void PDFExportDialog::DoExport()
 	QString dirPath = QDir::convertSeparators(fi.dirPath(true));
 	if (!QFile::exists(fi.dirPath(true)))
 	{
-		if (QMessageBox::question(this,
-									tr( "Save as PDF" ),
+		if (QMessageBox::question(this, tr( "Save as PDF" ),
 									tr("%1 does not exists and will be created, continue?").arg(dirPath),
-									CommonStrings::tr_OK, CommonStrings::tr_Cancel, QString::null, 1, 1)
-				  != 0)
+									QMessageBox::Ok | QMessageBox::Cancel)
+				  == QMessageBox::Cancel)
 		{
 			return;
 		}

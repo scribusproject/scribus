@@ -180,15 +180,14 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	{
 		QString fn = QDir::convertSeparators(fileName);
 		QApplication::restoreOverrideCursor();
-		over = ScMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
+		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
 				fn +"\n"+ tr("exists already. Overwrite?"),
-				CommonStrings::trYes, CommonStrings::trNo,
 				// hack for multiple overwritting (petr) 
-				(single==true) ? QString::null : tr("All"), 0, 0);
+				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
-		if (over == 0)
+		if (over == QMessageBox::Yes)
 			return im.save(fileName, bitmapType, quality);
-		if (over == 2)
+		if (over == QMessageBox::YesToAll)
 			overwrite = true;
 	}
 	return im.save(fileName, bitmapType, quality);

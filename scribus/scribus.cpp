@@ -535,8 +535,8 @@ bool ScribusMainWindow::warningVersion(QWidget *parent)
 	bool retval = false;
 	int t = ScMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
 								 QObject::tr("You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?") + "</qt>",
-								 CommonStrings::tr_OK, CommonStrings::tr_Cancel, "", 1, 0);
-	if (t == 0)
+								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
+	if (t == QMessageBox::Ok)
 		retval = true;
 	return retval;
 }
@@ -3914,7 +3914,7 @@ void ScribusMainWindow::slotGetContent()
 			{
 				if (currItem->itemText.length() != 0)
 				{
-					int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"), QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+					int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 					if (t == QMessageBox::No)
 						return;
 				}
@@ -3980,9 +3980,9 @@ void ScribusMainWindow::slotFileRevert()
 {
 	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode()))
 	{
-		int t = ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
+		int t = QMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
 								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
-								 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+								 QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 		if (t == QMessageBox::No)
 			return;
 
@@ -4312,10 +4312,10 @@ void ScribusMainWindow::slotFilePrint()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
-											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
-				if (t == 1)
+											QMessageBox::Abort | QMessageBox::Ignore);
+				if (t == QMessageBox::Abort)
 					return;
 			}
 			else
@@ -6325,7 +6325,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 {
 	assert( from > 0 );
 	assert( from <= to );
-	assert( to <= static_cast<uint>(doc->Pages->count()) );
+	assert( to <= static_cast<int>(doc->Pages->count()) );
 	uint oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
@@ -7632,10 +7632,10 @@ void ScribusMainWindow::printPreview()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
-											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
-				if (t == 1)
+											QMessageBox::Abort | QMessageBox::Ignore);
+				if (t == QMessageBox::Abort)
 					return;
 			}
 			else
@@ -7712,10 +7712,10 @@ void ScribusMainWindow::SaveAsEps()
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
-				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
-											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
-				if (t == 0)
+											QMessageBox::Abort | QMessageBox::Ignore);
+				if (t == QMessageBox::Abort)
 					return;
 			}
 			else
@@ -7799,8 +7799,8 @@ void ScribusMainWindow::SaveAsPDF()
 			{
 				int t = QMessageBox::warning(this, CommonStrings::trWarning,
 											tr("Detected some errors.\nConsider using the Preflight Verifier to correct them"),
-											tr("&Abort"), tr("&Ignore"), 0, 0, 0);
-				if (t == 0)
+											QMessageBox::Abort | QMessageBox::Ignore);
+				if (t == QMessageBox::Abort)
 					return;
 			}
 			else
@@ -8248,13 +8248,25 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			int t=-1;
 			if (lockedCount!=0 && lockedCount!=selectedItemCount)
 			{
-				t = QMessageBox::warning(this, CommonStrings::trWarning,
-											tr("Some objects are locked."),
-											CommonStrings::tr_Cancel,
-											tr("&Lock All"),
-											tr("&Unlock All"), 0, 0);
-				if (t == 0)
-					return; // user chose cancel -> do not group but return
+				QMessageBox msgBox;
+				QPushButton *abortButton = msgBox.addButton(QMessageBox::Cancel);
+				QPushButton *lockButton = msgBox.addButton(tr("&Lock All"), QMessageBox::AcceptRole);
+				QPushButton *unlockButton = msgBox.addButton(tr("&Unlock All"), QMessageBox::AcceptRole);
+				msgBox.setIcon(QMessageBox::Warning);
+				msgBox.setWindowTitle(CommonStrings::trWarning);
+				msgBox.setText( tr("Some objects are locked."));
+				msgBox.exec();
+				if (msgBox.clickedButton() == abortButton)
+					return;
+				else if (msgBox.clickedButton() == lockButton)
+					t = 1;
+//				t = QMessageBox::warning(this, CommonStrings::trWarning,
+//											tr("Some objects are locked."),
+//											CommonStrings::tr_Cancel,
+//											tr("&Lock All"),
+//											tr("&Unlock All"), 0, 0);
+//				if (t == 0)
+//					return; // user chose cancel -> do not group but return
 				for (uint a=0; a<selectedItemCount; ++a)
 				{
 					currItem = doc->m_Selection->itemAt(a);
@@ -9475,9 +9487,9 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
 			int t=QMessageBox::Yes;
 			if (imageItem->PicAvail)
-				t = ScMessageBox::warning(this, CommonStrings::trWarning,
+				t = QMessageBox::warning(this, CommonStrings::trWarning,
 										tr("Do you really want to replace your existing image?"),
-										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+										QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 			if (t == QMessageBox::Yes)
 			{
 				imageItem->EmProfile = "";

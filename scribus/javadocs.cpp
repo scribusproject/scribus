@@ -115,13 +115,11 @@ void JavaDocs::slotEdit()
 
 void JavaDocs::slotDelete()
 {
-	int exit=ScMessageBox::warning(this,
+	int exit = QMessageBox::warning(this,
 	                               CommonStrings::trWarning,
 	                               tr("Do you really want to delete this script?"),
-	                               CommonStrings::trYesKey,
-	                               CommonStrings::trNoKey,
-	                               0, 0, 0);
-	if (exit == 0)
+	                               QMessageBox::Yes | QMessageBox::No);
+	if (exit == QMessageBox::Yes)
 	{
 		QString nam = Scripts->currentText();
 		Doc->JavaScripts.remove(nam);

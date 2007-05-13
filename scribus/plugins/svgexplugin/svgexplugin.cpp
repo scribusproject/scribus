@@ -136,12 +136,10 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 			QFile f(fileName);
 			if (f.exists())
 			{
-				int exit=ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
+				int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
-					CommonStrings::trYes,
-					CommonStrings::trNo,
-					0, 0, 1);
-				if (exit != 0)
+					QMessageBox::Yes | QMessageBox::No);
+				if (exit == QMessageBox::No)
 					return true;
 			}
 			SVGExPlug *dia = new SVGExPlug(doc);

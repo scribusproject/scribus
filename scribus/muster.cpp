@@ -101,13 +101,11 @@ void MasterPagesPalette::deleteMasterPage()
 {
 	if ((sMuster == CommonStrings::masterPageNormal) || (sMuster == CommonStrings::trMasterPageNormal) || (sMuster == CommonStrings::trMasterPageNormalLeft) || (sMuster == CommonStrings::trMasterPageNormalMiddle) || (sMuster == CommonStrings::trMasterPageNormalRight))
 		return;
-	int exit=ScMessageBox::warning(this,
+	int exit = QMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this master page?"),
-	                              CommonStrings::trYesKey,
-	                              CommonStrings::trNoKey,
-	                              0, QMessageBox::No, QMessageBox::Yes);
-	if (exit == 0)
+	                              QMessageBox::Yes | QMessageBox::No);
+	if (exit == QMessageBox::Yes)
 	{
 		currentDoc->scMW()->DeletePage2(currentDoc->MasterNames[sMuster]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();

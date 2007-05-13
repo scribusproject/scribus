@@ -6838,10 +6838,24 @@ bool ScribusDoc::startAlign()
 	int t = 2;
 	if (oneLocked)
 	{
-		t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Some objects are locked."),
-									tr("&Unlock All"), tr("&Skip locked objects"), CommonStrings::tr_Cancel, 0, 0);
-		if (t == 2)
+//		t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Some objects are locked."),
+//									tr("&Unlock All"), tr("&Skip locked objects"), CommonStrings::tr_Cancel, 0, 0);
+//		if (t == 2)
+//			return false;
+		QMessageBox msgBox;
+		QPushButton *abortButton = msgBox.addButton(QMessageBox::Cancel);
+		QPushButton *lockButton = msgBox.addButton(tr("&Unlock All"), QMessageBox::AcceptRole);
+		QPushButton *unlockButton = msgBox.addButton(tr("&Skip locked objects"), QMessageBox::AcceptRole);
+		msgBox.setIcon(QMessageBox::Warning);
+		msgBox.setWindowTitle(CommonStrings::trWarning);
+		msgBox.setText( tr("Some objects are locked."));
+		msgBox.exec();
+		if (msgBox.clickedButton() == abortButton)
 			return false;
+		else if (msgBox.clickedButton() == lockButton)
+			t = 0;
+		else if (msgBox.clickedButton() == unlockButton)
+			t = 1;
 	}
 	
 	QString targetTooltip = Um::ItemsInvolved + "\n";

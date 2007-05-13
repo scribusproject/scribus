@@ -189,15 +189,13 @@ void LineFormate::deleteFormat()
 {
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
-	int exit=ScMessageBox::warning(this,
+	int exit = QMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this style?"),
-	                              CommonStrings::trYesKey,
-	                              CommonStrings::trNoKey,
-	                              0, 0, 0);
+	                              QMessageBox::Yes | QMessageBox::No);
 	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
 	/* FS - 12.05.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
-	if (exit == 0)
+	if (exit == QMessageBox::Yes)
 	{
 		Replacement.insert(sFnumber, "");
 		TempStyles.remove(sFnumber);
