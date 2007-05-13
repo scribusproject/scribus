@@ -49,6 +49,7 @@ struct Collection
 	ColorList colors;
 	StyleSet<ParagraphStyle> pstyles;
 	StyleSet<CharStyle> cstyles;
+	QMap<QString,multiLine> lstyles;
 	Q3ValueList<QString> fonts;
 	Q3ValueList<QString> patterns;
 
@@ -56,6 +57,7 @@ struct Collection
 	void collectColor(QString name, ScColor c) { colors[name] = c; }
 	void collectStyle(ParagraphStyle* style)   { if (style && !style->name().isEmpty()) pstyles.append(style); }
 	void collectCharStyle(CharStyle* style)    { if (style && !style->name().isEmpty()) cstyles.append(style); }
+	void collectLineStyle(QString name, multiLine& m) { lstyles[name] = m; }
 	void collectFont(QString name)             { fonts.append(name); }
 	void collectPattern(QString name)          { patterns.append(name); }
 };
@@ -63,12 +65,12 @@ struct Collection
 
 class CollectColor_body : public Action_body
 {
-	void begin (const Xml_string tagname, Xml_attr attr)
+	void begin (const Xml_string& tagname, Xml_attr attr)
 	{
 		m_name = attr["name"];
 	}
 	
-	void end (const Xml_string tagname)
+	void end (const Xml_string& tagname)
 	{
 //		qDebug(QString("collect %1").arg(tagname));
 		Collection* coll = this->dig->lookup<Collection>("<collection>");
@@ -82,6 +84,45 @@ private:
 class CollectColor : public MakeAction<CollectColor_body>
 {};
 
+class CollectMultiLine_body : public Action_body
+{
+	void begin (const Xml_string& tagname, Xml_attr attr)
+	{
+		m_name = attr["Name"];
+	}
+	
+	void end (const Xml_string& tagname)
+	{
+//		qDebug(QString("collect %1").arg(tagname));
+		Collection* coll  = this->dig->lookup<Collection>("<collection>");
+		multiLine*  mline = this->dig->top<multiLine>();
+		coll->collectLineStyle(m_name, *mline);
+	}
+private:
+	QString m_name;
+};
+
+class CollectMultiLine : public MakeAction<CollectMultiLine_body>
+{};
+
+class CollectSingleLine_body : public Action_body
+{
+	void begin (const Xml_string& tagname, Xml_attr attr)
+	{
+	}
+	
+	void end (const Xml_string& tagname)
+	{
+//		qDebug(QString("collect %1").arg(tagname));
+		Collection* coll  = this->dig->lookup<Collection>("<collection>");
+		multiLine*  mline = this->dig->lookup<multiLine>("<multiline>");
+		SingleLine* sline = this->dig->top<SingleLine>();
+		mline->append(*sline);
+	}
+};
+
+class CollectSingleLine : public MakeAction<CollectSingleLine_body>
+{};
 
 Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 {
@@ -101,6 +142,19 @@ Serializer::Serializer(ScribusDoc& doc) : Digester(), m_Doc(doc)
 	
 	ParagraphStyle::desaxeRules("/SCRIBUSFRAGMENT/", *this);
 	addRule("/SCRIBUSFRAGMENT/style", SetterP<Collection, ParagraphStyle>( & Collection::collectStyle ));
+
+	addRule("/SCRIBUSFRAGMENT/MultiLine", Factory<multiLine>());
+	addRule("/SCRIBUSFRAGMENT/MultiLine", Store<multiLine>("<multiline>"));
+	addRule("/SCRIBUSFRAGMENT/MultiLine", CollectMultiLine());
+
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", Factory<SingleLine>());
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", SetAttributeWithConversion<SingleLine, const QString&> ( &SingleLine::setColor, "Color", &parse<const Xml_string&>, "Black"));
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", SetAttributeWithConversion<SingleLine, int>( &SingleLine::setShade, "Shade", &parseInt ));
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", SetAttributeWithConversion<SingleLine, int>( &SingleLine::setDash , "Dash", &parseInt ));
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", SetAttributeWithConversion<SingleLine, int>( &SingleLine::setLineEnd , "LineEnd", &parseInt ));
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", SetAttributeWithConversion<SingleLine, int>( &SingleLine::setLineJoin, "LineJoin", &parseInt ));
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", SetAttributeWithConversion<SingleLine, double>( &SingleLine::setLineWidth, "Width", &parseDouble ));
+	addRule("/SCRIBUSFRAGMENT/MultiLine/SubLine", CollectSingleLine());
 
 	addRule("/SCRIBUSFRAGMENT/font", SetAttribute<Collection, QString>( & Collection::collectFont, "name"));
 
@@ -278,7 +332,22 @@ Selection Serializer::importCollection()
 		
 		m_Doc.redefineStyles(coll->pstyles, false);		
 
-		//TODO: linestyles
+		//TODO: linestyles : this is temporary code until MultiLine is replaced by LineStyle
+		QMap<QString,multiLine>::Iterator mlit;
+		for (mlit = coll->lstyles.begin(); mlit != coll->lstyles.end(); ++mlit)
+		{
+			multiLine& ml = mlit.data();
+			QString    oldName = mlit.key();
+			QString    newName = mlit.key();
+			QMap<QString,multiLine>::ConstIterator mlitd = m_Doc.MLineStyles.find(oldName);
+			if (mlitd != m_Doc.MLineStyles.end() && ml != mlitd.data())
+			{
+				int counter = 0;
+				while (m_Doc.MLineStyles.contains(newName))
+					newName = (QObject::tr("Copy of %1 (%2)")).arg(oldName).arg(++counter);
+			}
+			m_Doc.MLineStyles.insert(newName, ml);
+		}
 
 		//TODO: patterns
 		

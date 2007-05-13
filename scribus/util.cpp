@@ -1119,6 +1119,17 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
 }
 
+bool compareDouble(double a, double b)
+{
+	if(a > -21473 && b > -21473 && a < 21474 && b < 21474)
+	{
+		long al = static_cast<long>(10000 * a);
+		long bl = static_cast<long>(10000 * b);
+		return al == bl;
+	}
+	return a == b;
+}
+
 inline double square(double x)
 {
 	return x*x;

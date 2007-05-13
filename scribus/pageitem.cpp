@@ -787,6 +787,7 @@ void PageItem::dropLinks()
 				after = after->NextBox;
 			}
 		}
+		// JG we should set BackBox and NextBox to NULL at a point
 	}
 }
 

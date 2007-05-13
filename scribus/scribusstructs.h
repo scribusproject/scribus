@@ -22,12 +22,15 @@ for which a new license (GPL+exception) is in place.
 #include <Q3PtrList>
 #include <vector>
 
+#include "scribusapi.h"
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "annotation.h"
 #include "pageitem.h"
+
+extern bool SCRIBUS_API compareDouble(double, double);
 
 typedef struct
 {
@@ -252,6 +255,26 @@ struct SingleLine
 	int LineJoin;
 	QString Color;
 	int Shade;
+	// setter necessary for use with serializer/digester
+	void setLineWidth(double value) { Width = value; }
+	void setDash(int value)         { Dash = value; }
+	void setLineEnd(int value)      { LineEnd = value; }
+	void setLineJoin(int value)     { LineJoin = value; }
+	void setColor(const QString& name) { Color = name; }
+	void setShade(int value)        { Shade = value; }
+	bool operator==(const SingleLine& other) const
+	{
+		if (!compareDouble(Width, other.Width) )
+			return false;
+		if ((Dash != other.Dash)  || (LineEnd != other.LineEnd) || (LineJoin != other.LineJoin) ||
+			(Color != other.Color)|| (Shade != other.Shade))
+			return false;
+		return true;
+	}
+	bool operator!=(const SingleLine& other) const
+	{
+		return !(*this == other);
+	}
 };
 
 struct ArrowDesc
@@ -338,8 +361,13 @@ struct PrintOptions
 typedef QMap<QString,QString> ProfilesL;
 // typedef QValueVector<SingleLine> multiLine;
 
-struct multiLine : public Q3ValueVector<SingleLine> {
+class multiLine : public Q3ValueVector<SingleLine> {
+public:
 	QString shortcut;
+	bool operator!=(const multiLine& other) const
+	{
+		return !(this->operator ==(other));
+	}
 };
 
 typedef enum {
