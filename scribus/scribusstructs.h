@@ -252,6 +252,13 @@ struct SingleLine
 	int LineJoin;
 	QString Color;
 	int Shade;
+	// setter necessary for use with serializer/digester
+	void setLineWidth(double value) { Width = value; }
+	void setDash(int value)         { Dash = value; }
+	void setLineEnd(int value)      { LineEnd = value; }
+	void setLineJoin(int value)     { LineJoin = value; }
+	void setColor(const QString& name) { Color = name; }
+	void setShade(int value)        { Shade = value; }
 	bool operator==(const SingleLine& other) const
 	{
 		if (!compareDouble(Width, other.Width) )
