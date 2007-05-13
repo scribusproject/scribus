@@ -10,19 +10,48 @@
 # also defined, but not for general use are
 # FREETYPE_LIBRARY, where to find the FREETYPE library.
 
-FIND_PATH(FREETYPE_INCLUDE_DIR_FT2BUILD ft2build.h
-  /usr/include/
-  /usr/local/include/
-)
+IF (BUILD_OSX_BUNDLE)
+  FIND_PATH(FREETYPE_INCLUDE_DIR_FT2BUILD ft2build.h
+    /opt/local/include/
+    NO_DEFAULT_PATH
+  )
+ELSE (BUILD_OSX_BUNDLE)
+  FIND_PATH(FREETYPE_INCLUDE_DIR_FT2BUILD ft2build.h
+    /usr/include/
+    /usr/local/include/
+    NO_DEFAULT_PATH
+  )
+ENDIF (BUILD_OSX_BUNDLE)
 
-FIND_PATH(FREETYPE_INCLUDE_DIR_FTHEADER freetype/config/ftheader.h
-  /usr/include/freetype2
-  /usr/local/include/freetype2
-)
 
-FIND_LIBRARY(FREETYPE_LIBRARY freetype
-  PATHS /usr/lib /usr/local/lib
-)
+IF (BUILD_OSX_BUNDLE)
+  FIND_PATH(FREETYPE_INCLUDE_DIR_FTHEADER freetype/config/ftheader.h
+    /opt/local/include/freetype2
+    NO_DEFAULT_PATH
+  )
+ELSE (BUILD_OSX_BUNDLE)
+  FIND_PATH(FREETYPE_INCLUDE_DIR_FTHEADER freetype/config/ftheader.h
+    /usr/include/freetype2
+    /usr/local/include/freetype2
+    NO_DEFAULT_PATH
+  )
+ENDIF (BUILD_OSX_BUNDLE)
+
+IF (BUILD_OSX_BUNDLE)
+  FIND_LIBRARY(FREETYPE_LIBRARY freetype
+    PATHS /opt/local/lib 
+    NO_DEFAULT_PATH
+  )
+ELSE (BUILD_OSX_BUNDLE)
+  FIND_LIBRARY(FREETYPE_LIBRARY freetype
+    PATHS /usr/lib /usr/local/lib
+    NO_DEFAULT_PATH
+  )
+ENDIF (BUILD_OSX_BUNDLE)
+
+MESSAGE(STATUS "ft lib ${FREETYPE_LIBRARY}")
+MESSAGE(STATUS "ft2 build ${FREETYPE_INCLUDE_DIR_FT2BUILD}")
+MESSAGE(STATUS "ft header ${FREETYPE_INCLUDE_DIR_FTHEADER}")
 
 SET(FREETYPE_FIND_QUIETLY 1)
 
