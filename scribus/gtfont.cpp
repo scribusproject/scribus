@@ -114,6 +114,12 @@ gtFont::gtFont(const gtFont& f)
 	weightIndex = f.weightIndex;
 	slantIndex  = f.slantIndex;
 	widthIndex  = f.widthIndex;
+	smallestIndex  = f.smallestIndex;
+	biggestIndex   = f.biggestIndex;
+	index          = f.index;
+	tmpWeightIndex = f.tmpWeightIndex;
+	tmpSlantIndex  = f.tmpSlantIndex;
+	tmpWidthIndex  = f.tmpWidthIndex;
 	fontEffects[NORMAL]        = f.fontEffects[NORMAL];
 	fontEffects[UNDERLINE]     = f.fontEffects[UNDERLINE];
 	fontEffects[STRIKETHROUGH] = f.fontEffects[STRIKETHROUGH];
@@ -698,7 +704,7 @@ void gtFont::parseFamily()
 		family = name;
 	else
 		family = name.left(smallestIndex);
-	if (biggestIndex == -1)
+	if (biggestIndex == -1 || biggestIndex >= name.length())
 		append = "";
 	else
 		append = name.right(name.length() - biggestIndex - 1);
