@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3Frame>
 #include <QCloseEvent>
+#include <QMessageBox>
 #include "scribuswin.h"
 #include "pageselector.h"
 #include "scmessagebox.h"
@@ -108,14 +109,17 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		int exit=ScMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+		int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
 											QDir::convertSeparators(m_Doc->DocName)+"\n"+
 											tr("has been changed since the last save."),
-											CommonStrings::tr_Save, tr("&Discard"),
-											CommonStrings::tr_Cancel, 2, 2);
-		if (exit==2)
+											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+											QMessageBox::Cancel);
+		if (exit == QMessageBox::Cancel)
+		{
+			ce->ignore();
 			return;
-		if (exit==0)
+		}
+		if (exit == QMessageBox::Save)
 		{
 			if (m_MainWindow->slotFileSave())
 			{
@@ -123,7 +127,10 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 					m_MainWindow->storyEditor->close();
 			}
 			else
+			{
+				ce->ignore();
 				return;
+			}
 		}
 	}
 	m_MainWindow->DoFileClose();
