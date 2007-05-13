@@ -98,8 +98,10 @@ ScText_Shared::~ScText_Shared() {
 void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleContext* newContext)
 {
 	Q3PtrListIterator<ScText> it( *this );
-	it += (pos-1);
-	ScText* elem;
+	it += pos;
+	ScText* elem = it.current();
+	elem->setContext(newContext);
+	--it;
 	while ( (elem = it.current()) != NULL ) {
 		if (elem->ch[0] == SpecialChars::PARSEP)
 			break;
