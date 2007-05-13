@@ -1,0 +1,6 @@
+Scribus - 1.3.3.10cvs
+=====================
+- 0005667: [User Interface] Frame borders are disappearing when using Page-up/down-keys (fschmid)
+- 0005658: [Import / Export] Export to SVG of drawing previously imported as EPS sets wrong color (jghali)
+- 0005653: [Story Editor / Text Frames] Text loses shadow/underline words properties when text frame is duplicated (jghali)
+- 0005656: [General] Toggle guides crashes Scribus when no document open (jghali)
