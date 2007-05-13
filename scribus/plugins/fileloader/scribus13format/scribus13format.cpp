@@ -2662,10 +2662,14 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				while (m_Doc->MLineStyles.contains(Nam2))
+				QMap<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
+				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.data())
 				{
-					Nam2 = QObject::tr("Copy #%1 of ").arg(copyC)+Nam;
-					copyC++;
+					while (m_Doc->MLineStyles.contains(Nam2))
+					{
+						Nam2 = QObject::tr("Copy #%1 of ").arg(copyC)+Nam;
+						copyC++;
+					}
 				}
 				m_Doc->MLineStyles.insert(Nam2, ml);
 			}
@@ -3103,10 +3107,14 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QMap<QString,multi
 				QString Nam = pg.attribute("Name");
 				QString Nam2 = Nam;
 				int copyC = 1;
-				while (Sty->contains(Nam2))
+				QMap<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
+				if (mlit != Sty->end() && ml != mlit.data())
 				{
-					Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-					copyC++;
+					while (Sty->contains(Nam2))
+					{
+						Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+						copyC++;
+					}
 				}
 				Sty->insert(Nam2, ml);
 			}
