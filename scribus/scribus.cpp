@@ -4967,6 +4967,9 @@ void ScribusMainWindow::slotEditPaste()
 				else 
 				{
 					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.utf8());
+					for (uint i=0; i < pastedObjects.count(); ++i)
+						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
+					
 					/*double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
 					for (uint i=0; i < pastedObjects.count(); ++i)
