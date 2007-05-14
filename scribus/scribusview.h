@@ -165,6 +165,9 @@ public:
 	PageItem *redrawItem;
 	QRubberBand *redrawMarker;
 	QPolygon redrawPolygon;
+	bool specialRendering;
+	bool firstSpecial;
+	QPixmap m_buffer;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);

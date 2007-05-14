@@ -273,6 +273,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	redrawMarker = new QRubberBand(QRubberBand::Rectangle);
 	redrawMarker->hide();
 	redrawPolygon.clear();
+	specialRendering = false;
+	firstSpecial = false;
+	m_buffer = QPixmap();
 	m_ScMW->scrActions["viewFitPreview"]->setOn(viewAsPreview);
 	m_SnapCounter = 0;
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
@@ -382,6 +385,189 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 //	tim.start();
 	if ((clipw > 0) && (cliph > 0))
 	{
+
+		if ((specialRendering) || (Doc->EditClip && specialRendering))
+		{
+			if (firstSpecial)
+			{
+				m_buffer = QPixmap::grabWindow(viewport()->winId(), 0, 0);
+				firstSpecial = false;
+			}
+			QPainter pp;
+			QPixmap ppx = m_buffer;
+			pp.begin(&ppx);
+			pp.setRenderHint(QPainter::Antialiasing, true);
+			if (m_MouseButtonPressed && ((Doc->appMode == modeMeasurementTool) || (Doc->appMode == modeDrawLine)))
+			{
+				pp.resetMatrix();
+				QPoint out = contentsToViewport(QPoint(0, 0));
+				pp.translate(out.x(), out.y());
+				pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+				pp.setBrush(Qt::NoBrush);
+				pp.setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				pp.drawPolyline(redrawPolygon);
+				redrawPolygon.clear();
+			}
+			if (operItemMoving || operItemResizing)
+			{
+				if (operItemResizing)
+				{
+					if (!redrawPolygon.isEmpty())
+					{
+						if (m_MouseButtonPressed && (Doc->appMode == modeDrawFreehandLine))
+						{
+							pp.resetMatrix();
+							QPoint out = contentsToViewport(QPoint(0, 0));
+							pp.translate(out.x(), out.y());
+							pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+							pp.scale(Scale, Scale);
+							pp.setBrush(Qt::NoBrush);
+							pp.setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+							pp.drawPolyline(redrawPolygon);
+							redrawPolygon.clear();
+						}
+						else
+						{
+							QColor drawColor = qApp->palette().color(QPalette::Active, QColorGroup::Highlight);
+							pp.setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+							drawColor.setAlpha(64);
+							pp.resetMatrix();
+							QPoint out = contentsToViewport(QPoint(0, 0));
+							pp.translate(out.x(), out.y());
+							pp.setBrush(drawColor);
+							pp.drawPolygon(redrawPolygon);
+							redrawPolygon.clear();
+						}
+					}
+				}
+				else
+				{
+					if (Doc->m_Selection->count() != 0)
+					{
+						uint selectedItemCount = Doc->m_Selection->count();
+						PageItem *currItem = Doc->m_Selection->itemAt(0);
+						if (selectedItemCount < moveWithBoxesOnlyThreshold)
+						{
+							for (uint cu = 0; cu < selectedItemCount; cu++)
+							{
+								currItem = Doc->m_Selection->itemAt(cu);
+								pp.resetMatrix();
+								QPoint out = contentsToViewport(QPoint(0, 0));
+								pp.translate(out.x(), out.y());
+								pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+								Transform(currItem, &pp);
+								pp.setBrush(Qt::NoBrush);
+								pp.setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+								if (selectedItemCount < moveWithFullOutlinesThreshold)
+								{
+									if (!(currItem->asLine()))
+										currItem->DrawPolyL(&pp, currItem->Clip);
+									else
+									{
+										if (currItem->asLine())
+										{
+											int lw2 = 1;
+											int lw = 1;
+											Qt::PenCapStyle le = Qt::FlatCap;
+											if (currItem->NamedLStyle.isEmpty())
+											{
+												lw2 = qRound(currItem->lineWidth()  / 2.0);
+												lw = qRound(qMax(currItem->lineWidth(), 1.0));
+												le = currItem->PLineEnd;
+											}
+											else
+											{
+												multiLine ml = Doc->MLineStyles[currItem->NamedLStyle];
+												lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
+												lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
+												le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
+											}
+											if (le != Qt::FlatCap)
+												pp.drawRect(-lw2, -lw2, qRound(currItem->width())+lw, lw);
+											else
+												pp.drawRect(-1, -lw2, qRound(currItem->width()), lw);
+										}
+									}
+								}
+								else
+									pp.drawRect(0, 0, static_cast<int>(currItem->width())+1, static_cast<int>(currItem->height())+1);
+							}
+						}
+						else
+						{
+							double gx, gy, gw, gh;
+							Doc->m_Selection->setGroupRect();
+							Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+							QPoint out = contentsToViewport(QPoint(0, 0));
+							pp.resetMatrix();
+							pp.translate(out.x(), out.y());
+							pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+							pp.scale(Scale, Scale);
+							pp.translate(qRound(gx), qRound(gy));
+							pp.drawRect(QRect(0, 0, qRound(gw), qRound(gh)));
+						}
+					}
+				}
+			}
+			else
+			{
+				if (Doc->m_Selection->count() != 0)
+				{
+					PageItem *currItem = Doc->m_Selection->itemAt(0);
+					if ((Doc->EditClip) && (currItem->isSelected()))
+					{
+						if (EditContour)
+							MarkClip(&pp, currItem, currItem->ContourLine, true);
+						else
+							MarkClip(&pp, currItem, currItem->PoLine, true);
+					}
+					else
+					{
+						if (Doc->m_Selection->isMultipleSelection())
+						{
+							pp.resetMatrix();
+							QPoint out = contentsToViewport(QPoint(0, 0));
+							pp.translate(out.x(), out.y());
+							pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+							double x, y, w, h;
+							Doc->m_Selection->setGroupRect();
+							Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+							x *= Scale;
+							y *= Scale;
+							w *= Scale;
+							h *= Scale;
+							pp.setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+							pp.setBrush(Qt::NoBrush);
+							pp.drawRect(QRectF(x, y, w, h));
+							pp.setBrush(Qt::red);
+							pp.setPen(QPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+							pp.drawRect(QRectF(x+w-6, y+h-6, 6, 6));
+							pp.drawRect(QRectF(x+w/2 - 3, y+h-6, 6, 6));
+							pp.drawRect(QRectF(x+w/2 - 3, y, 6, 6));
+							pp.drawRect(QRectF(x+w-6, y+h/2 - 3, 6, 6));
+							pp.drawRect(QRectF(x+w-6, y, 6, 6));
+							pp.drawRect(QRectF(x, y, 6, 6));
+							pp.drawRect(QRectF(x, y+h/2 - 3, 6, 6));
+							pp.drawRect(QRectF(x, y+h-6, 6, 6));
+						}
+						else
+						{
+							pp.resetMatrix();
+							QPoint out = contentsToViewport(QPoint(0, 0));
+							pp.translate(out.x(), out.y());
+							pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+							Transform(currItem, &pp);
+							currItem->paintObj(&pp);
+						}
+					}
+				}
+			}
+			pp.end();
+			psx->resetMatrix();
+			psx->drawPixmap(0, 0, ppx);
+			return;
+		}
+
 		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
 		ScPainter *painter=0;
 		QImage img = QImage(clipw, cliph, QImage::Format_ARGB32);
@@ -740,7 +926,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		delete painter;
 		painter=NULL;
 	}
-	psx->setRenderHint(QPainter::Antialiasing, true);
+/*	psx->setRenderHint(QPainter::Antialiasing, true);
 	if (operItemMoving || operItemResizing)
 	{
 		if (operItemResizing)
@@ -839,11 +1025,11 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		}
 	}
 	else
-	{
-		if (Doc->m_Selection->count() != 0)
+	{ */
+		if ((Doc->m_Selection->count() != 0) && !(operItemMoving || operItemResizing))
 		{
 			PageItem *currItem = Doc->m_Selection->itemAt(0);
-			if ((Doc->EditClip) && (currItem->isSelected()))
+			if ((Doc->EditClip) && (currItem->isSelected()) && (!specialRendering))
 			{
 				if (EditContour)
 					MarkClip(psx, currItem, currItem->ContourLine, true);
@@ -854,11 +1040,17 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			{
 				if (Doc->m_Selection->isMultipleSelection())
 				{
+					psx->resetMatrix();
 					QPoint out = contentsToViewport(QPoint(0, 0));
-					psx->translate(-out.x(), -out.y());
+					psx->translate(out.x(), out.y());
+					psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
 					double x, y, w, h;
 					Doc->m_Selection->setGroupRect();
-					getGroupRectScreen(&x, &y, &w, &h);
+					Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+					x *= Scale;
+					y *= Scale;
+					w *= Scale;
+					h *= Scale;
 					psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 					psx->setBrush(Qt::NoBrush);
 					psx->drawRect(QRectF(x, y, w, h));
@@ -884,7 +1076,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 	 			}
 	 		}
 		}
-	}
+/*	} */
 	if (Doc->appMode == modeEdit)
 		slotDoCurs(true);
 	if (Doc->appMode == modeEditGradientVectors)
@@ -2052,6 +2244,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
+	specialRendering = false;
+	firstSpecial = false;
+	m->accept();
 	if (Doc->appMode == modeNormal && Doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
@@ -2095,15 +2290,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		return;
 	if (Doc->appMode == modeMeasurementTool)
 	{
-		QPainter p;
-		p.begin(viewport());
-		QPoint out = contentsToViewport(QPoint(0, 0));
-		p.translate(out.x(), out.y());
-		p.setCompositionMode(QPainter::CompositionMode_Xor);
-		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		p.drawLine(Dxp, Dyp, Mxp, Myp);
-		p.end();
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		redrawPolygon.clear();
+		updateContents(QRect(QPoint(Dxp, Dyp), QPoint(Mxp, Mxp)).normalized().adjusted(-10, -10, 20, 20));
+//		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		//emit PaintingDone();
 		return;
 	}
@@ -3157,6 +3346,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				Doc->leaveDrag = false;
 				operItemMoving = false;
 				operItemResizing = false;
+				specialRendering = false;
 				MidButt = false;
 				shiftSelItems = false;
 				m_SnapCounter = 0;
@@ -3184,6 +3374,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = Doc->OnPage(currItem);
 			inItemCreation = false;
 			operItemResizing = false;
+			specialRendering = false;
 			updateContents();
 		}
 		if ((Doc->appMode == modeDrawRegularPolygon) && (inItemCreation))
@@ -3226,11 +3417,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OldH2 = currItem->height();
 			inItemCreation = false;
 			operItemResizing = false;
+			specialRendering = false;
 			updateContents();
 		}
 		if (moveTimerElapsed() && (GetItem(&currItem)))
 		{
 			inItemCreation = false;
+			specialRendering = false;
 			if (Doc->m_Selection->isMultipleSelection())
 			{
 				if (operItemResizing)
@@ -3975,6 +4168,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				Doc->setRedrawBounding(currItem);
 				currItem->OwnPage = Doc->OnPage(currItem);
+				operItemResizing = false;
+				if (currItem->asLine())
+					updateContents();
 			}
 			if (operItemMoving)
 			{
@@ -4364,6 +4560,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	MidButt = false;
 	shiftSelItems = false;
 	inItemCreation = false;
+	specialRendering = false;
 	m_SnapCounter = 0;
 //	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
@@ -4430,6 +4627,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	double sc = Scale;
 	horizRuler->Draw(m->x());
 	vertRuler->Draw(m->y());
+	m->accept();
 	emit MousePos(m->x()/Scale + Doc->minCanvasCoordinate.x(), m->y()/Scale + Doc->minCanvasCoordinate.y());
 	if (Doc->guidesSettings.guidesShown)
 	{
@@ -4494,14 +4692,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = m->x();
 		newY = m->y();
-		p.begin(viewport());
-		QPoint out = contentsToViewport(QPoint(0, 0));
-		p.translate(out.x(), out.y());
-		p.setCompositionMode(QPainter::CompositionMode_Xor);
-		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-		p.drawLine(Dxp, Dyp, Mxp, Myp);
-		p.drawLine(Dxp, Dyp, newX, newY);
-		p.end();
+		redrawPolygon.clear();
+		redrawPolygon << QPoint(Dxp, Dyp) << QPoint(newX, newY);
+		updateContents(QRect(QPoint(Dxp, Dyp), QPoint(newX, newY)).normalized().adjusted(-10, -10, 20, 20));
 		Mxp = newX;
 		Myp = newY;
 		double dxp = Dxp / sc - Doc->currentPage()->xOffset()+ Doc->minCanvasCoordinate.x();
@@ -4685,10 +4878,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		if (m_MouseButtonPressed && (Doc->appMode == modeDrawLine))
 		{
-//			p.begin(viewport());
-//			ToView(&p);
-//			p.setCompositionMode(QPainter::CompositionMode_Xor);
-//			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if (Doc->useRaster)
 			{
 				newX = static_cast<int>(qRound(newX / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
@@ -4708,17 +4897,15 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				newX = qRound(currItem->xPos()+(hlen * cos(newRot/(180.0/M_PI))));
 				newY = qRound(currItem->yPos()-(hlen * sin(newRot/(180.0/M_PI))));
 			}
-			
-//			p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc), static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
-//			p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc), static_cast<int>(newX*sc), static_cast<int>(newY*sc));
-//			p.end();
 			QMatrix mp;
 			mp.translate(currItem->xPos() - Doc->minCanvasCoordinate.x(), currItem->yPos() - Doc->minCanvasCoordinate.y());
 			mp.rotate(currItem->rotation());
 			np2 = QPoint(newX, newY) * mp.inverted();
 			QMatrix pm;
 			Transform(currItem, pm);
-			PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), np2)));
+			redrawPolygon.clear();
+			redrawPolygon << pm.map(QPoint(0, 0)) << pm.map(QPoint(np2.x(), np2.y()));
+			updateContents(QRect(pm.map(QPoint(0, 0)), pm.map(QPoint(np2.x(), np2.y()))).normalized().adjusted(-10, -10, 20, 20));
 			emit SetAngle(newRot);
 			emit ItemGeom(sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2)), 0);
 			Mxp = newX;
@@ -4770,16 +4957,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					newX = qRound(translateToDoc(m->x(), m->y()).x());
 					newY = qRound(translateToDoc(m->x(), m->y()).y());
 					redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-/*					p.begin(viewport());
-					ToView(&p);
-					p.scale(Scale, Scale);
-					p.setCompositionMode(QPainter::CompositionMode_Xor);
-					p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
-					p.drawRect(Mxp, Myp, newX-Mxp, newY-Myp);
-					p.end();
-					SeRx = newX;
-					SeRy = newY; */
 					HaveSelRect = true;
 					return;
 				}
@@ -5037,18 +5214,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									currItem->setRotation(rba);
 									np = Doc->ApplyGrid(np);
 									erf = Doc->SizeItem(sizeItemX, sizeItemY, currItem->ItemNr);
-/*									if (Doc->SnapGuides)
-									{
-										p.begin(viewport());
-										currItem->Sizing = true;
-										p.setCompositionMode(QPainter::CompositionMode_Xor);
-										p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-										p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc),
-												static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
-										p.drawLine(static_cast<int>(currItem->xPos()*sc), static_cast<int>(currItem->yPos()*sc),
-												static_cast<int>(newX*sc), static_cast<int>(newY*sc));
-										p.end();
-									} */
+									QMatrix pm;
+									Transform(currItem, pm);
+									redrawPolygon.clear();
+									redrawPolygon << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
+									updateContents(QRect(pm.map(QPoint(0, 0)), pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())))).normalized().adjusted(-10, -10, 20, 20));
 								}
 								break;
 							case 2:
@@ -5061,6 +5231,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									Doc->SnapGuides = sav;
 									if (sav)
 										currItem->Sizing = true;
+									QMatrix pm;
+									Transform(currItem, pm);
+									redrawPolygon.clear();
+									redrawPolygon << pm.map(QPoint(0, 0)) << pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())));
+									updateContents(QRect(pm.map(QPoint(0, 0)), pm.map(QPoint(qRound(currItem->width()), qRound(currItem->height())))).normalized().adjusted(-10, -10, 20, 20));
 								}
 								else
 								{
@@ -5588,6 +5763,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	Doc->leaveDrag = false;
 	inItemCreation = false;
 	oldClip = 0;
+	m->accept();
 	moveTimer.start();
 	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 	Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
@@ -6049,6 +6225,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					Mxp = m->x();
 					Myp = m->y();
+					specialRendering = true;
+					firstSpecial = true;
 				}
 				else
 				{
@@ -6149,6 +6327,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					}
 					else
 						shiftSelItems = false;
+					specialRendering = true;
+					firstSpecial = true;
 				}
 				else
 				{
@@ -6177,6 +6357,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						SeRy = Myp;
 					}
 				}
+				specialRendering = true;
+				firstSpecial = true;
 			}
 			else
 			{
@@ -6191,6 +6373,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					redrawMarker->show();
 					Mxp = m->globalPos().x();
 					Myp = m->globalPos().y();
+				}
+				else
+				{
+					specialRendering = true;
+					firstSpecial = true;
 				}
 			}
 /*			if (m->button() == MidButton)
@@ -6454,6 +6641,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			operItemMoving = true;
 			inItemCreation = true;
 			operItemResizing = false;
+			specialRendering = true;
+			firstSpecial = true;
 			break;
 		case modeRotation:
 			if (m->button() != Qt::LeftButton)
@@ -6622,7 +6811,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					updateContents();
 				}
 				else
+				{
 					operItemMoving = true;
+					specialRendering = true;
+					firstSpecial = true;
+				}
 				break;
 			}
 		case modeDrawBezierLine:
@@ -6715,6 +6908,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 			SeRx = Mxp;
 			SeRy = Myp;
+			specialRendering = true;
+			firstSpecial = true;
 			break;
 		case modeDrawTable:
 			if (m->button() != Qt::LeftButton)
@@ -6738,6 +6933,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modePanning:
 			break;
 		case modeMeasurementTool:
+			specialRendering = true;
+			firstSpecial = true;
 		case modeEditGradientVectors:
 			if (m->button() != Qt::LeftButton)
 				break;
@@ -8927,6 +9124,8 @@ void ScribusView::SetupDraw(int nr)
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
 	inItemCreation = true;
+	specialRendering = true;
+	firstSpecial = true;
 //	moveTimer = moveTimer.addSecs(1500);
 }
 
