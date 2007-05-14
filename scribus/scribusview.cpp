@@ -397,6 +397,48 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			QPixmap ppx = m_buffer;
 			pp.begin(&ppx);
 			pp.setRenderHint(QPainter::Antialiasing, true);
+			if ((Doc->appMode == modeDrawBezierLine) && (!redrawPolygon.isEmpty()) && (Doc->m_Selection->count() != 0))
+			{
+				pp.setBrush(Qt::NoBrush);
+				pp.setPen(QPen(Qt::black, 1.0 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				pp.resetMatrix();
+				QPoint out = contentsToViewport(QPoint(0, 0));
+				pp.translate(out.x(), out.y());
+				pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+				PageItem *currItem = Doc->m_Selection->itemAt(0);
+				Transform(currItem, &pp);
+				Q3PointArray Bez(4);
+				if (currItem->PoLine.size() > 1)
+				{
+					QPoint nXY = redrawPolygon.point(0);
+					if (!m_MouseButtonPressed)
+					{
+						QPoint a1 = currItem->PoLine.pointQ(currItem->PoLine.size()-2);
+						QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
+						BezierPoints(&Bez, a1, a2, nXY, nXY);
+						pp.drawCubicBezier(Bez);
+					}
+					else
+					{
+						QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
+						if (currItem->PoLine.size() > 2)
+						{
+							QPoint a1 = currItem->PoLine.pointQ(currItem->PoLine.size()-2);
+							QPoint a3 = currItem->PoLine.pointQ(currItem->PoLine.size()-3);
+							BezierPoints(&Bez, a3, a1, nXY, a2);
+							pp.drawCubicBezier(Bez);
+						}
+						pp.drawLine(a2, nXY);
+					}
+				}
+				else
+				{
+					QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
+					QPoint nXY = redrawPolygon.point(0);
+					pp.drawLine(a2, nXY);
+				}
+				redrawPolygon.clear();
+			}
 			if (m_MouseButtonPressed && ((Doc->appMode == modeMeasurementTool) || (Doc->appMode == modeDrawLine)))
 			{
 				pp.resetMatrix();
@@ -511,7 +553,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			}
 			else
 			{
-				if (Doc->m_Selection->count() != 0)
+				if ((Doc->m_Selection->count() != 0) && (Doc->appMode != modeDrawBezierLine))
 				{
 					PageItem *currItem = Doc->m_Selection->itemAt(0);
 					if ((Doc->EditClip) && (currItem->isSelected()))
@@ -1026,7 +1068,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 	}
 	else
 	{ */
-		if ((Doc->m_Selection->count() != 0) && !(operItemMoving || operItemResizing))
+		if ((Doc->m_Selection->count() != 0) && !(operItemMoving || operItemResizing) && (Doc->appMode != modeDrawBezierLine))
 		{
 			PageItem *currItem = Doc->m_Selection->itemAt(0);
 			if ((Doc->EditClip) && (currItem->isSelected()) && (!specialRendering))
@@ -2509,12 +2551,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		HaveSelRect = false;
 		redrawMarker->hide();
 		RefreshItem(currItem);
-/*
-		if (EditContour)
-			MarkClip(currItem, currItem->ContourLine, true);
-		else
-			MarkClip(currItem, currItem->PoLine, true);
-*/
 		if (oldClip) // is there the old clip stored for the undo action
 		{
 			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
@@ -4467,17 +4503,17 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 	}
+	specialRendering = false;
 	if ((Doc->appMode == modeDrawBezierLine) && (m->button() == Qt::LeftButton))
 	{
+		specialRendering = true;
 		currItem = Doc->m_Selection->itemAt(0);
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		QPainter p;
-		Q3PointArray Bez(4);
-		p.begin(viewport());
-		Transform(currItem, &p);
-		FPoint npf(p.xFormDev(m->pos()));
-		npf += FPoint(Doc->minCanvasCoordinate.x(), Doc->minCanvasCoordinate.y());
+		QMatrix pm;
+		pm.translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
+		Transform(currItem, pm);
+		FPoint npf = FPoint(m->pos() * pm.inverted());
 		npf = Doc->ApplyGridF(npf);
 		currItem->PoLine.addPoint(npf);
 		bool ssiz = currItem->Sizing;
@@ -4511,14 +4547,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-		Doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
-//		currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1)));
-		Doc->AdjustItemSize(currItem);
-		currItem->Sizing = ssiz;
-		currItem->ContourLine = currItem->PoLine.copy();
-		RefreshItem(currItem);
+			Doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
+			Doc->AdjustItemSize(currItem);
+			currItem->Sizing = ssiz;
+			currItem->ContourLine = currItem->PoLine.copy();
+			specialRendering = false;
+			repaintContents(currItem->getRedrawBounding(Scale));
 		}
-		p.end();
+		specialRendering = true;
+		firstSpecial = true;
+		redrawPolygon.clear();
+		int newX = qRound(translateToDoc(m->x(), m->y()).x());
+		int newY = qRound(translateToDoc(m->x(), m->y()).y());
+		redrawPolygon << QPoint(newX - qRound(currItem->xPos()), newY - qRound(currItem->yPos()));
+		updateContents();
 	}
 	if ((Doc->appMode == modeDrawBezierLine) && (m->button() == Qt::RightButton))
 	{
@@ -4551,6 +4593,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			emit Amode(Doc->appMode);
 		emit DocChanged();
 		FirstPoly = true;
+		specialRendering = false;
 		updateContents();
 	}
 	Doc->DragP = false;
@@ -4560,7 +4603,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	MidButt = false;
 	shiftSelItems = false;
 	inItemCreation = false;
-	specialRendering = false;
 	m_SnapCounter = 0;
 //	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
@@ -4807,48 +4849,14 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		if (Doc->appMode == modeDrawBezierLine)
 		{
-			p.begin(viewport());
-			ToView(&p);
-			p.scale(Scale, Scale);
-			p.setCompositionMode(QPainter::CompositionMode_Xor);
-			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			if ((Doc->useRaster) && (Doc->OnPage(currItem) != -1))
 			{
 				newX = static_cast<int>(qRound(newX / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
 				newY = static_cast<int>(qRound(newY / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid);
 			}
-			if (!m_MouseButtonPressed)
-			{
-				QPoint a1 = currItem->PoLine.pointQ(currItem->PoLine.size()-2);
-				QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
-				a1 += QPoint(qRound(currItem->xPos()), qRound(currItem->yPos()));
-				a2 += QPoint(qRound(currItem->xPos()), qRound(currItem->yPos()));
-				BezierPoints(&Bez, a1, a2, QPoint(Mxp, Myp), QPoint(Mxp, Myp));
-				p.drawCubicBezier(Bez);
-				Bez.setPoint(2, QPoint(newX, newY));
-				Bez.setPoint(3, QPoint(newX, newY));
-				p.drawCubicBezier(Bez);
-			}
-			else
-			{
-				QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
-				a2 += QPoint(qRound(currItem->xPos()), qRound(currItem->yPos()));
-				if (currItem->PoLine.size() > 2)
-				{
-					QPoint a1 = currItem->PoLine.pointQ(currItem->PoLine.size()-2);
-					QPoint a3 = currItem->PoLine.pointQ(currItem->PoLine.size()-3);
-					a1 += QPoint(qRound(currItem->xPos()), qRound(currItem->yPos()));
-					a3 += QPoint(qRound(currItem->xPos()), qRound(currItem->yPos()));
-					BezierPoints(&Bez, a3, a1, QPoint(Mxp, Myp), a2);
-					p.drawCubicBezier(Bez);
-					Bez.setPoint(2, QPoint(newX, newY));
-					Bez.setPoint(3, a2);
-					p.drawCubicBezier(Bez);
-				}
-				p.drawLine(a2, QPoint(Mxp, Myp));
-				p.drawLine(a2, QPoint(newX, newY));
-			}
-			p.end();
+			redrawPolygon.clear();
+			redrawPolygon << QPoint(newX - qRound(currItem->xPos()), newY - qRound(currItem->yPos()));
+			updateContents();
 			Mxp = newX;
 			Myp = newY;
 		}
@@ -5756,6 +5764,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	FPoint npf, npf2;
 	Q3PointArray Bez(4);
 	QRect tx;
+	QMatrix pm;
 	m_MouseButtonPressed = true;
 	operItemMoving = false;
 	HaveSelRect = false;
@@ -6211,14 +6220,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				if (edited)
 				{
 					currItem->FrameType = 3;
-//					if (!currItem->asPolyLine())
-//						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 					Doc->AdjustItemSize(currItem);
 					updateContents();
-//					if (EditContour)
-//						MarkClip(currItem, currItem->ContourLine, true);
-//					else
-//						MarkClip(currItem, currItem->PoLine, true);
 					emit DocChanged();
 				}
 				if ((SelNode.count() != 0) || ((SegP1 != -1) && (SegP2 != -1)) || ((ClRe != -1) && (!EdPoints)))
@@ -6829,13 +6832,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->m_Selection->clear();
 				Doc->m_Selection->addItem(currItem);
 				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+				specialRendering = true;
+				firstSpecial = true;
 			}
 			currItem = Doc->m_Selection->itemAt(0);
-			p.begin(viewport());
-			Transform(currItem, &p);
-			npf = FPoint(p.xFormDev(m->pos()));
-			p.end();
-			npf += FPoint(Doc->minCanvasCoordinate.x(), Doc->minCanvasCoordinate.y());
+			pm.translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
+			Transform(currItem, pm);
+			npf = FPoint(m->pos() * pm.inverted());
 			npf = Doc->ApplyGridF(npf);
 			currItem->PoLine.addPoint(npf);
 			npf2 = getMinClipF(&currItem->PoLine);
@@ -6851,7 +6854,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			Doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem->ItemNr, false, false, false);
 			currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
-			updateContents(currItem->getRedrawBounding(Scale));
+			redrawPolygon.clear();
 			break;
 		case modeInsertPDFButton:
 		case modeInsertPDFTextfield:
@@ -7107,6 +7110,7 @@ void ScribusView::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, boo
 	p->resetMatrix();
 	QPoint out = contentsToViewport(QPoint(0, 0));
 	p->translate(out.x(), out.y());
+	p->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
 	Transform(currItem, p);
 	p->setPen(QPen(Qt::blue, 1 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p->setBrush(Qt::NoBrush);
@@ -7309,10 +7313,8 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		currItem->ContourLine.map(ma);
 		currItem->ContourLine.translate(qRound((tp.x() + tp2.x()) / 2.0), qRound((tp.y() + tp2.y()) / 2.0));
 		updateContents();
-//		currItem->Tinput = true;
 		currItem->FrameOnly = true;
 		updateContents(currItem->getRedrawBounding(Scale));
-//		MarkClip(currItem, currItem->ContourLine, true);
 		if (UndoManager::undoEnabled())
 		{
 			undoManager->setUndoEnabled(false);
