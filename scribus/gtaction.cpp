@@ -479,7 +479,9 @@ QString gtAction::validateFont(gtFont* font)
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
 	{
 		bool found = false;
-		useFont == NULL;
+		// Do not empty otherwise user may be asked to replace an empty font 
+		// by font replacement dialog
+		// useFont == NULL;
 		QString tmpName = findFontName(font);
 		if (tmpName != NULL)
 		{
