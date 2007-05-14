@@ -834,9 +834,9 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 	{
 		for (uint i=0; i < itemlist->count(); ++i)
 		{
-			PageItem_TextFrame * currItem = itemlist->at(i)->asTextFrame();
+			PageItem * currItem = itemlist->at(i);
 			if (currItem)
-				currItem->itemText.replaceNamedResources(newNames);
+				currItem->replaceNamedResources(newNames);
 		}
 		if (itemlist == &MasterItems)
 			itemlist = &DocItems;
