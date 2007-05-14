@@ -310,10 +310,12 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		return;
 	
 	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
-	//	assert( !style.font().isNone() );
+
+	ScText clone = (length() == 0  ?  ScText() : 
+			pos < length() ?  *(d->at(pos)) : *(d->at(length()-1)));
 	
 	for (int i = 0; i < txt.length(); ++i) {
-		ScText * item = new ScText();
+		ScText * item = new ScText(clone);
 		item->ch= txt.mid(i, 1);
 		item->setContext(cStyleContext);
 		d->insert(pos + i, item);

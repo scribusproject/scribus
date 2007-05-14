@@ -4631,7 +4631,7 @@ void ScribusMainWindow::slotEditCut()
 			// new version:
 			std::ostringstream xmlString;
 			SaxXML xmlStream(xmlString);
-			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
+//			qDebug(QString("call serializer: %1").arg((ulong) & (doc->m_Selection)));
 			Serializer::serializeObjects(*doc->m_Selection, xmlStream);
 			std::string xml(xmlString.str());
 			BufferI = QString::fromUtf8(xml.c_str(), xml.length());
@@ -4679,7 +4679,7 @@ void ScribusMainWindow::slotEditCopy()
 			xmlStream.endDoc();
 			std::string xml(xmlString.str());
 			Buffer2 = QString::fromUtf8(xml.c_str(), xml.length());
-			qDebug(Buffer2);
+//			qDebug(Buffer2);
 			
 /*			PageItem *nextItem = currItem;
 			while (nextItem != 0)
@@ -4985,12 +4985,15 @@ void ScribusMainWindow::slotEditPaste()
 				bool savedAlignGuides = doc->SnapGuides;
 				doc->useRaster = false;
 				doc->SnapGuides = false;
-				qDebug(Buffer2);
+//				qDebug(Buffer2);
 				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 				else 
 				{
 					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.utf8());
+					for (uint i=0; i < pastedObjects.count(); ++i)
+						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
+					
 					/*double x = doc->currentPage()->xOffset();
 					double y = doc->currentPage()->yOffset();
 					for (uint i=0; i < pastedObjects.count(); ++i)
