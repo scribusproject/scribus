@@ -5,7 +5,7 @@ particular distributions and operating systems.
 CMake Build
 ====================
 
-Scribus 1.3.3.6+ and Scribus 1.3.4 plus have an optional build system which
+Scribus 1.3.5+ has replaced plus have an optional build system which
 replaces the traditionally used so called autotools. CMake (cmake.org) is 
 a modern, cross-platform replacement for autotools. 
 
@@ -20,9 +20,9 @@ REQUIREMENTS AND BUILDING - *BSD/Linux/*nix
 Install the below packages BEFORE running configure or compiling Scribus:
 
 Requirements:
-	Qt >= 3.3 (3.3.7+ recommended)
+	Qt >= 4.2.x (we may require Qt 4.3.x at the time of release)
 	Freetype >= 2.1.3 (2.2.1+ strongly recommended)
-	libart >= 2.3.10+ (2.3.17+ recommended)
+	cairo >= 1.4.x 
 	libtiff >= 3.6.0
 	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
 	libjpeg (depending on how Qt is packaged)
@@ -33,7 +33,7 @@ Recommended:
 	CUPS
 	Fontconfig >= 2.0
 	LibXML2 >= 2.6.0
-	GhostScript >= 8.0 (8.15 or greater preferred)
+	GhostScript >= 8.0 (8.56 or greater preferred)
 	Python >= 2.3
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
@@ -42,8 +42,8 @@ Recommended:
 
 
 If any recommended libraries (and their dev/devel packages or headers) are not
-installed, some features will be disabled by configure. If you later install
-any of these dependencies, you will have to re-run configure and re-compile
+installed, some features will be disabled by cmake. If you later install
+any of these dependencies, you will have to re-run cmake and re-compile
 Scribus before the features are enabled.
 
 LIBRARIES IN NON-STANDARD LOCATIONS
@@ -99,7 +99,7 @@ http://bugs.scribus.net/ .
 REQUIREMENTS - DETAILS
 ======================
 
-We strongly recommend having Qt 3.3.6+. Qt 3.3 is now the *minimum*. Older
+We strongly recommend having Qt 4.3.+. Qt 4.2 is now the *minimum*. Older
 versions of Qt are *not* supported. If you build Qt from sources, the
 recommended ./configure switches are the same as used by KDE. Use of other
 switches aside from those used by distro packages can make trouble shooting
@@ -257,27 +257,27 @@ Suse/Opensuse
 ====
 
 Recommended packages for compiling from source on SuSE 9.x/10.x:
-	qt3-devel (required)
-	libart_lgpl-devel (required)
+	qt4-devel (required)
+	cairo-devel (required)
 	freetype2-devel (required)
-	fontconfig-devel
-	liblcms-devel
-	libtiff-devel
+	fontconfig-devel (required)
+	liblcms-devel (required)
+	libtiff-devel (required)
 	libxml2-devel
 	libpng-devel
 	libjpeg-devel
 	cups-devel
 	openssl-devel (required if CUPS support is needed) 
-	libpng-devel
-	libjpeg-devel
 	update-desktop-files
 	python-devel
 	tk
 	python-imaging
 
-You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.x
-on anything older than Suse 9.1. In addtion, you are recommended to have the updated KDE/Qt
-packages which are provided as supplemental from ftp.suse.com or mirrors.
+You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.5+
+on anything older than Suse 9.3. 
+
+Please note we do provide frequently updated packages including debuginfo rpms on the Suse Build
+Server. at http//software.opensuse.org
 
 Mac OS X
 ========
