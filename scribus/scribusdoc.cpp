@@ -3714,8 +3714,11 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 	for (uint a = 0; a < docItemCount; ++a)
 	{
 		item = Items->at(a);
-		if (item->Groups.top() == ObjGroup)
-			Objects.append(item);
+		if (item->Groups.count() != 0)
+		{
+			if (item->Groups.top() == ObjGroup)
+				Objects.append(item);
+		}
 	}
 	int Off_Page = -1;
 	int On_Page = 999999;
