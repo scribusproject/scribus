@@ -465,7 +465,9 @@ ScFace gtAction::validateFont(gtFont* font)
 	else if (prefsManager->appPrefs.AvailFonts[font->getName()].isNone())
 	{
 		bool found = false;
-		useFont = "";
+		// Do not empty otherwise user may be asked to replace an empty font 
+		// by font replacement dialog
+		// useFont = "";
 		QString tmpName = findFontName(font);
 		if (!tmpName.isNull())
 		{
