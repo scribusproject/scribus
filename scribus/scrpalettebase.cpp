@@ -205,7 +205,11 @@ void ScrPaletteBase::storePosition()
 {
 	if (palettePrefs)
 	{
+#if QT_VERSION  >= 0x040300
 		QRect geo = geometry();
+#else
+		QRect geo = frameGeometry();
+#endif
 		palettePrefs->set("left", geo.left());
 		palettePrefs->set("top", geo.top());
 	}
