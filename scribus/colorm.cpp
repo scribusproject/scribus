@@ -672,14 +672,14 @@ void ColorManager::updateCList()
 			continue;
 		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}
+	colorListBox->setSelected(colorListBox->currentItem(), false);
 	deleteColorButton->setEnabled(EditColors.count() == 1 ? false : true);
-	if (colorListBox->currentItem() == -1)
+	if (colorListBox->currentItem() <= 0)
 	{
 		duplicateColorButton->setEnabled(false);
 		editColorButton->setEnabled(false);
 		deleteColorButton->setEnabled(false);
 	}
-	colorListBox->setSelected(colorListBox->currentItem(), false);
 }
 
 QString ColorManager::getColorSetName()
