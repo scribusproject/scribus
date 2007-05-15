@@ -7,18 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef INSERTTABLE_H
 #define INSERTTABLE_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QLabel>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 
@@ -34,9 +29,9 @@ public:
 	QSpinBox* Rows;
 
 protected:
-	Q3VBoxLayout* InsertTableLayout;
-	Q3GridLayout* layout2;
-	Q3HBoxLayout* layout1;
+	QVBoxLayout* InsertTableLayout;
+	QGridLayout* layout2;
+	QHBoxLayout* layout1;
 	QLabel* Text1;
 	QLabel* Text2;
 	QPushButton* okButton;
