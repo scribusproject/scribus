@@ -827,7 +827,7 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 	QPixmap ret(pixin.width(), pixin.height()); // Qt4, pixin.depth());
 	if (p.begin(&ret))
 	{
-		bitBlt( &ret, 0, 0, &pixin, 0, 0, pixin.width(), pixin.height() );
+		p.drawPixmap( 0, 0, pixin );
 //		if( !pixin.mask().isNull() )
 //			ret.setMask( pixin.mask() );
 		p.setBrush(Qt::white);
