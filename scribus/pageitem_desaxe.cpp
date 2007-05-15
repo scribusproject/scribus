@@ -338,6 +338,28 @@ class Gradient : public MakeAction<Gradient_body>
 {};
 
 
+class Pattern_body : public Action_body
+{
+	void begin (const Xml_string& tagName, Xml_attr attr)
+	{
+		PageItem* item = this->dig->top<PageItem>();
+		
+		double patternScaleX = parseDouble(attr["pScaleX"]);
+		double patternScaleY = parseDouble(attr["pScaleY"]);
+		double patternOffsetX = parseDouble(attr["pOffsetX"]);
+		double patternOffsetY = parseDouble(attr["pOffsetY"]);
+		double patternRotation = parseDouble(attr["pRotation"]);
+		qDebug(QString("pageitem_desaxe: pattern %6: *(%1,%2) +(%3,%4) °%5").arg(patternScaleX).arg(patternScaleY).arg(patternOffsetX).arg(patternOffsetY).arg(patternRotation).arg(attr["pattern"]));
+
+		item->setPattern(attr["pattern"]);
+		item->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+	}
+};
+
+class Pattern : public MakeAction<Pattern_body>
+{};
+
+
 
 class ImageEffectsAndLayers_body : public Action_body
 {
@@ -467,7 +489,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillShade, "fill-shade", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setFillTransparency, "fill-transparency", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillBlendmode, "fill-blendmode", &parseInt ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setGradientType, "gradient-type", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setGradientType, "fill-gradient-type", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,PageItem::TextFlowMode>( & PageItem::setTextFlowMode, "text-flow-mode", &parseEnum<PageItem::TextFlowMode> ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setFillEvenOdd, "frame-fill-evenodd", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setOverprint, "do-overprint", &parseBool ));
@@ -534,7 +556,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasRightLine, "RightLine", &parseBool ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setHasBottomLine, "BottomLine", &parseBool ));
 	
-	// TODO:  patterns
+	ruleset.addRule(Digester::concat(itemPrefix, "Pattern"), Pattern()); 
 	
 	Gradient gradient;
 	Xml_string gradientPrefix(Digester::concat(itemPrefix, "Gradient"));
