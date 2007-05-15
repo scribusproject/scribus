@@ -678,14 +678,16 @@ void ColorManager::updateCList()
 			continue;
 		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}
-	deleteColorButton->setEnabled(EditColors.count() == 1 ? false : true);
-	if (colorListBox->currentItem() == -1)
+	colorListBox->setSelected(colorListBox->currentItem(), false);
+	QString curCol = colorListBox->currentText();
+	bool enableDel = (curCol != "Black" && curCol != "White") && (EditColors.count() > 1);
+	deleteColorButton->setEnabled(enableDel);
+	if (colorListBox->currentItem() < 0)
 	{
 		duplicateColorButton->setEnabled(false);
 		editColorButton->setEnabled(false);
 		deleteColorButton->setEnabled(false);
 	}
-	colorListBox->setSelected(colorListBox->currentItem(), false);
 }
 
 QString ColorManager::getColorSetName()
