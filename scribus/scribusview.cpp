@@ -8694,6 +8694,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
 						(QRegion(currItem->Clip * p).contains(mpo.toRect())))
 				{
+					Doc->m_Selection->setIsGUISelection(false);
 					if (!currItem->isSelected())
 					{
 						if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
@@ -8751,6 +8752,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							updateContents(bb->getRedrawBounding(Scale));
 						}
 					}
+					Doc->m_Selection->setIsGUISelection(true);
+					Doc->m_Selection->connectItemToGUI();
 					if (Doc->m_Selection->count() > 1)
 					{
 						for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
@@ -8758,7 +8761,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							PageItem *bb = Doc->m_Selection->itemAt(aa);
 							updateContents(bb->getRedrawBounding(Scale));
 						}
-						Doc->m_Selection->connectItemToGUI();
 						Doc->m_Selection->setGroupRect();
 						double x, y, w, h;
 						Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
@@ -8803,11 +8805,13 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->Items->prev();
 		}
 	}
+	Doc->m_Selection->setIsGUISelection(false);
 	//Where all basic selection occurs having found the click location and the current page
 	for (a = 0; a < Doc->Items->count(); ++a)
 	{
 		if (currItem == NULL)
 		{
+			Doc->m_Selection->setIsGUISelection(true);
 			Deselect(true);
 			//Doc->m_Selection->clear();
 			return false;
@@ -8886,6 +8890,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						updateContents(bb->getRedrawBounding(Scale));
 					}
 				}
+				Doc->m_Selection->setIsGUISelection(true);
+				Doc->m_Selection->connectItemToGUI();
 				if (Doc->m_Selection->count() > 1)
 				{
 					for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
@@ -8893,7 +8899,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						PageItem *bb = Doc->m_Selection->itemAt(aa);
 						updateContents(bb->getRedrawBounding(Scale));
 					}
-					Doc->m_Selection->connectItemToGUI();
 					Doc->m_Selection->setGroupRect();
 					double x, y, w, h;
 					Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
