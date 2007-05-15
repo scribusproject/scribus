@@ -279,7 +279,7 @@ class CreatePageItem_body : public Generator_body<PageItem>
 		int nr = doc->itemAdd(type, frametype, xpos, ypos, width, height, linewidth, fillC, lineC, false);
 		result = doc->Items->at(nr);
 		this->dig->push(result);
-		qDebug(QString("pushed item: %1,%2 params %3,%4").arg(result->xPos()).arg(result->yPos()).arg(xpos).arg(ypos));
+//		qDebug(QString("pushed item: %1,%2 params %3,%4").arg(result->xPos()).arg(result->yPos()).arg(xpos).arg(ypos));
 	}
 };
 
@@ -310,7 +310,7 @@ class Gradient_body : public Action_body
 {
 	void begin (const Xml_string& tagName, Xml_attr attr)
 	{
-		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
+//		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
 		if (tagName=="CStop")
 		{
 			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
@@ -350,7 +350,7 @@ class Pattern_body : public Action_body
 		double patternOffsetX = parseDouble(attr["pOffsetX"]);
 		double patternOffsetY = parseDouble(attr["pOffsetY"]);
 		double patternRotation = parseDouble(attr["pRotation"]);
-		qDebug(QString("pageitem_desaxe: pattern %6: *(%1,%2) +(%3,%4) °%5").arg(patternScaleX).arg(patternScaleY).arg(patternOffsetX).arg(patternOffsetY).arg(patternRotation).arg(attr["pattern"]));
+//		qDebug(QString("pageitem_desaxe: pattern %6: *(%1,%2) +(%3,%4) °%5").arg(patternScaleX).arg(patternScaleY).arg(patternOffsetX).arg(patternOffsetY).arg(patternRotation).arg(attr["pattern"]));
 
 		item->setPattern(attr["pattern"]);
 		item->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
@@ -366,7 +366,7 @@ class ImageEffectsAndLayers_body : public Action_body
 {
 	void begin (const Xml_string& tagName, Xml_attr attr)
 	{
-		qDebug(QString("pageitem_desaxe: effects/layers %1").arg(tagName));
+//		qDebug(QString("pageitem_desaxe: effects/layers %1").arg(tagName));
 		if (tagName=="ImageEffect")
 		{
 			PageItem* obj = this->dig->top<PageItem>();
@@ -436,7 +436,7 @@ class AdjustGroupIds_body : public Action_body
 				int newGroup = minGroup + item->groups()[i];
 				if (newGroup > maxGroup)
 					maxGroup = newGroup;
-				qDebug(QString("group id %1 -> %2").arg(item->groups()[i]).arg(newGroup));
+//				qDebug(QString("group id %1 -> %2").arg(item->groups()[i]).arg(newGroup));
 				groups.append(newGroup);
 			}
 			item->setGroups(groups);
