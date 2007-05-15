@@ -2865,7 +2865,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 
 		break;
 	case PageItem::PathText: //Path Text
-		FontSub->RebuildList(doc, currItem->isAnnotation());
+//		FontSub->RebuildList(doc, currItem->isAnnotation());
 		propertiesPalette->Fonts->RebuildList(doc, currItem->isAnnotation());
 		scrActions["fileImportText"]->setEnabled(true);
 		scrActions["fileImportText2"]->setEnabled(true);
@@ -5841,9 +5841,20 @@ void ScribusMainWindow::ToggleFrameEdit()
 			nodePalette->ResetContClip->setEnabled(false);
 			nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 			if ((currItem->asImageFrame()) && (currItem->imageClip.size() != 0))
+			{
+				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
 				nodePalette->ResetContClip->show();
+				nodePalette->layout()->activate();
+				nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
+			}
 			else
+			{
+				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
+				nodePalette->layout()->activate();
 				nodePalette->ResetContClip->hide();
+				nodePalette->layout()->activate();
+				nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
+			}
 		}
 	}
 	scrActions["itemShapeEdit"]->setOn(doc->EditClip);
@@ -7406,7 +7417,10 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 	view->Deselect(true);
 	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage()->pageNr())))
 		view->GotoPage(Page);
+	doc->m_Selection->setIsGUISelection(false);
 	view->SelectItemNr(Item, true, single);
+	doc->m_Selection->setIsGUISelection(true);
+	doc->m_Selection->connectItemToGUI();
 	if (doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);

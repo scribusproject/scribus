@@ -58,6 +58,11 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 	currView->DrVX = py.x();
 	currView->DrHY = py.y();
 	qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+	currView->redrawMode = 1;
+	currView->specialRendering = true;
+	currView->firstSpecial = true;
+	currView->redrawPolygon.clear();
+	currView->redrawPolygon << QPoint(-1, -1);
 }
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
@@ -70,6 +75,9 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 	}
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Mpressed = false;
+	currView->redrawMode = 0;
+	currView->specialRendering = false;
+	currView->firstSpecial = false;
 }
 
 void RulerMover::mouseMoveEvent(QMouseEvent *m)
