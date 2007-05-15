@@ -1579,7 +1579,7 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setFillColor(it->attribute("FCOLOR"));
 	
 	if (it->hasAttribute("KERN"))
-		newStyle.setTracking(it->attribute("KERN").toInt());
+		newStyle.setTracking(qRound(it->attribute("KERN").toDouble() * 10));
 	
 	if (it->hasAttribute("FSHADE"))
 		newStyle.setFillShade(it->attribute("FSHADE").toInt());
