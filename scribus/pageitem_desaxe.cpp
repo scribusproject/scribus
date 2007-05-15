@@ -338,6 +338,7 @@ class Gradient : public MakeAction<Gradient_body>
 {};
 
 
+
 class Pattern_body : public Action_body
 {
 	void begin (const Xml_string& tagName, Xml_attr attr)
