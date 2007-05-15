@@ -2372,7 +2372,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((Doc->m_Selection->count() == 0) && (HaveSelRect) && (!MidButt))
 		{
-			QRect AreaR = QRect(static_cast<int>(Mxp), static_cast<int>(Myp), static_cast<int>(SeRx-Mxp), static_cast<int>(SeRy-Myp));
+			QRect AreaR = QRect(static_cast<int>(Mxp), static_cast<int>(Myp), static_cast<int>(SeRx-Mxp), static_cast<int>(SeRy-Myp)).normalized();
 			HaveSelRect = false;
 			double Tx, Ty, Tw, Th;
 			FPoint np2 = Doc->ApplyGrid(QPoint(Mxp, Myp));
@@ -2526,22 +2526,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if ((Doc->EditClip) && (ClRe == -1) && (HaveSelRect))
 	{
 		double sc = Scale;
-//		QPainter p;
-//		p.begin(viewport());
-//		ToView(&p);
-//		p.scale(Scale, Scale);
-//		p.setCompositionMode(QPainter::CompositionMode_Xor);
-//		p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-//		p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
-//		p.end();
-//		normalizeSelectionRect();
 		currItem = Doc->m_Selection->itemAt(0);
 		SelNode.clear();
-		QRect geom = redrawMarker->geometry();
-		geom.setTopLeft(viewport()->mapFromGlobal(QPoint(geom.x(), geom.y())));
-		FPoint nx = translateToDoc(geom.x()*sc, geom.y()*sc);
-		QRect Sele = QRect(static_cast<int>(nx.x()), static_cast<int>(nx.y()), static_cast<int>(geom.width()*sc), static_cast<int>(geom.height()*sc));
+		QRect Sele = QRect(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
 		FPointArray Clip;
+		Scale = 1.0;
 		if (EditContour)
 			Clip = currItem->ContourLine;
 		else
@@ -2550,9 +2539,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			if (Clip.point(a).x() > 900000)
 				continue;
-			QMatrix p;
-			Transform(currItem, p);
-			QPoint npf = Clip.pointQ(a) * p;
+			FPoint np = Clip.point(a);
+			FPoint npf2 = np.transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, false);
+			QPoint npf = QPoint(qRound(npf2.x()), qRound(npf2.y()));
 			if ((Sele.contains(npf)) && ((a == 0) || (((a-2) % 4) == 0)))
 			{
 				ClRe = a;
@@ -2560,6 +2549,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				emit ClipPo(Clip.point(a).x(), Clip.point(a).y());
 			}
 		}
+		Scale = sc;
 		HaveSelRect = false;
 		redrawMarker->hide();
 		RefreshItem(currItem);
@@ -4318,32 +4308,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		//CB Drag selection performed here
 		if (((Doc->m_Selection->count() == 0) && (HaveSelRect) && (!MidButt)) || ((shiftSelItems) && (HaveSelRect) && (!MidButt)))
 		{
-			double sc = Scale;
-/*			QPainter p;
-			p.begin(viewport());
-			ToView(&p);
-			p.scale(Scale, Scale);
-			p.setCompositionMode(QPainter::CompositionMode_Xor);
-			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
-			p.end(); */
-			QRect geom = redrawMarker->geometry();
-			geom.setTopLeft(viewport()->mapFromGlobal(QPoint(geom.x(), geom.y())));
-			FPoint nx = translateToDoc(geom.x()*sc, geom.y()*sc);
-			QRect Sele = QRect(static_cast<int>(nx.x()), static_cast<int>(nx.y()), static_cast<int>(geom.width()*sc), static_cast<int>(geom.height()*sc));
-//			normalizeSelectionRect();
-//			QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>((SeRx-Mxp)*sc), static_cast<int>((SeRy-Myp)*sc));
+			QRectF Sele = QRectF(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
 			if (!Doc->masterPageMode())
 			{
 				uint docPagesCount=Doc->Pages->count();
 				uint docCurrPageNo=Doc->currentPageNumber();
 				for (uint i = 0; i < docPagesCount; ++i)
 				{
-					int x = static_cast<int>(Doc->Pages->at(i)->xOffset() * Scale);
-					int y = static_cast<int>(Doc->Pages->at(i)->yOffset() * Scale);
-					int w = static_cast<int>(Doc->Pages->at(i)->width() * Scale);
-					int h = static_cast<int>(Doc->Pages->at(i)->height() * Scale);
-					if (QRect(x, y, w, h).intersects(Sele))
+					if (QRectF(Doc->Pages->at(i)->xOffset(), Doc->Pages->at(i)->yOffset(), Doc->Pages->at(i)->width(), Doc->Pages->at(i)->height()).intersects(Sele))
 					{
 						if (docCurrPageNo != i)
 						{
@@ -4365,7 +4337,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					QMatrix p;
 					Transform(docItem, p);
 					QRegion apr = QRegion(docItem->Clip * p);
-					QRect apr2(docItem->getRedrawBounding(Scale));
+					QRect apr2(docItem->getRedrawBounding(1.0));
 					if ((Doc->masterPageMode()) && (docItem->OnMasterPage != Doc->currentPage()->pageName()))
 						continue;
 					//CB Finally Items are selected here
@@ -4468,18 +4440,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		double sc = Scale;
 		if (HaveSelRect)
 		{
-/*			QPainter p;
-			p.begin(viewport());
-			ToView(&p);
-			p.scale(Scale, Scale);
-			p.setCompositionMode(QPainter::CompositionMode_Xor);
-			p.setPen(QPen(Qt::white, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
-			p.end();
-			normalizeSelectionRect(); */
 			QRect geom = redrawMarker->geometry();
 			geom.setTopLeft(viewport()->mapFromGlobal(QPoint(geom.x(), geom.y())));
-			FPoint nx = translateToDoc(geom.x()*sc, geom.y()*sc);
+			FPoint nx = translateToDoc(geom.x(), geom.y());
 			setScale(visibleWidth() / static_cast<double>(qMax(abs(geom.width()), 1)));
 			slotDoZoom();
 			SetCPo(nx.x(), nx.y());
@@ -4491,6 +4454,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				Doc->appMode = modeNormal;
 				emit PaintingDone();
 			}
+			redrawMarker->hide();
 		}
 		else
 		{
@@ -4975,6 +4939,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					if (!redrawMarker->isVisible())
 						redrawMarker->show();
 					HaveSelRect = true;
+					SeRx = newX;
+					SeRy = newY;
 					return;
 				}
 				newX = m->x();
@@ -6244,6 +6210,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					redrawMarker->show();
 					Mxp = m->globalPos().x();
 					Myp = m->globalPos().y();
+					Dxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+					Dyp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 				}
 				return;
 			}
@@ -6383,6 +6351,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					redrawMarker->show();
 					Mxp = m->globalPos().x();
 					Myp = m->globalPos().y();
+					Dxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+					Dyp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 				}
 				else
 				{
@@ -6505,8 +6475,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Magnify = true;
 				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
 			}
-			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
-			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
+			Mxp = m->globalPos().x();
+			Myp = m->globalPos().y();
 			SeRx = Mxp;
 			SeRy = Myp;
 			redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
