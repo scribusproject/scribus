@@ -1463,7 +1463,7 @@ public:
 		if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
-			qDebug(QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle));
+//			qDebug(QString("startpar: %1->%2 %3->NULL").arg(lastPos).arg(story->length()).arg((ulong)lastStyle));
 			lastPos = story->length();
 			if (lastPos > 0) {
 				story->insertChars(-1, SpecialChars::PARSEP);
@@ -1482,13 +1482,13 @@ public:
 			if (lastStyle)
 				delete lastStyle;
 			lastStyle = this->dig->top<ParagraphStyle>(0);
-			qDebug(QString("endstyle: %1 %2 %3").arg("?").arg(lastPos).arg((ulong)lastStyle));
+//			qDebug(QString("endstyle: %1 %2 %3").arg("?").arg(lastPos).arg((ulong)lastStyle));
 		}
 		else if (tag == "p")
 		{
 			StoryText* story = this->dig->top<StoryText>();
 			int len = story->length();
-			qDebug(QString("endpar: %1 %2 %3 %4").arg(len).arg(lastPos).arg((ulong)lastStyle).arg(lastStyle? lastStyle->parent() : QString()));
+//			qDebug(QString("endpar: %1 %2 %3 %4").arg(len).arg(lastPos).arg((ulong)lastStyle).arg(lastStyle? lastStyle->parent() : QString()));
 			if (len > lastPos && lastStyle)
 			{
 				story->applyStyle(lastPos, *lastStyle);
