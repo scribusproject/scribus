@@ -9,14 +9,11 @@ for which a new license (GPL+exception) is in place.
 #define BARCODEGENERATOR_H
 
 #include "ui_barcodegenerator.h"
-#include <qmap.h>
-#include <qstring.h>
-//Added by qt3to4:
-#include <QLabel>
-#include <Q3TextStream>
 
 class QColor;
 class QLabel;
+class QString;
+
 
 /*! \brief One Barcode Entity.
 \author Petr Vanek <petr@yarpen.cz>

@@ -15,20 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "loadsaveplugin.h"
 #include "../formatidlist.h"
-#include <qcombobox.h>
-#include <q3textedit.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qcheckbox.h>
-#include <qcolor.h>
-#include <qcolordialog.h>
-#include <qlabel.h>
-#include <qfile.h>
-#include <qdir.h>
-#include <q3filedialog.h>
-#include <qregexp.h>
-//Added by qt3to4:
-#include <QPixmap>
+
+#include <QTextStream>
+#include <QColorDialog>
 
 BarcodeType::BarcodeType(QString cmd, QString exa,
 						 QString comm, QString regExp,
@@ -129,7 +118,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	psCommand.append("%!PS-Adobe-2.0 EPSF-2.0\n");
 	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
 	f.open(QIODevice::ReadOnly);
-	Q3TextStream ts(&f);
+	QTextStream ts(&f);
 	QString s = ts.read();
 	int begin = s.find("% --BEGIN TEMPLATE--");
 	int end = s.find("% --END TEMPLATE--");
@@ -295,7 +284,7 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 		ui.sampleLabel->setText("<qt>" + tr("Error opening file: %1").arg(psFile) + "</qt>");
 		return false;
 	}
-	Q3TextStream ts(&f);
+	QTextStream ts(&f);
 	ts << comm;
 	f.close();
 
