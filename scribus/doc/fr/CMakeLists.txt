@@ -13,6 +13,7 @@ gettexthowto.html
 lipsum.html
 machints1.html
 machints2.html
+menu.xml
 moncal.html
 plugin_howto.html
 readme-win32.html
