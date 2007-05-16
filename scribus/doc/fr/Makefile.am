@@ -1,31 +1,82 @@
 SUBDIRS = tutorials 
 
-EXTRA_DIST = cms2.html cms3.html cms4.html cms.html codingstandards.html cross-platform.html developers.html gettexthowto.html lipsum.html machints1.html \
-machints2.html moncal.html plugin_howto.html readme-win32.html scribusfileformat.html scripter1.html scripterapi-page.html scripterapi-pydoc.html \
-CMakeLists.txt scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-ImageExport.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-extensions.html scripter-faq.html short-words-manual.html
-
-
+EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codingstandards.html  contributions.html cross-platform.html  \
+developers.html  doccopyright.html docinfo.html download.html fonts1.html fonts2.html fonts3.html fonts4.html fonts5.html \
+fonts-win32.html gettexthowto.html gsfont.html  hyphenator.html importhints1.html importhints2.html importhints.html   importhints4.html \
+index.html install1.html install2.html install3.html  install.html install-dpkg.html intro.html irc.html javascriptpdf.html keys.html \
+ machints1.html machints2.html menu.xml moncal.html mouse.html  pagetemplate1.html parallel-install.html pdflavor.html \
+pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_form.html plugin_howto.html   \
+ readme.html   readme-win32.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html \
+scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html \
+scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html \
+scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html \
+scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html \
+toolbox12.html  toolbox1.html  toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html \
+toolbox9.html toolbox.html  otherinfo.html CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)/fr/
+	$(INSTALL_DATA) $(srcdir)/about1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/about1.html
+	$(INSTALL_DATA) $(srcdir)/about2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/about2.html
 	$(INSTALL_DATA) $(srcdir)/cms.html $(prefix)/share/doc/scribus-$(VERSION)/fr/cms.html
 	$(INSTALL_DATA) $(srcdir)/cms2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/cms2.html
 	$(INSTALL_DATA) $(srcdir)/cms3.html $(prefix)/share/doc/scribus-$(VERSION)/fr/cms3.html
 	$(INSTALL_DATA) $(srcdir)/cms4.html $(prefix)/share/doc/scribus-$(VERSION)/fr/cms4.html
 	$(INSTALL_DATA) $(srcdir)/codingstandards.html $(prefix)/share/doc/scribus-$(VERSION)/fr/codingstandards.html
+	$(INSTALL_DATA) $(srcdir)/contributions.html $(prefix)/share/doc/scribus-$(VERSION)/fr/contributions.html
 	$(INSTALL_DATA) $(srcdir)/cross-platform.html $(prefix)/share/doc/scribus-$(VERSION)/fr/cross-platform.html
 	$(INSTALL_DATA) $(srcdir)/developers.html $(prefix)/share/doc/scribus-$(VERSION)/fr/developers.html
-	$(INSTALL_DATA) $(srcdir)/gettexthowto.html  $(prefix)/share/doc/scribus-$(VERSION)/fr/gettexthowto.html
+	$(INSTALL_DATA) $(srcdir)/doccopyright.html $(prefix)/share/doc/scribus-$(VERSION)/fr/doccopyright.html
+	$(INSTALL_DATA) $(srcdir)/docinfo.html $(prefix)/share/doc/scribus-$(VERSION)/fr/docinfo.html
+	$(INSTALL_DATA) $(srcdir)/download.html $(prefix)/share/doc/scribus-$(VERSION)/fr/download.html
+	$(INSTALL_DATA) $(srcdir)/fonts1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts1.html
+	$(INSTALL_DATA) $(srcdir)/fonts2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts2.html
+	$(INSTALL_DATA) $(srcdir)/fonts3.html $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts3.html
+	$(INSTALL_DATA) $(srcdir)/fonts4.html $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts4.html
+	$(INSTALL_DATA) $(srcdir)/fonts5.html $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts5.html
+	$(INSTALL_DATA) $(srcdir)/fonts-win32.html $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts-win32.html
+	$(INSTALL_DATA) $(srcdir)/gettexthowto.html $(prefix)/share/doc/scribus-$(VERSION)/fr/gettexthowto.html
+	$(INSTALL_DATA) $(srcdir)/gsfont.html $(prefix)/share/doc/scribus-$(VERSION)/fr/gsfont.html
+	$(INSTALL_DATA) $(srcdir)/hyphenator.html $(prefix)/share/doc/scribus-$(VERSION)/fr/hyphenator.html
+	$(INSTALL_DATA) $(srcdir)/importhints.html $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints.html
+	$(INSTALL_DATA) $(srcdir)/importhints1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints1.html
+	$(INSTALL_DATA) $(srcdir)/importhints2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints2.html
+	$(INSTALL_DATA) $(srcdir)/importhints4.html $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints4.html
+	$(INSTALL_DATA) $(srcdir)/index.html $(prefix)/share/doc/scribus-$(VERSION)/fr/index.html
+	$(INSTALL_DATA) $(srcdir)/install1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/install1.html
+	$(INSTALL_DATA) $(srcdir)/install2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/install2.html
+	$(INSTALL_DATA) $(srcdir)/install3.html $(prefix)/share/doc/scribus-$(VERSION)/fr/install3.html
+	$(INSTALL_DATA) $(srcdir)/install.html $(prefix)/share/doc/scribus-$(VERSION)/fr/install.html
+	$(INSTALL_DATA) $(srcdir)/install-dpkg.html $(prefix)/share/doc/scribus-$(VERSION)/fr/install-dpkg.html
+	$(INSTALL_DATA) $(srcdir)/intro.html $(prefix)/share/doc/scribus-$(VERSION)/fr/intro.html
+	$(INSTALL_DATA) $(srcdir)/irc.html $(prefix)/share/doc/scribus-$(VERSION)/fr/irc.html
+	$(INSTALL_DATA) $(srcdir)/javascriptpdf.html $(prefix)/share/doc/scribus-$(VERSION)/fr/javascriptpdf.html
+	$(INSTALL_DATA) $(srcdir)/keys.html $(prefix)/share/doc/scribus-$(VERSION)/fr/keys.html
 	$(INSTALL_DATA) $(srcdir)/lipsum.html $(prefix)/share/doc/scribus-$(VERSION)/fr/lipsum.html
 	$(INSTALL_DATA) $(srcdir)/machints1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/machints1.html
 	$(INSTALL_DATA) $(srcdir)/machints2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/machints2.html
+	$(INSTALL_DATA) $(srcdir)/menu.xml $(prefix)/share/doc/scribus-$(VERSION)/fr/menu.xml
 	$(INSTALL_DATA) $(srcdir)/moncal.html $(prefix)/share/doc/scribus-$(VERSION)/fr/moncal.html
+	$(INSTALL_DATA) $(srcdir)/mouse.html $(prefix)/share/doc/scribus-$(VERSION)/fr/mouse.html
+	$(INSTALL_DATA) $(srcdir)/pagetemplate1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pagetemplate1.html
+	$(INSTALL_DATA) $(srcdir)/parallel-install.html $(prefix)/share/doc/scribus-$(VERSION)/fr/parallel-install.html
+	$(INSTALL_DATA) $(srcdir)/pdflavor.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdflavor.html
+	$(INSTALL_DATA) $(srcdir)/pdfexport1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport1.html
+	$(INSTALL_DATA) $(srcdir)/pdfexport2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport2.html
+	$(INSTALL_DATA) $(srcdir)/pdfexport3.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport3.html
+	$(INSTALL_DATA) $(srcdir)/pdfexport4.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport4.html
+	$(INSTALL_DATA) $(srcdir)/pdfx3.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfx3.html
 	$(INSTALL_DATA) $(srcdir)/plugin_howto.html $(prefix)/share/doc/scribus-$(VERSION)/fr/plugin_howto.html
+	$(INSTALL_DATA) $(srcdir)/readme.html $(prefix)/share/doc/scribus-$(VERSION)/fr/readme.html
 	$(INSTALL_DATA) $(srcdir)/readme-win32.html $(prefix)/share/doc/scribus-$(VERSION)/fr/readme-win32.html
+	$(INSTALL_DATA) $(srcdir)/resources.html $(prefix)/share/doc/scribus-$(VERSION)/fr/resources.html
+	$(INSTALL_DATA) $(srcdir)/scprinters.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scprinters.html
+	$(INSTALL_DATA) $(srcdir)/scribuscopyright.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scribuscopyright.html
 	$(INSTALL_DATA) $(srcdir)/scribusfileformat.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scribusfileformat.html
+	$(INSTALL_DATA) $(srcdir)/scribus-svg.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scribus-svg.html
 	$(INSTALL_DATA) $(srcdir)/scripter1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter1.html
-	$(INSTALL_DATA) $(srcdir)/scripterapi-page.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-page.html
-	$(INSTALL_DATA) $(srcdir)/scripterapi-pydoc.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-pydoc.html
+	$(INSTALL_DATA) $(srcdir)/scripter-extensions.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter-extensions.html
+	$(INSTALL_DATA) $(srcdir)/scripter-faq.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter-faq.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-color.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-color.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-constants.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-constants.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-dialogs.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-dialogs.html
@@ -33,21 +84,146 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scripterapi-font.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-font.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-getobjprop.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-getobjprop.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi.html
-	$(INSTALL_DATA) $(srcdir)/scripterapi-ImageExport.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-ImageExport.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-layer.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-layer.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-manobj.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-manobj.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-object.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-object.html
-	$(INSTALL_DATA) $(srcdir)/scripterapi-PDFfile.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-PDFfile.html
-	$(INSTALL_DATA) $(srcdir)/scripterapi-Printer.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-Printer.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-page.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-page.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-select.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-select.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-setobjprop.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-setobjprop.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-textframes.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-textframes.html
-	$(INSTALL_DATA) $(srcdir)/scripter-extensions.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter-extensions.html
-	$(INSTALL_DATA) $(srcdir)/scripter-faq.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter-faq.html
-	$(INSTALL_DATA) $(srcdir)/short-words-manual.html $(prefix)/share/doc/scribus-$(VERSION)/fr/short-words-manual.html
-
-
-
+	$(INSTALL_DATA) $(srcdir)/scripterapi-PDFfile.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-PDFfile.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-Printer.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-Printer.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-ImageExport.html $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-ImageExport.html
+	$(INSTALL_DATA) $(srcdir)/settings1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/settings1.html
+	$(INSTALL_DATA) $(srcdir)/specs.html $(prefix)/share/doc/scribus-$(VERSION)/fr/specs.html
+	$(INSTALL_DATA) $(srcdir)/short-words.html $(prefix)/share/doc/scribus-$(VERSION)/fr/short-words.html
+	$(INSTALL_DATA) $(srcdir)/toolbox10.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox10.html
+	$(INSTALL_DATA) $(srcdir)/toolbox11.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox11.html
+	$(INSTALL_DATA) $(srcdir)/toolbox12.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox12.html
+	$(INSTALL_DATA) $(srcdir)/toolbox13.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox13.html
+	$(INSTALL_DATA) $(srcdir)/toolbox1.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox1.html
+	$(INSTALL_DATA) $(srcdir)/toolbox2.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox2.html
+	$(INSTALL_DATA) $(srcdir)/toolbox3.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox3.html
+	$(INSTALL_DATA) $(srcdir)/toolbox4.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox4.html
+	$(INSTALL_DATA) $(srcdir)/toolbox5.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox5.html
+	$(INSTALL_DATA) $(srcdir)/toolbox6.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox6.html
+	$(INSTALL_DATA) $(srcdir)/toolbox7.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox7.html
+	$(INSTALL_DATA) $(srcdir)/toolbox8.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox8.html
+	$(INSTALL_DATA) $(srcdir)/toolbox9.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox9.html
+	$(INSTALL_DATA) $(srcdir)/toolbox.html $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox.html
+	$(INSTALL_DATA) $(srcdir)/pdf_form.html $(prefix)/share/doc/scribus-$(VERSION)/fr/pdf_form.html
+	$(INSTALL_DATA) $(srcdir)/otherinfo.html $(prefix)/share/doc/scribus-$(VERSION)/fr/otherinfo.html
+	
 
 uninstall-local:
-	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/*.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/about1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/about2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/cms.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/cms2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/cms3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/cms4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/codingstandards.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/contributions.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/cross-platform.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/developers.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/doccopyright.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/docinfo.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/download.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/install-dpkg.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts5.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/fonts-win32.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/gettexthowto.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/gsfont.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/hyphenator.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/importhints4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/index.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/install1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/install2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/install3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/install4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/install.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/intro.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/irc.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/javascriptpdf.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/keys.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/layers.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/lipsum.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/machints1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/machints2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/menu.xml
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/moncal.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/mouse.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pagenumber.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pagetemplate1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/parallel-install.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdflavor.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfexport4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdfx3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/plugin_howto.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/prepress.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/print1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/print2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/print3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/psd.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/readme.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/readme-os2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/readme-win32.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/resources.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scprinters.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scribuscopyright.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scribusfileformat.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scribus-svg.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter-extensions.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripter-faq.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-color.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-constants.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-dialogs.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-doc.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-font.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-getobjprop.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-layer.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-manobj.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-object.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-page.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-select.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-setobjprop.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-textframes.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-PDFfile.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-Printer.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/scripterapi-ImageExport.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/settings1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/specs.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/short-words.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox10.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox11.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox12.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox13.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox14.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox1.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox2.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox5.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox6.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox7.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox8.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox9.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/toolbox.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/topten.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/translation_howto.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/pdf_form.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/otherinfo.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/fr/tutorials.html
+
