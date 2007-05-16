@@ -3760,7 +3760,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			*/
 			//view->setRedrawBounding(ite);
 //			qDebug(QString("load D: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
-			ite->layout();
+			if(ite->nextInChain() == NULL)
+				ite->layout();
 /*			if (doc->OldBM)
 			{
 				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
@@ -3776,7 +3777,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			PageItem *ite = doc->FrameItems.at(azz);
 //			qDebug(QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
-			ite->layout();
+			if(ite->nextInChain() == NULL)
+				ite->layout();
 		}
 //		if (doc->OldBM)
 //			StoreBookmarks();
