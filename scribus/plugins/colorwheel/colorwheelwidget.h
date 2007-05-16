@@ -8,13 +8,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORWHEELWIDGET_H
 #define COLORWHEELWIDGET_H
 
-#include <qlabel.h>
-#include <q3valuevector.h>
-//Added by qt3to4:
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <scribusstructs.h>
+#include <QLabel>
 
+#include "scribusstructs.h"
 #include "sccolor.h"
 
 class ScribusDoc;

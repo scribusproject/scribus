@@ -6,18 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "colorwheelwidget.h"
-//#include "colorwheelwidget.moc"
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qimage.h>
-//Added by qt3to4:
-#include <QPaintEvent>
-#include <QLabel>
-#include <QMouseEvent>
+
 #include <math.h>
+#include <QPainter>
 
 #include "sccolor.h"
 #include "sccolorengine.h"
+
 
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, Qt::WNoAutoErase)
 {

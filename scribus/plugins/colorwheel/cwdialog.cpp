@@ -5,29 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QHeaderView>
+
 #include "cwdialog.h"
-//#include "cwdialog.moc"
-
-#include <qvariant.h>
-#include <qcombobox.h>
-#include <q3header.h>
-#include <q3listview.h>
-#include <q3listbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-#include <qpainter.h>
-#include <qmenubar.h>
-#include <q3groupbox.h>
-#include <qslider.h>
-#include <qtabwidget.h>
-#include <q3table.h>
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <QPixmap>
-
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "cmykfw.h"
@@ -37,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorutil.h"
 #include "colorlistbox.h"
 #include "sccolorengine.h"
+
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)
 	: QDialog (parent, name, modal, fl),
@@ -105,8 +86,6 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	// setup
 	colorspaceTab_currentChanged(colorspaceTab->currentPage());
 	currentColorTable->horizontalHeader()->hide();
-	currentColorTable->setTopMargin(0);
-	currentColorTable->setNumCols(5);
 
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
@@ -500,55 +479,50 @@ void CWDialog::colorList_currentChanged(Q3ListBoxItem * item)
 	if (!item)
 		return;
 
+	
 	// if it's base color we do not need to recompute it again
 	if (item->text() == colorWheel->trBaseColor)
 	{
-		currentColorTable->setText(0, 4, cmykLabel->text());
-		currentColorTable->setText(1, 4, rgbLabel->text());
-		currentColorTable->setText(2, 4, hsvLabel->text());
-		currentColorTable->setText(0, 0, cSpin->text());
-		currentColorTable->setText(0, 1, mSpin->text());
-		currentColorTable->setText(0, 2, ySpin->text());
-		currentColorTable->setText(0, 3, kSpin->text());
-		currentColorTable->setText(1, 0, rSpin->text());
-		currentColorTable->setText(1, 1, gSpin->text());
-		currentColorTable->setText(1, 2, bSpin->text());
-		currentColorTable->setText(2, 0, hSpin->text());
-		currentColorTable->setText(2, 1, sSpin->text());
-		currentColorTable->setText(2, 2, vSpin->text());
-
+		currentColorTable->setItem(0, 4, new QTableWidgetItem(cmykLabel->text()));
+		currentColorTable->setItem(1, 4, new QTableWidgetItem(rgbLabel->text()));
+		currentColorTable->setItem(2, 4, new QTableWidgetItem(hsvLabel->text()));
+		currentColorTable->setItem(0, 0, new QTableWidgetItem(cSpin->text()));
+		currentColorTable->setItem(0, 1, new QTableWidgetItem(mSpin->text()));
+		currentColorTable->setItem(0, 2, new QTableWidgetItem(ySpin->text()));
+		currentColorTable->setItem(0, 3, new QTableWidgetItem(kSpin->text()));
+		currentColorTable->setItem(1, 0, new QTableWidgetItem(rSpin->text()));
+		currentColorTable->setItem(1, 1, new QTableWidgetItem(gSpin->text()));
+		currentColorTable->setItem(1, 2, new QTableWidgetItem(bSpin->text()));
+		currentColorTable->setItem(2, 0, new QTableWidgetItem(hSpin->text()));
+		currentColorTable->setItem(2, 1, new QTableWidgetItem(sSpin->text()));
+		currentColorTable->setItem(2, 2, new QTableWidgetItem(vSpin->text()));
 	}
 	else
 	{
 		ScColor col(colorWheel->colorList[item->text()]);
-		currentColorTable->setText(0, 4, col.nameCMYK(m_Doc));
-		currentColorTable->setText(1, 4, col.nameRGB(m_Doc));
-		currentColorTable->setText(2, 4, getHexHsv(col));
+		currentColorTable->setItem(0, 4, new QTableWidgetItem(col.nameCMYK(m_Doc)));
+		currentColorTable->setItem(1, 4, new QTableWidgetItem(col.nameRGB(m_Doc)));
+		currentColorTable->setItem(2, 4, new QTableWidgetItem(getHexHsv(col)));
 		// components
 		QString num;
 		CMYKColor cmyk;
 		ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
-		currentColorTable->setText(0, 0, num.setNum(cmyk.c));
-		currentColorTable->setText(0, 1, num.setNum(cmyk.m));
-		currentColorTable->setText(0, 2, num.setNum(cmyk.y));
-		currentColorTable->setText(0, 3, num.setNum(cmyk.k));
+		currentColorTable->setItem(0, 0, new QTableWidgetItem(num.setNum(cmyk.c)));
+		currentColorTable->setItem(0, 1, new QTableWidgetItem(num.setNum(cmyk.m)));
+		currentColorTable->setItem(0, 2, new QTableWidgetItem(num.setNum(cmyk.y)));
+		currentColorTable->setItem(0, 3, new QTableWidgetItem(num.setNum(cmyk.k)));
 		RGBColor rgb;
 		ScColorEngine::getRGBValues(col, m_Doc, rgb);
-		currentColorTable->setText(1, 0, num.setNum(rgb.r));
-		currentColorTable->setText(1, 1, num.setNum(rgb.g));
-		currentColorTable->setText(1, 2, num.setNum(rgb.b));
+		currentColorTable->setItem(1, 0, new QTableWidgetItem(num.setNum(rgb.r)));
+		currentColorTable->setItem(1, 1, new QTableWidgetItem(num.setNum(rgb.g)));
+		currentColorTable->setItem(1, 2, new QTableWidgetItem(num.setNum(rgb.b)));
 		int h, s, v;
 		QColor hsvCol(ScColorEngine::getRGBColor(col, m_Doc));
 		hsvCol.getHsv(&h, &s, &v);
-		currentColorTable->setText(2, 0, num.setNum(h));
-		currentColorTable->setText(2, 1, num.setNum(s));
-		currentColorTable->setText(2, 2, num.setNum(v));
+		currentColorTable->setItem(2, 0, new QTableWidgetItem(num.setNum(h)));
+		currentColorTable->setItem(2, 1, new QTableWidgetItem(num.setNum(s)));
+		currentColorTable->setItem(2, 2, new QTableWidgetItem(num.setNum(v)));
 	}
-	currentColorTable->adjustColumn(0);
-	currentColorTable->adjustColumn(1);
-	currentColorTable->adjustColumn(2);
-	currentColorTable->adjustColumn(3);
-	currentColorTable->adjustColumn(4);
 }
 
 QString CWDialog::getHexHsv(ScColor c)

@@ -8,27 +8,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef CWDIALOG_H
 #define CWDIALOG_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-
 #include "ui_cwdialog.h"
 #include "colorwheelwidget.h"
 #include "scribus.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
 class QSpacerItem;
 class QComboBox;
-class Q3ListBox;
-class Q3ListView;
 class QPushButton;
 class QSpinBox;
-class Q3GroupBox;
 class QSlider;
 class ColorListBox;
 class ScribusDoc;

@@ -6,10 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "colorwheel.h"
-//#include "colorwheel.moc"
 #include "cwdialog.h"
-#include <qcursor.h>
-#include <q3listview.h>
 #include "scribuscore.h"
 
 int colorwheel_getPluginAPIVersion()
