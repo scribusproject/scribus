@@ -4440,12 +4440,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		double sc = Scale;
 		if (HaveSelRect)
 		{
-			QRect geom = redrawMarker->geometry();
-			geom.setTopLeft(viewport()->mapFromGlobal(QPoint(geom.x(), geom.y())));
-			FPoint nx = translateToDoc(geom.x(), geom.y());
-			setScale(visibleWidth() / static_cast<double>(qMax(abs(geom.width()), 1)));
+			QRect geom = redrawMarker->geometry().normalized();
+			QPoint xp = viewport()->mapFromGlobal(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
+			FPoint nx = translateToDoc(xp.x()+contentsX(), xp.y()+contentsY());
+			double scaleAdjust = visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
+			setScale(Scale * scaleAdjust);
 			slotDoZoom();
-			SetCPo(nx.x(), nx.y());
+			SetCCPo(nx.x(), nx.y());
 			if (sc == Scale)
 			{
 				HaveSelRect = false;
