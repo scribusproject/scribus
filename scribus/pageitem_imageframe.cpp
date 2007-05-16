@@ -112,6 +112,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 						p->translate(0, Height);
 						p->scale(1, -1);
 					}
+					p->translate(LocalX*LocalScX, LocalY*LocalScY);
 					p->scale(LocalScX, LocalScY);
 					if (pixm.imgInfo.lowResType != 0)
 						p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
