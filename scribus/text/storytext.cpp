@@ -97,11 +97,14 @@ StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), doc(other.do
 
 StoryText::~StoryText()
 {
-	if (doc)
+/* Code below is not needed imho, as all connections will be disconnected automatically
+	by the QObject destructor. At least removing that code fixes a crash when closing
+	documents */
+/*	if (doc)
 	{
 		doc->paragraphStyles().disconnect(this, SLOT(invalidateAll()));
 		doc->charStyles().disconnect(this, SLOT(invalidateAll()));
-	}
+	} */
 	d->refs--;
 	if (d->refs == 0) {
 		d->clear();

@@ -6095,6 +6095,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeMagnifier:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
+				view->Magnify = true;
 				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
 				break;
 			case modePanning:
