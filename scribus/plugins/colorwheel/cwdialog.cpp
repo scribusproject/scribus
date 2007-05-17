@@ -84,8 +84,8 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	previewLabel->resize(prefs->getInt("cw_samplex", 300), prefs->getInt("cw_sampley", 100));
 		
 	// setup
-	colorspaceTab_currentChanged(colorspaceTab->currentPage());
 	currentColorTable->horizontalHeader()->hide();
+	colorspaceTab_currentChanged(colorspaceTab->currentIndex());
 
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
@@ -94,6 +94,16 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 			this, SLOT(documentColorList_currentChanged(Q3ListBoxItem *)));
 	connect(colorList, SIGNAL(currentChanged(Q3ListBoxItem *)),
 			this, SLOT(colorList_currentChanged(Q3ListBoxItem *)));
+	connect(angleSpin, SIGNAL(valueChanged(int)),
+			this, SLOT(angleSpin_valueChanged(int)));
+	connect(colorspaceTab, SIGNAL(currentChanged(int)),
+			this, SLOT(colorspaceTab_currentChanged(int)));
+	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeCombo_activated(int)));
+	connect(defectCombo, SIGNAL(activated(int)), this, SLOT(defectCombo_activated(int)));
+	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));
+	connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceButton_clicked()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
+
 	connectSlots(true);
 }
 
@@ -153,8 +163,9 @@ void CWDialog::documentColorList_currentChanged(Q3ListBoxItem *item)
 	setupColorComponents();
 }
 
-void CWDialog::colorspaceTab_currentChanged( QWidget * tab)
+void CWDialog::colorspaceTab_currentChanged(int index)
 {
+	QWidget * tab = colorspaceTab->widget(index);
 	if (tab == tabCMYK)
 		colorWheel->currentColorSpace = colorModelCMYK;
 	if (tab == tabRGB)
@@ -211,6 +222,8 @@ void CWDialog::processColors(int index, bool updateSpins)
 		setupHSVComponent(colorWheel->actualColor);
 	}
 	updateNamedLabels();
+	colorList_currentChanged(colorList->findItem(colorWheel->trBaseColor));
+	colorWheel->update(); // force paint event
 }
 
 void CWDialog::colorWheel_clicked(int, const QPoint&)
@@ -479,7 +492,6 @@ void CWDialog::colorList_currentChanged(Q3ListBoxItem * item)
 	if (!item)
 		return;
 
-	
 	// if it's base color we do not need to recompute it again
 	if (item->text() == colorWheel->trBaseColor)
 	{
@@ -523,6 +535,7 @@ void CWDialog::colorList_currentChanged(Q3ListBoxItem * item)
 		currentColorTable->setItem(2, 1, new QTableWidgetItem(num.setNum(s)));
 		currentColorTable->setItem(2, 2, new QTableWidgetItem(num.setNum(v)));
 	}
+	currentColorTable->resizeColumnsToContents();
 }
 
 QString CWDialog::getHexHsv(ScColor c)

@@ -96,7 +96,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		QString getHexHsv(ScColor c);
 
 	private slots:
-		void colorspaceTab_currentChanged( QWidget * );
+		void colorspaceTab_currentChanged(int);
 		void angleSpin_valueChanged(int);
 		void colorWheel_clicked(int, const QPoint &);
 		void typeCombo_activated(int);

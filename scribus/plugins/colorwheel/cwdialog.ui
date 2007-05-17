@@ -68,9 +68,27 @@
         <property name="selectionMode" >
          <enum>QAbstractItemView::SingleSelection</enum>
         </property>
+        <property name="rowCount" >
+         <number>3</number>
+        </property>
         <property name="columnCount" >
          <number>5</number>
         </property>
+        <row>
+         <property name="text" >
+          <string>CMYK</string>
+         </property>
+        </row>
+        <row>
+         <property name="text" >
+          <string>RGB</string>
+         </property>
+        </row>
+        <row>
+         <property name="text" >
+          <string>HSV</string>
+         </property>
+        </row>
         <column/>
         <column/>
         <column/>
@@ -922,278 +940,5 @@
   <include location="local" >colorlistbox.h</include>
  </includes>
  <resources/>
- <connections>
-  <connection>
-   <sender>colorspaceTab</sender>
-   <signal>currentChanged(QWidget*)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>colorspaceTab_currentChanged(QWidget*)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>angleSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>angleSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>typeCombo</sender>
-   <signal>activated(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>typeCombo_activated(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>defectCombo</sender>
-   <signal>activated(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>defectCombo_activated(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addButton</sender>
-   <signal>clicked()</signal>
-   <receiver>CWDialog</receiver>
-   <slot>addButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>replaceButton</sender>
-   <signal>clicked()</signal>
-   <receiver>CWDialog</receiver>
-   <slot>replaceButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cancelButton</sender>
-   <signal>clicked()</signal>
-   <receiver>CWDialog</receiver>
-   <slot>cancelButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>cSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>mSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>mSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ySpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>ySpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>kSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>rSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>gSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>bSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>hSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>hSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>sSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>sSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>vSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>CWDialog</receiver>
-   <slot>vSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
