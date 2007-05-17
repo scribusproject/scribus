@@ -1340,12 +1340,12 @@ void PageItem::paintObj(QPainter *p)
 			}
 			else
 			{
-				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1 / sc, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(Qt::NoBrush);
 				p->drawRect(QRectF(-1 / sc, -1 / sc, Width + 2 / sc, Height + 2 / sc));
 				if (m_Doc->m_Selection->count() == 1)
 				{
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 					p->setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
 					p->drawRect(QRectF(-1.0 / sc, -1.0 / sc, 6.0 / sc, 6.0 / sc));
 					p->drawRect(QRectF(Width, Height, -6 / sc, -6 / sc));

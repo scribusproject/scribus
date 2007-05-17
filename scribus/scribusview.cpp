@@ -1104,8 +1104,25 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			{
 				if (Doc->m_Selection->isMultipleSelection())
 				{
+				
 					psx->resetMatrix();
 					QPoint out = contentsToViewport(QPoint(0, 0));
+					psx->translate(out.x(), out.y());
+					psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
+					if (Doc->m_Selection->count() != 0)
+					{
+						uint docSelectionCount = Doc->m_Selection->count();
+						PageItem *currItem;
+						for (uint a=0; a<docSelectionCount; ++a)
+						{
+							currItem = Doc->m_Selection->itemAt(a);
+							psx->save();
+							Transform(currItem, psx);
+	 						currItem->paintObj(psx);
+	 						psx->restore();
+	 					}
+	 				}
+					psx->resetMatrix();
 					psx->translate(out.x(), out.y());
 					psx->translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
 					double x, y, w, h;

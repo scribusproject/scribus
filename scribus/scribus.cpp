@@ -8414,7 +8414,8 @@ void ScribusMainWindow::UnGroupObj()
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
-				currItem->Groups.pop();
+				if (currItem->Groups.count() != 0)
+					currItem->Groups.pop();
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 			}
 			if (doc->Items->at(lowestItem)->isGroupControl)
@@ -8430,7 +8431,8 @@ void ScribusMainWindow::UnGroupObj()
 			QString tooltip = Um::ItemsInvolved + "\n";
 			slotDocCh();
 			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
-			doc->m_Selection->itemAt(0)->emitAllToGUI();
+			doc->m_Selection->connectItemToGUI();
+//			doc->m_Selection->itemAt(0)->emitAllToGUI();
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
