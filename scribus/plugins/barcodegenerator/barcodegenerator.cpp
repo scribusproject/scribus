@@ -180,7 +180,8 @@ void BarcodeGenerator::includeCheckInText_stateChanged(int)
 
 void BarcodeGenerator::paintColorSample(QLabel *l, QColor c)
 {
-	QPixmap pm(1, 1);
+	QRect rect = l->frameRect();
+	QPixmap pm(rect.width(), rect.height());
 	pm.fill(c);
 	l->setPixmap(pm);
 }
