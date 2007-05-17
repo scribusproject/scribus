@@ -3551,6 +3551,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		doc->setMasterPageMode(true);
+		view->reformPages();
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
