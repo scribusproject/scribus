@@ -3736,6 +3736,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->setLoading(false);
 		doc->RePos = true;
 		doc->setMasterPageMode(true);
+		doc->reformPages();
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
@@ -8354,7 +8355,8 @@ void ScribusMainWindow::UnGroupObj()
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
-				currItem->Groups.pop();
+				if (currItem->Groups.count() != 0)
+					currItem->Groups.pop();
 				lowestItem = QMIN(lowestItem, currItem->ItemNr);
 			}
 			if (doc->Items->at(lowestItem)->isGroupControl)
