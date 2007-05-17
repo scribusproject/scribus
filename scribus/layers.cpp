@@ -241,8 +241,7 @@ void LayerPalette::removeLayer()
 									QMessageBox::Cancel | QMessageBox::Default | QMessageBox::Escape);
 		if (scmReturn == QMessageBox::Cancel)
 			return;
-		if (scmReturn == QMessageBox::Yes)
-			delToo = true;
+		delToo = (scmReturn != QMessageBox::No);
 	}
 
 	if (!ScMW->doc->deleteLayer(layerNumber, delToo))
