@@ -1685,9 +1685,9 @@ void PageItem_TextFrame::layout()
 //							   .arg(a));
 						EndX = current.endOfLine(cl, pf2, asce, desc, style.rightMargin());
 						current.finishLine(EndX);
-						qDebug(QString("no break pos: %1-%2 @ %3 wid %4 nat %5 endX %6")
-							   .arg(current.line.firstItem).arg(current.line.firstItem)
-							   .arg(current.line.x).arg(current.line.width).arg(current.line.naturalWidth).arg(EndX));
+//						qDebug(QString("no break pos: %1-%2 @ %3 wid %4 nat %5 endX %6")
+//							   .arg(current.line.firstItem).arg(current.line.firstItem)
+//							   .arg(current.line.x).arg(current.line.width).arg(current.line.naturalWidth).arg(EndX));
 						indentLine(itemText, current.line, 0);
 					}
 				}
@@ -1945,7 +1945,7 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("layout: line %1 - %2 @ (%3,%4) wd %5/%6").arg(current.line.firstItem).arg(current.line.lastItem)
 //					   .arg(current.line.x).arg(current.line.y).arg(current.line.naturalWidth).arg(current.line.width));
 				if (current.line.firstItem > current.line.lastItem)
-					qDebug(QString("layout: empty line %1 - %2").arg(current.line.firstItem).arg(current.line.lastItem));
+					; //qDebug(QString("layout: empty line %1 - %2").arg(current.line.firstItem).arg(current.line.lastItem));
 				else if (current.itemsInLine > 0)
 					itemText.appendLine(current.line);
 				current.startLine(a+1);
