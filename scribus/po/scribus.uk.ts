@@ -10288,35 +10288,35 @@ A value of 0 means unlimited hyphenations.</source>
     <name>ImportDialog</name>
     <message>
         <source>Choose Styles</source>
-        <translation type="unfinished">Вибрати стилі</translation>
+        <translation>Вибрати стилі</translation>
     </message>
     <message>
         <source>Available Styles</source>
-        <translation type="unfinished">Доступні стилі</translation>
+        <translation>Доступні стилі</translation>
     </message>
     <message>
         <source>Character Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстові стилі</translation>
     </message>
     <message>
         <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Стилі абзаців</translation>
     </message>
     <message>
         <source>Line Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Стилі ліній</translation>
     </message>
     <message>
         <source>In case of a name clash</source>
-        <translation type="unfinished"></translation>
+        <translation>У випадку конфлікту назв</translation>
     </message>
     <message>
         <source>Rename imported style</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати імпортований стиль</translation>
     </message>
     <message>
         <source>Replace existing style</source>
-        <translation type="unfinished"></translation>
+        <translation>Замістити існуючий стиль</translation>
     </message>
 </context>
 <context>
@@ -10423,210 +10423,210 @@ converting their vector data into Scribus objects.</source>
     <name>InsertAFrame</name>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Відчинити</translation>
+        <translation>Відчинити</translation>
     </message>
     <message>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Вставити текстову рамку&lt;/b&gt;&lt;br/&gt;Текстова рамка призначена для вводу тексту у визначеній позиції і з вибраним форматуванням. Ви можете вибрати текстовий файл у закладці &quot;Установки&quot; для негайного імпортування тексту з файла в рамку. Scribus підтримує широкий діапазон текстових форматів для імпорту - від звичайного тексту до документів OpenOffice.org.&lt;br/&gt;Ваш текст може бути редаговано та форматовано прямо на сторінці або у Редакторі Тексту.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Вставити рамку для зображень&lt;/b&gt;&lt;br/&gt;Рамка для зображень призначена для розміщення растрових зображень на сторінці документа. Над зображеннями можуть виконуватися різні візуальні ефекти і методи ретуші, такі як зміна прозорісті і яскравості чи постеризація. Зміна розміру зображення і його форми виконується через палітру властивостей.</translation>
     </message>
 </context>
 <context>
     <name>InsertAFrameBase</name>
     <message>
         <source>Insert A Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити рамку</translation>
     </message>
     <message>
         <source>T&amp;ype</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Тип</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Текстова рамка</translation>
+        <translation>&amp;Текстова рамка</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Альт+T</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished">Рамка &amp;зображення</translation>
+        <translation>Рамка для &amp;зображень</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Альт+I</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished">&amp;Таблиця</translation>
+        <translation>&amp;Таблиця</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт+A</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Фігура</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Полігон</translation>
+        <translation>Полігон</translation>
     </message>
     <message>
         <source>&amp;Location</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Розміщення</translation>
     </message>
     <message>
         <source>Page Placement</source>
-        <translation type="unfinished"></translation>
+        <translation>Розміщення сторінки</translation>
     </message>
     <message>
         <source>Current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Активна сторінка</translation>
     </message>
     <message>
         <source>Selecting this will place the frame only on the current page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть, щоб помістити рамку лише на актівній сторінці.</translation>
     </message>
     <message>
         <source>Range of Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Діапазон сторінок:</translation>
     </message>
     <message>
         <source>Selecting this will place frame on the selected range. </source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть, щоб помістити рамку у вибраному діапазоні. </translation>
     </message>
     <message>
         <source>Position of Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Позиція рамки</translation>
     </message>
     <message>
         <source>Top Left of Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхній лівий кут сторінки</translation>
     </message>
     <message>
         <source>Selecting this puts the frame on the top left with postion 0,0</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть, щоб помістити рамку лише у верхньому лівому куті в позиції 0,0</translation>
     </message>
     <message>
         <source>Top Left of Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхній лівий кут поля</translation>
     </message>
     <message>
         <source>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть, щоб розмістити рамку у верхньому лівому кутку полів сторінки визначених в установках документа.</translation>
     </message>
     <message>
         <source>Custom Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нестандартна позиція:</translation>
     </message>
     <message>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити бажані розміри Х та У.</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation type="unfinished"></translation>
+        <translation>X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Розмір</translation>
+        <translation>&amp;Розмір</translation>
     </message>
     <message>
         <source>Same as the Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Так же як і сторінка</translation>
     </message>
     <message>
         <source>Same as the Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Так же як і поля сторінки</translation>
     </message>
     <message>
         <source>Custom Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нестандартний розмір:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Висота:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Товщина:</translation>
+        <translation>Ширина:</translation>
     </message>
     <message>
         <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Установки</translation>
     </message>
     <message>
         <source>Source Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>Початкове зображення:</translation>
     </message>
     <message>
         <source>&amp;Select File...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вибрати файл...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Альт+S</translation>
     </message>
     <message>
         <source>There are no options for this type of frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Для цього типу рамки немає установок</translation>
     </message>
     <message>
         <source>Source Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>Початковий документ:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Стовпці:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Проміжок:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Link Created Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Установити зв&apos;язок між створеними рамками</translation>
     </message>
     <message>
         <source>All Pages</source>
-        <translation type="unfinished">Всі сторінки</translation>
+        <translation>Всі сторінки</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Top Left of Bleed</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхній лівий кут перекриття</translation>
     </message>
     <message>
         <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть, щоб розмістити рамку у верхньому лівому кутку перекриття сторінки визначеного в установках документа.</translation>
     </message>
     <message>
         <source>Same as the Bleed</source>
-        <translation type="unfinished"></translation>
+        <translation>Так же як і перекриття</translation>
     </message>
     <message>
         <source>Same as the Imported Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Так же як і імпортоване зображення</translation>
     </message>
 </context>
 <context>
@@ -10839,51 +10839,51 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished">Непрозорість:</translation>
+        <translation>Непрозорість:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Режим змішування:</translation>
+        <translation>Режим змішування:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Звичайний</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished">Затемнити</translation>
+        <translation>Затемнити</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished">Зробити світлішим</translation>
+        <translation>Висвітлити</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished">Перемножити</translation>
+        <translation>Перемножити</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished">Екран</translation>
+        <translation>Екран</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished">Перекрити</translation>
+        <translation>Розміщення поверх</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished">Різке світло</translation>
+        <translation>Різке світло</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished">М&apos;яке світло</translation>
+        <translation>М&apos;яке світло</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished">Різниця</translation>
+        <translation>Різниця</translation>
     </message>
     <message>
         <source>Exlusion</source>
@@ -10891,63 +10891,63 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished">Уникання кольору</translation>
+        <translation>Уникання кольору</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished">Випалення кольором</translation>
+        <translation>Випалення кольором</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Виключення</translation>
+        <translation>Виключення</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished">Відтінок</translation>
+        <translation>Відтінок</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Насичення</translation>
+        <translation>Насичення</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished">Яскравість</translation>
+        <translation>Яскравість</translation>
     </message>
     <message>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation type="unfinished"></translation>
+        <translation>Колір індикатора плана - кожен план буде відображено певним кольором, якщо індикатори планів ввімкнені. Подвійно кляцніть мишкою для редагування.</translation>
     </message>
     <message>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="unfinished"></translation>
+        <translation>Зробити план видимим - приберіть значок для того, щоб сховати план</translation>
     </message>
     <message>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="unfinished"></translation>
+        <translation>Друкувати план - приберіть знак, щоб відключити друк. </translation>
     </message>
     <message>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="unfinished"></translation>
+        <translation>Замкнути або розімкнути план - приберіть значок, щоб розімкнути план </translation>
     </message>
     <message>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished"></translation>
+        <translation>Текст огинає об&apos;єкти на нижчих планах - виберіть, щоб змусити текстові рамки огинати всі об&apos;єкти навіть на нижчих планах</translation>
     </message>
     <message>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Контурний режим - перемикає показ &apos;скелетів&apos; об&apos;єктів для пришвидшення показу складних об&apos;єктів.</translation>
     </message>
     <message>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Назва плана - подвійний клік на назві плана вмикає її редагування</translation>
     </message>
     <message>
         <source>Duplicates the current layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Дублює вибраний план</translation>
     </message>
 </context>
 <context>
@@ -11080,35 +11080,35 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Add a new line</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати нову лінію</translation>
     </message>
     <message>
         <source>Remove a line</source>
-        <translation type="unfinished"></translation>
+        <translation>Видалити лінію</translation>
     </message>
     <message>
         <source>Line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль лінії</translation>
     </message>
     <message>
         <source>Line width</source>
-        <translation type="unfinished"></translation>
+        <translation>Товщина лінії</translation>
     </message>
     <message>
         <source>End style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль кінця лінії</translation>
     </message>
     <message>
         <source>Join style</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль з&apos;єднання</translation>
     </message>
     <message>
         <source>Line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір лінії</translation>
     </message>
     <message>
         <source>Line shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Тінь лінії</translation>
     </message>
 </context>
 <context>
@@ -11119,7 +11119,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>No File Loader Plugins Found</source>
-        <translation type="unfinished"></translation>
+        <translation>Не знайдено модулів зчитування файлів</translation>
     </message>
 </context>
 <context>
@@ -11158,7 +11158,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Standard Lorem Ipsum</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартний Lorem Ipsum текст</translation>
     </message>
 </context>
 <context>
@@ -11213,11 +11213,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Other Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Інші установки</translation>
     </message>
     <message>
         <source>Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Головна сторінка:</translation>
     </message>
 </context>
 <context>
@@ -11284,75 +11284,75 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Примінити установки до:</translation>
     </message>
     <message>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Всіх сторінок документа</translation>
     </message>
     <message>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Всіх головних сторінок</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing master pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати зміни полів до всіх існуючих головних сторінок документа</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">Розмітка полів</translation>
+        <translation>Направляючі полів</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Верх:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Низ:</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
+        <translation>Розмір перекриття з верхньої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
+        <translation>Розмір перекриття з нижньої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
+        <translation>Розмір перекриття з лівої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
+        <translation>Розмір перекриття з правої сторони фізичної сторінки</translation>
     </message>
     <message>
         <source>Bleeds</source>
-        <translation type="unfinished"></translation>
+        <translation>Перекриття</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Зсередини:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ззовні:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Зліва:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished">Праве:</translation>
+        <translation>Справа:</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань між направляючою лівого поля і краєм сторінки. Для двостороннього макета з 3 чи 4-ма складками цей проміжок може використовуватися для забезпечення достатніх полів для переплітання</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Відстань між направляючою правого поля і краєм сторінки. Для двостороннього макета з 3 чи 4-ма складками цей проміжок може використовуватися для забезпечення достатніх полів для переплітання</translation>
     </message>
 </context>
 <context>
@@ -11423,23 +11423,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Неможливо перейменувати головну сторінку</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Стандартну сторінку перейменувати не дозволяється.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Перейменувати головну сторінку</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Нова назва:</translation>
     </message>
     <message>
         <source>Copy #%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Копіювати #%1 з %2</translation>
     </message>
 </context>
 <context>
@@ -11598,11 +11598,11 @@ converting their vector data into Scribus objects.</source>
     <name>ModeToolBar</name>
     <message>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Інструменти</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation type="unfinished">Властивості...</translation>
+        <translation>Властивості...</translation>
     </message>
 </context>
 <context>
