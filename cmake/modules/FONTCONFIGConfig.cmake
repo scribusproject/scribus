@@ -18,18 +18,30 @@ PKGCONFIG(fontconfig _fontconfigIncDir _fontconfigLinkDir _fontconfigLinkFlags _
 
 SET(FONTCONFIG_LIBS ${_fontconfigCflags})
 
-FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig/fontconfig.h
-${_fontconfigIncDir}
-/usr/include
-/usr/local/include
-PATH_SUFFIXES
-fontconfig
-)
-# quick hack as the above finds it nicely but our source includes the libart_lgpl text at the moment
-#STRING(REGEX REPLACE "/libart_lgpl" "" FONTCONFIG_INCLUDE_DIR ${FONTCONFIG_INCLUDE_DIR})
-FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig
-  PATHS /usr/lib /usr/local/lib
-)
+IF(BUILD_OSX_BUNDLE)
+  FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig/fontconfig.h
+    /opt/local/include
+    NO_DEFAULT_PATH
+  )
+  FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig
+    PATHS /opt/local/lib
+    NO_DEFAULT_PATH
+  )
+ELSE(BUILD_OSX_BUNDLE)
+  FIND_PATH(FONTCONFIG_INCLUDE_DIR fontconfig/fontconfig.h
+    ${_fontconfigIncDir}
+    /usr/include
+    /usr/local/include
+    PATH_SUFFIXES
+    fontconfig
+  )
+  # quick hack as the above finds it nicely but our source includes the libart_lgpl text at the moment
+  #STRING(REGEX REPLACE "/libart_lgpl" "" FONTCONFIG_INCLUDE_DIR ${FONTCONFIG_INCLUDE_DIR})
+  FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig
+    PATHS /usr/lib /usr/local/lib
+  )
+ENDIF(BUILD_OSX_BUNDLE)
+
 
 # MESSAGE(STATUS "fclib ${FONTCONFIG_LIBRARY}")
 # MESSAGE(STATUS "fcinclude ${FONTCONFIG_INCLUDE_DIR}")
