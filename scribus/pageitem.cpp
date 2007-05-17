@@ -685,7 +685,6 @@ void PageItem::link(PageItem* nxt)
 		assert (ff != this);
 	}
 	itemText.append(nxt->itemText);
-	nxt->itemText = itemText;
 	NextBox = nxt;
 	nxt->BackBox = this;
 	// update AutoText
@@ -712,6 +711,7 @@ void PageItem::link(PageItem* nxt)
 	invalid = true;
 	while (nxt)
 	{
+		nxt->itemText = itemText;
 		nxt->invalid = true;
 		nxt->firstChar = 0;
 		nxt = nxt->NextBox;
