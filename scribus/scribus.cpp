@@ -3761,6 +3761,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->setLoading(false);
 		doc->RePos = true;
 		doc->setMasterPageMode(true);
+		doc->reformPages();
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
