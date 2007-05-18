@@ -52,9 +52,9 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	m_ScMW->scrActions["toolsInsertTableFrame"]->addTo(this);
 	
 	m_ScMW->scrActions["toolsInsertShape"]->addTo(this);
-	m_ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
+//	m_ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
 //	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
-	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
+//	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
 	
 	insertShapeButtonMenu = new QMenu();
 	Rechteck = new AutoformButtonGroup( NULL );
