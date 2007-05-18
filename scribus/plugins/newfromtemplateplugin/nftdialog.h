@@ -17,7 +17,11 @@ for which a new license (GPL+exception) is in place.
 #include "ui_nftdialog.h"
 #include "nftsettings.h"
 
+class QAction;
+
+
 typedef std::pair<nfttemplate*, QListWidgetItem*> ListItem;
+
 
 class nftdialog: public QDialog, public Ui::nftdialog
 {
@@ -25,23 +29,9 @@ class nftdialog: public QDialog, public Ui::nftdialog
 
 private:
 	nftsettings* settings;
-// 	Q3ListBox* categoryList;
-// 	Q3IconView* tnailGrid;
-// 	Q3Frame* detailBar;
-// 	Q3TextBrowser* infoLabel;
-// 	Q3IconView* imgLabel;
-// 	Q3TextBrowser* aboutLabel;
-// 	QWidget* tmpSpacer;
-// 	QToolButton* imgButton;
-// 	QToolButton* infoButton;
-// 	QToolButton* aboutButton;
-// 	QPushButton* settingsButton;
-// 	QPushButton* okButton;
-// 	QPushButton* cancelButton;
-// 	Q3BoxLayout* mainlo;
-// 	Q3BoxLayout* detaillo;
-// 	Q3BoxLayout* dtbarlo;
-// 	Q3PopupMenu* popUp;
+
+	QAction * removeAction;
+	QAction * openAction;
 	std::vector<ListItem*> iconItems;
 	void setupCategories();
 	void setupListItems();
@@ -52,14 +42,8 @@ public:
 	~nftdialog();
 private slots: 
 	void setTNails();
-// 	void infoToggle();
-// 	void imgToggle();
-// 	void aboutToggle();
 	void setInfo();
-// 	void exitOK();
-// 	void exitCancel();
 	void getCurrentDocumentTemplate(QListWidgetItem* item);
-// 	void showPopup(QListWidgetItem* item, const QPoint& point);
 	void removeTemplate();
 };
 

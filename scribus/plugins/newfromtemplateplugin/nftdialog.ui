@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>710</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -21,6 +21,18 @@
    </property>
    <item row="0" column="1" >
     <widget class="QListWidget" name="tnailGrid" >
+     <property name="minimumSize" >
+      <size>
+       <width>300</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="contextMenuPolicy" >
+      <enum>Qt::ActionsContextMenu</enum>
+     </property>
+     <property name="spacing" >
+      <number>5</number>
+     </property>
      <property name="viewMode" >
       <enum>QListView::IconMode</enum>
      </property>
@@ -28,6 +40,12 @@
    </item>
    <item row="0" column="2" >
     <widget class="QToolBox" name="toolBox" >
+     <property name="minimumSize" >
+      <size>
+       <width>250</width>
+       <height>16</height>
+      </size>
+     </property>
      <property name="currentIndex" >
       <number>0</number>
      </property>
@@ -36,12 +54,12 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>215</width>
-        <height>312</height>
+        <width>250</width>
+        <height>340</height>
        </rect>
       </property>
       <attribute name="label" >
-       <string>About</string>
+       <string>&amp;About</string>
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
@@ -60,12 +78,12 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>207</width>
-        <height>310</height>
+        <width>215</width>
+        <height>312</height>
        </rect>
       </property>
       <attribute name="label" >
-       <string>Image</string>
+       <string>&amp;Image</string>
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
@@ -88,12 +106,12 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>207</width>
-        <height>310</height>
+        <width>215</width>
+        <height>312</height>
        </rect>
       </property>
       <attribute name="label" >
-       <string>Help</string>
+       <string>&amp;Help</string>
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
@@ -110,7 +128,14 @@
     </widget>
    </item>
    <item row="0" column="0" >
-    <widget class="QListWidget" name="categoryList" />
+    <widget class="QListWidget" name="categoryList" >
+     <property name="minimumSize" >
+      <size>
+       <width>130</width>
+       <height>200</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0" colspan="3" >
     <widget class="QDialogButtonBox" name="buttonBox" >
