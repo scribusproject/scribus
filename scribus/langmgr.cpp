@@ -49,6 +49,7 @@ void LanguageManager::generateLangList()
 	langList.insert("br",       langPair("Breton",              QObject::tr( "Breton" )) );
 	langList.insert("ca",       langPair("Catalan",             QObject::tr( "Catalan" )) );
 	langList.insert("zh",       langPair("Chinese",             QObject::tr( "Chinese" )) );
+	langList.insert("zh_TW",    langPair("Chinese (Trad.)",     QObject::tr( "Chinese (Trad.)" )) );
 	langList.insert("hr",       langPair("Croatian",            QObject::tr( "Croatian" )) );
 	langList.insert("cs",       langPair("Czech",               QObject::tr( "Czech" )) );
 	langList.insert("cs_CZ",    langPair("Czech",               QObject::tr( "Czech" )) );
@@ -63,7 +64,7 @@ void LanguageManager::generateLangList()
 	langList.insert("eo",       langPair("Esperanto",           QObject::tr( "Esperanto" )) );
 	langList.insert("et",       langPair("Estonian",            QObject::tr( "Estonian" )) );
 	langList.insert("de",       langPair("German",              QObject::tr( "German" )) );
-	langList.insert("de_CH",    langPair("German (Swiss)",              QObject::tr( "German (Swiss)" )) );
+	langList.insert("de_CH",    langPair("German (Swiss)",      QObject::tr( "German (Swiss)" )) );
 	langList.insert("de_ol",    langPair("German (Trad.)",      QObject::tr( "German (Trad.)" )) );
 	langList.insert("fi",       langPair("Finnish",             QObject::tr( "Finnish" )) );
 	langList.insert("fr",       langPair("French",              QObject::tr( "French" )) );
