@@ -483,7 +483,7 @@ QString gtAction::validateFont(gtFont* font)
 		// by font replacement dialog
 		// useFont == NULL;
 		QString tmpName = findFontName(font);
-		if (tmpName != NULL)
+		if (!tmpName.isEmpty())
 		{
 			useFont = tmpName;
 			found = true;
@@ -495,7 +495,7 @@ QString gtAction::validateFont(gtFont* font)
 				gtFont* tmp = new gtFont(*font);
 				tmp->setSlant(OBLIQUE);
 				tmpName = findFontName(tmp);
-				if (tmpName != NULL)
+				if (!tmpName.isEmpty())
 				{
 					useFont = tmpName;
 					found = true;
@@ -507,7 +507,7 @@ QString gtAction::validateFont(gtFont* font)
 				gtFont* tmp = new gtFont(*font);
 				tmp->setSlant(ITALIC);
 				tmpName = findFontName(tmp);
-				if (tmpName != NULL)
+				if (!tmpName.isEmpty())
 				{
 					useFont = tmpName;
 					found = true;
