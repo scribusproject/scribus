@@ -31,9 +31,9 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const
 	basicSelectRangeType(m_BasicRangeType);
 	advPageGroupSizeSpinBox->setMaxValue(pageCount);
 	if (m_PageCount==1)
-	   basicEvenRadioButton->setShown(false);
+		basicEvenRadioButton->setShown(false);
 	if (currText.length()>0)
-		basicRangeListBox->insertItem(currText);
+		basicRangeListBox->addItem(currText);
 	// signals and slots connections
 	connect(tabWidget, SIGNAL(currentChanged(QWidget*)), this, SLOT(selectRangeType(QWidget*)));
 	connect(basicRangeAddButton, SIGNAL(clicked()), this, SLOT(basicAddToRange()));
@@ -70,7 +70,7 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 		{
 			if (i!=0 && i<c)
 				crData.pageRange+=",";
-			crData.pageRange+=basicRangeListBox->text(i);
+			crData.pageRange+=basicRangeListBox->item(i)->text();
 		}
 	}
 	else
@@ -121,12 +121,12 @@ void CreateRange::basicAddToRange( )
 			break;
 	}
 	if (newEntry.length()!=0)
-		basicRangeListBox->insertItem(newEntry);
+		basicRangeListBox->addItem(newEntry);
 }
 
 void CreateRange::basicDelFromRange()
 {
-	basicRangeListBox->removeItem(basicRangeListBox->currentItem());
+	delete basicRangeListBox->takeItem(basicRangeListBox->currentRow());
 }
 
 void CreateRange::basicSelectRangeTypeConsec()
@@ -168,25 +168,23 @@ void CreateRange::selectRangeType(QWidget *)
 
 void CreateRange::basicMoveUp()
 {
-	int index=basicRangeListBox->currentItem();
+	int index=basicRangeListBox->currentRow();
 	if (index==-1 || index==0)
 		return;
 	basicRangeListBox->clearSelection();
-	Q3ListBoxItem* clbi=basicRangeListBox->item(index);
-	basicRangeListBox->takeItem(clbi);
-	basicRangeListBox->insertItem(clbi, qMax(0, index-1));
+	QListWidgetItem * clbi = basicRangeListBox->takeItem(index);
+	basicRangeListBox->insertItem(qMax(0, index-1), clbi);
 	basicRangeListBox->setCurrentItem(clbi);
 }
 
 void CreateRange::basicMoveDown()
 {
-	int index=basicRangeListBox->currentItem();
+	int index=basicRangeListBox->currentRow();
 	if (index==-1 || index==static_cast<int>(basicRangeListBox->count())-1)
 		return;
 	basicRangeListBox->clearSelection();
-	Q3ListBoxItem* clbi=basicRangeListBox->item(index);
-	basicRangeListBox->takeItem(clbi);
-	basicRangeListBox->insertItem(clbi, index+1);
+	QListWidgetItem * clbi = basicRangeListBox->takeItem(index);
+	basicRangeListBox->insertItem(index+1, clbi);
 	basicRangeListBox->setCurrentItem(clbi);
 }
 

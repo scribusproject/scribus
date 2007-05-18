@@ -5,21 +5,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>355</height>
+    <width>562</width>
+    <height>437</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Create Range</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QGridLayout" >
    <property name="margin" >
-    <number>11</number>
+    <number>9</number>
    </property>
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item>
+   <item row="0" column="0" >
     <layout class="QHBoxLayout" >
      <property name="margin" >
       <number>0</number>
@@ -81,21 +81,88 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="1" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
        <string>Basic Range Selection</string>
       </attribute>
-      <layout class="QHBoxLayout" >
+      <layout class="QGridLayout" >
        <property name="margin" >
-        <number>0</number>
+        <number>9</number>
        </property>
        <property name="spacing" >
         <number>6</number>
        </property>
-       <item>
-        <widget class="Q3ButtonGroup" name="basicAddARangeButtonGroup" >
+       <item row="0" column="1" >
+        <widget class="QGroupBox" name="groupBox1" >
+         <property name="title" >
+          <string>Range of Pages</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>9</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item row="2" column="1" >
+           <widget class="QPushButton" name="basicRangeDelButton" >
+            <property name="text" >
+             <string>De&amp;lete</string>
+            </property>
+            <property name="shortcut" >
+             <string>Alt+L</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1" >
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QPushButton" name="basicRangeDownButton" >
+            <property name="text" >
+             <string>Move &amp;Down</string>
+            </property>
+            <property name="shortcut" >
+             <string>Alt+D</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QPushButton" name="basicRangeUpButton" >
+            <property name="text" >
+             <string>Move &amp;Up</string>
+            </property>
+            <property name="shortcut" >
+             <string>Alt+U</string>
+            </property>
+           </widget>
+          </item>
+          <item rowspan="4" row="0" column="0" >
+           <widget class="QListWidget" name="basicRangeListBox" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="basicAddARangeButtonGroup" >
          <property name="sizePolicy" >
           <sizepolicy>
            <hsizetype>3</hsizetype>
@@ -107,20 +174,14 @@
          <property name="title" >
           <string>Add a Range of Pages</string>
          </property>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="exclusive" >
-          <bool>true</bool>
-         </property>
-         <layout class="QVBoxLayout" >
+         <layout class="QGridLayout" >
           <property name="margin" >
-           <number>0</number>
+           <number>9</number>
           </property>
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item>
+          <item row="0" column="0" colspan="5" >
            <widget class="QRadioButton" name="basicConsecutiveRadioButton" >
             <property name="text" >
              <string>Consecutive Pages</string>
@@ -130,83 +191,56 @@
             </property>
            </widget>
           </item>
-          <item>
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="basicConsecutiveFromLabel" >
-              <property name="text" >
-               <string>From:</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="basicConsecutiveFromSpinBox" />
-            </item>
-            <item>
-             <widget class="QLabel" name="basicConsecutiveToLabel" >
-              <property name="text" >
-               <string>To:</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="basicConsecutiveToSpinBox" />
-            </item>
-            <item>
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType" >
-               <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="basicCommaSepRadioButton" >
-            <property name="text" >
-             <string>Comma Separated List</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="basicCommaSepLineEdit" />
-          </item>
-          <item>
+          <item row="4" column="0" colspan="5" >
            <widget class="QRadioButton" name="basicEvenRadioButton" >
             <property name="text" >
              <string>Even Pages</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QRadioButton" name="basicOddRadioButton" >
+          <item row="1" column="0" >
+           <widget class="QLabel" name="basicConsecutiveFromLabel" >
             <property name="text" >
-             <string>Odd Pages</string>
+             <string>From:</string>
+            </property>
+            <property name="wordWrap" >
+             <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item>
+          <item row="1" column="3" >
+           <widget class="QSpinBox" name="basicConsecutiveToSpinBox" />
+          </item>
+          <item row="1" column="1" >
+           <widget class="QSpinBox" name="basicConsecutiveFromSpinBox" />
+          </item>
+          <item row="1" column="4" >
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="2" >
+           <widget class="QLabel" name="basicConsecutiveToLabel" >
+            <property name="text" >
+             <string>To:</string>
+            </property>
+            <property name="wordWrap" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0" colspan="5" >
            <layout class="QHBoxLayout" >
             <property name="margin" >
              <number>0</number>
@@ -258,82 +292,22 @@
             </item>
            </layout>
           </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="Q3GroupBox" name="groupBox1" >
-         <property name="title" >
-          <string>Range of Pages</string>
-         </property>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <layout class="QHBoxLayout" >
-          <property name="margin" >
-           <number>0</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item>
-           <widget class="Q3ListBox" name="basicRangeListBox" />
+          <item row="5" column="0" colspan="5" >
+           <widget class="QRadioButton" name="basicOddRadioButton" >
+            <property name="text" >
+             <string>Odd Pages</string>
+            </property>
+           </widget>
           </item>
-          <item>
-           <layout class="QVBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
+          <item row="3" column="0" colspan="5" >
+           <widget class="QLineEdit" name="basicCommaSepLineEdit" />
+          </item>
+          <item row="2" column="0" colspan="5" >
+           <widget class="QRadioButton" name="basicCommaSepRadioButton" >
+            <property name="text" >
+             <string>Comma Separated List</string>
             </property>
-            <property name="spacing" >
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="basicRangeUpButton" >
-              <property name="text" >
-               <string>Move &amp;Up</string>
-              </property>
-              <property name="shortcut" >
-               <string>Alt+U</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="basicRangeDownButton" >
-              <property name="text" >
-               <string>Move &amp;Down</string>
-              </property>
-              <property name="shortcut" >
-               <string>Alt+D</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="basicRangeDelButton" >
-              <property name="text" >
-               <string>De&amp;lete</string>
-              </property>
-              <property name="shortcut" >
-               <string>Alt+L</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType" >
-               <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -344,99 +318,14 @@
       <attribute name="title" >
        <string>Advanced Reordering</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QGridLayout" >
        <property name="margin" >
-        <number>0</number>
+        <number>9</number>
        </property>
        <property name="spacing" >
         <number>6</number>
        </property>
-       <item>
-        <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="advPageGroupSizeLabel" >
-           <property name="text" >
-            <string>Page Group Size:</string>
-           </property>
-           <property name="wordWrap" >
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="advPageGroupSizeSpinBox" />
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType" >
-            <enum>QSizePolicy::Expanding</enum>
-           </property>
-           <property name="sizeHint" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="advSampleOrderLabel" >
-           <property name="text" >
-            <string>Sample Page Order:</string>
-           </property>
-           <property name="wordWrap" >
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="advSampleOrderExampleLabel" >
-           <property name="text" >
-            <string>Page Order</string>
-           </property>
-           <property name="wordWrap" >
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType" >
-            <enum>QSizePolicy::Expanding</enum>
-           </property>
-           <property name="sizeHint" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
+       <item row="2" column="0" colspan="5" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -452,11 +341,76 @@
          </property>
         </spacer>
        </item>
+       <item row="1" column="4" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="2" colspan="2" >
+        <widget class="QLabel" name="advSampleOrderExampleLabel" >
+         <property name="text" >
+          <string>Page Order</string>
+         </property>
+         <property name="wordWrap" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2" >
+        <widget class="QLabel" name="advSampleOrderLabel" >
+         <property name="text" >
+          <string>Sample Page Order:</string>
+         </property>
+         <property name="wordWrap" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" colspan="2" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1" colspan="2" >
+        <widget class="QSpinBox" name="advPageGroupSizeSpinBox" />
+       </item>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="advPageGroupSizeLabel" >
+         <property name="text" >
+          <string>Page Group Size:</string>
+         </property>
+         <property name="wordWrap" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
    </item>
-   <item>
+   <item row="2" column="0" >
     <layout class="QHBoxLayout" >
      <property name="margin" >
       <number>0</number>
@@ -506,25 +460,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3ListBox</class>
-   <extends>Q3Frame</extends>
-   <header>q3listbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Q3ButtonGroup</class>
-   <extends>Q3GroupBox</extends>
-   <header>Qt3Support/Q3ButtonGroup</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
