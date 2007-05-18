@@ -93,6 +93,13 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	widthLeft_ = prefs_->getInt("WidthLeft", 192);
 	widthRight_ = prefs_->getInt("WidthRight", 474);
 
+	newButton->setEnabled(false);
+	cloneButton->setEnabled(false);
+	importButton->setEnabled(false);
+	deleteButton->setEnabled(false);
+	rightClickPopup_->setEnabled(false);
+	newPopup_->setEnabled(false);
+
 	connect(newPopup_, SIGNAL(activated(int)), this, SLOT(slotNewPopup(int)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(slotImport()));
@@ -681,6 +688,9 @@ void StyleManager::slotDoubleClick(Q3ListViewItem *item, const QPoint &point, in
 
 void StyleManager::createNewStyle(const QString &typeName, const QString &fromParent)
 {
+	if (!doc_)
+		return;
+
 	loadType(typeName); // get the right style class
 	Q_ASSERT(item_);
 

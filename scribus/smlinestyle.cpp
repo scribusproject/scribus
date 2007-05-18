@@ -340,6 +340,8 @@ void SMLineStyle::toSelection(const QString &styleName) const
 
 QString SMLineStyle::newStyle()
 {
+	if (!doc_)
+		return QString::null;
 	struct SingleLine sl;
 // 	sl.Color = "Black";
 // 	sl.Shade = 100;
