@@ -15,7 +15,7 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 	MenAct = new QWidgetAction(this);
 	MenAct->setDefaultWidget(buttonGroup1);
 	Men->addAction(MenAct);
-	setPopup(Men);
+	setMenu(Men);
 	setPopupMode(QToolButton::InstantPopup);
 	setPixmap(buttonGroup1->getIconPixmap(0));
 	connect(buttonGroup1, SIGNAL(buttonClicked(int)), this, SLOT(selForm(int)));

@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QResizeEvent>
 #include <QMenu>
+#include <QWidgetAction>
 
 #include "commonstrings.h"
 #include "page.h"
@@ -181,7 +182,7 @@ void Tree::slotRightClick(QPoint point)
 				currDoc->view()->undoManager->showObject(currDoc->currentPage()->getUId());
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
-/*				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
+				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
 				InfoGroup->setFrameShape( Q3ButtonGroup::NoFrame );
 				InfoGroup->setFrameShadow( Q3ButtonGroup::Plain );
 				InfoGroup->setTitle("");
@@ -324,8 +325,10 @@ void Tree::slotRightClick(QPoint point)
 					PrintC->setText( tr("Enabled"));
 				else
 					PrintC->setText( tr("Disabled"));
-				InfoGroupLayout->addWidget( PrintC, row, 1 ); */
-// Qt4				pmen4->insertItem(InfoGroup);
+				InfoGroupLayout->addWidget( PrintC, row, 1 );
+				QWidgetAction* MenAct = new QWidgetAction(this);
+				MenAct->setDefaultWidget(InfoGroup);
+				pmen4->addAction(MenAct);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
 					m_MainWindow->scrActions["itemImageInfo"]->addTo(pmen4);
 				pmen->insertItem( tr("In&fo"), pmen4);

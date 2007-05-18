@@ -48,11 +48,13 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QDropEvent>
 #include <Q3PopupMenu>
+#include <QMenu>
 #include <QDragEnterEvent>
 #include <Q3ValueList>
 #include <QMouseEvent>
 #include <Q3GridLayout>
 #include <QImageReader>
+#include <QWidgetAction>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -2810,7 +2812,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			Q3PopupMenu *pmen2 = new Q3PopupMenu();
 			pmen3 = new Q3PopupMenu();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			Q3PopupMenu *pmen4 = new Q3PopupMenu();
+			QMenu *pmen4 = new QMenu();
 			Q3PopupMenu *pmenEditContents = new Q3PopupMenu();
 			Q3PopupMenu *pmenLevel = new Q3PopupMenu();
 			Q3PopupMenu *pmenPDF = new Q3PopupMenu();
@@ -2964,6 +2966,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				else
 					PrintC->setText( tr("Disabled"));
 				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
+				QWidgetAction* MenAct = new QWidgetAction(this);
+				MenAct->setDefaultWidget(InfoGroup);
+				pmen4->addAction(MenAct);
 
 // Qt4				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
