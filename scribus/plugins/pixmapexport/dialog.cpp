@@ -4,27 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "dialog.h"
-//#include "dialog.moc"
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qspinbox.h>
-#include <q3buttongroup.h>
-#include <q3groupbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qimage.h>
-#include <qdir.h>
-#include <q3filedialog.h>
 #include <QImageWriter>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+
+#include "dialog.h"
 #include "scribusdoc.h"
 #include "createrange.h"
 #include "prefsmanager.h"
@@ -33,131 +15,38 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "usertaskstructs.h"
 #include "util.h"
-
 #include "commonstrings.h"
 
-/*
- *  Constructs a ExportForm as a child of 'parent', with the
- *  name 'name' and widget flags set to 'f'.
- *
- *  The dialog will by default be modeless, unless you set 'modal' to
- *  true to construct a modal dialog.
- */
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)
 	: QDialog(parent, "ExportForm", true, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
 {
+	setupUi(this);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
-	ExportFormLayout = new Q3VBoxLayout( this, 10, 5, "ExportFormLayout");
-	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
-	TextLabel1 = new QLabel( this, "TextLabel1" );
-	layout1->addWidget( TextLabel1 );
-	OutputDirectory = new QLineEdit( this, "OutputDirectory" );
-	OutputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentDirPath())) );
-	layout1->addWidget( OutputDirectory );
-	OutputDirectoryButton = new QPushButton( this, "OutputDirectoryButton" );
-	OutputDirectoryButton->setDefault( true );
-	layout1->addWidget( OutputDirectoryButton );
-	ExportFormLayout->addLayout( layout1 );
-
-	layout3 = new Q3HBoxLayout( 0, 0, 5, "layout3");
-	groupBox1 = new Q3GroupBox( this, "groupBox1" );
-	groupBox1->setColumnLayout(0, Qt::Vertical );
-	groupBox1->layout()->setSpacing( 5 );
-	groupBox1->layout()->setMargin( 10 );
-	groupBox1Layout = new Q3GridLayout( groupBox1->layout() );
-	groupBox1Layout->setAlignment( Qt::AlignTop );
-	TextLabel2 = new QLabel( groupBox1, "TextLabel2" );
-	groupBox1Layout->addWidget( TextLabel2, 0, 0 );
-	textLabel1 = new QLabel( groupBox1, "textLabel1" );
-	groupBox1Layout->addWidget( textLabel1, 1, 0 );
-	textLabel3 = new QLabel( groupBox1, "textLabel3" );
-	groupBox1Layout->addWidget( textLabel3, 2, 0 );
-	textLabel4 = new QLabel( groupBox1, "textLabel4" );
-	groupBox1Layout->addWidget( textLabel4, 3, 0 );
-	BitmapType = new QComboBox( false, groupBox1, "BitmapType" );
-	BitmapType->clear();
+	
+	outputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentDirPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
 	for (int a = 0; a < imgs.count(); a++)
 	{
-		BitmapType->addItem(imgs[a]);
+		bitmapType->addItem(imgs[a]);
 	}
-	BitmapType->setCurrentText(type.lower());
-	BitmapType->setEditable(false);
-	groupBox1Layout->addMultiCellWidget( BitmapType, 0, 0, 1, 2 );
-	QualityBox = new QSpinBox( groupBox1, "QualityBox" );
-	QualityBox->setMaximum( 100 );
-	QualityBox->setMinimum( 1 );
-	QualityBox->setValue(quality);
-	groupBox1Layout->addWidget( QualityBox, 1, 1 );
-	DPIBox = new QSpinBox( groupBox1, "DPIBox" );
-	DPIBox->setMaximum( 2400 );
-	DPIBox->setMinimum( 72 );
+	bitmapType->setCurrentText(type.lower());
+	qualityBox->setValue(quality);
 	DPIBox->setValue(size);
-	groupBox1Layout->addWidget( DPIBox, 2, 1 );
-	EnlargementBox = new ScrSpinBox( 1, 2400, groupBox1, 0 );
-	EnlargementBox->setValue(size);
-	groupBox1Layout->addWidget( EnlargementBox, 3, 1 );
-	textLabel5 = new QLabel( groupBox1, "textLabel5" );
-	groupBox1Layout->addMultiCellWidget( textLabel5, 4, 4, 0, 2 );
-	textLabel6 = new QLabel( groupBox1, "textLabel6" );
-	groupBox1Layout->addMultiCellWidget( textLabel6, 5, 5, 0, 2 );
-	layout3->addWidget( groupBox1 );
-
-	ButtonGroup1 = new Q3ButtonGroup( this, "ButtonGroup1" );
-	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup1->layout()->setSpacing( 5 );
-	ButtonGroup1->layout()->setMargin( 10 );
-	ButtonGroup1Layout = new Q3VBoxLayout( ButtonGroup1->layout() );
-	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
-	OnePageRadio = new QRadioButton( ButtonGroup1, "OnePageRadio" );
-	OnePageRadio->setChecked( true );
-	ButtonGroup1Layout->addWidget( OnePageRadio );
-	AllPagesRadio = new QRadioButton( ButtonGroup1, "AllPagesRadio" );
-	ButtonGroup1Layout->addWidget( AllPagesRadio );
-	layout2 = new Q3HBoxLayout( 0, 0, 5, "layout2");
-	IntervalPagesRadio = new QRadioButton( ButtonGroup1, "IntervalPagesRadio" );
-	layout2->addWidget( IntervalPagesRadio );
-
-// 	pageNumberSelectorLayout = new QHBoxLayout( 0, 0, 5, "pageNumberSelectorLayout" );
-	RangeVal = new QLineEdit( ButtonGroup1, "RangeVal" );
-//  	pageNumberSelectorLayout->addWidget( RangeVal );
-	layout2->addWidget( RangeVal );
- 	pageNrButton = new QPushButton( QString::fromUtf8("…"), ButtonGroup1, "pageNrButton" );
+	enlargementBox->setValue(size);
+	onePageRadio->setChecked( true );
  	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
- 	layout2->addWidget( pageNrButton );
-// 	layout2->addLayout( pageNumberSelectorLayout, 2, 1 );
-	RangeVal->setEnabled(false);
+	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
-	ButtonGroup1Layout->addLayout( layout2 );
-	layout3->addWidget( ButtonGroup1 );
-	ExportFormLayout->addLayout( layout3 );
 
-	layout4 = new Q3HBoxLayout( 0, 0, 5, "layout4");
-	QSpacerItem* spacer = new QSpacerItem( 111, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout4->addItem( spacer );
-	OkButton = new QPushButton( this, "OkButton" );
-	layout4->addWidget( OkButton );
-	CancelButton = new QPushButton( this, "CancelButton" );
-	layout4->addWidget( CancelButton );
-	ExportFormLayout->addLayout( layout4 );
 	languageChange();
 	readConfig();
 	computeSize();
-	resize( QSize(447, 206).expandedTo(minimumSizeHint()) );
-
-    // buddies
-	TextLabel1->setBuddy( OutputDirectory );
-	TextLabel2->setBuddy( BitmapType );
-	textLabel1->setBuddy( QualityBox );
-	textLabel3->setBuddy( DPIBox );
-	textLabel4->setBuddy( EnlargementBox );
-	connect(OutputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
-	connect(OkButton, SIGNAL(clicked()), this, SLOT(OkButton_pressed()));
-	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(IntervalPagesRadio, SIGNAL(clicked()), this, SLOT(IntervalPagesRadio_stateChanged()));
-	connect(AllPagesRadio, SIGNAL(clicked()), this, SLOT(AllPagesRadio_stateChanged()));
-	connect(OnePageRadio, SIGNAL(clicked()), this, SLOT(OnePageRadio_stateChanged()));
-	connect(EnlargementBox, SIGNAL(valueChanged(double)), this, SLOT(computeSize()));
+	
+	connect(outputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
+	connect(intervalPagesRadio, SIGNAL(clicked()), this, SLOT(IntervalPagesRadio_stateChanged()));
+	connect(allPagesRadio, SIGNAL(clicked()), this, SLOT(AllPagesRadio_stateChanged()));
+	connect(onePageRadio, SIGNAL(clicked()), this, SLOT(OnePageRadio_stateChanged()));
+	connect(enlargementBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
 	connect(DPIBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
 	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 }
@@ -165,12 +54,12 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 void ExportForm::computeSize()
 {
 	double pixmapSize;
-	double pw = (OnePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth;
-	double ph = (OnePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
+	double pw = (onePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth;
+	double ph = (onePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
 	(ph > pw) ? pixmapSize = ph : pixmapSize = pw;
-	int maxGr = qRound(pixmapSize * EnlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
+	int maxGr = qRound(pixmapSize * enlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
 	double sc = qMin(maxGr / pw, maxGr / ph);
-	textLabel6->setText(QString("%1 x %2 px").arg(qRound(pw * sc)).arg(qRound(ph * sc)));
+	imageSizeLabel->setText(QString("%1 x %2 px").arg(qRound(pw * sc)).arg(qRound(ph * sc)));
 }
 
 void ExportForm::OutputDirectoryButton_pressed()
@@ -180,116 +69,95 @@ void ExportForm::OutputDirectoryButton_pressed()
 	if (d.length()>0)
 	{
 		d = QDir::convertSeparators(d);
-		OutputDirectory->setText(d);
+		outputDirectory->setText(d);
 		prefs->set("wdir", d);
 	}
 }
 
-void ExportForm::OkButton_pressed()
-{
-	bitmapType = BitmapType->currentText();
-	writeConfig();
-	accept();
-}
-
 void ExportForm::IntervalPagesRadio_stateChanged()
 {
-	RangeVal->setEnabled(true);
+	rangeVal->setEnabled(true);
 	pageNrButton->setEnabled(true);
 	computeSize();
 }
 
 void ExportForm::AllPagesRadio_stateChanged()
 {
-	RangeVal->setEnabled(false);
+	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 	computeSize();
 }
 
 void ExportForm::OnePageRadio_stateChanged()
 {
-	RangeVal->setEnabled(false);
+	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 	computeSize();
 }
 
-/*
- *  Destroys the object and frees any allocated resources
- */
 ExportForm::~ExportForm()
 {
-	// no need to delete child widgets, Qt does it all for us
+	writeConfig();
 }
 
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
 void ExportForm::languageChange()
 {
-	setCaption( tr( "Export as Image(s)" ) );
-	TextLabel1->setText( tr( "&Export to Directory:" ) );
-	OutputDirectoryButton->setText( tr( "C&hange..." ) );
-	groupBox1->setTitle( tr( "Options" ) );
-	TextLabel2->setText( tr( "Image &Type:" ) );
-	textLabel1->setText( tr( "&Quality:" ) );
-	textLabel3->setText( tr( "&Resolution:" ) );
-	textLabel4->setText( tr( "&Size:" ) );
-	QualityBox->setSuffix( tr( " %" ) );
-	DPIBox->setSuffix( tr( " dpi" ) );
-	EnlargementBox->setSuffix( tr( " %" ) );
-	ButtonGroup1->setTitle( tr( "Range" ) );
-	OnePageRadio->setText( tr( "&Current page" ) );
-	AllPagesRadio->setText( tr( "&All pages" ) );
-	IntervalPagesRadio->setText( tr( "&Range" ) );
-	OkButton->setText( CommonStrings::tr_OK );
-	CancelButton->setText( CommonStrings::tr_Cancel );
-	CancelButton->setAccel( QKeySequence( tr( "C" ) ) );
-	textLabel5->setText( tr("Image size in Pixels"));
-	QToolTip::add( IntervalPagesRadio, tr( "Export a range of pages" ) );
-	QToolTip::add( RangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
-	QToolTip::add( AllPagesRadio, tr( "Export all pages" ) );
-	QToolTip::add( OnePageRadio, tr( "Export only the current page" ) );
+	QToolTip::add( intervalPagesRadio, tr( "Export a range of pages" ) );
+	QToolTip::add( rangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
+	QToolTip::add( allPagesRadio, tr( "Export all pages" ) );
+	QToolTip::add( onePageRadio, tr( "Export only the current page" ) );
 	QToolTip::add( DPIBox, tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
-	QToolTip::add( EnlargementBox, tr( "Size of the images. 100% for no changes, 200% for two times larger etc." ));
-	QToolTip::add( QualityBox, tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
-	QToolTip::add( BitmapType, tr( "Available export formats" ) );
-	QToolTip::add( OutputDirectory, tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
-	QToolTip::add( OutputDirectoryButton, tr( "Change the output directory" ) );
+	QToolTip::add( enlargementBox, tr( "Size of the images. 100% for no changes, 200% for two times larger etc." ));
+	QToolTip::add( qualityBox, tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
+	QToolTip::add( bitmapType, tr( "Available export formats" ) );
+	QToolTip::add( outputDirectory, tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
+	QToolTip::add( outputDirectoryButton, tr( "Change the output directory" ) );
 }
 
 
 void ExportForm::readConfig()
 {
 	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
-	EnlargementBox->setValue(prefs->getDouble("EnlargementBox", 100));
-	QualityBox->setValue(prefs->getUInt("QualityBox", 100));
-	ButtonGroup1->setButton(prefs->getUInt("ButtonGroup1", 0));
-	if (prefs->getInt("ButtonGroup1")==2)
-		RangeVal->setEnabled(true);
-	else
-		RangeVal->setEnabled(false);
-	BitmapType->setCurrentItem(prefs->getInt("BitmapType", 4));
-	RangeVal->setText(prefs->get("RangeVal", ""));
+	enlargementBox->setValue(prefs->getInt("EnlargementBox", 100));
+	qualityBox->setValue(prefs->getUInt("QualityBox", 100));
+	int b = prefs->getUInt("ButtonGroup1", 0);
+	switch (b)
+	{
+		case 0: onePageRadio->setChecked(true); break;
+		case 1: allPagesRadio->setChecked(true); break;
+		default: intervalPagesRadio->setChecked(true); break;
+	}
+	rangeVal->setEnabled(b==2);
+	pageNrButton->setEnabled(b==2);
+
+	bitmapType->setCurrentItem(prefs->getInt("BitmapType", 4));
+	rangeVal->setText(prefs->get("RangeVal", ""));
 }
 
 void ExportForm::writeConfig()
 {
 	prefs->set("DPIBox", DPIBox->value());
-	prefs->set("EnlargementBox", EnlargementBox->value());
-	prefs->set("QualityBox", QualityBox->value());
-	prefs->set("ButtonGroup1", ButtonGroup1->id(ButtonGroup1->selected()));
-	prefs->set("BitmapType",BitmapType->currentItem());
-	prefs->set("RangeVal", RangeVal->text());
+	prefs->set("EnlargementBox", enlargementBox->value());
+	prefs->set("QualityBox", qualityBox->value());
+	int b;
+	if (onePageRadio->isChecked())
+		b = 0;
+	else if (allPagesRadio->isChecked())
+		b = 1;
+	else
+		b = 2;
+	prefs->set("ButtonGroup1", b);
+	prefs->set("BitmapType", bitmapType->currentItem());
+	prefs->set("RangeVal", rangeVal->text());
 }
 
 void ExportForm::createPageNumberRange( )
 {
-	CreateRange cr(RangeVal->text(), m_PageCount, this);
+	CreateRange cr(rangeVal->text(), m_PageCount, this);
 	if (cr.exec())
 	{
 		CreateRangeData crData;
 		cr.getCreateRangeData(crData);
-		RangeVal->setText(crData.pageRange);
+		rangeVal->setText(crData.pageRange);
 	}
 }

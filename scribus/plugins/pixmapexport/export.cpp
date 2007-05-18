@@ -99,34 +99,34 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(doc->currentPageNumber()+1));
+	dia->rangeVal->setText(tmp.setNum(doc->currentPageNumber()+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
 		ex->pageDPI = dia->DPIBox->value();
-		ex->enlargement = dia->EnlargementBox->value();
-		ex->quality = dia->QualityBox->value();
-		ex->exportDir = ScPaths::separatorsToSlashes(dia->OutputDirectory->text());
-		ex->bitmapType = dia->bitmapType;
+		ex->enlargement = dia->enlargementBox->value();
+		ex->quality = dia->qualityBox->value();
+		ex->exportDir = ScPaths::separatorsToSlashes(dia->outputDirectory->text());
+		ex->bitmapType = dia->bitmapType->currentText();
 		doc->scMW()->mainWindowProgressBar->reset();
 		bool res;
-		if (dia->OnePageRadio->isChecked())
+		if (dia->onePageRadio->isChecked())
 			res = ex->exportCurrent(doc);
 		else
 		{
-			if (dia->AllPagesRadio->isChecked())
+			if (dia->allPagesRadio->isChecked())
 				parsePagesString("*", &pageNs, doc->DocPages.count());
 			else
-				parsePagesString(dia->RangeVal->text(), &pageNs, doc->DocPages.count());
+				parsePagesString(dia->rangeVal->text(), &pageNs, doc->DocPages.count());
 			res = ex->exportInterval(doc, pageNs);
 		}
 		doc->scMW()->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(doc->scMW(),  tr("Save as Image"), tr("Error writing the output file(s)."));
+			QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Error writing the output file(s)."));
 			doc->scMW()->setStatusBarInfoText( tr("Error writing the output file(s)."));
 		}
 		else
