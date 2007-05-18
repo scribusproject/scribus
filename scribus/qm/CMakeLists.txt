@@ -44,5 +44,6 @@ scribus.th_TH.qm
 scribus.tr.qm
 scribus.uk.qm
 scribus.zh.qm
+scribus.zh_TW.qm
   DESTINATION ${LIBDIR}
 )
