@@ -7,16 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef AUTOFORM_H
 #define AUTOFORM_H
 
-#include <qwidget.h>
-#include <qtoolbutton.h>
-//Added by qt3to4:
 #include <QPixmap>
-#include <Q3GridLayout>
-#include <Q3PopupMenu>
+#include <QMenu>
+#include <QWidgetAction>
+#include <QToolButton>
 #include "scribusapi.h"
-class Q3GridLayout;
-class Q3PopupMenu;
-class QPixmap;
 class AutoformButtonGroup;
 
 
@@ -28,7 +23,8 @@ public:
 	Autoforms( QWidget* parent );
 	~Autoforms() {};
 	QPixmap getIconPixmap(int nr);
-	Q3PopupMenu* Men;
+	QMenu* Men;
+	QWidgetAction* MenAct;
 
 public slots:
 	void selForm(int a);
@@ -37,7 +33,6 @@ signals:
 	void FormSel(int, int, double *);
 
 protected:
-	Q3GridLayout* buttonGroup1Layout;
 	AutoformButtonGroup* buttonGroup1;
 };
 

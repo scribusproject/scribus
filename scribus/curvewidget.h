@@ -82,7 +82,7 @@ public:
 	void setLinear(bool setter);
 	QPushButton* invertButton;
 	QPushButton* resetButton;
-	QToolButton *linearButton;
+	QPushButton *linearButton;
 	QPushButton* loadButton;
 	QPushButton* saveButton;
 	KCurve* cDisplay;

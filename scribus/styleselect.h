@@ -15,9 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QFrame>
+#include <QWidgetAction>
 #include "scrspinbox.h"
 #include "scribusapi.h"
-class WidgetPopupMenu;
 
 class SCRIBUS_API StrikeValues : public QFrame
 {
@@ -128,10 +128,14 @@ protected:
 	QToolButton* strikeoutButton;
 	QToolButton* outlineButton;
 	QToolButton* shadowButton;
-	WidgetPopupMenu* ShadowPop;
-	WidgetPopupMenu* OutlinePop;
-	WidgetPopupMenu* UnderlinePop;
-	WidgetPopupMenu* StrikePop;
+	QMenu* ShadowPop;
+	QMenu* OutlinePop;
+	QMenu* UnderlinePop;
+	QMenu* StrikePop;
+	QWidgetAction* StrikeValAct;
+	QWidgetAction* ShadowValAct;
+	QWidgetAction* OutlineValAct;
+	QWidgetAction* UnderlineValAct;
 };
 
 #endif

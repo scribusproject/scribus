@@ -18,6 +18,8 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <QLabel>
 #include <Q3PopupMenu>
+#include <QMenu>
+#include <QWidgetAction>
 #include <Q3VBoxLayout>
 
 #include "scribusapi.h"
@@ -97,13 +99,15 @@ public:
 	ShadeButton *shade1;
 	CurveWidget *CurveD1;
 	QToolButton *CurveD1Button;
-	Q3PopupMenu *CurveD1Pop;
+	QMenu *CurveD1Pop;
+	QWidgetAction* CurveD1Act;
 	QLabel* textLabel2d;
 	ColorCombo* colData2;
 	ShadeButton *shade2;
 	CurveWidget *CurveD2;
 	QToolButton *CurveD2Button;
-	Q3PopupMenu *CurveD2Pop;
+	QMenu *CurveD2Pop;
+	QWidgetAction* CurveD2Act;
 
 	QWidget* WStackPage_9;
 	QLabel* textLabel1t;
@@ -111,19 +115,22 @@ public:
 	ShadeButton *shadet1;
 	CurveWidget *CurveT1;
 	QToolButton *CurveT1Button;
-	Q3PopupMenu *CurveT1Pop;
+	QMenu *CurveT1Pop;
+	QWidgetAction* CurveT1Act;
 	QLabel* textLabel2t;
 	ColorCombo* colDatat2;
 	ShadeButton *shadet2;
 	CurveWidget *CurveT2;
 	QToolButton *CurveT2Button;
-	Q3PopupMenu *CurveT2Pop;
+	QMenu *CurveT2Pop;
+	QWidgetAction* CurveT2Act;
 	QLabel* textLabel3t;
 	ColorCombo* colDatat3;
 	ShadeButton *shadet3;
 	CurveWidget *CurveT3;
 	QToolButton *CurveT3Button;
-	Q3PopupMenu *CurveT3Pop;
+	QMenu *CurveT3Pop;
+	QWidgetAction* CurveT3Act;
 
 	QWidget* WStackPage_10;
 	QLabel* textLabel1q;
@@ -131,25 +138,29 @@ public:
 	ShadeButton *shadeq1;
 	CurveWidget *CurveQ1;
 	QToolButton *CurveQ1Button;
-	Q3PopupMenu *CurveQ1Pop;
+	QMenu *CurveQ1Pop;
+	QWidgetAction* CurveQ1Act;
 	QLabel* textLabel2q;
 	ColorCombo* colDataq2;
 	ShadeButton *shadeq2;
 	CurveWidget *CurveQ2;
 	QToolButton *CurveQ2Button;
-	Q3PopupMenu *CurveQ2Pop;
+	QMenu *CurveQ2Pop;
+	QWidgetAction* CurveQ2Act;
 	QLabel* textLabel3q;
 	ColorCombo* colDataq3;
 	ShadeButton *shadeq3;
 	CurveWidget *CurveQ3;
 	QToolButton *CurveQ3Button;
-	Q3PopupMenu *CurveQ3Pop;
+	QMenu *CurveQ3Pop;
+	QWidgetAction* CurveQ3Act;
 	QLabel* textLabel4q;
 	ColorCombo* colDataq4;
 	ShadeButton *shadeq4;
 	CurveWidget *CurveQ4;
 	QToolButton *CurveQ4Button;
-	Q3PopupMenu *CurveQ4Pop;
+	QMenu *CurveQ4Pop;
+	QWidgetAction* CurveQ4Act;
 
 	QWidget* WStackPage_11;
 	CurveWidget *Kdisplay;

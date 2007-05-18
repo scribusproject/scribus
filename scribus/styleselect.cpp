@@ -10,18 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-class WidgetPopupMenu : public QMenu
-{
-public:
-    WidgetPopupMenu(QWidget *parent = 0) : QMenu(parent), w(0){}
-    QWidget *widget() const { return w; }
-    void setWidget(QWidget *widget) { w = widget; w->setParent(this); w->move(2, 2); }
-    QSize sizeHint() const { return w->sizeHint() + QSize(4,4); }
-    void insertItem(QWidget *widget) { setWidget(widget); }
-
-private:
-    QWidget *w;
-};
 
 StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent, "StrikeValues" )
 {
@@ -67,15 +55,15 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent, "ShadowVal
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
 	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
-	group1Layout->addWidget( LPosTxt, 0 , 0 );
 	group1Layout->addWidget( LPos, 0, 1 );
+	group1Layout->addWidget( LPosTxt, 0 , 0 );
 	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
 	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
-	group1Layout->addWidget( LWidthTxt, 1 , 0 );
 	group1Layout->addWidget( LWidth, 1, 1 );
+	group1Layout->addWidget( LWidthTxt, 1 , 0 );
 	languageChange();
 }
 
@@ -147,15 +135,19 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 
 	UnderlineVal = new UnderlineValues( NULL );
 //<< widget in menu change
-	UnderlinePop = new WidgetPopupMenu();
-	UnderlinePop->insertItem(UnderlineVal);
+//	UnderlinePop = new WidgetPopupMenu();
+//	UnderlinePop->insertItem(UnderlineVal);
 //>> widget in menu change
+	UnderlinePop = new QMenu();
+	UnderlineValAct = new QWidgetAction(this);
+	UnderlineValAct->setDefaultWidget(UnderlineVal);
+	UnderlinePop->addAction(UnderlineValAct);
 	underlineButton = new QToolButton( this, "underlineButton" );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineButton->setIcon(QIcon(loadIcon("Unter.xpm")));
 	underlineButton->setCheckable( true );
-	underlineButton->setPopup(UnderlinePop);
+	underlineButton->setMenu(UnderlinePop);
 	underlineButton->setPopupDelay(400);
 	ssLayout->addWidget( underlineButton );
 	underlineWordButton = new QToolButton( this, "underlineButton" );
@@ -163,7 +155,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineWordButton->setIcon(QIcon(loadIcon("wordsOnly.png")));
 	underlineWordButton->setCheckable( true );
-	underlineWordButton->setPopup(UnderlinePop);
+	underlineWordButton->setMenu(UnderlinePop);
 	underlineWordButton->setPopupDelay(400);
 	ssLayout->addWidget( underlineWordButton );
 
@@ -194,44 +186,56 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	ssLayout->addWidget( smallcapsButton );
 
 	StrikeVal = new StrikeValues( NULL );
+	StrikePop = new QMenu();
+	StrikeValAct = new QWidgetAction(this);
+	StrikeValAct->setDefaultWidget(StrikeVal);
+	StrikePop->addAction(StrikeValAct);
 //<< widget in menu change
-	StrikePop = new WidgetPopupMenu();
-	StrikePop->insertItem(StrikeVal);
+//	StrikePop = new WidgetPopupMenu();
+//	StrikePop->insertItem(StrikeVal);
 //>> widget in menu change
 	strikeoutButton = new QToolButton( this, "strikeoutButton" );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
 	strikeoutButton->setIcon(QIcon(loadIcon("Strike.xpm")));
 	strikeoutButton->setCheckable( true );
-	strikeoutButton->setPopup(StrikePop);
+	strikeoutButton->setMenu(StrikePop);
 	strikeoutButton->setPopupDelay(400);
 	ssLayout->addWidget( strikeoutButton );
 
 	OutlineVal = new OutlineValues( NULL );
 //<< widget in menu change
-	OutlinePop = new WidgetPopupMenu();
-	OutlinePop->insertItem(OutlineVal);
+//	OutlinePop = new WidgetPopupMenu();
+//	OutlinePop->insertItem(OutlineVal);
 //>> widget in menu change
+	OutlinePop = new QMenu();
+	OutlineValAct = new QWidgetAction(this);
+	OutlineValAct->setDefaultWidget(OutlineVal);
+	OutlinePop->addAction(OutlineValAct);
 	outlineButton = new QToolButton( this, "outlineButton" );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
 	outlineButton->setIcon(QIcon(loadIcon("outlined.png")));
 	outlineButton->setCheckable( true );
-	outlineButton->setPopup(OutlinePop);
+	outlineButton->setMenu(OutlinePop);
 	outlineButton->setPopupDelay(400);
 	ssLayout->addWidget( outlineButton );
 
 	ShadowVal = new ShadowValues( NULL );
 //<< widget in menu change
-	ShadowPop = new WidgetPopupMenu();
-	ShadowPop->insertItem(ShadowVal);
+//	ShadowPop = new WidgetPopupMenu();
+//	ShadowPop->insertItem(ShadowVal);
 //>> widget in menu change
+	ShadowPop = new QMenu();
+	ShadowValAct = new QWidgetAction(this);
+	ShadowValAct->setDefaultWidget(ShadowVal);
+	ShadowPop->addAction(ShadowValAct);
 	shadowButton = new QToolButton( this, "shadowButton" );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
 	shadowButton->setIcon(QIcon(loadIcon("shadow.png")));
 	shadowButton->setCheckable( true );
-	shadowButton->setPopup(ShadowPop);
+	shadowButton->setMenu(ShadowPop);
 	shadowButton->setPopupDelay(400);
 	ssLayout->addWidget( shadowButton );
 	

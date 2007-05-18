@@ -352,32 +352,37 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 
 	invertButton = new QPushButton( this, "invertButton" );
 	invertButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, invertButton->sizePolicy().hasHeightForWidth() ) );
-	invertButton->setPixmap( loadIcon("invert.png") );
+	invertButton->setIcon( loadIcon("invert.png") );
+	invertButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( invertButton );
 
 	resetButton = new QPushButton( this, "resetButton" );
 	resetButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, resetButton->sizePolicy().hasHeightForWidth() ) );
-	resetButton->setPixmap( loadIcon("reload.png") );
+	resetButton->setIcon( loadIcon("reload.png") );
+	resetButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( resetButton );
-	linearButton = new QToolButton( this, "linearButton" );
+	linearButton = new QPushButton( this, "linearButton" );
 	QIcon ic;
 	ic.setPixmap(loadIcon("curvebezier.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
 	ic.setPixmap(loadIcon("curvelinear.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
-	linearButton->setIconSet(ic);
-	linearButton->setToggleButton( true );
-	linearButton->setOn(false);
+	linearButton->setIcon(ic);
+	linearButton->setCheckable( true );
+	linearButton->setChecked(false);
+	linearButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( linearButton );
-	spacer1 = new QSpacerItem( 21, 31, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	spacer1 = new QSpacerItem( 2, 3, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
 
 	loadButton = new QPushButton( this, "loadButton" );
 	loadButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, loadButton->sizePolicy().hasHeightForWidth() ) );
-	loadButton->setPixmap( loadIcon("22/document-open.png") );
+	loadButton->setIcon( loadIcon("22/document-open.png") );
+	loadButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( loadButton );
 
 	saveButton = new QPushButton( this, "saveButton" );
 	saveButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, saveButton->sizePolicy().hasHeightForWidth() ) );
-	saveButton->setPixmap( loadIcon("22/document-save-as.png") );
+	saveButton->setIcon( loadIcon("22/document-save-as.png") );
+	saveButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( saveButton );
 	CurveWidgetLayout->addLayout( layout1 );
 

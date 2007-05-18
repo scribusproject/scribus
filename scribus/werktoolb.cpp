@@ -37,20 +37,6 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-class WidgetPopupMenu2 : public Q3PopupMenu
-{
-public:
-    WidgetPopupMenu2(QWidget *parent = 0) : Q3PopupMenu(parent), w(0){}
-    QWidget *widget() const { return w; }
-    void setWidget(QWidget *widget) { w = widget; w->setParent(this); w->move(2, 2); }
-    QSize sizeHint() const { return w->sizeHint() + QSize(4,4); }
-    void insertItem(QWidget *widget) { setWidget(widget); }
-
-private:
-    QWidget *w;
-};
-
-
 ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
 {
 	SubMode = 0;
@@ -70,11 +56,13 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 //	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
 	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
 	
-	insertShapeButtonMenu = new WidgetPopupMenu2();
+	insertShapeButtonMenu = new QMenu();
 	Rechteck = new AutoformButtonGroup( NULL );
-	insertShapeButtonMenu->insertItem(Rechteck);
+	insertShapeButtonAct = new QWidgetAction( this );
+	insertShapeButtonAct->setDefaultWidget(Rechteck);
+	insertShapeButtonMenu->addAction(insertShapeButtonAct);
 	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
-	
+
 //	QToolButton *isB = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
 //	if (isB)
 //		isB->setPopupMode(QToolButton::MenuButtonPopup);

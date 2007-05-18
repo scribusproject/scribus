@@ -9002,6 +9002,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			}
 		}
 	}
+	Doc->m_Selection->setIsGUISelection(true);
+	Doc->m_Selection->connectItemToGUI();
 	if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 		Deselect(true);
 	return false;
