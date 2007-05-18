@@ -3545,13 +3545,13 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->addSection(-1);
 			doc->setFirstSectionFromFirstPageNumber();
 		}
-		doc->setLoading(false);
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		doc->setMasterPageMode(true);
 		view->reformPages();
+		doc->setLoading(false);
 		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
