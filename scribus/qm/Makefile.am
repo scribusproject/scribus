@@ -6,7 +6,7 @@ EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.
              scribus.el.qm scribus.en_AU.qm scribus.en_GB.qm scribus.en_US.qm scribus.es.qm scribus.es_LA.qm scribus.fr.qm \
              scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm \
              scribus.th_TH.qm scribus.uk.qm scribus.nb.qm scribus.sq.qm scribus.af.qm scribus.pt_BR.qm scribus.et.qm \
-             scribus.dz.qm scribus.br.qm scribus.de_ol.qm scribus.de_CH.qm scribus.pt.qm CMakeLists.txt
+             scribus.dz.qm scribus.br.qm scribus.de_ol.qm scribus.de_CH.qm scribus.pt.qm scribus.zh.qm scribus.zh_TW.qm CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
@@ -54,6 +54,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.th_TH.qm $(libdir)/scribus/scribus.th_TH.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.uk.qm $(libdir)/scribus/scribus.uk.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.zh.qm $(libdir)/scribus/scribus.zh.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.zh_TW.qm $(libdir)/scribus/scribus.zh_TW.qm
 
 uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.af.qm
@@ -100,5 +101,6 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.th_TH.qm
 	-rm -f $(libdir)/scribus/scribus.uk.qm
 	-rm -f $(libdir)/scribus/scribus.zh.qm
+	-rm -f $(libdir)/scribus/scribus.zh_TW.qm
 
 ####### kdevelop will overwrite this part!!! (end)############
