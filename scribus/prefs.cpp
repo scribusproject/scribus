@@ -114,7 +114,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 								prefsData->PageHeight,
 								prefsData->PageWidth,
 								0 );
-	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
+	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
 	tabDefaultItemAttributes = new DocumentItemAttributes( prefsWidgets);
 	QStringList defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();

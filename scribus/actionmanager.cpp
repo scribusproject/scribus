@@ -121,7 +121,7 @@ void ActionManager::initFileMenuActions()
 	name="fileExportAsEPS";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="fileExportAsPDF";
-	scrActions->insert(name, new ScrAction(loadIcon("acrobat.png"), QPixmap(), "", defKeys[name], mainWindow, name));
+	scrActions->insert(name, new ScrAction(loadIcon("acroread16.png"), loadIcon("acroread22.png"), "", defKeys[name], mainWindow, name));
 	//Rest of File Menu
 	name="fileDocSetup";
 	scrActions->insert(name, new ScrAction(loadIcon("16/document-properties.png"), loadIcon("22/document-properties.png"), "", defKeys[name], mainWindow, name));

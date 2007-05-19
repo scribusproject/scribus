@@ -94,7 +94,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 								ScCore->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								docUnitIndex, doc->pageHeight, doc->pageWidth, doc );
-	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
+	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
 	docAttributesList=tabDocItemAttributes->getDocAttributesNames();
