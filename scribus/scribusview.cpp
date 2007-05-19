@@ -10552,7 +10552,27 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				}
 			}
 		}
-//		Doc->Items->at(z)->setLineSpacing(Buffer->LineSp);
+		{
+			ParagraphStyle pstyle;
+			pstyle.setLineSpacing(Buffer->LineSp);
+			pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(Buffer->LineSpMode));
+			pstyle.charStyle().setFillColor(Buffer->TxtFill);
+			pstyle.charStyle().setStrokeColor(Buffer->TxtStroke);
+			pstyle.charStyle().setFillShade(Buffer->ShTxtFill);
+			pstyle.charStyle().setStrokeShade(Buffer->ShTxtStroke);
+			pstyle.charStyle().setScaleH(Buffer->TxtScale);
+			pstyle.charStyle().setScaleV(Buffer->TxtScaleV);
+			pstyle.charStyle().setBaselineOffset(Buffer->TxTBase);
+			pstyle.charStyle().setEffects(Buffer->TxTStyle);
+			pstyle.charStyle().setShadowXOffset(Buffer->TxtShadowX);
+			pstyle.charStyle().setShadowYOffset(Buffer->TxtShadowY);
+			pstyle.charStyle().setOutlineWidth(Buffer->TxtOutline);
+			pstyle.charStyle().setUnderlineOffset(Buffer->TxtUnderPos);
+			pstyle.charStyle().setUnderlineWidth(Buffer->TxtUnderWidth);
+			pstyle.charStyle().setStrikethruOffset(Buffer->TxtStrikePos);
+			pstyle.charStyle().setStrikethruWidth(Buffer->TxtStrikeWidth);
+			Doc->Items->at(z)->itemText.setDefaultStyle(pstyle);
+		}
 //		Doc->Items->at(z)->convertTo(Buffer->PType);
 #endif
 		break;
