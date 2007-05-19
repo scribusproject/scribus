@@ -683,7 +683,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				scImg.imgInfo.layerInfo.clear();
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-				scImg.LoadPicture(item->Pfile, item->IProfile, 0, item->UseEmbedded, m_useProfiles, (int) imageMode, m_imageRes, &dummy);
+				scImg.LoadPicture(item->Pfile, item->IProfile, 0, item->UseEmbedded, m_useProfiles, (ScImage::RequestType) imageMode, m_imageRes, &dummy);
 				if( ext == "eps" || ext == "pdf" || ext == "ps" )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);

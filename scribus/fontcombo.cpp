@@ -90,7 +90,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc)
 			}
 			else
 				rlist.insert(it.currentKey().lower(), it.currentKey());
-			}
+		}
 	}
 	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{

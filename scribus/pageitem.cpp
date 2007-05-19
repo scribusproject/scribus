@@ -3432,7 +3432,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
-	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, 2, gsRes, &dummy, showMsg))
+	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absFilePath();
 		PicAvail = false;

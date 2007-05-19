@@ -271,8 +271,7 @@ void SVGPlug::convert(int flags)
 	ScMW->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	gc->Family = currDoc->toolSettings.defFont;
-	if (!currDoc->PageColors.contains("Black"))
-		currDoc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	currDoc->PageColors.ensureBlackAndWhite();
 	m_gc.push( gc );
 	viewTransformX = 0;
 	viewTransformY = 0;

@@ -362,8 +362,7 @@ bool OODPlug::convert(int flags)
 	ScMW->view->setUpdatesEnabled(false);
 	ScMW->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
-	if (!Doku->PageColors.contains("Black"))
-		Doku->PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	Doku->PageColors.ensureBlackAndWhite();
 	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();

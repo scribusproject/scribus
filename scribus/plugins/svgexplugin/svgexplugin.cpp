@@ -472,7 +472,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							ob.appendChild(cl);
 							gr.appendChild(ob);
 							ScImage img;
-							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+							img.LoadPicture(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, ScImage::RGBProof, 72);
 							img.applyEffect(Item->effectsInUse, Item->document()->PageColors, true);
 							QFileInfo fi = QFileInfo(Item->Pfile);
 							img.save(fi.baseName()+".png", "PNG");

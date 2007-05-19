@@ -355,21 +355,21 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		ScImage im;
 		if (!item->Pfile.isEmpty())
 		{
-			im.LoadPicture(item->Pfile, "", 0, false, false, 1, 72);
+			im.LoadPicture(item->Pfile, "", 0, false, false, ScImage::RGBData, 72);
 			pmI1.convertFromImage(im);
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (!item->Pfile2.isEmpty())
 		{
-			im.LoadPicture(item->Pfile2, "", 0, false, false, 1, 72);
+			im.LoadPicture(item->Pfile2, "", 0, false, false, ScImage::RGBData, 72);
 			pmI1.convertFromImage(im);
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (!item->Pfile3.isEmpty())
 		{
-			im.LoadPicture(item->Pfile3, "", 0, false, false, 1, 72);
+			im.LoadPicture(item->Pfile3, "", 0, false, false, ScImage::RGBData, 72);
 			pmI1.convertFromImage(im);
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
@@ -1205,7 +1205,7 @@ void Annot::GetNIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		ScImage im;
-		im.LoadPicture(fileName, "", 0, false, false, 1, 72);
+		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
 		pmI1.convertFromImage(im);
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
@@ -1237,7 +1237,7 @@ void Annot::GetPIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		ScImage im;
-		im.LoadPicture(fileName, "", 0, false, false, 1, 72);
+		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
 		pmI1.convertFromImage(im);
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
@@ -1260,7 +1260,7 @@ void Annot::GetRIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		ScImage im;
-		im.LoadPicture(fileName, "", 0, false, false, 1, 72);
+		im.LoadPicture(fileName, "", 0, false, false, ScImage::RGBData, 72);
 		pmI1.convertFromImage(im);
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;

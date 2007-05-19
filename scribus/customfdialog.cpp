@@ -132,7 +132,7 @@ void FDialogPreview::GenPreview(QString name)
 	if (formats.contains(ext))
 	{
 		ScImage im;
-		if (im.LoadPicture(name, "", 0, false, false, 4, 72, &mode))
+		if (im.LoadPicture(name, "", 0, false, false, ScImage::Thumbnail, 72, &mode))
 		{
 			int ix,iy;
 			if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))

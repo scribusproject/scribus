@@ -3488,7 +3488,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 
 bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						  int rend, bool useEmbedded, bool useProf,
-						  int requestType, int gsRes, bool *realCMYK, 
+						  RequestType requestType, int gsRes, bool *realCMYK, 
 						  bool showMsg)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
@@ -3503,7 +3503,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	bool systemBigEndian;
 	int systemWordsize;
 	qSysInfo( &systemWordsize, &systemBigEndian);
-	int reqType = requestType;
+	RequestType reqType = requestType;
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -3527,8 +3527,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	{
 		imgInfo.typ = 4;
 		imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == ScImage::Thumbnail)
+			reqType = ScImage::RGBData;
 		QStringList args;
 		xres = gsRes;
 		yres = gsRes;
@@ -3570,8 +3570,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	{
 		imgInfo.typ = 3;
 		imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == ScImage::Thumbnail)
+			reqType = ScImage::RGBData;
 		QFile f(fn);
 		if (f.open(IO_ReadOnly))
 		{
@@ -3683,8 +3683,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	else if ((ext == "tif") || (ext == "tiff"))
 	{
 		imgInfo.typ = 1;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == ScImage::Thumbnail)
+			reqType = ScImage::RGBData;
 		QImage img2;
 		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 		if(tif)
@@ -3979,7 +3979,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					return true;
 				}
 				else
-					reqType = 1;
+					reqType = ScImage::RGBData;
 			}
 			imgInfo.exifInfo.width = header.width;
 			imgInfo.exifInfo.height = header.height;
@@ -4068,14 +4068,14 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			}
 			else
 			{
-				if (reqType == 4)
-					reqType = 1;
+				if (reqType == ScImage::Thumbnail)
+					reqType = ScImage::RGBData;
 			}
 		}
 		else
 			imgInfo.exifDataValid = false;
-		if (reqType == 4)
-			reqType = 1;
+		if (reqType == ScImage::Thumbnail)
+			reqType = ScImage::RGBData;
 #ifdef HAVE_CMS
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
@@ -4374,18 +4374,18 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		xform = 0;
 		switch (reqType)
 		{
-		case 0: // CMYK
+		case CMYKData: // CMYK
 			if (!isCMYK)
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, cmsFlags);
 			break;
-		case 1: // RGB
+		case RGBData: // RGB
 			if (isCMYK) {
 				if (systemBigEndian)
 					swapByteOrder(3, 2, 1, 0);
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
-		case 2: // RGB Proof
+		case RGBProof: // RGB Proof
 			{
 				if (SoftProofing)
 				{
@@ -4398,20 +4398,20 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
-		case 3: // no Conversion just raw Data
+		case RawData: // no Conversion just raw Data
 			break;
 		}
 				
 		if (xform)
 		{
-			if (systemBigEndian && reqType == 2 && isCMYK) {
+			if (systemBigEndian && (reqType == ScImage::RGBProof) && isCMYK) {
 				swapByteOrder(3, 2, 1, 0);
 			}
 			
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != 0) )
+				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != ScImage::CMYKData) )
 				{
 					unsigned char* ucs = ptr + 1;
 					unsigned char* uc = new unsigned char[width()];
@@ -4423,7 +4423,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					cmsDoTransform(xform, uc, ptr, width());
 					delete[] uc;
 				}
-				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == 0) )
+				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == ScImage::CMYKData) )
 				{
 					unsigned char  value;
 					unsigned char* ucs = ptr;
@@ -4439,13 +4439,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					cmsDoTransform(xform, ptr, ptr, width());
 			}
 			
-			if (systemBigEndian && reqType == 2 && isCMYK) {
+			if (systemBigEndian && (reqType == ScImage::RGBProof) && isCMYK) {
 				swapByteOrder(3, 2, 1, 0);
 			}
 			
 			// if transforming from CMYK to RGB, flatten the alpha channel
 			// which will still contain the black channel
-			if (isCMYK && reqType != 0 && !bilevel)
+			if (isCMYK && (reqType != ScImage::CMYKData) && !bilevel)
 			{
 				QRgb alphaFF = qRgba(0,0,0,255);
 				for (int i = 0; i < height(); i++)
@@ -4467,7 +4467,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	{
 		switch (reqType)
 		{
-		case 0:
+		case CMYKData:
 			if (!isCMYK)
 			{
 				for (int i = 0; i < height(); i++)
@@ -4485,8 +4485,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				}
 			}
 			break;
-		case 1:
-		case 2:
+		case RGBData:
+		case RGBProof:
 			if (isCMYK)
 			{
 				if (systemBigEndian)
@@ -4524,11 +4524,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				}
 			}
 			break;
-		case 3:
+		case RawData:
 			break;
 		}
 	}
-	if ((reqType == 0 || isCMYK) && !bilevel)
+	if ((reqType == ScImage::CMYKData || isCMYK) && !bilevel)
 		setAlphaBuffer(false);
 /*	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));

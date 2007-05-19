@@ -6,9 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 static const char * ChainO[] = {
 "8 43 11 1",
-" 	c None",
+"+ 	c None",
 ".	c #9C999C",
-"+	c #DEDEDE",
+"X	c #DEDEDE",
 "@	c #FFFFFF",
 "#	c #000000",
 "$	c #6A6D6A",
@@ -63,9 +63,9 @@ static const char * ChainO[] = {
 
 static const char * ChainC[] = {
 "8 43 11 1",
-" 	c None",
+"+ 	c None",
 ".	c #9C999C",
-"+	c #DEDEDE",
+"X	c #DEDEDE",
 "@	c #FFFFFF",
 "#	c #000000",
 "$	c #6A6D6A",
