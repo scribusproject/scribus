@@ -55,6 +55,8 @@ for which a new license (GPL+exception) is in place.
 #include <QShowEvent>
 #include <QPaintEvent>
 #include <QCloseEvent>
+#include <QWidgetAction>
+#include <QMenu>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -168,7 +170,8 @@ public:
 	int offs;
 	int CurrentPar;
 	SEditor *editor;
-	Q3PopupMenu *pmen;
+	QMenu *pmen;
+	QWidgetAction* paraStyleAct;
 	bool noUpdt;
 	bool inRep;
 
@@ -373,8 +376,8 @@ private:
 protected slots:
 	void setBackPref();
 	void setFontPref();
-	void newTxScale(int s);
-	void newTxScaleV(int s);
+	void newTxScale();
+	void newTxScaleV();
 	void newTxKern(int s);
 	void newShadowOffs(int x, int y);
 	void newTxtOutline(int o);

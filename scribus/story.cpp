@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPaintEvent>
 #include <Q3PopupMenu>
 #include <Q3PtrList>
+#include <QPalette>
 
 #include "actionmanager.h"
 #include "alignselect.h"
@@ -85,12 +86,15 @@ extern QPixmap loadIcon(QString nam);
 
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
 {
-	setEraseColor(QColor(255,255,255));
+	QPalette pal;
+	pal.setColor(QPalette::Window, QColor(255,255,255));
+	setAutoFillBackground(true);
+	setPalette(pal);
 	offs = 0;
 	editor = 0;
 	noUpdt = true;
 	inRep = false;
-	pmen = new Q3PopupMenu(this);
+	pmen = new QMenu(this);
 	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
@@ -115,6 +119,9 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 		paraStyleCombo->setFormat("");
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
 	pmen->clear();
+	paraStyleAct = new QWidgetAction(this);
+	paraStyleAct->setDefaultWidget(paraStyleCombo);
+	pmen->addAction(paraStyleAct);
 //qt4 FIXME	pmen->insertItem(paraStyleCombo);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
@@ -1153,7 +1160,7 @@ SToolBFont::SToolBFont(Q3MainWindow* parent) : Q3ToolBar( tr("Font Settings"), p
 	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
 	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
-	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
+	connect(Size, SIGNAL(valueChanged(double)), this, SIGNAL(NewSize(double)));
 }
 
 void SToolBFont::languageChange()
@@ -1710,10 +1717,10 @@ void StoryEditor::connectSignals()
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
-	connect(FontTools, SIGNAL(NewSize(int )), this, SLOT(newTxSize(double)));
+	connect(FontTools, SIGNAL(NewSize(double )), this, SLOT(newTxSize(double)));
 	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
-	connect(FontTools, SIGNAL(newScale(double )), this, SLOT(newTxScale(double)));
-	connect(FontTools, SIGNAL(newScaleV(double )), this, SLOT(newTxScaleV(double)));
+	connect(FontTools, SIGNAL(newScale(double )), this, SLOT(newTxScale()));
+	connect(FontTools, SIGNAL(newScaleV(double )), this, SLOT(newTxScaleV()));
 	connect(StyleTools, SIGNAL(NewKern(int )), this, SLOT(newTxKern(int )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));
@@ -1969,7 +1976,7 @@ void StoryEditor::newTxStyle(int s)
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxScale(int )
+void StoryEditor::newTxScale()
 {
 	int ss = qRound(FontTools->ChScale->value() * 10);
 	Editor->CurrTextScale = ss;
@@ -1980,7 +1987,7 @@ void StoryEditor::newTxScale(int )
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxScaleV(int )
+void StoryEditor::newTxScaleV()
 {
 	int ss = qRound(FontTools->ChScaleV->value() * 10);
 	Editor->CurrTextScaleV = ss;
