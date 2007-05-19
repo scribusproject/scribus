@@ -2285,6 +2285,7 @@ void Mpalette::setLspMode(int id)
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->indexOf(id));
+		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 	}
 }
 
@@ -2295,9 +2296,10 @@ void Mpalette::setLsp(double r)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	LineSp->setValue(r);
+	const ParagraphStyle& curStyle(tmp && doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 	if (tmp)
 	{
-		if (CurItem->currentStyle().lineSpacingMode() > 0)
+		if (curStyle.lineSpacingMode() > 0)
 		{
 			LineSp->setSpecialValueText( tr( "Auto" ) );
 			LineSp->setMinValue(0);
@@ -2315,7 +2317,7 @@ void Mpalette::setLsp(double r)
 		{
 			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
 		}
-		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(CurItem->currentStyle().lineSpacingMode()), true);
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(curStyle.lineSpacingMode()), true);
 	}
 	HaveItem = tmp;
 }
@@ -2507,6 +2509,25 @@ void Mpalette::updateStyle(const ParagraphStyle& newCurrent)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
+	if (newCurrent.lineSpacingMode() > 0)
+	{
+		LineSp->setSpecialValueText( tr( "Auto" ) );
+		LineSp->setMinValue(0);
+		LineSp->setValue(0);
+		LineSp->setEnabled(false);
+	}
+	else
+	{
+		LineSp->setEnabled(true);
+		LineSp->setSpecialValueText("");
+		LineSp->setMinValue(1);
+		LineSp->setValue(newCurrent.lineSpacing());
+	}
+	for (uint al = 0; al < lineSpacingPop->count(); ++al)
+	{
+		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
+	}
+	lineSpacingPop->setItemChecked(lineSpacingPop->idAt(newCurrent.lineSpacingMode()), true);
 	GroupAlign->setStyle(newCurrent.alignment());
 	minWordTrackingSpinBox->setValue(newCurrent.minWordTracking() * 100.0);
 	normWordTrackingSpinBox->setValue(newCurrent.charStyle().wordTracking() * 100.0);
