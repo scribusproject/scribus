@@ -2108,7 +2108,7 @@ void PageItem_TextFrame::layout()
 		NextBox->invalid = true;
 		dynamic_cast<PageItem_TextFrame*>(NextBox)->firstChar = MaxChars;
 	}
-	qDebug("textframe: len=%d, done relayout", itemText.length());
+//	qDebug("textframe: len=%d, done relayout", itemText.length());
 	return;
 			
 NoRoom:     
