@@ -334,7 +334,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel),m_Doc->view()->viewport());
-#ifndef QT_MAC
+#ifndef QT_WS_MAC
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 #else

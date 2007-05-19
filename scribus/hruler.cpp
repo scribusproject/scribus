@@ -49,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
     #define topline 1
 #else
     #define topline 3
@@ -760,7 +760,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 {
 	const int y = y0 - 3 + topline;
-#ifndef QT_MAC
+#ifndef QT_WS_MAC
 	p.drawText(x,y,txt);
 #else
 	static const int SCALE = 16;

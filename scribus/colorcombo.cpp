@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 ColorCombo::ColorCombo( QWidget* parent, const char* name ) : Q3ComboBox(false, parent, name)
 {
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 	setStyle( new ColorCombo::ScMacStyle() );
 #endif
 	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );
@@ -29,7 +29,7 @@ ColorCombo::ColorCombo( QWidget* parent, const char* name ) : Q3ComboBox(false, 
 
 ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : Q3ComboBox(rw, parent, name)
 {
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 	setStyle( new ColorCombo::ScMacStyle() );
 #endif
 	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );

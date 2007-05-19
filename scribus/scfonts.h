@@ -66,7 +66,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 #ifdef HAVE_FONTCONFIG
 		void AddFontconfigFonts();
 #else
-#ifndef QT_MAC
+#ifndef QT_OS_MAC
 		void AddXFontServerPath();
 		void AddXFontPath();
 #endif

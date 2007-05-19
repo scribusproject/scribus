@@ -137,7 +137,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	prefsManager->setup();
 	//CB #4428 Get fonts before prefs are set to default
 	bool haveFonts=false;
-#ifdef QT_MAC
+#ifdef QT_OS_MAC
 	haveFonts=ScCore->initFonts(true);
 #else
 	haveFonts=ScCore->initFonts(showFontInfo);
@@ -154,7 +154,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	pluginManager->initPlugs();
 /* #4428, remove block later if ok
 	bool haveFonts=false;
-#ifdef QT_MAC
+#ifdef QT_OS_MAC
 	haveFonts=ScCore->initFonts(true);
 #else
 	haveFonts=ScCore->initFonts(showFontInfo);
@@ -380,7 +380,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 				continue;
 			}
 
-#ifndef QT_MAC
+#ifndef QT_OS_MAC
 			QString ext = fi.extension(false).lower();
 			if ((ext != "icm") && (ext != "icc"))
 				continue;

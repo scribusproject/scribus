@@ -441,7 +441,7 @@ void SVGPlug::convert(int flags)
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			tmpSel->setGroupRect();
 			Q3DragObject * dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view());
-#ifndef QT_MAC
+#ifndef QT_WS_MAC
 // see #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif

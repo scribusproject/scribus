@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #define OPTION_USE_QTOOLBUTTON 1
 #define OPTION_FLAT_BUTTON 1
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 #define AQUA_EXTRA 20
 #else
 #define AQUA_EXTRA 0

@@ -217,7 +217,7 @@ void TextBrowser::setSource(const QString &name)
 		return;
 	}
 #endif
-#if !defined(QT_MAC) && !defined(_WIN32)
+#if !defined(QT_OS_MAC) && !defined(_WIN32)
 	if (name.left(7)=="http://")
 	{
 		QString extBrowser=PrefsManager::instance()->extBrowserExecutable();

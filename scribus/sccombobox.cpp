@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3listbox.h>
 #include "sccombobox.h"
 
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 
 #include <qmacstyle_mac.h>
 
@@ -33,7 +33,7 @@ class ScMacStyle : public QMacStyle {
 
 ScComboBox::ScComboBox( QWidget* parent, const char* name ) : QComboBox(false, parent, name)
 {
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 	setStyle( new ScMacStyle );
 #endif
 //Qt4	setListBox( new Q3ListBox( this, "in-combo", Qt::WType_Popup ) );
@@ -41,7 +41,7 @@ ScComboBox::ScComboBox( QWidget* parent, const char* name ) : QComboBox(false, p
 
 ScComboBox::ScComboBox( bool rw, QWidget* parent, const char* name ) :QComboBox(rw, parent, name)
 {
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 	setStyle( new ScMacStyle );
 #endif
 //Qt4	setListBox( new Q3ListBox( this, "in-combo", Qt::WType_Popup ) );

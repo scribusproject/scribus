@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ComboBox>
 #include "colorlistbox.h"
 
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 #include <qmacstyle_mac.h>
 #endif
 
@@ -33,7 +33,7 @@ class ColorCombo : public Q3ComboBox
 
 private:
 
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 	/// use listbox instead of popupmenu for combo boxes
 	class ScMacStyle : public QMacStyle 
 	{

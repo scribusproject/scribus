@@ -158,7 +158,7 @@ void ScrPaletteBase::show()
 			int vleft   = qMin(qMax(-vwidth + gStrut.width(), palettePrefs->getInt("left")),
 			                   d->width() - gStrut.width());
 			int vtop = qMin(palettePrefs->getInt("top"), d->height() - gStrut.height());
-#if defined(QT_MAC) || defined(_WIN32)
+#if defined(QT_OS_MAC) || defined(_WIN32)
 			// on Mac and Windows you're dead if the titlebar is not on screen
 			vtop    = qMax(64, vtop);
 #else

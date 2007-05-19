@@ -1680,7 +1680,7 @@ bool PrefsManager::ReadPref(QString ho)
 			QDesktopWidget *d = QApplication::desktop();
 			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;
-#ifndef QT_MAC
+#ifndef QT_OS_MAC
 			int minY = 0;
 #else
 			// on Mac you're dead if the titlebar is not on screen

@@ -9,7 +9,7 @@
 
 
 CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
-#ifdef QT_MAC
+#ifdef QT_WS_MAC
 	: QDialog( parent, "CharZoom", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_Popup)
 #else
 	: QDialog( parent, "CharZoom", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder)
