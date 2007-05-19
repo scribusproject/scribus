@@ -58,7 +58,7 @@ void Scribus13Format::languageChange()
 
 const QString Scribus13Format::fullTrName() const
 {
-	return QObject::tr("Scribus 1.3.0->1.3.3.7 Support");
+	return QObject::tr("Scribus 1.3.0->1.3.3.x Support");
 }
 
 const ScActionPlugin::AboutData* Scribus13Format::getAboutData() const
