@@ -671,7 +671,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsZoomOut";
 	scrActions->insert(name, new ScrAction(loadIcon("16/zoom-out.png"), loadIcon("22/zoom-out.png"), "", defKeys[name], mainWindow, name));
 	name="toolsEditContents";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("Editm.xpm"), loadIcon("Editm.xpm"), "", defKeys[name], mainWindow, name, modeEdit));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("Editm16.png"), loadIcon("Editm.xpm"), "", defKeys[name], mainWindow, name, modeEdit));
 	name="toolsEditWithStoryEditor";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/story-editor.png"), loadIcon("22/story-editor.png"), "", defKeys[name], mainWindow, name, modeStoryEditor));
 	name="toolsLinkTextFrame";
@@ -681,7 +681,7 @@ void ActionManager::initToolsMenuActions()
 	name="toolsEyeDropper";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/color-picker.png"), loadIcon("22/color-picker.png"), "", defKeys[name], mainWindow, name, modeEyeDropper));
 	name="toolsCopyProperties";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("wizard.png"), loadIcon("wizard.png"), "", defKeys[name], mainWindow, name, modeCopyProperties));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("wizard16.png"), loadIcon("wizard.png"), "", defKeys[name], mainWindow, name, modeCopyProperties));
 
 	//PDF toolbar
 	name="toolsPDFPushButton";

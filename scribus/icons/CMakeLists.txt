@@ -54,6 +54,7 @@ DrawPolylineFrame.xpm
 DrawTable.xpm
 DrawTextFrame.xpm
 Editm.xpm
+Editm16.png
 exit22.png
 exit.png
 expand.png
@@ -214,6 +215,7 @@ view.png
 vmirror.png
 Winkel.xpm
 wizard.png
+wizard16.png
 wordsOnly.png
 Zeichen.xpm
 vpl.png
