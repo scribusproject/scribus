@@ -6,8 +6,9 @@ ${CMAKE_SOURCE_DIR}/scribus
 INSTALL(FILES
 ellipsis.png
 above.png
-acrobat.png
-acroread.png
+acroread16.png
+acroread22.png
+acroread32.png
 AddNode.png
 AddPoint.png
 alert.png
