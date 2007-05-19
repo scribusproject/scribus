@@ -238,6 +238,7 @@ INSTALL(FILES
 16/align-vertical-top.png
 16/close.png
 16/color-fill.png
+16/color-picker.png
 16/color-stroke.png
 16/distribute-horizontal-center.png
 16/distribute-horizontal-equal.png
@@ -262,6 +263,7 @@ INSTALL(FILES
 16/draw-cross.png
 16/draw-donut.png
 16/draw-ellipse.png
+16/draw-freehand.png
 16/draw-halfcircle1.png
 16/draw-halfcircle2.png
 16/draw-halfcircle3.png
@@ -316,6 +318,7 @@ INSTALL(FILES
 16/page-4fold.png
 16/page-doublesided.png
 16/page-simple.png
+16/pointer.png
 16/preflight-verifier.png
 16/show-object.png
 16/story-editor.png
@@ -325,6 +328,8 @@ INSTALL(FILES
 16/stroke-join-bevel.png
 16/stroke-join-miter.png
 16/stroke-join-round.png
+16/text-frame-link.png
+16/text-frame-unlink.png
 16/transform-rotate.png
 16/zoom.png
 16/zoom-in.png

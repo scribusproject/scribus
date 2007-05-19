@@ -645,7 +645,7 @@ void ActionManager::initToolsMenuActions()
 
 	//toolbar only items
 	name="toolsSelect";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/pointer.png"), loadIcon("22/pointer.png"), "", defKeys[name], mainWindow, name, modeNormal));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/pointer.png"), loadIcon("22/pointer.png"), "", defKeys[name], mainWindow, name, modeNormal));
 	name="toolsInsertTextFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-text-frame.png"), loadIcon("22/insert-text-frame.png"), "", defKeys[name], mainWindow, name, modeDrawText));
 	name="toolsInsertImageFrame";
@@ -661,9 +661,9 @@ void ActionManager::initToolsMenuActions()
 	name="toolsInsertBezier";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-path.png"), loadIcon("22/draw-path.png"), "", defKeys[name], mainWindow, name, modeDrawBezierLine));
 	name="toolsInsertFreehandLine";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/draw-freehand.png"), loadIcon("22/draw-freehand.png"), "", defKeys[name], mainWindow, name, modeDrawFreehandLine));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/draw-freehand.png"), loadIcon("22/draw-freehand.png"), "", defKeys[name], mainWindow, name, modeDrawFreehandLine));
 	name="toolsRotate";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/transform-rotate.png"), loadIcon("22/transform-rotate.png"), "", defKeys[name], mainWindow, name, modeRotation));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/transform-rotate.png"), loadIcon("22/transform-rotate.png"), "", defKeys[name], mainWindow, name, modeRotation));
 	name="toolsZoom";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/zoom.png"), loadIcon("22/zoom.png"), "", defKeys[name], mainWindow, name, modeMagnifier));
 	name="toolsZoomIn";
@@ -675,11 +675,11 @@ void ActionManager::initToolsMenuActions()
 	name="toolsEditWithStoryEditor";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/story-editor.png"), loadIcon("22/story-editor.png"), "", defKeys[name], mainWindow, name, modeStoryEditor));
 	name="toolsLinkTextFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/text-frame-link.png"), loadIcon("22/text-frame-link.png"), "", defKeys[name], mainWindow, name, modeLinkFrames));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/text-frame-link.png"), loadIcon("22/text-frame-link.png"), "", defKeys[name], mainWindow, name, modeLinkFrames));
 	name="toolsUnlinkTextFrame";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/text-frame-unlink.png"), loadIcon("22/text-frame-unlink.png"), "", defKeys[name], mainWindow, name, modeUnlinkFrames));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/text-frame-unlink.png"), loadIcon("22/text-frame-unlink.png"), "", defKeys[name], mainWindow, name, modeUnlinkFrames));
 	name="toolsEyeDropper";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png"), "", defKeys[name], mainWindow, name, modeEyeDropper));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/color-picker.png"), loadIcon("22/color-picker.png"), "", defKeys[name], mainWindow, name, modeEyeDropper));
 	name="toolsCopyProperties";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("wizard.png"), loadIcon("wizard.png"), "", defKeys[name], mainWindow, name, modeCopyProperties));
 
