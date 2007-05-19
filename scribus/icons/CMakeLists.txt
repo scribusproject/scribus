@@ -95,7 +95,6 @@ leftindent.png
 linespacing.png
 linespacing2.png
 locked.png
-Lock.xpm
 lower.png
 lower-to-bottom.png
 Lupe.xpm
@@ -194,7 +193,6 @@ u_move.png
 u_multiple.png
 ungroup.png
 unlock.png
-Unlock.xpm
 Unter.xpm
 u_redo16.png
 u_redo.png
@@ -350,6 +348,8 @@ INSTALL(FILES
 22/align-vertical-center.png
 22/align-vertical-top-out.png
 22/align-vertical-top.png
+22/checkbox.png
+22/combobox.png
 22/close.png
 22/color-picker.png
 22/distribute-horizontal-center.png
