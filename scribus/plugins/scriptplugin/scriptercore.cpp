@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <q3textstream.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <QPixmap>
 #include <cstdlib>
 #include <q3textedit.h>
@@ -265,7 +265,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	PyThreadState *stateo = NULL;
 	PyThreadState *state = NULL;
 	QFileInfo fi(fileName);
-	Q3CString na = fi.fileName().latin1();
+	QByteArray na = fi.fileName().latin1();
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
@@ -327,7 +327,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
-		Q3CString cmd = cm.latin1();
+		QByteArray cmd = cm.latin1();
 		// Now run the script in the interpreter's global scope. It'll run in a
 		// sub-interpreter if we created and switched to one earlier, otherwise
 		// it'll run in the main interpreter.
@@ -573,7 +573,7 @@ bool ScripterCore::setupMainInterpreter()
 		).arg(ScPaths::instance().scriptDir());
 	if (m_importAllNames)
 		cm += "from scribus import *\n";
-	Q3CString cmd = cm.utf8();
+	QByteArray cmd = cm.toUtf8();
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();

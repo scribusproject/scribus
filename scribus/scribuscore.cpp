@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <qglobal.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 #include "scribuscore.h"
 //#include "scribuscore.moc"
@@ -396,7 +396,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 			f.close();
 			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
 			{
-				const Q3CString profilePath( QString(pfad + d[dc]).local8Bit() );
+				const QByteArray profilePath( QString(pfad + d[dc]).local8Bit() );
 				if (setjmp(cmsJumpBuffer))
 				{
 					// Profile is broken, show info if necessary

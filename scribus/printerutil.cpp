@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qstringlist.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include "util.h"
 #include "scribus.h"
 #include "scribuscore.h"
@@ -81,7 +81,7 @@ bool PrinterUtil::getDefaultSettings( QString printerName, QByteArray& devModeA 
 {
 	bool done;
 	uint size;
-	Q3CString printer;
+	QByteArray printer;
 	LONG result = IDOK+1;
 	Qt::HANDLE handle = NULL;
 	printer = printerName.local8Bit();
@@ -106,7 +106,7 @@ bool PrinterUtil::initDeviceSettings( QString printerName, QByteArray& devModeA 
 {
 	bool done;
 	uint size;
-	Q3CString printer;
+	QByteArray printer;
 	LONG result = IDOK+1;
 	Qt::HANDLE handle = NULL;
 	printer = printerName.local8Bit();
@@ -225,7 +225,7 @@ bool PrinterUtil::isPostscriptPrinter( QString printerName)
 	HDC dc;
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
-	Q3CString printer = printerName.local8Bit();
+	QByteArray printer = printerName.local8Bit();
 	
 	// Create the default device context
 	dc = CreateDC( NULL, printer.data(), NULL, NULL );

@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QPixmap>
 #include <Q3ValueList>
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PointArray>
 #include <QImageReader>
 
@@ -261,7 +261,7 @@ uint getDouble(QString in, bool raw)
 		bb = bb.insert(3, in.at(0));
 		bb = bb.insert(2, in.at(1));
 		bb = bb.insert(1, in.at(2));
-		bb = bb.insert(0, in.at(4));
+		bb = bb.insert(0, in.at(3));
 	}
 	else
 	{
@@ -273,7 +273,7 @@ uint getDouble(QString in, bool raw)
 		bb = bb.insert(0, in.at(0));
 		bb = bb.insert(1, in.at(1));
 		bb = bb.insert(2, in.at(2));
-		bb = bb.insert(3, in.at(4));
+		bb = bb.insert(3, in.at(3));
 	}
 	uint ret;
 	ret = bb[0] & 0xff;
@@ -320,14 +320,14 @@ bool loadText(QString filename, QString *Buffer)
 	return ret;
 }
 
-bool loadRawText(const QString & filename, Q3CString & buf)
+bool loadRawText(const QString & filename, QByteArray & buf)
 {
 	bool ret = false;
 	QFile f(filename);
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		Q3CString tempBuf(f.size() + 1);
+		QByteArray tempBuf(f.size() + 1);
 		if (f.open(QIODevice::ReadOnly))
 		{
 			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());

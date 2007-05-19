@@ -68,7 +68,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 #include <qstring.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <cstdlib>
 #include <iostream>
 
@@ -266,7 +266,7 @@ char* tr(const char* docstringConstant)
 	 * a text string in a particular text encoding.
 	 */
 	//QCString utfTranslated = translated.utf8();
-	Q3CString trch = translated.utf8();
+	QByteArray trch = translated.toUtf8();
 	char* utfstr = strdup(trch.data());
 	if (!utfstr)
 		// Complain, but then return NULL anyway. Python will treat NULL as

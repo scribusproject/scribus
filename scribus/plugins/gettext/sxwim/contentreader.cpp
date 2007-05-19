@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <scribusstructs.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 ContentReader* ContentReader::creader = NULL;
 
@@ -264,9 +264,9 @@ void ContentReader::parse(QString fileName)
 	sreader->parse(fileName);
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(fileName);
-	Q3CString fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
 #else
-	Q3CString fn(fileName.local8Bit());
+	QByteArray fn(fileName.local8Bit());
 #endif
 	xmlSAXParseFile(cSAXHandler, fn.data(), 1);
 }

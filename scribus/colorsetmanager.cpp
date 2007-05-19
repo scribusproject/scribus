@@ -15,8 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include <qdom.h>
 #include <QTextStream>
+#include <QByteArray>
 //Added by qt3to4:
-#include <Q3CString>
 
 ColorSetManager::ColorSetManager()
 {
@@ -53,7 +53,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 			ColorEn = tsC.readLine();
 			if (ColorEn.startsWith("<?xml version="))
 			{
-				Q3CString docBytes("");
+				QByteArray docBytes("");
 				loadRawText(pfadC2, docBytes);
 				QString docText("");
 				docText = QString::fromUtf8(docBytes);

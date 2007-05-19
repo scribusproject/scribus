@@ -1277,7 +1277,7 @@ void PSLib::PS_showSub(uint chr, QString font, double size, bool stroke)
 void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
 {
 	bool dummy;
-	Q3CString tmp;
+	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext.isEmpty())
@@ -1346,7 +1346,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
 	bool dummy;
-	Q3CString tmp;
+	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext.isEmpty())
@@ -1825,7 +1825,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		if (!Doc->Pages->at(a)->MPageNam.isEmpty())
 		{
 			int h, s, v, k;
-			Q3CString chstrc;
+			QByteArray chstrc;
 			QString chstr;
 			int Lnr = 0;
 			struct Layer ll;
@@ -2790,7 +2790,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 {
 	uint b;
 	int h, s, v, k;
-	Q3CString chstrc;
+	QByteArray chstrc;
 	QString chstr, chglyph, tmp;
 	PageItem *c;
 	Q3PtrList<PageItem> PItems;

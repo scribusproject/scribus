@@ -52,7 +52,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QPixmap>
 #include <Q3ValueList>
-#include <Q3CString>
 
 using namespace std;
 

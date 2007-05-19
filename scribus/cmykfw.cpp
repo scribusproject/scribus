@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <QLabel>
 #include <Q3GridLayout>
-#include <Q3CString>
+#include <QByteArray>
 #include <QPixmap>
 #include <Q3Frame>
 #include <QMouseEvent>
@@ -636,7 +636,7 @@ void CMYKChoose::SelSwatch(int n)
 				ColorEn = tsC.readLine();
 				if (ColorEn.startsWith("<?xml version="))
 				{
-					Q3CString docBytes("");
+					QByteArray docBytes("");
 					loadRawText(pfadC2, docBytes);
 					QString docText("");
 					docText = QString::fromUtf8(docBytes);

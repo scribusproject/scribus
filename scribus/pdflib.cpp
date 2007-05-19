@@ -36,9 +36,9 @@ for which a new license (GPL+exception) is in place.
 #include <q3textstream.h>
 #include <qdir.h>
 //Added by qt3to4:
-#include <Q3CString>
 #include <Q3PtrList>
 #include <Q3ValueList>
+#include <QByteArray>
 #include <QPixmap>
 #include <cstdlib>
 #include <cmath>
@@ -252,7 +252,7 @@ QByteArray PDFlib::EncodeUTF16(const QString &in)
 		tmp += cc;
 	}
 	QTextCodec *codec = QTextCodec::codecForName("ISO-10646-UCS-2");
-	Q3CString cres = codec->fromUnicode( tmp );
+	QByteArray cres = codec->fromUnicode( tmp );
 	uchar sw;
 	for(int d = 0; d < cres.size()-1; d += 2)
 	{

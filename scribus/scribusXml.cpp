@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QApplication>
 #include <Q3ValueList>
-#include <Q3CString>
 #include <Q3PtrList>
+#include <QByteArray>
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
@@ -564,7 +564,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	QDomDocument docu("scridoc");
 	if (isFile)
 	{
-		Q3CString f;
+		QByteArray f;
 		if (!loadRawText(file, f))
 			return false;
 		if (f.left(16) == "<SCRIBUSELEMUTF8")
@@ -614,7 +614,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QDomDocument docu("scridoc");
 	if (Fi)
 	{
-		Q3CString f;
+		QByteArray f;
 		if (!loadRawText(fileName, f))
 			return false;
 		if (f.left(16) == "<SCRIBUSELEMUTF8")

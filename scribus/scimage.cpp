@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <Q3MemArray>
-#include <Q3CString>
+#include <QByteArray>
 #include <memory>
 #include <cassert>
 #include CMS_INC
@@ -1932,7 +1932,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		}
 		else
 		{
-			Q3CString profilePath;
+			QByteArray profilePath;
 			//CB If this is null, customfiledialog/picsearch/ScPreview might be sending it
 			Q_ASSERT(cmSettings.doc()!=0);
 			if (isCMYK)

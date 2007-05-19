@@ -20,8 +20,8 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3ValueList>
 #include <Q3GridLayout>
-#include <Q3CString>
 #include <Q3VBoxLayout>
+#include <QByteArray>
 
 #include "scconfig.h"
 #include "customfdialog.h"
@@ -341,7 +341,7 @@ void PDFExportDialog::updateDocOptions()
 				if (Opts.Version == PDFOptions::PDFVersion_X3)
 				{
 					cmsHPROFILE hIn;
-					Q3CString profilePath( appPrinterProfiles[Opts.PrintProf].local8Bit() );
+					QByteArray profilePath( appPrinterProfiles[Opts.PrintProf].local8Bit() );
 					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 					const char *Descriptor = cmsTakeProductDesc(hIn);
 					cmsDescriptorName = QString(Descriptor);

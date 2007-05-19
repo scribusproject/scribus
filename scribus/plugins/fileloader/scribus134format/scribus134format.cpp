@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <q3valuelist.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 #include <QTextStream>
 #include <QApplication>
@@ -91,7 +91,7 @@ void Scribus134Format::registerFormats()
 
 bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
-	Q3CString docBytes("");
+	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 		ScGzFile gzf(fileName);
@@ -115,7 +115,7 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 
 QString Scribus134Format::readSLA(const QString & fileName)
 {
-	Q3CString docBytes("");
+	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
 		ScGzFile gzf(fileName);

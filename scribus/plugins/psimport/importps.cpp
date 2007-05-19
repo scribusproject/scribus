@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3valuestack.h>
 //Added by qt3to4:
 #include <Q3ValueList>
-#include <Q3CString>
+#include <QByteArray>
 #include <cmath>
 #include <cstdlib>
 
@@ -468,7 +468,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "cfile" );
 	args.append( "closefile" );
 	args.append( "quit" );
-	Q3CString finalCmd = args.join(" ").local8Bit();
+	QByteArray finalCmd = args.join(" ").local8Bit();
 	int ret = System(args, errFile, errFile);
 	if (ret != 0)
 	{
@@ -872,7 +872,7 @@ bool EPSPlug::Image(QString vals)
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "quit" );
-	Q3CString finalCmd = args.join(" ").local8Bit();
+	QByteArray finalCmd = args.join(" ").local8Bit();
 	int ret = System(args);
 	if (ret != 0)
 	{

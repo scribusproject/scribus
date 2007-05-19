@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <zlib.h>
 #include <qfileinfo.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 #include "scconfig.h"
 #include "scgzfile.h"
@@ -34,7 +34,7 @@ bool ScGzFile::read(uint maxBytes)
 		maxB = maxBytes;
 	barray.resize(0);
 	gzFile gzDoc = NULL;
-	Q3CString fn(fname.local8Bit());
+	QByteArray fn(fname.local8Bit());
 	gzDoc = gzopen(fn.data(),"rb");
 	if(gzDoc == NULL)
 	{ 
@@ -74,7 +74,7 @@ bool ScGzFile::read(uint maxBytes)
 bool ScGzFile::write(void)
 {
 	gzFile gzDoc = NULL;
-	Q3CString fn(fname.local8Bit());
+	QByteArray fn(fname.local8Bit());
 	gzDoc = gzopen(fn.data(),"wb");
 	if(gzDoc == NULL)
 		return false;
@@ -86,7 +86,7 @@ bool ScGzFile::write(void)
 bool ScGzFile::write(const char* header)
 {
 	gzFile gzDoc = NULL;
-	Q3CString fn(fname.local8Bit());
+	QByteArray fn(fname.local8Bit());
 	gzDoc = gzopen(fn.data(),"wb");
 	if(gzDoc == NULL)
 		return false;

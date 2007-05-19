@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3textstream.h>
 //Added by qt3to4:
 #include <Q3ValueList>
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 
 #include "svgexplugin.h"
@@ -222,7 +222,7 @@ bool SVGExPlug::doExport( QString fName )
 		Q3TextStream s(&f);
 		QString wr = vo;
 		wr += docu.toString();
-		Q3CString utf8wr = wr.utf8();
+		QByteArray utf8wr = wr.toUtf8();
 		s.writeRawBytes(utf8wr.data(), utf8wr.length());
 		f.close();
 	}

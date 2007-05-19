@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <QLabel>
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PopupMenu>
 #include <Q3VBoxLayout>
 #include <cstdlib>
@@ -214,7 +214,7 @@ void ColorManager::saveDefaults()
 				elem.appendChild(co);
 			}
 			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			Q3CString cs = docu.toString().toUtf8();
+			QByteArray cs = docu.toString().toUtf8();
 			Q3TextStream s(&fx);
 			s.writeRawBytes(xmlpi, strlen(xmlpi));
 			s.writeRawBytes(cs, cs.length());
@@ -310,7 +310,7 @@ void ColorManager::loadDefaults(int id)
 			ColorEn = tsC.readLine();
 			if (ColorEn.startsWith("<?xml version="))
 			{
-				Q3CString docBytes("");
+				QByteArray docBytes("");
 				loadRawText(pfadC2, docBytes);
 				QString docText("");
 				docText = QString::fromUtf8(docBytes);

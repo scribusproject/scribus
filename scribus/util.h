@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3valuelist.h>
 #include <qpoint.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -77,7 +77,7 @@ The QCString is filled with the contents of the specified file. The return
 byte string is of unknown encoding; the caller must handle encoding issues.
 There is no need to preallocate the buffer, and the new data replaces any
 old contents. */
-bool SCRIBUS_API loadRawText(const QString & filename, Q3CString & buf);
+bool SCRIBUS_API loadRawText(const QString & filename, QByteArray & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
 /**

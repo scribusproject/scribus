@@ -36,10 +36,10 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <q3progressbar.h>
 //Added by qt3to4:
-#include <Q3CString>
 #include <Q3PtrList>
 #include <Q3ValueList>
 #include <QPixmap>
+#include <QByteArray>
 
 #include "fileloader.h"
 #include "filewatcher.h"
@@ -617,17 +617,17 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		return false;
 	}
 	cmsSetErrorHandler(&cmsErrorHandler);
-	const Q3CString rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].local8Bit());
+	const QByteArray rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].local8Bit());
 	DocInputRGBProf = cmsOpenProfileFromFile(rgbInputProfilePath.data(), "r");
-	const Q3CString cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].local8Bit());
+	const QByteArray cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].local8Bit());
 	DocInputCMYKProf = cmsOpenProfileFromFile(cmykInputProfilePath.data(), "r");
-	const Q3CString monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
+	const QByteArray monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
 	DocOutputProf = cmsOpenProfileFromFile(monitorProfilePath.data(), "r");
-	const Q3CString printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
+	const QByteArray printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
 	DocPrinterProf = cmsOpenProfileFromFile(printerProfilePath, "r");
-	const Q3CString rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].local8Bit());
+	const QByteArray rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].local8Bit());
 	DocInputImageRGBProf = cmsOpenProfileFromFile(rgbInputImgProfilePath.data(), "r");
-	const Q3CString cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].local8Bit());
+	const QByteArray cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].local8Bit());
 	DocInputImageCMYKProf = cmsOpenProfileFromFile(cmykInputImgProfilePath.data(), "r");
 	if ((DocInputRGBProf == NULL) || (DocInputCMYKProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL) || (DocInputImageCMYKProf == NULL) || (DocInputImageRGBProf == NULL))
 	{

@@ -43,12 +43,12 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 #include <Q3ValueList>
 #include <QLabel>
-#include <Q3CString>
 #include <QEvent>
 #include <QWheelEvent>
 #include <QTranslator>
 #include <QDragEnterEvent>
 #include <QKeyEvent>
+#include <QByteArray>
 
 #include <cstdio>
 #include <cstdlib>
@@ -4809,7 +4809,7 @@ void ScribusMainWindow::slotEditPaste()
 				StoryText::desaxeRules("/", dig, "SCRIBUSTEXT");
 				dig.addRule("/SCRIBUSTEXT", desaxe::Result<StoryText>());
 
-				Q3CString xml( Buffer2.utf8() );
+				QByteArray xml( Buffer2.toUtf8() );
 				dig.parseMemory(xml, xml.length());
 				
 				StoryText* story = dig.result<StoryText>();

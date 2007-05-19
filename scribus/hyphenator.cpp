@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qdir.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <cstdlib>
 #include <string>
 #include "scpaths.h"
@@ -75,7 +75,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 		hdict = NULL;
 		return;
 	}
-	Q3CString fn = pfad.latin1();
+	QByteArray fn = pfad.latin1();
 	const char * filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
@@ -117,7 +117,7 @@ void Hyphenator::NewDict(const QString& name)
 			hdict = NULL;
 			return;
 		}
-		Q3CString fn = pfad.latin1();
+		QByteArray fn = pfad.latin1();
 		filename = fn.data();
 		hdict = hnj_hyphen_load(filename);
 		useAble = hdict == NULL ? false : true;
@@ -143,7 +143,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 	const char *word;
 	char *buffer;
 	const int BORDER = 2;
-	Q3CString te;
+	QByteArray te;
 
 	//uint maxC = it->itemText.length() - 1;
 	QString found = text;
@@ -180,7 +180,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	const int BORDER = 2;
 	QString text = "";
 	QString buf;
-	Q3CString te;
+	QByteArray te;
 
 	int startC = 0;
 	if (it->HasSel)

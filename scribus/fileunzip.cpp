@@ -55,7 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "unzip.h"
 #include <qdir.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 #include "scpaths.h"
 
@@ -112,8 +112,8 @@ FILE* openfile(const QString& filename, const QString& mode)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	fout = _wfopen((const wchar_t*) filename.ucs2(), (const wchar_t*) mode.ucs2());
 #else
-	Q3CString fname = filename.local8Bit();
-	Q3CString fmode  = mode.local8Bit();
+	QByteArray fname = filename.local8Bit();
+	QByteArray fmode  = mode.local8Bit();
     fout = fopen(fname.data(), fmode.data());
 #endif
 	return fout;
@@ -127,7 +127,7 @@ unzFile unzOpenFile(const QString& filename)
 	file_api.zopen_file = fopen_filefunc_unicode;
 	unz = unzOpen2((const char*)filename.ucs2(), &file_api); 
 #else
-	Q3CString fname(filename.local8Bit());
+	QByteArray fname(filename.local8Bit());
 	unz = unzOpen(fname.data()); 
 #endif
 	return unz;
@@ -156,10 +156,10 @@ int mymkdir(const QString& dirname)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	ret = _wmkdir((const wchar_t*) dirname.ucs2());
 #elif defined(_WIN32)
-	Q3CString cdir = dirname.local8Bit();
+	QByteArray cdir = dirname.local8Bit();
     ret = _mkdir(cdir.data());
 #else
-	Q3CString cdir = dirname.local8Bit();
+	QByteArray cdir = dirname.local8Bit();
     ret = mkdir (cdir.data(), 0775);
 #endif
     return ret;
@@ -201,7 +201,7 @@ int makedir (const QString& newdir)
 int do_extract_onefile(unzFile uf, const QString& filename, int opt_extract_without_path, int opt_overwrite, const char* password)
 {
 //    int err = UNZ_OK;
-	Q3CString fname = filename.local8Bit();
+	QByteArray fname = filename.local8Bit();
     if (unzLocateFile(uf,fname.data(),CASESENSITIVITY)!=UNZ_OK)
         return 2;
 
@@ -333,7 +333,7 @@ void change_file_date(const QString& filename, uLong, tm_unz tmu_date)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	_wutime((const wchar_t*) filename.ucs2(), &ut);
 #else
-	Q3CString fname = filename.local8Bit();
+	QByteArray fname = filename.local8Bit();
 	utime(fname.data(), &ut);
 #endif
 }

@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <QLabel>
 #include <Q3GridLayout>
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3VBoxLayout>
 #if defined( HAVE_CUPS )
 #include <cups/cups.h>
@@ -430,7 +430,7 @@ void Druck::SetOptions()
 #elif defined(_WIN32)
 	bool done;
 	QString  printerS;
-	Q3CString printerC;
+	QByteArray printerC;
 	Qt::HANDLE handle = NULL;
 	// Retrieve the selected printer
 	printerS = PrintDest->currentText(); 

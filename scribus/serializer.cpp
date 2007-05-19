@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3textstream.h>
 #include <qtextcodec.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3ValueList>
 #include <Q3PtrList>
 #include "sccolor.h"
@@ -248,7 +248,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 }
 
 
-Selection Serializer::deserializeObjects(const Q3CString & xml)
+Selection Serializer::deserializeObjects(const QByteArray & xml)
 {
 	store<ScribusDoc>("<scribusdoc>", &m_Doc);
 
@@ -380,7 +380,7 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);
-	Q3CString dec = codec->fromUnicode( txt );
+	QByteArray dec = codec->fromUnicode( txt );
 	QFile f(filename);
 	if (f.open(QIODevice::WriteOnly))
 	{
@@ -395,7 +395,7 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 bool Serializer::readWithEncoding(const QString& filename, const QString& encoding, 
 								  QString &txt)
 {
-	Q3CString file;
+	QByteArray file;
 	QTextCodec *codec;
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();

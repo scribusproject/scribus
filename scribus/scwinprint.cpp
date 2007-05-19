@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <valarray>
 #include <windows.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 using namespace ::std;
 
 #include "scconfig.h"
@@ -364,8 +364,8 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	bool success = true;
 	ScPainterEx_GDI *painter;
 	ScPageOutput *pageOutput;
-	Q3CString inputProfile;
-	Q3CString printerProfile;
+	QByteArray inputProfile;
+	QByteArray printerProfile;
 	HCOLORSPACE hColorSpace = NULL;
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
@@ -644,7 +644,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODE* devMode )
 {
 	HANDLE handle;
-	Q3CString printer = options.printer.local8Bit();
+	QByteArray printer = options.printer.local8Bit();
 	DWORD devFlags = devMode->dmFields;
 
 	short nCopies = options.copies;
@@ -768,7 +768,7 @@ bool ScWinPrint::printerUseFilePort( QString& printerName )
 {
  bool done;
  bool toFile = false;
- Q3CString printer = printerName.local8Bit();
+ QByteArray printer = printerName.local8Bit();
  HANDLE prnHandle;
  DWORD size = 0;
 

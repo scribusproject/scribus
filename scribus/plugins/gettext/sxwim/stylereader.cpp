@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
  #include <gtframestyle.h>
  #include <gtfont.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
  
  StyleReader* StyleReader::sreader = NULL;
  
@@ -444,9 +444,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  {
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(fileName);
-	Q3CString fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
 #else
-	Q3CString fn(fileName.local8Bit());
+	QByteArray fn(fileName.local8Bit());
 #endif
  	xmlSAXParseFile(sSAXHandler, fn.data(), 1);
  }

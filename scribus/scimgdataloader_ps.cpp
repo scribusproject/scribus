@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qregexp.h>
 //Added by qt3to4:
-#include <Q3CString>
 #include <Q3TextStream>
+#include <QByteArray>
 #include "gsutil.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -139,7 +139,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		Q3CString tempBuf(9);
+		QByteArray tempBuf(9);
 		f.readBlock(tempBuf.data(), 8);
 		if (getDouble(QString(tempBuf.mid(0, 4)), true) == 0xC5D0D3C6)
 		{

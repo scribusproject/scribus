@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <QKeyEvent>
 #include <Q3ValueList>
-#include <Q3CString>
+#include <QByteArray>
 #include <QPixmap>
 #include <Q3Frame>
 #include <QDropEvent>
@@ -78,7 +78,7 @@ Q3DragObject *BibView::dragObject()
 	QFileInfo fi(dt);
 	if (fi.extension(true).lower() == "sml")
 	{
-		Q3CString cf;
+		QByteArray cf;
 		loadRawText(dt, cf);
 		QString f = QString::fromUtf8(cf.data());
 		StencilReader *pre = new StencilReader();
@@ -87,7 +87,7 @@ Q3DragObject *BibView::dragObject()
 	}
 	else if (fi.extension(true).lower() == "shape")
 	{
-		Q3CString cf;
+		QByteArray cf;
 		loadRawText(dt, cf);
 		QString f = QString::fromUtf8(cf.data());
 		StencilReader *pre = new StencilReader();
@@ -238,7 +238,7 @@ void BibView::SaveContents(QString name, QString oldName)
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			Q3CString cf;
+			QByteArray cf;
 			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d[dc])), cf))
 				continue;
 			QString ff = QString::fromUtf8(cf.data());
@@ -268,7 +268,7 @@ void BibView::SaveContents(QString name, QString oldName)
 	{
 		for (uint dc = 0; dc < d2.count(); ++dc)
 		{
-			Q3CString cf;
+			QByteArray cf;
 			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])), cf))
 				continue;
 			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])));
@@ -298,7 +298,7 @@ void BibView::SaveContents(QString name, QString oldName)
 	{
 		for (uint dc = 0; dc < d3.count(); ++dc)
 		{
-			Q3CString cf;
+			QByteArray cf;
 			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d3[dc])), cf))
 				continue;
 			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])));
@@ -333,7 +333,7 @@ void BibView::ReadOldContents(QString name, QString newName)
 	bool isUtf8 = false;
 	QDomDocument docu("scridoc");
 	QString ff;
-	Q3CString cf;
+	QByteArray cf;
 	if (!loadRawText(name, cf))
 		return;
 	// these were corrupting the scrapbook entries, removed and works ok now, Riku
@@ -388,7 +388,7 @@ void BibView::ReadContents(QString name)
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QPixmap pm;
-			Q3CString cf;
+			QByteArray cf;
 			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d[dc])));
@@ -418,7 +418,7 @@ void BibView::ReadContents(QString name)
 		for (uint dc = 0; dc < d2.count(); ++dc)
 		{
 			QPixmap pm;
-			Q3CString cf;
+			QByteArray cf;
 			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])));
@@ -444,7 +444,7 @@ void BibView::ReadContents(QString name)
 		for (uint dc = 0; dc < d3.count(); ++dc)
 		{
 			QPixmap pm;
-			Q3CString cf;
+			QByteArray cf;
 			if (!loadRawText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])), cf))
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])));
@@ -842,7 +842,7 @@ bool Biblio::copyObj(int id)
 		}
 	}
 	QPixmap pm;
-	Q3CString cf;
+	QByteArray cf;
 	if (!loadRawText(QDir::cleanDirPath(activeBView->objectMap[ite->text()].Data), cf))
 		return false;
 	pm = activeBView->objectMap[ite->text()].Preview;
@@ -1002,7 +1002,7 @@ void Biblio::ItemRenamed(Q3IconViewItem *ite)
 
 void Biblio::adjustReferences(QString nam)
 {
-	Q3CString cf;
+	QByteArray cf;
 	if (loadRawText(nam, cf))
 	{
 		QString f;
@@ -1070,7 +1070,7 @@ void Biblio::DropOn(QDropEvent *e)
 		img = ((ext=="eps")||(ext=="epsi")||(ext=="ps")||(ext=="png")||(ext=="gif")||(ext=="jpg")||(ext=="xpm"));
 		if ((fi.exists()) && (!img))
 		{
-			Q3CString rawText;
+			QByteArray rawText;
 			if (loadRawText(ur.path(), rawText))
 			{
 				if (rawText.left(16) == "<SCRIBUSELEMUTF8")
@@ -1131,7 +1131,7 @@ void Biblio::ObjFromMenu(QString text)
 	if(!f.open(QIODevice::WriteOnly))
 		return ;
 	Q3TextStream s;
-	Q3CString cs = ff.utf8();
+	QByteArray cs = ff.toUtf8();
 	s.setEncoding(Q3TextStream::UnicodeUTF8);
 	s.setDevice(&f);
 	s.writeRawBytes(cs.data(), cs.length());
@@ -1192,7 +1192,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	if(!f.open(QIODevice::WriteOnly))
 		return ;
 	Q3TextStream s;
-	Q3CString cs = ff.utf8();
+	QByteArray cs = ff.toUtf8();
 	s.setEncoding(Q3TextStream::UnicodeUTF8);
 	s.setDevice(&f);
 	s.writeRawBytes(cs.data(), cs.length());
