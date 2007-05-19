@@ -155,7 +155,8 @@ void ReformDoc::restoreDefaults()
 	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
 							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
-	tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
+	if (ScCore->haveCMS())
+		tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	docInfos->restoreDefaults();
@@ -208,7 +209,7 @@ const int ReformDoc::getSelectedUnit()
 
 const bool ReformDoc::colorManagementSettingsChanged()
 {
-	return tabColorManagement->changed;
+	return ScCore->haveCMS() && tabColorManagement->changed;
 }
 
 const bool ReformDoc::imageResolutionChanged()

@@ -221,7 +221,8 @@ void Preferences::setupGui()
 							prefsData->PageWidth,
 							0, false);
 
-	tabColorManagement->restoreDefaults(&prefsData->DCMSset, &ScCore->InputProfiles,
+	if (ScCore->haveCMS())
+		tabColorManagement->restoreDefaults(&prefsData->DCMSset, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	QStringList defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
