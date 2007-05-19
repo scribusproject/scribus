@@ -29,6 +29,7 @@ ellipsis.png \
 16/color-fill.png \
 16/color-stroke.png \
 22/combobox.png \
+16/color-picker.png \
 22/color-picker.png \
 16/distribute-horizontal-center.png \
 16/distribute-horizontal-equal.png \
@@ -82,6 +83,7 @@ ellipsis.png \
 22/draw-donut.png \
 16/draw-ellipse.png \
 22/draw-ellipse.png \
+16/draw-freehand.png \
 22/draw-freehand.png \
 22/draw-freehand.png \
 16/draw-halfcircle1.png \
@@ -186,12 +188,15 @@ ellipsis.png \
 16/page-simple.png \
 32/page-simple.png \
 22/pdf-annotations.png \
+16/pointer.png \
 22/pointer.png \
 16/preflight-verifier.png \
 22/preflight-verifier.png \
 16/story-editor.png \
 22/story-editor.png \
+16/text-frame-link.png \
 22/text-frame-link.png \
+16/text-frame-unlink.png \
 22/text-frame-unlink.png \
 16/measure.png \
 22/measure.png \
@@ -305,6 +310,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/close.png $(prefix)/share/scribus/icons/22/close.png
 	$(INSTALL_DATA) $(srcdir)/colorpicker.png $(prefix)/share/scribus/icons/colorpicker.png
 	$(INSTALL_DATA) $(srcdir)/colorpickercursor.png $(prefix)/share/scribus/icons/colorpickercursor.png
+	$(INSTALL_DATA) $(srcdir)/16/color-picker.png $(prefix)/share/scribus/icons/16/color-picker.png
 	$(INSTALL_DATA) $(srcdir)/22/color-picker.png $(prefix)/share/scribus/icons/22/color-picker.png
 	$(INSTALL_DATA) $(srcdir)/16/color-fill.png $(prefix)/share/scribus/icons/16/color-fill.png
 	$(INSTALL_DATA) $(srcdir)/16/color-stroke.png $(prefix)/share/scribus/icons/16/color-stroke.png
@@ -545,6 +551,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/penciladd.png $(prefix)/share/scribus/icons/penciladd.png
 	$(INSTALL_DATA) $(srcdir)/pencilsub.png $(prefix)/share/scribus/icons/pencilsub.png
 	$(INSTALL_DATA) $(srcdir)/plugins.png $(prefix)/share/scribus/icons/plugins.png
+	$(INSTALL_DATA) $(srcdir)/16/pointer.png $(prefix)/share/scribus/icons/16/pointer.png
 	$(INSTALL_DATA) $(srcdir)/22/pointer.png $(prefix)/share/scribus/icons/22/pointer.png
 	$(INSTALL_DATA) $(srcdir)/PolyCut.png $(prefix)/share/scribus/icons/PolyCut.png
 	$(INSTALL_DATA) $(srcdir)/16/preflight-verifier.png $(prefix)/share/scribus/icons/16/preflight-verifier.png
@@ -594,7 +601,9 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tab.png $(prefix)/share/scribus/icons/tab.png
 	$(INSTALL_DATA) $(srcdir)/tabtocindex.png $(prefix)/share/scribus/icons/tabtocindex.png
 	$(INSTALL_DATA) $(srcdir)/testfill.png $(prefix)/share/scribus/icons/testfill.png
+	$(INSTALL_DATA) $(srcdir)/16/text-frame-link.png $(prefix)/share/scribus/icons/16/text-frame-link.png
 	$(INSTALL_DATA) $(srcdir)/22/text-frame-link.png $(prefix)/share/scribus/icons/22/text-frame-link.png
+	$(INSTALL_DATA) $(srcdir)/16/text-frame-unlink.png $(prefix)/share/scribus/icons/16/text-frame-unlink.png
 	$(INSTALL_DATA) $(srcdir)/22/text-frame-unlink.png $(prefix)/share/scribus/icons/22/text-frame-unlink.png
 	$(INSTALL_DATA) $(srcdir)/textbase.png $(prefix)/share/scribus/icons/textbase.png
 	$(INSTALL_DATA) $(srcdir)/textkern.png $(prefix)/share/scribus/icons/textkern.png
@@ -720,7 +729,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/close.png
 	-rm -f $(prefix)/share/scribus/icons/colorpicker.png
 	-rm -f $(prefix)/share/scribus/icons/colorpickercursor.png
-	-rm -f $(prefix)/share/scribus/icons/color-picker.png
+	-rm -f $(prefix)/share/scribus/icons/16/color-picker.png
+	-rm -f $(prefix)/share/scribus/icons/22/color-picker.png
 	-rm -f $(prefix)/share/scribus/icons/16/color-fill.png
 	-rm -f $(prefix)/share/scribus/icons/16/color-stroke.png	
 	-rm -f $(prefix)/share/scribus/icons/22/combobox.png
@@ -967,6 +977,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/penciladd.png
 	-rm -f $(prefix)/share/scribus/icons/pencilsub.png
 	-rm -f $(prefix)/share/scribus/icons/plugins.png
+	-rm -f $(prefix)/share/scribus/icons/16/pointer.png
 	-rm -f $(prefix)/share/scribus/icons/22/pointer.png
 	-rm -f $(prefix)/share/scribus/icons/PolyCut.png
 	-rm -f $(prefix)/share/scribus/icons/16/preflight-verifier.png
@@ -1013,7 +1024,9 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/tab.png
 	-rm -f $(prefix)/share/scribus/icons/tabtocindex.png
 	-rm -f $(prefix)/share/scribus/icons/testfill.png
+	-rm -f $(prefix)/share/scribus/icons/16/text-frame-link.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-frame-link.png
+	-rm -f $(prefix)/share/scribus/icons/16/text-frame-unlink.png
 	-rm -f $(prefix)/share/scribus/icons/22/text-frame-unlink.png
 	-rm -f $(prefix)/share/scribus/icons/textbase.png
 	-rm -f $(prefix)/share/scribus/icons/textkern.png
