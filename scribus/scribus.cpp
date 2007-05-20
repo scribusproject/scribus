@@ -339,6 +339,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 //	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
+	QCoreApplication::instance()->installEventFilter(this);
 	return retVal;
 }
 
@@ -1138,8 +1139,13 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	bool retVal;
-	if ( e->type() == QEvent::ToolTip && !prefsManager->appPrefs.showToolTips)
-		return false;
+	if (e->type() == QEvent::ToolTip)
+	{
+		if (prefsManager->appPrefs.showToolTips)
+			return false;
+		else
+			return true;
+	}
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
@@ -5178,7 +5184,7 @@ void ScribusMainWindow::slotOnlineHelp()
 void ScribusMainWindow::ToggleTips()
 {
 	//qt4 consume in event filter QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
-	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isOn();
+	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
 }
 
 void ScribusMainWindow::SaveText()
