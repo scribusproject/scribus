@@ -370,6 +370,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("zh_TW").local8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Gilbert Su</td><td>gilbert_su@yahoo.com.tw</td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
