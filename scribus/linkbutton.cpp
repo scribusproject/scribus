@@ -38,12 +38,12 @@ LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 	setIconSize(QPixmap(ChainC).size());
 }
 
-QSize LinkButton::sizeHint()
+QSize LinkButton::sizeHint() const
 {
 	return iconSize();
 }
 
-QSize LinkButton::minimumSizeHint()
+QSize LinkButton::minimumSizeHint() const
 {
 	return iconSize();
 }
