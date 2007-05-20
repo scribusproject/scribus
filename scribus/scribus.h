@@ -478,10 +478,7 @@ public slots:
 	/*! \brief Change Preferences dialog.
 	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
 	void slotPrefsOrg();
-// 	void slotEditStyles();
 	void saveStyles(StilFormate *dia); //still required for style save from SE
-// 	void slotEditLineStyles();
-// 	void saveLStyles(LineFormate *dia);
 	void setNewAlignment(int a);
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);

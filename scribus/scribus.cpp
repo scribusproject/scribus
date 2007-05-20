@@ -479,7 +479,6 @@ void ScribusMainWindow::initPalettes()
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
 	connect( scrActions["editStyles"], SIGNAL(toggled(bool)) , styleManager, SLOT(setPaletteShown(bool)) );
-// 	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
 	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setOn(bool)));
 	styleManager->installEventFilter(this);
 
@@ -621,8 +620,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
-// 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
-// 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit");
 	scrActions["editUndoAction"]->setEnabled(false);
@@ -641,8 +638,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editSearchReplace"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(false);
-// 	scrActions["editParaStyles"]->setEnabled(false);
-// 	scrActions["editLineStyles"]->setEnabled(false);
+ 	scrActions["editStyles"]->setEnabled(false);
 	scrActions["editMasterPages"]->setEnabled(false);
 	scrActions["editJavascripts"]->setEnabled(false);
 	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
@@ -2520,8 +2516,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editPatterns"]->setEnabled(true);
-// 	scrActions["editParaStyles"]->setEnabled(true);
-// 	scrActions["editLineStyles"]->setEnabled(true);
+ 	scrActions["editStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
 
@@ -4231,8 +4226,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
-// 		scrActions["editParaStyles"]->setEnabled(false);
-// 		scrActions["editLineStyles"]->setEnabled(false);
+ 		scrActions["editStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
@@ -6687,67 +6681,6 @@ void ScribusMainWindow::setCSMenu()
 	if (scrActions[QString("shade%1").arg(lb)])
 		scrActions[QString("shade%1").arg(lb)]->setOn(true);
 }
-
-// void ScribusMainWindow::slotEditLineStyles()
-// {
-// 	if (HaveDoc)
-// 	{
-// 		LineFormate *dia = new LineFormate(this, doc);
-// 		connect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
-// 		if (dia->exec())
-// 			saveLStyles(dia);
-// 		disconnect(dia, SIGNAL(saveStyle(LineFormate *)), this, SLOT(saveLStyles(LineFormate *)));
-// 		delete dia;
-// 	}
-// }
-
-// void ScribusMainWindow::saveLStyles(LineFormate *dia)
-// {
-// 	PageItem* ite;
-// 	doc->MLineStyles = dia->TempStyles;
-// 	for (uint d = 0; d < doc->DocItems.count(); ++d)
-// 	{
-// 		ite = doc->DocItems.at(d);
-// 		if (!ite->NamedLStyle.isEmpty())
-// 		{
-// 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-// 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-// 		}
-// 	}
-// 	for (uint d1 = 0; d1 < doc->MasterItems.count(); ++d1)
-// 	{
-// 		ite = doc->MasterItems.at(d1);
-// 		if (!ite->NamedLStyle.isEmpty())
-// 		{
-// 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-// 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-// 		}
-// 	}
-// 	for (uint d1 = 0; d1 < doc->FrameItems.count(); ++d1)
-// 	{
-// 		ite = doc->FrameItems.at(d1);
-// 		if (!ite->NamedLStyle.isEmpty())
-// 		{
-// 			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-// 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-// 		}
-// 	}
-// 	propertiesPalette->SetLineFormats(doc);
-// 	view->DrawNew();
-// }
-
-// void ScribusMainWindow::slotEditStyles()
-// {
-// 	if (HaveDoc)
-// 	{
-// 		StilFormate *dia = new StilFormate(this, doc);
-// 		connect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
-// 		if (dia->exec())
-// 			saveStyles(dia);
-// 		disconnect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
-// 		delete dia;
-// 	}
-// }
 
 //CB still called from SE
 void ScribusMainWindow::saveStyles(StilFormate *dia)

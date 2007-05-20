@@ -200,10 +200,6 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="editStyles";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
-// 	name="editParaStyles";
-// 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
-// 	name="editLineStyles";
-// 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="editMasterPages";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="editJavascripts";
@@ -227,8 +223,6 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), mainWindow, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editPatterns"], SIGNAL(activated()), mainWindow, SLOT(managePatterns()) );
 // 	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
-// 	connect( (*scrActions)["editParaStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditStyles()) );
-// 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditLineStyles()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), mainWindow, SLOT(manageMasterPages()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(activated()), mainWindow, SLOT(ManageJava()) );
 }
@@ -1208,8 +1202,6 @@ void ActionManager::languageChange()
 	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
 	(*scrActions)["editPatterns"]->setTexts( tr("Patterns..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
-//	(*scrActions)["editParaStyles"]->setTexts( tr("&Paragraph Styles..."));
-//	(*scrActions)["editLineStyles"]->setTexts( tr("&Line Styles..."));
 	(*scrActions)["editMasterPages"]->setTexts( tr("&Master Pages..."));
 	(*scrActions)["editJavascripts"]->setTexts( tr("&JavaScripts..."));
 
@@ -1518,8 +1510,6 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editColors", QKeySequence());
 	defKeys.insert("editPatterns", QKeySequence());
 	defKeys.insert("editStyles", QKeySequence(Qt::Key_F3));
-// 	defKeys.insert("editParaStyles", QKeySequence());
-// 	defKeys.insert("editLineStyles", QKeySequence());
 	defKeys.insert("editMasterPages", QKeySequence());
 	defKeys.insert("editJavascripts", QKeySequence());
 
@@ -1795,7 +1785,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "fileDocSetup" << "filePreferences" << "filePrint" << "PrintPreview" << "fileQuit";
 	++itmenu;
 	//Edit
-	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editExtendedImageProperties" << "editColors" << "editPatterns" << "editStyles" /*<< "editParaStyles" << "editLineStyles"*/ << "editMasterPages" << "editJavascripts";
+	itmenu->second << "editUndoAction" << "editRedoAction" << "editActionMode" << "editCut" << "editCopy" << "editPaste" << "editCopyContents" << "editPasteContents" << "editPasteContentsAbs" << "editClearContents" << "editSelectAll" << "editDeselectAll" << "editSearchReplace" << "toolsEditWithStoryEditor" << "editEditWithImageEditor" << "editExtendedImageProperties" << "editColors" << "editPatterns" << "editStyles" << "editMasterPages" << "editJavascripts";
 	//Style
 	++itmenu;
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
