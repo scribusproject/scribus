@@ -191,6 +191,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" 
 											+"<tr><td>Volker Ribbert</td><td>volkerius@h3c.de</td></tr>" + 
 											"<tr><td>Louis Desjardins</td><td>louisdesjardins@videotron.ca</td></tr>" + 
+											"<tr><td>François Lanctôt</td><td>lanctot@silexcreations.com</td></tr>" + 
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
@@ -356,6 +357,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("zh_TW").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Gilbert Su</td><td>gilbert_su@yahoo.com.tw</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
