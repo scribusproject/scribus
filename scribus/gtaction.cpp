@@ -157,8 +157,12 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 
 	if (paragraphStyle == -1)
-		paragraphStyle = ScMW->doc->currentParaStyle;
-
+	{
+		if (0 <= ScMW->doc->currentParaStyle && ScMW->doc->currentParaStyle < ScMW->doc->docParagraphStyles.count())
+			paragraphStyle = ScMW->doc->currentParaStyle;
+		else
+			paragraphStyle = 0;
+	}
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font);
 	gtFont font2(*font);
