@@ -44,7 +44,7 @@ void UpgradeChecker::init()
 	getter=0;
 	updates.clear();
 	version=(VERSION);
-	stability="unstablecvs";
+	stability="unstable";
 	QString versionStripped=version.lower();
 	isCVS=versionStripped.contains("cvs");
 	if (isCVS)
