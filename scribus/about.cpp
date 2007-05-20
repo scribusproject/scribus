@@ -223,6 +223,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ca").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("zh_TW").local8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Gilbert Su</td><td>gilbert_su@yahoo.com.tw</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("cs").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -370,8 +373,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("zh_TW").local8Bit()  + "</b></td><td> </td></tr>" +
-											"<tr><td>Gilbert Su</td><td>gilbert_su@yahoo.com.tw</td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
