@@ -112,7 +112,7 @@ class CollectSingleLine_body : public Action_body
 	void end (const Xml_string& tagname)
 	{
 //		qDebug(QString("collect %1").arg(tagname));
-		Collection* coll  = this->dig->lookup<Collection>("<collection>");
+//		Collection* coll  = this->dig->lookup<Collection>("<collection>");
 		multiLine*  mline = this->dig->lookup<multiLine>("<multiline>");
 		SingleLine* sline = this->dig->top<SingleLine>();
 		mline->append(*sline);
