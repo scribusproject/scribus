@@ -1333,7 +1333,7 @@ void StyleManager::hideEvent(QHideEvent *e)
 	storeVisibility(false);
 	storePosition();
 	// QT4 SMBase::hideEvent(e);
-	hideEvent(e);
+	ScrPaletteBase::hideEvent(e);
 	emit closed();
 }
 
@@ -1363,7 +1363,7 @@ void StyleManager::closeEvent(QCloseEvent *e)
 	storeVisibility(false);
 	storePosition();
 	// Qt4 SMBase::closeEvent(e);
-	closeEvent(e);
+	ScrPaletteBase::closeEvent(e);
 	emit closed();
 }
 
@@ -1378,7 +1378,7 @@ void StyleManager::showEvent(QShowEvent *e)
 	}
 	setOkButtonText();
 	// Qt4 SMBase::showEvent(e);
-	showEvent(e);
+	ScrPaletteBase::showEvent(e);
 	if (isFirst)
 	{
 		QPoint p(prefs_->getInt("InitX", x()), prefs_->getInt("InitY", y()));
