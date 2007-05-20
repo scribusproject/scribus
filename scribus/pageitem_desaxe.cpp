@@ -313,7 +313,6 @@ class Gradient_body : public Action_body
 //		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
 		if (tagName=="CStop")
 		{
-			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 			PageItem* item = this->dig->top<PageItem>();
 			QString name = attr["NAME"];
 			double ramp = parseDouble(attr["RAMP"]);

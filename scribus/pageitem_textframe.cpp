@@ -223,10 +223,10 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 static const bool legacy = true;
 
 
-static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
+/*static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
 {	
 }
-
+*/
 
 /**
  Clones the tab fill char as often as necssary after all distances are known
