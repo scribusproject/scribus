@@ -76,7 +76,7 @@ public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
 
-	void setDocument(ScribusDoc* doc) { currentDoc = doc; }
+	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
 	void updateFromItem();
 

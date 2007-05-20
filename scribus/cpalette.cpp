@@ -255,6 +255,15 @@ void Cpalette::setCurrentItem(PageItem* item)
 	currentItem = item;
 }
 
+void Cpalette::setDocument(ScribusDoc* doc)
+{
+	currentDoc = doc;
+	if (doc == NULL)
+		colorListQLBox->cList = NULL;
+	else
+		colorListQLBox->cList = &doc->PageColors;
+}
+
 void Cpalette::updateFromItem()
 {
 	if (currentItem == NULL)

@@ -10,6 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qbitmap.h>
 #include <cstdlib>
+#include <QToolTip>
+#include <QEvent>
+#include <QHelpEvent>
 
 #include "scconfig.h"
 #include "commonstrings.h"
@@ -123,6 +126,7 @@ ColorListBox::ColorListBox(QWidget * parent, const char * name, Qt::WFlags f)
 {
 	if (!name || strlen(name) == 0)
 		setName("ColorListBox");
+	cList = NULL;
 }
 
 void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type)
@@ -133,6 +137,7 @@ void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type)
 
 void ColorListBox::insertItems(ColorList& list, ColorListBox::PixmapType type)
 {
+	cList = &list;
 	if (type == ColorListBox::fancyPixmap)
 		insertFancyPixmapItems( list );
 	else if (type == ColorListBox::widePixmap)
@@ -175,4 +180,42 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 			continue;
 		insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}
+}
+
+bool ColorListBox::event(QEvent *event)
+{
+	if (event->type() == QEvent::ToolTip)
+	{
+		if (cList != NULL)
+		{
+			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+			Q3ListBoxItem* it = itemAt(helpEvent->pos());
+			if (it != 0)
+			{
+				if (cList->contains(it->text()))
+				{
+					QString tipText = "";
+					ScColor col = (*cList)[it->text()];
+					if (col.getColorModel() == colorModelCMYK)
+					{
+						int c, m, y, k;
+						col.getCMYK(&c, &m, &y, &k);
+						tipText = QString("C:%1% M:%2% Y:%3% K:%4%").arg(qRound(c / 2.55)).arg(qRound(m / 2.55)).arg(qRound(y / 2.55)).arg(qRound(k / 2.55));
+					}
+					else
+					{
+						int r, g, b;
+						col.getRawRGBColor(&r, &g, &b);
+						tipText = QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
+					}
+					QToolTip::showText(helpEvent->globalPos(), tipText);
+				}
+				else
+					QToolTip::showText(helpEvent->globalPos(), "");
+			}
+			else
+				QToolTip::showText(helpEvent->globalPos(), "");
+		}
+	}
+	return Q3ListBox::event(event);
 }

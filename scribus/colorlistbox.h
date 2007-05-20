@@ -108,6 +108,11 @@ class SCRIBUS_API ColorListBox : public Q3ListBox
 		/*! \brief Insert ColorFancyPixmapItems into the list
 		\param list a ColorList to present. */
 		void insertFancyPixmapItems(ColorList& list);
+		
+		/*! \brief Pointer to the color list displayed by this box */
+		ColorList *cList;
+protected:
+		bool event(QEvent *event);
 };
 
 #endif
