@@ -10,7 +10,7 @@ print3.html psd.html readme.html readme-win32.html readme-os2.html resources.htm
 scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html \
 scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html \
 scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html \
-toolbox12.html toolbox13.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html \
+toolbox12.html toolbox13.html toolbox14.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html \
 toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html CMakeLists.txt
 
 install-data-local:
@@ -115,6 +115,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/toolbox11.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox11.html
 	$(INSTALL_DATA) $(srcdir)/toolbox12.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox12.html
 	$(INSTALL_DATA) $(srcdir)/toolbox13.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox13.html
+	$(INSTALL_DATA) $(srcdir)/toolbox14.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox14.html
 	$(INSTALL_DATA) $(srcdir)/toolbox1.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox1.html
 	$(INSTALL_DATA) $(srcdir)/toolbox2.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox2.html
 	$(INSTALL_DATA) $(srcdir)/toolbox3.html $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox3.html
@@ -232,6 +233,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox11.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox12.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox13.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox14.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox1.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox2.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/toolbox3.html
