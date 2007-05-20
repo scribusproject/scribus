@@ -356,6 +356,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_2->addWidget( ShapeGroup );
 
 	EditShape = new QToolButton( page_2, "EditShape" );
+	EditShape->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
 	pageLayout_2->addWidget( EditShape );
 
 	Layout13 = new Q3HBoxLayout( 0, 0, 2, "Layout13");
@@ -413,6 +414,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout->addWidget( DRight, 5, 1 );
 
 	TabsButton = new QToolButton( Distance, "T&abulators..." );
+	TabsButton->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
 	DistanceLayout->addMultiCellWidget( TabsButton, 6, 6, 0, 1 );
 	pageLayout_2a->addWidget(Distance);
 	TabStack2->addWidget( page_2a, 0 );
@@ -475,7 +477,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowOptions = new Q3ButtonGroup( page_2, "textFlowOptions" );
 	textFlowOptions->setColumnLayout(0, Qt::Vertical );
 	textFlowOptions->layout()->setSpacing( 5 );
-	textFlowOptions->layout()->setMargin( 10 );
+	textFlowOptions->layout()->setMargin( 5 );
 	textFlowOptionsLayout = new Q3VBoxLayout( textFlowOptions->layout() );
 	textFlowOptionsLayout->setAlignment( Qt::AlignTop );
 	textFlowOptions->setCheckable( false );
@@ -511,6 +513,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowUsesImageClipping->setPixmap(loadIcon("flow-contour.png"));
 	textFlowOptionsLayout->addWidget( textFlowUsesImageClipping );
 	pageLayout_2->addWidget( textFlowOptions  );
+	textFlowDisabled->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesFrameShape->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesBoundingBox->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesContourLine->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesImageClipping->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
 
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_2->addItem( spacer6 );
@@ -533,12 +540,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	ShapeGroupLayout2->addWidget( SCustom2 );
 	page_group_layout->addWidget( ShapeGroup2 );
 	EditShape2 = new QToolButton( page_group, "EditShape" );
+	EditShape2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
 	page_group_layout->addWidget( EditShape2 );
 
 	textFlowOptions2 = new Q3ButtonGroup( page_group, "textFlowOptions" );
 	textFlowOptions2->setColumnLayout(0, Qt::Vertical );
 	textFlowOptions2->layout()->setSpacing( 5 );
-	textFlowOptions2->layout()->setMargin( 10 );
+	textFlowOptions2->layout()->setMargin( 5 );
 	textFlowOptionsLayout2 = new Q3VBoxLayout( textFlowOptions2->layout() );
 	textFlowOptionsLayout2->setAlignment( Qt::AlignTop );
 	textFlowOptions2->setCheckable( false );
@@ -574,6 +582,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowUsesImageClipping2->setPixmap(loadIcon("flow-contour.png"));
 	textFlowOptionsLayout2->addWidget( textFlowUsesImageClipping2 );
 	page_group_layout->addWidget( textFlowOptions2 );
+	textFlowDisabled2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesFrameShape2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesBoundingBox2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesContourLine2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowUsesImageClipping2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
 
 	TransGroup = new Q3GroupBox( tr( "Transparency Settings" ), page_group, "TransGroup" );
 	TransGroup->setColumnLayout(0, Qt::Vertical );
