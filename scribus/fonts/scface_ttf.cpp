@@ -191,7 +191,7 @@ bool ScFace_ttf::EmbedFont(QString &str) const
 	} while (length==65534);
 	
 	str += "\n] def\n";
-	delete tmp;
+	delete[] tmp;
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
