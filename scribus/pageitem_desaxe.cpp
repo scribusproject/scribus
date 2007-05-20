@@ -321,7 +321,10 @@ class Gradient_body : public Action_body
 			double ramp = parseDouble(attr["RAMP"]);
 			int shade = parseInt(attr["SHADE"]);
 			double opa = parseDouble(attr["TRANS"]);
-			item->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			// Hack : at this stage, colors may still not exists in document and SetColor would create it, 
+			// so use the dummy brown and update manually gradient colors in Serializer
+			// item->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			item->fill_gradient.addStop( QColor(150, 100, 50) , ramp, 0.5, opa, name, shade);
 		}
 		if (tagName=="Gradient")
 		{

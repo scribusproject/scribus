@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3PtrList>
 #include "sccolor.h"
 #include "util.h"
+#include "colorutil.h"
 #include "resourcecollection.h"
 
 #include "desaxe/simple_actions.h"
@@ -365,6 +366,7 @@ Selection Serializer::importCollection()
 //		qDebug(QString("deserialize: %1 objects, colors %2 %3").arg(objects->count()).arg((ulong)&(m_Doc.PageColors)).arg((ulong)&(coll->colors)));		
 		m_Doc.PageColors.addColors(coll->colors, false);
 //		qDebug(QString("deserialize: delete collection... %1").arg(result.count()));
+		updateGradientColors(coll->colors);
 		delete coll;
 	}
 //	qDebug(QString("deserialize done: %1 items").arg(result.count()));
@@ -407,4 +409,61 @@ bool Serializer::readWithEncoding(const QString& filename, const QString& encodi
 		return true;
 	}
 	return false;
+}
+
+void Serializer::updateGradientColors(const ColorList& colors)
+{
+	VColorStop* grStop;
+	uint itemsCount = m_Doc.Items->count();
+	for (uint c=0; c < itemsCount; ++c)
+	{
+		PageItem *ite = m_Doc.Items->at(c);
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			grStop = cstops.at(cst);
+			if (colors.contains(grStop->name))
+				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+		}
+	}
+	uint masterItemsCount =  m_Doc.MasterItems.count();
+	for (uint c=0; c < masterItemsCount; ++c)
+	{
+		PageItem *ite = m_Doc.MasterItems.at(c);
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			grStop = cstops.at(cst);
+			if (colors.contains(grStop->name))
+				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+		}
+	}
+	uint frameItemsCount = m_Doc.FrameItems.count();
+	for (uint c=0; c < frameItemsCount; ++c)
+	{
+		PageItem *ite = m_Doc.FrameItems.at(c);
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			grStop = cstops.at(cst);
+			if (colors.contains(grStop->name))
+				grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+		}
+	}
+	QStringList patterns =m_Doc.docPatterns.keys();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern& pa = m_Doc.docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *ite = pa.items.at(o);
+			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				grStop = cstops.at(cst);
+				if (colors.contains(grStop->name))
+					grStop->color = SetColor(&m_Doc, grStop->name, grStop->shade);
+			}
+		}
+	}
 }

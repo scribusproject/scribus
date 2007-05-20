@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
   */
 
 class ScribusDoc;
+class ColorList;
 
 class SCRIBUS_API Serializer : public desaxe::Digester {
 public: 
@@ -80,6 +81,7 @@ public:
 private:
 		ScribusDoc& m_Doc;
 	Selection importCollection();
+	void updateGradientColors(const ColorList& colors);
 };
 
 #endif
