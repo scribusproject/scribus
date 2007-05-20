@@ -46,13 +46,13 @@ public:
 	\brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.
 	\retval QSize size
 	*/
-	virtual QSize sizeHint();
+	virtual QSize sizeHint() const;
 	/*!
 	\author Franz Schmid
 	\brief Returns minimum size of QPixmap, see the Qt-Documentation for further explaining of that.
 	\retval QSize size
 	*/
-	virtual QSize minimumSizeHint();
+	virtual QSize minimumSizeHint() const;
 };
  
 #endif
