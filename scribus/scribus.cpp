@@ -7887,6 +7887,8 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 				delTo   += count;
 			}
 			break;
+		default:
+			return;
 	}
 	if (isUndo)
 	{

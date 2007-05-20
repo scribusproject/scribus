@@ -2140,7 +2140,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	gradhelper.gradient.setRepeatMethod( VGradient::none );
 
 	QString href = e.attribute("xlink:href").mid(1);
-	double x1, y1, x2, y2;
+	double x1 = 0, y1 = 0, x2 = 1, y2 = 0;
 	if (!href.isEmpty())
 	{
 		if (m_gradients.contains(href))

@@ -217,7 +217,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (parentStyle->target() == "paragraph")
  			{
  				ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
- 				pstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
+ 				ppstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
  			}
  		}
  		else if (attrs.localName(i) == "fo:color")
@@ -551,7 +551,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		pstyle = dynamic_cast<gtParagraphStyle*>(style);
  	else
  		pstyle = NULL;
- 	QString align = NULL;
+ 	QString align("");
  	QString force = NULL;
  
  	if (key == "style:font-name")
@@ -577,7 +577,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		if (parent2Style->target() == "paragraph")
  		{
  			ppstyle = dynamic_cast<gtParagraphStyle*>(parent2Style);
- 			pstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
+ 			ppstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
  		}
  	}
  	else if (key == "fo:color")
@@ -637,7 +637,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	else if ((key == "style:justify-single-word") && (pstyle != NULL))
  		force = value;
  
- 	if (align != NULL)
+ 	if (!align.isEmpty())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
