@@ -85,7 +85,6 @@ ellipsis.png \
 22/draw-ellipse.png \
 16/draw-freehand.png \
 22/draw-freehand.png \
-22/draw-freehand.png \
 16/draw-halfcircle1.png \
 22/draw-halfcircle1.png \
 16/draw-halfcircle2.png \
@@ -388,6 +387,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-ellipse.png $(prefix)/share/scribus/icons/22/draw-ellipse.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-freehand.png $(prefix)/share/scribus/icons/16/draw-freehand.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-freehand.png $(prefix)/share/scribus/icons/22/draw-freehand.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle1.png $(prefix)/share/scribus/icons/16/draw-halfcircle1.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle1.png $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
@@ -807,6 +807,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-donut.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-ellipse.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-ellipse.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-freehand.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-freehand.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle1.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle1.png
