@@ -78,6 +78,12 @@ localization = {
         'Červen', 'Červenec', 'Srpen', 'Září',
         'Říjen', 'Listopad', 'Prosinec'],
      ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne']],
+'Dutch' :
+    [['Januari', 'Februari', 'Maart', 'April',
+      'Mei', 'Juni', 'Juli', 'Augustus', 'September',
+      'Oktober', 'November', 'December'],
+     ['Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag', 'Zondag']],
+# Dutch by "Christoph Schäfer" <christoph-schaefer@gmx.de>
 'English' :
     [['January', 'February', 'March', 'April',
       'May', 'June', 'July', 'August', 'September',
