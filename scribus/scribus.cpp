@@ -6301,7 +6301,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 {
 	assert( from > 0 );
 	assert( from <= to );
-	assert( to <= doc->Pages->count() );
+	assert( to <= signed(doc->Pages->count()) );
 	uint oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
