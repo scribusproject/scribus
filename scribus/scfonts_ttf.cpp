@@ -289,7 +289,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 	}
 	while (length==65534);
 	str += "\n] def\n";
-	delete tmp;
+	delete[] tmp;
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );

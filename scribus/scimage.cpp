@@ -4079,13 +4079,21 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 #ifdef HAVE_CMS
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
-		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen) && useEmbedded && CMSuse && useProf)
+		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
 		{
-			const char *Descriptor;
-			tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-			Descriptor = cmsTakeProductDesc(tiffProf);
-			imgInfo.profileName = QString(Descriptor);
-			imgInfo.isEmbedded = true;
+			if (useEmbedded && CMSuse && useProf)
+			{
+				const char *Descriptor;
+				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+				Descriptor = cmsTakeProductDesc(tiffProf);
+				imgInfo.profileName = QString(Descriptor);
+				imgInfo.isEmbedded = true;
+			}
+			else
+			{
+				imgInfo.isEmbedded = false;
+				imgInfo.profileName = "";
+			}
 			free(EmbedBuffer);
 		}
 		else

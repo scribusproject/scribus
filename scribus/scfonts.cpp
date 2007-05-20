@@ -145,7 +145,7 @@ bool Foi::GlNames(QMap<uint, QString> *GList)
 void Foi::RawData(QByteArray & bb)
 {
 	FT_Library library;
-	FT_Face    face;
+	FT_Face    face = NULL;
 	bool       error;
 	
 	error = FT_Init_FreeType( &library );
