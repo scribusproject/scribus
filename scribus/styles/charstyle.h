@@ -54,6 +54,8 @@ public:
 
 	operator StyleFlagValue() const { return value; }
 
+	QStringList featureList() const; 
+	
 	StyleFlag& operator=  (StyleFlagValue val) { value = val; return *this;}
 	StyleFlag& operator&= (const StyleFlag& right);
 	StyleFlag& operator|= (const StyleFlag& right);
@@ -74,7 +76,19 @@ public:
 class SCRIBUS_API CharStyle : public Style {
 public:
 
-	
+	static const QString INHERIT;
+	static const QString BOLD;
+	static const QString ITALIC;
+	static const QString UNDERLINE;
+	static const QString UNDERLINEWORDS;
+	static const QString STRIKETHROUGH;
+	static const QString SUPERSCRIPT;
+	static const QString SUBSCRIPT;
+	static const QString OUTLINE;
+	static const QString SHADOWED;
+	static const QString ALLCAPS;
+	static const QString SMALLCAPS;
+
     CharStyle() : Style() {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		m_##attr_NAME = attr_DEFAULT; \
@@ -112,6 +126,10 @@ public:
 
 	void update(const StyleContext * b);
 	
+	/** This method may alter any of the attributes depending on the value of 'features'.
+		Used for font effects */
+	void updateFeatures();
+	
 	bool equiv(const Style& other) const;	
 	
 	void applyCharStyle(const CharStyle & other);
@@ -120,6 +138,11 @@ public:
 	void erase() { eraseCharStyle(*this); }
 	
 	QString asString() const;
+	
+	/** This property will be evaluated at runtime and is not stored. See 'updateFeatures()' */
+	const StyleFlag effects() const { validate(); return m_Effects; }
+	void setEffects(StyleFlag flags) { m_Effects = flags; }
+	
 	
 	/** getter: validates and returns the attribute's value */
 	
@@ -162,6 +185,9 @@ public:
 	
 private:
 
+	void runFeatures(const QStringList& featurelist, const CharStyle* parent);
+	
+	StyleFlag m_Effects;
 	// member declarations:
 		
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -180,6 +206,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	m_Effects = other.m_Effects;
 //	m_context = NULL;
 	m_contextversion = -1;
 	return *this;
@@ -192,6 +219,7 @@ inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	m_Effects = other.m_Effects;
 //	m_context = NULL;
 	m_contextversion = -1;
 }

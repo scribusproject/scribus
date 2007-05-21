@@ -19,7 +19,6 @@
 ATTRDEF(int, fontSize, FontSize, 200)
 ATTRDEF(int, fillShade, FillShade, 100)
 ATTRDEF(int, strokeShade, StrokeShade, 100)
-ATTRDEF(StyleFlag, effects, Effects, ScStyle_Default)
 ATTRDEF(int, scaleH, ScaleH, 1000)
 ATTRDEF(int, scaleV, ScaleV, 1000)
 ATTRDEF(int, baselineOffset, BaselineOffset, 0)
@@ -36,4 +35,4 @@ ATTRDEF(QString, fillColor, FillColor, "undef")
 ATTRDEF(QString, strokeColor, StrokeColor, "Black")
 ATTRDEF(QString, language, Language, "")
 ATTRDEF(ScFace, font, Font, ScFace::none())
-
+ATTRDEF(QStringList, features, Features, CharStyle::INHERIT)

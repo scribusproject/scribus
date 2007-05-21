@@ -808,7 +808,7 @@ void SMParagraphStyle::slotEffects(int e)
 	{
 		for (uint i = 0; i < selection_.count(); ++i)
 		{
-			selection_[i]->charStyle().resetEffects();
+			selection_[i]->charStyle().resetFeatures();
 			selection_[i]->charStyle().resetShadowXOffset();
 			selection_[i]->charStyle().resetShadowYOffset();
 			selection_[i]->charStyle().resetOutlineWidth();
@@ -844,7 +844,7 @@ void SMParagraphStyle::slotEffects(int e)
 
 		for (uint i = 0; i < selection_.count(); ++i)
 		{
-			selection_[i]->charStyle().setEffects(s);
+			selection_[i]->charStyle().setFeatures(s.featureList());
 			selection_[i]->charStyle().setShadowXOffset(qRound(sxo));
 			selection_[i]->charStyle().setShadowYOffset(qRound(syo));
 			selection_[i]->charStyle().setOutlineWidth(qRound(olw));
@@ -1613,7 +1613,7 @@ void SMCharacterStyle::slotEffects(int e)
 	{
 		for (uint i = 0; i < selection_.count(); ++i)
 		{
-			selection_[i]->resetEffects();
+			selection_[i]->resetFeatures();
 			selection_[i]->resetShadowXOffset();
 			selection_[i]->resetShadowYOffset();
 			selection_[i]->resetOutlineWidth();
@@ -1649,7 +1649,7 @@ void SMCharacterStyle::slotEffects(int e)
 
 		for (uint i = 0; i < selection_.count(); ++i)
 		{
-			selection_[i]->setEffects(s);
+			selection_[i]->setFeatures(s.featureList());
 			selection_[i]->setShadowXOffset(qRound(sxo));
 			selection_[i]->setShadowYOffset(qRound(syo));
 			selection_[i]->setOutlineWidth(qRound(olw));

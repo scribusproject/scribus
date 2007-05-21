@@ -4,6 +4,7 @@
 #include "desaxe_conf.h"
 #include <qvaluelist.h>
 #include <qvaluestack.h>
+#include <qstringlist.h>
 
 
 class ScFace;
@@ -23,6 +24,7 @@ Xml_string toXMLString(const FPointArray& path);
 
 Xml_string toXMLString(const QValueList<double>& doublelist);
 Xml_string toXMLString(const QValueList<int>& intlist);
+Xml_string toXMLString(const QStringList& list);
 
 unsigned int parseUInt(const Xml_string& str);
 int parseInt(const Xml_string&  str);
@@ -34,6 +36,7 @@ bool parseBool(const Xml_string&  str);
 QValueList<double> parseDoubleList(const Xml_string&  str);
 QValueList<int> parseIntList(const Xml_string&  str);
 QValueStack<int> parseIntStack(const Xml_string&  str);
+QStringList parseStringList(const Xml_string&  str);
 
 
 Xml_string mkXMLName(const QString& any);

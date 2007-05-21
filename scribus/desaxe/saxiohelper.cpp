@@ -165,6 +165,7 @@ Xml_string toXMLString(const QValueList<int>& intlist)
 }
 
 
+
 QValueList<int> parseIntList(const Xml_string& str)
 {
 	QStringList strlist = QStringList::split(' ', str);
@@ -182,6 +183,22 @@ QValueStack<int> parseIntStack(const Xml_string& str)
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseInt(*it));
 	return result;
+}
+
+
+Xml_string toXMLString(const QStringList& list)
+{
+	QString result = "";
+	QStringList::const_iterator dax;
+	for (dax = list.begin(); dax != list.end(); ++dax)
+		result += *dax + " ";
+	return result;
+}
+
+
+QStringList parseStringList(const Xml_string&  str)
+{
+	return QStringList::split(' ', str);
 }
 
 

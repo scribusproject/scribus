@@ -1023,7 +1023,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		const ParagraphStyle& currPStyle(currItem->currentStyle());
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currPStyle.parent());
-		propertiesPalette->setCharStyle(currItem->currentCharStyle().name());
+		propertiesPalette->setCharStyle(currItem->currentCharStyle().parent());
 		doc->currentStyle = currItem->currentStyle();
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextStyle(doc->currentStyle);
