@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QResizeEvent>
+#include <QEvent>
 #include <QList>
 
 #include "scribusapi.h"
@@ -20,7 +21,6 @@ class ScribusMainWindow;
 class ScribusDoc;
 class PageItem;
 class Page;
-// class DynamicTip;
 
 class SCRIBUS_API TreeItem : public QTreeWidgetItem
 {
@@ -31,6 +31,15 @@ public:
 	PageItem *PageItemObject;
 	Page *PageObject;
 	int type;
+};
+
+class SCRIBUS_API TreeWidget : public QTreeWidget
+{
+public:
+	TreeWidget(QWidget* parent);
+	~TreeWidget() {};
+protected:
+	bool viewportEvent(QEvent *event);
 };
 
 class SCRIBUS_API Tree : public ScrPaletteBase
@@ -68,7 +77,7 @@ protected slots:
 	void slotSelect(QTreeWidgetItem* ite, int col);
 protected:
 	void clearPalette();
-	QTreeWidget* reportDisplay;
+	TreeWidget* reportDisplay;
 	QTreeWidgetItem* freeObjects;
 	QTreeWidgetItem* rootObject;
 	QTreeWidgetItem* currentObject;
@@ -89,7 +98,6 @@ protected:
 	QPixmap annotLinkIcon;
 	bool selectionTriggered;
 	ScribusDoc *currDoc;
-// 	DynamicTip* dynTip;
 };
 
 #endif // TREE_H

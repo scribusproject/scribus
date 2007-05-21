@@ -18,6 +18,8 @@ for which a new license (GPL+exception) is in place.
 #include <QResizeEvent>
 #include <QMenu>
 #include <QWidgetAction>
+#include <QToolTip>
+#include <QHelpEvent>
 
 #include "commonstrings.h"
 #include "page.h"
@@ -45,13 +47,90 @@ TreeItem::TreeItem(QTreeWidget* parent, TreeItem* after) : QTreeWidgetItem(paren
 	type = -1;
 }
 
+TreeWidget::TreeWidget(QWidget* parent) : QTreeWidget(parent)
+{
+}
+
+bool TreeWidget::viewportEvent(QEvent *event)
+{
+	if (event->type() == QEvent::ToolTip)
+	{
+		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+		QTreeWidgetItem* it = itemAt(helpEvent->pos());
+ 		if (it != 0)
+ 		{
+ 			TreeItem *item = (TreeItem*)it;
+ 			if (item != NULL)
+ 			{
+ 				QString tipText = "";
+ 				if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+ 				{
+ 					PageItem *pgItem = item->PageItemObject;
+ 					switch (pgItem->itemType())
+ 					{
+ 						case PageItem::ImageFrame:
+ 							tipText = QObject::tr("Image");
+ 							break;
+ 						case PageItem::TextFrame:
+ 							switch (pgItem->annotation().Type())
+ 							{
+ 								case 2:
+ 									tipText = QObject::tr("PDF Push Button");
+ 									break;
+ 								case 3:
+ 									tipText = QObject::tr("PDF Text Field");
+ 									break;
+ 								case 4:
+ 									tipText = QObject::tr("PDF Check Box");
+ 									break;
+ 								case 5:
+ 									tipText = QObject::tr("PDF Combo Box");
+ 									break;
+ 								case 6:
+ 									tipText = QObject::tr("PDF List Box");
+ 									break;
+ 								case 10:
+ 									tipText = QObject::tr("PDF Text Annotation");
+ 									break;
+ 								case 11:
+ 									tipText = QObject::tr("PDF Link Annotation");
+ 									break;
+ 								default:
+ 									tipText = QObject::tr("Text");
+ 									break;
+ 							}
+ 							break;
+ 						case PageItem::Line:
+ 							tipText = QObject::tr("Line");
+ 							break;
+ 						case PageItem::Polygon:
+ 							tipText = QObject::tr("Polygon");
+ 							break;
+ 						case PageItem::PolyLine:
+ 							tipText = QObject::tr("Polyline");
+ 							break;
+ 						case PageItem::PathText:
+ 							tipText = QObject::tr("PathText");
+ 							break;
+ 						default:
+ 							break;
+ 					}
+					QToolTip::showText(helpEvent->globalPos(), tipText);
+					return true;
+				}
+			}
+		}
+	}
+	return QTreeWidget::viewportEvent(event);
+}
+
 Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 {
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
 
-	reportDisplay = new QTreeWidget( this );
+	reportDisplay = new TreeWidget( this );
 
 	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
 	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
@@ -81,7 +160,6 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	selectionTriggered = false;
 	freeObjects = 0;
 	languageChange();
-// 	dynTip = new DynamicTip(reportDisplay);
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
