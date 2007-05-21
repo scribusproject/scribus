@@ -39,6 +39,8 @@ void ShadeButton::setShade(int id)
 		FillSh->setItemChecked(FillSh->idAt(a), false);
 	}
 	c = FillSh->indexOf(id);
+	if (c < 0)
+		return;
 	FillSh->setItemChecked(id, true);
 	if (c > 0)
 		b = (c-1) * 10;
