@@ -61,7 +61,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	toolButtonDummy2->hide();
 
 	//set up scrspinboxes
-	distributeDistSpinBox->setValues(-1000.0, 1000.0, 100, 0.0);
+	distributeDistSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
@@ -228,7 +228,7 @@ void AlignDistributePalette::unitChange()
 	{
 		double oldValue=distributeDistSpinBox->value();
 		double oldRatio=unitRatio;
-		distributeDistSpinBox->setDecimals(unitGetDecimalsFromIndex(currDoc->unitIndex()));
+		distributeDistSpinBox->setDecimals(unitGetPrecisionFromIndex(currDoc->unitIndex()));
 		distributeDistSpinBox->setSuffix(unitGetSuffixFromIndex(currDoc->unitIndex()));
 		unitRatio=unitGetRatioFromIndex(currDoc->unitIndex());
 		double ratioDivisor =  unitRatio / oldRatio;
