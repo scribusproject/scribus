@@ -1758,7 +1758,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		if (newStyle != last->Style) // || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
 		{  // FIXME StyleFlag operator== ignores hyphen flag
 //			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
-			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			obj->itemText.setCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
 		}
@@ -1773,7 +1773,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
-	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
+	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
 	if (last->ParaStyle >= 0) {
 		pstyle.setParent( doc->paragraphStyles()[last->ParaStyle].name());
