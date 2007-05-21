@@ -51,7 +51,11 @@ SET(MAIN_DIR_NAME "scribus")
 #On Apple, we ignore the versioning tag so all items are "scribus" not "scribus-version"
 
 IF (NOT BUILD_OSX_BUNDLE)
-  SET(BUILD_OSX_BUNDLE FALSE CACHE TYPE BOOL)
+  IF (APPLE)
+    SET(BUILD_OSX_BUNDLE TRUE CACHE TYPE BOOL)
+  ELSE (APPLE)
+    SET(BUILD_OSX_BUNDLE FALSE CACHE TYPE BOOL)
+  ENDIF (APPLE)
 ENDIF (NOT BUILD_OSX_BUNDLE)
 
  
@@ -127,7 +131,7 @@ IF(APPLE)
   SET( ENV{LD_PREBIND_ALLOW_OVERLAP} 1 )
   SET(CMAKE_CXX_FLAGS_DEBUG "-O2 -g3 -fno-inline-functions -Wall")
   SET(CMAKE_C_FLAGS_DEBUG "-O2 -g3 -fno-inline-functions -Wall")
-  SET(BUILD_MAC_BUNDLE 1)
+#  SET(BUILD_MAC_BUNDLE 1)
 ELSE(APPLE)
   SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
   SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")

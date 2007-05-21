@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 // On Qt/Mac we need CoreFoundation to discover the location
 // of the app bundle.
-#ifdef BUILD_MAC_BUNDLE
+#ifdef Q_WS_MAC
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
@@ -60,7 +60,7 @@ ScPaths::ScPaths() :
 {
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#ifdef BUILD_MAC_BUNDLE
+#ifdef Q_WS_MAC
 	// Set up the various app paths to look inside the app bundle
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef,
