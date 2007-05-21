@@ -369,7 +369,7 @@ void ScribusDoc::init()
 	cstyle.setName( tr("Default Character Style"));
 	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
 	cstyle.setFontSize(toolSettings.defSize);
-	cstyle.setEffects(ScStyle_Default);
+	cstyle.setFeatures(QStringList(CharStyle::INHERIT));
 	cstyle.setFillColor(toolSettings.dPenText);
 	cstyle.setFillShade(toolSettings.dTextPenShade);
 	cstyle.setStrokeColor(toolSettings.dStrokeText);
@@ -4833,7 +4833,7 @@ void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selec
 {
 	ParagraphStyle newStyle;
 	newStyle.setParent(name);
-	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
+	itemSelection_SetParagraphStyle(newStyle, customSelection);
 }
 
 void ScribusDoc::ItemPen(QString farbe)
@@ -5108,7 +5108,7 @@ void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, 
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 {
 	CharStyle newStyle;
-	newStyle.setEffects(static_cast<StyleFlag>(s));
+	newStyle.setFeatures(static_cast<StyleFlag>(s).featureList());
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 	return;
 	
@@ -5134,7 +5134,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 							StyleFlag fl = currItem->itemText.item(a)->effects();
 							fl &= static_cast<StyleFlag>(~1919); // 0x11101111111
 							fl |= static_cast<StyleFlag>(s & 1919);
-							currItem->itemText.item(a)->setEffects(fl);
+							currItem->itemText.item(a)->setFeatures(fl.featureList());
 						}
 					}
 				}
@@ -5145,7 +5145,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 						StyleFlag fl = currItem->itemText.item(a)->effects();
 						fl &= static_cast<StyleFlag>(~1919); // 1024+512+256+64+32+16+8+4+2+1
 						fl |= static_cast<StyleFlag>(s & 1919);
-						currItem->itemText.item(a)->setEffects(fl);
+						currItem->itemText.item(a)->setFeatures(fl.featureList());
 					}
 				}
 #endif
@@ -5531,7 +5531,6 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				const QString& curParent(currItem->itemText.charStyle(i).parent());
 				if (curParent != lastParent)
 				{
-					lastParent = curParent;
 					if ( i-lastPos > 0)
 					{
 						CharStyle newStyle;
@@ -5539,6 +5538,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 						currItem->itemText.setCharStyle(lastPos, i-lastPos, newStyle);
 						lastPos = i;
 					}
+					lastParent = curParent;
 				}
 			}
 			if (lastPos < stop)

@@ -1284,9 +1284,9 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		nstyle.setStrikethruOffset(-1);
 		nstyle.setStrikethruWidth(-1);
 		if( !e.attribute( "stroke" ).isEmpty() )
-			nstyle.setEffects(ScStyle_Outline);
+			nstyle.setFeatures(StyleFlag(ScStyle_Outline).featureList());
 		else
-			nstyle.setEffects(ScStyle_Default);
+			nstyle.setFeatures(StyleFlag(ScStyle_Default).featureList());
 		int pos = ite->itemText.length();
 		ite->itemText.insertChars(pos, ch);
 		ite->itemText.applyCharStyle(pos, 1, nstyle);

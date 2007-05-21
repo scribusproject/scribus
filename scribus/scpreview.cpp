@@ -391,9 +391,9 @@ QPixmap ScPreview::createPreview(QString data)
 					hg->setFillShade((*it).toInt());
 					it++;
 					if (it == NULL)
-						hg->setEffects(ScStyle_Default);
+						hg->setFeatures(QStringList(CharStyle::INHERIT));
 					else
-						hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
+						hg->setFeatures(static_cast<StyleFlag>((*it).toInt()).featureList());
 					it++;
 //					if (it == NULL)
 //						hg->cab = 0;
