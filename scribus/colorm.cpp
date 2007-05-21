@@ -145,7 +145,6 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	Layout2->addLayout( layout5 );
 	replaceMap.clear();
 	EditColors = doco;
-// 	dynTip = new DynamicTip(colorListBox, &EditColors);
 	updateCList();
 	// signals and slots connections
 	if (m_Doc==0)
@@ -166,7 +165,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	QToolTip::add( duplicateColorButton, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
 	QToolTip::add( deleteColorButton, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
 	QToolTip::add( saveButton, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
-        QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+	QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	connect( saveButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( newColorButton, SIGNAL( clicked() ), this, SLOT( newColor() ) );
@@ -672,6 +671,7 @@ void ColorManager::updateCList()
 	ColorList::Iterator it;
 	ScribusDoc* doc = EditColors.document();
 	colorListBox->clear();
+	colorListBox->cList = &EditColors;
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)

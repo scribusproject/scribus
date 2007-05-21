@@ -132,7 +132,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
-// 	dynTip = new DynamicTip(colorListQLBox, &colorList);
 
 	patternFrame = new Q3Frame( this, "frame3" );
 	patternFrame->setFrameShape( Q3Frame::NoFrame );

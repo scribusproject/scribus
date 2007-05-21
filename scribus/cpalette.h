@@ -56,7 +56,6 @@ class QComboBox;
 class QLabel;
 class QSpacerItem;
 class QSpinBox;
-// class DynamicTip;
 class ColorListBox;
 class ScrSpinBox;
 class ScComboBox;
@@ -140,7 +139,6 @@ protected:
 	QPixmap rgbIcon;
 	QPixmap spotIcon;
 	QPixmap regIcon;
-// 	DynamicTip* dynTip;
 
 	ColorListBox *colorListQLBox;
 	Q3Frame* patternFrame;

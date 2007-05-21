@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "query.h"
 
-// class DynamicTip;
 class ScribusDoc;
 class ColorListBox;
 
@@ -73,7 +72,6 @@ private:
 	QString sColor;
 	QColor tmpColor;
 	QStringList DontChange;
-// 	DynamicTip* dynTip;
 	ScribusDoc* m_Doc;
 
 private slots:

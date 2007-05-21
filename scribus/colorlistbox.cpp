@@ -194,6 +194,7 @@ bool ColorListBox::event(QEvent *event)
 			{
 				if (cList->contains(it->text()))
 				{
+					event->accept();
 					QString tipText = "";
 					ScColor col = (*cList)[it->text()];
 					if (col.getColorModel() == colorModelCMYK)
@@ -209,12 +210,9 @@ bool ColorListBox::event(QEvent *event)
 						tipText = QString("R:%1 G:%2 B:%3").arg(r).arg(g).arg(b);
 					}
 					QToolTip::showText(helpEvent->globalPos(), tipText);
+					return true;
 				}
-				else
-					QToolTip::showText(helpEvent->globalPos(), "");
 			}
-			else
-				QToolTip::showText(helpEvent->globalPos(), "");
 		}
 	}
 	return Q3ListBox::event(event);
