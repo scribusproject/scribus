@@ -8,27 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRIPTERPREFSGUI_H
 
 #include "ui_scripterprefsgui.h"
-#include "cmdvar.h"
-// #include "qvariant.h"
-// //Added by qt3to4:
-// #include <Q3VBoxLayout>
-// #include <Q3GridLayout>
-// #include <Q3HBoxLayout>
-// #include <QLabel>
 #include "prefspanel.h"
-// 
-// class Q3VBoxLayout;
-// class Q3HBoxLayout;
-// class Q3GridLayout;
-// class QSpacerItem;
-// class QTabWidget;
-// class QCheckBox;
-// class QLabel;
-// class QLineEdit;
-// class QPushButton;
-// class QToolButton;
-// 
-// class PrefsPanel;
 
 
 /*! \brief Subclass of PrefsPanel that's supplied to the prefs
@@ -45,37 +25,8 @@ class ScripterPrefsGui : public PrefsPanel, public Ui::ScripterPrefsGui
 		void apply();
 
 	protected:
-// 		QTabWidget* tabWidget;
-// 		QWidget* startupTab;
-// 		QWidget* consoleTab;
-// 		QCheckBox* extensionScriptsChk;
-// 		QLabel* startupScriptEditLabel;
-// 		QLineEdit* startupScriptEdit;
-// 
-// 		Q3GridLayout* ScripterPrefsGuiBaseLayout;
-// 		Q3VBoxLayout* extLayout;
-// 		QSpacerItem* extScriptSpacer;
-// 		Q3HBoxLayout* startupScriptLayout;
-// 
-// 		// console colors
-// 		QLabel* errorLabel;
-// 		QLabel* commentLabel;
-// 		QLabel* keywordLabel;
-// 		QLabel* signLabel;
-// 		QLabel* numberLabel;
-// 		QLabel* stringLabel;
-// 		QLabel* textLabel;
-// 		QPushButton* errorButton;
-// 		QPushButton* commentButton;
-// 		QPushButton* keywordButton;
-// 		QPushButton* signButton;
-// 		QPushButton* numberButton;
-// 		QPushButton* stringButton;
-// 		QPushButton* textButton;
-// 		QToolButton* startupScriptChangeButton;
-// 		Q3GridLayout* colorLayout;
-
 		void setupSyntaxColors();
+
 	protected slots:
 		void languageChange();
 		/*! \brief All requests for color change are handled here.
