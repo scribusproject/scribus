@@ -48,7 +48,6 @@ for which a new license (GPL+exception) is in place.
 #include "multiprogressdialog.h"
 #include "scribusapp.h"
 #include "scpattern.h"
-#include "scribusstructs.h"
 #include "sccolorengine.h"
 
 #include "text/nlsconfig.h"

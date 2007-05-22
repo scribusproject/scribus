@@ -5332,7 +5332,6 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			if (twoSpot)
 			{
 				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
-				doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
 				ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
 				cmykValues.getValues(cc, mc, yc, kc);
 				colorDesc = "{\nexch\n";
