@@ -8,95 +8,34 @@ for which a new license (GPL+exception) is in place.
 #include "scriptercore.h"
 #include "pconsole.h"
 
-#include <qvariant.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <prefspanel.h>
-#include <qtabwidget.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qcolordialog.h>
-#include <q3filedialog.h>
+// #include <qvariant.h>
+// #include <qcheckbox.h>
+// #include <qlabel.h>
+// #include <qlineedit.h>
+// #include <qlayout.h>
+// #include <qtooltip.h>
+// #include <q3whatsthis.h>
+// //Added by qt3to4:
+// #include <Q3GridLayout>
+// #include <Q3HBoxLayout>
+// #include <Q3VBoxLayout>
+// #include <prefspanel.h>
+// #include <qtabwidget.h>
+// #include <qpushbutton.h>
+// #include <qtoolbutton.h>
+// #include <qcolordialog.h>
+// #include <q3filedialog.h>
+#include <QColorDialog>
+#include <QFileDialog>
 
 
 ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	: PrefsPanel(parent, "ScripterPrefsGui")
 {
-	ScripterPrefsGuiBaseLayout = new Q3GridLayout(this, 1, 1, 10, 5, "ScripterPrefsGuiBaseLayout");
-
-	tabWidget = new QTabWidget(this, "tabWidget");
-	//tabWidget->setGeometry(QRect(70, 50, 380, 230));
-
-	startupTab = new QWidget(tabWidget, "startupTab");
-	tabWidget->insertTab(startupTab, tr("Extensions"));
-	consoleTab = new QWidget(tabWidget, "consoleTab");
-	tabWidget->insertTab(consoleTab, tr("Console"));
-
-	extLayout = new Q3VBoxLayout(startupTab, 10, 5, "extLayout");
-	extLayout->setAlignment(Qt::AlignTop);
-	extensionScriptsChk = new QCheckBox(startupTab, "extensionScriptsChk");
-	extLayout->addWidget(extensionScriptsChk);
-
-	startupScriptLayout = new Q3HBoxLayout(0, 10, 5, "startupScriptLayout");
-
-	startupScriptEditLabel = new QLabel(startupTab, "startupScriptEditLabel");
-	startupScriptEdit = new QLineEdit(startupTab, "startupScriptEdit");
-	startupScriptChangeButton = new QToolButton( startupTab, "startupScriptChangeButton" );
-	startupScriptChangeButton->setMinimumSize( QSize( 88, 24 ) );
-	startupScriptChangeButton->setText( tr( "Change..." ) );
+	setupUi(this);
 	
-	startupScriptLayout->addWidget(startupScriptEditLabel);
-	startupScriptLayout->addWidget(startupScriptEdit);
-	startupScriptLayout->addWidget(startupScriptChangeButton);
-	extLayout->addLayout(startupScriptLayout);
-	extScriptSpacer = new QSpacerItem(10, 10, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	extLayout->addItem(extScriptSpacer);
-
-	// colors
-	colorLayout = new Q3GridLayout(consoleTab, 1, 1, 10, 5);
-
-	errorLabel = new QLabel(consoleTab);
-	commentLabel = new QLabel(consoleTab);
-	keywordLabel = new QLabel(consoleTab);
-	signLabel = new QLabel(consoleTab);
-	numberLabel = new QLabel(consoleTab);
-	stringLabel = new QLabel(consoleTab);
-	textLabel = new QLabel(consoleTab);
-	errorButton = new QPushButton(consoleTab);
-	commentButton = new QPushButton(consoleTab);
-	keywordButton = new QPushButton(consoleTab);
-	signButton = new QPushButton(consoleTab);
-	numberButton = new QPushButton(consoleTab);
-	stringButton = new QPushButton(consoleTab);
-	textButton = new QPushButton(consoleTab);
-
-	colorLayout->addWidget(textLabel, 0, 0);
-	colorLayout->addWidget(textButton, 0, 1);
-	colorLayout->addWidget(commentLabel, 1, 0);
-	colorLayout->addWidget(commentButton, 1, 1);
-	colorLayout->addWidget(keywordLabel, 2, 0);
-	colorLayout->addWidget(keywordButton, 2, 1);
-	colorLayout->addWidget(signLabel, 3, 0);
-	colorLayout->addWidget(signButton, 3, 1);
-	colorLayout->addWidget(errorLabel, 4, 0);
-	colorLayout->addWidget(errorButton, 4, 1);
-	colorLayout->addWidget(stringLabel, 5, 0);
-	colorLayout->addWidget(stringButton, 5, 1);
-	colorLayout->addWidget(numberLabel, 6, 0);
-	colorLayout->addWidget(numberButton, 6, 1);
-
-	ScripterPrefsGuiBaseLayout->addWidget(tabWidget, 0, 0);
 	languageChange();
 	setupSyntaxColors();
-	resize(minimumSizeHint());
 
 	// Set the state of the ext script enable checkbox
 	extensionScriptsChk->setChecked(scripterCore->extensionsEnabled());
@@ -123,7 +62,6 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
  */
 ScripterPrefsGui::~ScripterPrefsGui()
 {
-	// no need to delete child widgets, Qt does it all for us
 }
 
 /*
@@ -133,7 +71,7 @@ ScripterPrefsGui::~ScripterPrefsGui()
 void ScripterPrefsGui::languageChange()
 {
 	setCaption( tr("Scripter Preferences"));
-	extensionScriptsChk->setText( tr("Enable Extension Scripts"));
+/*	extensionScriptsChk->setText( tr("Enable Extension Scripts"));
 	startupScriptEditLabel->setText( tr("Startup Script:"));
 	errorLabel->setText( tr("Errors:", "syntax highlighting"));
 	commentLabel->setText( tr("Comments:", "syntax highlighting"));
@@ -141,7 +79,7 @@ void ScripterPrefsGui::languageChange()
 	signLabel->setText( tr("Signs:", "syntax highlighting"));
 	numberLabel->setText( tr("Numbers:", "syntax highlighting"));
 	stringLabel->setText( tr("Strings:", "syntax highlighting"));
-	textLabel->setText( tr("Base Texts:", "syntax highlighting"));
+	textLabel->setText( tr("Base Texts:", "syntax highlighting"));*/
 }
 
 // Apply changes to prefs. Auto connected.
@@ -189,9 +127,7 @@ void ScripterPrefsGui::changeStartupScript()
 	if (!fi.exists())
 		currentScript = QDir::homeDirPath();
 
-	QString s = Q3FileDialog::getOpenFileName(currentScript, "Python Scripts (*.py *.PY)", this, "d", tr("Locate Startup Script"));
+	QString s = QFileDialog::getOpenFileName(currentScript, "Python Scripts (*.py *.PY)", this, "d", tr("Locate Startup Script"));
 	if (!s.isEmpty())
 		startupScriptEdit->setText(s);
 }
-
-//#include "scripterprefsgui.moc"

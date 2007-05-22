@@ -12,28 +12,8 @@ the Free Software Foundation; either version 2 of the License, or
 */
 
 #include "pconsole.h"
-//#include "pconsole.moc"
 
-#include <qpixmap.h>
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <q3header.h>
-#include <q3listview.h>
-#include <q3textedit.h>
-#include <qlayout.h>
-#include <qsplitter.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qmenubar.h>
-#include <q3filedialog.h>
-#include <qstatusbar.h>
-
-#include <q3syntaxhighlighter.h>
-//Added by qt3to4:
-#include <QCloseEvent>
-#include <Q3GridLayout>
-#include <Q3PopupMenu>
-#include <Q3VBoxLayout>
+#include <QFileDialog>
 #include "scribus.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -46,86 +26,64 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
 PythonConsole::PythonConsole( QWidget* parent)
-	: QWidget( parent, "PythonConsole", Qt::WType_TopLevel )
+	: QMainWindow( parent, "PythonConsole", Qt::WType_TopLevel )
 {
+	setupUi(this);
 	setIcon(loadIcon("AppIcon.png"));
 
-	// setup the menu
-	menuBar = new QMenuBar(this, "menuBar");
-	Q3PopupMenu *fileMenu = new Q3PopupMenu(this);
-	fileMenu->insertItem(loadIcon("16/document-open.png"), tr("&Open..."), this, SLOT(slot_open()), Qt::CTRL+Qt::Key_O);
-	fileMenu->insertItem(loadIcon("16/document-save.png"), tr("&Save"), this, SLOT(slot_save()), Qt::CTRL+Qt::Key_S);
-	fileMenu->insertItem(loadIcon("16/document-save-as.png"), tr("Save &As..."), this, SLOT(slot_saveAs()));
-	fileMenu->insertSeparator();
-	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
-	menuBar->insertItem( tr("&File"), fileMenu);
-	Q3PopupMenu *scriptMenu = new Q3PopupMenu(this);
-	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Qt::Key_F9);
-	scriptMenu->insertItem( tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), Qt::CTRL+Qt::Key_F9);
-	scriptMenu->insertItem( tr("&Save Output..."), this, SLOT(slot_saveOutput()));
-	menuBar->insertItem( tr("&Script"), scriptMenu);
+	changedLabel = new QLabel(this);
+	cursorTemplate = tr("Col: %1 Row: %2/%3");
+	cursorLabel = new QLabel(this);
+	statusBar()->addPermanentWidget(changedLabel);
+	statusBar()->addPermanentWidget(cursorLabel);
 
-	gridLayout = new Q3GridLayout( this, 0, 0, 1, 6, "gridLayout");
-	gridLayout->setMenuBar(menuBar);
+	action_Open->setIcon(loadIcon("16/document-open.png"));
+	action_Save->setIcon(loadIcon("16/document-save.png"));
+	actionSave_As->setIcon(loadIcon("16/document-save-as.png"));
+	action_Exit->setIcon(loadIcon("exit.png"));
+	action_Run->setIcon(loadIcon("ok.png"));
 
-	editorsLayout = new Q3VBoxLayout( 0, 0, 6, "editorsLayout");
+	action_Open->setShortcut(tr("Ctrl+O"));
+	action_Save->setShortcut(tr("Ctrl+S"));
+	action_Run->setShortcut(Qt::Key_F9);
+	actionRun_As_Console->setShortcut(Qt::CTRL + Qt::Key_F9);
 
-	QSplitter *splitter = new QSplitter(Qt::Vertical, this, "splitter");
-	editorsLayout->addWidget(splitter);
-
-	commandEdit = new Q3TextEdit(splitter, "commandEdit" );
-	commandEdit->setTextFormat(Qt::PlainText);
-	commandEdit->setFocus();
 	commandEdit->setTabStopWidth(commandEdit->pointSize() * 4);
-	QSizePolicy commandEditSize( commandEdit->sizePolicy() );
-	commandEditSize.setVerStretch(4);
-	commandEditSize.setVerData(QSizePolicy::Preferred);
-	commandEdit->setSizePolicy(commandEditSize);
+
 	// install syntax highlighter.
-	SyntaxHighlighter *sxHigh = new SyntaxHighlighter(commandEdit);
-	//remove that unused warning!
-	sxHigh->currentParagraph();
+	//SyntaxHighlighter *sxHigh =
+	new SyntaxHighlighter(commandEdit);
 
-	outputEdit = new Q3TextEdit(splitter, "outputEdit" );
-	outputEdit->setTextFormat(Qt::PlainText);
-	outputEdit->setReadOnly(true);
-	QSizePolicy outputEditSize( outputEdit->sizePolicy() );
-	outputEditSize.setVerStretch(10);
-	outputEditSize.setVerData(QSizePolicy::Expanding);
-	outputEdit->setSizePolicy(outputEditSize);
-
-	statusBar = new QStatusBar(this, "statusBar");
-	statusBar->setSizeGripEnabled(true);
-	commandEdit_cursorPositionChanged(0, 0);
-	editorsLayout->addWidget(statusBar);
-	
-	gridLayout->addLayout( editorsLayout, 0, 0 );
 	languageChange();
-	resize(QSize(640, 480).expandedTo(minimumSizeHint()));
+	commandEdit_cursorPositionChanged();
 
 	// welcome note
 	QString welcomeText("\"\"\"");
 	welcomeText += tr("Scribus Python Console");
 	welcomeText += "\n\n";
 	welcomeText += tr(
-			"This is derived from standard Python console "
-			"so it contains some limitations esp. in the "
-			"case of whitespaces. Please consult Scribus "
+			"This is derived from standard Python console\n"
+			"so it contains some limitations esp. in the\n"
+			"case of whitespaces. Please consult Scribus\n"
 			"manual for more informations.");
 	welcomeText += "\"\"\"\n";
 	commandEdit->setText(welcomeText);
-	commandEdit->selectAll(true);
+	commandEdit->selectAll();
 
-	connect(commandEdit, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(commandEdit_cursorPositionChanged(int, int)));
+	connect(commandEdit, SIGNAL(cursorPositionChanged()), this, SLOT(commandEdit_cursorPositionChanged()));
+	connect(commandEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentChanged(bool)));
+
+	connect(action_Open, SIGNAL(triggered()), this, SLOT(slot_open()));
+	connect(action_Save, SIGNAL(triggered()), this, SLOT(slot_save()));
+	connect(actionSave_As, SIGNAL(triggered()), this, SLOT(slot_saveAs()));
+	connect(action_Exit, SIGNAL(triggered()), this, SLOT(slot_quit()));
+	connect(action_Run, SIGNAL(triggered()), this, SLOT(slot_runScript()));
+	connect(actionRun_As_Console, SIGNAL(triggered()), this, SLOT(slot_runScriptAsConsole()));
+	connect(action_Save_Output, SIGNAL(triggered()), this, SLOT(slot_saveOutput()));
 }
 
-/*
- *  Destroys the object and frees any allocated resources
- */
 PythonConsole::~PythonConsole()
 {
-	//delete the highlighter
-	delete commandEdit->syntaxHighlighter();
 }
 
 void PythonConsole::setFonts()
@@ -142,9 +100,17 @@ void PythonConsole::closeEvent(QCloseEvent *)
 	emit paletteShown(false);
 }
 
-void PythonConsole::commandEdit_cursorPositionChanged(int para, int pos)
+void PythonConsole::commandEdit_cursorPositionChanged()
 {
-	statusBar->message( tr("Line: %1 Column: %2").arg(para+1).arg(pos+1));
+	QTextCursor cur(commandEdit->textCursor());
+	cursorLabel->setText(cursorTemplate.arg(cur.columnNumber()+1)
+										.arg(cur.blockNumber()+1)
+										.arg(commandEdit->document()->blockCount()));
+}
+
+void PythonConsole::documentChanged(bool state)
+{
+	changedLabel->setText(state ? "*" : " ");
 }
 
 void PythonConsole::languageChange()
@@ -159,7 +125,7 @@ void PythonConsole::slot_runScript()
 	outputEdit->clear();
 	parsePythonString();
 	emit runCommand();
-	outputEdit->setCursorPosition(0, 0);
+	commandEdit->textCursor().movePosition(QTextCursor::Start);
 }
 
 void PythonConsole::slot_runScriptAsConsole()
@@ -178,9 +144,8 @@ void PythonConsole::parsePythonString()
 		m_command = commandEdit->selectedText();
 	else
 	{
-		commandEdit->selectAll(true);
+		commandEdit->selectAll();
 		m_command = commandEdit->selectedText();
-		commandEdit->selectAll(false);
 	}
 	// prevent user's wrong selection
 	m_command += '\n';
@@ -191,7 +156,7 @@ void PythonConsole::parsePythonString()
  */
 void PythonConsole::slot_open()
 {
-	filename = Q3FileDialog::getOpenFileName(".",
+	filename = QFileDialog::getOpenFileName(".",
 			tr("Python Scripts (*.py *.PY)"),
 			this,
 			"ofdialog",
@@ -201,7 +166,7 @@ void PythonConsole::slot_open()
 	QFile file(filename);
 	if (file.open(QIODevice::ReadOnly))
 	{
-		Q3TextStream stream(&file);
+		QTextStream stream(&file);
 		commandEdit->setText(stream.read());
 		file.close();
 	}
@@ -217,7 +182,7 @@ void PythonConsole::slot_save()
 	QFile f(filename);
 	if (f.open(QIODevice::WriteOnly))
 	{
-		Q3TextStream stream(&f);
+		QTextStream stream(&f);
 		stream << commandEdit->text();
 		f.close();
 	}
@@ -226,7 +191,7 @@ void PythonConsole::slot_save()
 void PythonConsole::slot_saveAs()
 {
 	QString oldFname = filename;
-	filename = Q3FileDialog::getSaveFileName(".",
+	filename = QFileDialog::getSaveFileName(".",
 			tr("Python Scripts (*.py *.PY)"),
 			this,
 			"sfdialog",
@@ -250,7 +215,7 @@ void PythonConsole::slot_saveAs()
 
 void PythonConsole::slot_saveOutput()
 {
-	QString fname = Q3FileDialog::getSaveFileName(".",
+	QString fname = QFileDialog::getSaveFileName(".",
 			tr("Text Files (*.txt)"),
 			this,
 			"sfdialog",
@@ -269,7 +234,7 @@ void PythonConsole::slot_saveOutput()
 	// save
 	if (f.open(QIODevice::WriteOnly))
 	{
-		Q3TextStream stream(&f);
+		QTextStream stream(&f);
 		stream << outputEdit->text();
 		f.close();
 	}
@@ -283,223 +248,95 @@ void PythonConsole::slot_quit()
 /*
  * Syntax highlighting
  */
-SyntaxHighlighter::SyntaxHighlighter(Q3TextEdit *textEdit) : Q3SyntaxHighlighter(textEdit)
+SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(textEdit)
 {
 	// Reserved keywords in Python 2.4
+	QStringList keywords;
+	HighlightingRule rule;
+
 	keywords << "and" << "assert" << "break" << "class" << "continue" << "def"
 			 << "del" << "elif" << "else" << "except" << "exec" << "finally"
 			 << "for" << "from" << "global" << "if" << "import" << "in"
 			 << "is" << "lambda" << "not" << "or" << "pass" << "print" << "raise"
 			 << "return" << "try" << "while" << "yield";
+
+	keywordFormat.setForeground(colors.keywordColor);
+	keywordFormat.setFontWeight(QFont::Bold);
+	singleLineCommentFormat.setForeground(colors.commentColor);
+	singleLineCommentFormat.setFontItalic(true);
+	quotationFormat.setForeground(colors.stringColor);
+	numberFormat.setForeground(colors.numberColor);
+	operatorFormat.setForeground(colors.signColor);
+
+	foreach (QString kw, keywords)
+	{
+		rule.pattern = QRegExp("\\b" + kw + "\\b", Qt::CaseInsensitive);
+		rule.format = keywordFormat;
+		highlightingRules.append(rule);
+	}
+
+	rule.pattern = QRegExp("#[^\n]*");
+	rule.format = singleLineCommentFormat;
+	highlightingRules.append(rule);
+
+	rule.pattern = QRegExp("\'.*\'");
+	rule.pattern.setMinimal(true);
+	rule.format = quotationFormat;
+	highlightingRules.append(rule);
+
+	rule.pattern = QRegExp("\".*\"");
+	rule.pattern.setMinimal(true);
+	rule.format = quotationFormat;
+	highlightingRules.append(rule);
+
+	rule.pattern = QRegExp("\\b\\d+\\b");
+	rule.pattern.setMinimal(true);
+	rule.format = numberFormat;
+	highlightingRules.append(rule);
+
+	rule.pattern = QRegExp("[\\\\|\\<|\\>|\\=|\\!|\\+|\\-|\\*|\\/|\\%]+");
+	rule.pattern.setMinimal(true);
+	rule.format = operatorFormat;
+	highlightingRules.append(rule);
 }
 
-int SyntaxHighlighter::highlightParagraph(const QString &text, int endStateOfLastPara)
+void SyntaxHighlighter::highlightBlock(const QString &text)
 {
-	// position in the text
-	int i = 0;
-
-	/* ! ! signals error message, which we want in red */
-	if (text.length() >= 3 && text[0] == '!' && text[1] == ' ' && text[2] == '!')
+	foreach (HighlightingRule rule, highlightingRules)
 	{
-		setFormat(0, 3, QColor(Qt::white));
-		setFormat(3, text.length() - 2, colors.errorColor);
-		return 0;
+		QRegExp expression(rule.pattern);
+		int index = text.indexOf(expression);
+		while (index >= 0)
+		{
+			int length = expression.matchedLength();
+			setFormat(index, length, rule.format);
+			index = text.indexOf(expression, index + length);
+		}
 	}
+	setCurrentBlockState(0);
 
-	/* Turns of syntax highlighting for this line */
-	if (text.length() >= 2 && text[0] == '!' && text[i + 1] == ' ')
+	// multiline strings handling
+	int startIndex = 0;
+	if (previousBlockState() != 1)
+		startIndex = text.indexOf("\"\"\"");
+
+	while (startIndex >= 0)
 	{
-		setFormat(0, 2, QColor(Qt::white));
-		setFormat(2, text.length() - 2, colors.textColor);
-		return 0;
+		int endIndex = text.indexOf("\"\"\"", startIndex);
+		int commentLength;
+
+		if (endIndex == -1)
+		{
+			setCurrentBlockState(1);
+			commentLength = text.length() - startIndex;
+		}
+		else
+		{
+			commentLength = endIndex - startIndex + 3;//commentEndExpression.matchedLength();
+		}
+		setFormat(startIndex, commentLength, quotationFormat);
+		startIndex = text.indexOf("\"\"\"", startIndex + commentLength);
 	}
-
-	if (endStateOfLastPara == 1)
-	{
-		int docstrEnd = text.find("\"\"\"");
-		if (docstrEnd == -1)
-			docstrEnd = text.length();
-		setFormat(i, docstrEnd + 3, colors.commentColor);
-		if (docstrEnd == (int)text.length())
-			return 1;
-		i = docstrEnd + 3; // move back to """
-	}
-
-	while (i < text.length())
-	{
-		// HACK: remember the i is *the next* index!
-		QChar ch = text[i++];
-
-		if (ch.isLetter())
-		{
-			// Read one word
-			unsigned long s = i - 1;
-			QString actualWord = ch;
-			while ((ch = text[i]).isLetterOrNumber() || ch == '_')
-			{
-				i++;
-				actualWord += ch;
-			}
-
-			// Check for reserved keywords
-			if (keywords.contains(actualWord) != 0)
-				setFormat(s, (i - s), colors.keywordColor);
-			else
-				setFormat(s, (i - s), colors.textColor);
-		} // ch.isletter
-		else if (ch == '+' && text[i] != '=')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '-' && text[i] != '=')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '*' && text[i] == '*' && text[i + 1] != '=')
-			setFormat(i - 1, 2, colors.signColor);
-		else if (ch == '*' && (text[i] != '=' && text[i] != '*'))
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '/' && text[i] == '/' && text[i + 1] != '=')
-			setFormat(i - 1, 2, colors.signColor);
-		else if (ch == '/' && (text[i] != '=' && text[i] != '/'))
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '%' && text[i] != '=')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '&' && text[i] != '=')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '|' && text[i] != '=')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '^' && text[i] != '=')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '=' && text[i] == '=')
-		{
-			setFormat(i - 1, 2, colors.signColor);
-			i++;
-		}
-		else if (ch == '!' && text[i] == '=')
-		{
-			setFormat(i - 1, 2, colors.signColor);
-			i++;
-		}
-		else if (ch == '~')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '<')
-		{
-			if (text[i] == '>')
-			{
-				setFormat(i -1, 2, colors.signColor);
-				i++;
-			}
-			else if (text[i] == '<' && text[i + 1] == '=')
-			{
-				setFormat(i - 1, 3, colors.textColor);
-				i += 2;
-			}
-			else if (text[i] == '=' || text[i] == '<')
-			{
-				setFormat(i - 1, 2, colors.signColor);
-				i++;
-			}
-			else
-				setFormat(i - 1, 1, colors.signColor);
-		} // ch == '<'
-		else if (ch == '>')
-		{
-			if (text[i] == '>' && text[i + 1] == '=')
-			{
-				setFormat(i - 1, 3, colors.textColor);
-				i += 2;
-			}
-			else if (text[i] == '=' || text[i] == '>')
-			{
-				setFormat(i - 1, 2, colors.signColor);
-				i++;
-			}
-			else
-				setFormat(i - 1, 1, colors.signColor);
-		} // ch == '>'
-		else if (ch >= '0' && ch <= '9')
-		{
-			unsigned long s = i - 1; /* Start of number */
-			if (text[i] == 'x' || text[i] == 'X')
-			{
-				i++;
-				while ((text[i] >= '0' && text[i] <= '9') || (text[i] >= 'a' && text[i] <= 'f') || (text[i] >= 'A' && text[i] <= 'F'))
-					i++;
-				if (text[i] == 'L')
-					i++;
-				setFormat(s, (i - s), colors.numberColor);
-			}
-			while (text[i] >= '0' && text[i] <= '9')
-				i++;
-
-			bool floating = false;
-			if (text[i] == '.')
-			{
-				i++;
-				floating = true;
-				while (text[i] >= '0' && text[i] <= '9')
-					i++;
-			}
-			if (text[i] == 'e' || text[i] == 'E')
-			{
-				floating = true;
-				i++;
-				if (text[i] == '+' || text[i] == '-')
-					i++;
-				while (text[i] >= '0' && text[i] <= '9')
-					i++;
-			}
-			if (!floating && text[i] == 'L')
-				i++;
-			setFormat(s, (i - s), colors.numberColor);
-		} // if number
-		else if ( ch == '@')
-			setFormat(i - 1, 1, colors.signColor);
-		else if (ch == '#')
-		{
-			setFormat((i - 1), (text.length() - i), colors.commentColor);
-			i = text.length();
-		}
-		// docstrings etc. (""" blah """)
-		else if (ch == '"' && text.at(i) == '"' && text.at(i+1) == '"')
-		{
-			bool cont = false; // continue?
-			int docstrEnd = text.find("\"\"\"", i + 2);
-			if (docstrEnd == -1)
-			{
-				docstrEnd = text.length() - i;
-				cont = true;
-			}
-			setFormat(i - 1, docstrEnd + 2, colors.commentColor);
-			if (cont)
-				return 1; // comment """ is opened
-			i += docstrEnd + 2;
-		} // docstrings
-		else if ( ch == '\'' || ch == '"')
-		{
-			unsigned long s = i - 1;
-			if (text[i] != ch)
-			{
-				while (text[i] != ch && i != text.length())
-					i++;
-				if (text[i] == ch)
-					i++;
-				setFormat(s, (i - s), colors.stringColor);
-			}
-			else if (text[i] == ch && text[i + 1] == ch)
-			{
-				i += 2;
-				setFormat(s, (i - s), colors.textColor);
-
-			}
-			else if (text[i] == ch)
-			{
-				i++;
-				setFormat(s, (i - s), colors.stringColor);
-			}
-		}
-		/* Default */
-		else setFormat(i - 1, 1, colors.textColor);
-	}	// End of while statement
-
-	return 0;
 }
 
 SyntaxColors::SyntaxColors()

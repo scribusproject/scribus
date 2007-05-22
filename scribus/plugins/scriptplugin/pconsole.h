@@ -14,26 +14,9 @@ the Free Software Foundation; either version 2 of the License, or
 #ifndef PCONSOLE_H
 #define PCONSOLE_H
 
-#include <qvariant.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <q3syntaxhighlighter.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <QCloseEvent>
-
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
-class Q3ListView;
-class Q3ListViewItem;
-class Q3TextEdit;
-class QMenuBar;
-class QStatusBar;
+#include <QLabel>
+#include <QSyntaxHighlighter>
+#include "ui_pconsole.h"
 
 
 /*! \brief This is simple "IDE"/python console for interactive commands execution.
@@ -41,7 +24,7 @@ It's used e.g. like Tora (SQLnavigator) console. Sample: highlight some code,
 press F9, then see the results.
 \author Petr Vanek <petr@yarpen.cz>
 */
-class PythonConsole : public QWidget
+class PythonConsole : public QMainWindow, public Ui::PythonConsole
 {
 	Q_OBJECT
 
@@ -57,11 +40,6 @@ class PythonConsole : public QWidget
 		//! \brief File name for saving the contents
 		QString filename;
 
-		//! \brief Programmer's editor ;)
-		Q3TextEdit* commandEdit;
-		//! \brief Results viewer
-		Q3TextEdit* outputEdit;
-
 		//! \brief Close event for turning the action off
 		void closeEvent(QCloseEvent *);
 
@@ -75,10 +53,8 @@ class PythonConsole : public QWidget
 		virtual void slot_saveOutput();
 		virtual void slot_quit();
 		/*! \brief Slot processed after user change cursor postion in "programmer's editor".
-		\param para number of the paragraph (0 = 1st...)
-		\param pos position in the text like (0 = 1st...)
 		*/
-		virtual void commandEdit_cursorPositionChanged(int para, int pos);
+		virtual void commandEdit_cursorPositionChanged();
 
 	signals:
 		//! \brief Menu indication trigger
@@ -89,15 +65,17 @@ class PythonConsole : public QWidget
 	protected:
 		//! \brief prepare Python "script" from GUI widget
 		void parsePythonString();
-		Q3GridLayout* gridLayout;
-		Q3VBoxLayout* editorsLayout;
-		QMenuBar* menuBar;
-		QStatusBar* statusBar;
+
 		//! \brief String with the script to run (part of the all text)
 		QString m_command;
 
+		QLabel * changedLabel;
+		QLabel * cursorLabel;
+		QString cursorTemplate;
+
 	protected slots:
 		virtual void languageChange();
+		void documentChanged(bool state);
 
 };
 
@@ -123,27 +101,33 @@ class SyntaxColors
 };
 
 /*! \brief Simple syntax highlighting for Scripter (QTextEdit).
-Based on the source of the Python Realizer (http://www.python-realizer.net)
+Based on the source of the Sqliteman and Qt4 examples.
 but very simplifier. Improved too (of course).
 TODO: colors of the higlited texts. User should set the colors in the
       preferences. Waiting for the new plugin API.
 \author Petr Vanek, <petr@yarpen.cz>
-\author Richard Magnor Stenbro <stenbror@hotmail.com>
 */
-class SyntaxHighlighter : public Q3SyntaxHighlighter
+class SyntaxHighlighter : public QSyntaxHighlighter
 {
 	public:
-		SyntaxHighlighter(Q3TextEdit *textEdit);
+		SyntaxHighlighter(QTextEdit *textEdit);
 
-		/*! \brief Reimplementation of the Qt highligtion for python.
-		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
-		\param endStateOfLastPara how is the syntax left for next paragraph? 0 - normal text, 1 - multirows comment continues
-		*/
-		int highlightParagraph(const QString &text, int endStateOfLastPara);
+	protected:
+		void highlightBlock(const QString &text);
 
-	private:
-		//! \brief Reserved python keywords
-		QStringList keywords;
+		struct HighlightingRule
+		{
+			QRegExp pattern;
+			QTextCharFormat format;
+		};
+		QVector<HighlightingRule> highlightingRules;
+
+		QTextCharFormat keywordFormat;
+		QTextCharFormat singleLineCommentFormat;
+		QTextCharFormat quotationFormat;
+		QTextCharFormat numberFormat;
+		QTextCharFormat operatorFormat;
+
 		SyntaxColors colors;
 
 };
