@@ -431,6 +431,7 @@ void ScribusDoc::init()
 ScribusDoc::~ScribusDoc()
 {
 	m_guardedObject.nullify();
+	CloseCMSProfiles();
 	DocItems.setAutoDelete(true);
 //	FrameItems.setAutoDelete(true);
 	DocItems.clear();
