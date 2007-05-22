@@ -8803,6 +8803,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					}
 					return true;
 				}
+				Doc->m_Selection->setIsGUISelection(true);
+				Doc->m_Selection->connectItemToGUI();
 				if (!currItem->ChangedMasterItem)
 				{
 					currItem->setXYPos(OldX, OldY);
@@ -8835,6 +8837,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		if (currItem == NULL)
 		{
 			Doc->m_Selection->setIsGUISelection(true);
+			Doc->m_Selection->connectItemToGUI();
 			Deselect(true);
 			//Doc->m_Selection->clear();
 			return false;
@@ -9134,8 +9137,10 @@ void ScribusView::SetupDraw(int nr)
 	operItemResizing = true;
 	frameResizeHandle = 1;
 	qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+	Doc->m_Selection->setIsGUISelection(true);
 	Doc->m_Selection->clear();
 	Doc->m_Selection->addItem(currItem);
+	Doc->m_Selection->connectItemToGUI();
 	updateContents(currItem->getRedrawBounding(Scale));
 	operItemMoving = true;
 	Doc->appMode = modeNormal;
@@ -9152,8 +9157,10 @@ void ScribusView::SetupDrawNoResize(int nr)
 	PageItem* currItem = Doc->Items->at(nr);
 //	currItem->setFont(Doc->toolSettings.defFont);
 //	currItem->setFontSize(Doc->toolSettings.defSize);
+	Doc->m_Selection->setIsGUISelection(true);
 	Doc->m_Selection->clear();
 	Doc->m_Selection->addItem(currItem);
+	Doc->m_Selection->connectItemToGUI();
 	updateContents(currItem->getRedrawBounding(Scale));
 	if (!Prefs->stickyTools)
 		Doc->appMode = modeNormal;

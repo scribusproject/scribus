@@ -1094,12 +1094,20 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->isGroupControl = static_cast<bool>(pg.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
 					{
-						if (pg.tagName()=="PAGEOBJECT")
-							groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
-						else if (pg.tagName()=="FRAMEOBJECT")
-							groupIDF.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+						if (Neu->Groups.count() == 0) // Sanity check for some broken files created using buggy development versions.
+						{
+							Neu->isGroupControl = false;
+							Neu->setFillColor("None");
+						}
 						else
-							groupIDM.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+						{
+							if (pg.tagName()=="PAGEOBJECT")
+								groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+							else if (pg.tagName()=="FRAMEOBJECT")
+								groupIDF.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+							else
+								groupIDM.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+						}
 					}
 					m_Doc->setMasterPageMode(false);
 					counter++;
@@ -1247,7 +1255,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					}
 					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
-						groupID2.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					{
+						if (Neu->Groups.count() == 0) // Sanity check for some broken files created using buggy development versions.
+						{
+							Neu->isGroupControl = false;
+							Neu->setFillColor("None");
+						}
+						else
+							groupID2.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					}
 					pa = pa.nextSibling();
 				}
 				if (groupID2.count() != 0)
@@ -2859,7 +2875,15 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}
 					Neu->isGroupControl = static_cast<bool>(pg.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
-						groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					{
+						if (Neu->Groups.count() == 0) // Sanity check for some broken files created using buggy development versions.
+						{
+							Neu->isGroupControl = false;
+							Neu->setFillColor("None");
+						}
+						else
+							groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
@@ -3003,7 +3027,15 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}
 					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
-						groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					{
+						if (Neu->Groups.count() == 0) // Sanity check for some broken files created using buggy development versions.
+						{
+							Neu->isGroupControl = false;
+							Neu->setFillColor("None");
+						}
+						else
+							groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					}
 					pa = pa.nextSibling();
 				}
 				m_Doc->useRaster = savedAlignGrid;
