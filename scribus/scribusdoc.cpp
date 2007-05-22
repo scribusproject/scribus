@@ -3056,11 +3056,7 @@ void ScribusDoc::recalculateColors()
 		PageItem *ite = Items->at(c);
 		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
-			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-			cstops.at(cst)->color = tmpc;
-		}
+			ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
 	uint masterItemsCount=MasterItems.count();
 	for (uint c=0; c<masterItemsCount; ++c)
@@ -3068,11 +3064,7 @@ void ScribusDoc::recalculateColors()
 		PageItem *ite = MasterItems.at(c);
 		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
-			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-			cstops.at(cst)->color = tmpc;
-		}
+			ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
 	uint frameItemsCount=FrameItems.count();
 	for (uint c=0; c<frameItemsCount; ++c)
@@ -3080,11 +3072,7 @@ void ScribusDoc::recalculateColors()
 		PageItem *ite = FrameItems.at(c);
 		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-		{
-			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
-			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-			cstops.at(cst)->color = tmpc;
-		}
+			ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
 	QStringList patterns = docPatterns.keys();
 	for (int c = 0; c < patterns.count(); ++c)
@@ -3095,11 +3083,7 @@ void ScribusDoc::recalculateColors()
 			PageItem *ite = pa.items.at(o);
 			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-			{
-				QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
-				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-				cstops.at(cst)->color = tmpc;
-			}
+				ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->asImageFrame())
 				loadPict(ite->Pfile, ite, true, false);
 		}
