@@ -19,6 +19,8 @@
 #include "desaxe/simple_actions.h"
 #include "desaxe/saxiohelper.h"
 
+const QString Style::INHERIT_PARENT = "\n";
+
 void Style::setContext(const StyleContext* context)
 { 
 	if (m_context != context) {

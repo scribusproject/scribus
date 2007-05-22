@@ -162,7 +162,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			newStyle.setFillShade(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fillShade());
 			newStyle.setStrokeColor(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().strokeColor());
 			newStyle.setStrokeShade(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().strokeShade());
-			newStyle.setEffects(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().effects());
+			newStyle.setFeatures(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().features());
 		}
 		else
 		{
@@ -172,7 +172,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			newStyle.setFillShade(font->getShade());
 			newStyle.setStrokeColor(parseColor(font->getStrokeColor()));
 			newStyle.setStrokeShade(font->getStrokeShade());
-			newStyle.setEffects(static_cast<StyleFlag>(font->getEffectsValue()));
+			newStyle.setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
 		}
 		newStyle.setScaleH(font->getHscale());
 		newStyle.setScaleV(1000);
@@ -354,7 +354,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.setHasDropCap(pstyle->hasDropCap());
 	vg.setDropCapLines(pstyle->getDropCapHeight());
 	vg.setDropCapOffset(0);
-	vg.charStyle().setEffects(static_cast<StyleFlag>(font->getEffectsValue()));
+	vg.charStyle().setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
 	vg.charStyle().setFillColor(parseColor(font->getColor()));
 	vg.charStyle().setFillShade(font->getShade());
 	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));
@@ -422,7 +422,7 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.setHasDropCap(pstyle->hasDropCap());
 	vg.setDropCapLines(pstyle->getDropCapHeight());
 	vg.setDropCapOffset(0);
-	vg.charStyle().setEffects(static_cast<StyleFlag>(font->getEffectsValue()));
+	vg.charStyle().setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
 	vg.charStyle().setFillColor(parseColor(font->getColor()));
 	vg.charStyle().setFillShade(font->getShade());
 	vg.charStyle().setStrokeColor(parseColor(font->getStrokeColor()));

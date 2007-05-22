@@ -542,7 +542,7 @@ void EditStyle::Verlassen()
 void EditStyle::copyStyleSettings(ParagraphStyle& parstyle)
 {
 	CharStyle charstyle;
-	charstyle.setEffects(static_cast<StyleFlag>(EffeS->getStyle()));
+	charstyle.setFeatures(static_cast<StyleFlag>(EffeS->getStyle()).featureList());
 	parstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(AligS->getStyle()));
 	for (uint al = 0; al < lineSpacingPop->count(); ++al)
 	{

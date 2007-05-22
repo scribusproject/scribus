@@ -303,8 +303,8 @@ void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, cons
 		tracking_->setValue(cstyle->tracking() / 10.0, cstyle->isInhTracking());
 		tracking_->setParentValue(parent->tracking() / 10.0);
 
-		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhEffects());
-		effects_->setParentItem(static_cast<int>(parent->effects()));
+		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhFeatures());
+		effects_->setParentItem(static_cast<int>(parent->effects())); // FIXME
 
 		fillShade_->setValue(cstyle->fillShade(), cstyle->isInhFillShade());
 		fillShade_->setParentValue(parent->fillShade());

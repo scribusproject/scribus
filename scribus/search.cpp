@@ -714,7 +714,7 @@ void SearchReplace::slotDoReplace()
 						hg->setUnderlineWidth(Doc->currentStyle.charStyle().underlineWidth());
 						hg->setStrikethruOffset(Doc->currentStyle.charStyle().strikethruOffset());
 						hg->setStrikethruWidth(Doc->currentStyle.charStyle().strikethruWidth());
-						hg->setEffects(Doc->currentStyle.charStyle().effects());
+						hg->setFeatures(Doc->currentStyle.charStyle().features());
 /* FIXME NLS
 							if (RStyle->isChecked())
 							hg->cab = RStyleVal->currentItem();
@@ -724,7 +724,7 @@ void SearchReplace::slotDoReplace()
 						{
 							hg->setFont((*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()]);
 							hg->setFontSize(Doc->docParagraphStyles[hg->cab].charStyle().fontSize());
-							hg->setEffects(Doc->docParagraphStyles[hg->cab].charStyle().effects());
+							hg->setFeatures(Doc->docParagraphStyles[hg->cab].charStyle().features());
 						}
 */
 						if (RFont->isChecked())
@@ -767,7 +767,7 @@ void SearchReplace::slotDoReplace()
 		{
 #ifndef NLS_PROTO
 			int s = REffVal->getStyle();
-			Doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(s)); // ???
+			Doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???
 			for (int a = 0; a < Item->itemText.length(); ++a)
 			{
 				if (Item->itemText.selected(a))
@@ -775,7 +775,7 @@ void SearchReplace::slotDoReplace()
 					StyleFlag fl = Item->itemText.item(a)->effects();
 					fl &= static_cast<StyleFlag>(~1919);
 					fl |= static_cast<StyleFlag>(s);
-					Item->itemText.item(a)->setEffects(fl);
+					Item->itemText.item(a)->setFeatures(fl.featureList());
 				}
 			}
 #endif

@@ -102,6 +102,7 @@ bool StyleFlag::operator!= (const StyleFlagValue right) const
 }
 
 
+
 void CharStyle::applyCharStyle(const CharStyle & other)
 {
 	Style::applyStyle(other);
@@ -110,6 +111,7 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 		set##attr_NAME(other.m_##attr_NAME);
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	updateFeatures();
 }
 
 
@@ -122,6 +124,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 		reset##attr_NAME();
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	updateFeatures();
 }
 
 bool CharStyle::equiv(const Style & other) const
@@ -158,7 +161,7 @@ QString CharStyle::asString() const
 		result += QObject::tr("font %1 ").arg(font().scName());
 	if ( !inh_FontSize )
 		result += QObject::tr("size %1 ").arg(fontSize());
-	if ( !inh_Effects )
+	if ( !inh_Features )
 		result += QObject::tr("+style ");
 	if ( !inh_StrokeColor  ||  !inh_StrokeShade  ||  !inh_FillColor || !inh_FillShade )
 		result += QObject::tr("+color ");
@@ -193,7 +196,184 @@ void CharStyle::update(const StyleContext* context)
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	}
+	updateFeatures();
 }
+
+
+
+const QString CharStyle::INHERIT = "inherit";
+const QString CharStyle::BOLD = "bold";
+const QString CharStyle::ITALIC = "italic";
+const QString CharStyle::UNDERLINE = "underline";
+const QString CharStyle::UNDERLINEWORDS = "underlinewords";
+const QString CharStyle::STRIKETHROUGH = "strike";
+const QString CharStyle::SUPERSCRIPT = "superscript";
+const QString CharStyle::SUBSCRIPT = "subscript";
+const QString CharStyle::OUTLINE = "outline";
+const QString CharStyle::SHADOWED = "shadowed";
+const QString CharStyle::ALLCAPS = "allcaps";
+const QString CharStyle::SMALLCAPS = "smallcaps";
+// This is for loading legacy docs only. Scribus 1.3.4 should write smart hyphens in another way 
+static const QString SHYPHEN = "shyphen";
+
+
+QStringList StyleFlag::featureList() const
+{
+	QStringList result(CharStyle::INHERIT);
+	if (*this & ScStyle_Underline)
+		result << CharStyle::UNDERLINE;
+	if (*this & ScStyle_UnderlineWords)
+		result << CharStyle::UNDERLINEWORDS;
+	if (*this & ScStyle_Strikethrough)
+		result << CharStyle::STRIKETHROUGH;
+	if (*this & ScStyle_Superscript)
+		result << CharStyle::SUPERSCRIPT;
+	if (*this & ScStyle_Subscript)
+		result << CharStyle::SUBSCRIPT;
+	if (*this & ScStyle_Outline)
+		result << CharStyle::OUTLINE;
+	if (*this & ScStyle_Shadowed)
+		result << CharStyle::SHADOWED;
+	if (*this & ScStyle_AllCaps)
+		result << CharStyle::ALLCAPS;
+	if (*this & ScStyle_SmallCaps)
+		result << CharStyle::SMALLCAPS;
+	if (*this & ScStyle_HyphenationPossible)
+		result << SHYPHEN;
+	return result;
+}
+
+
+void CharStyle::updateFeatures()
+{
+	m_Effects &= ~ScStyle_UserStyles;
+	runFeatures(m_Features, dynamic_cast<const CharStyle*>(parentStyle()));
+/* need to access global fontlist :-/
+	if (!font().name().endsWith(fontVariant()))
+	{
+		m_font = ScFonts.instance().findFont(font().family() + fontVariant());
+	}
+ */
+}
+
+
+void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* parent)
+{
+	QStringList::ConstIterator it;
+	for (it = featureList.begin(); it != featureList.end(); ++it)
+	{
+		const QString& feature(*it);
+		if (feature == INHERIT)
+		{
+			if (parent)
+				runFeatures(parent->features(), dynamic_cast<const CharStyle*>(parent->parentStyle()));
+		}
+		else if (feature == BOLD)
+		{
+			// select bolder font
+		}
+		else if (feature == ITALIC)
+		{
+			// select italic font
+		}
+		else if (feature == UNDERLINE)
+		{
+			m_Effects |= ScStyle_Underline;
+		}
+		else if (feature == UNDERLINEWORDS)
+		{
+			m_Effects |= ScStyle_UnderlineWords;
+		}
+		else if (feature == STRIKETHROUGH)
+		{
+			m_Effects |= ScStyle_Strikethrough;
+		}
+		else if (feature == SUPERSCRIPT)
+		{
+			m_Effects |= ScStyle_Superscript;
+		}
+		else if (feature == SUBSCRIPT)
+		{
+			m_Effects |= ScStyle_Subscript;
+		}
+		else if (feature == OUTLINE)
+		{
+			m_Effects |= ScStyle_Outline;
+		}
+		else if (feature == SHADOWED)
+		{
+			m_Effects |= ScStyle_Shadowed;
+		}
+		else if (feature == ALLCAPS)
+		{
+			m_Effects |= ScStyle_AllCaps;
+		}
+		else if (feature == SMALLCAPS)
+		{
+			m_Effects |= ScStyle_SmallCaps;
+		}
+		else if (feature == SHYPHEN)
+		{
+			m_Effects |= ScStyle_HyphenationPossible;
+		}
+		else if (feature.startsWith("-"))
+		{
+			QString no_feature = feature.mid(1);
+			if (no_feature == BOLD)
+			{
+				// deselect bolder font
+			}
+			else if (no_feature == ITALIC)
+			{
+				// deselect italic font
+			}
+			else if (no_feature == UNDERLINE)
+			{
+				m_Effects &= ~ScStyle_Underline;
+			}
+			else if (no_feature == UNDERLINEWORDS)
+			{
+				m_Effects &= ~ScStyle_UnderlineWords;
+			}
+			else if (no_feature == STRIKETHROUGH)
+			{
+				m_Effects &= ~ScStyle_Strikethrough;
+			}
+			else if (no_feature == SUPERSCRIPT)
+			{
+				m_Effects &= ~ScStyle_Superscript;
+			}
+			else if (no_feature == SUBSCRIPT)
+			{
+				m_Effects &= ~ScStyle_Subscript;
+			}
+			else if (no_feature == OUTLINE)
+			{
+				m_Effects &= ~ScStyle_Outline;
+			}
+			else if (no_feature == SHADOWED)
+			{
+				m_Effects &= ~ScStyle_Shadowed;
+			}
+			else if (no_feature == ALLCAPS)
+			{
+				m_Effects &= ~ScStyle_AllCaps;
+			}
+			else if (no_feature == SMALLCAPS)
+			{
+				m_Effects &= ~ScStyle_SmallCaps;
+			}
+			else {
+				qDebug("CharStyle: unknown feature: %s", feature.ascii());
+			}
+		}
+		else {
+			qDebug("CharStyle: unknown feature: %s", feature.ascii());
+		}
+		
+	}
+}
+
 
 
 void CharStyle::setStyle(const CharStyle& other) 
@@ -205,6 +385,7 @@ void CharStyle::setStyle(const CharStyle& other)
 	m_##attr_NAME = other.m_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	updateFeatures();
 }
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
@@ -232,6 +413,7 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 	
 	if (!inh_Font && (it = newNames.fonts().find(font().scName())) != newNames.fonts().end())
 		setFont(newNames.availableFonts->findFont(it.data(), NULL));
+	updateFeatures();
 }
 								
 								  /*

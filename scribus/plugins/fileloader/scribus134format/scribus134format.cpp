@@ -1518,8 +1518,8 @@ namespace {
 			cstyle.resetFont();
 		if (cstyle.fontSize() <= -16000 / 10)
 			cstyle.resetFontSize();
-		if (cstyle.effects() == 65535)
-			cstyle.resetEffects();
+//		if (cstyle.effects() == 65535)
+//			cstyle.resetEffects();
 		if (cstyle.fillColor().isEmpty())
 			cstyle.resetFillColor();
 		if (cstyle.fillShade() <= -16000)
@@ -1601,10 +1601,13 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setFillShade(it->attribute("FSHADE").toInt());
 	
 	if (it->hasAttribute("EFFECTS"))
-		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("EFFECTS").toInt()));
+		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("EFFECTS").toInt()).featureList());
 	
 	if (it->hasAttribute("EFFECT"))
-		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("EFFECT").toInt()));
+		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("EFFECT").toInt()).featureList());
+	
+	if (it->hasAttribute("FEATURES"))
+		newStyle.setFeatures(QStringList::split( " ", it->attribute("FEATURES")));
 	
 	if (it->hasAttribute("SCOLOR"))
 		newStyle.setStrokeColor(it->attribute("SCOLOR", CommonStrings::None));
@@ -1691,7 +1694,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		newStyle.setFillShade(it->attribute("CSHADE").toInt());
 	
 	if (it->hasAttribute("CSTYLE"))
-		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()));
+		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()).featureList());
 
 	QString pstylename = it->attribute("PSTYLE", "");
 	int calign = it->attribute("CALIGN", "-1").toInt();		
@@ -1775,10 +1778,10 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			obj->itemText.insertChars(pos, QString(ch));
 		}
 //		qDebug(QString("style at %1: %2 ^ %3 = %4 (%5)").arg(pos).arg((uint)newStyle.effects()).arg((uint)last->Style.effects()).arg((uint)(newStyle.effects() ^ last->Style.effects())).arg(newStyle != last->Style));
-		if (newStyle != last->Style || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
+		if (newStyle != last->Style) // || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
 		{  // FIXME StyleFlag operator== ignores hyphen flag
 //			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
-			obj->itemText.applyCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
+			obj->itemText.setCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
 			last->Style = newStyle;
 			last->StyleStart = pos;
 		}
@@ -1795,7 +1798,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		}
 	}
 
-	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
+	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
 
 	if (!last->ParaStyle.isEmpty()) { // Qt4 >= 0) {
@@ -2143,7 +2146,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if (obj->hasAttribute("TXTSTW"))
 		pstyle.charStyle().setStrikethruWidth(qRound(obj->attribute("TXTSTW").toDouble() * 10));
 	if (obj->hasAttribute("TXTSTYLE"))
-		pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE").toInt()));
+		pstyle.charStyle().setFeatures(static_cast<StyleFlag>(obj->attribute("TXTSTYLE").toInt()).featureList());
 	if (obj->hasAttribute("TXTKERN"))
 		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
 	if (obj->hasAttribute("wordTrack"))

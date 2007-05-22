@@ -10514,7 +10514,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				it++;
 				nstyle.setFillShade((*it).toInt());
 				it++;
-				nstyle.setEffects(static_cast<StyleFlag>(it == wt.end() ? 0 : (*it).toInt()));
+				nstyle.setFeatures(static_cast<StyleFlag>(it == wt.end() ? 0 : (*it).toInt()).featureList());
 				it++;
 				int cab = it == wt.end() ? 0 : (*it).toInt();
 				it++;
@@ -10570,7 +10570,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			pstyle.charStyle().setScaleH(Buffer->TxtScale);
 			pstyle.charStyle().setScaleV(Buffer->TxtScaleV);
 			pstyle.charStyle().setBaselineOffset(Buffer->TxTBase);
-			pstyle.charStyle().setEffects(Buffer->TxTStyle);
+			pstyle.charStyle().setFeatures(StyleFlag(Buffer->TxTStyle).featureList());
 			pstyle.charStyle().setShadowXOffset(Buffer->TxtShadowX);
 			pstyle.charStyle().setShadowYOffset(Buffer->TxtShadowY);
 			pstyle.charStyle().setOutlineWidth(Buffer->TxtOutline);

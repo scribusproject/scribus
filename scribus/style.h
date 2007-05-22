@@ -91,10 +91,11 @@ public:
 	}
 	
 	QString parent() const           { return m_parent; }
-	void setParent(const QString& p) { if (m_parent != p) m_contextversion = -1; m_parent = p.isEmpty() ? "" : p; }
+	void setParent(const QString& p) { if (m_parent != p) m_contextversion = -1; m_parent = p.isEmpty()? "" : p; }
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
 	const Style* parentStyle() const;
 	
+	static const QString INHERIT_PARENT;
 	
 	virtual void setContext(const StyleContext* context);
 	const StyleContext* context() const        { return m_context; }
@@ -137,7 +138,7 @@ public:
 	 */
 	void applyStyle(const Style& other) { 
 		if (other.hasParent())
-			setParent(other.parent());
+			setParent( other.parent() == INHERIT_PARENT? "" :other.parent());
 		m_contextversion = -1;
 	}
 	/** 

@@ -80,6 +80,8 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
+static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
+
 ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_hasGUI(false),
 	prefsData(PrefsManager::instance()->appPrefs),
@@ -374,7 +376,7 @@ void ScribusDoc::init()
 	cstyle.setName( tr("Default Character Style"));
 	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
 	cstyle.setFontSize(toolSettings.defSize);
-	cstyle.setEffects(ScStyle_Default);
+	cstyle.setFeatures(QStringList(CharStyle::INHERIT));
 	cstyle.setFillColor(toolSettings.dPenText);
 	cstyle.setFillShade(toolSettings.dTextPenShade);
 	cstyle.setStrokeColor(toolSettings.dStrokeText);
@@ -4830,14 +4832,14 @@ void ScribusDoc::itemSelection_SetFont(QString fon, Selection* customSelection)
 void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection* customSelection)
 {
 	CharStyle newStyle;
-	newStyle.setParent(name);
+	newStyle.setParent(name.isEmpty()? Style::INHERIT_PARENT : name);
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 }
 
 void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
-	newStyle.setParent(name);
+	newStyle.setParent(name.isEmpty()? Style::INHERIT_PARENT : name);
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
@@ -5113,7 +5115,7 @@ void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, 
 void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 {
 	CharStyle newStyle;
-	newStyle.setEffects(static_cast<StyleFlag>(s));
+	newStyle.setFeatures(static_cast<StyleFlag>(s).featureList());
 	itemSelection_ApplyCharStyle(newStyle, customSelection);
 	return;
 	
@@ -5139,7 +5141,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 							StyleFlag fl = currItem->itemText.item(a)->effects();
 							fl &= static_cast<StyleFlag>(~1919); // 0x11101111111
 							fl |= static_cast<StyleFlag>(s & 1919);
-							currItem->itemText.item(a)->setEffects(fl);
+							currItem->itemText.item(a)->setFeatures(fl.featureList());
 						}
 					}
 				}
@@ -5150,7 +5152,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 						StyleFlag fl = currItem->itemText.item(a)->effects();
 						fl &= static_cast<StyleFlag>(~1919); // 1024+512+256+64+32+16+8+4+2+1
 						fl |= static_cast<StyleFlag>(s & 1919);
-						currItem->itemText.item(a)->setEffects(fl);
+						currItem->itemText.item(a)->setFeatures(fl.featureList());
 					}
 				}
 #endif
@@ -5186,49 +5188,30 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 
 void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 {
-	if (appMode == modeEdit) {
+	if (true || appMode == modeEdit) 
+	{
 		CharStyle newStyle;
 		newStyle.setFontSize(size);
 		itemSelection_ApplyCharStyle(newStyle, customSelection);
-		return;
-	}
-/*
-	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	Q_ASSERT(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
-	if (selectedItemCount == 0)
-		return;
-	if (selectedItemCount > 1)
-		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontSize,
-										QString("%1").arg(size/10.0), Um::IFont);
-	for (uint aa = 0; aa < selectedItemCount; ++aa)
-	{
-		PageItem *currItem = itemSelection->itemAt(aa);
-
-	ParagraphStyle storyStyle(currItem->itemText.defaultStyle());
-	*/
-	ParagraphStyle storyStyle;
-	storyStyle.charStyle().setFontSize(size);
-	if (storyStyle.lineSpacingMode() == 0)
-	{
-		storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
-	}
-	else if (storyStyle.lineSpacingMode() == 1)
-	{
-		storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
 	}
 	else
 	{
-		storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
+		ParagraphStyle storyStyle;
+		storyStyle.charStyle().setFontSize(size);
+		if (storyStyle.lineSpacingMode() == 0)
+		{
+			storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
+		}
+		else if (storyStyle.lineSpacingMode() == 1)
+		{
+			storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
+		}
+		else
+		{
+			storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
+		}
+		itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
 	}
-	itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
-	
-	/*
-		currItem->itemText.setDefaultStyle(storyStyle);
-	}
-	if (selectedItemCount > 1)
-		undoManager->commit();
-	 */
 }
 
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
@@ -5244,7 +5227,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && appMode == modeEdit)
+		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5293,7 +5276,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && appMode == modeEdit)
+		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5348,7 +5331,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && appMode == modeEdit)
+		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5408,7 +5391,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && appMode == modeEdit)
+		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
@@ -5460,7 +5443,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && appMode == modeEdit)
+		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
@@ -5511,7 +5494,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
 		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && appMode == modeEdit)
+		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
@@ -5536,7 +5519,6 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 				const QString& curParent(currItem->itemText.charStyle(i).parent());
 				if (curParent != lastParent)
 				{
-					lastParent = curParent;
 					if ( i-lastPos > 0)
 					{
 						CharStyle newStyle;
@@ -5544,6 +5526,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 						currItem->itemText.setCharStyle(lastPos, i-lastPos, newStyle);
 						lastPos = i;
 					}
+					lastParent = curParent;
 				}
 			}
 			if (lastPos < stop)

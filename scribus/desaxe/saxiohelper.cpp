@@ -186,6 +186,22 @@ Q3ValueStack<int> parseIntStack(const Xml_string& str)
 }
 
 
+Xml_string toXMLString(const QStringList& list)
+{
+	QString result = "";
+	QStringList::const_iterator dax;
+	for (dax = list.begin(); dax != list.end(); ++dax)
+		result += *dax + " ";
+	return result;
+}
+
+
+QStringList parseStringList(const Xml_string&  str)
+{
+	return QStringList::split(' ', str);
+}
+
+
 // FIXME: the following should not be in desaxe:
 Xml_string toXMLString(const ScFace& val)
 {

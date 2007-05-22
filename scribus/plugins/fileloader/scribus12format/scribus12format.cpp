@@ -388,7 +388,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 				vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 				vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-				vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+				vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
 				QString fColor = pg.attribute("FCOLOR", m_Doc->toolSettings.dBrush);
 				int fShade = pg.attribute("FSHADE", "100").toInt();
 				handleOldColorShade(m_Doc, fColor, fShade);
@@ -904,7 +904,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		style.setFillColor(fcolor);
 		style.setTracking(extra);
 		style.setFillShade(shade);
-		style.setEffects(static_cast<StyleFlag>(cstyle));
+		style.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
 		style.setStrokeColor(stroke);
 		style.setStrokeShade(shade2);
 		style.setScaleH(qMin(qMax(scale, 100), 4000));
@@ -1361,7 +1361,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
 	vg->setDropCapOffset(pg->attribute("DROPDIST", "0").toDouble());
-	vg->charStyle().setEffects(static_cast<StyleFlag>((pg->attribute("EFFECT", "0").toInt())));
+	vg->charStyle().setFeatures(static_cast<StyleFlag>((pg->attribute("EFFECT", "0").toInt())).featureList());
 	fColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
 	fShade = pg->attribute("FSHADE", "100").toInt();
 	handleOldColorShade(doc, fColor, fShade);

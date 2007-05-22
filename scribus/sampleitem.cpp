@@ -70,7 +70,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 	tmpStyle.setHasDropCap(false);
 	tmpStyle.setDropCapLines(0);//2;
 	tmpStyle.setDropCapOffset(0);
-	tmpStyle.charStyle().setEffects(ScStyle_Default);
+	tmpStyle.charStyle().setFeatures(QStringList(CharStyle::INHERIT));
 	tmpStyle.charStyle().setFillColor("__blackforpreview__");
 	tmpStyle.charStyle().setFillShade(100); //m_Doc->toolSettings.dShade;
 	tmpStyle.charStyle().setStrokeColor("__whiteforpreview__");
@@ -218,7 +218,7 @@ void SampleItem::setDropDist(double dropDist)
 
 void SampleItem::setFontEffect(int fontEffect)
 {
-	tmpStyle.charStyle().setEffects(static_cast<StyleFlag>(fontEffect));
+	tmpStyle.charStyle().setFeatures(static_cast<StyleFlag>(fontEffect).featureList());
 }
 
 void SampleItem::setFColor(QString fColor)

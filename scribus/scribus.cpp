@@ -1039,7 +1039,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		const ParagraphStyle& currPStyle(currItem->currentStyle());
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currPStyle.parent());
-		propertiesPalette->setCharStyle(currItem->currentCharStyle().name());
+		propertiesPalette->setCharStyle(currItem->currentCharStyle().parent());
 		doc->currentStyle = currItem->currentStyle();
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextStyle(doc->currentStyle);
@@ -4852,7 +4852,7 @@ void ScribusMainWindow::slotEditPaste()
 					it++;
 					nstyle.setFillShade((*it).toInt());
 					it++;
-					nstyle.setEffects(static_cast<StyleFlag>((*it).toInt()));
+					nstyle.setFeatures(static_cast<StyleFlag>((*it).toInt()).featureList());
 					it++;
 					int cab = (*it).toInt();
 					it++;
@@ -6235,7 +6235,7 @@ void ScribusMainWindow::setItemTypeStyle(int id)
 void ScribusMainWindow::setStilvalue(int s)
 {
 	int c = s & 1919;
-//	doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(c));
+//	doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(c).featureList());
 	scrActions["typeEffectNormal"]->setOn(c==0);
 	scrActions["typeEffectSuperscript"]->setOn(c & 1);
 	scrActions["typeEffectSubscript"]->setOn(c & 2);
@@ -6253,7 +6253,7 @@ void ScribusMainWindow::setItemHoch(int h)
 {
 	if (doc->m_Selection->count() != 0)
 	{
-//		doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(h));
+//		doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(h).featureList());
 		setStilvalue(h);
 		doc->itemSelection_SetEffects(h);
 	}
@@ -6906,7 +6906,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 								StyleFlag fl = chars->at(e)->charStyle.effects();
 								fl&= static_cast<StyleFlag>(~1919);
 								fl |= dia->TempVorl[cabneu].charStyle().effects();
-								chars->at(e)->charStyle.setEffects(fl);
+								chars->at(e)->charStyle.setFeatures(fl.featureList());
 							}
 							if (chars->at(e)->charStyle.fillColor() == doc->docParagraphStyles[cabori].charStyle().fillColor())
 								chars->at(e)->charStyle.setFillColor(dia->TempVorl[cabneu].charStyle().fillColor());

@@ -1959,7 +1959,7 @@ void StoryEditor::newTxStyle(int s)
 {
 	Editor->CurrentStyle = static_cast<StyleFlag>(s);
 	CharStyle charStyle;
-	charStyle.setEffects(Editor->CurrentStyle);
+	charStyle.setFeatures(Editor->CurrentStyle.featureList());
 	Editor->updateSel(charStyle);
 	Editor->setStyle(s);
 	if ((s & ScStyle_Outline) || (s & ScStyle_Shadowed))

@@ -392,9 +392,9 @@ QPixmap ScPreview::createPreview(QString data)
 					it++;
 					// Qt4 if (it == NULL)
 					if (it == wt.end())
-						hg->setEffects(ScStyle_Default);
+						hg->setFeatures(QStringList(CharStyle::INHERIT));
 					else
-						hg->setEffects(static_cast<StyleFlag>((*it).toInt()));
+						hg->setFeatures(static_cast<StyleFlag>((*it).toInt()).featureList());
 					it++;
 //					if (it == NULL)
 //						hg->cab = 0;

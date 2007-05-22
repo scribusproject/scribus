@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 #include <qstring.h>
-#include <qwidget.h>
 
 class QStringList;
 

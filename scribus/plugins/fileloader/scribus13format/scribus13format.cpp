@@ -1778,7 +1778,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		newStyle.setTracking(it->attribute("CKERN").toInt());
 	
 	if (it->hasAttribute("CSTYLE"))
-		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()));
+		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()).featureList());
 
 	QString pstylename = it->attribute("PSTYLE", "");
 	int calign = it->attribute("CALIGN", "-1").toInt();		
@@ -1907,7 +1907,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 	vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-	vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+	vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
 	QString fColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
 	int fShade = pg.attribute("FSHADE", "100").toInt();
 	handleOldColorShade(doc, fColor, fShade);
@@ -2210,7 +2210,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		pstyle.charStyle().setTracking(qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 10000.0));
 	else 
 		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
-	pstyle.charStyle().setEffects(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()));
+	pstyle.charStyle().setFeatures(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()).featureList());
 	tmp = "";
 	Q3ValueList<ParagraphStyle::TabRecord> tbValues;
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))

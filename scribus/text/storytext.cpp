@@ -316,7 +316,8 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 
 	ScText clone = (length() == 0  ?  ScText() : 
 			pos < length() ?  *(d->at(pos)) : *(d->at(length()-1)));
-	
+	clone.setEffects(ScStyle_Default);
+
 	for (int i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText(clone);
 		item->ch= txt.mid(i, 1);

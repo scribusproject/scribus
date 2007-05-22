@@ -86,6 +86,23 @@ bool ParagraphStyle::equiv(const Style& other) const
 }	
 
 
+/* hm... av
+static void updateAutoLinespacing(ParagraphStyle& that)
+{
+	switch (that.lineSpacingMode())
+	{
+		case 0: 
+			that.setLineSpacing(((that.charStyle().fontSize() / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
+			break;
+		case 1:
+			that.setLineSpacing(that.charStyle().font().height(size));
+			break;
+		case 2:
+			that.setLineSpacing(typographicSettings.valueBaseGrid-1);
+			break;
+	}
+}
+*/
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {

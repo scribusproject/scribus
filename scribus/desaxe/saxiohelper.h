@@ -4,7 +4,7 @@
 #include "desaxe_conf.h"
 #include <q3valuelist.h>
 #include <q3valuestack.h>
-
+#include <qstringlist.h>
 
 class ScFace;
 class FPointArray;
@@ -23,6 +23,7 @@ Xml_string toXMLString(const FPointArray& path);
 
 Xml_string toXMLString(const Q3ValueList<double>& doublelist);
 Xml_string toXMLString(const Q3ValueList<int>& intlist);
+Xml_string toXMLString(const QStringList& list);
 
 unsigned int parseUInt(const Xml_string& str);
 int parseInt(const Xml_string& str);
@@ -31,6 +32,7 @@ long parseLong(const Xml_string& str);
 double parseDouble(const Xml_string& str);
 float parseFloat(const Xml_string& str);
 bool parseBool(const Xml_string& str);
+QStringList parseStringList(const Xml_string& str);
 Q3ValueList<double> parseDoubleList(const Xml_string& str);
 Q3ValueList<int> parseIntList(const Xml_string& str);
 Q3ValueStack<int> parseIntStack(const Xml_string& str);

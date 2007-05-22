@@ -136,7 +136,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		style.setFillColor(fcolor);
 		style.setTracking(extra);
 		style.setFillShade(shade);
-		style.setEffects(static_cast<StyleFlag>(cstyle));
+		style.setFeatures(static_cast<StyleFlag>(cstyle).featureList());
 /*
  int pstyleNr;
 		if (impo)
@@ -445,7 +445,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 	vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-	vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+	vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
 	vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
 	vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
 	vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
