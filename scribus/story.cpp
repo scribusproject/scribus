@@ -451,7 +451,9 @@ void SEditor::saveItemText(PageItem *currItem)
 {
 	currItem->CPos = 0;
 	currItem->itemText.clear();
+	currItem->itemText.setDefaultStyle(StyledText.defaultStyle());
 	currItem->itemText.append(StyledText);
+	
 /* uh... FIXME
 		if (ch == SpecialChars::OBJECT)
 			{
