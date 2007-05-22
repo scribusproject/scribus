@@ -448,7 +448,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 		return defaultStyle().charStyle();
 	}
 	else if (pos == length()) {
-		qDebug(QString("storytext::charstyle: access at end of text %1").arg(pos));
+//		qDebug(QString("storytext::charstyle: access at end of text %1").arg(pos));
 		--pos;
 	}
 	if (text(pos) == SpecialChars::PARSEP)
