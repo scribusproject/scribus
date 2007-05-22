@@ -4,29 +4,12 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QColorDialog>
+#include <QFileDialog>
+
 #include "scripterprefsgui.h"
 #include "scriptercore.h"
 #include "pconsole.h"
-
-// #include <qvariant.h>
-// #include <qcheckbox.h>
-// #include <qlabel.h>
-// #include <qlineedit.h>
-// #include <qlayout.h>
-// #include <qtooltip.h>
-// #include <q3whatsthis.h>
-// //Added by qt3to4:
-// #include <Q3GridLayout>
-// #include <Q3HBoxLayout>
-// #include <Q3VBoxLayout>
-// #include <prefspanel.h>
-// #include <qtabwidget.h>
-// #include <qpushbutton.h>
-// #include <qtoolbutton.h>
-// #include <qcolordialog.h>
-// #include <q3filedialog.h>
-#include <QColorDialog>
-#include <QFileDialog>
 
 
 ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )

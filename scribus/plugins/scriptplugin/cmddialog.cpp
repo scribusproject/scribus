@@ -99,13 +99,13 @@ PyObject *scribus_valdialog(PyObject* /* self */, PyObject* args)
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", &caption, "utf-8", &message, "utf-8", &value))
 		return NULL;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	ValueDialog *d = new ValueDialog(ScCore->primaryMainWindow(), "d", true, 0);
-	d->dialogLabel->setText(QString::fromUtf8(message));
-	d->valueEdit->setText(QString::fromUtf8(value));
-	d->setCaption(QString::fromUtf8(caption));
-	d->exec();
-//	QApplication::restoreOverrideCursor();
-	return PyString_FromString(d->valueEdit->text().utf8());
+	QString txt = QInputDialog::getText(ScCore->primaryMainWindow(),
+										QString::fromUtf8(message),
+										QString::fromUtf8(message),
+										QLineEdit::Normal,
+										QString::fromUtf8(value));
+	QApplication::restoreOverrideCursor();
+	return PyString_FromString(txt.utf8());
 }
 
 PyObject *scribus_newstyledialog(PyObject*, PyObject* args)

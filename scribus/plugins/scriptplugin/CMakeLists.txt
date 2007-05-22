@@ -17,7 +17,6 @@ scriptplugin.h
 scriptercore.h
 scripterprefsgui.h
 runscriptdialog.h
-valuedialog.h
 )
 
 SET(SCRIPTER_PLUGIN_SOURCES
@@ -43,7 +42,6 @@ scriptercore.cpp
 scripterprefsgui.cpp
 scriptplugin.cpp
 svgimport.cpp
-valuedialog.cpp
 )
 
 SET(SCRIBUS_SCRIPTER_PLUGIN "scriptplugin")
