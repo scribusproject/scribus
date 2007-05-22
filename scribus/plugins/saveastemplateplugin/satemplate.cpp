@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satemplate.h"
-//#include "satemplate.moc"
 #include "satdialog.h"
 
 #include "scpaths.h"
@@ -197,8 +196,9 @@ void sat::createTmplXml()
 	xml += "</templates>\n";
 	if ( tmplXml.open( QIODevice::WriteOnly ) )
 	{
-		Q3TextStream stream(&tmplXml);
-		stream.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream stream(&tmplXml);
+// 		stream.setEncoding(Q3TextStream::UnicodeUTF8);
+		stream.setCodec(QTextCodec::codecForName("UTF-8"));
 		stream << xml;
 		tmplXml.close();
 	}
@@ -233,7 +233,7 @@ void sat::appendTmplXml()
 	QFile tmplXml(tmplXmlFile);
 	if (tmplXml.open(QIODevice::ReadOnly))
 	{
-		Q3TextStream stream(&tmplXml);
+		QTextStream stream(&tmplXml);
 		QString tmp = stream.readLine();
 		QString file = "";
 		while (!tmp.isNull())
@@ -246,8 +246,9 @@ void sat::appendTmplXml()
 		tmplXml.close();
 		if ( tmplXml.open( QIODevice::WriteOnly ) )
 		{
-			Q3TextStream stream2(&tmplXml);
-			stream2.setEncoding(Q3TextStream::UnicodeUTF8);
+			QTextStream stream2(&tmplXml);
+// 			stream2.setEncoding(Q3TextStream::UnicodeUTF8);
+			stream2.setCodec(QTextCodec::codecForName("UTF-8"));
 			stream2 << file;
 			tmplXml.close();
 		}

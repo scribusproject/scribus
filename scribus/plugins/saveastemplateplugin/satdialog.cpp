@@ -8,203 +8,58 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satdialog.h"
-//#include "satdialog.moc"
 #include "scribusapi.h"
 #include "prefsmanager.h"
-#include <prefsfile.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QPixmap>
-#include <QLabel>
-#include <Q3VBoxLayout>
+#include "prefsfile.h"
+
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
 {
+	setupUi(this);
 	setCaption( tr("Save as Template"));
 	setIcon(loadIcon("AppIcon.png"));
 	readPrefs();
 	
-	Q3BoxLayout* blo = new Q3VBoxLayout(this,0,5,"blo");
-	QWidget* top = new QWidget(this);
-	top->setMaximumHeight(5);
-	middle = new QWidget(this);
-	middle->setMinimumWidth(250);
-	Q3BoxLayout* middlelo = new Q3HBoxLayout(middle,0,5);
-	QWidget* left = new QWidget(middle);
-	center = new QWidget(middle);
-	QWidget* right = new QWidget(middle);
-	middlelo->addWidget(left);
-	middlelo->addWidget(center);
-	middlelo->addWidget(right);
-	QWidget* bottom = new QWidget(this);
-	bottom->setMinimumHeight(40);
-	bottom->setMaximumHeight(40);
-	blo->addWidget(top);
-	blo->addWidget(middle);
-	blo->addWidget(bottom);
-	
-	Q3BoxLayout* mlo = new Q3VBoxLayout(center,0,5);
-	mlo->insertSpacing(0,5);
-	nameLabel = new QLabel( tr("Name"),center);
-	mlo->addWidget(nameLabel);
-	nameEdit = new QLineEdit(center);
 	nameEdit->setText(tmplName);
-	mlo->addWidget(nameEdit);
-	
-	catsLabel = new QLabel( tr("Category"), center);
-	mlo->addWidget(catsLabel);
-	catsCombo = new QComboBox(center,"catsCombo");
-	mlo->addWidget(catsCombo);
 	setupCategories();
-	
-	psizeLabel = new QLabel( tr("Page Size"),center);
-	mlo->addWidget(psizeLabel);
-	psizeEdit = new QLineEdit(center);
-	mlo->addWidget(psizeEdit);
 	setupPageSize(pageW, pageH);
-	
-	colorsLabel = new QLabel( tr("Colors"),center);
-	mlo->addWidget(colorsLabel);
-	colorsEdit = new QLineEdit(center);
-	mlo->addWidget(colorsEdit);
-	
-	descrLabel = new QLabel( tr("Description"),center);
-	mlo->addWidget(descrLabel);
-	descrEdit = new Q3TextEdit(center);
-	mlo->addWidget(descrEdit);
-	
-	usageLabel = new QLabel( tr("Usage"),center);
-	mlo->addWidget(usageLabel);
-	usageEdit = new Q3TextEdit(center);
-	mlo->addWidget(usageEdit);
-	
-	authorLabel = new QLabel( tr("Author"),center);
-	mlo->addWidget(authorLabel);
-	authorEdit = new QLineEdit(center);
-	mlo->addWidget(authorEdit);
 	authorEdit->setText(author);
-	
-	emailLabel = new QLabel( tr("Email"),center);
-	mlo->addWidget(emailLabel);
-	emailEdit = new QLineEdit(center);
-	mlo->addWidget(emailEdit);
 	emailEdit->setText(email);
-	
-	mlo->addStretch(10);
-	mlo->insertSpacing(-1,5);
-	Q3BoxLayout* tlo = new Q3HBoxLayout(bottom,0,5);
-	detailButton = new QPushButton( tr("More Details"), bottom);
-	tlo->addWidget(detailButton);
-	tlo->addStretch(10);
-	okButton = new QPushButton( tr("OK"),bottom);
-	okButton->setDefault(true);
-	tlo->addWidget(okButton);
-	tlo->insertSpacing(0,5);
-	tlo->insertSpacing(-1,5);
-	
-	if (isFullDetail) 
-		fullDetail();
-	else
-		minimumDetail();
 
 	// Slots and signals connections
-	connect(detailButton, SIGNAL(clicked()), this, SLOT(detailClicked()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	
+	connect(detailButton, SIGNAL(stateChanged(int)), this, SLOT(detailClicked(int)));
 }
 
-void satdialog::detailClicked()
+void satdialog::detailClicked(int state)
 {
-	if (isFullDetail) {
-		minimumDetail();
-	} else {
-		fullDetail();
-	}
-	isFullDetail = !isFullDetail;
+	isFullDetail = state == Qt::Checked;
+
+	psizeLabel->setVisible(isFullDetail);
+	catsLabel->setVisible(isFullDetail);
+	colorsLabel->setVisible(isFullDetail);
+	descrLabel->setVisible(isFullDetail);
+	usageLabel->setVisible(isFullDetail);
+	authorLabel->setVisible(isFullDetail);
+	emailLabel->setVisible(isFullDetail);
+	psizeEdit->setVisible(isFullDetail);
+	catsCombo->setVisible(isFullDetail);
+	colorsEdit->setVisible(isFullDetail);
+	descrEdit->setVisible(isFullDetail);
+	usageEdit->setVisible(isFullDetail);
+	authorEdit->setVisible(isFullDetail);
+	emailEdit->setVisible(isFullDetail);
 }
 
-void satdialog::fullDetail() 
-{
-	detailButton->setText( tr("Less Details"));
-	psizeLabel->setHidden(false);
-	psizeLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	catsLabel->setHidden(false);
-	catsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	colorsLabel->setHidden(false);
-	colorsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	descrLabel->setHidden(false);
-	descrLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	usageLabel->setHidden(false);
-	usageLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	authorLabel->setHidden(false);
-	authorLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	emailLabel->setHidden(false);
-	emailLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	psizeEdit->setHidden(false);
-	psizeEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	catsCombo->setHidden(false);
-	catsCombo->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed));
-	colorsEdit->setHidden(false);
-	colorsEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	descrEdit->setHidden(false);
-	descrEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	usageEdit->setHidden(false);
-	usageEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	authorEdit->setHidden(false);
-	authorEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	emailEdit->show();
-	emailEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-	layout()->activate();
-//	resize(minimumSizeHint());
-	setFixedSize(minimumSizeHint());
-}
-
-void satdialog::minimumDetail()
-{
-	detailButton->setText( tr("More Details"));
-	catsLabel->hide();
-	catsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	psizeLabel->hide();
-	psizeLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	colorsLabel->hide();
-	colorsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	descrLabel->hide();
-	descrLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	usageLabel->hide();
-	usageLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	authorLabel->hide();
-	authorLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	emailLabel->hide();
-	emailLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	catsCombo->hide();
-	catsCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	psizeEdit->hide();
-	psizeEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	colorsEdit->hide();
-	colorsEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	descrEdit->hide();
-	descrEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	usageEdit->hide();
-	usageEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	authorEdit->hide();
-	authorEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-	emailEdit->hide();
-	emailEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-
-	layout()->activate();
-	setFixedSize(minimumSizeHint());
-
-	adjustSize();  // TODO Get rid of this
-}
-
-void satdialog::readPrefs() 
+void satdialog::readPrefs()
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
 	author = prefs->get("author", "");
 	email = prefs->get("email", "");
 	isFullDetail = prefs->getBool("isFullDetail", false);
+	detailClicked(isFullDetail ? Qt::Checked : Qt::Unchecked);
+	detailButton->setCheckState(isFullDetail ? Qt::Checked : Qt::Unchecked);
 }
 
 void satdialog::writePrefs()

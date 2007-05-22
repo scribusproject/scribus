@@ -7,12 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef MYPLUGIN_H
 #define MYPLUGIN_H
 
-#include <qobject.h>
-#include <qdatetime.h>
-#include <qdir.h>
-
 #include "pluginapi.h"
 #include "scplugin.h"
+
 
 class PLUGIN_API SaveAsTemplatePlugin : public ScActionPlugin
 {
