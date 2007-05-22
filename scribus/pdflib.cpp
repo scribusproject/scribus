@@ -1425,9 +1425,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		{
 			if ((colorsToUse[itf.key()].isSpotColor()) || (colorsToUse[itf.key()].isRegistrationColor()))
 			{
+				CMYKColor cmykValues;
 				int cc, cm, cy, ck;
 				struct SpotC spotD;
-				colorsToUse[itf.key()].getCMYK(&cc, &cm, &cy, &ck);
+				ScColorEngine::getCMYKValues(colorsToUse[itf.key()], &doc, cmykValues);
+				cmykValues.getValues(cc, cm, cy, ck);
 				QString colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255)+"\nmul exch dup ";
 				colorDesc += FToStr(static_cast<double>(cm) / 255)+"\nmul exch dup ";
 				colorDesc += FToStr(static_cast<double>(cy) / 255)+"\nmul exch ";
@@ -5322,6 +5324,7 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 		PutDoc("/N 1\n>>\n>>\nendobj\n");
 		if (spotMode)
 		{
+			CMYKColor cmykValues;
 			QString colorDesc;
 			StartObj(ObjCounter);
 			ObjCounter++;
@@ -5330,12 +5333,15 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			{
 				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
 				doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
+				cmykValues.getValues(cc, mc, yc, kc);
 				colorDesc = "{\nexch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul exch\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n";
-				doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
+				cmykValues.getValues(cc, mc, yc, kc);
 				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
@@ -5345,9 +5351,15 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			{
 				PutDoc("/Domain [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
 				if (oneSpot1)
-					doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				{
+					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c]], &doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+				}
 				else
-					doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				{
+					ScColorEngine::getCMYKValues(doc.PageColors[colorNames[c+1]], &doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
+				}
 				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
 				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";

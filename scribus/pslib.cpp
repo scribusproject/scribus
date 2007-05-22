@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "multiprogressdialog.h"
 #include "scribusapp.h"
 #include "scpattern.h"
+#include "scribusstructs.h"
 #include "sccolorengine.h"
 
 #include "text/nlsconfig.h"
@@ -84,6 +85,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	GrayCalc += "              oldsetgray} bind def\n";
 	Farben = "";
 	FNamen = "";
+	CMYKColor cmykValues;
 	ColorList::Iterator itf;
 	int c, m, y, k;
 	bool erst = true;
@@ -94,7 +96,8 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 	{
 		if (((DocColors[itf.key()].isSpotColor()) || (DocColors[itf.key()].isRegistrationColor())) && (useSpotColors))
 		{
-			DocColors[itf.key()].getCMYK(&c, &m, &y, &k);
+			ScColorEngine::getCMYKValues(DocColors[itf.key()], DocColors.document(), cmykValues);
+			cmykValues.getValues(c, m, y, k);
 			colorDesc += "/Spot"+PSEncode(itf.key())+" { [ /Separation (";
 			if (DocColors[itf.key()].isRegistrationColor())
 				colorDesc += "All";
@@ -109,7 +112,8 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 		}
 		if ((itf.key() != "Cyan") && (itf.key() != "Magenta") && (itf.key() != "Yellow") && (itf.key() != "Black") && DocColors[itf.key()].isSpotColor())
 		{
-			DocColors[itf.key()].getCMYK(&c, &m, &y, &k);
+			ScColorEngine::getCMYKValues(DocColors[itf.key()], DocColors.document(), cmykValues);
+			cmykValues.getValues(c, m, y, k);
 			if (!erst)
 			{
 				Farben += "%%+ ";
@@ -953,6 +957,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 	bool oneSpot1 = false;
 	bool oneSpot2 = false;
 	bool twoSpot = false;
+	CMYKColor cmykValues;
 	int cc, mc, yc, kc;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
@@ -992,12 +997,14 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 				if (oneSpot1)
 				{
 					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot1+") ]\n");
-					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 				}
 				else if (oneSpot2)
 				{
 					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot2+") ]\n");
-					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c+1]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 				}
 				else if (twoSpot)
 				{
@@ -1007,13 +1014,15 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 				PutSeite("{\n");
 				if (twoSpot)
 				{
-					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 					PutSeite("exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n");
-					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c+1]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
 					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
 					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
@@ -1104,6 +1113,7 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 	bool oneSpot2 = false;
 	bool twoSpot = false;
 	int cc, mc, yc, kc;
+	CMYKColor cmykValues;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
 	for (uint c = 0; c < Colors.count()-1; ++c)
@@ -1143,12 +1153,14 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 				if (oneSpot1)
 				{
 					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot1+") ]\n");
-					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 				}
 				else if (oneSpot2)
 				{
 					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot2+") ]\n");
-					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c+1]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 				}
 				else if (twoSpot)
 				{
@@ -1158,13 +1170,15 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 				PutSeite("{\n");
 				if (twoSpot)
 				{
-					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 					PutSeite("exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
 					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n");
-					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+					ScColorEngine::getCMYKValues(m_Doc->PageColors[colorNames[c+1]], m_Doc, cmykValues);
+					cmykValues.getValues(cc, mc, yc, kc);
 					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
 					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
 					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
