@@ -111,6 +111,7 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 		set##attr_NAME(other.m_##attr_NAME);
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	updateFeatures();
 }
 
 
@@ -123,6 +124,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 		reset##attr_NAME();
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	updateFeatures();
 }
 
 bool CharStyle::equiv(const Style & other) const
@@ -246,6 +248,12 @@ void CharStyle::updateFeatures()
 {
 	m_Effects &= ~ScStyle_UserStyles;
 	runFeatures(m_Features, dynamic_cast<const CharStyle*>(parentStyle()));
+/* need to access global fontlist :-/
+	if (!font().name().endsWith(fontVariant()))
+	{
+		m_font = ScFonts.instance().findFont(font().family() + fontVariant());
+	}
+ */
 }
 
 
@@ -377,6 +385,7 @@ void CharStyle::setStyle(const CharStyle& other)
 	m_##attr_NAME = other.m_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	updateFeatures();
 }
 
 void CharStyle::getNamedResources(ResourceCollection& lists) const
@@ -404,6 +413,7 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 	
 	if (!inh_Font && (it = newNames.fonts().find(font().scName())) != newNames.fonts().end())
 		setFont(newNames.availableFonts->findFont(it.data(), NULL));
+	updateFeatures();
 }
 								
 								  /*
