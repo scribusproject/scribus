@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageselector.h"
 #include "printerutil.h"
 #include "gsutil.h"
+#include "sccolorengine.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -728,10 +729,12 @@ void PPreview::blendImages(QImage &target, ScImage &scsource, ScColor col)
 	
 	//FIXME: if source and target have different sizesomething went wrong.
 	// eg. loadPicture() failed and returned a 1x1 image
+	CMYKColor cmykValues;
 	int h = qMin(target.height(),source.height());
 	int w = qMin(target.width(),source.width());
 	int cyan, c, m, yc, k, cc, mm, yy, kk;
-	col.getCMYK(&c, &m, &yc, &k);
+	ScColorEngine::getCMYKValues(col, doc, cmykValues);
+	cmykValues.getValues(c, m, yc, k);
 	for (int y=0; y < h; ++y )
 	{
 		QRgb *p = (QRgb *)target.scanLine( y );

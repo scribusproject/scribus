@@ -40,13 +40,16 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : NULL;
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error"));
 		return NULL;
 	}
-	edc[col].getCMYK(&c, &m, &y, &k);
+	CMYKColor cmykValues;
+	ScColorEngine::getCMYKValues(edc[col], currentDoc, cmykValues);
+	cmykValues.getValues(c, m, y, k);
 	return Py_BuildValue("(iiii)", static_cast<long>(c), static_cast<long>(m), static_cast<long>(y), static_cast<long>(k));
 }
 
