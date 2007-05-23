@@ -5206,8 +5206,8 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
+		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
+		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5255,8 +5255,8 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
+		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
+		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5310,8 +5310,8 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
+		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
+		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5370,8 +5370,8 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
+		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
+		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
@@ -5422,8 +5422,8 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
+		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
+		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
@@ -5473,8 +5473,8 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		uint currItemTextCount=currItem->itemText.length();
-		if (currItemTextCount != 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
+		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
+		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
