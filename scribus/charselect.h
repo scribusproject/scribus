@@ -25,6 +25,8 @@ class QCheckBox;
 class FontCombo;
 class PageItem;
 class UnicodeChooseButton;
+class CharTableModel;
+class QTableView;
 
 
 /*! \brief Character Palette for direct chars inserting. */
@@ -52,7 +54,8 @@ public:
 	void setupRangeCombo();
 	void generatePreview(int charClass);
 
-	CharTable* userTable() { return m_userTable; };
+// 	CharTable* userTable() { return m_userTable; };
+	CharTableModel * userTableModel() { return m_userTableModel; };
 
 private:
 	ScribusDoc* m_doc;
@@ -63,9 +66,11 @@ private:
 	//! \brief Currently selected character category. See usedCharClasses.
 	int m_characterClass;
 	//! \brief A all font's character table widget.
-	CharTable* m_charTable;
+	QTableView* m_charTable;
+	CharTableModel * m_charTableModel;
 	//! \brief User's defined char palette
-	CharTable* m_userTable;
+	QTableView* m_userTable;
+	CharTableModel * m_userTableModel;
 	UnicodeChooseButton* unicodeButton;
 
 	Q3ValueList<CharClassDef> allClasses;

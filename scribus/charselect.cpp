@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QTableView>
+
 #include <q3table.h>
 #include <q3groupbox.h>
 #include <qlayout.h>
@@ -75,8 +77,13 @@ CharSelect::CharSelect(QWidget* parent)
 
 	bigLayout->addLayout(combosLayout, 0, 0);
 
-	m_charTable = new CharTable(m_bigPalette, 16, m_doc, m_fontInUse);
-	m_charTable->enableDrops(false);
+// 	m_charTable = new CharTable(m_bigPalette, 16, m_doc, m_fontInUse);
+	m_charTable = new QTableView(m_bigPalette);
+	m_charTableModel = new CharTableModel(m_bigPalette, 16, m_doc, m_fontInUse);
+// 	m_charTable->enableDrops(false);
+	m_charTable->setModel(m_charTableModel);
+	m_charTable->resizeColumnsToContents();
+	m_charTable->resizeRowsToContents();
 
 	bigLayout->addWidget(m_charTable, 1, 0);
 
@@ -125,10 +132,14 @@ CharSelect::CharSelect(QWidget* parent)
 
 	quickLayout->addLayout(fileLayout, 2, 0);
 
-	m_userTable = new CharTable(m_quickPalette, 4, m_doc, m_fontInUse);
+	m_userTable = new QTableView(m_quickPalette);
+	m_userTableModel = new CharTableModel(m_quickPalette, 4, m_doc, m_fontInUse);
+	m_userTable->setModel(m_userTableModel);
 	m_userTable->setMaximumWidth(120);
 	m_userTable->setMinimumWidth(120);
-	m_userTable->enableDrops(true);
+// 	m_userTable->enableDrops(true);
+	m_userTable->resizeColumnsToContents();
+	m_userTable->resizeRowsToContents();
 
 	quickLayout->addWidget(m_userTable, 3, 0);
 
@@ -169,8 +180,8 @@ void CharSelect::setDoc(ScribusDoc* doc)
 	if (m_doc != doc)
 	{
 		m_doc = doc;
-		m_charTable->setDoc(m_doc);
-		m_userTable->setDoc(m_doc);
+		m_charTableModel->setDoc(m_doc);
+		m_userTableModel->setDoc(m_doc);
 		delEdit();
 		setupRangeCombo();
 		newCharClass(0);
@@ -505,7 +516,7 @@ void CharSelect::generatePreview(int charClass)
 	characters.clear();
 	if (charClass>=0 && charClass<allClasses.count())
 		characters = allClasses[charClass];
-	m_charTable->setCharacters(characters);
+	m_charTableModel->setCharacters(characters);
 }
 
 void CharSelect::newCharClass(int c)
@@ -520,8 +531,8 @@ void CharSelect::newFont(int font)
 	m_fontInUse = fontSelector->text(font);
 	if (!m_fontInUse.isEmpty())
 	{
-		m_charTable->setFontInUse(m_fontInUse);
-		m_userTable->setFontInUse(m_fontInUse);
+		m_charTableModel->setFontInUse(m_fontInUse);
+		m_userTableModel->setFontInUse(m_fontInUse);
 		unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
 		(*m_doc->AllFonts)[m_fontInUse].increaseUsage();
 		if (!oldFont.isEmpty())
@@ -620,8 +631,8 @@ bool CharSelect::eventFilter(QObject */*obj*/, QEvent *ev)
 {
 	if (ev->type() == QEvent::Show)
 	{
-		m_charTable->recalcCellSizes();
-		m_userTable->recalcCellSizes();
+// 		m_charTable->recalcCellSizes();
+// 		m_userTable->recalcCellSizes();
 //		return true;
 	}
 	return false;
@@ -636,7 +647,7 @@ void CharSelect::hideCheck_clicked()
 void CharSelect::show()
 {
 	ScrPaletteBase::show();
-	if (m_userTable->characters().count() > 0)
+	if (m_userTableModel->characters().count() > 0)
 	{
 		hideCheck->setChecked(true);
 		hideCheck_clicked();
@@ -691,13 +702,13 @@ void CharSelect::loadUserContent(QString f)
 			}
 		}
 		file.close();
-		m_userTable->setCharacters(newChars);
+		m_userTableModel->setCharacters(newChars);
 	}
 }
 
 void CharSelect::uniSaveButton_clicked()
 {
-	if (m_userTable->characters().count() == 0)
+	if (m_userTableModel->characters().count() == 0)
 		return;
 	QString f = Q3FileDialog::getSaveFileName(
                     QDir::currentDirPath(),
@@ -716,7 +727,7 @@ void CharSelect::saveUserContent(QString f)
 	if (file.open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(&file);
-		CharClassDef chars = m_userTable->characters();
+		CharClassDef chars = m_userTableModel->characters();
 		stream << "# This is a character palette file for Scribus\n";
 		for (CharClassDef::Iterator it = chars.begin(); it != chars.end(); ++it)
 			stream << (*it) << "\n";
@@ -730,7 +741,7 @@ void CharSelect::saveUserContent(QString f)
 
 void CharSelect::uniClearButton_clicked()
 {
-	if (m_userTable->characters().count() > 0
+	if (m_userTableModel->characters().count() > 0
 		&&
 		!QMessageBox::question(this, tr("Clean the Palette?"),
 					 "<qt>" + tr("You will clean all characters from this palette. Are you sure?") + "</qt>",
@@ -738,6 +749,6 @@ void CharSelect::uniClearButton_clicked()
 					 QString::null, 0, 1 )
 	   )
 	{
-		m_userTable->setCharacters(CharClassDef());
+		m_userTableModel->setCharacters(CharClassDef());
 	}
 }
