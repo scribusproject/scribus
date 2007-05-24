@@ -7,11 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef CHARSELECT_H
 #define CHARSELECT_H
 
-#include <qdialog.h>
-//Added by qt3to4:
-#include <QEvent>
-#include <QLabel>
-#include <Q3ValueList>
 #include "scribusapi.h"
 #include "chartable.h"
 #include "scrpalettebase.h"
@@ -19,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 class QLabel;
 class QPushbutton;
 class QComboBox;
-class Q3GroupBox;
+class QGroupBox;
 class QCheckBox;
 
 class FontCombo;
@@ -54,26 +49,27 @@ public:
 	void setupRangeCombo();
 	void generatePreview(int charClass);
 
-// 	CharTable* userTable() { return m_userTable; };
 	CharTableModel * userTableModel() { return m_userTableModel; };
 
 private:
 	ScribusDoc* m_doc;
 	//! \brief Current font name
 	QString m_fontInUse;
-	//! \brief Currently selected character set
-// 	QString m_characters;
 	//! \brief Currently selected character category. See usedCharClasses.
 	int m_characterClass;
+
 	//! \brief A all font's character table widget.
-	QTableView* m_charTable;
+	CharTableView* m_charTable;
+	//! \brief m_charTable model
 	CharTableModel * m_charTableModel;
+
 	//! \brief User's defined char palette
-	QTableView* m_userTable;
+	CharTableView* m_userTable;
+	//! \brief m_userTable model
 	CharTableModel * m_userTableModel;
 	UnicodeChooseButton* unicodeButton;
 
-	Q3ValueList<CharClassDef> allClasses;
+	QList<CharClassDef> allClasses;
 	CharClassDef characters;
 	CharClassDef charactersFull;
 	CharClassDef charactersLatin1;
@@ -122,15 +118,13 @@ signals:
 	void insertUserSpecialChar(QChar);
 
 protected:
-	bool eventFilter(QObject *obj, QEvent *ev);
-
 	QString paletteFileMask;
 
 	PageItem *m_Item;
 
 	// GUI
-	Q3GroupBox* m_bigPalette;
-	Q3GroupBox* m_quickPalette;
+	QGroupBox* m_bigPalette;
+	QGroupBox* m_quickPalette;
 
 	QLabel* insText;
 	QLabel* sample;

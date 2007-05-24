@@ -1,17 +1,16 @@
 #ifndef CHARZOOM_H
 #define CHARZOOM_H
 
-#include <qdialog.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <QPaintEvent>
+#include <QDialog>
 
 #include "scribusapi.h"
-#include "fonts/scface.h"
+
+class ScFace;
 class QPixmap;
+class QPaintEvent;
 
 
-/*! \brief "A magnifying glass" dialog for CharTable cell.
+/*! \brief "A magnifying glass" dialog for CharTableView cell.
 */
 class SCRIBUS_API CharZoom : public QDialog
 {

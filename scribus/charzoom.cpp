@@ -1,10 +1,8 @@
-#include <qpixmap.h>
-#include <qpainter.h>
-//Added by qt3to4:
+#include <QPixmap>
 #include <QPaintEvent>
 
+#include "fonts/scface.h"
 #include "charzoom.h"
-//#include "charzoom.moc"
 #include "scpainter.h"
 
 

@@ -4,36 +4,28 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <QTableView>
 
-#include <q3table.h>
-#include <q3groupbox.h>
-#include <qlayout.h>
-#include <qcheckbox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QFileDialog>
+#include <QGroupBox>
+#include <QGridLayout>
 #include <QLabel>
-#include <Q3GridLayout>
-#include <QPixmap>
-#include <Q3Frame>
-#include <QEvent>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QToolTip>
+#include <QTextStream>
+#include <QMessageBox>
 
-#include "scconfig.h"
-#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "fontcombo.h"
 #include "sccombobox.h"
-#include "scpainter.h"
 #include "unicodesearch.h"
-#include "selection.h"
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
 #include "util.h"
 #include "scpaths.h"
 
 #include "charselect.h"
-//#include "charselect.moc"
 
 
 CharSelect::CharSelect(QWidget* parent)
@@ -41,83 +33,76 @@ CharSelect::CharSelect(QWidget* parent)
 	m_doc(0),
 	m_Item(0)
 {
-	installEventFilter(this);
-
 	setCaption( tr("Character Palette"));
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	Q3HBoxLayout* mainLayout = new Q3HBoxLayout(this);
-	mainLayout->setSpacing(6);
-	mainLayout->setMargin(11);
+	QGridLayout * mainLayout = new QGridLayout(this);
+#ifndef Q_OS_MAC
+    mainLayout->setSpacing(6);
+    mainLayout->setMargin(9);
+#endif
 
 	// big table related
-	m_bigPalette = new Q3GroupBox(0, Qt::Vertical, tr("Enhanced Palette"), this, "m_bigPalette");
-	m_bigPalette->layout()->setSpacing(5);
-	m_bigPalette->layout()->setMargin(10);
-	Q3GridLayout* bigLayout = new Q3GridLayout(m_bigPalette->layout());
+	m_bigPalette = new QGroupBox(tr("Enhanced Palette"), this);
+	QGridLayout* bigLayout = new QGridLayout(m_bigPalette->layout());
+    bigLayout = new QGridLayout(m_bigPalette);
+#ifndef Q_OS_MAC
+    bigLayout->setSpacing(6);
+    bigLayout->setMargin(9);
+#endif
 
-	// combos
-	Q3HBoxLayout* combosLayout = new Q3HBoxLayout();
 	fontLabel = new QLabel(m_bigPalette, "fontLabel");
 	fontLabel->setText( tr("Font:"));
+	bigLayout->addWidget(fontLabel, 0, 0, 1, 1);
 
 	fontSelector = new FontCombo(m_bigPalette);
 	fontSelector->setMaximumSize(190, 30);
+	bigLayout->addWidget(fontSelector, 0, 1, 1, 1);
 
 	rangeLabel = new QLabel(m_bigPalette, "fontLabel");
 	rangeLabel->setText( tr("Character Class:"));
+	bigLayout->addWidget(rangeLabel, 0, 2, 1, 2);
 
 	rangeSelector = new ScComboBox(false, m_bigPalette, "rangeSelector");
+	bigLayout->addWidget(rangeSelector, 0, 4, 1, 1);
+
 	m_characterClass = 0;
 
-	combosLayout->addWidget(fontLabel);
-	combosLayout->addWidget(fontSelector);
-	combosLayout->addWidget(rangeLabel);
-	combosLayout->addWidget(rangeSelector);
-
-	bigLayout->addLayout(combosLayout, 0, 0);
-
-// 	m_charTable = new CharTable(m_bigPalette, 16, m_doc, m_fontInUse);
-	m_charTable = new QTableView(m_bigPalette);
+	m_charTable = new CharTableView(m_bigPalette);
 	m_charTableModel = new CharTableModel(m_bigPalette, 16, m_doc, m_fontInUse);
-// 	m_charTable->enableDrops(false);
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->resizeColumnsToContents();
 	m_charTable->resizeRowsToContents();
-
-	bigLayout->addWidget(m_charTable, 1, 0);
+	bigLayout->addWidget(m_charTable, 1, 0, 1, 5);
 
 	sample = new QLabel(m_bigPalette, "sample");
-	sample->setFrameShape(Q3Frame::Box);
+	sample->setFrameShape(QFrame::Box);
 	sample->setPaletteBackgroundColor(paletteBackgroundColor());
 	sample->setMinimumHeight(48);
 	sample->setMinimumWidth(460);
-
-	bigLayout->addWidget(sample, 2, 0);
+	bigLayout->addWidget(sample, 2, 0, 1, 5);
 
 	insertButton = new QPushButton( tr("&Insert"), m_bigPalette, "insertButton");
 	deleteButton = new QPushButton( tr("C&lear"), m_bigPalette, "deleteButton");
+	bigLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 3, 0, 1, 1);
+	bigLayout->addWidget(insertButton, 3, 1, 1, 2);
+	bigLayout->addWidget(deleteButton, 3, 3, 1, 2);
 
-	Q3HBoxLayout* buttonLayout = new Q3HBoxLayout();
-	QSpacerItem* buttonSpacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	buttonLayout->addItem(buttonSpacer);
-	buttonLayout->addWidget(insertButton);
-	buttonLayout->addWidget(deleteButton);
-
-	bigLayout->addLayout(buttonLayout, 3, 0);
+	mainLayout->addWidget(m_bigPalette, 0, 0, 1, 1);
 
 	// quick table
-	m_quickPalette = new Q3GroupBox(0, Qt::Vertical, tr("Quick Palette"), this, "m_quickPalette");
-	m_quickPalette->layout()->setSpacing(5);
-	m_quickPalette->layout()->setMargin(10);
-	Q3GridLayout* quickLayout = new Q3GridLayout(m_quickPalette->layout());
+	m_quickPalette = new QGroupBox(tr("Quick Palette"), this);
+	QGridLayout* quickLayout = new QGridLayout(m_quickPalette);
+#ifndef Q_OS_MAC
+    quickLayout->setSpacing(6);
+    quickLayout->setMargin(9);
+#endif
 
 	hideCheck = new QCheckBox( tr("Hide Enhanced"), m_quickPalette, "hideCheck");
-	quickLayout->addWidget(hideCheck, 0, 0);
+	quickLayout->addWidget(hideCheck, 0, 0, 1, 2);
 
 	unicodeButton = new UnicodeChooseButton(m_quickPalette, "unicodeButton");
-
-	quickLayout->addWidget(unicodeButton, 1, 0);
+	quickLayout->addWidget(unicodeButton, 2, 0, 1, 1);
 
 	uniLoadButton = new QPushButton(m_quickPalette, "uniLoadButton");
 	uniLoadButton->setPixmap(loadIcon("22/document-open.png"));
@@ -125,27 +110,22 @@ CharSelect::CharSelect(QWidget* parent)
 	uniSaveButton->setPixmap(loadIcon("22/document-save.png"));
 	uniClearButton = new QPushButton(m_quickPalette, "uniClearButton");
 	uniClearButton->setPixmap(loadIcon("22/document-new.png"));
-	Q3HBoxLayout *fileLayout = new Q3HBoxLayout();
-	fileLayout->addWidget(uniLoadButton);
-	fileLayout->addWidget(uniSaveButton);
-	fileLayout->addWidget(uniClearButton);
+	
+	quickLayout->addWidget(uniLoadButton, 2, 0, 1, 1);
+	quickLayout->addWidget(uniSaveButton, 2, 1, 1, 1);
+	quickLayout->addWidget(uniClearButton, 2, 2, 1, 1);
 
-	quickLayout->addLayout(fileLayout, 2, 0);
-
-	m_userTable = new QTableView(m_quickPalette);
+	m_userTable = new CharTableView(m_quickPalette);
 	m_userTableModel = new CharTableModel(m_quickPalette, 4, m_doc, m_fontInUse);
 	m_userTable->setModel(m_userTableModel);
 	m_userTable->setMaximumWidth(120);
 	m_userTable->setMinimumWidth(120);
-// 	m_userTable->enableDrops(true);
+	m_userTable->setAcceptDrops(true);
 	m_userTable->resizeColumnsToContents();
 	m_userTable->resizeRowsToContents();
+	quickLayout->addWidget(m_userTable, 3, 0, 1, 3);
 
-	quickLayout->addWidget(m_userTable, 3, 0);
-
-	// main layout
-	mainLayout->addWidget(m_bigPalette);
-	mainLayout->addWidget(m_quickPalette);
+	mainLayout->addWidget(m_quickPalette, 0, 1, 1, 1);
 
 	//tooltips
 	QToolTip::add(insertButton, "<qt>" + tr("Insert the characters at the cursor in the text") + "</qt>");
@@ -158,7 +138,7 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(m_charTable, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(m_userTable, SIGNAL(selectChar(uint)), this, SLOT(userNewChar(uint)));
 	connect(m_userTable, SIGNAL(delChar()), this, SLOT(delChar()));
-	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTable, SLOT(appendUnicode(QString)));
+	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), m_userTableModel, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
@@ -205,7 +185,6 @@ void CharSelect::setDoc(ScribusDoc* doc)
 
 const QString & CharSelect::getCharacters()
 {
-// 	return m_characters;
 	return chToIns;
 }
 
@@ -627,17 +606,6 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 	m_doc->changed();
 }
 
-bool CharSelect::eventFilter(QObject */*obj*/, QEvent *ev)
-{
-	if (ev->type() == QEvent::Show)
-	{
-// 		m_charTable->recalcCellSizes();
-// 		m_userTable->recalcCellSizes();
-//		return true;
-	}
-	return false;
-}
-
 void CharSelect::hideCheck_clicked()
 {
 	m_bigPalette->setShown(!hideCheck->isChecked());
@@ -664,7 +632,7 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 
 void CharSelect::uniLoadButton_clicked()
 {
-	QString f = Q3FileDialog::getOpenFileName(
+	QString f = QFileDialog::getOpenFileName(
                     QDir::currentDirPath(),
                     paletteFileMask,
                     this,
@@ -710,7 +678,7 @@ void CharSelect::uniSaveButton_clicked()
 {
 	if (m_userTableModel->characters().count() == 0)
 		return;
-	QString f = Q3FileDialog::getSaveFileName(
+	QString f = QFileDialog::getSaveFileName(
                     QDir::currentDirPath(),
                     paletteFileMask,
                     this,
