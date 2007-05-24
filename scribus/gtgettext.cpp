@@ -54,9 +54,11 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 			ida = *importerMap[fend];
 		else
 		{
+			dias = new gtDialogs();
 			callImporter = dias->runImporterDialog(ilist);
 			if (callImporter)
 				ida = importers[dias->getImporter()];
+			delete dias;
 		}
 	}
 	else
