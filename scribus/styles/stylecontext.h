@@ -37,13 +37,13 @@ class SCRIBUS_API StyleContext {
 	
 public:
 	StyleContext() 
-	: m_version(0), m_sig(), m_cnt(0)
+	: m_version(0), m_sig(NULL), m_cnt(0)
 	{
 //		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 
 	StyleContext(const StyleContext& o) 
-	: m_version(o.m_version), m_sig(), m_cnt(0)
+	: m_version(o.m_version), m_sig(NULL), m_cnt(0)
 	{
 //		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
@@ -62,9 +62,12 @@ public:
 	virtual bool contextContained(const StyleContext* context) const { return context == this; }
 	virtual bool checkConsistency() const { return true; }
 	virtual const Style* resolve(const QString& name) const = 0;
+	
 	virtual ~StyleContext() 
 	{
 //		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
+		if (m_sig)
+			delete m_sig;
 	}
 
 	void invalidate(); 
@@ -75,7 +78,7 @@ public:
 	
 protected:
 	int m_version;
-	mutable QSignal m_sig;
+	mutable QSignal* m_sig;
 	mutable int m_cnt;
 };
 

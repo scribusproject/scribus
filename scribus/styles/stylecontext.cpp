@@ -19,13 +19,15 @@
 void StyleContext::invalidate()
 {
 	++m_version; 
-	if (m_cnt > 0)          // activate() can be slow even if there's nothing to signal
-		m_sig.activate(); 
+	if (m_sig && m_cnt > 0)          // activate() can be slow even if there's nothing to signal
+		m_sig->activate(); 
 }
 
 bool StyleContext::connect(const QObject* receiver, const char *member ) const
 {
-	bool result = m_sig.connect(receiver, member);
+	if (!m_sig)
+		m_sig = new QSignal();
+	bool result = m_sig->connect(receiver, member);
 	if (result)
 		++m_cnt;
 	return result;
@@ -33,7 +35,10 @@ bool StyleContext::connect(const QObject* receiver, const char *member ) const
 
 bool StyleContext::disconnect(const QObject* receiver, const char *member ) const
 {
-	bool result = m_sig.disconnect(receiver, member);
+	if (!m_sig)
+		return false;
+	
+	bool result = m_sig->disconnect(receiver, member);
 	if (result)
 		--m_cnt;
 	return result;
