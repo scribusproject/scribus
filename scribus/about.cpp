@@ -60,7 +60,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "20";
+	QString BUILD_DAY = "24";
 	QString BUILD_MONTH = CommonStrings::may;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -194,6 +194,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 											"<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
 											"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + tr("Splash Screen:").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td>Andy Fitzsimon</td><td>andrew@fitzsimon.com.au</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Tango Project Icons:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr>" +
