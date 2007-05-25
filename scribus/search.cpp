@@ -734,7 +734,7 @@ void SearchReplace::slotDoReplace()
 						hg->setTracking(0);
 						Item->itemText.insert(ReplStart+cx, hg);
 #else
-						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1)); 
+						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1), true); 
 #endif
 					}
 					// FIXME:NLS also replace styles!!

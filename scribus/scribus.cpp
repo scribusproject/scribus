@@ -1103,7 +1103,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 						if (currItem->HasSel && currItem->itemType()==PageItem::TextFrame)
 							currItem->asTextFrame()->deleteSelectedTextFromFrame();
 
-						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)));
+						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)), true);
 						currItem->CPos += 1;
 //						currItem->Tinput = true;
 						view->RefreshItem(currItem);
@@ -1119,7 +1119,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							fl |= ScStyle_HyphenationPossible;
 							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
 #else
-							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN));
+							currItem->itemText.insertChars(currItem->CPos, QString(SpecialChars::SHYPHEN), true);
 							currItem->CPos += 1;
 #endif
 //							currItem->Tinput = true;
@@ -4645,6 +4645,12 @@ void ScribusMainWindow::slotEditCut()
 				rebuildRecentPasteMenu();
 			}
 			Buffer2 = BufferI;
+			for (uint i=0; i < doc->m_Selection->count(); ++i)
+			{
+				PageItem* frame = doc->m_Selection->itemAt(i);
+				if (frame->asTextFrame() && frame->prevInChain() == NULL)
+					frame->clearContents();
+			}
 			doc->itemSelection_DeleteItem();
 			delete ss;
 		}
@@ -4974,7 +4980,7 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				// K.I.S.S.:
-				currItem->itemText.insertChars(currItem->CPos, Buffer2);
+				currItem->itemText.insertChars(currItem->CPos, Buffer2, true);
 			}
 			view->RefreshItem(currItem);
 		}

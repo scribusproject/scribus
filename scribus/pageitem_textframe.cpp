@@ -2579,7 +2579,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					deleteSelectedTextFromFrame();
 				if (conv < 31)
 					conv = 32;
-				itemText.insertChars(CPos, QString(QChar(conv)));
+				itemText.insertChars(CPos, QString(QChar(conv)), true);
 				CPos += 1;
 //				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
@@ -2912,7 +2912,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		//if ((kk == Qt::Key_Tab) || ((kk == Qt::Key_Return) && (buttonState & Qt::ShiftButton)))
 		if (kk == Qt::Key_Tab)
 		{
-			itemText.insertChars(CPos, QString(SpecialChars::TAB));
+			itemText.insertChars(CPos, QString(SpecialChars::TAB), true);
 			CPos += 1;
 //			Tinput = true;
 //			view->RefreshItem(this);
@@ -2920,7 +2920,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
 		{
-			itemText.insertChars(CPos, uc);
+			itemText.insertChars(CPos, uc, true);
 			CPos += 1;
 			if ((m_Doc->docHyphenator->AutoCheck) && (CPos > 1))
 			{

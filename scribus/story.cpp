@@ -444,7 +444,7 @@ void SEditor::insChars(QString t)
 		deleteSel();
 	getCursorPosition(&p, &i);
 	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
-	StyledText.insertChars(pos, t);
+	StyledText.insertChars(pos, t, true);
 }
 
 void SEditor::insStyledText()

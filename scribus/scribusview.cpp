@@ -6595,7 +6595,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						if (!cc.isNull())
 						{
 							// K.I.S.S.:
-							currItem->itemText.insertChars(0, cc);
+							currItem->itemText.insertChars(0, cc, true);
 							if (Doc->docHyphenator->AutoCheck)
 								Doc->docHyphenator->slotHyphenate(currItem);
 							emit ChBMText(currItem);
