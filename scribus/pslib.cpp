@@ -359,6 +359,8 @@ void PSLib::PS_set_Info(QString art, QString was)
 bool PSLib::PS_set_file(QString fn)
 {
 	Spool.setName(fn);
+	if (Spool.exists())
+		Spool.remove();
 	bool ret = Spool.open(QIODevice::WriteOnly);
 	spoolStream.setDevice(&Spool);
 	return ret;
