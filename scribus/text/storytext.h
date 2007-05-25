@@ -108,7 +108,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	void insert(int pos, const StoryText& other, bool onlySelection = false);
 	void append(const StoryText& other) { insert(length(), other, false); }
  	void removeChars(int pos, uint len);
- 	void insertChars(int pos, QString txt);
+ 	void insertChars(int pos, QString txt, bool applyNeighbourStyle = false);
  	void insertObject(int pos, PageItem* obj);
  	void replaceChar(int pos, QChar ch);
 
