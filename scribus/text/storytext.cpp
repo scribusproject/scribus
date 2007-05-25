@@ -660,7 +660,7 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	for (uint i=pos; i < pos+len; ++i) {
 		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle() = style;
-		*static_cast<CharStyle*>(d->current()) = style;
+		d->current()->setStyle(style);
 		d->next();
 	}
 	

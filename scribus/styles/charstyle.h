@@ -38,7 +38,7 @@ enum StyleFlagValue {
     ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
     ScStyle_SmartHyphenVisible=8192, //Smart Hyphen visible at line end
     ScStyle_StartOfLine   = 16384,
-	ScStyle_UserStyles    = 2047, // 1919, // == 1024 + 512 + 256 + 64 + 32 + 16 + 8 + 4 + 2 + 1
+	ScStyle_UserStyles    = 1919, // == 1024 + 512 + 256 + 64 + 32 + 16 + 8 + 4 + 2 + 1
 	ScStyle_None          = 65535
 };
 
