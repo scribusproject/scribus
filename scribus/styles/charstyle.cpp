@@ -380,6 +380,7 @@ void CharStyle::setStyle(const CharStyle& other)
 {
 	other.validate();
 	setParent(other.parent());
+	m_contextversion = -1; 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	inh_##attr_NAME = other.inh_##attr_NAME; \
 	m_##attr_NAME = other.m_##attr_NAME;
