@@ -301,7 +301,7 @@ void StoryText::removeChars(int pos, uint len)
 	invalidate(pos, length());
 }
 
-void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
+void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)
 {
 	if (pos < 0)
 		pos += length()+1;
@@ -314,9 +314,13 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	
 	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
 
-	ScText clone = (length() == 0  ?  ScText() : 
-			pos < length() ?  *(d->at(pos)) : *(d->at(length()-1)));
-	clone.setEffects(ScStyle_Default);
+	ScText clone;
+	if (applyNeighbourStyle)
+	{
+		int referenceChar = QMAX(0, QMIN(pos, length()-1));
+		clone.applyCharStyle(charStyle(referenceChar));
+		clone.setEffects(ScStyle_Default);
+	}
 
 	for (int i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText(clone);
@@ -647,6 +651,7 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 		pos += length();
 	
 	assert(pos >= 0);
+	assert(len <= unsigned(length()));
 	assert(pos + signed(len) <= length());
 	
 	if (len == 0)
@@ -656,7 +661,7 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	for (uint i=pos; i < pos+len; ++i) {
 		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle() = style;
-		*static_cast<CharStyle*>(d->current()) = style;
+		d->current()->setStyle(style);
 		d->next();
 	}
 	

@@ -262,7 +262,7 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 	QStringList::ConstIterator it;
 	for (it = featureList.begin(); it != featureList.end(); ++it)
 	{
-		const QString& feature(*it);
+		QString feature = *it;
 		if (feature == INHERIT)
 		{
 			if (parent)
