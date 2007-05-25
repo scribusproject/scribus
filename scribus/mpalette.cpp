@@ -3900,6 +3900,8 @@ void Mpalette::doClearPStyle()
 	if (HaveDoc)
 	{
 		doc->itemSelection_EraseParagraphStyle();
+		CharStyle emptyCStyle;
+		doc->itemSelection_SetCharStyle(emptyCStyle);
 	}
 }
 
