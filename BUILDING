@@ -5,8 +5,8 @@ particular distributions and operating systems.
 CMake Build
 ====================
 
-Scribus 1.3.5+ has replaced plus have an optional build system which
-replaces the traditionally used so called autotools. CMake (cmake.org) is 
+Scribus 1.3.5+ has replaced  the traditionally used so called 
+autotools. CMake (cmake.org) is 
 a modern, cross-platform replacement for autotools. 
 
 Please see install4.html or http://docs.scribus.net/index.php?lang=en&page=install4
@@ -21,7 +21,7 @@ Install the below packages BEFORE running configure or compiling Scribus:
 
 Requirements:
 	Qt >= 4.2.x (we may require Qt 4.3.x at the time of release)
-	Freetype >= 2.1.3 (2.2.1+ strongly recommended)
+	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.4.x 
 	libtiff >= 3.6.0
 	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
@@ -274,7 +274,7 @@ Recommended packages for compiling from source on SuSE 9.x/10.x:
 	python-imaging
 
 You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.5+
-on anything older than Suse 9.3. 
+on anything older than Suse 10.0. 
 
 Please note we do provide frequently updated packages including debuginfo rpms on the Suse Build
 Server. at http//software.opensuse.org
