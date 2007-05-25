@@ -583,7 +583,7 @@ void CharSelect::slot_insertSpecialChar()
 			ch = QChar(13);
 		if (ch == QChar(9))
 			ch = QChar(32);
-		m_Item->itemText.insertChars(m_Item->CPos, ch);
+		m_Item->itemText.insertChars(m_Item->CPos, ch, true);
 		m_Item->CPos += 1;
 	}
 	m_doc->view()->DrawNew();
@@ -602,7 +602,7 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 		ch = QChar(13);
 	if (ch == QChar(9))
 		ch = QChar(32);
-	m_Item->itemText.insertChars(m_Item->CPos, ch);
+	m_Item->itemText.insertChars(m_Item->CPos, ch, true);
 	m_Item->CPos += 1;
 	m_doc->view()->DrawNew();
 	m_doc->changed();
