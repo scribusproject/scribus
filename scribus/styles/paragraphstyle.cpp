@@ -208,6 +208,7 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 {
 	other.validate();
 	setParent(other.parent());
+	m_contextversion = -1; 
 	cstyle.setStyle(other.charStyle());
 	cstyleContext.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
