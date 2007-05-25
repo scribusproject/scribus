@@ -972,8 +972,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 							double opa = it.attribute("TRANS", "1").toDouble();
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
-						if (it.tagName()=="ITEXT")
+						if (it.tagName()=="ITEXT") {
 							GetItemText(&it, m_Doc, Neu, last);
+						}
 						else if (it.tagName()=="para") {
 							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
 							ParagraphStyle newStyle;
@@ -1025,6 +1026,18 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						}
 						IT=IT.nextSibling();
 					}
+					if (Neu->asTextFrame())
+					{
+/*
+ QString dbg("");
+						for (int i=0; i < Neu->itemText.length(); ++i)
+						{
+							dbg += Neu->itemText.text(i,1);
+							if (Neu->itemText.item(i)->effects() & ScStyle_HyphenationPossible)
+								dbg += "~";
+						}
+						qDebug("scribus134format: read itemtext '%s'", dbg.latin1());
+*/					}
 					if (Neu->asPathText())
 					{
 						Neu->updatePolyClip();
@@ -1774,6 +1787,12 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 				obj->itemText.insertObject(pos, doc->FrameItems.at(iobj));
 			}
 		}
+		else if (ch == SpecialChars::SHYPHEN && pos > 0)
+		{
+//			qDebug(QString("scribus134format: SHYPHEN at %1").arg(pos));
+			ScText* lastItem = obj->itemText.item(pos-1);
+			lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+		}
 		else {
 			obj->itemText.insertChars(pos, QString(ch));
 		}
@@ -1799,6 +1818,16 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	}
 
 	obj->itemText.setCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
+/*
+	QString dbg("");
+	for (int i=0; i < obj->itemText.length(); ++i)
+	{
+		dbg += obj->itemText.text(i,1);
+		if (obj->itemText.item(i)->effects() & ScStyle_HyphenationPossible)
+			dbg += "~";
+	}
+	qDebug("scribus134format: read itemtext %d '%s'", obj->itemText.length(), dbg.latin1());
+	*/
 	ParagraphStyle pstyle;
 
 	if (!last->ParaStyle.isEmpty()) { // Qt4 >= 0) {

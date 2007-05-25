@@ -877,6 +877,28 @@ void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomEleme
 	}
 }
 
+
+namespace { // anon
+	QString textWithSmartHyphens(StoryText& itemText, int from, int to)
+	{
+		QString result("");
+		int lastPos = from;
+		for (int i = from; i < to; ++i)
+		{
+			if (itemText.charStyle(i).effects() & ScStyle_HyphenationPossible)
+			{
+				result += itemText.text(lastPos, i + 1 - lastPos);
+				result += SpecialChars::SHYPHEN;
+				lastPos = i+1;
+			}
+		}
+		if (lastPos < to)
+			result += itemText.text(lastPos, to - lastPos);
+		return result;
+	}
+} // namespace anon
+
+
 void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElement ob, PageItem* item)
 {
 	CharStyle lastStyle;
@@ -904,7 +926,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			{
 				QDomElement it=docu->createElement("ITEXT");
 				putCStyle(*docu, it, lastStyle);
-				it.setAttribute("CH", item->itemText.text(lastPos, k - lastPos));
+				it.setAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, k));
 				ob.appendChild(it);
 			}
 			lastStyle = style1;
@@ -972,7 +994,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	{
 		QDomElement it=docu->createElement("ITEXT");
 		putCStyle(*docu, it, lastStyle);
-		it.setAttribute("CH", item->itemText.text(lastPos, item->itemText.length() - lastPos));
+		it.setAttribute("CH", textWithSmartHyphens(item->itemText, lastPos, item->itemText.length()));
 		ob.appendChild(it);
 	}
 	// paragraphstyle for trailing chars
