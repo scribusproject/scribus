@@ -1179,6 +1179,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), 0, 0);
 
 	doc = d;
+	CurItem = NULL;
 	Cpal->setDocument(doc);
 	Cpal->setCurrentItem(NULL);
 	Umrech=doc->unitRatio();
@@ -1249,6 +1250,7 @@ void Mpalette::unsetDoc()
 	HaveDoc = false;
 	HaveItem = false;
 	doc=NULL;
+	CurItem = NULL;
 	Cpal->setCurrentItem(NULL);
 	Cpal->setDocument(NULL);
 	paraStyleCombo->setDoc(0);
