@@ -664,6 +664,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
+				ReallyUsed.insert(pgit->font(), DocFonts[pgit->font()]);
 			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
@@ -681,6 +682,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
+				ReallyUsed.insert(pgit->font(), DocFonts[pgit->font()]);
 			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
@@ -698,6 +700,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				if (pgit->annotation().Type() == 4)
 					StdFonts.insert("/ZapfDingbats", "");
+				ReallyUsed.insert(pgit->font(), DocFonts[pgit->font()]);
 			}
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
