@@ -511,36 +511,35 @@ void SearchReplace::slotDoSearch()
 		{
 			int p, i;
 			Doc->scMW()->CurrStED->Editor->getCursorPosition(&p, &i);
-/* Related to the FIXME below
 			uint inde = 0;
 			int as = i;
 			uint fpa = p;
-			int fch = i;*/
+			int fch = i;
 			found = false;
 			if (Doc->scMW()->CurrStED->Editor->StyledText.length() != 0)
 			{
-#if 0
-				// FIXME
 				for (uint pa = p; pa < Doc->scMW()->CurrStED->Editor->StyledText.nrOfParagraphs(); ++pa)
 				{
-					SEditor::ChList *chars;
-					chars = Doc->scMW()->CurrStED->Editor->StyledText.at(pa);
+					int parStart = Doc->scMW()->CurrStED->Editor->StyledText.startOfParagraph(pa);
+					int parEnd = Doc->scMW()->CurrStED->Editor->StyledText.endOfParagraph(pa);
+					QString chars = Doc->scMW()->CurrStED->Editor->StyledText.text(parStart, parEnd - parStart);
+
 					if (SText->isChecked())
 					{
 						if (Word->isChecked())
 						{
 							QRegExp rx( "(\\b"+sText+"\\b)" );
 							if (CaseIgnore->isChecked())
-								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa).lower(), i );
+								as = rx.search( chars.lower(), i );
 							else
-								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa), i );
+								as = rx.search( chars, i );
 						}
 						else
 						{
 							if (CaseIgnore->isChecked())
-								as = Doc->scMW()->CurrStED->Editor->text(pa).lower().find(sText, i);
+								as = chars.lower().find(sText, i);
 							else
-								as = Doc->scMW()->CurrStED->Editor->text(pa).find(sText, i);
+								as = chars.find(sText, i);
 						}
 						if (as != -1)
 						{
@@ -550,23 +549,22 @@ void SearchReplace::slotDoSearch()
 							inde = 0;
 							for (uint ap = 0; ap < sText.length(); ++ap)
 							{
-								struct PtiSmall *hg;
-								hg = chars->at(as+ap);
-								if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
+								const CharStyle& charStyle(Doc->scMW()->CurrStED->Editor->StyledText.charStyle(parStart + as + ap));
+								if ((SSize->isChecked()) && (charStyle.fontSize() != sSize))
 									found = false;
-								if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
+								if ((SFont->isChecked()) && (charStyle.font().scName() != sFont))
 									found = false;
 //								if ((SStyle->isChecked()) && (hg->cab != sStyle))
 //									found = false;
-								if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
+								if ((SStroke->isChecked()) && (charStyle.strokeColor() != sCol))
 									found = false;
-								if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
+								if ((SStrokeS->isChecked()) && (charStyle.strokeShade() != sStrokeSh))
 									found = false;
-								if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
+								if ((SFillS->isChecked()) && (charStyle.fillShade() != sFillSh))
 									found = false;
-								if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
+								if ((SEffect->isChecked()) && ((charStyle.effects() & 1919) != sEff))
 									found = false;
-								if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
+								if ((SFill->isChecked()) && (charStyle.fillColor() != fCol))
 									found = false;
 								inde++;
 							}
@@ -582,31 +580,30 @@ void SearchReplace::slotDoSearch()
 					}
 					else
 					{
-						for (uint e = i; e < chars->count(); ++e)
+						for (int e = parStart + i; e < parEnd; ++e)
 						{
 							found = true;
 							inde = 1;
-							struct PtiSmall *hg;
-							hg = chars->at(e);
-							if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
+							const CharStyle& charStyle(Doc->scMW()->CurrStED->Editor->StyledText.charStyle(e));
+							if ((SSize->isChecked()) && (charStyle.fontSize() != sSize))
 								found = false;
-							if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
+							if ((SFont->isChecked()) && (charStyle.font().scName() != sFont))
 								found = false;
 //							if ((SStyle->isChecked()) && (hg->cab != sStyle))
 //								found = false;
-							if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
+							if ((SStroke->isChecked()) && (charStyle.strokeColor() != sCol))
 								found = false;
-							if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
+							if ((SStrokeS->isChecked()) && (charStyle.strokeShade() != sStrokeSh))
 								found = false;
-							if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
+							if ((SFillS->isChecked()) && (charStyle.fillShade() != sFillSh))
 								found = false;
-							if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
+							if ((SEffect->isChecked()) && ((charStyle.effects() & 1919) != sEff))
 								found = false;
-							if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
+							if ((SFill->isChecked()) && (charStyle.fillColor() != fCol))
 								found = false;
 							if (found)
 							{
-								fch = e;
+								fch = e - parStart;
 								fpa = pa;
 								break;
 							}
@@ -620,7 +617,7 @@ void SearchReplace::slotDoSearch()
 				if (found)
 				{
 					Doc->scMW()->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
-					Doc->scMW()->CurrStED->updateProps(fpa, fch);
+//					Doc->scMW()->CurrStED->updateProps(fpa, fch);
 					Doc->scMW()->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
 					if (rep)
 					{
@@ -639,7 +636,6 @@ void SearchReplace::slotDoSearch()
 					Doc->scMW()->CurrStED->Editor->removeSelection();
 					Doc->scMW()->CurrStED->Editor->setCursorPosition(0, 0);
 				}
-#endif
 			}
 		}
 	}
