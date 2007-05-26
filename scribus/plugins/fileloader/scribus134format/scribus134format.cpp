@@ -1791,7 +1791,16 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		{
 //			qDebug(QString("scribus134format: SHYPHEN at %1").arg(pos));
 			ScText* lastItem = obj->itemText.item(pos-1);
-			lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+			// double SHY means user provided SHY, single SHY is automatic one
+			if (lastItem->effects() & ScStyle_HyphenationPossible)
+			{
+				lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
+				obj->itemText.insertChars(pos, QString(ch));
+			}
+			else
+			{
+				lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+			}
 		}
 		else {
 			obj->itemText.insertChars(pos, QString(ch));

@@ -885,7 +885,9 @@ namespace { // anon
 		int lastPos = from;
 		for (int i = from; i < to; ++i)
 		{
-			if (itemText.charStyle(i).effects() & ScStyle_HyphenationPossible)
+			if (itemText.charStyle(i).effects() & ScStyle_HyphenationPossible 
+				// duplicate SHYPHEN if already present to indicate a user provided SHYPHEN:
+				|| itemText.text(i) == SpecialChars::SHYPHEN)
 			{
 				result += itemText.text(lastPos, i + 1 - lastPos);
 				result += SpecialChars::SHYPHEN;
