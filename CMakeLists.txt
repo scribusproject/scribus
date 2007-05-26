@@ -103,6 +103,8 @@ ADD_DEFINITIONS("-DSCRIPTSDIR=\\\"${CMAKE_INSTALL_PREFIX}/${SCRIPTSDIR}\\\"")
 #TEMPLATES
 SET(TEMPLATEDIR "share/${MAIN_DIR_NAME}${TAG_VERSION}/templates/")
 ADD_DEFINITIONS("-DTEMPLATEDIR=\\\"${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR}\\\"")
+SET(DESKTOPDIR "share/applications/")
+ADD_DEFINITIONS("-DDESKTOPDIR=\\\"${CMAKE_INSTALL_PREFIX}/${DESKTOPDIR}\\\"")
 #LIB
 SET(LIBDIR "lib/${MAIN_DIR_NAME}${TAG_VERSION}/")
 ADD_DEFINITIONS("-DLIBDIR=\\\"${CMAKE_INSTALL_PREFIX}/${LIBDIR}\\\"")
@@ -432,6 +434,10 @@ INSTALL(FILES
   DESTINATION ${MIMEDIR}
 )
 
+INSTALL(FILES
+  scribus.desktop
+  DESTINATION ${DESKTOPDIR}
+)
 IF(APPLE AND BUILD_OSX_BUNDLE)
   INSTALL(FILES
   Scribus.app/Contents/Info.plist
@@ -458,6 +464,6 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}")
   SET(CPACK_SOURCE_GENERATOR TBZ2)
 ## I'll make this prettier later - ignore any tarballs in the root
-  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.4cvs.tar.bz2 scribus-1.3.4cvs.tar.Z scribus-1.3.4cvs.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
+  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.5cvs.tar.bz2 scribus-1.3.5cvs.tar.Z scribus-1.3.5cvs.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
   INCLUDE(CPack)
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
