@@ -3173,7 +3173,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	{
 		if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
 		{
-			qDebug("Q exit");
+//			qDebug("Q exit");
 			tmp += "Q\n";
 			return tmp;
 		}
@@ -3320,10 +3320,10 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			}
 			break;
 		case PageItem::TextFrame:
-			qDebug("case TextFrame");
+//			qDebug("case TextFrame");
 			if ((ite->isAnnotation()) && (Options.Version != 12))
 			{
-				qDebug("Annotation");
+//				qDebug("Annotation");
 				PDF_Annotation(ite, PNr);
 				break;
 			}
