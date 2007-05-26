@@ -8248,6 +8248,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 						}
 					}
 				}
+				unlockButton = NULL;	// just to silence the compiler
 			}
 		}
 		doc->m_Selection->getGroupRect(&x, &y, &w, &h);

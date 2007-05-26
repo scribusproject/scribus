@@ -239,7 +239,7 @@ int do_extract_currentfile(unzFile uf, const int* popt_extract_without_path, int
 //	uint cIndex = 0;
 	filename_inzip = QString::fromLocal8Bit(fn_inzip); 
 	filename_withoutpath = filename_inzip;
-	for (uint i = 0; i < filename_inzip.length(); i++)
+	for (int i = 0; i < filename_inzip.length(); i++)
 	{
 		p = filename_inzip[i];
 		if( (p == '/') || (p =='\\'))

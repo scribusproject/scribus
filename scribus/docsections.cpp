@@ -162,7 +162,7 @@ void DocSections::tableItemChanged( int row, int col )
 			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(sectionsTable->item(row,col));
 			if (qcti!=NULL)
 			{
-				uint index=qcti->currentItem();
+				int index=qcti->currentItem();
 				if (index<styles.count()-1)
 					localSections[row].type=(DocumentSectionType)index;
 				else 

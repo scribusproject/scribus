@@ -44,9 +44,9 @@ bool copy(QByteArray & dst, uint to, QByteArray & src, uint from, uint len)
 		return false;
 	if (!src.data())
 		return false;
-	if (to + len > dst.size())
+	if (to + len > static_cast<uint>(dst.size()))
 		return false;
-	if (from + len > src.size())
+	if (from + len > static_cast<uint>(src.size()))
 		return false;
 	
 	memcpy(dst.data() + to, src.data() + from, len);

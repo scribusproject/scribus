@@ -1123,7 +1123,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			for (uint pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
-				if (EffVal.count()-1 < pg2)
+				if (static_cast<uint>(EffVal.count()-1) < pg2)
 				{
 					ef.pageEffectDuration = 1;
 					ef.pageViewDuration = 1;

@@ -190,7 +190,7 @@ void FileWatcher::checkFiles()
 			}
 		}
 	}
-	for(unsigned int i=0; i<toRemove.count(); ++i)
+	for( int i=0; i<toRemove.count(); ++i)
 		watchedFiles.remove(toRemove[i]);
 	blockAddRemove = false;
 	stopped = false;

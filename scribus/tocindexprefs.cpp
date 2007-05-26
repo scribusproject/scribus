@@ -183,7 +183,7 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 	numSelected=numberSelected;
 	if (localToCSetupVector.isEmpty())
 		return;
-	if (localToCSetupVector.count()<numSelected)
+	if (static_cast<uint>(localToCSetupVector.count())<numSelected)
 		numSelected=0;
 	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
 	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );

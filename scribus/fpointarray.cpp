@@ -66,7 +66,7 @@ bool FPointArray::resize(uint newCount)
 	}
 	else if (newCount <= 2*capacity) {
 		QVector<FPoint>::resize(2*capacity);
-		if( QVector<FPoint>::size() == 2*capacity )
+		if( static_cast<uint>(QVector<FPoint>::size()) == 2*capacity )
 		{
 			capacity *= 2;
 			count = newCount;
@@ -75,7 +75,7 @@ bool FPointArray::resize(uint newCount)
 	}
 	else {
 		QVector<FPoint>::resize(newCount);
-		if( QVector<FPoint>::size() == newCount )
+		if( static_cast<uint>(QVector<FPoint>::size()) == newCount )
 		{
 			capacity = newCount;
 			count = newCount;
