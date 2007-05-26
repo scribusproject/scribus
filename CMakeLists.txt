@@ -468,6 +468,6 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}")
   SET(CPACK_SOURCE_GENERATOR TBZ2)
 ## I'll make this prettier later - ignore any tarballs in the root
-  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.5cvs.tar.bz2 scribus-1.3.5cvs.tar.Z scribus-1.3.5cvs.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "^${PROJECT_SOURCE_DIR}.*/autom4te.cache/")
+  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.5cvs.tar.bz2 scribus-1.3.5cvs.tar.Z scribus-1.3.5cvs.tar.gz "~$" "\\\\.cvsignore$" "^${PROJECT_SOURCE_DIR}.*/CVS/" "^${PROJECT_SOURCE_DIR}/debian/" "^${PROJECT_SOURCE_DIR}/old/" "^${PROJECT_SOURCE_DIR}.*/CVSROOT/" "~$" "\\\\.o$" "^${PROJECT_SOURCE_DIR}/admin/")
   INCLUDE(CPack)
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
