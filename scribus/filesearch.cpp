@@ -81,10 +81,11 @@ void FileSearch::next()
 	// files in this directory have already been checked to see if they match,
 	// and added to the list of matches if they do.
 	// We need to select the directory to step into, and search its contents.
-
 	// skip '.', '..'
-	while ( *(m_iter.top()) == "." || *(m_iter.top()) == ".." )
-		++m_iter.top();
+// Qt-4
+// this crashes under Qt-4, don't know why FS
+//	while ( *(m_iter.top()) == "." || *(m_iter.top()) == ".." )
+//		++m_iter.top();
 
 	if ( (m_iter.top() == m_tree.top().end()) || (m_depth == m_maxdepth) )
 	{
@@ -128,7 +129,7 @@ void FileSearch::next()
 
 void FileSearch::pushStack()
 {
-	m_tree.push(m_dir.entryList(QDir::Dirs|QDir::NoSymLinks));
+	m_tree.push(m_dir.entryList(QDir::Dirs|QDir::NoSymLinks|QDir::NoDotAndDotDot));
 	m_iter.push(m_tree.top().begin());
 }
 
