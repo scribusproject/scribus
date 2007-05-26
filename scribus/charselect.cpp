@@ -73,6 +73,9 @@ CharSelect::CharSelect(QWidget* parent)
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->resizeColumnsToContents();
 	m_charTable->resizeRowsToContents();
+	m_charTable->setMinimumWidth(340);
+	m_charTable->setDragEnabled(true);
+	m_charTable->setDragDropMode(QAbstractItemView::DragOnly);
 	bigLayout->addWidget(m_charTable, 1, 0, 1, 5);
 
 	sample = new QLabel(m_bigPalette, "sample");
@@ -121,6 +124,8 @@ CharSelect::CharSelect(QWidget* parent)
 	m_userTable->setMaximumWidth(120);
 	m_userTable->setMinimumWidth(120);
 	m_userTable->setAcceptDrops(true);
+	m_userTable->setDragEnabled(true);
+	m_userTable->setDragDropMode(QAbstractItemView::DropOnly);
 	m_userTable->resizeColumnsToContents();
 	m_userTable->resizeRowsToContents();
 	quickLayout->addWidget(m_userTable, 3, 0, 1, 3);
@@ -496,6 +501,8 @@ void CharSelect::generatePreview(int charClass)
 	if (charClass>=0 && charClass<allClasses.count())
 		characters = allClasses[charClass];
 	m_charTableModel->setCharacters(characters);
+	m_charTable->resizeColumnsToContents();
+	m_charTable->resizeRowsToContents();
 }
 
 void CharSelect::newCharClass(int c)

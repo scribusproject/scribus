@@ -51,22 +51,28 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 	{
 		// it could be optimized maybe. But it's much faster
 		// than qt3 anyway.
-		QPixmap pixm(30, 50);
-		QImage pix(30, 50, QImage::Format_ARGB32);
-		ScPainter *p = new ScPainter(&pix, 30, 50);
-		p->clear();
-		pixm.fill(Qt::white);
+//		QPixmap pixm(30, 50);
+//		QImage pix(30, 50, QImage::Format_ARGB32);
+//		ScPainter *p = new ScPainter(&pix, 30, 50);
 		QMatrix chma;
 // 		chma.scale(4.8, 4.8);
 		chma.scale(2.0, 2.0);
 
 		ScFace face = (*m_doc->AllFonts)[m_fontInUse];
 		uint gl = face.char2CMap(currentChar);
+		int size = 20 + qRound(-face.descent() * 20)+4;
+		double ww = 20 - face.glyphWidth(gl, 20);
+		QPixmap pixm(20, size);
+		QImage pix(20, size, QImage::Format_ARGB32);
+		ScPainter *p = new ScPainter(&pix, 20, size);
+		p->clear();
+		pixm.fill(Qt::white);
 		FPointArray gly = face.glyphOutline(gl);
 		if (gly.size() > 4)
 		{
 			gly.map(chma);
-			p->translate(5, 10);
+//			p->translate(5, 10);
+			p->translate(ww / 2, 1);
 			p->setBrush(Qt::black);
 			p->setFillMode(1);
 			p->setupPolygon(&gly);
@@ -149,7 +155,7 @@ CharTableView::CharTableView(QWidget * parent)
 	zoom(0),
 	mPressed(false)
 {
-	deleteAct = new QAction(tr("Delete"), this);
+	deleteAct = new QAction( tr("Delete"), this);
 	connect(deleteAct, SIGNAL(triggered()), this, SLOT(removeCharacter()));
 	actionMenu = new QMenu(this);
 	actionMenu->addAction(deleteAct);
@@ -165,6 +171,11 @@ CharTableView::CharTableView(QWidget * parent)
 CharTableModel * CharTableView::model()
 {
 	return qobject_cast<CharTableModel*>(QTableView::model());
+}
+
+void CharTableView::removeCharacter()
+{
+	model()->removeCharacter(deleteAct->data().toInt());
 }
 
 void CharTableView::keyPressEvent(QKeyEvent *k)
@@ -187,8 +198,9 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 	if (!currentIndex().isValid())
 		return;
 
+	QTableView::mousePressEvent(e);
 	mPressed = true;
-
+	mousePos = e->pos();
 	int index = currentValue();
 	int currentChar = -1;
 
@@ -211,7 +223,18 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 		}
 	}
 
-	if (e->button() == Qt::LeftButton && currentChar > -1)
+//	QTableView::mousePressEvent(e);
+}
+
+void CharTableView::mouseMoveEvent(QMouseEvent* e)
+{
+	if (!currentIndex().isValid())
+		return;
+	int index = currentValue();
+	int currentChar = -1;
+	if (index < model()->characters().count())
+		currentChar = model()->characters()[index];
+	if ((e->buttons() & Qt::LeftButton) && (mPressed) && (currentChar > -1) && ((abs(mousePos.x() - e->pos().x()) > 10) || (abs(mousePos.x() - e->pos().y()) > 10)))
 	{
 		QDrag *drag = new QDrag(this);
 		QMimeData *mimeData = new QMimeData();
@@ -219,13 +242,9 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 		mimeData->setText(s.arg(model()->characters()[currentValue()]));
 		drag->setMimeData(mimeData);
 		drag->start(Qt::CopyAction);
+		mPressed = false;
 	}
-	QTableView::mousePressEvent(e);
-}
-
-void CharTableView::removeCharacter()
-{
-	model()->removeCharacter(deleteAct->data().toInt());
+	QTableView::mouseMoveEvent(e);
 }
 
 void CharTableView::mouseReleaseEvent(QMouseEvent* e)
@@ -255,18 +274,30 @@ void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 
 void CharTableView::dropEvent(QDropEvent *e)
 {
+	e->accept();
 	if (e->mimeData()->hasText())
 	{
-		model()->appendUnicode(e->mimeData()->text(), 10);
 		e->acceptProposedAction();
-		e->accept();
+		model()->appendUnicode(e->mimeData()->text(), 10);
+	}
+}
+
+void CharTableView::dragMoveEvent(QDragMoveEvent *e)
+{
+	e->accept();
+	if (e->mimeData()->hasText())
+	{
+		e->acceptProposedAction();
 	}
 }
 
 void CharTableView::dragEnterEvent(QDragEnterEvent *e)
 {
+	e->accept();
 	if (e->mimeData()->hasText())
+	{
 		e->acceptProposedAction();
+	}
 }
 
 int CharTableView::currentValue()

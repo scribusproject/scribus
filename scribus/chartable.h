@@ -89,6 +89,7 @@ class CharTableView : public QTableView
 		//! \brief Magnify dialog reference
 		CharZoom* zoom;
 		bool mPressed;
+		QPoint mousePos;
 
 		QAction * deleteAct;
 		QMenu * actionMenu;
@@ -97,9 +98,11 @@ class CharTableView : public QTableView
 		void keyPressEvent(QKeyEvent *k);
 		void mouseReleaseEvent(QMouseEvent *m);
 		void mousePressEvent(QMouseEvent* e);
+		void mouseMoveEvent(QMouseEvent* e);
 		// d'n'd
 		void dropEvent(QDropEvent *e);
 		void dragEnterEvent(QDragEnterEvent * e);
+		void dragMoveEvent(QDragMoveEvent *e);
 
 		int currentValue();
 		
