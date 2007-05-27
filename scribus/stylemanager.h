@@ -94,11 +94,6 @@ private:
 	bool                isEditMode_;
 	bool                isStoryEditMode_;
 	QPoint              editPosition_;
-	int                 height_;
-	int                 width_;
-	int                 widthEm_;
-	int                 widthLeft_;
-	int                 widthRight_;
 	QString             rcStyle_;
 	QString             rcType_;
 	QString             exitEditModeOk_;

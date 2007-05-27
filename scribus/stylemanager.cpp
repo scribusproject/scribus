@@ -87,11 +87,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));
 
-	width_ = prefs_->getInt("Width", 212);
-	widthEm_ = prefs_->getInt("WidthEM", 500);
-	height_ = prefs_->getInt("Height", 450);
-	widthLeft_ = prefs_->getInt("WidthLeft", 192);
-	widthRight_ = prefs_->getInt("WidthRight", 474);
+	setMinimumHeight(500); // 135
 
 	newButton->setEnabled(false);
 	cloneButton->setEnabled(false);
@@ -690,16 +686,12 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 {
 	if (!doc_)
 		return;
-
 	loadType(typeName); // get the right style class
 	Q_ASSERT(item_);
-
 	QString newName = fromParent.isNull() ?
 			item_->newStyle() : item_->newStyle(fromParent);
-
 	if (newName.isNull())
 		return;
-
 	Q3ListViewItem *root = 0;
 	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::NotSelectable);
 	while (it.current())
@@ -742,15 +734,6 @@ void StyleManager::slotOk()
 	if (isEditMode_)
 	{
 		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
-		widthEm_ = width();
-		prefs_->set("WidthEM", widthEm_);
-		height_ = height();
-		prefs_->set("Height", height_);
-		Q3ValueList<int> l = splitter->sizes();
-		widthLeft_ = l[0];
-		widthRight_ = l[1];
-		prefs_->set("WidthLeft", widthLeft_);
-		prefs_->set("WidthRight", widthRight_);
 		slotApply();
 		styleView->setSelectionMode(Q3ListView::Multi);
 		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
@@ -768,8 +751,13 @@ void StyleManager::slotOk()
 		QToolTip::add(okButton, enterEditModeOk_);
 		slotClean();
 		slotDocSelectionChanged();
-		adjustSize();
-		resize(width_, height_);
+		setMinimumSize(230,500);
+		setMaximumSize(300,500);
+		QList<int> l;
+		l << 220 << 0;
+		splitter->setSizes(l);
+		resize(220, 500);
+		//adjustSize();
 		if (!isFirst)
 			move(editPosition_);
 		prefs_->set("isEditMode", isEditMode_);
@@ -789,13 +777,8 @@ void StyleManager::slotOk()
 		           this, SLOT(slotApplyStyle(Q3ListViewItem*)));
 		disconnect(styleView, SIGNAL(clicked(Q3ListViewItem*)),
 				this, SLOT(slotApplyStyle(Q3ListViewItem*)));
-		if (!isFirst)
-		{
-			width_ = width();
-			prefs_->set("Width", width_);
-		}
-		height_ = height();
-		prefs_->set("Height", height_);
+
+
 		slotSetupWidget();
 		styleView->setSelectionMode(Q3ListView::Extended);
 		editPosition_.setX(x());
@@ -813,16 +796,18 @@ void StyleManager::slotOk()
 			items_.at(i)->editMode(true);
 		QToolTip::add(okButton, exitEditModeOk_);
 		slotClean();
-		adjustSize();
-		Q3ValueList<int> l;
-		l << widthLeft_ << widthRight_;
+		setMinimumSize(700,500);
+		setMaximumSize(700,500);
+		QList<int> l;
+		l << 220 << 470;
 		splitter->setSizes(l);
-		resize(widthEm_, height_);
+		resize(700, 500);
+		//adjustSize();
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 	}
 	setOkButtonText();
-	isFirst = false;
+	isFirst = false;	
 }
 
 void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
@@ -1305,29 +1290,14 @@ void StyleManager::loadType(const QString &name)
 	insertShortcutPage(widget_);
 	widget_->reparent(mainFrame, 0, QPoint(0,0), true);
 	layout_->addWidget(widget_, 0, 0);
+	layout()->activate();
 }
 
 void StyleManager::hideEvent(QHideEvent *e)
 {
-	if (isEditMode_)
-	{
-		Q3ValueList<int> l = splitter->sizes();
-		widthLeft_ = l[0];
-		widthRight_ = l[1];
-		widthEm_ = width();
-	}
-	else
-		width_ = width();
-
-	height_ = height();
 	prefs_->set("eX", x());
 	prefs_->set("eY", y());
 	prefs_->set("isEditMode", isEditMode_);
-	prefs_->set("Width", width_);
-	prefs_->set("WidthEM", widthEm_);
-	prefs_->set("WidthLeft", widthLeft_);
-	prefs_->set("WidthRight", widthRight_);
-	prefs_->set("Height", height_);
 	prefs_->set("InitX", x());
 	prefs_->set("InitY", y());
 	storeVisibility(false);
@@ -1339,25 +1309,9 @@ void StyleManager::hideEvent(QHideEvent *e)
 
 void StyleManager::closeEvent(QCloseEvent *e)
 {
-	if (isEditMode_)
-	{
-		Q3ValueList<int> l = splitter->sizes();
-		widthLeft_ = l[0];
-		widthRight_ = l[1];
-		widthEm_ = width();
-	}
-	else
-		width_ = width();
-
-	height_ = height();
 	prefs_->set("eX", x());
 	prefs_->set("eY", y());
 	prefs_->set("isEditMode", isEditMode_);
-	prefs_->set("Width", width_);
-	prefs_->set("WidthEM", widthEm_);
-	prefs_->set("WidthLeft", widthLeft_);
-	prefs_->set("WidthRight", widthRight_);
-	prefs_->set("Height", height_);
 	prefs_->set("InitX", x());
 	prefs_->set("InitY", y());
 	storeVisibility(false);
@@ -1389,27 +1343,11 @@ void StyleManager::showEvent(QShowEvent *e)
 
 StyleManager::~StyleManager()
 {
-	if (isEditMode_)
-	{
-		Q3ValueList<int> l = splitter->sizes();
-		widthLeft_ = l[0];
-		widthRight_ = l[1];
-		widthEm_ = width();
-	}
-	else
-		width_ = width();
-
-	height_ = height();
 	prefs_->set("eX", x());
 	prefs_->set("eY", y());
 	prefs_->set("isEditMode", isEditMode_);
-	prefs_->set("Width", width_);
-	prefs_->set("WidthEM", widthEm_);
-	prefs_->set("WidthLeft", widthLeft_);
-	prefs_->set("WidthRight", widthRight_);
 	prefs_->set("InitX", x());
 	prefs_->set("InitY", y());
-	prefs_->set("Height", height_);
 	storeVisibility(this->isVisible());
 	storePosition();
 }
