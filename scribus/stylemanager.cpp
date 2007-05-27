@@ -252,6 +252,7 @@ void StyleManager::addStyle(StyleItem *item)
 {
 	items_.append(item);
 	addNewType(item);
+	languageChange(); // upgrade the popup menu with the new item
 	connect(item, SIGNAL(selectionDirty()), this, SLOT(slotDirty()));
 }
 
