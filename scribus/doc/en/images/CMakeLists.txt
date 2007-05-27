@@ -49,6 +49,7 @@ gimpoptions3.png
 gsadv1.png
 gsadv2.png
 gsadv3.png
+imageeffects.png
 htmlimport.png
 htmlstyle.png
 hyphen1.png
