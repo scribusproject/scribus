@@ -93,7 +93,7 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 		Q3ValueList<uint> Segs;
 		Q3PointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
 //		res = QRegion(pp.xForm(Clip2));
-		res = QRegion(pp.map(Clip2));
+		res = QRegion(pp.map(Clip2)).intersect(QRegion(pp.map(docItem->Clip)));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{

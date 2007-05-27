@@ -5984,13 +5984,13 @@ void ScribusMainWindow::setAppMode(int mode)
 		doc->appMode = mode;
 		if (oldMode == modeMeasurementTool)
 			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
-		if (mode != modeEdit && doc->CurTimer!=NULL)
+/*		if (mode != modeEdit && doc->CurTimer!=NULL)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
 			doc->CurTimer->stop();
 			delete doc->CurTimer;
 			doc->CurTimer = NULL;
-		}
+		} */
 		if (mode!=modeEdit && oldMode==modeEdit)
 			actionManager->restoreActionShortcutsPostEditMode();
 		else
@@ -6042,12 +6042,12 @@ void ScribusMainWindow::setAppMode(int mode)
 			view->slotDoCurs(true);
 			scrMenuMgr->setMenuEnabled("Item", false);
 			scrMenuMgr->setMenuEnabled("Style", false);
-			doc->CurTimer = new QTimer(view);
+/*			doc->CurTimer = new QTimer(view);
 			if (doc->CurTimer!=NULL)
 			{
 				connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
 				doc->CurTimer->start(500);
-			}
+			} */
 			if (currItem != 0)
 			{
 				scrActions["editCut"]->setEnabled(currItem->HasSel);

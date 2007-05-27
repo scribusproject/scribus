@@ -293,6 +293,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 	languageChange();
+	dragTimer = new QTimer(this);
+	connect(dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
+	dragTimer->stop();
+	dragTimerFired = false;
 }
 
 void ScribusView::languageChange()
@@ -1834,6 +1838,8 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	QString text;
 	PageItem *currItem;
 	bool img = false;
+	specialRendering = false;
+	firstSpecial = false;
 //	struct ScText *hg;
 //	uint a;
 	int re = 0;
@@ -2330,6 +2336,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	specialRendering = false;
 	firstSpecial = false;
 	m->accept();
+	dragTimer->stop();
 	if (Doc->appMode == modeNormal && Doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
@@ -2626,6 +2633,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 != -1) && (SegP2 != -1)) */
 	if (moveTimerElapsed() && (Doc->EditClip))
 	{
+		dragTimer->stop();
 		SegP1 = -1;
 		SegP2 = -1;
 		currItem = Doc->m_Selection->itemAt(0);
@@ -3482,6 +3490,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (moveTimerElapsed() && (GetItem(&currItem)))
 		{
+			dragTimer->stop();
 			inItemCreation = false;
 			specialRendering = false;
 			if (Doc->m_Selection->isMultipleSelection())
@@ -4787,10 +4796,18 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(translateToDoc(m->x(), m->y()).x());
 		newY = qRound(translateToDoc(m->x(), m->y()).y());
-		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == Qt::RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) /* && (!currItem->locked()) */ && (!(currItem->isSingleSel)))
+		if ((((dragTimerFired) && (m->state() == Qt::LeftButton)) || (moveTimerElapsed() && (m->state() == Qt::RightButton)))
+			&& (m_MouseButtonPressed)
+			&& (!Doc->DragP) 
+			&& (Doc->appMode == modeNormal) 
+			&& (!(currItem->isSingleSel)))
 		{
+			dragTimer->stop();
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
+				specialRendering = false;
+				firstSpecial = false;
+				dragTimerFired = false;
 				Doc->DragP = true;
 				Doc->leaveDrag = false;
 				Doc->DraggedElem = currItem;
@@ -4817,6 +4834,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				m_MouseButtonPressed = false;
 				Doc->DraggedElem = 0;
 				Doc->DragElements.clear();
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				updateContents();
 			}
 			return;
 		}
@@ -4824,6 +4843,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			return;
 		if (moveTimerElapsed() && m_MouseButtonPressed && (Doc->appMode == modeRotation))
 		{
+			dragTimer->stop();
 			double newW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
 			if (m->state() & Qt::ControlButton)
 			{
@@ -4952,6 +4972,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		//Item resize, esp after creating a new one
 		if (moveTimerElapsed() && m_MouseButtonPressed && (m->state() & Qt::LeftButton) && ((Doc->appMode == modeNormal) || ((Doc->appMode == modeEdit) && operItemResizeInEditMode)) && (!currItem->locked()))
 		{
+			dragTimer->stop();
 			if (Doc->EditClip)
 			{
 				if ((m_MouseButtonPressed) && (ClRe == -1) && (SegP1 == -1) && (SegP2 == -1))
@@ -5770,6 +5791,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	oldClip = 0;
 	m->accept();
 	moveTimer.start();
+	dragTimerFired = false;
 	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 	Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
@@ -6395,6 +6417,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				m_MouseButtonPressed = true;
 				Dxp = Mxp;
 				Dyp = Myp;
+			}
+			if ((Doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
+			{
+				dragTimer->setSingleShot(true);
+				dragTimer->start(1000);			// set Timeout for starting a Drag operation to 1 sec.
 			}
 			break;
 		case modeDrawShapes:
@@ -8039,7 +8066,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if ((QRegion(p.map(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.map(currItem->Clip)).contains(mpo)))
 		{
-			m_cursorVisible = true;
+	//		m_cursorVisible = true;
 #if 0
 //#ifndef NLS_PROTO
 			//Work out which column we are in
@@ -8383,7 +8410,7 @@ void ScribusView::slotDoCurs(bool draw)
 				p.drawLine(x, qMin(qMax(y,0),static_cast<int>(currItem->height())), 
 						   x, qMin(qMax(y1,0),static_cast<int>(currItem->height())));
 				m_cursorVisible = !m_cursorVisible;
-				if (Doc->CurTimer != 0)
+			if (Doc->CurTimer != 0)
 				{
 					if (!Doc->CurTimer->isActive())
 						Doc->CurTimer->start(500);
@@ -8408,6 +8435,12 @@ void ScribusView::blinkCursor()
 //	disabling that function for now
 	return;
 	slotDoCurs(true);
+}
+
+void ScribusView::dragTimerTimeOut()
+{
+	dragTimerFired = true;
+	qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
 }
 
 void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
@@ -10373,6 +10406,7 @@ void ScribusView::editExtendedImageProperties()
 			dia->exec();
 			delete dia;
 			dia=NULL;
+			m_ScMW->propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 		}
 	}
 }

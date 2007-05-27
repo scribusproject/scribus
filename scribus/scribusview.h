@@ -327,6 +327,8 @@ private: // Private attributes
 	Q3PopupMenu *pmen3;
 	Q3PopupMenu *pmenResolution;
 	QTime moveTimer;
+	QTimer *dragTimer;
+	bool dragTimerFired;
 	bool Ready;
 	int  oldX;
 	int  oldY;
@@ -356,6 +358,7 @@ private slots:
 	void selectionChanged();
 	void setObjectUndoMode();
 	void setGlobalUndoMode();
+	void dragTimerTimeOut();
 
 protected: // Protected methods
 	virtual void viewportPaintEvent ( QPaintEvent * p );
