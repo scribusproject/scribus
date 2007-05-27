@@ -10324,6 +10324,7 @@ void ScribusView::editExtendedImageProperties()
 			dia->exec();
 			delete dia;
 			dia=NULL;
+			m_ScMW->propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 		}
 	}
 }
