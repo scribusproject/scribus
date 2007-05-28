@@ -4225,6 +4225,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						emit SetLocalValues(currItem->LocalScX, currItem->LocalScY, currItem->LocalX, currItem->LocalY );
 						*/
 					}
+					if (currItem->itemType() == PageItem::TextFrame)
+						currItem->invalid = true;
 					currItem->updateClip();
 					emit ItemTextCols(currItem->Cols, currItem->ColGap);
 					Doc->SnapGuides = sav;
