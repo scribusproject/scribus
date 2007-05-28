@@ -289,6 +289,9 @@
                 <height>32767</height>
                </size>
               </property>
+              <property name="toolTip" >
+               <string>Clone copies the style to make similar styles easily.</string>
+              </property>
               <property name="text" >
                <string>&amp;Clone</string>
               </property>
