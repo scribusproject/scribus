@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "linecombo.h"
 #include "scrspinbox.h"
+#include "colorcombo.h"
 #include "colorlistbox.h"
 #include "colorutil.h"
 #include "commonstrings.h"
@@ -45,6 +46,9 @@ LineStyleWidget::LineStyleWidget() : QWidget()
 	lineWidth = new ScrSpinBox( 0, 300, this, 0 );
 //qt4	widthLayout->addWidget(lineWidth, 0, 1);
 	gridLayout1->addWidget(lineWidth, 0, 1);
+	
+	colorCombo = new ColorCombo(this);
+	gridLayout1->addWidget(colorCombo, 1, 0);
 
 	endCombo->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	endCombo->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
@@ -89,6 +93,7 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	ScribusDoc* doc = colorList.document();
 	for (it = colorList.begin(); it != colorList.end(); ++it)
 	{
+		colorCombo->insertWideItem(colorList[it.key()], doc, it.key());
 //Qt4		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], doc, it.key()));
 	}
 	colors = colorList;
