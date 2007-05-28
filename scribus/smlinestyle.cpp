@@ -518,7 +518,7 @@ void SMLineStyle::setupConnections()
 	connect(widget_->colorCombo, SIGNAL(activated(const QString&)), this, SLOT(slotColor(const QString&)));
 	connect(widget_->dashCombo, SIGNAL(activated(int)), this, SLOT(slotLineStyle(int)));
 	connect(widget_->shadeBox, SIGNAL(valueChanged(int)), this, SLOT(slotShade(int)));
-	connect(widget_->lineWidth, SIGNAL(valueChanged(int)), this, SLOT(slotLineWidth()));
+	connect(widget_->lineWidth, SIGNAL(valueChanged(double)), this, SLOT(slotLineWidth()));
 }
 
 void SMLineStyle::removeConnections()
@@ -530,7 +530,7 @@ void SMLineStyle::removeConnections()
 	disconnect(widget_->colorCombo, SIGNAL(activated(const QString&)), this, SLOT(slotColor(const QString&)));
 	disconnect(widget_->dashCombo, SIGNAL(activated(int)), this, SLOT(slotLineStyle(int)));
 	disconnect(widget_->shadeBox, SIGNAL(valueChanged(int)), this, SLOT(slotShade(int)));
-	disconnect(widget_->lineWidth, SIGNAL(valueChanged(int)), this, SLOT(slotLineWidth()));
+	disconnect(widget_->lineWidth, SIGNAL(valueChanged(double)), this, SLOT(slotLineWidth()));
 }
 
 void SMLineStyle::slotLineStyle(int i)
